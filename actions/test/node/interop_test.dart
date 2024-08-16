@@ -54,12 +54,13 @@ void main() {
       test('spawn', () async {
         final proc = childProcess.spawn('echo', ['Hello']);
         unawaited(
-          check(proc.stdout!.stream).withQueue.inOrder([
-            // ignore: unawaited_futures
-            (it) => it..emits((it) => it..deepEquals(utf8.encode('Hello\n'))),
-            // ignore: unawaited_futures
-            (it) => it..isDone(),
-          ]),
+          expectLater(
+            proc.stdout!.stream.map(String.fromCharCodes),
+            emitsInOrder([
+              'Hello\n',
+              emitsDone,
+            ]),
+          ),
         );
         unawaited(
           check(proc.stderr!.stream).withQueue.isDone(),
@@ -81,15 +82,13 @@ void main() {
           stdin: echo.stdout,
         );
         unawaited(
-          check(proc.stdout!.stream).withQueue.inOrder([
-            (it) => it
-              // ignore: unawaited_futures
-              ..emits(
-                (it) => it..deepEquals(utf8.encode('Hello\n')),
-              ),
-            // ignore: unawaited_futures
-            (it) => it..isDone(),
-          ]),
+          expectLater(
+            proc.stdout!.stream.map(String.fromCharCodes),
+            emitsInOrder([
+              'Hello\n',
+              emitsDone,
+            ]),
+          ),
         );
         unawaited(
           check(proc.stderr!.stream).withQueue.isDone(),

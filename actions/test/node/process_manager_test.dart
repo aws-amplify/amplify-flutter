@@ -5,7 +5,6 @@
 library;
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:actions/actions.dart';
 import 'package:actions/src/node/process_manager.dart';
@@ -52,16 +51,16 @@ void main() {
             ['echo', 'Hello'],
             mode: mode,
           );
-          final expectedOutput = utf8.encode('Hello\n');
           unawaited(
-            check(proc.stdout).withQueue.inOrder([
-              if (mode != ProcessStartMode.inheritStdio &&
-                  mode != ProcessStartMode.detached)
-                // ignore: unawaited_futures
-                (it) => it..emits((it) => it..deepEquals(expectedOutput)),
-              // ignore: unawaited_futures
-              (it) => it..isDone(),
-            ]),
+            expectLater(
+              proc.stdout.map(String.fromCharCodes),
+              emitsInOrder([
+                if (mode != ProcessStartMode.inheritStdio &&
+                    mode != ProcessStartMode.detached)
+                  'Hello\n',
+                emitsDone,
+              ]),
+            ),
           );
           unawaited(
             check(proc.stderr).withQueue.isDone(),
@@ -75,13 +74,13 @@ void main() {
         final echo = childProcess.spawn('echo', ['Hello']);
         final proc = await processManager.start(['tee'], pipe: echo);
         unawaited(
-          check(proc.stdout).withQueue.inOrder([
-            (it) => it
-              // ignore: unawaited_futures
-              ..emits((it) => it..deepEquals(utf8.encode('Hello\n'))),
-            // ignore: unawaited_futures
-            (it) => it..isDone(),
-          ]),
+          expectLater(
+            proc.stdout.map(String.fromCharCodes),
+            emitsInOrder([
+              'Hello\n',
+              emitsDone,
+            ]),
+          ),
         );
         unawaited(check(proc.stderr).withQueue.isDone());
         await check(proc.exitCode).completes((it) => it..equals(0));
