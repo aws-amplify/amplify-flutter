@@ -5,7 +5,6 @@
 library;
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:actions/actions.dart';
 import 'package:actions/src/node/process_manager.dart';
@@ -29,7 +28,7 @@ void main() {
     group('run', () {
       test('echo', () async {
         await check(processManager.run(['echo', 'Hello'])).completes(
-          it()
+          (it) => it
             ..has((res) => res.exitCode, 'exitCode').equals(0)
             ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
         );
@@ -38,7 +37,7 @@ void main() {
       test('pipe', () async {
         final echo = childProcess.spawn('echo', ['Hello']);
         await check(processManager.run(['tee'], pipe: echo)).completes(
-          it()
+          (it) => it
             ..has((res) => res.exitCode, 'exitCode').equals(0)
             ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
         );
@@ -52,22 +51,22 @@ void main() {
             ['echo', 'Hello'],
             mode: mode,
           );
-          final expectedOutput = utf8.encode('Hello\n');
           unawaited(
-            check(proc.stdout).withQueue.inOrder([
-              if (mode != ProcessStartMode.inheritStdio &&
-                  mode != ProcessStartMode.detached)
-                // ignore: unawaited_futures
-                it()..emits(it()..deepEquals(expectedOutput)),
-              // ignore: unawaited_futures
-              it()..isDone(),
-            ]),
+            expectLater(
+              proc.stdout.map(String.fromCharCodes),
+              emitsInOrder([
+                if (mode != ProcessStartMode.inheritStdio &&
+                    mode != ProcessStartMode.detached)
+                  'Hello\n',
+                emitsDone,
+              ]),
+            ),
           );
           unawaited(
             check(proc.stderr).withQueue.isDone(),
           );
           check(proc.pid).isGreaterThan(0);
-          await check(proc.exitCode).completes(it()..equals(0));
+          await check(proc.exitCode).completes((it) => it..equals(0));
         });
       }
 
@@ -75,16 +74,16 @@ void main() {
         final echo = childProcess.spawn('echo', ['Hello']);
         final proc = await processManager.start(['tee'], pipe: echo);
         unawaited(
-          check(proc.stdout).withQueue.inOrder([
-            it()
-              // ignore: unawaited_futures
-              ..emits(it()..deepEquals(utf8.encode('Hello\n'))),
-            // ignore: unawaited_futures
-            it()..isDone(),
-          ]),
+          expectLater(
+            proc.stdout.map(String.fromCharCodes),
+            emitsInOrder([
+              'Hello\n',
+              emitsDone,
+            ]),
+          ),
         );
         unawaited(check(proc.stderr).withQueue.isDone());
-        await check(proc.exitCode).completes(it()..equals(0));
+        await check(proc.exitCode).completes((it) => it..equals(0));
       });
     });
   });
