@@ -108,12 +108,12 @@ aft:
           'workingDirectory',
         ).equals(workingDirectory)
         ..has((config) => config.dependencies.toMap(), 'dependencies').which(
-          it()
+          (it) => it
             ..containsKey('json_serializable')
-            ..not(it()..containsKey('built_value')),
+            ..not((it) => it..containsKey('built_value')),
         )
         ..has((config) => config.scripts.toMap(), 'scripts').which(
-          it()
+          (it) => it
             ..containsKey('license')
             ..containsKey('format'),
         );
