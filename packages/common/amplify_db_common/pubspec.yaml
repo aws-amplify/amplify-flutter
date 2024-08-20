@@ -1,6 +1,6 @@
 name: amplify_db_common
 description: Common utilities for working with databases such as SQLite.
-version: 0.4.3
+version: 0.4.4
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/common/amplify_db_common
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
