@@ -14,6 +14,7 @@ class AmplifyClassImpl extends AmplifyClass {
   /// {@macro amplify_flutter.amplify_class_impl}
   AmplifyClassImpl() : super.protected();
 
+  //to-do: DELETE THIS TEST COMMENT
   @override
   Future<void> addPluginPlatform(AmplifyPluginInterface plugin) {
     switch (plugin.category) {
