@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM public.ecr.aws/ubuntu/ubuntu:latest
 
 ## Dockerfile for local development of Amplify Flutter packages on Linux
 
