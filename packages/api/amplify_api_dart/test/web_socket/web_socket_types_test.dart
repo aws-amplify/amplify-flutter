@@ -125,5 +125,33 @@ void main() {
         errorMessage,
       );
     });
+    test('WebsocketMessage should decode errors as a Map', () {
+      const errorMessage = 'Max number of 100 subscriptions reached';
+      const errorType = 'MaxSubscriptionsReachedError';
+      const errorMap = {'errorType': errorType, 'message': errorMessage};
+      final entry = {
+        'id': 'xyz-456',
+        'type': 'error',
+        'payload': {'data': null, 'errors': errorMap},
+      };
+      final message = WebSocketMessage.fromJson(entry);
+      expect(message.messageType, MessageType.error);
+      expect(
+        message.payload!.toJson()['errors'],
+        [errorMap],
+      );
+
+      /// GraphQLResponseDecoder should handle a payload with errors.
+      final response = GraphQLResponseDecoder.instance.decode<String>(
+        request: GraphQLRequest<String>(
+          document: '',
+        ),
+        response: message.payload!.toJson(),
+      );
+      expect(
+        response.errors.first.message,
+        errorMessage,
+      );
+    });
   });
 }
