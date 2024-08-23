@@ -144,8 +144,15 @@ class WebSocketError extends WebSocketMessagePayload implements Exception {
   final List<Map<String, dynamic>> errors;
 
   static WebSocketError fromJson(Map<String, dynamic> json) {
-    final errors = json['errors'] as List?;
-    return WebSocketError(errors?.cast() ?? []);
+    final errors = json['errors'];
+    List<Map<String, dynamic>>? errorsList = [];
+    if (errors is List?) {
+      errorsList = errors?.cast();
+    } else if (errors is Map<String, dynamic>) {
+      errorsList = [errors];
+    }
+
+    return WebSocketError(errorsList ?? []);
   }
 
   @override
