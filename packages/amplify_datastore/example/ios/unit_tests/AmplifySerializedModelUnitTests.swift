@@ -192,4 +192,13 @@ class AmplifySerializedModelUnitTests: XCTestCase {
             }
         }
     }
+    
+    func test_extracts_some_nil() throws {
+        let output = try FlutterSerializedModelData.BlogWithNullSerializedModel.jsonValue(for: "post")
+        
+        // This ensures if a property has a `null` json value, it gets returned as `.some(nil)`
+        // Per https://github.com/aws-amplify/amplify-swift/blob/cb80b91c38d99932af28df6be07633ee0563be08/Amplify/Categories/DataStore/Model/JSONHelper/JSONValueHolder.swift#L33-L34
+        XCTAssertNotNil(output)
+        XCTAssertNil(output!)
+    }
 }
