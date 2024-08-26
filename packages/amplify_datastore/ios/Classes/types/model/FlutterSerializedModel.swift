@@ -97,7 +97,7 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
         case .string(let deserializedValue):
             return deserializedValue
         case .null:
-            return nil
+            return .some(nil)
         }
     }
 
