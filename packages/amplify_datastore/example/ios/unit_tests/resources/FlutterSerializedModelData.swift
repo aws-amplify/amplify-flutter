@@ -9,6 +9,12 @@ struct FlutterSerializedModelData {
             "id": JSONValue.string("999"),
             "name": JSONValue.string("blog name"),
         ], modelName: "Blog")
+    static var BlogWithNullSerializedModel: FlutterSerializedModel =
+        .init(map: [
+            "id": JSONValue.string("999"),
+            "name": JSONValue.string("blog name"),
+            "post": JSONValue.null,
+        ], modelName: "Blog")
     static var CommentSerializedModel: FlutterSerializedModel =
         .init(map: [
             "id": JSONValue.string("999"),
