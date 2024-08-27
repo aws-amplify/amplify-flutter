@@ -1,3 +1,8 @@
+## 0.5.6
+
+### Fixes
+- fix(secure_storage): add missing macOS plugin ([#5372](https://github.com/aws-amplify/amplify-flutter/pull/5372))
+
 ## 0.5.5
 
 ### Fixes
