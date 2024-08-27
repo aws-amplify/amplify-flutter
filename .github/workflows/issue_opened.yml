@@ -1,0 +1,39 @@
+name: Issue Opened
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-issue-opened-labels:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      REPOSITORY_NAME: ${{ github.event.repository.full_name }}
+    steps:
+      - name: Add the pending-triage label
+        shell: bash
+        run: |
+          gh issue edit $ISSUE_NUMBER --repo $REPOSITORY_NAME --add-label "pending-triage"
+      - name: Add the pending-maintainer-response label
+        if: ${{ !contains(fromJSON('["MEMBER", "OWNER"]'), github.event.issue.author_association) }}
+        shell: bash
+        run: |
+          gh issue edit $ISSUE_NUMBER --repo $REPOSITORY_NAME --add-label "pending-maintainer-response"
+
+  maintainer-opened:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    if: ${{ contains(fromJSON('["MEMBER", "OWNER"]'), github.event.issue.author_association) }}
+    steps:
+      - name: Post comment if maintainer opened.
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY_NAME: ${{ github.event.repository.full_name }}
+        run: |
+          gh issue comment $ISSUE_NUMBER --repo $REPOSITORY_NAME -b "This issue was opened by a maintainer of this repository; updates will be posted here. If you are also experiencing this issue, please comment here with any relevant information so that we're aware and can prioritize accordingly."
