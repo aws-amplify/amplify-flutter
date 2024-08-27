@@ -36,6 +36,8 @@ flutter:
         pluginClass: AmplifySecureStoragePlugin
       ios:
         pluginClass: AmplifySecureStoragePlugin
+      macos:
+        pluginClass: AmplifySecureStoragePlugin
       windows:
         dartPluginClass: AmplifySecureStorageDart
       linux:
