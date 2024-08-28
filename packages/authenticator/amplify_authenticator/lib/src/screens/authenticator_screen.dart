@@ -91,6 +91,9 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       case AuthenticatorStep.confirmResetPassword:
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
+      case AuthenticatorStep.confirmSignInWithEmailMfaCode:
+      case AuthenticatorStep.continueSignInWithEmailMfaSetup:
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
         child = _FormWrapperView(step: step);
       case AuthenticatorStep.loading:
         throw StateError('Invalid step: $this');
@@ -299,6 +302,9 @@ extension on AuthenticatorStep {
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
       case AuthenticatorStep.loading:
+      case AuthenticatorStep.confirmSignInWithEmailMfaCode:
+      case AuthenticatorStep.continueSignInWithEmailMfaSetup:
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
         throw StateError('Invalid step: $this');
     }
   }
