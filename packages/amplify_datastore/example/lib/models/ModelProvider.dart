@@ -20,6 +20,7 @@
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, override_on_non_overriding_member, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
+
 import 'BelongsToChildExplicit.dart';
 import 'BelongsToChildImplicit.dart';
 import 'BelongsToParent.dart';
@@ -44,6 +45,7 @@ import 'CpkOneToOneBidirectionalChildImplicitID.dart';
 import 'CpkOneToOneBidirectionalParentCD.dart';
 import 'CpkOneToOneBidirectionalParentID.dart';
 import 'CpkPostTags.dart';
+import 'CustomTypeWithAppsyncScalarTypes.dart';
 import 'HasManyChildBiDirectionalExplicit.dart';
 import 'HasManyChildBiDirectionalImplicit.dart';
 import 'HasManyChildExplicit.dart';
@@ -56,14 +58,15 @@ import 'HasOneParent.dart';
 import 'ModelWithAppsyncScalarTypes.dart';
 import 'ModelWithCustomType.dart';
 import 'ModelWithEnum.dart';
+import 'MultiAuthTodo.dart';
 import 'MultiRelatedAttendee.dart';
 import 'MultiRelatedMeeting.dart';
 import 'MultiRelatedRegistration.dart';
 import 'Post.dart';
 import 'PostTags.dart';
-import 'Tag.dart';
-import 'CustomTypeWithAppsyncScalarTypes.dart';
+import 'PrivateTodo.dart';
 import 'SimpleCustomType.dart';
+import 'Tag.dart';
 
 export 'BelongsToChildExplicit.dart';
 export 'BelongsToChildImplicit.dart';
@@ -103,17 +106,19 @@ export 'HasOneParent.dart';
 export 'ModelWithAppsyncScalarTypes.dart';
 export 'ModelWithCustomType.dart';
 export 'ModelWithEnum.dart';
+export 'MultiAuthTodo.dart';
 export 'MultiRelatedAttendee.dart';
 export 'MultiRelatedMeeting.dart';
 export 'MultiRelatedRegistration.dart';
 export 'Post.dart';
 export 'PostTags.dart';
+export 'PrivateTodo.dart';
 export 'SimpleCustomType.dart';
 export 'Tag.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "bc8b47d938d0b7deff50ac977653bed7";
+  String version = "44ab790c924e12028850f0fe58e4adb4";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     BelongsToChildExplicit.schema,
@@ -152,11 +157,13 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     ModelWithAppsyncScalarTypes.schema,
     ModelWithCustomType.schema,
     ModelWithEnum.schema,
+    MultiAuthTodo.schema,
     MultiRelatedAttendee.schema,
     MultiRelatedMeeting.schema,
     MultiRelatedRegistration.schema,
     Post.schema,
     PostTags.schema,
+    PrivateTodo.schema,
     Tag.schema
   ];
   @override
@@ -242,6 +249,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return ModelWithCustomType.classType;
       case "ModelWithEnum":
         return ModelWithEnum.classType;
+      case "MultiAuthTodo":
+        return MultiAuthTodo.classType;
       case "MultiRelatedAttendee":
         return MultiRelatedAttendee.classType;
       case "MultiRelatedMeeting":
@@ -252,6 +261,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Post.classType;
       case "PostTags":
         return PostTags.classType;
+      case "PrivateTodo":
+        return PrivateTodo.classType;
       case "Tag":
         return Tag.classType;
       default:
