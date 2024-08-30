@@ -544,7 +544,7 @@ class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.confirm_sign_in_mfa_form}
 /// A prebuilt form for completing the sign in process with an MFA code, from
-/// either SMS or TOTP.
+/// either SMS, TOTP, or Email.
 /// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_mfa_form}

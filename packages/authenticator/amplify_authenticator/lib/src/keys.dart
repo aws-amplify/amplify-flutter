@@ -140,3 +140,8 @@ const keyAuthenticatorBanner = Key('authenticatorBanner');
 const keyQrCodeTotpSetupFormField = Key('qrCodeTotpSetupFormField');
 const keyCopyKeyTotpSetupFormField = Key('copyKeyTotpSetupFormField');
 const keyTotpSetupFormField = Key('totpSetupFormField');
+
+// Email setup form keys
+const keyEmailSetupFormField = Key('emailSetupFormField');
+const keyVerificationCodeEmailSetupFormField =
+    Key('verificationCodeEmailSetupFormField');
