@@ -141,6 +141,24 @@ abstract class AuthenticatorTitleLocalizations {
   /// **'Enter your one-time passcode'**
   String get confirmSignInWithTotpMfaCode;
 
+  /// Title of the Confirm Sign In with Email MFA Code step and form
+  /// 
+  /// In en, this message translates to:
+  /// **'Enter your one-time passcode'**
+  String get confirmSignInWithEmailMfaCode;
+
+  /// Title of the Continue Sign In with Email MFA Setup step and form
+  /// 
+  /// In en, this message translates to:
+  /// **'Set up Email Two-Factor Auth'**
+  String get continueSignInWithEmailMfaSetup;
+
+  /// Title of the Continue Sign In with MFA Setup Selection step and form
+  /// 
+  /// In en, this message translates to:
+  /// **'Select a Two-Factor Auth method to set up'**
+  String get continueSignInWithMfaSetupSelection;
+
   /// Title of the Reset Password step and form
   ///
   /// In en, this message translates to:
