@@ -108,9 +108,9 @@ class AmplifyWebSocketService
       authRepo: authRepo,
       body: appSyncDefaultPayload,
     );
-    final encodedAuthHeaders = base64Url.encode(
-      json.encode(authorizationHeaders).codeUnits,
-    );
+    final encodedAuthHeaders = base64Url
+        .encode(json.encode(authorizationHeaders).codeUnits)
+        .replaceAll('=', '');
     return ['graphql-ws', 'header-$encodedAuthHeaders'];
   }
 
