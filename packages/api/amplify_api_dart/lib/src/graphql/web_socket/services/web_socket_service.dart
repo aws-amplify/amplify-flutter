@@ -110,6 +110,10 @@ class AmplifyWebSocketService
     );
     final encodedAuthHeaders = base64Url
         .encode(json.encode(authorizationHeaders).codeUnits)
+        // remove padding char ("=") as it is optional in base64Url encoding and
+        // is not permitted in protocol names.
+        // Base64Url Spec: https://datatracker.ietf.org/doc/html/rfc4648#section-5
+        // Protocol name separators: https://www.rfc-editor.org/rfc/rfc2616 (see "separators")
         .replaceAll('=', '');
     return ['graphql-ws', 'header-$encodedAuthHeaders'];
   }
