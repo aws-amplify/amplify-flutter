@@ -55,10 +55,16 @@ class InheritedForms extends InheritedWidget {
         return confirmSignInNewPasswordForm;
       case AuthenticatorStep.continueSignInWithMfaSelection:
         return continueSignInWithMfaSelectionForm;
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
+        // TODO(khatruong2009): Implement this form
       case AuthenticatorStep.continueSignInWithTotpSetup:
         return continueSignInWithTotpSetupForm;
       case AuthenticatorStep.confirmSignInWithTotpMfaCode:
         return confirmSignInWithTotpMfaCodeForm;
+      case AuthenticatorStep.continueSignInWithEmailMfaSetup:
+        // TODO(khatruong2009): Implement this form
+      case AuthenticatorStep.confirmSignInWithEmailMfaCode:
+        // TODO(khatruong2009): Implement this form
       case AuthenticatorStep.resetPassword:
         return resetPasswordForm;
       case AuthenticatorStep.confirmResetPassword:
