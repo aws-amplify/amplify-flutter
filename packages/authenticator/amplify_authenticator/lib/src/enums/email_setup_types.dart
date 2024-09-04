@@ -3,5 +3,4 @@
 
 enum EmailSetupField {
   email,
-  code,
 }
