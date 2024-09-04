@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -9,7 +10,10 @@ import 'util.dart';
 const path = 'items';
 const expectedResponseText = 'Hello from Lambda!';
 
-void main({bool useExistingTestUser = false}) {
+void main({
+  bool useExistingTestUser = false,
+  TestUser? testUser,
+}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   HttpPayload generateTestPayload() => HttpPayload.json({'name': 'mow lawn'});
@@ -24,19 +28,19 @@ void main({bool useExistingTestUser = false}) {
       await configureAmplify();
 
       if (!useExistingTestUser) {
-        await signUpTestUser();
+        testUser = await signUpTestUser(testUser);
       }
     });
 
     tearDownAll(() async {
       if (!useExistingTestUser) {
-        await deleteTestUser();
+        await deleteTestUser(testUser);
       }
     });
 
     group('guest user access', () {
       setUpAll(() async {
-        await signOutTestUser();
+        await signOutTestUser(testUser);
       });
 
       testWidgets('should send GET request', (WidgetTester tester) async {
@@ -77,7 +81,7 @@ void main({bool useExistingTestUser = false}) {
 
     group('authorized user access', () {
       setUpAll(() async {
-        await signInTestUser();
+        await signInTestUser(testUser);
       });
 
       testWidgets('should send GET request', (WidgetTester tester) async {
