@@ -647,6 +647,28 @@ class ContinueSignInWithTotpSetupForm extends AuthenticatorForm {
 }
 
 /// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_with_email_mfa_setup_form}
+/// A prebuilt form for completing the email mfa setup process.
+/// {@endtemplate}
+class ContinueSignInWithEmailMfaSetupForm extends AuthenticatorForm {
+  ContinueSignInWithEmailMfaSetupForm({
+    super.key,
+  }) : super._(
+          fields: [
+            EmailSetupFormField.email(),
+          ],
+          actions: const [
+            ConfirmSignInMFAButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ContinueSignInWithEmailMfaSetupForm> createState() =>
+      AuthenticatorFormState<ContinueSignInWithEmailMfaSetupForm>();
+}
+
+/// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.send_code_form}
 /// A prebuilt form for initiating the reset password flow.
 /// {@endtemplate}
