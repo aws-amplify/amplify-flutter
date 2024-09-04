@@ -77,6 +77,7 @@ export 'src/widgets/form.dart'
         ConfirmSignInNewPasswordForm,
         ContinueSignInWithMfaSelectionForm,
         ContinueSignInWithTotpSetupForm,
+        ContinueSignInWithEmailMfaSetupForm,
         ConfirmSignUpForm,
         ResetPasswordForm,
         ConfirmResetPasswordForm,
@@ -712,6 +713,7 @@ class _AuthenticatorState extends State<Authenticator> {
                     ContinueSignInWithMfaSelectionForm(),
                 continueSignInWithTotpSetupForm:
                     ContinueSignInWithTotpSetupForm(),
+                continueSignInWithEmailMfaSetupForm: ContinueSignInWithEmailMfaSetupForm(),
                 confirmSignInWithTotpMfaCodeForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),

@@ -17,6 +17,7 @@ class InheritedForms extends InheritedWidget {
     required this.confirmSignInNewPasswordForm,
     required this.continueSignInWithMfaSelectionForm,
     required this.continueSignInWithTotpSetupForm,
+    required this.continueSignInWithEmailMfaSetupForm,
     required this.confirmSignInWithTotpMfaCodeForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
@@ -31,6 +32,7 @@ class InheritedForms extends InheritedWidget {
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
   final ContinueSignInWithMfaSelectionForm continueSignInWithMfaSelectionForm;
   final ContinueSignInWithTotpSetupForm continueSignInWithTotpSetupForm;
+  final ContinueSignInWithEmailMfaSetupForm continueSignInWithEmailMfaSetupForm;
   final ConfirmSignInMFAForm confirmSignInWithTotpMfaCodeForm;
   final ResetPasswordForm resetPasswordForm;
   final ConfirmResetPasswordForm confirmResetPasswordForm;
@@ -111,6 +113,12 @@ class InheritedForms extends InheritedWidget {
             continueSignInWithTotpSetupForm ||
         oldWidget.confirmSignInWithTotpMfaCodeForm !=
             confirmSignInWithTotpMfaCodeForm;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<ContinueSignInWithEmailMfaSetupForm>('continueSignInWithEmailMfaSetupForm', continueSignInWithEmailMfaSetupForm));
   }
 }
 
