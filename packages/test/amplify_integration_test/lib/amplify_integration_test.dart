@@ -19,6 +19,7 @@ export 'package:amplify_test/amplify_test.dart';
 
 /// Auth Utils
 export 'src/integration_test_utils/auth_cognito/integration_test_auth_utils.dart';
+export 'src/integration_test_utils/auth_cognito/test_user.dart';
 export 'src/integration_test_utils/auth_cognito/types/create_mfa_code_response.dart';
 export 'src/integration_test_utils/auth_cognito/types/delete_user_response.dart';
 

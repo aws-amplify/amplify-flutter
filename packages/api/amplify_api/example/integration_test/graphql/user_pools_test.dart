@@ -4,12 +4,17 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import '../util.dart';
 
-void main({bool useExistingTestUser = false, bool useGen1 = false}) {
+void main({
+  bool useExistingTestUser = false,
+  bool useGen1 = false,
+  TestUser? testUser,
+}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('GraphQL Cognito User Pools', () {
@@ -17,15 +22,15 @@ void main({bool useExistingTestUser = false, bool useGen1 = false}) {
       await configureAmplify(useGen1: useGen1);
 
       if (!useExistingTestUser) {
-        await signUpTestUser();
+        testUser = await signUpTestUser(testUser);
       }
-      await signInTestUser();
+      await signInTestUser(testUser);
     });
 
     tearDownAll(() async {
       await deleteTestModels();
       if (!useExistingTestUser) {
-        await deleteTestUser();
+        await deleteTestUser(testUser);
       }
     });
 
