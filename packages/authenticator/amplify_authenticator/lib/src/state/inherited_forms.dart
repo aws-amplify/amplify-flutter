@@ -112,7 +112,11 @@ class InheritedForms extends InheritedWidget {
         oldWidget.continueSignInWithTotpSetupForm !=
             continueSignInWithTotpSetupForm ||
         oldWidget.confirmSignInWithTotpMfaCodeForm !=
-            confirmSignInWithTotpMfaCodeForm;
+            confirmSignInWithTotpMfaCodeForm ||
+        oldWidget.continueSignInWithEmailMfaSetupForm !=
+            continueSignInWithEmailMfaSetupForm ||
+        oldWidget.continueSignInWithMfaSelectionForm !=
+            continueSignInWithMfaSelectionForm;
   }
 }
 
