@@ -114,12 +114,6 @@ class InheritedForms extends InheritedWidget {
         oldWidget.confirmSignInWithTotpMfaCodeForm !=
             confirmSignInWithTotpMfaCodeForm;
   }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<ContinueSignInWithEmailMfaSetupForm>('continueSignInWithEmailMfaSetupForm', continueSignInWithEmailMfaSetupForm));
-  }
 }
 
 // ignore_for_file: prefer_asserts_with_message
