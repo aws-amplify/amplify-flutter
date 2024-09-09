@@ -26,28 +26,18 @@ const _requiredHeaders = {
   AWSHeaders.contentType: 'application/json; charset=utf-8',
 };
 
-// AppSync expects "{}" encoded in the URI as the payload during handshake.
-const _emptyBody = <String, dynamic>{};
+/// The default payload to include to AppSync.
+///
+/// AppSync expects "{}" encoded in the URI as the payload during handshake.
+@internal
+const appSyncDefaultPayload = <String, dynamic>{};
 
 /// Generate a URI for the connection and all subscriptions.
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection=
-Future<Uri> generateConnectionUri(
-  ApiOutputs config,
-  AmplifyAuthProviderRepository authRepo,
-) async {
-  // First, generate auth query parameters.
-  final authorizationHeaders = await _generateAuthorizationHeaders(
-    config,
-    isConnectionInit: true,
-    authRepo: authRepo,
-    body: _emptyBody,
-  );
-  final encodedAuthHeaders =
-      base64.encode(json.encode(authorizationHeaders).codeUnits);
+Future<Uri> generateConnectionUri(ApiOutputs config) async {
   final authQueryParameters = {
-    'header': encodedAuthHeaders,
-    'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
+    'payload': base64.encode(utf8.encode(json.encode(appSyncDefaultPayload))),
   };
   // Conditionally format the URI for a) AppSync domain b) custom domain.
   var endpointUriHost = Uri.parse(config.url).host;
@@ -86,7 +76,7 @@ Future<WebSocketSubscriptionRegistrationMessage>
   required GraphQLRequest<T> request,
 }) async {
   final body = {'variables': request.variables, 'query': request.document};
-  final authorizationHeaders = await _generateAuthorizationHeaders(
+  final authorizationHeaders = await generateAuthorizationHeaders(
     config,
     isConnectionInit: false,
     authRepo: authRepo,
@@ -114,7 +104,8 @@ Future<WebSocketSubscriptionRegistrationMessage>
 /// a canonical HTTP request that is authorized but never sent. The headers from
 /// the HTTP request are reformatted and returned. This logic applies for all auth
 /// modes as determined by [authRepo] parameter.
-Future<Map<String, String>> _generateAuthorizationHeaders(
+@internal
+Future<Map<String, String>> generateAuthorizationHeaders(
   ApiOutputs config, {
   required bool isConnectionInit,
   required AmplifyAuthProviderRepository authRepo,
