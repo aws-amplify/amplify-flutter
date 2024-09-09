@@ -81,7 +81,6 @@ final class ConfigurationStateMachine
           region: userPoolConfig.region,
           credentialsProvider: _credentialsProvider,
           dependencyManager: this,
-          endpoint: userPoolConfig.endpoint,
         ),
       );
     }

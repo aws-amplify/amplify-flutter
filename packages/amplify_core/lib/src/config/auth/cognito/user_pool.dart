@@ -16,7 +16,6 @@ class CognitoUserPoolConfig
     this.appClientSecret,
     required this.region,
     this.hostedUI,
-    this.endpoint,
   });
 
   @internal
@@ -49,7 +48,6 @@ class CognitoUserPoolConfig
   final String? appClientSecret;
   final String region;
   final CognitoOAuthConfig? hostedUI;
-  final String? endpoint;
 
   @override
   List<Object?> get props => [
@@ -58,7 +56,6 @@ class CognitoUserPoolConfig
         appClientSecret,
         region,
         hostedUI,
-        endpoint,
       ];
 
   CognitoUserPoolConfig copyWith({
@@ -67,7 +64,6 @@ class CognitoUserPoolConfig
     String? appClientSecret,
     String? region,
     CognitoOAuthConfig? hostedUI,
-    String? endpoint,
   }) {
     return CognitoUserPoolConfig(
       poolId: poolId ?? this.poolId,
@@ -75,7 +71,6 @@ class CognitoUserPoolConfig
       appClientSecret: appClientSecret ?? this.appClientSecret,
       region: region ?? this.region,
       hostedUI: hostedUI ?? this.hostedUI,
-      endpoint: endpoint ?? this.endpoint,
     );
   }
 

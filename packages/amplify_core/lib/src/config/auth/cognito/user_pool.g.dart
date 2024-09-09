@@ -25,7 +25,6 @@ CognitoUserPoolConfig _$CognitoUserPoolConfigFromJson(
               (v) => v == null
                   ? null
                   : CognitoOAuthConfig.fromJson(v as Map<String, dynamic>)),
-          endpoint: $checkedConvert('Endpoint', (v) => v as String?),
         );
         return val;
       },
@@ -34,8 +33,7 @@ CognitoUserPoolConfig _$CognitoUserPoolConfigFromJson(
         'appClientId': 'AppClientId',
         'appClientSecret': 'AppClientSecret',
         'region': 'Region',
-        'hostedUI': 'HostedUI',
-        'endpoint': 'Endpoint'
+        'hostedUI': 'HostedUI'
       },
     );
 
@@ -55,6 +53,5 @@ Map<String, dynamic> _$CognitoUserPoolConfigToJson(
   writeNotNull('AppClientSecret', instance.appClientSecret);
   val['Region'] = instance.region;
   writeNotNull('HostedUI', instance.hostedUI?.toJson());
-  writeNotNull('Endpoint', instance.endpoint);
   return val;
 }
