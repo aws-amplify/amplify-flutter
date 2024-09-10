@@ -131,7 +131,7 @@ void main() {
           if (generateSnapshots) {
             final process = await repo.git.runCommand(['diff', '--unified=0']);
             final diff = process.stdout as String;
-            await diffFile.writeAsString(diff);
+            await diffFile.writeAsString(processDiff(diff));
           }
           await tempDirectory.delete(recursive: true);
         });
@@ -158,7 +158,7 @@ void main() {
               final process = await repo.git.runCommand(
                 ['diff', '--unified=0'],
               );
-              final actual = process.stdout as String;
+              final actual = processDiff(process.stdout as String);
               final expected = await diffFile.readAsString();
               expect(actual, expected);
             }
@@ -214,4 +214,15 @@ Future<void> copyDirectory(
     await file.create(recursive: true);
     await file.writeAsString(await File(e.path).readAsString());
   }
+}
+
+/// Removes non essential info from the diff
+String processDiff(String input) {
+  return input
+      .split('\n')
+      .where((line) => !line.trimLeft().startsWith('index'))
+      .where((line) => !line.trimLeft().startsWith('---'))
+      .where((line) => !line.trimLeft().startsWith('+++'))
+      .where((line) => !line.trimLeft().startsWith('@@'))
+      .join('\n');
 }
