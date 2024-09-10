@@ -892,6 +892,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   Future<void> updateMfaPreference({
     MfaPreference? sms,
     MfaPreference? totp,
+    MfaPreference? email,
   }) async {
     final tokens = await _stateMachine.getUserPoolTokens();
     final accessToken = tokens.accessToken.raw;
@@ -899,6 +900,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       accessToken: accessToken,
       sms: sms,
       totp: totp,
+      email: email,
     );
   }
 
