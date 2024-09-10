@@ -136,33 +136,31 @@ void main() {
           await tempDirectory.delete(recursive: true);
         });
 
-        group('chore', () {
-          test('single amplify package', () async {
-            late String headRef;
-            for (final change in changes) {
-              headRef = await change.commit(repo);
-            }
+        test('should generate the expected diff', () async {
+          late String headRef;
+          for (final change in changes) {
+            headRef = await change.commit(repo);
+          }
 
-            await run([
-              'version-bump',
-              '--directory',
-              (tempDirectory.path),
-              '--base-ref',
-              (baseRef),
-              '--head-ref',
-              (headRef),
-              '--skip-build-version',
-            ]);
+          await run([
+            'version-bump',
+            '--directory',
+            (tempDirectory.path),
+            '--base-ref',
+            (baseRef),
+            '--head-ref',
+            (headRef),
+            '--skip-build-version',
+          ]);
 
-            if (!generateSnapshots) {
-              final process = await repo.git.runCommand(
-                ['diff', '--unified=0'],
-              );
-              final actual = processDiff(process.stdout as String);
-              final expected = await diffFile.readAsString();
-              expect(actual, expected);
-            }
-          });
+          if (!generateSnapshots) {
+            final process = await repo.git.runCommand(
+              ['diff', '--unified=0'],
+            );
+            final actual = processDiff(process.stdout as String);
+            final expected = await diffFile.readAsString();
+            expect(actual, expected);
+          }
         });
       });
     }
@@ -196,7 +194,7 @@ class Change {
 Future<String> runGit(Repo repo, List<String> args) async {
   final result = await repo.git.runCommand(args);
   final stdout = result.stdout as String;
-  logger.info('git ${args.join(' ')}:\n$stdout');
+  logger.verbose('git ${args.join(' ')}:\n$stdout');
   return stdout.trim();
 }
 
@@ -209,7 +207,7 @@ Future<void> copyDirectory(
       continue;
     }
     final path = e.path.replaceFirst(source.path, '');
-    logger.info('copying to ${destination.path}/$path');
+    logger.verbose('copying to ${destination.path}/$path');
     final file = File('${destination.path}/$path');
     await file.create(recursive: true);
     await file.writeAsString(await File(e.path).readAsString());
