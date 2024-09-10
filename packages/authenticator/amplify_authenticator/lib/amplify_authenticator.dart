@@ -42,7 +42,6 @@ export 'package:amplify_authenticator/src/utils/dial_code.dart' show DialCode;
 export 'package:amplify_authenticator/src/utils/dial_code_options.dart'
     show DialCodeOptions;
 
-export 'src/utils/unmet_password_requirements.dart';
 export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
 export 'src/models/authenticator_exception.dart';
@@ -50,6 +49,7 @@ export 'src/models/totp_options.dart';
 export 'src/models/username_input.dart'
     show UsernameType, UsernameInput, UsernameSelection;
 export 'src/state/authenticator_state.dart';
+export 'src/utils/unmet_password_requirements.dart';
 export 'src/widgets/button.dart'
     show
         SignUpButton,
