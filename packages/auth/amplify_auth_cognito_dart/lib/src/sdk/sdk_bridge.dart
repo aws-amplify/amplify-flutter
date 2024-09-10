@@ -32,6 +32,8 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
           AuthSignInStep.continueSignInWithTotpSetup,
         ChallengeNameType.softwareTokenMfa =>
           AuthSignInStep.confirmSignInWithTotpMfaCode,
+        // TODO(khatruong2009): confirm ChallengeNameType.emailMfa is added to SDK
+        ChallengeNameType.emailMfa => AuthSignInStep.confirmSignInWithEmailMfaCode,
         ChallengeNameType.adminNoSrpAuth ||
         ChallengeNameType.passwordVerifier ||
         ChallengeNameType.devicePasswordVerifier ||
@@ -795,6 +797,7 @@ extension MfaSettings on CognitoIdentityProviderClient {
     required String accessToken,
     MfaPreference? sms,
     MfaPreference? totp,
+    MfaPreference? email,
   }) async {
     final UserMfaPreference(
       enabled: currentEnabled,
@@ -811,6 +814,7 @@ extension MfaSettings on CognitoIdentityProviderClient {
       final explicitlyDisabled = switch (mfaType) {
         MfaType.sms => sms == MfaPreference.disabled,
         MfaType.totp => totp == MfaPreference.disabled,
+        MfaType.email => email == MfaPreference.disabled,
       };
       if (explicitlyDisabled) {
         return false;
@@ -819,22 +823,25 @@ extension MfaSettings on CognitoIdentityProviderClient {
       final requestingEnabled = switch (mfaType) {
         MfaType.sms => enabledValues.contains(sms),
         MfaType.totp => enabledValues.contains(totp),
+        MfaType.email => enabledValues.contains(email),
       };
       return currentlyEnabled || requestingEnabled;
     }
 
-    final preferred = switch ((currentPreference, sms: sms, totp: totp)) {
+    final preferred = switch ((currentPreference, sms: sms, totp: totp, email: email)) {
       // Prevent an invalid choice.
-      (_, sms: MfaPreference.preferred, totp: MfaPreference.preferred) =>
+      (_, sms: MfaPreference.preferred, totp: MfaPreference.preferred, email: MfaPreference.preferred) =>
         throw const InvalidParameterException(
-          'Cannot assign both SMS and TOTP as preferred',
+          'Cannot assign multiple MFA methods as preferred',
         ),
 
       // Setting one or the other as preferred overrides previous value.
-      (_, sms: MfaPreference.preferred, totp: != MfaPreference.preferred) =>
+      (_, sms: MfaPreference.preferred, totp: != MfaPreference.preferred, email: != MfaPreference.preferred) =>
         MfaType.sms,
-      (_, sms: != MfaPreference.preferred, totp: MfaPreference.preferred) =>
+      (_, sms: != MfaPreference.preferred, totp: MfaPreference.preferred, email: != MfaPreference.preferred) =>
         MfaType.totp,
+      (_, sms: != MfaPreference.preferred, totp: != MfaPreference.preferred, email: MfaPreference.preferred) =>
+        MfaType.email,
 
       // Setting one or the other as disabled or not preferred removes current
       // preference if it matches.
@@ -842,16 +849,24 @@ extension MfaSettings on CognitoIdentityProviderClient {
         MfaType.sms,
         sms: MfaPreference.notPreferred || MfaPreference.disabled,
         totp: _,
+        email: _,
       ) ||
       (
         MfaType.totp,
         sms: _,
         totp: MfaPreference.notPreferred || MfaPreference.disabled,
+        email: _,
+      ) ||
+      (
+        MfaType.email,
+        sms: _,
+        totp: _,
+        email: MfaPreference.notPreferred || MfaPreference.disabled,
       ) =>
         null,
 
       // Ignore preference changes which do not affect the current preference.
-      (final currentPreference, sms: _, totp: _) => currentPreference,
+      (final currentPreference, sms: _, totp: _, email: _) => currentPreference,
     };
     final smsMfaSettings = SmsMfaSettingsType(
       enabled: isEnabled(MfaType.sms),
@@ -860,6 +875,11 @@ extension MfaSettings on CognitoIdentityProviderClient {
     final softwareTokenSettings = SoftwareTokenMfaSettingsType(
       enabled: isEnabled(MfaType.totp),
       preferredMfa: preferred == MfaType.totp,
+    );
+    // TODO(khatruong2009): confirm EmailMfaSettingsType is added to SDK
+    final emailMfaSettings = EmailMfaSettingsType(
+      enabled: isEnabled(MfaType.email),
+      preferredMfa: preferred == MfaType.email,
     );
     await setUserMfaPreference(
       SetUserMfaPreferenceRequest(
@@ -876,6 +896,7 @@ extension on String {
   MfaType get mfaType => switch (this) {
         'SOFTWARE_TOKEN_MFA' => MfaType.totp,
         'SMS_MFA' => MfaType.sms,
+        'EMAIL_MFA' => MfaType.email,
         final invalidType => throw StateError('Invalid MFA type: $invalidType'),
       };
 }

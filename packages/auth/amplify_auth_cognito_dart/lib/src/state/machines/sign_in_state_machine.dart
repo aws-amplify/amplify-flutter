@@ -211,6 +211,7 @@ final class SignInStateMachine
           (type) => switch (type) {
             'SOFTWARE_TOKEN_MFA' => MfaType.totp,
             'SMS_MFA' => MfaType.sms,
+            'EMAIL_MFA' => MfaType.email,
             _ => () {
                 logger.error('Unrecognized MFA type: $type');
                 return null;
@@ -449,6 +450,24 @@ final class SignInStateMachine
     });
   }
 
+  /// Creates the response object for an Email MFA challenge.
+  @protected
+  Future<RespondToAuthChallengeRequest> createEmailMfaRequest(
+    SignInRespondToChallenge event,
+  ) async {
+    _enableMfaType = MfaType.email;
+    return RespondToAuthChallengeRequest.build((b) {
+      b
+        ..clientId = config.appClientId
+        ..challengeName = _challengeName
+        ..challengeResponses.addAll({
+          CognitoConstants.challengeParamUsername: cognitoUsername,
+          CognitoConstants.challengeParamEmailMfaCode: event.answer,
+        })
+        ..clientMetadata.addAll(event.clientMetadata);
+    });
+  }
+
   /// Creates the response object for a new password challenge.
   @protected
   Future<RespondToAuthChallengeRequest> createNewPasswordRequest(
@@ -667,7 +686,8 @@ final class SignInStateMachine
           CognitoConstants.challengeParamAnswer: switch (selection) {
             'sms' => 'SMS_MFA',
             'totp' => 'SOFTWARE_TOKEN_MFA',
-            _ => throw ArgumentError('Must be either SMS or TOTP'),
+            'email' => 'EMAIL_MFA',
+            _ => throw ArgumentError('Must be either SMS, Email, or TOTP'),
           },
         })
         ..clientId = _authOutputs.userPoolClientId
