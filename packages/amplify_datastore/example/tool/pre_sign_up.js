@@ -1,17 +1,25 @@
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
- exports.handler = async event => {
-  // Confirm the user
+exports.handler = async (event, context) => {
+  console.log(`Got event: ${JSON.stringify(event, null, 2)}`);
+
+  if (event.triggerSource !== "PreSignUp_SignUp") {
+    console.warn(`Not handling request of type: ${event.triggerSource}`);
+    return event;
+  }
+
   event.response.autoConfirmUser = true;
+
   // Set the email as verified if it is in the request
   if (event.request.userAttributes.hasOwnProperty("email")) {
     event.response.autoVerifyEmail = true;
   }
+
   // Set the phone number as verified if it is in the request
   if (event.request.userAttributes.hasOwnProperty("phone_number")) {
     event.response.autoVerifyPhone = true;
   }
-  // Return to Amazon Cognito
+
   return event;
 };

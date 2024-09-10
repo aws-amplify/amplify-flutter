@@ -10,12 +10,9 @@ import 'package:amplify_api_example/amplifyconfiguration.dart' as gen1;
 import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 const _subscriptionTimeoutInterval = 5;
-
-TestUser? testUser;
 
 // Keep track of what is created here so it can be deleted.
 final blogCache = <Blog>[];
@@ -26,54 +23,6 @@ final cpkParentCache = <CpkOneToOneBidirectionalParentCD>[];
 final cpkExplicitChildCache = <CpkOneToOneBidirectionalChildExplicitCD>[];
 final cpkImplicitChildCache = <CpkOneToOneBidirectionalChildImplicitCD>[];
 final sampleCache = <Sample>[];
-
-class TestUser {
-  TestUser({
-    String? email,
-    String? password,
-  })  : _email = generateEmail(),
-        _password = generatePassword();
-
-  final String _email;
-  final String _password;
-
-  Future<void> signUp() async {
-    await signOut();
-    final result = await Amplify.Auth.signUp(
-      username: _email,
-      password: _password,
-    );
-    if (!result.isSignUpComplete) {
-      throw Exception('Unable to sign up test user.');
-    }
-  }
-
-  Future<void> signOut() async {
-    final session = await Amplify.Auth.fetchAuthSession();
-    if (!session.isSignedIn) return;
-    await Amplify.Auth.signOut();
-  }
-
-  /// No-op if already signed in.
-  Future<void> signIn() async {
-    final session = await Amplify.Auth.fetchAuthSession();
-    if (session.isSignedIn) return;
-    final result = await Amplify.Auth.signIn(
-      username: _email,
-      password: _password,
-    );
-    if (!result.isSignedIn) {
-      throw Exception('Unable to sign in test user.');
-    }
-  }
-
-  Future<void> delete() async {
-    final session = await Amplify.Auth.fetchAuthSession();
-    if (!session.isSignedIn) await signInTestUser();
-    await Amplify.Auth.deleteUser();
-    testUser = null;
-  }
-}
 
 Future<void> configureAmplify({bool useGen1 = false}) async {
   if (!Amplify.isConfigured) {
@@ -103,39 +52,6 @@ String _addRestConfig(String config) {
   // ignore: avoid_dynamic_calls
   json['rest_api'] = {'multiAuthRest': json['custom']['multiAuthRest']};
   return jsonEncode(json);
-}
-
-Future<void> signUpTestUser() async {
-  await signOutTestUser();
-
-  testUser = TestUser();
-  await testUser!.signUp();
-}
-
-/// No-op if already signed in.
-Future<void> signInTestUser() async {
-  if (testUser == null) {
-    throw const InvalidStateException(
-      'No test user to sign in.',
-      recoverySuggestion: 'Ensure test user signed up.',
-    );
-  }
-  await testUser!.signIn();
-}
-
-// No-op if not signed in.
-Future<void> signOutTestUser() async {
-  await testUser?.signOut();
-}
-
-Future<void> deleteTestUser() async {
-  if (testUser == null) {
-    throw const InvalidStateException(
-      'No test user to delete.',
-      recoverySuggestion: 'Ensure test user signed up.',
-    );
-  }
-  await testUser!.delete();
 }
 
 // declare utility which creates blog with title as parameter
