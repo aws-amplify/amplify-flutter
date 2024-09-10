@@ -1,0 +1,27 @@
+name: amplify_native_legacy_wrapper
+description: A wrapper around the legacy native amplify plugins.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ^3.3.0
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints: ">=2.0.2 <2.1.0"
+  flutter_test:
+    sdk: flutter
+  pigeon: ^11.0.0
+
+flutter:
+  plugin:
+    platforms:
+      ios:
+        pluginClass: AmplifyNativeLegacyWrapperPlugin
+      android:
+        package: com.amazonaws.amplify.amplify_native_legacy_wrapper
+        pluginClass: AmplifyNativeLegacyWrapperPlugin
