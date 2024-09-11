@@ -1,0 +1,54 @@
+name: amplify_auth_cognito
+description: The Amplify Flutter Auth category plugin using the AWS Cognito provider.
+version: 2.3.0
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/auth/amplify_auth_cognito
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+
+environment:
+  sdk: ^3.3.0
+  flutter: ">=3.19.0"
+
+# Helps `pana` since we do not use Flutter plugins for most platforms
+platforms:
+  ios:
+  android:
+  macos:
+  windows:
+  linux:
+  web:
+
+dependencies:
+  amplify_analytics_pinpoint: ">=2.3.0 <2.4.0"
+  amplify_analytics_pinpoint_dart: ">=0.4.3 <0.5.0"
+  amplify_auth_cognito_dart: ">=0.11.3 <0.12.0"
+  amplify_core: ">=2.3.0 <2.4.0"
+  amplify_flutter: ">=2.3.0 <2.4.0"
+  amplify_secure_storage: ">=0.5.4 <0.6.0"
+  async: ^2.10.0
+  flutter:
+    sdk: flutter
+  meta: ^1.7.0
+  path: ">=1.8.0 <2.0.0"
+  plugin_platform_interface: ^2.0.0
+
+dev_dependencies:
+  amplify_auth_cognito_test:
+    path: ../amplify_auth_cognito_test
+  amplify_lints: ">=3.1.0 <3.2.0"
+  flutter_test:
+    sdk: flutter
+  pigeon: ^11.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.amazonaws.amplify.amplify_auth_cognito
+        pluginClass: AmplifyAuthCognitoPlugin
+      ios:
+        pluginClass: AmplifyAuthCognitoPlugin
+        sharedDarwinSource: true
+      macos:
+        pluginClass: AmplifyAuthCognitoPlugin
+        sharedDarwinSource: true

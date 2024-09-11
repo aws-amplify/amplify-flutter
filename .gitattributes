@@ -87,6 +87,10 @@ packages/smithy/goldens/models/custom/**    -linguist-vendored
 ## Genrated dart files
 *.g.dart                                    linguist-generated
 
+## Genrated test files
+**/snapshots/*.diff                         linguist-generated
+**/repo_snapshot/**                         linguist-generated
+
 ## Lock files
 package-lock.json                           linguist-generated
 pnpm-lock.yaml                              linguist-generated
