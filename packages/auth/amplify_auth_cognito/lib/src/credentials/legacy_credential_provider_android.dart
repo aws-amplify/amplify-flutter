@@ -47,11 +47,12 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
     String username,
     AuthOutputs authOutputs,
   ) async {
-    if (authOutputs.userPoolId == null) return null;
+    final userPoolId = authOutputs.userPoolId;
+    if (userPoolId == null) return null;
     final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
     final device = await bridge.fetchLegacyDeviceSecrets(
       username,
-      authOutputs.userPoolId!,
+      userPoolId,
     );
     return device?.toLegacyDeviceDetails();
   }
@@ -61,12 +62,12 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
     String username,
     AuthOutputs authOutputs,
   ) async {
-    if (authOutputs.userPoolId != null) {
-      final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
-      return bridge.deleteLegacyDeviceSecrets(
-        username,
-        authOutputs.userPoolId!,
-      );
-    }
+    final userPoolId = authOutputs.userPoolId;
+    if (userPoolId == null) return;
+    final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
+    return bridge.deleteLegacyDeviceSecrets(
+      username,
+      userPoolId,
+    );
   }
 }
