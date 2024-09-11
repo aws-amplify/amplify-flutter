@@ -19,8 +19,8 @@ final RegExp _trailerRegex = RegExp(r'^[^:\s]+:[^:]+$');
 
 enum CommitTypeGroup {
   breaking('Breaking Changes'),
-  fixes('Fixes'),
   features('Features'),
+  fixes('Fixes'),
   other('Other Changes');
 
   const CommitTypeGroup(this.header);
