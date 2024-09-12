@@ -59,7 +59,7 @@ jobs:
           channel: stable
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@e58aeb62aef51dcc4d0ba8eada7c08092aad5314 # main
+        uses: dart-lang/setup-dart@f6a6f58cab9dd4e0ba15826bd89d4558877fd25c # main
         with:
           sdk: ${{ matrix.sdk }}
 
