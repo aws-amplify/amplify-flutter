@@ -49,7 +49,14 @@ diff --git a/packages/analytics/amplify_analytics_pinpoint/pubspec.yaml b/packag
 +version: 2.4.0
 -  amplify_core: ">=2.3.0 <2.4.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
+diff --git a/packages/analytics/amplify_analytics_pinpoint_dart/CHANGELOG.md b/packages/analytics/amplify_analytics_pinpoint_dart/CHANGELOG.md
++## 0.4.4
++
++- Minor bug fixes and improvements
++
 diff --git a/packages/analytics/amplify_analytics_pinpoint_dart/pubspec.yaml b/packages/analytics/amplify_analytics_pinpoint_dart/pubspec.yaml
+-version: 0.4.3
++version: 0.4.4
 -  amplify_core: ">=2.3.0 <2.4.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
 diff --git a/packages/api/amplify_api/CHANGELOG.md b/packages/api/amplify_api/CHANGELOG.md
@@ -64,7 +71,14 @@ diff --git a/packages/api/amplify_api/pubspec.yaml b/packages/api/amplify_api/pu
 -  amplify_flutter: ">=2.3.0 <2.4.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
 +  amplify_flutter: ">=2.4.0 <2.5.0"
+diff --git a/packages/api/amplify_api_dart/CHANGELOG.md b/packages/api/amplify_api_dart/CHANGELOG.md
++## 0.5.4
++
++- Minor bug fixes and improvements
++
 diff --git a/packages/api/amplify_api_dart/pubspec.yaml b/packages/api/amplify_api_dart/pubspec.yaml
+-version: 0.5.3
++version: 0.5.4
 -  amplify_core: ">=2.3.0 <2.4.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
 diff --git a/packages/auth/amplify_auth_cognito/CHANGELOG.md b/packages/auth/amplify_auth_cognito/CHANGELOG.md
@@ -82,17 +96,38 @@ diff --git a/packages/auth/amplify_auth_cognito/pubspec.yaml b/packages/auth/amp
 -  amplify_flutter: ">=2.3.0 <2.4.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
 +  amplify_flutter: ">=2.4.0 <2.5.0"
+diff --git a/packages/auth/amplify_auth_cognito_dart/CHANGELOG.md b/packages/auth/amplify_auth_cognito_dart/CHANGELOG.md
++## 0.11.4
++
++- Minor bug fixes and improvements
++
 diff --git a/packages/auth/amplify_auth_cognito_dart/pubspec.yaml b/packages/auth/amplify_auth_cognito_dart/pubspec.yaml
+-version: 0.11.3
++version: 0.11.4
 -  amplify_core: ">=2.3.0 <2.4.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
+diff --git a/packages/authenticator/amplify_authenticator/CHANGELOG.md b/packages/authenticator/amplify_authenticator/CHANGELOG.md
++## 2.1.2
++
++- Minor bug fixes and improvements
++
 diff --git a/packages/authenticator/amplify_authenticator/pubspec.yaml b/packages/authenticator/amplify_authenticator/pubspec.yaml
+-version: 2.1.1
++version: 2.1.2
 -  amplify_auth_cognito: ">=2.3.0 <2.4.0"
 -  amplify_core: ">=2.3.0 <2.4.0"
 -  amplify_flutter: ">=2.3.0 <2.4.0"
 +  amplify_auth_cognito: ">=2.4.0 <2.5.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
 +  amplify_flutter: ">=2.4.0 <2.5.0"
+diff --git a/packages/common/amplify_db_common_dart/CHANGELOG.md b/packages/common/amplify_db_common_dart/CHANGELOG.md
++## 0.4.5
++
++- Minor bug fixes and improvements
++
 diff --git a/packages/common/amplify_db_common_dart/pubspec.yaml b/packages/common/amplify_db_common_dart/pubspec.yaml
+-version: 0.4.4
++version: 0.4.5
 -  amplify_core: ">=2.3.0 <2.4.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
 diff --git a/packages/notifications/push/amplify_push_notifications/CHANGELOG.md b/packages/notifications/push/amplify_push_notifications/CHANGELOG.md
@@ -133,6 +168,13 @@ diff --git a/packages/storage/amplify_storage_s3/pubspec.yaml b/packages/storage
 +version: 2.4.0
 -  amplify_core: ">=2.3.0 <2.4.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
+diff --git a/packages/storage/amplify_storage_s3_dart/CHANGELOG.md b/packages/storage/amplify_storage_s3_dart/CHANGELOG.md
++## 0.4.4
++
++- Minor bug fixes and improvements
++
 diff --git a/packages/storage/amplify_storage_s3_dart/pubspec.yaml b/packages/storage/amplify_storage_s3_dart/pubspec.yaml
+-version: 0.4.3
++version: 0.4.4
 -  amplify_core: ">=2.3.0 <2.4.0"
 +  amplify_core: ">=2.4.0 <2.5.0"
