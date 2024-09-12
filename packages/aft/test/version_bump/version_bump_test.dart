@@ -92,6 +92,29 @@ const tests = {
       packages: ['amplify_core', 'amplify_auth_cognito'],
     ),
   ],
+  // a multi package update that includes a breaking change in a common package.
+  'multi_package_update_with_breaking_common': [
+    Change(
+      title: 'chore: test secure storage / auth chore',
+      packages: ['amplify_secure_storage', 'amplify_auth_cognito_dart'],
+    ),
+    Change(
+      title: 'fix: test auth fix',
+      packages: ['amplify_auth_cognito', 'amplify_auth_cognito_dart'],
+    ),
+    Change(
+      title: 'feat!: test breaking common feat',
+      packages: ['aws_common'],
+    ),
+    Change(
+      title: 'fix: test db common fix',
+      packages: ['amplify_db_common', 'amplify_db_common_dart'],
+    ),
+    Change(
+      title: 'feat: test core/auth feat',
+      packages: ['amplify_core', 'amplify_auth_cognito'],
+    ),
+  ],
 };
 
 // run `dart --define=generate-snapshots=true test ./test/version_bump/version_bump_test.dart --use-data-isolate-strategy`
