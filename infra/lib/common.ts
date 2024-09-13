@@ -14,13 +14,19 @@ import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as wafv2 from "aws-cdk-lib/aws-wafv2";
 import * as triggers from 'aws-cdk-lib/triggers';
 import { Construct } from "constructs";
-import { StorageAccessLevel } from "./storage/stack";
+
 
 // TODO(dnys1): Remove when resources are consolidated in the same region again.
 export const env: cdk.Environment = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
   region: 'us-west-2',
 };
+
+export enum StorageAccessLevel {
+  public = "guest",
+  protected = "protected",
+  private = "private",
+}
 
 /**
  * Creates an expiration for 1 year rounded to the nearest day.
