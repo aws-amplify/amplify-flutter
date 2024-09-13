@@ -458,7 +458,7 @@ final class SignInStateMachine
     _enableMfaType = MfaType.email;
     return RespondToAuthChallengeRequest.build((b) {
       b
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..challengeName = _challengeName
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: cognitoUsername,

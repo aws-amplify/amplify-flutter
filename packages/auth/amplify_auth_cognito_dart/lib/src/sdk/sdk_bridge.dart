@@ -33,7 +33,7 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
         ChallengeNameType.softwareTokenMfa =>
           AuthSignInStep.confirmSignInWithTotpMfaCode,
         // TODO(khatruong2009): confirm ChallengeNameType.emailMfa is added to SDK
-        ChallengeNameType.emailMfa => AuthSignInStep.confirmSignInWithEmailMfaCode,
+        ChallengeNameType.emailOtp => AuthSignInStep.confirmSignInWithEmailMfaCode,
         ChallengeNameType.adminNoSrpAuth ||
         ChallengeNameType.passwordVerifier ||
         ChallengeNameType.devicePasswordVerifier ||
