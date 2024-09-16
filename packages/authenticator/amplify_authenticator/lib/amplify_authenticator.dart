@@ -49,6 +49,7 @@ export 'src/models/totp_options.dart';
 export 'src/models/username_input.dart'
     show UsernameType, UsernameInput, UsernameSelection;
 export 'src/state/authenticator_state.dart';
+export 'src/utils/unmet_password_requirements.dart';
 export 'src/widgets/button.dart'
     show
         SignUpButton,
