@@ -14,7 +14,7 @@ import 'package:test/test.dart';
 void main() {
   AmplifyLogger().logLevel = LogLevel.verbose;
 
-  final userPoolKeys = CognitoUserPoolKeys(userPoolConfig.appClientId);
+  final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
   final identityPoolKeys =
       CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!);
   final testAuthRepo = AmplifyAuthProviderRepository();
@@ -31,7 +31,8 @@ void main() {
         secureStorage,
         userPoolKeys: userPoolKeys,
         identityPoolKeys: identityPoolKeys,
-        deviceKeys: CognitoDeviceKeys(userPoolConfig.appClientId, username),
+        deviceKeys:
+            CognitoDeviceKeys(mockConfig.auth!.userPoolClientId!, username),
       );
       plugin = AmplifyAuthCognitoDart(
         secureStorageFactory: (_) => secureStorage,

@@ -120,8 +120,7 @@ void main() {
       secureStorage = MockSecureStorage();
       stateMachine = CognitoAuthStateMachine()
         ..addInstance(secureStorage)
-        ..addInstance(mockConfig)
-        ..addInstance(authConfig);
+        ..addInstance(mockConfig);
     });
 
     group('User Pool + Identity Pool', () {
