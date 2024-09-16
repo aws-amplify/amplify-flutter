@@ -5,9 +5,9 @@ import { Mfa } from "aws-cdk-lib/aws-cognito";
 import {
   AmplifyConfig,
   AnalyticsConfig,
-  ApiConfig,
+  ApiEndpointConfig,
   AuthConfig,
-  createAmplifyConfig
+  createAmplifyConfig,
 } from "../lib/common";
 
 const region = "us-west-2";
@@ -21,7 +21,7 @@ describe("createAmplifyConfig", () => {
     };
 
     const apiName = "testApi";
-    const apiConfig: ApiConfig = {
+    const apiConfig: ApiEndpointConfig = {
       endpointType: "GraphQL",
       endpoint: "https://example.com",
       authorizationType: "API_KEY",
