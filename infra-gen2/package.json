@@ -28,7 +28,6 @@
     "typescript": "^5.5.4"
   },
   "overrides": {
-    "fast-xml-parser": "^4.4.1",
-    "dset":"3.1.4"
+    "fast-xml-parser": "^4.4.1"
   }
 }
