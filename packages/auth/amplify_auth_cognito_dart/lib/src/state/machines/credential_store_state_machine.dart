@@ -10,7 +10,6 @@ import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
@@ -336,15 +335,11 @@ final class CredentialStoreStateMachine
   /// Migrates AWS Credentials and User Pool tokens.
   Future<CredentialStoreData?> _migrateLegacyCredentials() async {
     final provider = get<LegacyCredentialProvider>();
-    // TODO(nikahsn): remove after refactoring LegacyCredentialProvider
-    final authConfig = expect<AuthConfiguration>();
     if (provider == null) return null;
     CredentialStoreData? legacyData;
     try {
       legacyData = await provider.fetchLegacyCredentials(
-        userPoolConfig: authConfig.userPoolConfig,
-        identityPoolConfig: authConfig.identityPoolConfig,
-        hostedUiConfig: authConfig.hostedUiConfig,
+        _authOutputs,
       );
       if (legacyData != null) {
         await _storeCredentials(legacyData);
@@ -358,14 +353,12 @@ final class CredentialStoreStateMachine
   /// Migrates legacy device secrets.
   Future<void> _migrateDeviceSecrets(String username) async {
     final credentialProvider = get<LegacyCredentialProvider>();
-    // TODO(nikahsn): remove after refactoring LegacyCredentialProvider
-    final authConfig = expect<AuthConfiguration>();
     final userPoolKeys = CognitoUserPoolKeys(_authOutputs.userPoolClientId!);
     if (credentialProvider == null) return;
     try {
       final legacySecrets = await credentialProvider.fetchLegacyDeviceSecrets(
-        username: username,
-        userPoolConfig: authConfig.userPoolConfig,
+        username,
+        _authOutputs,
       );
       if (legacySecrets != null) {
         final secrets = CognitoDeviceSecrets.fromLegacyDeviceDetails(
@@ -387,8 +380,8 @@ final class CredentialStoreStateMachine
     } finally {
       try {
         await credentialProvider.deleteLegacyDeviceSecrets(
-          username: username,
-          userPoolConfig: authConfig.userPoolConfig,
+          username,
+          _authOutputs,
         );
       } on Object catch (e, s) {
         logger.error('Error clearing legacy device secrets', e, s);
@@ -399,14 +392,10 @@ final class CredentialStoreStateMachine
   /// Deletes legacy credentials.
   Future<void> _deleteLegacyCredentials() async {
     final provider = get<LegacyCredentialProvider>();
-    // TODO(nikahsn): remove after refactoring LegacyCredentialProvider
-    final authConfig = expect<AuthConfiguration>();
     if (provider == null) return;
     try {
       await provider.deleteLegacyCredentials(
-        userPoolConfig: authConfig.userPoolConfig,
-        identityPoolConfig: authConfig.identityPoolConfig,
-        hostedUiConfig: authConfig.hostedUiConfig,
+        _authOutputs,
       );
     } on Object catch (e, s) {
       logger.error('Error clearing legacy credentials', e, s);

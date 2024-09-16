@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/src/state/state/auth_state.dart';
-import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 
 /// {@template amplify_auth_cognito_dart.legacy_credential_provider}
 /// Provides methods to fetch and delete legacy credentials if they exist.
@@ -12,30 +13,26 @@ abstract interface class LegacyCredentialProvider {
   const LegacyCredentialProvider();
 
   /// Fetches legacy credentials if they are present.
-  Future<CredentialStoreData?> fetchLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
-  });
+  Future<CredentialStoreData?> fetchLegacyCredentials(
+    AuthOutputs authOutputs,
+  );
 
   /// Fetches legacy device secrets if they are present.
-  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
-    required String username,
-    CognitoUserPoolConfig? userPoolConfig,
-  });
+  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets(
+    String username,
+    AuthOutputs authOutputs,
+  );
 
   /// Deletes legacy credentials if they are present.
-  Future<void> deleteLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
-  });
+  Future<void> deleteLegacyCredentials(
+    AuthOutputs authOutputs,
+  );
 
   /// Deletes legacy device secrets if they are present.
-  Future<void> deleteLegacyDeviceSecrets({
-    required String username,
-    CognitoUserPoolConfig? userPoolConfig,
-  });
+  Future<void> deleteLegacyDeviceSecrets(
+    String username,
+    AuthOutputs authOutputs,
+  );
 }
 
 /// {@template amplify_auth_cognito_dart.legacy_device_details}

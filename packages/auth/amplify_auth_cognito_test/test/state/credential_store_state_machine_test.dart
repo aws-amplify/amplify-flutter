@@ -31,8 +31,7 @@ void main() {
       secureStorage = MockSecureStorage();
       manager = DependencyManager()
         ..addInstance(secureStorage)
-        ..addInstance(mockConfig.auth!)
-        ..addInstance(authConfig);
+        ..addInstance(mockConfig.auth!);
       stateMachine = CognitoAuthStateMachine(dependencyManager: manager);
     });
 
