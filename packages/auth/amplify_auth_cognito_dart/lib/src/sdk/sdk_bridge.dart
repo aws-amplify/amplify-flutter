@@ -886,6 +886,7 @@ extension MfaSettings on CognitoIdentityProviderClient {
         accessToken: accessToken,
         smsMfaSettings: smsMfaSettings,
         softwareTokenMfaSettings: softwareTokenSettings,
+        emailMfaSettings: emailMfaSettings,
       ),
     ).result;
   }
