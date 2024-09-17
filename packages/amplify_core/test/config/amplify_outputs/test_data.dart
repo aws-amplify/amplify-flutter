@@ -99,9 +99,26 @@ const amplifyoutputs = '''{
     ]
   },
   "storage": {
-    "aws_region": "oem dks",
-    "bucket_name": "dolor et esse"
-  },
+    "aws_region": "us-east-2",
+    "bucket_name": "amplifyTeamDrive-one-stora-testbucketgen2bucket0b8c-9ggcfqfunkjr",
+    "buckets": [
+        {
+            "name": "amplifyTeamDrive-one",
+            "bucket_name": "amplifyTeamDrive-one-stora-testbucketgen2bucket0b8c-9ggcfqfunkjr",
+            "aws_region": "us-east-2"
+        },
+        {
+            "name": "amplifyTeamDrive-two",
+            "bucket_name": "amplifyTeamDrive-two-stora-testbucketgen2bucket0b8c-2",
+            "aws_region": "us-east-2"
+        },
+        {
+            "name": "amplifyTeamDrive-three",
+            "bucket_name": "amplifyTeamDrive-three-stora-testbucketgen2bucket0b8c-3",
+            "aws_region": "us-east-2"
+        }
+    ]
+},
   "version": "1"
 }
 ''';
