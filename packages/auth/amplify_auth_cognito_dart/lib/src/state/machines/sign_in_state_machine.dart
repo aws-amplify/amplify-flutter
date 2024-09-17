@@ -211,7 +211,7 @@ final class SignInStateMachine
           (type) => switch (type) {
             'SOFTWARE_TOKEN_MFA' => MfaType.totp,
             'SMS_MFA' => MfaType.sms,
-            'EMAIL_MFA' => MfaType.email,
+            'EMAIL_OTP' => MfaType.email,
             _ => () {
                 logger.error('Unrecognized MFA type: $type');
                 return null;
@@ -326,6 +326,8 @@ final class SignInStateMachine
         createSmsMfaRequest(event),
       ChallengeNameType.softwareTokenMfa when hasUserResponse =>
         createSoftwareTokenMfaRequest(event),
+      ChallengeNameType.emailOtp when hasUserResponse =>
+        createEmailMfaRequest(event),
       ChallengeNameType.selectMfaType when hasUserResponse =>
         createSelectMfaRequest(event),
       ChallengeNameType.mfaSetup when hasUserResponse =>
@@ -686,7 +688,7 @@ final class SignInStateMachine
           CognitoConstants.challengeParamAnswer: switch (selection) {
             'sms' => 'SMS_MFA',
             'totp' => 'SOFTWARE_TOKEN_MFA',
-            'email' => 'EMAIL_MFA',
+            'email' => 'EMAIL_OTP',
             _ => throw ArgumentError('Must be either SMS, Email, or TOTP'),
           },
         })
@@ -954,6 +956,7 @@ final class SignInStateMachine
             accessToken: accessToken,
             sms: enableMfaType == MfaType.sms ? MfaPreference.enabled : null,
             totp: enableMfaType == MfaType.totp ? MfaPreference.enabled : null,
+            email: enableMfaType == MfaType.email ? MfaPreference.enabled : null,
           );
         } on Exception catch (e, st) {
           logger.error(
