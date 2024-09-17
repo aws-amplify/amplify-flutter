@@ -12,7 +12,7 @@ part 'storage_outputs.g.dart';
 class StorageOutputs
     with AWSEquatable<StorageOutputs>, AWSSerializable, AWSDebuggable {
   /// {@macro amplify_core.amplify_outputs.storage_outputs}
-  const StorageOutputs({required this.awsRegion, required this.bucketName});
+  const StorageOutputs({required this.awsRegion, required this.bucketName, this.buckets});
 
   factory StorageOutputs.fromJson(Map<String, Object?> json) =>
       _$StorageOutputsFromJson(json);
@@ -23,6 +23,9 @@ class StorageOutputs
   /// The Amazon S3 bucket name.
   final String bucketName;
 
+  /// The list of buckets if there are multiple buckets for the project
+  final List<Map<String,String>>? buckets;
+  
   @override
   List<Object?> get props => [awsRegion, bucketName];
 
