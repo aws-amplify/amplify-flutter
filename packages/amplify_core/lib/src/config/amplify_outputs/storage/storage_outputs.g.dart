@@ -19,8 +19,7 @@ StorageOutputs _$StorageOutputsFromJson(Map<String, dynamic> json) =>
           buckets: $checkedConvert(
               'buckets',
               (v) => (v as List<dynamic>?)
-                  ?.map((e) =>
-                      StorageOutputBucket.fromJson(e as Map<String, dynamic>))
+                  ?.map((e) => BucketOutput.fromJson(e as Map<String, dynamic>))
                   .toList()),
         );
         return val;
