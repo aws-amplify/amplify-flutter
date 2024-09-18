@@ -110,7 +110,7 @@ Future<void> _handleSignInResult(SignInResult result) async {
     // #enddocregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-email-code, handle-confirm-signin-mfa-setup-selection, handle-confirm-signin-email-setup
     // #docregion handle-confirm-signin-mfa-selection
     case AuthSignInStep.continueSignInWithMfaSelection:
-      final allowedMfaTypes = result.nextStep.allowedMfaTypes!;
+      final allowedMfaTypes = result.nextStep.allowedMfaTypes;
       final selection = await _promptUserPreference(allowedMfaTypes);
       return _handleMfaSelection(selection);
     // #enddocregion handle-confirm-signin-mfa-selection
@@ -126,7 +126,7 @@ Future<void> _handleSignInResult(SignInResult result) async {
     // #enddocregion handle-confirm-signin-mfa-setup-selection
     // #docregion handle-confirm-signin-totp-setup
     case AuthSignInStep.continueSignInWithTotpSetup:
-      final totpSetupDetails = result.nextStep.totpSetupDetails!;
+      final totpSetupDetails = result.nextStep.totpSetupDetails;
       final setupUri = totpSetupDetails.getSetupUri(appName: 'MyApp');
       safePrint('Open URI to complete setup: $setupUri');
     // #enddocregion handle-confirm-signin-totp-setup
@@ -276,7 +276,7 @@ Future<void> signOutGlobally() async {
   if (result is CognitoCompleteSignOut) {
     safePrint('Sign out completed successfully');
   } else if (result is CognitoPartialSignOut) {
-    final globalSignOutException = result.globalSignOutException!;
+    final globalSignOutException = result.globalSignOutException;
     final accessToken = globalSignOutException.accessToken;
     // Retry the global sign out using the access token, if desired
     // ...
