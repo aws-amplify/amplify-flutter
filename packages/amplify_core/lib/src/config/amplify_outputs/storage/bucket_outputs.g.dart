@@ -2,18 +2,18 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 
-part of 'bucket_output.dart';
+part of 'bucket_outputs.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BucketOutput _$BucketOutputFromJson(Map<String, dynamic> json) =>
+BucketOutputs _$BucketOutputsFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
-      'BucketOutput',
+      'BucketOutputs',
       json,
       ($checkedConvert) {
-        final val = BucketOutput(
+        final val = BucketOutputs(
           name: $checkedConvert('name', (v) => v as String),
           bucketName: $checkedConvert('bucket_name', (v) => v as String),
           awsRegion: $checkedConvert('aws_region', (v) => v as String),
@@ -26,7 +26,7 @@ BucketOutput _$BucketOutputFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$BucketOutputToJson(BucketOutput instance) =>
+Map<String, dynamic> _$BucketOutputsToJson(BucketOutputs instance) =>
     <String, dynamic>{
       'name': instance.name,
       'bucket_name': instance.bucketName,
