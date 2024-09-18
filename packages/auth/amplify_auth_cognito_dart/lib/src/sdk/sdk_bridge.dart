@@ -29,10 +29,9 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
         ChallengeNameType.selectMfaType =>
           AuthSignInStep.continueSignInWithMfaSelection,
         ChallengeNameType.mfaSetup =>
-          AuthSignInStep.continueSignInWithTotpSetup,
+          AuthSignInStep.continueSignInWithMfaSetupSelection,
         ChallengeNameType.softwareTokenMfa =>
           AuthSignInStep.confirmSignInWithTotpMfaCode,
-        // TODO(khatruong2009): confirm ChallengeNameType.emailMfa is added to SDK
         ChallengeNameType.emailOtp =>
           AuthSignInStep.confirmSignInWithEmailMfaCode,
         ChallengeNameType.adminNoSrpAuth ||
