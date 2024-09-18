@@ -956,7 +956,8 @@ final class SignInStateMachine
             accessToken: accessToken,
             sms: enableMfaType == MfaType.sms ? MfaPreference.enabled : null,
             totp: enableMfaType == MfaType.totp ? MfaPreference.enabled : null,
-            email: enableMfaType == MfaType.email ? MfaPreference.enabled : null,
+            email:
+                enableMfaType == MfaType.email ? MfaPreference.enabled : null,
           );
         } on Exception catch (e, st) {
           logger.error(

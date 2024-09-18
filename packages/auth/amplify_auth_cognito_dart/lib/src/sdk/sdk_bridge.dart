@@ -33,7 +33,8 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
         ChallengeNameType.softwareTokenMfa =>
           AuthSignInStep.confirmSignInWithTotpMfaCode,
         // TODO(khatruong2009): confirm ChallengeNameType.emailMfa is added to SDK
-        ChallengeNameType.emailOtp => AuthSignInStep.confirmSignInWithEmailMfaCode,
+        ChallengeNameType.emailOtp =>
+          AuthSignInStep.confirmSignInWithEmailMfaCode,
         ChallengeNameType.adminNoSrpAuth ||
         ChallengeNameType.passwordVerifier ||
         ChallengeNameType.devicePasswordVerifier ||
@@ -828,19 +829,40 @@ extension MfaSettings on CognitoIdentityProviderClient {
       return currentlyEnabled || requestingEnabled;
     }
 
-    final preferred = switch ((currentPreference, sms: sms, totp: totp, email: email)) {
+    final preferred =
+        switch ((currentPreference, sms: sms, totp: totp, email: email)) {
       // Prevent an invalid choice.
-      (_, sms: MfaPreference.preferred, totp: MfaPreference.preferred, email: MfaPreference.preferred) =>
+      (
+        _,
+        sms: MfaPreference.preferred,
+        totp: MfaPreference.preferred,
+        email: MfaPreference.preferred
+      ) =>
         throw const InvalidParameterException(
           'Cannot assign multiple MFA methods as preferred',
         ),
 
       // Setting one or the other as preferred overrides previous value.
-      (_, sms: MfaPreference.preferred, totp: != MfaPreference.preferred, email: != MfaPreference.preferred) =>
+      (
+        _,
+        sms: MfaPreference.preferred,
+        totp: != MfaPreference.preferred,
+        email: != MfaPreference.preferred
+      ) =>
         MfaType.sms,
-      (_, sms: != MfaPreference.preferred, totp: MfaPreference.preferred, email: != MfaPreference.preferred) =>
+      (
+        _,
+        sms: != MfaPreference.preferred,
+        totp: MfaPreference.preferred,
+        email: != MfaPreference.preferred
+      ) =>
         MfaType.totp,
-      (_, sms: != MfaPreference.preferred, totp: != MfaPreference.preferred, email: MfaPreference.preferred) =>
+      (
+        _,
+        sms: != MfaPreference.preferred,
+        totp: != MfaPreference.preferred,
+        email: MfaPreference.preferred
+      ) =>
         MfaType.email,
 
       // Setting one or the other as disabled or not preferred removes current
