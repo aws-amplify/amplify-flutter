@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/config/amplify_outputs/storage/bucket_output.dart';
+import 'package:amplify_core/src/config/amplify_outputs/storage/bucket_outputs.dart';
 
 part 'storage_outputs.g.dart';
 
@@ -26,7 +26,7 @@ class StorageOutputs
   final String bucketName;
 
   /// The list of buckets if there are multiple buckets for the project
-  final List<BucketOutput>? buckets;
+  final List<BucketOutputs>? buckets;
 
   @override
   List<Object?> get props => [awsRegion, bucketName, buckets];
