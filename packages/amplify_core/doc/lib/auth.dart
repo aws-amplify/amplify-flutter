@@ -104,7 +104,7 @@ Future<void> resendSignUpCode(String username) async {
 }
 // #enddocregion resend-signup-code
 
-// #docregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code
+// #docregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-email
 Future<void> _handleSignInResult(SignInResult result) async {
   switch (result.nextStep.signInStep) {
     // #enddocregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code
@@ -129,6 +129,11 @@ Future<void> _handleSignInResult(SignInResult result) async {
       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
       _handleCodeDelivery(codeDeliveryDetails);
     // #enddocregion handle-confirm-signin-sms
+    // #docregion handle-confirm-signin-email
+    case AuthSignInStep.confirmSignInWithEmailMfaCode:
+      final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
+      _handleCodeDelivery(codeDeliveryDetails);
+    // #enddocregion handle-confirm-signin-email
     // #docregion handle-confirm-signin-new-password
     case AuthSignInStep.confirmSignInWithNewPassword:
       safePrint('Enter a new password to continue signing in');

@@ -10,7 +10,7 @@ enum AuthSignInStep {
   /// an MFA method.
   continueSignInWithMfaSelection,
 
-  /// The sign-in is not complete and the user must select an MFA method to setup. 
+  /// The sign-in is not complete and the user must select an MFA method to setup.
   continueSignInWithMfaSetupSelection,
 
   /// The sign-in is not complete and a TOTP authenticator app must be
