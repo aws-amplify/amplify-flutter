@@ -13,8 +13,11 @@ part 'storage_outputs.g.dart';
 class StorageOutputs
     with AWSEquatable<StorageOutputs>, AWSSerializable, AWSDebuggable {
   /// {@macro amplify_core.amplify_outputs.storage_outputs}
-  const StorageOutputs({required this.awsRegion, required this.bucketName, this.buckets,});
-
+  const StorageOutputs({
+    required this.awsRegion,
+    required this.bucketName,
+    this.buckets,
+  });
 
   factory StorageOutputs.fromJson(Map<String, Object?> json) =>
       _$StorageOutputsFromJson(json);
