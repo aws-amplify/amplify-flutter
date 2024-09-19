@@ -633,7 +633,7 @@ class ContinueSignInWithMfaSetupSelectionForm extends AuthenticatorForm {
     super.key,
   }) : super._(
           fields: [
-            ConfirmSignInFormField.mfaSelection(),
+            ConfirmSignInFormField.mfaSetupSelection(),
           ],
           actions: const [
             ContinueSignInMFASelectionButton(),
@@ -642,8 +642,9 @@ class ContinueSignInWithMfaSetupSelectionForm extends AuthenticatorForm {
         );
 
   @override
-  AuthenticatorFormState<ContinueSignInWithMfaSetupSelectionForm> createState() =>
-      AuthenticatorFormState<ContinueSignInWithMfaSetupSelectionForm>();
+  AuthenticatorFormState<ContinueSignInWithMfaSetupSelectionForm>
+      createState() =>
+          AuthenticatorFormState<ContinueSignInWithMfaSetupSelectionForm>();
 }
 
 /// {@category Prebuilt Widgets}

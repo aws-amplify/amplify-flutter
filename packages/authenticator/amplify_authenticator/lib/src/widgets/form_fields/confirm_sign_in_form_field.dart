@@ -88,6 +88,15 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         field: ConfirmSignInField.mfaMethod,
       );
 
+  /// creates an mfa preference setup selection component.
+  static ConfirmSignInFormField<MfaType> mfaSetupSelection({
+    Key? key,
+  }) =>
+      _MfaSetupMethodRadioField(
+        key: key ?? keyMfaSetupMethodRadioConfirmSignInFormField,
+        field: ConfirmSignInField.mfaMethod,
+      );
+
   /// Creates a verification code component.
   static ConfirmSignInFormField<String> verificationCode({
     Key? key,

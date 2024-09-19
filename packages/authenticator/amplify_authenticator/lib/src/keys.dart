@@ -52,6 +52,8 @@ const keyCustomChallengeConfirmSignInFormField =
     Key('customChallengeConfirmSignInFormField');
 const keyMfaMethodRadioConfirmSignInFormField =
     Key('mfaMethodRadioConfirmSignInFormField');
+const keyMfaSetupMethodRadioConfirmSignInFormField =
+    Key('mfaSetupMethodRadioConfirmSignInFormField');
 const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
