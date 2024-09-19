@@ -466,8 +466,6 @@ class InputResolver extends Resolver<InputResolverKey> {
         return AuthenticatorLocalizations.inputsOf(context).selectEmail;
       case InputField.totpCodePrompt:
         return AuthenticatorLocalizations.inputsOf(context).totpCodePrompt;
-      case InputField.selectEmail:
-        return AuthenticatorLocalizations.inputsOf(context).selectEmail;
       case InputField.usernameType:
         return AuthenticatorLocalizations.inputsOf(context).usernameType;
     }
