@@ -161,7 +161,7 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   /// The value for the email MFA setup form field
-  /// 
+  ///
   /// This value will be used during continue email MFA setup
   String get mfaEmail => _mfaEmail;
 
@@ -169,7 +169,7 @@ class AuthenticatorState extends ChangeNotifier {
     _mfaEmail = value.trim();
     notifyListeners();
   }
-  
+
   String _mfaEmail = '';
 
   MfaType? _selectedMfaMethod;

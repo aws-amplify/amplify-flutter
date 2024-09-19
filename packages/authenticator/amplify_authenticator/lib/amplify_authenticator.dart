@@ -716,7 +716,8 @@ class _AuthenticatorState extends State<Authenticator> {
                     ContinueSignInWithMfaSetupSelectionForm(),
                 continueSignInWithTotpSetupForm:
                     ContinueSignInWithTotpSetupForm(),
-                continueSignInWithEmailMfaSetupForm: ContinueSignInWithEmailMfaSetupForm(),
+                continueSignInWithEmailMfaSetupForm:
+                    ContinueSignInWithEmailMfaSetupForm(),
                 confirmSignInWithTotpMfaCodeForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),

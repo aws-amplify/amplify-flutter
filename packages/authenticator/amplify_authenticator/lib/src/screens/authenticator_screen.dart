@@ -39,12 +39,14 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 
   const AuthenticatorScreen.confirmSignInWithTotpMfaCode({Key? key})
       : this(key: key, step: AuthenticatorStep.confirmSignInWithTotpMfaCode);
-  
+
   const AuthenticatorScreen.continueSignInWithEmailMfaSetup({Key? key})
       : this(key: key, step: AuthenticatorStep.continueSignInWithEmailMfaSetup);
 
   const AuthenticatorScreen.continueSignInWithMfaSetupSelection({Key? key})
-      : this(key: key, step: AuthenticatorStep.continueSignInWithMfaSetupSelection);
+      : this(
+            key: key,
+            step: AuthenticatorStep.continueSignInWithMfaSetupSelection);
 
   const AuthenticatorScreen.resetPassword({Key? key})
       : this(key: key, step: AuthenticatorStep.resetPassword);

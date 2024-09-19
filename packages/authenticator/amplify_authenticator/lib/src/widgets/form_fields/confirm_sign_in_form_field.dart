@@ -79,7 +79,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         autofillHints: autofillHints,
       );
 
-  /// Creates a mfa preference selection  component.
+  /// Creates an mfa preference selection  component.
   static ConfirmSignInFormField<MfaType> mfaSelection({
     Key? key,
   }) =>
