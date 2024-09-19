@@ -1,3 +1,12 @@
+## 2.4.1
+
+### Fixes
+- fix(datastore): FlutterSerializedModel.extractJsonValue returns `.some(nil)` instead of `nil` ([#5370](https://github.com/aws-amplify/amplify-flutter/pull/5370))
+- fix(api): web socket error handling ([#5359](https://github.com/aws-amplify/amplify-flutter/pull/5359))
+
+### Chores
+- chore(deps): Amplify Android 2.21.1 ([#5376](https://github.com/aws-amplify/amplify-flutter/pull/5376))
+
 ## 2.4.0
 
 ### Features

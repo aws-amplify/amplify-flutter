@@ -1,3 +1,8 @@
+## 2.4.1
+
+### Fixes
+- fix(api): web socket error handling ([#5359](https://github.com/aws-amplify/amplify-flutter/pull/5359))
+
 ## 2.4.0
 
 ### Features

@@ -1,3 +1,8 @@
+## 0.7.3
+
+### Features
+- feat(aws_common): Generated new AWSService constructors ([#5378](https://github.com/aws-amplify/amplify-flutter/pull/5378))
+
 ## 0.7.2
 
 - Minor bug fixes and improvements
