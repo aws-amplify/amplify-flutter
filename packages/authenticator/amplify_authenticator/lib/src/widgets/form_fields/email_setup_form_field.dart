@@ -7,7 +7,7 @@ part of '../form_field.dart';
 /// {@template amplify_authenticator.email_setup_form_field}
 /// A prebuilt form field widget for use on the Email MFA setup step.
 /// {@endtemplate}
-abstract class EmailSetupFormField<FieldValue extends Object> 
+abstract class EmailSetupFormField<FieldValue extends Object>
     extends AuthenticatorFormField<EmailSetupField, FieldValue> {
   /// {@macro amplify_authenticator.email_setup_form_field}
   ///
@@ -52,7 +52,6 @@ abstract class _EmailSetupFormFieldState<FieldValue extends Object>
     return [AutofillHints.email];
   }
 
-  @override
   bool get required {
     switch (widget.field) {
       case EmailSetupField.email:
@@ -76,7 +75,7 @@ class _EmailSetupTextField extends EmailSetupFormField<String> {
     super.validator,
     super.autofillHints,
   }) : super._();
-  
+
   @override
   _EmailSetupTextFieldState createState() => _EmailSetupTextFieldState();
 }
