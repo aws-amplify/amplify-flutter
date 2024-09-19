@@ -16,6 +16,7 @@ class InheritedForms extends InheritedWidget {
     required this.confirmResetPasswordForm,
     required this.confirmSignInNewPasswordForm,
     required this.continueSignInWithMfaSelectionForm,
+    required this.continueSignInWithMfaSetupSelectionForm,
     required this.continueSignInWithTotpSetupForm,
     required this.continueSignInWithEmailMfaSetupForm,
     required this.confirmSignInWithTotpMfaCodeForm,
@@ -31,6 +32,8 @@ class InheritedForms extends InheritedWidget {
   final ConfirmSignInMFAForm confirmSignInMFAForm;
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
   final ContinueSignInWithMfaSelectionForm continueSignInWithMfaSelectionForm;
+  final ContinueSignInWithMfaSetupSelectionForm
+      continueSignInWithMfaSetupSelectionForm;
   final ContinueSignInWithTotpSetupForm continueSignInWithTotpSetupForm;
   final ContinueSignInWithEmailMfaSetupForm continueSignInWithEmailMfaSetupForm;
   final ConfirmSignInMFAForm confirmSignInWithTotpMfaCodeForm;
@@ -58,7 +61,7 @@ class InheritedForms extends InheritedWidget {
       case AuthenticatorStep.continueSignInWithMfaSelection:
         return continueSignInWithMfaSelectionForm;
       case AuthenticatorStep.continueSignInWithMfaSetupSelection:
-      // TODO(khatruong2009): Implement this form
+        return continueSignInWithMfaSetupSelectionForm;
       case AuthenticatorStep.continueSignInWithTotpSetup:
         return continueSignInWithTotpSetupForm;
       case AuthenticatorStep.confirmSignInWithTotpMfaCode:

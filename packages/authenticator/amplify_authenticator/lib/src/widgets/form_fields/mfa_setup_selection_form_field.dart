@@ -1,32 +1,34 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// mfa_setup_selection_form_field.dart
+
+// Copyright Amazon.com, Inc. or its affiliates.
+// All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 part of '../form_field.dart';
 
 /// {@category Prebuilt Widgets}
-/// {@template amplify_authenticator.mfa_selection_form_field}
-/// A prebuilt form widget for use on the MFA selection step.
+/// {@template amplify_authenticator.mfa_setup_selection_form_field}
+/// A prebuilt form widget for use on the MFA setup selection step.
 /// {@endtemplate}
-
-class _MfaMethodRadioField extends ConfirmSignInFormField<MfaType> {
-  const _MfaMethodRadioField({
+class _MfaSetupMethodRadioField extends ConfirmSignInFormField<MfaType> {
+  const _MfaSetupMethodRadioField({
     super.key,
     required super.field,
   }) : super._();
 
   @override
-  _MfaSelectionFieldState createState() => _MfaSelectionFieldState();
+  _MfaSetupSelectionFieldState createState() => _MfaSetupSelectionFieldState();
 }
 
-class _MfaSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
+class _MfaSetupSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
     with AuthenticatorRadioField {
   Set<MfaType> get _allowedMfaTypes {
     final state = InheritedAuthBloc.of(context).currentState;
     assert(
-      state is ContinueSignInWithMfaSelection,
-      'Expected ContinueSignInWithMfaSelection for current screen',
+      state is ContinueSignInWithMfaSetupSelection,
+      'Expected ContinueSignInWithMfaSetupSelection for current screen',
     );
-    return (state as ContinueSignInWithMfaSelection).allowedMfaTypes;
+    return (state as ContinueSignInWithMfaSetupSelection).allowedMfaTypes;
   }
 
   @override
@@ -35,11 +37,6 @@ class _MfaSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
           const InputSelection<InputResolverKey, MfaType>(
             label: InputResolverKey.selectTotp,
             value: MfaType.totp,
-          ),
-        if (_allowedMfaTypes.contains(MfaType.sms))
-          const InputSelection<InputResolverKey, MfaType>(
-            label: InputResolverKey.selectSms,
-            value: MfaType.sms,
           ),
         if (_allowedMfaTypes.contains(MfaType.email))
           const InputSelection<InputResolverKey, MfaType>(
@@ -61,6 +58,6 @@ class _MfaSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
 
   @override
   ValueChanged<MfaType> get onChanged {
-    return (MfaType key) => state.selectedMfaMethod = key;
+    return (MfaType method) => state.selectedMfaMethod = method;
   }
 }
