@@ -887,7 +887,7 @@ extension on String {
   MfaType get mfaType => switch (this) {
         'SOFTWARE_TOKEN_MFA' => MfaType.totp,
         'SMS_MFA' => MfaType.sms,
-        'EMAIL_MFA' => MfaType.email,
+        'EMAIL_OTP' => MfaType.email,
         final invalidType => throw StateError('Invalid MFA type: $invalidType'),
       };
 }
