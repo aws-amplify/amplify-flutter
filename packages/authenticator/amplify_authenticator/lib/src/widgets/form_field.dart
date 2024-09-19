@@ -30,6 +30,7 @@ part 'form_fields/confirm_sign_in_form_field.dart';
 part 'form_fields/confirm_sign_up_form_field.dart';
 part 'form_fields/email_setup_form_field.dart';
 part 'form_fields/mfa_selection_form_field.dart';
+part 'form_fields/mfa_setup_selection_form_field.dart';
 part 'form_fields/phone_number_field.dart';
 part 'form_fields/reset_password_form_field.dart';
 part 'form_fields/sign_in_form_field.dart';
