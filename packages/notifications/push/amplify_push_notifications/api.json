@@ -1,0 +1,223 @@
+{
+    "version": 3,
+    "packageApi": {
+        "packageName": "amplify_push_notifications",
+        "packageVersion": "2.4.1",
+        "interfaceDeclarations": [
+            {
+                "name": "AmplifyPushNotifications",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isSealed": false,
+                "isRequired": false,
+                "typeParameterNames": [],
+                "superTypeNames": [
+                    "PushNotificationsPluginInterface",
+                    "AmplifyPluginInterface",
+                    "Object"
+                ],
+                "executableDeclarations": [
+                    {
+                        "returnTypeName": "AmplifyPushNotifications",
+                        "name": "AmplifyPushNotifications",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": true,
+                                "name": "serviceProviderClient",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "ServiceProviderClient",
+                                "relativePath": "lib/src/amplify_push_notifications_impl.dart"
+                            },
+                            {
+                                "isRequired": true,
+                                "isNamed": true,
+                                "name": "backgroundProcessor",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "Future<void> Function()",
+                                "relativePath": "lib/src/amplify_push_notifications_impl.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "dependencyManager",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "DependencyManager?",
+                                "relativePath": "lib/src/amplify_push_notifications_impl.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/amplify_push_notifications_impl.dart"
+                    }
+                ],
+                "fieldDeclarations": [
+                    {
+                        "typeName": "PushNotificationMessage?",
+                        "name": "launchNotification",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/amplify_push_notifications_impl.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "Stream<String>",
+                        "name": "onTokenReceived",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/amplify_push_notifications_impl.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "Stream<PushNotificationMessage>",
+                        "name": "onNotificationReceivedInForeground",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/amplify_push_notifications_impl.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "Stream<PushNotificationMessage>",
+                        "name": "onNotificationOpened",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/amplify_push_notifications_impl.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    }
+                ],
+                "entryPoints": [
+                    "amplify_push_notifications.dart"
+                ],
+                "relativePath": "lib/src/amplify_push_notifications_impl.dart"
+            }
+        ],
+        "executableDeclarations": [],
+        "fieldDeclarations": [
+            {
+                "typeName": "String",
+                "name": "configSecureStorageKey",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isStatic": true,
+                "entryPoints": [
+                    "amplify_push_notifications.dart"
+                ],
+                "relativePath": "lib/src/amplify_push_notifications_impl.dart",
+                "isReadable": true,
+                "isWriteable": false
+            },
+            {
+                "typeName": "EventChannel",
+                "name": "tokenReceivedEventChannel",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isStatic": true,
+                "entryPoints": [
+                    "amplify_push_notifications.dart"
+                ],
+                "relativePath": "lib/src/amplify_push_notifications_impl.dart",
+                "isReadable": true,
+                "isWriteable": false
+            },
+            {
+                "typeName": "EventChannel",
+                "name": "notificationOpenedEventChannel",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isStatic": true,
+                "entryPoints": [
+                    "amplify_push_notifications.dart"
+                ],
+                "relativePath": "lib/src/amplify_push_notifications_impl.dart",
+                "isReadable": true,
+                "isWriteable": false
+            },
+            {
+                "typeName": "EventChannel",
+                "name": "foregroundNotificationEventChannel",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isStatic": true,
+                "entryPoints": [
+                    "amplify_push_notifications.dart"
+                ],
+                "relativePath": "lib/src/amplify_push_notifications_impl.dart",
+                "isReadable": true,
+                "isWriteable": false
+            },
+            {
+                "typeName": "String",
+                "name": "externalHandleKey",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isStatic": true,
+                "entryPoints": [
+                    "amplify_push_notifications.dart"
+                ],
+                "relativePath": "lib/src/amplify_push_notifications_impl.dart",
+                "isReadable": true,
+                "isWriteable": false
+            }
+        ],
+        "typeAliasDeclarations": [],
+        "semantics": [
+            "containsPlatformConstraints"
+        ],
+        "iosPlatformConstraints": {
+            "minimumOsVersion": 13.0
+        },
+        "androidPlatformConstraints": {
+            "minSdkVersion": 24,
+            "compileSdkVersion": null,
+            "targetSdkVersion": null
+        },
+        "sdkType": "flutter",
+        "minSdkVersion": "3.3.0",
+        "packageDependencies": [
+            {
+                "packageName": "amplify_core",
+                "packageVersion": ">=2.4.1 <2.5.0"
+            },
+            {
+                "packageName": "amplify_secure_storage",
+                "packageVersion": ">=0.5.5 <0.6.0"
+            },
+            {
+                "packageName": "async",
+                "packageVersion": "^2.10.0"
+            },
+            {
+                "packageName": "flutter_plugin_android_lifecycle",
+                "packageVersion": "^2.0.9"
+            },
+            {
+                "packageName": "os_detect",
+                "packageVersion": "^2.0.0"
+            },
+            {
+                "packageName": "shared_preferences",
+                "packageVersion": "^2.0.15"
+            }
+        ]
+    },
+    "missingEntryPoints": []
+}
