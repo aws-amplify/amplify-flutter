@@ -794,92 +794,77 @@ extension MfaSettings on CognitoIdentityProviderClient {
 
   /// Sets the MFA settings for the user.
   Future<void> setMfaSettings({
-  required String accessToken,
-  MfaPreference? sms,
-  MfaPreference? totp,
-  MfaPreference? email,
-}) async {
-  final UserMfaPreference(
-    enabled: currentEnabled,
-    preferred: currentPreference
-  ) = await _getRawUserSettings(
-    accessToken: accessToken,
-  );
+    required String accessToken,
+    MfaPreference? sms,
+    MfaPreference? totp,
+    MfaPreference? email,
+  }) async {
+    final UserMfaPreference(
+      enabled: currentEnabled,
+      preferred: currentPreference,
+    ) = await _getRawUserSettings(accessToken: accessToken);
 
-  const enabledValues = [
-    MfaPreference.enabled,
-    MfaPreference.notPreferred,
-    MfaPreference.preferred,
-  ];
+    final newPreferredMethods = [
+      if (sms == MfaPreference.preferred) MfaType.sms,
+      if (totp == MfaPreference.preferred) MfaType.totp,
+      if (email == MfaPreference.preferred) MfaType.email,
+    ];
 
-  bool isEnabled(MfaType mfaType) {
-    final explicitlyDisabled = switch (mfaType) {
-      MfaType.sms => sms == MfaPreference.disabled,
-      MfaType.totp => totp == MfaPreference.disabled,
-      MfaType.email => email == MfaPreference.disabled,
-    };
-    if (explicitlyDisabled) {
-      return false;
+    if (newPreferredMethods.length > 1) {
+      throw const InvalidParameterException(
+        'Cannot assign multiple MFA methods as preferred',
+      );
     }
-    final currentlyEnabled = currentEnabled.contains(mfaType);
-    final requestingEnabled = switch (mfaType) {
-      MfaType.sms => enabledValues.contains(sms),
-      MfaType.totp => enabledValues.contains(totp),
-      MfaType.email => enabledValues.contains(email),
-    };
-    return currentlyEnabled || requestingEnabled;
-  }
 
-  // Count the number of MFA methods set to preferred
-  final preferredMethods = [
-    if (sms == MfaPreference.preferred) MfaType.sms,
-    if (totp == MfaPreference.preferred) MfaType.totp,
-    if (email == MfaPreference.preferred) MfaType.email,
-  ];
+    var preferred = newPreferredMethods.isNotEmpty
+        ? newPreferredMethods.first
+        : currentPreference;
 
-  if (preferredMethods.length > 1) {
-    throw const InvalidParameterException(
-      'Cannot assign multiple MFA methods as preferred',
-    );
-  }
-
-  MfaType? preferred;
-  if (preferredMethods.isNotEmpty) {
-    preferred = preferredMethods.first;
-  } else {
-    // Check if the current preference needs to be removed
     final isCurrentPreferenceDisabled = switch (currentPreference) {
-      MfaType.sms => sms == MfaPreference.disabled || sms == MfaPreference.notPreferred,
-      MfaType.totp => totp == MfaPreference.disabled || totp == MfaPreference.notPreferred,
-      MfaType.email => email == MfaPreference.disabled || email == MfaPreference.notPreferred,
+      MfaType.sms =>
+        sms == MfaPreference.disabled || sms == MfaPreference.notPreferred,
+      MfaType.totp =>
+        totp == MfaPreference.disabled || totp == MfaPreference.notPreferred,
+      MfaType.email =>
+        email == MfaPreference.disabled || email == MfaPreference.notPreferred,
       _ => false,
     };
-    preferred = isCurrentPreferenceDisabled ? null : currentPreference;
+    preferred = isCurrentPreferenceDisabled ? null : preferred;
+
+    const enabledValues = [
+      MfaPreference.enabled,
+      MfaPreference.notPreferred,
+      MfaPreference.preferred,
+    ];
+
+    bool isMfaEnabled(MfaType mfaType, MfaPreference? preference) {
+      if (preference == MfaPreference.disabled) return false;
+      return currentEnabled.contains(mfaType) ||
+          enabledValues.contains(preference);
+    }
+
+    final smsMfaSettings = SmsMfaSettingsType(
+      enabled: isMfaEnabled(MfaType.sms, sms),
+      preferredMfa: preferred == MfaType.sms,
+    );
+    final softwareTokenSettings = SoftwareTokenMfaSettingsType(
+      enabled: isMfaEnabled(MfaType.totp, totp),
+      preferredMfa: preferred == MfaType.totp,
+    );
+    final emailMfaSettings = EmailMfaSettingsType(
+      enabled: isMfaEnabled(MfaType.email, email),
+      preferredMfa: preferred == MfaType.email,
+    );
+
+    await setUserMfaPreference(
+      SetUserMfaPreferenceRequest(
+        accessToken: accessToken,
+        smsMfaSettings: smsMfaSettings,
+        softwareTokenMfaSettings: softwareTokenSettings,
+        emailMfaSettings: emailMfaSettings,
+      ),
+    ).result;
   }
-
-  final smsMfaSettings = SmsMfaSettingsType(
-    enabled: isEnabled(MfaType.sms),
-    preferredMfa: preferred == MfaType.sms,
-  );
-  final softwareTokenSettings = SoftwareTokenMfaSettingsType(
-    enabled: isEnabled(MfaType.totp),
-    preferredMfa: preferred == MfaType.totp,
-  );
-  final emailMfaSettings = EmailMfaSettingsType(
-    enabled: isEnabled(MfaType.email),
-    preferredMfa: preferred == MfaType.email,
-  );
-
-  await setUserMfaPreference(
-    SetUserMfaPreferenceRequest(
-      accessToken: accessToken,
-      smsMfaSettings: smsMfaSettings,
-      softwareTokenMfaSettings: softwareTokenSettings,
-      emailMfaSettings: emailMfaSettings,
-    ),
-  ).result;
-}
-
 }
 
 extension on String {
