@@ -11,6 +11,7 @@ export '../exception/amplify_exception.dart'
         StorageOperationCanceledException,
         NetworkException,
         UnknownException;
+export 'bucket_info.dart';
 export 'copy_operation.dart';
 export 'copy_options.dart';
 export 'copy_request.dart';
@@ -44,6 +45,7 @@ export 'remove_operation.dart';
 export 'remove_options.dart';
 export 'remove_request.dart';
 export 'remove_result.dart';
+export 'storage_bucket.dart';
 export 'storage_item.dart';
 export 'storage_path.dart';
 export 'transfer_progress.dart';
