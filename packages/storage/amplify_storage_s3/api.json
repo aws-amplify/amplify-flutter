@@ -1,0 +1,93 @@
+{
+    "version": 3,
+    "packageApi": {
+        "packageName": "amplify_storage_s3",
+        "packageVersion": "2.4.1",
+        "interfaceDeclarations": [
+            {
+                "name": "AmplifyStorageS3",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isSealed": false,
+                "isRequired": false,
+                "typeParameterNames": [],
+                "superTypeNames": [
+                    "AmplifyStorageS3Dart",
+                    "StoragePluginInterface",
+                    "AmplifyPluginInterface",
+                    "Object",
+                    "AWSDebuggable",
+                    "AWSLoggerMixin"
+                ],
+                "executableDeclarations": [
+                    {
+                        "returnTypeName": "AmplifyStorageS3",
+                        "name": "AmplifyStorageS3",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/amplify_storage_s3_impl.dart"
+                    }
+                ],
+                "fieldDeclarations": [
+                    {
+                        "typeName": "StoragePluginKey<AmplifyStorageS3>",
+                        "name": "pluginKey",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": true,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/amplify_storage_s3_impl.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    }
+                ],
+                "entryPoints": [
+                    "amplify_storage_s3.dart"
+                ],
+                "relativePath": "lib/src/amplify_storage_s3_impl.dart"
+            }
+        ],
+        "executableDeclarations": [],
+        "fieldDeclarations": [],
+        "typeAliasDeclarations": [],
+        "semantics": [
+            "containsPlatformConstraints"
+        ],
+        "iosPlatformConstraints": null,
+        "androidPlatformConstraints": null,
+        "sdkType": "flutter",
+        "minSdkVersion": "3.3.0",
+        "packageDependencies": [
+            {
+                "packageName": "amplify_core",
+                "packageVersion": ">=2.4.1 <2.5.0"
+            },
+            {
+                "packageName": "amplify_db_common",
+                "packageVersion": ">=0.4.5 <0.5.0"
+            },
+            {
+                "packageName": "amplify_storage_s3_dart",
+                "packageVersion": ">=0.4.5 <0.5.0"
+            },
+            {
+                "packageName": "aws_common",
+                "packageVersion": ">=0.7.3 <0.8.0"
+            },
+            {
+                "packageName": "meta",
+                "packageVersion": "^1.7.0"
+            },
+            {
+                "packageName": "path_provider",
+                "packageVersion": "^2.0.0"
+            }
+        ]
+    },
+    "missingEntryPoints": []
+}
