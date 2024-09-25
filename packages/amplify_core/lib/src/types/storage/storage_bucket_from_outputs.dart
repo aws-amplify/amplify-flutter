@@ -23,16 +23,8 @@ class StorageBucketFromOutputs implements StorageBucket {
             'file has storage configuration.',
       ),
     );
-
-    final bucket = storageOutputs!.buckets?.singleWhere(
-      (e) => e.name == _name,
-      orElse: () => throw const InvalidStorageBucketException(
-        'Unable to lookup bucket from provided name in Amplify Outputs file.',
-        recoverySuggestion: 'Make sure Amplify Outputs file has the specified '
-            'bucket configuration.',
-      ),
-    );
-    if (bucket == null) {
+    final buckets = storageOutputs!.buckets;
+    if (buckets == null) {
       throw const InvalidStorageBucketException(
         'Amplify Outputs storage configuration does not have buckets specified.',
         recoverySuggestion:
@@ -40,6 +32,17 @@ class StorageBucketFromOutputs implements StorageBucket {
             'buckets specified.',
       );
     }
-    return BucketInfo(bucketName: bucket.bucketName, region: bucket.awsRegion);
+    final bucket = buckets.singleWhere(
+      (e) => e.name == _name,
+      orElse: () => throw const InvalidStorageBucketException(
+        'Unable to lookup bucket from provided name in Amplify Outputs file.',
+        recoverySuggestion: 'Make sure Amplify Outputs file has the specified '
+            'bucket configuration.',
+      ),
+    );
+    return BucketInfo(
+      bucketName: bucket.bucketName,
+      region: bucket.awsRegion,
+    );
   }
 }
