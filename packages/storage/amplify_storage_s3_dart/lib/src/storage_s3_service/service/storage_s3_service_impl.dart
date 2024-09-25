@@ -14,6 +14,7 @@ import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart'
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
     as endpoint_resolver;
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/s3_client_info.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
     as transfer;
@@ -84,10 +85,8 @@ class StorageS3Service {
                 ..supportedProtocols = SupportedProtocols.http1,
             ),
         _pathResolver = pathResolver,
+        _credentialsProvider = credentialsProvider,
         _logger = logger,
-        // dependencyManager.get() => sigv4.AWSSigV4Signer is used for unit tests
-        _awsSigV4Signer = dependencyManager.get() ??
-            sigv4.AWSSigV4Signer(credentialsProvider: credentialsProvider),
         _dependencyManager = dependencyManager,
         _serviceStartingTime = DateTime.now();
 
@@ -101,14 +100,10 @@ class StorageS3Service {
   final s3.S3Client _defaultS3Client;
   final S3PathResolver _pathResolver;
   final AWSLogger _logger;
-  final sigv4.AWSSigV4Signer _awsSigV4Signer;
   final DependencyManager _dependencyManager;
   final DateTime _serviceStartingTime;
-
-  sigv4.AWSCredentialScope get _signerScope => sigv4.AWSCredentialScope(
-        region: _storageOutputs.awsRegion,
-        service: AWSService.s3,
-      );
+  final AWSIamAmplifyAuthProvider _credentialsProvider;
+  final Map<String, S3ClientInfo> _s3ClientsInfo = {};
 
   transfer.TransferDatabase get _transferDatabase =>
       _dependencyManager.getOrCreate();
@@ -261,10 +256,20 @@ class StorageS3Service {
       path: '/$resolvedPath',
     );
 
+    // dependencyManager.get<sigv4.AWSSigV4Signer>() is used for unit tests
+    final awsSigV4Signer = _dependencyManager.get<sigv4.AWSSigV4Signer>() ??
+        sigv4.AWSSigV4Signer(
+          credentialsProvider: _credentialsProvider,
+        );
+    final signerScope = sigv4.AWSCredentialScope(
+      region: _storageOutputs.awsRegion,
+      service: AWSService.s3,
+    );
+
     return S3GetUrlResult(
-      url: await _awsSigV4Signer.presign(
+      url: await awsSigV4Signer.presign(
         urlRequest,
-        credentialScope: _signerScope,
+        credentialScope: signerScope,
         expiresIn: s3PluginOptions.expiresIn,
         serviceConfiguration: _defaultS3SignerConfiguration,
       ),
@@ -323,12 +328,17 @@ class StorageS3Service {
     void Function(S3TransferProgress)? onProgress,
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
+    StorageBucket? bucket,
   }) {
+    // ignore: invalid_use_of_internal_member
+    final bucketName = bucket?.resolveBucketInfo(_storageOutputs).bucketName ??
+        _storageOutputs.bucketName;
+    final s3ClientInfo = _getS3ClientInfo(bucket);
     final uploadDataTask = S3UploadTask.fromDataPayload(
       dataPayload,
-      s3Client: _defaultS3Client,
-      defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _storageOutputs.bucketName,
+      s3Client: s3ClientInfo.client,
+      defaultS3ClientConfig: s3ClientInfo.config,
+      bucket: bucketName,
       path: path,
       options: options,
       pathResolver: _pathResolver,
@@ -610,5 +620,46 @@ class StorageS3Service {
         _logger.error('Failed to abort multipart upload due to: $error');
       }
     }
+  }
+
+  S3ClientInfo _getS3ClientInfo(StorageBucket? storageBucket) {
+    if (storageBucket == null) {
+      return S3ClientInfo(
+        client: _defaultS3Client,
+        config: _defaultS3ClientConfig,
+      );
+    }
+    // ignore: invalid_use_of_internal_member
+    final bucketInfo = storageBucket.resolveBucketInfo(_storageOutputs);
+    if (_s3ClientsInfo[bucketInfo.bucketName] != null) {
+      return _s3ClientsInfo[bucketInfo.bucketName]!;
+    }
+
+    final usePathStyle = bucketInfo.bucketName.contains('.');
+    if (usePathStyle) {
+      _logger.warn(
+          'Since your bucket name contains dots (`"."`), the StorageS3 plugin'
+          ' will use path style URLs to communicate with the S3 service. S3'
+          ' Transfer acceleration is not supported for path style URLs. For more'
+          ' information, refer to:'
+          ' https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html');
+    }
+    final s3ClientConfig = smithy_aws.S3ClientConfig(
+      signerConfiguration: _defaultS3SignerConfiguration,
+      usePathStyle: usePathStyle,
+    );
+    final s3Client = s3.S3Client(
+      region: bucketInfo.region,
+      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig,
+      client: AmplifyHttpClient(_dependencyManager)
+        ..supportedProtocols = SupportedProtocols.http1,
+    );
+    final s3ClientInfo = S3ClientInfo(
+      client: s3Client,
+      config: s3ClientConfig,
+    );
+    _s3ClientsInfo[bucketInfo.bucketName] = s3ClientInfo;
+    return s3ClientInfo;
   }
 }
