@@ -230,8 +230,9 @@ abstract class AuthenticatorFormFieldState<
       case AuthenticatorStep.confirmSignInCustomAuth:
         state.confirmSignInCustomAuth();
       case AuthenticatorStep.confirmSignInMfa:
-      case AuthenticatorStep.confirmSignInWithEmailMfaCode:
         state.confirmSignInMFA();
+      case AuthenticatorStep.confirmSignInWithEmailMfaCode:
+        state.confirmEmailMfa();
       case AuthenticatorStep.confirmSignInNewPassword:
         state.confirmSignInNewPassword();
       case AuthenticatorStep.confirmSignInWithTotpMfaCode:

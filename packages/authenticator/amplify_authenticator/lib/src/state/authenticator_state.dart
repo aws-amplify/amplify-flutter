@@ -426,6 +426,23 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(false);
   }
 
+  /// complete Email MFA setup using the values for [confirmationCode]
+  Future<void> confirmEmailMfa() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    _setIsBusy(true);
+
+    final confirm = AuthConfirmSignInData(
+      confirmationValue: _confirmationCode.trim(),
+    );
+
+    _authBloc.add(AuthConfirmSignIn(confirm));
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
   /// Complete MFA setup using the values for [confirmationCode]
   Future<void> continueEmailMfaSetup() async {
     if (!_formKey.currentState!.validate()) {
