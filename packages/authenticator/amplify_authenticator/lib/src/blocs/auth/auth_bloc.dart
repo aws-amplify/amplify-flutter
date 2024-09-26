@@ -218,7 +218,6 @@ class StateMachineBloc
 
       switch (result.nextStep.signInStep) {
         case AuthSignInStep.confirmSignInWithSmsMfaCode:
-        case AuthSignInStep.confirmSignInWithEmailMfaCode:
           yield UnauthenticatedState.confirmSignInMfa;
         case AuthSignInStep.confirmSignInWithCustomChallenge:
           yield ConfirmSignInCustom(
@@ -324,7 +323,6 @@ class StateMachineBloc
   }) async {
     switch (result.nextStep.signInStep) {
       case AuthSignInStep.confirmSignInWithSmsMfaCode:
-      case AuthSignInStep.confirmSignInWithEmailMfaCode:
         _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
         _emit(UnauthenticatedState.confirmSignInMfa);
       case AuthSignInStep.confirmSignInWithCustomChallenge:

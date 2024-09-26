@@ -150,13 +150,13 @@ abstract class AuthenticatorTitleLocalizations {
   /// Title of the Continue Sign In with Email MFA Setup step and form
   ///
   /// In en, this message translates to:
-  /// **'Set up Email Two-Factor Auth'**
+  /// **'Add Email for Two-Factor Authentication'**
   String get continueSignInWithEmailMfaSetup;
 
   /// Title of the Continue Sign In with MFA Setup Selection step and form
   ///
   /// In en, this message translates to:
-  /// **'Select a Two-Factor Auth method to set up'**
+  /// **'Choose your preferred two-factor authentication method to set up'**
   String get continueSignInWithMfaSetupSelection;
 
   /// Title of the Reset Password step and form

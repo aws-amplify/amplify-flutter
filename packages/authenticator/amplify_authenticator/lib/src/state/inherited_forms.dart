@@ -20,6 +20,7 @@ class InheritedForms extends InheritedWidget {
     required this.continueSignInWithTotpSetupForm,
     required this.continueSignInWithEmailMfaSetupForm,
     required this.confirmSignInWithTotpMfaCodeForm,
+    required this.confirmSignInWithEmailMfaCodeForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
     required super.child,
@@ -37,6 +38,7 @@ class InheritedForms extends InheritedWidget {
   final ContinueSignInWithTotpSetupForm continueSignInWithTotpSetupForm;
   final ContinueSignInWithEmailMfaSetupForm continueSignInWithEmailMfaSetupForm;
   final ConfirmSignInMFAForm confirmSignInWithTotpMfaCodeForm;
+  final ConfirmSignInMFAForm confirmSignInWithEmailMfaCodeForm;
   final ResetPasswordForm resetPasswordForm;
   final ConfirmResetPasswordForm confirmResetPasswordForm;
   final VerifyUserForm verifyUserForm;
@@ -69,7 +71,7 @@ class InheritedForms extends InheritedWidget {
       case AuthenticatorStep.continueSignInWithEmailMfaSetup:
         return continueSignInWithEmailMfaSetupForm;
       case AuthenticatorStep.confirmSignInWithEmailMfaCode:
-        return confirmSignInMFAForm;
+        return confirmSignInWithEmailMfaCodeForm;
       case AuthenticatorStep.resetPassword:
         return resetPasswordForm;
       case AuthenticatorStep.confirmResetPassword:
@@ -116,6 +118,8 @@ class InheritedForms extends InheritedWidget {
             continueSignInWithTotpSetupForm ||
         oldWidget.confirmSignInWithTotpMfaCodeForm !=
             confirmSignInWithTotpMfaCodeForm ||
+        oldWidget.confirmSignInWithEmailMfaCodeForm !=
+            confirmSignInWithEmailMfaCodeForm ||
         oldWidget.continueSignInWithEmailMfaSetupForm !=
             continueSignInWithEmailMfaSetupForm ||
         oldWidget.continueSignInWithMfaSelectionForm !=
