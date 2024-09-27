@@ -5,6 +5,7 @@ import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/dial_code_resolver.dart';
 import 'package:amplify_authenticator/src/utils/breakpoint.dart';
 import 'package:amplify_authenticator/src/utils/dial_code.dart';
+import 'package:amplify_authenticator/src/utils/dial_code_to_length.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:collection/collection.dart';
@@ -47,10 +48,18 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
     return phoneNumber?.ensureStartsWith('+${state.dialCode.value}');
   }
 
-  String displayPhoneNumber(String phoneNumber) {
+  String displayPhoneNumber(String? phoneNumber) {
+    phoneNumber = phoneNumber ?? '';
     final prefix = '+${state.dialCode.value}';
     if (phoneNumber.startsWith(prefix)) {
       phoneNumber = phoneNumber.substring(prefix.length);
+    }
+    // this is to handle the case where the user may errantly input their dial code again in their phone number
+    // we make sure the user's phone number doesn't naturally just start with their dial code by checking if the number exceeds the maximum phone length of the country's phone number scheme before truncating it
+    if (phoneNumber.startsWith(prefix.substring(1))) {
+      if (countryPhoneNumberLengths.containsKey(prefix) && phoneNumber.length > countryPhoneNumberLengths[prefix]!){
+        phoneNumber = phoneNumber.substring(prefix.length-1);
+      }
     }
     return phoneNumber;
   }

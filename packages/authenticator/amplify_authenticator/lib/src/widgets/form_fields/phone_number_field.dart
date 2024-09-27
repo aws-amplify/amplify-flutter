@@ -86,11 +86,12 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
   @override
   FormFieldValidator<String> get validator {
     return (String? phoneNumber) {
-      phoneNumber = formatPhoneNumber(phoneNumber);
       final validator = widget.validator;
       if (validator != null) {
+        phoneNumber = formatPhoneNumber(phoneNumber);
         return validator(phoneNumber);
       }
+      phoneNumber = displayPhoneNumber(phoneNumber);
       return validatePhoneNumber(
         inputResolver: stringResolver.inputs,
         context: context,
