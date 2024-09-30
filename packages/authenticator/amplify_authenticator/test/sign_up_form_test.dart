@@ -286,6 +286,43 @@ void main() {
           expect(findPhoneFieldError(), findsNothing);
         },
       );
+      testWidgets(
+        'displays message when submitted with empty phone number if the field is required',
+        (tester) async {
+          await tester.pumpWidget(
+            MockAuthenticatorApp(
+              initialStep: AuthenticatorStep.signUp,
+              signUpForm: SignUpForm.custom(
+                fields: [
+                  SignUpFormField.username(),
+                  SignUpFormField.phoneNumber(required: true),
+                  SignUpFormField.password(),
+                ],
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+
+          final signUpPage = SignUpPage(tester: tester);
+
+          await signUpPage.submitSignUp();
+
+          await tester.pumpAndSettle();
+
+          Finder findPhoneFieldError() => find.descendant(
+                of: signUpPage.phoneField,
+                matching: find.text('Phone Number field must not be blank.'),
+              );
+
+          expect(findPhoneFieldError(), findsOneWidget); 
+
+          await signUpPage.enterPhoneNumber('1235556789');
+
+          await signUpPage.submitSignUp();
+
+          expect(findPhoneFieldError(), findsNothing);
+        },
+      );
 
       testWidgets(
         'displays message when submitted with invalid birth date',
