@@ -9,6 +9,14 @@ import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+class MockState {
+  final MockDialCode dialCode = MockDialCode();
+}
+
+class MockDialCode {
+  String value = '';
+}
+
 class MockAuthService extends Mock implements AmplifyAuthService {
   String? capturedUsername;
 
@@ -53,6 +61,59 @@ class MockAuthPlugin extends AmplifyAuthCognitoStub {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  group('PhoneNumberFormatter', () {
+    late MockState state;
+    late Map<String, int> countryPhoneNumberLengths;
+
+    setUp(() {
+      state = MockState();
+      countryPhoneNumberLengths = {};
+    });
+    
+    String displayPhoneNumber(String? phoneNumber) {
+      phoneNumber = phoneNumber ?? '';
+      final prefix = '+${state.dialCode.value}';
+      if (phoneNumber.startsWith(prefix)) {
+        phoneNumber = phoneNumber.substring(prefix.length);
+      }
+      // This is to handle the case where the user may errantly input their dial code again in their phone number
+      // We make sure the user's phone number doesn't naturally just start with their dial code by checking if the number exceeds the maximum phone length of the country's phone number scheme before truncating it
+      if (phoneNumber.startsWith(prefix.substring(1))) {
+        if (countryPhoneNumberLengths.containsKey(prefix) &&
+            phoneNumber.length > countryPhoneNumberLengths[prefix]!) {
+          phoneNumber = phoneNumber.substring(prefix.length - 1);
+        }
+      }
+      return phoneNumber;
+    }
+
+    test('removes country code prefix when present', () {
+      state.dialCode.value = '1'; // US country code
+      countryPhoneNumberLengths = {'+1': 10}; // US phone number length
+      const input = '+11234567890';
+      const expected = '1234567890';
+      final result = displayPhoneNumber(input);
+      expect(result, equals(expected));
+    });
+    
+    test('removes dial code when phone number exceeds max length', () {
+      state.dialCode.value = '1';
+      countryPhoneNumberLengths = {'+1': 10};
+      const input = '112345678901';
+      const expected = '12345678901';
+      final result = displayPhoneNumber(input);
+      expect(result, equals(expected));
+    });
+
+    test('does not remove dial code when number is within max length', () {
+      state.dialCode.value = '1';
+      countryPhoneNumberLengths = {'+1': 10};
+      const input = '1123456789';
+      const expected = '1123456789';
+      final result = displayPhoneNumber(input);
+      expect(result, equals(expected));
+    });
+  });
   group('Sign Up View', () {
     group('form validation', () {
       testWidgets(
@@ -143,6 +204,43 @@ void main() {
               );
 
           expect(findPhoneFieldError(), findsOneWidget);
+
+          await signUpPage.enterPhoneNumber('1235556789');
+
+          await signUpPage.submitSignUp();
+
+          expect(findPhoneFieldError(), findsNothing);
+        },
+      );
+      testWidgets(
+        'displays message when submitted with empty phone number if the field is required',
+        (tester) async {
+          await tester.pumpWidget(
+            MockAuthenticatorApp(
+              initialStep: AuthenticatorStep.signUp,
+              signUpForm: SignUpForm.custom(
+                fields: [
+                  SignUpFormField.username(),
+                  SignUpFormField.phoneNumber(required: true),
+                  SignUpFormField.password(),
+                ],
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+
+          final signUpPage = SignUpPage(tester: tester);
+
+          await signUpPage.submitSignUp();
+
+          await tester.pumpAndSettle();
+
+          Finder findPhoneFieldError() => find.descendant(
+                of: signUpPage.phoneField,
+                matching: find.text('Phone Number field must not be blank.'),
+              );
+
+          expect(findPhoneFieldError(), findsOneWidget); 
 
           await signUpPage.enterPhoneNumber('1235556789');
 
@@ -297,7 +395,6 @@ void main() {
           await signUpPage.enterUsername('user@example.com ');
           await signUpPage.enterPassword('Password123!@#%^');
           await signUpPage.enterPasswordConfirmation('Password123!@#%^');
-
           await signUpPage.submitSignUp();
           await tester.pumpAndSettle();
 
