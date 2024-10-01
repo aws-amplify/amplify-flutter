@@ -277,7 +277,7 @@ void main() {
                 matching: find.text('Phone Number field must not be blank.'),
               );
 
-          expect(findPhoneFieldError(), findsOneWidget); 
+          expect(findPhoneFieldError(), findsOneWidget);
 
           await signUpPage.enterPhoneNumber('1235556789');
 
