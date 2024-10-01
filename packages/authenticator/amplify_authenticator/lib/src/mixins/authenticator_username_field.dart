@@ -164,7 +164,7 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
         return null;
     }
   }
-  
+
   String displayPhoneNumber(String? phoneNumber) {
     phoneNumber = phoneNumber ?? '';
     final prefix = '+${state.dialCode.value}';
@@ -174,8 +174,9 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
     // this is to handle the case where the user may errantly input their dial code again in their phone number
     // we make sure the user's phone number doesn't naturally just start with their dial code by checking if the number exceeds the maximum phone length of the country's phone number scheme before truncating it
     if (phoneNumber.startsWith(prefix.substring(1))) {
-      if (countryPhoneNumberLengths.containsKey(prefix) && phoneNumber.length > countryPhoneNumberLengths[prefix]!){
-        phoneNumber = phoneNumber.substring(prefix.length-1);
+      if (countryPhoneNumberLengths.containsKey(prefix) &&
+          phoneNumber.length > countryPhoneNumberLengths[prefix]!) {
+        phoneNumber = phoneNumber.substring(prefix.length - 1);
       }
     }
     return phoneNumber;

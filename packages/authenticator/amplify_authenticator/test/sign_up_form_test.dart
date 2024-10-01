@@ -69,7 +69,7 @@ void main() {
       state = MockState();
       countryPhoneNumberLengths = {};
     });
-    
+
     String displayPhoneNumber(String? phoneNumber) {
       phoneNumber = phoneNumber ?? '';
       final prefix = '+${state.dialCode.value}';
@@ -95,7 +95,7 @@ void main() {
       final result = displayPhoneNumber(input);
       expect(result, equals(expected));
     });
-    
+
     test('removes dial code when phone number exceeds max length', () {
       state.dialCode.value = '1';
       countryPhoneNumberLengths = {'+1': 10};
@@ -240,7 +240,7 @@ void main() {
                 matching: find.text('Phone Number field must not be blank.'),
               );
 
-          expect(findPhoneFieldError(), findsOneWidget); 
+          expect(findPhoneFieldError(), findsOneWidget);
 
           await signUpPage.enterPhoneNumber('1235556789');
 
