@@ -68,8 +68,3 @@ amplifytools.xcconfig
 #amplify-do-not-edit-end
 
 amplify_outputs.dart
-
-# amplify
-.amplify
-amplify_outputs*
-amplifyconfiguration*
