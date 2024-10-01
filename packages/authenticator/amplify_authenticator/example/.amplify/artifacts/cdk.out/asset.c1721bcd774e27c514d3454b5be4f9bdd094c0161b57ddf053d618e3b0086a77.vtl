@@ -1,9 +1,0 @@
-## [Start] Sandbox Mode Disabled, IAM Access Enabled. **
-#if( !$ctx.stash.get("hasAuth") )
-  #if( $util.authType() == "IAM Authorization" && $util.isNull($ctx.identity.cognitoIdentityPoolId) && $util.isNull($ctx.identity.cognitoIdentityId) )
-    #return($util.toJson({}))
-  #end
-  $util.unauthorized()
-#end
-$util.toJson({})
-## [End] Sandbox Mode Disabled, IAM Access Enabled. **
