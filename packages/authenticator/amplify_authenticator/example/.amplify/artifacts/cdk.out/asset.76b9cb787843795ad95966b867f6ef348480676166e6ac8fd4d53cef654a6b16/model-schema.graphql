@@ -1,0 +1,4 @@
+type Todo @model @auth(rules: [{allow: public, provider: iam}])
+{
+  content: String
+}
