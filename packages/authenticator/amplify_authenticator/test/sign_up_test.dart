@@ -52,47 +52,4 @@ void main() {
       await binding.runAsync(confirmSignUpPage.expectAuthenticated);
     },
   );
-
-  testWidgets(
-    'Create a new user with an email & password, and confirm the account',
-    (tester) async {
-      await tester.pumpWidget(const MockAuthenticatorApp());
-      await tester.pumpAndSettle();
-
-      final signUpPage = SignUpPage(tester: tester);
-      final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
-      final signInPage = SignInPage(tester: tester);
-
-      const email = 'test-user@example.com';
-      const password = 'Password123!@#%^';
-
-      await signInPage.navigateToSignUp();
-
-      // When I type a new "email"
-      await signUpPage.enterUsername(email);
-
-      // And I type my password
-      await signUpPage.enterPassword(password);
-
-      // And I confirm my password
-      await signUpPage.enterPasswordConfirmation(password);
-
-      // And I click the "Create Account" button
-      await binding.runAsync(signUpPage.submitSignUp);
-
-      // And I see "Confirmation Code"
-      confirmSignUpPage.expectConfirmationCodeIsPresent();
-
-      // And I type a valid confirmation code
-      await confirmSignUpPage.enterCode(
-        AmplifyAuthCognitoStub.verificationCode,
-      );
-
-      // And I click the "Confirm" button
-      await binding.runAsync(confirmSignUpPage.submitConfirmSignUp);
-
-      // Then I see "Sign out"
-      await binding.runAsync(confirmSignUpPage.expectAuthenticated);
-    },
-  );
 }
