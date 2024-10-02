@@ -34,7 +34,8 @@ class AuthenticatorTitleLocalizationsEn
   String get confirmSignInWithEmailMfaCode => 'Enter your one-time passcode';
 
   @override
-  String get continueSignInWithEmailMfaSetup => 'Add Email for Two-Factor Authentication';
+  String get continueSignInWithEmailMfaSetup =>
+      'Add Email for Two-Factor Authentication';
 
   @override
   String get continueSignInWithMfaSetupSelection =>
