@@ -49,7 +49,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   const AuthenticatorScreen.continueSignInWithMfaSetupSelection({Key? key})
       : this(
             key: key,
-            step: AuthenticatorStep.continueSignInWithMfaSetupSelection);
+            step: AuthenticatorStep.continueSignInWithMfaSetupSelection,);
 
   const AuthenticatorScreen.resetPassword({Key? key})
       : this(key: key, step: AuthenticatorStep.resetPassword);
