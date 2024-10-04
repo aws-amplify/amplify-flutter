@@ -227,8 +227,14 @@ class StateMachineBloc
           yield UnauthenticatedState.confirmSignInNewPassword;
         case AuthSignInStep.confirmSignInWithTotpMfaCode:
           yield UnauthenticatedState.confirmSignInWithTotpMfaCode;
+        case AuthSignInStep.confirmSignInWithEmailMfaCode:
+          yield UnauthenticatedState.confirmSignInWithEmailMfaCode;
         case AuthSignInStep.continueSignInWithMfaSelection:
           yield ContinueSignInWithMfaSelection(
+            allowedMfaTypes: result.nextStep.allowedMfaTypes,
+          );
+        case AuthSignInStep.continueSignInWithMfaSetupSelection:
+          yield ContinueSignInWithMfaSetupSelection(
             allowedMfaTypes: result.nextStep.allowedMfaTypes,
           );
         case AuthSignInStep.continueSignInWithTotpSetup:
@@ -333,6 +339,43 @@ class StateMachineBloc
             allowedMfaTypes: result.nextStep.allowedMfaTypes,
           ),
         );
+      case AuthSignInStep.continueSignInWithMfaSetupSelection:
+        final allowedMfaTypes = result.nextStep.allowedMfaTypes;
+        if (allowedMfaTypes != null) {
+          final mfaTypesForSetup = allowedMfaTypes.toSet()..remove(MfaType.sms);
+          if (mfaTypesForSetup.length == 1) {
+            final mfaType = mfaTypesForSetup.first;
+            if (mfaType == MfaType.totp) {
+              assert(
+                result.nextStep.totpSetupDetails != null,
+                'Sign In Result should have totpSetupDetails',
+              );
+              _emit(await ContinueSignInTotpSetup.setupURI(
+                result.nextStep.totpSetupDetails!,
+                totpOptions,
+              ),);
+            } else if (mfaType == MfaType.email) {
+              _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
+            } else {
+              throw InvalidUserPoolConfigurationException(
+                'Unsupported MFA type: ${mfaType.name}',
+                recoverySuggestion: 'Check your user pool MFA configuration.',
+              );
+            }
+          } else {
+            _emit(
+              ContinueSignInWithMfaSetupSelection(
+                allowedMfaTypes: result.nextStep.allowedMfaTypes,
+              ),
+            );
+          }
+        } else {
+          _emit(
+            ContinueSignInWithMfaSetupSelection(
+              allowedMfaTypes: result.nextStep.allowedMfaTypes,
+            ),
+          );
+        }
       case AuthSignInStep.continueSignInWithTotpSetup:
         assert(
           result.nextStep.totpSetupDetails != null,
@@ -344,8 +387,13 @@ class StateMachineBloc
             totpOptions,
           ),
         );
+      case AuthSignInStep.continueSignInWithEmailMfaSetup:
+        _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
       case AuthSignInStep.confirmSignInWithTotpMfaCode:
         _emit(UnauthenticatedState.confirmSignInWithTotpMfaCode);
+      case AuthSignInStep.confirmSignInWithEmailMfaCode:
+        _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
+        _emit(UnauthenticatedState.confirmSignInWithEmailMfaCode);
       case AuthSignInStep.resetPassword:
         _emit(UnauthenticatedState.confirmResetPassword);
       case AuthSignInStep.confirmSignUp:
