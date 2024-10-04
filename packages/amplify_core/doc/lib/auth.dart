@@ -117,6 +117,9 @@ Future<void> _handleSignInResult(SignInResult result) async {
     // #docregion handle-confirm-signin-mfa-setup-selection
     case AuthSignInStep.continueSignInWithMfaSetupSelection:
       final allowedMfaTypes = result.nextStep.allowedMfaTypes!;
+      if (allowedMfaTypes.length == 1) {
+        return _handleMfaSetupSelection(allowedMfaTypes.first);
+      }
       final selection = await _promptUserPreference(allowedMfaTypes);
       return _handleMfaSetupSelection(selection);
     // #enddocregion handle-confirm-signin-mfa-setup-selection
