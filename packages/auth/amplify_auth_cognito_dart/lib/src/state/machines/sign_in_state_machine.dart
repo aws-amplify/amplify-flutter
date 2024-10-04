@@ -330,56 +330,55 @@ final class SignInStateMachine
         createEmailMfaRequest(event),
       ChallengeNameType.selectMfaType when hasUserResponse =>
         createSelectMfaRequest(event),
-      ChallengeNameType.mfaSetup =>
-      (() async {
-        final allowedMfaTypes = _allowedMfaTypes;
-        if (allowedMfaTypes == null || allowedMfaTypes.isEmpty) {
-          throw const InvalidUserPoolConfigurationException(
-            'No MFA types are allowed for setup.',
-            recoverySuggestion: 'Check your user pool MFA configuration.',
-          );
-        }
-        // Exclude MfaType.sms from consideration
-        final mfaTypesForSetup = allowedMfaTypes.difference({MfaType.sms});
-        if (mfaTypesForSetup.isEmpty) {
-          throw const InvalidUserPoolConfigurationException(
-            'No eligible MFA types are available for setup.',
-            recoverySuggestion: 'Check your user pool MFA configuration.',
-          );
-        }
-        if (mfaTypesForSetup.length == 1) {
-          final mfaType = mfaTypesForSetup.first;
-          if (mfaType == MfaType.totp) {
-            _enableMfaType = MfaType.totp;
-            _totpSetupResult ??= await associateSoftwareToken();
-            if (hasUserResponse) {
-              return createMfaSetupRequest(event);
-            } else {
-              // Need to prompt user for the TOTP code
-              return null;
-            }
-          } else if (mfaType == MfaType.email) {
-            _enableMfaType = MfaType.email;
-            if (hasUserResponse) {
-              return createEmailMfaSetupRequest(event);
-            } else {
-              // Need to prompt user for the email verification code
-              return null;
-            }
-          } else {
-            throw InvalidUserPoolConfigurationException(
-              'Unsupported MFA type: ${mfaType.name}',
+      ChallengeNameType.mfaSetup => (() async {
+          final allowedMfaTypes = _allowedMfaTypes;
+          if (allowedMfaTypes == null || allowedMfaTypes.isEmpty) {
+            throw const InvalidUserPoolConfigurationException(
+              'No MFA types are allowed for setup.',
               recoverySuggestion: 'Check your user pool MFA configuration.',
             );
           }
-        } else if (hasUserResponse) {
-          // Handle user's selection
-          return createMfaSetupRequest(event);
-        } else {
-          // Need to prompt user to select an MFA type
-          return null;
-        }
-      })(),
+          // Exclude MfaType.sms from consideration
+          final mfaTypesForSetup = allowedMfaTypes.difference({MfaType.sms});
+          if (mfaTypesForSetup.isEmpty) {
+            throw const InvalidUserPoolConfigurationException(
+              'No eligible MFA types are available for setup.',
+              recoverySuggestion: 'Check your user pool MFA configuration.',
+            );
+          }
+          if (mfaTypesForSetup.length == 1) {
+            final mfaType = mfaTypesForSetup.first;
+            if (mfaType == MfaType.totp) {
+              _enableMfaType = MfaType.totp;
+              _totpSetupResult ??= await associateSoftwareToken();
+              if (hasUserResponse) {
+                return createMfaSetupRequest(event);
+              } else {
+                // Need to prompt user for the TOTP code
+                return null;
+              }
+            } else if (mfaType == MfaType.email) {
+              _enableMfaType = MfaType.email;
+              if (hasUserResponse) {
+                return createEmailMfaSetupRequest(event);
+              } else {
+                // Need to prompt user for the email verification code
+                return null;
+              }
+            } else {
+              throw InvalidUserPoolConfigurationException(
+                'Unsupported MFA type: ${mfaType.name}',
+                recoverySuggestion: 'Check your user pool MFA configuration.',
+              );
+            }
+          } else if (hasUserResponse) {
+            // Handle user's selection
+            return createMfaSetupRequest(event);
+          } else {
+            // Need to prompt user to select an MFA type
+            return null;
+          }
+        })(),
       ChallengeNameType.newPasswordRequired when hasUserResponse =>
         createNewPasswordRequest(event),
       _ => null,
