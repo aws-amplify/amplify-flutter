@@ -658,18 +658,11 @@ final class SignInStateMachine
     required bool hasUserResponse,
   }) async {
     final allowedMfaTypes = _allowedMfaTypes;
-    if (allowedMfaTypes == null || allowedMfaTypes.isEmpty) {
-      throw const InvalidUserPoolConfigurationException(
-        'No MFA types are allowed for setup.',
-        recoverySuggestion: 'Check your user pool MFA configuration.',
-      );
-    }
-
     // Exclude MfaType.sms from consideration
-    final mfaTypesForSetup = allowedMfaTypes.difference({MfaType.sms});
-    if (mfaTypesForSetup.isEmpty) {
+    final mfaTypesForSetup = allowedMfaTypes?.difference({MfaType.sms});
+    if (allowedMfaTypes == null || allowedMfaTypes.isEmpty || mfaTypesForSetup == null || mfaTypesForSetup.isEmpty) {
       throw const InvalidUserPoolConfigurationException(
-        'No eligible MFA types are available for setup.',
+        'No eligible MFA types are allowed for setup.',
         recoverySuggestion: 'Check your user pool MFA configuration.',
       );
     }
