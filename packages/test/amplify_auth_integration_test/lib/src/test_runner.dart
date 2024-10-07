@@ -145,6 +145,7 @@ class MfaInfo {
     this.required = false,
     this.smsEnabled = false,
     this.totpEnabled = false,
+    this.emailEnabled = false,
   });
 
   /// Whether MFA is required (`true`) or optional (`false`).
@@ -155,6 +156,9 @@ class MfaInfo {
 
   /// Whether TOTP MFA is available.
   final bool totpEnabled;
+
+  /// Whether email MFA is available.
+  final bool emailEnabled;
 }
 
 /// A test environment descriptor.

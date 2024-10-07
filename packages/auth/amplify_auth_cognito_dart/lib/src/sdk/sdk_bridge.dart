@@ -29,9 +29,11 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
         ChallengeNameType.selectMfaType =>
           AuthSignInStep.continueSignInWithMfaSelection,
         ChallengeNameType.mfaSetup =>
-          AuthSignInStep.continueSignInWithTotpSetup,
+          AuthSignInStep.continueSignInWithMfaSetupSelection,
         ChallengeNameType.softwareTokenMfa =>
           AuthSignInStep.confirmSignInWithTotpMfaCode,
+        ChallengeNameType.emailOtp =>
+          AuthSignInStep.confirmSignInWithEmailMfaCode,
         ChallengeNameType.adminNoSrpAuth ||
         ChallengeNameType.passwordVerifier ||
         ChallengeNameType.devicePasswordVerifier ||
@@ -795,77 +797,71 @@ extension MfaSettings on CognitoIdentityProviderClient {
     required String accessToken,
     MfaPreference? sms,
     MfaPreference? totp,
+    MfaPreference? email,
   }) async {
     final UserMfaPreference(
       enabled: currentEnabled,
-      preferred: currentPreference
-    ) = await _getRawUserSettings(
-      accessToken: accessToken,
-    );
+      preferred: currentPreference,
+    ) = await _getRawUserSettings(accessToken: accessToken);
+
+    final newPreferredMethods = [
+      if (sms == MfaPreference.preferred) MfaType.sms,
+      if (totp == MfaPreference.preferred) MfaType.totp,
+      if (email == MfaPreference.preferred) MfaType.email,
+    ];
+
+    if (newPreferredMethods.length > 1) {
+      throw const InvalidParameterException(
+        'Cannot assign multiple MFA methods as preferred',
+      );
+    }
+
+    var preferred = newPreferredMethods.isNotEmpty
+        ? newPreferredMethods.first
+        : currentPreference;
+
+    final isCurrentPreferenceDisabled = switch (currentPreference) {
+      MfaType.sms =>
+        sms == MfaPreference.disabled || sms == MfaPreference.notPreferred,
+      MfaType.totp =>
+        totp == MfaPreference.disabled || totp == MfaPreference.notPreferred,
+      MfaType.email =>
+        email == MfaPreference.disabled || email == MfaPreference.notPreferred,
+      _ => false,
+    };
+    preferred = isCurrentPreferenceDisabled ? null : preferred;
+
     const enabledValues = [
       MfaPreference.enabled,
       MfaPreference.notPreferred,
       MfaPreference.preferred,
     ];
-    bool isEnabled(MfaType mfaType) {
-      final explicitlyDisabled = switch (mfaType) {
-        MfaType.sms => sms == MfaPreference.disabled,
-        MfaType.totp => totp == MfaPreference.disabled,
-      };
-      if (explicitlyDisabled) {
-        return false;
-      }
-      final currentlyEnabled = currentEnabled.contains(mfaType);
-      final requestingEnabled = switch (mfaType) {
-        MfaType.sms => enabledValues.contains(sms),
-        MfaType.totp => enabledValues.contains(totp),
-      };
-      return currentlyEnabled || requestingEnabled;
+
+    bool isMfaEnabled(MfaType mfaType, MfaPreference? preference) {
+      if (preference == MfaPreference.disabled) return false;
+      return currentEnabled.contains(mfaType) ||
+          enabledValues.contains(preference);
     }
 
-    final preferred = switch ((currentPreference, sms: sms, totp: totp)) {
-      // Prevent an invalid choice.
-      (_, sms: MfaPreference.preferred, totp: MfaPreference.preferred) =>
-        throw const InvalidParameterException(
-          'Cannot assign both SMS and TOTP as preferred',
-        ),
-
-      // Setting one or the other as preferred overrides previous value.
-      (_, sms: MfaPreference.preferred, totp: != MfaPreference.preferred) =>
-        MfaType.sms,
-      (_, sms: != MfaPreference.preferred, totp: MfaPreference.preferred) =>
-        MfaType.totp,
-
-      // Setting one or the other as disabled or not preferred removes current
-      // preference if it matches.
-      (
-        MfaType.sms,
-        sms: MfaPreference.notPreferred || MfaPreference.disabled,
-        totp: _,
-      ) ||
-      (
-        MfaType.totp,
-        sms: _,
-        totp: MfaPreference.notPreferred || MfaPreference.disabled,
-      ) =>
-        null,
-
-      // Ignore preference changes which do not affect the current preference.
-      (final currentPreference, sms: _, totp: _) => currentPreference,
-    };
     final smsMfaSettings = SmsMfaSettingsType(
-      enabled: isEnabled(MfaType.sms),
+      enabled: isMfaEnabled(MfaType.sms, sms),
       preferredMfa: preferred == MfaType.sms,
     );
     final softwareTokenSettings = SoftwareTokenMfaSettingsType(
-      enabled: isEnabled(MfaType.totp),
+      enabled: isMfaEnabled(MfaType.totp, totp),
       preferredMfa: preferred == MfaType.totp,
     );
+    final emailMfaSettings = EmailMfaSettingsType(
+      enabled: isMfaEnabled(MfaType.email, email),
+      preferredMfa: preferred == MfaType.email,
+    );
+
     await setUserMfaPreference(
       SetUserMfaPreferenceRequest(
         accessToken: accessToken,
         smsMfaSettings: smsMfaSettings,
         softwareTokenMfaSettings: softwareTokenSettings,
+        emailMfaSettings: emailMfaSettings,
       ),
     ).result;
   }
@@ -876,6 +872,7 @@ extension on String {
   MfaType get mfaType => switch (this) {
         'SOFTWARE_TOKEN_MFA' => MfaType.totp,
         'SMS_MFA' => MfaType.sms,
+        'EMAIL_OTP' => MfaType.email,
         final invalidType => throw StateError('Invalid MFA type: $invalidType'),
       };
 }

@@ -104,22 +104,36 @@ Future<void> resendSignUpCode(String username) async {
 }
 // #enddocregion resend-signup-code
 
-// #docregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code
+// #docregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-email-code, handle-confirm-signin-mfa-setup-selection, handle-confirm-signin-email-setup
 Future<void> _handleSignInResult(SignInResult result) async {
   switch (result.nextStep.signInStep) {
-    // #enddocregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code
+    // #enddocregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-email-code, handle-confirm-signin-mfa-setup-selection, handle-confirm-signin-email-setup
     // #docregion handle-confirm-signin-mfa-selection
     case AuthSignInStep.continueSignInWithMfaSelection:
       final allowedMfaTypes = result.nextStep.allowedMfaTypes!;
       final selection = await _promptUserPreference(allowedMfaTypes);
       return _handleMfaSelection(selection);
     // #enddocregion handle-confirm-signin-mfa-selection
+    // #docregion handle-confirm-signin-mfa-setup-selection
+    case AuthSignInStep.continueSignInWithMfaSetupSelection:
+      final allowedMfaTypes = result.nextStep.allowedMfaTypes!;
+      if (allowedMfaTypes.length == 1) {
+        return _handleMfaSetupSelection(allowedMfaTypes.first);
+      }
+      final selection = await _promptUserPreference(allowedMfaTypes);
+      safePrint('Selected MFA type: $selection');
+      return _handleMfaSetupSelection(selection);
+    // #enddocregion handle-confirm-signin-mfa-setup-selection
     // #docregion handle-confirm-signin-totp-setup
     case AuthSignInStep.continueSignInWithTotpSetup:
       final totpSetupDetails = result.nextStep.totpSetupDetails!;
       final setupUri = totpSetupDetails.getSetupUri(appName: 'MyApp');
       safePrint('Open URI to complete setup: $setupUri');
     // #enddocregion handle-confirm-signin-totp-setup
+    // #docregion handle-confirm-signin-email-setup
+    case AuthSignInStep.continueSignInWithEmailMfaSetup:
+      safePrint('A confirmation code has been sent to your email');
+    // #enddocregion handle-confirm-signin-email-setup
     // #docregion handle-confirm-signin-totp-code
     case AuthSignInStep.confirmSignInWithTotpMfaCode:
       safePrint('Enter a one-time code from your registered Authenticator app');
@@ -129,6 +143,11 @@ Future<void> _handleSignInResult(SignInResult result) async {
       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
       _handleCodeDelivery(codeDeliveryDetails);
     // #enddocregion handle-confirm-signin-sms
+    // #docregion handle-confirm-signin-email
+    case AuthSignInStep.confirmSignInWithEmailMfaCode:
+      final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
+      _handleCodeDelivery(codeDeliveryDetails);
+    // #enddocregion handle-confirm-signin-email
     // #docregion handle-confirm-signin-new-password
     case AuthSignInStep.confirmSignInWithNewPassword:
       safePrint('Enter a new password to continue signing in');
@@ -158,10 +177,10 @@ Future<void> _handleSignInResult(SignInResult result) async {
     case AuthSignInStep.done:
       safePrint('Sign in is complete');
     // #enddocregion handle-confirm-signin-done
-    // #docregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code
+    // #docregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-email-code, handle-confirm-signin-mfa-setup-selection, handle-confirm-signin-email-setup
   }
 }
-// #enddocregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code
+// #enddocregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-email-code, handle-confirm-signin-mfa-setup-selection, handle-confirm-signin-email-setup
 
 // #docregion signin
 Future<void> signInUser(String username, String password) async {
@@ -235,6 +254,19 @@ Future<void> _handleMfaSelection(MfaType selection) async {
   }
 }
 // #enddocregion handle-mfa-selection
+
+// #docregion handle-mfa-setup-selection
+Future<void> _handleMfaSetupSelection(MfaType selection) async {
+  try {
+    final result = await Amplify.Auth.confirmSignIn(
+      confirmationValue: selection.confirmationValue,
+    );
+    return _handleSignInResult(result);
+  } on AuthException catch (e) {
+    safePrint('Error selecting MFA method: ${e.message}');
+  }
+}
+// #enddocregion handle-mfa-setup-selection
 
 // #docregion signout
 Future<void> signOutCurrentUser() async {

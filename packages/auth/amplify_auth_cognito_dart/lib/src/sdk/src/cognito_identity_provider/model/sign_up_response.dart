@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.sign_up_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -57,7 +57,7 @@ abstract class SignUpResponse
   /// The code delivery details returned by the server response to the user registration request.
   CodeDeliveryDetailsType? get codeDeliveryDetails;
 
-  /// The UUID of the authenticated user. This isn't the same as `username`.
+  /// The 128-bit ID of the authenticated user. This isn't the same as `username`.
   String get userSub;
   @override
   List<Object?> get props => [
