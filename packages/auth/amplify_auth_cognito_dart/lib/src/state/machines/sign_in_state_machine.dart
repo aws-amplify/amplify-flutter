@@ -661,16 +661,14 @@ final class SignInStateMachine
     // Exclude MfaType.sms from consideration
     final mfaTypesForSetup = allowedMfaTypes?.difference({MfaType.sms});
     if (allowedMfaTypes == null ||
-        allowedMfaTypes.isEmpty ||
-        mfaTypesForSetup == null ||
-        mfaTypesForSetup.isEmpty) {
+        allowedMfaTypes.isEmpty) {
       throw const InvalidUserPoolConfigurationException(
         'No eligible MFA types are allowed for setup.',
         recoverySuggestion: 'Check your user pool MFA configuration.',
       );
     }
 
-    if (mfaTypesForSetup.length == 1) {
+    if (mfaTypesForSetup!.length == 1) {
       final mfaType = mfaTypesForSetup.first;
       if (mfaType == MfaType.totp) {
         _enableMfaType = MfaType.totp;
