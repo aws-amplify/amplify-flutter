@@ -660,7 +660,10 @@ final class SignInStateMachine
     final allowedMfaTypes = _allowedMfaTypes;
     // Exclude MfaType.sms from consideration
     final mfaTypesForSetup = allowedMfaTypes?.difference({MfaType.sms});
-    if (allowedMfaTypes == null || allowedMfaTypes.isEmpty || mfaTypesForSetup == null || mfaTypesForSetup.isEmpty) {
+    if (allowedMfaTypes == null ||
+        allowedMfaTypes.isEmpty ||
+        mfaTypesForSetup == null ||
+        mfaTypesForSetup.isEmpty) {
       throw const InvalidUserPoolConfigurationException(
         'No eligible MFA types are allowed for setup.',
         recoverySuggestion: 'Check your user pool MFA configuration.',
