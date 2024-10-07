@@ -107,7 +107,7 @@ Future<void> resendSignUpCode(String username) async {
 // #docregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-email-code, handle-confirm-signin-mfa-setup-selection, handle-confirm-signin-email-setup
 Future<void> _handleSignInResult(SignInResult result) async {
   switch (result.nextStep.signInStep) {
-    // #enddocregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-email-code, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-mfa-setup-selection, handle-confirm-signin-email-setup
+    // #enddocregion handle-signin, handle-confirm-signin-sms, handle-confirm-signin-new-password, handle-confirm-signin-custom-challenge, handle-confirm-signin-reset-password, handle-confirm-signin-confirm-signup, handle-confirm-signin-done, handle-confirm-signin-mfa-selection, handle-confirm-signin-totp-setup, handle-confirm-signin-totp-code, handle-confirm-signin-email-code, handle-confirm-signin-mfa-setup-selection, handle-confirm-signin-email-setup
     // #docregion handle-confirm-signin-mfa-selection
     case AuthSignInStep.continueSignInWithMfaSelection:
       final allowedMfaTypes = result.nextStep.allowedMfaTypes!;
@@ -121,6 +121,7 @@ Future<void> _handleSignInResult(SignInResult result) async {
         return _handleMfaSetupSelection(allowedMfaTypes.first);
       }
       final selection = await _promptUserPreference(allowedMfaTypes);
+      safePrint('Selected MFA type: $selection');
       return _handleMfaSetupSelection(selection);
     // #enddocregion handle-confirm-signin-mfa-setup-selection
     // #docregion handle-confirm-signin-totp-setup
@@ -262,7 +263,7 @@ Future<void> _handleMfaSetupSelection(MfaType selection) async {
     );
     return _handleSignInResult(result);
   } on AuthException catch (e) {
-    safePrint('Error resending code: ${e.message}');
+    safePrint('Error selecting MFA method: ${e.message}');
   }
 }
 // #enddocregion handle-mfa-setup-selection
