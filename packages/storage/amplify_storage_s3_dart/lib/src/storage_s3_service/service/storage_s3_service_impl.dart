@@ -330,15 +330,13 @@ class StorageS3Service {
     FutureOr<void> Function()? onError,
     StorageBucket? bucket,
   }) {
-    // ignore: invalid_use_of_internal_member
-    final bucketName = bucket?.resolveBucketInfo(_storageOutputs).bucketName ??
-        _storageOutputs.bucketName;
-    final s3ClientInfo = _getS3ClientInfo(bucket);
+    final s3ClientInfo = getS3ClientInfo(storageBucket: bucket);
     final uploadDataTask = S3UploadTask.fromDataPayload(
       dataPayload,
       s3Client: s3ClientInfo.client,
-      defaultS3ClientConfig: s3ClientInfo.config,
-      bucket: bucketName,
+      s3ClientConfig: s3ClientInfo.config,
+      bucket: s3ClientInfo.bucketName,
+      awsRegion: s3ClientInfo.awsRegion,
       path: path,
       options: options,
       pathResolver: _pathResolver,
@@ -376,8 +374,9 @@ class StorageS3Service {
     final uploadDataTask = S3UploadTask.fromAWSFile(
       localFile,
       s3Client: _defaultS3Client,
-      defaultS3ClientConfig: _defaultS3ClientConfig,
+      s3ClientConfig: _defaultS3ClientConfig,
       bucket: _storageOutputs.bucketName,
+      awsRegion: _storageOutputs.awsRegion,
       path: path,
       options: uploadDataOptions,
       pathResolver: _pathResolver,
@@ -604,17 +603,23 @@ class StorageS3Service {
   Future<void> abortIncompleteMultipartUploads() async {
     final records = await _transferDatabase
         .getMultipartUploadRecordsCreatedBefore(_serviceStartingTime);
-
     for (final record in records) {
+      final bucketInfo = BucketInfo(
+        bucketName: record.bucketName ?? _storageOutputs.bucketName,
+        region: record.awsRegion ?? _storageOutputs.awsRegion,
+      );
       final request = s3.AbortMultipartUploadRequest.build((builder) {
         builder
-          ..bucket = _storageOutputs.bucketName
+          ..bucket = bucketInfo.bucketName
           ..key = record.objectKey
           ..uploadId = record.uploadId;
       });
+      final s3Client = getS3ClientInfo(
+        storageBucket: StorageBucket.fromBucketInfo(bucketInfo),
+      ).client;
 
       try {
-        await _defaultS3Client.abortMultipartUpload(request).result;
+        await s3Client.abortMultipartUpload(request).result;
         await _transferDatabase.deleteTransferRecords(record.uploadId);
       } on Exception catch (error) {
         _logger.error('Failed to abort multipart upload due to: $error');
@@ -622,11 +627,18 @@ class StorageS3Service {
     }
   }
 
-  S3ClientInfo _getS3ClientInfo(StorageBucket? storageBucket) {
+  /// Creates and caches [S3ClientInfo] given the optional [storageBucket]
+  /// parameter. If the optional parameter is not provided it uses
+  /// StorageOutputs default bucket to create the [S3ClientInfo].
+  @internal
+  @visibleForTesting
+  S3ClientInfo getS3ClientInfo({StorageBucket? storageBucket}) {
     if (storageBucket == null) {
       return S3ClientInfo(
         client: _defaultS3Client,
         config: _defaultS3ClientConfig,
+        bucketName: _storageOutputs.bucketName,
+        awsRegion: _storageOutputs.awsRegion,
       );
     }
     // ignore: invalid_use_of_internal_member
@@ -658,6 +670,8 @@ class StorageS3Service {
     final s3ClientInfo = S3ClientInfo(
       client: s3Client,
       config: s3ClientConfig,
+      bucketName: bucketInfo.bucketName,
+      awsRegion: bucketInfo.region,
     );
     _s3ClientsInfo[bucketInfo.bucketName] = s3ClientInfo;
     return s3ClientInfo;

@@ -274,6 +274,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     required StoragePath path,
     void Function(S3TransferProgress)? onProgress,
     StorageUploadDataOptions? options,
+    StorageBucket? bucket,
   }) {
     final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
@@ -290,6 +291,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       dataPayload: data,
       options: s3Options,
       onProgress: onProgress,
+      bucket: bucket,
     );
 
     return S3UploadDataOperation(

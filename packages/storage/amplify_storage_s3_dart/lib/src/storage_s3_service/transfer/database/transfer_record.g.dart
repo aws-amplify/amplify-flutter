@@ -11,6 +11,8 @@ TransferRecord _$TransferRecordFromJson(Map<String, dynamic> json) =>
       uploadId: json['uploadId'] as String,
       objectKey: json['objectKey'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
+      bucketName: json['bucketName'] as String?,
+      awsRegion: json['awsRegion'] as String?,
     );
 
 Map<String, dynamic> _$TransferRecordToJson(TransferRecord instance) =>
@@ -18,4 +20,6 @@ Map<String, dynamic> _$TransferRecordToJson(TransferRecord instance) =>
       'uploadId': instance.uploadId,
       'objectKey': instance.objectKey,
       'createdAt': instance.createdAt.toIso8601String(),
+      'bucketName': instance.bucketName,
+      'awsRegion': instance.awsRegion,
     };

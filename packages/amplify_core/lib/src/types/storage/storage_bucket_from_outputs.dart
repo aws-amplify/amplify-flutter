@@ -16,12 +16,7 @@ class StorageBucketFromOutputs implements StorageBucket {
   BucketInfo resolveBucketInfo(StorageOutputs? storageOutputs) {
     assert(
       storageOutputs != null,
-      const InvalidStorageBucketException(
-        'Amplify Outputs file does not have storage configuration.',
-        recoverySuggestion:
-            'Make sure Amplify Storage is configured and the Amplify Outputs '
-            'file has storage configuration.',
-      ),
+      'storageOutputs can not be null',
     );
     final buckets = storageOutputs!.buckets;
     if (buckets == null) {

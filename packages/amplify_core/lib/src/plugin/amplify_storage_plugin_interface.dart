@@ -63,6 +63,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
     required StorageDataPayload data,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadDataOptions? options,
+    StorageBucket? bucket,
   }) {
     throw UnimplementedError('uploadData() has not been implemented.');
   }
