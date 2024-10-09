@@ -481,45 +481,54 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   CognitoSignInResult _processSignInResult(SignInState result) {
-    return switch (result) {
-      SignInNotStarted _ ||
-      SignInInitiating _ =>
-        // This should never happen.
-        throw UnknownException(
-          'Sign in could not be completed',
-          underlyingException: result,
+  switch (result) {
+    case SignInNotStarted():
+    case SignInInitiating():
+      // This should never happen.
+      throw UnknownException(
+        'Sign in could not be completed',
+        underlyingException: result,
+      );
+
+    case SignInCancelling():
+      throw const UserCancelledException(
+        'The user canceled the sign-in flow',
+      );
+
+    case final SignInChallenge challenge:
+      // Print all properties of SignInChallenge
+      safePrint('Challenge name: ${challenge.challengeName}');
+      safePrint('Sign in Step: ${challenge.challengeName.signInStep}');
+      safePrint('Challenge parameters: ${challenge.challengeParameters}');
+      safePrint('Code delivery details: ${challenge.codeDeliveryDetails}');
+      safePrint('Required attributes: ${challenge.requiredAttributes}');
+      safePrint('Allowed MFA types: ${challenge.allowedMfaTypes}');
+      safePrint('TOTP setup result: ${challenge.totpSetupResult}');
+      
+      return CognitoSignInResult(
+        isSignedIn: false,
+        nextStep: AuthNextSignInStep(
+          signInStep: challenge.challengeName.signInStep,
+          codeDeliveryDetails: challenge.codeDeliveryDetails,
+          additionalInfo: challenge.challengeParameters,
+          missingAttributes: challenge.requiredAttributes,
+          allowedMfaTypes: challenge.allowedMfaTypes,
+          totpSetupDetails: challenge.totpSetupResult,
         ),
-      SignInCancelling _ => throw const UserCancelledException(
-          'The user canceled the sign-in flow',
+      );
+
+    case SignInSuccess():
+      return const CognitoSignInResult(
+        isSignedIn: true,
+        nextStep: AuthNextSignInStep(
+          signInStep: AuthSignInStep.done,
         ),
-      SignInChallenge(
-        :final challengeName,
-        :final challengeParameters,
-        :final codeDeliveryDetails,
-        :final requiredAttributes,
-        :final allowedMfaTypes,
-        :final totpSetupResult,
-      ) =>
-        CognitoSignInResult(
-          isSignedIn: false,
-          nextStep: AuthNextSignInStep(
-            signInStep: challengeName.signInStep,
-            codeDeliveryDetails: codeDeliveryDetails,
-            additionalInfo: challengeParameters,
-            missingAttributes: requiredAttributes,
-            allowedMfaTypes: allowedMfaTypes,
-            totpSetupDetails: totpSetupResult,
-          ),
-        ),
-      SignInSuccess _ => const CognitoSignInResult(
-          isSignedIn: true,
-          nextStep: AuthNextSignInStep(
-            signInStep: AuthSignInStep.done,
-          ),
-        ),
-      SignInFailure(:final exception, :final stackTrace) =>
-        Error.throwWithStackTrace(exception, stackTrace),
-    };
+      );
+
+    case final SignInFailure failure:
+      Error.throwWithStackTrace(failure.exception, failure.stackTrace);
+// To satisfy Dart's requirements, even if unreachable
+    }
   }
 
   @override

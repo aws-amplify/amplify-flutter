@@ -109,6 +109,8 @@ const keyGoToSignInButton = Key('goToSignInButton');
 const keyConfirmSignInButton = Key('confirmSignInButton');
 const keyConfirmSignInMfaSelectionButton =
     Key('confirmSignInMfaSelectionButton');
+const keyConfirmSignInMfaSetupSelectionButton =
+    Key('confirmSignInMfaSetupSelectionButton');
 const keyConfirmSignInCustomButton = Key('confirmSignInCustomButton');
 const keyLostCodeButton = Key('lostCodeButton');
 const keySendCodeButton = Key('sendCodeButton');

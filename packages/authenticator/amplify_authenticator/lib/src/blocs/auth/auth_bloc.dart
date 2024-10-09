@@ -246,6 +246,8 @@ class StateMachineBloc
             result.nextStep.totpSetupDetails!,
             totpOptions,
           );
+        case AuthSignInStep.continueSignInWithEmailMfaSetup:
+          yield UnauthenticatedState.continueSignInWithEmailMfaSetup;
         case AuthSignInStep.resetPassword:
           yield UnauthenticatedState.resetPassword;
         case AuthSignInStep.confirmSignUp:

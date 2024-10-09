@@ -636,7 +636,7 @@ class ContinueSignInWithMfaSetupSelectionForm extends AuthenticatorForm {
             ConfirmSignInFormField.mfaSetupSelection(),
           ],
           actions: const [
-            ContinueSignInMFASelectionButton(),
+            ContinueSignInMFASetupSelectionButton(),
             BackToSignInButton(),
           ],
         );
