@@ -667,65 +667,41 @@ final class SignInStateMachine
       );
     }
 
-    // if (mfaTypesForSetup.length == 1) {
-    //   // Only one MFA type is allowed for setup
-    //   _enableMfaType = mfaTypesForSetup.first;
-    //   if (_enableMfaType == MfaType.totp) {
-    //     _totpSetupResult = await associateSoftwareToken();
-    //     return createMfaSetupRequest(event as SignInRespondToChallenge);
-    //   } else if (_enableMfaType == MfaType.email) {
-    //     return createEmailMfaSetupRequest(event as SignInRespondToChallenge);
-    //   }
-    // }
-
-    if (hasUserResponse) {
-      if (_enableMfaType == null) {
-        // User has just selected the MFA type
-        if (event == null) {
-          throw StateError('Event cannot be null when there is user response.');
-        }
-        if (event is! SignInRespondToChallenge) {
-          throw StateError('Expected SignInRespondToChallenge event.');
-        }
-        final selection = event.answer.toLowerCase();
-        _enableMfaType = switch (selection) {
-          'totp' => MfaType.totp,
-          'email' => MfaType.email,
-          _ =>
-            throw const InvalidParameterException('Invalid MFA type selected'),
-        };
-
-        if (_enableMfaType == MfaType.totp) {
-          final challengeResponses = <String, String>{
-            CognitoConstants.challengeParamMfasCanSetup:
-                '["SOFTWARE_TOKEN_MFA"]',
-          };
-          final builtMap = BuiltMap<String, String>(challengeResponses);
-          _challengeParameters = builtMap;
-          // await _processChallenge(event);
-          return null;
-        } else if (_enableMfaType == MfaType.email) {
-          await _processChallenge(event);
-        }
-      } else {
-        // User has provided the verification code
-        if (event == null) {
-          throw StateError('Event cannot be null when there is user response.');
-        }
-        if (event is! SignInRespondToChallenge) {
-          throw StateError('Expected SignInRespondToChallenge event.');
-        }
-        if (_enableMfaType == MfaType.totp) {
-          return createMfaSetupRequest(event);
-        } else if (_enableMfaType == MfaType.email) {
-          return createEmailMfaSetupRequest(event);
-        }
-      }
-    } else {
-      // Need to prompt user to select an MFA type
-      return null;
-    }
+  if (!hasUserResponse) {
+    // Need to prompt user to select an MFA type
     return null;
+  }
+
+  if (event == null) {
+    throw StateError('Event cannot be null when there is user response.');
+  }
+  if (event is! SignInRespondToChallenge) {
+    throw StateError('Expected SignInRespondToChallenge event.');
+  }
+
+  if (_enableMfaType == null) {
+    // User has just selected the MFA type
+    final selection = event.answer.toLowerCase();
+    _enableMfaType = switch (selection) {
+      'totp' => MfaType.totp,
+      'email' => MfaType.email,
+      _ => throw const InvalidParameterException('Invalid MFA type selected'),
+    };
+
+    final challengeResponses = <String, String>{
+      CognitoConstants.challengeParamMfasCanSetup: _enableMfaType == MfaType.totp
+          ? '["SOFTWARE_TOKEN_MFA"]'
+          : '["EMAIL_OTP"]',
+    };
+    _challengeParameters = BuiltMap<String, String>(challengeResponses);
+    await _processChallenge();
+    return null;
+  }
+
+  // User has provided the verification code
+  return _enableMfaType == MfaType.totp
+      ? createMfaSetupRequest(event)
+      : createEmailMfaSetupRequest(event);
   }
 
   /// Completes set up of a TOTP MFA.
@@ -759,10 +735,10 @@ final class SignInStateMachine
     _enableMfaType = MfaType.email;
     return RespondToAuthChallengeRequest.build((b) {
       b
-        ..challengeName = ChallengeNameType.emailOtp
+        ..challengeName = ChallengeNameType.mfaSetup
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: cognitoUsername,
-          CognitoConstants.challengeParamEmailMfaCode: event.answer,
+          CognitoConstants.challengeParamEmail: event.answer,
         })
         ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata);
@@ -1015,9 +991,6 @@ final class SignInStateMachine
   Future<SignInState> _processChallenge([SignInEvent? event]) async {
     // There can be an indefinite amount of challenges which need responses.
     // Only when authenticationResult is set is the flow considered complete.
-    if (event is SignInRespondToChallenge) {
-      safePrint('EVENT ANSWER: ${event.answer}');
-    }
     final authenticationResult = _authenticationResult;
     if (authenticationResult != null) {
       final accessToken = await _saveAuthResult(authenticationResult);
@@ -1072,60 +1045,22 @@ final class SignInStateMachine
       return SignInState.success(_user.build().authUser);
     }
 
-    if (event is SignInRespondToChallenge && event.answer == 'totp') {
-      safePrint('TOTP ANSWER: ${event.answer}');
-      _challengeParameters = BuiltMap({
-        CognitoConstants.challengeParamMfasCanSetup: '["SOFTWARE_TOKEN_MFA"]',
-      });
-      return _processChallenge();
-    }
-
     await _updateUser(_challengeParameters);
 
     // Configure TOTP authentication if allowed.
     if (_allowedMfaTypes case final allowedMfaTypes?
         when _challengeParameters
             .containsKey(CognitoConstants.challengeParamMfasCanSetup)) {
-      if (!allowedMfaTypes.contains(MfaType.totp)) {
+      if (!allowedMfaTypes.contains(MfaType.totp) && !allowedMfaTypes.contains(MfaType.email)) {
         throw const InvalidUserPoolConfigurationException(
-          'Cannot enable SMS MFA and TOTP MFA is not allowed',
+          'Cannot enable SMS MFA and TOTP or EMAIL MFA is not allowed',
           recoverySuggestion:
-              'Contact an administrator to enable SMS MFA or allow TOTP MFA',
+              'Contact an administrator to enable SMS MFA or allow TOTP or EMAIL MFA',
         );
       }
-      final allowedMfaTypes1 = [...?_allowedMfaTypes];
-      allowedMfaTypes1.remove(MfaType.sms);
-      if (allowedMfaTypes1.length == 1) {
-        if (allowedMfaTypes1.first == MfaType.totp) {
-          // If TOTP is the only MFA type allowed, automatically set it up.
-          _totpSetupResult ??= await associateSoftwareToken();
-        } else if (allowedMfaTypes1.first == MfaType.email) {
-          _enableMfaType = MfaType.email;
-        }
-      }
-          // _totpSetupResult ??= await associateSoftwareToken();
+      final allowedMfaSetupTypes = [...?_allowedMfaTypes]..remove(MfaType.sms);
+      if (allowedMfaSetupTypes.length == 1 && allowedMfaSetupTypes.first == MfaType.totp) _totpSetupResult = await associateSoftwareToken(accessToken: _session);
     }
-
-    // safePrint('_authenticationResult: $_authenticationResult');
-    // safePrint('----------------------------------------');
-
-    // safePrint('_challengeName: $_challengeName');
-    // safePrint('----------------------------------------');
-
-    // safePrint('_challengeParameters: $_challengeParameters');
-    // safePrint('----------------------------------------');
-
-    // safePrint('_session: $_session');
-    // safePrint('----------------------------------------');
-
-    // safePrint('_attributesNeedingUpdate: $_attributesNeedingUpdate');
-    // safePrint('----------------------------------------');
-
-    // safePrint('_totpSetupResult: $_totpSetupResult');
-    // safePrint('----------------------------------------');
-
-    // safePrint('_enableMfaType: $_enableMfaType');
-    // safePrint('----------------------------------------');
 
     // Query the state machine for a response given potential user input in
     // `event`.
