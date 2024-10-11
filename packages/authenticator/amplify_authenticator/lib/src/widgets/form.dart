@@ -682,7 +682,7 @@ class ContinueSignInWithEmailMfaSetupForm extends AuthenticatorForm {
             EmailSetupFormField.email(),
           ],
           actions: const [
-            ConfirmSignInMFAButton(),
+            ContinueSignInWithEmailMfaSetupButton(),
             BackToSignInButton(),
           ],
         );

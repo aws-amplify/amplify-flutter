@@ -419,12 +419,6 @@ class AuthenticatorState extends ChangeNotifier {
       confirmationValue: _selectedMfaMethod!.name,
     );
 
-    // if (_selectedMfaMethod == MfaType.totp) {
-    //   _authBloc.add(const AuthChangeScreen(AuthenticatorStep.continueSignInWithTotpSetup));
-    // } else {
-    //   _authBloc.add(AuthConfirmSignIn(confirm));
-    // }
-
     _authBloc.add(AuthConfirmSignIn(confirm));
     await nextBlocEvent();
     _setIsBusy(false);
@@ -713,6 +707,7 @@ class AuthenticatorState extends ChangeNotifier {
     authAttributes.clear();
     _publicChallengeParams.clear();
     _selectedMfaMethod = null;
+    _mfaEmail = '';
   }
 
   void _resetFormKey() {
