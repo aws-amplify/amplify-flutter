@@ -350,10 +350,12 @@ class StateMachineBloc
                 result.nextStep.totpSetupDetails != null,
                 'Sign In Result should have totpSetupDetails',
               );
-              _emit(await ContinueSignInTotpSetup.setupURI(
-                result.nextStep.totpSetupDetails!,
-                totpOptions,
-              ),);
+              _emit(
+                await ContinueSignInTotpSetup.setupURI(
+                  result.nextStep.totpSetupDetails!,
+                  totpOptions,
+                ),
+              );
             } else if (mfaType == MfaType.email) {
               _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
             } else {
