@@ -132,7 +132,8 @@ Future<void> _handleSignInResult(SignInResult result) async {
     // #enddocregion handle-confirm-signin-totp-setup
     // #docregion handle-confirm-signin-email-setup
     case AuthSignInStep.continueSignInWithEmailMfaSetup:
-      safePrint('Enter the email address you want to use for two-factor authentication');
+      safePrint(
+          'Enter the email address you want to use for two-factor authentication');
     // #enddocregion handle-confirm-signin-email-setup
     // #docregion handle-confirm-signin-totp-code
     case AuthSignInStep.confirmSignInWithTotpMfaCode:
