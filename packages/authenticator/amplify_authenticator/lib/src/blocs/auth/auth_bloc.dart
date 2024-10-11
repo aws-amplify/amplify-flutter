@@ -234,9 +234,7 @@ class StateMachineBloc
             allowedMfaTypes: result.nextStep.allowedMfaTypes,
           );
         case AuthSignInStep.continueSignInWithMfaSetupSelection:
-          yield ContinueSignInWithMfaSetupSelection(
-            allowedMfaTypes: result.nextStep.allowedMfaTypes,
-          );
+          await _handleMfaSetupSelection(result);
         case AuthSignInStep.continueSignInWithTotpSetup:
           assert(
             result.nextStep.totpSetupDetails != null,
@@ -342,53 +340,7 @@ class StateMachineBloc
           ),
         );
       case AuthSignInStep.continueSignInWithMfaSetupSelection:
-        final allowedMfaTypes = result.nextStep.allowedMfaTypes;
-        if (allowedMfaTypes != null) {
-          final mfaTypesForSetup = allowedMfaTypes.toSet()..remove(MfaType.sms);
-          if (mfaTypesForSetup.length == 1) {
-            final mfaType = mfaTypesForSetup.first;
-            if (mfaType == MfaType.totp) {
-              assert(
-                result.nextStep.totpSetupDetails != null,
-                'Sign In Result should have totpSetupDetails',
-              );
-              _emit(await ContinueSignInTotpSetup.setupURI(
-                result.nextStep.totpSetupDetails!,
-                totpOptions,
-              ),);
-            } else if (mfaType == MfaType.email) {
-              _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
-            } else {
-              throw InvalidUserPoolConfigurationException(
-                'Unsupported MFA type: ${mfaType.name}',
-                recoverySuggestion: 'Check your user pool MFA configuration.',
-              );
-            }
-          } else {
-            _emit(
-              ContinueSignInWithMfaSetupSelection(
-                allowedMfaTypes: result.nextStep.allowedMfaTypes,
-              ),
-            );
-          }
-        } else {
-          _emit(
-            ContinueSignInWithMfaSetupSelection(
-              allowedMfaTypes: result.nextStep.allowedMfaTypes,
-            ),
-          );
-        }
-      case AuthSignInStep.continueSignInWithTotpSetup:
-        assert(
-          result.nextStep.totpSetupDetails != null,
-          'Sign In Result should have totpSetupDetails',
-        );
-        _emit(
-          await ContinueSignInTotpSetup.setupURI(
-            result.nextStep.totpSetupDetails!,
-            totpOptions,
-          ),
-        );
+        await _handleMfaSetupSelection(result);
       case AuthSignInStep.continueSignInWithEmailMfaSetup:
         _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
       case AuthSignInStep.confirmSignInWithTotpMfaCode:
@@ -590,6 +542,48 @@ class StateMachineBloc
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
   }
+
+Future<void> _handleMfaSetupSelection(SignInResult result) async {
+  final allowedMfaTypes = result.nextStep.allowedMfaTypes;
+  if (allowedMfaTypes != null) {
+    final mfaTypesForSetup = allowedMfaTypes.toSet()..remove(MfaType.sms);
+    if (mfaTypesForSetup.length == 1) {
+      final mfaType = mfaTypesForSetup.first;
+      if (mfaType == MfaType.totp) {
+        assert(
+          result.nextStep.totpSetupDetails != null,
+          'Sign In Result should have totpSetupDetails',
+        );
+        _emit(
+          await ContinueSignInTotpSetup.setupURI(
+            result.nextStep.totpSetupDetails!,
+            totpOptions,
+          ),
+        );
+      } else if (mfaType == MfaType.email) {
+        _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
+      } else {
+        throw InvalidUserPoolConfigurationException(
+          'Unsupported MFA type: ${mfaType.name}',
+          recoverySuggestion: 'Check your user pool MFA configuration.',
+        );
+      }
+    } else {
+      _emit(
+        ContinueSignInWithMfaSetupSelection(
+          allowedMfaTypes: result.nextStep.allowedMfaTypes,
+        ),
+      );
+    }
+  } else {
+    _emit(
+      ContinueSignInWithMfaSetupSelection(
+        allowedMfaTypes: result.nextStep.allowedMfaTypes,
+      ),
+    );
+  }
+}
+
 
   @override
   Future<void> close() async {
