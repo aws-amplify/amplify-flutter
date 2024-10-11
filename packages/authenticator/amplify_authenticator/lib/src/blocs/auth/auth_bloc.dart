@@ -370,10 +370,9 @@ class StateMachineBloc
             );
           }
         } else {
-          _emit(
-            ContinueSignInWithMfaSetupSelection(
-              allowedMfaTypes: result.nextStep.allowedMfaTypes,
-            ),
+          throw const InvalidUserPoolConfigurationException(
+            'Allowed MFA types are null',
+            recoverySuggestion: 'Check your user pool MFA configuration.',
           );
         }
       case AuthSignInStep.continueSignInWithTotpSetup:
