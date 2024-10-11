@@ -118,11 +118,11 @@ Future<void> _handleSignInResult(SignInResult result) async {
     case AuthSignInStep.continueSignInWithMfaSetupSelection:
       final allowedMfaTypes = result.nextStep.allowedMfaTypes!;
       if (allowedMfaTypes.length == 1) {
-        return _handleMfaSetupSelection(allowedMfaTypes.first);
+        return _handleMfaSelection(allowedMfaTypes.first);
       }
       final selection = await _promptUserPreference(allowedMfaTypes);
       safePrint('Selected MFA type: $selection');
-      return _handleMfaSetupSelection(selection);
+      return _handleMfaSelection(selection);
     // #enddocregion handle-confirm-signin-mfa-setup-selection
     // #docregion handle-confirm-signin-totp-setup
     case AuthSignInStep.continueSignInWithTotpSetup:
@@ -132,7 +132,7 @@ Future<void> _handleSignInResult(SignInResult result) async {
     // #enddocregion handle-confirm-signin-totp-setup
     // #docregion handle-confirm-signin-email-setup
     case AuthSignInStep.continueSignInWithEmailMfaSetup:
-      safePrint('A confirmation code has been sent to your email');
+      safePrint('Enter the email address you want to use for two-factor authentication');
     // #enddocregion handle-confirm-signin-email-setup
     // #docregion handle-confirm-signin-totp-code
     case AuthSignInStep.confirmSignInWithTotpMfaCode:
@@ -254,19 +254,6 @@ Future<void> _handleMfaSelection(MfaType selection) async {
   }
 }
 // #enddocregion handle-mfa-selection
-
-// #docregion handle-mfa-setup-selection
-Future<void> _handleMfaSetupSelection(MfaType selection) async {
-  try {
-    final result = await Amplify.Auth.confirmSignIn(
-      confirmationValue: selection.confirmationValue,
-    );
-    return _handleSignInResult(result);
-  } on AuthException catch (e) {
-    safePrint('Error selecting MFA method: ${e.message}');
-  }
-}
-// #enddocregion handle-mfa-setup-selection
 
 // #docregion signout
 Future<void> signOutCurrentUser() async {
