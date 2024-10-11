@@ -38,6 +38,24 @@ class TransferDatabase extends $TransferDatabase
   int get schemaVersion => 2;
 
   @override
+  MigrationStrategy get migration {
+    return MigrationStrategy(
+      onCreate: (Migrator m) async {
+        await m.createAll();
+      },
+      onUpgrade: (Migrator m, int from, int to) async {
+        // Note: From schemaVersion 1->2 we added bucketName and awsRegion.
+        // they are nullable columns so that on upgrade we need to update
+        // the transferRecords table to add these two columns
+        if (from < 2) {
+          await m.addColumn(transferRecords, transferRecords.bucketName);
+          await m.addColumn(transferRecords, transferRecords.awsRegion);
+        }
+      },
+    );
+  }
+
+  @override
   Future<List<data.TransferRecord>> getMultipartUploadRecordsCreatedBefore(
     DateTime dateTime,
   ) {
