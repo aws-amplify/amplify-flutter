@@ -122,8 +122,8 @@ class InheritedForms extends InheritedWidget {
             confirmSignInWithEmailMfaCodeForm ||
         oldWidget.continueSignInWithEmailMfaSetupForm !=
             continueSignInWithEmailMfaSetupForm ||
-        oldWidget.continueSignInWithMfaSelectionForm !=
-            continueSignInWithMfaSelectionForm;
+        oldWidget.continueSignInWithMfaSetupSelectionForm !=
+            continueSignInWithMfaSetupSelectionForm;
   }
 }
 
