@@ -667,46 +667,49 @@ final class SignInStateMachine
       );
     }
 
-  if (!hasUserResponse) {
-    // Need to prompt user to select an MFA type
-    return null;
-  }
+    if (!hasUserResponse) {
+      // Need to prompt user to select an MFA type
+      return null;
+    }
 
-  if (event == null) {
-    throw StateError('Event cannot be null when there is user response.');
-  }
-  if (event is! SignInRespondToChallenge) {
-    throw StateError('Expected SignInRespondToChallenge event.');
-  }
+    if (event == null) {
+      throw StateError('Event cannot be null when there is user response.');
+    }
+    if (event is! SignInRespondToChallenge) {
+      throw StateError('Expected SignInRespondToChallenge event.');
+    }
 
-  if (_enableMfaType == null && _totpSetupResult == null) {
-    // User has just selected the MFA type
-    final selection = event.answer.toLowerCase();
-    _enableMfaType = switch (selection) {
-      'totp' => MfaType.totp,
-      'email' => MfaType.email,
-      _ => throw const InvalidParameterException('Invalid MFA type selected'),
-    };
+    if (_enableMfaType == null && _totpSetupResult == null) {
+      // User has just selected the MFA type
+      final selection = event.answer.toLowerCase();
+      _enableMfaType = switch (selection) {
+        'totp' => MfaType.totp,
+        'email' => MfaType.email,
+        _ => throw const InvalidParameterException('Invalid MFA type selected'),
+      };
 
-    final challengeResponses = <String, String>{
-      CognitoConstants.challengeParamMfasCanSetup: _enableMfaType == MfaType.totp
-          ? '["SOFTWARE_TOKEN_MFA"]'
-          : '["EMAIL_OTP"]',
-    };
-    _challengeParameters = BuiltMap<String, String>(challengeResponses);
-    await _processChallenge();
-    return null;
-  }
+      final challengeResponses = <String, String>{
+        CognitoConstants.challengeParamMfasCanSetup:
+            _enableMfaType == MfaType.totp
+                ? '["SOFTWARE_TOKEN_MFA"]'
+                : '["EMAIL_OTP"]',
+      };
+      _challengeParameters = BuiltMap<String, String>(challengeResponses);
+      await _processChallenge();
+      return null;
+    }
 
-  // totp mfa method was already selected
-  if (mfaTypesForSetup.length == 1 && mfaTypesForSetup.contains(MfaType.totp) && _totpSetupResult != null) {
-    createSoftwareTokenMfaRequest(event);
-  }
+    // totp mfa method was already selected
+    if (mfaTypesForSetup.length == 1 &&
+        mfaTypesForSetup.contains(MfaType.totp) &&
+        _totpSetupResult != null) {
+      createSoftwareTokenMfaRequest(event);
+    }
 
-  // User has provided the verification code
-  return _enableMfaType == MfaType.totp
-      ? createMfaSetupRequest(event)
-      : createEmailMfaSetupRequest(event);
+    // User has provided the verification code
+    return _enableMfaType == MfaType.totp
+        ? createMfaSetupRequest(event)
+        : createEmailMfaSetupRequest(event);
   }
 
   /// Completes set up of a TOTP MFA.
@@ -1056,7 +1059,8 @@ final class SignInStateMachine
     if (_allowedMfaTypes case final allowedMfaTypes?
         when _challengeParameters
             .containsKey(CognitoConstants.challengeParamMfasCanSetup)) {
-      if (!allowedMfaTypes.contains(MfaType.totp) && !allowedMfaTypes.contains(MfaType.email)) {
+      if (!allowedMfaTypes.contains(MfaType.totp) &&
+          !allowedMfaTypes.contains(MfaType.email)) {
         throw const InvalidUserPoolConfigurationException(
           'Cannot enable SMS MFA and TOTP or EMAIL MFA is not allowed',
           recoverySuggestion:
@@ -1064,7 +1068,10 @@ final class SignInStateMachine
         );
       }
       final allowedMfaSetupTypes = [...?_allowedMfaTypes]..remove(MfaType.sms);
-      if (allowedMfaSetupTypes.length == 1 && allowedMfaSetupTypes.first == MfaType.totp && _totpSetupResult == null) _totpSetupResult = await associateSoftwareToken(accessToken: _session);
+      if (allowedMfaSetupTypes.length == 1 &&
+          allowedMfaSetupTypes.first == MfaType.totp &&
+          _totpSetupResult == null)
+        _totpSetupResult = await associateSoftwareToken(accessToken: _session);
     }
 
     // Query the state machine for a response given potential user input in

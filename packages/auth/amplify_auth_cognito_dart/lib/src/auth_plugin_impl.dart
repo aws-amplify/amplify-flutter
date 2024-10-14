@@ -481,43 +481,43 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   CognitoSignInResult _processSignInResult(SignInState result) {
-  switch (result) {
-    case SignInNotStarted():
-    case SignInInitiating():
-      // This should never happen.
-      throw UnknownException(
-        'Sign in could not be completed',
-        underlyingException: result,
-      );
+    switch (result) {
+      case SignInNotStarted():
+      case SignInInitiating():
+        // This should never happen.
+        throw UnknownException(
+          'Sign in could not be completed',
+          underlyingException: result,
+        );
 
-    case SignInCancelling():
-      throw const UserCancelledException(
-        'The user canceled the sign-in flow',
-      );
+      case SignInCancelling():
+        throw const UserCancelledException(
+          'The user canceled the sign-in flow',
+        );
 
-    case final SignInChallenge challenge:
-      return CognitoSignInResult(
-        isSignedIn: false,
-        nextStep: AuthNextSignInStep(
-          signInStep: challenge.challengeName.signInStep,
-          codeDeliveryDetails: challenge.codeDeliveryDetails,
-          additionalInfo: challenge.challengeParameters,
-          missingAttributes: challenge.requiredAttributes,
-          allowedMfaTypes: challenge.allowedMfaTypes,
-          totpSetupDetails: challenge.totpSetupResult,
-        ),
-      );
+      case final SignInChallenge challenge:
+        return CognitoSignInResult(
+          isSignedIn: false,
+          nextStep: AuthNextSignInStep(
+            signInStep: challenge.challengeName.signInStep,
+            codeDeliveryDetails: challenge.codeDeliveryDetails,
+            additionalInfo: challenge.challengeParameters,
+            missingAttributes: challenge.requiredAttributes,
+            allowedMfaTypes: challenge.allowedMfaTypes,
+            totpSetupDetails: challenge.totpSetupResult,
+          ),
+        );
 
-    case SignInSuccess():
-      return const CognitoSignInResult(
-        isSignedIn: true,
-        nextStep: AuthNextSignInStep(
-          signInStep: AuthSignInStep.done,
-        ),
-      );
+      case SignInSuccess():
+        return const CognitoSignInResult(
+          isSignedIn: true,
+          nextStep: AuthNextSignInStep(
+            signInStep: AuthSignInStep.done,
+          ),
+        );
 
-    case final SignInFailure failure:
-      Error.throwWithStackTrace(failure.exception, failure.stackTrace);
+      case final SignInFailure failure:
+        Error.throwWithStackTrace(failure.exception, failure.stackTrace);
 // To satisfy Dart's requirements, even if unreachable
     }
   }
