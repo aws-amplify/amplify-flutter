@@ -496,15 +496,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       );
 
     case final SignInChallenge challenge:
-      // Print all properties of SignInChallenge
-      safePrint('Challenge name: ${challenge.challengeName}');
-      safePrint('Sign in Step: ${challenge.challengeName.signInStep}');
-      safePrint('Challenge parameters: ${challenge.challengeParameters}');
-      safePrint('Code delivery details: ${challenge.codeDeliveryDetails}');
-      safePrint('Required attributes: ${challenge.requiredAttributes}');
-      safePrint('Allowed MFA types: ${challenge.allowedMfaTypes}');
-      safePrint('TOTP setup result: ${challenge.totpSetupResult}');
-      
       return CognitoSignInResult(
         isSignedIn: false,
         nextStep: AuthNextSignInStep(
