@@ -534,6 +534,14 @@ void main() {
           const StorageUploadDataOptions(),
         );
         registerFallbackValue(const S3DataPayload.empty());
+        registerFallbackValue(
+          const StorageBucket.fromBucketInfo(
+            BucketInfo(
+              bucketName: 'bucketName',
+              region: 'region',
+            ),
+          ),
+        );
       });
 
       test('should forward default options to StorageS3Service.uploadData API',
@@ -628,6 +636,48 @@ void main() {
         expect(
           capturedOptions,
           testOptions,
+        );
+      });
+
+      test('should forward bucket to StorageS3Service.uploadData API',
+          () async {
+        const testBucket = StorageBucket.fromBucketInfo(
+          BucketInfo(
+            bucketName: 'test-bucket',
+            region: 'test-region',
+          ),
+        );
+        when(
+          () => storageS3Service.uploadData(
+            path: testPath,
+            dataPayload: any(named: 'dataPayload'),
+            options: any(named: 'options'),
+            bucket: testBucket,
+          ),
+        ).thenAnswer((_) => testS3UploadTask);
+
+        when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
+        uploadDataOperation = storageS3Plugin.uploadData(
+          data: testData,
+          path: testPath,
+          bucket: testBucket,
+        );
+        final capturedBucket = verify(
+          () => storageS3Service.uploadData(
+            path: testPath,
+            dataPayload: any(named: 'dataPayload'),
+            options: any(
+              named: 'options',
+            ),
+            bucket: captureAny<StorageBucket>(
+              named: 'bucket',
+            ),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedBucket,
+          testBucket,
         );
       });
 
