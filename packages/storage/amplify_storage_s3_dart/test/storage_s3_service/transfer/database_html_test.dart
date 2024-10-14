@@ -12,12 +12,16 @@ void main() {
   group('TransferDatabase for web', () {
     const testUploadId = 'test-upload-Id';
     const testObjectKey = 'test-object-Key';
+    const testBucketName = 'test-bucket-name';
+    const testAwsRegion = 'test-aws-region';
     final testCreatedAt = DateTime(2022, 1, 1);
 
     final testTransferRecord = TransferRecord(
       uploadId: testUploadId,
       objectKey: testObjectKey,
       createdAt: testCreatedAt,
+      bucketName: testBucketName,
+      awsRegion: testAwsRegion,
     );
 
     final testTransferRecordJsonString = testTransferRecord.toJsonString();
