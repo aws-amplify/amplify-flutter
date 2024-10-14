@@ -259,7 +259,8 @@ class ContinueSignInMFASelectionButton extends AuthenticatorElevatedButton {
 ///
 /// Uses [ButtonResolverKey.continueLabel] for localization
 /// {@endtemplate}
-class ContinueSignInMFASetupSelectionButton extends AuthenticatorElevatedButton {
+class ContinueSignInMFASetupSelectionButton
+    extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.continue_sign_in_mfa_setup_selection_button}
   const ContinueSignInMFASetupSelectionButton({Key? key})
       : super(
@@ -277,10 +278,11 @@ class ContinueSignInMFASetupSelectionButton extends AuthenticatorElevatedButton 
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.continue_sign_in_with_email_mfa_setup_button}
 /// A prebuilt button for Sign In with Email MFA setup.
-/// 
+///
 /// Uses [ButtonResolverKey.continueLabel] for localization
 /// {@endtemplate}
-class ContinueSignInWithEmailMfaSetupButton extends AuthenticatorElevatedButton {
+class ContinueSignInWithEmailMfaSetupButton
+    extends AuthenticatorElevatedButton {
   /// {@macro amplify_authenticator.continue_sign_in_with_email_mfa_setup_button}
   const ContinueSignInWithEmailMfaSetupButton({Key? key})
       : super(
