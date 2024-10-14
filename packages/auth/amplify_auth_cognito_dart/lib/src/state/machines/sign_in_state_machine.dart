@@ -679,7 +679,7 @@ final class SignInStateMachine
     throw StateError('Expected SignInRespondToChallenge event.');
   }
 
-  if (_enableMfaType == null) {
+  if (_enableMfaType == null && _totpSetupResult == null) {
     // User has just selected the MFA type
     final selection = event.answer.toLowerCase();
     _enableMfaType = switch (selection) {
@@ -696,6 +696,11 @@ final class SignInStateMachine
     _challengeParameters = BuiltMap<String, String>(challengeResponses);
     await _processChallenge();
     return null;
+  }
+
+  // totp mfa method was already selected
+  if (mfaTypesForSetup.length == 1 && mfaTypesForSetup.contains(MfaType.totp) && _totpSetupResult != null) {
+    createSoftwareTokenMfaRequest(event);
   }
 
   // User has provided the verification code
@@ -1059,7 +1064,7 @@ final class SignInStateMachine
         );
       }
       final allowedMfaSetupTypes = [...?_allowedMfaTypes]..remove(MfaType.sms);
-      if (allowedMfaSetupTypes.length == 1 && allowedMfaSetupTypes.first == MfaType.totp) _totpSetupResult = await associateSoftwareToken(accessToken: _session);
+      if (allowedMfaSetupTypes.length == 1 && allowedMfaSetupTypes.first == MfaType.totp && _totpSetupResult == null) _totpSetupResult = await associateSoftwareToken(accessToken: _session);
     }
 
     // Query the state machine for a response given potential user input in
