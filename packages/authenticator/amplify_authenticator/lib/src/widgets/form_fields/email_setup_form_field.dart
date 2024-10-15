@@ -7,8 +7,8 @@ part of '../form_field.dart';
 /// {@template amplify_authenticator.email_setup_form_field}
 /// A prebuilt form field widget for use on the Email MFA setup step.
 /// {@endtemplate}
-abstract class EmailSetupFormField<FieldValue extends Object>
-    extends AuthenticatorFormField<EmailSetupField, FieldValue> {
+class EmailSetupFormField
+    extends AuthenticatorFormField<EmailSetupField, String> {
   /// {@macro amplify_authenticator.email_setup_form_field}
   ///
   /// Either [titleKey] or [title] is required.
@@ -23,25 +23,30 @@ abstract class EmailSetupFormField<FieldValue extends Object>
     super.autofillHints,
   }) : super._();
 
-  /// Creates an email component.
-  static EmailSetupFormField<String> email({
+  /// Creates an email FormField for the email setup step.
+  const EmailSetupFormField.email({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-  }) =>
-      _EmailSetupTextField(
-        key: key ?? keyEmailSetupFormField,
-        titleKey: InputResolverKey.emailTitle,
-        hintTextKey: InputResolverKey.emailHint,
-        field: EmailSetupField.email,
-        validator: validator,
-        autofillHints: autofillHints,
-      );
+  }) : this._(
+          key: key ?? keyEmailSetupFormField,
+          field: EmailSetupField.email,
+          titleKey: InputResolverKey.emailTitle,
+          hintTextKey: InputResolverKey.emailHint,
+          validator: validator,
+          autofillHints: autofillHints,
+        );
+
+  @override
+  bool get required => true;
+
+  @override
+  AuthenticatorFormFieldState<EmailSetupField, String, EmailSetupFormField>
+      createState() => _EmailSetupFormFieldState();
 }
 
-abstract class _EmailSetupFormFieldState<FieldValue extends Object>
-    extends AuthenticatorFormFieldState<EmailSetupField, FieldValue,
-        EmailSetupFormField<FieldValue>> {
+class _EmailSetupFormFieldState extends AuthenticatorFormFieldState<
+    EmailSetupField, String, EmailSetupFormField> with AuthenticatorTextField {
   @override
   TextInputType get keyboardType {
     return TextInputType.emailAddress;
@@ -52,38 +57,17 @@ abstract class _EmailSetupFormFieldState<FieldValue extends Object>
     return [AutofillHints.email];
   }
 
-  bool get required {
-    switch (widget.field) {
-      case EmailSetupField.email:
-        return true;
-    }
+  @override
+  ValueChanged<String> get onChanged {
+    return (v) => state.mfaEmail = v;
   }
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>('required', required));
-  }
-}
-
-class _EmailSetupTextField extends EmailSetupFormField<String> {
-  const _EmailSetupTextField({
-    super.key,
-    required super.field,
-    super.titleKey,
-    super.hintTextKey,
-    super.validator,
-    super.autofillHints,
-  }) : super._();
-
-  @override
-  _EmailSetupTextFieldState createState() => _EmailSetupTextFieldState();
-}
-
-class _EmailSetupTextFieldState extends _EmailSetupFormFieldState<String>
-    with AuthenticatorTextField {
-  @override
-  bool get obscureText {
-    return false;
+  FormFieldValidator<String> get validator {
+    return validateEmail(
+      isOptional: isOptional,
+      context: context,
+      inputResolver: stringResolver.inputs,
+    );
   }
 }

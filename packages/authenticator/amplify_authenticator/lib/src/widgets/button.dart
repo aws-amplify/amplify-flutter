@@ -254,6 +254,50 @@ class ContinueSignInMFASelectionButton extends AuthenticatorElevatedButton {
 }
 
 /// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_mfa_setup_selection_button}
+/// A prebuilt button for Sign In with MFA setup selection.
+///
+/// Uses [ButtonResolverKey.continueLabel] for localization
+/// {@endtemplate}
+class ContinueSignInMFASetupSelectionButton
+    extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.continue_sign_in_mfa_setup_selection_button}
+  const ContinueSignInMFASetupSelectionButton({Key? key})
+      : super(
+          key: key ?? keyConfirmSignInMfaSetupSelectionButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.continueLabel;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.continueSignInWithMfaSetupSelection();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_with_email_mfa_setup_button}
+/// A prebuilt button for Sign In with Email MFA setup.
+///
+/// Uses [ButtonResolverKey.continueLabel] for localization
+/// {@endtemplate}
+class ContinueSignInWithEmailMfaSetupButton
+    extends AuthenticatorElevatedButton {
+  /// {@macro amplify_authenticator.continue_sign_in_with_email_mfa_setup_button}
+  const ContinueSignInWithEmailMfaSetupButton({Key? key})
+      : super(
+          key: key ?? keyConfirmSignInWithEmailMfaSetupButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.continueLabel;
+
+  @override
+  void onPressed(BuildContext context, AuthenticatorState state) =>
+      state.continueEmailMfaSetup();
+}
+
+/// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.confirm_sign_in_mfa_button}
 /// A prebuilt button for completing Sign In with and MFA code.
 ///

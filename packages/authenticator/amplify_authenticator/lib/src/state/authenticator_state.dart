@@ -407,6 +407,23 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(false);
   }
 
+  /// Select MFA setup preference using the values for [selectedMfaMethod]
+  Future<void> continueSignInWithMfaSetupSelection() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    _setIsBusy(true);
+
+    final confirm = AuthConfirmSignInData(
+      confirmationValue: _selectedMfaMethod!.name,
+    );
+
+    _authBloc.add(AuthConfirmSignIn(confirm));
+    await nextBlocEvent();
+    _setIsBusy(false);
+  }
+
   /// Complete TOTP setup using the values for [confirmationCode]
   /// and any user attributes.
   Future<void> confirmTotp() async {
@@ -690,6 +707,7 @@ class AuthenticatorState extends ChangeNotifier {
     authAttributes.clear();
     _publicChallengeParams.clear();
     _selectedMfaMethod = null;
+    _mfaEmail = '';
   }
 
   void _resetFormKey() {
