@@ -804,55 +804,27 @@ extension MfaSettings on CognitoIdentityProviderClient {
       preferred: currentPreference,
     ) = await _getRawUserSettings(accessToken: accessToken);
 
-    final newPreferredMethods = [
-      if (sms == MfaPreference.preferred) MfaType.sms,
-      if (totp == MfaPreference.preferred) MfaType.totp,
-      if (email == MfaPreference.preferred) MfaType.email,
-    ];
+    var preferred =
+        _getNewPreferredMethod(sms: sms, totp: totp, email: email) ??
+            currentPreference;
 
-    if (newPreferredMethods.length > 1) {
-      throw const InvalidParameterException(
-        'Cannot assign multiple MFA methods as preferred',
-      );
-    }
-
-    var preferred = newPreferredMethods.isNotEmpty
-        ? newPreferredMethods.first
-        : currentPreference;
-
-    final isCurrentPreferenceDisabled = switch (currentPreference) {
-      MfaType.sms =>
-        sms == MfaPreference.disabled || sms == MfaPreference.notPreferred,
-      MfaType.totp =>
-        totp == MfaPreference.disabled || totp == MfaPreference.notPreferred,
-      MfaType.email =>
-        email == MfaPreference.disabled || email == MfaPreference.notPreferred,
-      _ => false,
-    };
-    preferred = isCurrentPreferenceDisabled ? null : preferred;
-
-    const enabledValues = [
-      MfaPreference.enabled,
-      MfaPreference.notPreferred,
-      MfaPreference.preferred,
-    ];
-
-    bool isMfaEnabled(MfaType mfaType, MfaPreference? preference) {
-      if (preference == MfaPreference.disabled) return false;
-      return currentEnabled.contains(mfaType) ||
-          enabledValues.contains(preference);
+    if (_isCurrentPreferenceDisabled(currentPreference,
+        sms: sms, totp: totp, email: email,)) {
+      preferred = null;
     }
 
     final smsMfaSettings = SmsMfaSettingsType(
-      enabled: isMfaEnabled(MfaType.sms, sms),
+      enabled: _isMfaEnabled(MfaType.sms, sms, currentEnabled),
       preferredMfa: preferred == MfaType.sms,
     );
+
     final softwareTokenSettings = SoftwareTokenMfaSettingsType(
-      enabled: isMfaEnabled(MfaType.totp, totp),
+      enabled: _isMfaEnabled(MfaType.totp, totp, currentEnabled),
       preferredMfa: preferred == MfaType.totp,
     );
+
     final emailMfaSettings = EmailMfaSettingsType(
-      enabled: isMfaEnabled(MfaType.email, email),
+      enabled: _isMfaEnabled(MfaType.email, email, currentEnabled),
       preferredMfa: preferred == MfaType.email,
     );
 
@@ -864,6 +836,60 @@ extension MfaSettings on CognitoIdentityProviderClient {
         emailMfaSettings: emailMfaSettings,
       ),
     ).result;
+  }
+
+  /// Making sure a maximum of one MFA method is set to preferred.
+  MfaType? _getNewPreferredMethod({
+    MfaPreference? sms,
+    MfaPreference? totp,
+    MfaPreference? email,
+  }) {
+    final preferredMethods = [
+      if (sms == MfaPreference.preferred) MfaType.sms,
+      if (totp == MfaPreference.preferred) MfaType.totp,
+      if (email == MfaPreference.preferred) MfaType.email,
+    ];
+
+    if (preferredMethods.length > 1) {
+      throw const InvalidParameterException(
+        'Cannot assign multiple MFA methods as preferred',
+      );
+    }
+
+    return preferredMethods.isNotEmpty ? preferredMethods.first : null;
+  }
+
+  /// Checks if the current preferred MFA method is being disabled or set to not preferred.
+  bool _isCurrentPreferenceDisabled(
+    MfaType? currentPreference, {
+    MfaPreference? sms,
+    MfaPreference? totp,
+    MfaPreference? email,
+  }) {
+    switch (currentPreference) {
+      case MfaType.sms:
+        return sms == MfaPreference.disabled ||
+            sms == MfaPreference.notPreferred;
+      case MfaType.totp:
+        return totp == MfaPreference.disabled ||
+            totp == MfaPreference.notPreferred;
+      case MfaType.email:
+        return email == MfaPreference.disabled ||
+            email == MfaPreference.notPreferred;
+      default:
+        return false;
+    }
+  }
+
+  /// Determines if an MFA type should be enabled based on preferences and current settings.
+  bool _isMfaEnabled(
+    MfaType mfaType,
+    MfaPreference? preference,
+    Set<MfaType> currentEnabled,
+  ) {
+    if (preference == MfaPreference.disabled) return false;
+    if (preference != null) return true;
+    return currentEnabled.contains(mfaType);
   }
 }
 
