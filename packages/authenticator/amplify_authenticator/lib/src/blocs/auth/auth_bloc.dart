@@ -545,42 +545,48 @@ class StateMachineBloc
 
   Future<void> _handleMfaSetupSelection(SignInResult result) async {
     final allowedMfaTypes = result.nextStep.allowedMfaTypes;
-    if (allowedMfaTypes != null) {
-      final mfaTypesForSetup = allowedMfaTypes.toSet()..remove(MfaType.sms);
-      if (mfaTypesForSetup.length == 1) {
-        final mfaType = mfaTypesForSetup.first;
-        if (mfaType == MfaType.totp) {
-          assert(
-            result.nextStep.totpSetupDetails != null,
-            'Sign In Result should have totpSetupDetails',
-          );
-          _emit(
-            await ContinueSignInTotpSetup.setupURI(
-              result.nextStep.totpSetupDetails!,
-              totpOptions,
-            ),
-          );
-        } else if (mfaType == MfaType.email) {
-          _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
-        } else {
-          throw InvalidUserPoolConfigurationException(
-            'Unsupported MFA type: ${mfaType.name}',
-            recoverySuggestion: 'Check your user pool MFA configuration.',
-          );
-        }
-      } else {
-        _emit(
-          ContinueSignInWithMfaSetupSelection(
-            allowedMfaTypes: result.nextStep.allowedMfaTypes,
-          ),
-        );
-      }
-    } else {
+
+    if (allowedMfaTypes == null) {
+      throw const InvalidUserPoolConfigurationException(
+        'No MFA types are supported',
+        recoverySuggestion: 'Check your user pool MFA configuration.',
+      );
+    }
+
+    final mfaTypesForSetup = allowedMfaTypes.toSet()..remove(MfaType.sms);
+
+    if (mfaTypesForSetup.length != 1) {
       _emit(
         ContinueSignInWithMfaSetupSelection(
-          allowedMfaTypes: result.nextStep.allowedMfaTypes,
+          allowedMfaTypes: allowedMfaTypes,
         ),
       );
+      return;
+    }
+
+    final mfaType = mfaTypesForSetup.first;
+
+    switch (mfaType) {
+      case MfaType.totp:
+        assert(
+          result.nextStep.totpSetupDetails != null,
+          'Sign In Result should have totpSetupDetails',
+        );
+        _emit(
+          await ContinueSignInTotpSetup.setupURI(
+            result.nextStep.totpSetupDetails!,
+            totpOptions,
+          ),
+        );
+
+      case MfaType.email:
+        _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
+
+      default:
+        throw InvalidUserPoolConfigurationException(
+          'Unsupported MFA type: ${mfaType.name}',
+          recoverySuggestion: 'Check your user pool MFA configuration.',
+        );
     }
   }
 
