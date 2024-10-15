@@ -330,8 +330,8 @@ final class SignInStateMachine
         createEmailMfaRequest(event),
       ChallengeNameType.selectMfaType when hasUserResponse =>
         createSelectMfaRequest(event),
-      ChallengeNameType.mfaSetup =>
-        handleMfaSetup(event: event, hasUserResponse: hasUserResponse),
+      ChallengeNameType.mfaSetup when hasUserResponse =>
+        handleMfaSetup(event: event),
       ChallengeNameType.newPasswordRequired when hasUserResponse =>
         createNewPasswordRequest(event),
       _ => null,
@@ -655,7 +655,6 @@ final class SignInStateMachine
   @protected
   Future<RespondToAuthChallengeRequest?> handleMfaSetup({
     SignInEvent? event,
-    required bool hasUserResponse,
   }) async {
     final allowedMfaTypes = _allowedMfaTypes;
     // Exclude MfaType.sms from consideration
@@ -665,11 +664,6 @@ final class SignInStateMachine
         'No eligible MFA types are allowed for setup.',
         recoverySuggestion: 'Check your user pool MFA configuration.',
       );
-    }
-
-    if (!hasUserResponse) {
-      // Need to prompt user to select an MFA type
-      return null;
     }
 
     if (event == null) {
@@ -703,7 +697,7 @@ final class SignInStateMachine
     if (mfaTypesForSetup.length == 1 &&
         mfaTypesForSetup.contains(MfaType.totp) &&
         _totpSetupResult != null) {
-      createSoftwareTokenMfaRequest(event);
+      await createSoftwareTokenMfaRequest(event);
     }
 
     // User has provided the verification code
@@ -1070,8 +1064,9 @@ final class SignInStateMachine
       final allowedMfaSetupTypes = [...?_allowedMfaTypes]..remove(MfaType.sms);
       if (allowedMfaSetupTypes.length == 1 &&
           allowedMfaSetupTypes.first == MfaType.totp &&
-          _totpSetupResult == null)
+          _totpSetupResult == null) {
         _totpSetupResult = await associateSoftwareToken(accessToken: _session);
+      }
     }
 
     // Query the state machine for a response given potential user input in
