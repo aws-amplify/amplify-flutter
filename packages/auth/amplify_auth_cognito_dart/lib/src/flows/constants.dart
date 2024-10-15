@@ -11,7 +11,7 @@ abstract class CognitoConstants {
   /// The `USERNAME` parameter.
   static const challengeParamUsername = 'USERNAME';
 
-  /// The 'EMAIL' parameter.
+  /// The `EMAIL` parameter.
   static const challengeParamEmail = 'EMAIL';
 
   /// The `SRP_A` parameter.
