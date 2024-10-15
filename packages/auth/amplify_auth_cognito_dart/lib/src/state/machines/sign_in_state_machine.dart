@@ -1054,7 +1054,7 @@ final class SignInStateMachine
         when _challengeParameters
             .containsKey(CognitoConstants.challengeParamMfasCanSetup)) {
       if (!allowedMfaTypes.contains(MfaType.totp) &&
-          allowedMfaTypes.contains(MfaType.email)) {
+          !allowedMfaTypes.contains(MfaType.email)) {
         throw const InvalidUserPoolConfigurationException(
           'Cannot enable SMS MFA and TOTP or EMAIL MFA is not allowed',
           recoverySuggestion:
