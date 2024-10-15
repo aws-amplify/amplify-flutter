@@ -808,8 +808,12 @@ extension MfaSettings on CognitoIdentityProviderClient {
         _getNewPreferredMethod(sms: sms, totp: totp, email: email) ??
             currentPreference;
 
-    if (_isCurrentPreferenceDisabled(currentPreference,
-        sms: sms, totp: totp, email: email,)) {
+    if (_isCurrentPreferenceDisabled(
+      currentPreference,
+      sms: sms,
+      totp: totp,
+      email: email,
+    )) {
       preferred = null;
     }
 
