@@ -124,7 +124,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     });
   }
 
-   @override
+  @override
   S3ListOperation list({
     required StoragePath path,
     StorageListOptions? options,
@@ -151,7 +151,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       ),
     );
   }
-
 
   @override
   S3GetPropertiesOperation getProperties({

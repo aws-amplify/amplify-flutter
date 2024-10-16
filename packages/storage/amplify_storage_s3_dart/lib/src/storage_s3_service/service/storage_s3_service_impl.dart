@@ -125,7 +125,9 @@ class StorageS3Service {
         const S3ListPluginOptions();
 
     final resolvedPath = await _pathResolver.resolvePath(path: path);
-    final s3ClientInfo = options.bucket == null ? getS3ClientInfo() : getS3ClientInfo(storageBucket: options.bucket);
+    final s3ClientInfo = options.bucket == null
+        ? getS3ClientInfo()
+        : getS3ClientInfo(storageBucket: options.bucket);
 
     if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
@@ -157,8 +159,10 @@ class StorageS3Service {
     try {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-          // ignore: invalid_use_of_internal_member
-          ..bucket = options.bucket == null ? _storageOutputs.bucketName : options.bucket!.resolveBucketInfo(_storageOutputs).bucketName
+          ..bucket = options.bucket == null
+              ? _storageOutputs.bucketName
+              // ignore: invalid_use_of_internal_member
+              : options.bucket!.resolveBucketInfo(_storageOutputs).bucketName
           ..prefix = resolvedPath
           ..delimiter = s3PluginOptions.excludeSubPaths
               ? s3PluginOptions.delimiter
