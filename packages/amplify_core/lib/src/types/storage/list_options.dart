@@ -1,9 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_core.storage.list_options}
@@ -30,7 +27,7 @@ class StorageListOptions
 
   /// {@macro amplify_core.storage.list_plugin_options}
   final StorageListPluginOptions? pluginOptions;
-  
+
   /// an optional bucket to specify which bucket to return the list for
   final StorageBucket? bucket;
 
