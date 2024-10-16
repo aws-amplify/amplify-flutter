@@ -125,11 +125,12 @@ class StorageS3Service {
         const S3ListPluginOptions();
 
     final resolvedPath = await _pathResolver.resolvePath(path: path);
+    final s3ClientInfo = options.bucket == null ? getS3ClientInfo() : getS3ClientInfo(storageBucket: options.bucket);
 
     if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-          ..bucket = _storageOutputs.bucketName
+          ..bucket = s3ClientInfo.bucketName
           ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
@@ -140,7 +141,7 @@ class StorageS3Service {
 
       try {
         return S3ListResult.fromPaginatedResult(
-          await _defaultS3Client.listObjectsV2(request).result,
+          await s3ClientInfo.client.listObjectsV2(request).result,
         );
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.headObject may return 403 error
@@ -156,14 +157,15 @@ class StorageS3Service {
     try {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-          ..bucket = _storageOutputs.bucketName
+          // ignore: invalid_use_of_internal_member
+          ..bucket = options.bucket == null ? _storageOutputs.bucketName : options.bucket!.resolveBucketInfo(_storageOutputs).bucketName
           ..prefix = resolvedPath
           ..delimiter = s3PluginOptions.excludeSubPaths
               ? s3PluginOptions.delimiter
               : null;
       });
 
-      listResult = await _defaultS3Client.listObjectsV2(request).result;
+      listResult = await s3ClientInfo.client.listObjectsV2(request).result;
       recursiveResult = S3ListResult.fromPaginatedResult(
         listResult,
       );
