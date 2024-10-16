@@ -124,7 +124,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     });
   }
 
-  @override
+   @override
   S3ListOperation list({
     required StoragePath path,
     StorageListOptions? options,
@@ -136,6 +136,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     final s3Options = StorageListOptions(
       pluginOptions: s3PluginOptions,
       nextToken: options?.nextToken,
+      bucket: options?.bucket,
       pageSize: options?.pageSize ?? 1000,
     );
 
@@ -150,6 +151,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       ),
     );
   }
+
 
   @override
   S3GetPropertiesOperation getProperties({
