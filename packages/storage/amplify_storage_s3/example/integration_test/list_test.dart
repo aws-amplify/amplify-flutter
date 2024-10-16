@@ -40,7 +40,8 @@ void main() {
             path: StoragePath.fromString(uploadedPaths[i]),
             data: StorageDataPayload.bytes('test content'.codeUnits),
             bucket: StorageBucket.fromOutputs(
-                'Storage Integ Test secondary bucket',),
+              'Storage Integ Test secondary bucket',
+            ),
           ).result;
         }
         for (final path in uploadedPaths) {
@@ -56,8 +57,10 @@ void main() {
           final listResultSecondaryBucket = await Amplify.Storage.list(
             path: StoragePath.fromString(uniquePrefix),
             options: StorageListOptions(
-                bucket: StorageBucket.fromOutputs(
-                    'Storage Integ Test secondary bucket',),),
+              bucket: StorageBucket.fromOutputs(
+                'Storage Integ Test secondary bucket',
+              ),
+            ),
           ).result;
           for (var i = 0; i < 4; i++) {
             expect(
@@ -133,7 +136,8 @@ void main() {
                   delimiter: '#',
                 ),
                 bucket: StorageBucket.fromOutputs(
-                    'Storage Integ Test secondary bucket',),
+                  'Storage Integ Test secondary bucket',
+                ),
               ),
             ).result as S3ListResult;
 
@@ -148,8 +152,10 @@ void main() {
             expect(listResult.metadata.delimiter, '#');
 
             expect(listResultSecondaryBucket.items.length, 3);
-            expect(listResultSecondaryBucket.items.first.path,
-                contains('file5.txt'),);
+            expect(
+              listResultSecondaryBucket.items.first.path,
+              contains('file5.txt'),
+            );
 
             expect(listResultSecondaryBucket.metadata.subPaths.length, 1);
             expect(
@@ -176,13 +182,16 @@ void main() {
             options: StorageListOptions(
               pageSize: 2,
               bucket: StorageBucket.fromOutputs(
-                  'Storage Integ Test secondary bucket',),
+                'Storage Integ Test secondary bucket',
+              ),
             ),
           ).result;
 
           expect(listResultSecondaryBucket.items.length, 2);
-          expect(listResultSecondaryBucket.items.first.path,
-              contains('file5.txt'),);
+          expect(
+            listResultSecondaryBucket.items.first.path,
+            contains('file5.txt'),
+          );
         });
 
         testWidgets('should list files with pagination', (_) async {
@@ -225,12 +234,15 @@ void main() {
             options: StorageListOptions(
               pluginOptions: const S3ListPluginOptions.listAll(),
               bucket: StorageBucket.fromOutputs(
-                  'Storage Integ Test secondary bucket',),
+                'Storage Integ Test secondary bucket',
+              ),
             ),
           ).result;
 
-          expect(listResultSecondaryBucket.items.length,
-              uploadedPaths.length ~/ 2,);
+          expect(
+            listResultSecondaryBucket.items.length,
+            uploadedPaths.length ~/ 2,
+          );
           expect(listResultSecondaryBucket.nextToken, isNull);
         });
       });
