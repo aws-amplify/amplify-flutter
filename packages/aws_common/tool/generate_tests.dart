@@ -163,7 +163,7 @@ void main() {
     output.writeln(
       '''
 test(r'${test.name}', () {
-  overrideOperatingSystem(const OperatingSystem('${test.platform.name}', ''), () {
+  overrideOperatingSystem(OperatingSystem('${test.platform.name}', ''), () {
      overrideEnvironment({
       ${test.environment.entries.map((entry) => "'${entry.key}': r'${entry.value}',").join('\n')}
      }, () {

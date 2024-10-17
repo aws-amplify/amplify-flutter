@@ -15,7 +15,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_plugin_android_lifecycle: ^2.0.9
-  os_detect: ^2.0.0
+  os_detect: ^2.0.2
   shared_preferences: ^2.0.15
 
 dev_dependencies:
