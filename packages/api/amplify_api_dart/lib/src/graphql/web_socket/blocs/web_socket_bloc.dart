@@ -172,7 +172,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       yield* _networkLoss();
     } else if (event is NetworkFoundEvent) {
       yield* _networkFound();
-    } else if (event is ProcessUnpausedEvent) {
+    } else if (event is ProcessResumeEvent) {
       yield* _processUnpaused();
     } else if (event is PollSuccessEvent) {
       yield* _pollSuccess();
@@ -544,7 +544,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
               StackTrace.current,
             );
           } else {
-            add(const ProcessUnpausedEvent());
+            add(const ProcessResumeEvent());
           }
         }
 

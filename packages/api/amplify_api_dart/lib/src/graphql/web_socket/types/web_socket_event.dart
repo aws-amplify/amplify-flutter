@@ -90,12 +90,12 @@ class NetworkLossEvent extends NetworkEvent {
 
 /// Discrete class for when the process is unpaused
 /// Triggers when AppLifecycleListener detects the process has been unpaused.
-class ProcessUnpausedEvent extends WebSocketEvent {
+class ProcessResumeEvent extends WebSocketEvent {
   /// Create a process unpaused event
-  const ProcessUnpausedEvent();
+  const ProcessResumeEvent();
 
   @override
-  String get runtimeTypeName => 'ProcessUnpausedEvent';
+  String get runtimeTypeName => 'ProcessResumeEvent';
 
   @override
   Map<String, Object?> toJson() => const {};
