@@ -5,12 +5,16 @@
 enum ProcessStatus {
   /// Engine is running without a view.
   detached,
+
   /// Application is not visible to the user or responding to user input.
   paused,
+
   /// All views of an application are hidden.
   hidden,
+
   /// A view of the application is visible, but none have input.
   inactive,
+
   /// Default running mode.
   resumed,
 }

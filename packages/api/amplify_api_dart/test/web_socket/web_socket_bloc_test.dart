@@ -416,33 +416,39 @@ void main() {
 
       await blocReady.future;
 
-      mockProcessLifeCycleController..add(ProcessStatus.paused)
-      ..add(ProcessStatus.resumed);
+      mockProcessLifeCycleController
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed);
 
       await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
 
-      mockProcessLifeCycleController..add(ProcessStatus.paused)
-      ..add(ProcessStatus.resumed);
+      mockProcessLifeCycleController
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed);
 
       await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
 
-      mockProcessLifeCycleController..add(ProcessStatus.paused)
-      ..add(ProcessStatus.resumed);
+      mockProcessLifeCycleController
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed);
 
       await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
 
-      mockProcessLifeCycleController..add(ProcessStatus.paused)
-      ..add(ProcessStatus.resumed);
+      mockProcessLifeCycleController
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed);
 
       await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
 
-      mockProcessLifeCycleController..add(ProcessStatus.paused)
-      ..add(ProcessStatus.resumed);
+      mockProcessLifeCycleController
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed);
 
       await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
 
-      mockProcessLifeCycleController..add(ProcessStatus.paused)
-      ..add(ProcessStatus.resumed);
+      mockProcessLifeCycleController
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed);
 
       await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
     });
