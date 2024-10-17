@@ -141,7 +141,7 @@ void main() {
           pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
           nextToken: 'next-token-123',
           bucket: StorageBucket.fromBucketInfo(
-              BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2')),
+              BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),),
           pageSize: 2,
         );
 
