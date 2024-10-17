@@ -340,7 +340,7 @@ class StateMachineBloc
           ),
         );
       case AuthSignInStep.continueSignInWithMfaSetupSelection:
-        await _handleMfaSetupSelection(result);
+        _emit(await _handleMfaSetupSelection(result));
       case AuthSignInStep.continueSignInWithEmailMfaSetup:
         _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
       case AuthSignInStep.confirmSignInWithTotpMfaCode:
