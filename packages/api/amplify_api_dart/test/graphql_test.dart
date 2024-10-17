@@ -280,6 +280,7 @@ void main() {
         'payload': {'data': mockSubscriptionData},
       };
 
+      mockProcessLifeCycleController = StreamController<ProcessStatus>();
       mockWebSocketService = MockWebSocketService();
       const subscriptionOptions = GraphQLSubscriptionOptions(
         pollInterval: Duration(seconds: 1),
@@ -600,6 +601,7 @@ void main() {
     });
 
     test('should have correct state flow during a failure', () async {
+      mockProcessLifeCycleController = StreamController<ProcessStatus>();
       mockWebSocketService = MockWebSocketService();
       const subscriptionOptions = GraphQLSubscriptionOptions(
         pollInterval: Duration(seconds: 1),
