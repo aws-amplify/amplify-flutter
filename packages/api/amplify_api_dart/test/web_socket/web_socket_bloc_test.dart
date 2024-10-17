@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
@@ -54,6 +55,7 @@ void main() {
     if (!noConnectivity) {
       mockNetworkStreamController = StreamController<ConnectivityStatus>();
     }
+    mockProcessLifeCycleController = StreamController<ProcessStatus>();
     mockPollClient = MockPollClient();
     service = MockWebSocketService();
 
@@ -66,6 +68,7 @@ void main() {
       connectivity: noConnectivity
           ? const ConnectivityPlatform()
           : const MockConnectivity(),
+      processLifeCycle: const MockProcessLifeCycle(),
     );
 
     sendMockConnectionAck(bloc!, service!);
@@ -307,6 +310,143 @@ void main() {
       mockPollClient.induceTimeout = false;
     });
 
+    test('should reconnect when process unpauses', () async {
+      var dataCompleter = Completer<String>();
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        () {
+          service!.channel.sink.add(mockDataString);
+        },
+      );
+
+      final bloc = getWebSocketBloc();
+
+      expect(
+        bloc.stream,
+        emitsInOrder(
+          [
+            isA<DisconnectedState>(),
+            isA<ConnectingState>(),
+            isA<ConnectedState>(),
+            isA<ReconnectingState>(),
+            isA<ConnectingState>(),
+            isA<ConnectedState>(),
+          ],
+        ),
+      );
+
+      bloc.subscribe(subscribeEvent).listen(
+            expectAsync1(
+              (event) {
+                expect(event.data, json.encode(mockSubscriptionData));
+                dataCompleter.complete(event.data);
+              },
+              count: 2,
+            ),
+          );
+
+      await dataCompleter.future;
+      dataCompleter = Completer<String>();
+
+      mockProcessLifeCycleController
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
+
+      service!.channel.sink.add(mockDataString);
+      await dataCompleter.future;
+    });
+
+    test('should throttle reconnect after repeated unpausing', () async {
+      final blocReady = Completer<void>();
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        blocReady.complete,
+      );
+
+      final bloc = getWebSocketBloc();
+
+      expect(
+        bloc.stream,
+        emitsInOrder(
+          [
+            isA<DisconnectedState>(),
+            isA<ConnectingState>(),
+            isA<ConnectedState>(),
+            isA<ReconnectingState>(),
+            isA<ConnectingState>(),
+            isA<ConnectedState>(),
+          ],
+        ),
+        reason:
+            'Bloc should debounce multiple reconnection triggers while unpausing.',
+      );
+
+      bloc.subscribe(
+        subscribeEvent,
+      );
+
+      await blocReady.future;
+
+      mockProcessLifeCycleController
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed)
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed)
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed)
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed)
+        ..add(ProcessStatus.paused)
+        ..add(ProcessStatus.resumed);
+    });
+
+    test('should reconnect multiple times after unpausing', () async {
+      final blocReady = Completer<void>();
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        blocReady.complete,
+      );
+
+      final bloc = getWebSocketBloc()
+        ..subscribe(
+          subscribeEvent,
+        );
+
+      await blocReady.future;
+
+      mockProcessLifeCycleController..add(ProcessStatus.paused)
+      ..add(ProcessStatus.resumed);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
+
+      mockProcessLifeCycleController..add(ProcessStatus.paused)
+      ..add(ProcessStatus.resumed);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
+
+      mockProcessLifeCycleController..add(ProcessStatus.paused)
+      ..add(ProcessStatus.resumed);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
+
+      mockProcessLifeCycleController..add(ProcessStatus.paused)
+      ..add(ProcessStatus.resumed);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
+
+      mockProcessLifeCycleController..add(ProcessStatus.paused)
+      ..add(ProcessStatus.resumed);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
+
+      mockProcessLifeCycleController..add(ProcessStatus.paused)
+      ..add(ProcessStatus.resumed);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
+    });
+
     test(
         'subscribe() ignores a WebSocket message that comes while the bloc is disconnected',
         () async {
@@ -348,6 +488,7 @@ void main() {
 
           final badService = MockWebSocketService(badInit: true);
           mockNetworkStreamController = StreamController<ConnectivityStatus>();
+          mockProcessLifeCycleController = StreamController<ProcessStatus>();
           final bloc = WebSocketBloc(
             config: testApiKeyConfig,
             authProviderRepo: getTestAuthProviderRepo(),
@@ -355,6 +496,7 @@ void main() {
             subscriptionOptions: subscriptionOptions,
             pollClientOverride: mockPollClient.client,
             connectivity: const MockConnectivity(),
+            processLifeCycle: const MockProcessLifeCycle(),
           );
 
           expect(

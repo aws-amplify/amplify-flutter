@@ -292,6 +292,7 @@ void main() {
         subscriptionOptions: subscriptionOptions,
         pollClientOverride: mockClient.client,
         connectivity: const ConnectivityPlatform(),
+        processLifeCycle: const MockProcessLifeCycle(),
       );
 
       sendMockConnectionAck(mockWebSocketBloc!, mockWebSocketService!);
@@ -613,6 +614,7 @@ void main() {
         subscriptionOptions: subscriptionOptions,
         pollClientOverride: mockClient.client,
         connectivity: const ConnectivityPlatform(),
+        processLifeCycle: const MockProcessLifeCycle(),
       );
 
       final blocReady = Completer<void>();
