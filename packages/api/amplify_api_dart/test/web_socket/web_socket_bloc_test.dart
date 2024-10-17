@@ -639,6 +639,48 @@ void main() {
 
         await bloc.done.future;
       });
+
+      test('a process unpauses with autoReconnect disabled', () async {
+        final blocReady = Completer<void>();
+        final subscribeEvent = SubscribeEvent(
+          subscriptionRequest,
+          blocReady.complete,
+        );
+        final bloc = getWebSocketBloc();
+
+        expect(
+          bloc.stream,
+          emitsInOrder(
+            [
+              isA<DisconnectedState>(),
+              isA<ConnectingState>(),
+              isA<ConnectedState>(),
+              isA<FailureState>(),
+              isA<PendingDisconnect>(),
+              isA<DisconnectedState>(),
+            ],
+          ),
+        );
+
+        // ignore: invalid_use_of_internal_member
+        WebSocketOptions.autoReconnect = false;
+
+        bloc.subscribe(subscribeEvent).listen(
+          null,
+          onError: expectAsync1((event) {
+            expect(
+              event,
+              isA<ApiException>(),
+            );
+          }),
+        );
+
+        await blocReady.future;
+
+        mockProcessLifeCycleController
+          ..add(ProcessStatus.paused)
+          ..add(ProcessStatus.resumed);
+      });
     });
   });
 }
