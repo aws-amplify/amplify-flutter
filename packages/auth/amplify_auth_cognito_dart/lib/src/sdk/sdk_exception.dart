@@ -356,6 +356,22 @@ final class NotAuthorizedServiceException extends CognitoServiceException
   String get runtimeTypeName => 'NotAuthorizedServiceException';
 }
 
+/// {@template amplify_auth_cognito_dart.sdk_exception.password_history_policy_violation_exception}
+/// The message returned when a user's new password matches a previous password and doesn't comply with the password-history policy.
+/// {@endtemplate}
+final class PasswordHistoryPolicyViolationException
+    extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.password_history_policy_violation_exception}
+  const PasswordHistoryPolicyViolationException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'PasswordHistoryPolicyViolationException';
+}
+
 /// {@template amplify_auth_cognito_dart.sdk_exception.password_reset_required_exception}
 /// This exception is thrown when a password reset is required.
 /// {@endtemplate}
@@ -682,6 +698,11 @@ Object transformSdkException(Object e) {
         underlyingException: e,
       ),
     'NotAuthorizedException' => NotAuthorizedServiceException(
+        message,
+        underlyingException: e,
+      ),
+    'PasswordHistoryPolicyViolationException' =>
+      PasswordHistoryPolicyViolationException(
         message,
         underlyingException: e,
       ),

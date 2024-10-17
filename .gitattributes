@@ -74,6 +74,7 @@
 
 ## Generated SDK files
 packages/**/lib/src/sdk/src/**              linguist-generated
+packages/auth/amplify_auth_cognito_dart/lib/src/sdk/sdk_exception.dart linguist-generated
 
 ## Generated Swift Plugins
 packages/amplify_datastore/ios/internal/**  linguist-generated

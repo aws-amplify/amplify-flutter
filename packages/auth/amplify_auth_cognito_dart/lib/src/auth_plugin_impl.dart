@@ -885,13 +885,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   /// {@template amplify_core.amplify_auth_category.update_mfa_preference}
   /// Updates the MFA preference for the current user.
   ///
-  /// If [sms] or [totp] is `null`, the preference for that MFA type is left
-  /// unchanged. Setting either [sms] or [totp] to [MfaPreference.preferred]
+  /// If [sms], [totp], or [email] is `null`, the preference for that MFA type is left
+  /// unchanged. Setting either [sms], [totp], or [email] to [MfaPreference.preferred]
   /// will mark the other as not preferred.
   /// {@endtemplate}
   Future<void> updateMfaPreference({
     MfaPreference? sms,
     MfaPreference? totp,
+    MfaPreference? email,
   }) async {
     final tokens = await _stateMachine.getUserPoolTokens();
     final accessToken = tokens.accessToken.raw;
@@ -899,6 +900,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       accessToken: accessToken,
       sms: sms,
       totp: totp,
+      email: email,
     );
   }
 
