@@ -9,6 +9,7 @@ import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_serv
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/subscriptions_event.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
@@ -33,8 +34,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     required WebSocketService wsService,
     required GraphQLSubscriptionOptions subscriptionOptions,
     required ConnectivityPlatform connectivity,
+    required ProcessLifeCycle processLifeCycle,
     AWSHttpClient? pollClientOverride,
   })  : _connectivity = connectivity,
+        _processLifeCycle = processLifeCycle,
         _pollClient = pollClientOverride ?? AWSHttpClient() {
     final subBlocs = <String, SubscriptionBloc<Object?>>{};
 
@@ -49,6 +52,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     );
     final blocStream = _wsEventStream.asyncExpand(_eventTransformer);
     _networkSubscription = _getConnectivityStream();
+    _processLifeCycleSubscription = _getProcessLifecycleStream();
     _stateSubscription = blocStream.listen(_emit);
     add(const InitEvent());
   }
@@ -81,9 +85,13 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   late final Stream<WebSocketEvent> _wsEventStream = _wsEventController.stream;
   late final StreamSubscription<WebSocketState> _stateSubscription;
   late final StreamSubscription<ConnectivityStatus> _networkSubscription;
+  late final StreamSubscription<ProcessStatus> _processLifeCycleSubscription;
 
   /// Creates a stream representing network connectivity at the hardware level.
   final ConnectivityPlatform _connectivity;
+
+  /// Creates a stream representing the process life cycle state.
+  final ProcessLifeCycle _processLifeCycle;
 
   /// The underlying event stream, used only in testing.
   @visibleForTesting
@@ -164,6 +172,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       yield* _networkLoss();
     } else if (event is NetworkFoundEvent) {
       yield* _networkFound();
+    } else if (event is ProcessUnpausedEvent) {
+      yield* _processUnpaused();
     } else if (event is PollSuccessEvent) {
       yield* _pollSuccess();
     } else if (event is PollFailedEvent) {
@@ -328,6 +338,16 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     yield* const Stream.empty();
   }
 
+  Stream<WebSocketState> _processUnpaused() async* {
+    final state = _currentState;
+    if (state is ConnectedState) {
+      yield state.reconnecting(networkState: NetworkState.disconnected);
+      add(const ReconnectEvent());
+    }
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
+  }
+
   /// Handle successful polls
   Stream<WebSocketState> _pollSuccess() async* {
     // TODO(dnys1): Yield broken on web debug build.
@@ -467,6 +487,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     await Future.wait<void>([
       // TODO(equartey): https://github.com/fluttercommunity/plus_plugins/issues/1382
       if (!isWindows()) _networkSubscription.cancel(),
+      _processLifeCycleSubscription.cancel(),
       Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
       _wsEventController.close(),
@@ -505,6 +526,41 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       onError: (Object e, StackTrace st) =>
           logger.error('Error in connectivity stream $e, $st'),
     );
+  }
+
+  /// Process life cycle stream monitors when the process resumes from a paused state.
+  StreamSubscription<ProcessStatus> _getProcessLifecycleStream() {
+    var prev = ProcessStatus.detached;
+    return _processLifeCycle.onStateChanged.listen(
+      (state) {
+        if (_isUnpausing(state, prev)) {
+          // ignore: invalid_use_of_internal_member
+          if (!WebSocketOptions.autoReconnect) {
+            _shutdownWithException(
+              const NetworkException(
+                'Unable to recover network connection, web socket will close.',
+                recoverySuggestion: 'Avoid pausing the process.',
+              ),
+              StackTrace.current,
+            );
+          } else {
+            add(const ProcessUnpausedEvent());
+          }
+        }
+
+        prev = state;
+      },
+      onError: (Object e, StackTrace st) =>
+          logger.error('Error in process life cycle stream $e, $st'),
+    );
+  }
+
+  bool _isUnpausing(ProcessStatus current, ProcessStatus previous) {
+    if (previous != ProcessStatus.paused) return false;
+
+    return current == ProcessStatus.hidden ||
+        current == ProcessStatus.inactive ||
+        current == ProcessStatus.resumed;
   }
 
   Future<void> _poll() async {
