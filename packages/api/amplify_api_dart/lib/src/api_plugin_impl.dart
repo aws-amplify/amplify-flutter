@@ -11,6 +11,7 @@ import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.da
 import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart';
 import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
 import 'package:amplify_api_dart/src/util/amplify_authorization_rest_client.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -30,8 +31,10 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   AmplifyAPIDart({
     APIPluginOptions options = const APIPluginOptions(),
     ConnectivityPlatform connectivity = const ConnectivityPlatform(),
+    ProcessLifeCycle processLifeCycle = const ProcessLifeCycle(),
   })  : _options = options,
-        _connectivity = connectivity {
+        _connectivity = connectivity,
+        _processLifeCycle = processLifeCycle {
     _options.authProviders.forEach(registerAuthProvider);
   }
 
@@ -42,6 +45,9 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
 
   /// Creates a stream representing network connectivity at the hardware level.
   final ConnectivityPlatform _connectivity;
+
+  /// Creates a stream representing the process life cycle state.
+  final ProcessLifeCycle _processLifeCycle;
 
   /// A map of the keys from the Amplify API config with auth modes to HTTP clients
   /// to use for requests to that endpoint/auth mode. e.g. { "myEndpoint.AWS_IAM": AWSHttpClient}
@@ -277,6 +283,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       wsService: AmplifyWebSocketService(),
       subscriptionOptions: _options.subscriptionOptions,
       connectivity: _connectivity,
+      processLifeCycle: _processLifeCycle,
     );
   }
 

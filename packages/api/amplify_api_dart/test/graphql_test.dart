@@ -280,6 +280,7 @@ void main() {
         'payload': {'data': mockSubscriptionData},
       };
 
+      mockProcessLifeCycleController = StreamController<ProcessStatus>();
       mockWebSocketService = MockWebSocketService();
       const subscriptionOptions = GraphQLSubscriptionOptions(
         pollInterval: Duration(seconds: 1),
@@ -292,6 +293,7 @@ void main() {
         subscriptionOptions: subscriptionOptions,
         pollClientOverride: mockClient.client,
         connectivity: const ConnectivityPlatform(),
+        processLifeCycle: const MockProcessLifeCycle(),
       );
 
       sendMockConnectionAck(mockWebSocketBloc!, mockWebSocketService!);
@@ -599,6 +601,7 @@ void main() {
     });
 
     test('should have correct state flow during a failure', () async {
+      mockProcessLifeCycleController = StreamController<ProcessStatus>();
       mockWebSocketService = MockWebSocketService();
       const subscriptionOptions = GraphQLSubscriptionOptions(
         pollInterval: Duration(seconds: 1),
@@ -613,6 +616,7 @@ void main() {
         subscriptionOptions: subscriptionOptions,
         pollClientOverride: mockClient.client,
         connectivity: const ConnectivityPlatform(),
+        processLifeCycle: const MockProcessLifeCycle(),
       );
 
       final blocReady = Completer<void>();
