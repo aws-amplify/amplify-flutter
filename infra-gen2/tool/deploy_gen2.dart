@@ -20,11 +20,6 @@ import 'package:path/path.dart' as p;
 /// 4. Run `dart tool/deploy_gen2.dart` to deploy the backend
 const List<AmplifyBackendGroup> infraConfig = [
   AmplifyBackendGroup(
-    category: Category.analytics,
-    defaultOutput: '',
-    backends: [],
-  ),
-  AmplifyBackendGroup(
     category: Category.api,
     defaultOutput: 'packages/api/amplify_api/example/lib',
     backends: [

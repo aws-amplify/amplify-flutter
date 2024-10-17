@@ -481,45 +481,45 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   CognitoSignInResult _processSignInResult(SignInState result) {
-    return switch (result) {
-      SignInNotStarted _ ||
-      SignInInitiating _ =>
+    switch (result) {
+      case SignInNotStarted():
+      case SignInInitiating():
         // This should never happen.
         throw UnknownException(
           'Sign in could not be completed',
           underlyingException: result,
-        ),
-      SignInCancelling _ => throw const UserCancelledException(
+        );
+
+      case SignInCancelling():
+        throw const UserCancelledException(
           'The user canceled the sign-in flow',
-        ),
-      SignInChallenge(
-        :final challengeName,
-        :final challengeParameters,
-        :final codeDeliveryDetails,
-        :final requiredAttributes,
-        :final allowedMfaTypes,
-        :final totpSetupResult,
-      ) =>
-        CognitoSignInResult(
+        );
+
+      case final SignInChallenge challenge:
+        return CognitoSignInResult(
           isSignedIn: false,
           nextStep: AuthNextSignInStep(
-            signInStep: challengeName.signInStep,
-            codeDeliveryDetails: codeDeliveryDetails,
-            additionalInfo: challengeParameters,
-            missingAttributes: requiredAttributes,
-            allowedMfaTypes: allowedMfaTypes,
-            totpSetupDetails: totpSetupResult,
+            signInStep: challenge.challengeName.signInStep,
+            codeDeliveryDetails: challenge.codeDeliveryDetails,
+            additionalInfo: challenge.challengeParameters,
+            missingAttributes: challenge.requiredAttributes,
+            allowedMfaTypes: challenge.allowedMfaTypes,
+            totpSetupDetails: challenge.totpSetupResult,
           ),
-        ),
-      SignInSuccess _ => const CognitoSignInResult(
+        );
+
+      case SignInSuccess():
+        return const CognitoSignInResult(
           isSignedIn: true,
           nextStep: AuthNextSignInStep(
             signInStep: AuthSignInStep.done,
           ),
-        ),
-      SignInFailure(:final exception, :final stackTrace) =>
-        Error.throwWithStackTrace(exception, stackTrace),
-    };
+        );
+
+      case final SignInFailure failure:
+        Error.throwWithStackTrace(failure.exception, failure.stackTrace);
+// To satisfy Dart's requirements, even if unreachable
+    }
   }
 
   @override

@@ -4,6 +4,7 @@
 export 'authenticator_step.dart';
 export 'confirm_signin_types.dart';
 export 'confirm_signup_types.dart';
+export 'email_setup_types.dart';
 export 'gender.dart';
 export 'reset_password_field.dart';
 export 'signin_types.dart';
