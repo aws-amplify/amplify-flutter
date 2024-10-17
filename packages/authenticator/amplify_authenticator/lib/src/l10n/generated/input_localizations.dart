@@ -297,6 +297,12 @@ abstract class AuthenticatorInputLocalizations {
   /// **'Authenticator App (TOTP)'**
   String get selectTotp;
 
+  /// Label for the radio button to select email as the user's chosen MFA method.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get selectEmail;
+
   /// The instructional text for submitting a TOTP pass code
   ///
   /// In en, this message translates to:

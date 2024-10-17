@@ -1,56 +1,56 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
-library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_user_pool_configuration_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library amplify_auth_cognito_dart.cognito_identity_provider.model.password_history_policy_violation_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
 
-part 'invalid_user_pool_configuration_exception.g.dart';
+part 'password_history_policy_violation_exception.g.dart';
 
-/// This exception is thrown when the user pool configuration is not valid.
-abstract class InvalidUserPoolConfigurationException
+/// The message returned when a user's new password matches a previous password and doesn't comply with the password-history policy.
+abstract class PasswordHistoryPolicyViolationException
     with
-        _i1.AWSEquatable<InvalidUserPoolConfigurationException>
+        _i1.AWSEquatable<PasswordHistoryPolicyViolationException>
     implements
-        Built<InvalidUserPoolConfigurationException,
-            InvalidUserPoolConfigurationExceptionBuilder>,
+        Built<PasswordHistoryPolicyViolationException,
+            PasswordHistoryPolicyViolationExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when the user pool configuration is not valid.
-  factory InvalidUserPoolConfigurationException({String? message}) {
-    return _$InvalidUserPoolConfigurationException._(message: message);
+  /// The message returned when a user's new password matches a previous password and doesn't comply with the password-history policy.
+  factory PasswordHistoryPolicyViolationException({String? message}) {
+    return _$PasswordHistoryPolicyViolationException._(message: message);
   }
 
-  /// This exception is thrown when the user pool configuration is not valid.
-  factory InvalidUserPoolConfigurationException.build(
-      [void Function(InvalidUserPoolConfigurationExceptionBuilder)
-          updates]) = _$InvalidUserPoolConfigurationException;
+  /// The message returned when a user's new password matches a previous password and doesn't comply with the password-history policy.
+  factory PasswordHistoryPolicyViolationException.build(
+      [void Function(PasswordHistoryPolicyViolationExceptionBuilder)
+          updates]) = _$PasswordHistoryPolicyViolationException;
 
-  const InvalidUserPoolConfigurationException._();
+  const PasswordHistoryPolicyViolationException._();
 
-  /// Constructs a [InvalidUserPoolConfigurationException] from a [payload] and [response].
-  factory InvalidUserPoolConfigurationException.fromResponse(
-    InvalidUserPoolConfigurationException payload,
+  /// Constructs a [PasswordHistoryPolicyViolationException] from a [payload] and [response].
+  factory PasswordHistoryPolicyViolationException.fromResponse(
+    PasswordHistoryPolicyViolationException payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer<InvalidUserPoolConfigurationException>>
+  static const List<
+          _i2.SmithySerializer<PasswordHistoryPolicyViolationException>>
       serializers = [
-    InvalidUserPoolConfigurationExceptionAwsJson11Serializer()
+    PasswordHistoryPolicyViolationExceptionAwsJson11Serializer()
   ];
 
-  /// The message returned when the user pool configuration is not valid.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'InvalidUserPoolConfigurationException',
+        shape: 'PasswordHistoryPolicyViolationException',
       );
 
   @override
@@ -72,7 +72,7 @@ abstract class InvalidUserPoolConfigurationException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidUserPoolConfigurationException')
+        newBuiltValueToStringHelper('PasswordHistoryPolicyViolationException')
           ..add(
             'message',
             message,
@@ -81,15 +81,15 @@ abstract class InvalidUserPoolConfigurationException
   }
 }
 
-class InvalidUserPoolConfigurationExceptionAwsJson11Serializer extends _i2
-    .StructuredSmithySerializer<InvalidUserPoolConfigurationException> {
-  const InvalidUserPoolConfigurationExceptionAwsJson11Serializer()
-      : super('InvalidUserPoolConfigurationException');
+class PasswordHistoryPolicyViolationExceptionAwsJson11Serializer extends _i2
+    .StructuredSmithySerializer<PasswordHistoryPolicyViolationException> {
+  const PasswordHistoryPolicyViolationExceptionAwsJson11Serializer()
+      : super('PasswordHistoryPolicyViolationException');
 
   @override
   Iterable<Type> get types => const [
-        InvalidUserPoolConfigurationException,
-        _$InvalidUserPoolConfigurationException,
+        PasswordHistoryPolicyViolationException,
+        _$PasswordHistoryPolicyViolationException,
       ];
 
   @override
@@ -101,12 +101,12 @@ class InvalidUserPoolConfigurationExceptionAwsJson11Serializer extends _i2
       ];
 
   @override
-  InvalidUserPoolConfigurationException deserialize(
+  PasswordHistoryPolicyViolationException deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = InvalidUserPoolConfigurationExceptionBuilder();
+    final result = PasswordHistoryPolicyViolationExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -130,11 +130,11 @@ class InvalidUserPoolConfigurationExceptionAwsJson11Serializer extends _i2
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    InvalidUserPoolConfigurationException object, {
+    PasswordHistoryPolicyViolationException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final InvalidUserPoolConfigurationException(:message) = object;
+    final PasswordHistoryPolicyViolationException(:message) = object;
     if (message != null) {
       result$
         ..add('message')

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -58,7 +58,9 @@ abstract class InitiateAuthResponse
   ///
   /// All of the following challenges require `USERNAME` and `SECRET_HASH` (if applicable) in the parameters.
   ///
-  /// *   `SMS_MFA`: Next challenge is to supply an `SMS\_MFA\_CODE`, delivered via SMS.
+  /// *   `SMS_MFA`: Next challenge is to supply an `SMS\_MFA\_CODE`that your user pool delivered in an SMS message.
+  ///
+  /// *   `EMAIL_OTP`: Next challenge is to supply an `EMAIL\_OTP\_CODE` that your user pool delivered in an email message.
   ///
   /// *   `PASSWORD_VERIFIER`: Next challenge is to supply `PASSWORD\_CLAIM\_SIGNATURE`, `PASSWORD\_CLAIM\_SECRET_BLOCK`, and `TIMESTAMP` after the client-side SRP calculations.
   ///
