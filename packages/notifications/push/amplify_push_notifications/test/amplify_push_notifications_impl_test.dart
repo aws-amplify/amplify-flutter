@@ -132,7 +132,7 @@ void main() {
 
     test('should register background processor on Android', () async {
       await overrideOperatingSystem(
-        const OperatingSystem('android', ''),
+        OperatingSystem('android', ''),
         () async {
           when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
             (_) async => standardAndroidPushMessage.cast(),
@@ -254,7 +254,7 @@ void main() {
       );
 
       overrideOperatingSystem(
-        const OperatingSystem('ios', ''),
+        OperatingSystem('ios', ''),
         () {
           expect(
             () async => plugin.setBadgeCount(42),
@@ -388,7 +388,7 @@ void main() {
     });
     test('getBadgeCount returns a badge count', () async {
       await overrideOperatingSystem(
-        const OperatingSystem('ios', ''),
+        OperatingSystem('ios', ''),
         () async {
           plugin = TestAmplifyPushNotifications(
             serviceProviderClient: mockServiceProviderClient,
@@ -415,7 +415,7 @@ void main() {
 
     test('setBadgeCount calls the native layer to set', () async {
       await overrideOperatingSystem(
-        const OperatingSystem('ios', ''),
+        OperatingSystem('ios', ''),
         () async {
           plugin = TestAmplifyPushNotifications(
             serviceProviderClient: mockServiceProviderClient,
@@ -487,7 +487,7 @@ void main() {
         'onNotificationReceivedInBackground throws an Exception when the given callback function is not top-level or static',
         () async {
       overrideOperatingSystem(
-        const OperatingSystem('android', ''),
+        OperatingSystem('android', ''),
         () {
           plugin = TestAmplifyPushNotifications(
             serviceProviderClient: mockServiceProviderClient,
@@ -514,7 +514,7 @@ void main() {
       'onNotificationReceivedInBackground should register a top-level or static callback function',
       () async {
     await overrideOperatingSystem(
-      const OperatingSystem('android', ''),
+      OperatingSystem('android', ''),
       () async {
         SharedPreferences.setMockInitialValues({});
         final pref = await SharedPreferences.getInstance();
@@ -534,7 +534,7 @@ void main() {
   test('onNotificationReceivedInBackground should accept the callback on iOS',
       () async {
     overrideOperatingSystem(
-      const OperatingSystem('ios', ''),
+      OperatingSystem('ios', ''),
       () {
         void localiOScallback(testGlobalCallbackFunction) {}
         plugin = TestAmplifyPushNotifications(
