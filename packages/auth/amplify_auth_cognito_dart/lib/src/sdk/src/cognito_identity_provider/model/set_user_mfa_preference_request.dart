@@ -1,8 +1,9 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.set_user_mfa_preference_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/email_mfa_settings_type.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sms_mfa_settings_type.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/software_token_mfa_settings_type.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
@@ -21,11 +22,13 @@ abstract class SetUserMfaPreferenceRequest
   factory SetUserMfaPreferenceRequest({
     SmsMfaSettingsType? smsMfaSettings,
     SoftwareTokenMfaSettingsType? softwareTokenMfaSettings,
+    EmailMfaSettingsType? emailMfaSettings,
     required String accessToken,
   }) {
     return _$SetUserMfaPreferenceRequest._(
       smsMfaSettings: smsMfaSettings,
       softwareTokenMfaSettings: softwareTokenMfaSettings,
+      emailMfaSettings: emailMfaSettings,
       accessToken: accessToken,
     );
   }
@@ -46,11 +49,14 @@ abstract class SetUserMfaPreferenceRequest
   static const List<_i1.SmithySerializer<SetUserMfaPreferenceRequest>>
       serializers = [SetUserMfaPreferenceRequestAwsJson11Serializer()];
 
-  /// The SMS text message multi-factor authentication (MFA) settings.
+  /// User preferences for SMS message MFA. Activates or deactivates SMS MFA and sets it as the preferred MFA method when multiple methods are available.
   SmsMfaSettingsType? get smsMfaSettings;
 
-  /// The time-based one-time password (TOTP) software token MFA settings.
+  /// User preferences for time-based one-time password (TOTP) MFA. Activates or deactivates TOTP MFA and sets it as the preferred MFA method when multiple methods are available.
   SoftwareTokenMfaSettingsType? get softwareTokenMfaSettings;
+
+  /// User preferences for email message MFA. Activates or deactivates email MFA and sets it as the preferred MFA method when multiple methods are available. To activate this setting, [advanced security features](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html) must be active in your user pool.
+  EmailMfaSettingsType? get emailMfaSettings;
 
   /// A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
   String get accessToken;
@@ -61,6 +67,7 @@ abstract class SetUserMfaPreferenceRequest
   List<Object?> get props => [
         smsMfaSettings,
         softwareTokenMfaSettings,
+        emailMfaSettings,
         accessToken,
       ];
 
@@ -74,6 +81,10 @@ abstract class SetUserMfaPreferenceRequest
       ..add(
         'softwareTokenMfaSettings',
         softwareTokenMfaSettings,
+      )
+      ..add(
+        'emailMfaSettings',
+        emailMfaSettings,
       )
       ..add(
         'accessToken',
@@ -128,6 +139,11 @@ class SetUserMfaPreferenceRequestAwsJson11Serializer
             value,
             specifiedType: const FullType(SoftwareTokenMfaSettingsType),
           ) as SoftwareTokenMfaSettingsType));
+        case 'EmailMfaSettings':
+          result.emailMfaSettings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(EmailMfaSettingsType),
+          ) as EmailMfaSettingsType));
         case 'AccessToken':
           result.accessToken = (serializers.deserialize(
             value,
@@ -149,6 +165,7 @@ class SetUserMfaPreferenceRequestAwsJson11Serializer
     final SetUserMfaPreferenceRequest(
       :smsMfaSettings,
       :softwareTokenMfaSettings,
+      :emailMfaSettings,
       :accessToken
     ) = object;
     result$.addAll([
@@ -172,6 +189,14 @@ class SetUserMfaPreferenceRequestAwsJson11Serializer
         ..add(serializers.serialize(
           softwareTokenMfaSettings,
           specifiedType: const FullType(SoftwareTokenMfaSettingsType),
+        ));
+    }
+    if (emailMfaSettings != null) {
+      result$
+        ..add('EmailMfaSettings')
+        ..add(serializers.serialize(
+          emailMfaSettings,
+          specifiedType: const FullType(EmailMfaSettingsType),
         ));
     }
     return result$;
