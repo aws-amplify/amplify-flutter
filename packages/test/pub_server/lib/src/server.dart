@@ -16,7 +16,7 @@ import 'package:pub_server/src/database.dart';
 import 'package:pub_server/src/models.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:shelf/shelf.dart';
-import 'package:shelf_multipart/form_data.dart';
+import 'package:shelf_multipart/shelf_multipart.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 part 'server.g.dart';
@@ -146,15 +146,22 @@ class PubServer {
   /// https://github.com/dart-lang/pub/blob/master/doc/repository-spec-v2.md#publishing-packages
   @Route.post('/api/packages/versions/newUpload')
   Future<Response> upload(Request request) async {
-    if (!request.isMultipartForm) {
+    if (request.multipart() == null) {
       return Response.badRequest(
         body: 'Expected multipart request',
       );
     }
 
+    final formDataRequest = request.formData();
+    if (formDataRequest == null) {
+      return Response.badRequest(
+        body: 'Expected multipart request to contain form data',
+      );
+    }
+
     final FormData packageTar;
     try {
-      packageTar = await request.multipartFormData.singleWhere(
+      packageTar = await formDataRequest.formData.singleWhere(
         (part) => part.filename == 'package.tar.gz',
       );
     } on StateError {
