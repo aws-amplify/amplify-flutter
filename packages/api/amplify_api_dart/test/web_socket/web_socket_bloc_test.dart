@@ -310,7 +310,7 @@ void main() {
       mockPollClient.induceTimeout = false;
     });
 
-    test('should reconnect when process unpauses', () async {
+    test('should reconnect when process resumes', () async {
       var dataCompleter = Completer<String>();
       final subscribeEvent = SubscribeEvent(
         subscriptionRequest,
@@ -358,7 +358,7 @@ void main() {
       await dataCompleter.future;
     });
 
-    test('should throttle reconnect after repeated unpausing', () async {
+    test('should throttle reconnect after repeatedly resuming', () async {
       final blocReady = Completer<void>();
       final subscribeEvent = SubscribeEvent(
         subscriptionRequest,
@@ -380,7 +380,7 @@ void main() {
           ],
         ),
         reason:
-            'Bloc should debounce multiple reconnection triggers while unpausing.',
+            'Bloc should debounce multiple reconnection triggers while resuming.',
       );
 
       bloc.subscribe(
@@ -402,7 +402,7 @@ void main() {
         ..add(ProcessStatus.resumed);
     });
 
-    test('should reconnect multiple times after unpausing', () async {
+    test('should reconnect multiple times after resuming', () async {
       final blocReady = Completer<void>();
       final subscribeEvent = SubscribeEvent(
         subscriptionRequest,
@@ -640,7 +640,7 @@ void main() {
         await bloc.done.future;
       });
 
-      test('a process unpauses with autoReconnect disabled', () async {
+      test('a process resumes with autoReconnect disabled', () async {
         final blocReady = Completer<void>();
         final subscribeEvent = SubscribeEvent(
           subscriptionRequest,
