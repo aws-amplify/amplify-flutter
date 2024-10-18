@@ -173,7 +173,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     } else if (event is NetworkFoundEvent) {
       yield* _networkFound();
     } else if (event is ProcessResumeEvent) {
-      yield* _processUnpaused();
+      yield* _processResumed();
     } else if (event is PollSuccessEvent) {
       yield* _pollSuccess();
     } else if (event is PollFailedEvent) {
@@ -338,7 +338,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     yield* const Stream.empty();
   }
 
-  Stream<WebSocketState> _processUnpaused() async* {
+  Stream<WebSocketState> _processResumed() async* {
     final state = _currentState;
     if (state is ConnectedState) {
       yield state.reconnecting(networkState: NetworkState.disconnected);
@@ -533,7 +533,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     var prev = ProcessStatus.detached;
     return _processLifeCycle.onStateChanged.listen(
       (state) {
-        if (_isUnpausing(state, prev)) {
+        if (_isResuming(state, prev)) {
           // ignore: invalid_use_of_internal_member
           if (!WebSocketOptions.autoReconnect) {
             _shutdownWithException(
@@ -555,7 +555,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     );
   }
 
-  bool _isUnpausing(ProcessStatus current, ProcessStatus previous) {
+  bool _isResuming(ProcessStatus current, ProcessStatus previous) {
     if (previous != ProcessStatus.paused) return false;
 
     return current == ProcessStatus.hidden ||
