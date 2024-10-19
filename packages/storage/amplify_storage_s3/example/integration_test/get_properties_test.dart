@@ -101,5 +101,121 @@ void main() {
         expect(result.storageItem.size, data.length);
       });
     });
+    group('multibucket config', () {
+      setUpAll(() async {
+        await configure(amplifyEnvironments['main']!);
+        addTearDownPath(StoragePath.fromString(path));
+        await Amplify.Storage.uploadData(
+          data: StorageDataPayload.bytes(data),
+          path: StoragePath.fromString(path),
+          options: const StorageUploadDataOptions(metadata: metadata),
+          bucket: const StorageBucket.fromBucketInfo(
+            BucketInfo(
+              bucketName:
+                  'amplify-main-main-sandbox-storageintegtestsecondar-mxf6yc4ivr2h',
+              region: 'us-west-2',
+            ),
+          ),
+        ).result;
+        await Amplify.Storage.uploadData(
+          data: StorageDataPayload.bytes(data),
+          path: StoragePath.fromString(path),
+          options: const StorageUploadDataOptions(metadata: metadata),
+          bucket: StorageBucket.fromOutputs('Storage Integ Test main bucket'),
+        ).result;
+      });
+
+      testWidgets('String StoragePath', (_) async {
+        final result = await Amplify.Storage.getProperties(
+          path: StoragePath.fromString(path),
+          options: const StorageGetPropertiesOptions(
+            bucket: StorageBucket.fromBucketInfo(
+              BucketInfo(
+                bucketName:
+                    'amplify-main-main-sandbox-storageintegtestmainbuck-nmfvvkcjjel6',
+                region: 'us-west-2',
+              ),
+            ),
+          ),
+        ).result;
+        expect(result.storageItem.path, path);
+        expect(result.storageItem.metadata, metadata);
+        expect(result.storageItem.eTag, isNotNull);
+        expect(result.storageItem.size, data.length);
+
+        final resultSecondaryBucket = await Amplify.Storage.getProperties(
+          path: StoragePath.fromString(path),
+          options: StorageGetPropertiesOptions(
+            bucket: StorageBucket.fromOutputs(
+              'Storage Integ Test secondary bucket',
+            ),
+          ),
+        ).result;
+        expect(resultSecondaryBucket.storageItem.path, path);
+        expect(resultSecondaryBucket.storageItem.metadata, metadata);
+        expect(resultSecondaryBucket.storageItem.eTag, isNotNull);
+        expect(resultSecondaryBucket.storageItem.size, data.length);
+      });
+
+      testWidgets('with identity ID', (_) async {
+        final mainBucket =
+            StorageBucket.fromOutputs('Storage Integ Test main bucket');
+        final secondaryBucket =
+            StorageBucket.fromOutputs('Storage Integ Test secondary bucket');
+        final userIdentityId = await signInNewUser();
+        final name = 'get-properties-with-identity-id-${uuid()}';
+        final data = 'with identity ID'.codeUnits;
+        final expectedResolvedPath = 'private/$userIdentityId/$name';
+        addTearDownPath(StoragePath.fromString(expectedResolvedPath));
+        await Amplify.Storage.uploadData(
+          data: StorageDataPayload.bytes(data),
+          path: StoragePath.fromString(expectedResolvedPath),
+          options: const StorageUploadDataOptions(metadata: metadata),
+          bucket: secondaryBucket,
+        ).result;
+        final result = await Amplify.Storage.getProperties(
+          path: StoragePath.fromIdentityId(
+            ((identityId) => 'private/$identityId/$name'),
+          ),
+          options: StorageGetPropertiesOptions(
+            bucket: secondaryBucket,
+          ),
+        ).result;
+        expect(result.storageItem.path, expectedResolvedPath);
+        expect(result.storageItem.metadata, metadata);
+        expect(result.storageItem.eTag, isNotNull);
+        expect(result.storageItem.size, data.length);
+        await expectLater(
+          Amplify.Storage.getProperties(
+            path: StoragePath.fromIdentityId(
+              ((identityId) => 'private/$identityId/$name'),
+            ),
+            options: StorageGetPropertiesOptions(
+              bucket: mainBucket,
+            ),
+          ).result,
+          throwsA(isA<StorageNotFoundException>()),
+        );
+        // we expect this error here since the main bucket does not have this data uploaded
+      });
+
+      testWidgets('unauthorized path', (_) async {
+        await expectLater(
+          () => Amplify.Storage.getProperties(
+            path: const StoragePath.fromString('unauthorized/path'),
+          ).result,
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
+      });
+
+      testWidgets('not existent path', (_) async {
+        await expectLater(
+          () => Amplify.Storage.getProperties(
+            path: const StoragePath.fromString('public/not-existent-path'),
+          ).result,
+          throwsA(isA<StorageNotFoundException>()),
+        );
+      });
+    });
   });
 }

@@ -250,13 +250,6 @@ void main() {
           ),
         );
 
-        var testOptionsFromOutputs = StorageGetPropertiesOptions(
-          pluginOptions: const S3GetPropertiesPluginOptions(),
-          bucket: StorageBucket.fromOutputs(
-            'Storage Integ Test secondary bucket',
-          ),
-        );
-
         when(
           () => storageS3Service.getProperties(
             path: testPath,
