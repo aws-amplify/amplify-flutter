@@ -14,14 +14,10 @@ void main() {
   testRunner.setupTests();
 
   group('MFA (Email)', () {
-    testRunner.withEnvironment(mfaRequiredEmail, (env) {
+    testRunner.withEnvironment(mfaOptionalEmail, (env) {
       asyncTest('can sign in with Email MFA', (_) async {
         final username = env.generateUsername();
         final password = generatePassword();
-
-        final otpResult = await getOtpCode(
-          env.getLoginAttribute(username),
-        );
 
         safePrint('USERNAME: $username');
         safePrint('ENV USERNAME: ${env.getDefaultAttributes(username)}');
@@ -34,7 +30,6 @@ void main() {
           attributes: {
             AuthUserAttributeKey.email: username,
           },
-          // enableMfa: true,
         );
 
         safePrint('USER: $user');
@@ -49,7 +44,7 @@ void main() {
         ).equals(AuthSignInStep.done);
 
         final plugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
-        
+
         await plugin.updateMfaPreference(
           email: MfaPreference.preferred,
         );
@@ -63,6 +58,11 @@ void main() {
 
         Future<void> signInWithEmail() async {
           await signOutUser(assertComplete: true);
+
+          final otpResult = await getOtpCode(
+            env.getLoginAttribute(username),
+          );
+
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,

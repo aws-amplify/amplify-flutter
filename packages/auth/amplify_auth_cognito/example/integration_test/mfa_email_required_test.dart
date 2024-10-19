@@ -33,7 +33,6 @@ void main() {
           attributes: {
             AuthUserAttributeKey.email: username,
           },
-          // enableMfa: true,
         );
 
         safePrint('USER: $user');
@@ -43,7 +42,7 @@ void main() {
           password: password,
         );
         check(signInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.continueSignInWithMfaSetupSelection);
+            .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult.code,
@@ -59,6 +58,11 @@ void main() {
 
         Future<void> signInWithEmail() async {
           await signOutUser(assertComplete: true);
+
+          final otpResult = await getOtpCode(
+            env.getLoginAttribute(username),
+          );
+
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
