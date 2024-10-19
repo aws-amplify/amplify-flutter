@@ -25,8 +25,12 @@ class ConfirmSignInPage extends AuthenticatorPage {
   Finder get confirmSignInButton => find.byKey(keyConfirmSignInButton);
   Finder get confirmSignInMfaSelectionButton =>
       find.byKey(keyConfirmSignInMfaSelectionButton);
+  Finder get confirmSignInMfaSetupSelectionButton =>
+      find.byKey(keyConfirmSignInMfaSetupSelectionButton);
   Finder get selectMfaRadio =>
       find.byKey(keyMfaMethodRadioConfirmSignInFormField);
+  Finder get selectMfaSetupRadio =>
+      find.byKey(keyMfaSetupMethodRadioConfirmSignInFormField);
   Finder get backToSignIn => find.byKey(keyBackToSignInButton);
 
   /// Then I see "Confirm Sign In - New Password"
@@ -56,6 +60,28 @@ class ConfirmSignInPage extends AuthenticatorPage {
     expect(
       currentScreen.step,
       equals(AuthenticatorStep.continueSignInWithMfaSelection),
+    );
+  }
+
+  /// Then I see "Select an MFA Method to set up"
+  Future<void> expectContinueSignInWithMfaSetupSelectionIsPresent() async {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(
+      currentScreen.step,
+      equals(AuthenticatorStep.continueSignInWithMfaSetupSelection),
+    );
+  }
+
+  /// Then I see "Enter your one-time passcode for Email"
+  Future<void> expectConfirmSignInWithEmailMfaCodeIsPresent() async {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(
+      currentScreen.step,
+      equals(AuthenticatorStep.confirmSignInWithEmailMfaCode),
     );
   }
 
@@ -125,6 +151,21 @@ class ConfirmSignInPage extends AuthenticatorPage {
 
     final mfaMethodWidget = find.descendant(
       of: selectMfaRadio,
+      matching: find.textContaining('(${mfaMethod.name.toUpperCase()})'),
+    );
+
+    await tester.tap(mfaMethodWidget);
+    await tester.pumpAndSettle();
+  }
+
+  // When I select a MFA setup method
+  Future<void> selectMfaSetupMethod({
+    required MfaType mfaMethod,
+  }) async {
+    expect(selectMfaSetupRadio, findsOneWidget);
+
+    final mfaMethodWidget = find.descendant(
+      of: selectMfaSetupRadio,
       matching: find.textContaining('(${mfaMethod.name.toUpperCase()})'),
     );
 

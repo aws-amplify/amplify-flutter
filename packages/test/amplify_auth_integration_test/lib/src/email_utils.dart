@@ -7,7 +7,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// Sets up EMAIL MFA for the current user.
 Future<void> setUpEmailMfa() async {
-  final user = await Amplify.Auth.getCurrentUser();
   final plugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
   await plugin.updateMfaPreference(email: MfaPreference.preferred);
 }
