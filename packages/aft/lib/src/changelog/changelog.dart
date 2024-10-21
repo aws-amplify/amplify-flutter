@@ -87,7 +87,9 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
       // bug fixes/improvements.
       nodes.add(Element.text('li', 'Minor bug fixes and improvements\n'));
     } else {
-      for (final typedCommits in commitsByType.entries) {
+      final sortedCommitTypes =
+          commitsByType.entries.sortedBy<num>((entry) => entry.key.index);
+      for (final typedCommits in sortedCommitTypes) {
         nodes.add(Element.text('h3', typedCommits.key.header));
 
         // Transform PR #'s into links to the main repo

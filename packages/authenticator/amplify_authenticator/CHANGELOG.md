@@ -1,3 +1,8 @@
+## 2.2.0
+
+### Features
+- feat(authenticator): export unmet password requirements ([#5437](https://github.com/aws-amplify/amplify-flutter/pull/5437))
+
 ## 2.1.3
 
 - Minor bug fixes and improvements

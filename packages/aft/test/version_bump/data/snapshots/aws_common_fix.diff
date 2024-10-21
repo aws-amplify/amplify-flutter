@@ -1,0 +1,9 @@
+diff --git a/packages/aws_common/CHANGELOG.md b/packages/aws_common/CHANGELOG.md
++## 0.7.2
++
++### Fixes
++- fix: test
++
+diff --git a/packages/aws_common/pubspec.yaml b/packages/aws_common/pubspec.yaml
+-version: 0.7.1
++version: 0.7.2

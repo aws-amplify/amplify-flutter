@@ -3,9 +3,7 @@
 
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_core/src/config/auth/cognito/credentials_provider.dart';
-import 'package:amplify_core/src/config/auth/cognito/oauth.dart';
-import 'package:amplify_core/src/config/auth/cognito/user_pool.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 
 class MockLegacyCredentialProvider implements LegacyCredentialProvider {
   MockLegacyCredentialProvider({CredentialStoreData? initialData})
@@ -14,36 +12,32 @@ class MockLegacyCredentialProvider implements LegacyCredentialProvider {
   CredentialStoreData? data;
 
   @override
-  Future<void> deleteLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
-  }) async {
+  Future<void> deleteLegacyCredentials(
+    AuthOutputs authOutputs,
+  ) async {
     data = null;
   }
 
   @override
-  Future<CredentialStoreData?> fetchLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
-  }) async {
+  Future<CredentialStoreData?> fetchLegacyCredentials(
+    AuthOutputs authOutputs,
+  ) async {
     return data;
   }
 
   @override
-  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
-    required String username,
-    CognitoUserPoolConfig? userPoolConfig,
-  }) async {
+  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets(
+    String username,
+    AuthOutputs authOutputs,
+  ) async {
     return null;
   }
 
   @override
-  Future<void> deleteLegacyDeviceSecrets({
-    required String username,
-    CognitoUserPoolConfig? userPoolConfig,
-  }) async {
+  Future<void> deleteLegacyDeviceSecrets(
+    String username,
+    AuthOutputs authOutputs,
+  ) async {
     return;
   }
 }

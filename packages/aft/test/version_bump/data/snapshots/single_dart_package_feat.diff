@@ -1,0 +1,9 @@
+diff --git a/packages/auth/amplify_auth_cognito_dart/CHANGELOG.md b/packages/auth/amplify_auth_cognito_dart/CHANGELOG.md
++## 0.11.4
++
++### Features
++- feat: test
++
+diff --git a/packages/auth/amplify_auth_cognito_dart/pubspec.yaml b/packages/auth/amplify_auth_cognito_dart/pubspec.yaml
+-version: 0.11.3
++version: 0.11.4

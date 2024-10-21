@@ -345,3 +345,20 @@ type CpkManyToManyTag @model {
   label: String!
   posts: [CpkManyToManyPost] @manyToMany(relationName: "CpkPostTags")
 }
+
+type PrivateTodo @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  content: String
+}
+type MultiAuthTodo
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: apiKey }
+      { allow: private, operations: [read], provider: iam }
+      { allow: owner, operations: [create, read, update, delete] }
+    ]
+  ) {
+  id: ID!
+  content: String
+}

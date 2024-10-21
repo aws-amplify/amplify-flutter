@@ -19,3 +19,4 @@ export 'src/graphql/model_helpers/model_subscriptions.dart';
 
 /// Network connectivity util not needed by consumers of Flutter package amplify_api.
 export 'src/graphql/web_socket/types/connectivity_platform.dart';
+export 'src/graphql/web_socket/types/process_life_cycle.dart';

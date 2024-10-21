@@ -12,6 +12,8 @@ import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 // ignore: implementation_imports, invalid_use_of_internal_member
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 
 /// {@template amplify_auth_cognito.legacy_credential_provider_impl}
 /// The implementation of [LegacyCredentialProvider] for migrating
@@ -35,54 +37,46 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
   }();
 
   @override
-  Future<CredentialStoreData?> fetchLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
-  }) async {
+  Future<CredentialStoreData?> fetchLegacyCredentials(
+    AuthOutputs authOutputs,
+  ) async {
     if (_instance == null) return null;
     return _instance.fetchLegacyCredentials(
-      userPoolConfig: userPoolConfig,
-      identityPoolConfig: identityPoolConfig,
-      hostedUiConfig: hostedUiConfig,
+      authOutputs,
     );
   }
 
   @override
-  Future<void> deleteLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
-  }) async {
+  Future<void> deleteLegacyCredentials(
+    AuthOutputs authOutputs,
+  ) async {
     if (_instance == null) return;
     return _instance.deleteLegacyCredentials(
-      userPoolConfig: userPoolConfig,
-      identityPoolConfig: identityPoolConfig,
-      hostedUiConfig: hostedUiConfig,
+      authOutputs,
     );
   }
 
   @override
-  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
-    required String username,
-    CognitoUserPoolConfig? userPoolConfig,
-  }) async {
+  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets(
+    String username,
+    AuthOutputs authOutputs,
+  ) async {
     if (_instance == null) return null;
     return _instance.fetchLegacyDeviceSecrets(
-      username: username,
-      userPoolConfig: userPoolConfig,
+      username,
+      authOutputs,
     );
   }
 
   @override
-  Future<void> deleteLegacyDeviceSecrets({
-    required String username,
-    CognitoUserPoolConfig? userPoolConfig,
-  }) async {
+  Future<void> deleteLegacyDeviceSecrets(
+    String username,
+    AuthOutputs authOutputs,
+  ) async {
     if (_instance == null) return;
     return _instance.deleteLegacyDeviceSecrets(
-      username: username,
-      userPoolConfig: userPoolConfig,
+      username,
+      authOutputs,
     );
   }
 }

@@ -10,6 +10,7 @@ import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.da
 import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
@@ -89,9 +90,9 @@ const testApiKeyConfigCustomDomain = DataOutputs(
 );
 
 const expectedApiKeyWebSocketConnectionUrl =
-    'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=eyJBY2NlcHQiOiJhcHBsaWNhdGlvbi9qc29uLCB0ZXh0L2phdmFzY3JpcHQiLCJDb250ZW50LUVuY29kaW5nIjoiYW16LTEuMCIsIkNvbnRlbnQtVHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJYLUFwaS1LZXkiOiJhYmMtMTIzIiwiSG9zdCI6ImFiYzEyMy5hcHBzeW5jLWFwaS51cy1lYXN0LTEuYW1hem9uYXdzLmNvbSJ9&payload=e30%3D';
+    'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?payload=e30%3D';
 const expectedApiKeyWebSocketConnectionUrlCustomDomain =
-    'wss://foo.bar.aws.dev/graphql/realtime?header=eyJBY2NlcHQiOiJhcHBsaWNhdGlvbi9qc29uLCB0ZXh0L2phdmFzY3JpcHQiLCJDb250ZW50LUVuY29kaW5nIjoiYW16LTEuMCIsIkNvbnRlbnQtVHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJYLUFwaS1LZXkiOiJhYmMtMTIzIiwiSG9zdCI6ImZvby5iYXIuYXdzLmRldiJ9&payload=e30%3D';
+    'wss://foo.bar.aws.dev/graphql/realtime?payload=e30%3D';
 
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
   final testAuthProviderRepo = AmplifyAuthProviderRepository()
@@ -329,6 +330,16 @@ class MockConnectivity extends ConnectivityPlatform {
       mockNetworkStreamController.stream;
 }
 
+late StreamController<ProcessStatus> mockProcessLifeCycleController;
+
+class MockProcessLifeCycle extends ProcessLifeCycle {
+  const MockProcessLifeCycle();
+
+  @override
+  Stream<ProcessStatus> get onStateChanged =>
+      mockProcessLifeCycleController.stream;
+}
+
 /// Ensures a query predicate converts to JSON correctly.
 void testQueryPredicateTranslation(
   QueryPredicate? queryPredicate,
@@ -341,3 +352,24 @@ void testQueryPredicateTranslation(
 }
 
 final deepEquals = const DeepCollectionEquality().equals;
+
+/// Creates [DataOutputs] and [AmplifyAuthProviderRepository] for use in tests.
+(DataOutputs, AmplifyAuthProviderRepository) createOutputsAndRepo(
+  AmplifyAuthProvider authProvider,
+  APIAuthorizationType type, [
+  String? apiKey,
+]) {
+  final repo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      type.authProviderToken,
+      authProvider,
+    );
+  final outputs = DataOutputs(
+    awsRegion: 'us-east-1',
+    url: 'https://example.com/',
+    defaultAuthorizationType: type,
+    authorizationTypes: [type],
+    apiKey: type == APIAuthorizationType.apiKey ? apiKey : null,
+  );
+  return (outputs, repo);
+}

@@ -46,6 +46,8 @@ import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_user_pools_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 // ignore: implementation_imports, invalid_use_of_internal_member
 import 'package:amplify_core/src/http/amplify_category_method.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
@@ -123,18 +125,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     return cognitoIdp;
   }
 
-  /// The Cognito user pool configuration.
-  CognitoUserPoolConfig get _userPoolConfig {
-    final userPoolConfig = _stateMachine.get<CognitoUserPoolConfig>();
-    if (userPoolConfig == null) {
+  AuthOutputs get _authOutputs {
+    final authOutputs = _stateMachine.get<AuthOutputs>();
+    if (authOutputs?.userPoolId == null ||
+        authOutputs?.userPoolClientId == null) {
       throw const InvalidAccountTypeException.noUserPool();
     }
-    return userPoolConfig;
+    return authOutputs!;
   }
-
-  /// The Cognito identity pool configuration.
-  CognitoIdentityCredentialsProvider? get _identityPoolConfig =>
-      _stateMachine.get();
 
   /// The device metadata repository, used for handling device operations.
   DeviceMetadataRepository get _deviceRepo => _stateMachine.getOrCreate();
@@ -304,13 +302,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   /// If there is no federation active, this is a no-op.
   /// {@endtemplate}
   Future<void> clearFederationToIdentityPool() async {
-    final identityPoolConfig = _identityPoolConfig;
-    if (identityPoolConfig == null) {
+    final identityPoolId = _authOutputs.identityPoolId;
+    if (identityPoolId == null) {
       throw const InvalidAccountTypeException.noIdentityPool();
     }
     await stateMachine.acceptAndComplete(
       CredentialStoreEvent.clearCredentials(
-        CognitoIdentityPoolKeys(identityPoolConfig.poolId),
+        CognitoIdentityPoolKeys(identityPoolId),
       ),
     );
   }
@@ -451,15 +449,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     final result = await _cognitoIdp.resendConfirmationCode(
       cognito.ResendConfirmationCodeRequest.build((b) {
         b
-          ..clientId = _userPoolConfig.appClientId
+          ..clientId = _authOutputs.userPoolClientId
           ..username = username
           ..analyticsMetadata = _analyticsMetadata?.toBuilder();
 
-        final clientSecret = _userPoolConfig.appClientSecret;
+        // ignore: invalid_use_of_internal_member
+        final clientSecret = _authOutputs.appClientSecret;
         if (clientSecret != null) {
           b.secretHash = computeSecretHash(
             username,
-            _userPoolConfig.appClientId,
+            _authOutputs.userPoolClientId!,
             clientSecret,
           );
         }
@@ -763,16 +762,17 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     final result = await _cognitoIdp.forgotPassword(
       cognito.ForgotPasswordRequest.build((b) {
         b
-          ..clientId = _userPoolConfig.appClientId
+          ..clientId = _authOutputs.userPoolClientId
           ..username = username
           ..analyticsMetadata = _analyticsMetadata?.toBuilder()
           ..clientMetadata.addAll(pluginOptions.clientMetadata);
 
-        final clientSecret = _userPoolConfig.appClientSecret;
+        // ignore: invalid_use_of_internal_member
+        final clientSecret = _authOutputs.appClientSecret;
         if (clientSecret != null) {
           b.secretHash = computeSecretHash(
             username,
-            _userPoolConfig.appClientId,
+            _authOutputs.userPoolClientId!,
             clientSecret,
           );
         }
@@ -817,15 +817,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           ..username = username
           ..password = newPassword
           ..confirmationCode = confirmationCode
-          ..clientId = _userPoolConfig.appClientId
+          ..clientId = _authOutputs.userPoolClientId
           ..clientMetadata.addAll(pluginOptions.clientMetadata)
           ..analyticsMetadata = _analyticsMetadata?.toBuilder();
 
-        final clientSecret = _userPoolConfig.appClientSecret;
+        // ignore: invalid_use_of_internal_member
+        final clientSecret = _authOutputs.appClientSecret;
         if (clientSecret != null) {
           b.secretHash = computeSecretHash(
             username,
-            _userPoolConfig.appClientId,
+            _authOutputs.userPoolClientId!,
             clientSecret,
           );
         }

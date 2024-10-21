@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/utils/unmet_password_requirements.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';

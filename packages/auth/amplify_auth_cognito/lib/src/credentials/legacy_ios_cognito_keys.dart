@@ -11,7 +11,6 @@ library amplify_auth_cognito.credentials.legacy_ios_cognito_keys;
 
 import 'dart:collection';
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 /// Discrete keys stored for Legacy Cognito operations on iOS.
@@ -77,17 +76,17 @@ enum LegacyAsfDeviceKey {
 /// {@endtemplate}
 class LegacyCognitoUserKeys extends LegacyIOSCognitoKeys<LegacyCognitoKey> {
   /// {@macro amplify_auth_cognito.legacy_cognito_identity_pool_keys}
-  const LegacyCognitoUserKeys(this.config);
+  const LegacyCognitoUserKeys(this.userPoolClientId);
 
-  /// The Cognito identity pool configuration, used to determine the key
+  /// The Cognito user pool client id , used to determine the key
   /// prefixes.
-  final CognitoUserPoolConfig config;
+  final String userPoolClientId;
 
   @override
   List<LegacyCognitoKey> get _values => LegacyCognitoKey.values;
 
   @override
-  String? get prefix => config.appClientId;
+  String? get prefix => userPoolClientId;
 }
 
 /// {@template amplify_auth_cognito.legacy_cognito_identity_pool_keys}
@@ -114,11 +113,11 @@ class LegacyCognitoIdentityPoolKeys
 class LegacyCognitoUserPoolKeys
     extends LegacyIOSCognitoKeys<LegacyCognitoUserPoolKey> {
   /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
-  const LegacyCognitoUserPoolKeys(this.currentUserId, this.config);
+  const LegacyCognitoUserPoolKeys(this.currentUserId, this.userPoolClientId);
 
-  /// The Cognito identity pool configuration, used to determine the key
+  /// The Cognito user pool client id, used to determine the key
   /// prefixes.
-  final CognitoUserPoolConfig config;
+  final String userPoolClientId;
 
   /// The current user ID, used to determine the key prefixes.
   final String currentUserId;
@@ -127,7 +126,7 @@ class LegacyCognitoUserPoolKeys
   List<LegacyCognitoUserPoolKey> get _values => LegacyCognitoUserPoolKey.values;
 
   @override
-  String get prefix => '${config.appClientId}.$currentUserId';
+  String get prefix => '$userPoolClientId.$currentUserId';
 }
 
 /// {@template amplify_auth_cognito.cognito_user_pool_keys}
@@ -137,11 +136,11 @@ class LegacyCognitoUserPoolKeys
 class LegacyDeviceSecretKeys
     extends LegacyIOSCognitoKeys<LegacyDeviceSecretKey> {
   /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
-  const LegacyDeviceSecretKeys(this.currentUserId, this.config);
+  const LegacyDeviceSecretKeys(this.currentUserId, this.userPoolId);
 
-  /// The Cognito identity pool configuration, used to determine the key
+  /// The Cognito user pool id, used to determine the key
   /// prefixes.
-  final CognitoUserPoolConfig config;
+  final String userPoolId;
 
   /// The current user ID, used to determine the key prefixes.
   final String currentUserId;
@@ -150,7 +149,7 @@ class LegacyDeviceSecretKeys
   List<LegacyDeviceSecretKey> get _values => LegacyDeviceSecretKey.values;
 
   @override
-  String get prefix => '${config.poolId}.$currentUserId.device';
+  String get prefix => '$userPoolId.$currentUserId.device';
 }
 
 /// {@template amplify_auth_cognito.cognito_user_pool_keys}
@@ -159,11 +158,11 @@ class LegacyDeviceSecretKeys
 /// {@endtemplate}
 class LegacyAsfDeviceKeys extends LegacyIOSCognitoKeys<LegacyAsfDeviceKey> {
   /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
-  const LegacyAsfDeviceKeys(this.currentUserId, this.config);
+  const LegacyAsfDeviceKeys(this.currentUserId, this.userPoolId);
 
-  /// The Cognito identity pool configuration, used to determine the key
+  /// The Cognito user pool id, used to determine the key
   /// prefixes.
-  final CognitoUserPoolConfig config;
+  final String userPoolId;
 
   /// The current user ID, used to determine the key prefixes.
   final String currentUserId;
@@ -172,7 +171,7 @@ class LegacyAsfDeviceKeys extends LegacyIOSCognitoKeys<LegacyAsfDeviceKey> {
   List<LegacyAsfDeviceKey> get _values => LegacyAsfDeviceKey.values;
 
   @override
-  String get prefix => '${config.poolId}.$currentUserId.asf.device';
+  String get prefix => '$userPoolId.$currentUserId.asf.device';
 }
 
 /// {@template amplify_auth_cognito.cognito_keys}

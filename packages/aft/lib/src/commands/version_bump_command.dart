@@ -37,6 +37,12 @@ class VersionBumpCommand extends AmplifyCommand
         'force-patch',
         help: 'Forces a patch version bump',
         negatable: false,
+      )
+      ..addFlag(
+        'skip-build-version',
+        help: 'Skips running build version in packages that depend on '
+            'build_version. Intended for use in tests.',
+        negatable: false,
       );
   }
 
@@ -90,18 +96,23 @@ class VersionBumpCommand extends AmplifyCommand
 
     final bumpedPackages = await _updateVersions();
 
-    for (final package in bumpedPackages) {
-      // Run build_runner for packages which generate their version number.
-      final needsBuildRunner = package.pubspecInfo.pubspec.devDependencies
-          .containsKey('build_version');
-      if (!needsBuildRunner) {
-        continue;
+    final skipBuildVersion =
+        argResults?['skip-build-version'] as bool? ?? false;
+
+    if (!skipBuildVersion) {
+      for (final package in bumpedPackages) {
+        // Run build_runner for packages which generate their version number.
+        final needsBuildRunner = package.pubspecInfo.pubspec.devDependencies
+            .containsKey('build_version');
+        if (!needsBuildRunner) {
+          continue;
+        }
+        await runBuildRunner(
+          package,
+          logger: logger,
+          verbose: verbose,
+        );
       }
-      await runBuildRunner(
-        package,
-        logger: logger,
-        verbose: verbose,
-      );
     }
 
     logger.info('Version successfully bumped');

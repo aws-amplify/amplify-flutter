@@ -1,0 +1,386 @@
+diff --git a/packages/amplify/amplify_flutter/CHANGELOG.md b/packages/amplify/amplify_flutter/CHANGELOG.md
++## 2.4.0
++
++### Features
++- feat: test core/auth feat
++
++### Fixes
++- fix: test auth fix
++
+diff --git a/packages/amplify/amplify_flutter/pubspec.yaml b/packages/amplify/amplify_flutter/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_secure_storage: ">=0.5.4 <0.6.0"
+-  aws_common: ">=0.7.1 <0.8.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_secure_storage: ">=0.5.5 <0.6.0"
++  aws_common: ">=0.8.0 <0.9.0"
+diff --git a/packages/amplify_core/CHANGELOG.md b/packages/amplify_core/CHANGELOG.md
++## 2.4.0
++
++### Features
++- feat: test core/auth feat
++
++### Fixes
++- fix: test auth fix
++
+diff --git a/packages/amplify_core/pubspec.yaml b/packages/amplify_core/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  aws_common: ">=0.7.1 <0.8.0"
+-  aws_signature_v4: ">=0.6.1 <0.7.0"
++  aws_common: ">=0.8.0 <0.9.0"
++  aws_signature_v4: ">=0.6.2 <0.7.0"
+diff --git a/packages/amplify_datastore/CHANGELOG.md b/packages/amplify_datastore/CHANGELOG.md
++## 2.4.0
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/amplify_datastore/pubspec.yaml b/packages/amplify_datastore/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  amplify_datastore_plugin_interface: ">=2.3.0 <2.4.0"
+-  amplify_core: ">=2.3.0 <2.4.0"
++  amplify_datastore_plugin_interface: ">=2.4.0 <2.5.0"
++  amplify_core: ">=2.4.0 <2.5.0"
+diff --git a/packages/amplify_datastore_plugin_interface/CHANGELOG.md b/packages/amplify_datastore_plugin_interface/CHANGELOG.md
++## 2.4.0
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/amplify_datastore_plugin_interface/pubspec.yaml b/packages/amplify_datastore_plugin_interface/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  amplify_core: ">=2.3.0 <2.4.0"
++  amplify_core: ">=2.4.0 <2.5.0"
+diff --git a/packages/analytics/amplify_analytics_pinpoint/CHANGELOG.md b/packages/analytics/amplify_analytics_pinpoint/CHANGELOG.md
++## 2.4.0
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/analytics/amplify_analytics_pinpoint/pubspec.yaml b/packages/analytics/amplify_analytics_pinpoint/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  amplify_analytics_pinpoint_dart: ">=0.4.3 <0.5.0"
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_db_common: ">=0.4.3 <0.5.0"
+-  amplify_secure_storage: ">=0.5.4 <0.6.0"
+-  aws_common: ">=0.7.1 <0.8.0"
++  amplify_analytics_pinpoint_dart: ">=0.4.4 <0.5.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_db_common: ">=0.4.4 <0.5.0"
++  amplify_secure_storage: ">=0.5.5 <0.6.0"
++  aws_common: ">=0.8.0 <0.9.0"
+diff --git a/packages/analytics/amplify_analytics_pinpoint_dart/CHANGELOG.md b/packages/analytics/amplify_analytics_pinpoint_dart/CHANGELOG.md
++## 0.4.4
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/analytics/amplify_analytics_pinpoint_dart/pubspec.yaml b/packages/analytics/amplify_analytics_pinpoint_dart/pubspec.yaml
+-version: 0.4.3
++version: 0.4.4
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_db_common_dart: ">=0.4.4 <0.5.0"
+-  amplify_secure_storage_dart: ">=0.5.1 <0.6.0"
+-  aws_common: ">=0.7.1 <0.8.0"
+-  aws_signature_v4: ">=0.6.1 <0.7.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_db_common_dart: ">=0.4.5 <0.5.0"
++  amplify_secure_storage_dart: ">=0.5.2 <0.6.0"
++  aws_common: ">=0.8.0 <0.9.0"
++  aws_signature_v4: ">=0.6.2 <0.7.0"
+-  smithy: ">=0.7.1 <0.8.0"
+-  smithy_aws: ">=0.7.0 <0.8.0"
++  smithy: ">=0.7.2 <0.8.0"
++  smithy_aws: ">=0.7.2 <0.8.0"
+diff --git a/packages/api/amplify_api/CHANGELOG.md b/packages/api/amplify_api/CHANGELOG.md
++## 2.4.0
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/api/amplify_api/pubspec.yaml b/packages/api/amplify_api/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  amplify_api_dart: ">=0.5.3 <0.6.0"
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_flutter: ">=2.3.0 <2.4.0"
++  amplify_api_dart: ">=0.5.4 <0.6.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_flutter: ">=2.4.0 <2.5.0"
+diff --git a/packages/api/amplify_api_dart/CHANGELOG.md b/packages/api/amplify_api_dart/CHANGELOG.md
++## 0.5.4
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/api/amplify_api_dart/pubspec.yaml b/packages/api/amplify_api_dart/pubspec.yaml
+-version: 0.5.3
++version: 0.5.4
+-  amplify_core: ">=2.3.0 <2.4.0"
++  amplify_core: ">=2.4.0 <2.5.0"
+-  aws_common: ">=0.7.1 <0.8.0"
++  aws_common: ">=0.8.0 <0.9.0"
+-  aws_signature_v4: ">=0.6.1 <0.7.0"
++  aws_signature_v4: ">=0.6.2 <0.7.0"
+diff --git a/packages/auth/amplify_auth_cognito/CHANGELOG.md b/packages/auth/amplify_auth_cognito/CHANGELOG.md
++## 2.4.0
++
++### Features
++- feat: test core/auth feat
++
++### Fixes
++- fix: test auth fix
++
+diff --git a/packages/auth/amplify_auth_cognito/pubspec.yaml b/packages/auth/amplify_auth_cognito/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  amplify_analytics_pinpoint: ">=2.3.0 <2.4.0"
+-  amplify_analytics_pinpoint_dart: ">=0.4.3 <0.5.0"
+-  amplify_auth_cognito_dart: ">=0.11.3 <0.12.0"
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_flutter: ">=2.3.0 <2.4.0"
+-  amplify_secure_storage: ">=0.5.4 <0.6.0"
++  amplify_analytics_pinpoint: ">=2.4.0 <2.5.0"
++  amplify_analytics_pinpoint_dart: ">=0.4.4 <0.5.0"
++  amplify_auth_cognito_dart: ">=0.11.4 <0.12.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_flutter: ">=2.4.0 <2.5.0"
++  amplify_secure_storage: ">=0.5.5 <0.6.0"
+diff --git a/packages/auth/amplify_auth_cognito_dart/CHANGELOG.md b/packages/auth/amplify_auth_cognito_dart/CHANGELOG.md
++## 0.11.4
++
++### Fixes
++- fix: test auth fix
++
+diff --git a/packages/auth/amplify_auth_cognito_dart/pubspec.yaml b/packages/auth/amplify_auth_cognito_dart/pubspec.yaml
+-version: 0.11.3
++version: 0.11.4
+-  amplify_analytics_pinpoint_dart: ">=0.4.3 <0.5.0"
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_secure_storage_dart: ">=0.5.1 <0.6.0"
++  amplify_analytics_pinpoint_dart: ">=0.4.4 <0.5.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_secure_storage_dart: ">=0.5.2 <0.6.0"
+-  aws_common: ">=0.7.1 <0.8.0"
+-  aws_signature_v4: ">=0.6.1 <0.7.0"
++  aws_common: ">=0.8.0 <0.9.0"
++  aws_signature_v4: ">=0.6.2 <0.7.0"
+-  smithy: ">=0.7.1 <0.8.0"
+-  smithy_aws: ">=0.7.0 <0.8.0"
++  smithy: ">=0.7.2 <0.8.0"
++  smithy_aws: ">=0.7.2 <0.8.0"
+-  worker_bee: ">=0.3.1 <0.4.0"
++  worker_bee: ">=0.3.2 <0.4.0"
+-  worker_bee_builder: ">=0.3.1 <0.4.0"
++  worker_bee_builder: ">=0.3.2 <0.4.0"
+diff --git a/packages/authenticator/amplify_authenticator/CHANGELOG.md b/packages/authenticator/amplify_authenticator/CHANGELOG.md
++## 2.1.2
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/authenticator/amplify_authenticator/pubspec.yaml b/packages/authenticator/amplify_authenticator/pubspec.yaml
+-version: 2.1.1
++version: 2.1.2
+-  amplify_auth_cognito: ">=2.3.0 <2.4.0"
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_flutter: ">=2.3.0 <2.4.0"
++  amplify_auth_cognito: ">=2.4.0 <2.5.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_flutter: ">=2.4.0 <2.5.0"
+-  aws_common: ">=0.7.1 <0.8.0"
++  aws_common: ">=0.8.0 <0.9.0"
+-  smithy: ">=0.7.1 <0.8.0"
++  smithy: ">=0.7.2 <0.8.0"
+diff --git a/packages/aws_common/CHANGELOG.md b/packages/aws_common/CHANGELOG.md
++## 0.8.0
++
++### Breaking Changes
++- feat!: test breaking common feat
++
+diff --git a/packages/aws_common/pubspec.yaml b/packages/aws_common/pubspec.yaml
+-version: 0.7.1
++version: 0.8.0
+diff --git a/packages/aws_signature_v4/CHANGELOG.md b/packages/aws_signature_v4/CHANGELOG.md
++## 0.6.2
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/aws_signature_v4/pubspec.yaml b/packages/aws_signature_v4/pubspec.yaml
+-version: 0.6.1
++version: 0.6.2
+-  aws_common: ">=0.7.1 <0.8.0"
++  aws_common: ">=0.8.0 <0.9.0"
+diff --git a/packages/common/amplify_db_common/CHANGELOG.md b/packages/common/amplify_db_common/CHANGELOG.md
++## 0.4.4
++
++### Fixes
++- fix: test db common fix
++
+diff --git a/packages/common/amplify_db_common/pubspec.yaml b/packages/common/amplify_db_common/pubspec.yaml
+-version: 0.4.3
++version: 0.4.4
+-  amplify_db_common_dart: ">=0.4.4 <0.5.0"
++  amplify_db_common_dart: ">=0.4.5 <0.5.0"
+diff --git a/packages/common/amplify_db_common_dart/CHANGELOG.md b/packages/common/amplify_db_common_dart/CHANGELOG.md
++## 0.4.5
++
++### Fixes
++- fix: test db common fix
++
+diff --git a/packages/common/amplify_db_common_dart/pubspec.yaml b/packages/common/amplify_db_common_dart/pubspec.yaml
+-version: 0.4.4
++version: 0.4.5
+-  amplify_core: ">=2.3.0 <2.4.0"
++  amplify_core: ">=2.4.0 <2.5.0"
+-  aws_common: ">=0.7.1 <0.8.0"
++  aws_common: ">=0.8.0 <0.9.0"
+diff --git a/packages/notifications/push/amplify_push_notifications/CHANGELOG.md b/packages/notifications/push/amplify_push_notifications/CHANGELOG.md
++## 2.4.0
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/notifications/push/amplify_push_notifications/pubspec.yaml b/packages/notifications/push/amplify_push_notifications/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_secure_storage: ">=0.5.4 <0.6.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_secure_storage: ">=0.5.5 <0.6.0"
+-  amplify_secure_storage_dart: ">=0.5.1 <0.6.0"
++  amplify_secure_storage_dart: ">=0.5.2 <0.6.0"
+-  aws_signature_v4: ">=0.6.1 <0.7.0"
++  aws_signature_v4: ">=0.6.2 <0.7.0"
+diff --git a/packages/notifications/push/amplify_push_notifications_pinpoint/CHANGELOG.md b/packages/notifications/push/amplify_push_notifications_pinpoint/CHANGELOG.md
++## 2.4.0
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/notifications/push/amplify_push_notifications_pinpoint/pubspec.yaml b/packages/notifications/push/amplify_push_notifications_pinpoint/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  amplify_analytics_pinpoint: ">=2.3.0 <2.4.0"
+-  amplify_analytics_pinpoint_dart: ">=0.4.3 <0.5.0"
+-  amplify_auth_cognito: ">=2.3.0 <2.4.0"
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_flutter: ">=2.3.0 <2.4.0"
+-  amplify_push_notifications: ">=2.3.0 <2.4.0"
+-  amplify_secure_storage: ">=0.5.4 <0.6.0"
++  amplify_analytics_pinpoint: ">=2.4.0 <2.5.0"
++  amplify_analytics_pinpoint_dart: ">=0.4.4 <0.5.0"
++  amplify_auth_cognito: ">=2.4.0 <2.5.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_flutter: ">=2.4.0 <2.5.0"
++  amplify_push_notifications: ">=2.4.0 <2.5.0"
++  amplify_secure_storage: ">=0.5.5 <0.6.0"
+-  amplify_secure_storage_dart: ">=0.5.1 <0.6.0"
++  amplify_secure_storage_dart: ">=0.5.2 <0.6.0"
+-  aws_common: ">=0.7.1 <0.8.0"
+-  aws_signature_v4: ">=0.6.1 <0.7.0"
++  aws_common: ">=0.8.0 <0.9.0"
++  aws_signature_v4: ">=0.6.2 <0.7.0"
+diff --git a/packages/secure_storage/amplify_secure_storage/CHANGELOG.md b/packages/secure_storage/amplify_secure_storage/CHANGELOG.md
++## 0.5.5
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/secure_storage/amplify_secure_storage/pubspec.yaml b/packages/secure_storage/amplify_secure_storage/pubspec.yaml
+-version: 0.5.4
++version: 0.5.5
+-  amplify_secure_storage_dart: ">=0.5.1 <0.6.0"
++  amplify_secure_storage_dart: ">=0.5.2 <0.6.0"
+diff --git a/packages/secure_storage/amplify_secure_storage_dart/CHANGELOG.md b/packages/secure_storage/amplify_secure_storage_dart/CHANGELOG.md
++## 0.5.2
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml b/packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml
+-version: 0.5.1
++version: 0.5.2
+-  aws_common: ">=0.7.1 <0.8.0"
++  aws_common: ">=0.8.0 <0.9.0"
+-  worker_bee: ">=0.3.1 <0.4.0"
++  worker_bee: ">=0.3.2 <0.4.0"
+-  worker_bee_builder: ">=0.3.1 <0.4.0"
++  worker_bee_builder: ">=0.3.2 <0.4.0"
+diff --git a/packages/smithy/smithy/CHANGELOG.md b/packages/smithy/smithy/CHANGELOG.md
++## 0.7.2
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/smithy/smithy/pubspec.yaml b/packages/smithy/smithy/pubspec.yaml
+-version: 0.7.1
++version: 0.7.2
+-  aws_common: ">=0.7.1 <0.8.0"
++  aws_common: ">=0.8.0 <0.9.0"
+diff --git a/packages/smithy/smithy_aws/CHANGELOG.md b/packages/smithy/smithy_aws/CHANGELOG.md
++## 0.7.2
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/smithy/smithy_aws/pubspec.yaml b/packages/smithy/smithy_aws/pubspec.yaml
+-version: 0.7.1
++version: 0.7.2
+-  aws_common: ">=0.7.1 <0.8.0"
+-  aws_signature_v4: ">=0.6.1 <0.7.0"
++  aws_common: ">=0.8.0 <0.9.0"
++  aws_signature_v4: ">=0.6.2 <0.7.0"
+-  smithy: ">=0.7.1 <0.8.0"
++  smithy: ">=0.7.2 <0.8.0"
+diff --git a/packages/storage/amplify_storage_s3/CHANGELOG.md b/packages/storage/amplify_storage_s3/CHANGELOG.md
++## 2.4.0
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/storage/amplify_storage_s3/pubspec.yaml b/packages/storage/amplify_storage_s3/pubspec.yaml
+-version: 2.3.0
++version: 2.4.0
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_db_common: ">=0.4.3 <0.5.0"
+-  amplify_storage_s3_dart: ">=0.4.3 <0.5.0"
+-  aws_common: ">=0.7.1 <0.8.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_db_common: ">=0.4.4 <0.5.0"
++  amplify_storage_s3_dart: ">=0.4.4 <0.5.0"
++  aws_common: ">=0.8.0 <0.9.0"
+-  aws_signature_v4: ">=0.6.1 <0.7.0"
++  aws_signature_v4: ">=0.6.2 <0.7.0"
+diff --git a/packages/storage/amplify_storage_s3_dart/CHANGELOG.md b/packages/storage/amplify_storage_s3_dart/CHANGELOG.md
++## 0.4.4
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/storage/amplify_storage_s3_dart/pubspec.yaml b/packages/storage/amplify_storage_s3_dart/pubspec.yaml
+-version: 0.4.3
++version: 0.4.4
+-  amplify_core: ">=2.3.0 <2.4.0"
+-  amplify_db_common_dart: ">=0.4.4 <0.5.0"
++  amplify_core: ">=2.4.0 <2.5.0"
++  amplify_db_common_dart: ">=0.4.5 <0.5.0"
+-  aws_common: ">=0.7.1 <0.8.0"
+-  aws_signature_v4: ">=0.6.1 <0.7.0"
++  aws_common: ">=0.8.0 <0.9.0"
++  aws_signature_v4: ">=0.6.2 <0.7.0"
+-  smithy: ">=0.7.1 <0.8.0"
+-  smithy_aws: ">=0.7.0 <0.8.0"
++  smithy: ">=0.7.2 <0.8.0"
++  smithy_aws: ">=0.7.2 <0.8.0"
+diff --git a/packages/worker_bee/worker_bee/CHANGELOG.md b/packages/worker_bee/worker_bee/CHANGELOG.md
++## 0.3.2
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/worker_bee/worker_bee/pubspec.yaml b/packages/worker_bee/worker_bee/pubspec.yaml
+-version: 0.3.1
++version: 0.3.2
+-  aws_common: ">=0.7.1 <0.8.0"
++  aws_common: ">=0.8.0 <0.9.0"
+diff --git a/packages/worker_bee/worker_bee_builder/CHANGELOG.md b/packages/worker_bee/worker_bee_builder/CHANGELOG.md
++## 0.3.2
++
++- Minor bug fixes and improvements
++
+diff --git a/packages/worker_bee/worker_bee_builder/pubspec.yaml b/packages/worker_bee/worker_bee_builder/pubspec.yaml
+-version: 0.3.1
++version: 0.3.2
+-  worker_bee: ">=0.3.1 <0.4.0"
++  worker_bee: ">=0.3.2 <0.4.0"
