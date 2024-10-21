@@ -157,7 +157,6 @@ class StorageS3Service {
     try {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-    
           ..bucket = s3ClientInfo.bucketName
           ..prefix = resolvedPath
           ..delimiter = s3PluginOptions.excludeSubPaths
