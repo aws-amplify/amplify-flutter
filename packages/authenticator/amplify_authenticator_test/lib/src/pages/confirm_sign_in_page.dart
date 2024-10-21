@@ -149,9 +149,15 @@ class ConfirmSignInPage extends AuthenticatorPage {
   }) async {
     expect(selectMfaRadio, findsOneWidget);
 
+    // if mfaMethod is email, don't make it uppercase except for the first letter
+    // if mfa method is totp, make it all uppercase
     final mfaMethodWidget = find.descendant(
       of: selectMfaRadio,
-      matching: find.textContaining('(${mfaMethod.name.toUpperCase()})'),
+      matching: find.textContaining(
+        mfaMethod == MfaType.email
+            ? 'Email'
+            : '(${mfaMethod.name.toUpperCase()})',
+      ),
     );
 
     await tester.tap(mfaMethodWidget);
