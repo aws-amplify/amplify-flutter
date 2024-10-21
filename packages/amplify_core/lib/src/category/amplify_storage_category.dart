@@ -153,6 +153,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
         data: data,
         onProgress: onProgress,
         options: options,
+        bucket: bucket,
       ),
     );
   }
