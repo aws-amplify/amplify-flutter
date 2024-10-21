@@ -78,6 +78,16 @@ const List<AmplifyBackendGroup> infraConfig = [
         identifier: 'mfa-opt-ema-sms',
         pathToSource: 'infra-gen2/backends/auth/mfa-optional-email-sms',
       ),
+      AmplifyBackend(
+        name: 'mfa-required-email-totp',
+        identifier: 'mfa-req-ema-tot',
+        pathToSource: 'infra-gen2/backends/auth/mfa-required-email-totp',
+      ),
+      AmplifyBackend(
+        name: 'mfa-optional-email-totp',
+        identifier: 'mfa-opt-ema-tot',
+        pathToSource: 'infra-gen2/backends/auth/mfa-optional-email-totp',
+      ),
     ],
   ),
   AmplifyBackendGroup(
