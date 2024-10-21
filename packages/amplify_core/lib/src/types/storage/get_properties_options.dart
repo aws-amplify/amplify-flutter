@@ -20,7 +20,7 @@ class StorageGetPropertiesOptions
   /// {@macro amplify_core.storage.download_get_properties_plugin_options}
   final StorageGetPropertiesPluginOptions? pluginOptions;
 
-  /// an optional bucket to specify which bucket to return the list for
+  /// Optionally specify which bucket to retrieve
   final StorageBucket? bucket;
 
   @override
