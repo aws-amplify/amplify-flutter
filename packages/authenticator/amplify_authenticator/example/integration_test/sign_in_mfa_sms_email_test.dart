@@ -17,9 +17,9 @@ void main() {
   group('sign-in-sms-totp-mfa', () {
     testRunner.withEnvironment(mfaRequiredEmailSms, (env) {
       // Scenario: Sign in using a totp code when both SMS and EMAIL are enabled
-      // Note: When email and sms are both enabled, 
-      // one of them must be selected as preferred. 
-      // This is different from other mfa methods and 
+      // Note: When email and sms are both enabled,
+      // one of them must be selected as preferred.
+      // This is different from other mfa methods and
       // is expected behavior from cognito
       testWidgets('can select EMAIL MFA', (tester) async {
         final username = env.generateUsername();
