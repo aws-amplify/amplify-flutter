@@ -6,6 +6,7 @@
 library amplify_auth_integration_test;
 
 export 'src/async_test.dart';
+export 'src/email_utils.dart';
 export 'src/environments.dart';
 export 'src/test_auth_plugin.dart';
 export 'src/test_runner.dart';
