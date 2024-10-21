@@ -26,22 +26,25 @@ void main() {
       '$uniquePrefix/subdir4#file8.txt',
     ];
     group('standard config', () {
+      final mainBucket =
+          StorageBucket.fromOutputs('Storage Integ Test main bucket');
+      final secondaryBucket = StorageBucket.fromOutputs(
+        'Storage Integ Test secondary bucket',
+      );
       setUpAll(() async {
         await configure(amplifyEnvironments['main']!);
         for (var i = 0; i < 4; i++) {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(uploadedPaths[i]),
             data: StorageDataPayload.bytes('test content'.codeUnits),
-            bucket: StorageBucket.fromOutputs('Storage Integ Test main bucket'),
+            bucket: mainBucket,
           ).result;
         }
         for (var i = 4; i < 8; i++) {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(uploadedPaths[i]),
             data: StorageDataPayload.bytes('test content'.codeUnits),
-            bucket: StorageBucket.fromOutputs(
-              'Storage Integ Test secondary bucket',
-            ),
+            bucket: secondaryBucket,
           ).result;
         }
         for (final path in uploadedPaths) {
@@ -51,15 +54,14 @@ void main() {
 
       group('list() without options', () {
         testWidgets('should list all files with unique prefix', (_) async {
+          // this will use the main bucket by default when no optional bucket is specified
           final listResultMainBucket = await Amplify.Storage.list(
             path: StoragePath.fromString(uniquePrefix),
           ).result;
           final listResultSecondaryBucket = await Amplify.Storage.list(
             path: StoragePath.fromString(uniquePrefix),
             options: StorageListOptions(
-              bucket: StorageBucket.fromOutputs(
-                'Storage Integ Test secondary bucket',
-              ),
+              bucket: secondaryBucket,
             ),
           ).result;
           for (var i = 0; i < 4; i++) {
@@ -135,9 +137,7 @@ void main() {
                   excludeSubPaths: true,
                   delimiter: '#',
                 ),
-                bucket: StorageBucket.fromOutputs(
-                  'Storage Integ Test secondary bucket',
-                ),
+                bucket: secondaryBucket,
               ),
             ).result as S3ListResult;
 
@@ -181,9 +181,7 @@ void main() {
             path: StoragePath.fromString(uniquePrefix),
             options: StorageListOptions(
               pageSize: 2,
-              bucket: StorageBucket.fromOutputs(
-                'Storage Integ Test secondary bucket',
-              ),
+              bucket: secondaryBucket,
             ),
           ).result;
 
@@ -233,9 +231,7 @@ void main() {
             path: StoragePath.fromString(uniquePrefix),
             options: StorageListOptions(
               pluginOptions: const S3ListPluginOptions.listAll(),
-              bucket: StorageBucket.fromOutputs(
-                'Storage Integ Test secondary bucket',
-              ),
+              bucket: secondaryBucket,
             ),
           ).result;
 
