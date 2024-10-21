@@ -245,6 +245,9 @@ void main() {
           () async {
         const testOptions = StorageGetPropertiesOptions(
           pluginOptions: S3GetPropertiesPluginOptions(),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(
