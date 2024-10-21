@@ -42,6 +42,21 @@ abstract class AuthenticatorPage {
     expect(usernameFieldHint, isPresent ? findsOneWidget : findsNothing);
   }
 
+  /// Then I see "Email" as an input field
+  void expectEmail({
+    String label = 'Email',
+    bool isPresent = true,
+  }) {
+    // email field is present
+    expect(usernameField, findsOneWidget);
+    // login type is "email"
+    final usernameFieldHint = find.descendant(
+      of: usernameField,
+      matching: find.text(label),
+    );
+    expect(usernameFieldHint, isPresent ? findsOneWidget : findsNothing);
+  }
+
   /// Expects the current step to be [step].
   void expectStep(AuthenticatorStep step) {
     final currentScreen = tester.widget<AuthenticatorScreen>(
