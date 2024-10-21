@@ -194,6 +194,26 @@ void main() {
           throwsA(isA<StorageNotFoundException>()),
         );
       });
+      testWidgets('unauthorized path', (_) async {
+        await expectLater(
+          () => Amplify.Storage.getProperties(
+            path: const StoragePath.fromString('unauthorized/path'),
+            options: StorageGetPropertiesOptions(
+              bucket: mainBucket,
+            ),
+          ).result,
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
+        await expectLater(
+          () => Amplify.Storage.getProperties(
+            path: const StoragePath.fromString('unauthorized/path'),
+            options: StorageGetPropertiesOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result,
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
+      });
     });
   });
 }
