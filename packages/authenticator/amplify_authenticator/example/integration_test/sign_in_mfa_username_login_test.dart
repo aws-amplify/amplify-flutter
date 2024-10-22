@@ -242,8 +242,7 @@ void main() {
         await signInPage.submitSignIn();
 
         // Then I will be redirected to the TOTP MFA code page
-        await confirmSignInPage
-            .expectConfirmSignInWithTotpMfaCodeIsPresent();
+        await confirmSignInPage.expectConfirmSignInWithTotpMfaCodeIsPresent();
 
         // When I type an invalid TOTP code
         await confirmSignInPage.enterVerificationCode('000000');
