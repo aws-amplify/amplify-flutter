@@ -18,7 +18,7 @@ void main() {
         final username = env.generateUsername();
         final password = generatePassword();
 
-        final user = await adminCreateUser(
+        await adminCreateUser(
           username,
           password,
           autoConfirm: true,

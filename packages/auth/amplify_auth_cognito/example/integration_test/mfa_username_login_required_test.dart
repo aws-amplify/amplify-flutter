@@ -230,7 +230,7 @@ void main() {
               .equals(AuthSignInStep.continueSignInWithMfaSelection);
 
           // select totp as the preferred method
-          final selectRes2 = await Amplify.Auth.confirmSignIn(
+          await Amplify.Auth.confirmSignIn(
             confirmationValue: 'TOTP',
           );
 
