@@ -240,7 +240,8 @@ abstract class AuthenticatorFormFieldState<
         state.confirmTotp();
       case AuthenticatorStep.continueSignInWithEmailMfaSetup:
         state.continueEmailMfaSetup();
-      // TODO(khatruong2009): add case for AuthenticatorStep.continueSignInWithMfaSetupSelection
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
+        state.continueSignInWithMfaSetupSelection();
       case AuthenticatorStep.resetPassword:
         state.resetPassword();
       case AuthenticatorStep.confirmResetPassword:
