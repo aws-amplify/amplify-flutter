@@ -72,6 +72,7 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
             allowedMfaTypes: {
               MfaType.totp,
               MfaType.sms,
+              MfaType.email,
             },
           ),
         );
@@ -85,6 +86,16 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
             Uri.parse(
               'otpauth://totp/My%20Application:username?secret=sharedSecret&issuer=My%20Application',
             ),
+          ),
+        );
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
+        baseBloc.setState(
+          const ContinueSignInWithMfaSetupSelection(
+            allowedMfaTypes: {
+              MfaType.sms,
+              MfaType.totp,
+              MfaType.email,
+            },
           ),
         );
       default:
