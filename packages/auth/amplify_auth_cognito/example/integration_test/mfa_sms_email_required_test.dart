@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
@@ -123,11 +122,9 @@ void main() {
           ),
         );
 
-        final plugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
+        safePrint('${await cognitoPlugin.fetchMfaPreference()}');
 
-        safePrint('${await plugin.fetchMfaPreference()}');
-
-        await plugin.updateMfaPreference(
+        await cognitoPlugin.updateMfaPreference(
           email: MfaPreference.preferred,
         );
 
