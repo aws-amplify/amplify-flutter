@@ -172,7 +172,11 @@ class ConfirmSignInPage extends AuthenticatorPage {
 
     final mfaMethodWidget = find.descendant(
       of: selectMfaSetupRadio,
-      matching: find.textContaining('(${mfaMethod.name.toUpperCase()})'),
+      matching: find.textContaining(
+        mfaMethod == MfaType.email
+            ? 'Email'
+            : '(${mfaMethod.name.toUpperCase()})',
+      ),
     );
 
     await tester.tap(mfaMethodWidget);
@@ -183,6 +187,13 @@ class ConfirmSignInPage extends AuthenticatorPage {
   Future<void> submitConfirmSignInMfaSelection() async {
     await tester.ensureVisible(confirmSignInMfaSelectionButton);
     await tester.tap(confirmSignInMfaSelectionButton);
+    await tester.pumpAndSettle();
+  }
+
+  /// When I click the continue sign in with MFA setup selection button
+  Future<void> submitConfirmSignInMfaSetupSelection() async {
+    await tester.ensureVisible(confirmSignInMfaSetupSelectionButton);
+    await tester.tap(confirmSignInMfaSetupSelectionButton);
     await tester.pumpAndSettle();
   }
 
