@@ -88,6 +88,11 @@ const List<AmplifyBackendGroup> infraConfig = [
         identifier: 'mfa-opt-ema-tot',
         pathToSource: 'infra-gen2/backends/auth/mfa-optional-email-totp',
       ),
+      AmplifyBackend(
+        name: 'username-login-mfa',
+        identifier: 'user-login-mfa',
+        pathToSource: 'infra-gen2/backends/auth/username-login-mfa',
+      ),
     ],
   ),
   AmplifyBackendGroup(
