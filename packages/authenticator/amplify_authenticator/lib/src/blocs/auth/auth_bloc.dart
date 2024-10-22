@@ -234,7 +234,7 @@ class StateMachineBloc
             allowedMfaTypes: result.nextStep.allowedMfaTypes,
           );
         case AuthSignInStep.continueSignInWithMfaSetupSelection:
-          await _handleMfaSetupSelection(result);
+          yield await _handleMfaSetupSelection(result);
         case AuthSignInStep.continueSignInWithTotpSetup:
           assert(
             result.nextStep.totpSetupDetails != null,
@@ -340,7 +340,7 @@ class StateMachineBloc
           ),
         );
       case AuthSignInStep.continueSignInWithMfaSetupSelection:
-        await _handleMfaSetupSelection(result);
+        _emit(await _handleMfaSetupSelection(result));
       case AuthSignInStep.continueSignInWithEmailMfaSetup:
         _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
       case AuthSignInStep.confirmSignInWithTotpMfaCode:
@@ -543,7 +543,7 @@ class StateMachineBloc
     yield* const Stream.empty();
   }
 
-  Future<void> _handleMfaSetupSelection(SignInResult result) async {
+  Future<UnauthenticatedState> _handleMfaSetupSelection(SignInResult result) async {
     final allowedMfaTypes = result.nextStep.allowedMfaTypes;
 
     if (allowedMfaTypes == null) {
@@ -556,12 +556,7 @@ class StateMachineBloc
     final mfaTypesForSetup = allowedMfaTypes.toSet()..remove(MfaType.sms);
 
     if (mfaTypesForSetup.length != 1) {
-      _emit(
-        ContinueSignInWithMfaSetupSelection(
-          allowedMfaTypes: allowedMfaTypes,
-        ),
-      );
-      return;
+      return ContinueSignInWithMfaSetupSelection(allowedMfaTypes: allowedMfaTypes);
     }
 
     final mfaType = mfaTypesForSetup.first;
@@ -572,15 +567,13 @@ class StateMachineBloc
           result.nextStep.totpSetupDetails != null,
           'Sign In Result should have totpSetupDetails',
         );
-        _emit(
-          await ContinueSignInTotpSetup.setupURI(
-            result.nextStep.totpSetupDetails!,
-            totpOptions,
-          ),
+        return ContinueSignInTotpSetup.setupURI(
+          result.nextStep.totpSetupDetails!,
+          totpOptions,
         );
 
       case MfaType.email:
-        _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
+        return UnauthenticatedState.continueSignInWithEmailMfaSetup;
 
       default:
         throw InvalidUserPoolConfigurationException(
