@@ -392,9 +392,10 @@ void main() {
           );
           check(signInRes.nextStep.signInStep)
               .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
-          check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            .has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.email);
+          check(signInRes.nextStep.codeDeliveryDetails)
+              .isNotNull()
+              .has((d) => d.deliveryMedium, 'deliveryMedium')
+              .equals(DeliveryMedium.email);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await otpResult.code,

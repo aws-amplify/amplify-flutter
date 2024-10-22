@@ -31,8 +31,10 @@ class EmailMfaSetupPage extends AuthenticatorPage {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
-    expect(currentScreen.step,
-        equals(AuthenticatorStep.continueSignInWithEmailMfaSetup),);
+    expect(
+      currentScreen.step,
+      equals(AuthenticatorStep.continueSignInWithEmailMfaSetup),
+    );
   }
 
   /// When I enter an email

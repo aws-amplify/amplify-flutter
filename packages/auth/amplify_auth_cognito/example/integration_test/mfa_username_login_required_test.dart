@@ -42,11 +42,11 @@ void main() {
               'When an email is registered and the userpool has email MFA enabled, Cognito will automatically enable email MFA as the preferred MFA method.',
         ).equals(AuthSignInStep.continueSignInWithMfaSetupSelection);
 
-        final selectRes = await Amplify.Auth.confirmSignIn(
+        await Amplify.Auth.confirmSignIn(
           confirmationValue: 'EMAIL',
         );
 
-        final setupRes = await Amplify.Auth.confirmSignIn(
+        await Amplify.Auth.confirmSignIn(
           confirmationValue: email,
         );
 
@@ -167,11 +167,11 @@ void main() {
                 'When both EMAIL and TOTP are enabled but email attribute isnt verified, choose an mfa method to set up.',
           ).equals(AuthSignInStep.continueSignInWithMfaSetupSelection);
 
-          final selectRes = await Amplify.Auth.confirmSignIn(
+          await Amplify.Auth.confirmSignIn(
             confirmationValue: 'EMAIL',
           );
 
-          final setupRes = await Amplify.Auth.confirmSignIn(
+          await Amplify.Auth.confirmSignIn(
             confirmationValue: email,
           );
 
