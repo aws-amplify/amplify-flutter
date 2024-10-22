@@ -174,7 +174,7 @@ class InputResolverKey {
 
   static const selectEmail = InputResolverKey._(
     InputResolverKeyType.title,
-    field: InputField.email,
+    field: InputField.selectEmail,
   );
 
   static const totpCodePrompt = InputResolverKey._(
