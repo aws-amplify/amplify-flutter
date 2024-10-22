@@ -112,6 +112,12 @@ class ConfirmSignInPage extends AuthenticatorPage {
     expect(newPasswordField, findsOneWidget);
   }
 
+  /// Then I see "Invalid verification code"
+  @override
+  void expectInvalidVerificationCode() {
+    expectError('Invalid code');
+  }
+
   /// When I enter a verification code
   Future<void> enterVerificationCode(String code) async {
     await tester.ensureVisible(verificationField);

@@ -15,8 +15,8 @@ void main() {
 
   group('sign-in-email-mfa', () {
     testRunner.withEnvironment(mfaRequiredEmail, (env) {
-      // Scenario: Sign in using a totp code
-      testWidgets('Setup & Sign in with EMAIL MFA', (tester) async {
+      // Scenario: Sign in using a valid email MFA code
+      testWidgets('Sign in with valid EMAIL MFA code', (tester) async {
         final username = env.generateUsername();
         final password = generatePassword();
 
@@ -57,7 +57,7 @@ void main() {
         // And I click the "Sign in" button
         await signInPage.submitSignIn();
 
-        // Then I will be redirected to the totp setup page
+        // Then I will be redirected to the email MFA code page
         await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
 
         final otpResult = await getOtpCode(
@@ -103,6 +103,59 @@ void main() {
 
         // Then I see the authenticated app
         await signInPage.expectAuthenticated();
+
+        await tester.bloc.close();
+      });
+
+      // Scenario: Sign in using an invalid email MFA code
+      testWidgets('Sign in with invalid EMAIL MFA code', (tester) async {
+        final username = env.generateUsername();
+        final password = generatePassword();
+
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          attributes: {
+            AuthUserAttributeKey.email: username,
+          },
+          autoFillAttributes: false,
+        );
+
+        await loadAuthenticator(tester: tester);
+
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.confirmSignInWithEmailMfaCode,
+            emitsDone,
+          ]),
+        );
+
+        final signInPage = SignInPage(tester: tester);
+        final confirmSignInPage = ConfirmSignInPage(tester: tester);
+
+        // When I type my "username"
+        await signInPage.enterUsername(username);
+
+        // And I type my password
+        await signInPage.enterPassword(password);
+
+        // And I click the "Sign in" button
+        await signInPage.submitSignIn();
+
+        // Then I will be redirected to the EMAIL OTP code page
+        await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
+
+        // And I type an invalid confirmation code
+        await confirmSignInPage.enterVerificationCode('123456');
+
+        // And I click the "Confirm" button
+        await confirmSignInPage.submitConfirmSignIn();
+
+        // Then I see "The code entered is not correct."
+        confirmSignInPage.expectInvalidVerificationCode();
 
         await tester.bloc.close();
       });

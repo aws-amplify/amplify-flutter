@@ -39,10 +39,6 @@ void main() {
             UnauthenticatedState.continueSignInWithEmailMfaSetup,
             UnauthenticatedState.confirmSignInWithEmailMfaCode,
             isA<AuthenticatedState>(),
-            UnauthenticatedState.signIn,
-            isA<ContinueSignInWithMfaSelection>(),
-            UnauthenticatedState.confirmSignInWithTotpMfaCode,
-            isA<AuthenticatedState>(),
             emitsDone,
           ]),
         );
@@ -62,7 +58,7 @@ void main() {
         // And I click the "Sign in" button
         await signInPage.submitSignIn();
 
-        // Then I will be redirected to the confirm email mfa page
+        // Then I will be redirected to the MFA setup selection page
         await confirmSignInPage
             .expectContinueSignInWithMfaSetupSelectionIsPresent();
 
@@ -72,7 +68,7 @@ void main() {
         // And I click the "Confirm" button
         await confirmSignInPage.submitConfirmSignInMfaSetupSelection();
 
-        // Then I will be redirected to the EMAIL mfa setup page
+        // Then I will be redirected to the EMAIL MFA setup page
         await emailMfaSetupPage.expectEmailMfaSetupIsPresent();
 
         // When I type a valid email
@@ -90,15 +86,44 @@ void main() {
         // Then I see the authenticated app
         await signInPage.expectAuthenticated();
 
-        // When I enable TOTP for MFA instead of the default set up by cognito (EMAIL)
-        await setUpTotp();
+        await tester.bloc.close();
+      });
 
-        // And I sign out using Auth.signOut()
-        await Amplify.Auth.signOut();
-        await tester.pumpAndSettle();
+      // Scenario: Select TOTP MFA to set up from the setup selection page
+      testWidgets('can select TOTP MFA to set up', (tester) async {
+        final username = env.generateUsername();
+        final password = generatePassword();
+        late String sharedSecret;
 
-        // Then I see the sign in page
-        signInPage.expectUsername();
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: false,
+          autoFillAttributes: false,
+        );
+
+        await loadAuthenticator(tester: tester);
+
+        tester.bloc.stream.listen((event) {
+          if (event is ContinueSignInTotpSetup) {
+            sharedSecret = event.totpSetupDetails.sharedSecret;
+          }
+        });
+
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            isA<ContinueSignInWithMfaSetupSelection>(),
+            isA<ContinueSignInTotpSetup>(),
+            isA<AuthenticatedState>(),
+            emitsDone,
+          ]),
+        );
+
+        final signInPage = SignInPage(tester: tester);
+        final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
         // When I type my "username"
         await signInPage.enterUsername(username);
@@ -109,22 +134,23 @@ void main() {
         // And I click the "Sign in" button
         await signInPage.submitSignIn();
 
-        // Then I will be redirected to the MFA selection page
-        await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
+        // Then I will be redirected to the MFA setup selection page
+        await confirmSignInPage
+            .expectContinueSignInWithMfaSetupSelectionIsPresent();
 
         // When I select "TOTP"
-        await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.totp);
+        await confirmSignInPage.selectMfaSetupMethod(mfaMethod: MfaType.totp);
 
         // And I click the "Confirm" button
-        await confirmSignInPage.submitConfirmSignInMfaSelection();
+        await confirmSignInPage.submitConfirmSignInMfaSetupSelection();
 
-        // Then I will be redirected to the TOTP MFA code page
-        await confirmSignInPage.expectConfirmSignInWithTotpMfaCodeIsPresent();
+        // Then I will be redirected to the TOTP MFA setup page
+        await confirmSignInPage.expectSignInTotpSetupIsPresent();
 
-        final code_2 = await generateTotpCode();
+        final totpCode = await generateTotpCode(sharedSecret);
 
         // When I type a valid TOTP code
-        await confirmSignInPage.enterVerificationCode(code_2);
+        await confirmSignInPage.enterVerificationCode(totpCode);
 
         // And I click the "Confirm" button
         await confirmSignInPage.submitConfirmSignIn();
@@ -135,8 +161,8 @@ void main() {
         await tester.bloc.close();
       });
 
-      // Scenario: Sign in using a EMAIL code when both EMAIL and TOTP are enabled
-      testWidgets('can select TOTP MFA to set up', (tester) async {
+      // Scenario: Sign in using an invalid TOTP code
+      testWidgets('sign in with invalid TOTP code', (tester) async {
         final username = env.generateUsername();
         final password = generatePassword();
         late String sharedSecret;
@@ -166,7 +192,6 @@ void main() {
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
             UnauthenticatedState.confirmSignInWithTotpMfaCode,
-            isA<AuthenticatedState>(),
             emitsDone,
           ]),
         );
@@ -183,7 +208,7 @@ void main() {
         // And I click the "Sign in" button
         await signInPage.submitSignIn();
 
-        // Then I will be redirected to the confirm email mfa page
+        // Then I will be redirected to the MFA setup selection page
         await confirmSignInPage
             .expectContinueSignInWithMfaSetupSelectionIsPresent();
 
@@ -193,12 +218,12 @@ void main() {
         // And I click the "Confirm" button
         await confirmSignInPage.submitConfirmSignInMfaSetupSelection();
 
-        // Then I will be redirected to the TOTP mfa setup page
+        // Then I will be redirected to the TOTP MFA setup page
         await confirmSignInPage.expectSignInTotpSetupIsPresent();
 
         final totpCode = await generateTotpCode(sharedSecret);
 
-        // And I type a valid TOTP code
+        // When I type a valid TOTP code
         await confirmSignInPage.enterVerificationCode(totpCode);
 
         // And I click the "Confirm" button
@@ -207,35 +232,27 @@ void main() {
         // Then I see the authenticated app
         await signInPage.expectAuthenticated();
 
-        // And I sign out using Auth.signOut()
+        // Sign out to test invalid TOTP code during sign-in
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();
 
-        // Then I see the sign in page
-        signInPage.expectUsername();
-
-        // When I type my "username"
+        // When I attempt to sign in again
         await signInPage.enterUsername(username);
-
-        // And I type my password
         await signInPage.enterPassword(password);
-
-        // And I click the "Sign in" button
         await signInPage.submitSignIn();
 
         // Then I will be redirected to the TOTP MFA code page
-        await confirmSignInPage.expectConfirmSignInWithTotpMfaCodeIsPresent();
+        await confirmSignInPage
+            .expectConfirmSignInWithTotpMfaCodeIsPresent();
 
-        final code_2 = await generateTotpCode(sharedSecret);
-
-        // When I type a valid TOTP code
-        await confirmSignInPage.enterVerificationCode(code_2);
+        // When I type an invalid TOTP code
+        await confirmSignInPage.enterVerificationCode('000000');
 
         // And I click the "Confirm" button
         await confirmSignInPage.submitConfirmSignIn();
 
-        // Then I see the authenticated app
-        await signInPage.expectAuthenticated();
+        // Then I see "Invalid code" error message
+        confirmSignInPage.expectInvalidVerificationCode();
 
         await tester.bloc.close();
       });
