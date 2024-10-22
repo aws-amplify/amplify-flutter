@@ -166,7 +166,6 @@ void main() {
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
             UnauthenticatedState.confirmSignInWithTotpMfaCode,
-            // UnauthenticatedState.confirmSignInWithEmailMfaCode,
             isA<AuthenticatedState>(),
             emitsDone,
           ]),

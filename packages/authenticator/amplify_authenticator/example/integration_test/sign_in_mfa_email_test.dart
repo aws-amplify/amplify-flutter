@@ -72,9 +72,6 @@ void main() {
         // Then I see the authenticated app
         await signInPage.expectAuthenticated();
 
-        /// Sign out and login again with EMAIL OTP code
-        /// validates [AuthenticatorStep.confirmSignInWithEmailMfaCode]
-
         // When I sign out using Auth.signOut()
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();

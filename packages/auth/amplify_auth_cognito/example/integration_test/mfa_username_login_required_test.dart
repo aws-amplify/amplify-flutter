@@ -204,8 +204,6 @@ void main() {
               .has((d) => d.deliveryMedium, 'deliveryMedium')
               .equals(DeliveryMedium.email);
 
-          safePrint('RESIGN IN RES: $resignInRes');
-
           final confirmRes2 = await Amplify.Auth.confirmSignIn(
             confirmationValue: await otpResult2.code,
           );
@@ -220,12 +218,6 @@ void main() {
             ),
           );
 
-          // await cognitoPlugin.updateMfaPreference(
-          //   totp: MfaPreference.preferred,
-          // );
-
-          // check(setupRes.nextStep.signInStep).equals(AuthSignInStep.done);
-
           // sign out and sign back in and confirm TOTP
           await signOutUser(assertComplete: true);
 
@@ -234,8 +226,6 @@ void main() {
             password: password,
           );
 
-          safePrint('RESIGN IN RES 2: $resignInRes2');
-
           check(resignInRes2.nextStep.signInStep)
               .equals(AuthSignInStep.continueSignInWithMfaSelection);
 
@@ -243,11 +233,6 @@ void main() {
           final selectRes2 = await Amplify.Auth.confirmSignIn(
             confirmationValue: 'TOTP',
           );
-
-          safePrint('SELECT RES 2: $selectRes2');
-
-          // final sharedSecret =
-          //     selectRes2.nextStep.totpSetupDetails!.sharedSecret;
 
           final confirmRes3 = await Amplify.Auth.confirmSignIn(
             confirmationValue: await generateTotpCode(),

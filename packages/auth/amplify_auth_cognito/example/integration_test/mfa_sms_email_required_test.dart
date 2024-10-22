@@ -122,8 +122,6 @@ void main() {
           ),
         );
 
-        safePrint('${await cognitoPlugin.fetchMfaPreference()}');
-
         await cognitoPlugin.updateMfaPreference(
           email: MfaPreference.preferred,
         );

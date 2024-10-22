@@ -46,7 +46,6 @@ void main() {
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
-            // isA<ContinueSignInWithMfaSelection>(),
             UnauthenticatedState.confirmSignInWithEmailMfaCode,
             isA<AuthenticatedState>(),
             emitsDone,
@@ -81,7 +80,6 @@ void main() {
         await signInPage.expectAuthenticated();
 
         // When I enable EMAIL for MFA instead of the default set up by cognito (SMS)
-        // await setUpTotp();
         await setUpEmailMfa();
 
         // And I sign out using Auth.signOut()
@@ -143,7 +141,6 @@ void main() {
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
-            // isA<ContinueSignInWithMfaSelection>(),
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             emitsDone,
@@ -199,17 +196,8 @@ void main() {
         // And I click the "Sign in" button
         await signInPage.submitSignIn();
 
-        // Then I will be redirected to the MFA selection page
-        // await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
-
         final smsResult_2 =
             await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
-
-        // When I select "SMS"
-        // await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);
-
-        // And I click the "Confirm" button
-        // await confirmSignInPage.submitConfirmSignInMfaSelection();
 
         // Then I will be redirected to the confirm sms mfa page
         await confirmSignInPage.expectConfirmSignInMFAIsPresent();

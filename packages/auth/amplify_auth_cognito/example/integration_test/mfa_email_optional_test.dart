@@ -18,9 +18,6 @@ void main() {
         final username = env.generateUsername();
         final password = generatePassword();
 
-        safePrint('USERNAME: $username');
-        safePrint('ENV USERNAME: ${env.getDefaultAttributes(username)}');
-
         final user = await adminCreateUser(
           username,
           password,
@@ -30,8 +27,6 @@ void main() {
             AuthUserAttributeKey.email: username,
           },
         );
-
-        safePrint('USER: $user');
 
         final signInRes = await Amplify.Auth.signIn(
           username: username,
