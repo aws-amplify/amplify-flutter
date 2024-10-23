@@ -48,6 +48,10 @@ void main() {
         final signInPage = SignInPage(tester: tester);
         final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
+        final otpResult = await getOtpCode(
+          env.getLoginAttribute(username),
+        );
+
         // When I type my "username"
         await signInPage.enterUsername(username);
 
@@ -60,9 +64,6 @@ void main() {
         // Then I will be redirected to the email MFA code page
         await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
 
-        final otpResult = await getOtpCode(
-          env.getLoginAttribute(username),
-        );
         // And I type a valid EMAIL OTP code
         await confirmSignInPage.enterVerificationCode(await otpResult.code);
 
@@ -75,6 +76,10 @@ void main() {
         // When I sign out using Auth.signOut()
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();
+
+        final otpResult2 = await getOtpCode(
+          env.getLoginAttribute(username),
+        );
 
         // Then I see the sign in page
         signInPage.expectUsername(label: 'Email');
@@ -90,10 +95,6 @@ void main() {
 
         // Then I will be redirected to the EMAIL OTP code page
         await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
-
-        final otpResult2 = await getOtpCode(
-          env.getLoginAttribute(username),
-        );
 
         // When I type a valid EMAIL OTP code
         await confirmSignInPage.enterVerificationCode(await otpResult2.code);
