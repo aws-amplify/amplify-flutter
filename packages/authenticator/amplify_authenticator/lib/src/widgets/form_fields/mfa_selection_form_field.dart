@@ -41,6 +41,11 @@ class _MfaSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
             label: InputResolverKey.selectSms,
             value: MfaType.sms,
           ),
+        if (_allowedMfaTypes.contains(MfaType.email))
+          const InputSelection<InputResolverKey, MfaType>(
+            label: InputResolverKey.selectEmail,
+            value: MfaType.email,
+          ),
       ];
 
   @override

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.confirm_forgot_password_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -18,6 +18,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_password_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/limit_exceeded_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/not_authorized_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/password_history_policy_violation_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resource_not_found_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/too_many_failed_attempts_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/too_many_requests_exception.dart';
@@ -77,7 +78,7 @@ class ConfirmForgotPasswordOperation extends _i1.HttpOperation<
               credentialsProvider: _credentialsProvider,
               isOptional: true,
             ),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i3.WithSdkInvocationId(),
             const _i3.WithSdkRequest(),
           ] +
@@ -213,6 +214,17 @@ class ConfirmForgotPasswordOperation extends _i1.HttpOperation<
           NotAuthorizedException,
           statusCode: 403,
           builder: NotAuthorizedException.fromResponse,
+        ),
+        _i1.SmithyError<PasswordHistoryPolicyViolationException,
+            PasswordHistoryPolicyViolationException>(
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.cognitoidentityprovider',
+            shape: 'PasswordHistoryPolicyViolationException',
+          ),
+          _i1.ErrorKind.client,
+          PasswordHistoryPolicyViolationException,
+          statusCode: 400,
+          builder: PasswordHistoryPolicyViolationException.fromResponse,
         ),
         _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
           _i1.ShapeId(
