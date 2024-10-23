@@ -80,7 +80,7 @@ void main() {
       'should invoke the top-level or static external callback function on Android',
       () async {
     await overrideOperatingSystem(
-      const OperatingSystem('android', ''),
+      OperatingSystem('android', ''),
       () async {
         final pref = await SharedPreferences.getInstance();
         TestAmplifyPushNotifications(
