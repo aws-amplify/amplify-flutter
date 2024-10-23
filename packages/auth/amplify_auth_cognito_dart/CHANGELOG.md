@@ -1,3 +1,7 @@
+## 0.11.6
+
+- Minor bug fixes and improvements
+
 ## 0.11.5
 
 - Minor bug fixes and improvements

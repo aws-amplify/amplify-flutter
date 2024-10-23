@@ -10,6 +10,7 @@ import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.da
 import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
@@ -327,6 +328,16 @@ class MockConnectivity extends ConnectivityPlatform {
   @override
   Stream<ConnectivityStatus> get onConnectivityChanged =>
       mockNetworkStreamController.stream;
+}
+
+late StreamController<ProcessStatus> mockProcessLifeCycleController;
+
+class MockProcessLifeCycle extends ProcessLifeCycle {
+  const MockProcessLifeCycle();
+
+  @override
+  Stream<ProcessStatus> get onStateChanged =>
+      mockProcessLifeCycleController.stream;
 }
 
 /// Ensures a query predicate converts to JSON correctly.
