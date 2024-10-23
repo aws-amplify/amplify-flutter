@@ -14,6 +14,7 @@ class S3ListResult extends StorageListResult<S3Item> {
   /// {@macro storage.amplify_storage_s3.list_result}
   S3ListResult(
     super.items, {
+    super.excludedSubpaths,
     required super.hasNextPage,
     required this.metadata,
     super.nextToken,
@@ -26,14 +27,20 @@ class S3ListResult extends StorageListResult<S3Item> {
     PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult,
   ) {
     final output = paginatedResult.items;
-    final metadata = S3ListMetadata.fromS3CommonPrefixes(
-      commonPrefixes: output.commonPrefixes?.toList(),
+    final metadata = S3ListMetadata(
       delimiter: output.delimiter,
     );
+
+    final subPaths = output.commonPrefixes
+        ?.map((commonPrefix) => commonPrefix.prefix)
+        .whereType<String>()
+        .toList();
+
     final items = output.contents?.map(S3Item.fromS3Object).toList();
 
     return S3ListResult(
       items ?? const <S3Item>[],
+      excludedSubpaths: subPaths ?? <String>[],
       hasNextPage: paginatedResult.hasNext,
       nextToken: paginatedResult.nextContinuationToken,
       metadata: metadata,
@@ -43,9 +50,15 @@ class S3ListResult extends StorageListResult<S3Item> {
   /// Merges two instances of [S3ListResult] into one.
   S3ListResult merge(S3ListResult other) {
     final items = <S3Item>[...this.items, ...other.items];
-    final metadata = this.metadata.merge(other.metadata);
+
+    final mergedSubpaths = <String>[
+      ...excludedSubpaths,
+      ...other.excludedSubpaths,
+    ];
+
     return S3ListResult(
       items,
+      excludedSubpaths: mergedSubpaths,
       hasNextPage: other.hasNextPage,
       nextToken: other.nextToken,
       metadata: metadata,
@@ -58,38 +71,11 @@ class S3ListResult extends StorageListResult<S3Item> {
 
 /// The metadata returned from the Storage S3 plugin `list` API.
 class S3ListMetadata {
-  /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
+  /// Creates a S3ListMetadata from the `delimiter`
   /// properties of the [s3.ListObjectsV2Output].
-  factory S3ListMetadata.fromS3CommonPrefixes({
-    List<s3.CommonPrefix>? commonPrefixes,
-    String? delimiter,
-  }) {
-    final subPaths = commonPrefixes
-        ?.map((commonPrefix) => commonPrefix.prefix)
-        .whereType<String>()
-        .toList();
-
-    return S3ListMetadata._(
-      subPaths: subPaths,
-      delimiter: delimiter,
-    );
-  }
-
-  S3ListMetadata._({
-    List<String>? subPaths,
+  const S3ListMetadata({
     this.delimiter,
-  }) : subPaths = subPaths ?? const [];
-
-  /// Merges two instances of [S3ListMetadata] into one.
-  S3ListMetadata merge(S3ListMetadata other) {
-    final subPaths = <String>[...this.subPaths, ...other.subPaths];
-    return S3ListMetadata._(subPaths: subPaths, delimiter: other.delimiter);
-  }
-
-  /// Sub paths under the `path` parameter calling the `list` API.
-  ///
-  /// This list can be empty.
-  final List<String> subPaths;
+  });
 
   /// The delimiter used in S3 prefix if any.
   final String? delimiter;

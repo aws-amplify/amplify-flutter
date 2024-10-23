@@ -167,7 +167,8 @@ void main() {
         const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
-          pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
+          pluginOptions: S3ListPluginOptions(),
+          subpathStrategy: SubpathStrategy.exclude(),
         );
         const testSubPaths = [
           'album#folder1',
@@ -210,7 +211,7 @@ void main() {
           options: testOptions,
         );
 
-        expect(result.metadata.subPaths, equals(testSubPaths));
+        expect(result.excludedSubpaths, equals(testSubPaths));
       });
 
       test(
