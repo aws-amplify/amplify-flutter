@@ -59,6 +59,11 @@ jobs:
 
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
+        run: dart format --set-exit-if-changed .
+        working-directory: ${{ inputs.working-directory }}
+
+      - name: Check Formatting 2
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
         run: dart format --set-exit-if-changed --output json .
         working-directory: ${{ inputs.working-directory }}
 
