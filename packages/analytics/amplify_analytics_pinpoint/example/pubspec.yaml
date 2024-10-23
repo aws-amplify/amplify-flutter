@@ -20,7 +20,7 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  amplify_analytics_pinpoint_dart: ">=0.2.0 <0.3.0"
+  amplify_analytics_pinpoint_dart: ">=0.4.5 <0.5.0"
   amplify_integration_test: any
   amplify_lints:
     path: ../../../amplify_lints

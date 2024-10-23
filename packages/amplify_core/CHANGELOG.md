@@ -1,3 +1,16 @@
+## 2.4.2
+
+### Features
+- feat(api): move App Sync subscription headers to protocol ([#5301](https://github.com/aws-amplify/amplify-flutter/pull/5301))
+
+### Fixes
+- fix(api): Reconnect WebSocket when resuming app from a paused state ([#5567](https://github.com/aws-amplify/amplify-flutter/pull/5567))
+
+## 2.4.1
+
+### Fixes
+- fix(api): web socket error handling ([#5359](https://github.com/aws-amplify/amplify-flutter/pull/5359))
+
 ## 2.4.0
 
 ### Features

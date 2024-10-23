@@ -1,3 +1,11 @@
+## 2.4.2
+
+- Minor bug fixes and improvements
+
+## 2.4.1
+
+- Minor bug fixes and improvements
+
 ## 2.4.0
 
 ### Features
