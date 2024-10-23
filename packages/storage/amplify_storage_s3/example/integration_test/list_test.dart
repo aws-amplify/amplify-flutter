@@ -33,16 +33,20 @@ void main() {
       );
       setUpAll(() async {
         await configure(amplifyEnvironments['main']!);
-        for (var i = 0; i < 4; i++) {
+        for (var pathIndex = 0;
+            pathIndex < uploadedPaths.length ~/ 2;
+            pathIndex++) {
           await Amplify.Storage.uploadData(
-            path: StoragePath.fromString(uploadedPaths[i]),
+            path: StoragePath.fromString(uploadedPaths[pathIndex]),
             data: StorageDataPayload.bytes('test content'.codeUnits),
             bucket: mainBucket,
           ).result;
         }
-        for (var i = 4; i < 8; i++) {
+        for (var pathIndex = uploadedPaths.length ~/ 2;
+            pathIndex < uploadedPaths.length;
+            pathIndex++) {
           await Amplify.Storage.uploadData(
-            path: StoragePath.fromString(uploadedPaths[i]),
+            path: StoragePath.fromString(uploadedPaths[pathIndex]),
             data: StorageDataPayload.bytes('test content'.codeUnits),
             bucket: secondaryBucket,
           ).result;
@@ -64,17 +68,21 @@ void main() {
               bucket: secondaryBucket,
             ),
           ).result;
-          for (var i = 0; i < 4; i++) {
+          for (var pathIndex = 0;
+              pathIndex < uploadedPaths.length ~/ 2;
+              pathIndex++) {
             expect(
               listResultMainBucket.items
-                  .any((item) => item.path == uploadedPaths[i]),
+                  .any((item) => item.path == uploadedPaths[pathIndex]),
               isTrue,
             );
           }
-          for (var i = 4; i < 8; i++) {
+          for (var pathIndex = uploadedPaths.length ~/ 2;
+              pathIndex < uploadedPaths.length;
+              pathIndex++) {
             expect(
               listResultSecondaryBucket.items
-                  .any((item) => item.path == uploadedPaths[i]),
+                  .any((item) => item.path == uploadedPaths[pathIndex]),
               isTrue,
             );
           }
