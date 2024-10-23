@@ -543,7 +543,8 @@ class StateMachineBloc
     yield* const Stream.empty();
   }
 
-  Future<UnauthenticatedState> _handleMfaSetupSelection(SignInResult result) async {
+  Future<UnauthenticatedState> _handleMfaSetupSelection(
+      SignInResult result) async {
     final allowedMfaTypes = result.nextStep.allowedMfaTypes;
 
     if (allowedMfaTypes == null) {
@@ -556,7 +557,8 @@ class StateMachineBloc
     final mfaTypesForSetup = allowedMfaTypes.toSet()..remove(MfaType.sms);
 
     if (mfaTypesForSetup.length != 1) {
-      return ContinueSignInWithMfaSetupSelection(allowedMfaTypes: allowedMfaTypes);
+      return ContinueSignInWithMfaSetupSelection(
+          allowedMfaTypes: allowedMfaTypes);
     }
 
     final mfaType = mfaTypesForSetup.first;
