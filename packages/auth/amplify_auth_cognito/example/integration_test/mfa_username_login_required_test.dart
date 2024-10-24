@@ -65,6 +65,8 @@ void main() {
 
         await signOutUser(assertComplete: true);
 
+        final otpResult2 = await getOtpCode(UserAttribute.email(email));
+
         final resignInRes = await Amplify.Auth.signIn(
           username: username,
           password: password,
@@ -76,7 +78,6 @@ void main() {
             .has((d) => d.deliveryMedium, 'deliveryMedium')
             .equals(DeliveryMedium.email);
 
-        final otpResult2 = await getOtpCode(UserAttribute.email(email));
         final confirmRes2 = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult2.code,
         );
@@ -190,12 +191,12 @@ void main() {
 
           await signOutUser(assertComplete: true);
 
+          final otpResult2 = await getOtpCode(UserAttribute.email(email));
+
           final resignInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
           );
-
-          final otpResult2 = await getOtpCode(UserAttribute.email(email));
 
           check(resignInRes.nextStep.signInStep)
               .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);

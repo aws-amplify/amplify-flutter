@@ -86,6 +86,8 @@ void main() {
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();
 
+        final code_2 = await getOtpCode(env.getLoginAttribute(username));
+
         // Then I see the sign in page
         signInPage.expectEmail();
 
@@ -100,8 +102,6 @@ void main() {
 
         // Then I will be redirected to the EMAIL MFA code page
         await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
-
-        final code_2 = await getOtpCode(env.getLoginAttribute(username));
 
         // When I type a valid EMAIL MFA code
         await confirmSignInPage.enterVerificationCode(await code_2.code);
@@ -184,6 +184,9 @@ void main() {
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();
 
+        final smsResult_2 =
+            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+
         // Then I see the sign in page
         signInPage.expectEmail();
 
@@ -195,9 +198,6 @@ void main() {
 
         // And I click the "Sign in" button
         await signInPage.submitSignIn();
-
-        final smsResult_2 =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
 
         // Then I will be redirected to the confirm sms mfa page
         await confirmSignInPage.expectConfirmSignInMFAIsPresent();

@@ -337,6 +337,8 @@ void main() {
 
         await signOutUser(assertComplete: true);
 
+        final otpResult = await getOtpCode(UserAttribute.email(username));
+
         final resignInRes = await Amplify.Auth.signIn(
           username: username,
           password: password,
@@ -347,7 +349,6 @@ void main() {
             .isNotNull()
             .deepEquals({MfaType.email, MfaType.totp});
 
-        final otpResult = await getOtpCode(UserAttribute.email(username));
         final selectRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: 'EMAIL',
         );

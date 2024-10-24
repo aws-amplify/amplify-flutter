@@ -106,7 +106,7 @@ const mfaOptionalEmailTotp = EnvironmentInfo.withGen2Defaults(
 /// An environment with required MFA and username login.
 const mfaRequiredUsernameLogin = EnvironmentInfo.withGen2Defaults(
   name: 'username-login-mfa',
-  mfaInfo: MfaInfo(smsEnabled: true, totpEnabled: true, emailEnabled: true, required: true),
+  mfaInfo: MfaInfo(totpEnabled: true, emailEnabled: true, required: true),
   loginMethod: LoginMethod.username,
 );
 

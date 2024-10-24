@@ -14,7 +14,7 @@ void main() {
         r'User home is loaded from $HOME with highest priority on non-windows platforms.',
         () {
       overrideOperatingSystem(
-        const OperatingSystem('linux', ''),
+        OperatingSystem('linux', ''),
         () {
           overrideEnvironment(
             {
@@ -42,7 +42,7 @@ void main() {
         r'User home is loaded from $HOME with highest priority on windows platforms.',
         () {
       overrideOperatingSystem(
-        const OperatingSystem('windows', ''),
+        OperatingSystem('windows', ''),
         () {
           overrideEnvironment(
             {
@@ -70,7 +70,7 @@ void main() {
         r'User home is loaded from $USERPROFILE on windows platforms when $HOME is not set.',
         () {
       overrideOperatingSystem(
-        const OperatingSystem('windows', ''),
+        OperatingSystem('windows', ''),
         () {
           overrideEnvironment(
             {
@@ -97,7 +97,7 @@ void main() {
         r'User home is loaded from $HOMEDRIVE$HOMEPATH on windows platforms when $HOME and $USERPROFILE are not set.',
         () {
       overrideOperatingSystem(
-        const OperatingSystem('windows', ''),
+        OperatingSystem('windows', ''),
         () {
           overrideEnvironment(
             {
@@ -123,7 +123,7 @@ void main() {
         r'The default config location can be overridden by the user on non-windows platforms.',
         () {
       overrideOperatingSystem(
-        const OperatingSystem('linux', ''),
+        OperatingSystem('linux', ''),
         () {
           overrideEnvironment(
             {
@@ -149,7 +149,7 @@ void main() {
         r'The default credentials location can be overridden by the user on non-windows platforms.',
         () {
       overrideOperatingSystem(
-        const OperatingSystem('linux', ''),
+        OperatingSystem('linux', ''),
         () {
           overrideEnvironment(
             {
@@ -175,7 +175,7 @@ void main() {
         r'The default credentials location can be overridden by the user on windows platforms.',
         () {
       overrideOperatingSystem(
-        const OperatingSystem('windows', ''),
+        OperatingSystem('windows', ''),
         () {
           overrideEnvironment(
             {
@@ -201,7 +201,7 @@ void main() {
         r'The default credentials location can be overridden by the user on windows platforms.',
         () {
       overrideOperatingSystem(
-        const OperatingSystem('windows', ''),
+        OperatingSystem('windows', ''),
         () {
           overrideEnvironment(
             {
@@ -226,7 +226,7 @@ void main() {
     test(r'The default profile can be overridden via environment variable.',
         () {
       overrideOperatingSystem(
-        const OperatingSystem('linux', ''),
+        OperatingSystem('linux', ''),
         () {
           overrideEnvironment(
             {
