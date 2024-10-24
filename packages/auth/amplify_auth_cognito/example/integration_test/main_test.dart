@@ -44,17 +44,6 @@ void main() async {
 
   group('amplify_auth_cognito', () {
     asf_tests.main();
-    confirm_sign_in_tests.main();
-    confirm_sign_up_tests.main();
-    custom_auth_tests.main();
-    custom_authorizer_tests.main();
-    delete_user_tests.main();
-    device_tracking_tests.main();
-    federated_sign_in_tests.main();
-    fetch_auth_session_tests.main();
-    get_current_user_tests.main();
-    hosted_ui_webview_tests.main();
-    hub_events_tests.main();
     mfa_username_login_required_tests.main();
     mfa_sms_tests.main();
     mfa_sms_totp_optional_tests.main();
@@ -67,6 +56,17 @@ void main() async {
     mfa_sms_email_required_tests.main();
     mfa_email_totp_optional_tests.main();
     mfa_email_totp_required_tests.main();
+    confirm_sign_in_tests.main();
+    confirm_sign_up_tests.main();
+    custom_auth_tests.main();
+    custom_authorizer_tests.main();
+    delete_user_tests.main();
+    device_tracking_tests.main();
+    federated_sign_in_tests.main();
+    fetch_auth_session_tests.main();
+    get_current_user_tests.main();
+    hosted_ui_webview_tests.main();
+    hub_events_tests.main();
     native_auth_bridge_tests.main();
     reset_password_tests.main();
     security_tests.main();
