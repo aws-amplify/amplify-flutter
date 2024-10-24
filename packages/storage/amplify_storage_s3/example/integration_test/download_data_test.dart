@@ -137,6 +137,7 @@ void main() {
           final mainBucket =
               StorageBucket.fromOutputs('Storage Integ Test main bucket');
 
+          // TODO(equartey): Add download check for secondary bucket when upload supports multibucket
           final downloadResult = await Amplify.Storage.downloadData(
             path: StoragePath.fromIdentityId(
               (identityId) => 'private/$identityId/$identityName',
