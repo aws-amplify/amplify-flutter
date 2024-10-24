@@ -18,6 +18,8 @@ void main() {
         final username = env.generateUsername();
         final password = generatePassword();
 
+        final otpResult = await getOtpCode(UserAttribute.email(username));
+
         // Create a user with no phone number.
         await adminCreateUser(
           username,
@@ -37,7 +39,6 @@ void main() {
               'When an email is registered and the userpool has email MFA enabled, Cognito will automatically enable email MFA as the preferred MFA method.',
         ).equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
 
-        final otpResult = await getOtpCode(UserAttribute.email(username));
         final setupRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult.code,
         );
@@ -52,6 +53,8 @@ void main() {
 
         await signOutUser(assertComplete: true);
 
+        final otpResult2 = await getOtpCode(UserAttribute.email(username));
+
         final resignInRes = await Amplify.Auth.signIn(
           username: username,
           password: password,
@@ -63,7 +66,6 @@ void main() {
             .has((d) => d.deliveryMedium, 'deliveryMedium')
             .equals(DeliveryMedium.email);
 
-        final otpResult2 = await getOtpCode(UserAttribute.email(username));
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult2.code,
         );
@@ -73,6 +75,8 @@ void main() {
       asyncTest('can select TOTP MFA', (_) async {
         final username = env.generateUsername();
         final password = generatePassword();
+
+        final otpResult = await getOtpCode(UserAttribute.email(username));
 
         // Create a user with an unverified phone number.
         await adminCreateUser(
@@ -96,7 +100,6 @@ void main() {
                 'MFA is required so Cognito automatically enables EMAIL MFA',
           ).equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
 
-          final otpResult = await getOtpCode(UserAttribute.email(username));
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await otpResult.code,
           );
@@ -212,6 +215,8 @@ void main() {
         {
           await signOutUser(assertComplete: true);
 
+          final otpResult = await getOtpCode(UserAttribute.email(username));
+
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
@@ -225,7 +230,6 @@ void main() {
               .has((d) => d.deliveryMedium, 'deliveryMedium')
               .equals(DeliveryMedium.email);
 
-          final otpResult = await getOtpCode(UserAttribute.email(username));
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await otpResult.code,
           );

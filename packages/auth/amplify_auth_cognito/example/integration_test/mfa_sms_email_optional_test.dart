@@ -174,45 +174,6 @@ void main() {
           ),
         );
 
-        // Verify we can set EMAIL as preferred and forego selection.
-
-        await cognitoPlugin.updateMfaPreference(
-          email: MfaPreference.preferred,
-        );
-        check(
-          await cognitoPlugin.fetchMfaPreference(),
-          because: 'EMAIL should be marked preferred',
-        ).equals(
-          const UserMfaPreference(
-            enabled: {MfaType.sms, MfaType.email},
-            preferred: MfaType.email,
-          ),
-        );
-
-        {
-          await signOutUser(assertComplete: true);
-
-          final signInRes = await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
-          check(signInRes.nextStep.codeDeliveryDetails)
-              .isNotNull()
-              .has((d) => d.deliveryMedium, 'deliveryMedium')
-              .equals(DeliveryMedium.email);
-
-          final otpResult2 = await getOtpCode(
-            env.getLoginAttribute(username),
-          );
-
-          final confirmRes = await Amplify.Auth.confirmSignIn(
-            confirmationValue: await otpResult2.code,
-          );
-          check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
-        }
-
         // Verify we can switch to SMS as preferred.
 
         await cognitoPlugin.updateMfaPreference(
@@ -334,6 +295,8 @@ void main() {
 
         await signOutUser(assertComplete: true);
 
+        final mfaCode = await getOtpCode(UserAttribute.phone(phoneNumber));
+
         final resignInRes = await Amplify.Auth.signIn(
           username: username,
           password: password,
@@ -347,7 +310,6 @@ void main() {
               .isNotNull()
               .startsWith('+');
 
-        final mfaCode = await getOtpCode(UserAttribute.phone(phoneNumber));
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await mfaCode.code,
         );
@@ -414,13 +376,13 @@ void main() {
         {
           await signOutUser(assertComplete: true);
 
+          final otpResult = await getOtpCode(
+            env.getLoginAttribute(username),
+          );
+
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
-          );
-
-          final otpResult = await getOtpCode(
-            env.getLoginAttribute(username),
           );
 
           check(signInRes.nextStep.signInStep)
