@@ -16,15 +16,14 @@ add_library(${PLUGIN_NAME} SHARED
   "amplify_db_common_plugin.cpp"
 )
 
-###
+# ##
 # Below here, keep in sync with: https://github.com/simolus3/sqlite3.dart/blob/main/sqlite3_flutter_libs/windows/CMakeLists.txt
-###
+# ##
 
 # Essentially, the idea of this build script is to compile a sqlite3.dll
 # and make Fluter bundle that with the final app.
 # It looks like we can't avoid building a sqlite3_flutter_libs.dll too,
 # but that's not on me.
-
 apply_standard_settings(${PLUGIN_NAME})
 set_target_properties(${PLUGIN_NAME} PROPERTIES
   CXX_VISIBILITY_PRESET hidden)
@@ -33,12 +32,14 @@ target_include_directories(${PLUGIN_NAME} INTERFACE
   "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 
-# Include FetchContent for sqlite3 if not already available.
 include(FetchContent)
 
 # Only add the sqlite3 library if it hasn't been defined already.
-if (NOT TARGET sqlite3)
-  if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+if(NOT TARGET sqlite3)
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+    # cmake 3.24.0 added the `DOWNLOAD_EXTRACT_TIMESTAMP` and prints an ugly warning when
+    # the default is used, so override it to the recommended behavior.
+    # We can't really ask users to use a cmake that recent, so there's this if here.
     FetchContent_Declare(
       sqlite3
       URL https://sqlite.org/2023/sqlite-autoconf-3430000.tar.gz
@@ -55,8 +56,7 @@ if (NOT TARGET sqlite3)
 
   # Define the sqlite3 library only if it wasn't already defined.
   add_library(sqlite3 SHARED "sqlite3_flutter.c")
-  
-  # Configure sqlite3 compilation options.
+
   target_include_directories(sqlite3 PRIVATE "${sqlite3_SOURCE_DIR}")
   target_compile_options(sqlite3 PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-O2>" "/w")
 
@@ -83,18 +83,16 @@ if (NOT TARGET sqlite3)
     SQLITE_HAVE_LOCALTIME_R
     SQLITE_HAVE_LOCALTIME_S
   )
-  
-  # Create an alias for this version of sqlite3 for your plugin's use.
+
+  # Create an alias for this version of sqlite3.
   add_library(sqlite3_amplify_db_common ALIAS sqlite3)
 else()
-  # If sqlite3 already exists, create an alias for your plugin to avoid duplication.
+  # If sqlite3 already exists, create an alias for amplify plugin to avoid duplication.
   add_library(sqlite3_amplify_db_common ALIAS sqlite3)
 endif()
 
-# Link your plugin to the sqlite3 alias.
 target_link_libraries(${PLUGIN_NAME} PRIVATE sqlite3_amplify_db_common)
 
-# Ensure sqlite3 actually gets built.
 add_dependencies(${PLUGIN_NAME} sqlite3_amplify_db_common)
 
 # List of absolute paths to libraries that should be bundled with the plugin.
