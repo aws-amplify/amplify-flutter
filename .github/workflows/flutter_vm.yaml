@@ -57,21 +57,10 @@ jobs:
         timeout-minutes: 20
         run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
 
-      - name: Echo Before
-        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
-        run: cat ./lib/src/blocs/auth/auth_bloc.dart  
-        working-directory: ${{ inputs.working-directory }}
-
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
         run: dart format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
-
-      - name: Echo After
-        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
-        run: cat ./lib/src/blocs/auth/auth_bloc.dart  
-        working-directory: ${{ inputs.working-directory }}
-
 
       - name: Check for Tests
         id: testCheck
