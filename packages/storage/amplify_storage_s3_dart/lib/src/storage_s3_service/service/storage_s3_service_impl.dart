@@ -198,12 +198,12 @@ class StorageS3Service {
     required StorageGetPropertiesOptions options,
   }) async {
     final resolvedPath = await _pathResolver.resolvePath(path: path);
-
+    final s3ClientInfo = getS3ClientInfo(storageBucket: options.bucket);
     return S3GetPropertiesResult(
       storageItem: S3Item.fromHeadObjectOutput(
         await headObject(
           s3client: _defaultS3Client,
-          bucket: _storageOutputs.bucketName,
+          bucket: s3ClientInfo.bucketName,
           key: resolvedPath,
         ),
         path: resolvedPath,
