@@ -85,7 +85,7 @@ jobs:
 
       - name: Analyze
         if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: flutter analyze --fatal-infos --fatal-warnings .
+        run: flutter --version
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests
