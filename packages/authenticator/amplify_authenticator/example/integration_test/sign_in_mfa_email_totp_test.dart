@@ -36,7 +36,7 @@ void main() {
           tester.bloc.stream,
           emitsInOrder([
             UnauthenticatedState.signIn,
-            UnauthenticatedState.confirmSignInWithEmailMfaCode,
+            UnauthenticatedState.confirmSignInWithOtpCode,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
             isA<ContinueSignInWithMfaSelection>(),
@@ -61,7 +61,7 @@ void main() {
         await signInPage.submitSignIn();
 
         // Then I will be redirected to the confirm email mfa page
-        await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
+        await confirmSignInPage.expectConfirmSignInWithOtpCodeIsPresent();
 
         // When I type a valid confirmation code
         await confirmSignInPage.enterVerificationCode(await otpResult.code);
@@ -138,11 +138,11 @@ void main() {
           tester.bloc.stream,
           emitsInOrder([
             UnauthenticatedState.signIn,
-            UnauthenticatedState.confirmSignInWithEmailMfaCode,
+            UnauthenticatedState.confirmSignInWithOtpCode,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
             isA<ContinueSignInWithMfaSelection>(),
-            UnauthenticatedState.confirmSignInWithEmailMfaCode,
+            UnauthenticatedState.confirmSignInWithOtpCode,
             isA<AuthenticatedState>(),
             emitsDone,
           ]),
@@ -163,7 +163,7 @@ void main() {
         await signInPage.submitSignIn();
 
         // Then I will be redirected to the confirm email mfa page
-        await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
+        await confirmSignInPage.expectConfirmSignInWithOtpCodeIsPresent();
 
         // When I type a valid confirmation code
         await confirmSignInPage.enterVerificationCode(await otpResult.code);
@@ -205,7 +205,7 @@ void main() {
         await confirmSignInPage.submitConfirmSignInMfaSelection();
 
         // Then I will be redirected to the confirm EMAIL mfa page
-        await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
+        await confirmSignInPage.expectConfirmSignInWithOtpCodeIsPresent();
 
         // When I type a valid confirmation code
         await confirmSignInPage.enterVerificationCode(await otpResult2.code);

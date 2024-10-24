@@ -36,10 +36,10 @@ void main() {
           tester.bloc.stream,
           emitsInOrder([
             UnauthenticatedState.signIn,
-            UnauthenticatedState.confirmSignInWithEmailMfaCode,
+            UnauthenticatedState.confirmSignInWithOtpCode,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
-            UnauthenticatedState.confirmSignInWithEmailMfaCode,
+            UnauthenticatedState.confirmSignInWithOtpCode,
             isA<AuthenticatedState>(),
             emitsDone,
           ]),
@@ -62,7 +62,7 @@ void main() {
         await signInPage.submitSignIn();
 
         // Then I will be redirected to the email MFA code page
-        await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
+        await confirmSignInPage.expectConfirmSignInWithOtpCodeIsPresent();
 
         // And I type a valid EMAIL OTP code
         await confirmSignInPage.enterVerificationCode(await otpResult.code);
@@ -94,7 +94,7 @@ void main() {
         await signInPage.submitSignIn();
 
         // Then I will be redirected to the EMAIL OTP code page
-        await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
+        await confirmSignInPage.expectConfirmSignInWithOtpCodeIsPresent();
 
         // When I type a valid EMAIL OTP code
         await confirmSignInPage.enterVerificationCode(await otpResult2.code);
@@ -129,7 +129,7 @@ void main() {
           tester.bloc.stream,
           emitsInOrder([
             UnauthenticatedState.signIn,
-            UnauthenticatedState.confirmSignInWithEmailMfaCode,
+            UnauthenticatedState.confirmSignInWithOtpCode,
             emitsDone,
           ]),
         );
@@ -147,7 +147,7 @@ void main() {
         await signInPage.submitSignIn();
 
         // Then I will be redirected to the EMAIL OTP code page
-        await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
+        await confirmSignInPage.expectConfirmSignInWithOtpCodeIsPresent();
 
         // And I type an invalid confirmation code
         await confirmSignInPage.enterVerificationCode('123456');

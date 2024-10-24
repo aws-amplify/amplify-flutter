@@ -64,7 +64,7 @@ void main() {
             signInRes.nextStep.signInStep,
             because: 'Once Email MFA is preferred, it is performed '
                 'on every sign-in attempt.',
-          ).equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+          ).equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -155,7 +155,7 @@ void main() {
             password: password,
           );
           check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+              .equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -386,7 +386,7 @@ void main() {
           );
 
           check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+              .equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')

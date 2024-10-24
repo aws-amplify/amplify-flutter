@@ -75,13 +75,13 @@ class ConfirmSignInPage extends AuthenticatorPage {
   }
 
   /// Then I see "Enter your one-time passcode for Email"
-  Future<void> expectConfirmSignInWithEmailMfaCodeIsPresent() async {
+  Future<void> expectConfirmSignInWithOtpCodeIsPresent() async {
     final currentScreen = tester.widget<AuthenticatorScreen>(
       find.byType(AuthenticatorScreen),
     );
     expect(
       currentScreen.step,
-      equals(AuthenticatorStep.confirmSignInWithEmailMfaCode),
+      equals(AuthenticatorStep.confirmSignInWithOtpCode),
     );
   }
 
