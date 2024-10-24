@@ -544,7 +544,7 @@ class StateMachineBloc
   }
 
   Future<UnauthenticatedState> _handleMfaSetupSelection(
-      SignInResult result) async {
+      SignInResult result,) async {
     final allowedMfaTypes = result.nextStep.allowedMfaTypes;
 
     if (allowedMfaTypes == null) {
@@ -558,7 +558,7 @@ class StateMachineBloc
 
     if (mfaTypesForSetup.length != 1) {
       return ContinueSignInWithMfaSetupSelection(
-          allowedMfaTypes: allowedMfaTypes);
+          allowedMfaTypes: allowedMfaTypes,);
     }
 
     final mfaType = mfaTypesForSetup.first;
