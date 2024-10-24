@@ -36,6 +36,27 @@ void addTearDownPaths(List<StoragePath> paths) {
   );
 }
 
+/// Adds a tear down to remove the same object in multiple [buckets].
+void addTearDownMultiBucket(StoragePath path, List<StorageBucket> buckets) {
+  addTearDown(
+    () {
+      try {
+        return Future.wait(
+          buckets.map(
+            (bucket) => Amplify.Storage.remove(
+              path: path,
+              options: StorageRemoveOptions(bucket: bucket),
+            ).result,
+          ),
+        );
+      } on Exception catch (e) {
+        _logger.warn('Failed to remove files after test', e);
+        rethrow;
+      }
+    },
+  );
+}
+
 /// Adds a tear down to delete the current user.
 void addTearDownCurrentUser() {
   addTearDown(() {
