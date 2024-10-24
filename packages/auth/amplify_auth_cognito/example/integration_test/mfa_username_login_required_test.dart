@@ -192,7 +192,7 @@ void main() {
           await signOutUser(assertComplete: true);
 
           final otpResult2 = await getOtpCode(UserAttribute.email(email));
-          
+
           final resignInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
