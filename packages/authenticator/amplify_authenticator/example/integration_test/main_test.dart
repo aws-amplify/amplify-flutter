@@ -13,9 +13,14 @@ import 'http_test.dart' as http_tests;
 import 'reset_password_test.dart' as reset_password_tests;
 import 'sign_in_force_new_password_test.dart'
     as sign_in_force_new_password_tests;
+import 'sign_in_mfa_email_test.dart' as sign_in_mfa_email_tests;
+import 'sign_in_mfa_email_totp_test.dart' as sign_in_mfa_email_totp_tests;
+import 'sign_in_mfa_sms_email_test.dart' as sign_in_mfa_sms_email_tests;
 import 'sign_in_mfa_sms_test.dart' as sign_in_mfa_sms_tests;
 import 'sign_in_mfa_sms_totp_test.dart' as sign_in_mfa_sms_totp_tests;
 import 'sign_in_mfa_totp_test.dart' as sign_in_mfa_totp_tests;
+import 'sign_in_mfa_username_login_test.dart'
+    as sign_in_mfa_username_login_tests;
 import 'sign_in_with_email_test.dart' as sign_in_with_email_tests;
 import 'sign_in_with_phone_test.dart' as sign_in_with_phone_tests;
 import 'sign_in_with_username_test.dart' as sign_in_with_username_tests;
@@ -45,6 +50,10 @@ void main() {
     sign_in_with_email_tests.main();
     sign_in_with_phone_tests.main();
     sign_in_with_username_tests.main();
+    sign_in_mfa_email_tests.main();
+    sign_in_mfa_email_totp_tests.main();
+    sign_in_mfa_sms_email_tests.main();
+    sign_in_mfa_username_login_tests.main();
     sign_out_tests.main();
     sign_up_with_email_tests.main();
     sign_up_with_email_with_lambda_trigger_tests.main();

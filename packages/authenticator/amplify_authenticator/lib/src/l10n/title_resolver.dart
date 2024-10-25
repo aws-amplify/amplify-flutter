@@ -50,9 +50,9 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
   }
 
   /// The title for the confirm sign in (email MFA code) Widget.
-  String confirmSignInWithEmailMfaCode(BuildContext context) {
+  String confirmSignInWithOtpCode(BuildContext context) {
     return AuthenticatorLocalizations.titlesOf(context)
-        .confirmSignInWithEmailMfaCode;
+        .confirmSignInWithOtpCode;
   }
 
   /// The title for the continue sign in (email MFA setup) Widget.
@@ -99,8 +99,8 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
         return continueSignInWithTotpSetup(context);
       case AuthenticatorStep.confirmSignInWithTotpMfaCode:
         return confirmSignInWithTotpMfaCode(context);
-      case AuthenticatorStep.confirmSignInWithEmailMfaCode:
-        return confirmSignInWithEmailMfaCode(context);
+      case AuthenticatorStep.confirmSignInWithOtpCode:
+        return confirmSignInWithOtpCode(context);
       case AuthenticatorStep.continueSignInWithEmailMfaSetup:
         return continueSignInWithEmailMfaSetup(context);
       case AuthenticatorStep.continueSignInWithMfaSetupSelection:
