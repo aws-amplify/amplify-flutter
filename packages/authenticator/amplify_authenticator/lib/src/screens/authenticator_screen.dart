@@ -40,8 +40,8 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   const AuthenticatorScreen.confirmSignInWithTotpMfaCode({Key? key})
       : this(key: key, step: AuthenticatorStep.confirmSignInWithTotpMfaCode);
 
-  const AuthenticatorScreen.confirmSignInWithEmailMfaCode({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmSignInWithEmailMfaCode);
+  const AuthenticatorScreen.confirmSignInWithOtpCode({Key? key})
+      : this(key: key, step: AuthenticatorStep.confirmSignInWithOtpCode);
 
   const AuthenticatorScreen.continueSignInWithEmailMfaSetup({Key? key})
       : this(key: key, step: AuthenticatorStep.continueSignInWithEmailMfaSetup);
@@ -103,7 +103,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       case AuthenticatorStep.confirmResetPassword:
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
-      case AuthenticatorStep.confirmSignInWithEmailMfaCode:
+      case AuthenticatorStep.confirmSignInWithOtpCode:
       case AuthenticatorStep.continueSignInWithEmailMfaSetup:
       case AuthenticatorStep.continueSignInWithMfaSetupSelection:
         child = _FormWrapperView(step: step);
@@ -314,7 +314,7 @@ extension on AuthenticatorStep {
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
       case AuthenticatorStep.loading:
-      case AuthenticatorStep.confirmSignInWithEmailMfaCode:
+      case AuthenticatorStep.confirmSignInWithOtpCode:
       case AuthenticatorStep.continueSignInWithEmailMfaSetup:
       case AuthenticatorStep.continueSignInWithMfaSetupSelection:
         throw StateError('Invalid step: $this');

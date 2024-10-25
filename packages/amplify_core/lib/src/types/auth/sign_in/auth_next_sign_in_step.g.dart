@@ -82,7 +82,7 @@ const _$AuthSignInStepEnumMap = {
       'continueSignInWithEmailMfaSetup',
   AuthSignInStep.confirmSignInWithSmsMfaCode: 'confirmSignInWithSmsMfaCode',
   AuthSignInStep.confirmSignInWithTotpMfaCode: 'confirmSignInWithTotpMfaCode',
-  AuthSignInStep.confirmSignInWithEmailMfaCode: 'confirmSignInWithEmailMfaCode',
+  AuthSignInStep.confirmSignInWithOtpCode: 'confirmSignInWithOtpCode',
   AuthSignInStep.confirmSignInWithNewPassword: 'confirmSignInWithNewPassword',
   AuthSignInStep.confirmSignInWithCustomChallenge:
       'confirmSignInWithCustomChallenge',

@@ -227,8 +227,8 @@ class StateMachineBloc
           yield UnauthenticatedState.confirmSignInNewPassword;
         case AuthSignInStep.confirmSignInWithTotpMfaCode:
           yield UnauthenticatedState.confirmSignInWithTotpMfaCode;
-        case AuthSignInStep.confirmSignInWithEmailMfaCode:
-          yield UnauthenticatedState.confirmSignInWithEmailMfaCode;
+        case AuthSignInStep.confirmSignInWithOtpCode:
+          yield UnauthenticatedState.confirmSignInWithOtpCode;
         case AuthSignInStep.continueSignInWithMfaSelection:
           yield ContinueSignInWithMfaSelection(
             allowedMfaTypes: result.nextStep.allowedMfaTypes,
@@ -345,9 +345,9 @@ class StateMachineBloc
         _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
       case AuthSignInStep.confirmSignInWithTotpMfaCode:
         _emit(UnauthenticatedState.confirmSignInWithTotpMfaCode);
-      case AuthSignInStep.confirmSignInWithEmailMfaCode:
+      case AuthSignInStep.confirmSignInWithOtpCode:
         _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
-        _emit(UnauthenticatedState.confirmSignInWithEmailMfaCode);
+        _emit(UnauthenticatedState.confirmSignInWithOtpCode);
       case AuthSignInStep.resetPassword:
         _emit(UnauthenticatedState.confirmResetPassword);
       case AuthSignInStep.confirmSignUp:
@@ -543,7 +543,9 @@ class StateMachineBloc
     yield* const Stream.empty();
   }
 
-  Future<UnauthenticatedState> _handleMfaSetupSelection(SignInResult result) async {
+  Future<UnauthenticatedState> _handleMfaSetupSelection(
+    SignInResult result,
+  ) async {
     final allowedMfaTypes = result.nextStep.allowedMfaTypes;
 
     if (allowedMfaTypes == null) {
@@ -556,7 +558,9 @@ class StateMachineBloc
     final mfaTypesForSetup = allowedMfaTypes.toSet()..remove(MfaType.sms);
 
     if (mfaTypesForSetup.length != 1) {
-      return ContinueSignInWithMfaSetupSelection(allowedMfaTypes: allowedMfaTypes);
+      return ContinueSignInWithMfaSetupSelection(
+        allowedMfaTypes: allowedMfaTypes,
+      );
     }
 
     final mfaType = mfaTypesForSetup.first;

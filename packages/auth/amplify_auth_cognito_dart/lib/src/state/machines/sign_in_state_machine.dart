@@ -327,7 +327,7 @@ final class SignInStateMachine
       ChallengeNameType.softwareTokenMfa when hasUserResponse =>
         createSoftwareTokenMfaRequest(event),
       ChallengeNameType.emailOtp when hasUserResponse =>
-        createEmailMfaRequest(event),
+        createEmailOtpRequest(event),
       ChallengeNameType.selectMfaType when hasUserResponse =>
         createSelectMfaRequest(event),
       ChallengeNameType.mfaSetup when hasUserResponse =>
@@ -454,7 +454,7 @@ final class SignInStateMachine
 
   /// Creates the response object for an Email MFA challenge.
   @protected
-  Future<RespondToAuthChallengeRequest> createEmailMfaRequest(
+  Future<RespondToAuthChallengeRequest> createEmailOtpRequest(
     SignInRespondToChallenge event,
   ) async {
     _enableMfaType = MfaType.email;
@@ -464,7 +464,7 @@ final class SignInStateMachine
         ..challengeName = _challengeName
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: cognitoUsername,
-          CognitoConstants.challengeParamEmailMfaCode: event.answer,
+          CognitoConstants.challengeParamEmailOtpCode: event.answer,
         })
         ..clientMetadata.addAll(event.clientMetadata);
     });
@@ -702,13 +702,13 @@ final class SignInStateMachine
 
     // User has provided the verification code
     return _enableMfaType == MfaType.totp
-        ? createMfaSetupRequest(event)
+        ? createTotpMfaSetupRequest(event)
         : createEmailMfaSetupRequest(event);
   }
 
   /// Completes set up of a TOTP MFA.
   @protected
-  Future<RespondToAuthChallengeRequest> createMfaSetupRequest(
+  Future<RespondToAuthChallengeRequest> createTotpMfaSetupRequest(
     SignInRespondToChallenge event,
   ) async {
     await verifySoftwareToken(

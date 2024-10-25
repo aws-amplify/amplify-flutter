@@ -58,6 +58,41 @@ const List<AmplifyBackendGroup> infraConfig = [
         identifier: 'mfa-req-sms',
         pathToSource: 'infra-gen2/backends/auth/mfa-required-sms',
       ),
+      AmplifyBackend(
+        name: 'mfa-required-email',
+        identifier: 'mfa-req-email',
+        pathToSource: 'infra-gen2/backends/auth/mfa-required-email',
+      ),
+      AmplifyBackend(
+        name: 'mfa-required-email-sms',
+        identifier: 'mfa-req-ema-sms',
+        pathToSource: 'infra-gen2/backends/auth/mfa-required-email-sms',
+      ),
+      AmplifyBackend(
+        name: 'mfa-optional-email',
+        identifier: 'mfa-opt-email',
+        pathToSource: 'infra-gen2/backends/auth/mfa-optional-email',
+      ),
+      AmplifyBackend(
+        name: 'mfa-optional-email-sms',
+        identifier: 'mfa-opt-ema-sms',
+        pathToSource: 'infra-gen2/backends/auth/mfa-optional-email-sms',
+      ),
+      AmplifyBackend(
+        name: 'mfa-required-email-totp',
+        identifier: 'mfa-req-ema-tot',
+        pathToSource: 'infra-gen2/backends/auth/mfa-required-email-totp',
+      ),
+      AmplifyBackend(
+        name: 'mfa-optional-email-totp',
+        identifier: 'mfa-opt-ema-tot',
+        pathToSource: 'infra-gen2/backends/auth/mfa-optional-email-totp',
+      ),
+      AmplifyBackend(
+        name: 'username-login-mfa',
+        identifier: 'user-login-mfa',
+        pathToSource: 'infra-gen2/backends/auth/username-login-mfa',
+      ),
     ],
   ),
   AmplifyBackendGroup(

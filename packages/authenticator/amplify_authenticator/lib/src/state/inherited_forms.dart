@@ -20,7 +20,7 @@ class InheritedForms extends InheritedWidget {
     required this.continueSignInWithTotpSetupForm,
     required this.continueSignInWithEmailMfaSetupForm,
     required this.confirmSignInWithTotpMfaCodeForm,
-    required this.confirmSignInWithEmailMfaCodeForm,
+    required this.confirmSignInWithOtpCodeForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
     required super.child,
@@ -38,7 +38,7 @@ class InheritedForms extends InheritedWidget {
   final ContinueSignInWithTotpSetupForm continueSignInWithTotpSetupForm;
   final ContinueSignInWithEmailMfaSetupForm continueSignInWithEmailMfaSetupForm;
   final ConfirmSignInMFAForm confirmSignInWithTotpMfaCodeForm;
-  final ConfirmSignInMFAForm confirmSignInWithEmailMfaCodeForm;
+  final ConfirmSignInMFAForm confirmSignInWithOtpCodeForm;
   final ResetPasswordForm resetPasswordForm;
   final ConfirmResetPasswordForm confirmResetPasswordForm;
   final VerifyUserForm verifyUserForm;
@@ -70,8 +70,8 @@ class InheritedForms extends InheritedWidget {
         return confirmSignInWithTotpMfaCodeForm;
       case AuthenticatorStep.continueSignInWithEmailMfaSetup:
         return continueSignInWithEmailMfaSetupForm;
-      case AuthenticatorStep.confirmSignInWithEmailMfaCode:
-        return confirmSignInWithEmailMfaCodeForm;
+      case AuthenticatorStep.confirmSignInWithOtpCode:
+        return confirmSignInWithOtpCodeForm;
       case AuthenticatorStep.resetPassword:
         return resetPasswordForm;
       case AuthenticatorStep.confirmResetPassword:
@@ -118,8 +118,8 @@ class InheritedForms extends InheritedWidget {
             continueSignInWithTotpSetupForm ||
         oldWidget.confirmSignInWithTotpMfaCodeForm !=
             confirmSignInWithTotpMfaCodeForm ||
-        oldWidget.confirmSignInWithEmailMfaCodeForm !=
-            confirmSignInWithEmailMfaCodeForm ||
+        oldWidget.confirmSignInWithOtpCodeForm !=
+            confirmSignInWithOtpCodeForm ||
         oldWidget.continueSignInWithEmailMfaSetupForm !=
             continueSignInWithEmailMfaSetupForm ||
         oldWidget.continueSignInWithMfaSetupSelectionForm !=

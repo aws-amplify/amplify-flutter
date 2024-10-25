@@ -82,7 +82,7 @@ enum AuthenticatorStep {
   confirmSignInWithTotpMfaCode,
 
   /// The sign-in is not complete and must be confirmed with an email code.
-  confirmSignInWithEmailMfaCode,
+  confirmSignInWithOtpCode,
 
   /// The user is on the Reset Password step.
   resetPassword,

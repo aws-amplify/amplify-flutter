@@ -679,7 +679,7 @@ class ContinueSignInWithEmailMfaSetupForm extends AuthenticatorForm {
     super.key,
   }) : super._(
           fields: [
-            EmailSetupFormField.email(),
+            const EmailSetupFormField.email(),
           ],
           actions: const [
             ContinueSignInWithEmailMfaSetupButton(),

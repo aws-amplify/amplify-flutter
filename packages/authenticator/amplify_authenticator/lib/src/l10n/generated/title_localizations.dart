@@ -145,7 +145,7 @@ abstract class AuthenticatorTitleLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Enter your one-time passcode'**
-  String get confirmSignInWithEmailMfaCode;
+  String get confirmSignInWithOtpCode;
 
   /// Title of the Continue Sign In with Email MFA Setup step and form
   ///

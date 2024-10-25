@@ -49,8 +49,8 @@ class UnauthenticatedState extends AuthState
   static const continueSignInWithEmailMfaSetup = UnauthenticatedState(
     step: AuthenticatorStep.continueSignInWithEmailMfaSetup,
   );
-  static const confirmSignInWithEmailMfaCode = UnauthenticatedState(
-    step: AuthenticatorStep.confirmSignInWithEmailMfaCode,
+  static const confirmSignInWithOtpCode = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignInWithOtpCode,
   );
   static const resetPassword =
       UnauthenticatedState(step: AuthenticatorStep.resetPassword);

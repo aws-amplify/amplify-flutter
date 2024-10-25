@@ -146,7 +146,7 @@ Future<void> _handleSignInResult(SignInResult result) async {
       _handleCodeDelivery(codeDeliveryDetails);
     // #enddocregion handle-confirm-signin-sms
     // #docregion handle-confirm-signin-email
-    case AuthSignInStep.confirmSignInWithEmailMfaCode:
+    case AuthSignInStep.confirmSignInWithOtpCode:
       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
       _handleCodeDelivery(codeDeliveryDetails);
     // #enddocregion handle-confirm-signin-email

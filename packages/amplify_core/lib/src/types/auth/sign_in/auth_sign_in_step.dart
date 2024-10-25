@@ -29,7 +29,7 @@ enum AuthSignInStep {
   confirmSignInWithTotpMfaCode,
 
   /// The sign-in is not complete and must be confirmed with an email code.
-  confirmSignInWithEmailMfaCode,
+  confirmSignInWithOtpCode,
 
   /// The sign-in is not complete and must be confirmed with the user's new
   /// password.

@@ -17,6 +17,12 @@ const List<EnvironmentInfo> userPoolEnvironments = [
     confirmationDeliveryMedium: DeliveryMedium.sms,
     resetPasswordDeliveryMedium: DeliveryMedium.sms,
   ),
+  EnvironmentInfo.withGen2Defaults(
+    name: 'email-sign-in',
+    loginMethod: LoginMethod.email,
+    confirmationDeliveryMedium: DeliveryMedium.email,
+    resetPasswordDeliveryMedium: DeliveryMedium.email,
+  ),
 ];
 
 /// An environment with optional MFA via SMS only.
@@ -55,6 +61,55 @@ const mfaRequiredSmsTotp = EnvironmentInfo.withGen1Defaults(
   mfaInfo: MfaInfo(smsEnabled: true, totpEnabled: true, required: true),
 );
 
+/// An environment with required MFA via Email only.
+const mfaRequiredEmail = EnvironmentInfo.withGen2Defaults(
+  name: 'mfa-required-email',
+  mfaInfo: MfaInfo(emailEnabled: true, required: true),
+  loginMethod: LoginMethod.email,
+);
+
+/// An environment with optional MFA via Email only.
+const mfaOptionalEmail = EnvironmentInfo.withGen2Defaults(
+  name: 'mfa-optional-email',
+  mfaInfo: MfaInfo(emailEnabled: true, required: false),
+  loginMethod: LoginMethod.email,
+);
+
+/// An environment with required MFA via Email & SMS.
+const mfaRequiredEmailSms = EnvironmentInfo.withGen2Defaults(
+  name: 'mfa-required-email-sms',
+  mfaInfo: MfaInfo(emailEnabled: true, smsEnabled: true, required: true),
+  loginMethod: LoginMethod.email,
+);
+
+/// An environment with optional MFA via Email & SMS.
+const mfaOptionalEmailSms = EnvironmentInfo.withGen2Defaults(
+  name: 'mfa-optional-email-sms',
+  mfaInfo: MfaInfo(emailEnabled: true, smsEnabled: true, required: false),
+  loginMethod: LoginMethod.email,
+);
+
+/// An environment with required MFA via Email & TOTP.
+const mfaRequiredEmailTotp = EnvironmentInfo.withGen2Defaults(
+  name: 'mfa-required-email-totp',
+  mfaInfo: MfaInfo(emailEnabled: true, totpEnabled: true, required: true),
+  loginMethod: LoginMethod.email,
+);
+
+/// An environment with optional MFA via Email & TOTP.
+const mfaOptionalEmailTotp = EnvironmentInfo.withGen2Defaults(
+  name: 'mfa-optional-email-totp',
+  mfaInfo: MfaInfo(emailEnabled: true, totpEnabled: true, required: false),
+  loginMethod: LoginMethod.email,
+);
+
+/// An environment with required MFA and username login.
+const mfaRequiredUsernameLogin = EnvironmentInfo.withGen2Defaults(
+  name: 'username-login-mfa',
+  mfaInfo: MfaInfo(totpEnabled: true, emailEnabled: true, required: true),
+  loginMethod: LoginMethod.username,
+);
+
 /// Environments that support MFA
 const List<EnvironmentInfo> mfaEnvironments = [
   mfaOptionalSms,
@@ -63,6 +118,13 @@ const List<EnvironmentInfo> mfaEnvironments = [
   mfaRequiredTotp,
   mfaOptionalSmsTotp,
   mfaRequiredSmsTotp,
+  mfaRequiredEmail,
+  mfaOptionalEmail,
+  mfaRequiredEmailSms,
+  mfaOptionalEmailSms,
+  mfaRequiredEmailTotp,
+  mfaOptionalEmailTotp,
+  mfaRequiredUsernameLogin,
 ];
 
 /// Environments with a user pool and opt-in device tracking.
