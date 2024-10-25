@@ -201,7 +201,7 @@ class StorageS3Service {
     return S3GetPropertiesResult(
       storageItem: S3Item.fromHeadObjectOutput(
         await headObject(
-          s3client: _defaultS3Client,
+          s3client: s3ClientInfo.client,
           bucket: s3ClientInfo.bucketName,
           key: resolvedPath,
         ),

@@ -83,16 +83,25 @@ void main() {
         });
 
         testWidgets('removes from multiple buckets', (_) async {
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: mainBucket,
+            ),
+            true,
+          );
+
           // upload to secondary bucket
           await Amplify.Storage.uploadData(
             data: StorageDataPayload.bytes('data'.codeUnits),
             path: storagePath,
             bucket: secondaryBucket,
           ).result;
+
           expect(
-            await objectExistsInBuckets(
+            await objectExists(
               storagePath,
-              [mainBucket, secondaryBucket],
+              bucket: secondaryBucket,
             ),
             true,
           );
@@ -103,16 +112,31 @@ void main() {
           ).result;
           expect(mainResult.removedItem.path, path);
 
+          // Assert path was only removed from the main bucket
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: mainBucket,
+            ),
+            false,
+          );
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: secondaryBucket,
+            ),
+            true,
+          );
+
           final secondaryResult = await Amplify.Storage.remove(
             path: storagePath,
-            options: StorageRemoveOptions(bucket: mainBucket),
+            options: StorageRemoveOptions(bucket: secondaryBucket),
           ).result;
           expect(secondaryResult.removedItem.path, path);
-
           expect(
-            await objectExistsInBuckets(
+            await objectExists(
               storagePath,
-              [mainBucket, secondaryBucket],
+              bucket: secondaryBucket,
             ),
             false,
           );
@@ -120,9 +144,9 @@ void main() {
 
         testWidgets('removes when present in bucket', (_) async {
           expect(
-            await objectExistsInBuckets(
+            await objectExists(
               storagePath,
-              [mainBucket],
+              bucket: mainBucket,
             ),
             true,
           );
@@ -132,9 +156,9 @@ void main() {
           ).result;
           expect(mainResult.removedItem.path, path);
           expect(
-            await objectExistsInBuckets(
+            await objectExists(
               storagePath,
-              [mainBucket],
+              bucket: mainBucket,
             ),
             false,
           );
@@ -145,6 +169,7 @@ void main() {
               options: StorageRemoveOptions(bucket: secondaryBucket),
             ).result,
             completes,
+            reason: 'non existent path does not throw',
           );
         });
       });
