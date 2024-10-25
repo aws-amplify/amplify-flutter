@@ -1,3 +1,8 @@
+## 2.4.2
+
+### Fixes
+- fix(api): Reconnect WebSocket when resuming app from a paused state ([#5567](https://github.com/aws-amplify/amplify-flutter/pull/5567))
+
 ## 2.4.1
 
 - Minor bug fixes and improvements
