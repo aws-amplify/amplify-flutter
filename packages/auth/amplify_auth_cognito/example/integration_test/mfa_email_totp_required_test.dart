@@ -37,7 +37,7 @@ void main() {
           signInRes.nextStep.signInStep,
           because:
               'When an email is registered and the userpool has email MFA enabled, Cognito will automatically enable email MFA as the preferred MFA method.',
-        ).equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+        ).equals(AuthSignInStep.confirmSignInWithOtpCode);
 
         final setupRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult.code,
@@ -60,7 +60,7 @@ void main() {
           password: password,
         );
         check(resignInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+            .equals(AuthSignInStep.confirmSignInWithOtpCode);
         check(resignInRes.nextStep.codeDeliveryDetails)
             .isNotNull()
             .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -98,7 +98,7 @@ void main() {
             signInRes.nextStep.signInStep,
             because:
                 'MFA is required so Cognito automatically enables EMAIL MFA',
-          ).equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+          ).equals(AuthSignInStep.confirmSignInWithOtpCode);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await otpResult.code,
@@ -224,7 +224,7 @@ void main() {
           check(
             signInRes.nextStep.signInStep,
             because: 'Preference is EMAIL MFA now',
-          ).equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+          ).equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')

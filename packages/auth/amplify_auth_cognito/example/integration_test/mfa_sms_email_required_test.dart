@@ -41,7 +41,7 @@ void main() {
           signInRes.nextStep.signInStep,
           because: 'MFA is required, and EMAIL is chosen when '
               'no phone number is registered',
-        ).equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+        ).equals(AuthSignInStep.confirmSignInWithOtpCode);
 
         final setupRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult.code,
@@ -68,7 +68,7 @@ void main() {
           password: password,
         );
         check(resignInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+            .equals(AuthSignInStep.confirmSignInWithOtpCode);
         check(resignInRes.nextStep.codeDeliveryDetails)
             .isNotNull()
             .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -147,7 +147,7 @@ void main() {
           check(
             resignInRes.nextStep.signInStep,
             because: 'Preference is EMAIL MFA now',
-          ).equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+          ).equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(resignInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -300,7 +300,7 @@ void main() {
           check(
             signInRes.nextStep.signInStep,
             because: 'Preference is EMAIL MFA now',
-          ).equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+          ).equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')

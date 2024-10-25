@@ -719,7 +719,7 @@ class _AuthenticatorState extends State<Authenticator> {
                 continueSignInWithEmailMfaSetupForm:
                     ContinueSignInWithEmailMfaSetupForm(),
                 confirmSignInWithTotpMfaCodeForm: ConfirmSignInMFAForm(),
-                confirmSignInWithEmailMfaCodeForm: ConfirmSignInMFAForm(),
+                confirmSignInWithOtpCodeForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
                 child: widget.child,

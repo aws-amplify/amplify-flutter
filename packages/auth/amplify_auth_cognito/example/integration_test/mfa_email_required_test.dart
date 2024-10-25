@@ -37,7 +37,7 @@ void main() {
           password: password,
         );
         check(signInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+            .equals(AuthSignInStep.confirmSignInWithOtpCode);
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult.code,
@@ -63,7 +63,7 @@ void main() {
             password: password,
           );
           check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+              .equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')

@@ -37,7 +37,7 @@ void main() {
             UnauthenticatedState.signIn,
             isA<ContinueSignInWithMfaSetupSelection>(),
             UnauthenticatedState.continueSignInWithEmailMfaSetup,
-            UnauthenticatedState.confirmSignInWithEmailMfaCode,
+            UnauthenticatedState.confirmSignInWithOtpCode,
             isA<AuthenticatedState>(),
             emitsDone,
           ]),

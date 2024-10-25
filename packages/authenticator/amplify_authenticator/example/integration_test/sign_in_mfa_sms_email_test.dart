@@ -46,7 +46,7 @@ void main() {
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
-            UnauthenticatedState.confirmSignInWithEmailMfaCode,
+            UnauthenticatedState.confirmSignInWithOtpCode,
             isA<AuthenticatedState>(),
             emitsDone,
           ]),
@@ -101,7 +101,7 @@ void main() {
         await signInPage.submitSignIn();
 
         // Then I will be redirected to the EMAIL MFA code page
-        await confirmSignInPage.expectConfirmSignInWithEmailMfaCodeIsPresent();
+        await confirmSignInPage.expectConfirmSignInWithOtpCodeIsPresent();
 
         // When I type a valid EMAIL MFA code
         await confirmSignInPage.enterVerificationCode(await code_2.code);

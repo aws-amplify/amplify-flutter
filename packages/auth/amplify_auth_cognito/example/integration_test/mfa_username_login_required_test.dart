@@ -72,7 +72,7 @@ void main() {
           password: password,
         );
         check(resignInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+            .equals(AuthSignInStep.confirmSignInWithOtpCode);
         check(resignInRes.nextStep.codeDeliveryDetails)
             .isNotNull()
             .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -199,7 +199,7 @@ void main() {
           );
 
           check(resignInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithEmailMfaCode);
+              .equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(resignInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')
