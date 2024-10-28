@@ -132,6 +132,24 @@ void main() {
           expect(utf8.decode(downloadResult.bytes), 'data');
           expect(downloadResult.downloadedItem.path, publicPath);
         });
+
+        testWidgets('multi bucket', (_) async {
+          final mainBucket =
+              StorageBucket.fromOutputs('Storage Integ Test main bucket');
+
+          // TODO(equartey): Add download check for secondary bucket when upload supports multibucket
+          final downloadResult = await Amplify.Storage.downloadData(
+            path: StoragePath.fromIdentityId(
+              (identityId) => 'private/$identityId/$identityName',
+            ),
+            options: StorageDownloadDataOptions(bucket: mainBucket),
+          ).result;
+          expect(downloadResult.bytes, identityData);
+          expect(
+            downloadResult.downloadedItem.path,
+            'private/$userIdentityId/$identityName',
+          );
+        });
       });
 
       group('download progress', () {
