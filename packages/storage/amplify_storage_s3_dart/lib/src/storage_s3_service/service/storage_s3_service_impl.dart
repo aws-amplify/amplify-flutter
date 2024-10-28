@@ -300,10 +300,11 @@ class StorageS3Service {
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
   }) {
+    final s3ClientInfo = getS3ClientInfo(storageBucket: options.bucket);
     final downloadDataTask = S3DownloadTask(
-      s3Client: _defaultS3Client,
-      defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _storageOutputs.bucketName,
+      s3Client: s3ClientInfo.client,
+      defaultS3ClientConfig: s3ClientInfo.config,
+      bucket: s3ClientInfo.bucketName,
       path: path,
       options: options,
       pathResolver: _pathResolver,
