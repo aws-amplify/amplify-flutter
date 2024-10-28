@@ -230,19 +230,19 @@ void main() {
 
         testWidgets('uploads to multiple buckets', (_) async {
           final fileId = uuid();
-          final path =
-              StoragePath.fromString('public/multi-bucket-upload-file-$fileId');
+          final path = 'public/multi-bucket-upload-file-$fileId';
+          final storagePath = StoragePath.fromString(path);
           const content = 'upload file';
           final data = content.codeUnits;
           final filePath = await createFile(path: fileId, content: content);
           addTearDownMultiBucket(
-            path,
+            storagePath,
             [mainBucket, secondaryBucket],
           );
           //  main bucket
           final mainResult = await Amplify.Storage.uploadFile(
             localFile: AWSFile.fromPath(filePath),
-            path: path,
+            path: storagePath,
             options: StorageUploadFileOptions(
               pluginOptions: const S3UploadFilePluginOptions(
                 useAccelerateEndpoint: true,
@@ -253,7 +253,7 @@ void main() {
           expect(mainResult.uploadedItem.path, path);
 
           final downloadMainResult = await Amplify.Storage.downloadData(
-            path: path,
+            path: storagePath,
             options: StorageDownloadDataOptions(
               bucket: mainBucket,
             ),
@@ -263,7 +263,7 @@ void main() {
           // secondary bucket
           final secondaryResult = await Amplify.Storage.uploadFile(
             localFile: AWSFile.fromPath(filePath),
-            path: path,
+            path: storagePath,
             options: StorageUploadFileOptions(
               pluginOptions: const S3UploadFilePluginOptions(
                 useAccelerateEndpoint: true,
@@ -274,7 +274,7 @@ void main() {
           expect(secondaryResult.uploadedItem.path, path);
 
           final downloadSecondaryResult = await Amplify.Storage.downloadData(
-            path: path,
+            path: storagePath,
             options: StorageDownloadDataOptions(
               bucket: secondaryBucket,
             ),
@@ -282,9 +282,16 @@ void main() {
           expect(downloadSecondaryResult.bytes, data);
 
           expect(
-            await objectExistsInBuckets(
-              path,
-              [mainBucket, secondaryBucket],
+            await objectExists(
+              storagePath,
+              bucket: mainBucket,
+            ),
+            true,
+          );
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: secondaryBucket,
             ),
             true,
           );
