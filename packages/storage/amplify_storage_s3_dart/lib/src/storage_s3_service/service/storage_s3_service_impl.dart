@@ -201,7 +201,7 @@ class StorageS3Service {
     return S3GetPropertiesResult(
       storageItem: S3Item.fromHeadObjectOutput(
         await headObject(
-          s3client: _defaultS3Client,
+          s3client: s3ClientInfo.client,
           bucket: s3ClientInfo.bucketName,
           key: resolvedPath,
         ),
@@ -456,11 +456,12 @@ class StorageS3Service {
     required StoragePath path,
     required StorageRemoveOptions options,
   }) async {
+    final s3ClientInfo = getS3ClientInfo(storageBucket: options.bucket);
     final resolvedPath = await _pathResolver.resolvePath(path: path);
 
     await _deleteObject(
-      s3client: _defaultS3Client,
-      bucket: _storageOutputs.bucketName,
+      s3client: s3ClientInfo.client,
+      bucket: s3ClientInfo.bucketName,
       key: resolvedPath,
     );
 

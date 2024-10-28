@@ -388,6 +388,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final s3Options = StorageRemoveOptions(
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
 
     return S3RemoveOperation(
