@@ -144,7 +144,6 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     required StoragePath path,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadDataOptions? options,
-    StorageBucket? bucket,
   }) {
     return identifyCall(
       StorageCategoryMethod.uploadData,
@@ -153,7 +152,6 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
         data: data,
         onProgress: onProgress,
         options: options,
-        bucket: bucket,
       ),
     );
   }

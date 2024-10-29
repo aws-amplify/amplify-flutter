@@ -78,7 +78,9 @@ void main() {
           await Amplify.Storage.uploadData(
             data: StorageDataPayload.bytes('data'.codeUnits),
             path: storagePath,
-            bucket: mainBucket,
+            options: StorageUploadDataOptions(
+              bucket: mainBucket,
+            ),
           ).result;
         });
 
@@ -95,7 +97,9 @@ void main() {
           await Amplify.Storage.uploadData(
             data: StorageDataPayload.bytes('data'.codeUnits),
             path: storagePath,
-            bucket: secondaryBucket,
+            options: StorageUploadDataOptions(
+              bucket: secondaryBucket,
+            ),
           ).result;
 
           expect(
