@@ -418,6 +418,9 @@ void main() {
           () async {
         const defaultOptions = StorageDownloadDataOptions(
           pluginOptions: S3DownloadDataPluginOptions(),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(
@@ -435,6 +438,7 @@ void main() {
 
         downloadDataOperation = storageS3Plugin.downloadData(
           path: const StoragePath.fromString('public/$testKey'),
+          options: defaultOptions,
         );
 
         final capturedOptions = verify(
@@ -769,6 +773,9 @@ void main() {
           () async {
         const defaultOptions = StorageUploadFileOptions(
           pluginOptions: S3UploadFilePluginOptions(),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(
@@ -787,6 +794,7 @@ void main() {
         uploadFileOperation = storageS3Plugin.uploadFile(
           path: testPath,
           localFile: testLocalFile,
+          options: defaultOptions,
         );
 
         final capturedParams = verify(
@@ -1012,6 +1020,9 @@ void main() {
           () async {
         const defaultOptions = StorageRemoveOptions(
           pluginOptions: S3RemovePluginOptions(),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
         when(
           () => storageS3Service.remove(
@@ -1020,7 +1031,10 @@ void main() {
           ),
         ).thenAnswer((_) async => testResult);
 
-        final removeOperation = storageS3Plugin.remove(path: testPath);
+        final removeOperation = storageS3Plugin.remove(
+          path: testPath,
+          options: defaultOptions,
+        );
 
         final capturedOptions = verify(
           () => storageS3Service.remove(

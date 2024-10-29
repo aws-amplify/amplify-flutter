@@ -325,6 +325,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     final s3Options = StorageUploadFileOptions(
       metadata: options?.metadata ?? const {},
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
 
     final uploadTask = storageS3Service.uploadFile(

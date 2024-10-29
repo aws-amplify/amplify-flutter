@@ -136,18 +136,39 @@ void main() {
         testWidgets('multi bucket', (_) async {
           final mainBucket =
               StorageBucket.fromOutputs('Storage Integ Test main bucket');
+          final secondaryBucket = StorageBucket.fromOutputs(
+            'Storage Integ Test secondary bucket',
+          );
+          await Amplify.Storage.uploadData(
+            path: StoragePath.fromString(publicPath),
+            data: StorageDataPayload.bytes(bytesData),
+            bucket: secondaryBucket,
+          ).result;
 
-          // TODO(equartey): Add download check for secondary bucket when upload supports multibucket
           final downloadResult = await Amplify.Storage.downloadData(
-            path: StoragePath.fromIdentityId(
-              (identityId) => 'private/$identityId/$identityName',
-            ),
+            path: StoragePath.fromString(publicPath),
             options: StorageDownloadDataOptions(bucket: mainBucket),
           ).result;
-          expect(downloadResult.bytes, identityData);
+          expect(
+            downloadResult.bytes,
+            bytesData,
+          );
           expect(
             downloadResult.downloadedItem.path,
-            'private/$userIdentityId/$identityName',
+            publicPath,
+          );
+
+          final downloadSecondaryResult = await Amplify.Storage.downloadData(
+            path: StoragePath.fromString(publicPath),
+            options: StorageDownloadDataOptions(bucket: secondaryBucket),
+          ).result;
+          expect(
+            downloadSecondaryResult.bytes,
+            bytesData,
+          );
+          expect(
+            downloadSecondaryResult.downloadedItem.path,
+            publicPath,
           );
         });
       });
