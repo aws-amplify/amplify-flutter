@@ -362,6 +362,7 @@ class StorageS3Service {
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
   }) {
+    final s3ClientInfo = getS3ClientInfo(storageBucket: options.bucket);
     final s3PluginOptions =
         options.pluginOptions as S3UploadFilePluginOptions? ??
             const S3UploadFilePluginOptions();
@@ -374,9 +375,9 @@ class StorageS3Service {
     );
     final uploadDataTask = S3UploadTask.fromAWSFile(
       localFile,
-      s3Client: _defaultS3Client,
-      s3ClientConfig: _defaultS3ClientConfig,
-      bucket: _storageOutputs.bucketName,
+      s3Client: s3ClientInfo.client,
+      s3ClientConfig: s3ClientInfo.config,
+      bucket: s3ClientInfo.bucketName,
       awsRegion: _storageOutputs.awsRegion,
       path: path,
       options: uploadDataOptions,
