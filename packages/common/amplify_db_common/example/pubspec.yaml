@@ -11,6 +11,10 @@ dependencies:
   drift: ">=2.18.0 <2.19.0"
   flutter:
     sdk: flutter
+  # Unused in example app, rather included to validate
+  # windows app will build when there is a downstream dependency on sqlite3
+  # https://github.com/aws-amplify/amplify-flutter/issues/5477
+  sqlite3: ">=2.0.0 <2.4.7" 
 
 dev_dependencies:
   amplify_lints: ^2.0.0
