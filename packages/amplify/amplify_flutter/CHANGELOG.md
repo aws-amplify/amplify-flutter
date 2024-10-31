@@ -1,3 +1,8 @@
+## 2.5.0
+
+### Features
+- feat(auth, authenticator): Add support for Email OTP MFA ([#5449](https://github.com/aws-amplify/amplify-flutter/pull/5449)) (#5472)
+
 ## 2.4.1
 
 ### Fixes
