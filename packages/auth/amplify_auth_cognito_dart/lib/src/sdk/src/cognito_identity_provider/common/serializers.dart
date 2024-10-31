@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -28,6 +28,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_remembered_status_type.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_secret_verifier_config_type.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_type.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/email_mfa_settings_type.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/enable_software_token_mfa_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/expired_code_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forbidden_exception.dart';
@@ -59,6 +60,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/mfa_option_type.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/new_device_metadata_type.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/not_authorized_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/password_history_policy_violation_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/password_reset_required_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_request.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resend_confirmation_code_response.dart';
@@ -112,6 +114,7 @@ const List<_i1.SmithySerializer> serializers = [
   ...ChangePasswordResponse.serializers,
   ...InvalidPasswordException.serializers,
   ...LimitExceededException.serializers,
+  ...PasswordHistoryPolicyViolationException.serializers,
   ...PasswordResetRequiredException.serializers,
   ...TooManyRequestsException.serializers,
   ...UserNotConfirmedException.serializers,
@@ -175,6 +178,7 @@ const List<_i1.SmithySerializer> serializers = [
   ...UnsupportedTokenTypeException.serializers,
   ...SmsMfaSettingsType.serializers,
   ...SoftwareTokenMfaSettingsType.serializers,
+  ...EmailMfaSettingsType.serializers,
   ...SetUserMfaPreferenceRequest.serializers,
   ...SetUserMfaPreferenceResponse.serializers,
   ...SignUpRequest.serializers,

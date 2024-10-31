@@ -154,6 +154,9 @@ class AuthenticatorInputLocalizationsEn
   String get selectTotp => 'Authenticator App (TOTP)';
 
   @override
+  String get selectEmail => 'Email';
+
+  @override
   String get totpCodePrompt =>
       'Please enter the code from your registered Authenticator app';
 }

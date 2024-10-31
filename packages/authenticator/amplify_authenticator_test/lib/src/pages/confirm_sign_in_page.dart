@@ -25,8 +25,12 @@ class ConfirmSignInPage extends AuthenticatorPage {
   Finder get confirmSignInButton => find.byKey(keyConfirmSignInButton);
   Finder get confirmSignInMfaSelectionButton =>
       find.byKey(keyConfirmSignInMfaSelectionButton);
+  Finder get confirmSignInMfaSetupSelectionButton =>
+      find.byKey(keyConfirmSignInMfaSetupSelectionButton);
   Finder get selectMfaRadio =>
       find.byKey(keyMfaMethodRadioConfirmSignInFormField);
+  Finder get selectMfaSetupRadio =>
+      find.byKey(keyMfaSetupMethodRadioConfirmSignInFormField);
   Finder get backToSignIn => find.byKey(keyBackToSignInButton);
 
   /// Then I see "Confirm Sign In - New Password"
@@ -59,6 +63,28 @@ class ConfirmSignInPage extends AuthenticatorPage {
     );
   }
 
+  /// Then I see "Select an MFA Method to set up"
+  Future<void> expectContinueSignInWithMfaSetupSelectionIsPresent() async {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(
+      currentScreen.step,
+      equals(AuthenticatorStep.continueSignInWithMfaSetupSelection),
+    );
+  }
+
+  /// Then I see "Enter your one-time passcode for Email"
+  Future<void> expectConfirmSignInWithOtpCodeIsPresent() async {
+    final currentScreen = tester.widget<AuthenticatorScreen>(
+      find.byType(AuthenticatorScreen),
+    );
+    expect(
+      currentScreen.step,
+      equals(AuthenticatorStep.confirmSignInWithOtpCode),
+    );
+  }
+
   /// Then I see "Setup an Authentication App"
   Future<void> expectSignInTotpSetupIsPresent() async {
     final currentScreen = tester.widget<AuthenticatorScreen>(
@@ -84,6 +110,12 @@ class ConfirmSignInPage extends AuthenticatorPage {
   /// Then I see "New Password"
   void expectNewPasswordIsPresent() {
     expect(newPasswordField, findsOneWidget);
+  }
+
+  /// Then I see "Invalid verification code"
+  @override
+  void expectInvalidVerificationCode() {
+    expectError('Invalid code');
   }
 
   /// When I enter a verification code
@@ -123,9 +155,34 @@ class ConfirmSignInPage extends AuthenticatorPage {
   }) async {
     expect(selectMfaRadio, findsOneWidget);
 
+    // if mfaMethod is email, don't make it uppercase except for the first letter
+    // if mfa method is totp, make it all uppercase
     final mfaMethodWidget = find.descendant(
       of: selectMfaRadio,
-      matching: find.textContaining('(${mfaMethod.name.toUpperCase()})'),
+      matching: find.textContaining(
+        mfaMethod == MfaType.email
+            ? 'Email'
+            : '(${mfaMethod.name.toUpperCase()})',
+      ),
+    );
+
+    await tester.tap(mfaMethodWidget);
+    await tester.pumpAndSettle();
+  }
+
+  // When I select a MFA setup method
+  Future<void> selectMfaSetupMethod({
+    required MfaType mfaMethod,
+  }) async {
+    expect(selectMfaSetupRadio, findsOneWidget);
+
+    final mfaMethodWidget = find.descendant(
+      of: selectMfaSetupRadio,
+      matching: find.textContaining(
+        mfaMethod == MfaType.email
+            ? 'Email'
+            : '(${mfaMethod.name.toUpperCase()})',
+      ),
     );
 
     await tester.tap(mfaMethodWidget);
@@ -136,6 +193,13 @@ class ConfirmSignInPage extends AuthenticatorPage {
   Future<void> submitConfirmSignInMfaSelection() async {
     await tester.ensureVisible(confirmSignInMfaSelectionButton);
     await tester.tap(confirmSignInMfaSelectionButton);
+    await tester.pumpAndSettle();
+  }
+
+  /// When I click the continue sign in with MFA setup selection button
+  Future<void> submitConfirmSignInMfaSetupSelection() async {
+    await tester.ensureVisible(confirmSignInMfaSetupSelectionButton);
+    await tester.tap(confirmSignInMfaSetupSelectionButton);
     await tester.pumpAndSettle();
   }
 
