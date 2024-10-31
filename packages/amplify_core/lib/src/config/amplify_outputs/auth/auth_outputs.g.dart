@@ -128,5 +128,4 @@ const _$MfaEnforcementEnumMap = {
 const _$MfaMethodEnumMap = {
   MfaMethod.sms: 'SMS',
   MfaMethod.totp: 'TOTP',
-  MfaMethod.email: 'EMAIL',
 };

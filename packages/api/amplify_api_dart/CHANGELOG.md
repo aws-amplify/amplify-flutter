@@ -1,7 +1,3 @@
-## 0.5.7
-
-- Minor bug fixes and improvements
-
 ## 0.5.6
 
 ### Features

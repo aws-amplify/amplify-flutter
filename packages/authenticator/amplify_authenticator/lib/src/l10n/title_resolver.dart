@@ -49,24 +49,6 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
         .confirmSignInWithTotpMfaCode;
   }
 
-  /// The title for the confirm sign in (email MFA code) Widget.
-  String confirmSignInWithOtpCode(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .confirmSignInWithOtpCode;
-  }
-
-  /// The title for the continue sign in (email MFA setup) Widget.
-  String continueSignInWithEmailMfaSetup(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .continueSignInWithEmailMfaSetup;
-  }
-
-  /// The title for the continue sign in (mfa setup selection) Widget.
-  String continueSignInWithMfaSetupSelection(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .continueSignInWithMfaSetupSelection;
-  }
-
   /// The title for the reset password Widget.
   String resetPassword(BuildContext context) {
     return AuthenticatorLocalizations.titlesOf(context).resetPassword;
@@ -99,12 +81,6 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
         return continueSignInWithTotpSetup(context);
       case AuthenticatorStep.confirmSignInWithTotpMfaCode:
         return confirmSignInWithTotpMfaCode(context);
-      case AuthenticatorStep.confirmSignInWithOtpCode:
-        return confirmSignInWithOtpCode(context);
-      case AuthenticatorStep.continueSignInWithEmailMfaSetup:
-        return continueSignInWithEmailMfaSetup(context);
-      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
-        return continueSignInWithMfaSetupSelection(context);
       case AuthenticatorStep.resetPassword:
         return resetPassword(context);
       case AuthenticatorStep.confirmResetPassword:

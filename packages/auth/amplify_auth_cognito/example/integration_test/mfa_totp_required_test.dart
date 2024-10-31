@@ -34,7 +34,7 @@ void main() {
           signInRes.nextStep.signInStep,
           because:
               "TOTP MFA is automatically enabled when it's the only option",
-        ).equals(AuthSignInStep.continueSignInWithMfaSetupSelection);
+        ).equals(AuthSignInStep.continueSignInWithTotpSetup);
 
         final sharedSecret = signInRes.nextStep.totpSetupDetails!.sharedSecret;
         final setupRes = await Amplify.Auth.confirmSignIn(

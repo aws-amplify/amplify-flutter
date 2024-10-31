@@ -12,8 +12,6 @@ class _$SetUserMfaPreferenceRequest extends SetUserMfaPreferenceRequest {
   @override
   final SoftwareTokenMfaSettingsType? softwareTokenMfaSettings;
   @override
-  final EmailMfaSettingsType? emailMfaSettings;
-  @override
   final String accessToken;
 
   factory _$SetUserMfaPreferenceRequest(
@@ -23,7 +21,6 @@ class _$SetUserMfaPreferenceRequest extends SetUserMfaPreferenceRequest {
   _$SetUserMfaPreferenceRequest._(
       {this.smsMfaSettings,
       this.softwareTokenMfaSettings,
-      this.emailMfaSettings,
       required this.accessToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -45,7 +42,6 @@ class _$SetUserMfaPreferenceRequest extends SetUserMfaPreferenceRequest {
     return other is SetUserMfaPreferenceRequest &&
         smsMfaSettings == other.smsMfaSettings &&
         softwareTokenMfaSettings == other.softwareTokenMfaSettings &&
-        emailMfaSettings == other.emailMfaSettings &&
         accessToken == other.accessToken;
   }
 
@@ -54,7 +50,6 @@ class _$SetUserMfaPreferenceRequest extends SetUserMfaPreferenceRequest {
     var _$hash = 0;
     _$hash = $jc(_$hash, smsMfaSettings.hashCode);
     _$hash = $jc(_$hash, softwareTokenMfaSettings.hashCode);
-    _$hash = $jc(_$hash, emailMfaSettings.hashCode);
     _$hash = $jc(_$hash, accessToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -81,12 +76,6 @@ class SetUserMfaPreferenceRequestBuilder
           SoftwareTokenMfaSettingsTypeBuilder? softwareTokenMfaSettings) =>
       _$this._softwareTokenMfaSettings = softwareTokenMfaSettings;
 
-  EmailMfaSettingsTypeBuilder? _emailMfaSettings;
-  EmailMfaSettingsTypeBuilder get emailMfaSettings =>
-      _$this._emailMfaSettings ??= new EmailMfaSettingsTypeBuilder();
-  set emailMfaSettings(EmailMfaSettingsTypeBuilder? emailMfaSettings) =>
-      _$this._emailMfaSettings = emailMfaSettings;
-
   String? _accessToken;
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
@@ -98,7 +87,6 @@ class SetUserMfaPreferenceRequestBuilder
     if ($v != null) {
       _smsMfaSettings = $v.smsMfaSettings?.toBuilder();
       _softwareTokenMfaSettings = $v.softwareTokenMfaSettings?.toBuilder();
-      _emailMfaSettings = $v.emailMfaSettings?.toBuilder();
       _accessToken = $v.accessToken;
       _$v = null;
     }
@@ -126,7 +114,6 @@ class SetUserMfaPreferenceRequestBuilder
           new _$SetUserMfaPreferenceRequest._(
               smsMfaSettings: _smsMfaSettings?.build(),
               softwareTokenMfaSettings: _softwareTokenMfaSettings?.build(),
-              emailMfaSettings: _emailMfaSettings?.build(),
               accessToken: BuiltValueNullFieldError.checkNotNull(
                   accessToken, r'SetUserMfaPreferenceRequest', 'accessToken'));
     } catch (_) {
@@ -136,8 +123,6 @@ class SetUserMfaPreferenceRequestBuilder
         _smsMfaSettings?.build();
         _$failedField = 'softwareTokenMfaSettings';
         _softwareTokenMfaSettings?.build();
-        _$failedField = 'emailMfaSettings';
-        _emailMfaSettings?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'SetUserMfaPreferenceRequest', _$failedField, e.toString());

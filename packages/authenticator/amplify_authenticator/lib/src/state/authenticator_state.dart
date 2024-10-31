@@ -160,18 +160,6 @@ class AuthenticatorState extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// The value for the email MFA setup form field
-  ///
-  /// This value will be used during continue email MFA setup
-  String get mfaEmail => _mfaEmail;
-
-  set mfaEmail(String value) {
-    _mfaEmail = value.trim();
-    notifyListeners();
-  }
-
-  String _mfaEmail = '';
-
   MfaType? _selectedMfaMethod;
 
   TotpSetupDetails? get totpSetupDetails {
@@ -407,23 +395,6 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(false);
   }
 
-  /// Select MFA setup preference using the values for [selectedMfaMethod]
-  Future<void> continueSignInWithMfaSetupSelection() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    _setIsBusy(true);
-
-    final confirm = AuthConfirmSignInData(
-      confirmationValue: _selectedMfaMethod!.name,
-    );
-
-    _authBloc.add(AuthConfirmSignIn(confirm));
-    await nextBlocEvent();
-    _setIsBusy(false);
-  }
-
   /// Complete TOTP setup using the values for [confirmationCode]
   /// and any user attributes.
   Future<void> confirmTotp() async {
@@ -436,40 +407,6 @@ class AuthenticatorState extends ChangeNotifier {
     final confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
-    );
-
-    _authBloc.add(AuthConfirmSignIn(confirm));
-    await nextBlocEvent();
-    _setIsBusy(false);
-  }
-
-  /// complete Email MFA setup using the values for [confirmationCode]
-  Future<void> confirmEmailMfa() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    _setIsBusy(true);
-
-    final confirm = AuthConfirmSignInData(
-      confirmationValue: _confirmationCode.trim(),
-    );
-
-    _authBloc.add(AuthConfirmSignIn(confirm));
-    await nextBlocEvent();
-    _setIsBusy(false);
-  }
-
-  /// Complete MFA setup using the values for [confirmationCode]
-  Future<void> continueEmailMfaSetup() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    _setIsBusy(true);
-
-    final confirm = AuthConfirmSignInData(
-      confirmationValue: _mfaEmail.trim(),
     );
 
     _authBloc.add(AuthConfirmSignIn(confirm));
@@ -707,7 +644,6 @@ class AuthenticatorState extends ChangeNotifier {
     authAttributes.clear();
     _publicChallengeParams.clear();
     _selectedMfaMethod = null;
-    _mfaEmail = '';
   }
 
   void _resetFormKey() {

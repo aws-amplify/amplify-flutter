@@ -481,45 +481,45 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   CognitoSignInResult _processSignInResult(SignInState result) {
-    switch (result) {
-      case SignInNotStarted():
-      case SignInInitiating():
+    return switch (result) {
+      SignInNotStarted _ ||
+      SignInInitiating _ =>
         // This should never happen.
         throw UnknownException(
           'Sign in could not be completed',
           underlyingException: result,
-        );
-
-      case SignInCancelling():
-        throw const UserCancelledException(
+        ),
+      SignInCancelling _ => throw const UserCancelledException(
           'The user canceled the sign-in flow',
-        );
-
-      case final SignInChallenge challenge:
-        return CognitoSignInResult(
+        ),
+      SignInChallenge(
+        :final challengeName,
+        :final challengeParameters,
+        :final codeDeliveryDetails,
+        :final requiredAttributes,
+        :final allowedMfaTypes,
+        :final totpSetupResult,
+      ) =>
+        CognitoSignInResult(
           isSignedIn: false,
           nextStep: AuthNextSignInStep(
-            signInStep: challenge.challengeName.signInStep,
-            codeDeliveryDetails: challenge.codeDeliveryDetails,
-            additionalInfo: challenge.challengeParameters,
-            missingAttributes: challenge.requiredAttributes,
-            allowedMfaTypes: challenge.allowedMfaTypes,
-            totpSetupDetails: challenge.totpSetupResult,
+            signInStep: challengeName.signInStep,
+            codeDeliveryDetails: codeDeliveryDetails,
+            additionalInfo: challengeParameters,
+            missingAttributes: requiredAttributes,
+            allowedMfaTypes: allowedMfaTypes,
+            totpSetupDetails: totpSetupResult,
           ),
-        );
-
-      case SignInSuccess():
-        return const CognitoSignInResult(
+        ),
+      SignInSuccess _ => const CognitoSignInResult(
           isSignedIn: true,
           nextStep: AuthNextSignInStep(
             signInStep: AuthSignInStep.done,
           ),
-        );
-
-      case final SignInFailure failure:
-        Error.throwWithStackTrace(failure.exception, failure.stackTrace);
-// To satisfy Dart's requirements, even if unreachable
-    }
+        ),
+      SignInFailure(:final exception, :final stackTrace) =>
+        Error.throwWithStackTrace(exception, stackTrace),
+    };
   }
 
   @override
@@ -885,14 +885,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   /// {@template amplify_core.amplify_auth_category.update_mfa_preference}
   /// Updates the MFA preference for the current user.
   ///
-  /// If [sms], [totp], or [email] is `null`, the preference for that MFA type is left
-  /// unchanged. Setting either [sms], [totp], or [email] to [MfaPreference.preferred]
+  /// If [sms] or [totp] is `null`, the preference for that MFA type is left
+  /// unchanged. Setting either [sms] or [totp] to [MfaPreference.preferred]
   /// will mark the other as not preferred.
   /// {@endtemplate}
   Future<void> updateMfaPreference({
     MfaPreference? sms,
     MfaPreference? totp,
-    MfaPreference? email,
   }) async {
     final tokens = await _stateMachine.getUserPoolTokens();
     final accessToken = tokens.accessToken.raw;
@@ -900,7 +899,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       accessToken: accessToken,
       sms: sms,
       totp: totp,
-      email: email,
     );
   }
 
