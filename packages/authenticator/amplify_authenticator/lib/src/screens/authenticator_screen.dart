@@ -40,6 +40,18 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   const AuthenticatorScreen.confirmSignInWithTotpMfaCode({Key? key})
       : this(key: key, step: AuthenticatorStep.confirmSignInWithTotpMfaCode);
 
+  const AuthenticatorScreen.confirmSignInWithOtpCode({Key? key})
+      : this(key: key, step: AuthenticatorStep.confirmSignInWithOtpCode);
+
+  const AuthenticatorScreen.continueSignInWithEmailMfaSetup({Key? key})
+      : this(key: key, step: AuthenticatorStep.continueSignInWithEmailMfaSetup);
+
+  const AuthenticatorScreen.continueSignInWithMfaSetupSelection({Key? key})
+      : this(
+          key: key,
+          step: AuthenticatorStep.continueSignInWithMfaSetupSelection,
+        );
+
   const AuthenticatorScreen.resetPassword({Key? key})
       : this(key: key, step: AuthenticatorStep.resetPassword);
 
@@ -91,6 +103,9 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       case AuthenticatorStep.confirmResetPassword:
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
+      case AuthenticatorStep.confirmSignInWithOtpCode:
+      case AuthenticatorStep.continueSignInWithEmailMfaSetup:
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
         child = _FormWrapperView(step: step);
       case AuthenticatorStep.loading:
         throw StateError('Invalid step: $this');
@@ -299,6 +314,9 @@ extension on AuthenticatorStep {
       case AuthenticatorStep.verifyUser:
       case AuthenticatorStep.confirmVerifyUser:
       case AuthenticatorStep.loading:
+      case AuthenticatorStep.confirmSignInWithOtpCode:
+      case AuthenticatorStep.continueSignInWithEmailMfaSetup:
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
         throw StateError('Invalid step: $this');
     }
   }

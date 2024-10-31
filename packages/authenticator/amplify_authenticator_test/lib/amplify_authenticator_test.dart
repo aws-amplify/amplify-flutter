@@ -18,6 +18,7 @@ export 'src/pages/authenticator_page.dart';
 export 'src/pages/confirm_sign_in_page.dart';
 export 'src/pages/confirm_sign_up_page.dart';
 export 'src/pages/confirm_verify_user_page.dart';
+export 'src/pages/email_mfa_setup_page.dart';
 export 'src/pages/forgot_password_page.dart';
 export 'src/pages/sign_in_page.dart';
 export 'src/pages/sign_up_page.dart';

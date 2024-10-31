@@ -216,5 +216,9 @@
     "totpCodePrompt": "Please enter the code from your registered Authenticator app",
     "@totpCodePrompt": {
         "description":  "The instructional text for submitting a TOTP pass code"
-    }
+    },
+    "selectEmail": "Email",
+    "@selectEmail": {
+        "description": "Label for the radio button to select email as the user's chosen MFA method."
+    },
 }

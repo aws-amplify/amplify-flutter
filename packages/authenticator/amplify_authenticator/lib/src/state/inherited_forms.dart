@@ -16,8 +16,11 @@ class InheritedForms extends InheritedWidget {
     required this.confirmResetPasswordForm,
     required this.confirmSignInNewPasswordForm,
     required this.continueSignInWithMfaSelectionForm,
+    required this.continueSignInWithMfaSetupSelectionForm,
     required this.continueSignInWithTotpSetupForm,
+    required this.continueSignInWithEmailMfaSetupForm,
     required this.confirmSignInWithTotpMfaCodeForm,
+    required this.confirmSignInWithOtpCodeForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
     required super.child,
@@ -30,8 +33,12 @@ class InheritedForms extends InheritedWidget {
   final ConfirmSignInMFAForm confirmSignInMFAForm;
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
   final ContinueSignInWithMfaSelectionForm continueSignInWithMfaSelectionForm;
+  final ContinueSignInWithMfaSetupSelectionForm
+      continueSignInWithMfaSetupSelectionForm;
   final ContinueSignInWithTotpSetupForm continueSignInWithTotpSetupForm;
+  final ContinueSignInWithEmailMfaSetupForm continueSignInWithEmailMfaSetupForm;
   final ConfirmSignInMFAForm confirmSignInWithTotpMfaCodeForm;
+  final ConfirmSignInMFAForm confirmSignInWithOtpCodeForm;
   final ResetPasswordForm resetPasswordForm;
   final ConfirmResetPasswordForm confirmResetPasswordForm;
   final VerifyUserForm verifyUserForm;
@@ -55,10 +62,16 @@ class InheritedForms extends InheritedWidget {
         return confirmSignInNewPasswordForm;
       case AuthenticatorStep.continueSignInWithMfaSelection:
         return continueSignInWithMfaSelectionForm;
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
+        return continueSignInWithMfaSetupSelectionForm;
       case AuthenticatorStep.continueSignInWithTotpSetup:
         return continueSignInWithTotpSetupForm;
       case AuthenticatorStep.confirmSignInWithTotpMfaCode:
         return confirmSignInWithTotpMfaCodeForm;
+      case AuthenticatorStep.continueSignInWithEmailMfaSetup:
+        return continueSignInWithEmailMfaSetupForm;
+      case AuthenticatorStep.confirmSignInWithOtpCode:
+        return confirmSignInWithOtpCodeForm;
       case AuthenticatorStep.resetPassword:
         return resetPasswordForm;
       case AuthenticatorStep.confirmResetPassword:
@@ -104,7 +117,13 @@ class InheritedForms extends InheritedWidget {
         oldWidget.continueSignInWithTotpSetupForm !=
             continueSignInWithTotpSetupForm ||
         oldWidget.confirmSignInWithTotpMfaCodeForm !=
-            confirmSignInWithTotpMfaCodeForm;
+            confirmSignInWithTotpMfaCodeForm ||
+        oldWidget.confirmSignInWithOtpCodeForm !=
+            confirmSignInWithOtpCodeForm ||
+        oldWidget.continueSignInWithEmailMfaSetupForm !=
+            continueSignInWithEmailMfaSetupForm ||
+        oldWidget.continueSignInWithMfaSetupSelectionForm !=
+            continueSignInWithMfaSetupSelectionForm;
   }
 }
 
