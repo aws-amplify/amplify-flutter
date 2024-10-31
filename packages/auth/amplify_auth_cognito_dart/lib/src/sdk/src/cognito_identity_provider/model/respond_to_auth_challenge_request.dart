@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_auth_challenge_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -79,9 +79,15 @@ abstract class RespondToAuthChallengeRequest
   ///
   /// SMS_MFA
   ///
-  /// `"ChallengeName": "SMS\_MFA", "ChallengeResponses": {"SMS\_MFA\_CODE": "\[SMS\_code\]", "USERNAME": "\[username\]"}`
+  /// `"ChallengeName": "SMS\_MFA", "ChallengeResponses": {"SMS\_MFA_CODE": "\[code\]", "USERNAME": "\[username\]"}`
+  ///
+  /// EMAIL_OTP
+  ///
+  /// `"ChallengeName": "EMAIL\_OTP", "ChallengeResponses": {"EMAIL\_OTP_CODE": "\[code\]", "USERNAME": "\[username\]"}`
   ///
   /// PASSWORD_VERIFIER
+  ///
+  /// This challenge response is part of the SRP flow. Amazon Cognito requires that your application respond to this challenge within a few seconds. When the response time exceeds this period, your user pool returns a `NotAuthorizedException` error.
   ///
   /// `"ChallengeName": "PASSWORD\_VERIFIER", "ChallengeResponses": {"PASSWORD\_CLAIM\_SIGNATURE": "\[claim\_signature\]", "PASSWORD\_CLAIM\_SECRET\_BLOCK": "\[secret\_block\]", "TIMESTAMP": \[timestamp\], "USERNAME": "\[username\]"}`
   ///

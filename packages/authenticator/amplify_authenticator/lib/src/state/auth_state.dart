@@ -46,6 +46,12 @@ class UnauthenticatedState extends AuthState
   static const confirmSignInWithTotpMfaCode = UnauthenticatedState(
     step: AuthenticatorStep.confirmSignInWithTotpMfaCode,
   );
+  static const continueSignInWithEmailMfaSetup = UnauthenticatedState(
+    step: AuthenticatorStep.continueSignInWithEmailMfaSetup,
+  );
+  static const confirmSignInWithOtpCode = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignInWithOtpCode,
+  );
   static const resetPassword =
       UnauthenticatedState(step: AuthenticatorStep.resetPassword);
   static const confirmResetPassword =
@@ -109,6 +115,21 @@ class ContinueSignInWithMfaSelection extends UnauthenticatedState {
 
   @override
   String get runtimeTypeName => 'ContinueSignInWithMfaSelection';
+}
+
+class ContinueSignInWithMfaSetupSelection extends UnauthenticatedState {
+  const ContinueSignInWithMfaSetupSelection({
+    Set<MfaType>? allowedMfaTypes,
+  })  : allowedMfaTypes = allowedMfaTypes ?? const {},
+        super(step: AuthenticatorStep.continueSignInWithMfaSetupSelection);
+
+  final Set<MfaType> allowedMfaTypes;
+
+  @override
+  List<Object?> get props => [step, allowedMfaTypes];
+
+  @override
+  String get runtimeTypeName => 'ContinueSignInWithMfaSetupSelection';
 }
 
 class ContinueSignInTotpSetup extends UnauthenticatedState {
