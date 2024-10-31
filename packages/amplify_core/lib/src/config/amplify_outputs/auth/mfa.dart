@@ -11,10 +11,7 @@ enum MfaMethod {
   sms,
 
   @JsonValue('TOTP')
-  totp,
-
-  @JsonValue('EMAIL')
-  email;
+  totp;
 
   /// The value to pass to `Amplify.Auth.confirmSignIn` when
   /// selecting an MFA type.

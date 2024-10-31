@@ -35,7 +35,7 @@ void main() {
           signInRes.nextStep.signInStep,
           because: 'MFA is required, and TOTP is chosen when '
               'no phone number is registered',
-        ).equals(AuthSignInStep.continueSignInWithMfaSetupSelection);
+        ).equals(AuthSignInStep.continueSignInWithTotpSetup);
 
         final sharedSecret = signInRes.nextStep.totpSetupDetails!.sharedSecret;
         final setupRes = await Amplify.Auth.confirmSignIn(

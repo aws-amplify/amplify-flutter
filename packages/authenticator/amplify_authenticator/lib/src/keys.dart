@@ -52,8 +52,6 @@ const keyCustomChallengeConfirmSignInFormField =
     Key('customChallengeConfirmSignInFormField');
 const keyMfaMethodRadioConfirmSignInFormField =
     Key('mfaMethodRadioConfirmSignInFormField');
-const keyMfaSetupMethodRadioConfirmSignInFormField =
-    Key('mfaSetupMethodRadioConfirmSignInFormField');
 const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
@@ -109,10 +107,6 @@ const keyGoToSignInButton = Key('goToSignInButton');
 const keyConfirmSignInButton = Key('confirmSignInButton');
 const keyConfirmSignInMfaSelectionButton =
     Key('confirmSignInMfaSelectionButton');
-const keyConfirmSignInMfaSetupSelectionButton =
-    Key('confirmSignInMfaSetupSelectionButton');
-const keyConfirmSignInWithEmailMfaSetupButton =
-    Key('confirmSignInWithEmailMfaSetupButton');
 const keyConfirmSignInCustomButton = Key('confirmSignInCustomButton');
 const keyLostCodeButton = Key('lostCodeButton');
 const keySendCodeButton = Key('sendCodeButton');
@@ -146,6 +140,3 @@ const keyAuthenticatorBanner = Key('authenticatorBanner');
 const keyQrCodeTotpSetupFormField = Key('qrCodeTotpSetupFormField');
 const keyCopyKeyTotpSetupFormField = Key('copyKeyTotpSetupFormField');
 const keyTotpSetupFormField = Key('totpSetupFormField');
-
-// Email setup form keys
-const keyEmailSetupFormField = Key('emailSetupFormField');

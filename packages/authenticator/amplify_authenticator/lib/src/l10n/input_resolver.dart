@@ -33,7 +33,6 @@ enum InputField {
   rememberDevice,
   selectSms,
   selectTotp,
-  selectEmail,
   totpCodePrompt,
   usernameType,
 }
@@ -170,11 +169,6 @@ class InputResolverKey {
   static const selectSms = InputResolverKey._(
     InputResolverKeyType.title,
     field: InputField.selectSms,
-  );
-
-  static const selectEmail = InputResolverKey._(
-    InputResolverKeyType.title,
-    field: InputField.selectEmail,
   );
 
   static const totpCodePrompt = InputResolverKey._(
@@ -462,8 +456,6 @@ class InputResolver extends Resolver<InputResolverKey> {
         return AuthenticatorLocalizations.inputsOf(context).selectSms;
       case InputField.selectTotp:
         return AuthenticatorLocalizations.inputsOf(context).selectTotp;
-      case InputField.selectEmail:
-        return AuthenticatorLocalizations.inputsOf(context).selectEmail;
       case InputField.totpCodePrompt:
         return AuthenticatorLocalizations.inputsOf(context).totpCodePrompt;
       case InputField.usernameType:

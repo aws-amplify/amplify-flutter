@@ -211,7 +211,6 @@ final class SignInStateMachine
           (type) => switch (type) {
             'SOFTWARE_TOKEN_MFA' => MfaType.totp,
             'SMS_MFA' => MfaType.sms,
-            'EMAIL_OTP' => MfaType.email,
             _ => () {
                 logger.error('Unrecognized MFA type: $type');
                 return null;
@@ -326,12 +325,10 @@ final class SignInStateMachine
         createSmsMfaRequest(event),
       ChallengeNameType.softwareTokenMfa when hasUserResponse =>
         createSoftwareTokenMfaRequest(event),
-      ChallengeNameType.emailOtp when hasUserResponse =>
-        createEmailOtpRequest(event),
       ChallengeNameType.selectMfaType when hasUserResponse =>
         createSelectMfaRequest(event),
       ChallengeNameType.mfaSetup when hasUserResponse =>
-        handleMfaSetup(event: event),
+        createMfaSetupRequest(event),
       ChallengeNameType.newPasswordRequired when hasUserResponse =>
         createNewPasswordRequest(event),
       _ => null,
@@ -447,24 +444,6 @@ final class SignInStateMachine
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: cognitoUsername,
           CognitoConstants.challengeParamSmsMfaCode: event.answer,
-        })
-        ..clientMetadata.addAll(event.clientMetadata);
-    });
-  }
-
-  /// Creates the response object for an Email MFA challenge.
-  @protected
-  Future<RespondToAuthChallengeRequest> createEmailOtpRequest(
-    SignInRespondToChallenge event,
-  ) async {
-    _enableMfaType = MfaType.email;
-    return RespondToAuthChallengeRequest.build((b) {
-      b
-        ..clientId = _authOutputs.userPoolClientId
-        ..challengeName = _challengeName
-        ..challengeResponses.addAll({
-          CognitoConstants.challengeParamUsername: cognitoUsername,
-          CognitoConstants.challengeParamEmailOtpCode: event.answer,
         })
         ..clientMetadata.addAll(event.clientMetadata);
     });
@@ -651,64 +630,9 @@ final class SignInStateMachine
     }
   }
 
-  /// Handles the MFA setup challenge.
-  @protected
-  Future<RespondToAuthChallengeRequest?> handleMfaSetup({
-    SignInEvent? event,
-  }) async {
-    final allowedMfaTypes = _allowedMfaTypes;
-    // Exclude MfaType.sms from consideration
-    final mfaTypesForSetup = allowedMfaTypes?.difference({MfaType.sms});
-    if (mfaTypesForSetup == null || mfaTypesForSetup.isEmpty) {
-      throw const InvalidUserPoolConfigurationException(
-        'No eligible MFA types are allowed for setup.',
-        recoverySuggestion: 'Check your user pool MFA configuration.',
-      );
-    }
-
-    if (event == null) {
-      throw StateError('Event cannot be null when there is user response.');
-    }
-    if (event is! SignInRespondToChallenge) {
-      throw StateError('Expected SignInRespondToChallenge event.');
-    }
-
-    if (_enableMfaType == null && _totpSetupResult == null) {
-      // User has just selected the MFA type
-      final selection = event.answer.toLowerCase();
-      _enableMfaType = switch (selection) {
-        'totp' => MfaType.totp,
-        'email' => MfaType.email,
-        _ => throw const InvalidParameterException('Invalid MFA type selected'),
-      };
-
-      final challengeResponses = <String, String>{
-        CognitoConstants.challengeParamMfasCanSetup:
-            _enableMfaType == MfaType.totp
-                ? '["SOFTWARE_TOKEN_MFA"]'
-                : '["EMAIL_OTP"]',
-      };
-      _challengeParameters = BuiltMap<String, String>(challengeResponses);
-      await _processChallenge();
-      return null;
-    }
-
-    // totp mfa method was already selected
-    if (mfaTypesForSetup.length == 1 &&
-        mfaTypesForSetup.contains(MfaType.totp) &&
-        _totpSetupResult != null) {
-      await createSoftwareTokenMfaRequest(event);
-    }
-
-    // User has provided the verification code
-    return _enableMfaType == MfaType.totp
-        ? createTotpMfaSetupRequest(event)
-        : createEmailMfaSetupRequest(event);
-  }
-
   /// Completes set up of a TOTP MFA.
   @protected
-  Future<RespondToAuthChallengeRequest> createTotpMfaSetupRequest(
+  Future<RespondToAuthChallengeRequest> createMfaSetupRequest(
     SignInRespondToChallenge event,
   ) async {
     await verifySoftwareToken(
@@ -729,24 +653,6 @@ final class SignInStateMachine
     });
   }
 
-  /// Compeletes set up of an email MFA.
-  @protected
-  Future<RespondToAuthChallengeRequest> createEmailMfaSetupRequest(
-    SignInRespondToChallenge event,
-  ) async {
-    _enableMfaType = MfaType.email;
-    return RespondToAuthChallengeRequest.build((b) {
-      b
-        ..challengeName = ChallengeNameType.mfaSetup
-        ..challengeResponses.addAll({
-          CognitoConstants.challengeParamUsername: cognitoUsername,
-          CognitoConstants.challengeParamEmail: event.answer,
-        })
-        ..clientId = _authOutputs.userPoolClientId
-        ..clientMetadata.addAll(event.clientMetadata);
-    });
-  }
-
   /// Selects an MFA type to use for sign-in.
   @protected
   Future<RespondToAuthChallengeRequest> createSelectMfaRequest(
@@ -761,8 +667,7 @@ final class SignInStateMachine
           CognitoConstants.challengeParamAnswer: switch (selection) {
             'sms' => 'SMS_MFA',
             'totp' => 'SOFTWARE_TOKEN_MFA',
-            'email' => 'EMAIL_OTP',
-            _ => throw ArgumentError('Must be either SMS, Email, or TOTP'),
+            _ => throw ArgumentError('Must be either SMS or TOTP'),
           },
         })
         ..clientId = _authOutputs.userPoolClientId
@@ -1029,8 +934,6 @@ final class SignInStateMachine
             accessToken: accessToken,
             sms: enableMfaType == MfaType.sms ? MfaPreference.enabled : null,
             totp: enableMfaType == MfaType.totp ? MfaPreference.enabled : null,
-            email:
-                enableMfaType == MfaType.email ? MfaPreference.enabled : null,
           );
         } on Exception catch (e, st) {
           logger.error(
@@ -1053,20 +956,14 @@ final class SignInStateMachine
     if (_allowedMfaTypes case final allowedMfaTypes?
         when _challengeParameters
             .containsKey(CognitoConstants.challengeParamMfasCanSetup)) {
-      if (!allowedMfaTypes.contains(MfaType.totp) &&
-          !allowedMfaTypes.contains(MfaType.email)) {
+      if (!allowedMfaTypes.contains(MfaType.totp)) {
         throw const InvalidUserPoolConfigurationException(
-          'Cannot enable SMS MFA and TOTP or EMAIL MFA is not allowed',
+          'Cannot enable SMS MFA and TOTP MFA is not allowed',
           recoverySuggestion:
-              'Contact an administrator to enable SMS MFA or allow TOTP or EMAIL MFA',
+              'Contact an administrator to enable SMS MFA or allow TOTP MFA',
         );
       }
-      final allowedMfaSetupTypes = [...?_allowedMfaTypes]..remove(MfaType.sms);
-      if (allowedMfaSetupTypes.length == 1 &&
-          allowedMfaSetupTypes.first == MfaType.totp &&
-          _totpSetupResult == null) {
-        _totpSetupResult = await associateSoftwareToken(accessToken: _session);
-      }
+      _totpSetupResult ??= await associateSoftwareToken();
     }
 
     // Query the state machine for a response given potential user input in

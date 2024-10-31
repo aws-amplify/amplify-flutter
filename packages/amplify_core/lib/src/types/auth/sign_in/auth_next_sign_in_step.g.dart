@@ -75,14 +75,9 @@ Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) {
 const _$AuthSignInStepEnumMap = {
   AuthSignInStep.continueSignInWithMfaSelection:
       'continueSignInWithMfaSelection',
-  AuthSignInStep.continueSignInWithMfaSetupSelection:
-      'continueSignInWithMfaSetupSelection',
   AuthSignInStep.continueSignInWithTotpSetup: 'continueSignInWithTotpSetup',
-  AuthSignInStep.continueSignInWithEmailMfaSetup:
-      'continueSignInWithEmailMfaSetup',
   AuthSignInStep.confirmSignInWithSmsMfaCode: 'confirmSignInWithSmsMfaCode',
   AuthSignInStep.confirmSignInWithTotpMfaCode: 'confirmSignInWithTotpMfaCode',
-  AuthSignInStep.confirmSignInWithOtpCode: 'confirmSignInWithOtpCode',
   AuthSignInStep.confirmSignInWithNewPassword: 'confirmSignInWithNewPassword',
   AuthSignInStep.confirmSignInWithCustomChallenge:
       'confirmSignInWithCustomChallenge',
@@ -94,5 +89,4 @@ const _$AuthSignInStepEnumMap = {
 const _$MfaTypeEnumMap = {
   MfaType.sms: 'SMS',
   MfaType.totp: 'TOTP',
-  MfaType.email: 'EMAIL',
 };
