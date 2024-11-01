@@ -142,7 +142,9 @@ void main() {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(publicPath),
             data: StorageDataPayload.bytes(bytesData),
-            bucket: secondaryBucket,
+            options: StorageUploadDataOptions(
+              bucket: secondaryBucket,
+            ),
           ).result;
 
           final downloadResult = await Amplify.Storage.downloadData(
