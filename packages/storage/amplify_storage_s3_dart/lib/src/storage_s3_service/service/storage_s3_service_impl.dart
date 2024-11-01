@@ -490,6 +490,8 @@ class StorageS3Service {
     final objectIdentifiersToRemove =
         resolvedPaths.map((path) => s3.ObjectIdentifier(key: path)).toList();
 
+    final s3ClientInfo = getS3ClientInfo(storageBucket: options.bucket);
+
     final removedItems = <S3Item>[];
     final removedErrors = <s3.Error>[];
 
@@ -502,7 +504,7 @@ class StorageS3Service {
       );
       final request = s3.DeleteObjectsRequest.build((builder) {
         builder
-          ..bucket = _storageOutputs.bucketName
+          ..bucket = s3ClientInfo.bucketName
           // force to use sha256 instead of md5
           ..checksumAlgorithm = s3.ChecksumAlgorithm.sha256
           ..delete = s3.Delete.build((builder) {
@@ -510,7 +512,7 @@ class StorageS3Service {
           }).toBuilder();
       });
       try {
-        final output = await _defaultS3Client.deleteObjects(request).result;
+        final output = await s3ClientInfo.client.deleteObjects(request).result;
         removedItems.addAll(
           output.deleted?.toList().map(
                     (removedObject) => S3Item.fromS3Object(
