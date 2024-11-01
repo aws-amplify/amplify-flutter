@@ -112,14 +112,18 @@ void main() {
         await Amplify.Storage.uploadData(
           data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(path),
-          options: const StorageUploadDataOptions(metadata: metadata),
-          bucket: mainBucket,
+          options: StorageUploadDataOptions(
+            metadata: metadata,
+            bucket: mainBucket,
+          ),
         ).result;
         await Amplify.Storage.uploadData(
           data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(path),
-          options: const StorageUploadDataOptions(metadata: metadata),
-          bucket: secondaryBucket,
+          options: StorageUploadDataOptions(
+            metadata: metadata,
+            bucket: secondaryBucket,
+          ),
         ).result;
       });
 
@@ -156,8 +160,10 @@ void main() {
         await Amplify.Storage.uploadData(
           data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(expectedResolvedPath),
-          options: const StorageUploadDataOptions(metadata: metadata),
-          bucket: secondaryBucket,
+          options: StorageUploadDataOptions(
+            metadata: metadata,
+            bucket: secondaryBucket,
+          ),
         ).result;
         final result = await Amplify.Storage.getProperties(
           path: StoragePath.fromIdentityId(
