@@ -329,9 +329,8 @@ class StorageS3Service {
     void Function(S3TransferProgress)? onProgress,
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
-    StorageBucket? bucket,
   }) {
-    final s3ClientInfo = getS3ClientInfo(storageBucket: bucket);
+    final s3ClientInfo = getS3ClientInfo(storageBucket: options.bucket);
     final uploadDataTask = S3UploadTask.fromDataPayload(
       dataPayload,
       s3Client: s3ClientInfo.client,

@@ -252,6 +252,59 @@ void main() {
         });
       });
 
+      group('multi-bucket', () {
+        final mainBucket =
+            StorageBucket.fromOutputs('Storage Integ Test main bucket');
+        final secondaryBucket = StorageBucket.fromOutputs(
+          'Storage Integ Test secondary bucket',
+        );
+
+        testWidgets('uploads to multiple buckets', (_) async {
+          final path = 'public/multi-bucket-upload-data-${uuid()}';
+          final storagePath = StoragePath.fromString(path);
+          final data = 'multi bucket upload data byte'.codeUnits;
+          addTearDownMultiBucket(
+            storagePath,
+            [mainBucket, secondaryBucket],
+          );
+          //  main bucket
+          final mainResult = await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes(data),
+            path: storagePath,
+            options: StorageUploadDataOptions(
+              bucket: mainBucket,
+            ),
+          ).result;
+          expect(mainResult.uploadedItem.path, path);
+
+          final downloadMainResult = await Amplify.Storage.downloadData(
+            path: storagePath,
+            options: StorageDownloadDataOptions(
+              bucket: mainBucket,
+            ),
+          ).result;
+          expect(downloadMainResult.bytes, data);
+
+          // secondary bucket
+          final secondaryResult = await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes(data),
+            path: storagePath,
+            options: StorageUploadDataOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+          expect(secondaryResult.uploadedItem.path, path);
+
+          final downloadSecondaryResult = await Amplify.Storage.downloadData(
+            path: storagePath,
+            options: StorageDownloadDataOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+          expect(downloadSecondaryResult.bytes, data);
+        });
+      });
+
       group('upload progress', () {
         testWidgets('reports progress for byte data', (_) async {
           final path = 'public/upload-data-progress-bytes-${uuid()}';
