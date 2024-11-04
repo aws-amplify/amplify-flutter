@@ -31,9 +31,6 @@ class StorageListOptions
   /// Optionally specify which bucket to retrieve
   final StorageBucket? bucket;
 
-  /// an optional bucket to specify which bucket to return the list for
-  final StorageBucket? bucket;
-
   @override
   List<Object?> get props => [pageSize, nextToken, pluginOptions, bucket];
 

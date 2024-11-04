@@ -39,7 +39,9 @@ void main() {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(uploadedPaths[pathIndex]),
             data: StorageDataPayload.bytes('test content'.codeUnits),
-            bucket: mainBucket,
+            options: StorageUploadDataOptions(
+              bucket: mainBucket,
+            ),
           ).result;
         }
         for (var pathIndex = uploadedPaths.length ~/ 2;
@@ -48,7 +50,9 @@ void main() {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(uploadedPaths[pathIndex]),
             data: StorageDataPayload.bytes('test content'.codeUnits),
-            bucket: secondaryBucket,
+            options: StorageUploadDataOptions(
+              bucket: secondaryBucket,
+            ),
           ).result;
         }
         for (final path in uploadedPaths) {
