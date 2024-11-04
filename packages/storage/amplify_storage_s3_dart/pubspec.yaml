@@ -9,8 +9,8 @@ environment:
   sdk: ^3.3.0
 
 dependencies:
-  amplify_core: ">=2.4.1 <2.5.0"
-  amplify_db_common_dart: ">=0.4.6 <0.5.0"
+  amplify_core: ^2.4.1
+  amplify_db_common_dart: ^0.4.6
   async: ^2.10.0
   aws_common: ">=0.7.3 <0.8.0"
   aws_signature_v4: ">=0.6.3 <0.7.0"
@@ -28,7 +28,7 @@ dev_dependencies:
   amplify_lints: ">=3.1.0 <3.2.0"
   build_runner: ^2.4.9
   build_verify: ^3.0.0
-  built_value_generator: 8.8.1
+  built_value_generator: 8.9.2
   drift_dev: ">=2.18.0 <2.19.0"
   json_serializable: 6.8.0
   mocktail: ^1.0.0
