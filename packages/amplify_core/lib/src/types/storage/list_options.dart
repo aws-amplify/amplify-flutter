@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_core.storage.list_options}
 /// Configurable options for `Amplify.Storage.list`.
@@ -15,6 +15,7 @@ class StorageListOptions
   const StorageListOptions({
     this.pageSize = 1000,
     this.nextToken,
+    this.bucket,
     this.pluginOptions,
   });
 
@@ -27,8 +28,11 @@ class StorageListOptions
   /// {@macro amplify_core.storage.list_plugin_options}
   final StorageListPluginOptions? pluginOptions;
 
+  /// Optionally specify which bucket to retrieve
+  final StorageBucket? bucket;
+
   @override
-  List<Object?> get props => [pageSize, nextToken, pluginOptions];
+  List<Object?> get props => [pageSize, nextToken, pluginOptions, bucket];
 
   @override
   String get runtimeTypeName => 'StorageListOptions';
@@ -37,6 +41,7 @@ class StorageListOptions
   Map<String, Object?> toJson() => {
         'pageSize': pageSize,
         'nextToken': nextToken,
+        'bucket': bucket,
         'pluginOptions': pluginOptions?.toJson(),
       };
 }
