@@ -19,7 +19,6 @@ class StorageOutputs
     this.buckets,
   });
 
-
   factory StorageOutputs.fromJson(Map<String, Object?> json) =>
       _$StorageOutputsFromJson(json);
 
