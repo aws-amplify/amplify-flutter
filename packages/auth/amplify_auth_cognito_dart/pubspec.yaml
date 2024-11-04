@@ -35,7 +35,7 @@ dependencies:
   stream_transform: ^2.0.0
   uuid: ">=3.0.6 <5.0.0"
   win32: ">=4.1.2 <6.0.0"
-  win32_registry: ^1.1.0
+  win32_registry: ">=1.1.0 <3.0.0"
   worker_bee: ">=0.3.3 <0.4.0"
 
 dev_dependencies:
