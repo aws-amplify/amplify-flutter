@@ -1118,6 +1118,9 @@ void main() {
           () async {
         const testOptions = StorageRemoveManyOptions(
           pluginOptions: S3RemoveManyPluginOptions(),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(
