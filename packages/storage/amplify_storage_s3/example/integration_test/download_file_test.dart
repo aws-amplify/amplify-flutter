@@ -355,5 +355,219 @@ void main() {
         },
       );
     });
+    group('multibucket config', () {
+      final secondaryBucket =
+          StorageBucket.fromOutputs('Storage Integ Test secondary bucket');
+      setUpAll(() async {
+        await configure(amplifyEnvironments['main']!);
+        await Amplify.Storage.uploadData(
+          data: StorageDataPayload.bytes(data),
+          path: StoragePath.fromString(publicPath),
+          options: StorageUploadDataOptions(bucket: secondaryBucket),
+        ).result;
+
+        userIdentityId = await signInNewUser();
+        identityPath = 'private/$userIdentityId/$name';
+
+        await Amplify.Storage.uploadData(
+          data: StorageDataPayload.bytes(data),
+          path: StoragePath.fromIdentityId(
+            (identityId) => 'private/$identityId/$name',
+          ),
+          options: StorageUploadDataOptions(bucket: secondaryBucket),
+        ).result;
+
+        await Amplify.Storage.uploadData(
+          data: StorageDataPayload.bytes(data),
+          path: StoragePath.fromString(metadataFilePath),
+          options: StorageUploadDataOptions(
+            metadata: metadata,
+            bucket: secondaryBucket,
+          ),
+        ).result;
+
+        addTearDownPaths(
+          [
+            StoragePath.fromString(publicPath),
+            StoragePath.fromString(metadataFilePath),
+            StoragePath.fromString(identityPath),
+          ],
+        );
+      });
+
+      group('for file type', () {
+        testWidgets('to file', (_) async {
+          final downloadFilePath = '$directory/downloaded-file.txt';
+
+          final result = await Amplify.Storage.downloadFile(
+            path: StoragePath.fromString(publicPath),
+            localFile: AWSFile.fromPath(downloadFilePath),
+            options: StorageDownloadFileOptions(bucket: secondaryBucket),
+          ).result;
+
+          // Web browsers do not grant access to read arbitrary files
+          if (!kIsWeb) {
+            final downloadedFile = await readFile(path: downloadFilePath);
+            expect(downloadedFile, data);
+          }
+
+          expect(result.localFile.path, downloadFilePath);
+          expect(result.downloadedItem.path, publicPath);
+        });
+      });
+
+      testWidgets('from identity ID', (_) async {
+        final downloadFilePath = '$directory/downloaded-file.txt';
+        final result = await Amplify.Storage.downloadFile(
+          path: StoragePath.fromIdentityId(
+            (identityId) => 'private/$identityId/$name',
+          ),
+          localFile: AWSFile.fromPath(downloadFilePath),
+          options: StorageDownloadFileOptions(bucket: secondaryBucket),
+        ).result;
+
+        if (!kIsWeb) {
+          final downloadedFile = await readFile(path: downloadFilePath);
+          expect(downloadedFile, data);
+        }
+        expect(result.localFile.path, downloadFilePath);
+        expect(result.downloadedItem.path, identityPath);
+      });
+
+      group('with options', () {
+        testWidgets('useAccelerateEndpoint', (_) async {
+          final downloadFilePath = '$directory/downloaded-file.txt';
+
+          final result = await Amplify.Storage.downloadFile(
+            path: StoragePath.fromString(publicPath),
+            options: StorageDownloadFileOptions(
+              pluginOptions: const S3DownloadFilePluginOptions(
+                useAccelerateEndpoint: true,
+              ),
+              bucket: secondaryBucket,
+            ),
+            localFile: AWSFile.fromPath(downloadFilePath),
+          ).result;
+
+          if (!kIsWeb) {
+            final downloadedFile = await readFile(path: downloadFilePath);
+            expect(downloadedFile, data);
+          }
+          expect(result.localFile.path, downloadFilePath);
+          expect(result.downloadedItem.path, publicPath);
+        });
+
+        testWidgets('getProperties', (_) async {
+          final downloadFilePath = '$directory/downloaded-file.txt';
+          final downloadResult = await Amplify.Storage.downloadFile(
+            path: StoragePath.fromString(metadataFilePath),
+            options: StorageDownloadFileOptions(
+              pluginOptions: const S3DownloadFilePluginOptions(
+                getProperties: true,
+              ),
+              bucket: secondaryBucket,
+            ),
+            localFile: AWSFile.fromPath(downloadFilePath),
+          ).result;
+
+          if (!kIsWeb) {
+            final downloadedFile = await readFile(path: downloadFilePath);
+            expect(downloadedFile, data);
+          }
+          expect(downloadResult.localFile.path, downloadFilePath);
+          expect(downloadResult.downloadedItem.path, metadataFilePath);
+        });
+
+        testWidgets('unauthorized path', (_) async {
+          final downloadFilePath = '$directory/downloaded-file.txt';
+
+          await expectLater(
+            () => Amplify.Storage.downloadFile(
+              path: const StoragePath.fromString('unauthorized/path'),
+              localFile: AWSFile.fromPath(downloadFilePath),
+              options: StorageDownloadFileOptions(bucket: secondaryBucket),
+            ).result,
+            throwsA(isA<StorageAccessDeniedException>()),
+          );
+        });
+      });
+
+      group(
+        'download progress',
+        () {
+          testWidgets('reports progress', skip: kIsWeb, (_) async {
+            final downloadFilePath = '$directory/downloaded-file.txt';
+            var fractionCompleted = 0.0;
+            var totalBytes = 0;
+            var transferredBytes = 0;
+
+            await Amplify.Storage.downloadFile(
+              path: StoragePath.fromString(publicPath),
+              localFile: AWSFile.fromPath(downloadFilePath),
+              onProgress: (StorageTransferProgress progress) {
+                fractionCompleted = progress.fractionCompleted;
+                totalBytes = progress.totalBytes;
+                transferredBytes = progress.transferredBytes;
+              },
+              options: StorageDownloadFileOptions(bucket: secondaryBucket),
+            ).result;
+            expect(fractionCompleted, 1.0);
+            expect(totalBytes, data.length);
+            expect(transferredBytes, data.length);
+          });
+        },
+        // TODO(Jordan-Nelson): Determine why these are failing on web
+        skip: kIsWeb,
+      );
+
+      group(
+        'pause, resume, cancel',
+        () {
+          const size = 1024 * 1024 * 6;
+          const chars = 'qwertyuiopasdfghjklzxcvbnm';
+          final content = List.generate(size, (i) => chars[i % 25]).join();
+          final fileId = uuid();
+          final path = 'public/download-file-pause-$fileId';
+          setUpAll(() async {
+            addTearDownPath(StoragePath.fromString(path));
+            await Amplify.Storage.uploadData(
+              data: StorageDataPayload.string(content),
+              path: StoragePath.fromString(path),
+              options: StorageUploadDataOptions(bucket: secondaryBucket),
+            ).result;
+          });
+          testWidgets('can pause', (_) async {
+            final filePath = '$directory/downloaded-file.txt';
+            final operation = Amplify.Storage.downloadFile(
+              localFile: AWSFile.fromPath(filePath),
+              path: StoragePath.fromString(path),
+              options: StorageDownloadFileOptions(bucket: secondaryBucket),
+            );
+            await operation.pause();
+            unawaited(
+              operation.result.then(
+                (value) => fail('should not complete after pause'),
+              ),
+            );
+            await Future<void>.delayed(const Duration(seconds: 15));
+          });
+
+          testWidgets('can resume', (_) async {
+            final filePath = '$directory/downloaded-file.txt';
+            final operation = Amplify.Storage.downloadFile(
+              localFile: AWSFile.fromPath(filePath),
+              path: StoragePath.fromString(path),
+              options: StorageDownloadFileOptions(bucket: secondaryBucket),
+            );
+            await operation.pause();
+            await operation.resume();
+            final result = await operation.result;
+            expect(result.downloadedItem.path, path);
+          });
+        },
+        // TODO(Jordan-Nelson): Determine why these are failing on web
+        skip: kIsWeb,
+      );
+    });
   });
 }
