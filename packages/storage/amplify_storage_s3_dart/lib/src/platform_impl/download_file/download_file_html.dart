@@ -40,7 +40,8 @@ S3DownloadFileOperation downloadFile({
     cancel: noOp,
   );
 }
-// TODO: add bucket option to function once getURL update has been implemented
+
+// TODO(ekjotm): add bucket option to function once getURL update has been implemented
 Future<S3DownloadFileResult> _downloadFromUrl({
   required StoragePath path,
   required AWSFile localFile,
