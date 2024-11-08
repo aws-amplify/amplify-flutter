@@ -222,9 +222,10 @@ class StorageS3Service {
   }) async {
     final s3PluginOptions = options.pluginOptions as S3GetUrlPluginOptions? ??
         const S3GetUrlPluginOptions();
+    final s3ClientInfo = getS3ClientInfo(storageBucket: options.bucket);
 
     if (s3PluginOptions.useAccelerateEndpoint &&
-        _defaultS3ClientConfig.usePathStyle) {
+        s3ClientInfo.config.usePathStyle) {
       throw s3_exception.accelerateEndpointUnusable;
     }
 
@@ -234,20 +235,20 @@ class StorageS3Service {
       // the `getProperties` API (i.e. HeadObject)
       await getProperties(
         path: path,
-        options: const StorageGetPropertiesOptions(),
+        options: StorageGetPropertiesOptions(bucket: options.bucket),
       );
     }
 
     var resolvedPath = await _pathResolver.resolvePath(path: path);
     var host =
-        '${_storageOutputs.bucketName}.${_getS3EndpointHost(region: _storageOutputs.awsRegion)}';
-    if (_defaultS3ClientConfig.usePathStyle) {
-      host = host.replaceFirst('${_storageOutputs.bucketName}.', '');
-      resolvedPath = '${_storageOutputs.bucketName}/$resolvedPath';
+        '${s3ClientInfo.bucketName}.${_getS3EndpointHost(region: s3ClientInfo.awsRegion)}';
+    if (s3ClientInfo.config.usePathStyle) {
+      host = host.replaceFirst('${s3ClientInfo.bucketName}.', '');
+      resolvedPath = '${s3ClientInfo.bucketName}/$resolvedPath';
     } else if (s3PluginOptions.useAccelerateEndpoint) {
       // https: //docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration-getting-started.html
       host = host
-          .replaceFirst(RegExp('${_storageOutputs.awsRegion}\\.'), '')
+          .replaceFirst(RegExp('${s3ClientInfo.awsRegion}\\.'), '')
           .replaceFirst(RegExp(r'\.s3\.'), '.s3-accelerate.');
     }
 
@@ -263,7 +264,7 @@ class StorageS3Service {
           credentialsProvider: _credentialsProvider,
         );
     final signerScope = sigv4.AWSCredentialScope(
-      region: _storageOutputs.awsRegion,
+      region: s3ClientInfo.awsRegion,
       service: AWSService.s3,
     );
 

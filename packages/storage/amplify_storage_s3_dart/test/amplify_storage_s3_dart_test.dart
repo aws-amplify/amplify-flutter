@@ -348,6 +348,9 @@ void main() {
             expiresIn: Duration(minutes: 10),
             useAccelerateEndpoint: true,
           ),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(
@@ -418,9 +421,6 @@ void main() {
           () async {
         const defaultOptions = StorageDownloadDataOptions(
           pluginOptions: S3DownloadDataPluginOptions(),
-          bucket: StorageBucket.fromBucketInfo(
-            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
-          ),
         );
 
         when(
@@ -438,7 +438,6 @@ void main() {
 
         downloadDataOperation = storageS3Plugin.downloadData(
           path: const StoragePath.fromString('public/$testKey'),
-          options: defaultOptions,
         );
 
         final capturedOptions = verify(
@@ -470,6 +469,9 @@ void main() {
           pluginOptions: S3DownloadDataPluginOptions(
             useAccelerateEndpoint: true,
             getProperties: true,
+          ),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
           ),
         );
 
@@ -737,9 +739,6 @@ void main() {
           () async {
         const defaultOptions = StorageUploadFileOptions(
           pluginOptions: S3UploadFilePluginOptions(),
-          bucket: StorageBucket.fromBucketInfo(
-            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
-          ),
         );
 
         when(
@@ -758,7 +757,6 @@ void main() {
         uploadFileOperation = storageS3Plugin.uploadFile(
           path: testPath,
           localFile: testLocalFile,
-          options: defaultOptions,
         );
 
         final capturedParams = verify(
@@ -797,6 +795,9 @@ void main() {
           pluginOptions: S3UploadFilePluginOptions(
             getProperties: true,
             useAccelerateEndpoint: true,
+          ),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
           ),
         );
 
@@ -984,9 +985,6 @@ void main() {
           () async {
         const defaultOptions = StorageRemoveOptions(
           pluginOptions: S3RemovePluginOptions(),
-          bucket: StorageBucket.fromBucketInfo(
-            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
-          ),
         );
         when(
           () => storageS3Service.remove(
@@ -1024,6 +1022,9 @@ void main() {
       test('should forward options to StorageS3Service.remove() API', () async {
         const testOptions = StorageRemoveOptions(
           pluginOptions: S3RemovePluginOptions(),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(
