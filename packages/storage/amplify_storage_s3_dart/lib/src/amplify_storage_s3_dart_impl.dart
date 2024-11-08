@@ -258,7 +258,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3DownloadFilePluginOptions(),
     );
-    final s3options = StorageDownloadFileOptions(
+    final options = StorageDownloadFileOptions(
       pluginOptions: s3PluginOptions,
       bucket: options?.bucket,
     );
