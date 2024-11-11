@@ -41,7 +41,6 @@ S3DownloadFileOperation downloadFile({
   );
 }
 
-// TODO(ekjotm): add bucket option to function once getURL update has been implemented
 Future<S3DownloadFileResult> _downloadFromUrl({
   required StoragePath path,
   required AWSFile localFile,
@@ -72,6 +71,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
       pluginOptions: S3GetUrlPluginOptions(
         useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
       ),
+      bucket: options.bucket,
     ),
   ))
       .url;
