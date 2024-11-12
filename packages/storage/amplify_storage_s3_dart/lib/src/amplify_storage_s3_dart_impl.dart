@@ -260,6 +260,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
     options = StorageDownloadFileOptions(
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
     return download_file_impl.downloadFile(
       path: path,
