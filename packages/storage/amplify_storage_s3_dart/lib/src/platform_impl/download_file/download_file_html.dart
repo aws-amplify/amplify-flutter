@@ -58,7 +58,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   // operation.
   final downloadedItem = (await storageS3Service.getProperties(
     path: path,
-    options: const StorageGetPropertiesOptions(),
+    options: StorageGetPropertiesOptions(bucket: options.bucket),
   ))
       .storageItem;
 
@@ -71,6 +71,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
       pluginOptions: S3GetUrlPluginOptions(
         useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
       ),
+      bucket: options.bucket,
     ),
   ))
       .url;
