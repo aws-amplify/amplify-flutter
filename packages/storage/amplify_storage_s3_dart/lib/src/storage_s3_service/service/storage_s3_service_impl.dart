@@ -412,8 +412,10 @@ class StorageS3Service {
   }) async {
     final s3PluginOptions = options.pluginOptions as S3CopyPluginOptions? ??
         const S3CopyPluginOptions();
-    final s3ClientInfoSource = getS3ClientInfo(storageBucket: options.buckets?.source);
-    final s3ClientInfoDestination = getS3ClientInfo(storageBucket: options.buckets?.destination);
+    final s3ClientInfoSource =
+        getS3ClientInfo(storageBucket: options.buckets?.source);
+    final s3ClientInfoDestination =
+        getS3ClientInfo(storageBucket: options.buckets?.destination);
 
     final [sourcePath, destinationPath] = await _pathResolver.resolvePaths(
       paths: [source, destination],
