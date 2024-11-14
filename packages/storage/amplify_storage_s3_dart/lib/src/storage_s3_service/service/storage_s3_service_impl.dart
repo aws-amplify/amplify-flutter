@@ -412,6 +412,8 @@ class StorageS3Service {
   }) async {
     final s3PluginOptions = options.pluginOptions as S3CopyPluginOptions? ??
         const S3CopyPluginOptions();
+    final s3ClientInfoSource = getS3ClientInfo(storageBucket: options.buckets?.source);
+    final s3ClientInfoDestination = getS3ClientInfo(storageBucket: options.buckets?.destination);
 
     final [sourcePath, destinationPath] = await _pathResolver.resolvePaths(
       paths: [source, destination],
@@ -419,8 +421,8 @@ class StorageS3Service {
 
     final copyRequest = s3.CopyObjectRequest.build((builder) {
       builder
-        ..bucket = _storageOutputs.bucketName
-        ..copySource = '${_storageOutputs.bucketName}/$sourcePath'
+        ..bucket = s3ClientInfoDestination.bucketName
+        ..copySource = '${s3ClientInfoSource.bucketName}/$sourcePath'
         ..key = destinationPath
         ..metadataDirective = s3.MetadataDirective.copy;
     });
