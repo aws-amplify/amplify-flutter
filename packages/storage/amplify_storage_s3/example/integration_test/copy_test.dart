@@ -140,7 +140,7 @@ void main() {
     });
 
     group('multi bucket', () {
-      final bucketData = 'copy data'.codeUnits;
+      final data = 'copy data'.codeUnits;
       final bucket1 = StorageBucket.fromOutputs(
         'Storage Integ Test main bucket',
       );
@@ -158,18 +158,19 @@ void main() {
           StoragePath.fromString(bucket2PathDestination);
 
       setUp(() async {
+        await configure(amplifyEnvironments['main']!);
         addTearDownPath(storageBucket1PathSource);
         addTearDownPath(storageBucket2PathSource);
         addTearDownPath(storageBucket2PathDestination);
         await Amplify.Storage.uploadData(
-          data: StorageDataPayload.bytes(bucketData),
+          data: StorageDataPayload.bytes(data),
           path: storageBucket1PathSource,
           options: StorageUploadDataOptions(
             bucket: bucket1,
           ),
         ).result;
         await Amplify.Storage.uploadData(
-          data: StorageDataPayload.bytes(bucketData),
+          data: StorageDataPayload.bytes(data),
           path: storageBucket2PathSource,
           options: StorageUploadDataOptions(
             bucket: bucket2,
@@ -178,7 +179,7 @@ void main() {
       });
 
       testWidgets('copy to a different bucket', (_) async {
-        final result = Amplify.Storage.copy(
+        final result = await Amplify.Storage.copy(
           source: storageBucket1PathSource,
           destination: storageBucket2PathDestination,
           options: StorageCopyOptions(
@@ -188,7 +189,7 @@ void main() {
             ),
           ),
         ).result;
-        expect(await result, returnsNormally);
+        expect(result.copiedItem.path, bucket2PathDestination);
 
         final downloadResult = await Amplify.Storage.downloadData(
           path: storageBucket2PathDestination,
@@ -196,12 +197,12 @@ void main() {
         ).result;
         expect(
           downloadResult.bytes,
-          bucketData,
+          data,
         );
       });
 
       testWidgets('copy to the same bucket', (_) async {
-        final result = Amplify.Storage.copy(
+        final result = await Amplify.Storage.copy(
           source: storageBucket2PathSource,
           destination: storageBucket2PathDestination,
           options: StorageCopyOptions(
@@ -210,7 +211,7 @@ void main() {
             ),
           ),
         ).result;
-        expect(await result, returnsNormally);
+        expect(result.copiedItem.path, bucket2PathDestination);
 
         final downloadResult = await Amplify.Storage.downloadData(
           path: storageBucket2PathDestination,
@@ -218,7 +219,7 @@ void main() {
         ).result;
         expect(
           downloadResult.bytes,
-          bucketData,
+          data,
         );
       });
     });
