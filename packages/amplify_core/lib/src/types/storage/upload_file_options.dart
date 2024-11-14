@@ -37,7 +37,7 @@ class StorageUploadFileOptions
   Map<String, Object?> toJson() => {
         'metadata': metadata,
         'pluginOptions': pluginOptions?.toJson(),
-        'bucket': bucket,
+        'bucket': bucket?.toJson(),
       };
 }
 

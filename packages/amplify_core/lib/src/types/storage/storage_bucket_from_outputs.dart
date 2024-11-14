@@ -40,4 +40,9 @@ class StorageBucketFromOutputs implements StorageBucket {
       region: bucket.awsRegion,
     );
   }
+
+  @override
+  Map<String, Object?> toJson() => {
+        '_name': _name,
+      };
 }
