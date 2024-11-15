@@ -430,7 +430,7 @@ class StorageS3Service {
     });
 
     try {
-      await _defaultS3Client.copyObject(copyRequest).result;
+      await s3ClientInfoDestination.client.copyObject(copyRequest).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.copyObject may return 403 or 404 error
       throw error.toStorageException();
@@ -442,8 +442,8 @@ class StorageS3Service {
       copiedItem: s3PluginOptions.getProperties
           ? S3Item.fromHeadObjectOutput(
               await headObject(
-                s3client: _defaultS3Client,
-                bucket: _storageOutputs.bucketName,
+                s3client: s3ClientInfoDestination.client,
+                bucket: s3ClientInfoDestination.bucketName,
                 key: destinationPath,
               ),
               path: destinationPath,
