@@ -1,10 +1,10 @@
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
-import 'package:amplify_core/src/types/storage/bucket_info.dart';
 import 'package:amplify_core/src/types/storage/storage_bucket_from_outputs.dart';
 import 'package:meta/meta.dart';
 
 /// Presents a storage bucket.
-class StorageBucket {
+class StorageBucket with AWSSerializable<Map<String, Object?>> {
   /// Creates a [StorageBucket] from [BucketInfo].
   const StorageBucket.fromBucketInfo(this._info);
 
@@ -16,4 +16,9 @@ class StorageBucket {
 
   @internal
   BucketInfo resolveBucketInfo(StorageOutputs? storageOutputs) => _info;
+
+  @override
+  Map<String, Object?> toJson() => {
+        '_info': _info.toJson(),
+      };
 }

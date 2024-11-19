@@ -364,6 +364,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final s3Options = StorageCopyOptions(
       pluginOptions: s3PluginOptions,
+      buckets: options?.buckets,
     );
 
     return S3CopyOperation(

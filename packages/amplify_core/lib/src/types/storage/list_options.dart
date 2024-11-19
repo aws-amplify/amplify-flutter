@@ -41,7 +41,7 @@ class StorageListOptions
   Map<String, Object?> toJson() => {
         'pageSize': pageSize,
         'nextToken': nextToken,
-        'bucket': bucket,
+        'bucket': bucket?.toJson(),
         'pluginOptions': pluginOptions?.toJson(),
       };
 }

@@ -12,6 +12,7 @@ export '../exception/amplify_exception.dart'
         NetworkException,
         UnknownException;
 export 'bucket_info.dart';
+export 'copy_buckets.dart';
 export 'copy_operation.dart';
 export 'copy_options.dart';
 export 'copy_request.dart';
