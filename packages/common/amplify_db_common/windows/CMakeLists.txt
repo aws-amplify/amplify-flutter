@@ -39,6 +39,9 @@ set(SQLITE3_AMPLIFY_TARGET_NAME sqlite3_amplify)
 
 if (NOT TARGET ${SQLITE3_AMPLIFY_TARGET_NAME})
   if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+    # cmake 3.24.0 added the `DOWNLOAD_EXTRACT_TIMESTAMP` and prints an ugly warning when
+    # the default is used, so override it to the recommended behavior.
+    # We can't really ask users to use a cmake that recent, so there's this if here.
     FetchContent_Declare(
       sqlite3
       URL https://sqlite.org/2023/sqlite-autoconf-3430000.tar.gz
@@ -83,7 +86,7 @@ if (NOT TARGET ${SQLITE3_AMPLIFY_TARGET_NAME})
   )
 endif()
 
-# Link the custom sqlite3 target to your plugin.
+# Link the custom sqlite3 target to the amplify plugin.
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${SQLITE3_AMPLIFY_TARGET_NAME})
 
 # List of absolute paths to libraries that should be bundled with the plugin.
