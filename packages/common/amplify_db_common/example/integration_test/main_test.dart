@@ -13,12 +13,21 @@ void main() {
     late AppDb db;
 
     setUp(() async {
-      db = AppDb(connect(name: 'app_test'));
+      try {
+        db = AppDb(connect(name: 'app_test'));
+        expect(db, isNotNull);
+      } catch (e) {
+        fail('Error during setup: $e');
+      }
     });
 
     tearDown(() async {
-      await db.delete(db.countTable).go();
-      await db.close();
+      try {
+        await db.delete(db.countTable).go();
+        await db.close();
+      } catch (e) {
+        fail('Error during teardown: $e');
+      }
     });
 
     testWidgets('can decrement', (_) async {

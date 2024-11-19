@@ -25,7 +25,12 @@ QueryExecutor connect({
   return DatabaseConnection.delayed(
     Future.sync(() async {
       final resolvedPath = await path;
-      final dbPath = p.join(resolvedPath!, 'com.amplify.$name.sqlite');
+      if (resolvedPath == null || !Directory(resolvedPath).existsSync()) {
+        throw ArgumentError('Invalid or non-existent path: $resolvedPath');
+      }
+
+      final dbPath = p.join(resolvedPath, 'com.amplify.$name.sqlite');
+      print('Spawning drift isolate with path: $dbPath');
 
       final receiveDriftIsolate = ReceivePort();
       await Isolate.spawn(
@@ -33,7 +38,21 @@ QueryExecutor connect({
         _IsolateStartRequest(receiveDriftIsolate.sendPort, dbPath),
       );
 
-      final driftIsolate = await receiveDriftIsolate.first as DriftIsolate;
+      final driftIsolateOrError = await receiveDriftIsolate.first;
+
+      if (driftIsolateOrError is IsolateSpawnException) {
+        throw Exception(
+          'Error in drift isolate: ${driftIsolateOrError.message}',
+        );
+      }
+
+      if (driftIsolateOrError is! DriftIsolate) {
+        throw Exception(
+          'Unexpected type received from isolate: ${driftIsolateOrError.runtimeType}',
+        );
+      }
+
+      final driftIsolate = driftIsolateOrError;
       return driftIsolate.connect();
     }),
   ).executor;
