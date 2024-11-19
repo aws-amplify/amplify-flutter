@@ -32,7 +32,7 @@ class StorageDownloadDataOptions
   @override
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
-        'bucket': bucket,
+        'bucket': bucket?.toJson(),
       };
 }
 
