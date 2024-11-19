@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/isolate.dart';
 import 'package:drift/native.dart';
@@ -30,7 +31,7 @@ QueryExecutor connect({
       }
 
       final dbPath = p.join(resolvedPath, 'com.amplify.$name.sqlite');
-      print('Spawning drift isolate with path: $dbPath');
+      safePrint('Spawning drift isolate with path: $dbPath');
 
       final receiveDriftIsolate = ReceivePort();
       await Isolate.spawn(
