@@ -5,7 +5,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/isolate.dart';
 import 'package:drift/native.dart';
@@ -26,12 +25,7 @@ QueryExecutor connect({
   return DatabaseConnection.delayed(
     Future.sync(() async {
       final resolvedPath = await path;
-      if (resolvedPath == null || !Directory(resolvedPath).existsSync()) {
-        throw ArgumentError('Invalid or non-existent path: $resolvedPath');
-      }
-
-      final dbPath = p.join(resolvedPath, 'com.amplify.$name.sqlite');
-      safePrint('Spawning drift isolate with path: $dbPath');
+      final dbPath = p.join(resolvedPath!, 'com.amplify.$name.sqlite');
 
       final receiveDriftIsolate = ReceivePort();
       await Isolate.spawn(
@@ -39,21 +33,7 @@ QueryExecutor connect({
         _IsolateStartRequest(receiveDriftIsolate.sendPort, dbPath),
       );
 
-      final driftIsolateOrError = await receiveDriftIsolate.first;
-
-      if (driftIsolateOrError is IsolateSpawnException) {
-        throw Exception(
-          'Error in drift isolate: ${driftIsolateOrError.message}',
-        );
-      }
-
-      if (driftIsolateOrError is! DriftIsolate) {
-        throw Exception(
-          'Unexpected type received from isolate: ${driftIsolateOrError.runtimeType}',
-        );
-      }
-
-      final driftIsolate = driftIsolateOrError;
+      final driftIsolate = await receiveDriftIsolate.first as DriftIsolate;
       return driftIsolate.connect();
     }),
   ).executor;
