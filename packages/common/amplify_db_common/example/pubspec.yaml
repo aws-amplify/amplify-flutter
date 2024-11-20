@@ -14,7 +14,7 @@ dependencies:
   # Unused in example app, rather included to validate
   # windows app will build when there is a downstream dependency on sqlite3
   # https://github.com/aws-amplify/amplify-flutter/issues/5477
-  # powersync: ^1.8.2
+  powersync: ^1.8.2
 
 dev_dependencies:
   amplify_lints: ^2.0.0
