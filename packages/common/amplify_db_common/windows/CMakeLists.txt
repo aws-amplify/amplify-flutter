@@ -32,65 +32,53 @@ target_include_directories(${PLUGIN_NAME} INTERFACE
   "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 
-include(FetchContent)
+# Option to disable internal sqlite3 definition
+option(USE_CUSTOM_SQLITE3 "Disable internal sqlite3 definition to allow downstream dependencies to define their own" OFF)
 
-# Add a custom namespace for the sqlite3 target to prevent naming collisions.
-set(SQLITE3_AMPLIFY_TARGET_NAME sqlite3_amplify)
-
-if (NOT TARGET ${SQLITE3_AMPLIFY_TARGET_NAME})
-  if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
-    # cmake 3.24.0 added the `DOWNLOAD_EXTRACT_TIMESTAMP` and prints an ugly warning when
-    # the default is used, so override it to the recommended behavior.
-    # We can't really ask users to use a cmake that recent, so there's this if here.
-    FetchContent_Declare(
-      sqlite3
-      URL https://sqlite.org/2023/sqlite-autoconf-3430000.tar.gz
-      DOWNLOAD_EXTRACT_TIMESTAMP NEW
-    )
-  else()
-    FetchContent_Declare(
-      sqlite3
-      URL https://sqlite.org/2023/sqlite-autoconf-3430000.tar.gz
+if (NOT USE_CUSTOM_SQLITE3)
+  # Define the sqlite3_amplify target
+  if (NOT TARGET sqlite3_amplify)
+    add_library(sqlite3_amplify SHARED "sqlite3_flutter.c")
+    
+    # Configure sqlite3 properties and definitions
+    target_include_directories(sqlite3_amplify PRIVATE "${sqlite3_SOURCE_DIR}")
+    target_compile_options(sqlite3_amplify PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-O2>" "/w")
+    target_compile_definitions(sqlite3_amplify PRIVATE
+      SQLITE_ENABLE_FTS5
+      SQLITE_ENABLE_RTREE
+      SQLITE_DQS=0
+      SQLITE_DEFAULT_MEMSTATUS=0
+      SQLITE_TEMP_STORE=2
+      SQLITE_MAX_EXPR_DEPTH=0
+      SQLITE_OMIT_AUTHORIZATION
+      SQLITE_OMIT_DECLTYPE
+      SQLITE_OMIT_DEPRECATED
+      SQLITE_OMIT_GET_TABLE
+      SQLITE_OMIT_LOAD_EXTENSION
+      SQLITE_OMIT_PROGRESS_CALLBACK
+      SQLITE_OMIT_SHARED_CACHE
+      SQLITE_OMIT_TCL_VARIABLE
+      SQLITE_OMIT_TRACE
+      SQLITE_USE_ALLOCA
+      SQLITE_UNTESTABLE
+      SQLITE_HAVE_ISNAN
+      SQLITE_HAVE_LOCALTIME_R
+      SQLITE_HAVE_LOCALTIME_S
     )
   endif()
 
-  FetchContent_MakeAvailable(sqlite3)
-
-  # Define the sqlite3 library under a custom name.
-  add_library(${SQLITE3_AMPLIFY_TARGET_NAME} SHARED "sqlite3_flutter.c")
-
-  target_include_directories(${SQLITE3_AMPLIFY_TARGET_NAME} PRIVATE "${sqlite3_SOURCE_DIR}")
-  target_compile_options(${SQLITE3_AMPLIFY_TARGET_NAME} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-O2>" "/w")
-  # Note: Keep in sync with https://github.com/simolus3/sqlite-native-libraries/blob/master/sqlite3-native-library/cpp/CMakeLists.txt
-  target_compile_definitions(${SQLITE3_AMPLIFY_TARGET_NAME} PRIVATE
-    SQLITE_ENABLE_FTS5
-    SQLITE_ENABLE_RTREE
-    SQLITE_DQS=0
-    SQLITE_DEFAULT_MEMSTATUS=0
-    SQLITE_TEMP_STORE=2
-    SQLITE_MAX_EXPR_DEPTH=0
-    SQLITE_OMIT_AUTHORIZATION
-    SQLITE_OMIT_DECLTYPE
-    SQLITE_OMIT_DEPRECATED
-    SQLITE_OMIT_GET_TABLE
-    SQLITE_OMIT_LOAD_EXTENSION
-    SQLITE_OMIT_PROGRESS_CALLBACK
-    SQLITE_OMIT_SHARED_CACHE
-    SQLITE_OMIT_TCL_VARIABLE
-    SQLITE_OMIT_TRACE
-    SQLITE_USE_ALLOCA
-    SQLITE_UNTESTABLE
-    SQLITE_HAVE_ISNAN
-    SQLITE_HAVE_LOCALTIME_R
-    SQLITE_HAVE_LOCALTIME_S
-  )
+  # Create a global alias for sqlite3
+  if (NOT TARGET sqlite3)
+    add_library(sqlite3 ALIAS sqlite3_amplify)
+  endif()
 endif()
 
-# Link the custom sqlite3 target to the amplify plugin.
-target_link_libraries(${PLUGIN_NAME} PRIVATE ${SQLITE3_AMPLIFY_TARGET_NAME})
+# Link your plugin to the custom sqlite3 target
+if (TARGET sqlite3_amplify)
+  target_link_libraries(${PLUGIN_NAME} PRIVATE sqlite3_amplify)
+endif()
 
-# List of absolute paths to libraries that should be bundled with the plugin.
-set(amplify_db_common_bundled_libraries
-  "$<TARGET_FILE:${SQLITE3_AMPLIFY_TARGET_NAME}>"
-  PARENT_SCOPE
-)
+# Add dependencies to ensure proper build order
+if (NOT USE_CUSTOM_SQLITE3 AND TARGET sqlite3_amplify)
+  add_dependencies(${PLUGIN_NAME} sqlite3_amplify)
+endif()
