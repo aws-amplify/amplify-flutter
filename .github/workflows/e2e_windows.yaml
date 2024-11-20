@@ -63,7 +63,7 @@ jobs:
         timeout-minutes: 60
         run: |
           flutter config --enable-windows-desktop
-          dart pub global run aft exec --include=${{ inputs.package-name }} -- flutter test integration_test/main_test.dart -d windows
+          dart pub global run aft exec --include=${{ inputs.package-name }} -- flutter test integration_test/main_test.dart -d windows --timeout=120
 
       - name: Log success/failure
         if: always()

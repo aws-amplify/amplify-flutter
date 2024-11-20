@@ -23,11 +23,13 @@ void main() {
     });
 
     testWidgets('can decrement', (_) async {
+      print('Running "can decrement" test');
       expect(await db.getLatestCount(), 0);
       await Future.wait<void>([
         for (var i = 0; i < 10; i++) db.decrementCount(),
       ]);
       expect(await db.getLatestCount(), -10);
+      print('"can decrement" test passed');
     });
 
     testWidgets('can increment', (_) async {
