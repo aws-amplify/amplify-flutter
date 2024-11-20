@@ -4,7 +4,7 @@ publish_to: "none"
 
 environment:
   flutter: ">=3.19.0"
-  sdk: ^3.4.0
+  sdk: ^3.3.0
 
 dependencies:
   amplify_db_common: ">=0.4.5 <0.5.0"
@@ -14,7 +14,7 @@ dependencies:
   # Unused in example app, rather included to validate
   # windows app will build when there is a downstream dependency on sqlite3
   # https://github.com/aws-amplify/amplify-flutter/issues/5477
-  powersync: ^1.8.2
+  powersync: 1.4.2
 
 dev_dependencies:
   amplify_lints: ^2.0.0
