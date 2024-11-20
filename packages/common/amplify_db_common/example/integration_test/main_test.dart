@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: avoid_print
+
 import 'package:amplify_db_common/amplify_db_common.dart';
 import 'package:amplify_db_common_example/db.dart';
 import 'package:flutter_test/flutter_test.dart';
