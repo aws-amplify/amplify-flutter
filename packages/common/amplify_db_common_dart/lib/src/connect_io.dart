@@ -33,16 +33,7 @@ QueryExecutor connect({
         _IsolateStartRequest(receiveDriftIsolate.sendPort, dbPath),
       );
 
-      final driftIsolateOrError = await receiveDriftIsolate.first;
-
-      if (driftIsolateOrError is Map &&
-          driftIsolateOrError.containsKey('error')) {
-        throw Exception(
-          'Error in isolate: ${driftIsolateOrError['message']}}',
-        );
-      }
-
-      final driftIsolate = driftIsolateOrError as DriftIsolate;
+      final driftIsolate = await receiveDriftIsolate.first as DriftIsolate;
       return driftIsolate.connect();
     }),
   ).executor;
@@ -56,15 +47,11 @@ class _IsolateStartRequest {
 }
 
 void _entrypointForDriftIsolate(_IsolateStartRequest request) {
-  try {
-    final databaseImpl = NativeDatabase(File(request.databasePath));
+  final databaseImpl = NativeDatabase(File(request.databasePath));
 
-    final driftServer = DriftIsolate.inCurrent(
-      () => DatabaseConnection(databaseImpl),
-    );
+  final driftServer = DriftIsolate.inCurrent(
+    () => DatabaseConnection(databaseImpl),
+  );
 
-    request.talkToMain.send(driftServer);
-  } on Object catch (e, stack) {
-    request.talkToMain.send({'error': e.toString(), 'stack': stack.toString()});
-  }
+  request.talkToMain.send(driftServer);
 }
