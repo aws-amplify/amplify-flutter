@@ -6,6 +6,9 @@ project(amplify_db_common_example LANGUAGES CXX)
 # the on-disk name of your application.
 set(BINARY_NAME "amplify_db_common_example")
 
+# Example for having SQLITE3 not bundled at build time due to another dep exposing it globally 
+# set(USE_CUSTOM_SQLITE3 ON)
+
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
 cmake_policy(SET CMP0063 NEW)
