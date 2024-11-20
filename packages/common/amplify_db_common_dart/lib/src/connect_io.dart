@@ -64,7 +64,7 @@ void _entrypointForDriftIsolate(_IsolateStartRequest request) {
     );
 
     request.talkToMain.send(driftServer);
-  } catch (e, stack) {
+  } on Object catch (e, stack) {
     request.talkToMain.send({'error': e.toString(), 'stack': stack.toString()});
   }
 }
