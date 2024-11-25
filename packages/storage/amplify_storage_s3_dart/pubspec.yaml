@@ -1,6 +1,6 @@
 name: amplify_storage_s3_dart
 description: A Dart-only implementation of the Amplify Storage plugin for S3.
-version: 0.4.6
+version: 0.4.7
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/storage/amplify_storage_s3_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
