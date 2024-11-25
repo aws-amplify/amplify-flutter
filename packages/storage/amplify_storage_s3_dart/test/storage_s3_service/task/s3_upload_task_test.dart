@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -1236,6 +1237,108 @@ void main() {
           throwsA(isA<StorageException>()),
         );
         expect(finalState, StorageTransferState.failure);
+      });
+
+      test('should handle async gaps when reading from Multipart file',
+          () async {
+        late StorageTransferState finalState;
+
+        //completeMultipartUploadSmithyOperation
+        final testCompleteMultipartUploadOutput =
+            s3.CompleteMultipartUploadOutput();
+        final completeMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CompleteMultipartUploadOutput>();
+        when(
+          () => completeMultipartUploadSmithyOperation.result,
+        ).thenAnswer(
+          (_) async => testCompleteMultipartUploadOutput,
+        );
+
+        //uploadPartSmithyOperation
+        final testUploadPartOutput = s3.UploadPartOutput(eTag: 'eTag-part-1');
+        final uploadPartSmithyOperation =
+            MockSmithyOperation<s3.UploadPartOutput>();
+        when(
+          () => uploadPartSmithyOperation.result,
+        ).thenAnswer(
+          (_) async => testUploadPartOutput,
+        );
+
+        //createMultipartUploadSmithyOperation
+        final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
+          uploadId: 'uploadId', // response should always contain valid uploadId
+        );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer(
+          (_) async => testCreateMultipartUploadOutput,
+        );
+
+        //s3Client
+        when(
+          () => s3Client.completeMultipartUpload(any()),
+        ).thenAnswer((_) => completeMultipartUploadSmithyOperation);
+        when(
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer(
+          (_) => uploadPartSmithyOperation,
+        );
+        when(
+          () => s3Client.createMultipartUpload(any()),
+        ).thenAnswer(
+          (_) => createMultipartUploadSmithyOperation,
+        );
+
+        //transferDatabase
+        when(
+          () => transferDatabase.insertTransferRecord(any<TransferRecord>()),
+        ).thenAnswer(
+          (_) async => '1',
+        );
+        when(
+          () => transferDatabase.deleteTransferRecords(any()),
+        ).thenAnswer(
+          (_) async => 1,
+        );
+
+        final bytes = List<int>.filled(
+          (32 * pow(2, 20)).toInt(),
+          0,
+        );
+        final mockFile = AWSFile.fromStream(
+          Stream.value(bytes),
+          size: bytes.length,
+          contentType: 'image/jpeg',
+        );
+
+        final uploadTask = S3UploadTask.fromAWSFile(
+          mockFile,
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          pathResolver: pathResolver,
+          bucket: testBucket,
+          path: const StoragePath.fromString(testKey),
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+          onProgress: (progress) {
+            finalState = progress.state;
+          },
+        );
+
+        unawaited(uploadTask.start());
+
+        await uploadTask.result;
+
+        expect(
+          finalState,
+          StorageTransferState.success,
+        );
       });
 
       test(

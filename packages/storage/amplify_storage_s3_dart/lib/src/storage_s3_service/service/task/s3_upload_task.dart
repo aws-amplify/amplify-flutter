@@ -547,11 +547,15 @@ class S3UploadTask {
     }
   }
 
+  bool _isNextBatchWaiting = false;
   Future<void> _startNextUploadPartsBatch({
     bool resumingFromPause = false,
   }) async {
     // await for previous batching to complete (if any)
+    if (_isNextBatchWaiting) return;
+    _isNextBatchWaiting = true;
     await _uploadPartBatchingCompleted;
+    _isNextBatchWaiting = false;
 
     if (_state != StorageTransferState.inProgress) {
       return;
