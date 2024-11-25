@@ -11,10 +11,11 @@ dependencies:
   drift: ">=2.18.0 <2.19.0"
   flutter:
     sdk: flutter
-  # Unused in example app, rather included to validate
-  # windows app will build when there is a downstream dependency on sqlite3
+  # Included to validate windows app will build when there is a downstream
+  # dependency on sqlite3. Also requires the USE_CUSTOM_SQLITE3=ON flag set 
+  # in the consuming App's CMakeLists.txt
   # https://github.com/aws-amplify/amplify-flutter/issues/5477
-  sqlite3: ">=2.0.0 <2.4.7" 
+  # powersync: 1.4.2
 
 dev_dependencies:
   amplify_lints: ^2.0.0
