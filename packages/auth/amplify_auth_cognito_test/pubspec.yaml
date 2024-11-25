@@ -20,7 +20,7 @@ dependencies:
   io: ^1.0.0
   json_rpc_2: ^3.0.0
   shelf: ^1.4.0
-  shelf_web_socket: ^1.0.0
+  shelf_web_socket: ^2.0.1
   smithy: any
   smithy_aws: any
   stream_channel: ^2.0.0
