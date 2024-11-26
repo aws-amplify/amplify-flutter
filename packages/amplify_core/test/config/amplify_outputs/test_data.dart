@@ -5,8 +5,8 @@
 
 // It uses json-schema-faker to generate a sample json from the Amplify GEN 2 client-config-schema.
 // Run below commands to regenerate a sample json.
-// curl https://raw.githubusercontent.com/aws-amplify/amplify-backend/main/packages/client-config/src/client-config-schema/schema_v1.json -o schema_v1.json
-// npx json-schema-faker -s schema_v1.json -o sample.json --alwaysFakeOptionals
+// curl https://raw.githubusercontent.com/aws-amplify/amplify-backend/main/packages/client-config/src/client-config-schema/schema_v1.3.json -o schema_v1.3.json
+// npx json-schema-faker -s schema_v1.3.json -o sample.json --alwaysFakeOptionals
 
 const amplifyoutputs = '''{
   "schema": "dolor nisi incididunt adipisicing",
@@ -99,24 +99,24 @@ const amplifyoutputs = '''{
     ]
   },
   "storage": {
-    "aws_region": "us-east-2",
-    "bucket_name": "amplifyTeamDrive-one-stora-testbucketgen2bucket0b8c-9ggcfqfunkjr",
+    "aws_region": "mollit culpa non dolore sint",
+    "bucket_name": "incididunt minim nulla",
     "buckets": [
-        {
-            "name": "amplifyTeamDrive-one",
-            "bucket_name": "amplifyTeamDrive-one-stora-testbucketgen2bucket0b8c-9ggcfqfunkjr",
-            "aws_region": "us-east-2"
-        },
-        {
-            "name": "amplifyTeamDrive-two",
-            "bucket_name": "amplifyTeamDrive-two-stora-testbucketgen2bucket0b8c-2",
-            "aws_region": "us-east-2"
-        },
-        {
-            "name": "amplifyTeamDrive-three",
-            "bucket_name": "amplifyTeamDrive-three-stora-testbucketgen2bucket0b8c-3",
-            "aws_region": "us-east-2"
-        }
+      {
+        "aws_region": "mollit culpa non dolore sint",
+        "bucket_name": "incididunt minim nulla",
+        "name": "ullamco consectetur dolore"
+      },
+      {
+        "aws_region": "Duis commodo",
+        "bucket_name": "sint",
+        "name": "ex non"
+      },
+      {
+        "aws_region": "enim cillum eiusmod",
+        "bucket_name": "proident ullamco deserunt",
+        "name": "minim elit"
+      }
     ]
 },
   "version": "1"
