@@ -50,7 +50,7 @@ jobs:
         uses: ./.github/composite_actions/install_dependencies
         with:
           channel: ${{ matrix.channel }}
-          flutter-version: "3.24.3"
+          flutter-version: "3.24.0"
 
       - name: Pub Upgrade
         run: aft exec --include=${{ inputs.package-name }} -- flutter pub upgrade
