@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PigeonLegacyDataProvider {
+class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PinpointLegacyDataProvider {
 
     private var context: Context? = null
     private var sharedPrefs: SharedPreferences? = null
@@ -19,11 +19,11 @@ class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PigeonLegacyDataPr
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         context = binding.applicationContext
-        Messages.PigeonLegacyDataProvider.setup(binding.binaryMessenger, this)
+        Messages.PinpointLegacyDataProvider.setup(binding.binaryMessenger, this)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        Messages.PigeonLegacyDataProvider.setup(binding.binaryMessenger, null)
+        Messages.PinpointLegacyDataProvider.setup(binding.binaryMessenger, null)
         context = null
     }
 
