@@ -6,7 +6,7 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/co
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.3.0
+  sdk: ^3.4.0
   flutter: ">=3.19.0"
 
 dependencies:

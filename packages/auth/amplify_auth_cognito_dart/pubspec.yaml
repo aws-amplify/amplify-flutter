@@ -6,7 +6,7 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/au
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.3.0
+  sdk: ^3.4.0
 
 dependencies:
   amplify_analytics_pinpoint_dart: ">=0.4.6 <0.5.0"
