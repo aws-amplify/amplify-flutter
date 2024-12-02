@@ -3,7 +3,7 @@ description: Demonstrates how to use the amplify_db_common plugin.
 publish_to: "none"
 
 environment:
-  flutter: ">=3.19.0"
+  flutter: ">=3.22.0"
   sdk: ^3.4.0
 
 dependencies:
