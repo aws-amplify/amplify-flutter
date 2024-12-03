@@ -84,7 +84,7 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.8.0
 
 NOTE: This version has been updated to:
-- flutter: ">=3.22.0"
+- flutter: ">=3.24.0"
 - Dart ^3.3.0
 - Java 17, Kotlin 1.9.10 and Gradle 8.1 for Android projects
 
