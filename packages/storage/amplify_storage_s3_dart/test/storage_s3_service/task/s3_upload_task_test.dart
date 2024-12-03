@@ -1337,9 +1337,10 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           mockFile,
           s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
+          s3ClientConfig: defaultS3ClientConfig,
           pathResolver: pathResolver,
           bucket: testBucket,
+          awsRegion: testRegion,
           path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
