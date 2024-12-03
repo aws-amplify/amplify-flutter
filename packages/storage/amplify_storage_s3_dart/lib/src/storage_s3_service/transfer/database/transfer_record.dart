@@ -18,6 +18,8 @@ class TransferRecord {
     required this.uploadId,
     required this.objectKey,
     required this.createdAt,
+    this.bucketName,
+    this.awsRegion,
   });
 
   /// creates new [TransferRecord] object from a [json] map.
@@ -39,6 +41,12 @@ class TransferRecord {
 
   /// Timestamp of [uploadId] creation.
   final DateTime createdAt;
+
+  /// Amazon S3 bucket name.
+  final String? bucketName;
+
+  /// AWS region of Amazon S3 bucket.
+  final String? awsRegion;
 
   /// return json map representation of [TransferRecord] object.
   Map<String, dynamic> toJson() => _$TransferRecordToJson(this);

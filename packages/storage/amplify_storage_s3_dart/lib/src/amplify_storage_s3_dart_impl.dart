@@ -136,6 +136,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     final s3Options = StorageListOptions(
       pluginOptions: s3PluginOptions,
       nextToken: options?.nextToken,
+      bucket: options?.bucket,
       pageSize: options?.pageSize ?? 1000,
     );
 
@@ -163,6 +164,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final s3Options = StorageGetPropertiesOptions(
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
 
     return S3GetPropertiesOperation(
@@ -189,6 +191,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final s3Options = StorageGetUrlOptions(
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
 
     return S3GetUrlOperation(
@@ -216,6 +219,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final s3Options = StorageDownloadDataOptions(
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
 
     final bytes = BytesBuilder();
@@ -256,6 +260,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
     options = StorageDownloadFileOptions(
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
     return download_file_impl.downloadFile(
       path: path,
@@ -282,6 +287,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final s3Options = StorageUploadDataOptions(
       metadata: options?.metadata ?? const {},
+      bucket: options?.bucket,
       pluginOptions: s3PluginOptions,
     );
 
@@ -320,6 +326,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     final s3Options = StorageUploadFileOptions(
       metadata: options?.metadata ?? const {},
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
 
     final uploadTask = storageS3Service.uploadFile(
@@ -357,6 +364,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final s3Options = StorageCopyOptions(
       pluginOptions: s3PluginOptions,
+      buckets: options?.buckets,
     );
 
     return S3CopyOperation(
@@ -385,6 +393,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final s3Options = StorageRemoveOptions(
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
 
     return S3RemoveOperation(
@@ -411,6 +420,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final s3Options = StorageRemoveManyOptions(
       pluginOptions: s3PluginOptions,
+      bucket: options?.bucket,
     );
 
     return S3RemoveManyOperation(

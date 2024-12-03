@@ -132,6 +132,47 @@ void main() {
           expect(utf8.decode(downloadResult.bytes), 'data');
           expect(downloadResult.downloadedItem.path, publicPath);
         });
+
+        testWidgets('multi bucket', (_) async {
+          final mainBucket =
+              StorageBucket.fromOutputs('Storage Integ Test main bucket');
+          final secondaryBucket = StorageBucket.fromOutputs(
+            'Storage Integ Test secondary bucket',
+          );
+          await Amplify.Storage.uploadData(
+            path: StoragePath.fromString(publicPath),
+            data: StorageDataPayload.bytes(bytesData),
+            options: StorageUploadDataOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+
+          final downloadResult = await Amplify.Storage.downloadData(
+            path: StoragePath.fromString(publicPath),
+            options: StorageDownloadDataOptions(bucket: mainBucket),
+          ).result;
+          expect(
+            downloadResult.bytes,
+            bytesData,
+          );
+          expect(
+            downloadResult.downloadedItem.path,
+            publicPath,
+          );
+
+          final downloadSecondaryResult = await Amplify.Storage.downloadData(
+            path: StoragePath.fromString(publicPath),
+            options: StorageDownloadDataOptions(bucket: secondaryBucket),
+          ).result;
+          expect(
+            downloadSecondaryResult.bytes,
+            bytesData,
+          );
+          expect(
+            downloadSecondaryResult.downloadedItem.path,
+            publicPath,
+          );
+        });
       });
 
       group('download progress', () {

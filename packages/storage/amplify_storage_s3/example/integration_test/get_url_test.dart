@@ -172,6 +172,62 @@ void main() {
           expect(actualData, data);
         });
       });
+
+      group('multi bucket', () {
+        final mainBucket = StorageBucket.fromOutputs(
+          'Storage Integ Test main bucket',
+        );
+        final secondaryBucket = StorageBucket.fromOutputs(
+          'Storage Integ Test secondary bucket',
+        );
+        final pathMain = 'public/multi-bucket-get-url-${uuid()}';
+        final pathSecondary = 'public/multi-bucket-get-url-${uuid()}';
+        final storagePathMain = StoragePath.fromString(pathMain);
+        final storagePathSecondary = StoragePath.fromString(pathSecondary);
+
+        setUp(() async {
+          addTearDownPath(storagePathMain);
+          addTearDownPath(storagePathSecondary);
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes(data),
+            path: storagePathMain,
+            options: StorageUploadDataOptions(
+              bucket: mainBucket,
+            ),
+          ).result;
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes(data),
+            path: storagePathSecondary,
+            options: StorageUploadDataOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+        });
+
+        testWidgets('can get url from main bucket', (_) async {
+          final result = await Amplify.Storage.getUrl(
+            path: storagePathMain,
+            options: StorageGetUrlOptions(
+              bucket: mainBucket,
+            ),
+          ).result;
+          expect(result.url.path, '/$pathMain');
+          final actualData = await readData(result.url);
+          expect(actualData, data);
+        });
+
+        testWidgets('can get url from secondary bucket', (_) async {
+          final result = await Amplify.Storage.getUrl(
+            path: storagePathSecondary,
+            options: StorageGetUrlOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+          expect(result.url.path, '/$pathSecondary');
+          final actualData = await readData(result.url);
+          expect(actualData, data);
+        });
+      });
     });
 
     group('config with dots in name', () {

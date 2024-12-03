@@ -32,6 +32,7 @@ S3DownloadFileOperation downloadFile({
       getProperties: s3PluginOptions.getProperties,
       useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
     ),
+    bucket: options.bucket,
   );
 
   final downloadDataTask = storageS3Service.downloadData(

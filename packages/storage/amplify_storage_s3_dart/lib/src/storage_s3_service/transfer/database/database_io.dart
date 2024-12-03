@@ -35,7 +35,25 @@ class TransferDatabase extends $TransferDatabase
 
   // Bump the version number when any alteration is made into tables.dart
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration {
+    return MigrationStrategy(
+      onCreate: (Migrator m) async {
+        await m.createAll();
+      },
+      onUpgrade: (Migrator m, int from, int to) async {
+        // Note: From schemaVersion 1->2 we added bucketName and awsRegion.
+        // they are nullable columns so that on upgrade we need to update
+        // the transferRecords table to add these two columns
+        if (from < 2) {
+          await m.addColumn(transferRecords, transferRecords.bucketName);
+          await m.addColumn(transferRecords, transferRecords.awsRegion);
+        }
+      },
+    );
+  }
 
   @override
   Future<List<data.TransferRecord>> getMultipartUploadRecordsCreatedBefore(
@@ -52,6 +70,8 @@ class TransferDatabase extends $TransferDatabase
             objectKey: e.objectKey,
             uploadId: e.uploadId,
             createdAt: DateTime.parse(e.createdAt),
+            bucketName: e.bucketName,
+            awsRegion: e.awsRegion,
           ),
         )
         .get();
@@ -63,6 +83,8 @@ class TransferDatabase extends $TransferDatabase
       uploadId: record.uploadId,
       objectKey: record.objectKey,
       createdAt: record.createdAt.toIso8601String(),
+      bucketName: Value(record.bucketName),
+      awsRegion: Value(record.awsRegion),
     );
     final value = await into(transferRecords).insert(entry);
     return value.toString();

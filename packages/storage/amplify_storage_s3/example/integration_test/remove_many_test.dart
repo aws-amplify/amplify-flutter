@@ -90,6 +90,127 @@ void main() {
         });
       });
 
+      group('Multi-bucket', () {
+        final mainBucket = StorageBucket.fromOutputs(
+          'Storage Integ Test main bucket',
+        );
+        final secondaryBucket = StorageBucket.fromOutputs(
+          'Storage Integ Test secondary bucket',
+        );
+        final path1 = 'public/multi-bucket-remove-many-${uuid()}';
+        final path2 = 'public/multi-bucket-remove-many-${uuid()}';
+        final storagePath1 = StoragePath.fromString(path1);
+        final storagePath2 = StoragePath.fromString(path2);
+        setUp(() async {
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes('data'.codeUnits),
+            path: storagePath1,
+            options: StorageUploadDataOptions(
+              bucket: mainBucket,
+            ),
+          ).result;
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes('data'.codeUnits),
+            path: storagePath2,
+            options: StorageUploadDataOptions(
+              bucket: mainBucket,
+            ),
+          ).result;
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes('data'.codeUnits),
+            path: storagePath1,
+            options: StorageUploadDataOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes('data'.codeUnits),
+            path: storagePath2,
+            options: StorageUploadDataOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+        });
+
+        testWidgets('removes objects from main bucket', (_) async {
+          expect(
+            await objectExists(
+              storagePath1,
+              bucket: mainBucket,
+            ),
+            true,
+          );
+          expect(
+            await objectExists(
+              storagePath2,
+              bucket: mainBucket,
+            ),
+            true,
+          );
+          final result = await Amplify.Storage.removeMany(
+            paths: [storagePath1, storagePath2],
+            options: StorageRemoveManyOptions(
+              bucket: mainBucket,
+            ),
+          ).result;
+          expect(
+            await objectExists(
+              storagePath1,
+              bucket: mainBucket,
+            ),
+            false,
+          );
+          expect(
+            await objectExists(
+              storagePath2,
+              bucket: mainBucket,
+            ),
+            false,
+          );
+          final removedPaths = result.removedItems.map((i) => i.path).toList();
+          expect(removedPaths, unorderedEquals([path1, path2]));
+        });
+
+        testWidgets('removes objects from secondary bucket', (_) async {
+          expect(
+            await objectExists(
+              storagePath1,
+              bucket: secondaryBucket,
+            ),
+            true,
+          );
+          expect(
+            await objectExists(
+              storagePath2,
+              bucket: secondaryBucket,
+            ),
+            true,
+          );
+          final result = await Amplify.Storage.removeMany(
+            paths: [storagePath1, storagePath2],
+            options: StorageRemoveManyOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+          expect(
+            await objectExists(
+              storagePath1,
+              bucket: secondaryBucket,
+            ),
+            false,
+          );
+          expect(
+            await objectExists(
+              storagePath2,
+              bucket: secondaryBucket,
+            ),
+            false,
+          );
+          final removedPaths = result.removedItems.map((i) => i.path).toList();
+          expect(removedPaths, unorderedEquals([path1, path2]));
+        });
+      });
+
       testWidgets('unauthorized path', (_) async {
         final result = await Amplify.Storage.removeMany(
           paths: [const StoragePath.fromString('unauthorized/path')],

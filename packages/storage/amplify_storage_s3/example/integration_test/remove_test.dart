@@ -64,6 +64,120 @@ void main() {
         });
       });
 
+      group('Multi-bucket', () {
+        final mainBucket = StorageBucket.fromOutputs(
+          'Storage Integ Test main bucket',
+        );
+        final secondaryBucket = StorageBucket.fromOutputs(
+          'Storage Integ Test secondary bucket',
+        );
+        final path = 'public/multi-bucket-remove-${uuid()}';
+        final storagePath = StoragePath.fromString(path);
+        setUp(() async {
+          // upload to main bucket
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes('data'.codeUnits),
+            path: storagePath,
+            options: StorageUploadDataOptions(
+              bucket: mainBucket,
+            ),
+          ).result;
+        });
+
+        testWidgets('removes from multiple buckets', (_) async {
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: mainBucket,
+            ),
+            true,
+          );
+
+          // upload to secondary bucket
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes('data'.codeUnits),
+            path: storagePath,
+            options: StorageUploadDataOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: secondaryBucket,
+            ),
+            true,
+          );
+
+          final mainResult = await Amplify.Storage.remove(
+            path: storagePath,
+            options: StorageRemoveOptions(bucket: mainBucket),
+          ).result;
+          expect(mainResult.removedItem.path, path);
+
+          // Assert path was only removed from the main bucket
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: mainBucket,
+            ),
+            false,
+          );
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: secondaryBucket,
+            ),
+            true,
+          );
+
+          final secondaryResult = await Amplify.Storage.remove(
+            path: storagePath,
+            options: StorageRemoveOptions(bucket: secondaryBucket),
+          ).result;
+          expect(secondaryResult.removedItem.path, path);
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: secondaryBucket,
+            ),
+            false,
+          );
+        });
+
+        testWidgets('removes when present in bucket', (_) async {
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: mainBucket,
+            ),
+            true,
+          );
+          final mainResult = await Amplify.Storage.remove(
+            path: storagePath,
+            options: StorageRemoveOptions(bucket: mainBucket),
+          ).result;
+          expect(mainResult.removedItem.path, path);
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: mainBucket,
+            ),
+            false,
+          );
+
+          await expectLater(
+            Amplify.Storage.remove(
+              path: storagePath,
+              options: StorageRemoveOptions(bucket: secondaryBucket),
+            ).result,
+            completes,
+            reason: 'non existent path does not throw',
+          );
+        });
+      });
+
       testWidgets('unauthorized path', (_) async {
         await expectLater(
           () => Amplify.Storage.remove(
