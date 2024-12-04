@@ -17,7 +17,7 @@ class AmplifyLifecycleObserver : DefaultLifecycleObserver {
         // Only set launchNotification to null when app resumes from background.
         if (!isAppLaunch) {
             AmplifyPushNotificationsPlugin.launchNotification = null
-            AmplifyPushNotificationsPlugin.flutterApi!!.nullifyLaunchNotification {  }
+            AmplifyPushNotificationsPlugin.flutterApi!!.nullifyLaunchNotification(NoOpVoidResult())
         }
         refreshToken()
         isAppLaunch = false
