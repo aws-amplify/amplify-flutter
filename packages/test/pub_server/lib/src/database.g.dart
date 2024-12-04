@@ -104,6 +104,13 @@ class Package extends DataClass implements Insertable<Package> {
         name: name ?? this.name,
         latest: latest ?? this.latest,
       );
+  Package copyWithCompanion(PackagesCompanion data) {
+    return Package(
+      name: data.name.present ? data.name.value : this.name,
+      latest: data.latest.present ? data.latest.value : this.latest,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Package(')
@@ -406,6 +413,19 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
         changelog: changelog ?? this.changelog,
         published: published ?? this.published,
       );
+  PackageVersion copyWithCompanion(PackageVersionsCompanion data) {
+    return PackageVersion(
+      package: data.package.present ? data.package.value : this.package,
+      version: data.version.present ? data.version.value : this.version,
+      archiveUrl:
+          data.archiveUrl.present ? data.archiveUrl.value : this.archiveUrl,
+      pubspec: data.pubspec.present ? data.pubspec.value : this.pubspec,
+      readme: data.readme.present ? data.readme.value : this.readme,
+      changelog: data.changelog.present ? data.changelog.value : this.changelog,
+      published: data.published.present ? data.published.value : this.published,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('PackageVersion(')
@@ -562,7 +582,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
 
 abstract class _$PubDatabase extends GeneratedDatabase {
   _$PubDatabase(QueryExecutor e) : super(e);
-  _$PubDatabaseManager get managers => _$PubDatabaseManager(this);
+  $PubDatabaseManager get managers => $PubDatabaseManager(this);
   late final $PackagesTable packages = $PackagesTable(this);
   late final $PackageVersionsTable packageVersions =
       $PackageVersionsTable(this);
@@ -574,7 +594,7 @@ abstract class _$PubDatabase extends GeneratedDatabase {
       [packages, packageVersions];
 }
 
-typedef $$PackagesTableInsertCompanionBuilder = PackagesCompanion Function({
+typedef $$PackagesTableCreateCompanionBuilder = PackagesCompanion Function({
   required String name,
   required String latest,
   Value<int> rowid,
@@ -585,26 +605,77 @@ typedef $$PackagesTableUpdateCompanionBuilder = PackagesCompanion Function({
   Value<int> rowid,
 });
 
+class $$PackagesTableFilterComposer
+    extends Composer<_$PubDatabase, $PackagesTable> {
+  $$PackagesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get latest => $composableBuilder(
+      column: $table.latest, builder: (column) => ColumnFilters(column));
+}
+
+class $$PackagesTableOrderingComposer
+    extends Composer<_$PubDatabase, $PackagesTable> {
+  $$PackagesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get latest => $composableBuilder(
+      column: $table.latest, builder: (column) => ColumnOrderings(column));
+}
+
+class $$PackagesTableAnnotationComposer
+    extends Composer<_$PubDatabase, $PackagesTable> {
+  $$PackagesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get latest =>
+      $composableBuilder(column: $table.latest, builder: (column) => column);
+}
+
 class $$PackagesTableTableManager extends RootTableManager<
     _$PubDatabase,
     $PackagesTable,
     Package,
     $$PackagesTableFilterComposer,
     $$PackagesTableOrderingComposer,
-    $$PackagesTableProcessedTableManager,
-    $$PackagesTableInsertCompanionBuilder,
-    $$PackagesTableUpdateCompanionBuilder> {
+    $$PackagesTableAnnotationComposer,
+    $$PackagesTableCreateCompanionBuilder,
+    $$PackagesTableUpdateCompanionBuilder,
+    (Package, BaseReferences<_$PubDatabase, $PackagesTable, Package>),
+    Package,
+    PrefetchHooks Function()> {
   $$PackagesTableTableManager(_$PubDatabase db, $PackagesTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$PackagesTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$PackagesTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$PackagesTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          createFilteringComposer: () =>
+              $$PackagesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PackagesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PackagesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
             Value<String> name = const Value.absent(),
             Value<String> latest = const Value.absent(),
             Value<int> rowid = const Value.absent(),
@@ -614,7 +685,7 @@ class $$PackagesTableTableManager extends RootTableManager<
             latest: latest,
             rowid: rowid,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             required String name,
             required String latest,
             Value<int> rowid = const Value.absent(),
@@ -624,50 +695,26 @@ class $$PackagesTableTableManager extends RootTableManager<
             latest: latest,
             rowid: rowid,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$PackagesTableProcessedTableManager extends ProcessedTableManager<
+typedef $$PackagesTableProcessedTableManager = ProcessedTableManager<
     _$PubDatabase,
     $PackagesTable,
     Package,
     $$PackagesTableFilterComposer,
     $$PackagesTableOrderingComposer,
-    $$PackagesTableProcessedTableManager,
-    $$PackagesTableInsertCompanionBuilder,
-    $$PackagesTableUpdateCompanionBuilder> {
-  $$PackagesTableProcessedTableManager(super.$state);
-}
-
-class $$PackagesTableFilterComposer
-    extends FilterComposer<_$PubDatabase, $PackagesTable> {
-  $$PackagesTableFilterComposer(super.$state);
-  ColumnFilters<String> get name => $state.composableBuilder(
-      column: $state.table.name,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get latest => $state.composableBuilder(
-      column: $state.table.latest,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$PackagesTableOrderingComposer
-    extends OrderingComposer<_$PubDatabase, $PackagesTable> {
-  $$PackagesTableOrderingComposer(super.$state);
-  ColumnOrderings<String> get name => $state.composableBuilder(
-      column: $state.table.name,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get latest => $state.composableBuilder(
-      column: $state.table.latest,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
-typedef $$PackageVersionsTableInsertCompanionBuilder = PackageVersionsCompanion
+    $$PackagesTableAnnotationComposer,
+    $$PackagesTableCreateCompanionBuilder,
+    $$PackagesTableUpdateCompanionBuilder,
+    (Package, BaseReferences<_$PubDatabase, $PackagesTable, Package>),
+    Package,
+    PrefetchHooks Function()>;
+typedef $$PackageVersionsTableCreateCompanionBuilder = PackageVersionsCompanion
     Function({
   required String package,
   required String version,
@@ -690,27 +737,126 @@ typedef $$PackageVersionsTableUpdateCompanionBuilder = PackageVersionsCompanion
   Value<int> rowid,
 });
 
+class $$PackageVersionsTableFilterComposer
+    extends Composer<_$PubDatabase, $PackageVersionsTable> {
+  $$PackageVersionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get package => $composableBuilder(
+      column: $table.package, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get version => $composableBuilder(
+      column: $table.version, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get archiveUrl => $composableBuilder(
+      column: $table.archiveUrl, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get pubspec => $composableBuilder(
+      column: $table.pubspec, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get readme => $composableBuilder(
+      column: $table.readme, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get changelog => $composableBuilder(
+      column: $table.changelog, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get published => $composableBuilder(
+      column: $table.published, builder: (column) => ColumnFilters(column));
+}
+
+class $$PackageVersionsTableOrderingComposer
+    extends Composer<_$PubDatabase, $PackageVersionsTable> {
+  $$PackageVersionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get package => $composableBuilder(
+      column: $table.package, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get version => $composableBuilder(
+      column: $table.version, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get archiveUrl => $composableBuilder(
+      column: $table.archiveUrl, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get pubspec => $composableBuilder(
+      column: $table.pubspec, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get readme => $composableBuilder(
+      column: $table.readme, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get changelog => $composableBuilder(
+      column: $table.changelog, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get published => $composableBuilder(
+      column: $table.published, builder: (column) => ColumnOrderings(column));
+}
+
+class $$PackageVersionsTableAnnotationComposer
+    extends Composer<_$PubDatabase, $PackageVersionsTable> {
+  $$PackageVersionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get package =>
+      $composableBuilder(column: $table.package, builder: (column) => column);
+
+  GeneratedColumn<String> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get archiveUrl => $composableBuilder(
+      column: $table.archiveUrl, builder: (column) => column);
+
+  GeneratedColumn<String> get pubspec =>
+      $composableBuilder(column: $table.pubspec, builder: (column) => column);
+
+  GeneratedColumn<String> get readme =>
+      $composableBuilder(column: $table.readme, builder: (column) => column);
+
+  GeneratedColumn<String> get changelog =>
+      $composableBuilder(column: $table.changelog, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get published =>
+      $composableBuilder(column: $table.published, builder: (column) => column);
+}
+
 class $$PackageVersionsTableTableManager extends RootTableManager<
     _$PubDatabase,
     $PackageVersionsTable,
     PackageVersion,
     $$PackageVersionsTableFilterComposer,
     $$PackageVersionsTableOrderingComposer,
-    $$PackageVersionsTableProcessedTableManager,
-    $$PackageVersionsTableInsertCompanionBuilder,
-    $$PackageVersionsTableUpdateCompanionBuilder> {
+    $$PackageVersionsTableAnnotationComposer,
+    $$PackageVersionsTableCreateCompanionBuilder,
+    $$PackageVersionsTableUpdateCompanionBuilder,
+    (
+      PackageVersion,
+      BaseReferences<_$PubDatabase, $PackageVersionsTable, PackageVersion>
+    ),
+    PackageVersion,
+    PrefetchHooks Function()> {
   $$PackageVersionsTableTableManager(
       _$PubDatabase db, $PackageVersionsTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$PackageVersionsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$PackageVersionsTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$PackageVersionsTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          createFilteringComposer: () =>
+              $$PackageVersionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PackageVersionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PackageVersionsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
             Value<String> package = const Value.absent(),
             Value<String> version = const Value.absent(),
             Value<String> archiveUrl = const Value.absent(),
@@ -730,7 +876,7 @@ class $$PackageVersionsTableTableManager extends RootTableManager<
             published: published,
             rowid: rowid,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             required String package,
             required String version,
             required String archiveUrl,
@@ -750,102 +896,32 @@ class $$PackageVersionsTableTableManager extends RootTableManager<
             published: published,
             rowid: rowid,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$PackageVersionsTableProcessedTableManager extends ProcessedTableManager<
+typedef $$PackageVersionsTableProcessedTableManager = ProcessedTableManager<
     _$PubDatabase,
     $PackageVersionsTable,
     PackageVersion,
     $$PackageVersionsTableFilterComposer,
     $$PackageVersionsTableOrderingComposer,
-    $$PackageVersionsTableProcessedTableManager,
-    $$PackageVersionsTableInsertCompanionBuilder,
-    $$PackageVersionsTableUpdateCompanionBuilder> {
-  $$PackageVersionsTableProcessedTableManager(super.$state);
-}
+    $$PackageVersionsTableAnnotationComposer,
+    $$PackageVersionsTableCreateCompanionBuilder,
+    $$PackageVersionsTableUpdateCompanionBuilder,
+    (
+      PackageVersion,
+      BaseReferences<_$PubDatabase, $PackageVersionsTable, PackageVersion>
+    ),
+    PackageVersion,
+    PrefetchHooks Function()>;
 
-class $$PackageVersionsTableFilterComposer
-    extends FilterComposer<_$PubDatabase, $PackageVersionsTable> {
-  $$PackageVersionsTableFilterComposer(super.$state);
-  ColumnFilters<String> get package => $state.composableBuilder(
-      column: $state.table.package,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get version => $state.composableBuilder(
-      column: $state.table.version,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get archiveUrl => $state.composableBuilder(
-      column: $state.table.archiveUrl,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get pubspec => $state.composableBuilder(
-      column: $state.table.pubspec,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get readme => $state.composableBuilder(
-      column: $state.table.readme,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get changelog => $state.composableBuilder(
-      column: $state.table.changelog,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get published => $state.composableBuilder(
-      column: $state.table.published,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$PackageVersionsTableOrderingComposer
-    extends OrderingComposer<_$PubDatabase, $PackageVersionsTable> {
-  $$PackageVersionsTableOrderingComposer(super.$state);
-  ColumnOrderings<String> get package => $state.composableBuilder(
-      column: $state.table.package,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get version => $state.composableBuilder(
-      column: $state.table.version,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get archiveUrl => $state.composableBuilder(
-      column: $state.table.archiveUrl,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get pubspec => $state.composableBuilder(
-      column: $state.table.pubspec,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get readme => $state.composableBuilder(
-      column: $state.table.readme,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get changelog => $state.composableBuilder(
-      column: $state.table.changelog,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get published => $state.composableBuilder(
-      column: $state.table.published,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
-class _$PubDatabaseManager {
+class $PubDatabaseManager {
   final _$PubDatabase _db;
-  _$PubDatabaseManager(this._db);
+  $PubDatabaseManager(this._db);
   $$PackagesTableTableManager get packages =>
       $$PackagesTableTableManager(_db, _db.packages);
   $$PackageVersionsTableTableManager get packageVersions =>
