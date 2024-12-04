@@ -19,15 +19,15 @@ class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PinpointLegacyData
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         context = binding.applicationContext
-        Messages.PinpointLegacyDataProvider.setup(binding.binaryMessenger, this)
+        Messages.PinpointLegacyDataProvider.setUp(binding.binaryMessenger, this)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        Messages.PinpointLegacyDataProvider.setup(binding.binaryMessenger, null)
+        Messages.PinpointLegacyDataProvider.setUp(binding.binaryMessenger, null)
         context = null
     }
 
-    override fun getEndpointId(pinpointAppId: String, result: Messages.Result<String?>){
+    override fun getEndpointId(pinpointAppId: String, result: Messages.NullableResult<String?>){
         if (context == null) {
             result.error(Exception("Application context is null"))
             return
