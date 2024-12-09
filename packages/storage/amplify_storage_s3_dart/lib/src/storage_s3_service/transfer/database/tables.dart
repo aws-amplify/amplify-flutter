@@ -20,4 +20,10 @@ class TransferRecords extends Table {
 
   /// Timestamp of [uploadId] creation.
   TextColumn get createdAt => text()();
+
+  /// Amazon S3 bucket name.
+  TextColumn get bucketName => text().nullable()();
+
+  /// AWS region of Amazon S3 bucket.
+  TextColumn get awsRegion => text().nullable()();
 }
