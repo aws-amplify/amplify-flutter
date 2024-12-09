@@ -85,7 +85,7 @@ class AmplifyDataStorePlugin :
     NativeApiBridge {
     private lateinit var channel: MethodChannel
     private lateinit var eventChannel: EventChannel
-    private lateinit var observeCancelable: Cancelable
+    private var observeCancelable: Cancelable? = null
     private lateinit var hubEventChannel: EventChannel
 
     private val dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler
@@ -93,7 +93,6 @@ class AmplifyDataStorePlugin :
     private val uiThreadHandler: Handler
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
     private var isSettingUpObserve = AtomicBoolean()
-    private var nativeAuthPlugin: NativeAuthPlugin? = null
     private var nativeApiPlugin: NativeApiPlugin? = null
     private val coroutineScope = CoroutineScope(CoroutineName("AmplifyFlutterPlugin"))
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -114,6 +113,8 @@ class AmplifyDataStorePlugin :
          * be instantiated only once but still maintain a reference to the active method channel.
          */
         var flutterAuthProviders: FlutterAuthProviders? = null
+        var nativeAuthPlugin: NativeAuthPlugin? = null
+        var hasAddedUserAgent :Boolean = false
     }
 
     val modelProvider = FlutterModelProvider.instance
@@ -184,6 +185,14 @@ class AmplifyDataStorePlugin :
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
+
+        eventChannel.setStreamHandler(null)
+        hubEventChannel.setStreamHandler(null)
+
+        observeCancelable?.cancel()
+        observeCancelable = null
+
+        dataStoreHubEventStreamHandler.onCancel(null)
 
         nativeAuthPlugin = null
         NativeAuthBridge.setUp(binding.binaryMessenger, null)
@@ -438,7 +447,7 @@ class AmplifyDataStorePlugin :
 
             queryPredicate = QueryPredicateBuilder.fromSerializedMap(
                 request["queryPredicate"].safeCastToMap()
-            ) ?: QueryPredicates.all()
+                ) ?: QueryPredicates.all()
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -502,7 +511,7 @@ class AmplifyDataStorePlugin :
     }
 
     fun onSetUpObserve(flutterResult: Result) {
-        if (this::observeCancelable.isInitialized || isSettingUpObserve.getAndSet(true)) {
+        if (observeCancelable != null || isSettingUpObserve.getAndSet(true)) {
             flutterResult.success(true)
             return
         }
@@ -932,6 +941,17 @@ class AmplifyDataStorePlugin :
         throw NotImplementedError("Not yet implemented")
     }
 
+    fun addUserAgent(
+        version: String,
+    ) {
+        if(hasAddedUserAgent) return
+
+        @OptIn(AmplifyFlutterApi::class)
+        Amplify.addUserAgentPlatform(UserAgent.Platform.FLUTTER, "$version /datastore")
+        
+        hasAddedUserAgent = true
+    }
+    
     override fun configure(
         version: String,
         config: String,
@@ -939,9 +959,9 @@ class AmplifyDataStorePlugin :
     ) {
         coroutineScope.launch(dispatcher) {
             try {
-                @OptIn(AmplifyFlutterApi::class)
-                Amplify.addUserAgentPlatform(UserAgent.Platform.FLUTTER, "$version /datastore")
+                addUserAgent(version)
                 Amplify.configure(AmplifyOutputs(config), context)
+
                 withContext(Dispatchers.Main) {
                     callback(kotlin.Result.success(Unit))
                 }
