@@ -7,11 +7,14 @@ import 'package:flutter_test/flutter_test.dart';
 final _logger = AmplifyLogger().createChild('StorageTests');
 
 /// Adds a tear down to remove the object at [path].
-void addTearDownPath(StoragePath path) {
+void addTearDownPath(StoragePath path, {StorageBucket? bucket}) {
   addTearDown(
     () {
       try {
-        return Amplify.Storage.remove(path: path).result;
+        return Amplify.Storage.remove(
+          path: path,
+          options: StorageRemoveOptions(bucket: bucket),
+        ).result;
       } on Exception catch (e) {
         _logger.warn('Failed to remove file after test', e);
         rethrow;
@@ -27,6 +30,27 @@ void addTearDownPaths(List<StoragePath> paths) {
       try {
         return Future.wait(
           paths.map((path) => Amplify.Storage.remove(path: path).result),
+        );
+      } on Exception catch (e) {
+        _logger.warn('Failed to remove files after test', e);
+        rethrow;
+      }
+    },
+  );
+}
+
+/// Adds a tear down to remove the same object in multiple [buckets].
+void addTearDownMultiBucket(StoragePath path, List<StorageBucket> buckets) {
+  addTearDown(
+    () {
+      try {
+        return Future.wait(
+          buckets.map(
+            (bucket) => Amplify.Storage.remove(
+              path: path,
+              options: StorageRemoveOptions(bucket: bucket),
+            ).result,
+          ),
         );
       } on Exception catch (e) {
         _logger.warn('Failed to remove files after test', e);
