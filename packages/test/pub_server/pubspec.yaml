@@ -9,7 +9,7 @@ environment:
   sdk: ^3.3.0
 
 dependencies:
-  archive: ^3.3.7
+  archive: ^4.0.1
   args: ^2.4.0
   async: ^2.10.0
   aws_common: any
