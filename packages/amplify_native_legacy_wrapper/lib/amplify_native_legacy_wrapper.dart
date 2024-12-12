@@ -35,8 +35,10 @@ class AmplifyNativeLegacyWrapper implements LegacyNativePlugin {
   }
 
   @override
-  BinaryMessenger? get pigeonVar_binaryMessenger => _plugin.pigeonVar_binaryMessenger;
+  BinaryMessenger? get pigeonVar_binaryMessenger =>
+      _plugin.pigeonVar_binaryMessenger;
 
   @override
-  String get pigeonVar_messageChannelSuffix => _plugin.pigeonVar_messageChannelSuffix;
+  String get pigeonVar_messageChannelSuffix =>
+      _plugin.pigeonVar_messageChannelSuffix;
 }

@@ -85,45 +85,48 @@ class NativeAuthPluginWrapper(
             return
         }
         MainScope().launch {
-            nativePlugin.fetchAuthSession() { session ->
-                val couldNotFetchException = UnknownException("Could not fetch")
-                val userPoolTokens = if (session.userPoolTokens != null) {
-                    val tokens = FlutterFactory.createAWSCognitoUserPoolTokens(
-                        session.userPoolTokens!!.accessToken,
-                        session.userPoolTokens!!.idToken,
-                        session.userPoolTokens!!.refreshToken
-                    )
-                    AuthSessionResult.success(tokens)
-                } else {
-                    AuthSessionResult.failure(couldNotFetchException)
-                }
-                val awsCredentials: AuthSessionResult<AWSCredentials> =
-                    if (session.awsCredentials != null) {
-                        val sessionCredentials = session.awsCredentials!!
-                        val credentials = AWSCredentials.createAWSCredentials(
-                            sessionCredentials.accessKeyId,
-                            sessionCredentials.secretAccessKey,
-                            sessionCredentials.sessionToken,
-                            if (sessionCredentials.expirationIso8601Utc != null) {
-                                Instant.fromIso8601(
-                                    sessionCredentials.expirationIso8601Utc!!
-                                ).epochSeconds
-                            } else {
-                                null
-                            }
+            nativePlugin.fetchAuthSession() { result ->
+                val session = result.getOrNull()
+                if(session != null) {
+                    val couldNotFetchException = UnknownException("Could not fetch")
+                    val userPoolTokens = if (session.userPoolTokens != null) {
+                        val tokens = FlutterFactory.createAWSCognitoUserPoolTokens(
+                            session.userPoolTokens!!.accessToken,
+                            session.userPoolTokens!!.idToken,
+                            session.userPoolTokens!!.refreshToken
                         )
-                        AuthSessionResult.success(credentials)
+                        AuthSessionResult.success(tokens)
                     } else {
                         AuthSessionResult.failure(couldNotFetchException)
                     }
-                val authSession = FlutterFactory.createAWSCognitoAuthSession(
-                    session.isSignedIn,
-                    AuthSessionResult.success(session.identityId),
-                    awsCredentials,
-                    AuthSessionResult.success(session.userSub),
-                    userPoolTokens
-                )
-                onSuccess.accept(authSession)
+                    val awsCredentials: AuthSessionResult<AWSCredentials> =
+                        if (session.awsCredentials != null) {
+                            val sessionCredentials = session.awsCredentials!!
+                            val credentials = AWSCredentials.createAWSCredentials(
+                                sessionCredentials.accessKeyId,
+                                sessionCredentials.secretAccessKey,
+                                sessionCredentials.sessionToken,
+                                if (sessionCredentials.expirationIso8601Utc != null) {
+                                    Instant.fromIso8601(
+                                        sessionCredentials.expirationIso8601Utc!!
+                                    ).epochSeconds
+                                } else {
+                                    null
+                                }
+                            )
+                            AuthSessionResult.success(credentials)
+                        } else {
+                            AuthSessionResult.failure(couldNotFetchException)
+                        }
+                    val authSession = FlutterFactory.createAWSCognitoAuthSession(
+                        session.isSignedIn,
+                        AuthSessionResult.success(session.identityId),
+                        awsCredentials,
+                        AuthSessionResult.success(session.userSub),
+                        userPoolTokens
+                    )
+                    onSuccess.accept(authSession)
+                }
             }
         }
     }
