@@ -192,7 +192,7 @@ class _MyAppState extends State<MyApp> {
 
 11. Once the app is loaded, tap on **Configure Amplify**, then on **Record Event** a few times.
 
-12. To see the events you recoded, run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console.
+12. To see the events yourecorded, run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console.
 
 Congratulations, you've built your first Amplify app! 🎉
 
