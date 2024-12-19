@@ -2,9 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+// import 'package:js/js.dart';
+// import 'package:js/js_util.dart' as js_util;
 
-import 'package:js/js.dart';
-import 'package:js/js_util.dart' as js_util;
+import 'dart:js_interop';
 
 /// A [Promise] executor callback.
 typedef Executor<T> = void Function(
@@ -20,7 +21,7 @@ typedef Executor<T> = void Function(
 @staticInterop
 abstract class Promise<T> {
   /// Creates a JS Promise.
-  factory Promise(Executor<T> executor) => Promise._(allowInterop(executor));
+  factory Promise(Executor<T> executor) => Promise._(executor);
 
   external factory Promise._(Executor<T> executor);
 
@@ -49,5 +50,5 @@ abstract class Promise<T> {
 /// {@macro aws_common.js.promise}
 extension PropsPromise<T> on Promise<T> {
   /// Resolves `this` as a Dart [Future].
-  Future<T> get future => js_util.promiseToFuture(this);
+  Future<T> get future => this.future;
 }
