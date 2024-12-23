@@ -76,18 +76,18 @@ Amplify for Flutter is an open-source project and welcomes contributions from th
 
 2. Run the following to create an amplify project:
 
-  `npm create amplify@latest -y`
+    `npm create amplify@latest -y`
 
 4. To use the Authenticator, you need to add the following dependencies to your project:
 
-  ```yaml
-  dependencies:
-    amplify_auth_cognito: ^2.0.0
-    amplify_authenticator: ^2.0.0
-    amplify_flutter: ^2.0.0
-    flutter:
-      sdk: flutter
-  ```
+    ```yaml
+    dependencies:
+      amplify_auth_cognito: ^2.0.0
+      amplify_authenticator: ^2.0.0
+      amplify_flutter: ^2.0.0
+      flutter:
+        sdk: flutter
+    ```
 
 5. run `flutter pub get`
 
@@ -147,7 +147,7 @@ class MyApp extends StatelessWidget {
 
 7. Deploy your backend use Amplify's per-developer cloud sandbox. This feature provides a separate backend environment for every developer on a team, ideal for local development and testing. To run your application with a sandbox environment, you can run the following command:
 
-`npx ampx sandbox --outputs-format dart --outputs-out-dir lib`
+    `npx ampx sandbox --outputs-format dart --outputs-out-dir lib`
 
 8. Since Amplify Flutter supports 6 platforms with Flutter including iOS, Android, Web, and Desktop, some extra configuration may be required for each platform. Check out the [Platform Setup](https://docs.amplify.aws/flutter/start/platform-setup/) guide to make sure you've completed the necessary steps.
 
