@@ -76,18 +76,18 @@ Amplify for Flutter is an open-source project and welcomes contributions from th
 
 2. Run the following to create an amplify project:
 
-`npm create amplify@latest -y`
+  `npm create amplify@latest -y`
 
 4. To use the Authenticator, you need to add the following dependencies to your project:
 
-```yaml
-dependencies:
-  amplify_auth_cognito: ^2.0.0
-  amplify_authenticator: ^2.0.0
-  amplify_flutter: ^2.0.0
-  flutter:
-    sdk: flutter
-```
+  ```yaml
+  dependencies:
+    amplify_auth_cognito: ^2.0.0
+    amplify_authenticator: ^2.0.0
+    amplify_flutter: ^2.0.0
+    flutter:
+      sdk: flutter
+  ```
 
 5. run `flutter pub get`
 
