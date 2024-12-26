@@ -11,6 +11,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/configure.dart';
 import 'utils/create_file/create_file.dart';
+import 'utils/object_exists.dart';
 import 'utils/sign_in_new_user.dart';
 import 'utils/tear_down.dart';
 
@@ -217,6 +218,83 @@ void main() {
             path: StoragePath.fromString(path),
           ).result;
           expect(downloadResult.bytes, data);
+        });
+      });
+
+      group('multi-bucket', () {
+        final mainBucket =
+            StorageBucket.fromOutputs('Storage Integ Test main bucket');
+        final secondaryBucket = StorageBucket.fromOutputs(
+          'Storage Integ Test secondary bucket',
+        );
+
+        testWidgets('uploads to multiple buckets', (_) async {
+          final fileId = uuid();
+          final path = 'public/multi-bucket-upload-file-$fileId';
+          final storagePath = StoragePath.fromString(path);
+          const content = 'upload file';
+          final data = content.codeUnits;
+          final filePath = await createFile(path: fileId, content: content);
+          addTearDownMultiBucket(
+            storagePath,
+            [mainBucket, secondaryBucket],
+          );
+          //  main bucket
+          final mainResult = await Amplify.Storage.uploadFile(
+            localFile: AWSFile.fromPath(filePath),
+            path: storagePath,
+            options: StorageUploadFileOptions(
+              pluginOptions: const S3UploadFilePluginOptions(
+                useAccelerateEndpoint: true,
+              ),
+              bucket: mainBucket,
+            ),
+          ).result;
+          expect(mainResult.uploadedItem.path, path);
+
+          final downloadMainResult = await Amplify.Storage.downloadData(
+            path: storagePath,
+            options: StorageDownloadDataOptions(
+              bucket: mainBucket,
+            ),
+          ).result;
+          expect(downloadMainResult.bytes, data);
+
+          // secondary bucket
+          final secondaryResult = await Amplify.Storage.uploadFile(
+            localFile: AWSFile.fromPath(filePath),
+            path: storagePath,
+            options: StorageUploadFileOptions(
+              pluginOptions: const S3UploadFilePluginOptions(
+                useAccelerateEndpoint: true,
+              ),
+              bucket: secondaryBucket,
+            ),
+          ).result;
+          expect(secondaryResult.uploadedItem.path, path);
+
+          final downloadSecondaryResult = await Amplify.Storage.downloadData(
+            path: storagePath,
+            options: StorageDownloadDataOptions(
+              bucket: secondaryBucket,
+            ),
+          ).result;
+          expect(downloadSecondaryResult.bytes, data);
+
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: mainBucket,
+            ),
+            true,
+          );
+          expect(
+            await objectExists(
+              storagePath,
+              bucket: secondaryBucket,
+            ),
+            true,
+          );
         });
       });
 
