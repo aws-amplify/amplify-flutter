@@ -261,8 +261,6 @@ class StateMachineBloc
             }
           }
           yield* _checkUserVerification();
-        default:
-          break;
       }
     } on AuthNotAuthorizedException {
       /// The .failAuthentication flag available in the DefineAuthChallenge Lambda trigger
