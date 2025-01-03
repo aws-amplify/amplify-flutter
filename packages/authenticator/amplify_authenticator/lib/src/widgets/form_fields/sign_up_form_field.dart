@@ -738,7 +738,7 @@ class _SignUpPhoneFieldState extends _SignUpTextFieldState
   @override
   FormFieldValidator<String> get validator {
     return (phoneNumber) {
-      phoneNumber = formatPhoneNumber(phoneNumber);
+      phoneNumber = displayPhoneNumber(phoneNumber);
       return validatePhoneNumber(
         inputResolver: stringResolver.inputs,
         context: context,
