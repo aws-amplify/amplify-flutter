@@ -6,6 +6,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -176,7 +177,7 @@ void main() {
         },
       );
       testWidgets(
-        'displays message when submitted with empty phone number if the field is required',
+        'Truncates the prefix with a phone number that accidentally resubmits the dial code already selected in the dropdown',
         (tester) async {
           await tester.pumpWidget(
             MockAuthenticatorApp(
@@ -194,22 +195,21 @@ void main() {
 
           final signUpPage = SignUpPage(tester: tester);
 
-          await signUpPage.submitSignUp();
+          await signUpPage.enterPhoneNumber('12235556789');
 
+          await signUpPage.submitSignUp();
           await tester.pumpAndSettle();
-
-          Finder findPhoneFieldError() => find.descendant(
+          final phoneNumber = find
+              .descendant(
                 of: signUpPage.phoneField,
-                matching: find.text('Phone Number field must not be blank.'),
-              );
+                matching: find.byType(Text),
+              )
+              .evaluate()
+              .map((e) => (e.widget as Text).data)
+              .where((text) => text != null)
+              .first;
 
-          expect(findPhoneFieldError(), findsOneWidget);
-
-          await signUpPage.enterPhoneNumber('1235556789');
-
-          await signUpPage.submitSignUp();
-
-          expect(findPhoneFieldError(), findsNothing);
+          expect(phoneNumber, equals('2235556789'));
         },
       );
       testWidgets(
