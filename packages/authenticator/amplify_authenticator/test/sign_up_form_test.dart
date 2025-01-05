@@ -198,6 +198,7 @@ void main() {
           await signUpPage.enterPhoneNumber('12235556789');
 
           await signUpPage.submitSignUp();
+          
           await tester.pumpAndSettle();
           final phoneNumber = find
               .descendant(
