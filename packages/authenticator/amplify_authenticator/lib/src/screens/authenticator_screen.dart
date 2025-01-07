@@ -192,6 +192,7 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
             form,
           ],
         );
+        break;
     }
 
     return Padding(padding: padding, child: layout);
