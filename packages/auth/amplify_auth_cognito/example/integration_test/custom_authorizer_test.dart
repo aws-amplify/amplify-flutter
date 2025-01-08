@@ -238,7 +238,8 @@ void main() {
                     checkpoints.add('TestTestTest - 4');
 
                     final restApi = config.api!.awsPlugin!.values.singleWhere(
-                        (e) => e.endpointType == EndpointType.rest);
+                      (e) => e.endpointType == EndpointType.rest,
+                    );
                     checkpoints.add('TestTestTest - 5');
                     final apiUrl = Uri.parse(restApi.endpoint);
                     checkpoints.add('TestTestTest - 6');
