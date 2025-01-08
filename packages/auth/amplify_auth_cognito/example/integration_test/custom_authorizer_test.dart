@@ -64,29 +64,35 @@ void main() {
             });
 
             asyncTest('can invoke with HTTP client', (_) async {
+              print('TestTestTest - 1');
               final username = generateUsername();
               final password = generatePassword();
 
+              print('TestTestTest - 2');
               final signUpRes = await Amplify.Auth.signUp(
                 username: username,
                 password: password,
               );
               expect(signUpRes.isSignUpComplete, isTrue);
 
+              print('TestTestTest - 3');
               final signInRes = await Amplify.Auth.signIn(
                 username: username,
                 password: password,
               );
               expect(signInRes.isSignedIn, isTrue);
 
+              print('TestTestTest - 4');
               final session =
                   await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
               expect(session.userPoolTokensResult.valueOrNull, isNotNull);
 
+              print('TestTestTest - 5');
               final apiUrl = config.api!.awsPlugin!.values
                   .singleWhere((e) => e.endpointType == EndpointType.rest)
                   .endpoint;
 
+              print('TestTestTest - 6');
               // Verifies invocation with the ID token. Invocation with an access
               // token requires integration with a resource server/OAuth and is, thus,
               // not tested.
@@ -105,25 +111,31 @@ void main() {
                 },
                 body: HttpPayload.json({'request': 'hello'}),
               );
+              print('TestTestTest - 7');
               final resp = await client.send(request).response;
+              print('TestTestTest - 8');
               final body = await resp.decodeBody();
+              print('TestTestTest - 9');
               expect(resp.statusCode, 200, reason: body);
               expect(
                 jsonDecode(body),
                 equals({'response': 'hello'}),
               );
+              print('TestTestTest - 10');
               customHeaders.forEach((key, value) {
                 expect(
                   resp.headers,
                   containsPair(key, value),
                 );
               });
+              print('TestTestTest - 11');
               queryParameters.forEach((key, value) {
                 expect(
                   resp.headers,
                   containsPair('x-query-$key', value),
                 );
               });
+              print('TestTestTest - 12');
             });
 
             asyncTest('can invoke with API plugin', (_) async {
