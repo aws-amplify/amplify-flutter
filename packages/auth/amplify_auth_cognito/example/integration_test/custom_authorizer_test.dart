@@ -64,6 +64,7 @@ void main() {
             });
 
             asyncTest('can invoke with HTTP client', (_) async {
+              // ignore_for_file: avoid_print
               print('TestTestTest - 1');
               final username = generateUsername();
               final password = generatePassword();
