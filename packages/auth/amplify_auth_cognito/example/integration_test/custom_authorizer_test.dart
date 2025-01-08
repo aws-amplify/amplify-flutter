@@ -64,7 +64,7 @@ void main() {
             });
 
             asyncTest('can invoke with HTTP client', (_) async {
-              List<String> checkpoints = [];
+              final checkpoints = <String>[];
               try {
                 checkpoints.add('TestTestTest - 1');
                 final username = generateUsername();
@@ -225,7 +225,7 @@ void main() {
                 });
 
                 asyncTest('can invoke with HTTP client', (_) async {
-                  List<String> checkpoints = [];
+                  final checkpoints = <String>[];
                   try {
                     checkpoints.add('TestTestTest - 1');
                     final cognitoPlugin = Amplify.Auth.getPlugin(
