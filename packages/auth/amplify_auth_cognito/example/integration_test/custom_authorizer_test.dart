@@ -138,7 +138,7 @@ void main() {
                   );
                 });
                 checkpoints.add('TestTestTest - 12');
-              } catch (e) {
+              } on Object catch (e) {
                 checkpoints.add('TestTestTest - Error: $e');
                 throw Exception('$e - CheckPoints1 = $checkpoints');
               }
@@ -297,7 +297,7 @@ void main() {
                       );
                     });
                     checkpoints.add('TestTestTest - 16');
-                  } catch (e) {
+                  } on Object catch (e) {
                     checkpoints.add('TestTestTest - Error: $e');
                     throw Exception('$e - CheckPoints2 = $checkpoints');
                   }
