@@ -72,12 +72,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
         },
       ).takeUntil(cancelTrigger.future);
       Object body;
-      if (request.scheme == 'http' ||
-          supportedProtocols.supports(AlpnProtocol.http1_1)) {
-        body = Uint8List.fromList(await collectBytes(stream));
-      } else {
-        body = stream;
-      }
+      body = Uint8List.fromList(await collectBytes(stream));
 
       if (completer.isCanceled) return;
       final resp = await fetch(
