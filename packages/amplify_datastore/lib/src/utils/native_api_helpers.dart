@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/src/native_plugin.g.dart';
-import 'package:collection/collection.dart';
 
 /// Convert a [NativeGraphQLResponse] to a [GraphQLResponse]
 GraphQLRequest<String> nativeRequestToGraphQLRequest(
@@ -85,7 +84,7 @@ NativeGraphQLResponse graphQLResponseToNativeResponse(
 /// from a [GraphQLResponse]
 String _buildPayloadJson(GraphQLResponse<String> response) {
   final data = jsonDecode(response.data ?? '{}');
-  final errors = response.errors.whereNotNull().map((e) => e.toJson()).toList();
+  final errors = response.errors.nonNulls.map((e) => e.toJson()).toList();
   return jsonEncode({
     'data': data,
     'errors': errors,
