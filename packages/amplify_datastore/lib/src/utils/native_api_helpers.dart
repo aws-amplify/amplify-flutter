@@ -85,7 +85,7 @@ NativeGraphQLResponse graphQLResponseToNativeResponse(
 /// from a [GraphQLResponse]
 String _buildPayloadJson(GraphQLResponse<String> response) {
   final data = jsonDecode(response.data ?? '{}');
-  final errors = response.errors.whereNotNull().map((e) => e.toJson()).toList();
+  final errors = response.errors.nonNulls.map((e) => e.toJson()).toList();
   return jsonEncode({
     'data': data,
     'errors': errors,

@@ -12,7 +12,6 @@ import 'package:amplify_core/amplify_core.dart';
 /// [here](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html).
 ///
 /// Use [CognitoUserAttributeKey.custom] to create a custom Cognito attribute.
-/// {@hideConstantImplementations}
 class CognitoUserAttributeKey extends AuthUserAttributeKey {
   const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
       : isCustom = false;

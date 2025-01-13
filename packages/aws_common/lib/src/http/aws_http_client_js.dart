@@ -71,8 +71,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
           requestProgressController.close();
         },
       ).takeUntil(cancelTrigger.future);
-      Object body;
-      body = Uint8List.fromList(await collectBytes(stream));
+      Object body = Uint8List.fromList(await collectBytes(stream));
 
       if (completer.isCanceled) return;
       final resp = await fetch(
