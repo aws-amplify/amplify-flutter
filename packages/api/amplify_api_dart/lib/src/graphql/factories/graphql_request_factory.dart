@@ -176,11 +176,6 @@ class GraphQLRequestFactory {
           upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
           lowerOutput = r'(filter: $filter)';
         }
-      default:
-        throw const ApiOperationException(
-          'GraphQL Request Operation is currently unsupported',
-          recoverySuggestion: 'please use a supported GraphQL operation',
-        );
     }
 
     return DocumentInputs(upperOutput, lowerOutput);
