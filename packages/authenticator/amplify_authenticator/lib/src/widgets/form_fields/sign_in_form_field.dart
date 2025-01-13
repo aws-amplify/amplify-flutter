@@ -159,8 +159,6 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
         return (v) => state.username = v;
       case SignInField.password:
         return (v) => state.password = v;
-      default:
-        return super.onChanged;
     }
   }
 
