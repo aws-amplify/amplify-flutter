@@ -1,3 +1,7 @@
+## 0.4.8
+
+- Minor bug fixes and improvements
+
 ## 0.4.7
 
 ### Fixes
