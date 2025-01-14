@@ -1,3 +1,8 @@
+## 0.4.8
+
+### Features
+- feat(storage): add multi-bucket feature support  ([#5681](https://github.com/aws-amplify/amplify-flutter/pull/5681))
+
 ## 0.4.7
 
 ### Fixes

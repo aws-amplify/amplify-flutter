@@ -1,3 +1,8 @@
+## 0.7.5
+
+### Fixes
+- fix(aws_common): removed JS streamed requests ([#5797](https://github.com/aws-amplify/amplify-flutter/pull/5797))
+
 ## 0.7.4
 
 - Minor bug fixes and improvements

@@ -1,3 +1,7 @@
+## 2.6.0
+
+- Minor bug fixes and improvements
+
 ## 2.5.0
 
 ### Features

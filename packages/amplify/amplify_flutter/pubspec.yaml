@@ -1,6 +1,6 @@
 name: amplify_flutter
 description: The top level Flutter package for the AWS Amplify libraries.
-version: 2.5.0
+version: 2.6.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify/amplify_flutter
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -19,7 +19,7 @@ platforms:
   web:
 
 dependencies:
-  amplify_core: ">=2.5.0 <2.6.0"
+  amplify_core: ">=2.6.0 <2.7.0"
   amplify_secure_storage: ">=0.5.7 <0.6.0"
   aws_common: ">=0.7.3 <0.8.0"
   collection: ^1.15.0
