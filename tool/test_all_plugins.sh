@@ -55,7 +55,7 @@ case $KIND in
         fi
 
         cd ios
-        XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 14 Pro Max,OS=latest"
+        XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 16 Pro Max,OS=latest"
         if xcodebuild test \
                 -workspace Runner.xcworkspace \
                 -scheme Runner \
