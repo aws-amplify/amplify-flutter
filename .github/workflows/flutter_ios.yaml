@@ -60,7 +60,7 @@ jobs:
         if: inputs.has-native-tests
         run: |
           set -o pipefail
-          XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 14 Pro Max,OS=latest"
+          XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 16 Pro Max,OS=latest"
           xcodebuild test \
               -workspace Runner.xcworkspace \
               -scheme Runner \
