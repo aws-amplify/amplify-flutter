@@ -9,7 +9,7 @@ environment:
   sdk: ^3.3.0
 
 dependencies:
-  amplify_core: ">=2.5.0 <2.6.0"
+  amplify_core: ">=2.6.0 <2.7.0"
   async: ^2.10.0
   aws_common: ">=0.7.3 <0.8.0"
   drift: ">=2.18.0 <2.19.0"

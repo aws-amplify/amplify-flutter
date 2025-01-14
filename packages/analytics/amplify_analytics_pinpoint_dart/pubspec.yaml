@@ -1,6 +1,6 @@
 name: amplify_analytics_pinpoint_dart
 description: A Dart-only implementation of the Amplify Analytics plugin for Pinpoint.
-version: 0.4.6
+version: 0.4.7
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/analytics/amplify_analytics_pinpoint_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -9,7 +9,7 @@ environment:
   sdk: ^3.3.0
 
 dependencies:
-  amplify_core: ">=2.5.0 <2.6.0"
+  amplify_core: ">=2.6.0 <2.7.0"
   amplify_db_common_dart: ">=0.4.7 <0.5.0"
   amplify_secure_storage_dart: ">=0.5.3 <0.6.0"
   aws_common: ">=0.7.3 <0.8.0"

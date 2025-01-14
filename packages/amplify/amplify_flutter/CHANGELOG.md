@@ -1,3 +1,12 @@
+## 2.6.0
+
+### Features
+- feat(storage): add multi-bucket feature support  ([#5681](https://github.com/aws-amplify/amplify-flutter/pull/5681))
+
+### Fixes
+- fix(aws_common): removed JS streamed requests ([#5797](https://github.com/aws-amplify/amplify-flutter/pull/5797))
+- fix(datastore): properly handle multiple configures on Android ([#5740](https://github.com/aws-amplify/amplify-flutter/pull/5740))
+
 ## 2.5.0
 
 ### Features
