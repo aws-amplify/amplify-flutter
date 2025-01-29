@@ -21,7 +21,7 @@
     "@aws-crypto/client-node": "^4.0.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.614.0",
     "aws-cdk": "^2.150.0",
-    "aws-cdk-lib": "^2.150.0",
+    "aws-cdk-lib": "^2.177.0",
     "constructs": "^10.3.0",
     "esbuild": "^0.23.0",
     "tsx": "^4.16.2",
