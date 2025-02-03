@@ -31,7 +31,12 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                 if !reachabilityUpdate.isOnline {
                     DispatchQueue.main.async {
                         self.nativeApiPlugin.deviceOffline { result in
-                            //NoOp
+                            switch result {
+                                case .success(let session):
+                                    break //NoOp
+                                case .failure(let error):
+                                    throw error
+                            }      
                         }
                    }
                 }
@@ -97,7 +102,12 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
             if let subscriptionId {
                 DispatchQueue.main.async {
                     self.nativeApiPlugin.unsubscribe(subscriptionId: subscriptionId) { result in
-                        //NoOp
+                        switch result {
+                            case .success(let session):
+                                break //NoOp
+                            case .failure(let error):
+                                throw error
+                        }  
                     }
                 }
             }
@@ -163,7 +173,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                     case .success(let response):
                          subscriptionId = response.subscriptionId
                     case .failure(let error): 
-                        break //NoOp
+                        throw error
                 }
             }
         }
@@ -230,7 +240,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                         case .success(let response):
                             continuation.resume(returning: response)
                         case .failure(let error): 
-                            break //NoOp
+                            throw error
                     }
                 }
             }

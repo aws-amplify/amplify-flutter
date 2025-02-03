@@ -47,7 +47,13 @@ class FlutterAuthProviders: APIAuthProviderFactory {
                                     ))
                             }
                         case .failure(let error): 
-                            break //NoOp
+                            token = .failure(APIError.operationError(
+                                    "Unable to retrieve token for \(type)",
+                                    """
+                                    Make sure you register your auth providers in the addPlugin call and \
+                                    that getLatestAuthToken returns a value.
+                                    """
+                                    ))
                     }
                 }
             }

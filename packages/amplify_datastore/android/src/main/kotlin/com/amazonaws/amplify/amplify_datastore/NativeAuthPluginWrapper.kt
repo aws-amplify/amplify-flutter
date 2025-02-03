@@ -126,6 +126,8 @@ class NativeAuthPluginWrapper(
                         userPoolTokens
                     )
                     onSuccess.accept(authSession)
+                } else {
+                    AuthSessionResult.failure(couldNotFetchException)
                 }
             }
         }
