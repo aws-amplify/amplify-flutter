@@ -1,3 +1,12 @@
+## 2.3.2
+
+- Minor bug fixes and improvements
+
+## 2.3.1
+
+### Fixes
+- fix(authenticator): recover from exceptions during reset password flow ([#5672](https://github.com/aws-amplify/amplify-flutter/pull/5672))
+
 ## 2.3.0
 
 ### Features
