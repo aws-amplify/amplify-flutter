@@ -23,9 +23,10 @@ final throwsSignedOutException = throwsA(isA<SignedOutException>());
 // Follows signOut test cases:
 // https://github.com/aws-amplify/amplify-android/tree/main/aws-auth-cognito/src/test/resources/feature-test/testsuites/signOut
 void main() {
-  final userPoolKeys = CognitoUserPoolKeys(userPoolConfig.appClientId);
-  final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig.poolId);
-  final hostedUiKeys = HostedUiKeys(hostedUiConfig.appClientId);
+  final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
+  final identityPoolKeys =
+      CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!);
+  final hostedUiKeys = HostedUiKeys(mockConfig.auth!.userPoolClientId!);
 
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;

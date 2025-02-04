@@ -5,19 +5,21 @@ library sample_app;
 
 import 'dart:async';
 
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
-// Uncomment the below line to enable online sync
-// import 'package:amplify_api/amplify_api.dart';
-
+import 'package:amplify_datastore_example/amplifyconfiguration.dart';
+import 'package:amplify_datastore_example/widgets/navigator_scaffold.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'models/ModelProvider.dart';
+import 'models/ModelProviderExampleApp.dart';
 
-part 'event_display_widgets.dart';
-part 'queries_display_widgets.dart';
-part 'save_model_widgets.dart';
+part 'widgets/event_display_widgets.dart';
+part 'widgets/queries_display_widgets.dart';
+part 'widgets/save_model_widgets.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,33 +36,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Post> _posts = <Post>[];
-  List<Comment> _comments = <Comment>[];
-  List<Blog> _blogs = <Blog>[];
-  List<String> _postStreamingData = <String>[];
-  List<String> _blogStreamingData = <String>[];
-  List<String> _commentStreamingData = <String>[];
-  bool _isAmplifyConfigured = false;
-  String _queriesToView = "Post"; //default view
-  Blog? _selectedBlogForNewPost;
-  Post? _selectedPostForNewComment;
-  late Stream<SubscriptionEvent<Post>> postStream;
-  late Stream<SubscriptionEvent<Blog>> blogStream;
-  late Stream<SubscriptionEvent<Comment>> commentStream;
-  late StreamSubscription<DataStoreHubEvent> hubSubscription;
-  bool _listeningToHub = true;
   late AmplifyDataStore datastorePlugin;
-
-  final _titleController = TextEditingController();
-  final _ratingController = TextEditingController();
-  final _nameController = TextEditingController();
-  final _contentController = TextEditingController();
-  ScrollController _postScrollController =
-      ScrollController(initialScrollOffset: 50.0);
-  ScrollController _blogScrollController =
-      ScrollController(initialScrollOffset: 50.0);
-  ScrollController _commentScrollController =
-      ScrollController(initialScrollOffset: 50.0);
+  bool _isAmplifyConfigured = false;
 
   @override
   void initState() {
@@ -76,321 +53,38 @@ class _MyAppState extends State<MyApp> {
         options: DataStorePluginOptions(
           errorHandler: ((error) =>
               {print("Custom ErrorHandler received: " + error.toString())}),
+          authModeStrategy: AuthModeStrategy.multiAuth,
         ),
       );
       await Amplify.addPlugin(datastorePlugin);
 
       // Configure
 
-      // Uncomment the below lines to enable online sync.
-      // await Amplify.addPlugin(AmplifyAPI());
-      // await Amplify.configure(amplifyconfig);
-
-      // Remove this line when using the lines above for online sync
-      await Amplify.configure("{}");
+      // Comment the below lines to disable remote sync.
+      await Amplify.addPlugin(AmplifyAuthCognito());
+      await Amplify.addPlugin(AmplifyAPI());
+      await Amplify.configure(amplifyconfig);
+      // replace the above two lines with this to force local sync only
+      // await Amplify.configure("{}");
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
     }
-    listenToHub();
-
-    Amplify.DataStore.observeQuery(
-      Blog.classType,
-    ).listen((QuerySnapshot<Blog> snapshot) {
-      var count = snapshot.items.length;
-      var now = DateTime.now().toIso8601String();
-      bool status = snapshot.isSynced;
-      print(
-          '[Observe Query] Blog snapshot received with $count models, status: $status at $now');
-      setState(() {
-        _blogs = snapshot.items;
-      });
-    });
-
-    Amplify.DataStore.observeQuery(
-      Post.classType,
-    ).listen((QuerySnapshot<Post> snapshot) {
-      setState(() {
-        _posts = snapshot.items;
-      });
-    });
-
-    Amplify.DataStore.observeQuery(
-      Comment.classType,
-    ).listen((QuerySnapshot<Comment> snapshot) {
-      setState(() {
-        _comments = snapshot.items;
-      });
-    });
-
-    // setup streams
-    postStream = Amplify.DataStore.observe(Post.classType);
-    postStream.listen((event) {
-      _postStreamingData.add('Post: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.title) +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
-
-    blogStream = Amplify.DataStore.observe(Blog.classType);
-    blogStream.listen((event) {
-      _blogStreamingData.add('Blog: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.name) +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
-
-    commentStream = Amplify.DataStore.observe(Comment.classType);
-    commentStream.listen((event) {
-      _commentStreamingData.add('Comment: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.content) +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
 
     setState(() {
       _isAmplifyConfigured = true;
     });
   }
 
-  void listenToHub() {
-    setState(() {
-      hubSubscription = Amplify.Hub.listen(HubChannel.DataStore, (msg) {
-        if (msg.type case DataStoreHubEventType.networkStatus) {
-          print('Network status message: $msg');
-          return;
-        }
-        print(msg);
-      });
-      _listeningToHub = true;
-    });
-  }
-
-  void stopListeningToHub() {
-    hubSubscription.cancel();
-    setState(() {
-      _listeningToHub = false;
-    });
-  }
-
-  savePost(String title, int rating, Blog associatedBlog) async {
-    try {
-      Post post = Post(
-          title: title,
-          rating: rating,
-          created: TemporalDateTime.now(),
-          blog: associatedBlog);
-      await Amplify.DataStore.save(post);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  saveBlog(String name) async {
-    try {
-      Blog blog = Blog(
-        name: name,
-      );
-      await Amplify.DataStore.save(blog);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  saveComment(String content, Post associatedPost) async {
-    try {
-      Comment comment = Comment(content: content, post: associatedPost);
-      await Amplify.DataStore.save(comment);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  deletePost(String id) async {
-    try {
-      _selectedPostForNewComment = null;
-      await Amplify.DataStore.delete(
-          Post(id: id, title: "", rating: 0, created: TemporalDateTime.now()));
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  deleteBlog(String id) async {
-    try {
-      _selectedBlogForNewPost = null;
-      await Amplify.DataStore.delete(Blog(id: id, name: ""));
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  deleteComment(String id) async {
-    try {
-      await Amplify.DataStore.delete(Comment(id: id, content: ""));
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void updateQueriesToView(String value) {
-    setState(() {
-      _queriesToView = value;
-    });
-  }
-
-  void updateSelectedBlogForNewPost(Blog value) {
-    setState(() {
-      _selectedBlogForNewPost = value;
-    });
-  }
-
-  void updateSelectedPostForNewComment(Post value) {
-    setState(() {
-      _selectedPostForNewComment = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    executeAfterBuild();
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'Best DataStore App Ever',
-            textAlign: TextAlign.center,
-          ),
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () async {
-                    await Amplify.DataStore.clear();
-                  },
-                  child: Icon(
-                    Icons.clear,
-                    semanticLabel: "Clear",
-                    size: 24.0,
-                  ),
-                )),
-          ],
-        ),
-        body: Column(
-          children: <Widget>[
-            Padding(padding: EdgeInsets.all(10.0)),
-
-            // Row for saving blog
-            addBlogWidget(_nameController, _isAmplifyConfigured, saveBlog),
-
-            // Row for saving post
-            addPostWidget(
-              titleController: _titleController,
-              ratingController: _ratingController,
-              isAmplifyConfigured: _isAmplifyConfigured,
-              allBlogs: _blogs,
-              selectedBlog: _selectedBlogForNewPost,
-              saveFn: savePost,
-              updateSelectedBlogForNewPost: updateSelectedBlogForNewPost,
-            ),
-
-            // Row for saving comment
-            addCommentWidget(
-                _contentController,
-                _isAmplifyConfigured,
-                _selectedPostForNewComment,
-                _posts,
-                _selectedPostForNewComment,
-                saveComment,
-                updateSelectedPostForNewComment),
-
-            Padding(padding: EdgeInsets.all(10.0)),
-
-            // Row for query buttons
-            displayQueryButtons(
-                _isAmplifyConfigured, _queriesToView, updateQueriesToView),
-
-            Padding(padding: EdgeInsets.all(5.0)),
-            Text("Listen to DataStore Hub"),
-            Switch(
-              value: _listeningToHub,
-              onChanged: (value) {
-                if (_listeningToHub) {
-                  stopListeningToHub();
-                } else {
-                  listenToHub();
-                }
-              },
-              activeTrackColor: Colors.lightGreenAccent,
-              activeColor: Colors.green,
-            ),
-
-            Padding(padding: EdgeInsets.all(5.0)),
-
-            // Showing relevant queries
-            if (_queriesToView == "Post")
-              getWidgetToDisplayPost(_posts, deletePost, _blogs)
-            else if (_queriesToView == "Blog")
-              getWidgetToDisplayBlog(_blogs, deleteBlog)
-            else if (_queriesToView == "Comment")
-              getWidgetToDisplayComment(_comments, deleteComment, _posts),
-
-            Text(_queriesToView + " Events",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 14)),
-
-            Padding(padding: EdgeInsets.all(5.0)),
-            if (_queriesToView == "Post")
-              getWidgetToDisplayPostEvents(
-                  _postScrollController, _postStreamingData, executeAfterBuild)
-            else if (_queriesToView == "Blog")
-              getWidgetToDisplayBlogEvents(
-                  _blogScrollController, _blogStreamingData, executeAfterBuild)
-            else if (_queriesToView == "Comment")
-              getWidgetToDisplayCommentEvents(_commentScrollController,
-                  _commentStreamingData, executeAfterBuild),
-          ],
-          // replace with any or all query results as needed
+    return Authenticator(
+      child: MaterialApp(
+        title: 'Best DataStore App Ever',
+        home: NavigatorScaffold(
+          isAmplifyConfigured: _isAmplifyConfigured,
         ),
       ),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) => executeAfterBuild());
-  }
-
-  Future<void> executeAfterBuild() async {
-    // this code will get executed after the build method
-    // because of the way async functions are scheduled
-
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (_postScrollController.hasClients)
-        _postScrollController.animateTo(
-            _postScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
-      if (_blogScrollController.hasClients)
-        _blogScrollController.animateTo(
-            _blogScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
-      if (_commentScrollController.hasClients)
-        _commentScrollController.animateTo(
-            _commentScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
-    });
   }
 }

@@ -28,7 +28,9 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 part 'form_fields/confirm_sign_in_form_field.dart';
 part 'form_fields/confirm_sign_up_form_field.dart';
+part 'form_fields/email_setup_form_field.dart';
 part 'form_fields/mfa_selection_form_field.dart';
+part 'form_fields/mfa_setup_selection_form_field.dart';
 part 'form_fields/phone_number_field.dart';
 part 'form_fields/reset_password_form_field.dart';
 part 'form_fields/sign_in_form_field.dart';
@@ -229,11 +231,17 @@ abstract class AuthenticatorFormFieldState<
         state.confirmSignInCustomAuth();
       case AuthenticatorStep.confirmSignInMfa:
         state.confirmSignInMFA();
+      case AuthenticatorStep.confirmSignInWithOtpCode:
+        state.confirmEmailMfa();
       case AuthenticatorStep.confirmSignInNewPassword:
         state.confirmSignInNewPassword();
       case AuthenticatorStep.confirmSignInWithTotpMfaCode:
       case AuthenticatorStep.continueSignInWithTotpSetup:
         state.confirmTotp();
+      case AuthenticatorStep.continueSignInWithEmailMfaSetup:
+        state.continueEmailMfaSetup();
+      case AuthenticatorStep.continueSignInWithMfaSetupSelection:
+        state.continueSignInWithMfaSetupSelection();
       case AuthenticatorStep.resetPassword:
         state.resetPassword();
       case AuthenticatorStep.confirmResetPassword:

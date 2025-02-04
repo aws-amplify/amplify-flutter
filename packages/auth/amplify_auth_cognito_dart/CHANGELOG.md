@@ -1,3 +1,28 @@
+## 0.11.8
+
+- Minor bug fixes and improvements
+
+## 0.11.7
+
+### Features
+- feat(auth, authenticator): Add support for Email OTP MFA ([#5449](https://github.com/aws-amplify/amplify-flutter/pull/5449)) (#5472)
+
+## 0.11.6
+
+- Minor bug fixes and improvements
+
+## 0.11.5
+
+- Minor bug fixes and improvements
+
+## 0.11.4
+
+### Features
+- feat(Auth): Add fetchCurrentDevice API ([#5251](https://github.com/aws-amplify/amplify-flutter/pull/5251))
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
 ## 0.11.3
 
 - Minor bug fixes and improvements

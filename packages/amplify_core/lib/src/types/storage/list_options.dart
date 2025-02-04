@@ -15,6 +15,7 @@ class StorageListOptions
   const StorageListOptions({
     this.pageSize = 1000,
     this.nextToken,
+    this.bucket,
     this.pluginOptions,
     this.subpathStrategy = const SubpathStrategy.include(),
   });
@@ -28,12 +29,15 @@ class StorageListOptions
   /// {@macro amplify_core.storage.list_plugin_options}
   final StorageListPluginOptions? pluginOptions;
 
+  /// Optionally specify which bucket to retrieve
+  final StorageBucket? bucket;
+
   /// Subpath strategy for specifying storage subpath behavior
   final SubpathStrategy subpathStrategy;
 
   @override
   List<Object?> get props =>
-      [pageSize, nextToken, pluginOptions, subpathStrategy];
+      [pageSize, nextToken, pluginOptions, bucket, subpathStrategy];
 
   @override
   String get runtimeTypeName => 'StorageListOptions';
@@ -42,6 +46,7 @@ class StorageListOptions
   Map<String, Object?> toJson() => {
         'pageSize': pageSize,
         'nextToken': nextToken,
+        'bucket': bucket?.toJson(),
         'pluginOptions': pluginOptions?.toJson(),
         'subpathStrategy': subpathStrategy.toJson(),
       };

@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 const amplifyConfig = '''{
@@ -131,10 +130,6 @@ final mockConfigWithPinpoint = AmplifyOutputs.fromJson(
   jsonDecode(amplifyConfigWithAnalytics) as Map<String, Object?>,
 );
 
-final hostedUiConfig = CognitoOAuthConfig.fromAuthOutputs(mockConfig.auth!);
-final authConfig = AuthConfiguration.fromAmplifyOutputs(mockConfig);
-final userPoolConfig = authConfig.userPoolConfig!;
-final identityPoolConfig = authConfig.identityPoolConfig!;
 final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
 final deviceKeys =
     CognitoDeviceKeys(mockConfig.auth!.userPoolClientId!, userSub);

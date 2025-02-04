@@ -7,6 +7,7 @@ import 'package:e2e/e2e_worker_null_result.dart';
 class E2EWorkerNullResultImpl extends E2EWorkerNullResult {
   @override
   String get name => 'E2EWorkerNullResult';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.

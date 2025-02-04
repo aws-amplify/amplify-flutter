@@ -9,7 +9,6 @@ import 'package:meta/meta.dart';
 /// {@template amplify_core.auth_user_attribute_key}
 /// A user attribute identifier.
 /// {@endtemplate}
-/// {@hideConstantImplementations}
 @immutable
 abstract class AuthUserAttributeKey
     with

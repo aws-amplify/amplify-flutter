@@ -1,3 +1,26 @@
+## 0.4.8
+
+### Features
+- feat(storage): add multi-bucket feature support  ([#5681](https://github.com/aws-amplify/amplify-flutter/pull/5681))
+
+## 0.4.7
+
+### Fixes
+- fix(storage): Only allow 1 batch to run at a time ([#5704](https://github.com/aws-amplify/amplify-flutter/pull/5704))
+
+## 0.4.6
+
+- Minor bug fixes and improvements
+
+## 0.4.5
+
+- Minor bug fixes and improvements
+
+## 0.4.4
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
 ## 0.4.3
 
 - Minor bug fixes and improvements

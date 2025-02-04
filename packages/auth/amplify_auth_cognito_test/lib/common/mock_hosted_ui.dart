@@ -57,8 +57,10 @@ class MockHostedUiPlatform extends HostedUiPlatformImpl {
       _signOut(this, options);
 
   @override
-  Uri get signInRedirectUri => config.signInRedirectUris.first;
+  Uri get signInRedirectUri =>
+      Uri.parse(authOutputs.oauth!.redirectSignInUri.first);
 
   @override
-  Uri get signOutRedirectUri => config.signOutRedirectUris.first;
+  Uri get signOutRedirectUri =>
+      Uri.parse(authOutputs.oauth!.redirectSignOutUri.first);
 }

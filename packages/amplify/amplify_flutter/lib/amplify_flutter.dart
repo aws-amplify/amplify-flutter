@@ -6,7 +6,7 @@ library amplify_flutter;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
 
-export 'package:amplify_core/amplify_core.dart' hide Amplify;
+export 'package:amplify_core/amplify_core.dart' hide Amplify, WebSocketOptions;
 export 'package:amplify_secure_storage/amplify_secure_storage.dart';
 
 /// Top level singleton Amplify object.

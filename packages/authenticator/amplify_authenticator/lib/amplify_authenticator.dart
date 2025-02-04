@@ -49,6 +49,7 @@ export 'src/models/totp_options.dart';
 export 'src/models/username_input.dart'
     show UsernameType, UsernameInput, UsernameSelection;
 export 'src/state/authenticator_state.dart';
+export 'src/utils/unmet_password_requirements.dart';
 export 'src/widgets/button.dart'
     show
         SignUpButton,
@@ -75,7 +76,9 @@ export 'src/widgets/form.dart'
         ConfirmSignInMFAForm,
         ConfirmSignInNewPasswordForm,
         ContinueSignInWithMfaSelectionForm,
+        ContinueSignInWithMfaSetupSelectionForm,
         ContinueSignInWithTotpSetupForm,
+        ContinueSignInWithEmailMfaSetupForm,
         ConfirmSignUpForm,
         ResetPasswordForm,
         ConfirmResetPasswordForm,
@@ -709,9 +712,14 @@ class _AuthenticatorState extends State<Authenticator> {
                 confirmSignInMFAForm: ConfirmSignInMFAForm(),
                 continueSignInWithMfaSelectionForm:
                     ContinueSignInWithMfaSelectionForm(),
+                continueSignInWithMfaSetupSelectionForm:
+                    ContinueSignInWithMfaSetupSelectionForm(),
                 continueSignInWithTotpSetupForm:
                     ContinueSignInWithTotpSetupForm(),
+                continueSignInWithEmailMfaSetupForm:
+                    ContinueSignInWithEmailMfaSetupForm(),
                 confirmSignInWithTotpMfaCodeForm: ConfirmSignInMFAForm(),
+                confirmSignInWithOtpCodeForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
                 child: widget.child,

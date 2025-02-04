@@ -4,7 +4,8 @@
 /// Amplify API for Dart
 library amplify_api_dart;
 
-export 'package:amplify_core/src/types/api/api_types.dart';
+export 'package:amplify_core/src/types/api/api_types.dart'
+    hide WebSocketOptions;
 
 export 'src/api_plugin_impl.dart';
 
@@ -18,3 +19,4 @@ export 'src/graphql/model_helpers/model_subscriptions.dart';
 
 /// Network connectivity util not needed by consumers of Flutter package amplify_api.
 export 'src/graphql/web_socket/types/connectivity_platform.dart';
+export 'src/graphql/web_socket/types/process_life_cycle.dart';

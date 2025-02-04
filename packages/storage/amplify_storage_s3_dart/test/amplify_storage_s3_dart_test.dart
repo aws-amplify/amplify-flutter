@@ -142,6 +142,9 @@ void main() {
           pluginOptions: S3ListPluginOptions(),
           subpathStrategy: SubpathStrategy.exclude(),
           nextToken: 'next-token-123',
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
           pageSize: 2,
         );
 
@@ -247,6 +250,9 @@ void main() {
           () async {
         const testOptions = StorageGetPropertiesOptions(
           pluginOptions: S3GetPropertiesPluginOptions(),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(
@@ -343,6 +349,9 @@ void main() {
             validateObjectExistence: true,
             expiresIn: Duration(minutes: 10),
             useAccelerateEndpoint: true,
+          ),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
           ),
         );
 
@@ -463,6 +472,9 @@ void main() {
             useAccelerateEndpoint: true,
             getProperties: true,
           ),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(
@@ -536,6 +548,14 @@ void main() {
           const StorageUploadDataOptions(),
         );
         registerFallbackValue(const S3DataPayload.empty());
+        registerFallbackValue(
+          const StorageBucket.fromBucketInfo(
+            BucketInfo(
+              bucketName: 'bucketName',
+              region: 'region',
+            ),
+          ),
+        );
       });
 
       test('should forward default options to StorageS3Service.uploadData API',
@@ -597,6 +617,12 @@ void main() {
       test('should forward options to StorageS3Service.uploadData API',
           () async {
         const testOptions = StorageUploadDataOptions(
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(
+              bucketName: 'test-bucket',
+              region: 'test-region',
+            ),
+          ),
           pluginOptions: S3UploadDataPluginOptions(
             getProperties: true,
             useAccelerateEndpoint: true,
@@ -771,6 +797,9 @@ void main() {
           pluginOptions: S3UploadFilePluginOptions(
             getProperties: true,
             useAccelerateEndpoint: true,
+          ),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
           ),
         );
 
@@ -966,7 +995,10 @@ void main() {
           ),
         ).thenAnswer((_) async => testResult);
 
-        final removeOperation = storageS3Plugin.remove(path: testPath);
+        final removeOperation = storageS3Plugin.remove(
+          path: testPath,
+          options: defaultOptions,
+        );
 
         final capturedOptions = verify(
           () => storageS3Service.remove(
@@ -992,6 +1024,9 @@ void main() {
       test('should forward options to StorageS3Service.remove() API', () async {
         const testOptions = StorageRemoveOptions(
           pluginOptions: S3RemovePluginOptions(),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(
@@ -1086,6 +1121,9 @@ void main() {
           () async {
         const testOptions = StorageRemoveManyOptions(
           pluginOptions: S3RemoveManyPluginOptions(),
+          bucket: StorageBucket.fromBucketInfo(
+            BucketInfo(bucketName: 'unit-test-bucket', region: 'us-east-2'),
+          ),
         );
 
         when(

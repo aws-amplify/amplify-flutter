@@ -14,9 +14,9 @@ void main() {
   testRunner.setupTests();
 
   group('MFA (TOTP)', () {
-    testRunner.withEnvironment(MfaEnvironment.mfaRequiredTotp, () {
+    testRunner.withEnvironment(mfaRequiredTotp, (env) {
       asyncTest('can sign in with TOTP MFA', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
 
         await adminCreateUser(
@@ -34,7 +34,7 @@ void main() {
           signInRes.nextStep.signInStep,
           because:
               "TOTP MFA is automatically enabled when it's the only option",
-        ).equals(AuthSignInStep.continueSignInWithTotpSetup);
+        ).equals(AuthSignInStep.continueSignInWithMfaSetupSelection);
 
         final sharedSecret = signInRes.nextStep.totpSetupDetails!.sharedSecret;
         final setupRes = await Amplify.Auth.confirmSignIn(

@@ -57,13 +57,13 @@ class EnvironmentInfo {
     required this.preventUserExistenceErrors,
     required this.confirmationDeliveryMedium,
     required this.resetPasswordDeliveryMedium,
-    required this.mfaEnabled,
+    required this.mfaInfo,
   });
 
   /// The default env info for the gen 1 CLI.
   const EnvironmentInfo.withGen1Defaults({
     required this.name,
-    this.mfaEnabled = true,
+    this.mfaInfo = const MfaInfo(smsEnabled: true),
     this.configVersion = AmplifyConfigVersion.config,
     this.loginMethod = LoginMethod.username,
     this.preventUserExistenceErrors = false,
@@ -74,7 +74,7 @@ class EnvironmentInfo {
   /// The default env info for gen 2.
   const EnvironmentInfo.withGen2Defaults({
     required this.name,
-    this.mfaEnabled = false,
+    this.mfaInfo,
     this.configVersion = AmplifyConfigVersion.outputs,
     this.loginMethod = LoginMethod.email,
     this.preventUserExistenceErrors = true,
@@ -99,6 +99,18 @@ class EnvironmentInfo {
         LoginMethod.phone => amp_test.generateUSPhoneNumber().toE164(),
       };
 
+  /// Returns the attributes that Cognito will create automatically based on the
+  /// sign up method.
+  ///
+  /// For example, if sign in alias is Email, the user's username automatically
+  /// is set to their email.
+  Map<AuthUserAttributeKey, String> getDefaultAttributes(String username) =>
+      switch (loginMethod) {
+        LoginMethod.email => {AuthUserAttributeKey.email: username},
+        LoginMethod.phone => {AuthUserAttributeKey.phoneNumber: username},
+        LoginMethod.username => <AuthUserAttributeKey, String>{}
+      };
+
   /// The name of the environment in the config/outputs file.
   final String name;
 
@@ -121,29 +133,33 @@ class EnvironmentInfo {
   final DeliveryMedium resetPasswordDeliveryMedium;
 
   /// Whether or no MFA is enabled for this environment.
-  final bool mfaEnabled;
+  bool get mfaEnabled => mfaInfo != null;
+
+  /// Multi-factor auth configuration information for the environment.
+  final MfaInfo? mfaInfo;
 }
 
-/// Environments with a user pool and username-based sign in.
-const List<EnvironmentInfo> userPoolEnvironments = [
-  EnvironmentInfo.withGen1Defaults(name: 'main'),
-  EnvironmentInfo.withGen1Defaults(name: 'user-pool-only'),
-  EnvironmentInfo.withGen1Defaults(name: 'with-client-secret'),
-  EnvironmentInfo.withGen2Defaults(name: 'email-sign-in'),
-  EnvironmentInfo.withGen2Defaults(
-    name: 'phone-sign-in',
-    loginMethod: LoginMethod.phone,
-    confirmationDeliveryMedium: DeliveryMedium.sms,
-    resetPasswordDeliveryMedium: DeliveryMedium.sms,
-  ),
-];
+/// Multi-factor auth configuration information for the environment.
+class MfaInfo {
+  const MfaInfo({
+    this.required = false,
+    this.smsEnabled = false,
+    this.totpEnabled = false,
+    this.emailEnabled = false,
+  });
 
-/// Environments with a user pool and opt-in device tracking.
-const List<String> deviceOptInEnvironments = [
-  'device-tracking-opt-in',
-  'user-pool-only',
-  'with-client-secret',
-];
+  /// Whether MFA is required (`true`) or optional (`false`).
+  final bool required;
+
+  /// Whether SMS MFA is available.
+  final bool smsEnabled;
+
+  /// Whether TOTP MFA is available.
+  final bool totpEnabled;
+
+  /// Whether email MFA is available.
+  final bool emailEnabled;
+}
 
 /// A test environment descriptor.
 abstract interface class TestEnvironment {
@@ -263,13 +279,19 @@ class AuthTestRunner {
   }
 
   /// Runs [body] in a [group] which configures [environment].
-  void withEnvironment(TestEnvironment environment, void Function() body) {
-    group(environment.environmentName, () {
+  void withEnvironment(
+    EnvironmentInfo environment,
+    void Function(EnvironmentInfo env) body,
+  ) {
+    group(environment.name, () {
       setUp(() async {
-        await configure(environmentName: environment.environmentName);
+        await configure(
+          environmentName: environment.name,
+          useAmplifyOutputs: environment.useAmplifyOutputs,
+        );
       });
 
-      body();
+      body(environment);
     });
   }
 }

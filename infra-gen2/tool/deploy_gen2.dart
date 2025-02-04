@@ -20,11 +20,6 @@ import 'package:path/path.dart' as p;
 /// 4. Run `dart tool/deploy_gen2.dart` to deploy the backend
 const List<AmplifyBackendGroup> infraConfig = [
   AmplifyBackendGroup(
-    category: Category.analytics,
-    defaultOutput: '',
-    backends: [],
-  ),
-  AmplifyBackendGroup(
     category: Category.api,
     defaultOutput: 'packages/api/amplify_api/example/lib',
     backends: [
@@ -53,6 +48,51 @@ const List<AmplifyBackendGroup> infraConfig = [
         identifier: 'phone-sign-in',
         pathToSource: 'infra-gen2/backends/auth/phone-sign-in',
       ),
+      AmplifyBackend(
+        name: 'mfa-optional-sms',
+        identifier: 'mfa-opt-sms',
+        pathToSource: 'infra-gen2/backends/auth/mfa-optional-sms',
+      ),
+      AmplifyBackend(
+        name: 'mfa-required-sms',
+        identifier: 'mfa-req-sms',
+        pathToSource: 'infra-gen2/backends/auth/mfa-required-sms',
+      ),
+      AmplifyBackend(
+        name: 'mfa-required-email',
+        identifier: 'mfa-req-email',
+        pathToSource: 'infra-gen2/backends/auth/mfa-required-email',
+      ),
+      AmplifyBackend(
+        name: 'mfa-required-email-sms',
+        identifier: 'mfa-req-ema-sms',
+        pathToSource: 'infra-gen2/backends/auth/mfa-required-email-sms',
+      ),
+      AmplifyBackend(
+        name: 'mfa-optional-email',
+        identifier: 'mfa-opt-email',
+        pathToSource: 'infra-gen2/backends/auth/mfa-optional-email',
+      ),
+      AmplifyBackend(
+        name: 'mfa-optional-email-sms',
+        identifier: 'mfa-opt-ema-sms',
+        pathToSource: 'infra-gen2/backends/auth/mfa-optional-email-sms',
+      ),
+      AmplifyBackend(
+        name: 'mfa-required-email-totp',
+        identifier: 'mfa-req-ema-tot',
+        pathToSource: 'infra-gen2/backends/auth/mfa-required-email-totp',
+      ),
+      AmplifyBackend(
+        name: 'mfa-optional-email-totp',
+        identifier: 'mfa-opt-ema-tot',
+        pathToSource: 'infra-gen2/backends/auth/mfa-optional-email-totp',
+      ),
+      AmplifyBackend(
+        name: 'username-login-mfa',
+        identifier: 'user-login-mfa',
+        pathToSource: 'infra-gen2/backends/auth/username-login-mfa',
+      ),
     ],
   ),
   AmplifyBackendGroup(
@@ -68,6 +108,27 @@ const List<AmplifyBackendGroup> infraConfig = [
         name: 'dots-in-name',
         identifier: 'dots-in-name',
         pathToSource: 'infra-gen2/backends/storage/dots-in-name',
+      ),
+    ],
+  ),
+  AmplifyBackendGroup(
+    category: Category.analytics,
+    defaultOutput: 'packages/analytics/amplify_analytics_pinpoint/example/lib',
+    backends: [
+      AmplifyBackend(
+        name: 'main',
+        identifier: 'main',
+        pathToSource: 'infra-gen2/backends/analytics/main',
+      ),
+      AmplifyBackend(
+        name: 'no-unauth-access',
+        identifier: 'no-unauth-acc',
+        pathToSource: 'infra-gen2/backends/analytics/no-unauth-access',
+      ),
+      AmplifyBackend(
+        name: 'no-unauth-identities',
+        identifier: 'no-unauth-id',
+        pathToSource: 'infra-gen2/backends/analytics/no-unauth-identities',
       ),
     ],
   ),

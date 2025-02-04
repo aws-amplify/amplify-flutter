@@ -18,6 +18,10 @@
       "@aws-amplify/backend-cli": "1.0.4",
       "tsx": "^4.10.5",
       "typescript": "^5.4.5"
+      
+    },
+    "overrides": {
+    "cross-spawn": "^7.0.6"
     }
   }
   

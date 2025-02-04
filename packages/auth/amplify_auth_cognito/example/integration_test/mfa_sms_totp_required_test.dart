@@ -14,9 +14,9 @@ void main() {
   testRunner.setupTests();
 
   group('MFA (SMS + TOTP)', () {
-    testRunner.withEnvironment(MfaEnvironment.mfaRequiredSmsTotp, () {
+    testRunner.withEnvironment(mfaRequiredSmsTotp, (env) {
       asyncTest('can set up TOTP MFA', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
 
         // Create a user with no phone number.
@@ -35,7 +35,7 @@ void main() {
           signInRes.nextStep.signInStep,
           because: 'MFA is required, and TOTP is chosen when '
               'no phone number is registered',
-        ).equals(AuthSignInStep.continueSignInWithTotpSetup);
+        ).equals(AuthSignInStep.continueSignInWithMfaSetupSelection);
 
         final sharedSecret = signInRes.nextStep.totpSetupDetails!.sharedSecret;
         final setupRes = await Amplify.Auth.confirmSignIn(
@@ -75,7 +75,7 @@ void main() {
       });
 
       asyncTest('can select TOTP MFA', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generatePhoneNumber();
 
@@ -290,7 +290,7 @@ void main() {
       });
 
       asyncTest('can select SMS MFA', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generatePhoneNumber();
 

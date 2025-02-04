@@ -1,10 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 /// {@template amplify_auth_cognito_dart.credentials.device_metadata_repository}
@@ -13,26 +16,32 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 class DeviceMetadataRepository {
   /// {@macro amplify_auth_cognito_dart.credentials.device_metadata_repository}
   const DeviceMetadataRepository(
-    this._userPoolConfig,
+    this._authOutputs,
     this._secureStorage,
   );
 
   /// {@macro amplify_auth_cognito_dart.credentials.device_metadata_repository}
   factory DeviceMetadataRepository.fromDependencies(
     DependencyManager dependencies,
-  ) =>
-      DeviceMetadataRepository(
-        dependencies.expect(),
-        dependencies.getOrCreate(),
-      );
+  ) {
+    final authOutputs = dependencies.expect<AuthOutputs>();
+    if (authOutputs.userPoolClientId == null) {
+      throw const InvalidAccountTypeException.noUserPool();
+    }
+    return DeviceMetadataRepository(
+      authOutputs,
+      dependencies.getOrCreate(),
+    );
+  }
 
-  final CognitoUserPoolConfig _userPoolConfig;
+  final AuthOutputs _authOutputs;
   final SecureStorageInterface _secureStorage;
 
   /// Retrieves the device secrets for [username].
   Future<CognitoDeviceSecrets?> get(String username) async {
     CognitoDeviceSecrets? deviceSecrets;
-    final deviceKeys = CognitoDeviceKeys(_userPoolConfig.appClientId, username);
+    final deviceKeys =
+        CognitoDeviceKeys(_authOutputs.userPoolClientId!, username);
     final deviceKey = await _secureStorage.read(
       key: deviceKeys[CognitoDeviceKey.deviceKey],
     );
@@ -61,7 +70,8 @@ class DeviceMetadataRepository {
 
   /// Save the [deviceSecrets] for [username].
   Future<void> put(String username, CognitoDeviceSecrets deviceSecrets) async {
-    final deviceKeys = CognitoDeviceKeys(_userPoolConfig.appClientId, username);
+    final deviceKeys =
+        CognitoDeviceKeys(_authOutputs.userPoolClientId!, username);
     await _secureStorage.write(
       key: deviceKeys[CognitoDeviceKey.deviceKey],
       value: deviceSecrets.deviceKey,
@@ -82,7 +92,8 @@ class DeviceMetadataRepository {
 
   /// Clears the device secrets for [username].
   Future<void> remove(String username) async {
-    final deviceKeys = CognitoDeviceKeys(_userPoolConfig.appClientId, username);
+    final deviceKeys =
+        CognitoDeviceKeys(_authOutputs.userPoolClientId!, username);
     for (final key in deviceKeys) {
       await _secureStorage.delete(key: key);
     }

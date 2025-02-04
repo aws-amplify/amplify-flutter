@@ -7,6 +7,7 @@ import 'package:e2e/e2e_worker.dart';
 class E2EWorkerImpl extends E2EWorker {
   @override
   String get name => 'E2EWorker';
+
   @override
   List<String> get fallbackUrls {
     // When running in a test, we need to find the `packages` directory which

@@ -1,3 +1,25 @@
+## 0.4.8
+
+- Minor bug fixes and improvements
+
+## 0.4.7
+
+### Fixes
+- fix(common): added a flag to opt out of bundling sqlite3 for windows apps ([#5680](https://github.com/aws-amplify/amplify-flutter/pull/5680))
+
+## 0.4.6
+
+### Fixes
+- fix(common): db_common windows sqlite3 collision ([#5481](https://github.com/aws-amplify/amplify-flutter/pull/5481))
+
+## 0.4.5
+
+- Minor bug fixes and improvements
+
+## 0.4.4
+
+- Minor bug fixes and improvements
+
 ## 0.4.3
 
 - Minor bug fixes and improvements

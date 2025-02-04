@@ -44,9 +44,6 @@ export function addCustomSenderLambda({
         "custom-email-sender.js"
       ),
       runtime: Runtime.NODEJS_18_X,
-      bundling: {
-        nodeModules: ["@aws-crypto/client-node"],
-      },
       environment: {
         GRAPHQL_API_ENDPOINT: graphQL.graphqlUrl,
         GRAPHQL_API_KEY: graphQL.apiKey!,
@@ -68,9 +65,6 @@ export function addCustomSenderLambda({
       "custom-sms-sender.js"
     ),
     runtime: Runtime.NODEJS_18_X,
-    bundling: {
-      nodeModules: ["@aws-crypto/client-node"],
-    },
     environment: {
       GRAPHQL_API_ENDPOINT: graphQL.graphqlUrl,
       GRAPHQL_API_KEY: graphQL.apiKey!,

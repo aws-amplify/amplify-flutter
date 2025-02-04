@@ -13,23 +13,27 @@ void main() {
   testRunner.setupTests();
 
   group('MFA (SMS)', () {
-    final smsEnvironments = mfaEnvironments.where((env) => env.sms);
-    for (final env in smsEnvironments) {
-      testRunner.withEnvironment(env, () {
+    final smsEnvironments = mfaEnvironments.where(
+      (env) => env.mfaInfo!.smsEnabled,
+    );
+    for (final environment in smsEnvironments) {
+      testRunner.withEnvironment(environment, (env) {
         asyncTest(
           'can sign in with SMS MFA enabled by administrator',
           (_) async {
-            final username = generateUsername();
+            final username = env.generateUsername();
             final password = generatePassword();
 
-            final otpResult =
-                await getOtpCode(UserAttribute.username(username));
+            final otpResult = await getOtpCode(
+              env.getLoginAttribute(username),
+            );
 
             await adminCreateUser(
               username,
               password,
               autoConfirm: true,
               verifyAttributes: true,
+              attributes: env.getDefaultAttributes(username),
               enableMfa: true,
             );
 
@@ -56,9 +60,9 @@ void main() {
       });
     }
 
-    testRunner.withEnvironment(MfaEnvironment.mfaRequiredSms, () {
+    testRunner.withEnvironment(mfaRequiredSms, (env) {
       asyncTest('must configure MFA when required', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
 
         await adminCreateUser(
@@ -66,9 +70,12 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: true,
+          attributes: env.getDefaultAttributes(username),
         );
 
-        final otpResult = await getOtpCode(UserAttribute.username(username));
+        final otpResult = await getOtpCode(
+          env.getLoginAttribute(username),
+        );
 
         final signInRes = await Amplify.Auth.signIn(
           username: username,
@@ -100,9 +107,9 @@ void main() {
       });
     });
 
-    testRunner.withEnvironment(MfaEnvironment.mfaOptionalSms, () {
+    testRunner.withEnvironment(mfaOptionalSms, (env) {
       asyncTest('can skip configuring MFA when not required', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
 
         await adminCreateUser(
@@ -110,6 +117,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: true,
+          attributes: env.getDefaultAttributes(username),
         );
 
         final signInRes = await Amplify.Auth.signIn(
@@ -129,14 +137,15 @@ void main() {
       asyncTest(
         'fetchMfaPreference returns SMS when enabled outside library',
         (_) async {
-          final username = generateUsername();
+          final username = env.generateUsername();
           final password = generatePassword();
 
-          await adminCreateUser(
+          final cognitoUsername = await adminCreateUser(
             username,
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            attributes: env.getDefaultAttributes(username),
           );
 
           final signInRes = await Amplify.Auth.signIn(
@@ -149,7 +158,7 @@ void main() {
                 'the first sign-in',
           ).equals(AuthSignInStep.done);
 
-          await adminEnableSmsMfa(username);
+          await adminEnableSmsMfa(cognitoUsername);
 
           check(await cognitoPlugin.fetchMfaPreference()).equals(
             const UserMfaPreference(

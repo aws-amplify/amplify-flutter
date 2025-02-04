@@ -1,3 +1,24 @@
+## 0.7.5
+
+### Fixes
+- fix(aws_common): removed JS streamed requests ([#5797](https://github.com/aws-amplify/amplify-flutter/pull/5797))
+
+## 0.7.4
+
+- Minor bug fixes and improvements
+
+## 0.7.3
+
+### Features
+- feat(aws_common): Generated new AWSService constructors ([#5378](https://github.com/aws-amplify/amplify-flutter/pull/5378))
+
+## 0.7.2
+
+- Minor bug fixes and improvements
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
 ## 0.7.1
 
 - Minor bug fixes and improvements

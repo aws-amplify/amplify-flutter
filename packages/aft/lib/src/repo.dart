@@ -298,7 +298,6 @@ class Repo {
     required VersionBumpType type,
     required bool Function(PackageInfo) canBump,
     required bool includeInChangelog,
-    bool? propagateToComponent,
   }) {
     logger.verbose('bumpVersion ${package.name} $commit');
     final componentName = aftConfig.componentForPackage(package.name);
@@ -317,7 +316,7 @@ class Repo {
       ],
       (version) => version,
     )!;
-    propagateToComponent ??= component != null &&
+    final propagateToComponent = component != null &&
         component.propagate.propagateToComponent(
           currentVersion,
           newVersion,
@@ -359,11 +358,13 @@ class Repo {
             pkg.pubspecInfo.pubspec.dependencies.keys.contains(package.name) ||
             pkg.pubspecInfo.pubspec.devDependencies.keys.contains(package.name),
       );
-      if (commit.isBreakingChange) {
-        // Back-propagate to all dependent packages for breaking changes.
+      if (commit.isBreakingChange || propagateToComponent) {
+        // Back-propagate to all dependent packages for breaking changes or
+        // changes that need to propagate to a component.
         //
-        // Since we set semantic version constraints, only a breaking change
-        // in a direct dependency necessitates a version bump.
+        // Since we set semantic version constraints, only a breaking change in
+        // a direct dependency or a change that requires propagation
+        // necessitates a version bump.
         logger.verbose(
           'Breaking change. Performing dfs on dependent packages...',
         );
@@ -378,12 +379,6 @@ class Repo {
               includeInChangelog: false,
             );
           }
-          updateConstraint(package, dependent);
-        }
-      } else if (type == VersionBumpType.nonBreaking) {
-        // For non-breaking changes, we still need to update all constraints
-        // since we "pin" to minor versions.
-        for (final dependent in packageDependents) {
           updateConstraint(package, dependent);
         }
       }
@@ -408,7 +403,6 @@ class Repo {
               type: type,
               canBump: canBump,
               includeInChangelog: false,
-              propagateToComponent: false,
             );
           },
         );

@@ -48,9 +48,10 @@ const fallbackContentType = 'application/octet-stream';
 class S3UploadTask {
   S3UploadTask._({
     required s3.S3Client s3Client,
-    required smithy_aws.S3ClientConfig defaultS3ClientConfig,
+    required smithy_aws.S3ClientConfig s3ClientConfig,
     required S3PathResolver pathResolver,
     required String bucket,
+    required String awsRegion,
     required StoragePath path,
     required StorageUploadDataOptions options,
     S3DataPayload? dataPayload,
@@ -59,9 +60,10 @@ class S3UploadTask {
     required AWSLogger logger,
     required transfer.TransferDatabase transferDatabase,
   })  : _s3Client = s3Client,
-        _defaultS3ClientConfig = defaultS3ClientConfig,
+        _s3ClientConfig = s3ClientConfig,
         _pathResolver = pathResolver,
         _bucket = bucket,
+        _awsRegion = awsRegion,
         _path = path,
         _options = options,
         _dataPayload = dataPayload,
@@ -81,9 +83,10 @@ class S3UploadTask {
   S3UploadTask.fromDataPayload(
     S3DataPayload dataPayload, {
     required s3.S3Client s3Client,
-    required smithy_aws.S3ClientConfig defaultS3ClientConfig,
+    required smithy_aws.S3ClientConfig s3ClientConfig,
     required S3PathResolver pathResolver,
     required String bucket,
+    required String awsRegion,
     required StoragePath path,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -91,9 +94,10 @@ class S3UploadTask {
     required transfer.TransferDatabase transferDatabase,
   }) : this._(
           s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
+          s3ClientConfig: s3ClientConfig,
           pathResolver: pathResolver,
           bucket: bucket,
+          awsRegion: awsRegion,
           path: path,
           dataPayload: dataPayload,
           options: options,
@@ -108,9 +112,10 @@ class S3UploadTask {
   S3UploadTask.fromAWSFile(
     AWSFile localFile, {
     required s3.S3Client s3Client,
-    required smithy_aws.S3ClientConfig defaultS3ClientConfig,
+    required smithy_aws.S3ClientConfig s3ClientConfig,
     required S3PathResolver pathResolver,
     required String bucket,
+    required String awsRegion,
     required StoragePath path,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -118,9 +123,10 @@ class S3UploadTask {
     required transfer.TransferDatabase transferDatabase,
   }) : this._(
           s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
+          s3ClientConfig: s3ClientConfig,
           pathResolver: pathResolver,
           bucket: bucket,
+          awsRegion: awsRegion,
           path: path,
           localFile: localFile,
           options: options,
@@ -135,9 +141,10 @@ class S3UploadTask {
   final Completer<S3Item> _uploadCompleter = Completer();
 
   final s3.S3Client _s3Client;
-  final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
+  final smithy_aws.S3ClientConfig _s3ClientConfig;
   final S3PathResolver _pathResolver;
   final String _bucket;
+  final String _awsRegion;
   final StoragePath _path;
   final StorageUploadDataOptions _options;
   final void Function(S3TransferProgress)? _onProgress;
@@ -191,7 +198,7 @@ class S3UploadTask {
   /// Should be used only internally.
   Future<void> start() async {
     if (_s3PluginOptions.useAccelerateEndpoint &&
-        _defaultS3ClientConfig.usePathStyle) {
+        _s3ClientConfig.usePathStyle) {
       _completeUploadWithError(s3_exception.accelerateEndpointUnusable);
       return;
     }
@@ -328,7 +335,7 @@ class S3UploadTask {
     try {
       _putObjectOperation = _s3Client.putObject(
         putObjectRequest,
-        s3ClientConfig: _defaultS3ClientConfig.copyWith(
+        s3ClientConfig: _s3ClientConfig.copyWith(
           useAcceleration: _s3PluginOptions.useAccelerateEndpoint,
         ),
       );
@@ -497,6 +504,8 @@ class S3UploadTask {
           TransferRecord(
             uploadId: uploadId,
             objectKey: _resolvedPath,
+            bucketName: _bucket,
+            awsRegion: _awsRegion,
             createdAt: DateTime.now(),
           ),
         );
@@ -547,11 +556,15 @@ class S3UploadTask {
     }
   }
 
+  bool _isNextBatchWaiting = false;
   Future<void> _startNextUploadPartsBatch({
     bool resumingFromPause = false,
   }) async {
     // await for previous batching to complete (if any)
+    if (_isNextBatchWaiting) return;
+    _isNextBatchWaiting = true;
     await _uploadPartBatchingCompleted;
+    _isNextBatchWaiting = false;
 
     if (_state != StorageTransferState.inProgress) {
       return;
@@ -651,7 +664,7 @@ class S3UploadTask {
     try {
       final operation = _s3Client.uploadPart(
         request,
-        s3ClientConfig: _defaultS3ClientConfig.copyWith(
+        s3ClientConfig: _s3ClientConfig.copyWith(
           useAcceleration: _s3PluginOptions.useAccelerateEndpoint,
         ),
       );

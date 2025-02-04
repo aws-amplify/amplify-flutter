@@ -1,3 +1,19 @@
+## 0.5.7
+
+- Minor bug fixes and improvements
+
+## 0.5.6
+
+### Fixes
+- fix(secure_storage): add missing macOS plugin ([#5372](https://github.com/aws-amplify/amplify-flutter/pull/5372))
+
+## 0.5.5
+
+### Fixes
+- fix(secure_storage): Add plugin platform entry. ([#5178](https://github.com/aws-amplify/amplify-flutter/pull/5178))
+- fix(secure_storage): process file system operations one at a time on Windows ([#5195](https://github.com/aws-amplify/amplify-flutter/pull/5195))
+- fix(secure_storage): Plugin Endorsement ([#5208](https://github.com/aws-amplify/amplify-flutter/pull/5208))
+
 ## 0.5.4
 
 - Minor bug fixes and improvements

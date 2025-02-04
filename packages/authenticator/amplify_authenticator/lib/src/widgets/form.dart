@@ -544,7 +544,7 @@ class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.confirm_sign_in_mfa_form}
 /// A prebuilt form for completing the sign in process with an MFA code, from
-/// either SMS or TOTP.
+/// either SMS, TOTP, or Email.
 /// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_mfa_form}
@@ -624,6 +624,30 @@ class ContinueSignInWithMfaSelectionForm extends AuthenticatorForm {
 }
 
 /// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_with__mfa_setup_selection_form}
+/// A prebuilt form for selecting an MFA method during setup.
+/// {@endtemplate}
+class ContinueSignInWithMfaSetupSelectionForm extends AuthenticatorForm {
+  /// {@macro amplify_authenticator.continue_sign_in_with__mfa_setup_selection_form}
+  ContinueSignInWithMfaSetupSelectionForm({
+    super.key,
+  }) : super._(
+          fields: [
+            ConfirmSignInFormField.mfaSetupSelection(),
+          ],
+          actions: const [
+            ContinueSignInMFASetupSelectionButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ContinueSignInWithMfaSetupSelectionForm>
+      createState() =>
+          AuthenticatorFormState<ContinueSignInWithMfaSetupSelectionForm>();
+}
+
+/// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.continue_sign_in_with_totp_setup_form}
 /// A prebuilt form for completing the totp setup process.
 /// {@endtemplate}
@@ -644,6 +668,28 @@ class ContinueSignInWithTotpSetupForm extends AuthenticatorForm {
   @override
   AuthenticatorFormState<ContinueSignInWithTotpSetupForm> createState() =>
       AuthenticatorFormState<ContinueSignInWithTotpSetupForm>();
+}
+
+/// {@category Prebuilt Widgets}
+/// {@template amplify_authenticator.continue_sign_in_with_email_mfa_setup_form}
+/// A prebuilt form for completing the email mfa setup process.
+/// {@endtemplate}
+class ContinueSignInWithEmailMfaSetupForm extends AuthenticatorForm {
+  ContinueSignInWithEmailMfaSetupForm({
+    super.key,
+  }) : super._(
+          fields: [
+            const EmailSetupFormField.email(),
+          ],
+          actions: const [
+            ContinueSignInWithEmailMfaSetupButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<ContinueSignInWithEmailMfaSetupForm> createState() =>
+      AuthenticatorFormState<ContinueSignInWithEmailMfaSetupForm>();
 }
 
 /// {@category Prebuilt Widgets}

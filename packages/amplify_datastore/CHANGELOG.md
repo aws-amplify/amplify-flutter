@@ -1,3 +1,27 @@
+## 2.6.0
+
+### Fixes
+- fix(datastore): properly handle multiple configures on Android ([#5740](https://github.com/aws-amplify/amplify-flutter/pull/5740))
+
+## 2.5.0
+
+- Minor bug fixes and improvements
+
+## 2.4.2
+
+- Minor bug fixes and improvements
+
+## 2.4.1
+
+### Fixes
+- fix(datastore): FlutterSerializedModel.extractJsonValue returns `.some(nil)` instead of `nil` ([#5370](https://github.com/aws-amplify/amplify-flutter/pull/5370))
+
+## 2.4.0
+
+### Fixes
+- fix(datastore): Clear subscriptions on Stop ([#5253](https://github.com/aws-amplify/amplify-flutter/pull/5253))
+- fix(datastore): Restart Sync Engine when network on/off ([#5218](https://github.com/aws-amplify/amplify-flutter/pull/5218))
+
 ## 2.3.0
 
 - Minor bug fixes and improvements

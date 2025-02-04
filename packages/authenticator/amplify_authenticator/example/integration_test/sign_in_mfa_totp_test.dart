@@ -14,10 +14,10 @@ void main() {
   testRunner.setupTests();
 
   group('sign-in-totp-mfa', () {
-    testRunner.withEnvironment(MfaEnvironment.mfaRequiredTotp, () {
+    testRunner.withEnvironment(mfaRequiredTotp, (env) {
       // Scenario: Sign in using a totp code
       testWidgets('Setup & Sign in with TOTP MFA', (tester) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
         late String sharedSecret;
 

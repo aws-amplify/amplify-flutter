@@ -119,6 +119,10 @@ $groupPubPackages
         dependentPackages.add(dependent);
       },
     );
+    // skip aft tests which include a snapshot of the mono repo
+    if (repoRelativePath.contains('snapshot')) {
+      return [];
+    }
     _dependabotConfig.write('''
   - package-ecosystem: "pub"
     directory: "$repoRelativePath"

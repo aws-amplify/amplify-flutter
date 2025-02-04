@@ -1355,6 +1355,37 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
         () => defaultPlugin.rememberDevice(),
       );
 
+  /// {@template amplify_core.amplify_auth_category.fetch_current_device}
+  /// Retrieves the current device.
+  ///
+  /// For more information about device tracking, see the
+  /// [Amplify docs](https://docs.amplify.aws/flutter/build-a-backend/auth/manage-users/manage-devices/#fetch-current-device).
+  ///
+  /// ## Examples
+  ///
+  /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
+  /// ```dart
+  /// import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+  /// import 'package:amplify_flutter/amplify_flutter.dart';
+  /// ```
+  ///
+  /// <?code-excerpt "doc/lib/auth.dart" region="fetch-current-device"?>
+  /// ```dart
+  /// Future<AuthDevice> getCurrentUserDevice() async {
+  ///   try {
+  ///     final device = await Amplify.Auth.fetchCurrentDevice();
+  ///     safePrint('Device: $device');
+  ///   } on AuthException catch (e) {
+  ///     safePrint('Fetch current device failed with error: $e');
+  ///   }
+  /// }
+  /// ```
+  /// {@endtemplate}
+  Future<AuthDevice> fetchCurrentDevice() => identifyCall(
+        AuthCategoryMethod.fetchCurrentDevice,
+        () => defaultPlugin.fetchCurrentDevice(),
+      );
+
   /// {@template amplify_core.amplify_auth_category.forget_device}
   /// Forgets the current device.
   ///

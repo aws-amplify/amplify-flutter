@@ -1,3 +1,20 @@
+## 0.4.8
+
+- Minor bug fixes and improvements
+
+## 0.4.7
+
+### Fixes
+- fix(common): db_common windows sqlite3 collision ([#5481](https://github.com/aws-amplify/amplify-flutter/pull/5481))
+
+## 0.4.6
+
+- Minor bug fixes and improvements
+
+## 0.4.5
+
+- Minor bug fixes and improvements
+
 ## 0.4.4
 
 - Minor bug fixes and improvements

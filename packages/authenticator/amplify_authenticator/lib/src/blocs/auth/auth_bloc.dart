@@ -227,10 +227,14 @@ class StateMachineBloc
           yield UnauthenticatedState.confirmSignInNewPassword;
         case AuthSignInStep.confirmSignInWithTotpMfaCode:
           yield UnauthenticatedState.confirmSignInWithTotpMfaCode;
+        case AuthSignInStep.confirmSignInWithOtpCode:
+          yield UnauthenticatedState.confirmSignInWithOtpCode;
         case AuthSignInStep.continueSignInWithMfaSelection:
           yield ContinueSignInWithMfaSelection(
             allowedMfaTypes: result.nextStep.allowedMfaTypes,
           );
+        case AuthSignInStep.continueSignInWithMfaSetupSelection:
+          yield await _handleMfaSetupSelection(result);
         case AuthSignInStep.continueSignInWithTotpSetup:
           assert(
             result.nextStep.totpSetupDetails != null,
@@ -240,6 +244,8 @@ class StateMachineBloc
             result.nextStep.totpSetupDetails!,
             totpOptions,
           );
+        case AuthSignInStep.continueSignInWithEmailMfaSetup:
+          yield UnauthenticatedState.continueSignInWithEmailMfaSetup;
         case AuthSignInStep.resetPassword:
           yield UnauthenticatedState.resetPassword;
         case AuthSignInStep.confirmSignUp:
@@ -255,8 +261,6 @@ class StateMachineBloc
             }
           }
           yield* _checkUserVerification();
-        default:
-          break;
       }
     } on AuthNotAuthorizedException {
       /// The .failAuthentication flag available in the DefineAuthChallenge Lambda trigger
@@ -295,6 +299,8 @@ class StateMachineBloc
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _resetPassword(AuthResetPasswordData data) async* {
@@ -305,6 +311,8 @@ class StateMachineBloc
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e));
     }
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   void _notifyCodeSent(String? destination) {
@@ -333,19 +341,15 @@ class StateMachineBloc
             allowedMfaTypes: result.nextStep.allowedMfaTypes,
           ),
         );
-      case AuthSignInStep.continueSignInWithTotpSetup:
-        assert(
-          result.nextStep.totpSetupDetails != null,
-          'Sign In Result should have totpSetupDetails',
-        );
-        _emit(
-          await ContinueSignInTotpSetup.setupURI(
-            result.nextStep.totpSetupDetails!,
-            totpOptions,
-          ),
-        );
+      case AuthSignInStep.continueSignInWithMfaSetupSelection:
+        _emit(await _handleMfaSetupSelection(result));
+      case AuthSignInStep.continueSignInWithEmailMfaSetup:
+        _emit(UnauthenticatedState.continueSignInWithEmailMfaSetup);
       case AuthSignInStep.confirmSignInWithTotpMfaCode:
         _emit(UnauthenticatedState.confirmSignInWithTotpMfaCode);
+      case AuthSignInStep.confirmSignInWithOtpCode:
+        _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
+        _emit(UnauthenticatedState.confirmSignInWithOtpCode);
       case AuthSignInStep.resetPassword:
         _emit(UnauthenticatedState.confirmResetPassword);
       case AuthSignInStep.confirmSignUp:
@@ -539,6 +543,50 @@ class StateMachineBloc
     }
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
+  }
+
+  Future<UnauthenticatedState> _handleMfaSetupSelection(
+    SignInResult result,
+  ) async {
+    final allowedMfaTypes = result.nextStep.allowedMfaTypes;
+
+    if (allowedMfaTypes == null) {
+      throw const InvalidUserPoolConfigurationException(
+        'No MFA types are supported',
+        recoverySuggestion: 'Check your user pool MFA configuration.',
+      );
+    }
+
+    final mfaTypesForSetup = allowedMfaTypes.toSet()..remove(MfaType.sms);
+
+    if (mfaTypesForSetup.length != 1) {
+      return ContinueSignInWithMfaSetupSelection(
+        allowedMfaTypes: allowedMfaTypes,
+      );
+    }
+
+    final mfaType = mfaTypesForSetup.first;
+
+    switch (mfaType) {
+      case MfaType.totp:
+        assert(
+          result.nextStep.totpSetupDetails != null,
+          'Sign In Result should have totpSetupDetails',
+        );
+        return ContinueSignInTotpSetup.setupURI(
+          result.nextStep.totpSetupDetails!,
+          totpOptions,
+        );
+
+      case MfaType.email:
+        return UnauthenticatedState.continueSignInWithEmailMfaSetup;
+
+      default:
+        throw InvalidUserPoolConfigurationException(
+          'Unsupported MFA type: ${mfaType.name}',
+          recoverySuggestion: 'Check your user pool MFA configuration.',
+        );
+    }
   }
 
   @override

@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
+import 'package:amplify_core/src/config/amplify_outputs/storage/bucket_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
@@ -25,9 +26,18 @@ const testPath = StoragePath.fromString('some/path.txt');
 void main() {
   group('StorageS3Service', () {
     const testBucket = 'bucket1';
+    const testBucketName = 'bucket1-name';
     const testRegion = 'west-2';
-    const storageOutputs =
-        StorageOutputs(bucketName: testBucket, awsRegion: testRegion);
+    const testBuckets = BucketOutputs(
+      name: testBucket,
+      bucketName: testBucketName,
+      awsRegion: testRegion,
+    );
+    const storageOutputs = StorageOutputs(
+      bucketName: testBucket,
+      awsRegion: testRegion,
+      buckets: [testBuckets],
+    );
 
     final pathResolver = TestPathResolver();
     late DependencyManager dependencyManager;
@@ -35,14 +45,20 @@ void main() {
     late StorageS3Service storageS3Service;
     late AWSLogger logger;
     late AWSSigV4Signer awsSigV4Signer;
+    late AmplifyUserAgent mockUserAgent;
+    late AWSHttpClient mockAwsHttpClient;
 
     setUp(() {
       s3Client = MockS3Client();
       logger = MockAWSLogger();
       awsSigV4Signer = MockAWSSigV4Signer();
+      mockUserAgent = MockAmplifyUserAgent();
+      mockAwsHttpClient = MockAWSHttpClient();
       dependencyManager = DependencyManager()
         ..addInstance<S3Client>(s3Client)
-        ..addInstance<AWSSigV4Signer>(awsSigV4Signer);
+        ..addInstance<AWSSigV4Signer>(awsSigV4Signer)
+        ..addInstance<AmplifyUserAgent>(mockUserAgent)
+        ..addInstance<AWSHttpClient>(mockAwsHttpClient);
       storageS3Service = StorageS3Service(
         storageOutputs: storageOutputs,
         pathResolver: pathResolver,
@@ -67,6 +83,19 @@ void main() {
       final message = verify(() => logger.warn(captureAny())).captured.last;
 
       expect(message, contains('Since your bucket name contains dots'));
+    });
+
+    test('creates and caches s3 client info for each storage bucket', () {
+      final client1 = storageS3Service.getS3ClientInfo(
+        storageBucket: const StorageBucket.fromBucketInfo(
+          BucketInfo(bucketName: testBucketName, region: testRegion),
+        ),
+      );
+      final client2 = storageS3Service.getS3ClientInfo(
+        storageBucket: StorageBucket.fromOutputs(testBucket),
+      );
+
+      expect(client1, client2);
     });
 
     group('list() API', () {
