@@ -52,7 +52,7 @@ dependency_overrides:
     path: ../aws_signature_v4
   git:
     git:
-      url: https://github.com/dnys1/git
+      url: https://github.com/tyllark/git
       ref: feat/existing-worktree
   pub_server:
     path: ../test/pub_server
