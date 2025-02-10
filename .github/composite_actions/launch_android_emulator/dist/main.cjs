@@ -8217,7 +8217,7 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              tempDir = A._asString(_this.mkdtempSync(A.join(A._asString(type$.JSObject._as(self.os).tmpdir()), prefix, null)));
+              tempDir = A._asString(_this.mkdtempSync(A.join(A._asString(type$.JSObject._as(self.os).tmpdir()), prefix, null, null)));
               $async$handler = 3;
               $async$goto = 6;
               return A._asyncAwait(fn.call$1(tempDir), $async$FileSystem_withTempDir);
@@ -8343,9 +8343,9 @@
       }
       return t1;
     },
-    join(part1, part2, part3) {
+    join(part1, part2, part3, part4) {
       var _null = null;
-      return $.$get$context().join$16(0, part1, part2, part3, _null, _null, _null, _null, _null, _null, _null, _null, _null, _null, _null, _null, _null);
+      return $.$get$context().join$16(0, part1, part2, part3, part4, _null, _null, _null, _null, _null, _null, _null, _null, _null, _null, _null, _null);
     },
     isAlphabetic(char) {
       var t1;
@@ -14967,7 +14967,7 @@
               // Function start
               t1 = self;
               t2 = type$.JSObject;
-              mappedStackChain = A.mapStackTrace(A.parseJson(type$.Map_dynamic_dynamic._as(B.C_JsonCodec.decode$2$reviver(A._asString(t2._as(t1.fs).readFileSync(A.join(A._asString(t1.__dirname), "main.cjs.map", null), "utf8")), null)), null, null), chain, false, null, null);
+              mappedStackChain = A.mapStackTrace(A.parseJson(type$.Map_dynamic_dynamic._as(B.C_JsonCodec.decode$2$reviver(A._asString(t2._as(t1.fs).readFileSync(A.join(A._asString(t1.__dirname), "main.cjs.map", null, null), "utf8")), null)), null, null), chain, false, null, null);
               t3 = t2._as(t1.core);
               t3.error(J.toString$0$(error));
               t3.error(mappedStackChain.toString$0(0));
@@ -15100,7 +15100,7 @@
             case 0:
               // Function start
               t1 = $async$self.name;
-              avdPath = A.join($.$get$androidAvdHome(), t1 + ".avd", null);
+              avdPath = A.join($.$get$androidAvdHome(), t1 + ".avd", null, null);
               t2 = self;
               t3 = type$.JSObject;
               $async$goto = A._asBool(t3._as(t2.fs).existsSync(avdPath)) ? 2 : 4;
@@ -15468,8 +15468,8 @@
               t1 = self;
               t2 = type$.JSObject;
               t3 = t2._as(t1.core);
-              t3.addPath(A.join($.$get$SdkManager__cmdlineToolsPath(), "bin", null));
-              t3.addPath(A.join($.$get$androidHome(), "platform-tools", null));
+              t3.addPath(A.join($.$get$SdkManager__cmdlineToolsPath(), "bin", null, null));
+              t3.addPath(A.join($.$get$androidHome(), "platform-tools", null, null));
               t3.exportVariable("ANDROID_AVD_HOME", $.$get$androidAvdHome());
               $async$goto = 2;
               return A._asyncAwait($async$self._ensureCmdlineTools$0(), $async$ensureSdk$0);
@@ -15800,7 +15800,7 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              scriptPath = A.join(tempDir, "script.sh", null);
+              scriptPath = A.join(tempDir, "script.sh", null, null);
               type$.JSObject._as(self.fs).writeFileSync(scriptPath, $async$self.fullScript);
               $async$goto = 3;
               return A._asyncAwait($.$get$processManager().start$2$mode(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), B.ProcessStartMode_1), $async$call$1);
@@ -19416,12 +19416,12 @@
     _lazyFinal($, "androidAvdHome", "$get$androidAvdHome", () => {
       var t1 = A.Process_getEnv(A.getProperty(A.staticInteropGlobalContext(), "process", type$.JSObject), "HOME");
       t1.toString;
-      return A.join(t1, ".android", "avd");
+      return A.join(t1, ".config", ".android", "avd");
     });
     _lazyFinal($, "AvdManager__avdmanager", "$get$AvdManager__avdmanager", () => A.AndroidTool$("avdmanager", B.List_empty, null, true));
     _lazyFinal($, "AvdManager__emulator", "$get$AvdManager__emulator", () => {
       var _s8_ = "emulator";
-      return A.AndroidTool$(A.join($.$get$androidHome(), _s8_, _s8_), B.List_empty, null, true);
+      return A.AndroidTool$(A.join($.$get$androidHome(), _s8_, _s8_, null), B.List_empty, null, true);
     });
     _lazyFinal($, "AvdManager__adb", "$get$AvdManager__adb", () => A.AndroidTool$("adb", B.List_empty, null, false));
     _lazyFinal($, "androidHome", "$get$androidHome", () => {
@@ -19434,7 +19434,7 @@
         t1.push("--verbose");
       return A.AndroidTool$("sdkmanager", t1, "yes", true);
     });
-    _lazyFinal($, "SdkManager__cmdlineToolsPath", "$get$SdkManager__cmdlineToolsPath", () => A.join($.$get$androidHome(), "cmdline-tools", "latest"));
+    _lazyFinal($, "SdkManager__cmdlineToolsPath", "$get$SdkManager__cmdlineToolsPath", () => A.join($.$get$androidHome(), "cmdline-tools", "latest", null));
     _lazyFinal($, "processManager", "$get$processManager", () => new A.processManager_closure().call$0());
     _lazyFinal($, "windows", "$get$windows", () => A.Context_Context($.$get$Style_windows()));
     _lazyFinal($, "url", "$get$url", () => A.Context_Context($.$get$Style_url()));

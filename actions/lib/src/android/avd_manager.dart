@@ -10,7 +10,8 @@ import 'package:actions/src/node/process_manager.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
-final androidAvdHome = p.join(process.getEnv('HOME')!, '.android', 'avd');
+final androidAvdHome =
+    p.join(process.getEnv('HOME')!, '.config', '.android', 'avd');
 
 final class AvdManager {
   AvdManager({
