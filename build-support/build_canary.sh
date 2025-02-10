@@ -33,7 +33,7 @@ sed -i '' -e "s/minSdkVersion .*/minSdkVersion 24/" ./android/app/build.gradle
 sed -i '' -e "s/minSdk .*/minSdk 24/" ./android/app/build.gradle
 sed -i '' -e '/id "kotlin-android"/a\
 id '\''kotlin-parcelize'\''' ./android/app/build.gradle
-sed -i '' -e "s/compileSdk .*/compileSdk = 34/" ./android/app/build.gradle
+sed -i '' -e "s/compileSdk .*/compileSdk = 35/" ./android/app/build.gradle
 sed -i '' -e "s/sourceCompatibility .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
 sed -i '' -e "s/targetCompatibility .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
 # TODO(equartey): remove this line after the next stable release (3.22.0 or 4.0)

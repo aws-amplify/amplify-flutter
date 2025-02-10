@@ -39,6 +39,7 @@ enum AndroidAbi {
 ///
 /// See: https://apilevels.com/
 enum AndroidApiLevel {
+  api_35(35),
   api_34(34),
   api_33(33),
   api_32(32),
