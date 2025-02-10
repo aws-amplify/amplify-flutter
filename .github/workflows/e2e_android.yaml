@@ -27,7 +27,7 @@ jobs:
       matrix:
         api-level:
           - 24
-          - 34
+          - 35
         channel:
           - beta
           - stable
