@@ -137,6 +137,7 @@ class AuthConfig extends AmplifyPluginConfigMap {
       awsRegion: region,
       userPoolId: userPool?.poolId,
       userPoolClientId: userPool?.appClientId,
+      userPoolEndpoint: userPool?.endpoint,
       appClientSecret: userPool?.appClientSecret,
       identityPoolId: identityPool?.poolId,
       passwordPolicy: passwordPolicy,
