@@ -20,6 +20,7 @@ class AuthOutputs
     required this.awsRegion,
     this.userPoolId,
     this.userPoolClientId,
+    this.userPoolEndpoint,
     this.appClientSecret,
     this.identityPoolId,
     this.passwordPolicy,
@@ -43,6 +44,9 @@ class AuthOutputs
 
   /// The Cognito User Pool Client ID.
   final String? userPoolClientId;
+
+  /// The Cognito User Pool Endpoint.
+  final String? userPoolEndpoint; //Gen 1 only
 
   /// A fixed string that must be used in all API requests to the app client
   /// if the the app client has one configured.
@@ -84,6 +88,7 @@ class AuthOutputs
         awsRegion,
         userPoolId,
         userPoolClientId,
+        userPoolEndpoint,
         identityPoolId,
         oauth,
         standardRequiredAttributes,
