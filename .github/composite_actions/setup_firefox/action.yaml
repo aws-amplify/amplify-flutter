@@ -9,7 +9,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: browser-actions/setup-firefox@2904820ff2e2cfeadf033d26ce136d65509ce7fc # 1.1.0
+    - uses: browser-actions/setup-firefox@634a60ccd6599686158cf5a570481b4cd30455a2 # 1.5.4
     - shell: bash
       run: firefox --version
     - shell: bash
