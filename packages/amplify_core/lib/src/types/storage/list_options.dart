@@ -17,6 +17,7 @@ class StorageListOptions
     this.nextToken,
     this.bucket,
     this.pluginOptions,
+    this.subpathStrategy = const SubpathStrategy.include(),
   });
 
   /// The number of object to be listed in each page.
@@ -31,8 +32,12 @@ class StorageListOptions
   /// Optionally specify which bucket to retrieve
   final StorageBucket? bucket;
 
+  /// Subpath strategy for specifying storage subpath behavior
+  final SubpathStrategy subpathStrategy;
+
   @override
-  List<Object?> get props => [pageSize, nextToken, pluginOptions, bucket];
+  List<Object?> get props =>
+      [pageSize, nextToken, pluginOptions, bucket, subpathStrategy];
 
   @override
   String get runtimeTypeName => 'StorageListOptions';
@@ -43,6 +48,7 @@ class StorageListOptions
         'nextToken': nextToken,
         'bucket': bucket?.toJson(),
         'pluginOptions': pluginOptions?.toJson(),
+        'subpathStrategy': subpathStrategy.toJson(),
       };
 }
 

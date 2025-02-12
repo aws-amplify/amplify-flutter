@@ -108,7 +108,7 @@ Future<void> listOperation() async {
 
   while (true) {
     stdout.writeln('Listed ${result.items.length} objects.');
-    stdout.writeln('Sub directories: ${result.metadata.subPaths}');
+    stdout.writeln('Sub directories: ${result.excludedSubpaths}');
     result.items.asMap().forEach((index, item) {
       stdout.writeln('$index. path: ${item.path} | size: ${item.size}');
     });
