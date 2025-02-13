@@ -25,8 +25,8 @@ dependencies:
   # on stable so that CI checks pass for generated code.
   dart_style: ^2.3.2
   device_info_plus: ^10.0.1
-  drift: ">=2.22.0 <2.23.0"
-  drift_dev: ">=2.22.0 <2.23.0"
+  drift: ^2.25.0
+  drift_dev: ^2.25.1
   ffigen: ^9.0.0
   file: ">=6.0.0 <8.0.0"
   flutter_plugin_android_lifecycle: ^2.0.9
