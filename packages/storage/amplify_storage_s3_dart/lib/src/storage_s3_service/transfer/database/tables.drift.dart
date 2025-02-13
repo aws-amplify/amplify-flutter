@@ -1,10 +1,10 @@
 // dart format width=80
 // ignore_for_file: type=lint
-import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/tables.dart'
-    as i2;
+import 'package:drift/drift.dart' as i0;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/tables.drift.dart'
     as i1;
-import 'package:drift/drift.dart' as i0;
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/tables.dart'
+    as i2;
 
 typedef $$TransferRecordsTableCreateCompanionBuilder
     = i1.TransferRecordsCompanion Function({
@@ -12,6 +12,8 @@ typedef $$TransferRecordsTableCreateCompanionBuilder
   required String uploadId,
   required String objectKey,
   required String createdAt,
+  i0.Value<String?> bucketName,
+  i0.Value<String?> awsRegion,
 });
 typedef $$TransferRecordsTableUpdateCompanionBuilder
     = i1.TransferRecordsCompanion Function({
@@ -19,6 +21,8 @@ typedef $$TransferRecordsTableUpdateCompanionBuilder
   i0.Value<String> uploadId,
   i0.Value<String> objectKey,
   i0.Value<String> createdAt,
+  i0.Value<String?> bucketName,
+  i0.Value<String?> awsRegion,
 });
 
 class $$TransferRecordsTableFilterComposer
@@ -41,6 +45,12 @@ class $$TransferRecordsTableFilterComposer
 
   i0.ColumnFilters<String> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get bucketName => $composableBuilder(
+      column: $table.bucketName, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get awsRegion => $composableBuilder(
+      column: $table.awsRegion, builder: (column) => i0.ColumnFilters(column));
 }
 
 class $$TransferRecordsTableOrderingComposer
@@ -65,6 +75,14 @@ class $$TransferRecordsTableOrderingComposer
   i0.ColumnOrderings<String> get createdAt => $composableBuilder(
       column: $table.createdAt,
       builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get bucketName => $composableBuilder(
+      column: $table.bucketName,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get awsRegion => $composableBuilder(
+      column: $table.awsRegion,
+      builder: (column) => i0.ColumnOrderings(column));
 }
 
 class $$TransferRecordsTableAnnotationComposer
@@ -87,6 +105,12 @@ class $$TransferRecordsTableAnnotationComposer
 
   i0.GeneratedColumn<String> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get bucketName => $composableBuilder(
+      column: $table.bucketName, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get awsRegion =>
+      $composableBuilder(column: $table.awsRegion, builder: (column) => column);
 }
 
 class $$TransferRecordsTableTableManager extends i0.RootTableManager<
@@ -121,24 +145,32 @@ class $$TransferRecordsTableTableManager extends i0.RootTableManager<
             i0.Value<String> uploadId = const i0.Value.absent(),
             i0.Value<String> objectKey = const i0.Value.absent(),
             i0.Value<String> createdAt = const i0.Value.absent(),
+            i0.Value<String?> bucketName = const i0.Value.absent(),
+            i0.Value<String?> awsRegion = const i0.Value.absent(),
           }) =>
               i1.TransferRecordsCompanion(
             id: id,
             uploadId: uploadId,
             objectKey: objectKey,
             createdAt: createdAt,
+            bucketName: bucketName,
+            awsRegion: awsRegion,
           ),
           createCompanionCallback: ({
             i0.Value<int> id = const i0.Value.absent(),
             required String uploadId,
             required String objectKey,
             required String createdAt,
+            i0.Value<String?> bucketName = const i0.Value.absent(),
+            i0.Value<String?> awsRegion = const i0.Value.absent(),
           }) =>
               i1.TransferRecordsCompanion.insert(
             id: id,
             uploadId: uploadId,
             objectKey: objectKey,
             createdAt: createdAt,
+            bucketName: bucketName,
+            awsRegion: awsRegion,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
@@ -378,6 +410,8 @@ class TransferRecord extends i0.DataClass
         uploadId: uploadId ?? this.uploadId,
         objectKey: objectKey ?? this.objectKey,
         createdAt: createdAt ?? this.createdAt,
+        bucketName: bucketName.present ? bucketName.value : this.bucketName,
+        awsRegion: awsRegion.present ? awsRegion.value : this.awsRegion,
       );
   TransferRecord copyWithCompanion(i1.TransferRecordsCompanion data) {
     return TransferRecord(
@@ -385,6 +419,9 @@ class TransferRecord extends i0.DataClass
       uploadId: data.uploadId.present ? data.uploadId.value : this.uploadId,
       objectKey: data.objectKey.present ? data.objectKey.value : this.objectKey,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      bucketName:
+          data.bucketName.present ? data.bucketName.value : this.bucketName,
+      awsRegion: data.awsRegion.present ? data.awsRegion.value : this.awsRegion,
     );
   }
 
