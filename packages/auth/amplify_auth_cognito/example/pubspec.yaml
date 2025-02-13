@@ -44,7 +44,7 @@ dev_dependencies:
   test: ^1.22.1
   webdriver: ^3.0.0
   webview_flutter: ^4.0.0
-  webview_flutter_wkwebview: ^3.1.0
+  webview_flutter_wkwebview: ">=3.1.0 <3.18.0"
 
 flutter:
   uses-material-design: true

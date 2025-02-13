@@ -96,7 +96,7 @@ jobs:
 
       - name: Archive golden failures
         if: "always() && inputs.has-goldens && steps.testJob.conclusion == 'failure'"
-        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # 3.1.3
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # 4.6.0
         with:
           name: golden-failures-${{ matrix.channel }}-${{ matrix.flutter-version }}
           path: ${{ inputs.working-directory }}/test/ui/failures/
