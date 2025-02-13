@@ -255,7 +255,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                         case .success(let response):
                             continuation.resume(returning: response)
                         case .failure(let error): 
-                            break //NoOp
+                            throw error
                     }
                 }
             }
