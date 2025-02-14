@@ -1,19 +1,6 @@
 group 'com.amazonaws.amplify.amplify_analytics_pinpoint'
 version '1.0-SNAPSHOT'
 
-buildscript {
-    ext.kotlin_version = '1.9.10'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 rootProject.allprojects {
     repositories {
         google()
@@ -45,9 +32,5 @@ android {
     }
 
     namespace 'com.amazonaws.amplify.amplify_analytics_pinpoint'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
