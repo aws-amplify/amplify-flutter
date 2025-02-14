@@ -22,8 +22,4 @@ plugins {
     id "org.jetbrains.kotlin.android" version "1.9.10" apply false
 }
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-
 include ":app"
