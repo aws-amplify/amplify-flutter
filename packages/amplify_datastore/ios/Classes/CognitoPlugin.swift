@@ -35,7 +35,8 @@ public class CognitoPlugin: AuthCategoryPlugin {
                             let returning = NativeAWSAuthCognitoSession(from: session)
                             continuation.resume(returning: returning)
                         case .failure(let error):
-                            continuation.resume(throwing: error)
+                            let returning = NativeAWSAuthCognitoSession(from: NativeAuthSession(isSignedIn: false))
+                            continuation.resume(returning: returning)
                     }            
                 }
             }

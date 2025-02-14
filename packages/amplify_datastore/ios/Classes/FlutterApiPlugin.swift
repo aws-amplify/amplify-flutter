@@ -35,8 +35,9 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                                 case .success(let session):
                                     break //NoOp
                                 case .failure(let error):
-                                    throw error
-                            }      
+                                    break //NoOp
+                            }
+                            return     
                         }
                    }
                 }
@@ -106,7 +107,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                             case .success(let session):
                                 break //NoOp
                             case .failure(let error):
-                                throw error
+                                break //NoOp
                         }  
                     }
                 }
@@ -173,7 +174,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                     case .success(let response):
                          subscriptionId = response.subscriptionId
                     case .failure(let error): 
-                        throw error
+                        subscriptionId = nil
                 }
             }
         }
@@ -240,7 +241,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                         case .success(let response):
                             continuation.resume(returning: response)
                         case .failure(let error): 
-                            throw error
+                            continuation.resume(returning: NativeGraphQLResponse())
                     }
                 }
             }
@@ -255,7 +256,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                         case .success(let response):
                             continuation.resume(returning: response)
                         case .failure(let error): 
-                            throw error
+                            continuation.resume(returning: NativeGraphQLResponse())
                     }
                 }
             }

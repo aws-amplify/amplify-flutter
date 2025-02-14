@@ -238,7 +238,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                         case .success(let session):
                             break //NoOp
                         case .failure(let error):
-                            throw error
+                            break //NoOp
                     }   
                 }
             }
