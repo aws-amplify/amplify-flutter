@@ -5,7 +5,7 @@ publish_to: "none"
 
 environment:
   sdk: ^3.6.0
-  flutter: ">=3.24.0"
+  flutter: ">=3.27.0"
 
 dependencies:
   amplify_native_legacy_wrapper: ^0.1.0

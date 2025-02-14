@@ -3,7 +3,7 @@ description: Demonstrates how to use the Amplify Flutter client libraries.
 publish_to: none
 
 environment:
-  flutter: ">=3.24.0"
+  flutter: ">=3.27.0"
   sdk: ^3.6.0
 
 dependencies:

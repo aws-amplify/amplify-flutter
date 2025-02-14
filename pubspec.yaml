@@ -4,7 +4,7 @@ publish_to: none
 # The current constraints for Dart and Flutter SDKs.
 environment:
   sdk: ^3.6.0
-  flutter: ">=3.24.0"
+  flutter: ">=3.27.0"
 
 # Global dependency versions for third-party dependencies of
 # Amplify Flutter projects. These represent the values which
