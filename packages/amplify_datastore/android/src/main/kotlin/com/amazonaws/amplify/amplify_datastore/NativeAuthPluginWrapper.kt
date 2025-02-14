@@ -9,6 +9,7 @@ import android.content.Intent
 import aws.smithy.kotlin.runtime.time.Instant
 import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthPlugin
 import com.amplifyframework.annotations.InternalAmplifyApi
+import com.amplifyframework.auth.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.AWSCredentials
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.AuthDevice
@@ -88,7 +89,6 @@ class NativeAuthPluginWrapper(
             nativePlugin.fetchAuthSession() { result ->
                 val session = result.getOrNull()
                 if(session != null) {
-                    val couldNotFetchException = UnknownException("Could not fetch")
                     val userPoolTokens = if (session.userPoolTokens != null) {
                         val tokens = FlutterFactory.createAWSCognitoUserPoolTokens(
                             session.userPoolTokens!!.accessToken,
@@ -97,7 +97,7 @@ class NativeAuthPluginWrapper(
                         )
                         AuthSessionResult.success(tokens)
                     } else {
-                        AuthSessionResult.failure(couldNotFetchException)
+                        AuthSessionResult.failure(UnknownException("Could not fetch userPoolTokens"))
                     }
                     val awsCredentials: AuthSessionResult<AWSCredentials> =
                         if (session.awsCredentials != null) {
@@ -116,7 +116,7 @@ class NativeAuthPluginWrapper(
                             )
                             AuthSessionResult.success(credentials)
                         } else {
-                            AuthSessionResult.failure(couldNotFetchException)
+                            AuthSessionResult.failure(UnknownException("Could not fetch awsCredentials"))
                         }
                     val authSession = FlutterFactory.createAWSCognitoAuthSession(
                         session.isSignedIn,
@@ -127,7 +127,7 @@ class NativeAuthPluginWrapper(
                     )
                     onSuccess.accept(authSession)
                 } else {
-                    AuthSessionResult.failure(couldNotFetchException)
+                    AuthSessionResult.failure<AWSCognitoUserPoolTokens>(UnknownException("Could not fetch"))
                 }
             }
         }
