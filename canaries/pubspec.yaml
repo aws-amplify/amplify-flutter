@@ -2,7 +2,7 @@ name: amplified_todo
 publish_to: none
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.6.0
   flutter: ">=3.24.0"
 
 dependencies:

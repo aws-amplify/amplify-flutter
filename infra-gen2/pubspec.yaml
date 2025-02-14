@@ -2,7 +2,7 @@ name: infra_gen2
 publish_to: none
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.6.0
 
 dependencies:
   amplify_core: any
