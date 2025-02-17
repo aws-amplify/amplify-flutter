@@ -14,7 +14,7 @@ class MockBinaryMessenger: NSObject, FlutterBinaryMessenger {
     
     let isSignedIn: Bool
     
-    lazy var codec = NativeAuthPluginCodec.shared
+    lazy var codec = NativePluginBindingsPigeonCodec.shared
     
     func send(onChannel channel: String, message: Data?) { }
     
