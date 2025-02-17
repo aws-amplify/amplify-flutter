@@ -55,7 +55,7 @@ class NativeAuthPluginTests: XCTestCase {
             switch result {
             case .success(let session):
                 defer { expectation.fulfill() }
-                XCTAssertEqual(session, isSignedIn)
+                XCTAssertEqual(session.isSignedIn, isSignedIn)
             case .failure(let error):
                 XCTFail("fetchAuthSession failed with error: \(error)")
             }
