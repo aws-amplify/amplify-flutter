@@ -29,15 +29,15 @@ sed -i '' -e "s/id \"org.jetbrains.kotlin.android\" .*/id \"org.jetbrains.kotlin
 cat ./android/settings.gradle.kts
 
 # TODO(khatruong2009): remove this line after the next stable release (3.22.0 or 4.0)
-sed -i '' -e "s/minSdkVersion .*/minSdkVersion 24/" ./android/app/build.gradle.kts
-sed -i '' -e "s/minSdk .*/minSdk 24/" ./android/app/build.gradle.kts
+sed -i '' -e "s/minSdkVersion = .*/minSdkVersion = 24/" ./android/app/build.gradle.kts
+sed -i '' -e "s/minSdk = .*/minSdk = 24/" ./android/app/build.gradle.kts
 sed -i '' -e '/id "kotlin-android"/a\
 id '\''kotlin-parcelize'\''' ./android/app/build.gradle.kts
-sed -i '' -e "s/compileSdk .*/compileSdk = 35/" ./android/app/build.gradle.kts
-sed -i '' -e "s/sourceCompatibility .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
-sed -i '' -e "s/targetCompatibility .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
+sed -i '' -e "s/compileSdk = .*/compileSdk = 35/" ./android/app/build.gradle.kts
+sed -i '' -e "s/sourceCompatibility = .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
+sed -i '' -e "s/targetCompatibility = .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
 # TODO(equartey): remove this line after the next stable release (3.22.0 or 4.0)
-sed -i '' -e '/kotlinOptions {/,/}/ s/jvmTarget = .*/jvmTarget = '\''17'\''/' ./android/app/build.gradle.kts
+sed -i '' -e '/kotlinOptions {/,/}/ s/jvmTarget = .*/jvmTarget = JavaVersion.VERSION_17.toString()/' ./android/app/build.gradle.kts
 cat ./android/app/build.gradle.kts
 
 sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
