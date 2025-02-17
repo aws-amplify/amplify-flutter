@@ -106,10 +106,11 @@ class GetCredentialsForIdentityInputBuilder
     try {
       _$result = _$v ??
           new _$GetCredentialsForIdentityInput._(
-              identityId: BuiltValueNullFieldError.checkNotNull(
-                  identityId, r'GetCredentialsForIdentityInput', 'identityId'),
-              logins: _logins?.build(),
-              customRoleArn: customRoleArn);
+            identityId: BuiltValueNullFieldError.checkNotNull(
+                identityId, r'GetCredentialsForIdentityInput', 'identityId'),
+            logins: _logins?.build(),
+            customRoleArn: customRoleArn,
+          );
     } catch (_) {
       late String _$failedField;
       try {

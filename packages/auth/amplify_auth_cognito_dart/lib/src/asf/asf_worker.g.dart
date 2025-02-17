@@ -297,17 +297,18 @@ class ASFWorkerRequestBuilder
     try {
       _$result = _$v ??
           new _$ASFWorkerRequest._(
-              requestId: BuiltValueNullFieldError.checkNotNull(
-                  requestId, r'ASFWorkerRequest', 'requestId'),
-              userPoolId: BuiltValueNullFieldError.checkNotNull(
-                  userPoolId, r'ASFWorkerRequest', 'userPoolId'),
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'ASFWorkerRequest', 'clientId'),
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'ASFWorkerRequest', 'username'),
-              deviceId: BuiltValueNullFieldError.checkNotNull(
-                  deviceId, r'ASFWorkerRequest', 'deviceId'),
-              nativeContextData: nativeContextData.build());
+            requestId: BuiltValueNullFieldError.checkNotNull(
+                requestId, r'ASFWorkerRequest', 'requestId'),
+            userPoolId: BuiltValueNullFieldError.checkNotNull(
+                userPoolId, r'ASFWorkerRequest', 'userPoolId'),
+            clientId: BuiltValueNullFieldError.checkNotNull(
+                clientId, r'ASFWorkerRequest', 'clientId'),
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, r'ASFWorkerRequest', 'username'),
+            deviceId: BuiltValueNullFieldError.checkNotNull(
+                deviceId, r'ASFWorkerRequest', 'deviceId'),
+            nativeContextData: nativeContextData.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -422,9 +423,10 @@ class ASFWorkerResponseBuilder
     try {
       _$result = _$v ??
           new _$ASFWorkerResponse._(
-              requestId: BuiltValueNullFieldError.checkNotNull(
-                  requestId, r'ASFWorkerResponse', 'requestId'),
-              userContextData: userContextData.build());
+            requestId: BuiltValueNullFieldError.checkNotNull(
+                requestId, r'ASFWorkerResponse', 'requestId'),
+            userContextData: userContextData.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -89,9 +89,10 @@ class GetDeviceRequestBuilder
   _$GetDeviceRequest _build() {
     final _$result = _$v ??
         new _$GetDeviceRequest._(
-            deviceKey: BuiltValueNullFieldError.checkNotNull(
-                deviceKey, r'GetDeviceRequest', 'deviceKey'),
-            accessToken: accessToken);
+          deviceKey: BuiltValueNullFieldError.checkNotNull(
+              deviceKey, r'GetDeviceRequest', 'deviceKey'),
+          accessToken: accessToken,
+        );
     replace(_$result);
     return _$result;
   }

@@ -120,12 +120,13 @@ class ConfirmDeviceRequestBuilder
     try {
       _$result = _$v ??
           new _$ConfirmDeviceRequest._(
-              accessToken: BuiltValueNullFieldError.checkNotNull(
-                  accessToken, r'ConfirmDeviceRequest', 'accessToken'),
-              deviceKey: BuiltValueNullFieldError.checkNotNull(
-                  deviceKey, r'ConfirmDeviceRequest', 'deviceKey'),
-              deviceSecretVerifierConfig: _deviceSecretVerifierConfig?.build(),
-              deviceName: deviceName);
+            accessToken: BuiltValueNullFieldError.checkNotNull(
+                accessToken, r'ConfirmDeviceRequest', 'accessToken'),
+            deviceKey: BuiltValueNullFieldError.checkNotNull(
+                deviceKey, r'ConfirmDeviceRequest', 'deviceKey'),
+            deviceSecretVerifierConfig: _deviceSecretVerifierConfig?.build(),
+            deviceName: deviceName,
+          );
     } catch (_) {
       late String _$failedField;
       try {

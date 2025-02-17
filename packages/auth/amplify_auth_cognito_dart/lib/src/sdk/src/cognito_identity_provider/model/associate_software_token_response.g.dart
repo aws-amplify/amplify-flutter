@@ -89,7 +89,9 @@ class AssociateSoftwareTokenResponseBuilder
   _$AssociateSoftwareTokenResponse _build() {
     final _$result = _$v ??
         new _$AssociateSoftwareTokenResponse._(
-            secretCode: secretCode, session: session);
+          secretCode: secretCode,
+          session: session,
+        );
     replace(_$result);
     return _$result;
   }

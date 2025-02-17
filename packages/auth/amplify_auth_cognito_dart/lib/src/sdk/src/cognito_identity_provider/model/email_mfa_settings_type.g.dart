@@ -94,10 +94,11 @@ class EmailMfaSettingsTypeBuilder
   _$EmailMfaSettingsType _build() {
     final _$result = _$v ??
         new _$EmailMfaSettingsType._(
-            enabled: BuiltValueNullFieldError.checkNotNull(
-                enabled, r'EmailMfaSettingsType', 'enabled'),
-            preferredMfa: BuiltValueNullFieldError.checkNotNull(
-                preferredMfa, r'EmailMfaSettingsType', 'preferredMfa'));
+          enabled: BuiltValueNullFieldError.checkNotNull(
+              enabled, r'EmailMfaSettingsType', 'enabled'),
+          preferredMfa: BuiltValueNullFieldError.checkNotNull(
+              preferredMfa, r'EmailMfaSettingsType', 'preferredMfa'),
+        );
     replace(_$result);
     return _$result;
   }

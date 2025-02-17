@@ -257,27 +257,28 @@ class UploadPartRequestBuilder
   _$UploadPartRequest _build() {
     final _$result = _$v ??
         new _$UploadPartRequest._(
-            body: BuiltValueNullFieldError.checkNotNull(
-                body, r'UploadPartRequest', 'body'),
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'UploadPartRequest', 'bucket'),
-            contentLength: contentLength,
-            contentMd5: contentMd5,
-            checksumAlgorithm: checksumAlgorithm,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'UploadPartRequest', 'key'),
-            partNumber: partNumber,
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'UploadPartRequest', 'uploadId'),
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKey: sseCustomerKey,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            requestPayer: requestPayer,
-            expectedBucketOwner: expectedBucketOwner);
+          body: BuiltValueNullFieldError.checkNotNull(
+              body, r'UploadPartRequest', 'body'),
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'UploadPartRequest', 'bucket'),
+          contentLength: contentLength,
+          contentMd5: contentMd5,
+          checksumAlgorithm: checksumAlgorithm,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'UploadPartRequest', 'key'),
+          partNumber: partNumber,
+          uploadId: BuiltValueNullFieldError.checkNotNull(
+              uploadId, r'UploadPartRequest', 'uploadId'),
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKey: sseCustomerKey,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          requestPayer: requestPayer,
+          expectedBucketOwner: expectedBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }

@@ -77,7 +77,9 @@ class AnalyticsMetadataTypeBuilder
 
   _$AnalyticsMetadataType _build() {
     final _$result = _$v ??
-        new _$AnalyticsMetadataType._(analyticsEndpointId: analyticsEndpointId);
+        new _$AnalyticsMetadataType._(
+          analyticsEndpointId: analyticsEndpointId,
+        );
     replace(_$result);
     return _$result;
   }

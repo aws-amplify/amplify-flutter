@@ -110,11 +110,12 @@ class SignUpResponseBuilder
     try {
       _$result = _$v ??
           new _$SignUpResponse._(
-              userConfirmed: BuiltValueNullFieldError.checkNotNull(
-                  userConfirmed, r'SignUpResponse', 'userConfirmed'),
-              codeDeliveryDetails: _codeDeliveryDetails?.build(),
-              userSub: BuiltValueNullFieldError.checkNotNull(
-                  userSub, r'SignUpResponse', 'userSub'));
+            userConfirmed: BuiltValueNullFieldError.checkNotNull(
+                userConfirmed, r'SignUpResponse', 'userConfirmed'),
+            codeDeliveryDetails: _codeDeliveryDetails?.build(),
+            userSub: BuiltValueNullFieldError.checkNotNull(
+                userSub, r'SignUpResponse', 'userSub'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

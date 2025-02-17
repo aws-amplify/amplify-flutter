@@ -142,13 +142,14 @@ class MultipartUploadBuilder
     try {
       _$result = _$v ??
           new _$MultipartUpload._(
-              uploadId: uploadId,
-              key: key,
-              initiated: initiated,
-              storageClass: storageClass,
-              owner: _owner?.build(),
-              initiator: _initiator?.build(),
-              checksumAlgorithm: checksumAlgorithm);
+            uploadId: uploadId,
+            key: key,
+            initiated: initiated,
+            storageClass: storageClass,
+            owner: _owner?.build(),
+            initiator: _initiator?.build(),
+            checksumAlgorithm: checksumAlgorithm,
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -76,7 +76,10 @@ class SelectObjectContentOutputBuilder
   SelectObjectContentOutput build() => _build();
 
   _$SelectObjectContentOutput _build() {
-    final _$result = _$v ?? new _$SelectObjectContentOutput._(payload: payload);
+    final _$result = _$v ??
+        new _$SelectObjectContentOutput._(
+          payload: payload,
+        );
     replace(_$result);
     return _$result;
   }

@@ -81,8 +81,11 @@ class AliasExistsExceptionBuilder
   AliasExistsException build() => _build();
 
   _$AliasExistsException _build() {
-    final _$result =
-        _$v ?? new _$AliasExistsException._(message: message, headers: headers);
+    final _$result = _$v ??
+        new _$AliasExistsException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

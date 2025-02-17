@@ -83,9 +83,10 @@ class AttributeTypeBuilder
   _$AttributeType _build() {
     final _$result = _$v ??
         new _$AttributeType._(
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'AttributeType', 'name'),
-            value: value);
+          name: BuiltValueNullFieldError.checkNotNull(
+              name, r'AttributeType', 'name'),
+          value: value,
+        );
     replace(_$result);
     return _$result;
   }

@@ -70,7 +70,10 @@ class JsonInputBuilder implements Builder<JsonInput, JsonInputBuilder> {
   JsonInput build() => _build();
 
   _$JsonInput _build() {
-    final _$result = _$v ?? new _$JsonInput._(type: type);
+    final _$result = _$v ??
+        new _$JsonInput._(
+          type: type,
+        );
     replace(_$result);
     return _$result;
   }
