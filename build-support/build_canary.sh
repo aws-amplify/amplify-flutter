@@ -24,7 +24,7 @@ cp -r $ROOT_DIR/canaries/lib .
 cp $ROOT_DIR/build-support/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 
 # Android
-sed -i '' -e "s/id \"com.android.application\" .*/id \"com.android.application\" version \"8.1.0\" apply false/" ./android/settings.gradle.kts
+sed -i '' -e "s/id \"com.android.application\" .*/id \"com.android.application\" version \"8.9.0\" apply false/" ./android/settings.gradle.kts
 sed -i '' -e "s/id \"org.jetbrains.kotlin.android\" .*/id \"org.jetbrains.kotlin.android\" version \"1.9.10\" apply false/" ./android/settings.gradle.kts
 cat ./android/settings.gradle.kts
 
@@ -40,7 +40,7 @@ sed -i '' -e "s/targetCompatibility .*/targetCompatibility = JavaVersion.VERSION
 sed -i '' -e '/kotlinOptions {/,/}/ s/jvmTarget = .*/jvmTarget = '\''17'\''/' ./android/app/build.gradle.kts
 cat ./android/app/build.gradle.kts
 
-sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.1-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
+sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.9-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
 cat ./android/gradle/wrapper/gradle-wrapper.properties
 
 # iOS
