@@ -36,9 +36,7 @@ cat ./android/settings.gradle*
 sed -i '' -e "s/minSdkVersion = .*/minSdkVersion = 24/" ./android/app/build.gradle*
 sed -i '' -e "s/minSdk = .*/minSdk = 24/" ./android/app/build.gradle*
 
-sed -i '' -e '/id "kotlin-android"/a\
-
-id '\''kotlin-parcelize'\''' ./android/app/build.gradle*
+sed -i '' -e '/id "kotlin-android"/a\ id '\''kotlin-parcelize'\''' ./android/app/build.gradle*
 
 sed -i '' -e "s/compileSdk = .*/compileSdk = 35/" ./android/app/build.gradle*
 
