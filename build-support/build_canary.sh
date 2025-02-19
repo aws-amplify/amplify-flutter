@@ -42,8 +42,10 @@ then
 
   sed -i '' -e "s/sourceCompatibility = .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
 
-  # TODO(equartey): remove this line after the next stable release (3.22.0 or 4.0)
   sed -i '' -e "s/targetCompatibility = .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle.kts
+
+  # TODO(equartey): remove this line after the next stable release (3.22.0 or 4.0)
+  sed -i '' -e "s/jvmTarget = .*/jvmTarget = JavaVersion.VERSION_17.toString()/" ./android/app/build.gradle.kts
 
   sed -i '' -e "s/compileOptions {.*/compileOptions {\n\t\tisCoreLibraryDesugaringEnabled = true/" ./android/app/build.gradle.kts
   sed -i '' -e "s/flutter {.*/dependencies {\n\tcoreLibraryDesugaring(\"com.android.tools:desugar_jdk_libs:2.0.3\")\n}\n\nflutter {/" ./android/app/build.gradle.kts
@@ -69,7 +71,9 @@ else
 
   sed -i '' -e "s/targetCompatibility = .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
 
-  sed -i '' -e "s/compileOptions {.*/compileOptions {\n\t\tisCoreLibraryDesugaringEnabled = true/" ./android/app/build.gradle
+  sed -i '' -e "s/jvmTarget = .*/jvmTarget = JavaVersion.VERSION_17/" ./android/app/build.gradle
+
+  #sed -i '' -e "s/compileOptions {.*/compileOptions {\n\t\tCoreLibraryDesugaringEnabled = true/" ./android/app/build.gradle
   sed -i '' -e "s/flutter {.*/dependencies {\n\tcoreLibraryDesugaring(\"com.android.tools:desugar_jdk_libs:2.0.3\")\n}\n\nflutter {/" ./android/app/build.gradle
   cat ./android/app/build.gradle
 
