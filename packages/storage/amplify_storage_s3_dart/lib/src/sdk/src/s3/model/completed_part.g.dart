@@ -129,12 +129,13 @@ class CompletedPartBuilder
   _$CompletedPart _build() {
     final _$result = _$v ??
         new _$CompletedPart._(
-            eTag: eTag,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            partNumber: partNumber);
+          eTag: eTag,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+          partNumber: partNumber,
+        );
     replace(_$result);
     return _$result;
   }

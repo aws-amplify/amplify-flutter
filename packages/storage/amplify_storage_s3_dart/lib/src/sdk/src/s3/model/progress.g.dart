@@ -95,9 +95,10 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   _$Progress _build() {
     final _$result = _$v ??
         new _$Progress._(
-            bytesScanned: bytesScanned,
-            bytesProcessed: bytesProcessed,
-            bytesReturned: bytesReturned);
+          bytesScanned: bytesScanned,
+          bytesProcessed: bytesProcessed,
+          bytesReturned: bytesReturned,
+        );
     replace(_$result);
     return _$result;
   }

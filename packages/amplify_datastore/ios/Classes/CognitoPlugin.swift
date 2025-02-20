@@ -29,9 +29,15 @@ public class CognitoPlugin: AuthCategoryPlugin {
     public func fetchAuthSession(options: AuthFetchSessionRequest.Options?) async throws -> any AuthSession {
         await withCheckedContinuation { continuation in
             DispatchQueue.main.async {
-                self.nativeAuthPlugin.fetchAuthSession { session in
-                    let result = NativeAWSAuthCognitoSession(from: session)
-                    continuation.resume(returning: result)
+                self.nativeAuthPlugin.fetchAuthSession { result in 
+                    switch result {
+                        case .success(let session):
+                            let returning = NativeAWSAuthCognitoSession(from: session)
+                            continuation.resume(returning: returning)
+                        case .failure(let error):
+                            let returning = NativeAWSAuthCognitoSession(from: NativeAuthSession(isSignedIn: false))
+                            continuation.resume(returning: returning)
+                    }            
                 }
             }
         }

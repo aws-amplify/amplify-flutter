@@ -100,8 +100,9 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         } else {
             val notificationPayload = payload.toWritableMap()
             AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
-                notificationPayload
-            ) {}
+                notificationPayload,
+                NoOpVoidResult()
+            )
         }
 
     }

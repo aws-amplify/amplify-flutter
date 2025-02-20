@@ -83,7 +83,10 @@ class UsernameExistsExceptionBuilder
 
   _$UsernameExistsException _build() {
     final _$result = _$v ??
-        new _$UsernameExistsException._(message: message, headers: headers);
+        new _$UsernameExistsException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

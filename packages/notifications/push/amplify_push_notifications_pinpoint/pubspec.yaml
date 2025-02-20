@@ -5,8 +5,8 @@ homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.3.0
-  flutter: ">=3.19.0"
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
 
 # Helps `pana` since it does not detect Android support.
 platforms:
@@ -33,7 +33,7 @@ dev_dependencies:
   aws_common: ">=0.7.3 <0.8.0"
   aws_signature_v4: ">=0.6.3 <0.7.0"
   build_runner: ^2.4.9
-  built_value_generator: 8.8.1
+  built_value_generator: 8.9.3
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.0

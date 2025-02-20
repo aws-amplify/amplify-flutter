@@ -114,11 +114,12 @@ class VerifySoftwareTokenRequestBuilder
   _$VerifySoftwareTokenRequest _build() {
     final _$result = _$v ??
         new _$VerifySoftwareTokenRequest._(
-            accessToken: accessToken,
-            session: session,
-            userCode: BuiltValueNullFieldError.checkNotNull(
-                userCode, r'VerifySoftwareTokenRequest', 'userCode'),
-            friendlyDeviceName: friendlyDeviceName);
+          accessToken: accessToken,
+          session: session,
+          userCode: BuiltValueNullFieldError.checkNotNull(
+              userCode, r'VerifySoftwareTokenRequest', 'userCode'),
+          friendlyDeviceName: friendlyDeviceName,
+        );
     replace(_$result);
     return _$result;
   }

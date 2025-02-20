@@ -104,10 +104,11 @@ class DeletedObjectBuilder
   _$DeletedObject _build() {
     final _$result = _$v ??
         new _$DeletedObject._(
-            key: key,
-            versionId: versionId,
-            deleteMarker: deleteMarker,
-            deleteMarkerVersionId: deleteMarkerVersionId);
+          key: key,
+          versionId: versionId,
+          deleteMarker: deleteMarker,
+          deleteMarkerVersionId: deleteMarkerVersionId,
+        );
     replace(_$result);
     return _$result;
   }

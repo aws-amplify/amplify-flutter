@@ -80,7 +80,11 @@ class InitiatorBuilder implements Builder<Initiator, InitiatorBuilder> {
   Initiator build() => _build();
 
   _$Initiator _build() {
-    final _$result = _$v ?? new _$Initiator._(id: id, displayName: displayName);
+    final _$result = _$v ??
+        new _$Initiator._(
+          id: id,
+          displayName: displayName,
+        );
     replace(_$result);
     return _$result;
   }

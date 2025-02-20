@@ -123,11 +123,12 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
     try {
       _$result = _$v ??
           new _$DeviceType._(
-              deviceKey: deviceKey,
-              deviceAttributes: _deviceAttributes?.build(),
-              deviceCreateDate: deviceCreateDate,
-              deviceLastModifiedDate: deviceLastModifiedDate,
-              deviceLastAuthenticatedDate: deviceLastAuthenticatedDate);
+            deviceKey: deviceKey,
+            deviceAttributes: _deviceAttributes?.build(),
+            deviceCreateDate: deviceCreateDate,
+            deviceLastModifiedDate: deviceLastModifiedDate,
+            deviceLastAuthenticatedDate: deviceLastAuthenticatedDate,
+          );
     } catch (_) {
       late String _$failedField;
       try {

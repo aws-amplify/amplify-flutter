@@ -218,20 +218,21 @@ class CompleteMultipartUploadOutputBuilder
   _$CompleteMultipartUploadOutput _build() {
     final _$result = _$v ??
         new _$CompleteMultipartUploadOutput._(
-            location: location,
-            bucket: bucket,
-            key: key,
-            expiration: expiration,
-            eTag: eTag,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            serverSideEncryption: serverSideEncryption,
-            versionId: versionId,
-            ssekmsKeyId: ssekmsKeyId,
-            bucketKeyEnabled: bucketKeyEnabled,
-            requestCharged: requestCharged);
+          location: location,
+          bucket: bucket,
+          key: key,
+          expiration: expiration,
+          eTag: eTag,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+          serverSideEncryption: serverSideEncryption,
+          versionId: versionId,
+          ssekmsKeyId: ssekmsKeyId,
+          bucketKeyEnabled: bucketKeyEnabled,
+          requestCharged: requestCharged,
+        );
     replace(_$result);
     return _$result;
   }
@@ -389,14 +390,15 @@ class CompleteMultipartUploadOutputPayloadBuilder
   _$CompleteMultipartUploadOutputPayload _build() {
     final _$result = _$v ??
         new _$CompleteMultipartUploadOutputPayload._(
-            bucket: bucket,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            eTag: eTag,
-            key: key,
-            location: location);
+          bucket: bucket,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+          eTag: eTag,
+          key: key,
+          location: location,
+        );
     replace(_$result);
     return _$result;
   }

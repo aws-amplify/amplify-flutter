@@ -83,7 +83,10 @@ class UnexpectedLambdaExceptionBuilder
 
   _$UnexpectedLambdaException _build() {
     final _$result = _$v ??
-        new _$UnexpectedLambdaException._(message: message, headers: headers);
+        new _$UnexpectedLambdaException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

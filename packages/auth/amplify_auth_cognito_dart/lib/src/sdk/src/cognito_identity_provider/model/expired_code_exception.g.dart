@@ -81,8 +81,11 @@ class ExpiredCodeExceptionBuilder
   ExpiredCodeException build() => _build();
 
   _$ExpiredCodeException _build() {
-    final _$result =
-        _$v ?? new _$ExpiredCodeException._(message: message, headers: headers);
+    final _$result = _$v ??
+        new _$ExpiredCodeException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

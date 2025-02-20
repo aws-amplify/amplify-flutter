@@ -95,9 +95,10 @@ class StatsBuilder implements Builder<Stats, StatsBuilder> {
   _$Stats _build() {
     final _$result = _$v ??
         new _$Stats._(
-            bytesScanned: bytesScanned,
-            bytesProcessed: bytesProcessed,
-            bytesReturned: bytesReturned);
+          bytesScanned: bytesScanned,
+          bytesProcessed: bytesProcessed,
+          bytesReturned: bytesReturned,
+        );
     replace(_$result);
     return _$result;
   }

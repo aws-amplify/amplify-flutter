@@ -337,16 +337,17 @@ class ASFContextDataBuilder
   _$ASFContextData _build() {
     final _$result = _$v ??
         new _$ASFContextData._(
-            deviceName: deviceName,
-            thirdPartyDeviceId: thirdPartyDeviceId,
-            deviceFingerprint: deviceFingerprint,
-            clientTimezone: clientTimezone,
-            applicationName: applicationName,
-            applicationVersion: applicationVersion,
-            deviceLanguage: deviceLanguage,
-            deviceOsReleaseVersion: deviceOsReleaseVersion,
-            screenHeightPixels: screenHeightPixels,
-            screenWidthPixels: screenWidthPixels);
+          deviceName: deviceName,
+          thirdPartyDeviceId: thirdPartyDeviceId,
+          deviceFingerprint: deviceFingerprint,
+          clientTimezone: clientTimezone,
+          applicationName: applicationName,
+          applicationVersion: applicationVersion,
+          deviceLanguage: deviceLanguage,
+          deviceOsReleaseVersion: deviceOsReleaseVersion,
+          screenHeightPixels: screenHeightPixels,
+          screenWidthPixels: screenWidthPixels,
+        );
     replace(_$result);
     return _$result;
   }

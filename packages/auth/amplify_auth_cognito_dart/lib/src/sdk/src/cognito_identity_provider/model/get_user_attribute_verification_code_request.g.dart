@@ -116,13 +116,12 @@ class GetUserAttributeVerificationCodeRequestBuilder
     try {
       _$result = _$v ??
           new _$GetUserAttributeVerificationCodeRequest._(
-              accessToken: BuiltValueNullFieldError.checkNotNull(accessToken,
-                  r'GetUserAttributeVerificationCodeRequest', 'accessToken'),
-              attributeName: BuiltValueNullFieldError.checkNotNull(
-                  attributeName,
-                  r'GetUserAttributeVerificationCodeRequest',
-                  'attributeName'),
-              clientMetadata: _clientMetadata?.build());
+            accessToken: BuiltValueNullFieldError.checkNotNull(accessToken,
+                r'GetUserAttributeVerificationCodeRequest', 'accessToken'),
+            attributeName: BuiltValueNullFieldError.checkNotNull(attributeName,
+                r'GetUserAttributeVerificationCodeRequest', 'attributeName'),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

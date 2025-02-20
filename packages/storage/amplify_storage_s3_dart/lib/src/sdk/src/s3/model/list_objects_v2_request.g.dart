@@ -193,18 +193,19 @@ class ListObjectsV2RequestBuilder
     try {
       _$result = _$v ??
           new _$ListObjectsV2Request._(
-              bucket: BuiltValueNullFieldError.checkNotNull(
-                  bucket, r'ListObjectsV2Request', 'bucket'),
-              delimiter: delimiter,
-              encodingType: encodingType,
-              maxKeys: maxKeys,
-              prefix: prefix,
-              continuationToken: continuationToken,
-              fetchOwner: fetchOwner,
-              startAfter: startAfter,
-              requestPayer: requestPayer,
-              expectedBucketOwner: expectedBucketOwner,
-              optionalObjectAttributes: _optionalObjectAttributes?.build());
+            bucket: BuiltValueNullFieldError.checkNotNull(
+                bucket, r'ListObjectsV2Request', 'bucket'),
+            delimiter: delimiter,
+            encodingType: encodingType,
+            maxKeys: maxKeys,
+            prefix: prefix,
+            continuationToken: continuationToken,
+            fetchOwner: fetchOwner,
+            startAfter: startAfter,
+            requestPayer: requestPayer,
+            expectedBucketOwner: expectedBucketOwner,
+            optionalObjectAttributes: _optionalObjectAttributes?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

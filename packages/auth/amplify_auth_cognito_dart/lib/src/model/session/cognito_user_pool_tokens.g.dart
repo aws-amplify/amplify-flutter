@@ -121,14 +121,15 @@ class CognitoUserPoolTokensBuilder
     CognitoUserPoolTokens._finalize(this);
     final _$result = _$v ??
         new _$CognitoUserPoolTokens._(
-            signInMethod: BuiltValueNullFieldError.checkNotNull(
-                signInMethod, r'CognitoUserPoolTokens', 'signInMethod'),
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'CognitoUserPoolTokens', 'accessToken'),
-            refreshToken: BuiltValueNullFieldError.checkNotNull(
-                refreshToken, r'CognitoUserPoolTokens', 'refreshToken'),
-            idToken: BuiltValueNullFieldError.checkNotNull(
-                idToken, r'CognitoUserPoolTokens', 'idToken'));
+          signInMethod: BuiltValueNullFieldError.checkNotNull(
+              signInMethod, r'CognitoUserPoolTokens', 'signInMethod'),
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken, r'CognitoUserPoolTokens', 'accessToken'),
+          refreshToken: BuiltValueNullFieldError.checkNotNull(
+              refreshToken, r'CognitoUserPoolTokens', 'refreshToken'),
+          idToken: BuiltValueNullFieldError.checkNotNull(
+              idToken, r'CognitoUserPoolTokens', 'idToken'),
+        );
     replace(_$result);
     return _$result;
   }

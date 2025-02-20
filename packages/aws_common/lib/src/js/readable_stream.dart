@@ -7,7 +7,9 @@ import 'dart:typed_data';
 import 'package:async/async.dart';
 import 'package:aws_common/src/js/common.dart';
 import 'package:aws_common/src/js/promise.dart';
+//ignore: deprecated_member_use
 import 'package:js/js.dart';
+//ignore: deprecated_member_use
 import 'package:js/js_util.dart' as js_util;
 
 /// {@template aws_common.js.readable_stream}

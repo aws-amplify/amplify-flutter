@@ -106,6 +106,13 @@ class CountTableData extends DataClass implements Insertable<CountTableData> {
         id: id ?? this.id,
         count: count ?? this.count,
       );
+  CountTableData copyWithCompanion(CountTableCompanion data) {
+    return CountTableData(
+      id: data.id.present ? data.id.value : this.id,
+      count: data.count.present ? data.count.value : this.count,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('CountTableData(')
@@ -177,10 +184,133 @@ class CountTableCompanion extends UpdateCompanion<CountTableData> {
 
 abstract class _$AppDb extends GeneratedDatabase {
   _$AppDb(QueryExecutor e) : super(e);
+  $AppDbManager get managers => $AppDbManager(this);
   late final $CountTableTable countTable = $CountTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [countTable];
+}
+
+typedef $$CountTableTableCreateCompanionBuilder = CountTableCompanion Function({
+  Value<int> id,
+  required int count,
+});
+typedef $$CountTableTableUpdateCompanionBuilder = CountTableCompanion Function({
+  Value<int> id,
+  Value<int> count,
+});
+
+class $$CountTableTableFilterComposer
+    extends Composer<_$AppDb, $CountTableTable> {
+  $$CountTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get count => $composableBuilder(
+      column: $table.count, builder: (column) => ColumnFilters(column));
+}
+
+class $$CountTableTableOrderingComposer
+    extends Composer<_$AppDb, $CountTableTable> {
+  $$CountTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get count => $composableBuilder(
+      column: $table.count, builder: (column) => ColumnOrderings(column));
+}
+
+class $$CountTableTableAnnotationComposer
+    extends Composer<_$AppDb, $CountTableTable> {
+  $$CountTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get count =>
+      $composableBuilder(column: $table.count, builder: (column) => column);
+}
+
+class $$CountTableTableTableManager extends RootTableManager<
+    _$AppDb,
+    $CountTableTable,
+    CountTableData,
+    $$CountTableTableFilterComposer,
+    $$CountTableTableOrderingComposer,
+    $$CountTableTableAnnotationComposer,
+    $$CountTableTableCreateCompanionBuilder,
+    $$CountTableTableUpdateCompanionBuilder,
+    (CountTableData, BaseReferences<_$AppDb, $CountTableTable, CountTableData>),
+    CountTableData,
+    PrefetchHooks Function()> {
+  $$CountTableTableTableManager(_$AppDb db, $CountTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CountTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CountTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CountTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> count = const Value.absent(),
+          }) =>
+              CountTableCompanion(
+            id: id,
+            count: count,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int count,
+          }) =>
+              CountTableCompanion.insert(
+            id: id,
+            count: count,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$CountTableTableProcessedTableManager = ProcessedTableManager<
+    _$AppDb,
+    $CountTableTable,
+    CountTableData,
+    $$CountTableTableFilterComposer,
+    $$CountTableTableOrderingComposer,
+    $$CountTableTableAnnotationComposer,
+    $$CountTableTableCreateCompanionBuilder,
+    $$CountTableTableUpdateCompanionBuilder,
+    (CountTableData, BaseReferences<_$AppDb, $CountTableTable, CountTableData>),
+    CountTableData,
+    PrefetchHooks Function()>;
+
+class $AppDbManager {
+  final _$AppDb _db;
+  $AppDbManager(this._db);
+  $$CountTableTableTableManager get countTable =>
+      $$CountTableTableTableManager(_db, _db.countTable);
 }

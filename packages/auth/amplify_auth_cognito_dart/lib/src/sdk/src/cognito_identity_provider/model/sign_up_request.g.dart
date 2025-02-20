@@ -175,18 +175,19 @@ class SignUpRequestBuilder
     try {
       _$result = _$v ??
           new _$SignUpRequest._(
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'SignUpRequest', 'clientId'),
-              secretHash: secretHash,
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'SignUpRequest', 'username'),
-              password: BuiltValueNullFieldError.checkNotNull(
-                  password, r'SignUpRequest', 'password'),
-              userAttributes: _userAttributes?.build(),
-              validationData: _validationData?.build(),
-              analyticsMetadata: _analyticsMetadata?.build(),
-              userContextData: _userContextData?.build(),
-              clientMetadata: _clientMetadata?.build());
+            clientId: BuiltValueNullFieldError.checkNotNull(
+                clientId, r'SignUpRequest', 'clientId'),
+            secretHash: secretHash,
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, r'SignUpRequest', 'username'),
+            password: BuiltValueNullFieldError.checkNotNull(
+                password, r'SignUpRequest', 'password'),
+            userAttributes: _userAttributes?.build(),
+            validationData: _validationData?.build(),
+            analyticsMetadata: _analyticsMetadata?.build(),
+            userContextData: _userContextData?.build(),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

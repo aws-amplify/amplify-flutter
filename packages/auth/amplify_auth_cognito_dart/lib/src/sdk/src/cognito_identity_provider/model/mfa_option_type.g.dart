@@ -85,7 +85,9 @@ class MfaOptionTypeBuilder
   _$MfaOptionType _build() {
     final _$result = _$v ??
         new _$MfaOptionType._(
-            deliveryMedium: deliveryMedium, attributeName: attributeName);
+          deliveryMedium: deliveryMedium,
+          attributeName: attributeName,
+        );
     replace(_$result);
     return _$result;
   }

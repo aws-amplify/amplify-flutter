@@ -110,10 +110,11 @@ class InputSerializationBuilder
     try {
       _$result = _$v ??
           new _$InputSerialization._(
-              csv: _csv?.build(),
-              compressionType: compressionType,
-              json: _json?.build(),
-              parquet: _parquet?.build());
+            csv: _csv?.build(),
+            compressionType: compressionType,
+            json: _json?.build(),
+            parquet: _parquet?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

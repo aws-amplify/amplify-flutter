@@ -82,7 +82,10 @@ class UserNotFoundExceptionBuilder
 
   _$UserNotFoundException _build() {
     final _$result = _$v ??
-        new _$UserNotFoundException._(message: message, headers: headers);
+        new _$UserNotFoundException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

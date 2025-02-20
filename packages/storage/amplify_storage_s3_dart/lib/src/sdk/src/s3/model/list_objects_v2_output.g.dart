@@ -209,19 +209,20 @@ class ListObjectsV2OutputBuilder
     try {
       _$result = _$v ??
           new _$ListObjectsV2Output._(
-              isTruncated: isTruncated,
-              contents: _contents?.build(),
-              name: name,
-              prefix: prefix,
-              delimiter: delimiter,
-              maxKeys: maxKeys,
-              commonPrefixes: _commonPrefixes?.build(),
-              encodingType: encodingType,
-              keyCount: keyCount,
-              continuationToken: continuationToken,
-              nextContinuationToken: nextContinuationToken,
-              startAfter: startAfter,
-              requestCharged: requestCharged);
+            isTruncated: isTruncated,
+            contents: _contents?.build(),
+            name: name,
+            prefix: prefix,
+            delimiter: delimiter,
+            maxKeys: maxKeys,
+            commonPrefixes: _commonPrefixes?.build(),
+            encodingType: encodingType,
+            keyCount: keyCount,
+            continuationToken: continuationToken,
+            nextContinuationToken: nextContinuationToken,
+            startAfter: startAfter,
+            requestCharged: requestCharged,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -434,18 +435,19 @@ class ListObjectsV2OutputPayloadBuilder
     try {
       _$result = _$v ??
           new _$ListObjectsV2OutputPayload._(
-              commonPrefixes: _commonPrefixes?.build(),
-              contents: _contents?.build(),
-              continuationToken: continuationToken,
-              delimiter: delimiter,
-              encodingType: encodingType,
-              isTruncated: isTruncated,
-              keyCount: keyCount,
-              maxKeys: maxKeys,
-              name: name,
-              nextContinuationToken: nextContinuationToken,
-              prefix: prefix,
-              startAfter: startAfter);
+            commonPrefixes: _commonPrefixes?.build(),
+            contents: _contents?.build(),
+            continuationToken: continuationToken,
+            delimiter: delimiter,
+            encodingType: encodingType,
+            isTruncated: isTruncated,
+            keyCount: keyCount,
+            maxKeys: maxKeys,
+            name: name,
+            nextContinuationToken: nextContinuationToken,
+            prefix: prefix,
+            startAfter: startAfter,
+          );
     } catch (_) {
       late String _$failedField;
       try {

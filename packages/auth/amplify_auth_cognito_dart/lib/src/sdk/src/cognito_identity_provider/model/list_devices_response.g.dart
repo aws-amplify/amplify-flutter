@@ -91,7 +91,9 @@ class ListDevicesResponseBuilder
     try {
       _$result = _$v ??
           new _$ListDevicesResponse._(
-              devices: _devices?.build(), paginationToken: paginationToken);
+            devices: _devices?.build(),
+            paginationToken: paginationToken,
+          );
     } catch (_) {
       late String _$failedField;
       try {

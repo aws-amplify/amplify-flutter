@@ -146,15 +146,16 @@ class DeleteObjectRequestBuilder
   _$DeleteObjectRequest _build() {
     final _$result = _$v ??
         new _$DeleteObjectRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'DeleteObjectRequest', 'bucket'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'DeleteObjectRequest', 'key'),
-            mfa: mfa,
-            versionId: versionId,
-            requestPayer: requestPayer,
-            bypassGovernanceRetention: bypassGovernanceRetention,
-            expectedBucketOwner: expectedBucketOwner);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'DeleteObjectRequest', 'bucket'),
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'DeleteObjectRequest', 'key'),
+          mfa: mfa,
+          versionId: versionId,
+          requestPayer: requestPayer,
+          bypassGovernanceRetention: bypassGovernanceRetention,
+          expectedBucketOwner: expectedBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }

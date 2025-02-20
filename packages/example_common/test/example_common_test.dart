@@ -3,6 +3,7 @@
 
 @TestOn('browser')
 
+//ignore: deprecated_member_use
 import 'dart:html';
 
 import 'package:example_common/example_common.dart';

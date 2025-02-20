@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+//ignore: deprecated_member_use
 import 'dart:html';
 
 /// {@template amplify_storage_s3_dart.dom_helper}

@@ -78,7 +78,9 @@ class AbortMultipartUploadOutputBuilder
 
   _$AbortMultipartUploadOutput _build() {
     final _$result = _$v ??
-        new _$AbortMultipartUploadOutput._(requestCharged: requestCharged);
+        new _$AbortMultipartUploadOutput._(
+          requestCharged: requestCharged,
+        );
     replace(_$result);
     return _$result;
   }

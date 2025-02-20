@@ -87,7 +87,9 @@ class NewDeviceMetadataTypeBuilder
   _$NewDeviceMetadataType _build() {
     final _$result = _$v ??
         new _$NewDeviceMetadataType._(
-            deviceKey: deviceKey, deviceGroupKey: deviceGroupKey);
+          deviceKey: deviceKey,
+          deviceGroupKey: deviceGroupKey,
+        );
     replace(_$result);
     return _$result;
   }

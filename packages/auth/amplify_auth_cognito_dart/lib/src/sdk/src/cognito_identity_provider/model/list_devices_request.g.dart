@@ -101,10 +101,11 @@ class ListDevicesRequestBuilder
   _$ListDevicesRequest _build() {
     final _$result = _$v ??
         new _$ListDevicesRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'ListDevicesRequest', 'accessToken'),
-            limit: limit,
-            paginationToken: paginationToken);
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken, r'ListDevicesRequest', 'accessToken'),
+          limit: limit,
+          paginationToken: paginationToken,
+        );
     replace(_$result);
     return _$result;
   }

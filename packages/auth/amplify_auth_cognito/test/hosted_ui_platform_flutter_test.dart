@@ -79,7 +79,7 @@ void main() {
 
 final class ThrowingNativeBridge extends Fake implements NativeAuthBridge {
   @override
-  Future<Map<String?, String?>> signInWithUrl(
+  Future<Map<String, String>> signInWithUrl(
     String arg_url,
     String arg_callbackUrlScheme,
     bool arg_preferPrivateSession,

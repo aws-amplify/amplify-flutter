@@ -209,19 +209,20 @@ class CreateMultipartUploadOutputBuilder
   _$CreateMultipartUploadOutput _build() {
     final _$result = _$v ??
         new _$CreateMultipartUploadOutput._(
-            abortDate: abortDate,
-            abortRuleId: abortRuleId,
-            bucket: bucket,
-            key: key,
-            uploadId: uploadId,
-            serverSideEncryption: serverSideEncryption,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            ssekmsKeyId: ssekmsKeyId,
-            ssekmsEncryptionContext: ssekmsEncryptionContext,
-            bucketKeyEnabled: bucketKeyEnabled,
-            requestCharged: requestCharged,
-            checksumAlgorithm: checksumAlgorithm);
+          abortDate: abortDate,
+          abortRuleId: abortRuleId,
+          bucket: bucket,
+          key: key,
+          uploadId: uploadId,
+          serverSideEncryption: serverSideEncryption,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          ssekmsKeyId: ssekmsKeyId,
+          ssekmsEncryptionContext: ssekmsEncryptionContext,
+          bucketKeyEnabled: bucketKeyEnabled,
+          requestCharged: requestCharged,
+          checksumAlgorithm: checksumAlgorithm,
+        );
     replace(_$result);
     return _$result;
   }
@@ -323,7 +324,10 @@ class CreateMultipartUploadOutputPayloadBuilder
   _$CreateMultipartUploadOutputPayload _build() {
     final _$result = _$v ??
         new _$CreateMultipartUploadOutputPayload._(
-            bucket: bucket, key: key, uploadId: uploadId);
+          bucket: bucket,
+          key: key,
+          uploadId: uploadId,
+        );
     replace(_$result);
     return _$result;
   }

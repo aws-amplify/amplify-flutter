@@ -6,8 +6,8 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/an
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.3.0
-  flutter: ">=3.19.0"
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:
@@ -35,7 +35,7 @@ dev_dependencies:
   amplify_lints: ">=3.1.0 <3.2.0"
   flutter_test:
     sdk: flutter
-  pigeon: ^11.0.0
+  pigeon: ^22.6.2
 
 flutter:
   plugin:

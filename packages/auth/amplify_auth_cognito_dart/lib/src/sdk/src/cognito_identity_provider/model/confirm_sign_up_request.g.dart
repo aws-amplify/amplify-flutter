@@ -170,22 +170,21 @@ class ConfirmSignUpRequestBuilder
     try {
       _$result = _$v ??
           new _$ConfirmSignUpRequest._(
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'ConfirmSignUpRequest', 'clientId'),
-              secretHash: secretHash,
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'ConfirmSignUpRequest', 'username'),
-              confirmationCode: BuiltValueNullFieldError.checkNotNull(
-                  confirmationCode,
-                  r'ConfirmSignUpRequest',
-                  'confirmationCode'),
-              forceAliasCreation: BuiltValueNullFieldError.checkNotNull(
-                  forceAliasCreation,
-                  r'ConfirmSignUpRequest',
-                  'forceAliasCreation'),
-              analyticsMetadata: _analyticsMetadata?.build(),
-              userContextData: _userContextData?.build(),
-              clientMetadata: _clientMetadata?.build());
+            clientId: BuiltValueNullFieldError.checkNotNull(
+                clientId, r'ConfirmSignUpRequest', 'clientId'),
+            secretHash: secretHash,
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, r'ConfirmSignUpRequest', 'username'),
+            confirmationCode: BuiltValueNullFieldError.checkNotNull(
+                confirmationCode, r'ConfirmSignUpRequest', 'confirmationCode'),
+            forceAliasCreation: BuiltValueNullFieldError.checkNotNull(
+                forceAliasCreation,
+                r'ConfirmSignUpRequest',
+                'forceAliasCreation'),
+            analyticsMetadata: _analyticsMetadata?.build(),
+            userContextData: _userContextData?.build(),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -82,7 +82,8 @@ class ForgotPasswordResponseBuilder
     try {
       _$result = _$v ??
           new _$ForgotPasswordResponse._(
-              codeDeliveryDetails: _codeDeliveryDetails?.build());
+            codeDeliveryDetails: _codeDeliveryDetails?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

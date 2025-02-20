@@ -79,8 +79,9 @@ class GlobalSignOutRequestBuilder
   _$GlobalSignOutRequest _build() {
     final _$result = _$v ??
         new _$GlobalSignOutRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'GlobalSignOutRequest', 'accessToken'));
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken, r'GlobalSignOutRequest', 'accessToken'),
+        );
     replace(_$result);
     return _$result;
   }

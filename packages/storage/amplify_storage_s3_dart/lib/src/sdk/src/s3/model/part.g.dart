@@ -149,14 +149,15 @@ class PartBuilder implements Builder<Part, PartBuilder> {
   _$Part _build() {
     final _$result = _$v ??
         new _$Part._(
-            partNumber: partNumber,
-            lastModified: lastModified,
-            eTag: eTag,
-            size: size,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256);
+          partNumber: partNumber,
+          lastModified: lastModified,
+          eTag: eTag,
+          size: size,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+        );
     replace(_$result);
     return _$result;
   }

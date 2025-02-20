@@ -12,6 +12,7 @@ import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 // ignore: implementation_imports
 import 'package:aws_common/src/js/common.dart';
+//ignore: deprecated_member_use
 import 'package:js/js.dart';
 import 'package:path/path.dart';
 
