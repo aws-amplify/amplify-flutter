@@ -52,12 +52,12 @@ class NativeAuthPluginTests: XCTestCase {
         let nativePlugin = NativeAuthPlugin(binaryMessenger: binaryMessenger)
         let expectation = expectation(description: "fetchAuthSession completes")
         nativePlugin.fetchAuthSession { result in
+            defer { expectation.fulfill() }
             switch result {
-            case .success(let session):
-                defer { expectation.fulfill() }
-                XCTAssertEqual(session.isSignedIn, isSignedIn)
-            case .failure(let error):
-                XCTFail("fetchAuthSession failed with error: \(error)")
+                case .success(let session):
+                    XCTAssertEqual(session.isSignedIn, isSignedIn)
+                case .failure(let error):
+                    XCTFail("fetchAuthSession failed with error: \(error)")
             }
         }
         waitForExpectations(timeout: 1)
