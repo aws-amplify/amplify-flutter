@@ -58,6 +58,7 @@ class NativeAuthPluginTests: XCTestCase {
                     XCTAssertEqual(session.isSignedIn, isSignedIn)
                     break
                 case .failure(let error):
+                    print("fetchAuthSession failed with error: \(error)")
                     XCTFail("fetchAuthSession failed with error: \(error)")
                     break
             }
@@ -66,10 +67,12 @@ class NativeAuthPluginTests: XCTestCase {
     }
 
     func testFetchAuthSessionSignedIn() {
+        print("testFetchAuthSessionSignedIn")
         fetchAuthSession(isSignedIn: true)
     }
     
     func testFetchAuthSessionSignedOut() {
+        print("testFetchAuthSessionSignedOut")
         fetchAuthSession(isSignedIn: false)
     }
     
