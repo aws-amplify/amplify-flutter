@@ -57,7 +57,9 @@ class NativeAuthPluginTests: XCTestCase {
                 case .success(let session):
                     XCTAssertEqual(session.isSignedIn, isSignedIn)
                 case .failure(let error):
-                    break //XCTFail("fetchAuthSession failed with error: \(error)")
+                    if(error.code == "channel-error") {
+                        XCTFail("fetchAuthSession failed with error: \(error)")
+                    }
             }
         }
         waitForExpectations(timeout: 1)
