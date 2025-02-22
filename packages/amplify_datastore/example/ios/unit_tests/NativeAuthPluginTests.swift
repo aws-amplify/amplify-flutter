@@ -30,7 +30,7 @@ class MockBinaryMessenger: NSObject, FlutterBinaryMessenger {
             identityId: nil,
             awsCredentials: nil
         )
-        let encodedAuthSession = codec.encode(authSession)
+        let encodedAuthSession = codec.encode([authSession])
         callback?(encodedAuthSession)
     }
     
@@ -56,23 +56,18 @@ class NativeAuthPluginTests: XCTestCase {
             switch result {
                 case .success(let session):
                     XCTAssertEqual(session.isSignedIn, isSignedIn)
-                    break
                 case .failure(let error):
-                    print("fetchAuthSession failed with error: \(error)")
                     XCTFail("fetchAuthSession failed with error: \(error)")
-                    break
             }
         }
         waitForExpectations(timeout: 1)
     }
 
     func testFetchAuthSessionSignedIn() {
-        print("testFetchAuthSessionSignedIn")
         fetchAuthSession(isSignedIn: true)
     }
     
     func testFetchAuthSessionSignedOut() {
-        print("testFetchAuthSessionSignedOut")
         fetchAuthSession(isSignedIn: false)
     }
     
