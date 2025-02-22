@@ -12,7 +12,8 @@ extension Throttle<T> on Stream<T> {
   /// emits one event every time the [throttleCount] is reached
   /// or the [duration] since the last event has been reached
   ///
-  /// If [until] is supplied, the throttling stops once the condition is met
+  /// If [throttleIf] is supplied, events will be throttled while the condition
+  /// is true.
   ///
   /// Note: This is intended for use in observeQuery and is not intended
   /// to be exposed as part of the public API
@@ -34,44 +35,44 @@ extension Throttle<T> on Stream<T> {
 
     // number of items that have emitted from the source stream since
     // the last event was emitted
-    int _count = 0;
+    var count = 0;
 
     // cached data & sink during throttling
     // if the timer expires, the cached sink will be
     // used to emit the cached data
-    T? _data;
-    Sink? _sink;
+    T? dataCache;
+    Sink<T>? sinkCache;
 
     // timer for throttling by time
-    Timer? _timer;
+    Timer? timer;
 
-    bool _hasEmittedFirstEvent = false;
+    var hasEmittedFirstEvent = false;
 
-    bool timerHasExpired() => _timer != null && !_timer!.isActive;
+    bool timerHasExpired() => timer != null && !timer!.isActive;
 
     bool throttleCountReached() =>
-        throttleCount != null && _count == throttleCount - 1;
+        throttleCount != null && count == throttleCount - 1;
 
     void resetTimer(void Function() callback) {
       if (duration == null) return;
-      _timer?.cancel();
-      _timer = Timer(duration, () {
+      timer?.cancel();
+      timer = Timer(duration, () {
         callback();
       });
     }
 
-    void emitData(T data, Sink sink) {
-      _hasEmittedFirstEvent = true;
+    void emitData(T data, Sink<T> sink) {
+      hasEmittedFirstEvent = true;
 
       // clear cached data & sink
-      _data = null;
-      _sink = null;
+      dataCache = null;
+      sinkCache = null;
 
       // reset the count and timer
-      _count = 0;
+      count = 0;
       resetTimer(() {
-        if (_data != null && _sink != null) {
-          emitData(_data!, _sink!);
+        if (dataCache != null && sinkCache != null) {
+          emitData(dataCache as T, sinkCache!);
         }
       });
 
@@ -79,31 +80,33 @@ extension Throttle<T> on Stream<T> {
       sink.add(data);
     }
 
-    void throttleData(T data, Sink sink) {
+    void throttleData(T data, Sink<T> sink) {
       // cache data & sink
-      _data = data;
-      _sink = sink;
+      dataCache = data;
+      sinkCache = sink;
 
       // increment counter
-      _count++;
+      count++;
     }
 
     bool shouldEmitData(T data) {
-      bool throttle = throttleIf == null || throttleIf(data);
-      if (_hasEmittedFirstEvent && throttle) {
+      final throttle = throttleIf == null || throttleIf(data);
+      if (hasEmittedFirstEvent && throttle) {
         return timerHasExpired() || throttleCountReached();
       }
       return true;
     }
 
-    return this.transform(
-      StreamTransformer.fromHandlers(handleData: (data, sink) {
-        if (shouldEmitData(data)) {
-          emitData(data, sink);
-        } else {
-          throttleData(data, sink);
-        }
-      }),
+    return transform(
+      StreamTransformer.fromHandlers(
+        handleData: (data, sink) {
+          if (shouldEmitData(data)) {
+            emitData(data, sink);
+          } else {
+            throttleData(data, sink);
+          }
+        },
+      ),
     );
   }
 }

@@ -11,28 +11,34 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   dynamic getJsonFromFile(String path) async {
-    path = 'resources/query_pagination/' + path;
-    String jsonString = '';
+    path = 'resources/query_pagination/$path';
+    var jsonString = '';
     try {
       jsonString = await File(path).readAsString();
-    } catch (e) {
-      jsonString = await File('test/' + path).readAsString();
+    } on Exception {
+      jsonString = await File('test/$path').readAsString();
     }
     return jsonDecode(jsonString);
   }
 
   test('when providing custom page and limit', () async {
-    expect(QueryPagination(page: 3, limit: 200).serializeAsMap(),
-        await getJsonFromFile('custom_page_and_limit.json'));
+    expect(
+      const QueryPagination(page: 3, limit: 200).serializeAsMap(),
+      await getJsonFromFile('custom_page_and_limit.json'),
+    );
   });
 
   test('when only need first page', () async {
-    expect(QueryPagination.firstPage().serializeAsMap(),
-        await getJsonFromFile('first_page.json'));
+    expect(
+      const QueryPagination.firstPage().serializeAsMap(),
+      await getJsonFromFile('first_page.json'),
+    );
   });
 
   test('when only need first result', () async {
-    expect(QueryPagination.firstResult().serializeAsMap(),
-        await getJsonFromFile('first_result.json'));
+    expect(
+      const QueryPagination.firstResult().serializeAsMap(),
+      await getJsonFromFile('first_result.json'),
+    );
   });
 }

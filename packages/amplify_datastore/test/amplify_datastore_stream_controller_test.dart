@@ -3,7 +3,6 @@
 
 // ignore_for_file: deprecated_member_use
 
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -14,15 +13,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  const MethodChannel datastoreChannel =
-      MethodChannel('com.amazonaws.amplify/datastore');
-  const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
-  const String channelName = "com.amazonaws.amplify/datastore_hub_events";
+  const datastoreChannel = MethodChannel('com.amazonaws.amplify/datastore');
+  const coreChannel = MethodChannel('com.amazonaws.amplify/core');
+  const channelName = 'com.amazonaws.amplify/datastore_hub_events';
 
-  DataStoreStreamController controller = DataStoreStreamController();
-  controller.registerModelsForHub(ModelProvider.instance);
-  StreamController dataStoreStreamController =
-      controller.datastoreStreamController;
+  final controller = DataStoreStreamController()
+    ..registerModelsForHub(ModelProvider.instance);
+  final dataStoreStreamController = controller.datastoreStreamController;
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() async {
@@ -39,9 +36,9 @@ void main() {
         .setMockMessageHandler(channelName, null);
   });
 
-  tearDownAll(() => dataStoreStreamController.close());
+  tearDownAll(dataStoreStreamController.close);
 
-  handler(event) {
+  void handler(ByteData? event) {
     ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
       channelName,
       event,
@@ -50,7 +47,7 @@ void main() {
   }
 
   test('Can receive Ready Event', () async {
-    var json = await getJsonFromFile('hub/readyEvent.json');
+    final json = await getJsonFromFile('hub/readyEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
@@ -63,20 +60,19 @@ void main() {
       },
     );
 
-    List<DataStoreHubEvent> events = [];
-    StreamSubscription sub = dataStoreStreamController.stream.listen((event) {
-      events.add(event);
-    });
+    final events = <DataStoreHubEvent>[];
+    final sub = dataStoreStreamController.stream.listen(events.add);
 
     await Future<void>.delayed(Duration.zero);
-    sub.cancel();
+    await sub.cancel();
 
-    expect(events.last, isInstanceOf<HubEvent>());
-    expect(events.last.eventName, equals("ready"));
+    expect(events.last, isInstanceOf<DataStoreHubEvent>());
+    expect(events.last.eventName, equals('ready'));
   });
 
   test('Can receive SubscriptionsEstablished Event', () async {
-    var json = await getJsonFromFile('hub/subscriptionsEstablishedEvent.json');
+    final json =
+        await getJsonFromFile('hub/subscriptionsEstablishedEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
@@ -89,20 +85,18 @@ void main() {
       },
     );
 
-    List<DataStoreHubEvent> events = [];
-    StreamSubscription sub = dataStoreStreamController.stream.listen((event) {
-      events.add(event);
-    });
+    final events = <DataStoreHubEvent>[];
+    final sub = dataStoreStreamController.stream.listen(events.add);
 
     await Future<void>.delayed(Duration.zero);
-    sub.cancel();
+    await sub.cancel();
 
-    expect(events.last, isInstanceOf<HubEvent>());
-    expect(events.last.eventName, equals("subscriptionsEstablished"));
+    expect(events.last, isInstanceOf<DataStoreHubEvent>());
+    expect(events.last.eventName, equals('subscriptionsEstablished'));
   });
 
   test('Can receive SyncQueriesReady Event', () async {
-    var json = await getJsonFromFile('hub/syncQueriesReadyEvent.json');
+    final json = await getJsonFromFile('hub/syncQueriesReadyEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
@@ -115,20 +109,18 @@ void main() {
       },
     );
 
-    List<DataStoreHubEvent> events = [];
-    StreamSubscription sub = dataStoreStreamController.stream.listen((event) {
-      events.add(event);
-    });
+    final events = <DataStoreHubEvent>[];
+    final sub = dataStoreStreamController.stream.listen(events.add);
 
     await Future<void>.delayed(Duration.zero);
-    sub.cancel();
+    await sub.cancel();
 
-    expect(events.last, isInstanceOf<HubEvent>());
-    expect(events.last.eventName, equals("syncQueriesReady"));
+    expect(events.last, isInstanceOf<DataStoreHubEvent>());
+    expect(events.last.eventName, equals('syncQueriesReady'));
   });
 
   test('Can receive NetworkStatus Event', () async {
-    var json = await getJsonFromFile('hub/networkStatusEvent.json');
+    final json = await getJsonFromFile('hub/networkStatusEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
@@ -141,21 +133,19 @@ void main() {
       },
     );
 
-    List<DataStoreHubEvent> events = [];
-    StreamSubscription sub = dataStoreStreamController.stream.listen((event) {
-      events.add(event);
-    });
+    final events = <DataStoreHubEvent>[];
+    final sub = dataStoreStreamController.stream.listen(events.add);
 
     await Future<void>.delayed(Duration.zero);
-    sub.cancel();
+    await sub.cancel();
 
-    NetworkStatusEvent payload = events.last.payload as NetworkStatusEvent;
-    expect(events.last, isInstanceOf<HubEvent>());
+    final payload = events.last.payload as NetworkStatusEvent;
+    expect(events.last, isInstanceOf<DataStoreHubEvent>());
     expect(payload.active, equals(true));
   });
 
   test('Can receive ModelSynced Event', () async {
-    var json = await getJsonFromFile('hub/modelSyncedEvent.json');
+    final json = await getJsonFromFile('hub/modelSyncedEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
@@ -168,25 +158,24 @@ void main() {
       },
     );
 
-    List<DataStoreHubEvent> events = [];
-    StreamSubscription sub = dataStoreStreamController.stream.listen((event) {
-      events.add(event);
-    });
+    final events = <DataStoreHubEvent>[];
+    final sub = dataStoreStreamController.stream.listen(events.add);
 
     await Future<void>.delayed(Duration.zero);
-    sub.cancel();
-    ModelSyncedEvent payload = events.last.payload as ModelSyncedEvent;
-    expect(events.last, isInstanceOf<HubEvent>());
+    await sub.cancel();
+    final payload = events.last.payload as ModelSyncedEvent;
+    expect(events.last, isInstanceOf<DataStoreHubEvent>());
     expect(payload.added, 1);
     expect(payload.deleted, 0);
     expect(payload.isDeltaSync, true);
     expect(payload.isFullSync, false);
     expect(payload.updated, 0);
-    expect(payload.modelName, "Post");
+    expect(payload.modelName, 'Post');
   });
 
   test('Can receive OutboxMutation (Enqueued) Event', () async {
-    var json = await getJsonFromFile('hub/outboxMutationEnqueuedEvent.json');
+    final json = await getJsonFromFile('hub/outboxMutationEnqueuedEvent.json')
+        as Map<String, Object?>;
     void emitEvent(ByteData event) {
       handler(event);
     }
@@ -199,29 +188,31 @@ void main() {
       },
     );
 
-    List<DataStoreHubEvent> events = [];
-    StreamSubscription sub = dataStoreStreamController.stream.listen((event) {
-      events.add(event);
-    });
+    final events = <DataStoreHubEvent>[];
+    final sub = dataStoreStreamController.stream.listen(events.add);
 
     await Future<void>.delayed(Duration.zero);
-    sub.cancel();
+    await sub.cancel();
 
-    OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
-    TemporalDateTime parsedDate =
-        TemporalDateTime.fromString(json["element"]["model"]["created"]);
-    expect(events.last, isInstanceOf<HubEvent>());
-    expect(payload.modelName, "Post");
+    final payload = events.last.payload as OutboxMutationEvent;
+    final element = json['element'] as Map<String, Object?>;
+    final model = element['model'] as Map<String, Object?>;
+    final parsedDate = TemporalDateTime.fromString(model['created'] as String);
+    expect(events.last, isInstanceOf<DataStoreHubEvent>());
+    expect(payload.modelName, 'Post');
     expect(payload.element, isInstanceOf<HubEventElement>());
     expect(payload.element.model, isInstanceOf<Model>());
-    expect(payload.element.model.modelIdentifier.serializeAsString(),
-        equals("43036c6b-8044-4309-bddc-262b6c686026"));
-    expect((payload.element.model as Post).title, equals("Title 1"));
+    expect(
+      payload.element.model.modelIdentifier.serializeAsString(),
+      equals('43036c6b-8044-4309-bddc-262b6c686026'),
+    );
+    expect((payload.element.model as Post).title, equals('Title 1'));
     expect((payload.element.model as Post).created, equals(parsedDate));
   });
 
   test('Can receive OutboxMutation (Processed) Event', () async {
-    var json = await getJsonFromFile('hub/outboxMutationProcessedEvent.json');
+    final json = await getJsonFromFile('hub/outboxMutationProcessedEvent.json')
+        as Map<String, Object?>;
     void emitEvent(ByteData event) {
       handler(event);
     }
@@ -234,27 +225,27 @@ void main() {
       },
     );
 
-    List<DataStoreHubEvent> events = [];
-    StreamSubscription sub = dataStoreStreamController.stream.listen((event) {
-      events.add(event);
-    });
+    final events = <DataStoreHubEvent>[];
+    final sub = dataStoreStreamController.stream.listen(events.add);
 
     await Future<void>.delayed(Duration.zero);
-    sub.cancel();
+    await sub.cancel();
 
-    OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
-    HubEventElementWithMetadata element =
-        payload.element as HubEventElementWithMetadata;
-    TemporalDateTime parsedDate =
-        TemporalDateTime.fromString(json["element"]["model"]["created"]);
-    expect(events.last, isInstanceOf<HubEvent>());
-    expect(payload.modelName, "Post");
+    final payload = events.last.payload as OutboxMutationEvent;
+    final element = payload.element as HubEventElementWithMetadata;
+    final elementJson = json['element'] as Map<String, Object?>;
+    final model = elementJson['model'] as Map<String, Object?>;
+    final parsedDate = TemporalDateTime.fromString(model['created'] as String);
+    expect(events.last, isInstanceOf<DataStoreHubEvent>());
+    expect(payload.modelName, 'Post');
     expect(element, isInstanceOf<HubEventElement>());
     expect(element, isInstanceOf<HubEventElementWithMetadata>());
     expect(element.model, isInstanceOf<Model>());
-    expect(element.model.modelIdentifier.serializeAsString(),
-        equals("43036c6b-8044-4309-bddc-262b6c686026"));
-    expect((element.model as Post).title, equals("Title 1"));
+    expect(
+      element.model.modelIdentifier.serializeAsString(),
+      equals('43036c6b-8044-4309-bddc-262b6c686026'),
+    );
+    expect((element.model as Post).title, equals('Title 1'));
     expect((element.model as Post).created, equals(parsedDate));
     expect(element.deleted, equals(false));
     expect(element.version, equals(1));
@@ -262,7 +253,7 @@ void main() {
   });
 
   test('Can receive OutboxStatus Event', () async {
-    var json = await getJsonFromFile('hub/outboxStatusEvent.json');
+    final json = await getJsonFromFile('hub/outboxStatusEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
@@ -275,22 +266,21 @@ void main() {
       },
     );
 
-    List<DataStoreHubEvent> events = [];
-    StreamSubscription sub = dataStoreStreamController.stream.listen((event) {
-      events.add(event);
-    });
+    final events = <DataStoreHubEvent>[];
+    final sub = dataStoreStreamController.stream.listen(events.add);
 
     await Future<void>.delayed(Duration.zero);
-    sub.cancel();
+    await sub.cancel();
 
-    OutboxStatusEvent payload = events.last.payload as OutboxStatusEvent;
-    expect(events.last, isInstanceOf<HubEvent>());
+    final payload = events.last.payload as OutboxStatusEvent;
+    expect(events.last, isInstanceOf<DataStoreHubEvent>());
     expect(payload.isEmpty, equals(true));
   });
 
   test('Can receive SyncQueriesStarted Event', () async {
-    var json = await getJsonFromFile('hub/syncQueriesStartedEvent.json');
-    json["models"] = jsonEncode(json["models"]);
+    final json = await getJsonFromFile('hub/syncQueriesStartedEvent.json')
+        as Map<String, Object?>;
+    json['models'] = jsonEncode(json['models']);
     void emitEvent(ByteData event) {
       handler(event);
     }
@@ -303,18 +293,15 @@ void main() {
       },
     );
 
-    List<DataStoreHubEvent> events = [];
-    StreamSubscription sub = dataStoreStreamController.stream.listen((event) {
-      events.add(event);
-    });
+    final events = <DataStoreHubEvent>[];
+    final sub = dataStoreStreamController.stream.listen(events.add);
 
     await Future<void>.delayed(Duration.zero);
-    sub.cancel();
+    await sub.cancel();
 
-    SyncQueriesStartedEvent payload =
-        events.last.payload as SyncQueriesStartedEvent;
-    expect(events.last, isInstanceOf<HubEvent>());
+    final payload = events.last.payload as SyncQueriesStartedEvent;
+    expect(events.last, isInstanceOf<DataStoreHubEvent>());
     expect(payload.models.length, equals(1));
-    expect(payload.models.first, equals("Post"));
+    expect(payload.models.first, equals('Post'));
   });
 }
