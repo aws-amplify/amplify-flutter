@@ -5,6 +5,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
+import 'package:amplify_authenticator/src/utils/dial_code_to_length.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
@@ -164,6 +165,58 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
     }
   }
 
+  String displayPhoneNumber(String? phoneNumber) {
+    phoneNumber = phoneNumber ?? '';
+    final prefix = '+${state.dialCode.value}';
+    if (phoneNumber.startsWith(prefix)) {
+      phoneNumber = phoneNumber.substring(prefix.length);
+    }
+    // this is to handle the case where the user may errantly input their dial code again in their phone number
+    // we make sure the user's phone number doesn't naturally just start with their dial code by checking if the number exceeds the maximum phone length of the country's phone number scheme before truncating it
+    if (phoneNumber.startsWith(prefix.substring(1))) {
+      if (countryPhoneNumberLengths.containsKey(prefix) &&
+          phoneNumber.length > countryPhoneNumberLengths[prefix]!) {
+        phoneNumber = phoneNumber.substring(prefix.length - 1);
+      }
+    }
+    return phoneNumber;
+  }
+
+  String displayPhoneNumber(String? phoneNumber) {
+    phoneNumber = phoneNumber ?? '';
+    final prefix = '+${state.dialCode.value}';
+    if (phoneNumber.startsWith(prefix)) {
+      phoneNumber = phoneNumber.substring(prefix.length);
+    }
+    // this is to handle the case where the user may errantly input their dial code again in their phone number
+    // we make sure the user's phone number doesn't naturally just start with their dial code by checking if the number exceeds the maximum phone length of the country's phone number scheme before truncating it
+    if (phoneNumber.startsWith(prefix.substring(1))) {
+      if (countryPhoneNumberLengths.containsKey(prefix) &&
+          phoneNumber.length > countryPhoneNumberLengths[prefix]!) {
+        phoneNumber = phoneNumber.substring(prefix.length - 1);
+      }
+    }
+    return phoneNumber;
+  }
+
+  String displayPhoneNumber(String? phoneNumber) {
+    phoneNumber = phoneNumber ?? '';
+    final prefix = '+${state.dialCode.value}';
+    if (phoneNumber.startsWith(prefix)) {
+      phoneNumber = phoneNumber.substring(prefix.length);
+    }
+    // this is to handle the case where the user may errantly input their dial code again in their phone number
+    // we make sure the user's phone number doesn't naturally just start with their dial code by checking if the number exceeds the maximum phone length of the country's phone number scheme before truncating it
+    if (!phoneNumber.startsWith(prefix.substring(1))) {
+      return phoneNumber;
+    }
+    final prefixLength = countryPhoneNumberLengths[prefix];
+    if (prefixLength == null || phoneNumber.length <= prefixLength) {
+      return phoneNumber;
+    }
+    return phoneNumber.substring(prefix.length - 1);
+  }
+
   @override
   FormFieldValidator<UsernameInput> get validator {
     switch (selectedUsernameType) {
@@ -183,7 +236,7 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
               isOptional: isOptional,
               context: context,
               inputResolver: stringResolver.inputs,
-            )(input?.username);
+            )(displayPhoneNumber(input?.username));
     }
   }
 
