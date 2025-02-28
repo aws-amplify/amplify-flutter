@@ -27,10 +27,10 @@ dependencies:
 dev_dependencies:
   amplify_lints: ">=3.1.0 <3.2.0"
   build_runner: ^2.4.9
-  built_value_generator: 8.8.1
+  built_value_generator: 8.9.4
   file: ">=6.0.0 <8.0.0"
   glob: ^2.0.2
-  json_serializable: 6.8.0
+  json_serializable: 6.9.4
   pubspec_parse: ^1.2.0
   test: ^1.22.1
   yaml: ^3.1.0
