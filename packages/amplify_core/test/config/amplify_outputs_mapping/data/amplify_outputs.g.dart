@@ -4,6 +4,7 @@ const amplifyConfig = '''{
     "aws_region": "us-east-1",
     "user_pool_id": "fake-user-pool",
     "user_pool_client_id": "fake-client-id",
+    "user_pool_endpoint": "fake-endpoint",
     "identity_pool_id": "fake-identity-pool-id",
     "password_policy": {
       "min_length": 8,
