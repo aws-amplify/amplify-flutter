@@ -127,6 +127,8 @@ class NativeAuthPluginWrapper(
                     )
                     onSuccess.accept(authSession)
                 } else {
+                    // val error = result.exceptionOrNull() ?: UnknownException("Could not fetch")
+                    // AuthSessionResult.failure<AWSCognitoUserPoolTokens>(error)
                     AuthSessionResult.failure<AWSCognitoUserPoolTokens>(UnknownException("Could not fetch"))
                 }
             }
