@@ -31,7 +31,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@e58aeb62aef51dcc4d0ba8eada7c08092aad5314 # main
         with:
-          sdk: ^3.7.0
+          sdk: 3.7.0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # 4.0.0
@@ -63,7 +63,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@e58aeb62aef51dcc4d0ba8eada7c08092aad5314 # main
         with:
-          sdk: ^3.7.0
+          sdk: 3.7.0
 
       - name: Setup aft
         shell: bash # Run in bash regardless of platform
