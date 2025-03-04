@@ -141,13 +141,14 @@ class CsvInputBuilder implements Builder<CsvInput, CsvInputBuilder> {
   _$CsvInput _build() {
     final _$result = _$v ??
         new _$CsvInput._(
-            fileHeaderInfo: fileHeaderInfo,
-            comments: comments,
-            quoteEscapeCharacter: quoteEscapeCharacter,
-            recordDelimiter: recordDelimiter,
-            fieldDelimiter: fieldDelimiter,
-            quoteCharacter: quoteCharacter,
-            allowQuotedRecordDelimiter: allowQuotedRecordDelimiter);
+          fileHeaderInfo: fileHeaderInfo,
+          comments: comments,
+          quoteEscapeCharacter: quoteEscapeCharacter,
+          recordDelimiter: recordDelimiter,
+          fieldDelimiter: fieldDelimiter,
+          quoteCharacter: quoteCharacter,
+          allowQuotedRecordDelimiter: allowQuotedRecordDelimiter,
+        );
     replace(_$result);
     return _$result;
   }

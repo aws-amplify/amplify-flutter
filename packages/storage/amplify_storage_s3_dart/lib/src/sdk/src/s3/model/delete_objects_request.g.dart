@@ -150,14 +150,15 @@ class DeleteObjectsRequestBuilder
     try {
       _$result = _$v ??
           new _$DeleteObjectsRequest._(
-              bucket: BuiltValueNullFieldError.checkNotNull(
-                  bucket, r'DeleteObjectsRequest', 'bucket'),
-              delete: delete.build(),
-              mfa: mfa,
-              requestPayer: requestPayer,
-              bypassGovernanceRetention: bypassGovernanceRetention,
-              expectedBucketOwner: expectedBucketOwner,
-              checksumAlgorithm: checksumAlgorithm);
+            bucket: BuiltValueNullFieldError.checkNotNull(
+                bucket, r'DeleteObjectsRequest', 'bucket'),
+            delete: delete.build(),
+            mfa: mfa,
+            requestPayer: requestPayer,
+            bypassGovernanceRetention: bypassGovernanceRetention,
+            expectedBucketOwner: expectedBucketOwner,
+            checksumAlgorithm: checksumAlgorithm,
+          );
     } catch (_) {
       late String _$failedField;
       try {

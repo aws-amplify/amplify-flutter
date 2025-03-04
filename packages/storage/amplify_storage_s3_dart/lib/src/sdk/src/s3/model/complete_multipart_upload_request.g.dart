@@ -220,22 +220,23 @@ class CompleteMultipartUploadRequestBuilder
     try {
       _$result = _$v ??
           new _$CompleteMultipartUploadRequest._(
-              bucket: BuiltValueNullFieldError.checkNotNull(
-                  bucket, r'CompleteMultipartUploadRequest', 'bucket'),
-              key: BuiltValueNullFieldError.checkNotNull(
-                  key, r'CompleteMultipartUploadRequest', 'key'),
-              multipartUpload: _multipartUpload?.build(),
-              uploadId: BuiltValueNullFieldError.checkNotNull(
-                  uploadId, r'CompleteMultipartUploadRequest', 'uploadId'),
-              checksumCrc32: checksumCrc32,
-              checksumCrc32C: checksumCrc32C,
-              checksumSha1: checksumSha1,
-              checksumSha256: checksumSha256,
-              requestPayer: requestPayer,
-              expectedBucketOwner: expectedBucketOwner,
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKey: sseCustomerKey,
-              sseCustomerKeyMd5: sseCustomerKeyMd5);
+            bucket: BuiltValueNullFieldError.checkNotNull(
+                bucket, r'CompleteMultipartUploadRequest', 'bucket'),
+            key: BuiltValueNullFieldError.checkNotNull(
+                key, r'CompleteMultipartUploadRequest', 'key'),
+            multipartUpload: _multipartUpload?.build(),
+            uploadId: BuiltValueNullFieldError.checkNotNull(
+                uploadId, r'CompleteMultipartUploadRequest', 'uploadId'),
+            checksumCrc32: checksumCrc32,
+            checksumCrc32C: checksumCrc32C,
+            checksumSha1: checksumSha1,
+            checksumSha256: checksumSha256,
+            requestPayer: requestPayer,
+            expectedBucketOwner: expectedBucketOwner,
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKey: sseCustomerKey,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+          );
     } catch (_) {
       late String _$failedField;
       try {

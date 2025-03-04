@@ -203,14 +203,15 @@ class CognitoDeviceSecretsBuilder
     CognitoDeviceSecrets._init(this);
     final _$result = _$v ??
         new _$CognitoDeviceSecrets._(
-            deviceGroupKey: BuiltValueNullFieldError.checkNotNull(
-                deviceGroupKey, r'CognitoDeviceSecrets', 'deviceGroupKey'),
-            deviceKey: BuiltValueNullFieldError.checkNotNull(
-                deviceKey, r'CognitoDeviceSecrets', 'deviceKey'),
-            devicePassword: BuiltValueNullFieldError.checkNotNull(
-                devicePassword, r'CognitoDeviceSecrets', 'devicePassword'),
-            deviceStatus: BuiltValueNullFieldError.checkNotNull(
-                deviceStatus, r'CognitoDeviceSecrets', 'deviceStatus'));
+          deviceGroupKey: BuiltValueNullFieldError.checkNotNull(
+              deviceGroupKey, r'CognitoDeviceSecrets', 'deviceGroupKey'),
+          deviceKey: BuiltValueNullFieldError.checkNotNull(
+              deviceKey, r'CognitoDeviceSecrets', 'deviceKey'),
+          devicePassword: BuiltValueNullFieldError.checkNotNull(
+              devicePassword, r'CognitoDeviceSecrets', 'devicePassword'),
+          deviceStatus: BuiltValueNullFieldError.checkNotNull(
+              deviceStatus, r'CognitoDeviceSecrets', 'deviceStatus'),
+        );
     replace(_$result);
     return _$result;
   }

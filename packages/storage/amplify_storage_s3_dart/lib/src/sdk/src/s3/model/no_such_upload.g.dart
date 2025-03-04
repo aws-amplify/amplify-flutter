@@ -68,7 +68,10 @@ class NoSuchUploadBuilder
   NoSuchUpload build() => _build();
 
   _$NoSuchUpload _build() {
-    final _$result = _$v ?? new _$NoSuchUpload._(headers: headers);
+    final _$result = _$v ??
+        new _$NoSuchUpload._(
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

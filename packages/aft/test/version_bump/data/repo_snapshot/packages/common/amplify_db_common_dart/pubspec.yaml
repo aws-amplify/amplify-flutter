@@ -15,7 +15,7 @@ dependencies:
   drift: ">=2.18.0 <2.19.0"
   meta: ^1.7.0
   path: ">=1.8.0 <2.0.0"
-  sqlite3: ">=2.0.0 <2.4.3"
+  sqlite3: ">=2.0.0 <2.7.0"
 
 dev_dependencies:
   amplify_lints: ">=3.1.0 <3.2.0"

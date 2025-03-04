@@ -157,17 +157,16 @@ class RespondToAuthChallengeRequestBuilder
     try {
       _$result = _$v ??
           new _$RespondToAuthChallengeRequest._(
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'RespondToAuthChallengeRequest', 'clientId'),
-              challengeName: BuiltValueNullFieldError.checkNotNull(
-                  challengeName,
-                  r'RespondToAuthChallengeRequest',
-                  'challengeName'),
-              session: session,
-              challengeResponses: _challengeResponses?.build(),
-              analyticsMetadata: _analyticsMetadata?.build(),
-              userContextData: _userContextData?.build(),
-              clientMetadata: _clientMetadata?.build());
+            clientId: BuiltValueNullFieldError.checkNotNull(
+                clientId, r'RespondToAuthChallengeRequest', 'clientId'),
+            challengeName: BuiltValueNullFieldError.checkNotNull(challengeName,
+                r'RespondToAuthChallengeRequest', 'challengeName'),
+            session: session,
+            challengeResponses: _challengeResponses?.build(),
+            analyticsMetadata: _analyticsMetadata?.build(),
+            userContextData: _userContextData?.build(),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

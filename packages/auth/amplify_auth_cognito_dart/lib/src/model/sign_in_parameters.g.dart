@@ -152,9 +152,10 @@ class SignInParametersBuilder
   _$SignInParameters _build() {
     final _$result = _$v ??
         new _$SignInParameters._(
-            username: BuiltValueNullFieldError.checkNotNull(
-                username, r'SignInParameters', 'username'),
-            password: password);
+          username: BuiltValueNullFieldError.checkNotNull(
+              username, r'SignInParameters', 'username'),
+          password: password,
+        );
     replace(_$result);
     return _$result;
   }

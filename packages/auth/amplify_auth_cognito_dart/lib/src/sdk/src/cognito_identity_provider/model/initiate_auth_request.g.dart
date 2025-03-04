@@ -144,14 +144,15 @@ class InitiateAuthRequestBuilder
     try {
       _$result = _$v ??
           new _$InitiateAuthRequest._(
-              authFlow: BuiltValueNullFieldError.checkNotNull(
-                  authFlow, r'InitiateAuthRequest', 'authFlow'),
-              authParameters: _authParameters?.build(),
-              clientMetadata: _clientMetadata?.build(),
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'InitiateAuthRequest', 'clientId'),
-              analyticsMetadata: _analyticsMetadata?.build(),
-              userContextData: _userContextData?.build());
+            authFlow: BuiltValueNullFieldError.checkNotNull(
+                authFlow, r'InitiateAuthRequest', 'authFlow'),
+            authParameters: _authParameters?.build(),
+            clientMetadata: _clientMetadata?.build(),
+            clientId: BuiltValueNullFieldError.checkNotNull(
+                clientId, r'InitiateAuthRequest', 'clientId'),
+            analyticsMetadata: _analyticsMetadata?.build(),
+            userContextData: _userContextData?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

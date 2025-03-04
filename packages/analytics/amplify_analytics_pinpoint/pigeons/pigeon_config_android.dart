@@ -19,7 +19,7 @@ import 'package:pigeon/pigeon.dart';
   ),
 )
 @HostApi()
-abstract class PigeonLegacyDataProvider {
+abstract class PinpointLegacyDataProvider {
   @async
   String? getEndpointId(String pinpointAppId);
 }

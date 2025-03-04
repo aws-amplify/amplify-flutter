@@ -83,7 +83,10 @@ class UserNotConfirmedExceptionBuilder
 
   _$UserNotConfirmedException _build() {
     final _$result = _$v ??
-        new _$UserNotConfirmedException._(message: message, headers: headers);
+        new _$UserNotConfirmedException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

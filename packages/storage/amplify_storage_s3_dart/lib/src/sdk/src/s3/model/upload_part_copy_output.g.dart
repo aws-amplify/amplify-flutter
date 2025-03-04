@@ -160,14 +160,15 @@ class UploadPartCopyOutputBuilder
     try {
       _$result = _$v ??
           new _$UploadPartCopyOutput._(
-              copySourceVersionId: copySourceVersionId,
-              copyPartResult: _copyPartResult?.build(),
-              serverSideEncryption: serverSideEncryption,
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKeyMd5: sseCustomerKeyMd5,
-              ssekmsKeyId: ssekmsKeyId,
-              bucketKeyEnabled: bucketKeyEnabled,
-              requestCharged: requestCharged);
+            copySourceVersionId: copySourceVersionId,
+            copyPartResult: _copyPartResult?.build(),
+            serverSideEncryption: serverSideEncryption,
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+            ssekmsKeyId: ssekmsKeyId,
+            bucketKeyEnabled: bucketKeyEnabled,
+            requestCharged: requestCharged,
+          );
     } catch (_) {
       late String _$failedField;
       try {

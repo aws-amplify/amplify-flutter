@@ -60,7 +60,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
 
     // Configure this plugin to act as a native iOS/Android plugin.
     final nativePlugin = _NativeAmplifyAuthCognito(stateMachine);
-    NativeAuthPlugin.setup(nativePlugin);
+    NativeAuthPlugin.setUp(nativePlugin);
 
     final nativeBridge = NativeAuthBridge();
     stateMachine

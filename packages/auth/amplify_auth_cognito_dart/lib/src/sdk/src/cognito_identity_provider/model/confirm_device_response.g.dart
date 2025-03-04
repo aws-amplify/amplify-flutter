@@ -84,10 +84,11 @@ class ConfirmDeviceResponseBuilder
   _$ConfirmDeviceResponse _build() {
     final _$result = _$v ??
         new _$ConfirmDeviceResponse._(
-            userConfirmationNecessary: BuiltValueNullFieldError.checkNotNull(
-                userConfirmationNecessary,
-                r'ConfirmDeviceResponse',
-                'userConfirmationNecessary'));
+          userConfirmationNecessary: BuiltValueNullFieldError.checkNotNull(
+              userConfirmationNecessary,
+              r'ConfirmDeviceResponse',
+              'userConfirmationNecessary'),
+        );
     replace(_$result);
     return _$result;
   }

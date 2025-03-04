@@ -83,7 +83,10 @@ class ResourceConflictExceptionBuilder
 
   _$ResourceConflictException _build() {
     final _$result = _$v ??
-        new _$ResourceConflictException._(message: message, headers: headers);
+        new _$ResourceConflictException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

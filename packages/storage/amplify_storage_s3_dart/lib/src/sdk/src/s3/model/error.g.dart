@@ -100,7 +100,11 @@ class ErrorBuilder implements Builder<Error, ErrorBuilder> {
   _$Error _build() {
     final _$result = _$v ??
         new _$Error._(
-            key: key, versionId: versionId, code: code, message: message);
+          key: key,
+          versionId: versionId,
+          code: code,
+          message: message,
+        );
     replace(_$result);
     return _$result;
   }

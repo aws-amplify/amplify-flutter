@@ -2,9 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+//ignore: deprecated_member_use
 import 'dart:js_util' as js_util;
 
 import 'package:aws_common/src/js/common.dart';
+//ignore: deprecated_member_use
 import 'package:js/js.dart';
 
 /// The global read-only [IDBFactory] instance.

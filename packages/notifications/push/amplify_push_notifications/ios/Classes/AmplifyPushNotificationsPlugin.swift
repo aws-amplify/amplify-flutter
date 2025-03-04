@@ -27,7 +27,7 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
             flutterApi: PushNotificationsFlutterApi(binaryMessenger: messenger)
         )
 
-        PushNotificationsHostApiSetup(messenger, pluginInstance)
+        SetUpPushNotificationsHostApi(messenger, pluginInstance)
 
         registrar.addApplicationDelegate(pluginInstance)
     }
@@ -57,15 +57,15 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
         Task {
             var options: UNAuthorizationOptions = []
 
-            if withPermissionOptions.alert.boolValue {
+            if withPermissionOptions.alert {
                 options.insert(.alert)
             }
 
-            if withPermissionOptions.badge.boolValue {
+            if withPermissionOptions.badge {
                 options.insert(.badge)
             }
 
-            if withPermissionOptions.sound.boolValue {
+            if withPermissionOptions.sound {
                 options.insert(.sound)
             }
 
@@ -95,11 +95,11 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
         return UIApplication.shared.applicationIconBadgeNumber as NSNumber
     }
 
-    public func setBadgeCountWithBadgeCount(_ withBadgeCount: NSNumber, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
-        UIApplication.shared.applicationIconBadgeNumber = withBadgeCount.intValue
+    public func setBadgeCountWithBadgeCount(_ withBadgeCount: NSInteger, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+        UIApplication.shared.applicationIconBadgeNumber = withBadgeCount
     }
     
-    public func registerCallbackFunctionCallbackHandle(_ callbackHandle: NSNumber, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
+    public func registerCallbackFunctionCallbackHandle(_ callbackHandle: NSInteger, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
         // noop on iOS since this method is used to register callbacks on Android
     }
 }

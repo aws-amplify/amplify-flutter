@@ -230,23 +230,24 @@ class HeadObjectRequestBuilder
   _$HeadObjectRequest _build() {
     final _$result = _$v ??
         new _$HeadObjectRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'HeadObjectRequest', 'bucket'),
-            ifMatch: ifMatch,
-            ifModifiedSince: ifModifiedSince,
-            ifNoneMatch: ifNoneMatch,
-            ifUnmodifiedSince: ifUnmodifiedSince,
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'HeadObjectRequest', 'key'),
-            range: range,
-            versionId: versionId,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKey: sseCustomerKey,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            requestPayer: requestPayer,
-            partNumber: partNumber,
-            expectedBucketOwner: expectedBucketOwner,
-            checksumMode: checksumMode);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'HeadObjectRequest', 'bucket'),
+          ifMatch: ifMatch,
+          ifModifiedSince: ifModifiedSince,
+          ifNoneMatch: ifNoneMatch,
+          ifUnmodifiedSince: ifUnmodifiedSince,
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'HeadObjectRequest', 'key'),
+          range: range,
+          versionId: versionId,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKey: sseCustomerKey,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          requestPayer: requestPayer,
+          partNumber: partNumber,
+          expectedBucketOwner: expectedBucketOwner,
+          checksumMode: checksumMode,
+        );
     replace(_$result);
     return _$result;
   }

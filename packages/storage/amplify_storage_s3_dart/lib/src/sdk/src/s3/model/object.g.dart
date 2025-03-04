@@ -154,14 +154,15 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
     try {
       _$result = _$v ??
           new _$S3Object._(
-              key: key,
-              lastModified: lastModified,
-              eTag: eTag,
-              checksumAlgorithm: _checksumAlgorithm?.build(),
-              size: size,
-              storageClass: storageClass,
-              owner: _owner?.build(),
-              restoreStatus: _restoreStatus?.build());
+            key: key,
+            lastModified: lastModified,
+            eTag: eTag,
+            checksumAlgorithm: _checksumAlgorithm?.build(),
+            size: size,
+            storageClass: storageClass,
+            owner: _owner?.build(),
+            restoreStatus: _restoreStatus?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

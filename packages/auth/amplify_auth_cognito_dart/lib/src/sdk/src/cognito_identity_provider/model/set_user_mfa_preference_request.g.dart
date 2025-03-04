@@ -124,11 +124,12 @@ class SetUserMfaPreferenceRequestBuilder
     try {
       _$result = _$v ??
           new _$SetUserMfaPreferenceRequest._(
-              smsMfaSettings: _smsMfaSettings?.build(),
-              softwareTokenMfaSettings: _softwareTokenMfaSettings?.build(),
-              emailMfaSettings: _emailMfaSettings?.build(),
-              accessToken: BuiltValueNullFieldError.checkNotNull(
-                  accessToken, r'SetUserMfaPreferenceRequest', 'accessToken'));
+            smsMfaSettings: _smsMfaSettings?.build(),
+            softwareTokenMfaSettings: _softwareTokenMfaSettings?.build(),
+            emailMfaSettings: _emailMfaSettings?.build(),
+            accessToken: BuiltValueNullFieldError.checkNotNull(
+                accessToken, r'SetUserMfaPreferenceRequest', 'accessToken'),
+          );
     } catch (_) {
       late String _$failedField;
       try {
