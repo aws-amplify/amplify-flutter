@@ -4,7 +4,7 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
-import 'package:smithy_codegen/src/generator/visitors/library;
+import 'package:smithy_codegen/src/generator/visitors/library_visitor.dart';
 import 'package:smithy_codegen/src/version.dart';
 
 const List<String> _ignoredRules = [

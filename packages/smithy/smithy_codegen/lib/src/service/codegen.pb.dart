@@ -74,7 +74,7 @@ class SmithyLibrary extends $pb.GeneratedMessage {
       _result.serviceName = serviceName;
     }
     if (libraryType != null) {
-      _result.libraryType = library;
+      _result.libraryType = libraryType;
     }
     if (filename != null) {
       _result.filename = filename;

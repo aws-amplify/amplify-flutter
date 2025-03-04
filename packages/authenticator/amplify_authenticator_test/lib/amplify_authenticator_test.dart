@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// A library containing test utilities for the Authenticator.
-library;
+library amplify_authenticator_test;
 
 export 'package:amplify_authenticator/src/state/auth_state.dart';
 

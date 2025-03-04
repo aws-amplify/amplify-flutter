@@ -15,7 +15,7 @@ class GeneratedLibrary with AWSEquatable<GeneratedLibrary> {
 
   /// Documentation to add to the library directive (not supported
   /// via code_builder).
-  final String? library;
+  final String? libraryDocs;
 
   String emit({
     PrefixStrategy withPrefixingStrategy = PrefixStrategy.runtimeOnly,

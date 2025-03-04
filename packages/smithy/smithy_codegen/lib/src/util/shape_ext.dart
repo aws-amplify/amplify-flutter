@@ -401,11 +401,11 @@ extension ShapeUtils on Shape {
 
   /// The absolute `package` path of the library generated for this shape.
   String libraryUrl(CodegenContext context) =>
-      smithyLibrary(context).library;
+      smithyLibrary(context).libraryUrl;
 
   /// The library directive name for this shape.
   String libraryName(CodegenContext context) {
-    return smithyLibrary(context).library;
+    return smithyLibrary(context).libraryName;
   }
 
   /// The library type generated for this shape.

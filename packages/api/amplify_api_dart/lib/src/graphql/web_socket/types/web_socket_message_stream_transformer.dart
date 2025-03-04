@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library;
+library amplify_api.graphql.ws.web_socket_message_stream_transformer;
 
 import 'dart:async';
 import 'dart:convert';

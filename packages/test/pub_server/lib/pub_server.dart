@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// pub_server
-library;
+library pub_server;
 
 export 'src/database.dart';
 export 'src/launcher.dart';

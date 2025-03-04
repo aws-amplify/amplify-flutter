@@ -31,7 +31,7 @@
 ///
 ///
 /// To get started with an Amazon Web Services SDK, see [Tools to Build on Amazon Web Services](http://aws.amazon.com/developer/tools/). For example actions and scenarios, see [Code examples for Amazon Cognito Identity Provider using Amazon Web Services SDKs](https://docs.aws.amazon.com/cognito/latest/developerguide/service_code_examples_cognito-identity-provider.html).
-library;
+library amplify_integration_test.cognito_identity_provider;
 
 export 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/cognito_identity_provider_client.dart';
 export 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/admin_list_user_auth_events_request.dart';

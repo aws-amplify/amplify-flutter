@@ -1,2 +1,2 @@
 /// {{name}}
-library;
+library {{name}};

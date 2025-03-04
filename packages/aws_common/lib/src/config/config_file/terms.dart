@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library;
+library aws_common.config.config_file.terms;
 
 import 'package:meta/meta.dart';
 

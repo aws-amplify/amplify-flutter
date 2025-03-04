@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// # Amazon Simple Storage Service
-library;
+library custom_v2.s3;
 
 export 'package:custom_v2/src/s3/model/aws_config.dart';
 export 'package:custom_v2/src/s3/model/client_config.dart';

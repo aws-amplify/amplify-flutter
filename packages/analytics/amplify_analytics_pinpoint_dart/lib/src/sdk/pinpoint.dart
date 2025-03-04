@@ -4,7 +4,7 @@
 /// # Amazon Pinpoint
 ///
 /// Doc Engage API - Amazon Pinpoint API
-library;
+library amplify_analytics_pinpoint_dart.pinpoint;
 
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/alignment.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/attribute_dimension.dart';

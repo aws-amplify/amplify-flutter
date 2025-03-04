@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Tests for the `amplify_auth_cognito_dart` package.
-library;
+library amplify_auth_cognito_test;
 
 export 'common/jwt.dart';
 export 'common/matchers.dart';

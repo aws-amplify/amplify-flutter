@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library;
+library amplify_api.decorators.web_socket_auth_utils;
 
 import 'dart:convert';
 

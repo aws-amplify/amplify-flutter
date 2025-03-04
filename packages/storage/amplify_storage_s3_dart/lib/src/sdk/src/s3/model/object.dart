@@ -1,7 +1,7 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
-library; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library amplify_storage_s3_dart.s3.model.object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_algorithm.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_storage_class.dart';

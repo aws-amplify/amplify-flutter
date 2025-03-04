@@ -3,7 +3,7 @@
 
 /// Utilities for the OAuth flow.
 @internal
-library;
+library amplify_auth_cognito.crypto.oauth;
 
 import 'dart:convert';
 import 'dart:typed_data';

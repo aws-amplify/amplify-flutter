@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// # Amazon API Gateway
-library;
+library rest_json1_v1.api_gateway;
 
 export 'package:rest_json1_v1/src/api_gateway/api_gateway_client.dart';
 export 'package:rest_json1_v1/src/api_gateway/api_gateway_server.dart';

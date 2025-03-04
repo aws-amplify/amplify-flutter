@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library;
+library amplify_datastore.observe_query_executor;
 
 import 'package:amplify_datastore/src/stream_utils/throttle.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';

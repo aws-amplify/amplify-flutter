@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library;
+library s3_storage_service;
 
 import 'package:meta/meta.dart';
 
