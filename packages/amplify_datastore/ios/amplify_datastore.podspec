@@ -20,7 +20,6 @@ The DataStore module for Amplify Flutter.
   s.swift_version = '5.9'
   
   s.dependency 'Flutter'
-  s.dependency 'Starscream', '4.0.4'
 
   # Internal Amplify Swift Plugins
   s.subspec 'Amplify' do |amplify|
