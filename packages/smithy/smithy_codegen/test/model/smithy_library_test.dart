@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:smithy_codegen/src/model/smithy_library.dart';
+import 'package:smithy_codegen/src/model/smithy_library;
 import 'package:smithy_codegen/src/service/codegen.pb.dart';
 import 'package:test/test.dart';
 

@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// # Amazon Glacier
-library rest_json1_v1.glacier;
+library;
 
 export 'package:rest_json1_v1/src/glacier/glacier_client.dart';
 export 'package:rest_json1_v1/src/glacier/glacier_server.dart';

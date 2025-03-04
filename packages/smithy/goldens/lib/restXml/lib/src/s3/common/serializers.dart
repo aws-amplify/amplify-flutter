@@ -1,7 +1,7 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
-library rest_xml_v1.s3.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/serializer.dart';

@@ -15,7 +15,7 @@
 /// cross-reference other published packages in this repo which would run the risk
 /// of causing circular dependencies while publishing (for the same reason it cannot
 /// be used in `amplify_core`).
-library amplify_test;
+library;
 
 /// Common Utils
 export 'src/json.dart';

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Multi-platform workers for Dart (Web, VM).
-library worker_bee;
+library;
 
 import 'dart:async';
 

@@ -522,7 +522,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       }
 
       // Create an awsEndpoint field we can reuse
-      final endpointResolverLib = context.endpointResolverLibrary.libraryUrl;
+      final endpointResolverLib = context.endpointResolverLibrary.library;
       final endpointResolver = refer('endpointResolver', endpointResolverLib);
       final sdkId = refer('sdkId', endpointResolverLib);
       yield Field(

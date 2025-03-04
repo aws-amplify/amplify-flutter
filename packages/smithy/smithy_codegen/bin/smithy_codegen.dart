@@ -65,7 +65,7 @@ void main(List<String> args) async {
   );
   final dependencies = <String>{};
   for (final library in outputs.values.expand((out) => out.libraries)) {
-    final smithyLibrary = library.smithyLibrary;
+    final smithyLibrary = library;
     final outPath = path.join(outputPath, smithyLibrary.projectRelativePath);
     final output = library.emit();
     dependencies.addAll(library.dependencies);

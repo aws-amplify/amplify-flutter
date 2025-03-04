@@ -1,7 +1,7 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
-library aws_json1_0_v2.json_rpc_10;
+library;
 
 export 'package:aws_json1_0_v2/src/json_rpc_10/json_rpc10_client.dart';
 export 'package:aws_json1_0_v2/src/json_rpc_10/json_rpc10_server.dart';

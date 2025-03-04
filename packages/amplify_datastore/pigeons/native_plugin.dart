@@ -13,7 +13,7 @@
         'android/src/main/kotlin/com/amazonaws/amplify/amplify_datastore/pigeons/NativePluginBindings.kt',
   ),
 )
-library native_plugin;
+library;
 
 import 'package:pigeon/pigeon.dart';
 

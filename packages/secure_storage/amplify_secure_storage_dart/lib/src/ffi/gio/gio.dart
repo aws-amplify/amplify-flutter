@@ -4,7 +4,7 @@
 import 'dart:ffi';
 
 import 'package:amplify_secure_storage_dart/src/ffi/gio/gio.bindings.g.dart';
-import 'package:amplify_secure_storage_dart/src/ffi/utils/dynamic_library_utils.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/utils/dynamic_library;
 
 export 'gio.bindings.g.dart' hide Gio;
 

@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 // ignore_for_file: unused_element
-library aws_query_v2.query_protocol.test.xml_enums_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_query_v2/src/query_protocol/model/foo_enum.dart';
 import 'package:aws_query_v2/src/query_protocol/model/xml_enums_output.dart';

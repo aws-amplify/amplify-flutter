@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
+library;
+
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';

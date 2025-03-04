@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// # Amazon Machine Learning
-library aws_json1_1_v2.machine_learning;
+library;
 
 export 'package:aws_json1_1_v2/src/machine_learning/machine_learning_client.dart';
 export 'package:aws_json1_1_v2/src/machine_learning/machine_learning_server.dart';
