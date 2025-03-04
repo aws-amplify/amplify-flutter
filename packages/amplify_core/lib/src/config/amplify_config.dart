@@ -48,14 +48,14 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
 
   @override
   List<Object?> get props => [
-        userAgent,
-        version,
-        api,
-        analytics,
-        auth,
-        notifications,
-        storage,
-      ];
+    userAgent,
+    version,
+    api,
+    analytics,
+    auth,
+    notifications,
+    storage,
+  ];
 
   AmplifyConfig copyWith({
     ApiConfig? api,

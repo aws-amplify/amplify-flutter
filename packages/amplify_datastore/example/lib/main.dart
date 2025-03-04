@@ -25,10 +25,7 @@ void main() {
   runApp(MyApp());
 }
 
-final divider = VerticalDivider(
-  color: Colors.white,
-  width: 10,
-);
+final divider = VerticalDivider(color: Colors.white, width: 10);
 
 class MyApp extends StatefulWidget {
   @override
@@ -51,8 +48,10 @@ class _MyAppState extends State<MyApp> {
       datastorePlugin = AmplifyDataStore(
         modelProvider: ModelProvider.instance,
         options: DataStorePluginOptions(
-          errorHandler: ((error) =>
-              {print("Custom ErrorHandler received: " + error.toString())}),
+          errorHandler:
+              ((error) => {
+                print("Custom ErrorHandler received: " + error.toString()),
+              }),
           authModeStrategy: AuthModeStrategy.multiAuth,
         ),
       );
@@ -68,7 +67,8 @@ class _MyAppState extends State<MyApp> {
       // await Amplify.configure("{}");
     } on AmplifyAlreadyConfiguredException {
       print(
-          'Amplify was already configured. Looks like app restarted on android.');
+        'Amplify was already configured. Looks like app restarted on android.',
+      );
     }
 
     setState(() {
@@ -81,9 +81,7 @@ class _MyAppState extends State<MyApp> {
     return Authenticator(
       child: MaterialApp(
         title: 'Best DataStore App Ever',
-        home: NavigatorScaffold(
-          isAmplifyConfigured: _isAmplifyConfigured,
-        ),
+        home: NavigatorScaffold(isAmplifyConfigured: _isAmplifyConfigured),
       ),
     );
   }

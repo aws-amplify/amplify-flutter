@@ -18,12 +18,7 @@ extension PubAction on AmplifyCommand {
       return;
     }
     try {
-      await runPub(
-        package.flavor,
-        arguments,
-        package,
-        verbose: verbose,
-      );
+      await runPub(package.flavor, arguments, package, verbose: verbose);
     } on Exception catch (e) {
       final command = this;
       if (command is FailFastOption && command.failFast) {

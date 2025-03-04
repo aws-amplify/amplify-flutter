@@ -37,8 +37,7 @@ class StoragePath {
   /// {@endtemplate}
   factory StoragePath.fromIdentityId(
     String Function(String identityId) pathBuilder,
-  ) =>
-      StoragePathFromIdentityId(pathBuilder);
+  ) => StoragePathFromIdentityId(pathBuilder);
 
   final String _path;
 

@@ -18,8 +18,11 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
-List<Object?> wrapResponse(
-    {Object? result, PlatformException? error, bool empty = false}) {
+List<Object?> wrapResponse({
+  Object? result,
+  PlatformException? error,
+  bool empty = false,
+}) {
   if (empty) {
     return <Object?>[];
   }
@@ -71,20 +74,14 @@ class NativeAuthSession {
 }
 
 class NativeAuthUser {
-  NativeAuthUser({
-    required this.userId,
-    required this.username,
-  });
+  NativeAuthUser({required this.userId, required this.username});
 
   String userId;
 
   String username;
 
   Object encode() {
-    return <Object?>[
-      userId,
-      username,
-    ];
+    return <Object?>[userId, username];
   }
 
   static NativeAuthUser decode(Object result) {
@@ -110,11 +107,7 @@ class NativeUserPoolTokens {
   String idToken;
 
   Object encode() {
-    return <Object?>[
-      accessToken,
-      refreshToken,
-      idToken,
-    ];
+    return <Object?>[accessToken, refreshToken, idToken];
   }
 
   static NativeUserPoolTokens decode(Object result) {
@@ -220,23 +213,17 @@ class LegacyCredentialStoreData {
 }
 
 class NativeGraphQLResponse {
-  NativeGraphQLResponse({
-    this.payloadJson,
-  });
+  NativeGraphQLResponse({this.payloadJson});
 
   String? payloadJson;
 
   Object encode() {
-    return <Object?>[
-      payloadJson,
-    ];
+    return <Object?>[payloadJson];
   }
 
   static NativeGraphQLResponse decode(Object result) {
     result as List<Object?>;
-    return NativeGraphQLResponse(
-      payloadJson: result[0] as String?,
-    );
+    return NativeGraphQLResponse(payloadJson: result[0] as String?);
   }
 }
 
@@ -254,11 +241,7 @@ class NativeGraphQLSubscriptionResponse {
   String? payloadJson;
 
   Object encode() {
-    return <Object?>[
-      type,
-      subscriptionId,
-      payloadJson,
-    ];
+    return <Object?>[type, subscriptionId, payloadJson];
   }
 
   static NativeGraphQLSubscriptionResponse decode(Object result) {
@@ -397,12 +380,12 @@ abstract class NativeAuthPlugin {
     messageChannelSuffix =
         messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.amplify_datastore.NativeAuthPlugin.fetchAuthSession$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_datastore.NativeAuthPlugin.fetchAuthSession$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -414,7 +397,8 @@ abstract class NativeAuthPlugin {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
@@ -433,7 +417,8 @@ abstract class NativeApiPlugin {
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request);
 
   Future<NativeGraphQLSubscriptionResponse> subscribe(
-      NativeGraphQLRequest request);
+    NativeGraphQLRequest request,
+  );
 
   Future<void> unsubscribe(String subscriptionId);
 
@@ -449,53 +434,63 @@ abstract class NativeApiPlugin {
     messageChannelSuffix =
         messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getLatestAuthToken$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getLatestAuthToken$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getLatestAuthToken was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getLatestAuthToken was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final String? arg_providerName = (args[0] as String?);
-          assert(arg_providerName != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getLatestAuthToken was null, expected non-null String.');
+          assert(
+            arg_providerName != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getLatestAuthToken was null, expected non-null String.',
+          );
           try {
-            final String? output =
-                await api.getLatestAuthToken(arg_providerName!);
+            final String? output = await api.getLatestAuthToken(
+              arg_providerName!,
+            );
             return wrapResponse(result: output);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final NativeGraphQLRequest? arg_request =
               (args[0] as NativeGraphQLRequest?);
-          assert(arg_request != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate was null, expected non-null NativeGraphQLRequest.');
+          assert(
+            arg_request != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate was null, expected non-null NativeGraphQLRequest.',
+          );
           try {
             final NativeGraphQLResponse output = await api.mutate(arg_request!);
             return wrapResponse(result: output);
@@ -503,29 +498,34 @@ abstract class NativeApiPlugin {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final NativeGraphQLRequest? arg_request =
               (args[0] as NativeGraphQLRequest?);
-          assert(arg_request != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query was null, expected non-null NativeGraphQLRequest.');
+          assert(
+            arg_request != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query was null, expected non-null NativeGraphQLRequest.',
+          );
           try {
             final NativeGraphQLResponse output = await api.query(arg_request!);
             return wrapResponse(result: output);
@@ -533,59 +533,69 @@ abstract class NativeApiPlugin {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.subscribe$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.subscribe$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.subscribe was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.subscribe was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final NativeGraphQLRequest? arg_request =
               (args[0] as NativeGraphQLRequest?);
-          assert(arg_request != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.subscribe was null, expected non-null NativeGraphQLRequest.');
+          assert(
+            arg_request != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.subscribe was null, expected non-null NativeGraphQLRequest.',
+          );
           try {
-            final NativeGraphQLSubscriptionResponse output =
-                await api.subscribe(arg_request!);
+            final NativeGraphQLSubscriptionResponse output = await api
+                .subscribe(arg_request!);
             return wrapResponse(result: output);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final String? arg_subscriptionId = (args[0] as String?);
-          assert(arg_subscriptionId != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe was null, expected non-null String.');
+          assert(
+            arg_subscriptionId != null,
+            'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe was null, expected non-null String.',
+          );
           try {
             await api.unsubscribe(arg_subscriptionId!);
             return wrapResponse(empty: true);
@@ -593,18 +603,19 @@ abstract class NativeApiPlugin {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.deviceOffline$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.deviceOffline$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -616,18 +627,19 @@ abstract class NativeApiPlugin {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.onStop$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.onStop$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -639,7 +651,8 @@ abstract class NativeApiPlugin {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
@@ -652,11 +665,12 @@ class NativeAmplifyBridge {
   /// Constructor for [NativeAmplifyBridge].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  NativeAmplifyBridge(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  NativeAmplifyBridge({
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix =
+           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -668,12 +682,13 @@ class NativeAmplifyBridge {
         'dev.flutter.pigeon.amplify_datastore.NativeAmplifyBridge.configure$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
-    final List<Object?>? pigeonVar_replyList = await pigeonVar_channel
-        .send(<Object?>[version, config]) as List<Object?>?;
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_channel.send(<Object?>[version, config])
+            as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {
@@ -693,11 +708,12 @@ class NativeAuthBridge {
   /// Constructor for [NativeAuthBridge].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  NativeAuthBridge(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  NativeAuthBridge({
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix =
+           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -709,10 +725,10 @@ class NativeAuthBridge {
         'dev.flutter.pigeon.amplify_datastore.NativeAuthBridge.addAuthPlugin$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_channel.send(null) as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -733,10 +749,10 @@ class NativeAuthBridge {
         'dev.flutter.pigeon.amplify_datastore.NativeAuthBridge.updateCurrentUser$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_channel.send(<Object?>[user]) as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -758,11 +774,12 @@ class NativeApiBridge {
   /// Constructor for [NativeApiBridge].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  NativeApiBridge(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  NativeApiBridge({
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix =
+           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -770,17 +787,20 @@ class NativeApiBridge {
   final String pigeonVar_messageChannelSuffix;
 
   Future<void> addApiPlugin(
-      List<String> authProvidersList, Map<String, String> endpoints) async {
+    List<String> authProvidersList,
+    Map<String, String> endpoints,
+  ) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.amplify_datastore.NativeApiBridge.addApiPlugin$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
-    final List<Object?>? pigeonVar_replyList = await pigeonVar_channel
-        .send(<Object?>[authProvidersList, endpoints]) as List<Object?>?;
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_channel.send(<Object?>[authProvidersList, endpoints])
+            as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
     } else if (pigeonVar_replyList.length > 1) {
@@ -795,15 +815,16 @@ class NativeApiBridge {
   }
 
   Future<void> sendSubscriptionEvent(
-      NativeGraphQLSubscriptionResponse event) async {
+    NativeGraphQLSubscriptionResponse event,
+  ) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.amplify_datastore.NativeApiBridge.sendSubscriptionEvent$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_channel.send(<Object?>[event]) as List<Object?>?;
     if (pigeonVar_replyList == null) {

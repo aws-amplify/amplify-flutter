@@ -19,11 +19,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class DataStoreHubEvent extends HubEvent<DataStoreHubEventPayload> {
   /// {@macro amplify_core.datastore_hub_event}
-  DataStoreHubEvent(
-    super.eventName, {
-    required this.type,
-    super.payload,
-  });
+  DataStoreHubEvent(super.eventName, {required this.type, super.payload});
 
   /// {@macro amplify_core.datastore_hub_event.type}
   final DataStoreHubEventType type;

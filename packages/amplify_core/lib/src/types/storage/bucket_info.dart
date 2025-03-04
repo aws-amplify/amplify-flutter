@@ -11,14 +11,8 @@ class BucketInfo
   final String region;
 
   @override
-  List<Object?> get props => [
-        bucketName,
-        region,
-      ];
+  List<Object?> get props => [bucketName, region];
 
   @override
-  Map<String, Object?> toJson() => {
-        'bucketName': bucketName,
-        'region': region,
-      };
+  Map<String, Object?> toJson() => {'bucketName': bucketName, 'region': region};
 }

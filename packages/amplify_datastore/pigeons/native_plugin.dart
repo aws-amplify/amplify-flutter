@@ -70,7 +70,9 @@ abstract class NativeAuthBridge {
 abstract class NativeApiBridge {
   @async
   void addApiPlugin(
-      List<String> authProvidersList, Map<String, String> endpoints);
+    List<String> authProvidersList,
+    Map<String, String> endpoints,
+  );
 
   @async
   void sendSubscriptionEvent(NativeGraphQLSubscriptionResponse event);

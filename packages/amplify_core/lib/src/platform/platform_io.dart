@@ -10,6 +10,6 @@ String get osIdentifier {
   final os = Platform.operatingSystem;
   final osVersion =
       _versionRegex.firstMatch(Platform.operatingSystemVersion)?.group(0) ??
-          'Unknown';
+      'Unknown';
   return '$os/$osVersion';
 }

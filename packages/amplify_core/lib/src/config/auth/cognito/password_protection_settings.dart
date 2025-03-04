@@ -23,9 +23,9 @@ class PasswordProtectionSettings
 
   @override
   List<Object?> get props => [
-        passwordPolicyMinLength,
-        passwordPolicyCharacters,
-      ];
+    passwordPolicyMinLength,
+    passwordPolicyCharacters,
+  ];
 
   PasswordProtectionSettings copyWith({
     int? passwordPolicyMinLength,
@@ -54,7 +54,7 @@ enum PasswordPolicyCharacters {
   requiresNumbers,
 
   @JsonValue('REQUIRES_SYMBOLS')
-  requiresSymbols
+  requiresSymbols,
 }
 
 class _PasswordPolicyMinLengthConverter

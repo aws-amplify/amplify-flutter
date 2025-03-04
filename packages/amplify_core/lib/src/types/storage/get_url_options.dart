@@ -12,10 +12,7 @@ class StorageGetUrlOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.get_url_options}
-  const StorageGetUrlOptions({
-    this.pluginOptions,
-    this.bucket,
-  });
+  const StorageGetUrlOptions({this.pluginOptions, this.bucket});
 
   /// {@macro amplify_core.storage.get_url_plugin_options}
   final StorageGetUrlPluginOptions? pluginOptions;
@@ -24,19 +21,16 @@ class StorageGetUrlOptions
   final StorageBucket? bucket;
 
   @override
-  List<Object?> get props => [
-        pluginOptions,
-        bucket,
-      ];
+  List<Object?> get props => [pluginOptions, bucket];
 
   @override
   String get runtimeTypeName => 'StorageGetUrlOptions';
 
   @override
   Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-        'bucket': bucket?.toJson(),
-      };
+    'pluginOptions': pluginOptions?.toJson(),
+    'bucket': bucket?.toJson(),
+  };
 }
 
 /// {@template amplify_core.storage.get_url_plugin_options}

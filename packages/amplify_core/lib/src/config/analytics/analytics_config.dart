@@ -16,9 +16,8 @@ part 'analytics_config.g.dart';
 @zAmplifySerializable
 class AnalyticsConfig extends AmplifyPluginConfigMap {
   /// {@macro amplify_core.analytics_config}
-  const AnalyticsConfig({
-    required Map<String, AmplifyPluginConfig> plugins,
-  }) : super(plugins);
+  const AnalyticsConfig({required Map<String, AmplifyPluginConfig> plugins})
+    : super(plugins);
 
   factory AnalyticsConfig.fromJson(Map<String, Object?> json) =>
       _$AnalyticsConfigFromJson(json);
@@ -43,10 +42,7 @@ class AnalyticsConfig extends AmplifyPluginConfigMap {
     final awsRegion = plugin.region;
     final appId = plugin.appId;
     return AnalyticsOutputs(
-      amazonPinpoint: AmazonPinpointOutputs(
-        awsRegion: awsRegion,
-        appId: appId,
-      ),
+      amazonPinpoint: AmazonPinpointOutputs(awsRegion: awsRegion, appId: appId),
     );
   }
 }

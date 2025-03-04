@@ -36,12 +36,7 @@ final class AndroidTool {
     );
     final ProcessResult(:exitCode, :stdout, :stderr) = result;
     if (exitCode != 0 && failOnNonZeroExit) {
-      throw ProcessException(
-        exe,
-        args,
-        '$stdout\n$stderr',
-        exitCode,
-      );
+      throw ProcessException(exe, args, '$stdout\n$stderr', exitCode);
     }
     return result;
   }

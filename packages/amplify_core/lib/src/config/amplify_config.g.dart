@@ -8,45 +8,53 @@ part of 'amplify_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AmplifyConfig _$AmplifyConfigFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'AmplifyConfig',
-      json,
-      ($checkedConvert) {
-        final val = AmplifyConfig(
-          userAgent: $checkedConvert(
-              'UserAgent', (v) => v as String? ?? 'aws-amplify-cli/2.0'),
-          version: $checkedConvert('Version', (v) => v as String? ?? '1.0'),
-          api: $checkedConvert(
-              'api',
-              (v) => v == null
-                  ? null
-                  : ApiConfig.fromJson(v as Map<String, dynamic>)),
-          analytics: $checkedConvert(
-              'analytics',
-              (v) => v == null
-                  ? null
-                  : AnalyticsConfig.fromJson(v as Map<String, dynamic>)),
-          auth: $checkedConvert(
-              'auth',
-              (v) => v == null
-                  ? null
-                  : AuthConfig.fromJson(v as Map<String, dynamic>)),
-          notifications: $checkedConvert(
-              'notifications',
-              (v) => v == null
-                  ? null
-                  : NotificationsConfig.fromJson(v as Map<String, dynamic>)),
-          storage: $checkedConvert(
-              'storage',
-              (v) => v == null
-                  ? null
-                  : StorageConfig.fromJson(v as Map<String, dynamic>)),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'userAgent': 'UserAgent', 'version': 'Version'},
+AmplifyConfig _$AmplifyConfigFromJson(
+  Map<String, dynamic> json,
+) => $checkedCreate(
+  'AmplifyConfig',
+  json,
+  ($checkedConvert) {
+    final val = AmplifyConfig(
+      userAgent: $checkedConvert(
+        'UserAgent',
+        (v) => v as String? ?? 'aws-amplify-cli/2.0',
+      ),
+      version: $checkedConvert('Version', (v) => v as String? ?? '1.0'),
+      api: $checkedConvert(
+        'api',
+        (v) => v == null ? null : ApiConfig.fromJson(v as Map<String, dynamic>),
+      ),
+      analytics: $checkedConvert(
+        'analytics',
+        (v) =>
+            v == null
+                ? null
+                : AnalyticsConfig.fromJson(v as Map<String, dynamic>),
+      ),
+      auth: $checkedConvert(
+        'auth',
+        (v) =>
+            v == null ? null : AuthConfig.fromJson(v as Map<String, dynamic>),
+      ),
+      notifications: $checkedConvert(
+        'notifications',
+        (v) =>
+            v == null
+                ? null
+                : NotificationsConfig.fromJson(v as Map<String, dynamic>),
+      ),
+      storage: $checkedConvert(
+        'storage',
+        (v) =>
+            v == null
+                ? null
+                : StorageConfig.fromJson(v as Map<String, dynamic>),
+      ),
     );
+    return val;
+  },
+  fieldKeyMap: const {'userAgent': 'UserAgent', 'version': 'Version'},
+);
 
 Map<String, dynamic> _$AmplifyConfigToJson(AmplifyConfig instance) {
   final val = <String, dynamic>{

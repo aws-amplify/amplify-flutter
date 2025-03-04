@@ -4,10 +4,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class ApiHubEvent extends HubEvent<ApiHubEventPayload> {
-  ApiHubEvent(
-    super.eventName, {
-    super.payload,
-  });
+  ApiHubEvent(super.eventName, {super.payload});
 }
 
 abstract class ApiHubEventPayload {

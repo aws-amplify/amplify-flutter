@@ -25,14 +25,12 @@ RepoDescriptor repo(Iterable<d.Descriptor> contents) =>
 final class RepoDescriptor extends d.Descriptor {
   /// {@macro aft.test.repo_descriptor}
   RepoDescriptor(Iterable<d.Descriptor> contents)
-      : contents = contents.toList(),
-        super('amplify_flutter');
+    : contents = contents.toList(),
+      super('amplify_flutter');
 
   final List<d.Descriptor> contents;
 
-  final _loader = AftConfigLoader(
-    workingDirectory: Directory(d.sandbox),
-  );
+  final _loader = AftConfigLoader(workingDirectory: Directory(d.sandbox));
 
   /// The root `pubspec.yaml`.
   ///
@@ -46,11 +44,7 @@ final class RepoDescriptor extends d.Descriptor {
       }
       dir = dir.parent;
     }
-    expect(
-      rootDirectory,
-      isNotNull,
-      reason: 'Should find root directory',
-    );
+    expect(rootDirectory, isNotNull, reason: 'Should find root directory');
     return rootDirectory!.pubspec!.pubspecYaml;
   }
 
@@ -58,9 +52,12 @@ final class RepoDescriptor extends d.Descriptor {
   Future<Repo> create([String? parent]) async {
     assert(parent == null, 'Not supported. Should use root sandbox');
     final gitDir = await GitDir.init(parent ?? d.sandbox);
-    await gitDir.runCommand(
-      ['commit', '--allow-empty', '-m', 'Initial commit'],
-    );
+    await gitDir.runCommand([
+      'commit',
+      '--allow-empty',
+      '-m',
+      'Initial commit',
+    ]);
     await d.file('pubspec.yaml', pubspec).create(parent);
     for (final item in contents) {
       await item.create(parent);

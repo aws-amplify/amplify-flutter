@@ -14,7 +14,4 @@ abstract interface class ApiOutputs {
   ApiType get apiType;
 }
 
-enum ApiType {
-  rest,
-  graphQL,
-}
+enum ApiType { rest, graphQL }

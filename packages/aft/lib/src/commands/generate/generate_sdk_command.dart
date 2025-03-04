@@ -22,22 +22,14 @@ import 'package:stream_transform/stream_transform.dart';
 class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
   GenerateSdkCommand() {
     argParser
-      ..addOption(
-        'models',
-        abbr: 'm',
-        help: 'The path to the AWS JS V3 repo',
-      )
+      ..addOption('models', abbr: 'm', help: 'The path to the AWS JS V3 repo')
       ..addOption(
         'output',
         abbr: 'o',
         help: 'The lib/-relative output directory for the SDK',
         defaultsTo: 'src/sdk',
       )
-      ..addOption(
-        'package',
-        abbr: 'p',
-        help: 'The name of the package',
-      );
+      ..addOption('package', abbr: 'p', help: 'The name of the package');
   }
 
   @override
@@ -67,33 +59,33 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
 
   /// Downloads AWS models from GitHub into a temporary directory.
   Future<Directory> _downloadModels() => _cloneMemo.runOnce(() async {
-        final cloneDir = await Directory.systemTemp.createTemp('models');
-        logger
-          ..info('Downloading models...')
-          ..verbose('Cloning models to ${cloneDir.path}');
-        await runGit(
-          [
-            'clone',
-            // https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
-            '--filter=tree:0',
-            'https://github.com/aws/aws-sdk-js-v3.git',
-            cloneDir.path,
-          ],
-          echoOutput: verbose,
-        );
-        logger.info('Successfully cloned models');
-        return cloneDir;
-      });
+    final cloneDir = await Directory.systemTemp.createTemp('models');
+    logger
+      ..info('Downloading models...')
+      ..verbose('Cloning models to ${cloneDir.path}');
+    await runGit([
+      'clone',
+      // https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+      '--filter=tree:0',
+      'https://github.com/aws/aws-sdk-js-v3.git',
+      cloneDir.path,
+    ], echoOutput: verbose);
+    logger.info('Successfully cloned models');
+    return cloneDir;
+  });
 
   /// Checks out [ref] in [modelsDir].
   Future<Directory> _checkoutModelsRef(Directory modelsDir, String ref) async {
-    final worktreeDir =
-        await Directory.systemTemp.createTemp('models_worktree_');
+    final worktreeDir = await Directory.systemTemp.createTemp(
+      'models_worktree_',
+    );
     try {
-      await runGit(
-        ['worktree', 'add', worktreeDir.path, ref],
-        processWorkingDir: modelsDir.path,
-      );
+      await runGit([
+        'worktree',
+        'add',
+        worktreeDir.path,
+        ref,
+      ], processWorkingDir: modelsDir.path);
     } on Exception catch (e) {
       if (e.toString().contains('already checked out')) {
         return modelsDir;
@@ -151,9 +143,10 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       await outputDir.create(recursive: true);
     }
 
-    final smithyModel = SmithyAstBuilder()
-      ..version = SmithyVersion.v2
-      ..shapes = ShapeMap({});
+    final smithyModel =
+        SmithyAstBuilder()
+          ..version = SmithyVersion.v2
+          ..shapes = ShapeMap({});
 
     final modelsDir = await _modelsDirForRef(config.ref);
     final models = modelsDir.list().whereType<File>();
@@ -187,8 +180,8 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       final allOperations = serviceShape.operations.map((op) => op.target);
       final includeOperations = switch (operations) {
         List<String> _ when operations.isNotEmpty => operations.map(
-            (op) => ShapeId(namespace: namespace, shape: op),
-          ),
+          (op) => ShapeId(namespace: namespace, shape: op),
+        ),
         _ => allOperations,
       };
       for (final operation in includeOperations) {
@@ -236,16 +229,15 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
         ),
       );
       final generatedAst = SmithyAst(
-        (b) => b
-          ..shapes = generatedShapes
-          ..metadata.replace(smithyAst.metadata)
-          ..version = smithyAst.version,
+        (b) =>
+            b
+              ..shapes = generatedShapes
+              ..metadata.replace(smithyAst.metadata)
+              ..version = smithyAst.version,
       );
-      final pluginCmd = await Process.start(
-        'dart',
-        [plugin],
-        workingDirectory: package.path,
-      );
+      final pluginCmd = await Process.start('dart', [
+        plugin,
+      ], workingDirectory: package.path);
       pluginCmd
         ..stdin.writeln(jsonEncode(generatedAst))
         ..captureStdout()
@@ -260,12 +252,7 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
     logger.info('Running build_runner...');
     final buildRunnerCmd = await Process.start(
       'dart',
-      [
-        'run',
-        'build_runner',
-        'build',
-        '--delete-conflicting-outputs',
-      ],
+      ['run', 'build_runner', 'build', '--delete-conflicting-outputs'],
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
       workingDirectory: package.path,
     );
@@ -284,34 +271,38 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
     /// This enumeration is used to configure the SigV4 signer. To use a service
     /// that is not listed here, call [AWSService.new] directly.''';
     final builder = LibraryBuilder();
-    final awsService = ClassBuilder()
-      ..name = 'AWSService'
-      ..docs.add(classDocs)
-      ..constructors.add(
-        Constructor(
-          (c) => c
-            ..constant = true
-            ..docs.add(
-              '/// Creates a new [AWSService] instance which can be passed to a SigV4 signer.',
-            )
-            ..requiredParameters.addAll([
-              Parameter(
-                (p) => p
-                  ..toThis = true
-                  ..name = 'service',
-              ),
-            ]),
-        ),
-      )
-      ..fields.addAll([
-        Field(
-          (f) => f
-            ..modifier = FieldModifier.final$
-            ..docs.add('/// The SigV4 service name, used in signing.')
-            ..name = 'service'
-            ..type = refer('String'),
-        ),
-      ]);
+    final awsService =
+        ClassBuilder()
+          ..name = 'AWSService'
+          ..docs.add(classDocs)
+          ..constructors.add(
+            Constructor(
+              (c) =>
+                  c
+                    ..constant = true
+                    ..docs.add(
+                      '/// Creates a new [AWSService] instance which can be passed to a SigV4 signer.',
+                    )
+                    ..requiredParameters.addAll([
+                      Parameter(
+                        (p) =>
+                            p
+                              ..toThis = true
+                              ..name = 'service',
+                      ),
+                    ]),
+            ),
+          )
+          ..fields.addAll([
+            Field(
+              (f) =>
+                  f
+                    ..modifier = FieldModifier.final$
+                    ..docs.add('/// The SigV4 service name, used in signing.')
+                    ..name = 'service'
+                    ..type = refer('String'),
+            ),
+          ]);
 
     final modelsDir = await _modelsDirForRef('main');
     final models = modelsDir.list().whereType<File>();
@@ -332,14 +323,16 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       logger.debug('Found AWS service "$serviceName"');
       services.add(
         Field(
-          (f) => f
-            ..static = true
-            ..modifier = FieldModifier.constant
-            ..docs.addAll([if (title != null) '/// $title'])
-            ..name = serviceName
-            ..assignment = refer('AWSService').constInstance([
-              literalString(sigV4Service),
-            ]).code,
+          (f) =>
+              f
+                ..static = true
+                ..modifier = FieldModifier.constant
+                ..docs.addAll([if (title != null) '/// $title'])
+                ..name = serviceName
+                ..assignment =
+                    refer(
+                      'AWSService',
+                    ).constInstance([literalString(sigV4Service)]).code,
         ),
       );
     }
@@ -365,20 +358,13 @@ ${library.accept(emitter)}
 ''';
 
     final output = File(
-      p.join(
-        awsCommon.path,
-        'lib',
-        'src',
-        'config',
-        'aws_service.dart',
-      ),
+      p.join(awsCommon.path, 'lib', 'src', 'config', 'aws_service.dart'),
     );
     await output.writeAsString(code);
-    await Process.run(
-      'dart',
-      ['format', output.path],
-      workingDirectory: awsCommon.path,
-    );
+    await Process.run('dart', [
+      'format',
+      output.path,
+    ], workingDirectory: awsCommon.path);
   }
 
   @override

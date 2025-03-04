@@ -11,10 +11,7 @@ external ToolCache get toolCache;
 @anonymous
 extension type ToolCache._(JSObject it) {
   @JS('find')
-  external String _find(
-    String toolName,
-    String versionSpec,
-  );
+  external String _find(String toolName, String versionSpec);
 
   /// Finds the path to a tool version in the local installed tool cache.
   ///
@@ -70,8 +67,8 @@ extension type ToolCache._(JSObject it) {
   /// @param arch          architecture of the tool.  Optional.
   ///                      Defaults to machine architecture
   Future<String> cacheDir(
-    String sourceDir, 
-    String tool, 
+    String sourceDir,
+    String tool,
     String version, [
     String? arch,
   ]) async {

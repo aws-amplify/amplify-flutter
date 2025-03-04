@@ -11,11 +11,9 @@ import 'package:amplify_core/src/http/amplify_category_method.dart';
 /// {@endtemplate}
 class AmplifyHttpClient extends AWSBaseHttpClient {
   /// {@macro amplify_common.amplify_http_client}
-  AmplifyHttpClient(
-    DependencyManager dependencies, {
-    AWSHttpClient? baseClient,
-  })  : _userAgent = dependencies.getOrCreate(),
-        baseClient = baseClient ?? dependencies.getOrCreate();
+  AmplifyHttpClient(DependencyManager dependencies, {AWSHttpClient? baseClient})
+    : _userAgent = dependencies.getOrCreate(),
+      baseClient = baseClient ?? dependencies.getOrCreate();
 
   @override
   final AWSHttpClient baseClient;
