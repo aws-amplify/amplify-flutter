@@ -6,7 +6,7 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/au
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.7.0
 
 dependencies:
   amplify_analytics_pinpoint_dart: ">=0.4.7 <0.5.0"
@@ -27,7 +27,7 @@ dependencies:
   intl: ">=0.18.0 <1.0.0"
   js: ">=0.6.4 <0.8.0"
   json_annotation: ">=4.9.0 <4.10.0"
-  meta: ^1.7.0
+  meta: ^1.16.0
   oauth2: ^2.0.2
   path: ">=1.8.0 <2.0.0"
   smithy: ">=0.7.3 <0.8.0"
@@ -35,7 +35,7 @@ dependencies:
   stream_transform: ^2.0.0
   uuid: ">=3.0.6 <5.0.0"
   win32: ">=4.1.2 <6.0.0"
-  win32_registry: ^2.0.0
+  win32_registry: ^2.1.0
   worker_bee: ">=0.3.3 <0.4.0"
 
 dev_dependencies:

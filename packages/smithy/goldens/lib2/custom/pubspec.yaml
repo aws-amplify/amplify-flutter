@@ -4,7 +4,7 @@ version: 0.1.0
 publish_to: none
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.7.0
 
 dependencies:
   smithy:
@@ -16,7 +16,7 @@ dependencies:
   aws_common:
     path: ../../../../aws_common
   built_value: ^8.6.0
-  meta: ^1.7.0
+  meta: ^1.16.0
   built_collection: ^5.0.0
   shelf_router: ^1.1.0
   shelf: ^1.4.0

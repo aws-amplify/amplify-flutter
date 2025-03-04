@@ -6,7 +6,7 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/an
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.7.0
 
 dependencies:
   amplify_core: ">=2.6.0 <2.7.0"
@@ -19,7 +19,7 @@ dependencies:
   collection: ^1.15.0
   drift: ^2.25.0
   intl: ">=0.18.0 <1.0.0"
-  meta: ^1.7.0
+  meta: ^1.16.0
   path: ">=1.8.0 <2.0.0"
   smithy: ">=0.7.3 <0.8.0"
   smithy_aws: ">=0.7.3 <0.8.0"
