@@ -973,8 +973,32 @@ class MockAPIPlugin<T> extends APIPluginInterface {
 class MockNativeAuthBridgeCodec extends StandardMessageCodec {
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
-    if (value is NativeGraphQLSubscriptionResponse) {
-      buffer.putUint8(128);
+    if (value is int) {
+      buffer.putUint8(4);
+      buffer.putInt64(value);
+    } else if (value is NativeAuthSession) {
+      buffer.putUint8(129);
+      writeValue(buffer, value.encode());
+    } else if (value is NativeAuthUser) {
+      buffer.putUint8(130);
+      writeValue(buffer, value.encode());
+    } else if (value is NativeUserPoolTokens) {
+      buffer.putUint8(131);
+      writeValue(buffer, value.encode());
+    } else if (value is NativeAWSCredentials) {
+      buffer.putUint8(132);
+      writeValue(buffer, value.encode());
+    } else if (value is LegacyCredentialStoreData) {
+      buffer.putUint8(133);
+      writeValue(buffer, value.encode());
+    } else if (value is NativeGraphQLResponse) {
+      buffer.putUint8(134);
+      writeValue(buffer, value.encode());
+    } else if (value is NativeGraphQLSubscriptionResponse) {
+      buffer.putUint8(135);
+      writeValue(buffer, value.encode());
+    } else if (value is NativeGraphQLRequest) {
+      buffer.putUint8(136);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -984,8 +1008,22 @@ class MockNativeAuthBridgeCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128:
+      case 129:
+        return NativeAuthSession.decode(readValue(buffer)!);
+      case 130:
+        return NativeAuthUser.decode(readValue(buffer)!);
+      case 131:
+        return NativeUserPoolTokens.decode(readValue(buffer)!);
+      case 132:
+        return NativeAWSCredentials.decode(readValue(buffer)!);
+      case 133:
+        return LegacyCredentialStoreData.decode(readValue(buffer)!);
+      case 134:
+        return NativeGraphQLResponse.decode(readValue(buffer)!);
+      case 135:
         return NativeGraphQLSubscriptionResponse.decode(readValue(buffer)!);
+      case 136:
+        return NativeGraphQLRequest.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }

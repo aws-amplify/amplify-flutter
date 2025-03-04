@@ -90,7 +90,9 @@ class DeviceSecretVerifierConfigTypeBuilder
   _$DeviceSecretVerifierConfigType _build() {
     final _$result = _$v ??
         new _$DeviceSecretVerifierConfigType._(
-            passwordVerifier: passwordVerifier, salt: salt);
+          passwordVerifier: passwordVerifier,
+          salt: salt,
+        );
     replace(_$result);
     return _$result;
   }

@@ -211,19 +211,20 @@ class ListMultipartUploadsOutputBuilder
     try {
       _$result = _$v ??
           new _$ListMultipartUploadsOutput._(
-              bucket: bucket,
-              keyMarker: keyMarker,
-              uploadIdMarker: uploadIdMarker,
-              nextKeyMarker: nextKeyMarker,
-              prefix: prefix,
-              delimiter: delimiter,
-              nextUploadIdMarker: nextUploadIdMarker,
-              maxUploads: maxUploads,
-              isTruncated: isTruncated,
-              uploads: _uploads?.build(),
-              commonPrefixes: _commonPrefixes?.build(),
-              encodingType: encodingType,
-              requestCharged: requestCharged);
+            bucket: bucket,
+            keyMarker: keyMarker,
+            uploadIdMarker: uploadIdMarker,
+            nextKeyMarker: nextKeyMarker,
+            prefix: prefix,
+            delimiter: delimiter,
+            nextUploadIdMarker: nextUploadIdMarker,
+            maxUploads: maxUploads,
+            isTruncated: isTruncated,
+            uploads: _uploads?.build(),
+            commonPrefixes: _commonPrefixes?.build(),
+            encodingType: encodingType,
+            requestCharged: requestCharged,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -440,18 +441,19 @@ class ListMultipartUploadsOutputPayloadBuilder
     try {
       _$result = _$v ??
           new _$ListMultipartUploadsOutputPayload._(
-              bucket: bucket,
-              commonPrefixes: _commonPrefixes?.build(),
-              delimiter: delimiter,
-              encodingType: encodingType,
-              isTruncated: isTruncated,
-              keyMarker: keyMarker,
-              maxUploads: maxUploads,
-              nextKeyMarker: nextKeyMarker,
-              nextUploadIdMarker: nextUploadIdMarker,
-              prefix: prefix,
-              uploadIdMarker: uploadIdMarker,
-              uploads: _uploads?.build());
+            bucket: bucket,
+            commonPrefixes: _commonPrefixes?.build(),
+            delimiter: delimiter,
+            encodingType: encodingType,
+            isTruncated: isTruncated,
+            keyMarker: keyMarker,
+            maxUploads: maxUploads,
+            nextKeyMarker: nextKeyMarker,
+            nextUploadIdMarker: nextUploadIdMarker,
+            prefix: prefix,
+            uploadIdMarker: uploadIdMarker,
+            uploads: _uploads?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

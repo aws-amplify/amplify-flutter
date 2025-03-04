@@ -2,8 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // ignore_for_file: avoid_classes_with_only_static_members
-
+//ignore: deprecated_member_use
 import 'package:js/js.dart';
+//ignore: deprecated_member_use
 import 'package:js/js_util.dart' as js_util;
 
 /// {@template aws_http.js.abort_signal}

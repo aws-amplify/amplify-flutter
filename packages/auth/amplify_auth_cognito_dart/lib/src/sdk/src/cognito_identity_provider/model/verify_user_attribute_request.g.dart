@@ -108,12 +108,13 @@ class VerifyUserAttributeRequestBuilder
   _$VerifyUserAttributeRequest _build() {
     final _$result = _$v ??
         new _$VerifyUserAttributeRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'VerifyUserAttributeRequest', 'accessToken'),
-            attributeName: BuiltValueNullFieldError.checkNotNull(
-                attributeName, r'VerifyUserAttributeRequest', 'attributeName'),
-            code: BuiltValueNullFieldError.checkNotNull(
-                code, r'VerifyUserAttributeRequest', 'code'));
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken, r'VerifyUserAttributeRequest', 'accessToken'),
+          attributeName: BuiltValueNullFieldError.checkNotNull(
+              attributeName, r'VerifyUserAttributeRequest', 'attributeName'),
+          code: BuiltValueNullFieldError.checkNotNull(
+              code, r'VerifyUserAttributeRequest', 'code'),
+        );
     replace(_$result);
     return _$result;
   }

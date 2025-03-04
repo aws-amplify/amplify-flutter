@@ -78,7 +78,10 @@ class GetDeviceResponseBuilder
   _$GetDeviceResponse _build() {
     _$GetDeviceResponse _$result;
     try {
-      _$result = _$v ?? new _$GetDeviceResponse._(device: device.build());
+      _$result = _$v ??
+          new _$GetDeviceResponse._(
+            device: device.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

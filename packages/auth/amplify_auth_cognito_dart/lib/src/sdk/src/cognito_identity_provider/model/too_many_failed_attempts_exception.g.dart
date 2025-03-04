@@ -85,7 +85,9 @@ class TooManyFailedAttemptsExceptionBuilder
   _$TooManyFailedAttemptsException _build() {
     final _$result = _$v ??
         new _$TooManyFailedAttemptsException._(
-            message: message, headers: headers);
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

@@ -4,9 +4,11 @@
 // ignore_for_file: avoid_classes_with_only_static_members, prefer_void_to_null
 
 import 'dart:async';
+//ignore: deprecated_member_use
 import 'dart:js_util' as js_util;
 
 import 'package:aws_common/src/util/recase.dart';
+//ignore: deprecated_member_use
 import 'package:js/js.dart';
 
 /// The JS `undefined`.

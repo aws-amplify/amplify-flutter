@@ -168,16 +168,17 @@ class ListMultipartUploadsRequestBuilder
   _$ListMultipartUploadsRequest _build() {
     final _$result = _$v ??
         new _$ListMultipartUploadsRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'ListMultipartUploadsRequest', 'bucket'),
-            delimiter: delimiter,
-            encodingType: encodingType,
-            keyMarker: keyMarker,
-            maxUploads: maxUploads,
-            prefix: prefix,
-            uploadIdMarker: uploadIdMarker,
-            expectedBucketOwner: expectedBucketOwner,
-            requestPayer: requestPayer);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'ListMultipartUploadsRequest', 'bucket'),
+          delimiter: delimiter,
+          encodingType: encodingType,
+          keyMarker: keyMarker,
+          maxUploads: maxUploads,
+          prefix: prefix,
+          uploadIdMarker: uploadIdMarker,
+          expectedBucketOwner: expectedBucketOwner,
+          requestPayer: requestPayer,
+        );
     replace(_$result);
     return _$result;
   }

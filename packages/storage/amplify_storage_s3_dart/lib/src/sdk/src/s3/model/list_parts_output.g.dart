@@ -226,21 +226,22 @@ class ListPartsOutputBuilder
     try {
       _$result = _$v ??
           new _$ListPartsOutput._(
-              abortDate: abortDate,
-              abortRuleId: abortRuleId,
-              bucket: bucket,
-              key: key,
-              uploadId: uploadId,
-              partNumberMarker: partNumberMarker,
-              nextPartNumberMarker: nextPartNumberMarker,
-              maxParts: maxParts,
-              isTruncated: isTruncated,
-              parts: _parts?.build(),
-              initiator: _initiator?.build(),
-              owner: _owner?.build(),
-              storageClass: storageClass,
-              requestCharged: requestCharged,
-              checksumAlgorithm: checksumAlgorithm);
+            abortDate: abortDate,
+            abortRuleId: abortRuleId,
+            bucket: bucket,
+            key: key,
+            uploadId: uploadId,
+            partNumberMarker: partNumberMarker,
+            nextPartNumberMarker: nextPartNumberMarker,
+            maxParts: maxParts,
+            isTruncated: isTruncated,
+            parts: _parts?.build(),
+            initiator: _initiator?.build(),
+            owner: _owner?.build(),
+            storageClass: storageClass,
+            requestCharged: requestCharged,
+            checksumAlgorithm: checksumAlgorithm,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -452,18 +453,19 @@ class ListPartsOutputPayloadBuilder
     try {
       _$result = _$v ??
           new _$ListPartsOutputPayload._(
-              bucket: bucket,
-              checksumAlgorithm: checksumAlgorithm,
-              initiator: _initiator?.build(),
-              isTruncated: isTruncated,
-              key: key,
-              maxParts: maxParts,
-              nextPartNumberMarker: nextPartNumberMarker,
-              owner: _owner?.build(),
-              partNumberMarker: partNumberMarker,
-              parts: _parts?.build(),
-              storageClass: storageClass,
-              uploadId: uploadId);
+            bucket: bucket,
+            checksumAlgorithm: checksumAlgorithm,
+            initiator: _initiator?.build(),
+            isTruncated: isTruncated,
+            key: key,
+            maxParts: maxParts,
+            nextPartNumberMarker: nextPartNumberMarker,
+            owner: _owner?.build(),
+            partNumberMarker: partNumberMarker,
+            parts: _parts?.build(),
+            storageClass: storageClass,
+            uploadId: uploadId,
+          );
     } catch (_) {
       late String _$failedField;
       try {

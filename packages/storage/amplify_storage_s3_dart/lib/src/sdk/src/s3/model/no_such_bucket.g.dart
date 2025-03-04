@@ -68,7 +68,10 @@ class NoSuchBucketBuilder
   NoSuchBucket build() => _build();
 
   _$NoSuchBucket _build() {
-    final _$result = _$v ?? new _$NoSuchBucket._(headers: headers);
+    final _$result = _$v ??
+        new _$NoSuchBucket._(
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

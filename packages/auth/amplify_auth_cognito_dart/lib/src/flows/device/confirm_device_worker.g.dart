@@ -222,9 +222,10 @@ class ConfirmDeviceMessageBuilder
     try {
       _$result = _$v ??
           new _$ConfirmDeviceMessage._(
-              accessToken: BuiltValueNullFieldError.checkNotNull(
-                  accessToken, r'ConfirmDeviceMessage', 'accessToken'),
-              newDeviceMetadata: newDeviceMetadata.build());
+            accessToken: BuiltValueNullFieldError.checkNotNull(
+                accessToken, r'ConfirmDeviceMessage', 'accessToken'),
+            newDeviceMetadata: newDeviceMetadata.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -341,9 +342,10 @@ class ConfirmDeviceResponseBuilder
     try {
       _$result = _$v ??
           new _$ConfirmDeviceResponse._(
-              devicePassword: BuiltValueNullFieldError.checkNotNull(
-                  devicePassword, r'ConfirmDeviceResponse', 'devicePassword'),
-              request: request.build());
+            devicePassword: BuiltValueNullFieldError.checkNotNull(
+                devicePassword, r'ConfirmDeviceResponse', 'devicePassword'),
+            request: request.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -90,7 +90,8 @@ class GetUserAttributeVerificationCodeResponseBuilder
     try {
       _$result = _$v ??
           new _$GetUserAttributeVerificationCodeResponse._(
-              codeDeliveryDetails: _codeDeliveryDetails?.build());
+            codeDeliveryDetails: _codeDeliveryDetails?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

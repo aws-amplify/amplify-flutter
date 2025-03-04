@@ -120,10 +120,11 @@ class RespondToAuthChallengeResponseBuilder
     try {
       _$result = _$v ??
           new _$RespondToAuthChallengeResponse._(
-              challengeName: challengeName,
-              session: session,
-              challengeParameters: _challengeParameters?.build(),
-              authenticationResult: _authenticationResult?.build());
+            challengeName: challengeName,
+            session: session,
+            challengeParameters: _challengeParameters?.build(),
+            authenticationResult: _authenticationResult?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

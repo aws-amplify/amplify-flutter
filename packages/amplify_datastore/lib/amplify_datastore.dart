@@ -61,7 +61,7 @@ class AmplifyDataStore extends DataStorePluginInterface
     if (authPlugin != null) {
       // Configure this plugin to act as a native iOS/Android plugin.
       final nativePlugin = _NativeAmplifyAuthCognito();
-      NativeAuthPlugin.setup(nativePlugin);
+      NativeAuthPlugin.setUp(nativePlugin);
       final nativeBridge = NativeAuthBridge();
       try {
         await nativeBridge.addAuthPlugin();
@@ -109,7 +109,7 @@ class AmplifyDataStore extends DataStorePluginInterface
         endpoints[e.key] = e.value.defaultAuthorizationType.name;
       });
       final nativePlugin = NativeAmplifyApi(authProviders);
-      NativeApiPlugin.setup(nativePlugin);
+      NativeApiPlugin.setUp(nativePlugin);
 
       final nativeBridge = NativeApiBridge();
       try {

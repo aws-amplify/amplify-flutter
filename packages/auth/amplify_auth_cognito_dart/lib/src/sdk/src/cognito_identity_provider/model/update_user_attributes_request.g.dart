@@ -112,10 +112,11 @@ class UpdateUserAttributesRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateUserAttributesRequest._(
-              userAttributes: userAttributes.build(),
-              accessToken: BuiltValueNullFieldError.checkNotNull(
-                  accessToken, r'UpdateUserAttributesRequest', 'accessToken'),
-              clientMetadata: _clientMetadata?.build());
+            userAttributes: userAttributes.build(),
+            accessToken: BuiltValueNullFieldError.checkNotNull(
+                accessToken, r'UpdateUserAttributesRequest', 'accessToken'),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

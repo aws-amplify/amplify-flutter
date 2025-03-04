@@ -139,13 +139,14 @@ class AuthenticationResultTypeBuilder
     try {
       _$result = _$v ??
           new _$AuthenticationResultType._(
-              accessToken: accessToken,
-              expiresIn: BuiltValueNullFieldError.checkNotNull(
-                  expiresIn, r'AuthenticationResultType', 'expiresIn'),
-              tokenType: tokenType,
-              refreshToken: refreshToken,
-              idToken: idToken,
-              newDeviceMetadata: _newDeviceMetadata?.build());
+            accessToken: accessToken,
+            expiresIn: BuiltValueNullFieldError.checkNotNull(
+                expiresIn, r'AuthenticationResultType', 'expiresIn'),
+            tokenType: tokenType,
+            refreshToken: refreshToken,
+            idToken: idToken,
+            newDeviceMetadata: _newDeviceMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

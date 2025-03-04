@@ -241,17 +241,18 @@ class SrpDevicePasswordVerifierMessageBuilder
   _$SrpDevicePasswordVerifierMessage _build() {
     final _$result = _$v ??
         new _$SrpDevicePasswordVerifierMessage._(
-            initResult: BuiltValueNullFieldError.checkNotNull(
-                initResult, r'SrpDevicePasswordVerifierMessage', 'initResult'),
-            clientId: BuiltValueNullFieldError.checkNotNull(
-                clientId, r'SrpDevicePasswordVerifierMessage', 'clientId'),
-            clientSecret: clientSecret,
-            deviceSecrets: BuiltValueNullFieldError.checkNotNull(deviceSecrets,
-                r'SrpDevicePasswordVerifierMessage', 'deviceSecrets'),
-            challengeParameters: BuiltValueNullFieldError.checkNotNull(
-                challengeParameters,
-                r'SrpDevicePasswordVerifierMessage',
-                'challengeParameters'));
+          initResult: BuiltValueNullFieldError.checkNotNull(
+              initResult, r'SrpDevicePasswordVerifierMessage', 'initResult'),
+          clientId: BuiltValueNullFieldError.checkNotNull(
+              clientId, r'SrpDevicePasswordVerifierMessage', 'clientId'),
+          clientSecret: clientSecret,
+          deviceSecrets: BuiltValueNullFieldError.checkNotNull(deviceSecrets,
+              r'SrpDevicePasswordVerifierMessage', 'deviceSecrets'),
+          challengeParameters: BuiltValueNullFieldError.checkNotNull(
+              challengeParameters,
+              r'SrpDevicePasswordVerifierMessage',
+              'challengeParameters'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -108,11 +108,12 @@ class UpdateDeviceStatusRequestBuilder
   _$UpdateDeviceStatusRequest _build() {
     final _$result = _$v ??
         new _$UpdateDeviceStatusRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'UpdateDeviceStatusRequest', 'accessToken'),
-            deviceKey: BuiltValueNullFieldError.checkNotNull(
-                deviceKey, r'UpdateDeviceStatusRequest', 'deviceKey'),
-            deviceRememberedStatus: deviceRememberedStatus);
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken, r'UpdateDeviceStatusRequest', 'accessToken'),
+          deviceKey: BuiltValueNullFieldError.checkNotNull(
+              deviceKey, r'UpdateDeviceStatusRequest', 'deviceKey'),
+          deviceRememberedStatus: deviceRememberedStatus,
+        );
     replace(_$result);
     return _$result;
   }
