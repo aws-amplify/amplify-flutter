@@ -108,12 +108,13 @@ class ChangePasswordRequestBuilder
   _$ChangePasswordRequest _build() {
     final _$result = _$v ??
         new _$ChangePasswordRequest._(
-            previousPassword: BuiltValueNullFieldError.checkNotNull(
-                previousPassword, r'ChangePasswordRequest', 'previousPassword'),
-            proposedPassword: BuiltValueNullFieldError.checkNotNull(
-                proposedPassword, r'ChangePasswordRequest', 'proposedPassword'),
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'ChangePasswordRequest', 'accessToken'));
+          previousPassword: BuiltValueNullFieldError.checkNotNull(
+              previousPassword, r'ChangePasswordRequest', 'previousPassword'),
+          proposedPassword: BuiltValueNullFieldError.checkNotNull(
+              proposedPassword, r'ChangePasswordRequest', 'proposedPassword'),
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken, r'ChangePasswordRequest', 'accessToken'),
+        );
     replace(_$result);
     return _$result;
   }

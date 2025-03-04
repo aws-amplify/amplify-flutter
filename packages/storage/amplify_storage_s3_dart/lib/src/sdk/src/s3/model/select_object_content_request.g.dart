@@ -217,24 +217,25 @@ class SelectObjectContentRequestBuilder
     try {
       _$result = _$v ??
           new _$SelectObjectContentRequest._(
-              bucket: BuiltValueNullFieldError.checkNotNull(
-                  bucket, r'SelectObjectContentRequest', 'bucket'),
-              key: BuiltValueNullFieldError.checkNotNull(
-                  key, r'SelectObjectContentRequest', 'key'),
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKey: sseCustomerKey,
-              sseCustomerKeyMd5: sseCustomerKeyMd5,
-              expression: BuiltValueNullFieldError.checkNotNull(
-                  expression, r'SelectObjectContentRequest', 'expression'),
-              expressionType: BuiltValueNullFieldError.checkNotNull(
-                  expressionType,
-                  r'SelectObjectContentRequest',
-                  'expressionType'),
-              requestProgress: _requestProgress?.build(),
-              inputSerialization: inputSerialization.build(),
-              outputSerialization: outputSerialization.build(),
-              scanRange: _scanRange?.build(),
-              expectedBucketOwner: expectedBucketOwner);
+            bucket: BuiltValueNullFieldError.checkNotNull(
+                bucket, r'SelectObjectContentRequest', 'bucket'),
+            key: BuiltValueNullFieldError.checkNotNull(
+                key, r'SelectObjectContentRequest', 'key'),
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKey: sseCustomerKey,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+            expression: BuiltValueNullFieldError.checkNotNull(
+                expression, r'SelectObjectContentRequest', 'expression'),
+            expressionType: BuiltValueNullFieldError.checkNotNull(
+                expressionType,
+                r'SelectObjectContentRequest',
+                'expressionType'),
+            requestProgress: _requestProgress?.build(),
+            inputSerialization: inputSerialization.build(),
+            outputSerialization: outputSerialization.build(),
+            scanRange: _scanRange?.build(),
+            expectedBucketOwner: expectedBucketOwner,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -404,16 +405,17 @@ class SelectObjectContentRequestPayloadBuilder
     try {
       _$result = _$v ??
           new _$SelectObjectContentRequestPayload._(
-              expression: BuiltValueNullFieldError.checkNotNull(expression,
-                  r'SelectObjectContentRequestPayload', 'expression'),
-              expressionType: BuiltValueNullFieldError.checkNotNull(
-                  expressionType,
-                  r'SelectObjectContentRequestPayload',
-                  'expressionType'),
-              inputSerialization: inputSerialization.build(),
-              outputSerialization: outputSerialization.build(),
-              requestProgress: _requestProgress?.build(),
-              scanRange: _scanRange?.build());
+            expression: BuiltValueNullFieldError.checkNotNull(
+                expression, r'SelectObjectContentRequestPayload', 'expression'),
+            expressionType: BuiltValueNullFieldError.checkNotNull(
+                expressionType,
+                r'SelectObjectContentRequestPayload',
+                'expressionType'),
+            inputSerialization: inputSerialization.build(),
+            outputSerialization: outputSerialization.build(),
+            requestProgress: _requestProgress?.build(),
+            scanRange: _scanRange?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

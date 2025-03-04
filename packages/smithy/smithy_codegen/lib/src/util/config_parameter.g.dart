@@ -150,17 +150,18 @@ class ConfigParameterBuilder
   _$ConfigParameter _build() {
     final _$result = _$v ??
         new _$ConfigParameter._(
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'ConfigParameter', 'name'),
-            type: BuiltValueNullFieldError.checkNotNull(
-                type, r'ConfigParameter', 'type'),
-            required: BuiltValueNullFieldError.checkNotNull(
-                required, r'ConfigParameter', 'required'),
-            isOverride: BuiltValueNullFieldError.checkNotNull(
-                isOverride, r'ConfigParameter', 'isOverride'),
-            location: BuiltValueNullFieldError.checkNotNull(
-                location, r'ConfigParameter', 'location'),
-            defaultTo: defaultTo);
+          name: BuiltValueNullFieldError.checkNotNull(
+              name, r'ConfigParameter', 'name'),
+          type: BuiltValueNullFieldError.checkNotNull(
+              type, r'ConfigParameter', 'type'),
+          required: BuiltValueNullFieldError.checkNotNull(
+              required, r'ConfigParameter', 'required'),
+          isOverride: BuiltValueNullFieldError.checkNotNull(
+              isOverride, r'ConfigParameter', 'isOverride'),
+          location: BuiltValueNullFieldError.checkNotNull(
+              location, r'ConfigParameter', 'location'),
+          defaultTo: defaultTo,
+        );
     replace(_$result);
     return _$result;
   }

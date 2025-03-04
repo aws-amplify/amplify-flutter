@@ -169,20 +169,21 @@ class ConfirmForgotPasswordRequestBuilder
     try {
       _$result = _$v ??
           new _$ConfirmForgotPasswordRequest._(
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'ConfirmForgotPasswordRequest', 'clientId'),
-              secretHash: secretHash,
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'ConfirmForgotPasswordRequest', 'username'),
-              confirmationCode: BuiltValueNullFieldError.checkNotNull(
-                  confirmationCode,
-                  r'ConfirmForgotPasswordRequest',
-                  'confirmationCode'),
-              password: BuiltValueNullFieldError.checkNotNull(
-                  password, r'ConfirmForgotPasswordRequest', 'password'),
-              analyticsMetadata: _analyticsMetadata?.build(),
-              userContextData: _userContextData?.build(),
-              clientMetadata: _clientMetadata?.build());
+            clientId: BuiltValueNullFieldError.checkNotNull(
+                clientId, r'ConfirmForgotPasswordRequest', 'clientId'),
+            secretHash: secretHash,
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, r'ConfirmForgotPasswordRequest', 'username'),
+            confirmationCode: BuiltValueNullFieldError.checkNotNull(
+                confirmationCode,
+                r'ConfirmForgotPasswordRequest',
+                'confirmationCode'),
+            password: BuiltValueNullFieldError.checkNotNull(
+                password, r'ConfirmForgotPasswordRequest', 'password'),
+            analyticsMetadata: _analyticsMetadata?.build(),
+            userContextData: _userContextData?.build(),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

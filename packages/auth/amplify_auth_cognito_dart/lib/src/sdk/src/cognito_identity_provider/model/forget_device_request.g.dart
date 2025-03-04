@@ -90,9 +90,10 @@ class ForgetDeviceRequestBuilder
   _$ForgetDeviceRequest _build() {
     final _$result = _$v ??
         new _$ForgetDeviceRequest._(
-            accessToken: accessToken,
-            deviceKey: BuiltValueNullFieldError.checkNotNull(
-                deviceKey, r'ForgetDeviceRequest', 'deviceKey'));
+          accessToken: accessToken,
+          deviceKey: BuiltValueNullFieldError.checkNotNull(
+              deviceKey, r'ForgetDeviceRequest', 'deviceKey'),
+        );
     replace(_$result);
     return _$result;
   }

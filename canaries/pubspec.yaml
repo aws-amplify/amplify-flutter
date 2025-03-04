@@ -2,8 +2,8 @@ name: amplified_todo
 publish_to: none
 
 environment:
-  sdk: ^3.3.0
-  flutter: ">=3.19.0"
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
 
 dependencies:
   amplify_analytics_pinpoint: ^2.0.0

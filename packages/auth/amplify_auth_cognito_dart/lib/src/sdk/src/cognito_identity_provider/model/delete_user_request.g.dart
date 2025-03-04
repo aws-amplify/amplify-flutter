@@ -78,8 +78,9 @@ class DeleteUserRequestBuilder
   _$DeleteUserRequest _build() {
     final _$result = _$v ??
         new _$DeleteUserRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'DeleteUserRequest', 'accessToken'));
+          accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken, r'DeleteUserRequest', 'accessToken'),
+        );
     replace(_$result);
     return _$result;
   }

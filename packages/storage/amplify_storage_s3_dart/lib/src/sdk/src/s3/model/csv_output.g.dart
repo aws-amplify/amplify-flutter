@@ -120,11 +120,12 @@ class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   _$CsvOutput _build() {
     final _$result = _$v ??
         new _$CsvOutput._(
-            quoteFields: quoteFields,
-            quoteEscapeCharacter: quoteEscapeCharacter,
-            recordDelimiter: recordDelimiter,
-            fieldDelimiter: fieldDelimiter,
-            quoteCharacter: quoteCharacter);
+          quoteFields: quoteFields,
+          quoteEscapeCharacter: quoteEscapeCharacter,
+          recordDelimiter: recordDelimiter,
+          fieldDelimiter: fieldDelimiter,
+          quoteCharacter: quoteCharacter,
+        );
     replace(_$result);
     return _$result;
   }

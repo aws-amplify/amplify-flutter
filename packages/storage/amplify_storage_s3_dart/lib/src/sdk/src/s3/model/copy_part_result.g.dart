@@ -131,12 +131,13 @@ class CopyPartResultBuilder
   _$CopyPartResult _build() {
     final _$result = _$v ??
         new _$CopyPartResult._(
-            eTag: eTag,
-            lastModified: lastModified,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256);
+          eTag: eTag,
+          lastModified: lastModified,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+        );
     replace(_$result);
     return _$result;
   }

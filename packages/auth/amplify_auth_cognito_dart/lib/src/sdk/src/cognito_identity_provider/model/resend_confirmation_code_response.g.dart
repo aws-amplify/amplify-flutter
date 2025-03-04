@@ -84,7 +84,8 @@ class ResendConfirmationCodeResponseBuilder
     try {
       _$result = _$v ??
           new _$ResendConfirmationCodeResponse._(
-              codeDeliveryDetails: _codeDeliveryDetails?.build());
+            codeDeliveryDetails: _codeDeliveryDetails?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

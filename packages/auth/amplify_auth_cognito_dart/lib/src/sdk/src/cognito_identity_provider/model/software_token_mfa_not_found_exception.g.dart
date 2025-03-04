@@ -90,7 +90,9 @@ class SoftwareTokenMfaNotFoundExceptionBuilder
   _$SoftwareTokenMfaNotFoundException _build() {
     final _$result = _$v ??
         new _$SoftwareTokenMfaNotFoundException._(
-            message: message, headers: headers);
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

@@ -74,8 +74,11 @@ class NotFoundBuilder implements Builder<NotFound, NotFoundBuilder> {
   NotFound build() => _build();
 
   _$NotFound _build() {
-    final _$result =
-        _$v ?? new _$NotFound._(statusCode: statusCode, headers: headers);
+    final _$result = _$v ??
+        new _$NotFound._(
+          statusCode: statusCode,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

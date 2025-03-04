@@ -87,9 +87,10 @@ class ObjectIdentifierBuilder
   _$ObjectIdentifier _build() {
     final _$result = _$v ??
         new _$ObjectIdentifier._(
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'ObjectIdentifier', 'key'),
-            versionId: versionId);
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'ObjectIdentifier', 'key'),
+          versionId: versionId,
+        );
     replace(_$result);
     return _$result;
   }

@@ -6,7 +6,9 @@ import 'package:aws_common/src/js/abort.dart';
 import 'package:aws_common/src/js/common.dart';
 import 'package:aws_common/src/js/promise.dart';
 import 'package:aws_common/src/js/readable_stream.dart';
+//ignore: deprecated_member_use
 import 'package:js/js.dart';
+//ignore: deprecated_member_use
 import 'package:js/js_util.dart' as js_util;
 
 /// How a [Request] will interact with the browser's HTTP cache.

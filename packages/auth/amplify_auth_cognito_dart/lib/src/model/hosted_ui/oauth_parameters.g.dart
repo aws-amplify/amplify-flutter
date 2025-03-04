@@ -371,12 +371,13 @@ class OAuthParametersBuilder
     OAuthParameters._finalize(this);
     final _$result = _$v ??
         new _$OAuthParameters._(
-            state: BuiltValueNullFieldError.checkNotNull(
-                state, r'OAuthParameters', 'state'),
-            code: code,
-            error: error,
-            errorDescription: errorDescription,
-            errorUri: errorUri);
+          state: BuiltValueNullFieldError.checkNotNull(
+              state, r'OAuthParameters', 'state'),
+          code: code,
+          error: error,
+          errorDescription: errorDescription,
+          errorUri: errorUri,
+        );
     replace(_$result);
     return _$result;
   }

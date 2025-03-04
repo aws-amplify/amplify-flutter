@@ -187,17 +187,18 @@ class UploadPartOutputBuilder
   _$UploadPartOutput _build() {
     final _$result = _$v ??
         new _$UploadPartOutput._(
-            serverSideEncryption: serverSideEncryption,
-            eTag: eTag,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            ssekmsKeyId: ssekmsKeyId,
-            bucketKeyEnabled: bucketKeyEnabled,
-            requestCharged: requestCharged);
+          serverSideEncryption: serverSideEncryption,
+          eTag: eTag,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          ssekmsKeyId: ssekmsKeyId,
+          bucketKeyEnabled: bucketKeyEnabled,
+          requestCharged: requestCharged,
+        );
     replace(_$result);
     return _$result;
   }

@@ -83,7 +83,10 @@ class ExternalServiceExceptionBuilder
 
   _$ExternalServiceException _build() {
     final _$result = _$v ??
-        new _$ExternalServiceException._(message: message, headers: headers);
+        new _$ExternalServiceException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

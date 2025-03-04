@@ -160,12 +160,13 @@ class ProtocolTraitsBuilder
     try {
       _$result = _$v ??
           new _$ProtocolTraits._(
-              wireName: wireName,
-              namespace: namespace,
-              attributeMembers: attributeMembers.build(),
-              flattenedMembers: flattenedMembers.build(),
-              memberNamespaces: memberNamespaces.build(),
-              memberWireNames: memberWireNames.build());
+            wireName: wireName,
+            namespace: namespace,
+            attributeMembers: attributeMembers.build(),
+            flattenedMembers: flattenedMembers.build(),
+            memberNamespaces: memberNamespaces.build(),
+            memberWireNames: memberWireNames.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -276,9 +277,10 @@ class HttpPayloadBuilder implements Builder<HttpPayload, HttpPayloadBuilder> {
     try {
       _$result = _$v ??
           new _$HttpPayload._(
-              symbol: BuiltValueNullFieldError.checkNotNull(
-                  symbol, r'HttpPayload', 'symbol'),
-              member: _member?.build());
+            symbol: BuiltValueNullFieldError.checkNotNull(
+                symbol, r'HttpPayload', 'symbol'),
+            member: _member?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -389,9 +391,10 @@ class HttpPrefixHeadersBuilder
     try {
       _$result = _$v ??
           new _$HttpPrefixHeaders._(
-              trait: BuiltValueNullFieldError.checkNotNull(
-                  trait, r'HttpPrefixHeaders', 'trait'),
-              member: member.build());
+            trait: BuiltValueNullFieldError.checkNotNull(
+                trait, r'HttpPrefixHeaders', 'trait'),
+            member: member.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -575,12 +578,13 @@ class HttpInputTraitsBuilder
     try {
       _$result = _$v ??
           new _$HttpInputTraits._(
-              httpLabels: httpLabels.build(),
-              hostLabel: _hostLabel?.build(),
-              httpQuery: httpQuery.build(),
-              httpQueryParams: _httpQueryParams?.build(),
-              httpHeaders: httpHeaders.build(),
-              httpPrefixHeaders: _httpPrefixHeaders?.build());
+            httpLabels: httpLabels.build(),
+            hostLabel: _hostLabel?.build(),
+            httpQuery: httpQuery.build(),
+            httpQueryParams: _httpQueryParams?.build(),
+            httpHeaders: httpHeaders.build(),
+            httpPrefixHeaders: _httpPrefixHeaders?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -722,9 +726,10 @@ class HttpOutputTraitsBuilder
     try {
       _$result = _$v ??
           new _$HttpOutputTraits._(
-              httpResponseCode: _httpResponseCode?.build(),
-              httpHeaders: httpHeaders.build(),
-              httpPrefixHeaders: _httpPrefixHeaders?.build());
+            httpResponseCode: _httpResponseCode?.build(),
+            httpHeaders: httpHeaders.build(),
+            httpPrefixHeaders: _httpPrefixHeaders?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -918,17 +923,18 @@ class HttpErrorTraitsBuilder
     try {
       _$result = _$v ??
           new _$HttpErrorTraits._(
-              shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, r'HttpErrorTraits', 'shapeId'),
-              kind: BuiltValueNullFieldError.checkNotNull(
-                  kind, r'HttpErrorTraits', 'kind'),
-              symbol: BuiltValueNullFieldError.checkNotNull(
-                  symbol, r'HttpErrorTraits', 'symbol'),
-              payloadSymbol: payloadSymbol,
-              retryConfig: retryConfig,
-              statusCode: statusCode,
-              httpHeaders: httpHeaders.build(),
-              httpPrefixHeaders: _httpPrefixHeaders?.build());
+            shapeId: BuiltValueNullFieldError.checkNotNull(
+                shapeId, r'HttpErrorTraits', 'shapeId'),
+            kind: BuiltValueNullFieldError.checkNotNull(
+                kind, r'HttpErrorTraits', 'kind'),
+            symbol: BuiltValueNullFieldError.checkNotNull(
+                symbol, r'HttpErrorTraits', 'symbol'),
+            payloadSymbol: payloadSymbol,
+            retryConfig: retryConfig,
+            statusCode: statusCode,
+            httpHeaders: httpHeaders.build(),
+            httpPrefixHeaders: _httpPrefixHeaders?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -1070,13 +1076,14 @@ class PaginationItemBuilder
     try {
       _$result = _$v ??
           new _$PaginationItem._(
-              member: member.build(),
-              isNullable: BuiltValueNullFieldError.checkNotNull(
-                  isNullable, r'PaginationItem', 'isNullable'),
-              buildExpression: BuiltValueNullFieldError.checkNotNull(
-                  buildExpression, r'PaginationItem', 'buildExpression'),
-              symbol: BuiltValueNullFieldError.checkNotNull(
-                  symbol, r'PaginationItem', 'symbol'));
+            member: member.build(),
+            isNullable: BuiltValueNullFieldError.checkNotNull(
+                isNullable, r'PaginationItem', 'isNullable'),
+            buildExpression: BuiltValueNullFieldError.checkNotNull(
+                buildExpression, r'PaginationItem', 'buildExpression'),
+            symbol: BuiltValueNullFieldError.checkNotNull(
+                symbol, r'PaginationItem', 'symbol'),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -1258,14 +1265,15 @@ class PaginatedTraitsBuilder
     try {
       _$result = _$v ??
           new _$PaginatedTraits._(
-              inputTokenPath: inputTokenPath,
-              inputToken: _inputToken?.build(),
-              outputTokenPath: outputTokenPath,
-              outputToken: _outputToken?.build(),
-              pageSizePath: pageSizePath,
-              pageSize: _pageSize?.build(),
-              itemsPath: itemsPath,
-              items: _items?.build());
+            inputTokenPath: inputTokenPath,
+            inputToken: _inputToken?.build(),
+            outputTokenPath: outputTokenPath,
+            outputToken: _outputToken?.build(),
+            pageSizePath: pageSizePath,
+            pageSize: _pageSize?.build(),
+            itemsPath: itemsPath,
+            items: _items?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

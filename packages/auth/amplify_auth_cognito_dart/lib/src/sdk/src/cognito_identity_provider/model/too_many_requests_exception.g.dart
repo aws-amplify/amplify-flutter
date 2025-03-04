@@ -83,7 +83,10 @@ class TooManyRequestsExceptionBuilder
 
   _$TooManyRequestsException _build() {
     final _$result = _$v ??
-        new _$TooManyRequestsException._(message: message, headers: headers);
+        new _$TooManyRequestsException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

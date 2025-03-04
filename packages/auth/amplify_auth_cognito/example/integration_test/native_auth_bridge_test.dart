@@ -114,16 +114,16 @@ typedef SignInOutFn<T> = Future<T> Function(
 
 class MockNativeAuthBridge extends Fake implements NativeAuthBridge {
   MockNativeAuthBridge({
-    SignInOutFn<Map<String?, String?>>? signInWithUrl,
+    SignInOutFn<Map<String, String>>? signInWithUrl,
     SignInOutFn<void>? signOutWithUrl,
   })  : _signInWithUrl = signInWithUrl,
         _signOutWithUrl = signOutWithUrl;
 
-  final SignInOutFn<Map<String?, String?>>? _signInWithUrl;
+  final SignInOutFn<Map<String, String>>? _signInWithUrl;
   final SignInOutFn<void>? _signOutWithUrl;
 
   @override
-  Future<Map<String?, String?>> signInWithUrl(
+  Future<Map<String, String>> signInWithUrl(
     String argUrl,
     String argCallbackurlscheme,
     bool argPreferprivatesession,

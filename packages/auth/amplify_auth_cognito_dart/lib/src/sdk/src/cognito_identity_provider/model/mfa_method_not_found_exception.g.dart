@@ -83,7 +83,10 @@ class MfaMethodNotFoundExceptionBuilder
 
   _$MfaMethodNotFoundException _build() {
     final _$result = _$v ??
-        new _$MfaMethodNotFoundException._(message: message, headers: headers);
+        new _$MfaMethodNotFoundException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

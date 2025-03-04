@@ -144,14 +144,15 @@ class ResendConfirmationCodeRequestBuilder
     try {
       _$result = _$v ??
           new _$ResendConfirmationCodeRequest._(
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'ResendConfirmationCodeRequest', 'clientId'),
-              secretHash: secretHash,
-              userContextData: _userContextData?.build(),
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'ResendConfirmationCodeRequest', 'username'),
-              analyticsMetadata: _analyticsMetadata?.build(),
-              clientMetadata: _clientMetadata?.build());
+            clientId: BuiltValueNullFieldError.checkNotNull(
+                clientId, r'ResendConfirmationCodeRequest', 'clientId'),
+            secretHash: secretHash,
+            userContextData: _userContextData?.build(),
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, r'ResendConfirmationCodeRequest', 'username'),
+            analyticsMetadata: _analyticsMetadata?.build(),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

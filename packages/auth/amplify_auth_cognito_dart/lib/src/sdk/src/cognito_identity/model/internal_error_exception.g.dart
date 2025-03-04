@@ -91,7 +91,10 @@ class InternalErrorExceptionBuilder
   _$InternalErrorException _build() {
     final _$result = _$v ??
         new _$InternalErrorException._(
-            message: message, statusCode: statusCode, headers: headers);
+          message: message,
+          statusCode: statusCode,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

@@ -86,7 +86,9 @@ class UserContextDataTypeBuilder
   _$UserContextDataType _build() {
     final _$result = _$v ??
         new _$UserContextDataType._(
-            ipAddress: ipAddress, encodedData: encodedData);
+          ipAddress: ipAddress,
+          encodedData: encodedData,
+        );
     replace(_$result);
     return _$result;
   }
