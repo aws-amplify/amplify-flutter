@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// A REST JSON service that sends JSON requests and responses with validation applied
-library rest_json1_v1.rest_json_validation_protocol;
+library;
 
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/aws_config.dart';
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/client_config.dart';

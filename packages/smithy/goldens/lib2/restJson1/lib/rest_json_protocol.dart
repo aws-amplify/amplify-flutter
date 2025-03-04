@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// A REST JSON service that sends JSON requests and responses.
-library rest_json1_v2.rest_json_protocol;
+library;
 
 export 'package:rest_json1_v2/src/rest_json_protocol/model/all_query_string_types_input.dart'
     hide AllQueryStringTypesInputPayload;

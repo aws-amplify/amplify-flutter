@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 // ignore_for_file: unused_element
-library rest_json1_v1.glacier.test.upload_multipart_part_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i5;
 

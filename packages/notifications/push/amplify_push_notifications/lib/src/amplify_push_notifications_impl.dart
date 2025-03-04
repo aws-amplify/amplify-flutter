@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library amplify_push_notifications;
+library;
 
 import 'dart:async';
 import 'dart:convert';

@@ -4,7 +4,7 @@
 /// # Amazon Simple Storage Service
 ///
 
-library amplify_storage_s3_dart.s3;
+library;
 
 export 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/abort_multipart_upload_output.dart'
     hide AbortMultipartUploadOutputPayload;

@@ -1,7 +1,7 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
-library amplify_auth_cognito_dart.cognito_identity_provider.model.user_not_confirmed_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';

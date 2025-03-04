@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library amplify_auth_cognito_dart.model.auth_user_ext;
+library;
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';

@@ -1,7 +1,7 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
-library amplify_storage_s3_dart.s3.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/abort_multipart_upload_output.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/abort_multipart_upload_request.dart';

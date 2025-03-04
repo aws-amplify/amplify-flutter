@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library amplify_auth_cognito.flow.helpers;
+library;
 
 import 'dart:convert';
 
