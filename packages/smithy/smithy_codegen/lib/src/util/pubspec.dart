@@ -48,11 +48,7 @@ final dependencyVersions = {
 };
 
 class PubspecGenerator implements Generator<String> {
-  const PubspecGenerator(
-    this.pubspec,
-    this._dependencies, {
-    this.smithyPath,
-  });
+  const PubspecGenerator(this.pubspec, this._dependencies, {this.smithyPath});
 
   final Pubspec pubspec;
   final Iterable<String> _dependencies;
@@ -108,7 +104,11 @@ class PubspecGenerator implements Generator<String> {
 name: ${pubspec.name}
 description: ${pubspec.description ?? '${pubspec.name.groupIntoWords().map((s) => s.capitalized).join(' ')} client SDK'}
 version: ${pubspec.version?.canonicalizedVersion ?? '0.1.0'}
-${smithyPath == null ? pubspec.publishTo != null ? 'publish_to: ${pubspec.publishTo}\n' : '' : 'publish_to: none\n'}${pubspec.homepage != null ? 'homepage: ${pubspec.homepage}\n' : ''}
+${smithyPath == null
+        ? pubspec.publishTo != null
+            ? 'publish_to: ${pubspec.publishTo}\n'
+            : ''
+        : 'publish_to: none\n'}${pubspec.homepage != null ? 'homepage: ${pubspec.homepage}\n' : ''}
 environment:
   sdk: ^3.0.0
 

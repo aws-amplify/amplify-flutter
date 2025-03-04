@@ -272,9 +272,6 @@ abstract class OAuthParameters
 }
 
 /// Serializers for OAuth flow parameters.
-@SerializersFor([
-  OAuthErrorCode,
-  OAuthParameters,
-])
+@SerializersFor([OAuthErrorCode, OAuthParameters])
 final Serializers oauthSerializers =
     (_$oauthSerializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

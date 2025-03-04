@@ -11,11 +11,9 @@ void main() {
   const pathProvider = AWSPathProvider();
   group(testOn: 'vm', 'AWSPathProvider', () {
     test(
-        r'User home is loaded from $HOME with highest priority on non-windows platforms.',
-        () {
-      overrideOperatingSystem(
-        OperatingSystem('linux', ''),
-        () {
+      r'User home is loaded from $HOME with highest priority on non-windows platforms.',
+      () {
+        overrideOperatingSystem(OperatingSystem('linux', ''), () {
           overrideEnvironment(
             {
               'HOME': r'/home/user',
@@ -34,16 +32,14 @@ void main() {
               );
             },
           );
-        },
-      );
-    });
+        });
+      },
+    );
 
     test(
-        r'User home is loaded from $HOME with highest priority on windows platforms.',
-        () {
-      overrideOperatingSystem(
-        OperatingSystem('windows', ''),
-        () {
+      r'User home is loaded from $HOME with highest priority on windows platforms.',
+      () {
+        overrideOperatingSystem(OperatingSystem('windows', ''), () {
           overrideEnvironment(
             {
               'HOME': r'C:\users\user',
@@ -62,16 +58,14 @@ void main() {
               );
             },
           );
-        },
-      );
-    });
+        });
+      },
+    );
 
     test(
-        r'User home is loaded from $USERPROFILE on windows platforms when $HOME is not set.',
-        () {
-      overrideOperatingSystem(
-        OperatingSystem('windows', ''),
-        () {
+      r'User home is loaded from $USERPROFILE on windows platforms when $HOME is not set.',
+      () {
+        overrideOperatingSystem(OperatingSystem('windows', ''), () {
           overrideEnvironment(
             {
               'USERPROFILE': r'C:\users\user',
@@ -89,21 +83,16 @@ void main() {
               );
             },
           );
-        },
-      );
-    });
+        });
+      },
+    );
 
     test(
-        r'User home is loaded from $HOMEDRIVE$HOMEPATH on windows platforms when $HOME and $USERPROFILE are not set.',
-        () {
-      overrideOperatingSystem(
-        OperatingSystem('windows', ''),
-        () {
+      r'User home is loaded from $HOMEDRIVE$HOMEPATH on windows platforms when $HOME and $USERPROFILE are not set.',
+      () {
+        overrideOperatingSystem(OperatingSystem('windows', ''), () {
           overrideEnvironment(
-            {
-              'HOMEDRIVE': r'C:',
-              'HOMEPATH': r'\users\user',
-            },
+            {'HOMEDRIVE': r'C:', 'HOMEPATH': r'\users\user'},
             () {
               expect(
                 pathProvider.configFileLocation,
@@ -115,21 +104,16 @@ void main() {
               );
             },
           );
-        },
-      );
-    });
+        });
+      },
+    );
 
     test(
-        r'The default config location can be overridden by the user on non-windows platforms.',
-        () {
-      overrideOperatingSystem(
-        OperatingSystem('linux', ''),
-        () {
+      r'The default config location can be overridden by the user on non-windows platforms.',
+      () {
+        overrideOperatingSystem(OperatingSystem('linux', ''), () {
           overrideEnvironment(
-            {
-              'AWS_CONFIG_FILE': r'/other/path/config',
-              'HOME': r'/home/user',
-            },
+            {'AWS_CONFIG_FILE': r'/other/path/config', 'HOME': r'/home/user'},
             () {
               expect(
                 pathProvider.configFileLocation,
@@ -141,16 +125,14 @@ void main() {
               );
             },
           );
-        },
-      );
-    });
+        });
+      },
+    );
 
     test(
-        r'The default credentials location can be overridden by the user on non-windows platforms.',
-        () {
-      overrideOperatingSystem(
-        OperatingSystem('linux', ''),
-        () {
+      r'The default credentials location can be overridden by the user on non-windows platforms.',
+      () {
+        overrideOperatingSystem(OperatingSystem('linux', ''), () {
           overrideEnvironment(
             {
               'AWS_SHARED_CREDENTIALS_FILE': r'/other/path/credentials',
@@ -167,16 +149,14 @@ void main() {
               );
             },
           );
-        },
-      );
-    });
+        });
+      },
+    );
 
     test(
-        r'The default credentials location can be overridden by the user on windows platforms.',
-        () {
-      overrideOperatingSystem(
-        OperatingSystem('windows', ''),
-        () {
+      r'The default credentials location can be overridden by the user on windows platforms.',
+      () {
+        overrideOperatingSystem(OperatingSystem('windows', ''), () {
           overrideEnvironment(
             {
               'AWS_CONFIG_FILE': r'C:\other\path\config',
@@ -193,16 +173,14 @@ void main() {
               );
             },
           );
-        },
-      );
-    });
+        });
+      },
+    );
 
     test(
-        r'The default credentials location can be overridden by the user on windows platforms.',
-        () {
-      overrideOperatingSystem(
-        OperatingSystem('windows', ''),
-        () {
+      r'The default credentials location can be overridden by the user on windows platforms.',
+      () {
+        overrideOperatingSystem(OperatingSystem('windows', ''), () {
           overrideEnvironment(
             {
               'AWS_SHARED_CREDENTIALS_FILE': r'C:\other\path\credentials',
@@ -219,20 +197,16 @@ void main() {
               );
             },
           );
-        },
-      );
-    });
+        });
+      },
+    );
 
-    test(r'The default profile can be overridden via environment variable.',
-        () {
-      overrideOperatingSystem(
-        OperatingSystem('linux', ''),
-        () {
+    test(
+      r'The default profile can be overridden via environment variable.',
+      () {
+        overrideOperatingSystem(OperatingSystem('linux', ''), () {
           overrideEnvironment(
-            {
-              'AWS_PROFILE': r'other',
-              'HOME': r'/home/user',
-            },
+            {'AWS_PROFILE': r'other', 'HOME': r'/home/user'},
             () {
               expect(
                 pathProvider.configFileLocation,
@@ -244,8 +218,8 @@ void main() {
               );
             },
           );
-        },
-      );
-    });
+        });
+      },
+    );
   });
 }

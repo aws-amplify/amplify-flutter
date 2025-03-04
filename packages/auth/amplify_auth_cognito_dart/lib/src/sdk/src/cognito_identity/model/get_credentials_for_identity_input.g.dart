@@ -14,21 +14,26 @@ class _$GetCredentialsForIdentityInput extends GetCredentialsForIdentityInput {
   @override
   final String? customRoleArn;
 
-  factory _$GetCredentialsForIdentityInput(
-          [void Function(GetCredentialsForIdentityInputBuilder)? updates]) =>
-      (new GetCredentialsForIdentityInputBuilder()..update(updates))._build();
+  factory _$GetCredentialsForIdentityInput([
+    void Function(GetCredentialsForIdentityInputBuilder)? updates,
+  ]) => (new GetCredentialsForIdentityInputBuilder()..update(updates))._build();
 
-  _$GetCredentialsForIdentityInput._(
-      {required this.identityId, this.logins, this.customRoleArn})
-      : super._() {
+  _$GetCredentialsForIdentityInput._({
+    required this.identityId,
+    this.logins,
+    this.customRoleArn,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        identityId, r'GetCredentialsForIdentityInput', 'identityId');
+      identityId,
+      r'GetCredentialsForIdentityInput',
+      'identityId',
+    );
   }
 
   @override
   GetCredentialsForIdentityInput rebuild(
-          void Function(GetCredentialsForIdentityInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetCredentialsForIdentityInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetCredentialsForIdentityInputBuilder toBuilder() =>
@@ -56,8 +61,10 @@ class _$GetCredentialsForIdentityInput extends GetCredentialsForIdentityInput {
 
 class GetCredentialsForIdentityInputBuilder
     implements
-        Builder<GetCredentialsForIdentityInput,
-            GetCredentialsForIdentityInputBuilder> {
+        Builder<
+          GetCredentialsForIdentityInput,
+          GetCredentialsForIdentityInputBuilder
+        > {
   _$GetCredentialsForIdentityInput? _$v;
 
   String? _identityId;
@@ -104,10 +111,14 @@ class GetCredentialsForIdentityInputBuilder
   _$GetCredentialsForIdentityInput _build() {
     _$GetCredentialsForIdentityInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$GetCredentialsForIdentityInput._(
             identityId: BuiltValueNullFieldError.checkNotNull(
-                identityId, r'GetCredentialsForIdentityInput', 'identityId'),
+              identityId,
+              r'GetCredentialsForIdentityInput',
+              'identityId',
+            ),
             logins: _logins?.build(),
             customRoleArn: customRoleArn,
           );
@@ -118,7 +129,10 @@ class GetCredentialsForIdentityInputBuilder
         _logins?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GetCredentialsForIdentityInput', _$failedField, e.toString());
+          r'GetCredentialsForIdentityInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

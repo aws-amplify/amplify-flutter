@@ -13,18 +13,18 @@ import 'package:meta/meta.dart';
 extension UserPoolTokensAuthUser on CredentialStoreData {
   /// The [CognitoAuthUser] represented by these tokens.
   CognitoAuthUser get authUser => CognitoAuthUser(
-        userId: CognitoToken(userPoolTokens!.idToken).userId,
-        username: CognitoIdToken(userPoolTokens!.idToken).username,
-        signInDetails: signInDetails!,
-      );
+    userId: CognitoToken(userPoolTokens!.idToken).userId,
+    username: CognitoIdToken(userPoolTokens!.idToken).username,
+    signInDetails: signInDetails!,
+  );
 }
 
 /// Helper for getting an [CognitoAuthUser] from a [CognitoUser].
 extension CognitoUserAuthUser on CognitoUser {
   /// The [CognitoAuthUser] representing this user.
   CognitoAuthUser get authUser => CognitoAuthUser(
-        userId: userId,
-        username: username,
-        signInDetails: signInDetails,
-      );
+    userId: userId,
+    username: username,
+    signInDetails: signInDetails,
+  );
 }

@@ -24,9 +24,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
     super.shape,
     CodegenContext context, {
     super.smithyLibrary,
-  }) : super(
-          context: context,
-        );
+  }) : super(context: context);
 
   /// Test cases which should be skipped right now and the reasons why.
   static const Map<String, String> _skip = {
@@ -87,13 +85,13 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
                 .nullSafeProperty('region')
                 .ifNullThen(literalString('us-east-1'))
             : literalString('us-east-1'),
-    'credentialsProvider':
-        DartTypes.awsSigV4.awsCredentialsProvider.constInstance([
-      DartTypes.awsSigV4.awsCredentials.constInstance([
-        literalString('DUMMY-ACCESS-KEY-ID'),
-        literalString('DUMMY-SECRET-ACCESS-KEY'),
-      ]),
-    ]),
+    'credentialsProvider': DartTypes.awsSigV4.awsCredentialsProvider
+        .constInstance([
+          DartTypes.awsSigV4.awsCredentials.constInstance([
+            literalString('DUMMY-ACCESS-KEY-ID'),
+            literalString('DUMMY-SECRET-ACCESS-KEY'),
+          ]),
+        ]),
     'baseUri': DartTypes.core.uri.newInstanceNamed('parse', [
       literalString('https://example.com'),
     ]),
@@ -116,41 +114,44 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
   /// on the contents of the test case.
   final Set<String> _skipOnWeb = {};
 
-  late final httpRequestTestCases = shape
-          .getTrait<HttpRequestTestsTrait>()
-          ?.testCases
-          .where((t) => t.appliesTo != AppliesTo.server) ??
+  late final httpRequestTestCases =
+      shape.getTrait<HttpRequestTestsTrait>()?.testCases.where(
+        (t) => t.appliesTo != AppliesTo.server,
+      ) ??
       const [];
-  late final httpResponseTestCases = shape
-          .getTrait<HttpResponseTestsTrait>()
-          ?.testCases
-          .where((t) => t.appliesTo != AppliesTo.server) ??
+  late final httpResponseTestCases =
+      shape.getTrait<HttpResponseTestsTrait>()?.testCases.where(
+        (t) => t.appliesTo != AppliesTo.server,
+      ) ??
       const [];
-  late final errorShapes = shape.errors
-      .map((err) => context.shapeFor(err.target))
-      .cast<StructureShape>()
-      .toList();
+  late final errorShapes =
+      shape.errors
+          .map((err) => context.shapeFor(err.target))
+          .cast<StructureShape>()
+          .toList();
   late final httpErrorResponseTestCases = {
     for (final shape in errorShapes)
-      shape: shape
-              .getTrait<HttpResponseTestsTrait>()
-              ?.testCases
-              .where((t) => t.appliesTo != AppliesTo.server) ??
+      shape:
+          shape.getTrait<HttpResponseTestsTrait>()?.testCases.where(
+            (t) => t.appliesTo != AppliesTo.server,
+          ) ??
           const [],
   };
 
-  late final testProtocols = {
-    ...httpRequestTestCases.map((t) => t.protocol),
-    ...httpResponseTestCases.map((t) => t.protocol),
-    ...httpErrorResponseTestCases.values
-        .expand((el) => el)
-        .map((t) => t.protocol),
-  }
-      .map(
-        (protocol) =>
-            context.serviceProtocols.firstWhere((p) => p.shapeId == protocol),
-      )
-      .toList();
+  late final testProtocols =
+      {
+            ...httpRequestTestCases.map((t) => t.protocol),
+            ...httpResponseTestCases.map((t) => t.protocol),
+            ...httpErrorResponseTestCases.values
+                .expand((el) => el)
+                .map((t) => t.protocol),
+          }
+          .map(
+            (protocol) => context.serviceProtocols.firstWhere(
+              (p) => p.shapeId == protocol,
+            ),
+          )
+          .toList();
 
   /// When deserializing the `params` of a test case, we need to consider not
   /// only the input type but also any generated types it references, either in
@@ -164,11 +165,7 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
     for (final member in shape.members.values) {
       var targetShape = context.shapeFor(member.target);
       var targetType = targetShape.getType();
-      const collectionTypes = [
-        ShapeType.map,
-        ShapeType.list,
-        ShapeType.set,
-      ];
+      const collectionTypes = [ShapeType.map, ShapeType.list, ShapeType.set];
       while (collectionTypes.contains(targetType)) {
         if (targetShape is CollectionShape) {
           targetShape = context.shapeFor(targetShape.member.target);
@@ -281,20 +278,21 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
     // Generic JSON serializer for deserializing the input params
     builder.body.addAll([
       Method.returnsVoid(
-        (b) => b
-          ..name = 'main'
-          ..body = Block.of([
-            if (vendorSerializers.isNotEmpty)
-              Code.scope(
-                (allocate) => '''
+        (b) =>
+            b
+              ..name = 'main'
+              ..body = Block.of([
+                if (vendorSerializers.isNotEmpty)
+                  Code.scope(
+                    (allocate) => '''
   final vendorSerializers = (${allocate(DartTypes.smithyTest.testSerializers)}.toBuilder()..addAll(const [
     ${_uniqueSerializers(vendorSerializers).map((serializer) => '${serializer.name}(),').join()}
     ${_vendorEnums.map((e) => '...${allocate(e)}.serializers,').join()}
   ])).build();
             ''',
-              ),
-            Block.of(allTests),
-          ]),
+                  ),
+                Block.of(allTests),
+              ]),
       ),
       ..._uniqueSerializers([
         ...inputSerializers.values.expand((el) => el),
@@ -318,9 +316,10 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
           'documentation': literal(testCase.documentation),
           'protocol': testCase.protocol.constructed,
           'authScheme': literal(testCase.authScheme),
-          'body': testCase.body == null
-              ? literalNull
-              : literalString(_escapeBody(testCase.body!)),
+          'body':
+              testCase.body == null
+                  ? literalNull
+                  : literalString(_escapeBody(testCase.body!)),
           'bodyMediaType': literal(testCase.bodyMediaType),
           'params': literal(_escapeParams(testCase, testCase.params)),
           'vendorParamsShape':
@@ -332,10 +331,12 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
           'forbidHeaders': literal(testCase.forbidHeaders),
           'requireHeaders': literal(testCase.requireHeaders),
           'tags': literal(testCase.tags),
-          'appliesTo': testCase.appliesTo == null
-              ? literalNull
-              : DartTypes.smithyTest.appliesTo
-                  .property(testCase.appliesTo!.name),
+          'appliesTo':
+              testCase.appliesTo == null
+                  ? literalNull
+                  : DartTypes.smithyTest.appliesTo.property(
+                    testCase.appliesTo!.name,
+                  ),
           'method': literal(testCase.method),
           'uri': literal(testCase.uri),
           'host': literal(testCase.host),
@@ -380,20 +381,24 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
       for (final testCase in testCases) {
         final serializers =
             errorSerializers[errorShape]![testCase.protocol] ?? const [];
-        final testCall = DartTypes.smithyTest.httpErrorResponseTest.call([], {
-          'operation': _operationInstance(testCase),
-          'testCase': _buildResponseTestCase(testCase),
-          'errorSerializers': literalConstList([
-            for (final serializer in _uniqueSerializers(serializers))
-              refer(serializer.name).constInstance([]),
-          ]),
-        }, [
-          inputPayload.symbol,
-          inputSymbol,
-          outputPayload.symbol,
-          outputSymbol,
-          context.symbolFor(errorShape.shapeId),
-        ]);
+        final testCall = DartTypes.smithyTest.httpErrorResponseTest.call(
+          [],
+          {
+            'operation': _operationInstance(testCase),
+            'testCase': _buildResponseTestCase(testCase),
+            'errorSerializers': literalConstList([
+              for (final serializer in _uniqueSerializers(serializers))
+                refer(serializer.name).constInstance([]),
+            ]),
+          },
+          [
+            inputPayload.symbol,
+            inputSymbol,
+            outputPayload.symbol,
+            outputSymbol,
+            context.symbolFor(errorShape.shapeId),
+          ],
+        );
         yield _buildTest(testCase, testCall, type: TestType.error);
       }
     }
@@ -412,11 +417,13 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
       final vendorParamsSymbol = context.symbolFor(testCase.vendorParamsShape!);
       initBlock.addExpression(
         declareFinal('config').assign(
-          refer('vendorSerializers').property('deserialize').call([
-            literalMap(testCase.vendorParams),
-          ], {
-            'specifiedType': vendorParamsSymbol.fullType(),
-          }).asA(vendorParamsSymbol),
+          refer('vendorSerializers')
+              .property('deserialize')
+              .call(
+                [literalMap(testCase.vendorParams)],
+                {'specifiedType': vendorParamsSymbol.fullType()},
+              )
+              .asA(vendorParamsSymbol),
         ),
       );
     }
@@ -479,25 +486,26 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
                     )
                     .property('path'),
               ),
-              'signerConfiguration':
-                  DartTypes.awsSigV4.s3ServiceConfiguration.newInstance([], {
-                'signPayload': literalFalse,
-                'chunked': literalFalse,
-              }),
+              'signerConfiguration': DartTypes.awsSigV4.s3ServiceConfiguration
+                  .newInstance([], {
+                    'signPayload': literalFalse,
+                    'chunked': literalFalse,
+                  }),
             }),
           ),
         );
       } else {
         initBlock.addExpression(
-          declareConst('s3ClientConfig').assign(
-            DartTypes.smithyAws.s3ClientConfig.constInstance([]),
-          ),
+          declareConst(
+            's3ClientConfig',
+          ).assign(DartTypes.smithyAws.s3ClientConfig.constInstance([])),
         );
       }
     }
     return Block.of([
       Code.scope(
-        (allocate) => '${allocate(DartTypes.test.test)}'
+        (allocate) =>
+            '${allocate(DartTypes.test.test)}'
             "('${testCase.id} (${type.name})', () async {",
       ),
       initBlock.build(),
@@ -514,31 +522,33 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
 
   /// Builds a call to instantiate an [HttpResponseTestCase], shared between
   /// response and error tests.
-  Expression _buildResponseTestCase(HttpResponseTestCase testCase) =>
-      DartTypes.smithyTest.httpResponseTestCase.constInstance([], {
-        'id': literal(testCase.id),
-        'documentation': literal(testCase.documentation),
-        'protocol': testCase.protocol.constructed,
-        'authScheme': literal(testCase.authScheme),
-        'body': testCase.body == null
+  Expression _buildResponseTestCase(
+    HttpResponseTestCase testCase,
+  ) => DartTypes.smithyTest.httpResponseTestCase.constInstance([], {
+    'id': literal(testCase.id),
+    'documentation': literal(testCase.documentation),
+    'protocol': testCase.protocol.constructed,
+    'authScheme': literal(testCase.authScheme),
+    'body':
+        testCase.body == null
             ? literalNull
             : literalString(_escapeBody(testCase.body!)),
-        'bodyMediaType': literal(testCase.bodyMediaType),
-        'params': literal(_escapeParams(testCase, testCase.params)),
-        'vendorParamsShape':
-            testCase.vendorParamsShape?.constructed ?? literalNull,
-        'vendorParams': literal(testCase.vendorParams),
-        'headers': literal(
-          _escapeParams(testCase, testCase.headers).cast<String, String>(),
-        ),
-        'forbidHeaders': literal(testCase.forbidHeaders),
-        'requireHeaders': literal(testCase.requireHeaders),
-        'tags': literal(testCase.tags),
-        'appliesTo': testCase.appliesTo == null
+    'bodyMediaType': literal(testCase.bodyMediaType),
+    'params': literal(_escapeParams(testCase, testCase.params)),
+    'vendorParamsShape': testCase.vendorParamsShape?.constructed ?? literalNull,
+    'vendorParams': literal(testCase.vendorParams),
+    'headers': literal(
+      _escapeParams(testCase, testCase.headers).cast<String, String>(),
+    ),
+    'forbidHeaders': literal(testCase.forbidHeaders),
+    'requireHeaders': literal(testCase.requireHeaders),
+    'tags': literal(testCase.tags),
+    'appliesTo':
+        testCase.appliesTo == null
             ? literalNull
             : DartTypes.smithyTest.appliesTo.property(testCase.appliesTo!.name),
-        'code': literal(testCase.code),
-      });
+    'code': literal(testCase.code),
+  });
 
   /// Create strings which are safe for printing in Dart code.
   String _escapeBody(String body) => body
@@ -567,18 +577,15 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
   Map<String, Object?> _escapeParams(
     HttpMessageTestCase testCase,
     Map<String, Object?> params,
-  ) =>
-      {...params}..updateAll((key, value) {
-          if (value is List) {
-            return value
-                .map((value) => _escapeLiteral(testCase, value))
-                .toList();
-          }
-          if (value is Map) {
-            return _escapeParams(testCase, value.cast());
-          }
-          return _escapeLiteral(testCase, value);
-        });
+  ) => {...params}..updateAll((key, value) {
+    if (value is List) {
+      return value.map((value) => _escapeLiteral(testCase, value)).toList();
+    }
+    if (value is Map) {
+      return _escapeParams(testCase, value.cast());
+    }
+    return _escapeLiteral(testCase, value);
+  });
 
   /// JS can handle int values up to 2^53 - 1.
   static const int _maxSafeJsInt = (1 << 53) - 1;

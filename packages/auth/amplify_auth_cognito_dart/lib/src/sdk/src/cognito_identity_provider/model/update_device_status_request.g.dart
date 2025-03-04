@@ -14,25 +14,31 @@ class _$UpdateDeviceStatusRequest extends UpdateDeviceStatusRequest {
   @override
   final DeviceRememberedStatusType? deviceRememberedStatus;
 
-  factory _$UpdateDeviceStatusRequest(
-          [void Function(UpdateDeviceStatusRequestBuilder)? updates]) =>
-      (new UpdateDeviceStatusRequestBuilder()..update(updates))._build();
+  factory _$UpdateDeviceStatusRequest([
+    void Function(UpdateDeviceStatusRequestBuilder)? updates,
+  ]) => (new UpdateDeviceStatusRequestBuilder()..update(updates))._build();
 
-  _$UpdateDeviceStatusRequest._(
-      {required this.accessToken,
-      required this.deviceKey,
-      this.deviceRememberedStatus})
-      : super._() {
+  _$UpdateDeviceStatusRequest._({
+    required this.accessToken,
+    required this.deviceKey,
+    this.deviceRememberedStatus,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'UpdateDeviceStatusRequest', 'accessToken');
+      accessToken,
+      r'UpdateDeviceStatusRequest',
+      'accessToken',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        deviceKey, r'UpdateDeviceStatusRequest', 'deviceKey');
+      deviceKey,
+      r'UpdateDeviceStatusRequest',
+      'deviceKey',
+    );
   }
 
   @override
   UpdateDeviceStatusRequest rebuild(
-          void Function(UpdateDeviceStatusRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateDeviceStatusRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateDeviceStatusRequestBuilder toBuilder() =>
@@ -75,8 +81,8 @@ class UpdateDeviceStatusRequestBuilder
   DeviceRememberedStatusType? get deviceRememberedStatus =>
       _$this._deviceRememberedStatus;
   set deviceRememberedStatus(
-          DeviceRememberedStatusType? deviceRememberedStatus) =>
-      _$this._deviceRememberedStatus = deviceRememberedStatus;
+    DeviceRememberedStatusType? deviceRememberedStatus,
+  ) => _$this._deviceRememberedStatus = deviceRememberedStatus;
 
   UpdateDeviceStatusRequestBuilder();
 
@@ -106,12 +112,19 @@ class UpdateDeviceStatusRequestBuilder
   UpdateDeviceStatusRequest build() => _build();
 
   _$UpdateDeviceStatusRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$UpdateDeviceStatusRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
-              accessToken, r'UpdateDeviceStatusRequest', 'accessToken'),
+            accessToken,
+            r'UpdateDeviceStatusRequest',
+            'accessToken',
+          ),
           deviceKey: BuiltValueNullFieldError.checkNotNull(
-              deviceKey, r'UpdateDeviceStatusRequest', 'deviceKey'),
+            deviceKey,
+            r'UpdateDeviceStatusRequest',
+            'deviceKey',
+          ),
           deviceRememberedStatus: deviceRememberedStatus,
         );
     replace(_$result);

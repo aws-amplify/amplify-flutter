@@ -17,11 +17,11 @@ import 'package:flutter_test/flutter_test.dart';
 class AmplifyAuthTestPlugin extends AmplifyAuthCognito {
   /// {@macro amplify_auth_integration_test.amplify_auth_test_plugin}
   AmplifyAuthTestPlugin({required this.hasApiPlugin})
-      : super(
-          secureStorageFactory: AmplifySecureStorage.factoryFrom(
-            macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-          ),
-        );
+    : super(
+        secureStorageFactory: AmplifySecureStorage.factoryFrom(
+          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+        ),
+      );
 
   /// Whether there is an API plugin for the configuration.
   final bool hasApiPlugin;
@@ -34,7 +34,9 @@ class AmplifyAuthTestPlugin extends AmplifyAuthCognito {
   }) {
     if (hasApiPlugin) {
       addTearDown(
-        () => integ.adminDeleteUser(username).onError(
+        () => integ
+            .adminDeleteUser(username)
+            .onError(
               // This is expected in environments which do not have an admin GraphQL API.
               (e, st) =>
                   logger.debug('Error deleting user ($username):', e, st),

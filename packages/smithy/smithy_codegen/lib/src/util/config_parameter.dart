@@ -21,8 +21,9 @@ class ParameterLocation {
 
   /// The parameter should be configurable via the service client's constructor,
   /// which overrides the value for all client methods.
-  static const ParameterLocation clientConstructor =
-      ParameterLocation._(1 << 2);
+  static const ParameterLocation clientConstructor = ParameterLocation._(
+    1 << 2,
+  );
 
   /// The parameter should be configurable via the service client method to
   /// override the value for the operation.

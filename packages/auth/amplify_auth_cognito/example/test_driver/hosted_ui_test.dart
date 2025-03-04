@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('windows || mac-os || linux')
-
 import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_client.dart';
@@ -79,9 +78,9 @@ void main() {
       {
         final credentials = await application.getCredentials();
         check(
-          because: 'User should be signed out without redirecting',
-          credentials,
-        )
+            because: 'User should be signed out without redirecting',
+            credentials,
+          )
           ..has((creds) => creds.awsCredentials, 'awsCredentials').isNull()
           ..has((creds) => creds.identityId, 'identityId').isNull()
           ..has((creds) => creds.userPoolTokens, 'userPoolTokens').isNull();

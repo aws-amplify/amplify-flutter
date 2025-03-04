@@ -16,7 +16,7 @@ import 'package:meta/meta.dart';
 /// Discrete keys stored for Legacy Cognito operations on iOS.
 enum LegacyCognitoKey {
   /// The ID of the user that is currently authenticated.
-  currentUser;
+  currentUser,
 }
 
 /// Discrete keys stored for Legacy Cognito User Pool operations on iOS.
@@ -67,7 +67,7 @@ enum LegacyDeviceSecretKey {
 /// Discrete keys stored for Legacy ASF on iOS.
 enum LegacyAsfDeviceKey {
   /// The advanced security feature (ASF) device identifier.
-  id;
+  id,
 }
 
 /// {@template amplify_auth_cognito.legacy_cognito_identity_pool_keys}

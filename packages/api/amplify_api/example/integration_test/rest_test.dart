@@ -10,10 +10,7 @@ import 'util.dart';
 const path = 'items';
 const expectedResponseText = 'Hello from Lambda!';
 
-void main({
-  bool useExistingTestUser = false,
-  TestUser? testUser,
-}) {
+void main({bool useExistingTestUser = false, TestUser? testUser}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   HttpPayload generateTestPayload() => HttpPayload.json({'name': 'mow lawn'});
@@ -52,10 +49,10 @@ void main({
         'should send GET request with a custom header',
         // Lambda looks for this header and only sets the body to expected string.
         (WidgetTester tester) async {
-          final res = await Amplify.API.get(
-            path,
-            headers: {'test_header': 'test_value'},
-          ).response;
+          final res =
+              await Amplify.API
+                  .get(path, headers: {'test_header': 'test_value'})
+                  .response;
           final body = res.decodeBody();
           expect(res.statusCode, 200);
           expect(body, 'test header set');
@@ -113,9 +110,10 @@ void main({
       });
 
       testWidgets('should send DELETE request', (WidgetTester tester) async {
-        final res = await Amplify.API
-            .delete(path, body: generateTestPayload())
-            .response;
+        final res =
+            await Amplify.API
+                .delete(path, body: generateTestPayload())
+                .response;
         validateRestResponse(res);
       });
     });

@@ -10,8 +10,12 @@ import 'redirect_server_vm.dart'
 
 /// Tests that the [AWSHttpClient] correctly implements HTTP redirect logic.
 void main() {
-  clientTest('redirects', startServer,
-      (client, httpServerQueue, httpServerChannel, createUri) {
+  clientTest('redirects', startServer, (
+    client,
+    httpServerQueue,
+    httpServerChannel,
+    createUri,
+  ) {
     test('disallow redirect', () async {
       final request = AWSHttpRequest.get(
         createUri('/1'),
@@ -54,53 +58,40 @@ void main() {
       );
     });
 
-    test(
-      'exactly the right number of allowed redirects',
-      () async {
-        final request = AWSHttpRequest.get(
-          createUri('/5'),
-          followRedirects: true,
-          maxRedirects: 5,
-        );
-        final response = await client().send(request).response;
-        expect(response.statusCode, 200);
-      },
-    );
+    test('exactly the right number of allowed redirects', () async {
+      final request = AWSHttpRequest.get(
+        createUri('/5'),
+        followRedirects: true,
+        maxRedirects: 5,
+      );
+      final response = await client().send(request).response;
+      expect(response.statusCode, 200);
+    });
 
-    test(
-      'too many redirects',
-      () async {
-        final request = AWSHttpRequest.get(
-          createUri('/6'),
-          followRedirects: true,
-          maxRedirects: 5,
-        );
-        expect(
-          client().send(request).response,
-          throwsA(
-            isA<AWSHttpException>().having(
-              (e) => e.toString(),
-              'message',
-              contains('Redirect limit exceeded'),
-            ),
+    test('too many redirects', () async {
+      final request = AWSHttpRequest.get(
+        createUri('/6'),
+        followRedirects: true,
+        maxRedirects: 5,
+      );
+      expect(
+        client().send(request).response,
+        throwsA(
+          isA<AWSHttpException>().having(
+            (e) => e.toString(),
+            'message',
+            contains('Redirect limit exceeded'),
           ),
-        );
-      },
-      skip: zIsWeb ? 'No support for maxRedirects' : null,
-    );
+        ),
+      );
+    }, skip: zIsWeb ? 'No support for maxRedirects' : null);
 
-    test(
-      'loop',
-      () async {
-        final request = AWSHttpRequest.get(
-          createUri('/loop'),
-          followRedirects: true,
-        );
-        expect(
-          client().send(request).response,
-          throwsA(isA<AWSHttpException>()),
-        );
-      },
-    );
+    test('loop', () async {
+      final request = AWSHttpRequest.get(
+        createUri('/loop'),
+        followRedirects: true,
+      );
+      expect(client().send(request).response, throwsA(isA<AWSHttpException>()));
+    });
   });
 }

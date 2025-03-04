@@ -3,16 +3,14 @@
 
 @TestOn('vm')
 @Tags(['build'])
-
 import 'package:build_verify/build_verify.dart';
 import 'package:test/test.dart';
 
 void main() {
   test(
     'ensure_build',
-    () => expectBuildClean(
-      packageRelativeDirectory: 'packages/aws_signature_v4',
-    ),
+    () =>
+        expectBuildClean(packageRelativeDirectory: 'packages/aws_signature_v4'),
     timeout: const Timeout(Duration(minutes: 3)),
   );
 }

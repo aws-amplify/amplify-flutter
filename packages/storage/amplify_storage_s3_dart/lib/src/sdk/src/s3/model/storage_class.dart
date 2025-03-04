@@ -6,19 +6,11 @@ library amplify_storage_s3_dart.s3.model.storage_class; // ignore_for_file: no_l
 import 'package:smithy/smithy.dart' as _i1;
 
 class StorageClass extends _i1.SmithyEnum<StorageClass> {
-  const StorageClass._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const StorageClass._(super.index, super.name, super.value);
 
   const StorageClass._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const deepArchive = StorageClass._(
-    0,
-    'DEEP_ARCHIVE',
-    'DEEP_ARCHIVE',
-  );
+  static const deepArchive = StorageClass._(0, 'DEEP_ARCHIVE', 'DEEP_ARCHIVE');
 
   static const expressOnezone = StorageClass._(
     1,
@@ -26,17 +18,9 @@ class StorageClass extends _i1.SmithyEnum<StorageClass> {
     'EXPRESS_ONEZONE',
   );
 
-  static const glacier = StorageClass._(
-    2,
-    'GLACIER',
-    'GLACIER',
-  );
+  static const glacier = StorageClass._(2, 'GLACIER', 'GLACIER');
 
-  static const glacierIr = StorageClass._(
-    3,
-    'GLACIER_IR',
-    'GLACIER_IR',
-  );
+  static const glacierIr = StorageClass._(3, 'GLACIER_IR', 'GLACIER_IR');
 
   static const intelligentTiering = StorageClass._(
     4,
@@ -44,17 +28,9 @@ class StorageClass extends _i1.SmithyEnum<StorageClass> {
     'INTELLIGENT_TIERING',
   );
 
-  static const onezoneIa = StorageClass._(
-    5,
-    'ONEZONE_IA',
-    'ONEZONE_IA',
-  );
+  static const onezoneIa = StorageClass._(5, 'ONEZONE_IA', 'ONEZONE_IA');
 
-  static const outposts = StorageClass._(
-    6,
-    'OUTPOSTS',
-    'OUTPOSTS',
-  );
+  static const outposts = StorageClass._(6, 'OUTPOSTS', 'OUTPOSTS');
 
   static const reducedRedundancy = StorageClass._(
     7,
@@ -62,23 +38,11 @@ class StorageClass extends _i1.SmithyEnum<StorageClass> {
     'REDUCED_REDUNDANCY',
   );
 
-  static const snow = StorageClass._(
-    8,
-    'SNOW',
-    'SNOW',
-  );
+  static const snow = StorageClass._(8, 'SNOW', 'SNOW');
 
-  static const standard = StorageClass._(
-    9,
-    'STANDARD',
-    'STANDARD',
-  );
+  static const standard = StorageClass._(9, 'STANDARD', 'STANDARD');
 
-  static const standardIa = StorageClass._(
-    10,
-    'STANDARD_IA',
-    'STANDARD_IA',
-  );
+  static const standardIa = StorageClass._(10, 'STANDARD_IA', 'STANDARD_IA');
 
   /// All values of [StorageClass].
   static const values = <StorageClass>[
@@ -101,12 +65,9 @@ class StorageClass extends _i1.SmithyEnum<StorageClass> {
       values: values,
       sdkUnknown: StorageClass._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

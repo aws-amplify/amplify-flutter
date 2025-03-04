@@ -6,31 +6,15 @@ library amplify_integration_test.cognito_identity_provider.model.risk_level_type
 import 'package:smithy/smithy.dart' as _i1;
 
 class RiskLevelType extends _i1.SmithyEnum<RiskLevelType> {
-  const RiskLevelType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const RiskLevelType._(super.index, super.name, super.value);
 
   const RiskLevelType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const high = RiskLevelType._(
-    0,
-    'High',
-    'High',
-  );
+  static const high = RiskLevelType._(0, 'High', 'High');
 
-  static const low = RiskLevelType._(
-    1,
-    'Low',
-    'Low',
-  );
+  static const low = RiskLevelType._(1, 'Low', 'Low');
 
-  static const medium = RiskLevelType._(
-    2,
-    'Medium',
-    'Medium',
-  );
+  static const medium = RiskLevelType._(2, 'Medium', 'Medium');
 
   /// All values of [RiskLevelType].
   static const values = <RiskLevelType>[
@@ -45,12 +29,9 @@ class RiskLevelType extends _i1.SmithyEnum<RiskLevelType> {
       values: values,
       sdkUnknown: RiskLevelType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

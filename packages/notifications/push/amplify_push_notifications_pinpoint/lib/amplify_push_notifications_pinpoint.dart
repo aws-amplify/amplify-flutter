@@ -13,8 +13,8 @@ import 'package:amplify_push_notifications_pinpoint/src/push_notifications_backg
 class AmplifyPushNotificationsPinpoint extends AmplifyPushNotifications {
   /// {@macro amplify_push_notifications_pinpoint.amplify_push_notifications_pinpoint}
   AmplifyPushNotificationsPinpoint()
-      : super(
-          serviceProviderClient: PinpointProvider(),
-          backgroundProcessor: amplifyBackgroundProcessing,
-        );
+    : super(
+        serviceProviderClient: PinpointProvider(),
+        backgroundProcessor: amplifyBackgroundProcessing,
+      );
 }

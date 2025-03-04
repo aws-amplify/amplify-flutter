@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
-
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
@@ -31,8 +30,9 @@ void main() {
     });
 
     test('First app load, no legacy data, writes proper values', () async {
-      when(() => legacyDataProvider.getEndpointId(pinpointAppId))
-          .thenAnswer((_) async => null);
+      when(
+        () => legacyDataProvider.getEndpointId(pinpointAppId),
+      ).thenAnswer((_) async => null);
 
       final endpointIdManager = EndpointInfoStoreManager(
         store: store,
@@ -40,14 +40,9 @@ void main() {
       );
       await endpointIdManager.init(pinpointAppId: pinpointAppId);
 
-      expect(
-        endpointIdManager.endpointId,
-        isNotNull,
-      );
+      expect(endpointIdManager.endpointId, isNotNull);
 
-      final storeVersion = await store.read(
-        key: EndpointStoreKey.version.name,
-      );
+      final storeVersion = await store.read(key: EndpointStoreKey.version.name);
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
       final migratedEndpointId = await endpointStore.read(
@@ -59,22 +54,18 @@ void main() {
     });
 
     test('First app load, legacy data, writes proper values', () async {
-      when(() => legacyDataProvider.getEndpointId(pinpointAppId))
-          .thenAnswer((_) => Future.value(legacyEndpointId));
+      when(
+        () => legacyDataProvider.getEndpointId(pinpointAppId),
+      ).thenAnswer((_) => Future.value(legacyEndpointId));
 
       final endpointIdManager = EndpointInfoStoreManager(
         store: store,
         legacyNativeDataProvider: legacyDataProvider,
       );
       await endpointIdManager.init(pinpointAppId: pinpointAppId);
-      expect(
-        endpointIdManager.endpointId,
-        legacyEndpointId,
-      );
+      expect(endpointIdManager.endpointId, legacyEndpointId);
 
-      final storeVersion = await store.read(
-        key: EndpointStoreKey.version.name,
-      );
+      final storeVersion = await store.read(key: EndpointStoreKey.version.name);
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
       final migratedEndpointId = await endpointStore.read(
@@ -86,8 +77,9 @@ void main() {
     });
 
     test('Second app load, legacy data is ignored', () async {
-      when(() => legacyDataProvider.getEndpointId(pinpointAppId))
-          .thenAnswer((_) => Future.value(legacyEndpointId));
+      when(
+        () => legacyDataProvider.getEndpointId(pinpointAppId),
+      ).thenAnswer((_) => Future.value(legacyEndpointId));
 
       final endpointId = uuid();
       store.write(
@@ -105,10 +97,7 @@ void main() {
       );
       await endpointIdManager.init(pinpointAppId: pinpointAppId);
 
-      expect(
-        endpointIdManager.endpointId,
-        endpointId,
-      );
+      expect(endpointIdManager.endpointId, endpointId);
 
       final migratedEndpointId = await endpointStore.read(
         key: EndpointStoreKey.endpointId.name,

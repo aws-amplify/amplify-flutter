@@ -15,10 +15,7 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 class WaiterGenerator extends LibraryGenerator<OperationShape>
     with OperationGenerationContext {
-  WaiterGenerator(
-    super.shape, {
-    required super.context,
-  });
+  WaiterGenerator(super.shape, {required super.context});
 
   late final WaitableTrait trait = shape.expectTrait();
 
@@ -42,41 +39,47 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
       );
       final acceptors = waiter.acceptors.map(buildAcceptor).toList();
       yield Class(
-        (c) => c
-          ..name = '${waiterName.pascalCase}Waiter'
-          ..extend = DartTypes.smithy.waiter(
-            inputSymbol,
-            outputSymbol,
-          )
-          ..methods.addAll(waiterMethods(waiter, acceptors))
-          ..constructors.add(
-            Constructor(
-              (c) => c
-                ..optionalParameters.addAll([
-                  Parameter(
-                    (p) => p
-                      ..required = true
-                      ..type = DartTypes.core.duration
-                      ..named = true
-                      ..name = 'timeout',
-                  ),
-                  ...constructorParams,
-                ])
-                ..initializers.add(
-                  refer('super').call([], {
-                    'timeout': refer('timeout'),
-                    'operationBuilder': Method(
-                      (m) => m
-                        ..lambda = true
-                        ..body = symbol.newInstance([], {
-                          for (final parameter in constructorParams)
-                            parameter.name: refer(parameter.name),
-                        }).code,
-                    ).closure,
-                  }).code,
+        (c) =>
+            c
+              ..name = '${waiterName.pascalCase}Waiter'
+              ..extend = DartTypes.smithy.waiter(inputSymbol, outputSymbol)
+              ..methods.addAll(waiterMethods(waiter, acceptors))
+              ..constructors.add(
+                Constructor(
+                  (c) =>
+                      c
+                        ..optionalParameters.addAll([
+                          Parameter(
+                            (p) =>
+                                p
+                                  ..required = true
+                                  ..type = DartTypes.core.duration
+                                  ..named = true
+                                  ..name = 'timeout',
+                          ),
+                          ...constructorParams,
+                        ])
+                        ..initializers.add(
+                          refer('super').call([], {
+                            'timeout': refer('timeout'),
+                            'operationBuilder':
+                                Method(
+                                  (m) =>
+                                      m
+                                        ..lambda = true
+                                        ..body =
+                                            symbol.newInstance([], {
+                                              for (final parameter
+                                                  in constructorParams)
+                                                parameter.name: refer(
+                                                  parameter.name,
+                                                ),
+                                            }).code,
+                                ).closure,
+                          }).code,
+                        ),
                 ),
-            ),
-          ),
+              ),
       );
       yield* acceptors;
     }
@@ -84,21 +87,20 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
 
   Iterable<Method> waiterMethods(Waiter waiter, List<Class> acceptors) sync* {
     yield Method(
-      (m) => m
-        ..name = 'acceptors'
-        ..annotations.add(DartTypes.core.override)
-        ..type = MethodType.getter
-        ..returns = DartTypes.core.list(
-          DartTypes.smithy.acceptor(
-            inputSymbol,
-            outputSymbol,
-          ),
-        )
-        ..lambda = true
-        ..body = literalConstList([
-          for (final acceptor in acceptors)
-            refer(acceptor.name).constInstance([]),
-        ]).code,
+      (m) =>
+          m
+            ..name = 'acceptors'
+            ..annotations.add(DartTypes.core.override)
+            ..type = MethodType.getter
+            ..returns = DartTypes.core.list(
+              DartTypes.smithy.acceptor(inputSymbol, outputSymbol),
+            )
+            ..lambda = true
+            ..body =
+                literalConstList([
+                  for (final acceptor in acceptors)
+                    refer(acceptor.name).constInstance([]),
+                ]).code,
     );
 
     // Operation methods
@@ -109,14 +111,16 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
       (e) => errorTypeNames.any(e.shapeId.toString().contains),
     );
     yield Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..type = MethodType.getter
-        ..returns = DartTypes.core.list(DartTypes.smithy.smithyError)
-        ..name = 'errorTypes'
-        ..body = literalConstList([
-          for (final errorType in errorTypes) errorType.constInstance,
-        ]).code,
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..type = MethodType.getter
+            ..returns = DartTypes.core.list(DartTypes.smithy.smithyError)
+            ..name = 'errorTypes'
+            ..body =
+                literalConstList([
+                  for (final errorType in errorTypes) errorType.constInstance,
+                ]).code,
     );
   }
 
@@ -140,9 +144,7 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
           context: context,
           input: inputShape,
           output: outputShape,
-        ).visit(
-          parse(matcher.path),
-        );
+        ).visit(parse(matcher.path));
       case MatcherType.output:
         matcher = acceptor.matcher.output!;
         valueExpression = JmespathExpressionVisitor(
@@ -150,9 +152,7 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
           input: inputShape,
           output: outputShape,
           base: output,
-        ).visit(
-          parse(matcher.path),
-        );
+        ).visit(parse(matcher.path));
     }
 
     final builder = BlockBuilder();
@@ -170,22 +170,30 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
         builder.addExpression(value.returned);
       case PathComparator.allStringEquals:
       case PathComparator.anyStringEquals:
-        final comparator = matcher.comparator == PathComparator.allStringEquals
-            ? 'every'
-            : 'any';
+        final comparator =
+            matcher.comparator == PathComparator.allStringEquals
+                ? 'every'
+                : 'any';
         builder.addExpression(
           value
               .isA(DartTypes.core.list(DartTypes.core.string))
               .and(
-                value.property('isNotEmpty').and(
+                value
+                    .property('isNotEmpty')
+                    .and(
                       value.property(comparator).call([
                         Method(
-                          (m) => m
-                            ..requiredParameters
-                                .add(Parameter((p) => p..name = 'el'))
-                            ..body = refer('el')
-                                .equalTo(literalString(matcher.expected))
-                                .code,
+                          (m) =>
+                              m
+                                ..requiredParameters.add(
+                                  Parameter((p) => p..name = 'el'),
+                                )
+                                ..body =
+                                    refer('el')
+                                        .equalTo(
+                                          literalString(matcher.expected),
+                                        )
+                                        .code,
                         ).closure,
                       ]),
                     ),
@@ -233,42 +241,48 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
         ..constructors.add(Constructor((c) => c..constant = true))
         ..methods.addAll([
           Method(
-            (m) => m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.smithy.acceptorState
-              ..type = MethodType.getter
-              ..name = 'state'
-              ..body = DartTypes.smithy.acceptorState
-                  .property(acceptor.state.name)
-                  .code,
+            (m) =>
+                m
+                  ..annotations.add(DartTypes.core.override)
+                  ..returns = DartTypes.smithy.acceptorState
+                  ..type = MethodType.getter
+                  ..name = 'state'
+                  ..body =
+                      DartTypes.smithy.acceptorState
+                          .property(acceptor.state.name)
+                          .code,
           ),
           Method(
-            (m) => m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.core.bool
-              ..name = 'matches'
-              ..optionalParameters.addAll([
-                Parameter(
-                  (p) => p
-                    ..type = inputSymbol
-                    ..required = true
-                    ..name = 'input'
-                    ..named = true,
-                ),
-                Parameter(
-                  (p) => p
-                    ..type = outputSymbol.boxed
-                    ..name = 'output'
-                    ..named = true,
-                ),
-                Parameter(
-                  (p) => p
-                    ..type = DartTypes.smithy.smithyException.boxed
-                    ..name = 'exception'
-                    ..named = true,
-                ),
-              ])
-              ..body = matchesBody(acceptor),
+            (m) =>
+                m
+                  ..annotations.add(DartTypes.core.override)
+                  ..returns = DartTypes.core.bool
+                  ..name = 'matches'
+                  ..optionalParameters.addAll([
+                    Parameter(
+                      (p) =>
+                          p
+                            ..type = inputSymbol
+                            ..required = true
+                            ..name = 'input'
+                            ..named = true,
+                    ),
+                    Parameter(
+                      (p) =>
+                          p
+                            ..type = outputSymbol.boxed
+                            ..name = 'output'
+                            ..named = true,
+                    ),
+                    Parameter(
+                      (p) =>
+                          p
+                            ..type = DartTypes.smithy.smithyException.boxed
+                            ..name = 'exception'
+                            ..named = true,
+                    ),
+                  ])
+                  ..body = matchesBody(acceptor),
           ),
         ]);
     });

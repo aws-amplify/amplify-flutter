@@ -11,9 +11,7 @@ import 'package:file/memory.dart';
 
 /// The windows implementation of [SecureStorageInterface].
 class AmplifySecureStorageWindows extends AmplifySecureStorageInterface {
-  AmplifySecureStorageWindows({
-    required super.config,
-  });
+  AmplifySecureStorageWindows({required super.config});
 
   late final FileKeyValueStore keyValueStore = () {
     final directory = config.windowsOptions.storagePath;

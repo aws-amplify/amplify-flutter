@@ -18,10 +18,7 @@ final mockHttpClient = MockAWSHttpClient((request, _) async {
     expect(request.headers['Content-Type'], 'application/json; charset=utf-8');
   }
   if (request.path.contains(_pathThatShouldFail)) {
-    return AWSHttpResponse(
-      statusCode: 404,
-      body: utf8.encode('Not found'),
-    );
+    return AWSHttpResponse(statusCode: 404, body: utf8.encode('Not found'));
   }
   return AWSHttpResponse(
     statusCode: 200,
@@ -35,11 +32,11 @@ void main() {
       options: APIPluginOptions(baseHttpClient: mockHttpClient),
     );
     // Register IAM auth provider like amplify_auth_cognito would do.
-    final authProviderRepo = AmplifyAuthProviderRepository()
-      ..registerAuthProvider(
-        APIAuthorizationType.iam.authProviderToken,
-        TestIamAuthProvider(),
-      );
+    final authProviderRepo =
+        AmplifyAuthProviderRepository()..registerAuthProvider(
+          APIAuthorizationType.iam.authProviderToken,
+          TestIamAuthProvider(),
+        );
     final amplifyOutputs = AmplifyOutputs.fromJson(
       jsonDecode(amplifyConfig) as Map<String, Object?>,
     );
@@ -54,8 +51,9 @@ void main() {
     Future<void> verifyRestOperation(
       AWSHttpOperation<AWSBaseHttpResponse> operation,
     ) async {
-      final response =
-          await operation.response.timeout(const Duration(seconds: 3));
+      final response = await operation.response.timeout(
+        const Duration(seconds: 3),
+      );
       final body = await response.decodeBody();
       expect(body, _expectedRestResponseBody);
       expect(response.statusCode, 200);
@@ -73,26 +71,34 @@ void main() {
     });
 
     test('patch() should get 200', () async {
-      final operation = Amplify.API
-          .patch('items', body: HttpPayload.json({'name': 'Mow the lawn'}));
+      final operation = Amplify.API.patch(
+        'items',
+        body: HttpPayload.json({'name': 'Mow the lawn'}),
+      );
       await verifyRestOperation(operation);
     });
 
     test('post() should get 200', () async {
-      final operation = Amplify.API
-          .post('items', body: HttpPayload.json({'name': 'Mow the lawn'}));
+      final operation = Amplify.API.post(
+        'items',
+        body: HttpPayload.json({'name': 'Mow the lawn'}),
+      );
       await verifyRestOperation(operation);
     });
 
     test('put() should get 200', () async {
-      final operation = Amplify.API
-          .put('items', body: HttpPayload.json({'name': 'Mow the lawn'}));
+      final operation = Amplify.API.put(
+        'items',
+        body: HttpPayload.json({'name': 'Mow the lawn'}),
+      );
       await verifyRestOperation(operation);
     });
 
     test('delete() should get 200', () async {
-      final operation = Amplify.API
-          .delete('items', body: HttpPayload.json({'name': 'Mow the lawn'}));
+      final operation = Amplify.API.delete(
+        'items',
+        body: HttpPayload.json({'name': 'Mow the lawn'}),
+      );
       await verifyRestOperation(operation);
     });
 
@@ -107,8 +113,9 @@ void main() {
     test('canceled request should never resolve', () async {
       final operation = Amplify.API.get('items');
       await operation.cancel();
-      operation.operation
-          .then((p0) => fail('Request should have been cancelled.'));
+      operation.operation.then(
+        (p0) => fail('Request should have been cancelled.'),
+      );
 
       await expectLater(
         operation.response,

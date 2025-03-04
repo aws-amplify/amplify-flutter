@@ -35,9 +35,7 @@ class PermissionsOptions {
 }
 
 class GetPermissionStatusResult {
-  GetPermissionStatusResult({
-    required this.status,
-  });
+  GetPermissionStatusResult({required this.status});
 
   final PermissionStatus status;
 }

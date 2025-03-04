@@ -3,7 +3,6 @@
 
 @TestOn('vm')
 @Tags(['build'])
-
 import 'package:build_verify/build_verify.dart';
 import 'package:test/test.dart';
 

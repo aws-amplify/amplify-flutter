@@ -19,7 +19,7 @@ class KeychainAttributeAccessible extends EnumClass {
   ///
   /// Reference: https://developer.apple.com/documentation/security/ksecattraccessiblewhenpasscodesetthisdeviceonly
   static const KeychainAttributeAccessible
-      accessibleWhenPasscodeSetThisDeviceOnly =
+  accessibleWhenPasscodeSetThisDeviceOnly =
       _$accessibleWhenPasscodeSetThisDeviceOnly;
 
   /// The data in the keychain item can be accessed only while the device is unlocked by the user.
@@ -28,8 +28,7 @@ class KeychainAttributeAccessible extends EnumClass {
   ///
   /// Reference: https://developer.apple.com/documentation/security/ksecattraccessiblewhenunlockedthisdeviceonly
   static const KeychainAttributeAccessible
-      accessibleWhenUnlockedThisDeviceOnly =
-      _$accessibleWhenUnlockedThisDeviceOnly;
+  accessibleWhenUnlockedThisDeviceOnly = _$accessibleWhenUnlockedThisDeviceOnly;
 
   /// The data in the keychain item can be accessed only while the device is unlocked by the user.
   ///
@@ -43,7 +42,7 @@ class KeychainAttributeAccessible extends EnumClass {
   ///
   /// Reference: https://developer.apple.com/documentation/security/ksecattraccessibleafterfirstunlockthisdeviceonly
   static const KeychainAttributeAccessible
-      accessibleAfterFirstUnlockThisDeviceOnly =
+  accessibleAfterFirstUnlockThisDeviceOnly =
       _$accessibleAfterFirstUnlockThisDeviceOnly;
 
   /// The data in the keychain item cannot be accessed after a restart until the device has been unlocked once by the user.

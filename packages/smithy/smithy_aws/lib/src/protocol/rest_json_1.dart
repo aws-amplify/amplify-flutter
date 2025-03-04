@@ -19,24 +19,25 @@ class RestJson1Protocol<InputPayload, Input, OutputPayload, Output>
     List<SmithySerializer<dynamic>> serializers = const [],
     Map<FullType, Function> builderFactories = const {},
   }) : super(
-          _coreSerializers,
-          serializers: serializers,
-          builderFactories: builderFactories,
-          requestInterceptors: requestInterceptors,
-          responseInterceptors: responseInterceptors,
-        );
+         _coreSerializers,
+         serializers: serializers,
+         builderFactories: builderFactories,
+         requestInterceptors: requestInterceptors,
+         responseInterceptors: responseInterceptors,
+       );
 
-  static final _coreSerializers = (Serializers().toBuilder()
-        ..addPlugin(SmithyJsonPlugin())
-        ..addAll(const [
-          BigIntSerializer.asNum,
-          DoubleSerializer(),
-          Int64Serializer.asNum,
-          TimestampSerializer.epochSeconds,
-          UnitSerializer(),
-          StreamSerializer<List<int>>(),
-        ]))
-      .build();
+  static final _coreSerializers =
+      (Serializers().toBuilder()
+            ..addPlugin(SmithyJsonPlugin())
+            ..addAll(const [
+              BigIntSerializer.asNum,
+              DoubleSerializer(),
+              Int64Serializer.asNum,
+              TimestampSerializer.epochSeconds,
+              UnitSerializer(),
+              StreamSerializer<List<int>>(),
+            ]))
+          .build();
 
   @override
   ShapeId get protocolId => RestJson1Trait.id;
@@ -55,6 +56,8 @@ class RestJson1Protocol<InputPayload, Input, OutputPayload, Output>
       'application/json';
 
   @override
-  late final JsonSerializer wireSerializer =
-      JsonSerializer(serializers, EmptyPayloadType.empty);
+  late final JsonSerializer wireSerializer = JsonSerializer(
+    serializers,
+    EmptyPayloadType.empty,
+  );
 }

@@ -11,15 +11,10 @@ import 'package:aws_common/src/config/config_file/resolved_file.dart';
 /// {@macro aws_common.config_file.file_loader}
 class AWSFileLoaderImpl extends AWSFileLoader {
   /// {@macro aws_common.config_file.file_loader}
-  const AWSFileLoaderImpl({
-    AWSPathProvider? pathProvider,
-  }) : super.protected();
+  const AWSFileLoaderImpl({AWSPathProvider? pathProvider}) : super.protected();
 
   @override
-  Future<ResolvedFile> loadFile(
-    AWSProfileFileType type,
-    String filepath,
-  ) =>
+  Future<ResolvedFile> loadFile(AWSProfileFileType type, String filepath) =>
       Future.error(
         StateError(
           'Loading configuration files is currently not supported on '

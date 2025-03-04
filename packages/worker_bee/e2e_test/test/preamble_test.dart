@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
-
 //ignore: deprecated_member_use
 import 'dart:html';
 

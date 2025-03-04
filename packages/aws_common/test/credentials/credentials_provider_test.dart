@@ -13,21 +13,14 @@ void main() {
   group('AWSCredentialsProvider', () {
     test('environment', () {
       const credentialsProvider = EnvironmentCredentialsProvider();
-      final credentials = overrideEnvironment(
-        {
-          zAccessKeyId: accessKeyId,
-          zSecretAccessKey: secretAccessKey,
-          zSessionToken: sessionToken,
-        },
-        credentialsProvider.retrieve,
-      );
+      final credentials = overrideEnvironment({
+        zAccessKeyId: accessKeyId,
+        zSecretAccessKey: secretAccessKey,
+        zSessionToken: sessionToken,
+      }, credentialsProvider.retrieve);
       expect(
         credentials,
-        const AWSCredentials(
-          accessKeyId,
-          secretAccessKey,
-          sessionToken,
-        ),
+        const AWSCredentials(accessKeyId, secretAccessKey, sessionToken),
       );
     });
 
@@ -35,21 +28,14 @@ void main() {
       const credentialsProvider = AWSCredentialsProvider.defaultChain();
 
       test('loads from environment', () async {
-        final credentials = await overrideEnvironment(
-          {
-            zAccessKeyId: accessKeyId,
-            zSecretAccessKey: secretAccessKey,
-            zSessionToken: sessionToken,
-          },
-          credentialsProvider.retrieve,
-        );
+        final credentials = await overrideEnvironment({
+          zAccessKeyId: accessKeyId,
+          zSecretAccessKey: secretAccessKey,
+          zSessionToken: sessionToken,
+        }, credentialsProvider.retrieve);
         expect(
           credentials,
-          const AWSCredentials(
-            accessKeyId,
-            secretAccessKey,
-            sessionToken,
-          ),
+          const AWSCredentials(accessKeyId, secretAccessKey, sessionToken),
         );
       });
     });

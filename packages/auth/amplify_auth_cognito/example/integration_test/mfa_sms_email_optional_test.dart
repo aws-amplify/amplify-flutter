@@ -35,12 +35,11 @@ void main() {
           signInRes.nextStep.signInStep,
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.fetchMfaPreference())
-            .equals(const UserMfaPreference());
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+        ).equals(const UserMfaPreference());
 
-        await cognitoPlugin.updateMfaPreference(
-          email: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(email: MfaPreference.preferred);
 
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
@@ -52,9 +51,7 @@ void main() {
         Future<void> signInWithEmail() async {
           await signOutUser(assertComplete: true);
 
-          final otpResult = await getOtpCode(
-            env.getLoginAttribute(username),
-          );
+          final otpResult = await getOtpCode(env.getLoginAttribute(username));
 
           final signInRes = await Amplify.Auth.signIn(
             username: username,
@@ -62,7 +59,8 @@ void main() {
           );
           check(
             signInRes.nextStep.signInStep,
-            because: 'Once Email MFA is preferred, it is performed '
+            because:
+                'Once Email MFA is preferred, it is performed '
                 'on every sign-in attempt.',
           ).equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
@@ -87,9 +85,7 @@ void main() {
         check(
           because: 'Disabling EMAIL should mark it as not preferred',
           await cognitoPlugin.fetchMfaPreference(),
-        ).equals(
-          const UserMfaPreference(enabled: {}, preferred: null),
-        );
+        ).equals(const UserMfaPreference(enabled: {}, preferred: null));
       });
 
       asyncTest('can select EMAIL MFA', (_) async {
@@ -97,9 +93,7 @@ void main() {
         final password = generatePassword();
         final phoneNumber = generatePhoneNumber();
 
-        final otpResult = await getOtpCode(
-          env.getLoginAttribute(username),
-        );
+        final otpResult = await getOtpCode(env.getLoginAttribute(username));
 
         // Create a user with an unverified phone number.
         await adminCreateUser(
@@ -122,12 +116,11 @@ void main() {
           because: 'MFA is optional',
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.fetchMfaPreference())
-            .equals(const UserMfaPreference());
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+        ).equals(const UserMfaPreference());
 
-        await cognitoPlugin.updateMfaPreference(
-          email: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(email: MfaPreference.preferred);
 
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
@@ -136,9 +129,7 @@ void main() {
           ),
         );
 
-        await cognitoPlugin.updateMfaPreference(
-          sms: MfaPreference.enabled,
-        );
+        await cognitoPlugin.updateMfaPreference(sms: MfaPreference.enabled);
 
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
@@ -154,8 +145,9 @@ void main() {
             username: username,
             password: password,
           );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithOtpCode);
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -176,9 +168,7 @@ void main() {
 
         // Verify we can switch to SMS as preferred.
 
-        await cognitoPlugin.updateMfaPreference(
-          sms: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(sms: MfaPreference.preferred);
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.email},
@@ -194,14 +184,18 @@ void main() {
             username: username,
             password: password,
           );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
           check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.sms)
-            ..has((d) => d.destination, 'destination')
-                .isNotNull()
-                .startsWith('+');
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.sms)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).isNotNull().startsWith('+');
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await mfaCode.code,
@@ -236,9 +230,7 @@ void main() {
         check(
           because: 'Disabling MFA should mark it as not preferred',
           await cognitoPlugin.fetchMfaPreference(),
-        ).equals(
-          const UserMfaPreference(enabled: {}, preferred: null),
-        );
+        ).equals(const UserMfaPreference(enabled: {}, preferred: null));
       });
 
       asyncTest('can select SMS MFA', (_) async {
@@ -267,8 +259,9 @@ void main() {
           because: 'MFA is optional',
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.fetchMfaPreference())
-            .equals(const UserMfaPreference());
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+        ).equals(const UserMfaPreference());
 
         await cognitoPlugin.updateMfaPreference(
           sms: MfaPreference.preferred,
@@ -301,14 +294,18 @@ void main() {
           username: username,
           password: password,
         );
-        check(resignInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+        check(
+          resignInRes.nextStep.signInStep,
+        ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
         check(resignInRes.nextStep.codeDeliveryDetails).isNotNull()
-          ..has((d) => d.deliveryMedium, 'deliveryMedium')
-              .equals(DeliveryMedium.sms)
-          ..has((d) => d.destination, 'destination')
-              .isNotNull()
-              .startsWith('+');
+          ..has(
+            (d) => d.deliveryMedium,
+            'deliveryMedium',
+          ).equals(DeliveryMedium.sms)
+          ..has(
+            (d) => d.destination,
+            'destination',
+          ).isNotNull().startsWith('+');
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await mfaCode.code,
@@ -325,9 +322,7 @@ void main() {
 
         // Verify we can set SMS as preferred and forego selection.
 
-        await cognitoPlugin.updateMfaPreference(
-          sms: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(sms: MfaPreference.preferred);
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.email},
@@ -343,14 +338,18 @@ void main() {
             username: username,
             password: password,
           );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
           check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.sms)
-            ..has((d) => d.destination, 'destination')
-                .isNotNull()
-                .startsWith('+');
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.sms)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).isNotNull().startsWith('+');
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await mfaCode.code,
@@ -360,9 +359,7 @@ void main() {
 
         // Verify we can switch to EMAIL as preferred.
 
-        await cognitoPlugin.updateMfaPreference(
-          email: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(email: MfaPreference.preferred);
         check(
           await cognitoPlugin.fetchMfaPreference(),
           because: 'EMAIL should be marked preferred',
@@ -376,17 +373,16 @@ void main() {
         {
           await signOutUser(assertComplete: true);
 
-          final otpResult = await getOtpCode(
-            env.getLoginAttribute(username),
-          );
+          final otpResult = await getOtpCode(env.getLoginAttribute(username));
 
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
           );
 
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithOtpCode);
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -425,9 +421,7 @@ void main() {
         check(
           because: 'Disabling MFA should mark it as not preferred',
           await cognitoPlugin.fetchMfaPreference(),
-        ).equals(
-          const UserMfaPreference(enabled: {}, preferred: null),
-        );
+        ).equals(const UserMfaPreference(enabled: {}, preferred: null));
       });
     });
   });

@@ -38,10 +38,7 @@ class WorkerCopyBuilder extends Builder {
     }
     final outputId = AssetId(
       buildStep.inputId.package,
-      p.join(
-        p.dirname(buildStep.inputId.path),
-        filename,
-      ),
+      p.join(p.dirname(buildStep.inputId.path), filename),
     );
     await buildStep.writeAsString(outputId, input);
   }

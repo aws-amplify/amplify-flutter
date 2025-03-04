@@ -9,10 +9,7 @@
 /// {@endtemplate}
 class Endpoint {
   /// {@macro smithy.endpoint}
-  const Endpoint({
-    required this.uri,
-    this.isHostnameImmutable = false,
-  });
+  const Endpoint({required this.uri, this.isHostnameImmutable = false});
 
   /// The base URL endpoint clients will use to make API calls to e.g.
   /// "api.myservice.com". NOTE: Only scheme, port, host and path are valid.

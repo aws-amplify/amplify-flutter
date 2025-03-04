@@ -28,16 +28,18 @@ final class CredentialStoreStateMachine
     extends AuthStateMachine<CredentialStoreEvent, CredentialStoreState> {
   /// {@macro amplify_auth_cognito.credential_store_state_machine}
   CredentialStoreStateMachine(CognitoAuthStateMachine manager)
-      : super(manager, type);
+    : super(manager, type);
 
   /// The [CredentialStoreStateMachine] type.
-  static const type = StateMachineToken<
-      CredentialStoreEvent,
-      CredentialStoreState,
-      AuthEvent,
-      AuthState,
-      CognitoAuthStateMachine,
-      CredentialStoreStateMachine>();
+  static const type =
+      StateMachineToken<
+        CredentialStoreEvent,
+        CredentialStoreState,
+        AuthEvent,
+        AuthState,
+        CognitoAuthStateMachine,
+        CredentialStoreStateMachine
+      >();
 
   @override
   CredentialStoreState get initialState =>
@@ -138,9 +140,10 @@ final class CredentialStoreStateMachine
         );
         signInDetails = CognitoSignInDetails.apiBased(
           username: username ?? CognitoIdToken(parsedIdToken).username,
-          authFlowType: authFlowType == null
-              ? null
-              : AuthFlowType.values.byValue(authFlowType),
+          authFlowType:
+              authFlowType == null
+                  ? null
+                  : AuthFlowType.values.byValue(authFlowType),
         );
       }
     }
@@ -153,9 +156,7 @@ final class CredentialStoreStateMachine
       final refreshToken = await _secureStorage.read(
         key: keys[HostedUiKey.refreshToken],
       );
-      final idToken = await _secureStorage.read(
-        key: keys[HostedUiKey.idToken],
-      );
+      final idToken = await _secureStorage.read(key: keys[HostedUiKey.idToken]);
       final provider = await _secureStorage.read(
         key: keys[HostedUiKey.provider],
       );
@@ -302,8 +303,9 @@ final class CredentialStoreStateMachine
         }
       }
       if (signInDetails is CognitoSignInDetailsFederated) {
-        items[keys[CognitoIdentityPoolKey.provider]] =
-            jsonEncode(signInDetails.provider.toJson());
+        items[keys[CognitoIdentityPoolKey.provider]] = jsonEncode(
+          signInDetails.provider.toJson(),
+        );
         items[keys[CognitoIdentityPoolKey.idToken]] = signInDetails.token;
       } else {
         deletions
@@ -338,9 +340,7 @@ final class CredentialStoreStateMachine
     if (provider == null) return null;
     CredentialStoreData? legacyData;
     try {
-      legacyData = await provider.fetchLegacyCredentials(
-        _authOutputs,
-      );
+      legacyData = await provider.fetchLegacyCredentials(_authOutputs);
       if (legacyData != null) {
         await _storeCredentials(legacyData);
       }
@@ -394,9 +394,7 @@ final class CredentialStoreStateMachine
     final provider = get<LegacyCredentialProvider>();
     if (provider == null) return;
     try {
-      await provider.deleteLegacyCredentials(
-        _authOutputs,
-      );
+      await provider.deleteLegacyCredentials(_authOutputs);
     } on Object catch (e, s) {
       logger.error('Error clearing legacy credentials', e, s);
     }
@@ -412,18 +410,14 @@ final class CredentialStoreStateMachine
   }
 
   /// State machine callback for the [CredentialStoreStoreCredentials] event.
-  Future<void> onStoreCredentials(
-    CredentialStoreStoreCredentials event,
-  ) async {
+  Future<void> onStoreCredentials(CredentialStoreStoreCredentials event) async {
     await _storeCredentials(event.data);
     final data = await _loadCredentialStore();
     emit(CredentialStoreState.success(data));
   }
 
   /// State machine callback for the [CredentialStoreClearCredentials] event.
-  Future<void> onClearCredentials(
-    CredentialStoreClearCredentials event,
-  ) async {
+  Future<void> onClearCredentials(CredentialStoreClearCredentials event) async {
     final clearKeys = event.keys;
     final deletions = <String>[];
     bool shouldDelete(String key) =>
@@ -448,8 +442,9 @@ final class CredentialStoreStateMachine
     }
 
     if (_hasIdentityPool) {
-      final identityPoolKeys =
-          CognitoIdentityPoolKeys(_authOutputs.identityPoolId!);
+      final identityPoolKeys = CognitoIdentityPoolKeys(
+        _authOutputs.identityPoolId!,
+      );
       for (final key in identityPoolKeys) {
         if (shouldDelete(key)) {
           deletions.add(key);

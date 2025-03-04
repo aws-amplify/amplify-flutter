@@ -10,8 +10,9 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 
-final AmplifyLogger _logger = AmplifyLogger.category(Category.analytics)
-    .createChild('DeviceInfoProviderIO');
+final AmplifyLogger _logger = AmplifyLogger.category(
+  Category.analytics,
+).createChild('DeviceInfoProviderIO');
 
 /// {@macro amplify_analytics_pinpoint.device_info_provider}
 Future<DeviceInfo> getDeviceInfo() async {

@@ -64,21 +64,17 @@ class S3ListMetadata {
     List<s3.CommonPrefix>? commonPrefixes,
     String? delimiter,
   }) {
-    final subPaths = commonPrefixes
-        ?.map((commonPrefix) => commonPrefix.prefix)
-        .whereType<String>()
-        .toList();
+    final subPaths =
+        commonPrefixes
+            ?.map((commonPrefix) => commonPrefix.prefix)
+            .whereType<String>()
+            .toList();
 
-    return S3ListMetadata._(
-      subPaths: subPaths,
-      delimiter: delimiter,
-    );
+    return S3ListMetadata._(subPaths: subPaths, delimiter: delimiter);
   }
 
-  S3ListMetadata._({
-    List<String>? subPaths,
-    this.delimiter,
-  }) : subPaths = subPaths ?? const [];
+  S3ListMetadata._({List<String>? subPaths, this.delimiter})
+    : subPaths = subPaths ?? const [];
 
   /// Merges two instances of [S3ListMetadata] into one.
   S3ListMetadata merge(S3ListMetadata other) {

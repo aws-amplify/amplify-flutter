@@ -17,22 +17,16 @@ void main() {
       final httpClient = MockAWSHttpClient((request, _) async {
         return AWSStreamedHttpResponse(
           statusCode: 500,
-          headers: {
-            AWSHeaders.retryAfter: '500',
-          },
+          headers: {AWSHeaders.retryAfter: '500'},
           body: HttpPayload.string('{}'),
         );
       });
-      final retryer = AWSRetryer(
-        initialRetryTokens: 500,
-      );
+      final retryer = AWSRetryer(initialRetryTokens: 500);
       final op = DummyHttpOperation(retryer);
       try {
         await runZoned(
           () => op.run(const Unit(), client: httpClient).result,
-          zoneValues: {
-            AWSConfigValue.maxAttempts: 1,
-          },
+          zoneValues: {AWSConfigValue.maxAttempts: 1},
         );
         fail('Operation should fail');
       } on Exception catch (_) {}

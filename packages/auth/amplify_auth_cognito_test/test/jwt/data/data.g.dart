@@ -362,24 +362,9 @@ const testCases = <TestCase>[
     HS512_public_jwk,
     HS512_jwt,
   ),
-  TestCase(
-    Algorithm.rsaSha256,
-    RS256_private_jwk,
-    RS256_public_jwk,
-    RS256_jwt,
-  ),
-  TestCase(
-    Algorithm.rsaSha384,
-    RS384_private_jwk,
-    RS384_public_jwk,
-    RS384_jwt,
-  ),
-  TestCase(
-    Algorithm.rsaSha512,
-    RS512_private_jwk,
-    RS512_public_jwk,
-    RS512_jwt,
-  ),
+  TestCase(Algorithm.rsaSha256, RS256_private_jwk, RS256_public_jwk, RS256_jwt),
+  TestCase(Algorithm.rsaSha384, RS384_private_jwk, RS384_public_jwk, RS384_jwt),
+  TestCase(Algorithm.rsaSha512, RS512_private_jwk, RS512_public_jwk, RS512_jwt),
   TestCase(
     Algorithm.ecdsaSha256,
     ES256_private_jwk,
@@ -398,24 +383,9 @@ const testCases = <TestCase>[
     ES512_public_jwk,
     ES512_jwt,
   ),
-  TestCase(
-    Algorithm.pssSha256,
-    PS256_private_jwk,
-    PS256_public_jwk,
-    PS256_jwt,
-  ),
-  TestCase(
-    Algorithm.pssSha384,
-    PS384_private_jwk,
-    PS384_public_jwk,
-    PS384_jwt,
-  ),
-  TestCase(
-    Algorithm.pssSha512,
-    PS512_private_jwk,
-    PS512_public_jwk,
-    PS512_jwt,
-  ),
+  TestCase(Algorithm.pssSha256, PS256_private_jwk, PS256_public_jwk, PS256_jwt),
+  TestCase(Algorithm.pssSha384, PS384_private_jwk, PS384_public_jwk, PS384_jwt),
+  TestCase(Algorithm.pssSha512, PS512_private_jwk, PS512_public_jwk, PS512_jwt),
 ];
 
 const keySet = '''

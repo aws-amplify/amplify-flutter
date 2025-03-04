@@ -6,25 +6,13 @@ library amplify_storage_s3_dart.s3.model.tagging_directive; // ignore_for_file: 
 import 'package:smithy/smithy.dart' as _i1;
 
 class TaggingDirective extends _i1.SmithyEnum<TaggingDirective> {
-  const TaggingDirective._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const TaggingDirective._(super.index, super.name, super.value);
 
   const TaggingDirective._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const copy = TaggingDirective._(
-    0,
-    'COPY',
-    'COPY',
-  );
+  static const copy = TaggingDirective._(0, 'COPY', 'COPY');
 
-  static const replace = TaggingDirective._(
-    1,
-    'REPLACE',
-    'REPLACE',
-  );
+  static const replace = TaggingDirective._(1, 'REPLACE', 'REPLACE');
 
   /// All values of [TaggingDirective].
   static const values = <TaggingDirective>[
@@ -38,12 +26,9 @@ class TaggingDirective extends _i1.SmithyEnum<TaggingDirective> {
       values: values,
       sdkUnknown: TaggingDirective._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

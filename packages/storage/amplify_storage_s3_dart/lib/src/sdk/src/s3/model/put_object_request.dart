@@ -109,8 +109,9 @@ abstract class PutObjectRequest
     );
   }
 
-  factory PutObjectRequest.build(
-      [void Function(PutObjectRequestBuilder) updates]) = _$PutObjectRequest;
+  factory PutObjectRequest.build([
+    void Function(PutObjectRequestBuilder) updates,
+  ]) = _$PutObjectRequest;
 
   const PutObjectRequest._();
 
@@ -118,156 +119,156 @@ abstract class PutObjectRequest
     _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      PutObjectRequest.build((b) {
-        b.body = payload;
-        if (request.headers['x-amz-acl'] != null) {
-          b.acl = ObjectCannedAcl.values.byValue(request.headers['x-amz-acl']!);
-        }
-        if (request.headers['Cache-Control'] != null) {
-          b.cacheControl = request.headers['Cache-Control']!;
-        }
-        if (request.headers['Content-Disposition'] != null) {
-          b.contentDisposition = request.headers['Content-Disposition']!;
-        }
-        if (request.headers['Content-Encoding'] != null) {
-          b.contentEncoding = request.headers['Content-Encoding']!;
-        }
-        if (request.headers['Content-Language'] != null) {
-          b.contentLanguage = request.headers['Content-Language']!;
-        }
-        if (request.headers['Content-Length'] != null) {
-          b.contentLength =
-              _i4.Int64.parseInt(request.headers['Content-Length']!);
-        }
-        if (request.headers['Content-MD5'] != null) {
-          b.contentMd5 = request.headers['Content-MD5']!;
-        }
-        if (request.headers['Content-Type'] != null) {
-          b.contentType = request.headers['Content-Type']!;
-        }
-        if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = ChecksumAlgorithm.values
-              .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
-        }
-        if (request.headers['x-amz-checksum-crc32'] != null) {
-          b.checksumCrc32 = request.headers['x-amz-checksum-crc32']!;
-        }
-        if (request.headers['x-amz-checksum-crc32c'] != null) {
-          b.checksumCrc32C = request.headers['x-amz-checksum-crc32c']!;
-        }
-        if (request.headers['x-amz-checksum-sha1'] != null) {
-          b.checksumSha1 = request.headers['x-amz-checksum-sha1']!;
-        }
-        if (request.headers['x-amz-checksum-sha256'] != null) {
-          b.checksumSha256 = request.headers['x-amz-checksum-sha256']!;
-        }
-        if (request.headers['Expires'] != null) {
-          b.expires = _i1.Timestamp.parse(
+  }) => PutObjectRequest.build((b) {
+    b.body = payload;
+    if (request.headers['x-amz-acl'] != null) {
+      b.acl = ObjectCannedAcl.values.byValue(request.headers['x-amz-acl']!);
+    }
+    if (request.headers['Cache-Control'] != null) {
+      b.cacheControl = request.headers['Cache-Control']!;
+    }
+    if (request.headers['Content-Disposition'] != null) {
+      b.contentDisposition = request.headers['Content-Disposition']!;
+    }
+    if (request.headers['Content-Encoding'] != null) {
+      b.contentEncoding = request.headers['Content-Encoding']!;
+    }
+    if (request.headers['Content-Language'] != null) {
+      b.contentLanguage = request.headers['Content-Language']!;
+    }
+    if (request.headers['Content-Length'] != null) {
+      b.contentLength = _i4.Int64.parseInt(request.headers['Content-Length']!);
+    }
+    if (request.headers['Content-MD5'] != null) {
+      b.contentMd5 = request.headers['Content-MD5']!;
+    }
+    if (request.headers['Content-Type'] != null) {
+      b.contentType = request.headers['Content-Type']!;
+    }
+    if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
+      b.checksumAlgorithm = ChecksumAlgorithm.values.byValue(
+        request.headers['x-amz-sdk-checksum-algorithm']!,
+      );
+    }
+    if (request.headers['x-amz-checksum-crc32'] != null) {
+      b.checksumCrc32 = request.headers['x-amz-checksum-crc32']!;
+    }
+    if (request.headers['x-amz-checksum-crc32c'] != null) {
+      b.checksumCrc32C = request.headers['x-amz-checksum-crc32c']!;
+    }
+    if (request.headers['x-amz-checksum-sha1'] != null) {
+      b.checksumSha1 = request.headers['x-amz-checksum-sha1']!;
+    }
+    if (request.headers['x-amz-checksum-sha256'] != null) {
+      b.checksumSha256 = request.headers['x-amz-checksum-sha256']!;
+    }
+    if (request.headers['Expires'] != null) {
+      b.expires =
+          _i1.Timestamp.parse(
             request.headers['Expires']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['x-amz-grant-full-control'] != null) {
-          b.grantFullControl = request.headers['x-amz-grant-full-control']!;
-        }
-        if (request.headers['x-amz-grant-read'] != null) {
-          b.grantRead = request.headers['x-amz-grant-read']!;
-        }
-        if (request.headers['x-amz-grant-read-acp'] != null) {
-          b.grantReadAcp = request.headers['x-amz-grant-read-acp']!;
-        }
-        if (request.headers['x-amz-grant-write-acp'] != null) {
-          b.grantWriteAcp = request.headers['x-amz-grant-write-acp']!;
-        }
-        if (request.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = ServerSideEncryption.values
-              .byValue(request.headers['x-amz-server-side-encryption']!);
-        }
-        if (request.headers['x-amz-storage-class'] != null) {
-          b.storageClass = StorageClass.values
-              .byValue(request.headers['x-amz-storage-class']!);
-        }
-        if (request.headers['x-amz-website-redirect-location'] != null) {
-          b.websiteRedirectLocation =
-              request.headers['x-amz-website-redirect-location']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = request
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key'] !=
-            null) {
-          b.sseCustomerKey =
-              request.headers['x-amz-server-side-encryption-customer-key']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 =
-              request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
-            null) {
-          b.ssekmsKeyId =
-              request.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-context'] != null) {
-          b.ssekmsEncryptionContext =
-              request.headers['x-amz-server-side-encryption-context']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
-            null) {
-          b.bucketKeyEnabled = request.headers[
-                  'x-amz-server-side-encryption-bucket-key-enabled']! ==
-              'true';
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-tagging'] != null) {
-          b.tagging = request.headers['x-amz-tagging']!;
-        }
-        if (request.headers['x-amz-object-lock-mode'] != null) {
-          b.objectLockMode = ObjectLockMode.values
-              .byValue(request.headers['x-amz-object-lock-mode']!);
-        }
-        if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
-          b.objectLockRetainUntilDate = _i1.Timestamp.parse(
+    }
+    if (request.headers['x-amz-grant-full-control'] != null) {
+      b.grantFullControl = request.headers['x-amz-grant-full-control']!;
+    }
+    if (request.headers['x-amz-grant-read'] != null) {
+      b.grantRead = request.headers['x-amz-grant-read']!;
+    }
+    if (request.headers['x-amz-grant-read-acp'] != null) {
+      b.grantReadAcp = request.headers['x-amz-grant-read-acp']!;
+    }
+    if (request.headers['x-amz-grant-write-acp'] != null) {
+      b.grantWriteAcp = request.headers['x-amz-grant-write-acp']!;
+    }
+    if (request.headers['x-amz-server-side-encryption'] != null) {
+      b.serverSideEncryption = ServerSideEncryption.values.byValue(
+        request.headers['x-amz-server-side-encryption']!,
+      );
+    }
+    if (request.headers['x-amz-storage-class'] != null) {
+      b.storageClass = StorageClass.values.byValue(
+        request.headers['x-amz-storage-class']!,
+      );
+    }
+    if (request.headers['x-amz-website-redirect-location'] != null) {
+      b.websiteRedirectLocation =
+          request.headers['x-amz-website-redirect-location']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          request.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key'] != null) {
+      b.sseCustomerKey =
+          request.headers['x-amz-server-side-encryption-customer-key']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
+        null) {
+      b.ssekmsKeyId =
+          request.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-context'] != null) {
+      b.ssekmsEncryptionContext =
+          request.headers['x-amz-server-side-encryption-context']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
+        null) {
+      b.bucketKeyEnabled =
+          request.headers['x-amz-server-side-encryption-bucket-key-enabled']! ==
+          'true';
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-tagging'] != null) {
+      b.tagging = request.headers['x-amz-tagging']!;
+    }
+    if (request.headers['x-amz-object-lock-mode'] != null) {
+      b.objectLockMode = ObjectLockMode.values.byValue(
+        request.headers['x-amz-object-lock-mode']!,
+      );
+    }
+    if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
+      b.objectLockRetainUntilDate =
+          _i1.Timestamp.parse(
             request.headers['x-amz-object-lock-retain-until-date']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-        if (request.headers['x-amz-object-lock-legal-hold'] != null) {
-          b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values
-              .byValue(request.headers['x-amz-object-lock-legal-hold']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        b.metadata.addEntries(request.headers.entries
-            .where((el) => el.key.startsWith('x-amz-meta-'))
-            .map((el) => MapEntry(
-                  el.key.replaceFirst(
-                    'x-amz-meta-',
-                    '',
-                  ),
-                  el.value,
-                )));
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+    }
+    if (request.headers['x-amz-object-lock-legal-hold'] != null) {
+      b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values.byValue(
+        request.headers['x-amz-object-lock-legal-hold']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    b.metadata.addEntries(
+      request.headers.entries
+          .where((el) => el.key.startsWith('x-amz-meta-'))
+          .map(
+            (el) => MapEntry(el.key.replaceFirst('x-amz-meta-', ''), el.value),
+          ),
+    );
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
-    PutObjectRequestRestXmlSerializer()
+    PutObjectRequestRestXmlSerializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -490,10 +491,7 @@ abstract class PutObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -501,196 +499,86 @@ abstract class PutObjectRequest
 
   @override
   List<Object?> get props => [
-        acl,
-        body,
-        bucket,
-        cacheControl,
-        contentDisposition,
-        contentEncoding,
-        contentLanguage,
-        contentLength,
-        contentMd5,
-        contentType,
-        checksumAlgorithm,
-        checksumCrc32,
-        checksumCrc32C,
-        checksumSha1,
-        checksumSha256,
-        expires,
-        grantFullControl,
-        grantRead,
-        grantReadAcp,
-        grantWriteAcp,
-        key,
-        metadata,
-        serverSideEncryption,
-        storageClass,
-        websiteRedirectLocation,
-        sseCustomerAlgorithm,
-        sseCustomerKey,
-        sseCustomerKeyMd5,
-        ssekmsKeyId,
-        ssekmsEncryptionContext,
-        bucketKeyEnabled,
-        requestPayer,
-        tagging,
-        objectLockMode,
-        objectLockRetainUntilDate,
-        objectLockLegalHoldStatus,
-        expectedBucketOwner,
-      ];
+    acl,
+    body,
+    bucket,
+    cacheControl,
+    contentDisposition,
+    contentEncoding,
+    contentLanguage,
+    contentLength,
+    contentMd5,
+    contentType,
+    checksumAlgorithm,
+    checksumCrc32,
+    checksumCrc32C,
+    checksumSha1,
+    checksumSha256,
+    expires,
+    grantFullControl,
+    grantRead,
+    grantReadAcp,
+    grantWriteAcp,
+    key,
+    metadata,
+    serverSideEncryption,
+    storageClass,
+    websiteRedirectLocation,
+    sseCustomerAlgorithm,
+    sseCustomerKey,
+    sseCustomerKeyMd5,
+    ssekmsKeyId,
+    ssekmsEncryptionContext,
+    bucketKeyEnabled,
+    requestPayer,
+    tagging,
+    objectLockMode,
+    objectLockRetainUntilDate,
+    objectLockLegalHoldStatus,
+    expectedBucketOwner,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectRequest')
-      ..add(
-        'acl',
-        acl,
-      )
-      ..add(
-        'body',
-        body,
-      )
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'cacheControl',
-        cacheControl,
-      )
-      ..add(
-        'contentDisposition',
-        contentDisposition,
-      )
-      ..add(
-        'contentEncoding',
-        contentEncoding,
-      )
-      ..add(
-        'contentLanguage',
-        contentLanguage,
-      )
-      ..add(
-        'contentLength',
-        contentLength,
-      )
-      ..add(
-        'contentMd5',
-        contentMd5,
-      )
-      ..add(
-        'contentType',
-        contentType,
-      )
-      ..add(
-        'checksumAlgorithm',
-        checksumAlgorithm,
-      )
-      ..add(
-        'checksumCrc32',
-        checksumCrc32,
-      )
-      ..add(
-        'checksumCrc32C',
-        checksumCrc32C,
-      )
-      ..add(
-        'checksumSha1',
-        checksumSha1,
-      )
-      ..add(
-        'checksumSha256',
-        checksumSha256,
-      )
-      ..add(
-        'expires',
-        expires,
-      )
-      ..add(
-        'grantFullControl',
-        grantFullControl,
-      )
-      ..add(
-        'grantRead',
-        grantRead,
-      )
-      ..add(
-        'grantReadAcp',
-        grantReadAcp,
-      )
-      ..add(
-        'grantWriteAcp',
-        grantWriteAcp,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'metadata',
-        metadata,
-      )
-      ..add(
-        'serverSideEncryption',
-        serverSideEncryption,
-      )
-      ..add(
-        'storageClass',
-        storageClass,
-      )
-      ..add(
-        'websiteRedirectLocation',
-        websiteRedirectLocation,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'ssekmsKeyId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'ssekmsEncryptionContext',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'bucketKeyEnabled',
-        bucketKeyEnabled,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'tagging',
-        tagging,
-      )
-      ..add(
-        'objectLockMode',
-        objectLockMode,
-      )
-      ..add(
-        'objectLockRetainUntilDate',
-        objectLockRetainUntilDate,
-      )
-      ..add(
-        'objectLockLegalHoldStatus',
-        objectLockLegalHoldStatus,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      );
+    final helper =
+        newBuiltValueToStringHelper('PutObjectRequest')
+          ..add('acl', acl)
+          ..add('body', body)
+          ..add('bucket', bucket)
+          ..add('cacheControl', cacheControl)
+          ..add('contentDisposition', contentDisposition)
+          ..add('contentEncoding', contentEncoding)
+          ..add('contentLanguage', contentLanguage)
+          ..add('contentLength', contentLength)
+          ..add('contentMd5', contentMd5)
+          ..add('contentType', contentType)
+          ..add('checksumAlgorithm', checksumAlgorithm)
+          ..add('checksumCrc32', checksumCrc32)
+          ..add('checksumCrc32C', checksumCrc32C)
+          ..add('checksumSha1', checksumSha1)
+          ..add('checksumSha256', checksumSha256)
+          ..add('expires', expires)
+          ..add('grantFullControl', grantFullControl)
+          ..add('grantRead', grantRead)
+          ..add('grantReadAcp', grantReadAcp)
+          ..add('grantWriteAcp', grantWriteAcp)
+          ..add('key', key)
+          ..add('metadata', metadata)
+          ..add('serverSideEncryption', serverSideEncryption)
+          ..add('storageClass', storageClass)
+          ..add('websiteRedirectLocation', websiteRedirectLocation)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKey', '***SENSITIVE***')
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add('ssekmsKeyId', '***SENSITIVE***')
+          ..add('ssekmsEncryptionContext', '***SENSITIVE***')
+          ..add('bucketKeyEnabled', bucketKeyEnabled)
+          ..add('requestPayer', requestPayer)
+          ..add('tagging', tagging)
+          ..add('objectLockMode', objectLockMode)
+          ..add('objectLockRetainUntilDate', objectLockRetainUntilDate)
+          ..add('objectLockLegalHoldStatus', objectLockLegalHoldStatus)
+          ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }
@@ -700,18 +588,12 @@ class PutObjectRequestRestXmlSerializer
   const PutObjectRequestRestXmlSerializer() : super('PutObjectRequest');
 
   @override
-  Iterable<Type> get types => const [
-        PutObjectRequest,
-        _$PutObjectRequest,
-      ];
+  Iterable<Type> get types => const [PutObjectRequest, _$PutObjectRequest];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   _i2.Stream<List<int>> deserialize(
@@ -720,17 +602,12 @@ class PutObjectRequestRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
-    ) as _i2.Stream<List<int>>);
+          serialized,
+          specifiedType: const FullType(_i2.Stream, [
+            FullType(List, [FullType(int)]),
+          ]),
+        )
+        as _i2.Stream<List<int>>);
   }
 
   @override
@@ -743,21 +620,17 @@ class PutObjectRequestRestXmlSerializer
       const _i1.XmlElementName(
         'PutObjectRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
-    result$.add(serializers.serialize(
-      object,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
+    result$.add(
+      serializers.serialize(
+        object,
+        specifiedType: const FullType(_i2.Stream, [
+          FullType(List, [FullType(int)]),
+        ]),
       ),
-    ));
+    );
     return result$;
   }
 }

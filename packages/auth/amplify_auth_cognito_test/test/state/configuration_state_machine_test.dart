@@ -27,13 +27,15 @@ void main() {
     });
 
     test('configure succeeds', () async {
-      final configurationStateMachine =
-          stateMachine.getOrCreate(ConfigurationStateMachine.type);
+      final configurationStateMachine = stateMachine.getOrCreate(
+        ConfigurationStateMachine.type,
+      );
 
       stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await expectLater(
-        configurationStateMachine.stream
-            .startWith(configurationStateMachine.currentState),
+        configurationStateMachine.stream.startWith(
+          configurationStateMachine.currentState,
+        ),
         emitsInOrder(<Matcher>[
           isA<NotConfigured>(),
           isA<Configuring>(),
@@ -45,8 +47,9 @@ void main() {
     });
 
     test('configure fails', () async {
-      final configurationStateMachine =
-          stateMachine.getOrCreate(ConfigurationStateMachine.type);
+      final configurationStateMachine = stateMachine.getOrCreate(
+        ConfigurationStateMachine.type,
+      );
 
       expect(
         stateMachine
@@ -63,13 +66,15 @@ void main() {
     });
 
     test('multiple configures are ignored', () async {
-      final configurationStateMachine =
-          stateMachine.getOrCreate(ConfigurationStateMachine.type);
+      final configurationStateMachine = stateMachine.getOrCreate(
+        ConfigurationStateMachine.type,
+      );
 
       stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await expectLater(
-        configurationStateMachine.stream
-            .startWith(configurationStateMachine.currentState),
+        configurationStateMachine.stream.startWith(
+          configurationStateMachine.currentState,
+        ),
         emitsInOrder(<Matcher>[
           isA<NotConfigured>(),
           isA<Configuring>(),
@@ -78,73 +83,70 @@ void main() {
       );
 
       stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
-      expect(
-        configurationStateMachine.stream,
-        emitsDone,
-      );
+      expect(configurationStateMachine.stream, emitsDone);
 
       await stateMachine.close();
     });
 
-    test('reads existing analytics metadata if analytics is configured',
-        () async {
-      const testEndpointId = 'testEndpointId';
-      final testPinpointAppId =
-          mockConfigWithPinpoint.analytics!.amazonPinpoint!.appId;
+    test(
+      'reads existing analytics metadata if analytics is configured',
+      () async {
+        const testEndpointId = 'testEndpointId';
+        final testPinpointAppId =
+            mockConfigWithPinpoint.analytics!.amazonPinpoint!.appId;
 
-      // Add state machine dependencies.
-      stateMachine.addInstance(
-        EndpointInfoStoreManager(
-          store: MockSecureStorage()
-            ..write(
-              key: testPinpointAppId + EndpointStoreKey.endpointId.name,
-              value: testEndpointId,
-            ),
-        ),
-      );
+        // Add state machine dependencies.
+        stateMachine.addInstance(
+          EndpointInfoStoreManager(
+            store:
+                MockSecureStorage()..write(
+                  key: testPinpointAppId + EndpointStoreKey.endpointId.name,
+                  value: testEndpointId,
+                ),
+          ),
+        );
 
-      final configurationStateMachine =
-          stateMachine.getOrCreate(ConfigurationStateMachine.type);
+        final configurationStateMachine = stateMachine.getOrCreate(
+          ConfigurationStateMachine.type,
+        );
 
-      stateMachine
-          .dispatch(ConfigurationEvent.configure(mockConfigWithPinpoint))
-          .ignore();
-      await expectLater(
-        configurationStateMachine.stream
-            .startWith(configurationStateMachine.currentState),
-        emitsThrough(
-          isA<Configured>(),
-        ),
-      );
+        stateMachine
+            .dispatch(ConfigurationEvent.configure(mockConfigWithPinpoint))
+            .ignore();
+        await expectLater(
+          configurationStateMachine.stream.startWith(
+            configurationStateMachine.currentState,
+          ),
+          emitsThrough(isA<Configured>()),
+        );
 
-      expect(
-        stateMachine.get<AnalyticsMetadataType>()?.analyticsEndpointId,
-        testEndpointId,
-      );
+        expect(
+          stateMachine.get<AnalyticsMetadataType>()?.analyticsEndpointId,
+          testEndpointId,
+        );
 
-      await stateMachine.close();
-    });
+        await stateMachine.close();
+      },
+    );
 
     test('creates analytics metadata if analytics is configured', () async {
       // Add state machine dependencies.
       stateMachine.addInstance(
-        EndpointInfoStoreManager(
-          store: MockSecureStorage(),
-        ),
+        EndpointInfoStoreManager(store: MockSecureStorage()),
       );
 
-      final configurationStateMachine =
-          stateMachine.getOrCreate(ConfigurationStateMachine.type);
+      final configurationStateMachine = stateMachine.getOrCreate(
+        ConfigurationStateMachine.type,
+      );
 
       stateMachine
           .dispatch(ConfigurationEvent.configure(mockConfigWithPinpoint))
           .ignore();
       await expectLater(
-        configurationStateMachine.stream
-            .startWith(configurationStateMachine.currentState),
-        emitsThrough(
-          isA<Configured>(),
+        configurationStateMachine.stream.startWith(
+          configurationStateMachine.currentState,
         ),
+        emitsThrough(isA<Configured>()),
       );
 
       expect(

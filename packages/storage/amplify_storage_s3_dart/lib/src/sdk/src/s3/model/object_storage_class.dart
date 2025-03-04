@@ -6,11 +6,7 @@ library amplify_storage_s3_dart.s3.model.object_storage_class; // ignore_for_fil
 import 'package:smithy/smithy.dart' as _i1;
 
 class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
-  const ObjectStorageClass._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ObjectStorageClass._(super.index, super.name, super.value);
 
   const ObjectStorageClass._sdkUnknown(super.value) : super.sdkUnknown();
 
@@ -26,17 +22,9 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
     'EXPRESS_ONEZONE',
   );
 
-  static const glacier = ObjectStorageClass._(
-    2,
-    'GLACIER',
-    'GLACIER',
-  );
+  static const glacier = ObjectStorageClass._(2, 'GLACIER', 'GLACIER');
 
-  static const glacierIr = ObjectStorageClass._(
-    3,
-    'GLACIER_IR',
-    'GLACIER_IR',
-  );
+  static const glacierIr = ObjectStorageClass._(3, 'GLACIER_IR', 'GLACIER_IR');
 
   static const intelligentTiering = ObjectStorageClass._(
     4,
@@ -44,17 +32,9 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
     'INTELLIGENT_TIERING',
   );
 
-  static const onezoneIa = ObjectStorageClass._(
-    5,
-    'ONEZONE_IA',
-    'ONEZONE_IA',
-  );
+  static const onezoneIa = ObjectStorageClass._(5, 'ONEZONE_IA', 'ONEZONE_IA');
 
-  static const outposts = ObjectStorageClass._(
-    6,
-    'OUTPOSTS',
-    'OUTPOSTS',
-  );
+  static const outposts = ObjectStorageClass._(6, 'OUTPOSTS', 'OUTPOSTS');
 
   static const reducedRedundancy = ObjectStorageClass._(
     7,
@@ -62,17 +42,9 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
     'REDUCED_REDUNDANCY',
   );
 
-  static const snow = ObjectStorageClass._(
-    8,
-    'SNOW',
-    'SNOW',
-  );
+  static const snow = ObjectStorageClass._(8, 'SNOW', 'SNOW');
 
-  static const standard = ObjectStorageClass._(
-    9,
-    'STANDARD',
-    'STANDARD',
-  );
+  static const standard = ObjectStorageClass._(9, 'STANDARD', 'STANDARD');
 
   static const standardIa = ObjectStorageClass._(
     10,
@@ -101,12 +73,9 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
       values: values,
       sdkUnknown: ObjectStorageClass._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

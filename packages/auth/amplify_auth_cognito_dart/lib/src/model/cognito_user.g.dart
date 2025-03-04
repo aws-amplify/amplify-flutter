@@ -27,22 +27,28 @@ class _$CognitoUser extends CognitoUser {
   factory _$CognitoUser([void Function(CognitoUserBuilder)? updates]) =>
       (new CognitoUserBuilder()..update(updates))._build();
 
-  _$CognitoUser._(
-      {this.identityId,
-      this.awsCredentials,
-      this.userPoolTokens,
-      this.deviceSecrets,
-      required this.userId,
-      required this.username,
-      required this.signInDetails,
-      required this.attributes})
-      : super._() {
+  _$CognitoUser._({
+    this.identityId,
+    this.awsCredentials,
+    this.userPoolTokens,
+    this.deviceSecrets,
+    required this.userId,
+    required this.username,
+    required this.signInDetails,
+    required this.attributes,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(userId, r'CognitoUser', 'userId');
     BuiltValueNullFieldError.checkNotNull(username, r'CognitoUser', 'username');
     BuiltValueNullFieldError.checkNotNull(
-        signInDetails, r'CognitoUser', 'signInDetails');
+      signInDetails,
+      r'CognitoUser',
+      'signInDetails',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        attributes, r'CognitoUser', 'attributes');
+      attributes,
+      r'CognitoUser',
+      'attributes',
+    );
   }
 
   @override
@@ -174,18 +180,28 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
     CognitoUser._finalize(this);
     _$CognitoUser _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$CognitoUser._(
             identityId: identityId,
             awsCredentials: awsCredentials,
             userPoolTokens: _userPoolTokens?.build(),
             deviceSecrets: _deviceSecrets?.build(),
             userId: BuiltValueNullFieldError.checkNotNull(
-                userId, r'CognitoUser', 'userId'),
+              userId,
+              r'CognitoUser',
+              'userId',
+            ),
             username: BuiltValueNullFieldError.checkNotNull(
-                username, r'CognitoUser', 'username'),
+              username,
+              r'CognitoUser',
+              'username',
+            ),
             signInDetails: BuiltValueNullFieldError.checkNotNull(
-                signInDetails, r'CognitoUser', 'signInDetails'),
+              signInDetails,
+              r'CognitoUser',
+              'signInDetails',
+            ),
             attributes: attributes.build(),
           );
     } catch (_) {
@@ -200,7 +216,10 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
         attributes.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'CognitoUser', _$failedField, e.toString());
+          r'CognitoUser',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -15,24 +15,19 @@ import 'package:worker_bee_builder/src/worker_generator.dart';
 /// Generates platform-specific boilerplate for [WorkerBee]-annotated classes.
 /// {@endtemplate}
 Builder workerBeeBuilder(BuilderOptions options) => LibraryBuilder(
-      WorkerBeeGenerator(),
-      generatedExtension: '.worker.dart',
-      additionalOutputExtensions: [
-        '.worker.vm.dart',
-        '.worker.js.dart',
-      ],
-    );
+  WorkerBeeGenerator(),
+  generatedExtension: '.worker.dart',
+  additionalOutputExtensions: ['.worker.vm.dart', '.worker.js.dart'],
+);
 
 /// {@template worker_bee_builder.worker_hive_builder}
 /// Generates Hive definitions for packages with multiple worker bee types.
 /// {@endtemplate}
 Builder workerHiveBuilder(BuilderOptions options) => LibraryBuilder(
-      WorkerHiveGenerator(),
-      generatedExtension: '.debug.dart',
-      additionalOutputExtensions: [
-        '.release.dart',
-      ],
-    );
+  WorkerHiveGenerator(),
+  generatedExtension: '.debug.dart',
+  additionalOutputExtensions: ['.release.dart'],
+);
 
 /// {@template worker_bee_builder.worker_copy_builder}
 /// Copies generated JS artifacts to `lib/` for publishing.

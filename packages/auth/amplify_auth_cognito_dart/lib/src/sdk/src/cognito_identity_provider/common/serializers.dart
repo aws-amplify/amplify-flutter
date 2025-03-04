@@ -196,38 +196,18 @@ const List<_i1.SmithySerializer> serializers = [
   ...VerifyUserAttributeResponse.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i2.MapBuilder<String, String>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(AttributeType)],
-  ): _i2.ListBuilder<AttributeType>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(MfaOptionType)],
-  ): _i2.ListBuilder<MfaOptionType>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(String)],
-  ): _i2.ListBuilder<String>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType.nullable(String),
-    ],
-  ): _i2.MapBuilder<String, String?>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(DeviceType)],
-  ): _i2.ListBuilder<DeviceType>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(CodeDeliveryDetailsType)],
-  ): _i2.ListBuilder<CodeDeliveryDetailsType>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(String)]):
+      _i2.MapBuilder<String, String>.new,
+  const FullType(_i2.BuiltList, [FullType(AttributeType)]):
+      _i2.ListBuilder<AttributeType>.new,
+  const FullType(_i2.BuiltList, [FullType(MfaOptionType)]):
+      _i2.ListBuilder<MfaOptionType>.new,
+  const FullType(_i2.BuiltList, [FullType(String)]):
+      _i2.ListBuilder<String>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType.nullable(String)]):
+      _i2.MapBuilder<String, String?>.new,
+  const FullType(_i2.BuiltList, [FullType(DeviceType)]):
+      _i2.ListBuilder<DeviceType>.new,
+  const FullType(_i2.BuiltList, [FullType(CodeDeliveryDetailsType)]):
+      _i2.ListBuilder<CodeDeliveryDetailsType>.new,
 };

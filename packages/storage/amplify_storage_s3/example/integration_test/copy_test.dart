@@ -34,10 +34,11 @@ void main() {
         final destinationPath = 'public/copy-dest-${uuid()}';
         final destinationStoragePath = StoragePath.fromString(destinationPath);
         addTearDownPath(destinationStoragePath);
-        final result = await Amplify.Storage.copy(
-          source: srcStoragePath,
-          destination: destinationStoragePath,
-        ).result;
+        final result =
+            await Amplify.Storage.copy(
+              source: srcStoragePath,
+              destination: destinationStoragePath,
+            ).result;
         expect(await objectExists(destinationStoragePath), true);
         expect(result.copiedItem.path, destinationPath);
       });
@@ -60,10 +61,11 @@ void main() {
         final expectedDestinationPath =
             'private/$identityId/$destinationFileName';
         addTearDownPath(destinationStoragePath);
-        final result = await Amplify.Storage.copy(
-          source: srcStoragePath,
-          destination: destinationStoragePath,
-        ).result;
+        final result =
+            await Amplify.Storage.copy(
+              source: srcStoragePath,
+              destination: destinationStoragePath,
+            ).result;
         expect(await objectExists(destinationStoragePath), true);
         expect(result.copiedItem.path, expectedDestinationPath);
       });
@@ -71,46 +73,53 @@ void main() {
       group('with options', () {
         testWidgets('getProperties', (_) async {
           final destinationPath = 'public/copy-dest-metadata-${uuid()}';
-          final destinationStoragePath =
-              StoragePath.fromString(destinationPath);
+          final destinationStoragePath = StoragePath.fromString(
+            destinationPath,
+          );
           addTearDownPath(destinationStoragePath);
-          final result = await Amplify.Storage.copy(
-            source: srcStoragePath,
-            destination: destinationStoragePath,
-            options: const StorageCopyOptions(
-              pluginOptions: S3CopyPluginOptions(getProperties: true),
-            ),
-          ).result;
+          final result =
+              await Amplify.Storage.copy(
+                source: srcStoragePath,
+                destination: destinationStoragePath,
+                options: const StorageCopyOptions(
+                  pluginOptions: S3CopyPluginOptions(getProperties: true),
+                ),
+              ).result;
           expect(result.copiedItem.metadata, metadata);
         });
       });
 
       testWidgets('unauthorized path (src)', (_) async {
         await expectLater(
-          () => Amplify.Storage.copy(
-            source: const StoragePath.fromString('unauthorized/path'),
-            destination: const StoragePath.fromString('public/foo'),
-          ).result,
+          () =>
+              Amplify.Storage.copy(
+                source: const StoragePath.fromString('unauthorized/path'),
+                destination: const StoragePath.fromString('public/foo'),
+              ).result,
           throwsA(isA<StorageAccessDeniedException>()),
         );
       });
 
       testWidgets('unauthorized path (destination)', (_) async {
         await expectLater(
-          () => Amplify.Storage.copy(
-            source: srcStoragePath,
-            destination: const StoragePath.fromString('unauthorized/path'),
-          ).result,
+          () =>
+              Amplify.Storage.copy(
+                source: srcStoragePath,
+                destination: const StoragePath.fromString('unauthorized/path'),
+              ).result,
           throwsA(isA<StorageAccessDeniedException>()),
         );
       });
 
       testWidgets('non existent path', (_) async {
         await expectLater(
-          () => Amplify.Storage.copy(
-            source: const StoragePath.fromString('public/non-existent-path'),
-            destination: const StoragePath.fromString('public/foo'),
-          ).result,
+          () =>
+              Amplify.Storage.copy(
+                source: const StoragePath.fromString(
+                  'public/non-existent-path',
+                ),
+                destination: const StoragePath.fromString('public/foo'),
+              ).result,
           throwsA(isA<StorageNotFoundException>()),
         );
       });
@@ -130,10 +139,11 @@ void main() {
         final destinationPath = 'public/copy-dest-${uuid()}';
         final destinationStoragePath = StoragePath.fromString(destinationPath);
         addTearDownPath(destinationStoragePath);
-        final result = await Amplify.Storage.copy(
-          source: srcStoragePath,
-          destination: destinationStoragePath,
-        ).result;
+        final result =
+            await Amplify.Storage.copy(
+              source: srcStoragePath,
+              destination: destinationStoragePath,
+            ).result;
         expect(await objectExists(destinationStoragePath), true);
         expect(result.copiedItem.path, destinationPath);
       });
@@ -150,12 +160,15 @@ void main() {
       final bucket1PathSource = 'public/multi-bucket-get-url-${uuid()}';
       final bucket2PathSource = 'public/multi-bucket-get-url-${uuid()}';
       final bucket2PathDestination = 'public/multi-bucket-get-url-${uuid()}';
-      final storageBucket1PathSource =
-          StoragePath.fromString(bucket1PathSource);
-      final storageBucket2PathSource =
-          StoragePath.fromString(bucket2PathSource);
-      final storageBucket2PathDestination =
-          StoragePath.fromString(bucket2PathDestination);
+      final storageBucket1PathSource = StoragePath.fromString(
+        bucket1PathSource,
+      );
+      final storageBucket2PathSource = StoragePath.fromString(
+        bucket2PathSource,
+      );
+      final storageBucket2PathDestination = StoragePath.fromString(
+        bucket2PathDestination,
+      );
 
       setUp(() async {
         await configure(amplifyEnvironments['main']!);
@@ -165,62 +178,51 @@ void main() {
         await Amplify.Storage.uploadData(
           data: StorageDataPayload.bytes(data),
           path: storageBucket1PathSource,
-          options: StorageUploadDataOptions(
-            bucket: bucket1,
-          ),
+          options: StorageUploadDataOptions(bucket: bucket1),
         ).result;
         await Amplify.Storage.uploadData(
           data: StorageDataPayload.bytes(data),
           path: storageBucket2PathSource,
-          options: StorageUploadDataOptions(
-            bucket: bucket2,
-          ),
+          options: StorageUploadDataOptions(bucket: bucket2),
         ).result;
       });
 
       testWidgets('copy to a different bucket', (_) async {
-        final result = await Amplify.Storage.copy(
-          source: storageBucket1PathSource,
-          destination: storageBucket2PathDestination,
-          options: StorageCopyOptions(
-            buckets: CopyBuckets(
-              source: bucket1,
-              destination: bucket2,
-            ),
-          ),
-        ).result;
+        final result =
+            await Amplify.Storage.copy(
+              source: storageBucket1PathSource,
+              destination: storageBucket2PathDestination,
+              options: StorageCopyOptions(
+                buckets: CopyBuckets(source: bucket1, destination: bucket2),
+              ),
+            ).result;
         expect(result.copiedItem.path, bucket2PathDestination);
 
-        final downloadResult = await Amplify.Storage.downloadData(
-          path: storageBucket2PathDestination,
-          options: StorageDownloadDataOptions(bucket: bucket2),
-        ).result;
-        expect(
-          downloadResult.bytes,
-          data,
-        );
+        final downloadResult =
+            await Amplify.Storage.downloadData(
+              path: storageBucket2PathDestination,
+              options: StorageDownloadDataOptions(bucket: bucket2),
+            ).result;
+        expect(downloadResult.bytes, data);
       });
 
       testWidgets('copy to the same bucket', (_) async {
-        final result = await Amplify.Storage.copy(
-          source: storageBucket2PathSource,
-          destination: storageBucket2PathDestination,
-          options: StorageCopyOptions(
-            buckets: CopyBuckets.sameBucket(
-              bucket2,
-            ),
-          ),
-        ).result;
+        final result =
+            await Amplify.Storage.copy(
+              source: storageBucket2PathSource,
+              destination: storageBucket2PathDestination,
+              options: StorageCopyOptions(
+                buckets: CopyBuckets.sameBucket(bucket2),
+              ),
+            ).result;
         expect(result.copiedItem.path, bucket2PathDestination);
 
-        final downloadResult = await Amplify.Storage.downloadData(
-          path: storageBucket2PathDestination,
-          options: StorageDownloadDataOptions(bucket: bucket2),
-        ).result;
-        expect(
-          downloadResult.bytes,
-          data,
-        );
+        final downloadResult =
+            await Amplify.Storage.downloadData(
+              path: storageBucket2PathDestination,
+              options: StorageDownloadDataOptions(bucket: bucket2),
+            ).result;
+        expect(downloadResult.bytes, data);
       });
     });
   });

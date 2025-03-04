@@ -35,7 +35,8 @@ class PostWithAuthRules extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -48,11 +49,15 @@ class PostWithAuthRules extends amplify_core.Model {
       return _title!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -68,19 +73,27 @@ class PostWithAuthRules extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const PostWithAuthRules._internal(
-      {required this.id, required title, owner, createdAt, updatedAt})
-      : _title = title,
-        _owner = owner,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const PostWithAuthRules._internal({
+    required this.id,
+    required title,
+    owner,
+    createdAt,
+    updatedAt,
+  }) : _title = title,
+       _owner = owner,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory PostWithAuthRules(
-      {String? id, required String title, String? owner}) {
+  factory PostWithAuthRules({
+    String? id,
+    required String title,
+    String? owner,
+  }) {
     return PostWithAuthRules._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        title: title,
-        owner: owner);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      title: title,
+      owner: owner,
+    );
   }
 
   bool equals(Object other) {
@@ -107,11 +120,14 @@ class PostWithAuthRules extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("owner=" + "$_owner" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -119,57 +135,67 @@ class PostWithAuthRules extends amplify_core.Model {
 
   PostWithAuthRules copyWith({String? title, String? owner}) {
     return PostWithAuthRules._internal(
-        id: id, title: title ?? this.title, owner: owner ?? this.owner);
+      id: id,
+      title: title ?? this.title,
+      owner: owner ?? this.owner,
+    );
   }
 
-  PostWithAuthRules copyWithModelFieldValues(
-      {ModelFieldValue<String>? title, ModelFieldValue<String?>? owner}) {
+  PostWithAuthRules copyWithModelFieldValues({
+    ModelFieldValue<String>? title,
+    ModelFieldValue<String?>? owner,
+  }) {
     return PostWithAuthRules._internal(
-        id: id,
-        title: title == null ? this.title : title.value,
-        owner: owner == null ? this.owner : owner.value);
+      id: id,
+      title: title == null ? this.title : title.value,
+      owner: owner == null ? this.owner : owner.value,
+    );
   }
 
   PostWithAuthRules.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _title = json['title'],
-        _owner = json['owner'],
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _title = json['title'],
+      _owner = json['owner'],
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': _title,
-        'owner': _owner,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'title': _title,
+    'owner': _owner,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'title': _title,
-        'owner': _owner,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'title': _title,
+    'owner': _owner,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<PostWithAuthRulesModelIdentifier> MODEL_IDENTIFIER =
+  static final amplify_core.QueryModelIdentifier<
+    PostWithAuthRulesModelIdentifier
+  >
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<PostWithAuthRulesModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final TITLE = amplify_core.QueryField(fieldName: "title");
   static final OWNER = amplify_core.QueryField(fieldName: "owner");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "PostWithAuthRules";
-    modelSchemaDefinition.pluralName = "PostWithAuthRules";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "PostWithAuthRules";
+      modelSchemaDefinition.pluralName = "PostWithAuthRules";
 
-    modelSchemaDefinition.authRules = [
-      amplify_core.AuthRule(
+      modelSchemaDefinition.authRules = [
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
@@ -178,40 +204,56 @@ class PostWithAuthRules extends amplify_core.Model {
             amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.UPDATE,
             amplify_core.ModelOperation.DELETE,
-            amplify_core.ModelOperation.READ
-          ])
-    ];
+            amplify_core.ModelOperation.READ,
+          ],
+        ),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: PostWithAuthRules.TITLE,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: PostWithAuthRules.TITLE,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: PostWithAuthRules.OWNER,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: PostWithAuthRules.OWNER,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _PostWithAuthRulesModelType
@@ -244,10 +286,10 @@ class PostWithAuthRulesModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

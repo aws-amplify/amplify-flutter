@@ -7,14 +7,10 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class DeviceRememberedStatusType
     extends _i1.SmithyEnum<DeviceRememberedStatusType> {
-  const DeviceRememberedStatusType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const DeviceRememberedStatusType._(super.index, super.name, super.value);
 
   const DeviceRememberedStatusType._sdkUnknown(super.value)
-      : super.sdkUnknown();
+    : super.sdkUnknown();
 
   static const notRemembered = DeviceRememberedStatusType._(
     0,
@@ -35,18 +31,15 @@ class DeviceRememberedStatusType
   ];
 
   static const List<_i1.SmithySerializer<DeviceRememberedStatusType>>
-      serializers = [
+  serializers = [
     _i1.SmithyEnumSerializer(
       'DeviceRememberedStatusType',
       values: values,
       sdkUnknown: DeviceRememberedStatusType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

@@ -626,152 +626,135 @@ Object transformSdkException(Object e) {
 
   return switch (shapeName) {
     'AliasExistsException' => AliasExistsException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'CodeDeliveryFailureException' => CodeDeliveryFailureException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'CodeMismatchException' => CodeMismatchException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'ConcurrentModificationException' => ConcurrentModificationException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'EnableSoftwareTokenMFAException' => EnableSoftwareTokenMfaException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'ExpiredCodeException' => ExpiredCodeException(
-        message,
-        underlyingException: e,
-      ),
-    'ForbiddenException' => ForbiddenException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
+    'ForbiddenException' => ForbiddenException(message, underlyingException: e),
     'InternalErrorException' => InternalErrorException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'InvalidEmailRoleAccessPolicyException' =>
-      InvalidEmailRoleAccessPolicyException(
-        message,
-        underlyingException: e,
-      ),
+      InvalidEmailRoleAccessPolicyException(message, underlyingException: e),
     'InvalidLambdaResponseException' => InvalidLambdaResponseException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'InvalidParameterException' => InvalidParameterException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'InvalidPasswordException' => InvalidPasswordException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'InvalidSmsRoleAccessPolicyException' =>
-      InvalidSmsRoleAccessPolicyException(
-        message,
-        underlyingException: e,
-      ),
+      InvalidSmsRoleAccessPolicyException(message, underlyingException: e),
     'InvalidSmsRoleTrustRelationshipException' =>
-      InvalidSmsRoleTrustRelationshipException(
-        message,
-        underlyingException: e,
-      ),
+      InvalidSmsRoleTrustRelationshipException(message, underlyingException: e),
     'InvalidUserPoolConfigurationException' =>
-      InvalidUserPoolConfigurationException(
-        message,
-        underlyingException: e,
-      ),
+      InvalidUserPoolConfigurationException(message, underlyingException: e),
     'LimitExceededException' => LimitExceededException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'MFAMethodNotFoundException' => MfaMethodNotFoundException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'NotAuthorizedException' => NotAuthorizedServiceException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'PasswordHistoryPolicyViolationException' =>
-      PasswordHistoryPolicyViolationException(
-        message,
-        underlyingException: e,
-      ),
+      PasswordHistoryPolicyViolationException(message, underlyingException: e),
     'PasswordResetRequiredException' => PasswordResetRequiredException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'ResourceNotFoundException' => ResourceNotFoundException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'SoftwareTokenMFANotFoundException' => SoftwareTokenMfaNotFoundException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'TooManyFailedAttemptsException' => TooManyFailedAttemptsException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'TooManyRequestsException' => TooManyRequestsException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'UnauthorizedException' => UnauthorizedException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'UnexpectedLambdaException' => UnexpectedLambdaException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'UnsupportedOperationException' => UnsupportedOperationException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'UnsupportedTokenTypeException' => UnsupportedTokenTypeException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'UserLambdaValidationException' => UserLambdaValidationException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'UserNotConfirmedException' => UserNotConfirmedException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'UserNotFoundException' => UserNotFoundException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'UsernameExistsException' => UsernameExistsException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'ExternalServiceException' => ExternalServiceException(
-        message,
-        underlyingException: e,
-      ),
+      message,
+      underlyingException: e,
+    ),
     'InvalidIdentityPoolConfigurationException' =>
       InvalidIdentityPoolConfigurationException(
         message,
         underlyingException: e,
       ),
     'ResourceConflictException' => ResourceConflictException(
-        message,
-        underlyingException: e,
-      ),
-    _ => (() {
+      message,
+      underlyingException: e,
+    ),
+    _ =>
+      (() {
         // Some exceptions are returned as non-Lambda exceptions even though they
         // originated in user-defined lambdas.
         if (LambdaException.isLambdaException(message)) {

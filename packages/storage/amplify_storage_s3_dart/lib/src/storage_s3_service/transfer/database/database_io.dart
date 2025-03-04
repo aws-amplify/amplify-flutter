@@ -24,14 +24,15 @@ class TransferDatabase extends $TransferDatabase
     implements stub.TransferDatabase {
   /// {@macro amplify_storage_s3_dart.transfer_database}
   TransferDatabase(DependencyManager dependencies)
-      : super(
-          dependencies.getOrCreate<db_common.Connect>()(
-            name: dataBaseName,
-            path: dependencies
-                .getOrCreate<AppPathProvider>()
-                .getApplicationSupportPath(),
-          ),
-        );
+    : super(
+        dependencies.getOrCreate<db_common.Connect>()(
+          name: dataBaseName,
+          path:
+              dependencies
+                  .getOrCreate<AppPathProvider>()
+                  .getApplicationSupportPath(),
+        ),
+      );
 
   // Bump the version number when any alteration is made into tables.dart
   @override
@@ -59,12 +60,9 @@ class TransferDatabase extends $TransferDatabase
   Future<List<data.TransferRecord>> getMultipartUploadRecordsCreatedBefore(
     DateTime dateTime,
   ) {
-    return (select(transferRecords, distinct: true)
-          ..where(
-            (tbl) => tbl.createdAt.isSmallerThanValue(
-              dateTime.toIso8601String(),
-            ),
-          ))
+    return (select(transferRecords, distinct: true)..where(
+          (tbl) => tbl.createdAt.isSmallerThanValue(dateTime.toIso8601String()),
+        ))
         .map(
           (e) => data.TransferRecord(
             objectKey: e.objectKey,
@@ -93,7 +91,6 @@ class TransferDatabase extends $TransferDatabase
   @override
   Future<int> deleteTransferRecords(String uploadId) {
     return (delete(transferRecords)
-          ..where((tbl) => tbl.uploadId.equals(uploadId)))
-        .go();
+      ..where((tbl) => tbl.uploadId.equals(uploadId))).go();
   }
 }

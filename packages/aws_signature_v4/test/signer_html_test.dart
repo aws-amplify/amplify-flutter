@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -22,15 +21,11 @@ Future<void> main() async {
     final testCases = stream.split().skip(1).cast<String>().take(numTests);
 
     await for (final testCaseJson in testCases) {
-      final signerTest =
-          SignerTest.fromJson((jsonDecode(testCaseJson) as Map).cast());
-      safePrint('Running test: ${signerTest.name}');
-      await runZoned(
-        signerTest.run,
-        zoneValues: {
-          zSigningTest: true,
-        },
+      final signerTest = SignerTest.fromJson(
+        (jsonDecode(testCaseJson) as Map).cast(),
       );
+      safePrint('Running test: ${signerTest.name}');
+      await runZoned(signerTest.run, zoneValues: {zSigningTest: true});
     }
   });
 }

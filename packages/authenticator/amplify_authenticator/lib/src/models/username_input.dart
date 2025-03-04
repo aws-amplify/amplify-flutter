@@ -3,12 +3,7 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
-enum UsernameConfigType {
-  username,
-  email,
-  phoneNumber,
-  emailOrPhoneNumber,
-}
+enum UsernameConfigType { username, email, phoneNumber, emailOrPhoneNumber }
 
 /// {@template amplify_authenticator.username_type}
 /// The type of username input field presented to the user.
@@ -26,7 +21,7 @@ enum UsernameType {
 
   /// The user's email address, corresponding to their [CognitoUserAttributeKey.phoneNumber]
   /// attribute value.
-  phoneNumber
+  phoneNumber,
 }
 
 /// {@template amplify_authenticator.username_input}
@@ -35,10 +30,7 @@ enum UsernameType {
 /// {@endtemplate}
 class UsernameInput {
   /// {@macro amplify_authenticator.username_input}
-  const UsernameInput({
-    required this.type,
-    required this.username,
-  });
+  const UsernameInput({required this.type, required this.username});
 
   /// {@macro amplify_authenticator.username_type}
   final UsernameType type;
@@ -51,7 +43,4 @@ class UsernameInput {
 /// The username type to use during sign up and sign in for configurations
 /// that allow email OR phone number.
 /// {@endtemplate}
-enum UsernameSelection {
-  email,
-  phoneNumber,
-}
+enum UsernameSelection { email, phoneNumber }

@@ -52,18 +52,12 @@ Future<void> _handleH2(
 ) async {
   final method = AWSHttpMethod.fromString(headers[':method']!);
   if (method == AWSHttpMethod.options) {
-    return request.sendHeaders(
-      [
-        Header.ascii(':status', '200'),
-        Header.ascii('Access-Control-Allow-Methods', 'GET'),
-        Header.ascii('Access-Control-Allow-Headers', '*'),
-      ],
-      endStream: true,
-    );
+    return request.sendHeaders([
+      Header.ascii(':status', '200'),
+      Header.ascii('Access-Control-Allow-Methods', 'GET'),
+      Header.ascii('Access-Control-Allow-Headers', '*'),
+    ], endStream: true);
   }
   channel.sink.add(headers);
-  request.sendHeaders(
-    [Header.ascii(':status', '200')],
-    endStream: true,
-  );
+  request.sendHeaders([Header.ascii(':status', '200')], endStream: true);
 }

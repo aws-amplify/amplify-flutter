@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('linux')
-
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_linux.dart';
 import 'package:test/expect.dart';
@@ -27,9 +26,10 @@ void main() {
     required String appId,
     String? accessGroup,
   }) {
-    final linuxOptions = accessGroup != null
-        ? LinuxSecureStorageOptions(accessGroup: accessGroup)
-        : LinuxSecureStorageOptions();
+    final linuxOptions =
+        accessGroup != null
+            ? LinuxSecureStorageOptions(accessGroup: accessGroup)
+            : LinuxSecureStorageOptions();
     final instance = AmplifySecureStorageLinux(
       config: AmplifySecureStorageConfig(
         scope: scope,

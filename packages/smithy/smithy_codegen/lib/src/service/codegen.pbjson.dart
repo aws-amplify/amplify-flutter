@@ -18,7 +18,7 @@ const SmithyLibrary$json = {
       '4': 1,
       '5': 14,
       '6': '.SmithyLibrary.LibraryType',
-      '10': 'libraryType'
+      '10': 'libraryType',
     },
     {'1': 'filename', '3': 4, '4': 1, '5': 9, '10': 'filename'},
     {'1': 'basePath', '3': 5, '4': 1, '5': 9, '10': 'basePath'},
@@ -43,7 +43,8 @@ const SmithyLibrary_LibraryType$json = {
 
 /// Descriptor for `SmithyLibrary`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List smithyLibraryDescriptor = $convert.base64Decode(
-    'Cg1TbWl0aHlMaWJyYXJ5EiAKC3BhY2thZ2VOYW1lGAEgASgJUgtwYWNrYWdlTmFtZRIgCgtzZXJ2aWNlTmFtZRgCIAEoCVILc2VydmljZU5hbWUSPAoLbGlicmFyeVR5cGUYAyABKA4yGi5TbWl0aHlMaWJyYXJ5LkxpYnJhcnlUeXBlUgtsaWJyYXJ5VHlwZRIaCghmaWxlbmFtZRgEIAEoCVIIZmlsZW5hbWUSGgoIYmFzZVBhdGgYBSABKAlSCGJhc2VQYXRoIm8KC0xpYnJhcnlUeXBlEgkKBU1PREVMEAASCgoGQ0xJRU5UEAESCwoHU0VSVklDRRACEg0KCU9QRVJBVElPThADEgoKBkNPTU1PThAEEggKBFRFU1QQBRIKCgZTRVJWRVIQBhILCgdXQUlURVJTEAc=');
+  'Cg1TbWl0aHlMaWJyYXJ5EiAKC3BhY2thZ2VOYW1lGAEgASgJUgtwYWNrYWdlTmFtZRIgCgtzZXJ2aWNlTmFtZRgCIAEoCVILc2VydmljZU5hbWUSPAoLbGlicmFyeVR5cGUYAyABKA4yGi5TbWl0aHlMaWJyYXJ5LkxpYnJhcnlUeXBlUgtsaWJyYXJ5VHlwZRIaCghmaWxlbmFtZRgEIAEoCVIIZmlsZW5hbWUSGgoIYmFzZVBhdGgYBSABKAlSCGJhc2VQYXRoIm8KC0xpYnJhcnlUeXBlEgkKBU1PREVMEAASCgoGQ0xJRU5UEAESCwoHU0VSVklDRRACEg0KCU9QRVJBVElPThADEgoKBkNPTU1PThAEEggKBFRFU1QQBRIKCgZTRVJWRVIQBhILCgdXQUlURVJTEAc=',
+);
 @$core.Deprecated('Use codegenRequestDescriptor instead')
 const CodegenRequest$json = {
   '1': 'CodegenRequest',
@@ -54,7 +55,7 @@ const CodegenRequest$json = {
       '4': 3,
       '5': 11,
       '6': '.CodegenRequest.SettingsEntry',
-      '10': 'settings'
+      '10': 'settings',
     },
     {'1': 'serviceName', '3': 2, '4': 1, '5': 9, '10': 'serviceName'},
     {'1': 'json', '3': 3, '4': 1, '5': 9, '10': 'json'},
@@ -74,7 +75,8 @@ const CodegenRequest_SettingsEntry$json = {
 
 /// Descriptor for `CodegenRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List codegenRequestDescriptor = $convert.base64Decode(
-    'Cg5Db2RlZ2VuUmVxdWVzdBI5CghzZXR0aW5ncxgBIAMoCzIdLkNvZGVnZW5SZXF1ZXN0LlNldHRpbmdzRW50cnlSCHNldHRpbmdzEiAKC3NlcnZpY2VOYW1lGAIgASgJUgtzZXJ2aWNlTmFtZRISCgRqc29uGAMgASgJUgRqc29uGjsKDVNldHRpbmdzRW50cnkSEAoDa2V5GAEgASgJUgNrZXkSFAoFdmFsdWUYAiABKAlSBXZhbHVlOgI4AQ==');
+  'Cg5Db2RlZ2VuUmVxdWVzdBI5CghzZXR0aW5ncxgBIAMoCzIdLkNvZGVnZW5SZXF1ZXN0LlNldHRpbmdzRW50cnlSCHNldHRpbmdzEiAKC3NlcnZpY2VOYW1lGAIgASgJUgtzZXJ2aWNlTmFtZRISCgRqc29uGAMgASgJUgRqc29uGjsKDVNldHRpbmdzRW50cnkSEAoDa2V5GAEgASgJUgNrZXkSFAoFdmFsdWUYAiABKAlSBXZhbHVlOgI4AQ==',
+);
 @$core.Deprecated('Use codegenResponseDescriptor instead')
 const CodegenResponse$json = {
   '1': 'CodegenResponse',
@@ -88,7 +90,7 @@ const CodegenResponse$json = {
       '4': 3,
       '5': 11,
       '6': '.CodegenResponse.Library',
-      '10': 'libraries'
+      '10': 'libraries',
     },
   ],
   '3': [CodegenResponse_Library$json],
@@ -104,7 +106,7 @@ const CodegenResponse_Library$json = {
       '4': 1,
       '5': 11,
       '6': '.SmithyLibrary',
-      '10': 'metadata'
+      '10': 'metadata',
     },
     {'1': 'definition', '3': 2, '4': 1, '5': 9, '10': 'definition'},
   ],
@@ -112,4 +114,5 @@ const CodegenResponse_Library$json = {
 
 /// Descriptor for `CodegenResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List codegenResponseDescriptor = $convert.base64Decode(
-    'Cg9Db2RlZ2VuUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIUCgVlcnJvchgCIAEoCVIFZXJyb3ISGAoHcHVic3BlYxgDIAEoCVIHcHVic3BlYxI2CglsaWJyYXJpZXMYBCADKAsyGC5Db2RlZ2VuUmVzcG9uc2UuTGlicmFyeVIJbGlicmFyaWVzGlUKB0xpYnJhcnkSKgoIbWV0YWRhdGEYASABKAsyDi5TbWl0aHlMaWJyYXJ5UghtZXRhZGF0YRIeCgpkZWZpbml0aW9uGAIgASgJUgpkZWZpbml0aW9u');
+  'Cg9Db2RlZ2VuUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIUCgVlcnJvchgCIAEoCVIFZXJyb3ISGAoHcHVic3BlYxgDIAEoCVIHcHVic3BlYxI2CglsaWJyYXJpZXMYBCADKAsyGC5Db2RlZ2VuUmVzcG9uc2UuTGlicmFyeVIJbGlicmFyaWVzGlUKB0xpYnJhcnkSKgoIbWV0YWRhdGEYASABKAsyDi5TbWl0aHlMaWJyYXJ5UghtZXRhZGF0YRIeCgpkZWZpbml0aW9uGAIgASgJUgpkZWZpbml0aW9u',
+);

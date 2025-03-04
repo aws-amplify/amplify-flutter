@@ -36,24 +36,30 @@ class Inventory extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => modelIdentifier.serializeAsString();
 
   InventoryModelIdentifier get modelIdentifier {
     try {
       return InventoryModelIdentifier(
-          productID: _productID!,
-          name: _name!,
-          warehouseID: _warehouseID!,
-          region: _region!);
+        productID: _productID!,
+        name: _name!,
+        warehouseID: _warehouseID!,
+        region: _region!,
+      );
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -62,11 +68,15 @@ class Inventory extends amplify_core.Model {
       return _productID!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -75,11 +85,15 @@ class Inventory extends amplify_core.Model {
       return _name!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -88,11 +102,15 @@ class Inventory extends amplify_core.Model {
       return _warehouseID!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -101,11 +119,15 @@ class Inventory extends amplify_core.Model {
       return _region!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -117,30 +139,32 @@ class Inventory extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const Inventory._internal(
-      {required productID,
-      required name,
-      required warehouseID,
-      required region,
-      createdAt,
-      updatedAt})
-      : _productID = productID,
-        _name = name,
-        _warehouseID = warehouseID,
-        _region = region,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const Inventory._internal({
+    required productID,
+    required name,
+    required warehouseID,
+    required region,
+    createdAt,
+    updatedAt,
+  }) : _productID = productID,
+       _name = name,
+       _warehouseID = warehouseID,
+       _region = region,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory Inventory(
-      {required String productID,
-      required String name,
-      required String warehouseID,
-      required String region}) {
+  factory Inventory({
+    required String productID,
+    required String name,
+    required String warehouseID,
+    required String region,
+  }) {
     return Inventory._internal(
-        productID: productID,
-        name: name,
-        warehouseID: warehouseID,
-        region: region);
+      productID: productID,
+      name: name,
+      warehouseID: warehouseID,
+      region: region,
+    );
   }
 
   bool equals(Object other) {
@@ -169,11 +193,14 @@ class Inventory extends amplify_core.Model {
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("warehouseID=" + "$_warehouseID" + ", ");
     buffer.write("region=" + "$_region" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -181,108 +208,136 @@ class Inventory extends amplify_core.Model {
 
   Inventory copyWith() {
     return Inventory._internal(
-        productID: productID,
-        name: name,
-        warehouseID: warehouseID,
-        region: region);
+      productID: productID,
+      name: name,
+      warehouseID: warehouseID,
+      region: region,
+    );
   }
 
   Inventory copyWithModelFieldValues() {
     return Inventory._internal(
-        productID: productID,
-        name: name,
-        warehouseID: warehouseID,
-        region: region);
+      productID: productID,
+      name: name,
+      warehouseID: warehouseID,
+      region: region,
+    );
   }
 
   Inventory.fromJson(Map<String, dynamic> json)
-      : _productID = json['productID'],
-        _name = json['name'],
-        _warehouseID = json['warehouseID'],
-        _region = json['region'],
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : _productID = json['productID'],
+      _name = json['name'],
+      _warehouseID = json['warehouseID'],
+      _region = json['region'],
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'productID': _productID,
-        'name': _name,
-        'warehouseID': _warehouseID,
-        'region': _region,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'productID': _productID,
+    'name': _name,
+    'warehouseID': _warehouseID,
+    'region': _region,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'productID': _productID,
-        'name': _name,
-        'warehouseID': _warehouseID,
-        'region': _region,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'productID': _productID,
+    'name': _name,
+    'warehouseID': _warehouseID,
+    'region': _region,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<InventoryModelIdentifier>
-      MODEL_IDENTIFIER =
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<InventoryModelIdentifier>();
   static final PRODUCTID = amplify_core.QueryField(fieldName: "productID");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final WAREHOUSEID = amplify_core.QueryField(fieldName: "warehouseID");
   static final REGION = amplify_core.QueryField(fieldName: "region");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Inventory";
-    modelSchemaDefinition.pluralName = "Inventories";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "Inventory";
+      modelSchemaDefinition.pluralName = "Inventories";
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(
           fields: const ["productID", "name", "warehouseID", "region"],
-          name: null)
-    ];
+          name: null,
+        ),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Inventory.PRODUCTID,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Inventory.PRODUCTID,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Inventory.NAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Inventory.NAME,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Inventory.WAREHOUSEID,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Inventory.WAREHOUSEID,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Inventory.REGION,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Inventory.REGION,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _InventoryModelType extends amplify_core.ModelType<Inventory> {
@@ -314,25 +369,26 @@ class InventoryModelIdentifier
    * Create an instance of InventoryModelIdentifier using [productID] the primary key.
    * And [name], [warehouseID], [region] the sort keys.
    */
-  const InventoryModelIdentifier(
-      {required this.productID,
-      required this.name,
-      required this.warehouseID,
-      required this.region});
+  const InventoryModelIdentifier({
+    required this.productID,
+    required this.name,
+    required this.warehouseID,
+    required this.region,
+  });
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-        'productID': productID,
-        'name': name,
-        'warehouseID': warehouseID,
-        'region': region
-      });
+    'productID': productID,
+    'name': name,
+    'warehouseID': warehouseID,
+    'region': region,
+  });
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

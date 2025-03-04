@@ -11,11 +11,7 @@ part 'http_trait.g.dart';
 @ShapeIdConverter()
 @JsonSerializable()
 class HttpTrait with AWSSerializable implements Trait<HttpTrait> {
-  const HttpTrait({
-    required this.method,
-    required this.uri,
-    this.code = 200,
-  });
+  const HttpTrait({required this.method, required this.uri, this.code = 200});
 
   factory HttpTrait.fromJson(Object? json) =>
       _$HttpTraitFromJson((json as Map).cast<String, Object?>());

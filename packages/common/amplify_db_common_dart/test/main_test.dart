@@ -3,7 +3,6 @@
 
 // TODO(Jordan-Nelson): Run tests on web. This will require loading sqlite3.wasm
 @TestOn('vm')
-
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:test/test.dart';
 
@@ -14,18 +13,20 @@ void main() {
   group('drift utils', () {
     test('connect completes', () async {
       expect(
-        connect(name: 'TestDatabase', path: '/tmp').ensureOpen(
-          TestQueryExecutorUser(),
-        ),
+        connect(
+          name: 'TestDatabase',
+          path: '/tmp',
+        ).ensureOpen(TestQueryExecutorUser()),
         completes,
       );
     });
 
     test('connect completes with delayed path resolving', () async {
       expect(
-        connect(name: 'TestDatabase', path: Future.value('/tmp')).ensureOpen(
-          TestQueryExecutorUser(),
-        ),
+        connect(
+          name: 'TestDatabase',
+          path: Future.value('/tmp'),
+        ).ensureOpen(TestQueryExecutorUser()),
         completes,
       );
     });
@@ -33,11 +34,10 @@ void main() {
     test('can delete, insert, and query', () async {
       final db = MyDatabase();
       await db.delete(db.todos).go();
-      await db.into(db.todos).insert(
-            TodosCompanion.insert(
-              title: 'New todo',
-              content: 'todo content',
-            ),
+      await db
+          .into(db.todos)
+          .insert(
+            TodosCompanion.insert(title: 'New todo', content: 'todo content'),
           );
       final items = await db.select(db.todos).get();
       expect(items.length, 1);

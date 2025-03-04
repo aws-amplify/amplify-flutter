@@ -25,14 +25,16 @@ void main() {
 
     setUp(() async {
       secureStorage = MockSecureStorage();
-      dependencyManager = DependencyManager()
-        ..addInstance(mockConfig.auth!)
-        ..addInstance<SecureStorageInterface>(secureStorage)
-        ..addInstance<NativeAuthBridge>(ThrowingNativeBridge());
-      plugin = AmplifyAuthCognito()
-        ..stateMachine = CognitoAuthStateMachine(
-          dependencyManager: dependencyManager,
-        );
+      dependencyManager =
+          DependencyManager()
+            ..addInstance(mockConfig.auth!)
+            ..addInstance<SecureStorageInterface>(secureStorage)
+            ..addInstance<NativeAuthBridge>(ThrowingNativeBridge());
+      plugin =
+          AmplifyAuthCognito()
+            ..stateMachine = CognitoAuthStateMachine(
+              dependencyManager: dependencyManager,
+            );
       plugin.stateMachine.addBuilder<HostedUiPlatform>(
         HostedUiPlatformImpl.new,
       );
@@ -50,13 +52,12 @@ void main() {
       addTearDown(() => debugDefaultTargetPlatformOverride = null);
 
       final expectation = expectLater(
-        plugin.signInWithWebUI(
-          provider: AuthProvider.cognito,
-        ),
+        plugin.signInWithWebUI(provider: AuthProvider.cognito),
         throwsA(isA<UserCancelledException>()),
       );
-      final hostedUiMachine =
-          plugin.stateMachine.expect(HostedUiStateMachine.type);
+      final hostedUiMachine = plugin.stateMachine.expect(
+        HostedUiStateMachine.type,
+      );
       expect(
         hostedUiMachine.stream,
         emitsInOrder([

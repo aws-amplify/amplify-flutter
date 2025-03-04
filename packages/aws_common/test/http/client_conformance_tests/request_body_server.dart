@@ -22,11 +22,8 @@ import '../http_server.dart';
 ///     - send request body
 ///    When Receive Anything:
 ///     - exit
-Future<void> hybridMain(StreamChannel<Object?> channel) => clientHybridMain(
-      channel,
-      _handleH1,
-      _handleH2,
-    );
+Future<void> hybridMain(StreamChannel<Object?> channel) =>
+    clientHybridMain(channel, _handleH1, _handleH2);
 
 Future<void> _handleH1(
   StreamChannel<Object?> channel,
@@ -56,21 +53,15 @@ Future<void> _handleH2(
 ) async {
   final method = AWSHttpMethod.fromString(headers[':method']!);
   if (method == AWSHttpMethod.options) {
-    return request.sendHeaders(
-      [
-        Header.ascii(':status', '200'),
-        Header.ascii('Access-Control-Allow-Methods', 'POST, DELETE'),
-        Header.ascii('Access-Control-Allow-Headers', 'Content-Type'),
-      ],
-      endStream: true,
-    );
+    return request.sendHeaders([
+      Header.ascii(':status', '200'),
+      Header.ascii('Access-Control-Allow-Methods', 'POST, DELETE'),
+      Header.ascii('Access-Control-Allow-Headers', 'Content-Type'),
+    ], endStream: true);
   }
   channel.sink.add(headers[AWSHeaders.contentType]);
   final serverReceivedBody = utf8.decode(await body.first);
   channel.sink.add(serverReceivedBody);
 
-  request.sendHeaders(
-    [Header.ascii(':status', '200')],
-    endStream: true,
-  );
+  request.sendHeaders([Header.ascii(':status', '200')], endStream: true);
 }

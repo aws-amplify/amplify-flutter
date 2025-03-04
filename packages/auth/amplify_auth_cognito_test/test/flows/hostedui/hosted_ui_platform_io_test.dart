@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('windows || mac-os || linux')
-
 import 'dart:async';
 import 'dart:io';
 
@@ -55,8 +54,8 @@ void main() {
       test('selects from multiple URIs when a port is blocked', () async {
         final platform = createHostedUiFactory(
           signIn: expectAsync3((platform, options, provider) async {
-            final boundServer =
-                await (platform as HostedUiPlatformImpl).localConnect(uris);
+            final boundServer = await (platform as HostedUiPlatformImpl)
+                .localConnect(uris);
             addTearDown(() => boundServer.server.close(force: true));
             expect(boundServer.uri, equals(uris[1]));
           }),
@@ -68,34 +67,31 @@ void main() {
           uris[0].port,
         );
         addTearDown(() => server.close(force: true));
-        await platform(dependencyManager).signIn(
-          options: const CognitoSignInWithWebUIPluginOptions(),
-        );
+        await platform(
+          dependencyManager,
+        ).signIn(options: const CognitoSignInWithWebUIPluginOptions());
       });
 
       test('multiple calls do not fail', () async {
         final platform = createHostedUiFactory(
-          signIn: expectAsync3(
-            count: 2,
-            (platform, options, provider) async {
-              final boundServer =
-                  await (platform as HostedUiPlatformImpl).localConnect(uris);
-              addTearDown(() => boundServer.server.close(force: true));
-            },
-          ),
+          signIn: expectAsync3(count: 2, (platform, options, provider) async {
+            final boundServer = await (platform as HostedUiPlatformImpl)
+                .localConnect(uris);
+            addTearDown(() => boundServer.server.close(force: true));
+          }),
           signOut: (platform, options) => throw UnimplementedError(),
         );
 
         await expectLater(
-          platform(dependencyManager).signIn(
-            options: const CognitoSignInWithWebUIPluginOptions(),
-          ),
+          platform(
+            dependencyManager,
+          ).signIn(options: const CognitoSignInWithWebUIPluginOptions()),
           completes,
         );
         await expectLater(
-          platform(dependencyManager).signIn(
-            options: const CognitoSignInWithWebUIPluginOptions(),
-          ),
+          platform(
+            dependencyManager,
+          ).signIn(options: const CognitoSignInWithWebUIPluginOptions()),
           completes,
         );
       });
@@ -118,9 +114,9 @@ void main() {
           );
           addTearDown(() => server.close(force: true));
         }
-        await platform(dependencyManager).signIn(
-          options: const CognitoSignInWithWebUIPluginOptions(),
-        );
+        await platform(
+          dependencyManager,
+        ).signIn(options: const CognitoSignInWithWebUIPluginOptions());
       });
     });
 
@@ -140,8 +136,9 @@ void main() {
         final hostedUiPlatform = MockHostedUiPlatform(dependencyManager);
 
         final redirect = Uri.parse(
-          mockConfig.auth!.oauth!.redirectSignInUri
-              .firstWhere((uri) => uri.contains('localhost')),
+          mockConfig.auth!.oauth!.redirectSignInUri.firstWhere(
+            (uri) => uri.contains('localhost'),
+          ),
         );
         expect(hostedUiPlatform.signInRedirectUri, redirect);
         expect(hostedUiPlatform.signOutRedirectUri, redirect);
@@ -158,10 +155,14 @@ void main() {
         await expectLater(
           client.get(redirect),
           completion(
-            isA<http.Response>()
-                .having((res) => res.statusCode, 'statusCode', isNot(200)),
+            isA<http.Response>().having(
+              (res) => res.statusCode,
+              'statusCode',
+              isNot(200),
+            ),
           ),
-          reason: 'Local server should be running and able to accept '
+          reason:
+              'Local server should be running and able to accept '
               'requests. Should return 4xx for anything but a success/error '
               'redirect.',
         );
@@ -172,8 +173,11 @@ void main() {
         await expectLater(
           client.get(successRedirect),
           completion(
-            isA<http.Response>()
-                .having((res) => res.statusCode, 'statusCode', 200),
+            isA<http.Response>().having(
+              (res) => res.statusCode,
+              'statusCode',
+              200,
+            ),
           ),
           reason: "Server won't close until a valid redirect is performed",
         );

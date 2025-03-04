@@ -34,30 +34,30 @@ class _$ListObjectsV2Output extends ListObjectsV2Output {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$ListObjectsV2Output(
-          [void Function(ListObjectsV2OutputBuilder)? updates]) =>
-      (new ListObjectsV2OutputBuilder()..update(updates))._build();
+  factory _$ListObjectsV2Output([
+    void Function(ListObjectsV2OutputBuilder)? updates,
+  ]) => (new ListObjectsV2OutputBuilder()..update(updates))._build();
 
-  _$ListObjectsV2Output._(
-      {this.isTruncated,
-      this.contents,
-      this.name,
-      this.prefix,
-      this.delimiter,
-      this.maxKeys,
-      this.commonPrefixes,
-      this.encodingType,
-      this.keyCount,
-      this.continuationToken,
-      this.nextContinuationToken,
-      this.startAfter,
-      this.requestCharged})
-      : super._();
+  _$ListObjectsV2Output._({
+    this.isTruncated,
+    this.contents,
+    this.name,
+    this.prefix,
+    this.delimiter,
+    this.maxKeys,
+    this.commonPrefixes,
+    this.encodingType,
+    this.keyCount,
+    this.continuationToken,
+    this.nextContinuationToken,
+    this.startAfter,
+    this.requestCharged,
+  }) : super._();
 
   @override
   ListObjectsV2Output rebuild(
-          void Function(ListObjectsV2OutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListObjectsV2OutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListObjectsV2OutputBuilder toBuilder() =>
@@ -207,7 +207,8 @@ class ListObjectsV2OutputBuilder
   _$ListObjectsV2Output _build() {
     _$ListObjectsV2Output _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ListObjectsV2Output._(
             isTruncated: isTruncated,
             contents: _contents?.build(),
@@ -233,7 +234,10 @@ class ListObjectsV2OutputBuilder
         _commonPrefixes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ListObjectsV2Output', _$failedField, e.toString());
+          r'ListObjectsV2Output',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -268,29 +272,29 @@ class _$ListObjectsV2OutputPayload extends ListObjectsV2OutputPayload {
   @override
   final String? startAfter;
 
-  factory _$ListObjectsV2OutputPayload(
-          [void Function(ListObjectsV2OutputPayloadBuilder)? updates]) =>
-      (new ListObjectsV2OutputPayloadBuilder()..update(updates))._build();
+  factory _$ListObjectsV2OutputPayload([
+    void Function(ListObjectsV2OutputPayloadBuilder)? updates,
+  ]) => (new ListObjectsV2OutputPayloadBuilder()..update(updates))._build();
 
-  _$ListObjectsV2OutputPayload._(
-      {this.commonPrefixes,
-      this.contents,
-      this.continuationToken,
-      this.delimiter,
-      this.encodingType,
-      this.isTruncated,
-      this.keyCount,
-      this.maxKeys,
-      this.name,
-      this.nextContinuationToken,
-      this.prefix,
-      this.startAfter})
-      : super._();
+  _$ListObjectsV2OutputPayload._({
+    this.commonPrefixes,
+    this.contents,
+    this.continuationToken,
+    this.delimiter,
+    this.encodingType,
+    this.isTruncated,
+    this.keyCount,
+    this.maxKeys,
+    this.name,
+    this.nextContinuationToken,
+    this.prefix,
+    this.startAfter,
+  }) : super._();
 
   @override
   ListObjectsV2OutputPayload rebuild(
-          void Function(ListObjectsV2OutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListObjectsV2OutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListObjectsV2OutputPayloadBuilder toBuilder() =>
@@ -433,7 +437,8 @@ class ListObjectsV2OutputPayloadBuilder
   _$ListObjectsV2OutputPayload _build() {
     _$ListObjectsV2OutputPayload _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ListObjectsV2OutputPayload._(
             commonPrefixes: _commonPrefixes?.build(),
             contents: _contents?.build(),
@@ -457,7 +462,10 @@ class ListObjectsV2OutputPayloadBuilder
         _contents?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ListObjectsV2OutputPayload', _$failedField, e.toString());
+          r'ListObjectsV2OutputPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

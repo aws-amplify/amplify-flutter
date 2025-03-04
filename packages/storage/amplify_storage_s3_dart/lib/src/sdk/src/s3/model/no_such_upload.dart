@@ -32,20 +32,17 @@ abstract class NoSuchUpload
   factory NoSuchUpload.fromResponse(
     NoSuchUpload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<NoSuchUpload>> serializers = [
-    NoSuchUploadRestXmlSerializer()
+    NoSuchUploadRestXmlSerializer(),
   ];
 
   @override
-  _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.s3',
-        shape: 'NoSuchUpload',
-      );
+  _i2.ShapeId get shapeId =>
+      const _i2.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NoSuchUpload');
 
   @override
   String? get message => null;
@@ -78,18 +75,12 @@ class NoSuchUploadRestXmlSerializer
   const NoSuchUploadRestXmlSerializer() : super('NoSuchUpload');
 
   @override
-  Iterable<Type> get types => const [
-        NoSuchUpload,
-        _$NoSuchUpload,
-      ];
+  Iterable<Type> get types => const [NoSuchUpload, _$NoSuchUpload];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   NoSuchUpload deserialize(
@@ -110,7 +101,7 @@ class NoSuchUploadRestXmlSerializer
       const _i2.XmlElementName(
         'NoSuchUpload',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

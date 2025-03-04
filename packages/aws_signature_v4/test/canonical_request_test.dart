@@ -76,9 +76,9 @@ void main() {
     };
 
     test('handles special characters', () {
-      final uri = Uri.parse('https://example.com').replace(
-        queryParameters: queryParameters,
-      );
+      final uri = Uri.parse(
+        'https://example.com',
+      ).replace(queryParameters: queryParameters);
       final request = AWSHttpRequest.get(uri);
       expect(
         CanonicalQueryParameters(request.queryParameters),

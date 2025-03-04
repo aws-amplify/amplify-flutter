@@ -13,11 +13,11 @@ class AwsJson1_0Trait extends AWSProtocolTrait {
     List<AlpnProtocol> http = AWSProtocolTrait.defaultHttpProtocols,
     List<AlpnProtocol>? eventStreamHttp,
   }) : super(
-          id,
-          http: http,
-          eventStreamHttp: eventStreamHttp,
-          timestampFormat: TimestampFormat.epochSeconds,
-        );
+         id,
+         http: http,
+         eventStreamHttp: eventStreamHttp,
+         timestampFormat: TimestampFormat.epochSeconds,
+       );
 
   factory AwsJson1_0Trait.fromJson(Object? json) =>
       _$AwsJson1_0TraitFromJson((json as Map).cast<String, Object?>());
@@ -29,12 +29,12 @@ class AwsJson1_0Trait extends AWSProtocolTrait {
 
   @override
   List<ShapeId> get traits => const [
-        CorsTrait.id,
-        EndpointTrait.id,
-        HostLabelTrait.id,
-        TimestampFormatTrait.id,
-        AwsQueryCompatibleTrait.id,
-      ];
+    CorsTrait.id,
+    EndpointTrait.id,
+    HostLabelTrait.id,
+    TimestampFormatTrait.id,
+    AwsQueryCompatibleTrait.id,
+  ];
 }
 
 // ignore_for_file: camel_case_types

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-
 /// Internal auth state machine code.
 library amplify_auth_cognito.state;
 

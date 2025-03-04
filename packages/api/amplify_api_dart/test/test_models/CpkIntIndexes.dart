@@ -35,21 +35,29 @@ class CpkIntIndexes extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => modelIdentifier.serializeAsString();
 
   CpkIntIndexesModelIdentifier get modelIdentifier {
     try {
       return CpkIntIndexesModelIdentifier(
-          name: _name!, fieldA: _fieldA!, fieldB: _fieldB!);
+        name: _name!,
+        fieldA: _fieldA!,
+        fieldB: _fieldB!,
+      );
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -58,11 +66,15 @@ class CpkIntIndexes extends amplify_core.Model {
       return _name!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -71,11 +83,15 @@ class CpkIntIndexes extends amplify_core.Model {
       return _fieldA!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -84,11 +100,15 @@ class CpkIntIndexes extends amplify_core.Model {
       return _fieldB!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -100,16 +120,23 @@ class CpkIntIndexes extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const CpkIntIndexes._internal(
-      {required name, required fieldA, required fieldB, createdAt, updatedAt})
-      : _name = name,
-        _fieldA = fieldA,
-        _fieldB = fieldB,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const CpkIntIndexes._internal({
+    required name,
+    required fieldA,
+    required fieldB,
+    createdAt,
+    updatedAt,
+  }) : _name = name,
+       _fieldA = fieldA,
+       _fieldB = fieldB,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory CpkIntIndexes(
-      {required String name, required int fieldA, required int fieldB}) {
+  factory CpkIntIndexes({
+    required String name,
+    required int fieldA,
+    required int fieldB,
+  }) {
     return CpkIntIndexes._internal(name: name, fieldA: fieldA, fieldB: fieldB);
   }
 
@@ -136,14 +163,19 @@ class CpkIntIndexes extends amplify_core.Model {
     buffer.write("CpkIntIndexes {");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write(
-        "fieldA=" + (_fieldA != null ? _fieldA!.toString() : "null") + ", ");
+      "fieldA=" + (_fieldA != null ? _fieldA!.toString() : "null") + ", ",
+    );
     buffer.write(
-        "fieldB=" + (_fieldB != null ? _fieldB!.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
+      "fieldB=" + (_fieldB != null ? _fieldB!.toString() : "null") + ", ",
+    );
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -158,45 +190,47 @@ class CpkIntIndexes extends amplify_core.Model {
   }
 
   CpkIntIndexes.fromJson(Map<String, dynamic> json)
-      : _name = json['name'],
-        _fieldA = (json['fieldA'] as num?)?.toInt(),
-        _fieldB = (json['fieldB'] as num?)?.toInt(),
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : _name = json['name'],
+      _fieldA = (json['fieldA'] as num?)?.toInt(),
+      _fieldB = (json['fieldB'] as num?)?.toInt(),
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'name': _name,
-        'fieldA': _fieldA,
-        'fieldB': _fieldB,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'name': _name,
+    'fieldA': _fieldA,
+    'fieldB': _fieldB,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'name': _name,
-        'fieldA': _fieldA,
-        'fieldB': _fieldB,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'name': _name,
+    'fieldA': _fieldA,
+    'fieldB': _fieldB,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<CpkIntIndexesModelIdentifier>
-      MODEL_IDENTIFIER =
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<CpkIntIndexesModelIdentifier>();
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final FIELDA = amplify_core.QueryField(fieldName: "fieldA");
   static final FIELDB = amplify_core.QueryField(fieldName: "fieldB");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CpkIntIndexes";
-    modelSchemaDefinition.pluralName = "CpkIntIndexes";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "CpkIntIndexes";
+      modelSchemaDefinition.pluralName = "CpkIntIndexes";
 
-    modelSchemaDefinition.authRules = [
-      amplify_core.AuthRule(
+      modelSchemaDefinition.authRules = [
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
@@ -205,49 +239,71 @@ class CpkIntIndexes extends amplify_core.Model {
             amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.UPDATE,
             amplify_core.ModelOperation.DELETE,
-            amplify_core.ModelOperation.READ
-          ])
-    ];
+            amplify_core.ModelOperation.READ,
+          ],
+        ),
+      ];
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(
-          fields: const ["name", "fieldA", "fieldB"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(
+          fields: const ["name", "fieldA", "fieldB"],
+          name: null,
+        ),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkIntIndexes.NAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkIntIndexes.NAME,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkIntIndexes.FIELDA,
-        isRequired: true,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.int)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkIntIndexes.FIELDA,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.int,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkIntIndexes.FIELDB,
-        isRequired: true,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.int)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkIntIndexes.FIELDB,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.int,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _CpkIntIndexesModelType extends amplify_core.ModelType<CpkIntIndexes> {
@@ -278,18 +334,24 @@ class CpkIntIndexesModelIdentifier
    * Create an instance of CpkIntIndexesModelIdentifier using [name] the primary key.
    * And [fieldA], [fieldB] the sort keys.
    */
-  const CpkIntIndexesModelIdentifier(
-      {required this.name, required this.fieldA, required this.fieldB});
+  const CpkIntIndexesModelIdentifier({
+    required this.name,
+    required this.fieldA,
+    required this.fieldB,
+  });
 
   @override
-  Map<String, dynamic> serializeAsMap() =>
-      (<String, dynamic>{'name': name, 'fieldA': fieldA, 'fieldB': fieldB});
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'name': name,
+    'fieldA': fieldA,
+    'fieldB': fieldB,
+  });
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

@@ -79,10 +79,7 @@ abstract class NativeAuthBridge {
 
   /// Clears the legacy device secrets.
   @async
-  void deleteLegacyDeviceSecrets(
-    String username,
-    String userPoolId,
-  );
+  void deleteLegacyDeviceSecrets(String username, String userPoolId);
 }
 
 class NativeUserContextData {

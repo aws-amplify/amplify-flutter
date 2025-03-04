@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
-
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -38,14 +37,7 @@ void main() {
 
     test('progress', () {
       final readableStream = createReadableStream();
-      expect(
-        readableStream.progress,
-        emitsInOrder([
-          5,
-          10,
-          emitsDone,
-        ]),
-      );
+      expect(readableStream.progress, emitsInOrder([5, 10, emitsDone]));
     });
 
     group('asReadableStream (async)', () {
@@ -63,14 +55,7 @@ void main() {
             emitsDone,
           ]),
         );
-        expect(
-          readableStream.progress,
-          emitsInOrder([
-            5,
-            10,
-            emitsDone,
-          ]),
-        );
+        expect(readableStream.progress, emitsInOrder([5, 10, emitsDone]));
       });
 
       test('onError (caught)', () async {
@@ -86,13 +71,7 @@ void main() {
           ..add([1, 2, 3, 4, 5])
           ..addError('failure')
           ..add([6, 7, 8, 9, 0]);
-        expect(
-          readableStream.progress,
-          emitsInOrder([
-            5,
-            emitsDone,
-          ]),
-        );
+        expect(readableStream.progress, emitsInOrder([5, emitsDone]));
         await expectLater(
           readableStream.stream,
           emitsInOrder([
@@ -119,13 +98,7 @@ void main() {
             emitsDone,
           ]),
         );
-        expect(
-          readableStream.progress,
-          emitsInOrder([
-            5,
-            emitsDone,
-          ]),
-        );
+        expect(readableStream.progress, emitsInOrder([5, emitsDone]));
       });
     });
 
@@ -145,14 +118,7 @@ void main() {
             emitsDone,
           ]),
         );
-        expect(
-          readableStream.progress,
-          emitsInOrder([
-            5,
-            10,
-            emitsDone,
-          ]),
-        );
+        expect(readableStream.progress, emitsInOrder([5, 10, emitsDone]));
       });
 
       test('onError (caught)', () async {
@@ -168,13 +134,7 @@ void main() {
           ..add([1, 2, 3, 4, 5])
           ..addError('failure')
           ..add([6, 7, 8, 9, 0]);
-        expect(
-          readableStream.progress,
-          emitsInOrder([
-            5,
-            emitsDone,
-          ]),
-        );
+        expect(readableStream.progress, emitsInOrder([5, emitsDone]));
         await expectLater(
           readableStream.stream,
           emitsInOrder([
@@ -201,13 +161,7 @@ void main() {
             emitsDone,
           ]),
         );
-        expect(
-          readableStream.progress,
-          emitsInOrder([
-            5,
-            emitsDone,
-          ]),
-        );
+        expect(readableStream.progress, emitsInOrder([5, emitsDone]));
       });
     });
 

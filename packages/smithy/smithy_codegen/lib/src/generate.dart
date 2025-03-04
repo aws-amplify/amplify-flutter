@@ -22,10 +22,10 @@ final String header = '''
 
 /// The default emitter for codegen operations.
 DartEmitter buildEmitter(Allocator allocator) => DartEmitter(
-      allocator: allocator,
-      orderDirectives: true,
-      useNullSafetySyntax: true,
-    );
+  allocator: allocator,
+  orderDirectives: true,
+  useNullSafetySyntax: true,
+);
 
 /// Builds a service closure for a [ServiceShape].
 CodegenContext buildContext(
@@ -65,10 +65,7 @@ CodegenContext buildContext(
 }
 
 class GeneratedOutput {
-  const GeneratedOutput({
-    required this.context,
-    required this.libraries,
-  });
+  const GeneratedOutput({required this.context, required this.libraries});
 
   /// The contexts used to generate [libraries].
   final CodegenContext context;
@@ -90,9 +87,7 @@ Map<ShapeId, GeneratedOutput> generateForAst(
   bool generateServer = false,
   Map<ShapeId, ShapeOverrides>? shapeOverrides,
 }) {
-  const transformers = <ShapeVisitor<Shape>>[
-    _CognitoWorkaroundVisitor(),
-  ];
+  const transformers = <ShapeVisitor<Shape>>[_CognitoWorkaroundVisitor()];
   for (final transformer in transformers) {
     ast = ast.rebuild((ast) {
       ast.shapes!.updateAll((_, shape) => shape.accept(transformer));

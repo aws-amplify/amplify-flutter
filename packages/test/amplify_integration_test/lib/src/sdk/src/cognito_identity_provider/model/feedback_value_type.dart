@@ -6,25 +6,13 @@ library amplify_integration_test.cognito_identity_provider.model.feedback_value_
 import 'package:smithy/smithy.dart' as _i1;
 
 class FeedbackValueType extends _i1.SmithyEnum<FeedbackValueType> {
-  const FeedbackValueType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const FeedbackValueType._(super.index, super.name, super.value);
 
   const FeedbackValueType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const invalid = FeedbackValueType._(
-    0,
-    'INVALID',
-    'Invalid',
-  );
+  static const invalid = FeedbackValueType._(0, 'INVALID', 'Invalid');
 
-  static const valid = FeedbackValueType._(
-    1,
-    'VALID',
-    'Valid',
-  );
+  static const valid = FeedbackValueType._(1, 'VALID', 'Valid');
 
   /// All values of [FeedbackValueType].
   static const values = <FeedbackValueType>[
@@ -38,12 +26,9 @@ class FeedbackValueType extends _i1.SmithyEnum<FeedbackValueType> {
       values: values,
       sdkUnknown: FeedbackValueType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

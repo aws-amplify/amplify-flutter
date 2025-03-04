@@ -14,21 +14,18 @@ class AppDb extends _$AppDb {
   int get schemaVersion => 1;
 
   Future<int> getLatestCount() async {
-    final storedCount = await (select(countTable)
-          ..orderBy([
-            (countTable) => OrderingTerm.desc(countTable.id),
-          ])
-          ..limit(1))
-        .getSingleOrNull();
+    final storedCount =
+        await (select(countTable)
+              ..orderBy([(countTable) => OrderingTerm.desc(countTable.id)])
+              ..limit(1))
+            .getSingleOrNull();
     return storedCount?.count ?? 0;
   }
 
   Future<int> incrementCount() async {
     return transaction(() async {
       final count = await getLatestCount() + 1;
-      await into(countTable).insert(
-        CountTableCompanion.insert(count: count),
-      );
+      await into(countTable).insert(CountTableCompanion.insert(count: count));
       return count;
     });
   }
@@ -36,9 +33,7 @@ class AppDb extends _$AppDb {
   Future<int> decrementCount() async {
     return transaction(() async {
       final count = await getLatestCount() - 1;
-      await into(countTable).insert(
-        CountTableCompanion.insert(count: count),
-      );
+      await into(countTable).insert(CountTableCompanion.insert(count: count));
       return count;
     });
   }

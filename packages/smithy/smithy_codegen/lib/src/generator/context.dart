@@ -30,17 +30,18 @@ class CodegenContext {
     Iterable<ShapeId> additionalShapes = const {},
     this.generateServer = false,
     Map<ShapeId, ShapeOverrides>? shapeOverrides,
-  })  : _shapes = shapes,
-        _serviceName = serviceName,
-        serviceShapeId = serviceShapeId ??
-            shapes.entries.singleWhereOrNull((entry) {
-              return entry.value is ServiceShape;
-            })?.key,
-        _additionalShapes = additionalShapes.toSet(),
-        shapeOverrides = {
-          Shape.unit: ShapeOverrides(DartTypes.smithy.unit),
-          ...?shapeOverrides,
-        } {
+  }) : _shapes = shapes,
+       _serviceName = serviceName,
+       serviceShapeId =
+           serviceShapeId ??
+           shapes.entries.singleWhereOrNull((entry) {
+             return entry.value is ServiceShape;
+           })?.key,
+       _additionalShapes = additionalShapes.toSet(),
+       shapeOverrides = {
+         Shape.unit: ShapeOverrides(DartTypes.smithy.unit),
+         ...?shapeOverrides,
+       } {
     if (serviceShapeId == null && serviceName == null) {
       throw ArgumentError(
         'Either serviceShapeId or serviceName must be provided.',
@@ -137,8 +138,10 @@ class CodegenContext {
   /// Returns the symbol or [Reference] for [shapeId].
   Reference symbolFor(ShapeId shapeId, [Shape? parent]) {
     final shape = shapeFor(shapeId);
-    return _symbolCache[(shapeId, parent)] ??=
-        shape.accept(SymbolVisitor(this), parent);
+    return _symbolCache[(shapeId, parent)] ??= shape.accept(
+      SymbolVisitor(this),
+      parent,
+    );
   }
 
   /// The service's serializers library.
@@ -160,12 +163,16 @@ class CodegenContext {
   );
 
   /// The service's serializers reference.
-  late final Reference serializersRef =
-      Reference('serializers', serviceSerializersLibrary.libraryUrl);
+  late final Reference serializersRef = Reference(
+    'serializers',
+    serviceSerializersLibrary.libraryUrl,
+  );
 
   /// The service's builder factories reference.
-  late final Reference builderFactoriesRef =
-      Reference('builderFactories', serviceSerializersLibrary.libraryUrl);
+  late final Reference builderFactoriesRef = Reference(
+    'builderFactories',
+    serviceSerializersLibrary.libraryUrl,
+  );
 
   /// The service's client library.
   late final SmithyLibrary serviceClientLibrary = SmithyLibraryX.create(

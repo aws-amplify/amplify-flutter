@@ -11,13 +11,21 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _latestMeta = const VerificationMeta('latest');
   @override
   late final GeneratedColumn<String> latest = GeneratedColumn<String>(
-      'latest', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'latest',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<GeneratedColumn> get $columns => [name, latest];
   @override
@@ -26,19 +34,25 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
   String get actualTableName => $name;
   static const String $name = 'packages';
   @override
-  VerificationContext validateIntegrity(Insertable<Package> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Package> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('latest')) {
-      context.handle(_latestMeta,
-          latest.isAcceptableOrUnknown(data['latest']!, _latestMeta));
+      context.handle(
+        _latestMeta,
+        latest.isAcceptableOrUnknown(data['latest']!, _latestMeta),
+      );
     } else if (isInserting) {
       context.missing(_latestMeta);
     }
@@ -51,10 +65,16 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
   Package map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Package(
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      latest: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}latest'])!,
+      name:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}name'],
+          )!,
+      latest:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}latest'],
+          )!,
     );
   }
 
@@ -77,14 +97,13 @@ class Package extends DataClass implements Insertable<Package> {
   }
 
   PackagesCompanion toCompanion(bool nullToAbsent) {
-    return PackagesCompanion(
-      name: Value(name),
-      latest: Value(latest),
-    );
+    return PackagesCompanion(name: Value(name), latest: Value(latest));
   }
 
-  factory Package.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory Package.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Package(
       name: serializer.fromJson<String>(json['name']),
@@ -100,10 +119,8 @@ class Package extends DataClass implements Insertable<Package> {
     };
   }
 
-  Package copyWith({String? name, String? latest}) => Package(
-        name: name ?? this.name,
-        latest: latest ?? this.latest,
-      );
+  Package copyWith({String? name, String? latest}) =>
+      Package(name: name ?? this.name, latest: latest ?? this.latest);
   Package copyWithCompanion(PackagesCompanion data) {
     return Package(
       name: data.name.present ? data.name.value : this.name,
@@ -143,8 +160,8 @@ class PackagesCompanion extends UpdateCompanion<Package> {
     required String name,
     required String latest,
     this.rowid = const Value.absent(),
-  })  : name = Value(name),
-        latest = Value(latest);
+  }) : name = Value(name),
+       latest = Value(latest);
   static Insertable<Package> custom({
     Expression<String>? name,
     Expression<String>? latest,
@@ -157,8 +174,11 @@ class PackagesCompanion extends UpdateCompanion<Package> {
     });
   }
 
-  PackagesCompanion copyWith(
-      {Value<String>? name, Value<String>? latest, Value<int>? rowid}) {
+  PackagesCompanion copyWith({
+    Value<String>? name,
+    Value<String>? latest,
+    Value<int>? rowid,
+  }) {
     return PackagesCompanion(
       name: name ?? this.name,
       latest: latest ?? this.latest,
@@ -198,101 +218,156 @@ class $PackageVersionsTable extends PackageVersions
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $PackageVersionsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _packageMeta =
-      const VerificationMeta('package');
+  static const VerificationMeta _packageMeta = const VerificationMeta(
+    'package',
+  );
   @override
   late final GeneratedColumn<String> package = GeneratedColumn<String>(
-      'package', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _versionMeta =
-      const VerificationMeta('version');
+    'package',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
   @override
   late final GeneratedColumn<String> version = GeneratedColumn<String>(
-      'version', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _archiveUrlMeta =
-      const VerificationMeta('archiveUrl');
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _archiveUrlMeta = const VerificationMeta(
+    'archiveUrl',
+  );
   @override
   late final GeneratedColumn<String> archiveUrl = GeneratedColumn<String>(
-      'archive_url', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _pubspecMeta =
-      const VerificationMeta('pubspec');
+    'archive_url',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _pubspecMeta = const VerificationMeta(
+    'pubspec',
+  );
   @override
   late final GeneratedColumn<String> pubspec = GeneratedColumn<String>(
-      'pubspec', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'pubspec',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _readmeMeta = const VerificationMeta('readme');
   @override
   late final GeneratedColumn<String> readme = GeneratedColumn<String>(
-      'readme', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _changelogMeta =
-      const VerificationMeta('changelog');
+    'readme',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _changelogMeta = const VerificationMeta(
+    'changelog',
+  );
   @override
   late final GeneratedColumn<String> changelog = GeneratedColumn<String>(
-      'changelog', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _publishedMeta =
-      const VerificationMeta('published');
+    'changelog',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _publishedMeta = const VerificationMeta(
+    'published',
+  );
   @override
   late final GeneratedColumn<DateTime> published = GeneratedColumn<DateTime>(
-      'published', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+    'published',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [package, version, archiveUrl, pubspec, readme, changelog, published];
+  List<GeneratedColumn> get $columns => [
+    package,
+    version,
+    archiveUrl,
+    pubspec,
+    readme,
+    changelog,
+    published,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'package_versions';
   @override
-  VerificationContext validateIntegrity(Insertable<PackageVersion> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<PackageVersion> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('package')) {
-      context.handle(_packageMeta,
-          package.isAcceptableOrUnknown(data['package']!, _packageMeta));
+      context.handle(
+        _packageMeta,
+        package.isAcceptableOrUnknown(data['package']!, _packageMeta),
+      );
     } else if (isInserting) {
       context.missing(_packageMeta);
     }
     if (data.containsKey('version')) {
-      context.handle(_versionMeta,
-          version.isAcceptableOrUnknown(data['version']!, _versionMeta));
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
     } else if (isInserting) {
       context.missing(_versionMeta);
     }
     if (data.containsKey('archive_url')) {
       context.handle(
-          _archiveUrlMeta,
-          archiveUrl.isAcceptableOrUnknown(
-              data['archive_url']!, _archiveUrlMeta));
+        _archiveUrlMeta,
+        archiveUrl.isAcceptableOrUnknown(data['archive_url']!, _archiveUrlMeta),
+      );
     } else if (isInserting) {
       context.missing(_archiveUrlMeta);
     }
     if (data.containsKey('pubspec')) {
-      context.handle(_pubspecMeta,
-          pubspec.isAcceptableOrUnknown(data['pubspec']!, _pubspecMeta));
+      context.handle(
+        _pubspecMeta,
+        pubspec.isAcceptableOrUnknown(data['pubspec']!, _pubspecMeta),
+      );
     } else if (isInserting) {
       context.missing(_pubspecMeta);
     }
     if (data.containsKey('readme')) {
-      context.handle(_readmeMeta,
-          readme.isAcceptableOrUnknown(data['readme']!, _readmeMeta));
+      context.handle(
+        _readmeMeta,
+        readme.isAcceptableOrUnknown(data['readme']!, _readmeMeta),
+      );
     } else if (isInserting) {
       context.missing(_readmeMeta);
     }
     if (data.containsKey('changelog')) {
-      context.handle(_changelogMeta,
-          changelog.isAcceptableOrUnknown(data['changelog']!, _changelogMeta));
+      context.handle(
+        _changelogMeta,
+        changelog.isAcceptableOrUnknown(data['changelog']!, _changelogMeta),
+      );
     } else if (isInserting) {
       context.missing(_changelogMeta);
     }
     if (data.containsKey('published')) {
-      context.handle(_publishedMeta,
-          published.isAcceptableOrUnknown(data['published']!, _publishedMeta));
+      context.handle(
+        _publishedMeta,
+        published.isAcceptableOrUnknown(data['published']!, _publishedMeta),
+      );
     } else if (isInserting) {
       context.missing(_publishedMeta);
     }
@@ -305,20 +380,41 @@ class $PackageVersionsTable extends PackageVersions
   PackageVersion map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return PackageVersion(
-      package: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}package'])!,
-      version: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}version'])!,
-      archiveUrl: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}archive_url'])!,
-      pubspec: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}pubspec'])!,
-      readme: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}readme'])!,
-      changelog: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}changelog'])!,
-      published: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}published'])!,
+      package:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}package'],
+          )!,
+      version:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}version'],
+          )!,
+      archiveUrl:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}archive_url'],
+          )!,
+      pubspec:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}pubspec'],
+          )!,
+      readme:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}readme'],
+          )!,
+      changelog:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}changelog'],
+          )!,
+      published:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}published'],
+          )!,
     );
   }
 
@@ -336,14 +432,15 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
   final String readme;
   final String changelog;
   final DateTime published;
-  const PackageVersion(
-      {required this.package,
-      required this.version,
-      required this.archiveUrl,
-      required this.pubspec,
-      required this.readme,
-      required this.changelog,
-      required this.published});
+  const PackageVersion({
+    required this.package,
+    required this.version,
+    required this.archiveUrl,
+    required this.pubspec,
+    required this.readme,
+    required this.changelog,
+    required this.published,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -369,8 +466,10 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     );
   }
 
-  factory PackageVersion.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory PackageVersion.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return PackageVersion(
       package: serializer.fromJson<String>(json['package']),
@@ -396,23 +495,23 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     };
   }
 
-  PackageVersion copyWith(
-          {String? package,
-          String? version,
-          String? archiveUrl,
-          String? pubspec,
-          String? readme,
-          String? changelog,
-          DateTime? published}) =>
-      PackageVersion(
-        package: package ?? this.package,
-        version: version ?? this.version,
-        archiveUrl: archiveUrl ?? this.archiveUrl,
-        pubspec: pubspec ?? this.pubspec,
-        readme: readme ?? this.readme,
-        changelog: changelog ?? this.changelog,
-        published: published ?? this.published,
-      );
+  PackageVersion copyWith({
+    String? package,
+    String? version,
+    String? archiveUrl,
+    String? pubspec,
+    String? readme,
+    String? changelog,
+    DateTime? published,
+  }) => PackageVersion(
+    package: package ?? this.package,
+    version: version ?? this.version,
+    archiveUrl: archiveUrl ?? this.archiveUrl,
+    pubspec: pubspec ?? this.pubspec,
+    readme: readme ?? this.readme,
+    changelog: changelog ?? this.changelog,
+    published: published ?? this.published,
+  );
   PackageVersion copyWithCompanion(PackageVersionsCompanion data) {
     return PackageVersion(
       package: data.package.present ? data.package.value : this.package,
@@ -442,7 +541,14 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
 
   @override
   int get hashCode => Object.hash(
-      package, version, archiveUrl, pubspec, readme, changelog, published);
+    package,
+    version,
+    archiveUrl,
+    pubspec,
+    readme,
+    changelog,
+    published,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -484,13 +590,13 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     required String changelog,
     required DateTime published,
     this.rowid = const Value.absent(),
-  })  : package = Value(package),
-        version = Value(version),
-        archiveUrl = Value(archiveUrl),
-        pubspec = Value(pubspec),
-        readme = Value(readme),
-        changelog = Value(changelog),
-        published = Value(published);
+  }) : package = Value(package),
+       version = Value(version),
+       archiveUrl = Value(archiveUrl),
+       pubspec = Value(pubspec),
+       readme = Value(readme),
+       changelog = Value(changelog),
+       published = Value(published);
   static Insertable<PackageVersion> custom({
     Expression<String>? package,
     Expression<String>? version,
@@ -513,15 +619,16 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     });
   }
 
-  PackageVersionsCompanion copyWith(
-      {Value<String>? package,
-      Value<String>? version,
-      Value<String>? archiveUrl,
-      Value<String>? pubspec,
-      Value<String>? readme,
-      Value<String>? changelog,
-      Value<DateTime>? published,
-      Value<int>? rowid}) {
+  PackageVersionsCompanion copyWith({
+    Value<String>? package,
+    Value<String>? version,
+    Value<String>? archiveUrl,
+    Value<String>? pubspec,
+    Value<String>? readme,
+    Value<String>? changelog,
+    Value<DateTime>? published,
+    Value<int>? rowid,
+  }) {
     return PackageVersionsCompanion(
       package: package ?? this.package,
       version: version ?? this.version,
@@ -584,26 +691,31 @@ abstract class _$PubDatabase extends GeneratedDatabase {
   _$PubDatabase(QueryExecutor e) : super(e);
   $PubDatabaseManager get managers => $PubDatabaseManager(this);
   late final $PackagesTable packages = $PackagesTable(this);
-  late final $PackageVersionsTable packageVersions =
-      $PackageVersionsTable(this);
+  late final $PackageVersionsTable packageVersions = $PackageVersionsTable(
+    this,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [packages, packageVersions];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    packages,
+    packageVersions,
+  ];
 }
 
-typedef $$PackagesTableCreateCompanionBuilder = PackagesCompanion Function({
-  required String name,
-  required String latest,
-  Value<int> rowid,
-});
-typedef $$PackagesTableUpdateCompanionBuilder = PackagesCompanion Function({
-  Value<String> name,
-  Value<String> latest,
-  Value<int> rowid,
-});
+typedef $$PackagesTableCreateCompanionBuilder =
+    PackagesCompanion Function({
+      required String name,
+      required String latest,
+      Value<int> rowid,
+    });
+typedef $$PackagesTableUpdateCompanionBuilder =
+    PackagesCompanion Function({
+      Value<String> name,
+      Value<String> latest,
+      Value<int> rowid,
+    });
 
 class $$PackagesTableFilterComposer
     extends Composer<_$PubDatabase, $PackagesTable> {
@@ -615,10 +727,14 @@ class $$PackagesTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnFilters(column));
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get latest => $composableBuilder(
-      column: $table.latest, builder: (column) => ColumnFilters(column));
+    column: $table.latest,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$PackagesTableOrderingComposer
@@ -631,10 +747,14 @@ class $$PackagesTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnOrderings(column));
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get latest => $composableBuilder(
-      column: $table.latest, builder: (column) => ColumnOrderings(column));
+    column: $table.latest,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$PackagesTableAnnotationComposer
@@ -653,89 +773,99 @@ class $$PackagesTableAnnotationComposer
       $composableBuilder(column: $table.latest, builder: (column) => column);
 }
 
-class $$PackagesTableTableManager extends RootTableManager<
-    _$PubDatabase,
-    $PackagesTable,
-    Package,
-    $$PackagesTableFilterComposer,
-    $$PackagesTableOrderingComposer,
-    $$PackagesTableAnnotationComposer,
-    $$PackagesTableCreateCompanionBuilder,
-    $$PackagesTableUpdateCompanionBuilder,
-    (Package, BaseReferences<_$PubDatabase, $PackagesTable, Package>),
-    Package,
-    PrefetchHooks Function()> {
+class $$PackagesTableTableManager
+    extends
+        RootTableManager<
+          _$PubDatabase,
+          $PackagesTable,
+          Package,
+          $$PackagesTableFilterComposer,
+          $$PackagesTableOrderingComposer,
+          $$PackagesTableAnnotationComposer,
+          $$PackagesTableCreateCompanionBuilder,
+          $$PackagesTableUpdateCompanionBuilder,
+          (Package, BaseReferences<_$PubDatabase, $PackagesTable, Package>),
+          Package,
+          PrefetchHooks Function()
+        > {
   $$PackagesTableTableManager(_$PubDatabase db, $PackagesTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $$PackagesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$PackagesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$PackagesTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<String> name = const Value.absent(),
-            Value<String> latest = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              PackagesCompanion(
-            name: name,
-            latest: latest,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String name,
-            required String latest,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              PackagesCompanion.insert(
-            name: name,
-            latest: latest,
-            rowid: rowid,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
-              .toList(),
+          createFilteringComposer:
+              () => $$PackagesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () => $$PackagesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () => $$PackagesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> name = const Value.absent(),
+                Value<String> latest = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PackagesCompanion(name: name, latest: latest, rowid: rowid),
+          createCompanionCallback:
+              ({
+                required String name,
+                required String latest,
+                Value<int> rowid = const Value.absent(),
+              }) => PackagesCompanion.insert(
+                name: name,
+                latest: latest,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$PackagesTableProcessedTableManager = ProcessedTableManager<
-    _$PubDatabase,
-    $PackagesTable,
-    Package,
-    $$PackagesTableFilterComposer,
-    $$PackagesTableOrderingComposer,
-    $$PackagesTableAnnotationComposer,
-    $$PackagesTableCreateCompanionBuilder,
-    $$PackagesTableUpdateCompanionBuilder,
-    (Package, BaseReferences<_$PubDatabase, $PackagesTable, Package>),
-    Package,
-    PrefetchHooks Function()>;
-typedef $$PackageVersionsTableCreateCompanionBuilder = PackageVersionsCompanion
-    Function({
-  required String package,
-  required String version,
-  required String archiveUrl,
-  required String pubspec,
-  required String readme,
-  required String changelog,
-  required DateTime published,
-  Value<int> rowid,
-});
-typedef $$PackageVersionsTableUpdateCompanionBuilder = PackageVersionsCompanion
-    Function({
-  Value<String> package,
-  Value<String> version,
-  Value<String> archiveUrl,
-  Value<String> pubspec,
-  Value<String> readme,
-  Value<String> changelog,
-  Value<DateTime> published,
-  Value<int> rowid,
-});
+typedef $$PackagesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$PubDatabase,
+      $PackagesTable,
+      Package,
+      $$PackagesTableFilterComposer,
+      $$PackagesTableOrderingComposer,
+      $$PackagesTableAnnotationComposer,
+      $$PackagesTableCreateCompanionBuilder,
+      $$PackagesTableUpdateCompanionBuilder,
+      (Package, BaseReferences<_$PubDatabase, $PackagesTable, Package>),
+      Package,
+      PrefetchHooks Function()
+    >;
+typedef $$PackageVersionsTableCreateCompanionBuilder =
+    PackageVersionsCompanion Function({
+      required String package,
+      required String version,
+      required String archiveUrl,
+      required String pubspec,
+      required String readme,
+      required String changelog,
+      required DateTime published,
+      Value<int> rowid,
+    });
+typedef $$PackageVersionsTableUpdateCompanionBuilder =
+    PackageVersionsCompanion Function({
+      Value<String> package,
+      Value<String> version,
+      Value<String> archiveUrl,
+      Value<String> pubspec,
+      Value<String> readme,
+      Value<String> changelog,
+      Value<DateTime> published,
+      Value<int> rowid,
+    });
 
 class $$PackageVersionsTableFilterComposer
     extends Composer<_$PubDatabase, $PackageVersionsTable> {
@@ -747,25 +877,39 @@ class $$PackageVersionsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<String> get package => $composableBuilder(
-      column: $table.package, builder: (column) => ColumnFilters(column));
+    column: $table.package,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get version => $composableBuilder(
-      column: $table.version, builder: (column) => ColumnFilters(column));
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get archiveUrl => $composableBuilder(
-      column: $table.archiveUrl, builder: (column) => ColumnFilters(column));
+    column: $table.archiveUrl,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get pubspec => $composableBuilder(
-      column: $table.pubspec, builder: (column) => ColumnFilters(column));
+    column: $table.pubspec,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get readme => $composableBuilder(
-      column: $table.readme, builder: (column) => ColumnFilters(column));
+    column: $table.readme,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get changelog => $composableBuilder(
-      column: $table.changelog, builder: (column) => ColumnFilters(column));
+    column: $table.changelog,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get published => $composableBuilder(
-      column: $table.published, builder: (column) => ColumnFilters(column));
+    column: $table.published,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$PackageVersionsTableOrderingComposer
@@ -778,25 +922,39 @@ class $$PackageVersionsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<String> get package => $composableBuilder(
-      column: $table.package, builder: (column) => ColumnOrderings(column));
+    column: $table.package,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get version => $composableBuilder(
-      column: $table.version, builder: (column) => ColumnOrderings(column));
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get archiveUrl => $composableBuilder(
-      column: $table.archiveUrl, builder: (column) => ColumnOrderings(column));
+    column: $table.archiveUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get pubspec => $composableBuilder(
-      column: $table.pubspec, builder: (column) => ColumnOrderings(column));
+    column: $table.pubspec,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get readme => $composableBuilder(
-      column: $table.readme, builder: (column) => ColumnOrderings(column));
+    column: $table.readme,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get changelog => $composableBuilder(
-      column: $table.changelog, builder: (column) => ColumnOrderings(column));
+    column: $table.changelog,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get published => $composableBuilder(
-      column: $table.published, builder: (column) => ColumnOrderings(column));
+    column: $table.published,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$PackageVersionsTableAnnotationComposer
@@ -815,7 +973,9 @@ class $$PackageVersionsTableAnnotationComposer
       $composableBuilder(column: $table.version, builder: (column) => column);
 
   GeneratedColumn<String> get archiveUrl => $composableBuilder(
-      column: $table.archiveUrl, builder: (column) => column);
+    column: $table.archiveUrl,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get pubspec =>
       $composableBuilder(column: $table.pubspec, builder: (column) => column);
@@ -830,94 +990,120 @@ class $$PackageVersionsTableAnnotationComposer
       $composableBuilder(column: $table.published, builder: (column) => column);
 }
 
-class $$PackageVersionsTableTableManager extends RootTableManager<
-    _$PubDatabase,
-    $PackageVersionsTable,
-    PackageVersion,
-    $$PackageVersionsTableFilterComposer,
-    $$PackageVersionsTableOrderingComposer,
-    $$PackageVersionsTableAnnotationComposer,
-    $$PackageVersionsTableCreateCompanionBuilder,
-    $$PackageVersionsTableUpdateCompanionBuilder,
-    (
-      PackageVersion,
-      BaseReferences<_$PubDatabase, $PackageVersionsTable, PackageVersion>
-    ),
-    PackageVersion,
-    PrefetchHooks Function()> {
+class $$PackageVersionsTableTableManager
+    extends
+        RootTableManager<
+          _$PubDatabase,
+          $PackageVersionsTable,
+          PackageVersion,
+          $$PackageVersionsTableFilterComposer,
+          $$PackageVersionsTableOrderingComposer,
+          $$PackageVersionsTableAnnotationComposer,
+          $$PackageVersionsTableCreateCompanionBuilder,
+          $$PackageVersionsTableUpdateCompanionBuilder,
+          (
+            PackageVersion,
+            BaseReferences<
+              _$PubDatabase,
+              $PackageVersionsTable,
+              PackageVersion
+            >,
+          ),
+          PackageVersion,
+          PrefetchHooks Function()
+        > {
   $$PackageVersionsTableTableManager(
-      _$PubDatabase db, $PackageVersionsTable table)
-      : super(TableManagerState(
+    _$PubDatabase db,
+    $PackageVersionsTable table,
+  ) : super(
+        TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $$PackageVersionsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$PackageVersionsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$PackageVersionsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<String> package = const Value.absent(),
-            Value<String> version = const Value.absent(),
-            Value<String> archiveUrl = const Value.absent(),
-            Value<String> pubspec = const Value.absent(),
-            Value<String> readme = const Value.absent(),
-            Value<String> changelog = const Value.absent(),
-            Value<DateTime> published = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              PackageVersionsCompanion(
-            package: package,
-            version: version,
-            archiveUrl: archiveUrl,
-            pubspec: pubspec,
-            readme: readme,
-            changelog: changelog,
-            published: published,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String package,
-            required String version,
-            required String archiveUrl,
-            required String pubspec,
-            required String readme,
-            required String changelog,
-            required DateTime published,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              PackageVersionsCompanion.insert(
-            package: package,
-            version: version,
-            archiveUrl: archiveUrl,
-            pubspec: pubspec,
-            readme: readme,
-            changelog: changelog,
-            published: published,
-            rowid: rowid,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
-              .toList(),
+          createFilteringComposer:
+              () =>
+                  $$PackageVersionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () => $$PackageVersionsTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$PackageVersionsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> package = const Value.absent(),
+                Value<String> version = const Value.absent(),
+                Value<String> archiveUrl = const Value.absent(),
+                Value<String> pubspec = const Value.absent(),
+                Value<String> readme = const Value.absent(),
+                Value<String> changelog = const Value.absent(),
+                Value<DateTime> published = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PackageVersionsCompanion(
+                package: package,
+                version: version,
+                archiveUrl: archiveUrl,
+                pubspec: pubspec,
+                readme: readme,
+                changelog: changelog,
+                published: published,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String package,
+                required String version,
+                required String archiveUrl,
+                required String pubspec,
+                required String readme,
+                required String changelog,
+                required DateTime published,
+                Value<int> rowid = const Value.absent(),
+              }) => PackageVersionsCompanion.insert(
+                package: package,
+                version: version,
+                archiveUrl: archiveUrl,
+                pubspec: pubspec,
+                readme: readme,
+                changelog: changelog,
+                published: published,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$PackageVersionsTableProcessedTableManager = ProcessedTableManager<
-    _$PubDatabase,
-    $PackageVersionsTable,
-    PackageVersion,
-    $$PackageVersionsTableFilterComposer,
-    $$PackageVersionsTableOrderingComposer,
-    $$PackageVersionsTableAnnotationComposer,
-    $$PackageVersionsTableCreateCompanionBuilder,
-    $$PackageVersionsTableUpdateCompanionBuilder,
-    (
+typedef $$PackageVersionsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$PubDatabase,
+      $PackageVersionsTable,
       PackageVersion,
-      BaseReferences<_$PubDatabase, $PackageVersionsTable, PackageVersion>
-    ),
-    PackageVersion,
-    PrefetchHooks Function()>;
+      $$PackageVersionsTableFilterComposer,
+      $$PackageVersionsTableOrderingComposer,
+      $$PackageVersionsTableAnnotationComposer,
+      $$PackageVersionsTableCreateCompanionBuilder,
+      $$PackageVersionsTableUpdateCompanionBuilder,
+      (
+        PackageVersion,
+        BaseReferences<_$PubDatabase, $PackageVersionsTable, PackageVersion>,
+      ),
+      PackageVersion,
+      PrefetchHooks Function()
+    >;
 
 class $PubDatabaseManager {
   final _$PubDatabase _db;

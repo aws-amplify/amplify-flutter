@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
-
 import 'dart:async';
 import 'dart:convert';
 //ignore: deprecated_member_use
@@ -23,11 +22,10 @@ void main() {
     final testBytesUtf16 = testStringContent.codeUnits;
     final testBlob = html.Blob([testBytes], testContentType);
     final testFile = html.File(
-        [testBlob],
-        'test_file.txt',
-        {
-          'type': testBlob.type,
-        });
+      [testBlob],
+      'test_file.txt',
+      {'type': testBlob.type},
+    );
     final testFilePath = html.Url.createObjectUrl(testFile);
 
     group('getChunkedStreamReader() API', () {
@@ -99,40 +97,37 @@ void main() {
       });
 
       test('should resolve contentType from underlying html File', () async {
-        final awsFile = AWSFilePlatform.fromFile(
-          testFile,
-        );
+        final awsFile = AWSFilePlatform.fromFile(testFile);
 
         expect(await awsFile.contentType, testFile.type);
       });
 
       test('should resolve contentType from underlying html Blob', () async {
-        final awsFile = AWSFilePlatform.fromBlob(
-          testBlob,
-        );
+        final awsFile = AWSFilePlatform.fromBlob(testBlob);
 
         expect(await awsFile.contentType, testBlob.type);
       });
 
       test(
-          'should resolve contentType from the blob that is resolved from the path',
-          () async {
-        final awsFile = AWSFilePlatform.fromPath(
-          testFilePath,
-        );
+        'should resolve contentType from the blob that is resolved from the path',
+        () async {
+          final awsFile = AWSFilePlatform.fromPath(testFilePath);
 
-        expect(await awsFile.contentType, testFile.type);
-      });
+          expect(await awsFile.contentType, testFile.type);
+        },
+      );
 
-      test('should return null as contentType if contentType is unresolvable',
-          () async {
-        final awsFile = AWSFile.fromStream(
-          Stream.value(testBytes),
-          size: testBytes.length,
-        );
+      test(
+        'should return null as contentType if contentType is unresolvable',
+        () async {
+          final awsFile = AWSFile.fromStream(
+            Stream.value(testBytes),
+            size: testBytes.length,
+          );
 
-        expect(await awsFile.contentType, isNull);
-      });
+          expect(await awsFile.contentType, isNull);
+        },
+      );
     });
 
     group('openRead() API', () {

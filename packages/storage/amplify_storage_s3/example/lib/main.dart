@@ -17,11 +17,7 @@ final AmplifyLogger _logger = AmplifyLogger('MyStorageApp');
 
 void main() {
   AmplifyLogger().logLevel = LogLevel.debug;
-  runApp(
-    const MyApp(
-      title: 'Amplify Storage Example',
-    ),
-  );
+  runApp(const MyApp(title: 'Amplify Storage Example'));
 }
 
 class MyApp extends StatefulWidget {
@@ -57,8 +53,8 @@ class _MyAppState extends State<MyApp> {
       /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
       secureStorageFactory: AmplifySecureStorage.factoryFrom(
         macOSOptions:
-            // ignore: invalid_use_of_visible_for_testing_member
-            MacOSSecureStorageOptions(useDataProtection: false),
+        // ignore: invalid_use_of_visible_for_testing_member
+        MacOSSecureStorageOptions(useDataProtection: false),
       ),
     );
     final storage = AmplifyStorageS3();
@@ -149,8 +145,10 @@ class _HomeScreenState extends State<HomeScreen> {
           size: platformFile.size,
         ),
         path: StoragePath.fromString('public/${platformFile.name}'),
-        onProgress: (p) =>
-            _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
+        onProgress:
+            (p) => _logger.debug(
+              'Uploading: ${p.transferredBytes}/${p.totalBytes}',
+            ),
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
@@ -161,12 +159,13 @@ class _HomeScreenState extends State<HomeScreen> {
   // list all files in the S3 bucket
   Future<void> _listAllPublicFiles() async {
     try {
-      final result = await Amplify.Storage.list(
-        path: const StoragePath.fromString('public/'),
-        options: const StorageListOptions(
-          pluginOptions: S3ListPluginOptions.listAll(),
-        ),
-      ).result;
+      final result =
+          await Amplify.Storage.list(
+            path: const StoragePath.fromString('public/'),
+            options: const StorageListOptions(
+              pluginOptions: S3ListPluginOptions.listAll(),
+            ),
+          ).result;
       setState(() {
         list = result.items;
       });
@@ -183,8 +182,10 @@ class _HomeScreenState extends State<HomeScreen> {
       await Amplify.Storage.downloadFile(
         path: StoragePath.fromString(path),
         localFile: AWSFile.fromPath(filepath),
-        onProgress: (p0) => _logger
-            .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
+        onProgress:
+            (p0) => _logger.debug(
+              'Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%',
+            ),
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
@@ -198,8 +199,10 @@ class _HomeScreenState extends State<HomeScreen> {
       await Amplify.Storage.downloadFile(
         path: StoragePath.fromString(path),
         localFile: AWSFile.fromPath(path),
-        onProgress: (p0) => _logger
-            .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
+        onProgress:
+            (p0) => _logger.debug(
+              'Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%',
+            ),
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
@@ -210,9 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // delete file from S3 bucket
   Future<void> removeFile(String path) async {
     try {
-      await Amplify.Storage.remove(
-        path: StoragePath.fromString(path),
-      ).result;
+      await Amplify.Storage.remove(path: StoragePath.fromString(path)).result;
       setState(() {
         // set the imageUrl to empty if the deleted file is the one being displayed
         imageUrl = '';
@@ -226,15 +227,16 @@ class _HomeScreenState extends State<HomeScreen> {
   // get the url of a file in the S3 bucket
   Future<String> getUrl(String path) async {
     try {
-      final result = await Amplify.Storage.getUrl(
-        path: StoragePath.fromString(path),
-        options: const StorageGetUrlOptions(
-          pluginOptions: S3GetUrlPluginOptions(
-            validateObjectExistence: true,
-            expiresIn: Duration(minutes: 1),
-          ),
-        ),
-      ).result;
+      final result =
+          await Amplify.Storage.getUrl(
+            path: StoragePath.fromString(path),
+            options: const StorageGetUrlOptions(
+              pluginOptions: S3GetUrlPluginOptions(
+                validateObjectExistence: true,
+                expiresIn: Duration(minutes: 1),
+              ),
+            ),
+          ).result;
       setState(() {
         imageUrl = result.url.toString();
       });
@@ -248,9 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Amplify Storage Example'),
-      ),
+      appBar: AppBar(title: const Text('Amplify Storage Example')),
       body: Stack(
         children: [
           Center(

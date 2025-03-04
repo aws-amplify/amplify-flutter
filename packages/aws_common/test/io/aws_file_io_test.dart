@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
-
 import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:typed_data';
@@ -86,22 +85,22 @@ void main() {
       });
 
       test('should resolve contentType from the underlying file', () async {
-        final awsFile = AWSFilePlatform.fromFile(
-          testFile,
-        );
+        final awsFile = AWSFilePlatform.fromFile(testFile);
 
         expect(await awsFile.contentType, testContentType);
       });
 
-      test('should return null as contentType if contentType is unresolvable',
-          () async {
-        final awsFile = AWSFile.fromStream(
-          Stream.value(testBytes),
-          size: testBytes.length,
-        );
+      test(
+        'should return null as contentType if contentType is unresolvable',
+        () async {
+          final awsFile = AWSFile.fromStream(
+            Stream.value(testBytes),
+            size: testBytes.length,
+          );
 
-        expect(await awsFile.contentType, isNull);
-      });
+          expect(await awsFile.contentType, isNull);
+        },
+      );
     });
 
     group('openRead() API', () {

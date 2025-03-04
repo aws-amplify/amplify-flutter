@@ -7,31 +7,33 @@ part of 'auth_state.dart';
 // **************************************************************************
 
 CredentialStoreData _$CredentialStoreDataFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'CredentialStoreData',
-      json,
-      ($checkedConvert) {
-        final val = CredentialStoreData(
-          identityId: $checkedConvert('identityId', (v) => v as String?),
-          awsCredentials: $checkedConvert(
-              'awsCredentials',
-              (v) => v == null
+    $checkedCreate('CredentialStoreData', json, ($checkedConvert) {
+      final val = CredentialStoreData(
+        identityId: $checkedConvert('identityId', (v) => v as String?),
+        awsCredentials: $checkedConvert(
+          'awsCredentials',
+          (v) =>
+              v == null
                   ? null
-                  : AWSCredentials.fromJson(v as Map<String, dynamic>)),
-          userPoolTokens: $checkedConvert(
-              'userPoolTokens',
-              (v) => v == null
+                  : AWSCredentials.fromJson(v as Map<String, dynamic>),
+        ),
+        userPoolTokens: $checkedConvert(
+          'userPoolTokens',
+          (v) =>
+              v == null
                   ? null
-                  : CognitoUserPoolTokens.fromJson(v as Map<String, dynamic>)),
-          signInDetails: $checkedConvert(
-              'signInDetails',
-              (v) => v == null
+                  : CognitoUserPoolTokens.fromJson(v as Map<String, dynamic>),
+        ),
+        signInDetails: $checkedConvert(
+          'signInDetails',
+          (v) =>
+              v == null
                   ? null
-                  : CognitoSignInDetails.fromJson(v as Map<String, dynamic>)),
-        );
-        return val;
-      },
-    );
+                  : CognitoSignInDetails.fromJson(v as Map<String, dynamic>),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$CredentialStoreDataToJson(CredentialStoreData instance) {
   final val = <String, dynamic>{};

@@ -25,9 +25,8 @@ sealed class ConfigurationEvent
   const factory ConfigurationEvent.configure(AmplifyOutputs config) = Configure;
 
   /// {@macro amplify_auth_cognito.configuration_event.configure_succeeded}
-  const factory ConfigurationEvent.configureSucceeded(
-    AmplifyOutputs config,
-  ) = ConfigureSucceeded;
+  const factory ConfigurationEvent.configureSucceeded(AmplifyOutputs config) =
+      ConfigureSucceeded;
 
   @override
   PreconditionException? checkPrecondition(ConfigurationState currentState) =>
