@@ -39,10 +39,10 @@ class SessionManager {
     AppLifecycleProvider? appLifecycleProvider,
     required OnSessionUpdated onSessionStart,
     required OnSessionUpdated onSessionEnd,
-  })  : _fixedEndpointId = fixedEndpointId,
-        _appLifecycleProvider = appLifecycleProvider,
-        _onSessionStart = onSessionStart,
-        _onSessionEnd = onSessionEnd {
+  }) : _fixedEndpointId = fixedEndpointId,
+       _appLifecycleProvider = appLifecycleProvider,
+       _onSessionStart = onSessionStart,
+       _onSessionEnd = onSessionEnd {
     _appLifecycleProvider?.setOnForegroundListener(startSession);
     _appLifecycleProvider?.setOnBackgroundListener(stopSession);
   }
@@ -112,15 +112,16 @@ class _SessionCreator {
   const _SessionCreator({
     required int startTimeMilliseconds,
     required SessionBuilder sessionBuilder,
-  })  : _startTimeMilliseconds = startTimeMilliseconds,
-        _sessionBuilder = sessionBuilder;
+  }) : _startTimeMilliseconds = startTimeMilliseconds,
+       _sessionBuilder = sessionBuilder;
 
   factory _SessionCreator.createSession(String fixedEndpointId) {
     final curTime = DateTime.now();
 
-    final sessionBuilder = SessionBuilder()
-      ..id = _generateSessionId(fixedEndpointId)
-      ..startTimestamp = curTime.toUtc().toIso8601String();
+    final sessionBuilder =
+        SessionBuilder()
+          ..id = _generateSessionId(fixedEndpointId)
+          ..startTimestamp = curTime.toUtc().toIso8601String();
 
     final startTimeMilliseconds = curTime.millisecondsSinceEpoch;
 

@@ -72,10 +72,7 @@ class RequestProgressBuilder
   RequestProgress build() => _build();
 
   _$RequestProgress _build() {
-    final _$result = _$v ??
-        new _$RequestProgress._(
-          enabled: enabled,
-        );
+    final _$result = _$v ?? new _$RequestProgress._(enabled: enabled);
     replace(_$result);
     return _$result;
   }

@@ -45,9 +45,9 @@ abstract class ListMultipartUploadsRequest
     );
   }
 
-  factory ListMultipartUploadsRequest.build(
-          [void Function(ListMultipartUploadsRequestBuilder) updates]) =
-      _$ListMultipartUploadsRequest;
+  factory ListMultipartUploadsRequest.build([
+    void Function(ListMultipartUploadsRequestBuilder) updates,
+  ]) = _$ListMultipartUploadsRequest;
 
   const ListMultipartUploadsRequest._();
 
@@ -55,42 +55,42 @@ abstract class ListMultipartUploadsRequest
     ListMultipartUploadsRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      ListMultipartUploadsRequest.build((b) {
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.queryParameters['delimiter'] != null) {
-          b.delimiter = request.queryParameters['delimiter']!;
-        }
-        if (request.queryParameters['encoding-type'] != null) {
-          b.encodingType = EncodingType.values
-              .byValue(request.queryParameters['encoding-type']!);
-        }
-        if (request.queryParameters['key-marker'] != null) {
-          b.keyMarker = request.queryParameters['key-marker']!;
-        }
-        if (request.queryParameters['max-uploads'] != null) {
-          b.maxUploads = int.parse(request.queryParameters['max-uploads']!);
-        }
-        if (request.queryParameters['prefix'] != null) {
-          b.prefix = request.queryParameters['prefix']!;
-        }
-        if (request.queryParameters['upload-id-marker'] != null) {
-          b.uploadIdMarker = request.queryParameters['upload-id-marker']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-      });
+  }) => ListMultipartUploadsRequest.build((b) {
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.queryParameters['delimiter'] != null) {
+      b.delimiter = request.queryParameters['delimiter']!;
+    }
+    if (request.queryParameters['encoding-type'] != null) {
+      b.encodingType = EncodingType.values.byValue(
+        request.queryParameters['encoding-type']!,
+      );
+    }
+    if (request.queryParameters['key-marker'] != null) {
+      b.keyMarker = request.queryParameters['key-marker']!;
+    }
+    if (request.queryParameters['max-uploads'] != null) {
+      b.maxUploads = int.parse(request.queryParameters['max-uploads']!);
+    }
+    if (request.queryParameters['prefix'] != null) {
+      b.prefix = request.queryParameters['prefix']!;
+    }
+    if (request.queryParameters['upload-id-marker'] != null) {
+      b.uploadIdMarker = request.queryParameters['upload-id-marker']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<ListMultipartUploadsRequestPayload>>
-      serializers = [ListMultipartUploadsRequestRestXmlSerializer()];
+  serializers = [ListMultipartUploadsRequestRestXmlSerializer()];
 
   /// The name of the bucket to which the multipart upload was initiated.
   ///
@@ -152,10 +152,7 @@ abstract class ListMultipartUploadsRequest
       case 'Bucket':
         return bucket;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -164,71 +161,46 @@ abstract class ListMultipartUploadsRequest
 
   @override
   List<Object?> get props => [
-        bucket,
-        delimiter,
-        encodingType,
-        keyMarker,
-        maxUploads,
-        prefix,
-        uploadIdMarker,
-        expectedBucketOwner,
-        requestPayer,
-      ];
+    bucket,
+    delimiter,
+    encodingType,
+    keyMarker,
+    maxUploads,
+    prefix,
+    uploadIdMarker,
+    expectedBucketOwner,
+    requestPayer,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListMultipartUploadsRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'delimiter',
-        delimiter,
-      )
-      ..add(
-        'encodingType',
-        encodingType,
-      )
-      ..add(
-        'keyMarker',
-        keyMarker,
-      )
-      ..add(
-        'maxUploads',
-        maxUploads,
-      )
-      ..add(
-        'prefix',
-        prefix,
-      )
-      ..add(
-        'uploadIdMarker',
-        uploadIdMarker,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ListMultipartUploadsRequest')
+          ..add('bucket', bucket)
+          ..add('delimiter', delimiter)
+          ..add('encodingType', encodingType)
+          ..add('keyMarker', keyMarker)
+          ..add('maxUploads', maxUploads)
+          ..add('prefix', prefix)
+          ..add('uploadIdMarker', uploadIdMarker)
+          ..add('expectedBucketOwner', expectedBucketOwner)
+          ..add('requestPayer', requestPayer);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class ListMultipartUploadsRequestPayload
-    with
-        _i2.AWSEquatable<ListMultipartUploadsRequestPayload>
+    with _i2.AWSEquatable<ListMultipartUploadsRequestPayload>
     implements
-        Built<ListMultipartUploadsRequestPayload,
-            ListMultipartUploadsRequestPayloadBuilder>,
+        Built<
+          ListMultipartUploadsRequestPayload,
+          ListMultipartUploadsRequestPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory ListMultipartUploadsRequestPayload(
-          [void Function(ListMultipartUploadsRequestPayloadBuilder) updates]) =
-      _$ListMultipartUploadsRequestPayload;
+  factory ListMultipartUploadsRequestPayload([
+    void Function(ListMultipartUploadsRequestPayloadBuilder) updates,
+  ]) = _$ListMultipartUploadsRequestPayload;
 
   const ListMultipartUploadsRequestPayload._();
 
@@ -237,8 +209,9 @@ abstract class ListMultipartUploadsRequestPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListMultipartUploadsRequestPayload');
+    final helper = newBuiltValueToStringHelper(
+      'ListMultipartUploadsRequestPayload',
+    );
     return helper.toString();
   }
 }
@@ -246,23 +219,20 @@ abstract class ListMultipartUploadsRequestPayload
 class ListMultipartUploadsRequestRestXmlSerializer
     extends _i1.StructuredSmithySerializer<ListMultipartUploadsRequestPayload> {
   const ListMultipartUploadsRequestRestXmlSerializer()
-      : super('ListMultipartUploadsRequest');
+    : super('ListMultipartUploadsRequest');
 
   @override
   Iterable<Type> get types => const [
-        ListMultipartUploadsRequest,
-        _$ListMultipartUploadsRequest,
-        ListMultipartUploadsRequestPayload,
-        _$ListMultipartUploadsRequestPayload,
-      ];
+    ListMultipartUploadsRequest,
+    _$ListMultipartUploadsRequest,
+    ListMultipartUploadsRequestPayload,
+    _$ListMultipartUploadsRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ListMultipartUploadsRequestPayload deserialize(
@@ -283,7 +253,7 @@ class ListMultipartUploadsRequestRestXmlSerializer
       const _i1.XmlElementName(
         'ListMultipartUploadsRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

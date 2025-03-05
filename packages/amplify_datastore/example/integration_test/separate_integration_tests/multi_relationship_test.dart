@@ -40,10 +40,7 @@ void main() {
       MultiRelatedMeeting(title: 'test meeting 1'),
       MultiRelatedMeeting(title: 'test meeting 2'),
     ];
-    var attendees = [
-      MultiRelatedAttendee(),
-      MultiRelatedAttendee(),
-    ];
+    var attendees = [MultiRelatedAttendee(), MultiRelatedAttendee()];
     var registrations = [
       MultiRelatedRegistration(attendee: attendees[0], meeting: meetings[0]),
       MultiRelatedRegistration(attendee: attendees[0], meeting: meetings[1]),
@@ -51,16 +48,17 @@ void main() {
     ];
 
     late Future<List<SubscriptionEvent<MultiRelatedMeeting>>>
-        meetingModelEventsGetter;
+    meetingModelEventsGetter;
     late Future<List<SubscriptionEvent<MultiRelatedAttendee>>>
-        attendeeModelEventsGetter;
+    attendeeModelEventsGetter;
     late Future<List<SubscriptionEvent<MultiRelatedRegistration>>>
-        registrationModelEventsGetter;
+    registrationModelEventsGetter;
 
     setUpAll(() async {
       await configureDataStore(
-          enableCloudSync: enableCloudSync,
-          modelProvider: ModelProvider.instance);
+        enableCloudSync: enableCloudSync,
+        modelProvider: ModelProvider.instance,
+      );
 
       meetingModelEventsGetter = createObservedEventsGetter(
         MultiRelatedMeeting.classType,
@@ -98,8 +96,9 @@ void main() {
           await Amplify.DataStore.save(meeting);
         }
       }
-      var queriedMeetings =
-          await Amplify.DataStore.query(MultiRelatedMeeting.classType);
+      var queriedMeetings = await Amplify.DataStore.query(
+        MultiRelatedMeeting.classType,
+      );
       expect(queriedMeetings, containsAll(meetings));
     });
 
@@ -116,8 +115,9 @@ void main() {
           await Amplify.DataStore.save(attendee);
         }
       }
-      var queriedAttendees =
-          await Amplify.DataStore.query(MultiRelatedAttendee.classType);
+      var queriedAttendees = await Amplify.DataStore.query(
+        MultiRelatedAttendee.classType,
+      );
       expect(queriedAttendees, containsAll(attendees));
     });
 
@@ -134,31 +134,39 @@ void main() {
           await Amplify.DataStore.save(registration);
         }
       }
-      var queriedRegistrations =
-          await Amplify.DataStore.query(MultiRelatedRegistration.classType);
+      var queriedRegistrations = await Amplify.DataStore.query(
+        MultiRelatedRegistration.classType,
+      );
       expect(queriedRegistrations, containsAll(registrations));
     });
 
     testWidgets('observe meetings', (WidgetTester tester) async {
       var events = await meetingModelEventsGetter;
       expectObservedEventsToMatchModels(
-          events: events, referenceModels: meetings);
+        events: events,
+        referenceModels: meetings,
+      );
     });
 
     testWidgets('observe attendees', (WidgetTester tester) async {
       var events = await attendeeModelEventsGetter;
       expectObservedEventsToMatchModels(
-          events: events, referenceModels: attendees);
+        events: events,
+        referenceModels: attendees,
+      );
     });
 
     testWidgets('observe registrations', (WidgetTester tester) async {
       var events = await registrationModelEventsGetter;
       expectObservedEventsToMatchModels(
-          events: events, referenceModels: registrations);
+        events: events,
+        referenceModels: registrations,
+      );
     });
 
-    testWidgets('delete meeting (cascade delete associated registration)',
-        (WidgetTester tester) async {
+    testWidgets('delete meeting (cascade delete associated registration)', (
+      WidgetTester tester,
+    ) async {
       var deletedMeeting = meetings[0]; // cascade delete registration[0]
       var deletedRegistration = registrations[0];
 
@@ -176,17 +184,20 @@ void main() {
         await Amplify.DataStore.delete(deletedMeeting);
       }
 
-      var queriedMeetings =
-          await Amplify.DataStore.query(MultiRelatedMeeting.classType);
+      var queriedMeetings = await Amplify.DataStore.query(
+        MultiRelatedMeeting.classType,
+      );
       expect(queriedMeetings, isNot(contains(deletedMeeting)));
 
-      var queriedRegistrations =
-          await Amplify.DataStore.query(MultiRelatedRegistration.classType);
+      var queriedRegistrations = await Amplify.DataStore.query(
+        MultiRelatedRegistration.classType,
+      );
       expect(queriedRegistrations, isNot(contains(deletedRegistration)));
     });
 
-    testWidgets('delete attendee (cascade delete associated registration)',
-        (WidgetTester tester) async {
+    testWidgets('delete attendee (cascade delete associated registration)', (
+      WidgetTester tester,
+    ) async {
       var deletedAttendee = attendees[0];
       var deletedRegistration = registrations[1];
 
@@ -204,12 +215,14 @@ void main() {
         await Amplify.DataStore.delete(deletedAttendee);
       }
 
-      var queriedAttendees =
-          await Amplify.DataStore.query(MultiRelatedAttendee.classType);
+      var queriedAttendees = await Amplify.DataStore.query(
+        MultiRelatedAttendee.classType,
+      );
       expect(queriedAttendees, isNot(contains(deletedAttendee)));
 
-      var queriedRegistrations =
-          await Amplify.DataStore.query(MultiRelatedRegistration.classType);
+      var queriedRegistrations = await Amplify.DataStore.query(
+        MultiRelatedRegistration.classType,
+      );
       expect(queriedRegistrations, isNot(contains(deletedRegistration)));
     });
 
@@ -231,12 +244,14 @@ void main() {
         await Amplify.DataStore.delete(deletedMeeting);
       }
 
-      var queriedMeetings =
-          await Amplify.DataStore.query(MultiRelatedMeeting.classType);
+      var queriedMeetings = await Amplify.DataStore.query(
+        MultiRelatedMeeting.classType,
+      );
       expect(queriedMeetings, isNot(contains(deletedMeeting)));
 
-      var queriedRegistrations =
-          await Amplify.DataStore.query(MultiRelatedRegistration.classType);
+      var queriedRegistrations = await Amplify.DataStore.query(
+        MultiRelatedRegistration.classType,
+      );
       expect(queriedRegistrations, isNot(contains(deletedRegistration)));
     });
 
@@ -254,8 +269,9 @@ void main() {
         await Amplify.DataStore.delete(deletedAttendee);
       }
 
-      var queriedAttendees =
-          await Amplify.DataStore.query(MultiRelatedAttendee.classType);
+      var queriedAttendees = await Amplify.DataStore.query(
+        MultiRelatedAttendee.classType,
+      );
       expect(queriedAttendees, isNot(contains(deletedAttendee)));
     });
   });

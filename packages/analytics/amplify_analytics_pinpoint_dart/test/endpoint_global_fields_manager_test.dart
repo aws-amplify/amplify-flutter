@@ -28,8 +28,9 @@ void main() {
 
     setUp(() async {
       mockSecureStorage = MockSecureStorage();
-      fieldsManager =
-          await EndpointGlobalFieldsManager.create(mockSecureStorage);
+      fieldsManager = await EndpointGlobalFieldsManager.create(
+        mockSecureStorage,
+      );
     });
 
     test('reads values from storage', () async {
@@ -43,8 +44,9 @@ void main() {
         value: jsonEncode({metricKey1: metricValue1}),
       );
 
-      fieldsManager =
-          await EndpointGlobalFieldsManager.create(mockSecureStorage);
+      fieldsManager = await EndpointGlobalFieldsManager.create(
+        mockSecureStorage,
+      );
 
       expect(fieldsManager.globalAttributes[attrKey1], attrValue1);
       expect(fieldsManager.globalMetrics[metricKey1], metricValue1);
@@ -82,8 +84,9 @@ void main() {
 
       expect(fieldsManager.globalMetrics[metricKey1], metricValue1);
 
-      final storedMetrics =
-          await EndpointGlobalFieldsManager.getStoredMetrics(mockSecureStorage);
+      final storedMetrics = await EndpointGlobalFieldsManager.getStoredMetrics(
+        mockSecureStorage,
+      );
       expect(storedMetrics[metricKey1], metricValue1);
     });
 
@@ -96,8 +99,9 @@ void main() {
 
       expect(fieldsManager.globalMetrics[metricKey1], metricValue1);
 
-      final storedMetrics =
-          await EndpointGlobalFieldsManager.getStoredMetrics(mockSecureStorage);
+      final storedMetrics = await EndpointGlobalFieldsManager.getStoredMetrics(
+        mockSecureStorage,
+      );
       expect(storedMetrics[metricKey1], metricValue1);
       expect(storedMetrics[metricKey2], metricValue2);
     });
@@ -131,45 +135,52 @@ void main() {
       expect(fieldsManager.globalMetrics.containsKey(metricKey1), false);
       expect(fieldsManager.globalMetrics[metricKey2], metricValue2);
 
-      final storedMetrics =
-          await EndpointGlobalFieldsManager.getStoredMetrics(mockSecureStorage);
+      final storedMetrics = await EndpointGlobalFieldsManager.getStoredMetrics(
+        mockSecureStorage,
+      );
       expect(storedMetrics.containsKey(metricKey1), false);
       expect(storedMetrics[metricKey2], metricValue2);
     });
 
-    test('attribute key/values longer than "maxLength" are truncated',
-        () async {
-      final longAttrKey = 'a' * EndpointGlobalFieldsManager.maxKeyLength * 2;
-      final longAttrValue =
-          'a' * EndpointGlobalFieldsManager.maxAttributeValueLength * 2;
+    test(
+      'attribute key/values longer than "maxLength" are truncated',
+      () async {
+        final longAttrKey = 'a' * EndpointGlobalFieldsManager.maxKeyLength * 2;
+        final longAttrValue =
+            'a' * EndpointGlobalFieldsManager.maxAttributeValueLength * 2;
 
-      await fieldsManager.addAttribute(longAttrKey, longAttrValue);
+        await fieldsManager.addAttribute(longAttrKey, longAttrValue);
 
-      expect(fieldsManager.globalAttributes.containsKey(longAttrKey), false);
+        expect(fieldsManager.globalAttributes.containsKey(longAttrKey), false);
 
-      final storedAttrKey =
-          longAttrKey.substring(0, EndpointGlobalFieldsManager.maxKeyLength);
+        final storedAttrKey = longAttrKey.substring(
+          0,
+          EndpointGlobalFieldsManager.maxKeyLength,
+        );
 
-      final storedAttrValue = longAttrValue.substring(
-        0,
-        EndpointGlobalFieldsManager.maxAttributeValueLength,
-      );
+        final storedAttrValue = longAttrValue.substring(
+          0,
+          EndpointGlobalFieldsManager.maxAttributeValueLength,
+        );
 
-      expect(fieldsManager.globalAttributes[storedAttrKey], storedAttrValue);
+        expect(fieldsManager.globalAttributes[storedAttrKey], storedAttrValue);
 
-      // Validate stored attributes are truncated.
-      final storedAttributes =
-          await EndpointGlobalFieldsManager.getStoredAttributes(
-        mockSecureStorage,
-      );
-      expect(storedAttributes[storedAttrKey], storedAttrValue);
-    });
+        // Validate stored attributes are truncated.
+        final storedAttributes =
+            await EndpointGlobalFieldsManager.getStoredAttributes(
+              mockSecureStorage,
+            );
+        expect(storedAttributes[storedAttrKey], storedAttrValue);
+      },
+    );
 
     test('metric key longer than "maxLength" is truncated', () async {
       final stringBuffer = StringBuffer();
-      for (var i = 0;
-          i < EndpointGlobalFieldsManager.maxAttributeValueLength * 2;
-          i++) {
+      for (
+        var i = 0;
+        i < EndpointGlobalFieldsManager.maxAttributeValueLength * 2;
+        i++
+      ) {
         stringBuffer.write('a');
       }
 
@@ -179,44 +190,52 @@ void main() {
 
       expect(fieldsManager.globalMetrics.containsKey(longMetricKey), false);
 
-      final storedMetricKey =
-          longMetricKey.substring(0, EndpointGlobalFieldsManager.maxKeyLength);
+      final storedMetricKey = longMetricKey.substring(
+        0,
+        EndpointGlobalFieldsManager.maxKeyLength,
+      );
 
       expect(fieldsManager.globalMetrics[storedMetricKey], 12.3);
 
-      final storedMetrics =
-          await EndpointGlobalFieldsManager.getStoredMetrics(mockSecureStorage);
+      final storedMetrics = await EndpointGlobalFieldsManager.getStoredMetrics(
+        mockSecureStorage,
+      );
       expect(storedMetrics[storedMetricKey], 12.3);
     });
 
-    test('storing more than "maxCount" attributes and metrics are ignored',
-        () async {
-      for (var i = 0; i < EndpointGlobalFieldsManager.maxAttributes; i++) {
-        await fieldsManager.addAttribute(i.toString(), i.toString());
-      }
+    test(
+      'storing more than "maxCount" attributes and metrics are ignored',
+      () async {
+        for (var i = 0; i < EndpointGlobalFieldsManager.maxAttributes; i++) {
+          await fieldsManager.addAttribute(i.toString(), i.toString());
+        }
 
-      expect(
-        fieldsManager.globalAttributes.length,
-        EndpointGlobalFieldsManager.maxAttributes,
-      );
+        expect(
+          fieldsManager.globalAttributes.length,
+          EndpointGlobalFieldsManager.maxAttributes,
+        );
 
-      // Validate additional saves are ignored
-      await fieldsManager.addAttribute(attrKey1, attrValue1);
+        // Validate additional saves are ignored
+        await fieldsManager.addAttribute(attrKey1, attrValue1);
 
-      expect(fieldsManager.globalAttributes.containsKey(attrKey1), false);
+        expect(fieldsManager.globalAttributes.containsKey(attrKey1), false);
 
-      final storedAttrs = await EndpointGlobalFieldsManager.getStoredAttributes(
-        mockSecureStorage,
-      );
-      expect(storedAttrs.containsKey(attrKey1), false);
+        final storedAttrs =
+            await EndpointGlobalFieldsManager.getStoredAttributes(
+              mockSecureStorage,
+            );
+        expect(storedAttrs.containsKey(attrKey1), false);
 
-      await fieldsManager.addMetric(metricKey1, metricValue1);
+        await fieldsManager.addMetric(metricKey1, metricValue1);
 
-      expect(fieldsManager.globalAttributes.containsKey(metricKey1), false);
+        expect(fieldsManager.globalAttributes.containsKey(metricKey1), false);
 
-      final storedMetrics =
-          await EndpointGlobalFieldsManager.getStoredMetrics(mockSecureStorage);
-      expect(storedMetrics.containsKey(metricKey1), false);
-    });
+        final storedMetrics =
+            await EndpointGlobalFieldsManager.getStoredMetrics(
+              mockSecureStorage,
+            );
+        expect(storedMetrics.containsKey(metricKey1), false);
+      },
+    );
   });
 }

@@ -12,16 +12,22 @@ class _$SignUpParameters extends SignUpParameters {
   @override
   final String password;
 
-  factory _$SignUpParameters(
-          [void Function(SignUpParametersBuilder)? updates]) =>
-      (new SignUpParametersBuilder()..update(updates))._build();
+  factory _$SignUpParameters([
+    void Function(SignUpParametersBuilder)? updates,
+  ]) => (new SignUpParametersBuilder()..update(updates))._build();
 
   _$SignUpParameters._({required this.username, required this.password})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        username, r'SignUpParameters', 'username');
+      username,
+      r'SignUpParameters',
+      'username',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        password, r'SignUpParameters', 'password');
+      password,
+      r'SignUpParameters',
+      'password',
+    );
   }
 
   @override
@@ -97,12 +103,19 @@ class SignUpParametersBuilder
   SignUpParameters build() => _build();
 
   _$SignUpParameters _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SignUpParameters._(
           username: BuiltValueNullFieldError.checkNotNull(
-              username, r'SignUpParameters', 'username'),
+            username,
+            r'SignUpParameters',
+            'username',
+          ),
           password: BuiltValueNullFieldError.checkNotNull(
-              password, r'SignUpParameters', 'password'),
+            password,
+            r'SignUpParameters',
+            'password',
+          ),
         );
     replace(_$result);
     return _$result;

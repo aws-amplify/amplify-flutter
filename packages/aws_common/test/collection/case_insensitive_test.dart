@@ -77,14 +77,7 @@ void main() {
 
   group('CaseInsensitiveSet', () {
     test('ascii elements are case-insensitive', () {
-      const set = <String>{
-        'a',
-        'b',
-        'c',
-        'A',
-        'B',
-        'C',
-      };
+      const set = <String>{'a', 'b', 'c', 'A', 'B', 'C'};
       final ciSet = CaseInsensitiveSet(set);
 
       expect(ciSet, hasLength(3));
@@ -92,28 +85,11 @@ void main() {
     });
 
     test('unicode elements are case-sensitive', () {
-      const set = <String>{
-        'á',
-        'ë',
-        'î',
-        'Á',
-        'Ë',
-        'Î',
-      };
+      const set = <String>{'á', 'ë', 'î', 'Á', 'Ë', 'Î'};
       final ciSet = CaseInsensitiveSet(set);
 
       expect(ciSet, hasLength(6));
-      expect(
-        ciSet,
-        unorderedEquals(<String>[
-          'á',
-          'ë',
-          'î',
-          'Á',
-          'Ë',
-          'Î',
-        ]),
-      );
+      expect(ciSet, unorderedEquals(<String>['á', 'ë', 'î', 'Á', 'Ë', 'Î']));
     });
   });
 }

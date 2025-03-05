@@ -7,8 +7,8 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database
 abstract class $TransferDatabase extends i0.GeneratedDatabase {
   $TransferDatabase(i0.QueryExecutor e) : super(e);
   $TransferDatabaseManager get managers => $TransferDatabaseManager(this);
-  late final i1.$TransferRecordsTable transferRecords =
-      i1.$TransferRecordsTable(this);
+  late final i1.$TransferRecordsTable transferRecords = i1
+      .$TransferRecordsTable(this);
   @override
   Iterable<i0.TableInfo<i0.Table, Object?>> get allTables =>
       allSchemaEntities.whereType<i0.TableInfo<i0.Table, Object?>>();

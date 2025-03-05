@@ -11,7 +11,7 @@ enum EllipticCurve {
   p384,
 
   /// P-521 curve
-  p521
+  p521,
 }
 
 /// Elliptic curve helpers.

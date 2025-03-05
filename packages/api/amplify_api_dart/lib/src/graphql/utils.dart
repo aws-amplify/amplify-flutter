@@ -45,10 +45,9 @@ Iterable<ModelField> getBelongsToFieldsFromModelSchema(
   ModelSchema modelSchema,
 ) {
   return _getRelatedFields(modelSchema).singleFields.where(
-        (entry) =>
-            entry.association?.associationType ==
-            ModelAssociationEnum.BelongsTo,
-      );
+    (entry) =>
+        entry.association?.associationType == ModelAssociationEnum.BelongsTo,
+  );
 }
 
 /// Gets the modelSchema from provider that matches the name and validates its fields.
@@ -71,20 +70,24 @@ ModelSchema getModelSchemaByModelName(
   if (zIsWeb && modelName.endsWith(r'$')) {
     modelName = modelName.substring(0, modelName.length - 1);
   }
-  final schema =
-      (provider.modelSchemas + provider.customTypeSchemas).firstWhere(
-    (elem) => elem.name == modelName,
-    orElse: () => throw ApiOperationException(
-      'No schema found for the ModelType provided: $modelName',
-      recoverySuggestion: 'Pass in a valid modelProvider instance while '
-          'instantiating APIPlugin or provide a valid ModelType',
-    ),
-  );
+  final schema = (provider.modelSchemas + provider.customTypeSchemas)
+      .firstWhere(
+        (elem) => elem.name == modelName,
+        orElse:
+            () =>
+                throw ApiOperationException(
+                  'No schema found for the ModelType provided: $modelName',
+                  recoverySuggestion:
+                      'Pass in a valid modelProvider instance while '
+                      'instantiating APIPlugin or provide a valid ModelType',
+                ),
+      );
 
   if (schema.fields == null) {
     throw const ApiOperationException(
       'Schema found does not have a fields property',
-      recoverySuggestion: 'Pass in a valid modelProvider instance while '
+      recoverySuggestion:
+          'Pass in a valid modelProvider instance while '
           'instantiating APIPlugin',
     );
   }
@@ -92,7 +95,8 @@ ModelSchema getModelSchemaByModelName(
   if (operation == GraphQLRequestOperation.list && schema.pluralName == null) {
     throw const ApiOperationException(
       'No schema name found',
-      recoverySuggestion: 'Pass in a valid modelProvider instance while '
+      recoverySuggestion:
+          'Pass in a valid modelProvider instance while '
           'instantiating APIPlugin or provide a valid ModelType',
     );
   }

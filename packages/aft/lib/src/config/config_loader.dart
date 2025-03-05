@@ -14,9 +14,8 @@ import 'package:yaml/yaml.dart';
 
 /// Loads the AFT configuration for the current working directory.
 class AftConfigLoader {
-  AftConfigLoader({
-    Directory? workingDirectory,
-  }) : workingDirectory = workingDirectory ?? Directory.current;
+  AftConfigLoader({Directory? workingDirectory})
+    : workingDirectory = workingDirectory ?? Directory.current;
 
   final Directory workingDirectory;
 
@@ -60,33 +59,31 @@ class AftConfigLoader {
     required Queue<(YamlMap, Pubspec)> pubspecQueue,
     required Directory rootDirectory,
   }) {
-    final aftConfig = AftConfigBuilder()
-      ..rootDirectory = rootDirectory.uri
-      ..workingDirectory = workingDirectory.uri;
+    final aftConfig =
+        AftConfigBuilder()
+          ..rootDirectory = rootDirectory.uri
+          ..workingDirectory = workingDirectory.uri;
 
     final rawComponents = <String, RawAftComponent>{};
 
-    void mergePubspec(
-      YamlMap yaml,
-      Pubspec pubspec, {
-      bool isRoot = false,
-    }) {
+    void mergePubspec(YamlMap yaml, Pubspec pubspec, {bool isRoot = false}) {
       final rawPubspecConfig = RawPubspecConfig.fromJson(yaml.cast());
 
       // Process top-level pubspec entries for root configs
       if (isRoot) {
-        final dependencies = rawPubspecConfig.dependencies.entries
-            .map(
-              (entry) => switch (entry) {
-                MapEntry(
-                  key: final name,
-                  value: final HostedDependency dependency
-                ) =>
-                  MapEntry(name, dependency.version),
-                _ => null,
-              },
-            )
-            .nonNulls;
+        final dependencies =
+            rawPubspecConfig.dependencies.entries
+                .map(
+                  (entry) => switch (entry) {
+                    MapEntry(
+                      key: final name,
+                      value: final HostedDependency dependency,
+                    ) =>
+                      MapEntry(name, dependency.version),
+                    _ => null,
+                  },
+                )
+                .nonNulls;
         aftConfig
           ..dependencies.addEntries(dependencies)
           ..environment.replace(rawPubspecConfig.environment);
@@ -129,39 +126,43 @@ class AftConfigLoader {
           final summaryPackage = switch (component.summary) {
             null => null,
             final summary => switch (repoPackages[summary]) {
-                final summaryPackage? => summaryPackage,
-                // Allow missing summary package for testing
-                _ when zDebugMode => null,
-                _ => throw StateError(
-                    'Summary package "$summary" does not exist for component: '
-                    '${component.name}',
-                  ),
-              },
+              final summaryPackage? => summaryPackage,
+              // Allow missing summary package for testing
+              _ when zDebugMode => null,
+              _ =>
+                throw StateError(
+                  'Summary package "$summary" does not exist for component: '
+                  '${component.name}',
+                ),
+            },
           };
-          final packages = component.packages
-              .map(
-                (name) => switch (repoPackages[name]) {
-                  final package? => package,
-                  // Allow missing component package for testing
-                  _ when zDebugMode => null,
-                  _ => throw StateError(
-                      'Component package "$name" does not exist for component: '
-                      '${component.name}',
-                    ),
-                },
-              )
-              .nonNulls
-              .toList();
-          final packageGraph = UnmodifiableMapView({
-            for (final package in packages)
-              package.name: package.pubspecInfo.pubspec.dependencies.keys
+          final packages =
+              component.packages
                   .map(
-                    (packageName) => packages.firstWhereOrNull(
-                      (pkg) => pkg.name == packageName,
-                    ),
+                    (name) => switch (repoPackages[name]) {
+                      final package? => package,
+                      // Allow missing component package for testing
+                      _ when zDebugMode => null,
+                      _ =>
+                        throw StateError(
+                          'Component package "$name" does not exist for component: '
+                          '${component.name}',
+                        ),
+                    },
                   )
                   .nonNulls
-                  .toList(),
+                  .toList();
+          final packageGraph = UnmodifiableMapView({
+            for (final package in packages)
+              package.name:
+                  package.pubspecInfo.pubspec.dependencies.keys
+                      .map(
+                        (packageName) => packages.firstWhereOrNull(
+                          (pkg) => pkg.name == packageName,
+                        ),
+                      )
+                      .nonNulls
+                      .toList(),
           });
           return MapEntry(
             component.name,
@@ -185,9 +186,10 @@ class AftConfigLoader {
     required Directory rootDirectory,
     required List<String> ignore,
   }) {
-    final allDirs = rootDirectory
-        .listSync(recursive: true, followLinks: false)
-        .whereType<Directory>();
+    final allDirs =
+        rootDirectory
+            .listSync(recursive: true, followLinks: false)
+            .whereType<Directory>();
     final allPackages = <PackageInfo>[];
     for (final dir in allDirs) {
       final package = PackageInfo.fromDirectory(dir);

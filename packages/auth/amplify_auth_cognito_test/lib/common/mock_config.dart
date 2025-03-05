@@ -102,9 +102,7 @@ const idToken = JsonWebToken(
   header: JsonWebHeader(algorithm: Algorithm.hmacSha256),
   claims: JsonWebClaims(
     subject: userSub,
-    customClaims: {
-      'cognito:username': username,
-    },
+    customClaims: {'cognito:username': username},
   ),
   signature: [],
 );
@@ -113,9 +111,7 @@ final accessToken = JsonWebToken(
   claims: JsonWebClaims(
     subject: userSub,
     expiration: expiration,
-    customClaims: const {
-      'username': username,
-    },
+    customClaims: const {'username': username},
   ),
   signature: const [],
 );
@@ -131,10 +127,13 @@ final mockConfigWithPinpoint = AmplifyOutputs.fromJson(
 );
 
 final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
-final deviceKeys =
-    CognitoDeviceKeys(mockConfig.auth!.userPoolClientId!, userSub);
-final identityPoolKeys =
-    CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!);
+final deviceKeys = CognitoDeviceKeys(
+  mockConfig.auth!.userPoolClientId!,
+  userSub,
+);
+final identityPoolKeys = CognitoIdentityPoolKeys(
+  mockConfig.auth!.identityPoolId!,
+);
 final userPoolTokens = CognitoUserPoolTokens(
   accessToken: accessToken,
   idToken: idToken,

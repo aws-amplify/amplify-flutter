@@ -14,17 +14,17 @@ import 'package:amplify_core/amplify_core.dart';
 /// Use [CognitoUserAttributeKey.custom] to create a custom Cognito attribute.
 class CognitoUserAttributeKey extends AuthUserAttributeKey {
   const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
-      : isCustom = false;
+    : isCustom = false;
 
   /// Creates a custom Cognito attribute.
   const CognitoUserAttributeKey.custom(this._key)
-      : isCustom = true,
-        readOnly = false;
+    : isCustom = true,
+      readOnly = false;
 
   /// Creates an unknown Cognito attribute.
   const CognitoUserAttributeKey._unknown(this._key)
-      : isCustom = false,
-        readOnly = true;
+    : isCustom = false,
+      readOnly = true;
 
   /// Parses the given Cognito attribute key.
   ///
@@ -108,8 +108,10 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey {
   /// Federated identities of the user.
   ///
   /// Read-only: `true`
-  static const identities =
-      CognitoUserAttributeKey._('identities', readOnly: true);
+  static const identities = CognitoUserAttributeKey._(
+    'identities',
+    readOnly: true,
+  );
 
   /// {@macro amplify_core.user_attribute.locale}
   ///
@@ -153,8 +155,9 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey {
   /// {@macro amplify_core.user_attribute.preferred_username}
   ///
   /// Read-only: `false`
-  static const preferredUsername =
-      CognitoUserAttributeKey._('preferred_username');
+  static const preferredUsername = CognitoUserAttributeKey._(
+    'preferred_username',
+  );
 
   /// {@macro amplify_core.user_attribute.profile}
   ///

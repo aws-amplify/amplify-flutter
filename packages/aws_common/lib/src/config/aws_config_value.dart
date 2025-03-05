@@ -27,11 +27,7 @@ enum AWSConfigValue<T extends Object> {
   /// The default region to use for AWS operations.
   ///
   /// Defaults to `us-east-1`.
-  region._(
-    'AWS_REGION',
-    String.fromEnvironment('AWS_REGION'),
-    'us-east-1',
-  ),
+  region._('AWS_REGION', String.fromEnvironment('AWS_REGION'), 'us-east-1'),
 
   /// The location (filepath) of the AWS configuration file.
   ///

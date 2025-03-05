@@ -23,8 +23,7 @@ class SendUserAttributeVerificationCodeResult
   /// {@macro amplify_core.send_user_attribute_verification_code_result}
   factory SendUserAttributeVerificationCodeResult.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$SendUserAttributeVerificationCodeResultFromJson(json);
+  ) => _$SendUserAttributeVerificationCodeResultFromJson(json);
 
   /// Contains the delivery details of the confirmation code that was sent to
   /// the user.

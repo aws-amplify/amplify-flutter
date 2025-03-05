@@ -9,24 +9,21 @@ part of 'send_user_attribute_verification_code_result.dart';
 // **************************************************************************
 
 SendUserAttributeVerificationCodeResult
-    _$SendUserAttributeVerificationCodeResultFromJson(
-            Map<String, dynamic> json) =>
-        $checkedCreate(
-          'SendUserAttributeVerificationCodeResult',
-          json,
-          ($checkedConvert) {
-            final val = SendUserAttributeVerificationCodeResult(
-              codeDeliveryDetails: $checkedConvert(
-                  'codeDeliveryDetails',
-                  (v) => AuthCodeDeliveryDetails.fromJson(
-                      v as Map<String, dynamic>)),
-            );
-            return val;
-          },
-        );
+_$SendUserAttributeVerificationCodeResultFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('SendUserAttributeVerificationCodeResult', json, (
+      $checkedConvert,
+    ) {
+      final val = SendUserAttributeVerificationCodeResult(
+        codeDeliveryDetails: $checkedConvert(
+          'codeDeliveryDetails',
+          (v) => AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$SendUserAttributeVerificationCodeResultToJson(
-        SendUserAttributeVerificationCodeResult instance) =>
-    <String, dynamic>{
-      'codeDeliveryDetails': instance.codeDeliveryDetails.toJson(),
-    };
+  SendUserAttributeVerificationCodeResult instance,
+) => <String, dynamic>{
+  'codeDeliveryDetails': instance.codeDeliveryDetails.toJson(),
+};

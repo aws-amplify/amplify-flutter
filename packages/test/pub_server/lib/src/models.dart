@@ -65,10 +65,7 @@ class VersionResponse {
 
 @serializable
 class GetVersionResponse {
-  GetVersionResponse({
-    required this.name,
-    required this.version,
-  });
+  GetVersionResponse({required this.name, required this.version});
 
   factory GetVersionResponse.fromJson(Map<String, dynamic> json) =>
       _$GetVersionResponseFromJson(json);
@@ -129,13 +126,13 @@ class PubPackageVersion {
   });
 
   PubPackageVersion.fromDb(PackageVersion version)
-      : package = version.package,
-        version = Version.parse(version.version),
-        archiveUrl = version.archiveUrl,
-        pubspec = (loadYaml(version.pubspec) as YamlMap).cast(),
-        changelog = version.changelog,
-        readme = version.readme,
-        published = version.published;
+    : package = version.package,
+      version = Version.parse(version.version),
+      archiveUrl = version.archiveUrl,
+      pubspec = (loadYaml(version.pubspec) as YamlMap).cast(),
+      changelog = version.changelog,
+      readme = version.readme,
+      published = version.published;
 
   final String package;
   final Version version;

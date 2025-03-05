@@ -10,9 +10,7 @@ part 'retryable_trait.g.dart';
 @ShapeIdConverter()
 @JsonSerializable()
 class RetryableTrait implements Trait<RetryableTrait> {
-  const RetryableTrait({
-    this.throttling = false,
-  });
+  const RetryableTrait({this.throttling = false});
 
   factory RetryableTrait.fromJson(Object? json) =>
       _$RetryableTraitFromJson((json as Map).cast<String, Object?>());

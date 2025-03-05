@@ -23,14 +23,14 @@ class _$CompletedPart extends CompletedPart {
   factory _$CompletedPart([void Function(CompletedPartBuilder)? updates]) =>
       (new CompletedPartBuilder()..update(updates))._build();
 
-  _$CompletedPart._(
-      {this.eTag,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.partNumber})
-      : super._();
+  _$CompletedPart._({
+    this.eTag,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.partNumber,
+  }) : super._();
 
   @override
   CompletedPart rebuild(void Function(CompletedPartBuilder) updates) =>
@@ -127,7 +127,8 @@ class CompletedPartBuilder
   CompletedPart build() => _build();
 
   _$CompletedPart _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CompletedPart._(
           eTag: eTag,
           checksumCrc32: checksumCrc32,

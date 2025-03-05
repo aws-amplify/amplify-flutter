@@ -24,8 +24,15 @@ final class HostedUiStateMachine
   HostedUiStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
   /// The [HostedUiStateMachine] type.
-  static const type = StateMachineToken<HostedUiEvent, HostedUiState, AuthEvent,
-      AuthState, CognitoAuthStateMachine, HostedUiStateMachine>();
+  static const type =
+      StateMachineToken<
+        HostedUiEvent,
+        HostedUiState,
+        AuthEvent,
+        AuthState,
+        CognitoAuthStateMachine,
+        HostedUiStateMachine
+      >();
 
   @override
   HostedUiState get initialState => const HostedUiState.notConfigured();
@@ -82,8 +89,9 @@ final class HostedUiStateMachine
   /// State machine callback for the [HostedUiConfigure] event.
   Future<void> onConfigure(HostedUiConfigure event) async {
     final result = await manager.loadCredentials();
-    if (result.userPoolTokens case CognitoUserPoolTokens(:final signInMethod)
-        when signInMethod == CognitoSignInMethod.hostedUi) {
+    if (result.userPoolTokens case CognitoUserPoolTokens(
+      :final signInMethod,
+    ) when signInMethod == CognitoSignInMethod.hostedUi) {
       emit(HostedUiState.signedIn(result.authUser));
       return;
     }
@@ -94,10 +102,7 @@ final class HostedUiStateMachine
     );
     if (state != null && codeVerifier != null) {
       return resolve(
-        HostedUiEvent.foundState(
-          state: state,
-          codeVerifier: codeVerifier,
-        ),
+        HostedUiEvent.foundState(state: state, codeVerifier: codeVerifier),
       );
     }
 
@@ -111,9 +116,7 @@ final class HostedUiStateMachine
         state: event.state,
         codeVerifier: event.codeVerifier,
       );
-      return resolve(
-        HostedUiEvent.exchange(parameters),
-      );
+      return resolve(HostedUiEvent.exchange(parameters));
     } on SignedOutException {
       emit(const HostedUiState.signedOut());
     }
@@ -137,10 +140,11 @@ final class HostedUiStateMachine
     unawaited(
       // Unblock the state machine to accept new events but ensure
       // that [onCancelSignIn] is called if any error occurs.
-      _platform.signIn(options: event.options, provider: provider).onError(
-            (error, stackTrace) => dispatch(
-              HostedUiEvent.cancelSignIn(error, stackTrace),
-            ),
+      _platform
+          .signIn(options: event.options, provider: provider)
+          .onError(
+            (error, stackTrace) =>
+                dispatch(HostedUiEvent.cancelSignIn(error, stackTrace)),
           ),
     );
   }
@@ -171,9 +175,7 @@ final class HostedUiStateMachine
       final optionsMap = jsonDecode(optionsJson) as Map<String, Object?>;
       options = CognitoSignInWithWebUIPluginOptions.fromJson(optionsMap);
     }
-    await _platform.signOut(
-      options: options,
-    );
+    await _platform.signOut(options: options);
     emit(const HostedUiState.signedOut());
   }
 
@@ -183,11 +185,12 @@ final class HostedUiStateMachine
       key: _keys[HostedUiKey.provider],
     );
     final signInDetails = CognitoSignInDetails.hostedUi(
-      provider: provider == null
-          ? null
-          : AuthProvider.fromJson(
-              jsonDecode(provider) as Map<String, Object?>,
-            ),
+      provider:
+          provider == null
+              ? null
+              : AuthProvider.fromJson(
+                jsonDecode(provider) as Map<String, Object?>,
+              ),
     );
     await manager.storeCredentials(
       CredentialStoreData(

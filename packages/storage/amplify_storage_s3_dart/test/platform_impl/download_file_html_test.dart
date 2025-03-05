@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('chrome')
+library;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
@@ -40,17 +41,10 @@ void main() {
       lastModified: DateTime(2022, 9, 19),
       eTag: '12345',
       size: 1024,
-      metadata: {
-        'filename': 'file.jpg',
-        'uploader': 'user-id',
-      },
+      metadata: {'filename': 'file.jpg', 'uploader': 'user-id'},
     );
     final testGetUrlResult = S3GetUrlResult(
-      url: Uri(
-        host: 's3.amazon.aws',
-        path: 'album/1.jpg',
-        scheme: 'https',
-      ),
+      url: Uri(host: 's3.amazon.aws', path: 'album/1.jpg', scheme: 'https'),
     );
     final testGetPropertiesResult = S3GetPropertiesResult(
       storageItem: testItem,
@@ -59,13 +53,9 @@ void main() {
     setUpAll(() {
       storageS3Service = MockStorageS3Service();
 
-      registerFallbackValue(
-        const StorageGetUrlOptions(),
-      );
+      registerFallbackValue(const StorageGetUrlOptions());
 
-      registerFallbackValue(
-        const StorageGetPropertiesOptions(),
-      );
+      registerFallbackValue(const StorageGetPropertiesOptions());
 
       registerFallbackValue(const StoragePath.fromString(testKey));
 
@@ -85,57 +75,54 @@ void main() {
     });
 
     test(
-        'should invoke StorageS3Service.getUrl with converted S3DownloadFilePluginOptions',
-        () async {
-      final operation = downloadFile(
-        path: const StoragePath.fromString('public/$testKey'),
-        localFile: AWSFile.fromPath('file_name.jpg'),
-        options: const StorageDownloadFileOptions(),
-        storageOutputs: testStorageOutputs,
-        storageS3Service: storageS3Service,
-        appPathProvider: const DummyPathProvider(),
-      );
+      'should invoke StorageS3Service.getUrl with converted S3DownloadFilePluginOptions',
+      () async {
+        final operation = downloadFile(
+          path: const StoragePath.fromString('public/$testKey'),
+          localFile: AWSFile.fromPath('file_name.jpg'),
+          options: const StorageDownloadFileOptions(),
+          storageOutputs: testStorageOutputs,
+          storageS3Service: storageS3Service,
+          appPathProvider: const DummyPathProvider(),
+        );
 
-      await operation.result;
-      verify(
-        () => storageS3Service.getProperties(
-          path: any<StoragePath>(named: 'path'),
-          options: captureAny<StorageGetPropertiesOptions>(
-            named: 'options',
+        await operation.result;
+        verify(
+          () => storageS3Service.getProperties(
+            path: any<StoragePath>(named: 'path'),
+            options: captureAny<StorageGetPropertiesOptions>(named: 'options'),
           ),
-        ),
-      ).captured.last;
+        ).captured.last;
 
-      verify(
-        () => storageS3Service.getUrl(
-          path: any<StoragePath>(named: 'path'),
-          options: captureAny<StorageGetUrlOptions>(
-            named: 'options',
+        verify(
+          () => storageS3Service.getUrl(
+            path: any<StoragePath>(named: 'path'),
+            options: captureAny<StorageGetUrlOptions>(named: 'options'),
           ),
-        ),
-      ).captured.last;
-    });
+        ).captured.last;
+      },
+    );
 
     test(
-        'download result should include metadata when options.getProperties is set to true',
-        () async {
-      const options = StorageDownloadFileOptions(
-        pluginOptions: S3DownloadFilePluginOptions(
-          getProperties: true,
-        ),
-      );
-      final result = await downloadFile(
-        path: StoragePath.fromIdentityId(
-          (identityId) => 'private/$identityId/$testKey',
-        ),
-        localFile: AWSFile.fromPath('download.jpg'),
-        options: options,
-        storageOutputs: testStorageOutputs,
-        storageS3Service: storageS3Service,
-        appPathProvider: const DummyPathProvider(),
-      ).result;
+      'download result should include metadata when options.getProperties is set to true',
+      () async {
+        const options = StorageDownloadFileOptions(
+          pluginOptions: S3DownloadFilePluginOptions(getProperties: true),
+        );
+        final result =
+            await downloadFile(
+              path: StoragePath.fromIdentityId(
+                (identityId) => 'private/$identityId/$testKey',
+              ),
+              localFile: AWSFile.fromPath('download.jpg'),
+              options: options,
+              storageOutputs: testStorageOutputs,
+              storageS3Service: storageS3Service,
+              appPathProvider: const DummyPathProvider(),
+            ).result;
 
-      expect(result.downloadedItem.metadata, testItem.metadata);
-    });
+        expect(result.downloadedItem.metadata, testItem.metadata);
+      },
+    );
   });
 }

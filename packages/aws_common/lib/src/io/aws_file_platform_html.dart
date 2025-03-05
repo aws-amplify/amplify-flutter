@@ -14,37 +14,28 @@ const _readStreamChunkSize = 64 * 1024;
 /// The html implementation of [AWSFile].
 class AWSFilePlatform extends AWSFile {
   /// Creates an [AWSFile] from html [File].
-  AWSFilePlatform.fromFile(
-    File file, {
-    super.contentType,
-  })  : _stream = null,
-        _inputFile = file,
-        _inputBlob = null,
-        _size = file.size,
-        super.protected();
+  AWSFilePlatform.fromFile(File file, {super.contentType})
+    : _stream = null,
+      _inputFile = file,
+      _inputBlob = null,
+      _size = file.size,
+      super.protected();
 
   /// Creates an [AWSFile] from html [Blob].
-  AWSFilePlatform.fromBlob(
-    Blob blob, {
-    super.contentType,
-  })  : _stream = null,
-        _inputBlob = blob,
-        _inputFile = null,
-        _size = blob.size,
-        super.protected();
+  AWSFilePlatform.fromBlob(Blob blob, {super.contentType})
+    : _stream = null,
+      _inputBlob = blob,
+      _inputFile = null,
+      _size = blob.size,
+      super.protected();
 
   /// {@macro amplify_core.io.aws_file.from_path}
-  AWSFilePlatform.fromPath(
-    String path, {
-    super.name,
-    super.contentType,
-  })  : _stream = null,
-        _inputFile = null,
-        _inputBlob = null,
-        _size = null,
-        super.protected(
-          path: path,
-        );
+  AWSFilePlatform.fromPath(String path, {super.name, super.contentType})
+    : _stream = null,
+      _inputFile = null,
+      _inputBlob = null,
+      _size = null,
+      super.protected(path: path);
 
   /// {@macro amplify_core.io.aws_file.from_stream}
   AWSFilePlatform.fromStream(
@@ -52,24 +43,19 @@ class AWSFilePlatform extends AWSFile {
     super.name,
     super.contentType,
     required int size,
-  })  : _stream = stream,
-        _inputFile = null,
-        _inputBlob = null,
-        _size = size,
-        super.protected();
+  }) : _stream = stream,
+       _inputFile = null,
+       _inputBlob = null,
+       _size = size,
+       super.protected();
 
   /// {@macro amplify_core.io.aws_file.from_path}
-  AWSFilePlatform.fromData(
-    List<int> data, {
-    super.name,
-    super.contentType,
-  })  : _stream = null,
-        _inputBlob = null,
-        _inputFile = null,
-        _size = data.length,
-        super.protected(
-          bytes: data,
-        );
+  AWSFilePlatform.fromData(List<int> data, {super.name, super.contentType})
+    : _stream = null,
+      _inputBlob = null,
+      _inputFile = null,
+      _size = data.length,
+      super.protected(bytes: data);
 
   final _contentTypeMemo = AsyncMemoizer<String?>();
   final File? _inputFile;
@@ -116,30 +102,30 @@ class AWSFilePlatform extends AWSFile {
 
   @override
   Future<String?> get contentType => _contentTypeMemo.runOnce(() async {
-        final externalContentType = await super.contentType;
-        if (externalContentType != null) {
-          return externalContentType;
-        }
+    final externalContentType = await super.contentType;
+    if (externalContentType != null) {
+      return externalContentType;
+    }
 
-        String? blobType;
+    String? blobType;
 
-        final file = _inputFile ?? _inputBlob;
-        final path = super.path;
+    final file = _inputFile ?? _inputBlob;
+    final path = super.path;
 
-        if (file != null) {
-          blobType = file.type;
-        } else if (path != null) {
-          blobType = (await _resolvedBlob).type;
-        }
+    if (file != null) {
+      blobType = file.type;
+    } else if (path != null) {
+      blobType = (await _resolvedBlob).type;
+    }
 
-        // on Web blob.type may return an empty string
-        // https://developer.mozilla.org/en-US/docs/Web/API/Blob/type#value
-        if (blobType != null) {
-          return blobType.isEmpty ? null : blobType;
-        }
+    // on Web blob.type may return an empty string
+    // https://developer.mozilla.org/en-US/docs/Web/API/Blob/type#value
+    if (blobType != null) {
+      return blobType.isEmpty ? null : blobType;
+    }
 
-        return blobType;
-      });
+    return blobType;
+  });
 
   @override
   ChunkedStreamReader<int> getChunkedStreamReader() {
@@ -230,9 +216,10 @@ class AWSFilePlatform extends AWSFile {
     var currentPosition = 0;
 
     while (currentPosition < blob.size) {
-      final readRange = currentPosition + _readStreamChunkSize > blob.size
-          ? blob.size
-          : currentPosition + _readStreamChunkSize;
+      final readRange =
+          currentPosition + _readStreamChunkSize > blob.size
+              ? blob.size
+              : currentPosition + _readStreamChunkSize;
       final blobToRead = blob.slice(currentPosition, readRange);
       fileReader.readAsArrayBuffer(blobToRead);
       await fileReader.onLoad.first;

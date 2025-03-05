@@ -13,9 +13,7 @@ abstract class SubscriptionEvent extends WebSocketEvent {
   final String subscriptionId;
 
   @override
-  Map<String, Object?> toJson() => {
-        'subscriptionId': subscriptionId,
-      };
+  Map<String, Object?> toJson() => {'subscriptionId': subscriptionId};
 }
 
 /// Web Socket Subscription start ack message event
@@ -40,10 +38,7 @@ class SubscriptionPendingEvent extends SubscriptionEvent {
 class SubscriptionDataEvent extends SubscriptionEvent {
   /// Creates a data event.
   /// Takes in the associated subscription id [subscriptionId] and data [payload]
-  const SubscriptionDataEvent(
-    super.subscriptionId,
-    this.payload,
-  );
+  const SubscriptionDataEvent(super.subscriptionId, this.payload);
 
   /// The data [payload]
   final SubscriptionDataPayload payload;
@@ -53,18 +48,16 @@ class SubscriptionDataEvent extends SubscriptionEvent {
 
   @override
   Map<String, Object?> toJson() => {
-        'subscriptionId': subscriptionId,
-        'payload': payload.toJson(),
-      };
+    'subscriptionId': subscriptionId,
+    'payload': payload.toJson(),
+  };
 }
 
 /// Web Socket Subscription complete message event
 class SubscriptionComplete extends SubscriptionEvent {
   /// Creates a complete event.
   /// Takes in the associated subscription id [subscriptionId]
-  const SubscriptionComplete(
-    super.subscriptionId,
-  );
+  const SubscriptionComplete(super.subscriptionId);
 
   @override
   String get runtimeTypeName => 'SubscriptionComplete';
@@ -74,10 +67,7 @@ class SubscriptionComplete extends SubscriptionEvent {
 class SubscriptionErrorEvent extends SubscriptionEvent {
   /// Creates an error event.
   /// Takes a [subscriptionId] tied to the a web socket error [wsError]
-  const SubscriptionErrorEvent(
-    super.subscriptionId,
-    this.wsError,
-  );
+  const SubscriptionErrorEvent(super.subscriptionId, this.wsError);
 
   /// The web socket error
   final WebSocketError wsError;
@@ -87,7 +77,7 @@ class SubscriptionErrorEvent extends SubscriptionEvent {
 
   @override
   Map<String, Object?> toJson() => {
-        'subscriptionId': subscriptionId,
-        'wsError': wsError.toJson(),
-      };
+    'subscriptionId': subscriptionId,
+    'wsError': wsError.toJson(),
+  };
 }

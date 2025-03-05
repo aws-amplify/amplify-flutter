@@ -80,19 +80,14 @@ class JmespathExpressionVisitor extends JmesVisitor<Expression> {
     final parentExp = visit(parentNode);
     final childExp = visit(node.children[1]);
     final codeExp = CodeExpression(
-      Block.of([
-        parentExp.code,
-        const Code('.'),
-        childExp.code,
-      ]),
+      Block.of([parentExp.code, const Code('.'), childExp.code]),
     );
     if ((_root == node && base != null) ||
         parentNode.value == 'input' ||
         parentNode.value == 'output') {
-      final path = buildEmitter(Allocator.none)
-          .visitCodeExpression(codeExp)
-          .toString()
-          .replaceAll(RegExp(r'\s'), '');
+      final path = buildEmitter(
+        Allocator.none,
+      ).visitCodeExpression(codeExp).toString().replaceAll(RegExp(r'\s'), '');
       final shape = parentNode.value == 'input' ? input : output;
       final item = shape.parsePathToExpression(context, path);
       var expression = item.buildExpression(

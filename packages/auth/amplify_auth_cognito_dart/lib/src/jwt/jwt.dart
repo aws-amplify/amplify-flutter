@@ -9,7 +9,7 @@
 /// - [JSON Web Signature (JWS)](https://datatracker.ietf.org/doc/html/rfc7515)
 /// - [JSON Web Key (JWK)](https://datatracker.ietf.org/doc/html/rfc7517)
 @internal
-library amplify_auth_cognito.jwt;
+library;
 
 import 'package:meta/meta.dart';
 

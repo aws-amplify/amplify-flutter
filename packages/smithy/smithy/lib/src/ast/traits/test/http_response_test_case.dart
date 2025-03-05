@@ -33,10 +33,7 @@ class HttpResponseTestCase extends HttpMessageTestCase<HttpResponseTestCase> {
   final int code;
 
   @override
-  List<Object?> get props => [
-        ...super.props,
-        code,
-      ];
+  List<Object?> get props => [...super.props, code];
 
   @override
   Map<String, Object?> toJson() => _$HttpResponseTestCaseToJson(this);

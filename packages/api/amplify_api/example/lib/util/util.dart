@@ -5,9 +5,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-String handleResponse(
-  GraphQLResponse<Model> response,
-) {
+String handleResponse(GraphQLResponse<Model> response) {
   final data = response.data;
   if (data == null) {
     safePrint('errors: ${response.errors}');

@@ -12,16 +12,16 @@ class _$UnexpectedLambdaException extends UnexpectedLambdaException {
   @override
   final Map<String, String>? headers;
 
-  factory _$UnexpectedLambdaException(
-          [void Function(UnexpectedLambdaExceptionBuilder)? updates]) =>
-      (new UnexpectedLambdaExceptionBuilder()..update(updates))._build();
+  factory _$UnexpectedLambdaException([
+    void Function(UnexpectedLambdaExceptionBuilder)? updates,
+  ]) => (new UnexpectedLambdaExceptionBuilder()..update(updates))._build();
 
   _$UnexpectedLambdaException._({this.message, this.headers}) : super._();
 
   @override
   UnexpectedLambdaException rebuild(
-          void Function(UnexpectedLambdaExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UnexpectedLambdaExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UnexpectedLambdaExceptionBuilder toBuilder() =>
@@ -82,11 +82,9 @@ class UnexpectedLambdaExceptionBuilder
   UnexpectedLambdaException build() => _build();
 
   _$UnexpectedLambdaException _build() {
-    final _$result = _$v ??
-        new _$UnexpectedLambdaException._(
-          message: message,
-          headers: headers,
-        );
+    final _$result =
+        _$v ??
+        new _$UnexpectedLambdaException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

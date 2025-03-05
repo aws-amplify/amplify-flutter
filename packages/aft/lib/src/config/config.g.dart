@@ -15,55 +15,88 @@ class _$AftConfigSerializer implements StructuredSerializer<AftConfig> {
   final String wireName = 'AftConfig';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, AftConfig object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    AftConfig object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'rootDirectory',
-      serializers.serialize(object.rootDirectory,
-          specifiedType: const FullType(Uri)),
+      serializers.serialize(
+        object.rootDirectory,
+        specifiedType: const FullType(Uri),
+      ),
       'workingDirectory',
-      serializers.serialize(object.workingDirectory,
-          specifiedType: const FullType(Uri)),
+      serializers.serialize(
+        object.workingDirectory,
+        specifiedType: const FullType(Uri),
+      ),
       'allPackages',
-      serializers.serialize(object.allPackages,
-          specifiedType: const FullType(BuiltMap,
-              const [const FullType(String), const FullType(PackageInfo)])),
+      serializers.serialize(
+        object.allPackages,
+        specifiedType: const FullType(BuiltMap, const [
+          const FullType(String),
+          const FullType(PackageInfo),
+        ]),
+      ),
       'dependencies',
-      serializers.serialize(object.dependencies,
-          specifiedType: const FullType(BuiltMap, const [
-            const FullType(String),
-            const FullType(VersionConstraint)
-          ])),
+      serializers.serialize(
+        object.dependencies,
+        specifiedType: const FullType(BuiltMap, const [
+          const FullType(String),
+          const FullType(VersionConstraint),
+        ]),
+      ),
       'environment',
-      serializers.serialize(object.environment,
-          specifiedType: const FullType(Environment)),
+      serializers.serialize(
+        object.environment,
+        specifiedType: const FullType(Environment),
+      ),
       'ignore',
-      serializers.serialize(object.ignore,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(String)])),
+      serializers.serialize(
+        object.ignore,
+        specifiedType: const FullType(BuiltList, const [
+          const FullType(String),
+        ]),
+      ),
       'components',
-      serializers.serialize(object.components,
-          specifiedType: const FullType(BuiltMap,
-              const [const FullType(String), const FullType(AftComponent)])),
+      serializers.serialize(
+        object.components,
+        specifiedType: const FullType(BuiltMap, const [
+          const FullType(String),
+          const FullType(AftComponent),
+        ]),
+      ),
       'scripts',
-      serializers.serialize(object.scripts,
-          specifiedType: const FullType(BuiltMap,
-              const [const FullType(String), const FullType(AftScript)])),
+      serializers.serialize(
+        object.scripts,
+        specifiedType: const FullType(BuiltMap, const [
+          const FullType(String),
+          const FullType(AftScript),
+        ]),
+      ),
     ];
     Object? value;
     value = object.platforms;
     if (value != null) {
       result
         ..add('platforms')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(PlatformEnvironment)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(PlatformEnvironment),
+          ),
+        );
     }
     return result;
   }
 
   @override
-  AftConfig deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  AftConfig deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new AftConfigBuilder();
 
     final iterator = serialized.iterator;
@@ -73,53 +106,93 @@ class _$AftConfigSerializer implements StructuredSerializer<AftConfig> {
       final Object? value = iterator.current;
       switch (key) {
         case 'rootDirectory':
-          result.rootDirectory = serializers.deserialize(value,
-              specifiedType: const FullType(Uri))! as Uri;
+          result.rootDirectory =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Uri),
+                  )!
+                  as Uri;
           break;
         case 'workingDirectory':
-          result.workingDirectory = serializers.deserialize(value,
-              specifiedType: const FullType(Uri))! as Uri;
+          result.workingDirectory =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Uri),
+                  )!
+                  as Uri;
           break;
         case 'allPackages':
-          result.allPackages.replace(serializers.deserialize(value,
+          result.allPackages.replace(
+            serializers.deserialize(
+              value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
-                const FullType(PackageInfo)
-              ]))!);
+                const FullType(PackageInfo),
+              ]),
+            )!,
+          );
           break;
         case 'dependencies':
-          result.dependencies.replace(serializers.deserialize(value,
+          result.dependencies.replace(
+            serializers.deserialize(
+              value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
-                const FullType(VersionConstraint)
-              ]))!);
+                const FullType(VersionConstraint),
+              ]),
+            )!,
+          );
           break;
         case 'environment':
-          result.environment.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Environment))! as Environment);
+          result.environment.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(Environment),
+                )!
+                as Environment,
+          );
           break;
         case 'platforms':
-          result.platforms.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(PlatformEnvironment))!
-              as PlatformEnvironment);
+          result.platforms.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(PlatformEnvironment),
+                )!
+                as PlatformEnvironment,
+          );
           break;
         case 'ignore':
-          result.ignore.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
+          result.ignore.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(BuiltList, const [
+                    const FullType(String),
+                  ]),
+                )!
+                as BuiltList<Object?>,
+          );
           break;
         case 'components':
-          result.components.replace(serializers.deserialize(value,
+          result.components.replace(
+            serializers.deserialize(
+              value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
-                const FullType(AftComponent)
-              ]))!);
+                const FullType(AftComponent),
+              ]),
+            )!,
+          );
           break;
         case 'scripts':
-          result.scripts.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(AftScript)]))!);
+          result.scripts.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(BuiltMap, const [
+                const FullType(String),
+                const FullType(AftScript),
+              ]),
+            )!,
+          );
           break;
       }
     }
@@ -151,30 +224,48 @@ class _$AftConfig extends AftConfig {
   factory _$AftConfig([void Function(AftConfigBuilder)? updates]) =>
       (new AftConfigBuilder()..update(updates))._build();
 
-  _$AftConfig._(
-      {required this.rootDirectory,
-      required this.workingDirectory,
-      required this.allPackages,
-      required this.dependencies,
-      required this.environment,
-      this.platforms,
-      required this.ignore,
-      required this.components,
-      required this.scripts})
-      : super._() {
+  _$AftConfig._({
+    required this.rootDirectory,
+    required this.workingDirectory,
+    required this.allPackages,
+    required this.dependencies,
+    required this.environment,
+    this.platforms,
+    required this.ignore,
+    required this.components,
+    required this.scripts,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        rootDirectory, r'AftConfig', 'rootDirectory');
+      rootDirectory,
+      r'AftConfig',
+      'rootDirectory',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        workingDirectory, r'AftConfig', 'workingDirectory');
+      workingDirectory,
+      r'AftConfig',
+      'workingDirectory',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        allPackages, r'AftConfig', 'allPackages');
+      allPackages,
+      r'AftConfig',
+      'allPackages',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        dependencies, r'AftConfig', 'dependencies');
+      dependencies,
+      r'AftConfig',
+      'dependencies',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        environment, r'AftConfig', 'environment');
+      environment,
+      r'AftConfig',
+      'environment',
+    );
     BuiltValueNullFieldError.checkNotNull(ignore, r'AftConfig', 'ignore');
     BuiltValueNullFieldError.checkNotNull(
-        components, r'AftConfig', 'components');
+      components,
+      r'AftConfig',
+      'components',
+    );
     BuiltValueNullFieldError.checkNotNull(scripts, r'AftConfig', 'scripts');
   }
 
@@ -307,19 +398,27 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
   _$AftConfig _build() {
     _$AftConfig _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$AftConfig._(
-              rootDirectory: BuiltValueNullFieldError.checkNotNull(
-                  rootDirectory, r'AftConfig', 'rootDirectory'),
-              workingDirectory: BuiltValueNullFieldError.checkNotNull(
-                  workingDirectory, r'AftConfig', 'workingDirectory'),
-              allPackages: allPackages.build(),
-              dependencies: dependencies.build(),
-              environment: environment.build(),
-              platforms: _platforms?.build(),
-              ignore: ignore.build(),
-              components: components.build(),
-              scripts: scripts.build());
+            rootDirectory: BuiltValueNullFieldError.checkNotNull(
+              rootDirectory,
+              r'AftConfig',
+              'rootDirectory',
+            ),
+            workingDirectory: BuiltValueNullFieldError.checkNotNull(
+              workingDirectory,
+              r'AftConfig',
+              'workingDirectory',
+            ),
+            allPackages: allPackages.build(),
+            dependencies: dependencies.build(),
+            environment: environment.build(),
+            platforms: _platforms?.build(),
+            ignore: ignore.build(),
+            components: components.build(),
+            scripts: scripts.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -339,7 +438,10 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
         scripts.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'AftConfig', _$failedField, e.toString());
+          r'AftConfig',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -355,56 +457,69 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
 // **************************************************************************
 
 AftComponent _$AftComponentFromJson(Map json) => $checkedCreate(
-      'AftComponent',
+  'AftComponent',
+  json,
+  ($checkedConvert) {
+    $checkKeys(
       json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const [
-            'name',
-            'summary',
-            'packages',
-            'packageGraph',
-            'propagate'
-          ],
-        );
-        final val = AftComponent(
-          name: $checkedConvert('name', (v) => v as String),
-          summary: $checkedConvert(
-              'summary',
-              (v) => v == null
-                  ? null
-                  : PackageInfo.fromJson(Map<String, Object?>.from(v as Map))),
-          packages: $checkedConvert(
-              'packages',
-              (v) => (v as List<dynamic>)
-                  .map((e) =>
-                      PackageInfo.fromJson(Map<String, Object?>.from(e as Map)))
-                  .toList()),
-          packageGraph: $checkedConvert(
-              'packageGraph',
-              (v) => (v as Map).map(
-                    (k, e) => MapEntry(
-                        k as String,
-                        (e as List<dynamic>)
-                            .map((e) => PackageInfo.fromJson(
-                                Map<String, Object?>.from(e as Map)))
-                            .toList()),
-                  )),
-          propagate: $checkedConvert(
-              'propagate', (v) => $enumDecode(_$VersionPropagationEnumMap, v)),
-        );
-        return val;
-      },
+      allowedKeys: const [
+        'name',
+        'summary',
+        'packages',
+        'packageGraph',
+        'propagate',
+      ],
     );
+    final val = AftComponent(
+      name: $checkedConvert('name', (v) => v as String),
+      summary: $checkedConvert(
+        'summary',
+        (v) =>
+            v == null
+                ? null
+                : PackageInfo.fromJson(Map<String, Object?>.from(v as Map)),
+      ),
+      packages: $checkedConvert(
+        'packages',
+        (v) =>
+            (v as List<dynamic>)
+                .map(
+                  (e) =>
+                      PackageInfo.fromJson(Map<String, Object?>.from(e as Map)),
+                )
+                .toList(),
+      ),
+      packageGraph: $checkedConvert(
+        'packageGraph',
+        (v) => (v as Map).map(
+          (k, e) => MapEntry(
+            k as String,
+            (e as List<dynamic>)
+                .map(
+                  (e) =>
+                      PackageInfo.fromJson(Map<String, Object?>.from(e as Map)),
+                )
+                .toList(),
+          ),
+        ),
+      ),
+      propagate: $checkedConvert(
+        'propagate',
+        (v) => $enumDecode(_$VersionPropagationEnumMap, v),
+      ),
+    );
+    return val;
+  },
+);
 
 Map<String, dynamic> _$AftComponentToJson(AftComponent instance) =>
     <String, dynamic>{
       'name': instance.name,
       'summary': instance.summary?.toJson(),
       'packages': instance.packages.map((e) => e.toJson()).toList(),
-      'packageGraph': instance.packageGraph
-          .map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList())),
+      'packageGraph': instance.packageGraph.map(
+        (k, e) => MapEntry(k, e.map((e) => e.toJson()).toList()),
+      ),
       'propagate': _$VersionPropagationEnumMap[instance.propagate]!,
     };
 
@@ -415,42 +530,47 @@ const _$VersionPropagationEnumMap = {
   VersionPropagation.none: 'none',
 };
 
-PackageInfo _$PackageInfoFromJson(Map json) => $checkedCreate(
-      'PackageInfo',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const [
-            'name',
-            'path',
-            'pubspecInfo',
-            'flavor',
-            'example',
-            'docs'
-          ],
-        );
-        final val = PackageInfo(
-          name: $checkedConvert('name', (v) => v as String),
-          path: $checkedConvert('path', (v) => v as String),
-          pubspecInfo: $checkedConvert('pubspecInfo',
-              (v) => PubspecInfo.fromJson(Map<String, Object?>.from(v as Map))),
-          flavor: $checkedConvert(
-              'flavor', (v) => $enumDecode(_$PackageFlavorEnumMap, v)),
-          example: $checkedConvert(
-              'example',
-              (v) => v == null
+PackageInfo _$PackageInfoFromJson(Map json) =>
+    $checkedCreate('PackageInfo', json, ($checkedConvert) {
+      $checkKeys(
+        json,
+        allowedKeys: const [
+          'name',
+          'path',
+          'pubspecInfo',
+          'flavor',
+          'example',
+          'docs',
+        ],
+      );
+      final val = PackageInfo(
+        name: $checkedConvert('name', (v) => v as String),
+        path: $checkedConvert('path', (v) => v as String),
+        pubspecInfo: $checkedConvert(
+          'pubspecInfo',
+          (v) => PubspecInfo.fromJson(Map<String, Object?>.from(v as Map)),
+        ),
+        flavor: $checkedConvert(
+          'flavor',
+          (v) => $enumDecode(_$PackageFlavorEnumMap, v),
+        ),
+        example: $checkedConvert(
+          'example',
+          (v) =>
+              v == null
                   ? null
-                  : PackageInfo.fromJson(Map<String, Object?>.from(v as Map))),
-          docs: $checkedConvert(
-              'docs',
-              (v) => v == null
+                  : PackageInfo.fromJson(Map<String, Object?>.from(v as Map)),
+        ),
+        docs: $checkedConvert(
+          'docs',
+          (v) =>
+              v == null
                   ? null
-                  : PackageInfo.fromJson(Map<String, Object?>.from(v as Map))),
-        );
-        return val;
-      },
-    );
+                  : PackageInfo.fromJson(Map<String, Object?>.from(v as Map)),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$PackageInfoToJson(PackageInfo instance) =>
     <String, dynamic>{
@@ -467,29 +587,26 @@ const _$PackageFlavorEnumMap = {
   PackageFlavor.dart: 'dart',
 };
 
-PubspecInfo _$PubspecInfoFromJson(Map json) => $checkedCreate(
-      'PubspecInfo',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const ['pubspec', 'uri', 'pubspecYaml', 'pubspecMap'],
-        );
-        final val = PubspecInfo(
-          pubspec: $checkedConvert(
-              'pubspec',
-              (v) =>
-                  const PubspecConverter().fromJson(v as Map<String, Object?>)),
-          pubspecYaml: $checkedConvert('pubspecYaml', (v) => v as String),
-          pubspecMap: $checkedConvert(
-              'pubspecMap',
-              (v) =>
-                  const YamlMapConverter().fromJson(v as Map<String, Object?>)),
-          uri: $checkedConvert('uri', (v) => Uri.parse(v as String)),
-        );
-        return val;
-      },
-    );
+PubspecInfo _$PubspecInfoFromJson(Map json) =>
+    $checkedCreate('PubspecInfo', json, ($checkedConvert) {
+      $checkKeys(
+        json,
+        allowedKeys: const ['pubspec', 'uri', 'pubspecYaml', 'pubspecMap'],
+      );
+      final val = PubspecInfo(
+        pubspec: $checkedConvert(
+          'pubspec',
+          (v) => const PubspecConverter().fromJson(v as Map<String, Object?>),
+        ),
+        pubspecYaml: $checkedConvert('pubspecYaml', (v) => v as String),
+        pubspecMap: $checkedConvert(
+          'pubspecMap',
+          (v) => const YamlMapConverter().fromJson(v as Map<String, Object?>),
+        ),
+        uri: $checkedConvert('uri', (v) => Uri.parse(v as String)),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$PubspecInfoToJson(PubspecInfo instance) =>
     <String, dynamic>{

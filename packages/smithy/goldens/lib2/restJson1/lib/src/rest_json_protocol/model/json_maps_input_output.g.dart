@@ -28,27 +28,27 @@ class _$JsonMapsInputOutput extends JsonMapsInputOutput {
   @override
   final _i3.BuiltSetMultimap<String, String>? sparseSetMap;
 
-  factory _$JsonMapsInputOutput(
-          [void Function(JsonMapsInputOutputBuilder)? updates]) =>
-      (new JsonMapsInputOutputBuilder()..update(updates))._build();
+  factory _$JsonMapsInputOutput([
+    void Function(JsonMapsInputOutputBuilder)? updates,
+  ]) => (new JsonMapsInputOutputBuilder()..update(updates))._build();
 
-  _$JsonMapsInputOutput._(
-      {this.denseStructMap,
-      this.sparseStructMap,
-      this.denseNumberMap,
-      this.denseBooleanMap,
-      this.denseStringMap,
-      this.sparseNumberMap,
-      this.sparseBooleanMap,
-      this.sparseStringMap,
-      this.denseSetMap,
-      this.sparseSetMap})
-      : super._();
+  _$JsonMapsInputOutput._({
+    this.denseStructMap,
+    this.sparseStructMap,
+    this.denseNumberMap,
+    this.denseBooleanMap,
+    this.denseStringMap,
+    this.sparseNumberMap,
+    this.sparseBooleanMap,
+    this.sparseStringMap,
+    this.denseSetMap,
+    this.sparseSetMap,
+  }) : super._();
 
   @override
   JsonMapsInputOutput rebuild(
-          void Function(JsonMapsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(JsonMapsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   JsonMapsInputOutputBuilder toBuilder() =>
@@ -102,8 +102,8 @@ class JsonMapsInputOutputBuilder
   _i3.MapBuilder<String, GreetingStruct?> get sparseStructMap =>
       _$this._sparseStructMap ??= new _i3.MapBuilder<String, GreetingStruct?>();
   set sparseStructMap(
-          _i3.MapBuilder<String, GreetingStruct?>? sparseStructMap) =>
-      _$this._sparseStructMap = sparseStructMap;
+    _i3.MapBuilder<String, GreetingStruct?>? sparseStructMap,
+  ) => _$this._sparseStructMap = sparseStructMap;
 
   _i3.MapBuilder<String, int>? _denseNumberMap;
   _i3.MapBuilder<String, int> get denseNumberMap =>
@@ -190,18 +190,20 @@ class JsonMapsInputOutputBuilder
   _$JsonMapsInputOutput _build() {
     _$JsonMapsInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$JsonMapsInputOutput._(
-              denseStructMap: _denseStructMap?.build(),
-              sparseStructMap: _sparseStructMap?.build(),
-              denseNumberMap: _denseNumberMap?.build(),
-              denseBooleanMap: _denseBooleanMap?.build(),
-              denseStringMap: _denseStringMap?.build(),
-              sparseNumberMap: _sparseNumberMap?.build(),
-              sparseBooleanMap: _sparseBooleanMap?.build(),
-              sparseStringMap: _sparseStringMap?.build(),
-              denseSetMap: _denseSetMap?.build(),
-              sparseSetMap: _sparseSetMap?.build());
+            denseStructMap: _denseStructMap?.build(),
+            sparseStructMap: _sparseStructMap?.build(),
+            denseNumberMap: _denseNumberMap?.build(),
+            denseBooleanMap: _denseBooleanMap?.build(),
+            denseStringMap: _denseStringMap?.build(),
+            sparseNumberMap: _sparseNumberMap?.build(),
+            sparseBooleanMap: _sparseBooleanMap?.build(),
+            sparseStringMap: _sparseStringMap?.build(),
+            denseSetMap: _denseSetMap?.build(),
+            sparseSetMap: _sparseSetMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -227,7 +229,10 @@ class JsonMapsInputOutputBuilder
         _sparseSetMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'JsonMapsInputOutput', _$failedField, e.toString());
+          r'JsonMapsInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

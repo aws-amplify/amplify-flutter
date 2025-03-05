@@ -25,14 +25,16 @@ void main() {
         AuthUserAttributeKey.email,
         // ignore: prefer_const_constructors
         CustomUserAttributeKey('email'),
-        reason: 'Any class which inherits from AuthUserAttibuteKey '
+        reason:
+            'Any class which inherits from AuthUserAttibuteKey '
             'inherits equality rules',
       );
 
       expect(
         const CognitoUserAttributeKey.custom('myattr'),
         const CustomUserAttributeKey('custom:MYATTR'),
-        reason: 'Two keys are equal if the lower-case value of their '
+        reason:
+            'Two keys are equal if the lower-case value of their '
             'keys are equal',
       );
     });

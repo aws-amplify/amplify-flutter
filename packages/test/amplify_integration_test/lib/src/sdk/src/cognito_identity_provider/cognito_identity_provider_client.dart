@@ -76,12 +76,12 @@ class CognitoIdentityProviderClient {
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -105,8 +105,9 @@ class CognitoIdentityProviderClient {
   ///
   /// *   [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html)
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i4.BuiltList<AuthEventType>, int, String>>
-      adminListUserAuthEvents(
+    _i3.PaginatedResult<_i4.BuiltList<AuthEventType>, int, String>
+  >
+  adminListUserAuthEvents(
     AdminListUserAuthEventsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -117,9 +118,6 @@ class CognitoIdentityProviderClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).runPaginated(
-      input,
-      client: client ?? _client,
-    );
+    ).runPaginated(input, client: client ?? _client);
   }
 }

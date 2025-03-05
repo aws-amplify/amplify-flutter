@@ -39,14 +39,8 @@ void main() {
 
     test('values (with string overrides)', () async {
       final signedRequest = await runZoned(
-        () => signer.sign(
-          request,
-          credentialScope: credentialScope,
-        ),
-        zoneValues: {
-          #sigV4Region: 'us-east-1',
-          #sigV4Service: 'serviceB',
-        },
+        () => signer.sign(request, credentialScope: credentialScope),
+        zoneValues: {#sigV4Region: 'us-east-1', #sigV4Service: 'serviceB'},
       );
       expect(
         signedRequest.headers['Authorization'],
@@ -58,20 +52,12 @@ void main() {
 
     test('values (with typed override)', () async {
       final signedRequest = await runZoned(
-        () => signer.sign(
-          request,
-          credentialScope: credentialScope,
-        ),
-        zoneValues: {
-          #sigV4Region: 'us-east-1',
-          #sigV4Service: AWSService.s3,
-        },
+        () => signer.sign(request, credentialScope: credentialScope),
+        zoneValues: {#sigV4Region: 'us-east-1', #sigV4Service: AWSService.s3},
       );
       expect(
         signedRequest.headers['Authorization'],
-        contains(
-          'Credential=accessKeyId/20220101/us-east-1/s3/aws4_request',
-        ),
+        contains('Credential=accessKeyId/20220101/us-east-1/s3/aws4_request'),
       );
     });
   });

@@ -12,17 +12,17 @@ class _$DocumentTypeInputOutput extends DocumentTypeInputOutput {
   @override
   final _i3.JsonObject? documentValue;
 
-  factory _$DocumentTypeInputOutput(
-          [void Function(DocumentTypeInputOutputBuilder)? updates]) =>
-      (new DocumentTypeInputOutputBuilder()..update(updates))._build();
+  factory _$DocumentTypeInputOutput([
+    void Function(DocumentTypeInputOutputBuilder)? updates,
+  ]) => (new DocumentTypeInputOutputBuilder()..update(updates))._build();
 
   _$DocumentTypeInputOutput._({this.stringValue, this.documentValue})
-      : super._();
+    : super._();
 
   @override
   DocumentTypeInputOutput rebuild(
-          void Function(DocumentTypeInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DocumentTypeInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DocumentTypeInputOutputBuilder toBuilder() =>
@@ -87,9 +87,12 @@ class DocumentTypeInputOutputBuilder
   DocumentTypeInputOutput build() => _build();
 
   _$DocumentTypeInputOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$DocumentTypeInputOutput._(
-            stringValue: stringValue, documentValue: documentValue);
+          stringValue: stringValue,
+          documentValue: documentValue,
+        );
     replace(_$result);
     return _$result;
   }

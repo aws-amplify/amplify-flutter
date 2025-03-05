@@ -18,12 +18,12 @@ class StackTraceSerializer implements PrimitiveSerializer<StackTrace> {
 
   @override
   Iterable<Type> get types => [
-        StackTrace,
-        StackTrace.empty.runtimeType,
-        StackTrace.current.runtimeType,
-        Trace,
-        Chain,
-      ];
+    StackTrace,
+    StackTrace.empty.runtimeType,
+    StackTrace.current.runtimeType,
+    Trace,
+    Chain,
+  ];
 
   @override
   StackTrace deserialize(

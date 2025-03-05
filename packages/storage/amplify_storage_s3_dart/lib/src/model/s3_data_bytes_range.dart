@@ -12,10 +12,7 @@ part 's3_data_bytes_range.g.dart';
 @zAmplifySerializable
 class S3DataBytesRange with AWSSerializable<Map<String, Object?>> {
   /// {@macro storage.amplify_storage_s3.data_bytes_range}
-  factory S3DataBytesRange({
-    required int start,
-    required int end,
-  }) {
+  factory S3DataBytesRange({required int start, required int end}) {
     if (start >= end) {
       throw InvalidBytesRangeError(
         'Invalid bytes range of `S3DataBytesRange`.',
@@ -26,10 +23,7 @@ class S3DataBytesRange with AWSSerializable<Map<String, Object?>> {
     return S3DataBytesRange._(start: start, end: end);
   }
 
-  const S3DataBytesRange._({
-    required this.start,
-    required this.end,
-  });
+  const S3DataBytesRange._({required this.start, required this.end});
 
   /// {@macro storage.amplify_storage_s3.data_bytes_range}
   factory S3DataBytesRange.fromJson(Map<String, Object?> json) =>

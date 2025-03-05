@@ -16,8 +16,9 @@ void main() {
   AmplifyLogger().logLevel = LogLevel.verbose;
 
   final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
-  final identityPoolKeys =
-      CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!);
+  final identityPoolKeys = CognitoIdentityPoolKeys(
+    mockConfig.auth!.identityPoolId!,
+  );
   final testAuthRepo = AmplifyAuthProviderRepository();
 
   late DeviceMetadataRepository repo;
@@ -32,8 +33,10 @@ void main() {
         secureStorage,
         userPoolKeys: userPoolKeys,
         identityPoolKeys: identityPoolKeys,
-        deviceKeys:
-            CognitoDeviceKeys(mockConfig.auth!.userPoolClientId!, username),
+        deviceKeys: CognitoDeviceKeys(
+          mockConfig.auth!.userPoolClientId!,
+          username,
+        ),
       );
       plugin = AmplifyAuthCognitoDart(
         secureStorageFactory: (_) => secureStorage,
@@ -50,28 +53,32 @@ void main() {
       repo = stateMachine.getOrCreate<DeviceMetadataRepository>();
     });
 
-    test('should remove the local device when called with no device ID',
-        () async {
-      expect(await repo.get(username), isNotNull);
-      await plugin.forgetDevice();
-      expect(await repo.get(username), isNull);
-    });
+    test(
+      'should remove the local device when called with no device ID',
+      () async {
+        expect(await repo.get(username), isNotNull);
+        await plugin.forgetDevice();
+        expect(await repo.get(username), isNull);
+      },
+    );
 
     test(
-        'should remove the local device when the device ID matches the local device ID',
-        () async {
-      expect(await repo.get(username), isNotNull);
-      await plugin.forgetDevice(const CognitoDevice(id: deviceKey));
-      expect(await repo.get(username), isNull);
-    });
+      'should remove the local device when the device ID matches the local device ID',
+      () async {
+        expect(await repo.get(username), isNotNull);
+        await plugin.forgetDevice(const CognitoDevice(id: deviceKey));
+        expect(await repo.get(username), isNull);
+      },
+    );
 
     test(
-        'should not remove the local device when the device ID does not match the local device ID',
-        () async {
-      expect(await repo.get(username), isNotNull);
-      await plugin.forgetDevice(const CognitoDevice(id: 'other-device-id'));
-      expect(await repo.get(username), isNotNull);
-    });
+      'should not remove the local device when the device ID does not match the local device ID',
+      () async {
+        expect(await repo.get(username), isNotNull);
+        await plugin.forgetDevice(const CognitoDevice(id: 'other-device-id'));
+        expect(await repo.get(username), isNotNull);
+      },
+    );
 
     tearDown(() async {
       await plugin.close();

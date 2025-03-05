@@ -15,20 +15,28 @@ class _$FloatShapeSerializer implements StructuredSerializer<FloatShape> {
   final String wireName = 'FloatShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, FloatShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    FloatShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  FloatShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  FloatShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new FloatShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -38,8 +46,12 @@ class _$FloatShapeSerializer implements StructuredSerializer<FloatShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -136,12 +148,20 @@ class FloatShapeBuilder
   FloatShape build() => _build();
 
   _$FloatShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$FloatShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'FloatShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'FloatShape', 'traits'));
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'FloatShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'FloatShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

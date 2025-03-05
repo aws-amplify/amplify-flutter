@@ -26,13 +26,7 @@ class EnumDefinition with AWSEquatable<EnumDefinition>, AWSSerializable {
   final bool? deprecated;
 
   @override
-  List<Object?> get props => [
-        value,
-        name,
-        documentation,
-        tags,
-        deprecated,
-      ];
+  List<Object?> get props => [value, name, documentation, tags, deprecated];
 
   @override
   Map<String, Object?> toJson() => _$EnumDefinitionToJson(this);

@@ -10,19 +10,22 @@ class _$GetBucketLocationRequest extends GetBucketLocationRequest {
   @override
   final String bucket;
 
-  factory _$GetBucketLocationRequest(
-          [void Function(GetBucketLocationRequestBuilder)? updates]) =>
-      (new GetBucketLocationRequestBuilder()..update(updates))._build();
+  factory _$GetBucketLocationRequest([
+    void Function(GetBucketLocationRequestBuilder)? updates,
+  ]) => (new GetBucketLocationRequestBuilder()..update(updates))._build();
 
   _$GetBucketLocationRequest._({required this.bucket}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'GetBucketLocationRequest', 'bucket');
+      bucket,
+      r'GetBucketLocationRequest',
+      'bucket',
+    );
   }
 
   @override
   GetBucketLocationRequest rebuild(
-          void Function(GetBucketLocationRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetBucketLocationRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetBucketLocationRequestBuilder toBuilder() =>
@@ -78,10 +81,15 @@ class GetBucketLocationRequestBuilder
   GetBucketLocationRequest build() => _build();
 
   _$GetBucketLocationRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$GetBucketLocationRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'GetBucketLocationRequest', 'bucket'));
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'GetBucketLocationRequest',
+            'bucket',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -89,16 +97,17 @@ class GetBucketLocationRequestBuilder
 
 class _$GetBucketLocationRequestPayload
     extends GetBucketLocationRequestPayload {
-  factory _$GetBucketLocationRequestPayload(
-          [void Function(GetBucketLocationRequestPayloadBuilder)? updates]) =>
+  factory _$GetBucketLocationRequestPayload([
+    void Function(GetBucketLocationRequestPayloadBuilder)? updates,
+  ]) =>
       (new GetBucketLocationRequestPayloadBuilder()..update(updates))._build();
 
   _$GetBucketLocationRequestPayload._() : super._();
 
   @override
   GetBucketLocationRequestPayload rebuild(
-          void Function(GetBucketLocationRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetBucketLocationRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetBucketLocationRequestPayloadBuilder toBuilder() =>
@@ -118,8 +127,10 @@ class _$GetBucketLocationRequestPayload
 
 class GetBucketLocationRequestPayloadBuilder
     implements
-        Builder<GetBucketLocationRequestPayload,
-            GetBucketLocationRequestPayloadBuilder> {
+        Builder<
+          GetBucketLocationRequestPayload,
+          GetBucketLocationRequestPayloadBuilder
+        > {
   _$GetBucketLocationRequestPayload? _$v;
 
   GetBucketLocationRequestPayloadBuilder();

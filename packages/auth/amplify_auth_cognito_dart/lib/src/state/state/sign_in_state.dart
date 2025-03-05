@@ -132,14 +132,14 @@ final class SignInChallenge extends SignInState {
 
   @override
   List<Object?> get props => [
-        type,
-        challengeName,
-        challengeParameters,
-        requiredAttributes,
-        codeDeliveryDetails,
-        allowedMfaTypes,
-        totpSetupResult,
-      ];
+    type,
+    challengeName,
+    challengeParameters,
+    requiredAttributes,
+    codeDeliveryDetails,
+    allowedMfaTypes,
+    totpSetupResult,
+  ];
 }
 
 /// {@template amplify_auth_cognito_dart.sign_in_success}

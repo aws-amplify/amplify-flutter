@@ -10,7 +10,5 @@ export 'connect_stub.dart'
     if (dart.library.io) 'connect_io.dart';
 
 /// Interface of the Drift DB connect function.
-typedef Connect = QueryExecutor Function({
-  required String name,
-  FutureOr<String>? path,
-});
+typedef Connect =
+    QueryExecutor Function({required String name, FutureOr<String>? path});

@@ -16,10 +16,10 @@ class XmlBuiltMapSerializer
 
   @override
   Iterable<Type> get types => [
-        BuiltMap,
-        BuiltMap<dynamic, dynamic>().runtimeType,
-        BuiltMap<Object?, Object?>().runtimeType,
-      ];
+    BuiltMap,
+    BuiltMap<dynamic, dynamic>().runtimeType,
+    BuiltMap<Object?, Object?>().runtimeType,
+  ];
 
   final String keyName;
   final String valueName;
@@ -39,12 +39,14 @@ class XmlBuiltMapSerializer
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
     if (!isUnderspecified) serializers.expectBuilder(specifiedType);
 
-    final keyType = specifiedType.parameters.isEmpty
-        ? FullType.unspecified
-        : specifiedType.parameters[0];
-    final valueType = specifiedType.parameters.isEmpty
-        ? FullType.unspecified
-        : specifiedType.parameters[1];
+    final keyType =
+        specifiedType.parameters.isEmpty
+            ? FullType.unspecified
+            : specifiedType.parameters[0];
+    final valueType =
+        specifiedType.parameters.isEmpty
+            ? FullType.unspecified
+            : specifiedType.parameters[1];
 
     var index = 0;
     final result = <Object?>[];
@@ -55,8 +57,10 @@ class XmlBuiltMapSerializer
         ..add(XmlElementName(elementKeyName))
         ..add(serializers.serialize(key, specifiedType: keyType));
       final elementValueName = indexer.elementName(valueName, index);
-      final serializedValue =
-          serializers.serialize(value, specifiedType: valueType);
+      final serializedValue = serializers.serialize(
+        value,
+        specifiedType: valueType,
+      );
       innerResult
         ..add(XmlElementName(elementValueName))
         ..add(serializedValue);
@@ -75,16 +79,19 @@ class XmlBuiltMapSerializer
     final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
 
-    final keyType = specifiedType.parameters.isEmpty
-        ? FullType.unspecified
-        : specifiedType.parameters[0];
-    final valueType = specifiedType.parameters.isEmpty
-        ? FullType.unspecified
-        : specifiedType.parameters[1];
+    final keyType =
+        specifiedType.parameters.isEmpty
+            ? FullType.unspecified
+            : specifiedType.parameters[0];
+    final valueType =
+        specifiedType.parameters.isEmpty
+            ? FullType.unspecified
+            : specifiedType.parameters[1];
 
-    final result = isUnderspecified
-        ? MapBuilder<Object, Object>()
-        : serializers.newBuilder(specifiedType) as MapBuilder;
+    final result =
+        isUnderspecified
+            ? MapBuilder<Object, Object>()
+            : serializers.newBuilder(specifiedType) as MapBuilder;
 
     void innerDeserialize(Iterable<Object?> serialized) {
       for (var i = 0; i < serialized.length; i += 4) {

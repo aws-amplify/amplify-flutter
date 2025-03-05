@@ -15,181 +15,194 @@ void main() {
 
   final enableCloudSync = shouldEnableCloudSync();
   group(
-      'Basic auth model operation${enableCloudSync ? ' with API sync 🌩 enabled' : ''} -',
-      () {
-    setUpAll(() async {
-      await configureDataStore(
+    'Basic auth model operation${enableCloudSync ? ' with API sync 🌩 enabled' : ''} -',
+    () {
+      setUpAll(() async {
+        await configureDataStore(
           enableCloudSync: enableCloudSync,
-          modelProvider: ModelProvider.instance);
-    });
-    tearDownAll(() async {
-      if (enableCloudSync) {
-        await deleteTestUser(testUser);
-      }
-    });
-
-    group("owner only auth model", () {
-      PrivateTodo testPrivateTodo = PrivateTodo(content: 'test content');
-      testWidgets(
-          'should save a new model ${enableCloudSync ? 'and sync to cloud' : ''}',
-          (WidgetTester tester) async {
+          modelProvider: ModelProvider.instance,
+        );
+      });
+      tearDownAll(() async {
         if (enableCloudSync) {
-          await testCloudSyncedModelOperation(
-            rootModels: [testPrivateTodo],
-            expectedRootModelVersion: 1,
-            rootModelOperator: Amplify.DataStore.save,
-            rootModelEventsAssertor: (events) {
-              events.forEach((event) {
-                expect(event.element.deleted, isFalse);
-              });
-            },
-          );
-        } else {
-          await Amplify.DataStore.save(testPrivateTodo);
+          await deleteTestUser(testUser);
         }
-
-        var queriedTodos = await Amplify.DataStore.query(PrivateTodo.classType);
-        expect(queriedTodos, contains(testPrivateTodo));
       });
 
-      testWidgets(
-        'should update existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
-        (WidgetTester tester) async {
-          var updatedTestTodo =
-              testPrivateTodo.copyWith(content: "updated test todo");
-
-          if (enableCloudSync) {
-            await testCloudSyncedModelOperation(
-              rootModels: [updatedTestTodo],
-              expectedRootModelVersion: 2,
-              rootModelOperator: Amplify.DataStore.save,
-              rootModelEventsAssertor: (events) {
-                events.forEach((event) {
-                  expect(event.element.deleted, isFalse);
-                });
-              },
-            );
-          } else {
-            await Amplify.DataStore.save(updatedTestTodo);
-          }
-
-          var queriedTodos = await Amplify.DataStore.query(
-            PrivateTodo.classType,
-            where: PrivateTodo.ID.eq(updatedTestTodo.id),
-          );
-
-          expect(queriedTodos, contains(updatedTestTodo));
-        },
-      );
-
-      testWidgets(
-        'should delete existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
-        (WidgetTester tester) async {
-          if (enableCloudSync) {
-            await testCloudSyncedModelOperation(
-              rootModels: [testPrivateTodo],
-              expectedRootModelVersion: 3,
-              rootModelOperator: Amplify.DataStore.delete,
-              rootModelEventsAssertor: (events) {
-                events.forEach((event) {
-                  expect(event.element.deleted, isTrue);
-                });
-              },
-            );
-          } else {
-            await Amplify.DataStore.delete(testPrivateTodo);
-          }
-
-          var queriedTodos =
-              await Amplify.DataStore.query(PrivateTodo.classType);
-
-          // verify Todo was deleted
-          expect(queriedTodos, isNot(contains(testPrivateTodo)));
-        },
-      );
-    });
-
-    group("multi auth model", () {
-      MultiAuthTodo testMultiAuthTodo = MultiAuthTodo(content: 'test content');
-
-      testWidgets(
+      group("owner only auth model", () {
+        PrivateTodo testPrivateTodo = PrivateTodo(content: 'test content');
+        testWidgets(
           'should save a new model ${enableCloudSync ? 'and sync to cloud' : ''}',
           (WidgetTester tester) async {
-        if (enableCloudSync) {
-          await testCloudSyncedModelOperation(
-            rootModels: [testMultiAuthTodo],
-            expectedRootModelVersion: 1,
-            rootModelOperator: Amplify.DataStore.save,
-            rootModelEventsAssertor: (events) {
-              events.forEach((event) {
-                expect(event.element.deleted, isFalse);
-              });
-            },
-          );
-        } else {
-          await Amplify.DataStore.save(testMultiAuthTodo);
-        }
+            if (enableCloudSync) {
+              await testCloudSyncedModelOperation(
+                rootModels: [testPrivateTodo],
+                expectedRootModelVersion: 1,
+                rootModelOperator: Amplify.DataStore.save,
+                rootModelEventsAssertor: (events) {
+                  events.forEach((event) {
+                    expect(event.element.deleted, isFalse);
+                  });
+                },
+              );
+            } else {
+              await Amplify.DataStore.save(testPrivateTodo);
+            }
 
-        var queriedTodos =
-            await Amplify.DataStore.query(MultiAuthTodo.classType);
-        expect(queriedTodos, contains(testMultiAuthTodo));
+            var queriedTodos = await Amplify.DataStore.query(
+              PrivateTodo.classType,
+            );
+            expect(queriedTodos, contains(testPrivateTodo));
+          },
+        );
+
+        testWidgets(
+          'should update existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
+          (WidgetTester tester) async {
+            var updatedTestTodo = testPrivateTodo.copyWith(
+              content: "updated test todo",
+            );
+
+            if (enableCloudSync) {
+              await testCloudSyncedModelOperation(
+                rootModels: [updatedTestTodo],
+                expectedRootModelVersion: 2,
+                rootModelOperator: Amplify.DataStore.save,
+                rootModelEventsAssertor: (events) {
+                  events.forEach((event) {
+                    expect(event.element.deleted, isFalse);
+                  });
+                },
+              );
+            } else {
+              await Amplify.DataStore.save(updatedTestTodo);
+            }
+
+            var queriedTodos = await Amplify.DataStore.query(
+              PrivateTodo.classType,
+              where: PrivateTodo.ID.eq(updatedTestTodo.id),
+            );
+
+            expect(queriedTodos, contains(updatedTestTodo));
+          },
+        );
+
+        testWidgets(
+          'should delete existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
+          (WidgetTester tester) async {
+            if (enableCloudSync) {
+              await testCloudSyncedModelOperation(
+                rootModels: [testPrivateTodo],
+                expectedRootModelVersion: 3,
+                rootModelOperator: Amplify.DataStore.delete,
+                rootModelEventsAssertor: (events) {
+                  events.forEach((event) {
+                    expect(event.element.deleted, isTrue);
+                  });
+                },
+              );
+            } else {
+              await Amplify.DataStore.delete(testPrivateTodo);
+            }
+
+            var queriedTodos = await Amplify.DataStore.query(
+              PrivateTodo.classType,
+            );
+
+            // verify Todo was deleted
+            expect(queriedTodos, isNot(contains(testPrivateTodo)));
+          },
+        );
       });
 
-      testWidgets(
-        'should update existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
-        (WidgetTester tester) async {
-          var updatedTestTodo =
-              testMultiAuthTodo.copyWith(content: "updated test todo");
+      group("multi auth model", () {
+        MultiAuthTodo testMultiAuthTodo = MultiAuthTodo(
+          content: 'test content',
+        );
 
-          if (enableCloudSync) {
-            await testCloudSyncedModelOperation(
-              rootModels: [updatedTestTodo],
-              expectedRootModelVersion: 2,
-              rootModelOperator: Amplify.DataStore.save,
-              rootModelEventsAssertor: (events) {
-                events.forEach((event) {
-                  expect(event.element.deleted, isFalse);
-                });
-              },
+        testWidgets(
+          'should save a new model ${enableCloudSync ? 'and sync to cloud' : ''}',
+          (WidgetTester tester) async {
+            if (enableCloudSync) {
+              await testCloudSyncedModelOperation(
+                rootModels: [testMultiAuthTodo],
+                expectedRootModelVersion: 1,
+                rootModelOperator: Amplify.DataStore.save,
+                rootModelEventsAssertor: (events) {
+                  events.forEach((event) {
+                    expect(event.element.deleted, isFalse);
+                  });
+                },
+              );
+            } else {
+              await Amplify.DataStore.save(testMultiAuthTodo);
+            }
+
+            var queriedTodos = await Amplify.DataStore.query(
+              MultiAuthTodo.classType,
             );
-          } else {
-            await Amplify.DataStore.save(updatedTestTodo);
-          }
+            expect(queriedTodos, contains(testMultiAuthTodo));
+          },
+        );
 
-          var queriedTodos = await Amplify.DataStore.query(
-            MultiAuthTodo.classType,
-            where: MultiAuthTodo.ID.eq(updatedTestTodo.id),
-          );
-
-          expect(queriedTodos, contains(updatedTestTodo));
-        },
-      );
-
-      testWidgets(
-        'should delete existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
-        (WidgetTester tester) async {
-          if (enableCloudSync) {
-            await testCloudSyncedModelOperation(
-              rootModels: [testMultiAuthTodo],
-              expectedRootModelVersion: 3,
-              rootModelOperator: Amplify.DataStore.delete,
-              rootModelEventsAssertor: (events) {
-                events.forEach((event) {
-                  expect(event.element.deleted, isTrue);
-                });
-              },
+        testWidgets(
+          'should update existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
+          (WidgetTester tester) async {
+            var updatedTestTodo = testMultiAuthTodo.copyWith(
+              content: "updated test todo",
             );
-          } else {
-            await Amplify.DataStore.delete(testMultiAuthTodo);
-          }
 
-          var queriedTodos =
-              await Amplify.DataStore.query(MultiAuthTodo.classType);
+            if (enableCloudSync) {
+              await testCloudSyncedModelOperation(
+                rootModels: [updatedTestTodo],
+                expectedRootModelVersion: 2,
+                rootModelOperator: Amplify.DataStore.save,
+                rootModelEventsAssertor: (events) {
+                  events.forEach((event) {
+                    expect(event.element.deleted, isFalse);
+                  });
+                },
+              );
+            } else {
+              await Amplify.DataStore.save(updatedTestTodo);
+            }
 
-          // verify Todo was deleted
-          expect(queriedTodos, isNot(contains(testMultiAuthTodo)));
-        },
-      );
-    });
-  });
+            var queriedTodos = await Amplify.DataStore.query(
+              MultiAuthTodo.classType,
+              where: MultiAuthTodo.ID.eq(updatedTestTodo.id),
+            );
+
+            expect(queriedTodos, contains(updatedTestTodo));
+          },
+        );
+
+        testWidgets(
+          'should delete existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
+          (WidgetTester tester) async {
+            if (enableCloudSync) {
+              await testCloudSyncedModelOperation(
+                rootModels: [testMultiAuthTodo],
+                expectedRootModelVersion: 3,
+                rootModelOperator: Amplify.DataStore.delete,
+                rootModelEventsAssertor: (events) {
+                  events.forEach((event) {
+                    expect(event.element.deleted, isTrue);
+                  });
+                },
+              );
+            } else {
+              await Amplify.DataStore.delete(testMultiAuthTodo);
+            }
+
+            var queriedTodos = await Amplify.DataStore.query(
+              MultiAuthTodo.classType,
+            );
+
+            // verify Todo was deleted
+            expect(queriedTodos, isNot(contains(testMultiAuthTodo)));
+          },
+        );
+      });
+    },
+  );
 }

@@ -6,31 +6,15 @@ library amplify_analytics_pinpoint_dart.pinpoint.model.button_action; // ignore_
 import 'package:smithy/smithy.dart' as _i1;
 
 class ButtonAction extends _i1.SmithyEnum<ButtonAction> {
-  const ButtonAction._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ButtonAction._(super.index, super.name, super.value);
 
   const ButtonAction._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const close = ButtonAction._(
-    0,
-    'CLOSE',
-    'CLOSE',
-  );
+  static const close = ButtonAction._(0, 'CLOSE', 'CLOSE');
 
-  static const deepLink = ButtonAction._(
-    1,
-    'DEEP_LINK',
-    'DEEP_LINK',
-  );
+  static const deepLink = ButtonAction._(1, 'DEEP_LINK', 'DEEP_LINK');
 
-  static const link = ButtonAction._(
-    2,
-    'LINK',
-    'LINK',
-  );
+  static const link = ButtonAction._(2, 'LINK', 'LINK');
 
   /// All values of [ButtonAction].
   static const values = <ButtonAction>[
@@ -45,12 +29,9 @@ class ButtonAction extends _i1.SmithyEnum<ButtonAction> {
       values: values,
       sdkUnknown: ButtonAction._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

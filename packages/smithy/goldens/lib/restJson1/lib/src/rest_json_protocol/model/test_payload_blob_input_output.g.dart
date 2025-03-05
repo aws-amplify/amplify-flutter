@@ -12,16 +12,16 @@ class _$TestPayloadBlobInputOutput extends TestPayloadBlobInputOutput {
   @override
   final _i2.Uint8List? data;
 
-  factory _$TestPayloadBlobInputOutput(
-          [void Function(TestPayloadBlobInputOutputBuilder)? updates]) =>
-      (new TestPayloadBlobInputOutputBuilder()..update(updates))._build();
+  factory _$TestPayloadBlobInputOutput([
+    void Function(TestPayloadBlobInputOutputBuilder)? updates,
+  ]) => (new TestPayloadBlobInputOutputBuilder()..update(updates))._build();
 
   _$TestPayloadBlobInputOutput._({this.contentType, this.data}) : super._();
 
   @override
   TestPayloadBlobInputOutput rebuild(
-          void Function(TestPayloadBlobInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TestPayloadBlobInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TestPayloadBlobInputOutputBuilder toBuilder() =>
@@ -85,9 +85,12 @@ class TestPayloadBlobInputOutputBuilder
   TestPayloadBlobInputOutput build() => _build();
 
   _$TestPayloadBlobInputOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$TestPayloadBlobInputOutput._(
-            contentType: contentType, data: data);
+          contentType: contentType,
+          data: data,
+        );
     replace(_$result);
     return _$result;
   }

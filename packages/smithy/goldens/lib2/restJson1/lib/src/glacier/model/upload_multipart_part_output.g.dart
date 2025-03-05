@@ -10,16 +10,16 @@ class _$UploadMultipartPartOutput extends UploadMultipartPartOutput {
   @override
   final String? checksum;
 
-  factory _$UploadMultipartPartOutput(
-          [void Function(UploadMultipartPartOutputBuilder)? updates]) =>
-      (new UploadMultipartPartOutputBuilder()..update(updates))._build();
+  factory _$UploadMultipartPartOutput([
+    void Function(UploadMultipartPartOutputBuilder)? updates,
+  ]) => (new UploadMultipartPartOutputBuilder()..update(updates))._build();
 
   _$UploadMultipartPartOutput._({this.checksum}) : super._();
 
   @override
   UploadMultipartPartOutput rebuild(
-          void Function(UploadMultipartPartOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UploadMultipartPartOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UploadMultipartPartOutputBuilder toBuilder() =>
@@ -84,16 +84,17 @@ class UploadMultipartPartOutputBuilder
 
 class _$UploadMultipartPartOutputPayload
     extends UploadMultipartPartOutputPayload {
-  factory _$UploadMultipartPartOutputPayload(
-          [void Function(UploadMultipartPartOutputPayloadBuilder)? updates]) =>
+  factory _$UploadMultipartPartOutputPayload([
+    void Function(UploadMultipartPartOutputPayloadBuilder)? updates,
+  ]) =>
       (new UploadMultipartPartOutputPayloadBuilder()..update(updates))._build();
 
   _$UploadMultipartPartOutputPayload._() : super._();
 
   @override
   UploadMultipartPartOutputPayload rebuild(
-          void Function(UploadMultipartPartOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UploadMultipartPartOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UploadMultipartPartOutputPayloadBuilder toBuilder() =>
@@ -113,8 +114,10 @@ class _$UploadMultipartPartOutputPayload
 
 class UploadMultipartPartOutputPayloadBuilder
     implements
-        Builder<UploadMultipartPartOutputPayload,
-            UploadMultipartPartOutputPayloadBuilder> {
+        Builder<
+          UploadMultipartPartOutputPayload,
+          UploadMultipartPartOutputPayloadBuilder
+        > {
   _$UploadMultipartPartOutputPayload? _$v;
 
   UploadMultipartPartOutputPayloadBuilder();

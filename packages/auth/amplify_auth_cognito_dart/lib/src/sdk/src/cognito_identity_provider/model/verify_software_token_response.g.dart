@@ -12,16 +12,16 @@ class _$VerifySoftwareTokenResponse extends VerifySoftwareTokenResponse {
   @override
   final String? session;
 
-  factory _$VerifySoftwareTokenResponse(
-          [void Function(VerifySoftwareTokenResponseBuilder)? updates]) =>
-      (new VerifySoftwareTokenResponseBuilder()..update(updates))._build();
+  factory _$VerifySoftwareTokenResponse([
+    void Function(VerifySoftwareTokenResponseBuilder)? updates,
+  ]) => (new VerifySoftwareTokenResponseBuilder()..update(updates))._build();
 
   _$VerifySoftwareTokenResponse._({this.status, this.session}) : super._();
 
   @override
   VerifySoftwareTokenResponse rebuild(
-          void Function(VerifySoftwareTokenResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(VerifySoftwareTokenResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   VerifySoftwareTokenResponseBuilder toBuilder() =>
@@ -47,8 +47,10 @@ class _$VerifySoftwareTokenResponse extends VerifySoftwareTokenResponse {
 
 class VerifySoftwareTokenResponseBuilder
     implements
-        Builder<VerifySoftwareTokenResponse,
-            VerifySoftwareTokenResponseBuilder> {
+        Builder<
+          VerifySoftwareTokenResponse,
+          VerifySoftwareTokenResponseBuilder
+        > {
   _$VerifySoftwareTokenResponse? _$v;
 
   VerifySoftwareTokenResponseType? _status;
@@ -87,11 +89,9 @@ class VerifySoftwareTokenResponseBuilder
   VerifySoftwareTokenResponse build() => _build();
 
   _$VerifySoftwareTokenResponse _build() {
-    final _$result = _$v ??
-        new _$VerifySoftwareTokenResponse._(
-          status: status,
-          session: session,
-        );
+    final _$result =
+        _$v ??
+        new _$VerifySoftwareTokenResponse._(status: status, session: session);
     replace(_$result);
     return _$result;
   }

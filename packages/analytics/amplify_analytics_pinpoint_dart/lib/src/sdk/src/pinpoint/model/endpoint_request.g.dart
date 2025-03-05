@@ -33,19 +33,19 @@ class _$EndpointRequest extends EndpointRequest {
   factory _$EndpointRequest([void Function(EndpointRequestBuilder)? updates]) =>
       (new EndpointRequestBuilder()..update(updates))._build();
 
-  _$EndpointRequest._(
-      {this.address,
-      this.attributes,
-      this.channelType,
-      this.demographic,
-      this.effectiveDate,
-      this.endpointStatus,
-      this.location,
-      this.metrics,
-      this.optOut,
-      this.requestId,
-      this.user})
-      : super._();
+  _$EndpointRequest._({
+    this.address,
+    this.attributes,
+    this.channelType,
+    this.demographic,
+    this.effectiveDate,
+    this.endpointStatus,
+    this.location,
+    this.metrics,
+    this.optOut,
+    this.requestId,
+    this.user,
+  }) : super._();
 
   @override
   EndpointRequest rebuild(void Function(EndpointRequestBuilder) updates) =>
@@ -188,19 +188,21 @@ class EndpointRequestBuilder
   _$EndpointRequest _build() {
     _$EndpointRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$EndpointRequest._(
-              address: address,
-              attributes: _attributes?.build(),
-              channelType: channelType,
-              demographic: _demographic?.build(),
-              effectiveDate: effectiveDate,
-              endpointStatus: endpointStatus,
-              location: _location?.build(),
-              metrics: _metrics?.build(),
-              optOut: optOut,
-              requestId: requestId,
-              user: _user?.build());
+            address: address,
+            attributes: _attributes?.build(),
+            channelType: channelType,
+            demographic: _demographic?.build(),
+            effectiveDate: effectiveDate,
+            endpointStatus: endpointStatus,
+            location: _location?.build(),
+            metrics: _metrics?.build(),
+            optOut: optOut,
+            requestId: requestId,
+            user: _user?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -219,7 +221,10 @@ class EndpointRequestBuilder
         _user?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'EndpointRequest', _$failedField, e.toString());
+          r'EndpointRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

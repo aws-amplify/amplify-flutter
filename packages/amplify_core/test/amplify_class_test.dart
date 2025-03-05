@@ -35,21 +35,12 @@ void main() {
       });
 
       test('throws for invalid JSON', () async {
-        expect(
-          Amplify.asyncConfig,
-          throwsA(isA<ConfigurationError>()),
-        );
-        expect(
-          Amplify.configure('...'),
-          throwsA(isA<ConfigurationError>()),
-        );
+        expect(Amplify.asyncConfig, throwsA(isA<ConfigurationError>()));
+        expect(Amplify.configure('...'), throwsA(isA<ConfigurationError>()));
       });
 
       test('throws for configuration exceptions', () async {
-        expect(
-          Amplify.asyncConfig,
-          throwsA(isA<ConfigurationError>()),
-        );
+        expect(Amplify.asyncConfig, throwsA(isA<ConfigurationError>()));
         await Amplify.addPlugin(ConfigErrorPlugin());
         expect(
           Amplify.configure(dummyConfiguration),

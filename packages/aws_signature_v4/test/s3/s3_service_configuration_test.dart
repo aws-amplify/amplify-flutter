@@ -11,13 +11,10 @@ void main() {
   const bodyHash =
       '44ce7dd67c959e0d3524ffac1771dfbba87d2b6b4b4e99e42034a8b803f8b072';
   AWSBaseHttpRequest createRequest() => AWSHttpRequest(
-        method: AWSHttpMethod.put,
-        uri: Uri.https(
-          'examplebucket.s3.amazonaws.com',
-          r'/test$file.text',
-        ),
-        body: 'Welcome to Amazon S3.'.codeUnits,
-      );
+    method: AWSHttpMethod.put,
+    uri: Uri.https('examplebucket.s3.amazonaws.com', r'/test$file.text'),
+    body: 'Welcome to Amazon S3.'.codeUnits,
+  );
 
   Future<void> expectHash({
     required bool signPayload,
@@ -51,11 +48,7 @@ void main() {
     });
 
     test('signPayload=true chunked=false', () {
-      expectHash(
-        signPayload: true,
-        chunked: false,
-        expected: equals(bodyHash),
-      );
+      expectHash(signPayload: true, chunked: false, expected: equals(bodyHash));
     });
 
     test('signPayload=false chunked=false', () {
@@ -68,73 +61,56 @@ void main() {
 
     test('signPayload=false chunked=true', () {
       expect(
-        () => S3ServiceConfiguration(
-          signPayload: false,
-          chunked: true,
-        ),
+        () => S3ServiceConfiguration(signPayload: false, chunked: true),
         throwsA(isA<AssertionError>()),
       );
     });
 
-    group(
-      'GET/HEAD do not contain body on Web',
-      () {
-        final request = AWSHttpRequest.get(Uri.parse('https://example.com'));
-        const signer = AWSSigV4Signer(
-          credentialsProvider: AWSCredentialsProvider(dummyCredentials),
+    group('GET/HEAD do not contain body on Web', () {
+      final request = AWSHttpRequest.get(Uri.parse('https://example.com'));
+      const signer = AWSSigV4Signer(
+        credentialsProvider: AWSCredentialsProvider(dummyCredentials),
+      );
+      final serviceConfigurations = [
+        S3ServiceConfiguration(chunked: true, signPayload: true),
+        S3ServiceConfiguration(chunked: false, signPayload: true),
+        S3ServiceConfiguration(chunked: false, signPayload: false),
+      ];
+
+      void expectNoContentLength(Iterable<String> signedHeaders) {
+        expect(
+          CaseInsensitiveSet(signedHeaders),
+          isNot(contains(AWSHeaders.contentLength)),
         );
-        final serviceConfigurations = [
-          S3ServiceConfiguration(chunked: true, signPayload: true),
-          S3ServiceConfiguration(chunked: false, signPayload: true),
-          S3ServiceConfiguration(chunked: false, signPayload: false),
-        ];
+      }
 
-        void expectNoContentLength(Iterable<String> signedHeaders) {
-          expect(
-            CaseInsensitiveSet(signedHeaders),
-            isNot(contains(AWSHeaders.contentLength)),
-          );
+      group('sign', () {
+        for (final serviceConfiguration in serviceConfigurations) {
+          test('chunked=${serviceConfiguration.chunked}, '
+              'signPayload=${serviceConfiguration.signBody}', () async {
+            final signedRequest = await signer.sign(
+              request,
+              credentialScope: dummyCredentialScope,
+              serviceConfiguration: serviceConfiguration,
+            );
+            expectNoContentLength(signedRequest.canonicalRequest.signedHeaders);
+          });
         }
+      });
 
-        group('sign', () {
-          for (final serviceConfiguration in serviceConfigurations) {
-            test(
-              'chunked=${serviceConfiguration.chunked}, '
-              'signPayload=${serviceConfiguration.signBody}',
-              () async {
-                final signedRequest = await signer.sign(
-                  request,
-                  credentialScope: dummyCredentialScope,
-                  serviceConfiguration: serviceConfiguration,
-                );
-                expectNoContentLength(
-                  signedRequest.canonicalRequest.signedHeaders,
-                );
-              },
+      group('signSync', () {
+        for (final serviceConfiguration in serviceConfigurations) {
+          test('chunked=${serviceConfiguration.chunked}, '
+              'signPayload=${serviceConfiguration.signBody}', () {
+            final signedRequest = signer.signSync(
+              request,
+              credentialScope: dummyCredentialScope,
+              serviceConfiguration: serviceConfiguration,
             );
-          }
-        });
-
-        group('signSync', () {
-          for (final serviceConfiguration in serviceConfigurations) {
-            test(
-              'chunked=${serviceConfiguration.chunked}, '
-              'signPayload=${serviceConfiguration.signBody}',
-              () {
-                final signedRequest = signer.signSync(
-                  request,
-                  credentialScope: dummyCredentialScope,
-                  serviceConfiguration: serviceConfiguration,
-                );
-                expectNoContentLength(
-                  signedRequest.canonicalRequest.signedHeaders,
-                );
-              },
-            );
-          }
-        });
-      },
-      testOn: 'browser',
-    );
+            expectNoContentLength(signedRequest.canonicalRequest.signedHeaders);
+          });
+        }
+      });
+    }, testOn: 'browser');
   });
 }

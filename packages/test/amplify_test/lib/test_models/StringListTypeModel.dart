@@ -35,7 +35,8 @@ class StringListTypeModel extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -55,16 +56,20 @@ class StringListTypeModel extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const StringListTypeModel._internal(
-      {required this.id, value, createdAt, updatedAt})
-      : _value = value,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const StringListTypeModel._internal({
+    required this.id,
+    value,
+    createdAt,
+    updatedAt,
+  }) : _value = value,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
   factory StringListTypeModel({String? id, List<String>? value}) {
     return StringListTypeModel._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        value: value != null ? List<String>.unmodifiable(value) : value);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      value: value != null ? List<String>.unmodifiable(value) : value,
+    );
   }
 
   bool equals(Object other) {
@@ -89,12 +94,16 @@ class StringListTypeModel extends amplify_core.Model {
     buffer.write("StringListTypeModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write(
-        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
+      "value=" + (_value != null ? _value!.toString() : "null") + ", ",
+    );
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -104,73 +113,90 @@ class StringListTypeModel extends amplify_core.Model {
     return StringListTypeModel._internal(id: id, value: value ?? this.value);
   }
 
-  StringListTypeModel copyWithModelFieldValues(
-      {ModelFieldValue<List<String>?>? value}) {
+  StringListTypeModel copyWithModelFieldValues({
+    ModelFieldValue<List<String>?>? value,
+  }) {
     return StringListTypeModel._internal(
-        id: id, value: value == null ? this.value : value.value);
+      id: id,
+      value: value == null ? this.value : value.value,
+    );
   }
 
   StringListTypeModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _value = json['value']?.cast<String>(),
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _value = json['value']?.cast<String>(),
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'value': _value,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'value': _value,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'value': _value,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'value': _value,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<StringListTypeModelModelIdentifier>
-      MODEL_IDENTIFIER =
+  static final amplify_core.QueryModelIdentifier<
+    StringListTypeModelModelIdentifier
+  >
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<StringListTypeModelModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final VALUE = amplify_core.QueryField(fieldName: "value");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "StringListTypeModel";
-    modelSchemaDefinition.pluralName = "StringListTypeModels";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "StringListTypeModel";
+      modelSchemaDefinition.pluralName = "StringListTypeModels";
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: StringListTypeModel.VALUE,
-        isRequired: false,
-        isArray: true,
-        ofType: amplify_core.ModelFieldType(
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: StringListTypeModel.VALUE,
+          isRequired: false,
+          isArray: true,
+          ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.collection,
-            ofModelName: amplify_core.ModelFieldTypeEnum.string.name)));
+            ofModelName: amplify_core.ModelFieldTypeEnum.string.name,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _StringListTypeModelModelType
@@ -203,10 +229,10 @@ class StringListTypeModelModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

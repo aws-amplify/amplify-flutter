@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
+library;
 
 // ignore_for_file: deprecated_member_use_from_same_package
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -34,8 +34,8 @@ void main() {
               expectedConfig.toJson(),
               equals(
                 // ignore: avoid_dynamic_calls
-                (expectedJson['auth'] as Map)['plugins']['awsCognitoAuthPlugin']
-                    ['Auth']['Default'],
+                (expectedJson['auth']
+                    as Map)['plugins']['awsCognitoAuthPlugin']['Auth']['Default'],
               ),
             );
           });
@@ -78,19 +78,13 @@ const expected = <String, CognitoAuthConfig>{
       passwordPolicyMinLength: 8,
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
     socialProviders: [],
     usernameAttributes: [],
   ),
   'auth_with_email': CognitoAuthConfig(
-    signupAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
+    signupAttributes: [CognitoUserAttributeKey.email],
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
       passwordPolicyCharacters: [
@@ -101,16 +95,10 @@ const expected = <String, CognitoAuthConfig>{
       ],
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
     socialProviders: [],
-    usernameAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
+    usernameAttributes: [CognitoUserAttributeKey.email],
   ),
   'auth_with_multi_alias': CognitoAuthConfig(
     signupAttributes: [
@@ -121,29 +109,19 @@ const expected = <String, CognitoAuthConfig>{
       passwordPolicyMinLength: 8,
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
+    mfaTypes: [MfaType.sms],
     socialProviders: [],
     usernameAttributes: [],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
   ),
   'auth_with_username_no_attributes': CognitoAuthConfig(
-    signupAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
+    signupAttributes: [CognitoUserAttributeKey.email],
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
     socialProviders: [],
     usernameAttributes: [],
   ),
@@ -161,12 +139,8 @@ const expected = <String, CognitoAuthConfig>{
       passwordPolicyMinLength: 8,
     ),
     mfaConfiguration: MfaConfiguration.on,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
   ),
   'auth_with_federated': CognitoAuthConfig(
     oAuth: CognitoOAuthConfig(
@@ -187,12 +161,8 @@ const expected = <String, CognitoAuthConfig>{
       SocialProvider.google,
       SocialProvider.amazon,
     ],
-    usernameAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
-    signupAttributes: [
-      CognitoUserAttributeKey.email,
-    ],
+    usernameAttributes: [CognitoUserAttributeKey.email],
+    signupAttributes: [CognitoUserAttributeKey.email],
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
       passwordPolicyCharacters: [
@@ -203,19 +173,13 @@ const expected = <String, CognitoAuthConfig>{
       ],
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
   ),
   'auth_with_username': CognitoAuthConfig(
     socialProviders: [],
     usernameAttributes: [],
-    signupAttributes: [
-      CognitoUserAttributeKey.preferredUsername,
-    ],
+    signupAttributes: [CognitoUserAttributeKey.preferredUsername],
     passwordProtectionSettings: PasswordProtectionSettings(
       passwordPolicyMinLength: 8,
       passwordPolicyCharacters: [
@@ -226,11 +190,7 @@ const expected = <String, CognitoAuthConfig>{
       ],
     ),
     mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: [
-      MfaType.sms,
-    ],
-    verificationMechanisms: [
-      CognitoUserAttributeKey.email,
-    ],
+    mfaTypes: [MfaType.sms],
+    verificationMechanisms: [CognitoUserAttributeKey.email],
   ),
 };

@@ -10,16 +10,16 @@ class _$XmlNamespacesInputOutput extends XmlNamespacesInputOutput {
   @override
   final XmlNamespaceNested? nested;
 
-  factory _$XmlNamespacesInputOutput(
-          [void Function(XmlNamespacesInputOutputBuilder)? updates]) =>
-      (new XmlNamespacesInputOutputBuilder()..update(updates))._build();
+  factory _$XmlNamespacesInputOutput([
+    void Function(XmlNamespacesInputOutputBuilder)? updates,
+  ]) => (new XmlNamespacesInputOutputBuilder()..update(updates))._build();
 
   _$XmlNamespacesInputOutput._({this.nested}) : super._();
 
   @override
   XmlNamespacesInputOutput rebuild(
-          void Function(XmlNamespacesInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlNamespacesInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlNamespacesInputOutputBuilder toBuilder() =>
@@ -87,7 +87,10 @@ class XmlNamespacesInputOutputBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlNamespacesInputOutput', _$failedField, e.toString());
+          r'XmlNamespacesInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

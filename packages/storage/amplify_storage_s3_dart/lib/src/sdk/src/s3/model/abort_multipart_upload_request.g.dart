@@ -18,29 +18,38 @@ class _$AbortMultipartUploadRequest extends AbortMultipartUploadRequest {
   @override
   final String? expectedBucketOwner;
 
-  factory _$AbortMultipartUploadRequest(
-          [void Function(AbortMultipartUploadRequestBuilder)? updates]) =>
-      (new AbortMultipartUploadRequestBuilder()..update(updates))._build();
+  factory _$AbortMultipartUploadRequest([
+    void Function(AbortMultipartUploadRequestBuilder)? updates,
+  ]) => (new AbortMultipartUploadRequestBuilder()..update(updates))._build();
 
-  _$AbortMultipartUploadRequest._(
-      {required this.bucket,
-      required this.key,
-      required this.uploadId,
-      this.requestPayer,
-      this.expectedBucketOwner})
-      : super._() {
+  _$AbortMultipartUploadRequest._({
+    required this.bucket,
+    required this.key,
+    required this.uploadId,
+    this.requestPayer,
+    this.expectedBucketOwner,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'AbortMultipartUploadRequest', 'bucket');
+      bucket,
+      r'AbortMultipartUploadRequest',
+      'bucket',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        key, r'AbortMultipartUploadRequest', 'key');
+      key,
+      r'AbortMultipartUploadRequest',
+      'key',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        uploadId, r'AbortMultipartUploadRequest', 'uploadId');
+      uploadId,
+      r'AbortMultipartUploadRequest',
+      'uploadId',
+    );
   }
 
   @override
   AbortMultipartUploadRequest rebuild(
-          void Function(AbortMultipartUploadRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AbortMultipartUploadRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AbortMultipartUploadRequestBuilder toBuilder() =>
@@ -72,8 +81,10 @@ class _$AbortMultipartUploadRequest extends AbortMultipartUploadRequest {
 
 class AbortMultipartUploadRequestBuilder
     implements
-        Builder<AbortMultipartUploadRequest,
-            AbortMultipartUploadRequestBuilder> {
+        Builder<
+          AbortMultipartUploadRequest,
+          AbortMultipartUploadRequestBuilder
+        > {
   _$AbortMultipartUploadRequest? _$v;
 
   String? _bucket;
@@ -128,14 +139,24 @@ class AbortMultipartUploadRequestBuilder
   AbortMultipartUploadRequest build() => _build();
 
   _$AbortMultipartUploadRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$AbortMultipartUploadRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
-              bucket, r'AbortMultipartUploadRequest', 'bucket'),
+            bucket,
+            r'AbortMultipartUploadRequest',
+            'bucket',
+          ),
           key: BuiltValueNullFieldError.checkNotNull(
-              key, r'AbortMultipartUploadRequest', 'key'),
+            key,
+            r'AbortMultipartUploadRequest',
+            'key',
+          ),
           uploadId: BuiltValueNullFieldError.checkNotNull(
-              uploadId, r'AbortMultipartUploadRequest', 'uploadId'),
+            uploadId,
+            r'AbortMultipartUploadRequest',
+            'uploadId',
+          ),
           requestPayer: requestPayer,
           expectedBucketOwner: expectedBucketOwner,
         );
@@ -146,9 +167,9 @@ class AbortMultipartUploadRequestBuilder
 
 class _$AbortMultipartUploadRequestPayload
     extends AbortMultipartUploadRequestPayload {
-  factory _$AbortMultipartUploadRequestPayload(
-          [void Function(AbortMultipartUploadRequestPayloadBuilder)?
-              updates]) =>
+  factory _$AbortMultipartUploadRequestPayload([
+    void Function(AbortMultipartUploadRequestPayloadBuilder)? updates,
+  ]) =>
       (new AbortMultipartUploadRequestPayloadBuilder()..update(updates))
           ._build();
 
@@ -156,8 +177,8 @@ class _$AbortMultipartUploadRequestPayload
 
   @override
   AbortMultipartUploadRequestPayload rebuild(
-          void Function(AbortMultipartUploadRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AbortMultipartUploadRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AbortMultipartUploadRequestPayloadBuilder toBuilder() =>
@@ -177,8 +198,10 @@ class _$AbortMultipartUploadRequestPayload
 
 class AbortMultipartUploadRequestPayloadBuilder
     implements
-        Builder<AbortMultipartUploadRequestPayload,
-            AbortMultipartUploadRequestPayloadBuilder> {
+        Builder<
+          AbortMultipartUploadRequestPayload,
+          AbortMultipartUploadRequestPayloadBuilder
+        > {
   _$AbortMultipartUploadRequestPayload? _$v;
 
   AbortMultipartUploadRequestPayloadBuilder();
@@ -191,7 +214,8 @@ class AbortMultipartUploadRequestPayloadBuilder
 
   @override
   void update(
-      void Function(AbortMultipartUploadRequestPayloadBuilder)? updates) {
+    void Function(AbortMultipartUploadRequestPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

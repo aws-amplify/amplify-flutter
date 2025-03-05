@@ -52,8 +52,5 @@ abstract class SrpInitWorker
 }
 
 /// Serializers for the [SrpInitWorker] worker.
-@SerializersFor([
-  SrpInitResult,
-  SrpInitMessage,
-])
+@SerializersFor([SrpInitResult, SrpInitMessage])
 final Serializers serializers = _$serializers;

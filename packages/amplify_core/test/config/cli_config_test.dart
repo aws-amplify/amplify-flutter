@@ -78,9 +78,7 @@ const expected = {
         CognitoPluginConfig.pluginKey: CognitoPluginConfig(
           userAgent: 'aws-amplify/cli',
           version: '0.1.0',
-          identityManager: AWSConfigMap({
-            'Default': CognitoIdentityManager(),
-          }),
+          identityManager: AWSConfigMap({'Default': CognitoIdentityManager()}),
           auth: AWSConfigMap({
             'Default': CognitoAuthConfig(
               oAuth: CognitoOAuthConfig(
@@ -151,15 +149,10 @@ const expected = {
             ),
           }),
           pinpointTargeting: AWSConfigMap({
-            'Default': CognitoPinpointTargetingConfig(
-              region: REGION,
-            ),
+            'Default': CognitoPinpointTargetingConfig(region: REGION),
           }),
           s3TransferUtility: AWSConfigMap({
-            'Default': S3TransferUtility(
-              bucket: BUCKET,
-              region: REGION,
-            ),
+            'Default': S3TransferUtility(bucket: BUCKET, region: REGION),
           }),
         ),
       },

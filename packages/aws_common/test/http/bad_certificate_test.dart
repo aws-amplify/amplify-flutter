@@ -12,23 +12,17 @@ void main() {
       final client = AWSHttpClient();
       final request = AWSHttpRequest.get(expiredCertUrl);
       final operation = client.send(request);
-      await expectLater(
-        operation.response,
-        throwsA(isA<AWSHttpException>()),
-      );
+      await expectLater(operation.response, throwsA(isA<AWSHttpException>()));
     });
 
     test(
       'does not throw when onBadCertificate is overridden',
       () async {
-        final client = AWSHttpClient()
-          ..onBadCertificate = (p0, host, port) => true;
+        final client =
+            AWSHttpClient()..onBadCertificate = (p0, host, port) => true;
         final request = AWSHttpRequest.get(expiredCertUrl);
         final operation = client.send(request);
-        expect(
-          operation.response,
-          completes,
-        );
+        expect(operation.response, completes);
       },
       // onBadCertificate override is only used on vm
       skip: zIsWeb,

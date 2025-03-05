@@ -6,25 +6,13 @@ library amplify_storage_s3_dart.s3.model.object_lock_mode; // ignore_for_file: n
 import 'package:smithy/smithy.dart' as _i1;
 
 class ObjectLockMode extends _i1.SmithyEnum<ObjectLockMode> {
-  const ObjectLockMode._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ObjectLockMode._(super.index, super.name, super.value);
 
   const ObjectLockMode._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const compliance = ObjectLockMode._(
-    0,
-    'COMPLIANCE',
-    'COMPLIANCE',
-  );
+  static const compliance = ObjectLockMode._(0, 'COMPLIANCE', 'COMPLIANCE');
 
-  static const governance = ObjectLockMode._(
-    1,
-    'GOVERNANCE',
-    'GOVERNANCE',
-  );
+  static const governance = ObjectLockMode._(1, 'GOVERNANCE', 'GOVERNANCE');
 
   /// All values of [ObjectLockMode].
   static const values = <ObjectLockMode>[
@@ -38,12 +26,9 @@ class ObjectLockMode extends _i1.SmithyEnum<ObjectLockMode> {
       values: values,
       sdkUnknown: ObjectLockMode._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

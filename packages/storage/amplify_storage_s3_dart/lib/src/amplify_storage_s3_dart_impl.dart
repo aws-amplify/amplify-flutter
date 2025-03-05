@@ -70,8 +70,9 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     }
     storageOutputs = config!.storage!;
 
-    final identityProvider = authProviderRepo
-        .getAuthProvider(APIAuthorizationType.userPools.authProviderToken);
+    final identityProvider = authProviderRepo.getAuthProvider(
+      APIAuthorizationType.userPools.authProviderToken,
+    );
 
     if (identityProvider == null) {
       throw ConfigurationError(
@@ -81,16 +82,13 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       );
     }
 
-    _pathResolver = S3PathResolver(
-      identityProvider: identityProvider,
-    );
+    _pathResolver = S3PathResolver(identityProvider: identityProvider);
 
-    _pathResolver = S3PathResolver(
-      identityProvider: identityProvider,
-    );
+    _pathResolver = S3PathResolver(identityProvider: identityProvider);
 
-    final credentialsProvider = authProviderRepo
-        .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
+    final credentialsProvider = authProviderRepo.getAuthProvider(
+      APIAuthorizationType.iam.authProviderToken,
+    );
 
     if (credentialsProvider == null) {
       throw ConfigurationError(
@@ -141,14 +139,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     return S3ListOperation(
-      request: StorageListRequest(
-        path: path,
-        options: options,
-      ),
-      result: storageS3Service.list(
-        path: path,
-        options: s3Options,
-      ),
+      request: StorageListRequest(path: path, options: options),
+      result: storageS3Service.list(path: path, options: s3Options),
     );
   }
 
@@ -168,14 +160,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     return S3GetPropertiesOperation(
-      request: StorageGetPropertiesRequest(
-        path: path,
-        options: options,
-      ),
-      result: storageS3Service.getProperties(
-        path: path,
-        options: s3Options,
-      ),
+      request: StorageGetPropertiesRequest(path: path, options: options),
+      result: storageS3Service.getProperties(path: path, options: s3Options),
     );
   }
 
@@ -195,14 +181,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     return S3GetUrlOperation(
-      request: StorageGetUrlRequest(
-        path: path,
-        options: options,
-      ),
-      result: storageS3Service.getUrl(
-        path: path,
-        options: s3Options,
-      ),
+      request: StorageGetUrlRequest(path: path, options: options),
+      result: storageS3Service.getUrl(path: path, options: s3Options),
     );
   }
 
@@ -231,10 +211,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     return S3DownloadDataOperation(
-      request: StorageDownloadDataRequest(
-        path: path,
-        options: options,
-      ),
+      request: StorageDownloadDataRequest(path: path, options: options),
       result: downloadTask.result.then(
         (downloadedItem) => S3DownloadDataResult(
           bytes: bytes.takeBytes(),
@@ -397,14 +374,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     return S3RemoveOperation(
-      request: StorageRemoveRequest(
-        path: path,
-        options: options,
-      ),
-      result: storageS3Service.remove(
-        path: path,
-        options: s3Options,
-      ),
+      request: StorageRemoveRequest(path: path, options: options),
+      result: storageS3Service.remove(path: path, options: s3Options),
     );
   }
 
@@ -424,14 +395,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     return S3RemoveManyOperation(
-      request: StorageRemoveManyRequest(
-        paths: paths,
-        options: options,
-      ),
-      result: storageS3Service.removeMany(
-        paths: paths,
-        options: s3Options,
-      ),
+      request: StorageRemoveManyRequest(paths: paths, options: options),
+      result: storageS3Service.removeMany(paths: paths, options: s3Options),
     );
   }
 

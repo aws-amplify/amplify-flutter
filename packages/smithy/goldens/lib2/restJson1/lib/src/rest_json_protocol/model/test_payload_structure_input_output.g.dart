@@ -13,17 +13,18 @@ class _$TestPayloadStructureInputOutput
   @override
   final PayloadConfig? payloadConfig;
 
-  factory _$TestPayloadStructureInputOutput(
-          [void Function(TestPayloadStructureInputOutputBuilder)? updates]) =>
+  factory _$TestPayloadStructureInputOutput([
+    void Function(TestPayloadStructureInputOutputBuilder)? updates,
+  ]) =>
       (new TestPayloadStructureInputOutputBuilder()..update(updates))._build();
 
   _$TestPayloadStructureInputOutput._({this.testId, this.payloadConfig})
-      : super._();
+    : super._();
 
   @override
   TestPayloadStructureInputOutput rebuild(
-          void Function(TestPayloadStructureInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TestPayloadStructureInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TestPayloadStructureInputOutputBuilder toBuilder() =>
@@ -49,8 +50,10 @@ class _$TestPayloadStructureInputOutput
 
 class TestPayloadStructureInputOutputBuilder
     implements
-        Builder<TestPayloadStructureInputOutput,
-            TestPayloadStructureInputOutputBuilder> {
+        Builder<
+          TestPayloadStructureInputOutput,
+          TestPayloadStructureInputOutputBuilder
+        > {
   _$TestPayloadStructureInputOutput? _$v;
 
   String? _testId;
@@ -92,9 +95,12 @@ class TestPayloadStructureInputOutputBuilder
   _$TestPayloadStructureInputOutput _build() {
     _$TestPayloadStructureInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$TestPayloadStructureInputOutput._(
-              testId: testId, payloadConfig: _payloadConfig?.build());
+            testId: testId,
+            payloadConfig: _payloadConfig?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -102,7 +108,10 @@ class TestPayloadStructureInputOutputBuilder
         _payloadConfig?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'TestPayloadStructureInputOutput', _$failedField, e.toString());
+          r'TestPayloadStructureInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

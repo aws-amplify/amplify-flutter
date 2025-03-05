@@ -21,22 +21,21 @@ class DomHelper {
   static DomHelper get instance => _instance;
 
   void _initializeContainerElement(String containerId) {
-    final container = Element.tag('amplify_storage_downloader')
-      ..id = containerId
-      ..style.display = 'none';
+    final container =
+        Element.tag('amplify_storage_downloader')
+          ..id = containerId
+          ..style.display = 'none';
 
     querySelector('body')!.children.add(container);
     _container = container;
   }
 
   /// Triggers browser download for the `url` with `name`.
-  void download({
-    required String url,
-    String? name = '',
-  }) {
-    final anchor = AnchorElement()
-      ..href = url
-      ..download = name;
+  void download({required String url, String? name = ''}) {
+    final anchor =
+        AnchorElement()
+          ..href = url
+          ..download = name;
 
     _container.children.add(anchor);
     anchor.click();

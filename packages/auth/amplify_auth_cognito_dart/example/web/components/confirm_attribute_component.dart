@@ -25,9 +25,7 @@ abstract class ConfirmAttributeComponent extends StatefulComponent {
       key: key,
       options: const SendUserAttributeVerificationCodeOptions(
         pluginOptions: CognitoSendUserAttributeVerificationCodePluginOptions(
-          clientMetadata: {
-            'method': 'sendUserAttributeVerificationCode',
-          },
+          clientMetadata: {'method': 'sendUserAttributeVerificationCode'},
         ),
       ),
     );
@@ -35,10 +33,7 @@ abstract class ConfirmAttributeComponent extends StatefulComponent {
 
   Future<void> _confirm() async {
     try {
-      await confirmUserAttribute(
-        key: key,
-        confirmationCode: _confirmationCode,
-      );
+      await confirmUserAttribute(key: key, confirmationCode: _confirmationCode);
       onNavigate(AuthState.manageAttributes);
     } on AuthException catch (e) {
       setState(() {

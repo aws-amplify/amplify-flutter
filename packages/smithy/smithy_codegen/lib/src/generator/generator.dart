@@ -95,17 +95,26 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
       // percent-encoding, 1985-04-12T23%3A20%3A50.52Z). The timestampFormat
       // trait MAY be used to use a custom serialization format.
       case ShapeType.timestamp:
-        final format = shape.timestampFormat ??
+        final format =
+            shape.timestampFormat ??
             targetShape.timestampFormat ??
             (isHeader ? TimestampFormat.httpDate : TimestampFormat.dateTime);
-        return DartTypes.smithy.timestamp.property('parse').call([
-          if (format == TimestampFormat.epochSeconds)
-            DartTypes.core.int.property('parse').call([ref])
-          else
-            ref,
-        ], {
-          'format': DartTypes.smithy.timestampFormat.property(format.name),
-        }).property('asDateTime');
+        return DartTypes.smithy.timestamp
+            .property('parse')
+            .call(
+              [
+                if (format == TimestampFormat.epochSeconds)
+                  DartTypes.core.int.property('parse').call([ref])
+                else
+                  ref,
+              ],
+              {
+                'format': DartTypes.smithy.timestampFormat.property(
+                  format.name,
+                ),
+              },
+            )
+            .property('asDateTime');
 
       // When a list shape is targeted, each member of the shape is
       // serialized as a separate HTTP header either by concatenating the
@@ -116,23 +125,26 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
         final memberShape = (targetShape as CollectionShape).member;
         final memberTarget = context.shapeFor(memberShape.target);
         return DartTypes.smithy.parseHeader
-            .call([
-              ref,
-            ], {
-              if (memberTarget is TimestampShape)
-                'isTimestampList': literalTrue,
-            })
+            .call(
+              [ref],
+              {
+                if (memberTarget is TimestampShape)
+                  'isTimestampList': literalTrue,
+              },
+            )
             .property('map')
             .call([
               Method(
-                (m) => m
-                  ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                  ..lambda = true
-                  ..body = valueFromString(
-                    refer('el').property('trim').call([]),
-                    memberShape,
-                    isHeader: true,
-                  ).code,
+                (m) =>
+                    m
+                      ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                      ..lambda = true
+                      ..body =
+                          valueFromString(
+                            refer('el').property('trim').call([]),
+                            memberShape,
+                            isHeader: true,
+                          ).code,
               ).closure,
             ]);
       default:
@@ -190,15 +202,14 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
       // 1985-04-12T23%3A20%3A50.52Z). The timestampFormat trait MAY be used
       // to use a custom serialization format.
       case ShapeType.timestamp:
-        final format = shape.timestampFormat ??
+        final format =
+            shape.timestampFormat ??
             targetShape.timestampFormat ??
             (isHeader ? TimestampFormat.httpDate : TimestampFormat.dateTime);
         return DartTypes.smithy.timestamp
             .newInstance([ref])
             .property('format')
-            .call([
-              DartTypes.smithy.timestampFormat.property(format.name),
-            ])
+            .call([DartTypes.smithy.timestampFormat.property(format.name)])
             .property('toString') // Since we can get a num or String back.
             .call([]);
 
@@ -212,28 +223,37 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
           memberShape,
           isHeader: true,
         );
-        var mappedRef = identical(memberEl, memberToString)
-            ? ref
-            : ref.property('map').call([
-                Method(
-                  (m) => m
-                    ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                    ..lambda = true
-                    ..body = memberToString.code,
-                ).closure,
-              ]);
+        var mappedRef =
+            identical(memberEl, memberToString)
+                ? ref
+                : ref.property('map').call([
+                  Method(
+                    (m) =>
+                        m
+                          ..requiredParameters.add(
+                            Parameter((p) => p..name = 'el'),
+                          )
+                          ..lambda = true
+                          ..body = memberToString.code,
+                  ).closure,
+                ]);
         if (isHeader) {
           mappedRef = mappedRef.property('map').call([
             Method(
-              (m) => m
-                ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                ..lambda = true
-                ..body = DartTypes.smithy.sanitizeHeader.call([
-                  refer('el'),
-                ], {
-                  if (memberTarget is TimestampShape)
-                    'isTimestampList': literalTrue,
-                }).code,
+              (m) =>
+                  m
+                    ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                    ..lambda = true
+                    ..body =
+                        DartTypes.smithy.sanitizeHeader
+                            .call(
+                              [refer('el')],
+                              {
+                                if (memberTarget is TimestampShape)
+                                  'isTimestampList': literalTrue,
+                              },
+                            )
+                            .code,
             ).closure,
           ]);
         }
@@ -256,9 +276,10 @@ abstract class LibraryGenerator<T extends Shape>
     T shape, {
     required CodegenContext context,
     SmithyLibrary? smithyLibrary,
-  })  : builder = LibraryBuilder()
-          ..name = smithyLibrary?.libraryName ?? shape.libraryName(context),
-        super(shape, context);
+  }) : builder =
+           LibraryBuilder()
+             ..name = smithyLibrary?.libraryName ?? shape.libraryName(context),
+       super(shape, context);
 
   final LibraryBuilder builder;
 }

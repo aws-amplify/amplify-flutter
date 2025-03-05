@@ -5,10 +5,8 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 abstract class StorageOperation<Request, Result> {
-  StorageOperation({
-    required this.request,
-    required this.result,
-  }) : operationId = uuid();
+  StorageOperation({required this.request, required this.result})
+    : operationId = uuid();
 
   @internal
   final Request request;

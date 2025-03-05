@@ -26,12 +26,15 @@ abstract class CanonicalPath {
       }
     }
 
-    return canonicalPath.split('/').map((segment) {
-      segment = _safeEncode(segment);
-      if (serviceConfiguration.doubleEncodePathSegments) {
-        segment = Uri.encodeComponent(segment);
-      }
-      return segment;
-    }).join('/');
+    return canonicalPath
+        .split('/')
+        .map((segment) {
+          segment = _safeEncode(segment);
+          if (serviceConfiguration.doubleEncodePathSegments) {
+            segment = Uri.encodeComponent(segment);
+          }
+          return segment;
+        })
+        .join('/');
   }
 }

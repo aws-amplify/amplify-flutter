@@ -12,16 +12,16 @@ class _$CodeDeliveryFailureException extends CodeDeliveryFailureException {
   @override
   final Map<String, String>? headers;
 
-  factory _$CodeDeliveryFailureException(
-          [void Function(CodeDeliveryFailureExceptionBuilder)? updates]) =>
-      (new CodeDeliveryFailureExceptionBuilder()..update(updates))._build();
+  factory _$CodeDeliveryFailureException([
+    void Function(CodeDeliveryFailureExceptionBuilder)? updates,
+  ]) => (new CodeDeliveryFailureExceptionBuilder()..update(updates))._build();
 
   _$CodeDeliveryFailureException._({this.message, this.headers}) : super._();
 
   @override
   CodeDeliveryFailureException rebuild(
-          void Function(CodeDeliveryFailureExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CodeDeliveryFailureExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CodeDeliveryFailureExceptionBuilder toBuilder() =>
@@ -44,8 +44,10 @@ class _$CodeDeliveryFailureException extends CodeDeliveryFailureException {
 
 class CodeDeliveryFailureExceptionBuilder
     implements
-        Builder<CodeDeliveryFailureException,
-            CodeDeliveryFailureExceptionBuilder> {
+        Builder<
+          CodeDeliveryFailureException,
+          CodeDeliveryFailureExceptionBuilder
+        > {
   _$CodeDeliveryFailureException? _$v;
 
   String? _message;
@@ -83,7 +85,8 @@ class CodeDeliveryFailureExceptionBuilder
   CodeDeliveryFailureException build() => _build();
 
   _$CodeDeliveryFailureException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CodeDeliveryFailureException._(
           message: message,
           headers: headers,

@@ -22,14 +22,14 @@ abstract class EndpointBatchRequest
   }
 
   /// Specifies a batch of endpoints to create or update and the settings and attributes to set or change for each endpoint.
-  factory EndpointBatchRequest.build(
-          [void Function(EndpointBatchRequestBuilder) updates]) =
-      _$EndpointBatchRequest;
+  factory EndpointBatchRequest.build([
+    void Function(EndpointBatchRequestBuilder) updates,
+  ]) = _$EndpointBatchRequest;
 
   const EndpointBatchRequest._();
 
   static const List<_i3.SmithySerializer<EndpointBatchRequest>> serializers = [
-    EndpointBatchRequestRestJson1Serializer()
+    EndpointBatchRequestRestJson1Serializer(),
   ];
 
   /// An array that defines the endpoints to create or update and, for each endpoint, the property values to set or change. An array can contain a maximum of 100 items.
@@ -39,10 +39,7 @@ abstract class EndpointBatchRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndpointBatchRequest')
-      ..add(
-        'item',
-        item,
-      );
+      ..add('item', item);
     return helper.toString();
   }
 }
@@ -50,20 +47,17 @@ abstract class EndpointBatchRequest
 class EndpointBatchRequestRestJson1Serializer
     extends _i3.StructuredSmithySerializer<EndpointBatchRequest> {
   const EndpointBatchRequestRestJson1Serializer()
-      : super('EndpointBatchRequest');
+    : super('EndpointBatchRequest');
 
   @override
   Iterable<Type> get types => const [
-        EndpointBatchRequest,
-        _$EndpointBatchRequest,
-      ];
+    EndpointBatchRequest,
+    _$EndpointBatchRequest,
+  ];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EndpointBatchRequest deserialize(
     Serializers serializers,
@@ -81,13 +75,15 @@ class EndpointBatchRequestRestJson1Serializer
       }
       switch (key) {
         case 'Item':
-          result.item.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(EndpointBatchItem)],
-            ),
-          ) as _i2.BuiltList<EndpointBatchItem>));
+          result.item.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(EndpointBatchItem),
+                  ]),
+                )
+                as _i2.BuiltList<EndpointBatchItem>),
+          );
       }
     }
 
@@ -106,10 +102,9 @@ class EndpointBatchRequestRestJson1Serializer
       'Item',
       serializers.serialize(
         item,
-        specifiedType: const FullType(
-          _i2.BuiltList,
-          [FullType(EndpointBatchItem)],
-        ),
+        specifiedType: const FullType(_i2.BuiltList, [
+          FullType(EndpointBatchItem),
+        ]),
       ),
     ]);
     return result$;

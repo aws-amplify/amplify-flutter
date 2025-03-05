@@ -29,24 +29,30 @@ class EmailSetupFormField
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
   }) : this._(
-          key: key ?? keyEmailSetupFormField,
-          field: EmailSetupField.email,
-          titleKey: InputResolverKey.emailTitle,
-          hintTextKey: InputResolverKey.emailHint,
-          validator: validator,
-          autofillHints: autofillHints,
-        );
+         key: key ?? keyEmailSetupFormField,
+         field: EmailSetupField.email,
+         titleKey: InputResolverKey.emailTitle,
+         hintTextKey: InputResolverKey.emailHint,
+         validator: validator,
+         autofillHints: autofillHints,
+       );
 
   @override
   bool get required => true;
 
   @override
   AuthenticatorFormFieldState<EmailSetupField, String, EmailSetupFormField>
-      createState() => _EmailSetupFormFieldState();
+  createState() => _EmailSetupFormFieldState();
 }
 
-class _EmailSetupFormFieldState extends AuthenticatorFormFieldState<
-    EmailSetupField, String, EmailSetupFormField> with AuthenticatorTextField {
+class _EmailSetupFormFieldState
+    extends
+        AuthenticatorFormFieldState<
+          EmailSetupField,
+          String,
+          EmailSetupFormField
+        >
+    with AuthenticatorTextField {
   @override
   TextInputType get keyboardType {
     return TextInputType.emailAddress;

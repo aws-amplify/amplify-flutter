@@ -21,14 +21,14 @@ class SymbolVisitor extends UnifyingTypeVisitor<Reference> {
       TypeParameterType _ => type.bound.accept(this),
       VoidType _ => const Reference('void'),
       InterfaceType _ => TypeReference((t) {
-          t
-            ..isNullable = type.nullabilitySuffix != NullabilitySuffix.none
-            ..symbol = type.element.name
-            ..url = type.element.librarySource.uri.toString()
-            ..types.addAll([
-              for (final typeArg in type.typeArguments) typeArg.accept(this),
-            ]);
-        }),
+        t
+          ..isNullable = type.nullabilitySuffix != NullabilitySuffix.none
+          ..symbol = type.element.name
+          ..url = type.element.librarySource.uri.toString()
+          ..types.addAll([
+            for (final typeArg in type.typeArguments) typeArg.accept(this),
+          ]);
+      }),
       _ => throw UnsupportedError('$type is not supported'),
     };
   }

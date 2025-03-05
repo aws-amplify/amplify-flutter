@@ -40,17 +40,20 @@ Map<String, String> _collectDependencies(
       return;
     }
     seen.add(package.name);
-    final localDeps = [
-      ...package.pubspecInfo.pubspec.dependencies.keys,
-      if (package == rootPackage)
-        ...package.pubspecInfo.pubspec.devDependencies.keys,
-    ].map((dep) => allPackages[dep]).whereType<PackageInfo>();
+    final localDeps =
+        [
+          ...package.pubspecInfo.pubspec.dependencies.keys,
+          if (package == rootPackage)
+            ...package.pubspecInfo.pubspec.devDependencies.keys,
+        ].map((dep) => allPackages[dep]).whereType<PackageInfo>();
     for (final dependency in localDeps) {
       if (dependency.name == rootPackage.name) {
         continue;
       }
-      dependencyPaths[dependency.name] =
-          path.relative(dependency.path, from: rootPackage.path);
+      dependencyPaths[dependency.name] = path.relative(
+        dependency.path,
+        from: rootPackage.path,
+      );
       collectSubdependencies(dependency);
     }
   }
@@ -108,23 +111,20 @@ Future<void> _createPubspecOverride(
         });
       }
       if (v is PathDependency) {
-        return MapEntry(k, {
-          'path': v.path,
-        });
+        return MapEntry(k, {'path': v.path});
       }
       throw StateError('Unknown dependency type: $v');
     }),
     ...dependencyPaths.map((name, path) => MapEntry(name, {'path': path})),
   });
-  final yaml = YamlEditor(
-    '''
+  final yaml = YamlEditor('''
 # Generated with `aft`. Do not modify by hand or check into source control.
 dependency_overrides:
-''',
-  )..update(['dependency_overrides'], mergedOverrides);
+''')..update(['dependency_overrides'], mergedOverrides);
 
-  await File(path.join(package.path, 'pubspec_overrides.yaml'))
-      .writeAsString(yaml.toString());
+  await File(
+    path.join(package.path, 'pubspec_overrides.yaml'),
+  ).writeAsString(yaml.toString());
 }
 
 extension LinkPackages on AmplifyCommand {

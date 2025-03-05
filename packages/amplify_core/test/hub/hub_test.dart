@@ -51,7 +51,8 @@ void main() {
         expect(
           subscriber.future,
           completes,
-          reason: 'The subscriber should receive the event even though it '
+          reason:
+              'The subscriber should receive the event even though it '
               'subscribed before the stream was added',
         );
 
@@ -142,11 +143,7 @@ void main() {
         Amplify.Hub.addChannel(HubChannel.Auth, controller.stream);
 
         final finished = Completer<void>();
-        Amplify.Hub.listen(
-          HubChannel.Auth,
-          (_) {},
-          onError: finished.complete,
-        );
+        Amplify.Hub.listen(HubChannel.Auth, (_) {}, onError: finished.complete);
 
         controller.addError(Exception());
 

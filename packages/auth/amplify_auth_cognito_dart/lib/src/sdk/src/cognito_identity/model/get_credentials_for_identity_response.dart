@@ -13,11 +13,12 @@ part 'get_credentials_for_identity_response.g.dart';
 
 /// Returned in response to a successful `GetCredentialsForIdentity` operation.
 abstract class GetCredentialsForIdentityResponse
-    with
-        _i1.AWSEquatable<GetCredentialsForIdentityResponse>
+    with _i1.AWSEquatable<GetCredentialsForIdentityResponse>
     implements
-        Built<GetCredentialsForIdentityResponse,
-            GetCredentialsForIdentityResponseBuilder> {
+        Built<
+          GetCredentialsForIdentityResponse,
+          GetCredentialsForIdentityResponseBuilder
+        > {
   /// Returned in response to a successful `GetCredentialsForIdentity` operation.
   factory GetCredentialsForIdentityResponse({
     String? identityId,
@@ -30,9 +31,9 @@ abstract class GetCredentialsForIdentityResponse
   }
 
   /// Returned in response to a successful `GetCredentialsForIdentity` operation.
-  factory GetCredentialsForIdentityResponse.build(
-          [void Function(GetCredentialsForIdentityResponseBuilder) updates]) =
-      _$GetCredentialsForIdentityResponse;
+  factory GetCredentialsForIdentityResponse.build([
+    void Function(GetCredentialsForIdentityResponseBuilder) updates,
+  ]) = _$GetCredentialsForIdentityResponse;
 
   const GetCredentialsForIdentityResponse._();
 
@@ -40,11 +41,10 @@ abstract class GetCredentialsForIdentityResponse
   factory GetCredentialsForIdentityResponse.fromResponse(
     GetCredentialsForIdentityResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<GetCredentialsForIdentityResponse>>
-      serializers = [GetCredentialsForIdentityResponseAwsJson11Serializer()];
+  serializers = [GetCredentialsForIdentityResponseAwsJson11Serializer()];
 
   /// A unique identifier in the format REGION:GUID.
   String? get identityId;
@@ -52,23 +52,14 @@ abstract class GetCredentialsForIdentityResponse
   /// Credentials for the provided identity ID.
   Credentials? get credentials;
   @override
-  List<Object?> get props => [
-        identityId,
-        credentials,
-      ];
+  List<Object?> get props => [identityId, credentials];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('GetCredentialsForIdentityResponse')
-          ..add(
-            'identityId',
-            identityId,
-          )
-          ..add(
-            'credentials',
-            credentials,
-          );
+          ..add('identityId', identityId)
+          ..add('credentials', credentials);
     return helper.toString();
   }
 }
@@ -76,21 +67,18 @@ abstract class GetCredentialsForIdentityResponse
 class GetCredentialsForIdentityResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<GetCredentialsForIdentityResponse> {
   const GetCredentialsForIdentityResponseAwsJson11Serializer()
-      : super('GetCredentialsForIdentityResponse');
+    : super('GetCredentialsForIdentityResponse');
 
   @override
   Iterable<Type> get types => const [
-        GetCredentialsForIdentityResponse,
-        _$GetCredentialsForIdentityResponse,
-      ];
+    GetCredentialsForIdentityResponse,
+    _$GetCredentialsForIdentityResponse,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   GetCredentialsForIdentityResponse deserialize(
@@ -109,15 +97,20 @@ class GetCredentialsForIdentityResponseAwsJson11Serializer
       }
       switch (key) {
         case 'IdentityId':
-          result.identityId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.identityId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Credentials':
-          result.credentials.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(Credentials),
-          ) as Credentials));
+          result.credentials.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(Credentials),
+                )
+                as Credentials),
+          );
       }
     }
 
@@ -135,18 +128,22 @@ class GetCredentialsForIdentityResponseAwsJson11Serializer
     if (identityId != null) {
       result$
         ..add('IdentityId')
-        ..add(serializers.serialize(
-          identityId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            identityId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (credentials != null) {
       result$
         ..add('Credentials')
-        ..add(serializers.serialize(
-          credentials,
-          specifiedType: const FullType(Credentials),
-        ));
+        ..add(
+          serializers.serialize(
+            credentials,
+            specifiedType: const FullType(Credentials),
+          ),
+        );
     }
     return result$;
   }

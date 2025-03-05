@@ -7,12 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'model_utils.dart';
 import 'setup_utils.dart';
 
-enum DataStoreOperation {
-  query,
-  save,
-  observe,
-  delete,
-}
+enum DataStoreOperation { query, save, observe, delete }
 
 /// test standard datastore model operations (save, query, observe, delete)
 ///
@@ -36,29 +31,21 @@ void testModelOperations<T extends Model>({
     expect(queriedModels, isEmpty);
   });
 
-  testWidgets(
-    'save',
-    (WidgetTester tester) async {
-      for (var model in models) {
-        await Amplify.DataStore.save(model);
-      }
-      var queriedModels = await Amplify.DataStore.query(classType);
-      expect(queriedModels, isNotEmpty);
-    },
-    skip: skips[DataStoreOperation.save],
-  );
+  testWidgets('save', (WidgetTester tester) async {
+    for (var model in models) {
+      await Amplify.DataStore.save(model);
+    }
+    var queriedModels = await Amplify.DataStore.query(classType);
+    expect(queriedModels, isNotEmpty);
+  }, skip: skips[DataStoreOperation.save]);
 
-  testWidgets(
-    'query',
-    (WidgetTester tester) async {
-      var queriedModels = await Amplify.DataStore.query(classType);
-      expect(queriedModels, isNotEmpty);
-      for (var model in models) {
-        expect(queriedModels.contains(model), isTrue);
-      }
-    },
-    skip: skips[DataStoreOperation.query],
-  );
+  testWidgets('query', (WidgetTester tester) async {
+    var queriedModels = await Amplify.DataStore.query(classType);
+    expect(queriedModels, isNotEmpty);
+    for (var model in models) {
+      expect(queriedModels.contains(model), isTrue);
+    }
+  }, skip: skips[DataStoreOperation.query]);
 
   testWidgets(
     'observe',
@@ -74,15 +61,11 @@ void testModelOperations<T extends Model>({
     timeout: Timeout(Duration(seconds: 10)),
   );
 
-  testWidgets(
-    'delete',
-    (WidgetTester tester) async {
-      for (var model in models) {
-        await Amplify.DataStore.delete(model);
-      }
-      var queriedModels = await Amplify.DataStore.query(classType);
-      expect(queriedModels, isEmpty);
-    },
-    skip: skips[DataStoreOperation.delete],
-  );
+  testWidgets('delete', (WidgetTester tester) async {
+    for (var model in models) {
+      await Amplify.DataStore.delete(model);
+    }
+    var queriedModels = await Amplify.DataStore.query(classType);
+    expect(queriedModels, isEmpty);
+  }, skip: skips[DataStoreOperation.delete]);
 }

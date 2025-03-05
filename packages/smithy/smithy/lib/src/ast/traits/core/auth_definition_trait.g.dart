@@ -15,7 +15,7 @@ AuthDefinitionTrait _$AuthDefinitionTraitFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$AuthDefinitionTraitToJson(
-        AuthDefinitionTrait instance) =>
-    <String, dynamic>{
-      'traits': instance.traits.map(const ShapeIdConverter().toJson).toList(),
-    };
+  AuthDefinitionTrait instance,
+) => <String, dynamic>{
+  'traits': instance.traits.map(const ShapeIdConverter().toJson).toList(),
+};

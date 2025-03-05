@@ -13,14 +13,12 @@ EnumDefinition _$EnumDefinitionFromJson(Map<String, dynamic> json) =>
       documentation: json['documentation'] as String?,
       tags:
           (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-              const [],
+          const [],
       deprecated: json['deprecated'] as bool?,
     );
 
 Map<String, dynamic> _$EnumDefinitionToJson(EnumDefinition instance) {
-  final val = <String, dynamic>{
-    'value': instance.value,
-  };
+  final val = <String, dynamic>{'value': instance.value};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {

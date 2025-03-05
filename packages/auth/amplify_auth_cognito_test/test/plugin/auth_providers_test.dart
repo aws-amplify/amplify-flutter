@@ -67,59 +67,62 @@ void main() {
     seedStorage(
       secureStorage,
       userPoolKeys: CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!),
-      identityPoolKeys:
-          CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!),
+      identityPoolKeys: CognitoIdentityPoolKeys(
+        mockConfig.auth!.identityPoolId!,
+      ),
     );
 
     await plugin.addPlugin(authProviderRepo: testAuthRepo);
-    await plugin.configure(
-      config: mockConfig,
-      authProviderRepo: testAuthRepo,
-    );
+    await plugin.configure(config: mockConfig, authProviderRepo: testAuthRepo);
   });
 
   group(
-      'AmplifyAuthCognitoDart plugin registers auth providers during addPlugin',
-      () {
-    test('registers CognitoIamAuthProvider', () async {
-      final authProvider = testAuthRepo.getAuthProvider(
-        APIAuthorizationType.iam.authProviderToken,
-      );
-      expect(authProvider, isA<CognitoIamAuthProvider>());
-    });
+    'AmplifyAuthCognitoDart plugin registers auth providers during addPlugin',
+    () {
+      test('registers CognitoIamAuthProvider', () async {
+        final authProvider = testAuthRepo.getAuthProvider(
+          APIAuthorizationType.iam.authProviderToken,
+        );
+        expect(authProvider, isA<CognitoIamAuthProvider>());
+      });
 
-    test('registers CognitoUserPoolsAuthProvider', () async {
-      final authProvider = testAuthRepo.getAuthProvider(
-        APIAuthorizationType.userPools.authProviderToken,
-      );
-      expect(authProvider, isA<CognitoUserPoolsAuthProvider>());
-    });
-  });
+      test('registers CognitoUserPoolsAuthProvider', () async {
+        final authProvider = testAuthRepo.getAuthProvider(
+          APIAuthorizationType.userPools.authProviderToken,
+        );
+        expect(authProvider, isA<CognitoUserPoolsAuthProvider>());
+      });
+    },
+  );
 
   group('no auth plugin added', () {
-    test('CognitoIamAuthProvider throws when trying to authorize a request',
-        () async {
-      const authProvider = CognitoIamAuthProvider();
-      await expectLater(
-        authProvider.authorizeRequest(
-          _generateTestRequest(),
-          options: const IamAuthProviderOptions(
-            region: 'us-east-1',
-            service: AWSService.appSync,
+    test(
+      'CognitoIamAuthProvider throws when trying to authorize a request',
+      () async {
+        const authProvider = CognitoIamAuthProvider();
+        await expectLater(
+          authProvider.authorizeRequest(
+            _generateTestRequest(),
+            options: const IamAuthProviderOptions(
+              region: 'us-east-1',
+              service: AWSService.appSync,
+            ),
           ),
-        ),
-        throwsA(isA<PluginError>()),
-      );
-    });
+          throwsA(isA<PluginError>()),
+        );
+      },
+    );
 
-    test('CognitoUserPoolsAuthProvider throws when trying to authorize request',
-        () async {
-      final authProvider = CognitoUserPoolsAuthProvider();
-      await expectLater(
-        authProvider.authorizeRequest(_generateTestRequest()),
-        throwsA(isA<PluginError>()),
-      );
-    });
+    test(
+      'CognitoUserPoolsAuthProvider throws when trying to authorize request',
+      () async {
+        final authProvider = CognitoUserPoolsAuthProvider();
+        await expectLater(
+          authProvider.authorizeRequest(_generateTestRequest()),
+          throwsA(isA<PluginError>()),
+        );
+      },
+    );
   });
 
   group('auth providers defined in auth plugin', () {
@@ -158,32 +161,32 @@ void main() {
         );
       });
 
-      test('does not sign body when ServiceConfiguration signBody false',
-          () async {
-        const authProvider = CognitoIamAuthProvider();
-        const region = 'us-east-1';
-        final inputRequest = AWSHttpRequest(
-          method: AWSHttpMethod.post,
-          body: json.encode({
-            'foo': 'bar',
-          }).codeUnits,
-          uri: Uri.parse(
-            'https://xyz456.execute-api.$region.amazonaws.com/test',
-          ),
-        );
-        final authorizedRequest = await authProvider.authorizeRequest(
-          inputRequest,
-          options: const IamAuthProviderOptions(
-            region: region,
-            service: AWSService.apiGateway,
-            serviceConfiguration: ServiceConfiguration(signBody: false),
-          ),
-        );
-        expect(
-          authorizedRequest.headers.containsKey(AWSHeaders.contentSHA256),
-          isFalse,
-        );
-      });
+      test(
+        'does not sign body when ServiceConfiguration signBody false',
+        () async {
+          const authProvider = CognitoIamAuthProvider();
+          const region = 'us-east-1';
+          final inputRequest = AWSHttpRequest(
+            method: AWSHttpMethod.post,
+            body: json.encode({'foo': 'bar'}).codeUnits,
+            uri: Uri.parse(
+              'https://xyz456.execute-api.$region.amazonaws.com/test',
+            ),
+          );
+          final authorizedRequest = await authProvider.authorizeRequest(
+            inputRequest,
+            options: const IamAuthProviderOptions(
+              region: region,
+              service: AWSService.apiGateway,
+              serviceConfiguration: ServiceConfiguration(signBody: false),
+            ),
+          );
+          expect(
+            authorizedRequest.headers.containsKey(AWSHeaders.contentSHA256),
+            isFalse,
+          );
+        },
+      );
 
       test('throws when no options provided', () async {
         const authProvider = CognitoIamAuthProvider();
@@ -195,24 +198,28 @@ void main() {
     });
 
     group('CognitoUserPoolsAuthProvider', () {
-      test('gets raw access token from Amplify.Auth.fetchAuthSession',
-          () async {
-        final authProvider = CognitoUserPoolsAuthProvider();
-        final token = await authProvider.getLatestAuthToken();
-        expect(token, accessToken.raw);
-      });
+      test(
+        'gets raw access token from Amplify.Auth.fetchAuthSession',
+        () async {
+          final authProvider = CognitoUserPoolsAuthProvider();
+          final token = await authProvider.getLatestAuthToken();
+          expect(token, accessToken.raw);
+        },
+      );
 
-      test('adds access token to header when calling authorizeRequest',
-          () async {
-        final authProvider = CognitoUserPoolsAuthProvider();
-        final authorizedRequest = await authProvider.authorizeRequest(
-          _generateTestRequest(),
-        );
-        expect(
-          authorizedRequest.headers[AWSHeaders.authorization],
-          accessToken.raw,
-        );
-      });
+      test(
+        'adds access token to header when calling authorizeRequest',
+        () async {
+          final authProvider = CognitoUserPoolsAuthProvider();
+          final authorizedRequest = await authProvider.authorizeRequest(
+            _generateTestRequest(),
+          );
+          expect(
+            authorizedRequest.headers[AWSHeaders.authorization],
+            accessToken.raw,
+          );
+        },
+      );
     });
   });
 
@@ -233,17 +240,19 @@ void main() {
     });
 
     group('CognitoUserPoolsAuthProvider', () {
-      test('adds access token to header when calling authorizeRequest',
-          () async {
-        final authProvider = CognitoUserPoolsAuthProvider();
-        final authorizedRequest = await authProvider.authorizeRequest(
-          _generateTestRequest(),
-        );
-        expect(
-          authorizedRequest.headers[AWSHeaders.authorization],
-          accessToken.raw,
-        );
-      });
+      test(
+        'adds access token to header when calling authorizeRequest',
+        () async {
+          final authProvider = CognitoUserPoolsAuthProvider();
+          final authorizedRequest = await authProvider.authorizeRequest(
+            _generateTestRequest(),
+          );
+          expect(
+            authorizedRequest.headers[AWSHeaders.authorization],
+            accessToken.raw,
+          );
+        },
+      );
     });
   });
 }

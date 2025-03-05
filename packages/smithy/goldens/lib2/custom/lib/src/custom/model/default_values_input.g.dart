@@ -44,60 +44,96 @@ class _$DefaultValuesInput extends DefaultValuesInput {
   @override
   final bool? nullifiedDefaultBool;
 
-  factory _$DefaultValuesInput(
-          [void Function(DefaultValuesInputBuilder)? updates]) =>
-      (new DefaultValuesInputBuilder()..update(updates))._build();
+  factory _$DefaultValuesInput([
+    void Function(DefaultValuesInputBuilder)? updates,
+  ]) => (new DefaultValuesInputBuilder()..update(updates))._build();
 
-  _$DefaultValuesInput._(
-      {required this.requiredDefaultInt,
-      required this.optionalDefaultInt,
-      this.nullifiedDefaultInt,
-      required this.requiredDefaultString,
-      required this.optionalDefaultString,
-      this.nullifiedDefaultString,
-      required this.requiredDefaultEnum,
-      required this.optionalDefaultEnum,
-      this.nullifiedDefaultEnum,
-      required this.requiredDefaultList,
-      required this.optionalDefaultList,
-      this.nullifiedDefaultList,
-      required this.requiredDefaultMap,
-      required this.optionalDefaultMap,
-      this.nullifiedDefaultMap,
-      required this.requiredDefaultBool,
-      required this.optionalDefaultBool,
-      this.nullifiedDefaultBool})
-      : super._() {
+  _$DefaultValuesInput._({
+    required this.requiredDefaultInt,
+    required this.optionalDefaultInt,
+    this.nullifiedDefaultInt,
+    required this.requiredDefaultString,
+    required this.optionalDefaultString,
+    this.nullifiedDefaultString,
+    required this.requiredDefaultEnum,
+    required this.optionalDefaultEnum,
+    this.nullifiedDefaultEnum,
+    required this.requiredDefaultList,
+    required this.optionalDefaultList,
+    this.nullifiedDefaultList,
+    required this.requiredDefaultMap,
+    required this.optionalDefaultMap,
+    this.nullifiedDefaultMap,
+    required this.requiredDefaultBool,
+    required this.optionalDefaultBool,
+    this.nullifiedDefaultBool,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultInt, r'DefaultValuesInput', 'requiredDefaultInt');
+      requiredDefaultInt,
+      r'DefaultValuesInput',
+      'requiredDefaultInt',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultInt, r'DefaultValuesInput', 'optionalDefaultInt');
+      optionalDefaultInt,
+      r'DefaultValuesInput',
+      'optionalDefaultInt',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultString, r'DefaultValuesInput', 'requiredDefaultString');
+      requiredDefaultString,
+      r'DefaultValuesInput',
+      'requiredDefaultString',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultString, r'DefaultValuesInput', 'optionalDefaultString');
+      optionalDefaultString,
+      r'DefaultValuesInput',
+      'optionalDefaultString',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultEnum, r'DefaultValuesInput', 'requiredDefaultEnum');
+      requiredDefaultEnum,
+      r'DefaultValuesInput',
+      'requiredDefaultEnum',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultEnum, r'DefaultValuesInput', 'optionalDefaultEnum');
+      optionalDefaultEnum,
+      r'DefaultValuesInput',
+      'optionalDefaultEnum',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultList, r'DefaultValuesInput', 'requiredDefaultList');
+      requiredDefaultList,
+      r'DefaultValuesInput',
+      'requiredDefaultList',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultList, r'DefaultValuesInput', 'optionalDefaultList');
+      optionalDefaultList,
+      r'DefaultValuesInput',
+      'optionalDefaultList',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultMap, r'DefaultValuesInput', 'requiredDefaultMap');
+      requiredDefaultMap,
+      r'DefaultValuesInput',
+      'requiredDefaultMap',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultMap, r'DefaultValuesInput', 'optionalDefaultMap');
+      optionalDefaultMap,
+      r'DefaultValuesInput',
+      'optionalDefaultMap',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultBool, r'DefaultValuesInput', 'requiredDefaultBool');
+      requiredDefaultBool,
+      r'DefaultValuesInput',
+      'requiredDefaultBool',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultBool, r'DefaultValuesInput', 'optionalDefaultBool');
+      optionalDefaultBool,
+      r'DefaultValuesInput',
+      'optionalDefaultBool',
+    );
   }
 
   @override
   DefaultValuesInput rebuild(
-          void Function(DefaultValuesInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DefaultValuesInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DefaultValuesInputBuilder toBuilder() =>
@@ -236,8 +272,8 @@ class DefaultValuesInputBuilder
   _i3.MapBuilder<String, String> get nullifiedDefaultMap =>
       _$this._nullifiedDefaultMap ??= new _i3.MapBuilder<String, String>();
   set nullifiedDefaultMap(
-          _i3.MapBuilder<String, String>? nullifiedDefaultMap) =>
-      _$this._nullifiedDefaultMap = nullifiedDefaultMap;
+    _i3.MapBuilder<String, String>? nullifiedDefaultMap,
+  ) => _$this._nullifiedDefaultMap = nullifiedDefaultMap;
 
   bool? _requiredDefaultBool;
   bool? get requiredDefaultBool => _$this._requiredDefaultBool;
@@ -301,34 +337,60 @@ class DefaultValuesInputBuilder
   _$DefaultValuesInput _build() {
     _$DefaultValuesInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$DefaultValuesInput._(
-              requiredDefaultInt: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultInt, r'DefaultValuesInput', 'requiredDefaultInt'),
-              optionalDefaultInt: BuiltValueNullFieldError.checkNotNull(
-                  optionalDefaultInt, r'DefaultValuesInput', 'optionalDefaultInt'),
-              nullifiedDefaultInt: nullifiedDefaultInt,
-              requiredDefaultString: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultString, r'DefaultValuesInput', 'requiredDefaultString'),
-              optionalDefaultString: BuiltValueNullFieldError.checkNotNull(
-                  optionalDefaultString, r'DefaultValuesInput', 'optionalDefaultString'),
-              nullifiedDefaultString: nullifiedDefaultString,
-              requiredDefaultEnum: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultEnum, r'DefaultValuesInput', 'requiredDefaultEnum'),
-              optionalDefaultEnum: BuiltValueNullFieldError.checkNotNull(
-                  optionalDefaultEnum, r'DefaultValuesInput', 'optionalDefaultEnum'),
-              nullifiedDefaultEnum: nullifiedDefaultEnum,
-              requiredDefaultList: requiredDefaultList.build(),
-              optionalDefaultList: optionalDefaultList.build(),
-              nullifiedDefaultList: _nullifiedDefaultList?.build(),
-              requiredDefaultMap: requiredDefaultMap.build(),
-              optionalDefaultMap: optionalDefaultMap.build(),
-              nullifiedDefaultMap: _nullifiedDefaultMap?.build(),
-              requiredDefaultBool: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultBool, r'DefaultValuesInput', 'requiredDefaultBool'),
-              optionalDefaultBool:
-                  BuiltValueNullFieldError.checkNotNull(optionalDefaultBool, r'DefaultValuesInput', 'optionalDefaultBool'),
-              nullifiedDefaultBool: nullifiedDefaultBool);
+            requiredDefaultInt: BuiltValueNullFieldError.checkNotNull(
+              requiredDefaultInt,
+              r'DefaultValuesInput',
+              'requiredDefaultInt',
+            ),
+            optionalDefaultInt: BuiltValueNullFieldError.checkNotNull(
+              optionalDefaultInt,
+              r'DefaultValuesInput',
+              'optionalDefaultInt',
+            ),
+            nullifiedDefaultInt: nullifiedDefaultInt,
+            requiredDefaultString: BuiltValueNullFieldError.checkNotNull(
+              requiredDefaultString,
+              r'DefaultValuesInput',
+              'requiredDefaultString',
+            ),
+            optionalDefaultString: BuiltValueNullFieldError.checkNotNull(
+              optionalDefaultString,
+              r'DefaultValuesInput',
+              'optionalDefaultString',
+            ),
+            nullifiedDefaultString: nullifiedDefaultString,
+            requiredDefaultEnum: BuiltValueNullFieldError.checkNotNull(
+              requiredDefaultEnum,
+              r'DefaultValuesInput',
+              'requiredDefaultEnum',
+            ),
+            optionalDefaultEnum: BuiltValueNullFieldError.checkNotNull(
+              optionalDefaultEnum,
+              r'DefaultValuesInput',
+              'optionalDefaultEnum',
+            ),
+            nullifiedDefaultEnum: nullifiedDefaultEnum,
+            requiredDefaultList: requiredDefaultList.build(),
+            optionalDefaultList: optionalDefaultList.build(),
+            nullifiedDefaultList: _nullifiedDefaultList?.build(),
+            requiredDefaultMap: requiredDefaultMap.build(),
+            optionalDefaultMap: optionalDefaultMap.build(),
+            nullifiedDefaultMap: _nullifiedDefaultMap?.build(),
+            requiredDefaultBool: BuiltValueNullFieldError.checkNotNull(
+              requiredDefaultBool,
+              r'DefaultValuesInput',
+              'requiredDefaultBool',
+            ),
+            optionalDefaultBool: BuiltValueNullFieldError.checkNotNull(
+              optionalDefaultBool,
+              r'DefaultValuesInput',
+              'optionalDefaultBool',
+            ),
+            nullifiedDefaultBool: nullifiedDefaultBool,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -346,7 +408,10 @@ class DefaultValuesInputBuilder
         _nullifiedDefaultMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'DefaultValuesInput', _$failedField, e.toString());
+          r'DefaultValuesInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

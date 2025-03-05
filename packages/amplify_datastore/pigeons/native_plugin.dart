@@ -13,7 +13,7 @@
         'android/src/main/kotlin/com/amazonaws/amplify/amplify_datastore/pigeons/NativePluginBindings.kt',
   ),
 )
-library native_plugin;
+library;
 
 import 'package:pigeon/pigeon.dart';
 
@@ -70,7 +70,9 @@ abstract class NativeAuthBridge {
 abstract class NativeApiBridge {
   @async
   void addApiPlugin(
-      List<String> authProvidersList, Map<String, String> endpoints);
+    List<String> authProvidersList,
+    Map<String, String> endpoints,
+  );
 
   @async
   void sendSubscriptionEvent(NativeGraphQLSubscriptionResponse event);

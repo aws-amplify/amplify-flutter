@@ -70,11 +70,12 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
     required String body,
     int? commitTimeSecs,
   }) {
-    final dateTime = commitTimeSecs == null
-        ? DateTime.now().toUtc()
-        : DateTime.fromMillisecondsSinceEpoch(
-            commitTimeSecs * 1000,
-          ).toUtc();
+    final dateTime =
+        commitTimeSecs == null
+            ? DateTime.now().toUtc()
+            : DateTime.fromMillisecondsSinceEpoch(
+              commitTimeSecs * 1000,
+            ).toUtc();
     final mergeCommit = _mergeCommitRegex.firstMatch(summary);
     if (mergeCommit != null) {
       return MergeCommitMessage(
@@ -104,17 +105,19 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
 
     final type = CommitType.values.byName(typeStr);
     final isBreakingChange = commitMessage.namedGroup('breaking') != null;
-    final scopes = commitMessage
+    final scopes =
+        commitMessage
             .namedGroup('scope')
             ?.replaceAll(RegExp(r'[\(\)]'), '')
             .split(',')
             .map((scope) => scope.trim())
             .toList() ??
         const [];
-    final description = commitMessage
-        .namedGroup('description')
-        ?.replaceAll(RegExp(r'^:\s'), '')
-        .trim();
+    final description =
+        commitMessage
+            .namedGroup('description')
+            ?.replaceAll(RegExp(r'^:\s'), '')
+            .trim();
     // Fall back for malformed messages.
     if (description == null) {
       return UnconventionalCommitMessage(
@@ -350,17 +353,17 @@ class VersionCommitMessage extends CommitMessage {
     required DateTime dateTime,
   }) {
     final trailers = Map.fromEntries(
-      LineSplitter.split(body).where(_trailerRegex.hasMatch).map(
-            (line) => MapEntry(
-              line.split(':')[0],
-              line.split(':')[1].trim(),
-            ),
+      LineSplitter.split(body)
+          .where(_trailerRegex.hasMatch)
+          .map(
+            (line) => MapEntry(line.split(':')[0], line.split(':')[1].trim()),
           ),
     );
     final updatedComponentsStr = trailers['Updated-Components'];
-    final updatedComponents = updatedComponentsStr == null
-        ? const <String>[]
-        : updatedComponentsStr.split(',').map((el) => el.trim()).toList();
+    final updatedComponents =
+        updatedComponentsStr == null
+            ? const <String>[]
+            : updatedComponentsStr.split(',').map((el) => el.trim()).toList();
     return VersionCommitMessage._(
       sha: sha,
       summary: summary,

@@ -31,11 +31,7 @@ class BucketOutputs
   final String awsRegion;
 
   @override
-  List<Object?> get props => [
-        name,
-        bucketName,
-        awsRegion,
-      ];
+  List<Object?> get props => [name, bucketName, awsRegion];
 
   @override
   String get runtimeTypeName => 'BucketOutputs';

@@ -25,15 +25,15 @@ class _$MultipartUpload extends MultipartUpload {
   factory _$MultipartUpload([void Function(MultipartUploadBuilder)? updates]) =>
       (new MultipartUploadBuilder()..update(updates))._build();
 
-  _$MultipartUpload._(
-      {this.uploadId,
-      this.key,
-      this.initiated,
-      this.storageClass,
-      this.owner,
-      this.initiator,
-      this.checksumAlgorithm})
-      : super._();
+  _$MultipartUpload._({
+    this.uploadId,
+    this.key,
+    this.initiated,
+    this.storageClass,
+    this.owner,
+    this.initiator,
+    this.checksumAlgorithm,
+  }) : super._();
 
   @override
   MultipartUpload rebuild(void Function(MultipartUploadBuilder) updates) =>
@@ -140,7 +140,8 @@ class MultipartUploadBuilder
   _$MultipartUpload _build() {
     _$MultipartUpload _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$MultipartUpload._(
             uploadId: uploadId,
             key: key,
@@ -159,7 +160,10 @@ class MultipartUploadBuilder
         _initiator?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MultipartUpload', _$failedField, e.toString());
+          r'MultipartUpload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -58,9 +58,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_auth_category.sign_out}
-  Future<SignOutResult> signOut({
-    SignOutOptions? options,
-  }) {
+  Future<SignOutResult> signOut({SignOutOptions? options}) {
     throw UnimplementedError('signOut() has not been implemented');
   }
 
@@ -94,9 +92,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_auth_category.get_current_user}
-  Future<AuthUser> getCurrentUser({
-    GetCurrentUserOptions? options,
-  }) {
+  Future<AuthUser> getCurrentUser({GetCurrentUserOptions? options}) {
     throw UnimplementedError('getCurrentUser() has not been implemented.');
   }
 
@@ -108,9 +104,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_auth_category.fetch_auth_session}
-  Future<AuthSession> fetchAuthSession({
-    FetchAuthSessionOptions? options,
-  }) {
+  Future<AuthSession> fetchAuthSession({FetchAuthSessionOptions? options}) {
     throw UnimplementedError('fetchAuthSession() has not been implemented.');
   }
 
@@ -133,7 +127,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_auth_category.update_user_attributes}
   Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
-      updateUserAttributes({
+  updateUserAttributes({
     required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
   }) {
@@ -155,7 +149,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_auth_category.send_attribute_verification_code}
   Future<SendUserAttributeVerificationCodeResult>
-      sendUserAttributeVerificationCode({
+  sendUserAttributeVerificationCode({
     required AuthUserAttributeKey userAttributeKey,
     SendUserAttributeVerificationCodeOptions? options,
   }) {
@@ -165,9 +159,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_auth_category.set_up_totp}
-  Future<TotpSetupDetails> setUpTotp({
-    TotpSetupOptions? options,
-  }) {
+  Future<TotpSetupDetails> setUpTotp({TotpSetupOptions? options}) {
     throw UnimplementedError('setUpTotp() has not been implemented.');
   }
 

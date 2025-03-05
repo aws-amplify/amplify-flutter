@@ -10,16 +10,16 @@ class _$FlattenedXmlMapOutput extends FlattenedXmlMapOutput {
   @override
   final _i2.BuiltMap<String, FooEnum>? myMap;
 
-  factory _$FlattenedXmlMapOutput(
-          [void Function(FlattenedXmlMapOutputBuilder)? updates]) =>
-      (new FlattenedXmlMapOutputBuilder()..update(updates))._build();
+  factory _$FlattenedXmlMapOutput([
+    void Function(FlattenedXmlMapOutputBuilder)? updates,
+  ]) => (new FlattenedXmlMapOutputBuilder()..update(updates))._build();
 
   _$FlattenedXmlMapOutput._({this.myMap}) : super._();
 
   @override
   FlattenedXmlMapOutput rebuild(
-          void Function(FlattenedXmlMapOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(FlattenedXmlMapOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   FlattenedXmlMapOutputBuilder toBuilder() =>
@@ -85,7 +85,10 @@ class FlattenedXmlMapOutputBuilder
         _myMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'FlattenedXmlMapOutput', _$failedField, e.toString());
+          r'FlattenedXmlMapOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

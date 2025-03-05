@@ -6,15 +6,15 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/am
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.6.0
-  flutter: ">=3.27.0"
+  sdk: ^3.7.0
+  flutter: ">=3.29.0"
 
 dependencies:
   amplify_core: ">=2.6.0 <2.7.0"
   collection: ^1.15.0
   flutter:
     sdk: flutter
-  meta: ^1.7.0
+  meta: ^1.16.0
 
 dev_dependencies:
   amplify_test:

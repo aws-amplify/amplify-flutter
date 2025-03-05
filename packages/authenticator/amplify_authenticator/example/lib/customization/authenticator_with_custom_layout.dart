@@ -61,10 +61,7 @@ class AuthenticatorWithCustomLayout extends StatelessWidget {
 
 // The widget a user will see when the current step is AuthenticatorStep.signIn
 class SignInView extends StatelessWidget {
-  const SignInView({
-    super.key,
-    required this.state,
-  });
+  const SignInView({super.key, required this.state});
 
   final AuthenticatorState state;
 
@@ -96,10 +93,7 @@ class SignInView extends StatelessWidget {
 }
 
 class SignUpView extends StatelessWidget {
-  const SignUpView({
-    super.key,
-    required this.state,
-  });
+  const SignUpView({super.key, required this.state});
 
   final AuthenticatorState state;
 
@@ -130,12 +124,13 @@ class SignUpView extends StatelessWidget {
                 // custom form validation will prevent sign up if the checkbox is not
                 // checked, and a custom error message will be displayed.
                 TermsAndConditionsCheckBox(
-                  onChanged: (value) => state.setCustomAttribute(
-                    const CognitoUserAttributeKey.custom(
-                      'terms-and-conditions',
-                    ),
-                    value.toString(),
-                  ),
+                  onChanged:
+                      (value) => state.setCustomAttribute(
+                        const CognitoUserAttributeKey.custom(
+                          'terms-and-conditions',
+                        ),
+                        value.toString(),
+                      ),
                 ),
 
                 // prebuilt sign up button from amplify_authenticator package
@@ -156,10 +151,7 @@ class SignUpView extends StatelessWidget {
 }
 
 class NavigateToSignUpButton extends StatelessWidget {
-  const NavigateToSignUpButton({
-    super.key,
-    required this.state,
-  });
+  const NavigateToSignUpButton({super.key, required this.state});
 
   final AuthenticatorState state;
 
@@ -170,9 +162,7 @@ class NavigateToSignUpButton extends StatelessWidget {
       children: [
         const Text('Don\'t have an account?'),
         TextButton(
-          onPressed: () => state.changeStep(
-            AuthenticatorStep.signUp,
-          ),
+          onPressed: () => state.changeStep(AuthenticatorStep.signUp),
           child: const Text('Sign Up'),
         ),
       ],
@@ -181,10 +171,7 @@ class NavigateToSignUpButton extends StatelessWidget {
 }
 
 class NavigateToSignInButton extends StatelessWidget {
-  const NavigateToSignInButton({
-    super.key,
-    required this.state,
-  });
+  const NavigateToSignInButton({super.key, required this.state});
 
   final AuthenticatorState state;
 
@@ -195,9 +182,7 @@ class NavigateToSignInButton extends StatelessWidget {
       children: [
         const Text('Already have an account?'),
         TextButton(
-          onPressed: () => state.changeStep(
-            AuthenticatorStep.signIn,
-          ),
+          onPressed: () => state.changeStep(AuthenticatorStep.signIn),
           child: const Text('Sign In'),
         ),
       ],
@@ -206,72 +191,69 @@ class NavigateToSignInButton extends StatelessWidget {
 }
 
 class TermsAndConditionsCheckBox extends FormField<bool> {
-  TermsAndConditionsCheckBox({
-    super.key,
-    required this.onChanged,
-  }) : super(
-          validator: (value) {
-            if (value != true) {
-              return 'You must agree to the terms and conditions';
-            }
-            return null;
-          },
-          initialValue: false,
-          builder: (FormFieldState<bool> state) {
-            return CheckboxListTile(
-              dense: true,
-              title: Row(
-                children: [
-                  const Text('I agree to the'),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                    ),
-                    onPressed: () {
-                      Navigator.of(state.context).push(
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) =>
-                              const TermsAndConditionsView(),
-                        ),
-                      );
-                    },
-                    child: const Text('terms and conditions'),
+  TermsAndConditionsCheckBox({super.key, required this.onChanged})
+    : super(
+        validator: (value) {
+          if (value != true) {
+            return 'You must agree to the terms and conditions';
+          }
+          return null;
+        },
+        initialValue: false,
+        builder: (FormFieldState<bool> state) {
+          return CheckboxListTile(
+            dense: true,
+            title: Row(
+              children: [
+                const Text('I agree to the'),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
                   ),
-                ],
-              ),
-              value: state.value,
-              onChanged: (value) {
-                onChanged(value);
-                state.didChange(value);
-              },
-              subtitle: state.hasError
-                  ? Builder(
-                      builder: (BuildContext context) => Text(
-                        state.errorText!,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.error,
-                        ),
+                  onPressed: () {
+                    Navigator.of(state.context).push(
+                      MaterialPageRoute<void>(
+                        builder:
+                            (BuildContext context) =>
+                                const TermsAndConditionsView(),
                       ),
+                    );
+                  },
+                  child: const Text('terms and conditions'),
+                ),
+              ],
+            ),
+            value: state.value,
+            onChanged: (value) {
+              onChanged(value);
+              state.didChange(value);
+            },
+            subtitle:
+                state.hasError
+                    ? Builder(
+                      builder:
+                          (BuildContext context) => Text(
+                            state.errorText!,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                          ),
                     )
-                  : null,
-              controlAffinity: ListTileControlAffinity.leading,
-            );
-          },
-        );
+                    : null,
+            controlAffinity: ListTileControlAffinity.leading,
+          );
+        },
+      );
   final void Function(bool?) onChanged;
 }
 
 class TermsAndConditionsView extends StatelessWidget {
-  const TermsAndConditionsView({
-    super.key,
-  });
+  const TermsAndConditionsView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Terms and Conditions'),
-      ),
+      appBar: AppBar(title: const Text('Terms and Conditions')),
       body: const SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16),

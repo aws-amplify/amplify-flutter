@@ -16,9 +16,7 @@ class FederateToIdentityPoolOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_auth_cognito_dart.model.session.federate_to_identity_pool_options}
-  const FederateToIdentityPoolOptions({
-    this.developerProvidedIdentityId,
-  });
+  const FederateToIdentityPoolOptions({this.developerProvidedIdentityId});
 
   /// {@macro amplify_auth_cognito_dart.model.session.federate_to_identity_pool_options}
   factory FederateToIdentityPoolOptions.fromJson(Map<String, Object?> json) =>

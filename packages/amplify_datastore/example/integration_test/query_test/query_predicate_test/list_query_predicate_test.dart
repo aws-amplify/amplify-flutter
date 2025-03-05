@@ -36,28 +36,31 @@ void main() {
 
     testWidgets('contains()', (WidgetTester tester) async {
       // a list of unique values across all the lists
-      final values = listOfStringValues
-          .whereType<List<String>>()
-          .expand((el) => el)
-          .toSet()
-          .toList();
+      final values =
+          listOfStringValues
+              .whereType<List<String>>()
+              .expand((el) => el)
+              .toSet()
+              .toList();
 
       // test against each value
       for (var value in values) {
-        final exactMatchModels = models
-            .where((model) => model.listOfStringValue!.contains(value))
-            .toList();
+        final exactMatchModels =
+            models
+                .where((model) => model.listOfStringValue!.contains(value))
+                .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-          queryPredicate:
-              ModelWithAppsyncScalarTypes.LISTOFSTRINGVALUE.contains(value),
+          queryPredicate: ModelWithAppsyncScalarTypes.LISTOFSTRINGVALUE
+              .contains(value),
           expectedModels: exactMatchModels,
         );
       }
 
       // test against a non existing value
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.LISTOFSTRINGVALUE.contains('foobar'),
+        queryPredicate: ModelWithAppsyncScalarTypes.LISTOFSTRINGVALUE.contains(
+          'foobar',
+        ),
         expectedModels: [],
       );
     });

@@ -73,23 +73,18 @@ abstract class AmplifyException
   final Object? underlyingException;
 
   @override
-  List<Object?> get props => [
-        message,
-        recoverySuggestion,
-        underlyingException,
-      ];
+  List<Object?> get props => [message, recoverySuggestion, underlyingException];
 
   @override
   String get runtimeTypeName => 'AmplifyException';
 
   @override
   Map<String, Object?> toJson() => {
-        'message': message,
-        if (recoverySuggestion != null)
-          'recoverySuggestion': recoverySuggestion,
-        if (underlyingException != null)
-          'underlyingException': underlyingException.toString(),
-      };
+    'message': message,
+    if (recoverySuggestion != null) 'recoverySuggestion': recoverySuggestion,
+    if (underlyingException != null)
+      'underlyingException': underlyingException.toString(),
+  };
 }
 
 class _AmplifyException extends AmplifyException {

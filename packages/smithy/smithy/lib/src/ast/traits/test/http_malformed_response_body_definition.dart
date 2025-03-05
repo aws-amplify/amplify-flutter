@@ -18,19 +18,14 @@ class HttpMalformedResponseBodyDefinition
 
   factory HttpMalformedResponseBodyDefinition.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$HttpMalformedResponseBodyDefinitionFromJson(json);
+  ) => _$HttpMalformedResponseBodyDefinitionFromJson(json);
 
   final String? contents;
   final String mediaType;
   final String? messageRegex;
 
   @override
-  List<Object?> get props => [
-        contents,
-        mediaType,
-        messageRegex,
-      ];
+  List<Object?> get props => [contents, mediaType, messageRegex];
 
   @override
   Map<String, Object?> toJson() =>

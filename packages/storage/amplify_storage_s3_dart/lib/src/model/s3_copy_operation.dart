@@ -10,8 +10,5 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 class S3CopyOperation
     extends StorageCopyOperation<StorageCopyRequest<S3Item>, S3CopyResult> {
   /// {@macro storage.amplify_storage_s3.copy_operation}
-  S3CopyOperation({
-    required super.request,
-    required super.result,
-  });
+  S3CopyOperation({required super.request, required super.result});
 }

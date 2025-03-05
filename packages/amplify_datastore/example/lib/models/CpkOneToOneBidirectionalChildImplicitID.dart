@@ -36,21 +36,28 @@ class CpkOneToOneBidirectionalChildImplicitID extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
   CpkOneToOneBidirectionalChildImplicitIDModelIdentifier get modelIdentifier {
     try {
       return CpkOneToOneBidirectionalChildImplicitIDModelIdentifier(
-          id: id, name: _name!);
+        id: id,
+        name: _name!,
+      );
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -59,11 +66,15 @@ class CpkOneToOneBidirectionalChildImplicitID extends amplify_core.Model {
       return _name!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -79,21 +90,27 @@ class CpkOneToOneBidirectionalChildImplicitID extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const CpkOneToOneBidirectionalChildImplicitID._internal(
-      {required this.id, required name, belongsToParent, createdAt, updatedAt})
-      : _name = name,
-        _belongsToParent = belongsToParent,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const CpkOneToOneBidirectionalChildImplicitID._internal({
+    required this.id,
+    required name,
+    belongsToParent,
+    createdAt,
+    updatedAt,
+  }) : _name = name,
+       _belongsToParent = belongsToParent,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory CpkOneToOneBidirectionalChildImplicitID(
-      {String? id,
-      required String name,
-      CpkOneToOneBidirectionalParentID? belongsToParent}) {
+  factory CpkOneToOneBidirectionalChildImplicitID({
+    String? id,
+    required String name,
+    CpkOneToOneBidirectionalParentID? belongsToParent,
+  }) {
     return CpkOneToOneBidirectionalChildImplicitID._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        belongsToParent: belongsToParent);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      belongsToParent: belongsToParent,
+    );
   }
 
   bool equals(Object other) {
@@ -119,125 +136,158 @@ class CpkOneToOneBidirectionalChildImplicitID extends amplify_core.Model {
     buffer.write("CpkOneToOneBidirectionalChildImplicitID {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("belongsToParent=" +
-        (_belongsToParent != null ? _belongsToParent.toString() : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+      "belongsToParent=" +
+          (_belongsToParent != null ? _belongsToParent.toString() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  CpkOneToOneBidirectionalChildImplicitID copyWith(
-      {CpkOneToOneBidirectionalParentID? belongsToParent}) {
+  CpkOneToOneBidirectionalChildImplicitID copyWith({
+    CpkOneToOneBidirectionalParentID? belongsToParent,
+  }) {
     return CpkOneToOneBidirectionalChildImplicitID._internal(
-        id: id,
-        name: name,
-        belongsToParent: belongsToParent ?? this.belongsToParent);
+      id: id,
+      name: name,
+      belongsToParent: belongsToParent ?? this.belongsToParent,
+    );
   }
 
-  CpkOneToOneBidirectionalChildImplicitID copyWithModelFieldValues(
-      {ModelFieldValue<CpkOneToOneBidirectionalParentID?>? belongsToParent}) {
+  CpkOneToOneBidirectionalChildImplicitID copyWithModelFieldValues({
+    ModelFieldValue<CpkOneToOneBidirectionalParentID?>? belongsToParent,
+  }) {
     return CpkOneToOneBidirectionalChildImplicitID._internal(
-        id: id,
-        name: name,
-        belongsToParent: belongsToParent == null
-            ? this.belongsToParent
-            : belongsToParent.value);
+      id: id,
+      name: name,
+      belongsToParent:
+          belongsToParent == null
+              ? this.belongsToParent
+              : belongsToParent.value,
+    );
   }
 
   CpkOneToOneBidirectionalChildImplicitID.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _belongsToParent = json['belongsToParent'] != null
-            ? json['belongsToParent']['serializedData'] != null
-                ? CpkOneToOneBidirectionalParentID.fromJson(
+    : id = json['id'],
+      _name = json['name'],
+      _belongsToParent =
+          json['belongsToParent'] != null
+              ? json['belongsToParent']['serializedData'] != null
+                  ? CpkOneToOneBidirectionalParentID.fromJson(
                     new Map<String, dynamic>.from(
-                        json['belongsToParent']['serializedData']))
-                : CpkOneToOneBidirectionalParentID.fromJson(
-                    new Map<String, dynamic>.from(json['belongsToParent']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+                      json['belongsToParent']['serializedData'],
+                    ),
+                  )
+                  : CpkOneToOneBidirectionalParentID.fromJson(
+                    new Map<String, dynamic>.from(json['belongsToParent']),
+                  )
+              : null,
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'belongsToParent': _belongsToParent?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'belongsToParent': _belongsToParent?.toJson(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'belongsToParent': _belongsToParent,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'belongsToParent': _belongsToParent,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<
-          CpkOneToOneBidirectionalChildImplicitIDModelIdentifier>
-      MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
-          CpkOneToOneBidirectionalChildImplicitIDModelIdentifier>();
+    CpkOneToOneBidirectionalChildImplicitIDModelIdentifier
+  >
+  MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<
+        CpkOneToOneBidirectionalChildImplicitIDModelIdentifier
+      >();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final BELONGSTOPARENT = amplify_core.QueryField(
-      fieldName: "belongsToParent",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'CpkOneToOneBidirectionalParentID'));
+    fieldName: "belongsToParent",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'CpkOneToOneBidirectionalParentID',
+    ),
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CpkOneToOneBidirectionalChildImplicitID";
-    modelSchemaDefinition.pluralName =
-        "CpkOneToOneBidirectionalChildImplicitIDS";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "CpkOneToOneBidirectionalChildImplicitID";
+      modelSchemaDefinition.pluralName =
+          "CpkOneToOneBidirectionalChildImplicitIDS";
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id", "name"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(fields: const ["id", "name"], name: null),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkOneToOneBidirectionalChildImplicitID.NAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkOneToOneBidirectionalChildImplicitID.NAME,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: CpkOneToOneBidirectionalChildImplicitID.BELONGSTOPARENT,
-        isRequired: false,
-        targetNames: [
-          'cpkOneToOneBidirectionalChildImplicitIDBelongsToParentId',
-          'cpkOneToOneBidirectionalChildImplicitIDBelongsToParentName'
-        ],
-        ofModelName: 'CpkOneToOneBidirectionalParentID'));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.belongsTo(
+          key: CpkOneToOneBidirectionalChildImplicitID.BELONGSTOPARENT,
+          isRequired: false,
+          targetNames: [
+            'cpkOneToOneBidirectionalChildImplicitIDBelongsToParentId',
+            'cpkOneToOneBidirectionalChildImplicitIDBelongsToParentName',
+          ],
+          ofModelName: 'CpkOneToOneBidirectionalParentID',
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _CpkOneToOneBidirectionalChildImplicitIDModelType
@@ -246,7 +296,8 @@ class _CpkOneToOneBidirectionalChildImplicitIDModelType
 
   @override
   CpkOneToOneBidirectionalChildImplicitID fromJson(
-      Map<String, dynamic> jsonData) {
+    Map<String, dynamic> jsonData,
+  ) {
     return CpkOneToOneBidirectionalChildImplicitID.fromJson(jsonData);
   }
 
@@ -270,18 +321,22 @@ class CpkOneToOneBidirectionalChildImplicitIDModelIdentifier
    * Create an instance of CpkOneToOneBidirectionalChildImplicitIDModelIdentifier using [id] the primary key.
    * And [name] the sort key.
    */
-  const CpkOneToOneBidirectionalChildImplicitIDModelIdentifier(
-      {required this.id, required this.name});
+  const CpkOneToOneBidirectionalChildImplicitIDModelIdentifier({
+    required this.id,
+    required this.name,
+  });
 
   @override
-  Map<String, dynamic> serializeAsMap() =>
-      (<String, dynamic>{'id': id, 'name': name});
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id,
+    'name': name,
+  });
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

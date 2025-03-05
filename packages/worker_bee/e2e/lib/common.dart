@@ -13,12 +13,7 @@ import 'package:worker_bee/worker_bee.dart';
 final _logger = AWSLogger();
 
 void _logMessage(AWSLogger logger, LogEntry entry) {
-  logger.log(
-    entry.level,
-    entry.message,
-    entry.error,
-    entry.stackTrace,
-  );
+  logger.log(entry.level, entry.message, entry.error, entry.stackTrace);
 }
 
 E2EMessage createMessage() => message;

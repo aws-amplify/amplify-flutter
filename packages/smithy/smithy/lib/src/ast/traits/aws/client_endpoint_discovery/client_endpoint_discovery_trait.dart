@@ -12,18 +12,17 @@ part 'client_endpoint_discovery_trait.g.dart';
 class ClientEndpointDiscoveryTrait
     with AWSSerializable
     implements Trait<ClientEndpointDiscoveryTrait> {
-  const ClientEndpointDiscoveryTrait({
-    required this.operation,
-    this.error,
-  });
+  const ClientEndpointDiscoveryTrait({required this.operation, this.error});
 
   factory ClientEndpointDiscoveryTrait.fromJson(Object? json) =>
       _$ClientEndpointDiscoveryTraitFromJson(
         (json as Map).cast<String, Object?>(),
       );
 
-  static const id =
-      ShapeId(namespace: 'aws.api', shape: 'clientEndpointDiscovery');
+  static const id = ShapeId(
+    namespace: 'aws.api',
+    shape: 'clientEndpointDiscovery',
+  );
 
   final ShapeId operation;
   final ShapeId? error;

@@ -10,16 +10,16 @@ class _$NestedStructWithList extends NestedStructWithList {
   @override
   final _i2.BuiltList<String>? listArg;
 
-  factory _$NestedStructWithList(
-          [void Function(NestedStructWithListBuilder)? updates]) =>
-      (new NestedStructWithListBuilder()..update(updates))._build();
+  factory _$NestedStructWithList([
+    void Function(NestedStructWithListBuilder)? updates,
+  ]) => (new NestedStructWithListBuilder()..update(updates))._build();
 
   _$NestedStructWithList._({this.listArg}) : super._();
 
   @override
   NestedStructWithList rebuild(
-          void Function(NestedStructWithListBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NestedStructWithListBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NestedStructWithListBuilder toBuilder() =>
@@ -86,7 +86,10 @@ class NestedStructWithListBuilder
         _listArg?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'NestedStructWithList', _$failedField, e.toString());
+          r'NestedStructWithList',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

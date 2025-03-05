@@ -18,37 +18,32 @@ void main() {
       await waitForObserve();
     });
 
-    testWidgets('should emit an event for each item saved',
-        (WidgetTester tester) async {
-      var itemStream = Amplify.DataStore.observe(Blog.classType)
-          .map((event) => event.item.name);
+    testWidgets('should emit an event for each item saved', (
+      WidgetTester tester,
+    ) async {
+      var itemStream = Amplify.DataStore.observe(
+        Blog.classType,
+      ).map((event) => event.item.name);
 
-      expectLater(
-        itemStream,
-        emitsInOrder(['blog 1', 'blog 2', 'blog 3']),
-      );
+      expectLater(itemStream, emitsInOrder(['blog 1', 'blog 2', 'blog 3']));
 
       await Amplify.DataStore.save(Blog(name: 'blog 1'));
       await Amplify.DataStore.save(Blog(name: 'blog 2'));
       await Amplify.DataStore.save(Blog(name: 'blog 3'));
     });
 
-    testWidgets('should broadcast events for create, update, and delete',
-        (WidgetTester tester) async {
+    testWidgets('should broadcast events for create, update, and delete', (
+      WidgetTester tester,
+    ) async {
       Blog blog = Blog(name: 'blog');
       Blog updatedBlog = blog.copyWith(name: 'updated blog');
 
-      var eventTypeStream = Amplify.DataStore.observe(Blog.classType)
-          .map((event) => event.eventType);
+      var eventTypeStream = Amplify.DataStore.observe(
+        Blog.classType,
+      ).map((event) => event.eventType);
       expectLater(
         eventTypeStream,
-        emitsInOrder(
-          [
-            EventType.create,
-            EventType.update,
-            EventType.delete,
-          ],
-        ),
+        emitsInOrder([EventType.create, EventType.update, EventType.delete]),
       );
       await Amplify.DataStore.save(blog);
       await Amplify.DataStore.save(updatedBlog);
@@ -56,22 +51,38 @@ void main() {
     });
 
     testWidgets(
-        'should broadcast events with the model that is created, update, or deleted',
-        (WidgetTester tester) async {
+      'should broadcast events with the model that is created, update, or deleted',
+      (WidgetTester tester) async {
+        Blog blog = Blog(name: 'blog');
+        Blog updatedBlog = blog.copyWith(name: 'updated blog');
+
+        var eventItemStream = Amplify.DataStore.observe(
+          Blog.classType,
+        ).map((event) => event.item);
+        expectLater(
+          eventItemStream,
+          emitsInOrder([blog, updatedBlog, updatedBlog]),
+        );
+
+        await Amplify.DataStore.save(blog);
+        await Amplify.DataStore.save(updatedBlog);
+        await Amplify.DataStore.delete(updatedBlog);
+      },
+    );
+
+    testWidgets('observe with query predicates returns all matches', (
+      WidgetTester tester,
+    ) async {
       Blog blog = Blog(name: 'blog');
       Blog updatedBlog = blog.copyWith(name: 'updated blog');
 
-      var eventItemStream =
-          Amplify.DataStore.observe(Blog.classType).map((event) => event.item);
+      var eventItemStream = Amplify.DataStore.observe(
+        Blog.classType,
+        where: Blog.NAME.ne("not a blog name"),
+      ).map((event) => event.item);
       expectLater(
         eventItemStream,
-        emitsInOrder(
-          [
-            blog,
-            updatedBlog,
-            updatedBlog,
-          ],
-        ),
+        emitsInOrder([blog, updatedBlog, updatedBlog]),
       );
 
       await Amplify.DataStore.save(blog);
@@ -79,45 +90,18 @@ void main() {
       await Amplify.DataStore.delete(updatedBlog);
     });
 
-    testWidgets('observe with query predicates returns all matches',
-        (WidgetTester tester) async {
-      Blog blog = Blog(name: 'blog');
-      Blog updatedBlog = blog.copyWith(name: 'updated blog');
-
-      var eventItemStream = Amplify.DataStore.observe(Blog.classType,
-              where: Blog.NAME.ne("not a blog name"))
-          .map((event) => event.item);
-      expectLater(
-        eventItemStream,
-        emitsInOrder(
-          [
-            blog,
-            updatedBlog,
-            updatedBlog,
-          ],
-        ),
-      );
-
-      await Amplify.DataStore.save(blog);
-      await Amplify.DataStore.save(updatedBlog);
-      await Amplify.DataStore.delete(updatedBlog);
-    });
-
-    testWidgets('observe with query predicates filters out non matches',
-        (WidgetTester tester) async {
+    testWidgets('observe with query predicates filters out non matches', (
+      WidgetTester tester,
+    ) async {
       Blog blog = Blog(name: 'matching blog');
       Blog updatedBlog = blog.copyWith(name: 'updated blog');
       Blog otherBlog = Blog(name: 'matching blog 2');
 
-      var eventItemStream = Amplify.DataStore.observe(Blog.classType,
-              where: Blog.NAME.contains("matching"))
-          .map((event) => event.item);
-      expectLater(
-        eventItemStream,
-        emitsInOrder(
-          [blog, otherBlog],
-        ),
-      );
+      var eventItemStream = Amplify.DataStore.observe(
+        Blog.classType,
+        where: Blog.NAME.contains("matching"),
+      ).map((event) => event.item);
+      expectLater(eventItemStream, emitsInOrder([blog, otherBlog]));
 
       await Amplify.DataStore.save(blog);
       await Amplify.DataStore.save(updatedBlog);
@@ -126,34 +110,26 @@ void main() {
     });
 
     testWidgets(
-        'observe with attribute exists query predicate filters out non matches',
-        (WidgetTester tester) async {
-      HasOneChild hasAttribute = HasOneChild(name: 'name - ${uuid()}');
-      HasOneChild hasNoAttribute = HasOneChild();
+      'observe with attribute exists query predicate filters out non matches',
+      (WidgetTester tester) async {
+        HasOneChild hasAttribute = HasOneChild(name: 'name - ${uuid()}');
+        HasOneChild hasNoAttribute = HasOneChild();
 
-      var hasAttributeStream = Amplify.DataStore.observe(HasOneChild.classType,
-              where: Blog.NAME.attributeExists())
-          .map((event) => event.item);
-      expectLater(
-        hasAttributeStream,
-        emitsInOrder(
-          [hasAttribute],
-        ),
-      );
+        var hasAttributeStream = Amplify.DataStore.observe(
+          HasOneChild.classType,
+          where: Blog.NAME.attributeExists(),
+        ).map((event) => event.item);
+        expectLater(hasAttributeStream, emitsInOrder([hasAttribute]));
 
-      var hasNoAttributeStream = Amplify.DataStore.observe(
-              HasOneChild.classType,
-              where: Blog.NAME.attributeExists(exists: false))
-          .map((event) => event.item);
-      expectLater(
-        hasNoAttributeStream,
-        emitsInOrder(
-          [hasNoAttribute],
-        ),
-      );
+        var hasNoAttributeStream = Amplify.DataStore.observe(
+          HasOneChild.classType,
+          where: Blog.NAME.attributeExists(exists: false),
+        ).map((event) => event.item);
+        expectLater(hasNoAttributeStream, emitsInOrder([hasNoAttribute]));
 
-      await Amplify.DataStore.save(hasAttribute);
-      await Amplify.DataStore.save(hasNoAttribute);
-    });
+        await Amplify.DataStore.save(hasAttribute);
+        await Amplify.DataStore.save(hasNoAttribute);
+      },
+    );
   });
 }

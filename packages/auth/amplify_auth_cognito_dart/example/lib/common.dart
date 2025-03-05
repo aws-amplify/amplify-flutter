@@ -37,15 +37,10 @@ Future<SignInResult> signIn({
   required String username,
   required String password,
 }) async {
-  return Amplify.Auth.signIn(
-    username: username,
-    password: password,
-  );
+  return Amplify.Auth.signIn(username: username, password: password);
 }
 
-Future<SignInResult> hostedSignIn({
-  AuthProvider? provider,
-}) async {
+Future<SignInResult> hostedSignIn({AuthProvider? provider}) async {
   return Amplify.Auth.signInWithWebUI(provider: provider);
 }
 
@@ -67,9 +62,7 @@ Future<SignInResult> confirmSignIn(
   );
 }
 
-Future<ResetPasswordResult> resetPassword({
-  required String username,
-}) {
+Future<ResetPasswordResult> resetPassword({required String username}) {
   return Amplify.Auth.resetPassword(username: username);
 }
 
@@ -133,7 +126,7 @@ Future<UpdateUserAttributeResult> updateUserAttribute({
 }
 
 Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
-    updateUserAttributes({
+updateUserAttributes({
   required List<AuthUserAttribute> attributes,
   UpdateUserAttributesOptions? options,
 }) async {
@@ -154,7 +147,7 @@ Future<ConfirmUserAttributeResult> confirmUserAttribute({
 }
 
 Future<SendUserAttributeVerificationCodeResult>
-    sendUserAttributeVerificationCode({
+sendUserAttributeVerificationCode({
   required AuthUserAttributeKey key,
   SendUserAttributeVerificationCodeOptions? options,
 }) async {
@@ -166,9 +159,7 @@ Future<SendUserAttributeVerificationCodeResult>
 
 Future<CognitoSignOutResult> signOut({required bool globalSignOut}) async {
   final plugin = Amplify.Auth.getPlugin(AmplifyAuthCognitoDart.pluginKey);
-  return plugin.signOut(
-    options: SignOutOptions(globalSignOut: globalSignOut),
-  );
+  return plugin.signOut(options: SignOutOptions(globalSignOut: globalSignOut));
 }
 
 Future<void> deleteUser() async {

@@ -8,26 +8,14 @@ part of 'server.dart';
 
 Router _$PubServerRouter(PubServer service) {
   final router = Router();
-  router.add(
-    'GET',
-    r'/api/packages/<name>',
-    service.getVersions,
-  );
+  router.add('GET', r'/api/packages/<name>', service.getVersions);
   router.add(
     'GET',
     r'/api/packages/<name>/versions/<version>',
     service.getVersion,
   );
-  router.add(
-    'GET',
-    r'/api/packages/versions/new',
-    service.newVersion,
-  );
-  router.add(
-    'POST',
-    r'/api/packages/versions/newUpload',
-    service.upload,
-  );
+  router.add('GET', r'/api/packages/versions/new', service.newVersion);
+  router.add('POST', r'/api/packages/versions/newUpload', service.upload);
   router.add(
     'GET',
     r'/api/packages/versions/newUploadFinish',

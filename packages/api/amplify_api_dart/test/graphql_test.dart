@@ -57,8 +57,9 @@ final mockHttpClient = MockAWSHttpClient((request, _) async {
   if (body.contains('createModelWithCustomType')) {
     return AWSHttpResponse(
       statusCode: 200,
-      body: utf8
-          .encode(json.encode(expectedModelWithCustomTypeSuccessResponseBody)),
+      body: utf8.encode(
+        json.encode(expectedModelWithCustomTypeSuccessResponseBody),
+      ),
     );
   }
 
@@ -73,9 +74,7 @@ MockWebSocketService? mockWebSocketService;
 WebSocketBloc? mockWebSocketBloc;
 
 class MockAmplifyAPI extends AmplifyAPIDart {
-  MockAmplifyAPI({
-    super.options,
-  });
+  MockAmplifyAPI({super.options});
 
   @override
   WebSocketBloc createWebSocketBloc(EndpointConfig endpoint) {
@@ -193,8 +192,9 @@ void main() {
       final operation = Amplify.API.mutate(request: req);
       final res = await operation.response;
 
-      final expected =
-          json.encode(expectedModelWithCustomTypeSuccessResponseBody['data']);
+      final expected = json.encode(
+        expectedModelWithCustomTypeSuccessResponseBody['data'],
+      );
 
       expect(res.data, equals(expected));
       expect(res.errors, isEmpty);
@@ -225,37 +225,41 @@ void main() {
     });
 
     test(
-        'Mutation.create returns proper response.data for Models with custom types',
-        () async {
-      const expectedDoc = modelWithCustomTypeDocument;
-      const decodePath = 'createModelWithCustomType';
-      final req = ModelMutations.create<ModelWithCustomType>(
-        modelWithCustomType,
-      );
+      'Mutation.create returns proper response.data for Models with custom types',
+      () async {
+        const expectedDoc = modelWithCustomTypeDocument;
+        const decodePath = 'createModelWithCustomType';
+        final req = ModelMutations.create<ModelWithCustomType>(
+          modelWithCustomType,
+        );
 
-      final operation = Amplify.API.query(request: req);
-      final res = await operation.response;
+        final operation = Amplify.API.query(request: req);
+        final res = await operation.response;
 
-      // request asserts
-      expect(req.document, expectedDoc);
-      expect(_deepEquals(req.variables, modelWithCustomTypeVariables), isTrue);
-      expect(req.modelType, ModelWithCustomType.classType);
-      expect(req.decodePath, decodePath);
-      // response asserts
-      expect(res.data, isA<ModelWithCustomType>());
-      expect(res.data?.id, modelCustomTypeId);
+        // request asserts
+        expect(req.document, expectedDoc);
+        expect(
+          _deepEquals(req.variables, modelWithCustomTypeVariables),
+          isTrue,
+        );
+        expect(req.modelType, ModelWithCustomType.classType);
+        expect(req.decodePath, decodePath);
+        // response asserts
+        expect(res.data, isA<ModelWithCustomType>());
+        expect(res.data?.id, modelCustomTypeId);
 
-      final data = res.data!;
-      expect(
-        data.customTypeValue,
-        equals(modelWithCustomType.customTypeValue),
-      );
-      expect(
-        data.listOfCustomTypeValue,
-        equals(modelWithCustomType.listOfCustomTypeValue),
-      );
-      expect(res.errors, isEmpty);
-    });
+        final data = res.data!;
+        expect(
+          data.customTypeValue,
+          equals(modelWithCustomType.customTypeValue),
+        );
+        expect(
+          data.listOfCustomTypeValue,
+          equals(modelWithCustomType.listOfCustomTypeValue),
+        );
+        expect(res.errors, isEmpty);
+      },
+    );
   });
 
   const graphQLDocument = '''subscription MySubscription {
@@ -302,17 +306,16 @@ void main() {
     test('subscribe() should decode model data', () async {
       final dataCompleter = Completer<Post>();
 
-      sendMockStartAck(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        [modelSubscriptionRequest.id],
-      );
+      sendMockStartAck(mockWebSocketBloc!, mockWebSocketService!, [
+        modelSubscriptionRequest.id,
+      ]);
 
       final subscription = Amplify.API.subscribe(
         modelSubscriptionRequest,
         onEstablished: expectAsync0(() {
-          mockWebSocketService!.channel.sink
-              .add(json.encode(mockSubscriptionEvent));
+          mockWebSocketService!.channel.sink.add(
+            json.encode(mockSubscriptionEvent),
+          );
         }),
       );
 
@@ -332,20 +335,17 @@ void main() {
     test('subscribe() should return a subscription stream', () async {
       final dataCompleter = Completer<Post>();
 
-      sendMockStartAck(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        [modelSubscriptionRequest.id],
-      );
+      sendMockStartAck(mockWebSocketBloc!, mockWebSocketService!, [
+        modelSubscriptionRequest.id,
+      ]);
 
       final subscription = Amplify.API.subscribe(
         modelSubscriptionRequest,
-        onEstablished: expectAsync0(
-          () {
-            mockWebSocketService!.channel.sink
-                .add(json.encode(mockSubscriptionEvent));
-          },
-        ),
+        onEstablished: expectAsync0(() {
+          mockWebSocketService!.channel.sink.add(
+            json.encode(mockSubscriptionEvent),
+          );
+        }),
       );
 
       final streamSub = subscription.listen(
@@ -370,8 +370,9 @@ void main() {
               createdAt
             }
           }''';
-      final subscriptionRequest2 =
-          GraphQLRequest<String>(document: onCreatePostDoc);
+      final subscriptionRequest2 = GraphQLRequest<String>(
+        document: onCreatePostDoc,
+      );
 
       final mockSubscriptionEvent2 = {
         'id': subscriptionRequest2.id,
@@ -379,31 +380,27 @@ void main() {
         'payload': {'data': mockSubscriptionData},
       };
 
-      sendMockStartAck(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        [modelSubscriptionRequest.id, subscriptionRequest2.id],
-      );
+      sendMockStartAck(mockWebSocketBloc!, mockWebSocketService!, [
+        modelSubscriptionRequest.id,
+        subscriptionRequest2.id,
+      ]);
 
       final subscription = Amplify.API.subscribe(
         modelSubscriptionRequest,
-        onEstablished: expectAsync0(
-          () {
-            mockWebSocketService!.channel.sink
-                .add(json.encode(mockSubscriptionEvent));
-          },
-        ),
+        onEstablished: expectAsync0(() {
+          mockWebSocketService!.channel.sink.add(
+            json.encode(mockSubscriptionEvent),
+          );
+        }),
       );
 
       final subscription2 = Amplify.API.subscribe(
         subscriptionRequest2,
-        onEstablished: expectAsync0(
-          () {
-            mockWebSocketService!.channel.sink.add(
-              json.encode(mockSubscriptionEvent2),
-            );
-          },
-        ),
+        onEstablished: expectAsync0(() {
+          mockWebSocketService!.channel.sink.add(
+            json.encode(mockSubscriptionEvent2),
+          );
+        }),
       );
 
       final streamSub = subscription.listen(
@@ -432,31 +429,26 @@ void main() {
 
       expect(
         hubEvents,
-        emitsInOrder(
-          [
-            disconnectedHubEvent,
-            connectingHubEvent,
-            connectedHubEvent,
-            pendingDisconnectedHubEvent,
-            disconnectedHubEvent,
-          ],
-        ),
+        emitsInOrder([
+          disconnectedHubEvent,
+          connectingHubEvent,
+          connectedHubEvent,
+          pendingDisconnectedHubEvent,
+          disconnectedHubEvent,
+        ]),
       );
 
-      sendMockStartAck(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        [modelSubscriptionRequest.id],
-      );
+      sendMockStartAck(mockWebSocketBloc!, mockWebSocketService!, [
+        modelSubscriptionRequest.id,
+      ]);
 
       final subscription = Amplify.API.subscribe(
         modelSubscriptionRequest,
-        onEstablished: expectAsync0(
-          () {
-            mockWebSocketService!.channel.sink
-                .add(json.encode(mockSubscriptionEvent));
-          },
-        ),
+        onEstablished: expectAsync0(() {
+          mockWebSocketService!.channel.sink.add(
+            json.encode(mockSubscriptionEvent),
+          );
+        }),
       );
 
       final streamSub = subscription.listen(
@@ -471,59 +463,57 @@ void main() {
     });
 
     test(
-        'should reconnect after 12 seconds when appsync ping fails multiple times',
-        () async {
-      final blocReady = Completer<void>();
+      'should reconnect after 12 seconds when appsync ping fails multiple times',
+      () async {
+        final blocReady = Completer<void>();
 
-      expect(
-        hubEvents,
-        emitsInOrder(
-          [
+        expect(
+          hubEvents,
+          emitsInOrder([
             disconnectedHubEvent,
             connectingHubEvent,
             connectedHubEvent,
             connectingHubEvent,
             connectingHubEvent,
             connectedHubEvent,
-          ],
-        ),
-      );
+          ]),
+        );
 
-      sendMockStartAck(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        [modelSubscriptionRequest.id],
-      );
+        sendMockStartAck(mockWebSocketBloc!, mockWebSocketService!, [
+          modelSubscriptionRequest.id,
+        ]);
 
-      Amplify.API
-          .subscribe(
-        modelSubscriptionRequest,
-        onEstablished: blocReady.complete,
-      )
-          .listen(
-        expectAsync1((event) {
-          expect(event.data, isATestPost);
-        }),
-      );
+        Amplify.API
+            .subscribe(
+              modelSubscriptionRequest,
+              onEstablished: blocReady.complete,
+            )
+            .listen(
+              expectAsync1((event) {
+                expect(event.data, isATestPost);
+              }),
+            );
 
-      await blocReady.future;
+        await blocReady.future;
 
-      mockClient.induceTimeout = true;
+        mockClient.induceTimeout = true;
 
-      // Five retry attempts take by default 12400ms seconds,
-      // Wait 12 seconds to ensure retry/back off can recover on the 5th try
-      await Future<void>.delayed(const Duration(seconds: 12));
+        // Five retry attempts take by default 12400ms seconds,
+        // Wait 12 seconds to ensure retry/back off can recover on the 5th try
+        await Future<void>.delayed(const Duration(seconds: 12));
 
-      mockClient.induceTimeout = false;
+        mockClient.induceTimeout = false;
 
-      await expectLater(
-        mockWebSocketBloc!.stream,
-        emitsThrough(isA<ConnectedState>()),
-      );
+        await expectLater(
+          mockWebSocketBloc!.stream,
+          emitsThrough(isA<ConnectedState>()),
+        );
 
-      mockWebSocketService!.channel.sink
-          .add(json.encode(mockSubscriptionEvent));
-    });
+        mockWebSocketService!.channel.sink.add(
+          json.encode(mockSubscriptionEvent),
+        );
+      },
+    );
   });
 
   group('Error Handling', () {
@@ -572,9 +562,7 @@ void main() {
       final operation = Amplify.API.query(request: req);
       final res = await operation.response;
 
-      const errorExpected = GraphQLResponseError(
-        message: authErrorMessage,
-      );
+      const errorExpected = GraphQLResponseError(message: authErrorMessage);
 
       expect(res.data, equals(null));
       expect(res.errors.single, equals(errorExpected));
@@ -584,8 +572,9 @@ void main() {
       final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.query(request: req);
       await operation.cancel();
-      operation.operation
-          .then((p0) => fail('Request should have been cancelled.'));
+      operation.operation.then(
+        (p0) => fail('Request should have been cancelled.'),
+      );
       await operation.operation.valueOrCancellation();
       expect(operation.operation.isCanceled, isTrue);
     });
@@ -594,8 +583,9 @@ void main() {
       final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.mutate(request: req);
       await operation.cancel();
-      operation.operation
-          .then((p0) => fail('Request should have been cancelled.'));
+      operation.operation.then(
+        (p0) => fail('Request should have been cancelled.'),
+      );
       await operation.operation.valueOrCancellation();
       expect(operation.operation.isCanceled, isTrue);
     });
@@ -623,41 +613,29 @@ void main() {
 
       expect(
         hubEvents,
-        emitsInOrder(
-          [
-            disconnectedHubEvent,
-            connectingHubEvent,
-            connectedHubEvent,
-            connectingHubEvent,
-            failedHubEvent,
-            pendingDisconnectedHubEvent,
-            disconnectedHubEvent,
-          ],
-        ),
+        emitsInOrder([
+          disconnectedHubEvent,
+          connectingHubEvent,
+          connectedHubEvent,
+          connectingHubEvent,
+          failedHubEvent,
+          pendingDisconnectedHubEvent,
+          disconnectedHubEvent,
+        ]),
       );
 
-      final subscriptionRequest =
-          GraphQLRequest<String>(document: graphQLDocument);
+      final subscriptionRequest = GraphQLRequest<String>(
+        document: graphQLDocument,
+      );
 
-      sendMockConnectionAck(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-      );
-      sendMockStartAck(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        [subscriptionRequest.id],
-      );
+      sendMockConnectionAck(mockWebSocketBloc!, mockWebSocketService!);
+      sendMockStartAck(mockWebSocketBloc!, mockWebSocketService!, [
+        subscriptionRequest.id,
+      ]);
 
       Amplify.API
-          .subscribe(
-            subscriptionRequest,
-            onEstablished: blocReady.complete,
-          )
-          .listen(
-            null,
-            onError: (Object e) => safePrint('$e'),
-          );
+          .subscribe(subscriptionRequest, onEstablished: blocReady.complete)
+          .listen(null, onError: (Object e) => safePrint('$e'));
 
       await blocReady.future;
 
@@ -670,15 +648,13 @@ void main() {
 
       expect(
         mockWebSocketBloc!.stream,
-        emitsInOrder(
-          [
-            isA<ReconnectingState>(),
-            isA<FailureState>(),
-            isA<PendingDisconnect>(),
-            isA<DisconnectedState>(),
-            emitsDone,
-          ],
-        ),
+        emitsInOrder([
+          isA<ReconnectingState>(),
+          isA<FailureState>(),
+          isA<PendingDisconnect>(),
+          isA<DisconnectedState>(),
+          emitsDone,
+        ]),
       );
     });
   });
@@ -711,30 +687,20 @@ void main() {
       {
         'content': 'Example Comment - 6fc3b904-b977-4256-96a9-43221d01d046',
         'id': 'cac2e916-3fc9-4842-8ba6-ce58e59f163c',
-      }
+      },
     ]);
     final appsyncResponse = Map<String, dynamic>.from({
       ...mockPostJson,
-      'comments': {
-        'items': mockCommentsJson,
-      },
+      'comments': {'items': mockCommentsJson},
       'blog': mockBlogJson,
     });
     final appsyncSerializedResponse = Map<String, dynamic>.from({
       ...mockPostJson,
       'comments': [
-        {
-          'serializedData': mockCommentsJson[0],
-        },
-        {
-          'serializedData': mockCommentsJson[1],
-        },
-        {
-          'serializedData': mockCommentsJson[2],
-        },
-        {
-          'serializedData': mockCommentsJson[3],
-        },
+        {'serializedData': mockCommentsJson[0]},
+        {'serializedData': mockCommentsJson[1]},
+        {'serializedData': mockCommentsJson[2]},
+        {'serializedData': mockCommentsJson[3]},
       ],
       'blog': {'serializedData': mockBlogJson},
     });
@@ -753,77 +719,35 @@ void main() {
     test('should work with nested models V2', () async {
       final post = Post.fromJson(appsyncResponse);
 
-      expect(
-        post.id,
-        mockPostJson['id'],
-      );
-      expect(
-        post.blog?.name,
-        mockBlogJson['name'],
-      );
-      expect(
-        post.comments?.length,
-        mockCommentsJson.length,
-      );
-      expect(
-        post.comments?[0].content,
-        mockCommentsJson[0]['content'],
-      );
+      expect(post.id, mockPostJson['id']);
+      expect(post.blog?.name, mockBlogJson['name']);
+      expect(post.comments?.length, mockCommentsJson.length);
+      expect(post.comments?[0].content, mockCommentsJson[0]['content']);
     });
 
     test('should work with nested models V1', () async {
       final post = Post.fromJson(appsyncSerializedResponse);
 
-      expect(
-        post.id,
-        mockPostJson['id'],
-      );
-      expect(
-        post.blog?.name,
-        mockBlogJson['name'],
-      );
-      expect(
-        post.comments?.length,
-        mockCommentsJson.length,
-      );
-      expect(
-        post.comments?[0].content,
-        mockCommentsJson[0]['content'],
-      );
+      expect(post.id, mockPostJson['id']);
+      expect(post.blog?.name, mockBlogJson['name']);
+      expect(post.comments?.length, mockCommentsJson.length);
+      expect(post.comments?[0].content, mockCommentsJson[0]['content']);
     });
 
     test('should work with null nested models', () async {
       final post = Post.fromJson(nullResponse);
 
-      expect(
-        post.id,
-        mockPostJson['id'],
-      );
-      expect(
-        post.blog,
-        isNull,
-      );
-      expect(
-        post.comments,
-        isNull,
-      );
+      expect(post.id, mockPostJson['id']);
+      expect(post.blog, isNull);
+      expect(post.comments, isNull);
     });
 
     test('should gracefully handle wrong types', () async {
       final post = Post.fromJson(malformedResponse);
 
-      expect(
-        post.id,
-        mockPostJson['id'],
-      );
-      expect(
-        post.blog,
-        isNull,
-      );
-      expect(
-        post.comments,
-        isNull,
-      );
+      expect(post.id, mockPostJson['id']);
+      expect(post.blog, isNull);
+      expect(post.comments, isNull);
     });
   });
 }

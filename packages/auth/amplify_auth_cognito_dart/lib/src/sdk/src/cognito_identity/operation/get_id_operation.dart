@@ -25,8 +25,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 /// Generates (or retrieves) a Cognito ID. Supplying multiple logins will create an implicit linked account.
 ///
 /// This is a public API. You do not need any credentials to call this API.
-class GetIdOperation extends _i1
-    .HttpOperation<GetIdInput, GetIdInput, GetIdResponse, GetIdResponse> {
+class GetIdOperation
+    extends
+        _i1.HttpOperation<
+          GetIdInput,
+          GetIdInput,
+          GetIdResponse,
+          GetIdResponse
+        > {
   /// Generates (or retrieves) a Cognito ID. Supplying multiple logins will create an implicit linked account.
   ///
   /// This is a public API. You do not need any credentials to call this API.
@@ -37,21 +43,22 @@ class GetIdOperation extends _i1
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-          _i1
-          .HttpProtocol<GetIdInput, GetIdInput, GetIdResponse, GetIdResponse>>
-      protocols = [
+    _i1.HttpProtocol<GetIdInput, GetIdInput, GetIdResponse, GetIdResponse>
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithHeader(
@@ -71,7 +78,7 @@ class GetIdOperation extends _i1
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -91,9 +98,9 @@ class GetIdOperation extends _i1
 
   @override
   _i1.HttpRequest buildRequest(GetIdInput input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/';
-      });
+    b.method = 'POST';
+    b.path = r'/';
+  });
 
   @override
   int successCode([GetIdResponse? output]) => 200;
@@ -102,94 +109,90 @@ class GetIdOperation extends _i1
   GetIdResponse buildOutput(
     GetIdResponse payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      GetIdResponse.fromResponse(
-        payload,
-        response,
-      );
+  ) => GetIdResponse.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<ExternalServiceException, ExternalServiceException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentity',
-            shape: 'ExternalServiceException',
-          ),
-          _i1.ErrorKind.client,
-          ExternalServiceException,
-          statusCode: 400,
-          builder: ExternalServiceException.fromResponse,
-        ),
-        _i1.SmithyError<InternalErrorException, InternalErrorException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentity',
-            shape: 'InternalErrorException',
-          ),
-          _i1.ErrorKind.server,
-          InternalErrorException,
-          builder: InternalErrorException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentity',
-            shape: 'InvalidParameterException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidParameterException,
-          statusCode: 400,
-          builder: InvalidParameterException.fromResponse,
-        ),
-        _i1.SmithyError<LimitExceededException, LimitExceededException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentity',
-            shape: 'LimitExceededException',
-          ),
-          _i1.ErrorKind.client,
-          LimitExceededException,
-          statusCode: 400,
-          builder: LimitExceededException.fromResponse,
-        ),
-        _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentity',
-            shape: 'NotAuthorizedException',
-          ),
-          _i1.ErrorKind.client,
-          NotAuthorizedException,
-          statusCode: 403,
-          builder: NotAuthorizedException.fromResponse,
-        ),
-        _i1.SmithyError<ResourceConflictException, ResourceConflictException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentity',
-            shape: 'ResourceConflictException',
-          ),
-          _i1.ErrorKind.client,
-          ResourceConflictException,
-          statusCode: 409,
-          builder: ResourceConflictException.fromResponse,
-        ),
-        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentity',
-            shape: 'ResourceNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          ResourceNotFoundException,
-          statusCode: 404,
-          builder: ResourceNotFoundException.fromResponse,
-        ),
-        _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentity',
-            shape: 'TooManyRequestsException',
-          ),
-          _i1.ErrorKind.client,
-          TooManyRequestsException,
-          statusCode: 429,
-          builder: TooManyRequestsException.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<ExternalServiceException, ExternalServiceException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'ExternalServiceException',
+      ),
+      _i1.ErrorKind.client,
+      ExternalServiceException,
+      statusCode: 400,
+      builder: ExternalServiceException.fromResponse,
+    ),
+    _i1.SmithyError<InternalErrorException, InternalErrorException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'InternalErrorException',
+      ),
+      _i1.ErrorKind.server,
+      InternalErrorException,
+      builder: InternalErrorException.fromResponse,
+    ),
+    _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'InvalidParameterException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidParameterException,
+      statusCode: 400,
+      builder: InvalidParameterException.fromResponse,
+    ),
+    _i1.SmithyError<LimitExceededException, LimitExceededException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'LimitExceededException',
+      ),
+      _i1.ErrorKind.client,
+      LimitExceededException,
+      statusCode: 400,
+      builder: LimitExceededException.fromResponse,
+    ),
+    _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'NotAuthorizedException',
+      ),
+      _i1.ErrorKind.client,
+      NotAuthorizedException,
+      statusCode: 403,
+      builder: NotAuthorizedException.fromResponse,
+    ),
+    _i1.SmithyError<ResourceConflictException, ResourceConflictException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'ResourceConflictException',
+      ),
+      _i1.ErrorKind.client,
+      ResourceConflictException,
+      statusCode: 409,
+      builder: ResourceConflictException.fromResponse,
+    ),
+    _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'ResourceNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      ResourceNotFoundException,
+      statusCode: 404,
+      builder: ResourceNotFoundException.fromResponse,
+    ),
+    _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'TooManyRequestsException',
+      ),
+      _i1.ErrorKind.client,
+      TooManyRequestsException,
+      statusCode: 429,
+      builder: TooManyRequestsException.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'GetId';
@@ -210,11 +213,7 @@ class GetIdOperation extends _i1
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

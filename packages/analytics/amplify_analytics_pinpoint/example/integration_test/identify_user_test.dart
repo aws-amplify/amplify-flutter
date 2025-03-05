@@ -49,11 +49,12 @@ void main() {
           country: country,
         );
 
-        final properties = CustomProperties()
-          ..addBoolProperty(boolProperty.key, boolProperty.value)
-          ..addDoubleProperty(doubleProperty.key, doubleProperty.value)
-          ..addIntProperty(intProperty.key, intProperty.value)
-          ..addStringProperty(stringProperty.key, stringProperty.value);
+        final properties =
+            CustomProperties()
+              ..addBoolProperty(boolProperty.key, boolProperty.value)
+              ..addDoubleProperty(doubleProperty.key, doubleProperty.value)
+              ..addIntProperty(intProperty.key, intProperty.value)
+              ..addStringProperty(stringProperty.key, stringProperty.value);
 
         await Amplify.Analytics.identifyUser(
           userId: userId,
@@ -123,12 +124,7 @@ void main() {
                 .having(
                   (e) => e.endpoint.metrics?.toMap() ?? const {},
                   'Metrics',
-                  equals(
-                    Map.fromEntries([
-                      lossyDoubleProperty,
-                      intProperty,
-                    ]),
-                  ),
+                  equals(Map.fromEntries([lossyDoubleProperty, intProperty])),
                 ),
           ),
         );

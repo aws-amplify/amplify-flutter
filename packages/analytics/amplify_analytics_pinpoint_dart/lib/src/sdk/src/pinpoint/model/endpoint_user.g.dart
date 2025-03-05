@@ -85,9 +85,12 @@ class EndpointUserBuilder
   _$EndpointUser _build() {
     _$EndpointUser _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$EndpointUser._(
-              userAttributes: _userAttributes?.build(), userId: userId);
+            userAttributes: _userAttributes?.build(),
+            userId: userId,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -95,7 +98,10 @@ class EndpointUserBuilder
         _userAttributes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'EndpointUser', _$failedField, e.toString());
+          r'EndpointUser',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

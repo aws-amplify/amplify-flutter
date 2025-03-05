@@ -36,23 +36,29 @@ class CpkInventory extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => modelIdentifier.serializeAsString();
 
   CpkInventoryModelIdentifier get modelIdentifier {
     try {
       return CpkInventoryModelIdentifier(
-          productId: _productId!,
-          productName: _productName!,
-          warehouseId: _warehouseId!);
+        productId: _productId!,
+        productName: _productName!,
+        warehouseId: _warehouseId!,
+      );
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -61,11 +67,15 @@ class CpkInventory extends amplify_core.Model {
       return _productId!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -74,11 +84,15 @@ class CpkInventory extends amplify_core.Model {
       return _productName!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -87,11 +101,15 @@ class CpkInventory extends amplify_core.Model {
       return _warehouseId!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -107,30 +125,32 @@ class CpkInventory extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const CpkInventory._internal(
-      {required productId,
-      required productName,
-      required warehouseId,
-      description,
-      createdAt,
-      updatedAt})
-      : _productId = productId,
-        _productName = productName,
-        _warehouseId = warehouseId,
-        _description = description,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const CpkInventory._internal({
+    required productId,
+    required productName,
+    required warehouseId,
+    description,
+    createdAt,
+    updatedAt,
+  }) : _productId = productId,
+       _productName = productName,
+       _warehouseId = warehouseId,
+       _description = description,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory CpkInventory(
-      {required String productId,
-      required String productName,
-      required String warehouseId,
-      String? description}) {
+  factory CpkInventory({
+    required String productId,
+    required String productName,
+    required String warehouseId,
+    String? description,
+  }) {
     return CpkInventory._internal(
-        productId: productId,
-        productName: productName,
-        warehouseId: warehouseId,
-        description: description);
+      productId: productId,
+      productName: productName,
+      warehouseId: warehouseId,
+      description: description,
+    );
   }
 
   bool equals(Object other) {
@@ -159,11 +179,12 @@ class CpkInventory extends amplify_core.Model {
     buffer.write("productName=" + "$_productName" + ", ");
     buffer.write("warehouseId=" + "$_warehouseId" + ", ");
     buffer.write("description=" + "$_description" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -171,109 +192,138 @@ class CpkInventory extends amplify_core.Model {
 
   CpkInventory copyWith({String? description}) {
     return CpkInventory._internal(
-        productId: productId,
-        productName: productName,
-        warehouseId: warehouseId,
-        description: description ?? this.description);
+      productId: productId,
+      productName: productName,
+      warehouseId: warehouseId,
+      description: description ?? this.description,
+    );
   }
 
-  CpkInventory copyWithModelFieldValues(
-      {ModelFieldValue<String?>? description}) {
+  CpkInventory copyWithModelFieldValues({
+    ModelFieldValue<String?>? description,
+  }) {
     return CpkInventory._internal(
-        productId: productId,
-        productName: productName,
-        warehouseId: warehouseId,
-        description:
-            description == null ? this.description : description.value);
+      productId: productId,
+      productName: productName,
+      warehouseId: warehouseId,
+      description: description == null ? this.description : description.value,
+    );
   }
 
   CpkInventory.fromJson(Map<String, dynamic> json)
-      : _productId = json['productId'],
-        _productName = json['productName'],
-        _warehouseId = json['warehouseId'],
-        _description = json['description'],
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : _productId = json['productId'],
+      _productName = json['productName'],
+      _warehouseId = json['warehouseId'],
+      _description = json['description'],
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'productId': _productId,
-        'productName': _productName,
-        'warehouseId': _warehouseId,
-        'description': _description,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'productId': _productId,
+    'productName': _productName,
+    'warehouseId': _warehouseId,
+    'description': _description,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'productId': _productId,
-        'productName': _productName,
-        'warehouseId': _warehouseId,
-        'description': _description,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'productId': _productId,
+    'productName': _productName,
+    'warehouseId': _warehouseId,
+    'description': _description,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<CpkInventoryModelIdentifier>
-      MODEL_IDENTIFIER =
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<CpkInventoryModelIdentifier>();
   static final PRODUCTID = amplify_core.QueryField(fieldName: "productId");
   static final PRODUCTNAME = amplify_core.QueryField(fieldName: "productName");
   static final WAREHOUSEID = amplify_core.QueryField(fieldName: "warehouseId");
   static final DESCRIPTION = amplify_core.QueryField(fieldName: "description");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CpkInventory";
-    modelSchemaDefinition.pluralName = "CpkInventories";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "CpkInventory";
+      modelSchemaDefinition.pluralName = "CpkInventories";
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(
-          fields: const ["productId", "productName", "warehouseId"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(
+          fields: const ["productId", "productName", "warehouseId"],
+          name: null,
+        ),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkInventory.PRODUCTID,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkInventory.PRODUCTID,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkInventory.PRODUCTNAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkInventory.PRODUCTNAME,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkInventory.WAREHOUSEID,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkInventory.WAREHOUSEID,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkInventory.DESCRIPTION,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkInventory.DESCRIPTION,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _CpkInventoryModelType extends amplify_core.ModelType<CpkInventory> {
@@ -304,23 +354,24 @@ class CpkInventoryModelIdentifier
    * Create an instance of CpkInventoryModelIdentifier using [productId] the primary key.
    * And [productName], [warehouseId] the sort keys.
    */
-  const CpkInventoryModelIdentifier(
-      {required this.productId,
-      required this.productName,
-      required this.warehouseId});
+  const CpkInventoryModelIdentifier({
+    required this.productId,
+    required this.productName,
+    required this.warehouseId,
+  });
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-        'productId': productId,
-        'productName': productName,
-        'warehouseId': warehouseId
-      });
+    'productId': productId,
+    'productName': productName,
+    'warehouseId': warehouseId,
+  });
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

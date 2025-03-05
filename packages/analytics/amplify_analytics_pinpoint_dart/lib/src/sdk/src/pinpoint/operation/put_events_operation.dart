@@ -24,8 +24,14 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Creates a new event to record for endpoints, or creates or updates endpoint data that existing events are associated with.
-class PutEventsOperation extends _i1.HttpOperation<EventsRequest,
-    PutEventsRequest, EventsResponse, PutEventsResponse> {
+class PutEventsOperation
+    extends
+        _i1.HttpOperation<
+          EventsRequest,
+          PutEventsRequest,
+          EventsResponse,
+          PutEventsResponse
+        > {
   /// Creates a new event to record for endpoints, or creates or updates endpoint data that existing events are associated with.
   PutEventsOperation({
     required String region,
@@ -34,20 +40,27 @@ class PutEventsOperation extends _i1.HttpOperation<EventsRequest,
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<EventsRequest, PutEventsRequest, EventsResponse,
-          PutEventsResponse>> protocols = [
+    _i1.HttpProtocol<
+      EventsRequest,
+      PutEventsRequest,
+      EventsResponse,
+      PutEventsResponse
+    >
+  >
+  protocols = [
     _i3.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             _i3.WithSigV4(
@@ -62,7 +75,7 @@ class PutEventsOperation extends _i1.HttpOperation<EventsRequest,
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -82,94 +95,89 @@ class PutEventsOperation extends _i1.HttpOperation<EventsRequest,
 
   @override
   _i1.HttpRequest buildRequest(PutEventsRequest input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/v1/apps/{ApplicationId}/events';
-      });
+    b.method = 'POST';
+    b.path = r'/v1/apps/{ApplicationId}/events';
+  });
   @override
   int successCode([PutEventsResponse? output]) => 202;
   @override
   PutEventsResponse buildOutput(
     EventsResponse payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      PutEventsResponse.fromResponse(
-        payload,
-        response,
-      );
+  ) => PutEventsResponse.fromResponse(payload, response);
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<BadRequestException, BadRequestException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.pinpoint',
-            shape: 'BadRequestException',
-          ),
-          _i1.ErrorKind.client,
-          BadRequestException,
-          statusCode: 400,
-          builder: BadRequestException.fromResponse,
-        ),
-        _i1.SmithyError<ForbiddenException, ForbiddenException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.pinpoint',
-            shape: 'ForbiddenException',
-          ),
-          _i1.ErrorKind.client,
-          ForbiddenException,
-          statusCode: 403,
-          builder: ForbiddenException.fromResponse,
-        ),
-        _i1.SmithyError<InternalServerErrorException,
-            InternalServerErrorException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.pinpoint',
-            shape: 'InternalServerErrorException',
-          ),
-          _i1.ErrorKind.server,
-          InternalServerErrorException,
-          statusCode: 500,
-          builder: InternalServerErrorException.fromResponse,
-        ),
-        _i1.SmithyError<MethodNotAllowedException, MethodNotAllowedException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.pinpoint',
-            shape: 'MethodNotAllowedException',
-          ),
-          _i1.ErrorKind.client,
-          MethodNotAllowedException,
-          statusCode: 405,
-          builder: MethodNotAllowedException.fromResponse,
-        ),
-        _i1.SmithyError<NotFoundException, NotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.pinpoint',
-            shape: 'NotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          NotFoundException,
-          statusCode: 404,
-          builder: NotFoundException.fromResponse,
-        ),
-        _i1.SmithyError<PayloadTooLargeException, PayloadTooLargeException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.pinpoint',
-            shape: 'PayloadTooLargeException',
-          ),
-          _i1.ErrorKind.client,
-          PayloadTooLargeException,
-          statusCode: 413,
-          builder: PayloadTooLargeException.fromResponse,
-        ),
-        _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.pinpoint',
-            shape: 'TooManyRequestsException',
-          ),
-          _i1.ErrorKind.client,
-          TooManyRequestsException,
-          statusCode: 429,
-          builder: TooManyRequestsException.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<BadRequestException, BadRequestException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.pinpoint',
+        shape: 'BadRequestException',
+      ),
+      _i1.ErrorKind.client,
+      BadRequestException,
+      statusCode: 400,
+      builder: BadRequestException.fromResponse,
+    ),
+    _i1.SmithyError<ForbiddenException, ForbiddenException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.pinpoint',
+        shape: 'ForbiddenException',
+      ),
+      _i1.ErrorKind.client,
+      ForbiddenException,
+      statusCode: 403,
+      builder: ForbiddenException.fromResponse,
+    ),
+    _i1.SmithyError<InternalServerErrorException, InternalServerErrorException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.pinpoint',
+        shape: 'InternalServerErrorException',
+      ),
+      _i1.ErrorKind.server,
+      InternalServerErrorException,
+      statusCode: 500,
+      builder: InternalServerErrorException.fromResponse,
+    ),
+    _i1.SmithyError<MethodNotAllowedException, MethodNotAllowedException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.pinpoint',
+        shape: 'MethodNotAllowedException',
+      ),
+      _i1.ErrorKind.client,
+      MethodNotAllowedException,
+      statusCode: 405,
+      builder: MethodNotAllowedException.fromResponse,
+    ),
+    _i1.SmithyError<NotFoundException, NotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.pinpoint',
+        shape: 'NotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      NotFoundException,
+      statusCode: 404,
+      builder: NotFoundException.fromResponse,
+    ),
+    _i1.SmithyError<PayloadTooLargeException, PayloadTooLargeException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.pinpoint',
+        shape: 'PayloadTooLargeException',
+      ),
+      _i1.ErrorKind.client,
+      PayloadTooLargeException,
+      statusCode: 413,
+      builder: PayloadTooLargeException.fromResponse,
+    ),
+    _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.pinpoint',
+        shape: 'TooManyRequestsException',
+      ),
+      _i1.ErrorKind.client,
+      TooManyRequestsException,
+      statusCode: 429,
+      builder: TooManyRequestsException.fromResponse,
+    ),
+  ];
   @override
   String get runtimeTypeName => 'PutEvents';
   @override
@@ -185,11 +193,7 @@ class PutEventsOperation extends _i1.HttpOperation<EventsRequest,
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

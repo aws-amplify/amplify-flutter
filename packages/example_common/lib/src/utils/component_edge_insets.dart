@@ -18,17 +18,17 @@ class ComponentEdgeInsets {
   const ComponentEdgeInsets.symmetric({
     double horizontal = 0,
     double vertical = 0,
-  })  : left = horizontal,
-        right = horizontal,
-        top = vertical,
-        bottom = vertical;
+  }) : left = horizontal,
+       right = horizontal,
+       top = vertical,
+       bottom = vertical;
 
   /// Create [ComponentEdgeInsets] that has equal value on each side
   const ComponentEdgeInsets.all(double value)
-      : left = value,
-        right = value,
-        top = value,
-        bottom = value;
+    : left = value,
+      right = value,
+      top = value,
+      bottom = value;
 
   /// [ComponentEdgeInsets] with no value
   static const zero = ComponentEdgeInsets.all(0);

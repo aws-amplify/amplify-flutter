@@ -35,10 +35,7 @@ void main() {
       const endpoint = 'https://abc123.amazonaws.com/test';
       const path = 'path/to/nowhere';
       final params = {'foo': 'bar', 'bar': 'baz'};
-      final endpointConfig = createEndpointConfig(
-        endpoint,
-        type: ApiType.rest,
-      );
+      final endpointConfig = createEndpointConfig(endpoint, type: ApiType.rest);
       final uri = endpointConfig.getUri(path: path, queryParameters: params);
       const expected = '$endpoint/$path?foo=bar&bar=baz';
       expect(uri.toString(), equals(expected));
@@ -48,10 +45,7 @@ void main() {
       const endpoint = 'https://abc123.amazonaws.com/test';
       const path = '/path/to/nowhere/';
       final params = {'foo': 'bar', 'bar': 'baz'};
-      final endpointConfig = createEndpointConfig(
-        endpoint,
-        type: ApiType.rest,
-      );
+      final endpointConfig = createEndpointConfig(endpoint, type: ApiType.rest);
       final uri = endpointConfig.getUri(path: path, queryParameters: params);
       const expected = '$endpoint$path?foo=bar&bar=baz';
       expect(uri.toString(), equals(expected));
@@ -68,18 +62,18 @@ EndpointConfig createEndpointConfig(
   const apiKey = 'abc-123';
   final config = switch (type) {
     ApiType.graphQL => DataOutputs(
-        url: endpoint,
-        awsRegion: region,
-        defaultAuthorizationType: authorizationType,
-        apiKey: apiKey,
-        authorizationTypes: [authorizationType],
-      ),
+      url: endpoint,
+      awsRegion: region,
+      defaultAuthorizationType: authorizationType,
+      apiKey: apiKey,
+      authorizationTypes: [authorizationType],
+    ),
     ApiType.rest => RestApiOutputs(
-        url: endpoint,
-        awsRegion: region,
-        authorizationType: authorizationType,
-        apiKey: apiKey,
-      )
+      url: endpoint,
+      awsRegion: region,
+      authorizationType: authorizationType,
+      apiKey: apiKey,
+    ),
   };
   final endpointConfig = EndpointConfig('api-name', config as ApiOutputs);
   return endpointConfig;

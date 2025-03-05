@@ -12,23 +12,30 @@ class _$GetEndpointRequest extends GetEndpointRequest {
   @override
   final String endpointId;
 
-  factory _$GetEndpointRequest(
-          [void Function(GetEndpointRequestBuilder)? updates]) =>
-      (new GetEndpointRequestBuilder()..update(updates))._build();
+  factory _$GetEndpointRequest([
+    void Function(GetEndpointRequestBuilder)? updates,
+  ]) => (new GetEndpointRequestBuilder()..update(updates))._build();
 
-  _$GetEndpointRequest._(
-      {required this.applicationId, required this.endpointId})
-      : super._() {
+  _$GetEndpointRequest._({
+    required this.applicationId,
+    required this.endpointId,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        applicationId, r'GetEndpointRequest', 'applicationId');
+      applicationId,
+      r'GetEndpointRequest',
+      'applicationId',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        endpointId, r'GetEndpointRequest', 'endpointId');
+      endpointId,
+      r'GetEndpointRequest',
+      'endpointId',
+    );
   }
 
   @override
   GetEndpointRequest rebuild(
-          void Function(GetEndpointRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetEndpointRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetEndpointRequestBuilder toBuilder() =>
@@ -92,28 +99,36 @@ class GetEndpointRequestBuilder
   GetEndpointRequest build() => _build();
 
   _$GetEndpointRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$GetEndpointRequest._(
-            applicationId: BuiltValueNullFieldError.checkNotNull(
-                applicationId, r'GetEndpointRequest', 'applicationId'),
-            endpointId: BuiltValueNullFieldError.checkNotNull(
-                endpointId, r'GetEndpointRequest', 'endpointId'));
+          applicationId: BuiltValueNullFieldError.checkNotNull(
+            applicationId,
+            r'GetEndpointRequest',
+            'applicationId',
+          ),
+          endpointId: BuiltValueNullFieldError.checkNotNull(
+            endpointId,
+            r'GetEndpointRequest',
+            'endpointId',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$GetEndpointRequestPayload extends GetEndpointRequestPayload {
-  factory _$GetEndpointRequestPayload(
-          [void Function(GetEndpointRequestPayloadBuilder)? updates]) =>
-      (new GetEndpointRequestPayloadBuilder()..update(updates))._build();
+  factory _$GetEndpointRequestPayload([
+    void Function(GetEndpointRequestPayloadBuilder)? updates,
+  ]) => (new GetEndpointRequestPayloadBuilder()..update(updates))._build();
 
   _$GetEndpointRequestPayload._() : super._();
 
   @override
   GetEndpointRequestPayload rebuild(
-          void Function(GetEndpointRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetEndpointRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetEndpointRequestPayloadBuilder toBuilder() =>

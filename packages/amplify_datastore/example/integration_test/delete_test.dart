@@ -18,27 +18,33 @@ void main() {
       await clearDataStore();
     });
 
-    testWidgets('predicate should prevent delete to non matching model',
-        (WidgetTester tester) async {
+    testWidgets('predicate should prevent delete to non matching model', (
+      WidgetTester tester,
+    ) async {
       const originalBlogName = 'non matching blog';
       Blog testBlog = Blog(name: originalBlogName);
       await Amplify.DataStore.save(testBlog);
 
-      await Amplify.DataStore.delete(testBlog,
-          where: Blog.NAME.contains("Predicate"));
+      await Amplify.DataStore.delete(
+        testBlog,
+        where: Blog.NAME.contains("Predicate"),
+      );
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, 1);
       expect(blogs[0].name, originalBlogName);
     });
 
-    testWidgets('predicate should not prevent delete for matching model',
-        (WidgetTester tester) async {
+    testWidgets('predicate should not prevent delete for matching model', (
+      WidgetTester tester,
+    ) async {
       const originalBlogName = 'matching blog';
       Blog testBlog = Blog(name: originalBlogName);
       await Amplify.DataStore.save(testBlog);
 
-      await Amplify.DataStore.delete(testBlog,
-          where: Blog.NAME.contains("matching"));
+      await Amplify.DataStore.delete(
+        testBlog,
+        where: Blog.NAME.contains("matching"),
+      );
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, 0);
     });

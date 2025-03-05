@@ -22,9 +22,9 @@ abstract class ResourceConflictException
   }
 
   /// Thrown when a user tries to use a login which is already linked to another account.
-  factory ResourceConflictException.build(
-          [void Function(ResourceConflictExceptionBuilder) updates]) =
-      _$ResourceConflictException;
+  factory ResourceConflictException.build([
+    void Function(ResourceConflictExceptionBuilder) updates,
+  ]) = _$ResourceConflictException;
 
   const ResourceConflictException._();
 
@@ -32,22 +32,21 @@ abstract class ResourceConflictException
   factory ResourceConflictException.fromResponse(
     ResourceConflictException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<ResourceConflictException>>
-      serializers = [ResourceConflictExceptionAwsJson11Serializer()];
+  serializers = [ResourceConflictExceptionAwsJson11Serializer()];
 
   /// The message returned by a ResourceConflictException.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentity',
-        shape: 'ResourceConflictException',
-      );
+    namespace: 'com.amazonaws.cognitoidentity',
+    shape: 'ResourceConflictException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -68,10 +67,7 @@ abstract class ResourceConflictException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceConflictException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -79,21 +75,18 @@ abstract class ResourceConflictException
 class ResourceConflictExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ResourceConflictException> {
   const ResourceConflictExceptionAwsJson11Serializer()
-      : super('ResourceConflictException');
+    : super('ResourceConflictException');
 
   @override
   Iterable<Type> get types => const [
-        ResourceConflictException,
-        _$ResourceConflictException,
-      ];
+    ResourceConflictException,
+    _$ResourceConflictException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ResourceConflictException deserialize(
@@ -112,10 +105,12 @@ class ResourceConflictExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -133,10 +128,9 @@ class ResourceConflictExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

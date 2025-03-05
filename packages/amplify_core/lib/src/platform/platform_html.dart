@@ -16,7 +16,8 @@ String get osIdentifier {
   // Order here is important since different browsers include each others'
   // tags in their user agents. Per MDN, this is for compatibility reasons:
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
-  var identifier = _edgeRegex.firstMatch(userAgent)?.group(0) ??
+  var identifier =
+      _edgeRegex.firstMatch(userAgent)?.group(0) ??
       _operaRegex.firstMatch(userAgent)?.group(0) ??
       _chromeRegex.firstMatch(userAgent)?.group(0) ??
       _firefoxRegex.firstMatch(userAgent)?.group(0);

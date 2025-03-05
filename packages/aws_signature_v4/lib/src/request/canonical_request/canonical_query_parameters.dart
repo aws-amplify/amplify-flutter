@@ -9,12 +9,10 @@ part of 'canonical_request.dart';
 class CanonicalQueryParameters extends DelegatingMap<String, String> {
   /// {@macro aws_signature_v4.canonical_query_parameters}
   CanonicalQueryParameters(Map<String, String> queryParameters)
-      : super(canonicalize(queryParameters));
+    : super(canonicalize(queryParameters));
 
   /// Encodes and sorts the query parameters.
-  static Map<String, String> canonicalize(
-    Map<String, String> queryParameters,
-  ) {
+  static Map<String, String> canonicalize(Map<String, String> queryParameters) {
     final map = SplayTreeMap<String, String>();
     for (final entry in queryParameters.entries) {
       final key = _safeEncode(entry.key);

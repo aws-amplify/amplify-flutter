@@ -49,12 +49,7 @@ Future<void> _handleH2(
     Header.ascii('Access-Control-Expose-Headers', '*'),
   ]);
   headers.forEach((key, value) {
-    request.sendHeaders([
-      Header.ascii(key, value),
-    ]);
+    request.sendHeaders([Header.ascii(key, value)]);
   });
-  request.sendHeaders(
-    [Header.ascii(':status', '200')],
-    endStream: true,
-  );
+  request.sendHeaders([Header.ascii(':status', '200')], endStream: true);
 }

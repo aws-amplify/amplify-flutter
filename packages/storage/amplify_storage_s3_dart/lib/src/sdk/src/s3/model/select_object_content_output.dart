@@ -19,9 +19,9 @@ abstract class SelectObjectContentOutput
     return _$SelectObjectContentOutput._(payload: payload);
   }
 
-  factory SelectObjectContentOutput.build(
-          [void Function(SelectObjectContentOutputBuilder) updates]) =
-      _$SelectObjectContentOutput;
+  factory SelectObjectContentOutput.build([
+    void Function(SelectObjectContentOutputBuilder) updates,
+  ]) = _$SelectObjectContentOutput;
 
   const SelectObjectContentOutput._();
 
@@ -29,13 +29,12 @@ abstract class SelectObjectContentOutput
   factory SelectObjectContentOutput.fromResponse(
     SelectObjectContentEventStream? payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      SelectObjectContentOutput.build((b) {
-        b.payload = payload;
-      });
+  ) => SelectObjectContentOutput.build((b) {
+    b.payload = payload;
+  });
 
   static const List<_i2.SmithySerializer<SelectObjectContentEventStream?>>
-      serializers = [];
+  serializers = [];
 
   /// The array of results.
   SelectObjectContentEventStream? get payload;
@@ -48,10 +47,7 @@ abstract class SelectObjectContentOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SelectObjectContentOutput')
-      ..add(
-        'payload',
-        payload,
-      );
+      ..add('payload', payload);
     return helper.toString();
   }
 }

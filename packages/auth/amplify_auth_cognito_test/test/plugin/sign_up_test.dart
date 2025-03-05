@@ -42,10 +42,8 @@ void main() {
         );
 
         final mockIdp = MockCognitoIdentityProviderClient(
-          signUp: () async => SignUpResponse(
-            userConfirmed: true,
-            userSub: userSub,
-          ),
+          signUp:
+              () async => SignUpResponse(userConfirmed: true, userSub: userSub),
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
@@ -90,11 +88,12 @@ void main() {
           attributeName: attributeName,
         );
         final mockIdp = MockCognitoIdentityProviderClient(
-          signUp: () async => SignUpResponse(
-            userConfirmed: false,
-            userSub: userSub,
-            codeDeliveryDetails: codeDeliveryDetails,
-          ),
+          signUp:
+              () async => SignUpResponse(
+                userConfirmed: false,
+                userSub: userSub,
+                codeDeliveryDetails: codeDeliveryDetails,
+              ),
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 

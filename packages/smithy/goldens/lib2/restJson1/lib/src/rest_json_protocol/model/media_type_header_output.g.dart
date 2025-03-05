@@ -10,16 +10,16 @@ class _$MediaTypeHeaderOutput extends MediaTypeHeaderOutput {
   @override
   final _i3.JsonObject? json;
 
-  factory _$MediaTypeHeaderOutput(
-          [void Function(MediaTypeHeaderOutputBuilder)? updates]) =>
-      (new MediaTypeHeaderOutputBuilder()..update(updates))._build();
+  factory _$MediaTypeHeaderOutput([
+    void Function(MediaTypeHeaderOutputBuilder)? updates,
+  ]) => (new MediaTypeHeaderOutputBuilder()..update(updates))._build();
 
   _$MediaTypeHeaderOutput._({this.json}) : super._();
 
   @override
   MediaTypeHeaderOutput rebuild(
-          void Function(MediaTypeHeaderOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MediaTypeHeaderOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MediaTypeHeaderOutputBuilder toBuilder() =>
@@ -81,16 +81,16 @@ class MediaTypeHeaderOutputBuilder
 }
 
 class _$MediaTypeHeaderOutputPayload extends MediaTypeHeaderOutputPayload {
-  factory _$MediaTypeHeaderOutputPayload(
-          [void Function(MediaTypeHeaderOutputPayloadBuilder)? updates]) =>
-      (new MediaTypeHeaderOutputPayloadBuilder()..update(updates))._build();
+  factory _$MediaTypeHeaderOutputPayload([
+    void Function(MediaTypeHeaderOutputPayloadBuilder)? updates,
+  ]) => (new MediaTypeHeaderOutputPayloadBuilder()..update(updates))._build();
 
   _$MediaTypeHeaderOutputPayload._() : super._();
 
   @override
   MediaTypeHeaderOutputPayload rebuild(
-          void Function(MediaTypeHeaderOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MediaTypeHeaderOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MediaTypeHeaderOutputPayloadBuilder toBuilder() =>
@@ -110,8 +110,10 @@ class _$MediaTypeHeaderOutputPayload extends MediaTypeHeaderOutputPayload {
 
 class MediaTypeHeaderOutputPayloadBuilder
     implements
-        Builder<MediaTypeHeaderOutputPayload,
-            MediaTypeHeaderOutputPayloadBuilder> {
+        Builder<
+          MediaTypeHeaderOutputPayload,
+          MediaTypeHeaderOutputPayloadBuilder
+        > {
   _$MediaTypeHeaderOutputPayload? _$v;
 
   MediaTypeHeaderOutputPayloadBuilder();

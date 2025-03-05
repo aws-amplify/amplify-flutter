@@ -43,14 +43,10 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   Stream<GraphQLResponse<T>> subscribe<T>(
     GraphQLRequest<T> request, {
     void Function()? onEstablished,
-  }) =>
-      identifyCall(
-        ApiCategoryMethod.subscribe,
-        () => defaultPlugin.subscribe(
-          request,
-          onEstablished: onEstablished,
-        ),
-      );
+  }) => identifyCall(
+    ApiCategoryMethod.subscribe,
+    () => defaultPlugin.subscribe(request, onEstablished: onEstablished),
+  );
 
   // ====== RestAPI ======
 
@@ -74,17 +70,16 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     HttpPayload? body,
     Map<String, String>? queryParameters,
     String? apiName,
-  }) =>
-      identifyCall(
-        ApiCategoryMethod.delete,
-        () => defaultPlugin.delete(
-          path,
-          headers: headers,
-          body: body,
-          apiName: apiName,
-          queryParameters: queryParameters,
-        ),
-      );
+  }) => identifyCall(
+    ApiCategoryMethod.delete,
+    () => defaultPlugin.delete(
+      path,
+      headers: headers,
+      body: body,
+      apiName: apiName,
+      queryParameters: queryParameters,
+    ),
+  );
 
   /// Sends an HTTP GET request to the REST API endpoint.
   ///
@@ -103,16 +98,15 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
     String? apiName,
-  }) =>
-      identifyCall(
-        ApiCategoryMethod.get,
-        () => defaultPlugin.get(
-          path,
-          headers: headers,
-          apiName: apiName,
-          queryParameters: queryParameters,
-        ),
-      );
+  }) => identifyCall(
+    ApiCategoryMethod.get,
+    () => defaultPlugin.get(
+      path,
+      headers: headers,
+      apiName: apiName,
+      queryParameters: queryParameters,
+    ),
+  );
 
   /// Sends an HTTP HEAD request to the REST API endpoint.
   ///
@@ -128,16 +122,15 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
     String? apiName,
-  }) =>
-      identifyCall(
-        ApiCategoryMethod.head,
-        () => defaultPlugin.head(
-          path,
-          headers: headers,
-          apiName: apiName,
-          queryParameters: queryParameters,
-        ),
-      );
+  }) => identifyCall(
+    ApiCategoryMethod.head,
+    () => defaultPlugin.head(
+      path,
+      headers: headers,
+      apiName: apiName,
+      queryParameters: queryParameters,
+    ),
+  );
 
   /// Sends an HTTP PATCH request to the REST API endpoint.
   ///
@@ -159,17 +152,16 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     HttpPayload? body,
     Map<String, String>? queryParameters,
     String? apiName,
-  }) =>
-      identifyCall(
-        ApiCategoryMethod.patch,
-        () => defaultPlugin.patch(
-          path,
-          headers: headers,
-          body: body,
-          apiName: apiName,
-          queryParameters: queryParameters,
-        ),
-      );
+  }) => identifyCall(
+    ApiCategoryMethod.patch,
+    () => defaultPlugin.patch(
+      path,
+      headers: headers,
+      body: body,
+      apiName: apiName,
+      queryParameters: queryParameters,
+    ),
+  );
 
   /// Sends an HTTP POST request to the REST API endpoint.
   ///
@@ -191,17 +183,16 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     HttpPayload? body,
     Map<String, String>? queryParameters,
     String? apiName,
-  }) =>
-      identifyCall(
-        ApiCategoryMethod.post,
-        () => defaultPlugin.post(
-          path,
-          headers: headers,
-          body: body,
-          apiName: apiName,
-          queryParameters: queryParameters,
-        ),
-      );
+  }) => identifyCall(
+    ApiCategoryMethod.post,
+    () => defaultPlugin.post(
+      path,
+      headers: headers,
+      body: body,
+      apiName: apiName,
+      queryParameters: queryParameters,
+    ),
+  );
 
   /// Sends an HTTP PUT request to the REST API endpoint.
   ///
@@ -223,15 +214,14 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
     HttpPayload? body,
     Map<String, String>? queryParameters,
     String? apiName,
-  }) =>
-      identifyCall(
-        ApiCategoryMethod.put,
-        () => defaultPlugin.put(
-          path,
-          headers: headers,
-          body: body,
-          apiName: apiName,
-          queryParameters: queryParameters,
-        ),
-      );
+  }) => identifyCall(
+    ApiCategoryMethod.put,
+    () => defaultPlugin.put(
+      path,
+      headers: headers,
+      body: body,
+      apiName: apiName,
+      queryParameters: queryParameters,
+    ),
+  );
 }

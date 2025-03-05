@@ -18,184 +18,170 @@ void main({
 }) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group(
-    'GraphQL API key',
-    () {
-      setUpAll(() async {
-        await configureAmplify(useGen1: useGen1);
-        await signOutTestUser(testUser);
+  group('GraphQL API key', () {
+    setUpAll(() async {
+      await configureAmplify(useGen1: useGen1);
+      await signOutTestUser(testUser);
+    });
+
+    group('queries', () {
+      testWidgets('should query authorized model', (WidgetTester tester) async {
+        final req = ModelQueries.list<Blog>(
+          Blog.classType,
+          authorizationMode: APIAuthorizationType.apiKey,
+        );
+        final res = await Amplify.API.query(request: req).response;
+        final data = res.data;
+        expect(res, hasNoGraphQLErrors);
+        expect(data?.items.length, greaterThanOrEqualTo(0));
       });
 
-      group('queries', () {
-        testWidgets('should query authorized model',
-            (WidgetTester tester) async {
-          final req = ModelQueries.list<Blog>(
+      testWidgets('should get error for unauthorized model', (
+        WidgetTester tester,
+      ) async {
+        final req = ModelQueries.list<Post>(
+          Post.classType,
+          authorizationMode: APIAuthorizationType.apiKey,
+        );
+        final res = await Amplify.API.query(request: req).response;
+        expect(res.hasErrors, true);
+        expect(res.data, isNull);
+      });
+    });
+
+    group('subscriptions', () {
+      late StreamController<ApiHubEvent> hubEventsController;
+      late Stream<ApiHubEvent> hubEvents;
+      late StreamSubscription<ApiHubEvent> hubEventsSubscription;
+      setUpAll(() async {
+        if (!useExistingTestUser) {
+          testUser = await signUpTestUser(testUser);
+        }
+        await signInTestUser(testUser);
+
+        hubEventsController = StreamController.broadcast();
+        hubEvents = hubEventsController.stream;
+        hubEventsSubscription = Amplify.Hub.listen(
+          HubChannel.Api,
+          hubEventsController.add,
+        );
+      });
+
+      tearDownAll(() async {
+        await deleteTestModels();
+        if (!useExistingTestUser) {
+          await deleteTestUser(testUser);
+        }
+
+        await hubEventsSubscription.cancel();
+        await hubEventsController.close();
+        Amplify.Hub.close();
+      });
+
+      testWidgets(
+        'should emit event when onCreate subscription made with model helper',
+        (WidgetTester tester) async {
+          expect(
+            hubEvents,
+            emitsInOrder([
+              disconnectedHubEvent,
+              connectingHubEvent,
+              connectedHubEvent,
+              pendingDisconnectedHubEvent,
+              disconnectedHubEvent,
+            ]),
+          );
+          final name = 'Integration Test Blog - subscription create ${uuid()}';
+          final subscriptionRequest = ModelSubscriptions.onCreate(
             Blog.classType,
             authorizationMode: APIAuthorizationType.apiKey,
           );
-          final res = await Amplify.API.query(request: req).response;
-          final data = res.data;
-          expect(res, hasNoGraphQLErrors);
-          expect(data?.items.length, greaterThanOrEqualTo(0));
-        });
 
-        testWidgets('should get error for unauthorized model', (
-          WidgetTester tester,
-        ) async {
-          final req = ModelQueries.list<Post>(
-            Post.classType,
-            authorizationMode: APIAuthorizationType.apiKey,
+          final eventResponse = await establishSubscriptionAndMutate<Blog>(
+            subscriptionRequest,
+            () => addBlog(name),
+            eventFilter: (response) => response.data?.name == name,
           );
-          final res = await Amplify.API.query(request: req).response;
-          expect(res.hasErrors, true);
-          expect(res.data, isNull);
-        });
-      });
+          final blogFromEvent = eventResponse.data;
 
-      group(
-        'subscriptions',
-        () {
-          late StreamController<ApiHubEvent> hubEventsController;
-          late Stream<ApiHubEvent> hubEvents;
-          late StreamSubscription<ApiHubEvent> hubEventsSubscription;
-          setUpAll(() async {
-            if (!useExistingTestUser) {
-              testUser = await signUpTestUser(testUser);
-            }
-            await signInTestUser(testUser);
-
-            hubEventsController = StreamController.broadcast();
-            hubEvents = hubEventsController.stream;
-            hubEventsSubscription =
-                Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
-          });
-
-          tearDownAll(() async {
-            await deleteTestModels();
-            if (!useExistingTestUser) {
-              await deleteTestUser(testUser);
-            }
-
-            await hubEventsSubscription.cancel();
-            await hubEventsController.close();
-            Amplify.Hub.close();
-          });
-
-          testWidgets(
-              'should emit event when onCreate subscription made with model helper',
-              (WidgetTester tester) async {
-            expect(
-              hubEvents,
-              emitsInOrder(
-                [
-                  disconnectedHubEvent,
-                  connectingHubEvent,
-                  connectedHubEvent,
-                  pendingDisconnectedHubEvent,
-                  disconnectedHubEvent,
-                ],
-              ),
-            );
-            final name =
-                'Integration Test Blog - subscription create ${uuid()}';
-            final subscriptionRequest = ModelSubscriptions.onCreate(
-              Blog.classType,
-              authorizationMode: APIAuthorizationType.apiKey,
-            );
-
-            final eventResponse = await establishSubscriptionAndMutate<Blog>(
-              subscriptionRequest,
-              () => addBlog(name),
-              eventFilter: (response) => response.data?.name == name,
-            );
-            final blogFromEvent = eventResponse.data;
-
-            expect(blogFromEvent?.name, equals(name));
-          });
-
-          testWidgets(
-              'subscribe() should handle multiple streams synchronously',
-              (WidgetTester tester) async {
-            final readyCompleter = Completer<void>();
-            final readyCompleter2 = Completer<void>();
-            final dataCompleter = Completer<Blog>();
-            final dataCompleter2 = Completer<Blog>();
-
-            final name =
-                'Integration Test Blog - subscription sync test ${uuid()}';
-
-            final subscriptionRequest1 = ModelSubscriptions.onCreate(
-              Blog.classType,
-              authorizationMode: APIAuthorizationType.apiKey,
-            );
-
-            final stream1 = Amplify.API.subscribe(
-              subscriptionRequest1,
-              onEstablished: expectAsync0(readyCompleter.complete),
-            );
-            stream1.listen(
-              ((event) {
-                if (event.data?.name == name) {
-                  dataCompleter.complete(event.data);
-                }
-              }),
-              onError: (Object e) => fail('Error in subscription stream: $e'),
-            );
-
-            final subscriptionRequest2 = ModelSubscriptions.onDelete(
-              Blog.classType,
-              authorizationMode: APIAuthorizationType.apiKey,
-            );
-
-            final stream2 = Amplify.API.subscribe(
-              subscriptionRequest2,
-              onEstablished: expectAsync0(readyCompleter2.complete),
-            );
-            stream2.listen(
-              ((event) {
-                if (event.data?.name == name) {
-                  dataCompleter2.complete(event.data);
-                }
-              }),
-              onError: (Object e) => fail('Error in subscription stream: $e'),
-            );
-
-            await readyCompleter.future;
-            await readyCompleter2.future;
-
-            final blog = await addBlog(name);
-
-            await expectLater(dataCompleter.future, completes);
-
-            await deleteBlog(blog);
-
-            await expectLater(dataCompleter2.future, completes);
-          });
-
-          testWidgets('should parse errors within a web socket data message',
-              (WidgetTester tester) async {
-            final name =
-                'Integration Test Blog - subscription create ${uuid()}';
-            const error =
-                "Cannot return null for non-nullable type: 'AWSDateTime' within "
-                "parent 'Blog' (/onCreateBlog/createdAt)";
-            final subscriptionRequest = ModelSubscriptions.onCreate(
-              Blog.classType,
-              authorizationMode: APIAuthorizationType.apiKey,
-            );
-
-            final eventResponse = await establishSubscriptionAndMutate<Blog>(
-              subscriptionRequest,
-              () => runPartialMutation(name),
-              eventFilter: (response) => response.errors.isNotEmpty,
-              canFail: true,
-            );
-            final dataErrors = eventResponse.errors;
-
-            expect(dataErrors.first.message, equals(error));
-          });
+          expect(blogFromEvent?.name, equals(name));
         },
       );
-    },
-  );
+
+      testWidgets('subscribe() should handle multiple streams synchronously', (
+        WidgetTester tester,
+      ) async {
+        final readyCompleter = Completer<void>();
+        final readyCompleter2 = Completer<void>();
+        final dataCompleter = Completer<Blog>();
+        final dataCompleter2 = Completer<Blog>();
+
+        final name = 'Integration Test Blog - subscription sync test ${uuid()}';
+
+        final subscriptionRequest1 = ModelSubscriptions.onCreate(
+          Blog.classType,
+          authorizationMode: APIAuthorizationType.apiKey,
+        );
+
+        final stream1 = Amplify.API.subscribe(
+          subscriptionRequest1,
+          onEstablished: expectAsync0(readyCompleter.complete),
+        );
+        stream1.listen(((event) {
+          if (event.data?.name == name) {
+            dataCompleter.complete(event.data);
+          }
+        }), onError: (Object e) => fail('Error in subscription stream: $e'));
+
+        final subscriptionRequest2 = ModelSubscriptions.onDelete(
+          Blog.classType,
+          authorizationMode: APIAuthorizationType.apiKey,
+        );
+
+        final stream2 = Amplify.API.subscribe(
+          subscriptionRequest2,
+          onEstablished: expectAsync0(readyCompleter2.complete),
+        );
+        stream2.listen(((event) {
+          if (event.data?.name == name) {
+            dataCompleter2.complete(event.data);
+          }
+        }), onError: (Object e) => fail('Error in subscription stream: $e'));
+
+        await readyCompleter.future;
+        await readyCompleter2.future;
+
+        final blog = await addBlog(name);
+
+        await expectLater(dataCompleter.future, completes);
+
+        await deleteBlog(blog);
+
+        await expectLater(dataCompleter2.future, completes);
+      });
+
+      testWidgets('should parse errors within a web socket data message', (
+        WidgetTester tester,
+      ) async {
+        final name = 'Integration Test Blog - subscription create ${uuid()}';
+        const error =
+            "Cannot return null for non-nullable type: 'AWSDateTime' within "
+            "parent 'Blog' (/onCreateBlog/createdAt)";
+        final subscriptionRequest = ModelSubscriptions.onCreate(
+          Blog.classType,
+          authorizationMode: APIAuthorizationType.apiKey,
+        );
+
+        final eventResponse = await establishSubscriptionAndMutate<Blog>(
+          subscriptionRequest,
+          () => runPartialMutation(name),
+          eventFilter: (response) => response.errors.isNotEmpty,
+          canFail: true,
+        );
+        final dataErrors = eventResponse.errors;
+
+        expect(dataErrors.first.message, equals(error));
+      });
+    });
+  });
 }

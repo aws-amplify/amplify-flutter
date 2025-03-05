@@ -59,10 +59,7 @@ final class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     final signer = AWSSigV4Signer(
       credentialsProvider: AWSCredentialsProvider(credentials),
     );
-    final scope = AWSCredentialScope(
-      region: region,
-      service: service,
-    );
+    final scope = AWSCredentialScope(region: region, service: service);
 
     // Finally, create and sign canonical request.
     return signer.sign(

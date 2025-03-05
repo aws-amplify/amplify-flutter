@@ -16,21 +16,27 @@ class _$ValidationException extends ValidationException {
   @override
   final Map<String, String>? headers;
 
-  factory _$ValidationException(
-          [void Function(ValidationExceptionBuilder)? updates]) =>
-      (new ValidationExceptionBuilder()..update(updates))._build();
+  factory _$ValidationException([
+    void Function(ValidationExceptionBuilder)? updates,
+  ]) => (new ValidationExceptionBuilder()..update(updates))._build();
 
-  _$ValidationException._(
-      {required this.message, this.fieldList, this.statusCode, this.headers})
-      : super._() {
+  _$ValidationException._({
+    required this.message,
+    this.fieldList,
+    this.statusCode,
+    this.headers,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        message, r'ValidationException', 'message');
+      message,
+      r'ValidationException',
+      'message',
+    );
   }
 
   @override
   ValidationException rebuild(
-          void Function(ValidationExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ValidationExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ValidationExceptionBuilder toBuilder() =>
@@ -107,13 +113,18 @@ class ValidationExceptionBuilder
   _$ValidationException _build() {
     _$ValidationException _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ValidationException._(
-              message: BuiltValueNullFieldError.checkNotNull(
-                  message, r'ValidationException', 'message'),
-              fieldList: _fieldList?.build(),
-              statusCode: statusCode,
-              headers: headers);
+            message: BuiltValueNullFieldError.checkNotNull(
+              message,
+              r'ValidationException',
+              'message',
+            ),
+            fieldList: _fieldList?.build(),
+            statusCode: statusCode,
+            headers: headers,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -121,7 +132,10 @@ class ValidationExceptionBuilder
         _fieldList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ValidationException', _$failedField, e.toString());
+          r'ValidationException',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

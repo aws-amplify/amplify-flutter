@@ -10,10 +10,7 @@ part 'deprecated_trait.g.dart';
 @ShapeIdConverter()
 @JsonSerializable()
 class DeprecatedTrait with AWSSerializable implements Trait<DeprecatedTrait> {
-  const DeprecatedTrait({
-    this.since,
-    this.message,
-  });
+  const DeprecatedTrait({this.since, this.message});
 
   factory DeprecatedTrait.fromJson(Object? json) =>
       _$DeprecatedTraitFromJson((json as Map).cast<String, Object?>());
@@ -27,10 +24,7 @@ class DeprecatedTrait with AWSSerializable implements Trait<DeprecatedTrait> {
   bool get isSynthetic => false;
 
   @override
-  List<Object?> get props => [
-        since,
-        message,
-      ];
+  List<Object?> get props => [since, message];
 
   @override
   ShapeId get shapeId => id;

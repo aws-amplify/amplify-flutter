@@ -14,54 +14,70 @@ class _$AmplifySecureStorageConfigSerializer
   @override
   final Iterable<Type> types = const [
     AmplifySecureStorageConfig,
-    _$AmplifySecureStorageConfig
+    _$AmplifySecureStorageConfig,
   ];
   @override
   final String wireName = 'AmplifySecureStorageConfig';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, AmplifySecureStorageConfig object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    AmplifySecureStorageConfig object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'webOptions',
-      serializers.serialize(object.webOptions,
-          specifiedType: const FullType(WebSecureStorageOptions)),
+      serializers.serialize(
+        object.webOptions,
+        specifiedType: const FullType(WebSecureStorageOptions),
+      ),
       'windowsOptions',
-      serializers.serialize(object.windowsOptions,
-          specifiedType: const FullType(WindowsSecureStorageOptions)),
+      serializers.serialize(
+        object.windowsOptions,
+        specifiedType: const FullType(WindowsSecureStorageOptions),
+      ),
       'linuxOptions',
-      serializers.serialize(object.linuxOptions,
-          specifiedType: const FullType(LinuxSecureStorageOptions)),
+      serializers.serialize(
+        object.linuxOptions,
+        specifiedType: const FullType(LinuxSecureStorageOptions),
+      ),
       'macOSOptions',
-      serializers.serialize(object.macOSOptions,
-          specifiedType: const FullType(MacOSSecureStorageOptions)),
+      serializers.serialize(
+        object.macOSOptions,
+        specifiedType: const FullType(MacOSSecureStorageOptions),
+      ),
       'iOSOptions',
-      serializers.serialize(object.iOSOptions,
-          specifiedType: const FullType(IOSSecureStorageOptions)),
+      serializers.serialize(
+        object.iOSOptions,
+        specifiedType: const FullType(IOSSecureStorageOptions),
+      ),
     ];
     Object? value;
     value = object.namespace;
     if (value != null) {
       result
         ..add('namespace')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.scope;
     if (value != null) {
       result
         ..add('scope')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   AmplifySecureStorageConfig deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new AmplifySecureStorageConfigBuilder();
 
     final iterator = serialized.iterator;
@@ -71,37 +87,65 @@ class _$AmplifySecureStorageConfigSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'namespace':
-          result.namespace = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.namespace =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'scope':
-          result.scope = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.scope =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'webOptions':
-          result.webOptions.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WebSecureStorageOptions))!
-              as WebSecureStorageOptions);
+          result.webOptions.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(WebSecureStorageOptions),
+                )!
+                as WebSecureStorageOptions,
+          );
           break;
         case 'windowsOptions':
-          result.windowsOptions.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(WindowsSecureStorageOptions))!
-              as WindowsSecureStorageOptions);
+          result.windowsOptions.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(WindowsSecureStorageOptions),
+                )!
+                as WindowsSecureStorageOptions,
+          );
           break;
         case 'linuxOptions':
-          result.linuxOptions.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(LinuxSecureStorageOptions))!
-              as LinuxSecureStorageOptions);
+          result.linuxOptions.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(LinuxSecureStorageOptions),
+                )!
+                as LinuxSecureStorageOptions,
+          );
           break;
         case 'macOSOptions':
-          result.macOSOptions.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(MacOSSecureStorageOptions))!
-              as MacOSSecureStorageOptions);
+          result.macOSOptions.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(MacOSSecureStorageOptions),
+                )!
+                as MacOSSecureStorageOptions,
+          );
           break;
         case 'iOSOptions':
-          result.iOSOptions.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(IOSSecureStorageOptions))!
-              as IOSSecureStorageOptions);
+          result.iOSOptions.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(IOSSecureStorageOptions),
+                )!
+                as IOSSecureStorageOptions,
+          );
           break;
       }
     }
@@ -126,35 +170,50 @@ class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
   @override
   final IOSSecureStorageOptions iOSOptions;
 
-  factory _$AmplifySecureStorageConfig(
-          [void Function(AmplifySecureStorageConfigBuilder)? updates]) =>
-      (new AmplifySecureStorageConfigBuilder()..update(updates))._build();
+  factory _$AmplifySecureStorageConfig([
+    void Function(AmplifySecureStorageConfigBuilder)? updates,
+  ]) => (new AmplifySecureStorageConfigBuilder()..update(updates))._build();
 
-  _$AmplifySecureStorageConfig._(
-      {this.namespace,
-      this.scope,
-      required this.webOptions,
-      required this.windowsOptions,
-      required this.linuxOptions,
-      required this.macOSOptions,
-      required this.iOSOptions})
-      : super._() {
+  _$AmplifySecureStorageConfig._({
+    this.namespace,
+    this.scope,
+    required this.webOptions,
+    required this.windowsOptions,
+    required this.linuxOptions,
+    required this.macOSOptions,
+    required this.iOSOptions,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        webOptions, r'AmplifySecureStorageConfig', 'webOptions');
+      webOptions,
+      r'AmplifySecureStorageConfig',
+      'webOptions',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        windowsOptions, r'AmplifySecureStorageConfig', 'windowsOptions');
+      windowsOptions,
+      r'AmplifySecureStorageConfig',
+      'windowsOptions',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        linuxOptions, r'AmplifySecureStorageConfig', 'linuxOptions');
+      linuxOptions,
+      r'AmplifySecureStorageConfig',
+      'linuxOptions',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        macOSOptions, r'AmplifySecureStorageConfig', 'macOSOptions');
+      macOSOptions,
+      r'AmplifySecureStorageConfig',
+      'macOSOptions',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        iOSOptions, r'AmplifySecureStorageConfig', 'iOSOptions');
+      iOSOptions,
+      r'AmplifySecureStorageConfig',
+      'iOSOptions',
+    );
   }
 
   @override
   AmplifySecureStorageConfig rebuild(
-          void Function(AmplifySecureStorageConfigBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AmplifySecureStorageConfigBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AmplifySecureStorageConfigBuilder toBuilder() =>
@@ -278,15 +337,17 @@ class AmplifySecureStorageConfigBuilder
   _$AmplifySecureStorageConfig _build() {
     _$AmplifySecureStorageConfig _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$AmplifySecureStorageConfig._(
-              namespace: namespace,
-              scope: scope,
-              webOptions: webOptions.build(),
-              windowsOptions: windowsOptions.build(),
-              linuxOptions: linuxOptions.build(),
-              macOSOptions: macOSOptions.build(),
-              iOSOptions: iOSOptions.build());
+            namespace: namespace,
+            scope: scope,
+            webOptions: webOptions.build(),
+            windowsOptions: windowsOptions.build(),
+            linuxOptions: linuxOptions.build(),
+            macOSOptions: macOSOptions.build(),
+            iOSOptions: iOSOptions.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -302,7 +363,10 @@ class AmplifySecureStorageConfigBuilder
         iOSOptions.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'AmplifySecureStorageConfig', _$failedField, e.toString());
+          r'AmplifySecureStorageConfig',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -46,29 +46,17 @@ void main() {
       stream = streamCreator.onConnectivityChanged;
     });
 
-    test(
-      'returns connected status when ConnectivityPlus returns wifi',
-      () {
-        expect(
-          stream,
-          emits(ConnectivityStatus.connected),
-        );
-        stream.listen(null);
-        fakePlatform.controller.sink.add([ConnectivityResult.wifi]);
-      },
-    );
+    test('returns connected status when ConnectivityPlus returns wifi', () {
+      expect(stream, emits(ConnectivityStatus.connected));
+      stream.listen(null);
+      fakePlatform.controller.sink.add([ConnectivityResult.wifi]);
+    });
 
-    test(
-      'returns disconnected status when ConnectivityPlus returns none',
-      () {
-        expect(
-          stream,
-          emits(ConnectivityStatus.disconnected),
-        );
-        stream.listen(null);
-        fakePlatform.controller.sink.add([ConnectivityResult.none]);
-      },
-    );
+    test('returns disconnected status when ConnectivityPlus returns none', () {
+      expect(stream, emits(ConnectivityStatus.disconnected));
+      stream.listen(null);
+      fakePlatform.controller.sink.add([ConnectivityResult.none]);
+    });
 
     test(
       'returns disconnected/connected while changing connection status among several states',
@@ -93,12 +81,7 @@ void main() {
     test(
       'returns connected when ConnectivityPlus returns multiple type of connection.',
       () {
-        expect(
-          stream,
-          emitsInOrder([
-            ConnectivityStatus.connected,
-          ]),
-        );
+        expect(stream, emitsInOrder([ConnectivityStatus.connected]));
         stream.listen(null);
         fakePlatform.controller.sink.add([
           ConnectivityResult.wifi,

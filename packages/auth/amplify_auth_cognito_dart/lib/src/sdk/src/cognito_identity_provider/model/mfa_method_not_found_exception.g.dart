@@ -12,16 +12,16 @@ class _$MfaMethodNotFoundException extends MfaMethodNotFoundException {
   @override
   final Map<String, String>? headers;
 
-  factory _$MfaMethodNotFoundException(
-          [void Function(MfaMethodNotFoundExceptionBuilder)? updates]) =>
-      (new MfaMethodNotFoundExceptionBuilder()..update(updates))._build();
+  factory _$MfaMethodNotFoundException([
+    void Function(MfaMethodNotFoundExceptionBuilder)? updates,
+  ]) => (new MfaMethodNotFoundExceptionBuilder()..update(updates))._build();
 
   _$MfaMethodNotFoundException._({this.message, this.headers}) : super._();
 
   @override
   MfaMethodNotFoundException rebuild(
-          void Function(MfaMethodNotFoundExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MfaMethodNotFoundExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MfaMethodNotFoundExceptionBuilder toBuilder() =>
@@ -82,11 +82,9 @@ class MfaMethodNotFoundExceptionBuilder
   MfaMethodNotFoundException build() => _build();
 
   _$MfaMethodNotFoundException _build() {
-    final _$result = _$v ??
-        new _$MfaMethodNotFoundException._(
-          message: message,
-          headers: headers,
-        );
+    final _$result =
+        _$v ??
+        new _$MfaMethodNotFoundException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

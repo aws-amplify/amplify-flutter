@@ -1,9 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-@WorkerHive([
-  SecureStorageWorker,
-])
+@WorkerHive([SecureStorageWorker])
 library;
 
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.dart';

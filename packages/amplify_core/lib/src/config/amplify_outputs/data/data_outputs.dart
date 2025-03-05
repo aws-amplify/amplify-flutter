@@ -54,12 +54,12 @@ class DataOutputs
 
   @override
   List<Object?> get props => [
-        awsRegion,
-        url,
-        apiKey,
-        defaultAuthorizationType,
-        authorizationTypes,
-      ];
+    awsRegion,
+    url,
+    apiKey,
+    defaultAuthorizationType,
+    authorizationTypes,
+  ];
 
   @override
   String get runtimeTypeName => 'DataOutputs';

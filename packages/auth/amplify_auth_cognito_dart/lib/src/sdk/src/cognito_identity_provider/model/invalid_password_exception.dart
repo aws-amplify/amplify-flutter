@@ -22,9 +22,9 @@ abstract class InvalidPasswordException
   }
 
   /// This exception is thrown when Amazon Cognito encounters an invalid password.
-  factory InvalidPasswordException.build(
-          [void Function(InvalidPasswordExceptionBuilder) updates]) =
-      _$InvalidPasswordException;
+  factory InvalidPasswordException.build([
+    void Function(InvalidPasswordExceptionBuilder) updates,
+  ]) = _$InvalidPasswordException;
 
   const InvalidPasswordException._();
 
@@ -32,22 +32,21 @@ abstract class InvalidPasswordException
   factory InvalidPasswordException.fromResponse(
     InvalidPasswordException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<InvalidPasswordException>>
-      serializers = [InvalidPasswordExceptionAwsJson11Serializer()];
+  serializers = [InvalidPasswordExceptionAwsJson11Serializer()];
 
   /// The message returned when Amazon Cognito throws an invalid user password exception.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'InvalidPasswordException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'InvalidPasswordException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -68,10 +67,7 @@ abstract class InvalidPasswordException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InvalidPasswordException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -79,21 +75,18 @@ abstract class InvalidPasswordException
 class InvalidPasswordExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<InvalidPasswordException> {
   const InvalidPasswordExceptionAwsJson11Serializer()
-      : super('InvalidPasswordException');
+    : super('InvalidPasswordException');
 
   @override
   Iterable<Type> get types => const [
-        InvalidPasswordException,
-        _$InvalidPasswordException,
-      ];
+    InvalidPasswordException,
+    _$InvalidPasswordException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   InvalidPasswordException deserialize(
@@ -112,10 +105,12 @@ class InvalidPasswordExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -133,10 +128,9 @@ class InvalidPasswordExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

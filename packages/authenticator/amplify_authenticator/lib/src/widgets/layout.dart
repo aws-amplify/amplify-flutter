@@ -9,10 +9,7 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class AdaptiveFlex extends StatelessWidget {
   /// {@macro amplify_authenticator.adaptive_flex}}
-  const AdaptiveFlex({
-    super.key,
-    required this.children,
-  });
+  const AdaptiveFlex({super.key, required this.children});
 
   final List<Widget> children;
 

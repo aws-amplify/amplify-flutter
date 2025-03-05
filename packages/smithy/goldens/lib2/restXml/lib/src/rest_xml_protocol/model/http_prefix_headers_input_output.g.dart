@@ -12,16 +12,16 @@ class _$HttpPrefixHeadersInputOutput extends HttpPrefixHeadersInputOutput {
   @override
   final _i3.BuiltMap<String, String>? fooMap;
 
-  factory _$HttpPrefixHeadersInputOutput(
-          [void Function(HttpPrefixHeadersInputOutputBuilder)? updates]) =>
-      (new HttpPrefixHeadersInputOutputBuilder()..update(updates))._build();
+  factory _$HttpPrefixHeadersInputOutput([
+    void Function(HttpPrefixHeadersInputOutputBuilder)? updates,
+  ]) => (new HttpPrefixHeadersInputOutputBuilder()..update(updates))._build();
 
   _$HttpPrefixHeadersInputOutput._({this.foo, this.fooMap}) : super._();
 
   @override
   HttpPrefixHeadersInputOutput rebuild(
-          void Function(HttpPrefixHeadersInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPrefixHeadersInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPrefixHeadersInputOutputBuilder toBuilder() =>
@@ -47,8 +47,10 @@ class _$HttpPrefixHeadersInputOutput extends HttpPrefixHeadersInputOutput {
 
 class HttpPrefixHeadersInputOutputBuilder
     implements
-        Builder<HttpPrefixHeadersInputOutput,
-            HttpPrefixHeadersInputOutputBuilder> {
+        Builder<
+          HttpPrefixHeadersInputOutput,
+          HttpPrefixHeadersInputOutputBuilder
+        > {
   _$HttpPrefixHeadersInputOutput? _$v;
 
   String? _foo;
@@ -89,9 +91,12 @@ class HttpPrefixHeadersInputOutputBuilder
   _$HttpPrefixHeadersInputOutput _build() {
     _$HttpPrefixHeadersInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpPrefixHeadersInputOutput._(
-              foo: foo, fooMap: _fooMap?.build());
+            foo: foo,
+            fooMap: _fooMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -99,7 +104,10 @@ class HttpPrefixHeadersInputOutputBuilder
         _fooMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpPrefixHeadersInputOutput', _$failedField, e.toString());
+          r'HttpPrefixHeadersInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -110,9 +118,9 @@ class HttpPrefixHeadersInputOutputBuilder
 
 class _$HttpPrefixHeadersInputOutputPayload
     extends HttpPrefixHeadersInputOutputPayload {
-  factory _$HttpPrefixHeadersInputOutputPayload(
-          [void Function(HttpPrefixHeadersInputOutputPayloadBuilder)?
-              updates]) =>
+  factory _$HttpPrefixHeadersInputOutputPayload([
+    void Function(HttpPrefixHeadersInputOutputPayloadBuilder)? updates,
+  ]) =>
       (new HttpPrefixHeadersInputOutputPayloadBuilder()..update(updates))
           ._build();
 
@@ -120,8 +128,8 @@ class _$HttpPrefixHeadersInputOutputPayload
 
   @override
   HttpPrefixHeadersInputOutputPayload rebuild(
-          void Function(HttpPrefixHeadersInputOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPrefixHeadersInputOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPrefixHeadersInputOutputPayloadBuilder toBuilder() =>
@@ -141,8 +149,10 @@ class _$HttpPrefixHeadersInputOutputPayload
 
 class HttpPrefixHeadersInputOutputPayloadBuilder
     implements
-        Builder<HttpPrefixHeadersInputOutputPayload,
-            HttpPrefixHeadersInputOutputPayloadBuilder> {
+        Builder<
+          HttpPrefixHeadersInputOutputPayload,
+          HttpPrefixHeadersInputOutputPayloadBuilder
+        > {
   _$HttpPrefixHeadersInputOutputPayload? _$v;
 
   HttpPrefixHeadersInputOutputPayloadBuilder();
@@ -155,7 +165,8 @@ class HttpPrefixHeadersInputOutputPayloadBuilder
 
   @override
   void update(
-      void Function(HttpPrefixHeadersInputOutputPayloadBuilder)? updates) {
+    void Function(HttpPrefixHeadersInputOutputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

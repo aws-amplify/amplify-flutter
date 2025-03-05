@@ -51,7 +51,8 @@ Future<WebDriver> createWebDriver({bool headless = false}) async {
           if (headless) '--headless',
         ],
         'perfLoggingPrefs': <String, String>{
-          'traceCategories': 'devtools.timeline,'
+          'traceCategories':
+              'devtools.timeline,'
               'v8,blink.console,benchmark,blink,'
               'blink.user_timing',
         },
@@ -60,9 +61,7 @@ Future<WebDriver> createWebDriver({bool headless = false}) async {
   );
 
   // Listen to the browser's console logs and forward them to our logger.
-  driver.logs.get(LogType.browser).listen(
-        (log) => _chromeLogger.info('$log'),
-      );
+  driver.logs.get(LogType.browser).listen((log) => _chromeLogger.info('$log'));
   return driver;
 }
 
@@ -104,8 +103,7 @@ extension HostedUiWebDriver on WebDriver {
     required String username,
     required String password,
   }) async {
-    await execute(
-      '''
+    await execute('''
 const usernameInput = document.getElementById('signInFormUsername');
 usernameInput.scrollIntoView();
 usernameInput.value = '$username';
@@ -117,9 +115,7 @@ passwordInput.value = '$password';
 const loginButton = document.getElementsByName('signInSubmitButton')[0];
 loginButton.scrollIntoView();
 loginButton.click();
-''',
-      [],
-    );
+''', []);
 
     await locationChanges.firstWhere((uri) => uri.host == 'localhost');
   }

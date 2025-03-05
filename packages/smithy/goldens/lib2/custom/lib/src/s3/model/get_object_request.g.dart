@@ -14,14 +14,17 @@ class _$GetObjectRequest extends GetObjectRequest {
   @override
   final String? range;
 
-  factory _$GetObjectRequest(
-          [void Function(GetObjectRequestBuilder)? updates]) =>
-      (new GetObjectRequestBuilder()..update(updates))._build();
+  factory _$GetObjectRequest([
+    void Function(GetObjectRequestBuilder)? updates,
+  ]) => (new GetObjectRequestBuilder()..update(updates))._build();
 
   _$GetObjectRequest._({required this.bucket, required this.key, this.range})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'GetObjectRequest', 'bucket');
+      bucket,
+      r'GetObjectRequest',
+      'bucket',
+    );
     BuiltValueNullFieldError.checkNotNull(key, r'GetObjectRequest', 'key');
   }
 
@@ -97,29 +100,37 @@ class GetObjectRequestBuilder
   GetObjectRequest build() => _build();
 
   _$GetObjectRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$GetObjectRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'GetObjectRequest', 'bucket'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'GetObjectRequest', 'key'),
-            range: range);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'GetObjectRequest',
+            'bucket',
+          ),
+          key: BuiltValueNullFieldError.checkNotNull(
+            key,
+            r'GetObjectRequest',
+            'key',
+          ),
+          range: range,
+        );
     replace(_$result);
     return _$result;
   }
 }
 
 class _$GetObjectRequestPayload extends GetObjectRequestPayload {
-  factory _$GetObjectRequestPayload(
-          [void Function(GetObjectRequestPayloadBuilder)? updates]) =>
-      (new GetObjectRequestPayloadBuilder()..update(updates))._build();
+  factory _$GetObjectRequestPayload([
+    void Function(GetObjectRequestPayloadBuilder)? updates,
+  ]) => (new GetObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$GetObjectRequestPayload._() : super._();
 
   @override
   GetObjectRequestPayload rebuild(
-          void Function(GetObjectRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetObjectRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetObjectRequestPayloadBuilder toBuilder() =>

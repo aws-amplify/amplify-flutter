@@ -5,10 +5,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmUserAttributeScreen extends StatefulWidget {
-  const ConfirmUserAttributeScreen({
-    required this.userAttributeKey,
-    super.key,
-  });
+  const ConfirmUserAttributeScreen({required this.userAttributeKey, super.key});
 
   final AuthUserAttributeKey userAttributeKey;
 
@@ -68,9 +65,7 @@ class _ConfirmUserAttributeScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Confirm Attribute'),
-      ),
+      appBar: AppBar(title: const Text('Confirm Attribute')),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -79,15 +74,11 @@ class _ConfirmUserAttributeScreenState
             TextFormField(
               initialValue: widget.userAttributeKey.key,
               enabled: false,
-              decoration: const InputDecoration(
-                labelText: 'Attribute Name',
-              ),
+              decoration: const InputDecoration(labelText: 'Attribute Name'),
             ),
             TextFormField(
               controller: _confirmationCodeController,
-              decoration: const InputDecoration(
-                labelText: 'Confirmation Code',
-              ),
+              decoration: const InputDecoration(labelText: 'Confirmation Code'),
             ),
             const SizedBox(height: 12),
             ElevatedButton(

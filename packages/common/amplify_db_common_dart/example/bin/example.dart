@@ -6,10 +6,7 @@ import 'dart:io';
 
 import 'database.dart';
 
-enum InputMode {
-  query,
-  insert,
-}
+enum InputMode { query, insert }
 
 final db = MyDatabase();
 
@@ -17,9 +14,7 @@ Future<void> main() async {
   InputMode? inputMode;
 
   while (inputMode == null) {
-    final rawInput = _prompt(
-      'Would you like to query (q), or insert (i): ',
-    );
+    final rawInput = _prompt('Would you like to query (q), or insert (i): ');
     final input = rawInput[0].toLowerCase();
     if (input == 'q') {
       inputMode = InputMode.query;

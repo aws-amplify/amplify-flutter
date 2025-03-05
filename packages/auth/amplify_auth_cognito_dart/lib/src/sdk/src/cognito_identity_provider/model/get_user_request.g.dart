@@ -15,7 +15,10 @@ class _$GetUserRequest extends GetUserRequest {
 
   _$GetUserRequest._({required this.accessToken}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'GetUserRequest', 'accessToken');
+      accessToken,
+      r'GetUserRequest',
+      'accessToken',
+    );
   }
 
   @override
@@ -75,10 +78,14 @@ class GetUserRequestBuilder
   GetUserRequest build() => _build();
 
   _$GetUserRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$GetUserRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
-              accessToken, r'GetUserRequest', 'accessToken'),
+            accessToken,
+            r'GetUserRequest',
+            'accessToken',
+          ),
         );
     replace(_$result);
     return _$result;

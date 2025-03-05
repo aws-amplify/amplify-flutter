@@ -18,13 +18,14 @@ abstract class ConfirmDeviceResponse
   factory ConfirmDeviceResponse({bool? userConfirmationNecessary}) {
     userConfirmationNecessary ??= false;
     return _$ConfirmDeviceResponse._(
-        userConfirmationNecessary: userConfirmationNecessary);
+      userConfirmationNecessary: userConfirmationNecessary,
+    );
   }
 
   /// Confirms the device response.
-  factory ConfirmDeviceResponse.build(
-          [void Function(ConfirmDeviceResponseBuilder) updates]) =
-      _$ConfirmDeviceResponse;
+  factory ConfirmDeviceResponse.build([
+    void Function(ConfirmDeviceResponseBuilder) updates,
+  ]) = _$ConfirmDeviceResponse;
 
   const ConfirmDeviceResponse._();
 
@@ -32,11 +33,10 @@ abstract class ConfirmDeviceResponse
   factory ConfirmDeviceResponse.fromResponse(
     ConfirmDeviceResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<ConfirmDeviceResponse>> serializers = [
-    ConfirmDeviceResponseAwsJson11Serializer()
+    ConfirmDeviceResponseAwsJson11Serializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -52,10 +52,7 @@ abstract class ConfirmDeviceResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmDeviceResponse')
-      ..add(
-        'userConfirmationNecessary',
-        userConfirmationNecessary,
-      );
+      ..add('userConfirmationNecessary', userConfirmationNecessary);
     return helper.toString();
   }
 }
@@ -63,21 +60,18 @@ abstract class ConfirmDeviceResponse
 class ConfirmDeviceResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ConfirmDeviceResponse> {
   const ConfirmDeviceResponseAwsJson11Serializer()
-      : super('ConfirmDeviceResponse');
+    : super('ConfirmDeviceResponse');
 
   @override
   Iterable<Type> get types => const [
-        ConfirmDeviceResponse,
-        _$ConfirmDeviceResponse,
-      ];
+    ConfirmDeviceResponse,
+    _$ConfirmDeviceResponse,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ConfirmDeviceResponse deserialize(
@@ -96,10 +90,12 @@ class ConfirmDeviceResponseAwsJson11Serializer
       }
       switch (key) {
         case 'UserConfirmationNecessary':
-          result.userConfirmationNecessary = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.userConfirmationNecessary =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 

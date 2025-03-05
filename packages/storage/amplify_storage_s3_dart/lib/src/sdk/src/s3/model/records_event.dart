@@ -28,7 +28,7 @@ abstract class RecordsEvent
   const RecordsEvent._();
 
   static const List<_i3.SmithySerializer<RecordsEvent>> serializers = [
-    RecordsEventRestXmlSerializer()
+    RecordsEventRestXmlSerializer(),
   ];
 
   /// The byte array of partial, one or more result records.
@@ -39,10 +39,7 @@ abstract class RecordsEvent
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RecordsEvent')
-      ..add(
-        'payload',
-        payload,
-      );
+      ..add('payload', payload);
     return helper.toString();
   }
 }
@@ -52,18 +49,12 @@ class RecordsEventRestXmlSerializer
   const RecordsEventRestXmlSerializer() : super('RecordsEvent');
 
   @override
-  Iterable<Type> get types => const [
-        RecordsEvent,
-        _$RecordsEvent,
-      ];
+  Iterable<Type> get types => const [RecordsEvent, _$RecordsEvent];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   RecordsEvent deserialize(
@@ -82,10 +73,12 @@ class RecordsEventRestXmlSerializer
       }
       switch (key) {
         case 'Payload':
-          result.payload = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Uint8List),
-          ) as _i2.Uint8List);
+          result.payload =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Uint8List),
+                  )
+                  as _i2.Uint8List);
       }
     }
 
@@ -102,16 +95,18 @@ class RecordsEventRestXmlSerializer
       const _i3.XmlElementName(
         'RecordsEvent',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final RecordsEvent(:payload) = object;
     if (payload != null) {
       result$
         ..add(const _i3.XmlElementName('Payload'))
-        ..add(serializers.serialize(
-          payload,
-          specifiedType: const FullType(_i2.Uint8List),
-        ));
+        ..add(
+          serializers.serialize(
+            payload,
+            specifiedType: const FullType(_i2.Uint8List),
+          ),
+        );
     }
     return result$;
   }

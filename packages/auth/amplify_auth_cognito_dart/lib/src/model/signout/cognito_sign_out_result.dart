@@ -38,9 +38,7 @@ sealed class CognitoSignOutResult extends SignOutResult
   String get runtimeTypeName => 'CognitoSignOutResult';
 
   @override
-  Map<String, Object?> toJson() => {
-        'signedOutLocally': signedOutLocally,
-      };
+  Map<String, Object?> toJson() => {'signedOutLocally': signedOutLocally};
 }
 
 /// {@template amplify_auth_cognito_dart.model.cognito_complete_sign_out}
@@ -72,9 +70,9 @@ final class CognitoFailedSignOut extends CognitoSignOutResult {
 
   @override
   Map<String, Object?> toJson() => {
-        'exception': exception.toString(),
-        'signedOutLocally': signedOutLocally,
-      };
+    'exception': exception.toString(),
+    'signedOutLocally': signedOutLocally,
+  };
 }
 
 /// {@template amplify_auth_cognito_dart.model.cognito_partial_sign_out}
@@ -103,19 +101,19 @@ final class CognitoPartialSignOut extends CognitoSignOutResult {
 
   @override
   List<Object?> get props => [
-        hostedUiException,
-        globalSignOutException,
-        revokeTokenException,
-        signedOutLocally,
-      ];
+    hostedUiException,
+    globalSignOutException,
+    revokeTokenException,
+    signedOutLocally,
+  ];
 
   @override
   Map<String, Object?> toJson() => {
-        'hostedUiException': hostedUiException?.toString(),
-        'globalSignOutException': globalSignOutException?.toString(),
-        'revokeTokenException': revokeTokenException?.toString(),
-        'signedOutLocally': signedOutLocally,
-      };
+    'hostedUiException': hostedUiException?.toString(),
+    'globalSignOutException': globalSignOutException?.toString(),
+    'revokeTokenException': revokeTokenException?.toString(),
+    'signedOutLocally': signedOutLocally,
+  };
 }
 
 /// {@template amplify_auth_cognito_dart.model.signout.hosted_ui_exception}
@@ -123,12 +121,11 @@ final class CognitoPartialSignOut extends CognitoSignOutResult {
 /// {@endtemplate}
 final class HostedUiException extends UnknownException {
   /// {@macro amplify_auth_cognito_dart.model.signout.hosted_ui_exception}
-  const HostedUiException({
-    super.underlyingException,
-  }) : super(
-          'Failed to perform Hosted UI sign out',
-          recoverySuggestion: 'See underlyingException for more details',
-        );
+  const HostedUiException({super.underlyingException})
+    : super(
+        'Failed to perform Hosted UI sign out',
+        recoverySuggestion: 'See underlyingException for more details',
+      );
 
   @override
   String get runtimeTypeName => 'HostedUiException';
@@ -143,9 +140,9 @@ final class GlobalSignOutException extends AuthServiceException {
     required this.accessToken,
     super.underlyingException,
   }) : super(
-          'Failed to sign out globally',
-          recoverySuggestion: 'See underlyingException for more details',
-        );
+         'Failed to sign out globally',
+         recoverySuggestion: 'See underlyingException for more details',
+       );
 
   /// The access token which failed global sign out.
   ///
@@ -165,9 +162,9 @@ final class RevokeTokenException extends AuthServiceException {
     required this.refreshToken,
     super.underlyingException,
   }) : super(
-          'Failed to revoke token',
-          recoverySuggestion: 'See underlyingException for more details',
-        );
+         'Failed to revoke token',
+         recoverySuggestion: 'See underlyingException for more details',
+       );
 
   /// The refresh token which failed to revoke.
   ///

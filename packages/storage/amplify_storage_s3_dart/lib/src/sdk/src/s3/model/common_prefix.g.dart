@@ -71,10 +71,7 @@ class CommonPrefixBuilder
   CommonPrefix build() => _build();
 
   _$CommonPrefix _build() {
-    final _$result = _$v ??
-        new _$CommonPrefix._(
-          prefix: prefix,
-        );
+    final _$result = _$v ?? new _$CommonPrefix._(prefix: prefix);
     replace(_$result);
     return _$result;
   }

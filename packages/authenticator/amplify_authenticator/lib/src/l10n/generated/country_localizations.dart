@@ -62,7 +62,7 @@ import 'package:intl/intl.dart' as intl;
 /// property.
 abstract class AuthenticatorCountryLocalizations {
   AuthenticatorCountryLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale);
+    : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
@@ -74,7 +74,7 @@ abstract class AuthenticatorCountryLocalizations {
   }
 
   static const LocalizationsDelegate<AuthenticatorCountryLocalizations>
-      delegate = _AuthenticatorCountryLocalizationsDelegate();
+  delegate = _AuthenticatorCountryLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -88,16 +88,14 @@ abstract class AuthenticatorCountryLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
   /// Title of select dial code modal
   ///
@@ -1594,19 +1592,20 @@ class _AuthenticatorCountryLocalizationsDelegate
 }
 
 Future<AuthenticatorCountryLocalizations>
-    lookupAuthenticatorCountryLocalizations(Locale locale) {
+lookupAuthenticatorCountryLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
       return country_localizations_en.loadLibrary().then(
-            (dynamic _) =>
-                country_localizations_en.AuthenticatorCountryLocalizationsEn(),
-          );
+        (dynamic _) =>
+            country_localizations_en.AuthenticatorCountryLocalizationsEn(),
+      );
   }
 
   throw FlutterError(
-      'AuthenticatorCountryLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AuthenticatorCountryLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

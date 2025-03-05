@@ -7,12 +7,12 @@ part of 'service_trait.dart';
 // **************************************************************************
 
 ServiceTrait _$ServiceTraitFromJson(Map<String, dynamic> json) => ServiceTrait(
-      sdkId: json['sdkId'] as String,
-      cloudFormationName: json['cloudFormationName'] as String?,
-      arnNamespace: json['arnNamespace'] as String?,
-      cloudTrailEventSource: json['cloudTrailEventSource'] as String?,
-      endpointPrefix: json['endpointPrefix'] as String?,
-    );
+  sdkId: json['sdkId'] as String,
+  cloudFormationName: json['cloudFormationName'] as String?,
+  arnNamespace: json['arnNamespace'] as String?,
+  cloudTrailEventSource: json['cloudTrailEventSource'] as String?,
+  endpointPrefix: json['endpointPrefix'] as String?,
+);
 
 Map<String, dynamic> _$ServiceTraitToJson(ServiceTrait instance) =>
     <String, dynamic>{
@@ -24,21 +24,21 @@ Map<String, dynamic> _$ServiceTraitToJson(ServiceTrait instance) =>
     };
 
 ResolvedServiceTrait _$ResolvedServiceTraitFromJson(
-        Map<String, dynamic> json) =>
-    ResolvedServiceTrait(
-      cloudFormationName: json['cloudFormationName'] as String,
-      arnNamespace: json['arnNamespace'] as String,
-      sdkId: json['sdkId'] as String,
-      cloudTrailEventSource: json['cloudTrailEventSource'] as String,
-      endpointPrefix: json['endpointPrefix'] as String,
-    );
+  Map<String, dynamic> json,
+) => ResolvedServiceTrait(
+  cloudFormationName: json['cloudFormationName'] as String,
+  arnNamespace: json['arnNamespace'] as String,
+  sdkId: json['sdkId'] as String,
+  cloudTrailEventSource: json['cloudTrailEventSource'] as String,
+  endpointPrefix: json['endpointPrefix'] as String,
+);
 
 Map<String, dynamic> _$ResolvedServiceTraitToJson(
-        ResolvedServiceTrait instance) =>
-    <String, dynamic>{
-      'sdkId': instance.sdkId,
-      'cloudFormationName': instance.cloudFormationName,
-      'arnNamespace': instance.arnNamespace,
-      'cloudTrailEventSource': instance.cloudTrailEventSource,
-      'endpointPrefix': instance.endpointPrefix,
-    };
+  ResolvedServiceTrait instance,
+) => <String, dynamic>{
+  'sdkId': instance.sdkId,
+  'cloudFormationName': instance.cloudFormationName,
+  'arnNamespace': instance.arnNamespace,
+  'cloudTrailEventSource': instance.cloudTrailEventSource,
+  'endpointPrefix': instance.endpointPrefix,
+};

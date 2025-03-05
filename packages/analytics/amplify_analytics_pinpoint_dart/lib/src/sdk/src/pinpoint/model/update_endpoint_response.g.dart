@@ -10,19 +10,22 @@ class _$UpdateEndpointResponse extends UpdateEndpointResponse {
   @override
   final MessageBody messageBody;
 
-  factory _$UpdateEndpointResponse(
-          [void Function(UpdateEndpointResponseBuilder)? updates]) =>
-      (new UpdateEndpointResponseBuilder()..update(updates))._build();
+  factory _$UpdateEndpointResponse([
+    void Function(UpdateEndpointResponseBuilder)? updates,
+  ]) => (new UpdateEndpointResponseBuilder()..update(updates))._build();
 
   _$UpdateEndpointResponse._({required this.messageBody}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        messageBody, r'UpdateEndpointResponse', 'messageBody');
+      messageBody,
+      r'UpdateEndpointResponse',
+      'messageBody',
+    );
   }
 
   @override
   UpdateEndpointResponse rebuild(
-          void Function(UpdateEndpointResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateEndpointResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateEndpointResponseBuilder toBuilder() =>
@@ -81,7 +84,8 @@ class UpdateEndpointResponseBuilder
   _$UpdateEndpointResponse _build() {
     _$UpdateEndpointResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$UpdateEndpointResponse._(messageBody: messageBody.build());
     } catch (_) {
       late String _$failedField;
@@ -90,7 +94,10 @@ class UpdateEndpointResponseBuilder
         messageBody.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'UpdateEndpointResponse', _$failedField, e.toString());
+          r'UpdateEndpointResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

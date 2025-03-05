@@ -16,10 +16,7 @@ import 'package:path/path.dart' as p;
 /// See [Using drift in a background isolate](https://drift.simonbinder.eu/docs/advanced-features/isolates/#initialization-on-the-main-thread)
 /// and [the drift native example](https://github.com/simolus3/drift/blob/3253cd7ead51d7b163542929eb0fc8daee573fce/examples/app/lib/database/connection/native.dart)
 /// for more info.
-QueryExecutor connect({
-  required String name,
-  FutureOr<String>? path,
-}) {
+QueryExecutor connect({required String name, FutureOr<String>? path}) {
   assert(path != null, 'path cannot be null on vm.');
 
   return DatabaseConnection.delayed(

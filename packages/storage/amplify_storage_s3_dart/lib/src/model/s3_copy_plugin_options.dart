@@ -11,9 +11,7 @@ part 's3_copy_plugin_options.g.dart';
 @zAmplifySerializable
 class S3CopyPluginOptions extends StorageCopyPluginOptions {
   /// {@macro storage.amplify_storage_s3.copy_plugin_options}
-  const S3CopyPluginOptions({
-    this.getProperties = false,
-  });
+  const S3CopyPluginOptions({this.getProperties = false});
 
   /// {@macro storage.amplify_storage_s3.copy_plugin_options}
   factory S3CopyPluginOptions.fromJson(Map<String, Object?> json) =>

@@ -7,12 +7,11 @@ import 'package:amplify_core/src/types/storage/base/storage_operation.dart';
 /// {@template amplify_core.storage.remove_operation}
 /// Presents a storage remove many operation.
 /// {@endtemplate}
-class StorageRemoveOperation<Request extends StorageRemoveRequest,
-        Result extends StorageRemoveResult>
+class StorageRemoveOperation<
+  Request extends StorageRemoveRequest,
+  Result extends StorageRemoveResult
+>
     extends StorageOperation<Request, Result> {
   /// {@macro amplify_core.storage.remove_operation}
-  StorageRemoveOperation({
-    required super.request,
-    required super.result,
-  });
+  StorageRemoveOperation({required super.request, required super.result});
 }

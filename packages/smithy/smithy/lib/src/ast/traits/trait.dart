@@ -8,8 +8,10 @@ import 'package:smithy/ast.dart';
 part 'dynamic_trait.dart';
 
 /// Constructs [Trait] objects from JSON values.
-typedef TraitConstructor<TraitValue extends Object, T extends Trait<TraitValue>>
-    = T Function(Object?);
+typedef TraitConstructor<
+  TraitValue extends Object,
+  T extends Trait<TraitValue>
+> = T Function(Object?);
 
 /// Traits provide additional context and semantics to shapes.
 ///

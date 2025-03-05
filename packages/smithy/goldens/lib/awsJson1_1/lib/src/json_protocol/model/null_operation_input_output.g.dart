@@ -14,18 +14,20 @@ class _$NullOperationInputOutput extends NullOperationInputOutput {
   @override
   final _i3.BuiltMap<String, String?>? sparseStringMap;
 
-  factory _$NullOperationInputOutput(
-          [void Function(NullOperationInputOutputBuilder)? updates]) =>
-      (new NullOperationInputOutputBuilder()..update(updates))._build();
+  factory _$NullOperationInputOutput([
+    void Function(NullOperationInputOutputBuilder)? updates,
+  ]) => (new NullOperationInputOutputBuilder()..update(updates))._build();
 
-  _$NullOperationInputOutput._(
-      {this.string, this.sparseStringList, this.sparseStringMap})
-      : super._();
+  _$NullOperationInputOutput._({
+    this.string,
+    this.sparseStringList,
+    this.sparseStringMap,
+  }) : super._();
 
   @override
   NullOperationInputOutput rebuild(
-          void Function(NullOperationInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NullOperationInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NullOperationInputOutputBuilder toBuilder() =>
@@ -102,11 +104,13 @@ class NullOperationInputOutputBuilder
   _$NullOperationInputOutput _build() {
     _$NullOperationInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$NullOperationInputOutput._(
-              string: string,
-              sparseStringList: _sparseStringList?.build(),
-              sparseStringMap: _sparseStringMap?.build());
+            string: string,
+            sparseStringList: _sparseStringList?.build(),
+            sparseStringMap: _sparseStringMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -116,7 +120,10 @@ class NullOperationInputOutputBuilder
         _sparseStringMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'NullOperationInputOutput', _$failedField, e.toString());
+          r'NullOperationInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

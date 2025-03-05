@@ -32,9 +32,7 @@ MaterialBanner createMaterialBanner(
           Expanded(
             child: Text(
               message.trim(),
-              style: TextStyle(
-                color: colorsChoices.foreground,
-              ),
+              style: TextStyle(color: colorsChoices.foreground),
             ),
           ),
         ],
@@ -43,10 +41,7 @@ MaterialBanner createMaterialBanner(
     actions: [
       IconButton(
         onPressed: actionCallback,
-        icon: Icon(
-          Icons.close,
-          color: colorsChoices.foreground,
-        ),
+        icon: Icon(Icons.close, color: colorsChoices.foreground),
       ),
     ],
   );
@@ -79,15 +74,11 @@ SnackBar createSnackBar(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(type.icon, color: fallbackIconColor),
-        const SizedBox(
-          width: 16,
-        ),
+        const SizedBox(width: 16),
         Expanded(
           child: Text(
             message.trim(),
-            style: TextStyle(
-              color: colorsChoices.foreground,
-            ),
+            style: TextStyle(color: colorsChoices.foreground),
           ),
         ),
       ],

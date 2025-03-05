@@ -83,7 +83,10 @@ class XmlMapsOutputBuilder
         _myMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlMapsOutput', _$failedField, e.toString());
+          r'XmlMapsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

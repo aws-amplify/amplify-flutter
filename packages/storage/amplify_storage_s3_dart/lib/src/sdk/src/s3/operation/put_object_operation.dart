@@ -63,8 +63,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
 ///
 /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-class PutObjectOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
-    PutObjectRequest, PutObjectOutputPayload, PutObjectOutput> {
+class PutObjectOperation
+    extends
+        _i1.HttpOperation<
+          _i2.Stream<List<int>>,
+          PutObjectRequest,
+          PutObjectOutputPayload,
+          PutObjectOutput
+        > {
   /// Adds an object to a bucket.
   ///
   /// *   Amazon S3 never adds partial objects; if you receive a success response, Amazon S3 added the entire object to the bucket. You cannot use `PutObject` to only update a single piece of metadata for an existing object. You must put the entire object with updated metadata if you want to update some values.
@@ -122,27 +128,35 @@ class PutObjectOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
         const _i4.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.Stream<List<int>>, PutObjectRequest,
-          PutObjectOutputPayload, PutObjectOutput>> protocols = [
+    _i1.HttpProtocol<
+      _i2.Stream<List<int>>,
+      PutObjectRequest,
+      PutObjectOutputPayload,
+      PutObjectOutput
+    >
+  >
+  protocols = [
     _i3.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i3.WithSigV4(
               region: _region,
               service: _i5.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i4.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -153,7 +167,7 @@ class PutObjectOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -175,182 +189,184 @@ class PutObjectOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
 
   @override
   _i1.HttpRequest buildRequest(PutObjectRequest input) => _i1.HttpRequest((b) {
-        b.method = 'PUT';
-        b.path = _s3ClientConfig.usePathStyle
+    b.method = 'PUT';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=PutObject'
             : r'/{Key+}?x-id=PutObject';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.acl != null) {
-          b.headers['x-amz-acl'] = input.acl!.value;
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.acl != null) {
+      b.headers['x-amz-acl'] = input.acl!.value;
+    }
+    if (input.cacheControl != null) {
+      if (input.cacheControl!.isNotEmpty) {
+        b.headers['Cache-Control'] = input.cacheControl!;
+      }
+    }
+    if (input.contentDisposition != null) {
+      if (input.contentDisposition!.isNotEmpty) {
+        b.headers['Content-Disposition'] = input.contentDisposition!;
+      }
+    }
+    if (input.contentEncoding != null) {
+      if (input.contentEncoding!.isNotEmpty) {
+        b.headers['Content-Encoding'] = input.contentEncoding!;
+      }
+    }
+    if (input.contentLanguage != null) {
+      if (input.contentLanguage!.isNotEmpty) {
+        b.headers['Content-Language'] = input.contentLanguage!;
+      }
+    }
+    if (input.contentLength != null) {
+      b.headers['Content-Length'] = input.contentLength!.toString();
+    }
+    if (input.contentMd5 != null) {
+      if (input.contentMd5!.isNotEmpty) {
+        b.headers['Content-MD5'] = input.contentMd5!;
+      }
+    }
+    if (input.contentType != null) {
+      if (input.contentType!.isNotEmpty) {
+        b.headers['Content-Type'] = input.contentType!;
+      }
+    }
+    if (input.checksumAlgorithm != null) {
+      b.headers['x-amz-sdk-checksum-algorithm'] =
+          input.checksumAlgorithm!.value;
+    }
+    if (input.checksumCrc32 != null) {
+      if (input.checksumCrc32!.isNotEmpty) {
+        b.headers['x-amz-checksum-crc32'] = input.checksumCrc32!;
+      }
+    }
+    if (input.checksumCrc32C != null) {
+      if (input.checksumCrc32C!.isNotEmpty) {
+        b.headers['x-amz-checksum-crc32c'] = input.checksumCrc32C!;
+      }
+    }
+    if (input.checksumSha1 != null) {
+      if (input.checksumSha1!.isNotEmpty) {
+        b.headers['x-amz-checksum-sha1'] = input.checksumSha1!;
+      }
+    }
+    if (input.checksumSha256 != null) {
+      if (input.checksumSha256!.isNotEmpty) {
+        b.headers['x-amz-checksum-sha256'] = input.checksumSha256!;
+      }
+    }
+    if (input.expires != null) {
+      b.headers['Expires'] =
+          _i1.Timestamp(
+            input.expires!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.grantFullControl != null) {
+      if (input.grantFullControl!.isNotEmpty) {
+        b.headers['x-amz-grant-full-control'] = input.grantFullControl!;
+      }
+    }
+    if (input.grantRead != null) {
+      if (input.grantRead!.isNotEmpty) {
+        b.headers['x-amz-grant-read'] = input.grantRead!;
+      }
+    }
+    if (input.grantReadAcp != null) {
+      if (input.grantReadAcp!.isNotEmpty) {
+        b.headers['x-amz-grant-read-acp'] = input.grantReadAcp!;
+      }
+    }
+    if (input.grantWriteAcp != null) {
+      if (input.grantWriteAcp!.isNotEmpty) {
+        b.headers['x-amz-grant-write-acp'] = input.grantWriteAcp!;
+      }
+    }
+    if (input.serverSideEncryption != null) {
+      b.headers['x-amz-server-side-encryption'] =
+          input.serverSideEncryption!.value;
+    }
+    if (input.storageClass != null) {
+      b.headers['x-amz-storage-class'] = input.storageClass!.value;
+    }
+    if (input.websiteRedirectLocation != null) {
+      if (input.websiteRedirectLocation!.isNotEmpty) {
+        b.headers['x-amz-website-redirect-location'] =
+            input.websiteRedirectLocation!;
+      }
+    }
+    if (input.sseCustomerAlgorithm != null) {
+      if (input.sseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-algorithm'] =
+            input.sseCustomerAlgorithm!;
+      }
+    }
+    if (input.sseCustomerKey != null) {
+      if (input.sseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key'] =
+            input.sseCustomerKey!;
+      }
+    }
+    if (input.sseCustomerKeyMd5 != null) {
+      if (input.sseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
+            input.sseCustomerKeyMd5!;
+      }
+    }
+    if (input.ssekmsKeyId != null) {
+      if (input.ssekmsKeyId!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-aws-kms-key-id'] =
+            input.ssekmsKeyId!;
+      }
+    }
+    if (input.ssekmsEncryptionContext != null) {
+      if (input.ssekmsEncryptionContext!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-context'] =
+            input.ssekmsEncryptionContext!;
+      }
+    }
+    if (input.bucketKeyEnabled != null) {
+      b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
+          input.bucketKeyEnabled!.toString();
+    }
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.tagging != null) {
+      if (input.tagging!.isNotEmpty) {
+        b.headers['x-amz-tagging'] = input.tagging!;
+      }
+    }
+    if (input.objectLockMode != null) {
+      b.headers['x-amz-object-lock-mode'] = input.objectLockMode!.value;
+    }
+    if (input.objectLockRetainUntilDate != null) {
+      b.headers['x-amz-object-lock-retain-until-date'] =
+          _i1.Timestamp(
+            input.objectLockRetainUntilDate!,
+          ).format(_i1.TimestampFormat.dateTime).toString();
+    }
+    if (input.objectLockLegalHoldStatus != null) {
+      b.headers['x-amz-object-lock-legal-hold'] =
+          input.objectLockLegalHoldStatus!.value;
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.metadata != null) {
+      for (var entry in input.metadata!.toMap().entries) {
+        if (entry.value.isNotEmpty) {
+          b.headers['x-amz-meta-${entry.key}'] = entry.value;
         }
-        if (input.cacheControl != null) {
-          if (input.cacheControl!.isNotEmpty) {
-            b.headers['Cache-Control'] = input.cacheControl!;
-          }
-        }
-        if (input.contentDisposition != null) {
-          if (input.contentDisposition!.isNotEmpty) {
-            b.headers['Content-Disposition'] = input.contentDisposition!;
-          }
-        }
-        if (input.contentEncoding != null) {
-          if (input.contentEncoding!.isNotEmpty) {
-            b.headers['Content-Encoding'] = input.contentEncoding!;
-          }
-        }
-        if (input.contentLanguage != null) {
-          if (input.contentLanguage!.isNotEmpty) {
-            b.headers['Content-Language'] = input.contentLanguage!;
-          }
-        }
-        if (input.contentLength != null) {
-          b.headers['Content-Length'] = input.contentLength!.toString();
-        }
-        if (input.contentMd5 != null) {
-          if (input.contentMd5!.isNotEmpty) {
-            b.headers['Content-MD5'] = input.contentMd5!;
-          }
-        }
-        if (input.contentType != null) {
-          if (input.contentType!.isNotEmpty) {
-            b.headers['Content-Type'] = input.contentType!;
-          }
-        }
-        if (input.checksumAlgorithm != null) {
-          b.headers['x-amz-sdk-checksum-algorithm'] =
-              input.checksumAlgorithm!.value;
-        }
-        if (input.checksumCrc32 != null) {
-          if (input.checksumCrc32!.isNotEmpty) {
-            b.headers['x-amz-checksum-crc32'] = input.checksumCrc32!;
-          }
-        }
-        if (input.checksumCrc32C != null) {
-          if (input.checksumCrc32C!.isNotEmpty) {
-            b.headers['x-amz-checksum-crc32c'] = input.checksumCrc32C!;
-          }
-        }
-        if (input.checksumSha1 != null) {
-          if (input.checksumSha1!.isNotEmpty) {
-            b.headers['x-amz-checksum-sha1'] = input.checksumSha1!;
-          }
-        }
-        if (input.checksumSha256 != null) {
-          if (input.checksumSha256!.isNotEmpty) {
-            b.headers['x-amz-checksum-sha256'] = input.checksumSha256!;
-          }
-        }
-        if (input.expires != null) {
-          b.headers['Expires'] = _i1.Timestamp(input.expires!)
-              .format(_i1.TimestampFormat.httpDate)
-              .toString();
-        }
-        if (input.grantFullControl != null) {
-          if (input.grantFullControl!.isNotEmpty) {
-            b.headers['x-amz-grant-full-control'] = input.grantFullControl!;
-          }
-        }
-        if (input.grantRead != null) {
-          if (input.grantRead!.isNotEmpty) {
-            b.headers['x-amz-grant-read'] = input.grantRead!;
-          }
-        }
-        if (input.grantReadAcp != null) {
-          if (input.grantReadAcp!.isNotEmpty) {
-            b.headers['x-amz-grant-read-acp'] = input.grantReadAcp!;
-          }
-        }
-        if (input.grantWriteAcp != null) {
-          if (input.grantWriteAcp!.isNotEmpty) {
-            b.headers['x-amz-grant-write-acp'] = input.grantWriteAcp!;
-          }
-        }
-        if (input.serverSideEncryption != null) {
-          b.headers['x-amz-server-side-encryption'] =
-              input.serverSideEncryption!.value;
-        }
-        if (input.storageClass != null) {
-          b.headers['x-amz-storage-class'] = input.storageClass!.value;
-        }
-        if (input.websiteRedirectLocation != null) {
-          if (input.websiteRedirectLocation!.isNotEmpty) {
-            b.headers['x-amz-website-redirect-location'] =
-                input.websiteRedirectLocation!;
-          }
-        }
-        if (input.sseCustomerAlgorithm != null) {
-          if (input.sseCustomerAlgorithm!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-algorithm'] =
-                input.sseCustomerAlgorithm!;
-          }
-        }
-        if (input.sseCustomerKey != null) {
-          if (input.sseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key'] =
-                input.sseCustomerKey!;
-          }
-        }
-        if (input.sseCustomerKeyMd5 != null) {
-          if (input.sseCustomerKeyMd5!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
-                input.sseCustomerKeyMd5!;
-          }
-        }
-        if (input.ssekmsKeyId != null) {
-          if (input.ssekmsKeyId!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-aws-kms-key-id'] =
-                input.ssekmsKeyId!;
-          }
-        }
-        if (input.ssekmsEncryptionContext != null) {
-          if (input.ssekmsEncryptionContext!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-context'] =
-                input.ssekmsEncryptionContext!;
-          }
-        }
-        if (input.bucketKeyEnabled != null) {
-          b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
-              input.bucketKeyEnabled!.toString();
-        }
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.tagging != null) {
-          if (input.tagging!.isNotEmpty) {
-            b.headers['x-amz-tagging'] = input.tagging!;
-          }
-        }
-        if (input.objectLockMode != null) {
-          b.headers['x-amz-object-lock-mode'] = input.objectLockMode!.value;
-        }
-        if (input.objectLockRetainUntilDate != null) {
-          b.headers['x-amz-object-lock-retain-until-date'] =
-              _i1.Timestamp(input.objectLockRetainUntilDate!)
-                  .format(_i1.TimestampFormat.dateTime)
-                  .toString();
-        }
-        if (input.objectLockLegalHoldStatus != null) {
-          b.headers['x-amz-object-lock-legal-hold'] =
-              input.objectLockLegalHoldStatus!.value;
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.metadata != null) {
-          for (var entry in input.metadata!.toMap().entries) {
-            if (entry.value.isNotEmpty) {
-              b.headers['x-amz-meta-${entry.key}'] = entry.value;
-            }
-          }
-        }
-        if (input.checksumAlgorithm != null) {
-          b.requestInterceptors
-              .add(_i3.WithChecksum(input.checksumAlgorithm!.value));
-        }
-      });
+      }
+    }
+    if (input.checksumAlgorithm != null) {
+      b.requestInterceptors.add(
+        _i3.WithChecksum(input.checksumAlgorithm!.value),
+      );
+    }
+  });
 
   @override
   int successCode([PutObjectOutput? output]) => 200;
@@ -359,11 +375,7 @@ class PutObjectOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
   PutObjectOutput buildOutput(
     PutObjectOutputPayload payload,
     _i5.AWSBaseHttpResponse response,
-  ) =>
-      PutObjectOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => PutObjectOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -402,11 +414,7 @@ class PutObjectOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},

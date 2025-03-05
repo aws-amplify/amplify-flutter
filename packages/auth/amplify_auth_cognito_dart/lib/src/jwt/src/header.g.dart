@@ -10,9 +10,10 @@ JsonWebHeader _$JsonWebHeaderFromJson(Map<String, dynamic> json) =>
     JsonWebHeader(
       algorithm: AlgorithmX.fromJson(json['alg'] as String),
       jwkSetUri: json['jku'] == null ? null : Uri.parse(json['jku'] as String),
-      jwk: json['jwk'] == null
-          ? null
-          : JsonWebKey.fromJson(json['jwk'] as Map<String, dynamic>),
+      jwk:
+          json['jwk'] == null
+              ? null
+              : JsonWebKey.fromJson(json['jwk'] as Map<String, dynamic>),
       keyId: json['kid'] as String?,
       x509CertChain:
           (json['x5c'] as List<dynamic>?)?.map((e) => e as String).toList(),

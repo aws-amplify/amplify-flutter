@@ -26,7 +26,7 @@ abstract class JsonOutput
   const JsonOutput._();
 
   static const List<_i2.SmithySerializer<JsonOutput>> serializers = [
-    JsonOutputRestXmlSerializer()
+    JsonOutputRestXmlSerializer(),
   ];
 
   /// The value used to separate individual records in the output. If no value is specified, Amazon S3 uses a newline character ('\\n').
@@ -37,10 +37,7 @@ abstract class JsonOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonOutput')
-      ..add(
-        'recordDelimiter',
-        recordDelimiter,
-      );
+      ..add('recordDelimiter', recordDelimiter);
     return helper.toString();
   }
 }
@@ -50,18 +47,12 @@ class JsonOutputRestXmlSerializer
   const JsonOutputRestXmlSerializer() : super('JsonOutput');
 
   @override
-  Iterable<Type> get types => const [
-        JsonOutput,
-        _$JsonOutput,
-      ];
+  Iterable<Type> get types => const [JsonOutput, _$JsonOutput];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   JsonOutput deserialize(
@@ -80,10 +71,12 @@ class JsonOutputRestXmlSerializer
       }
       switch (key) {
         case 'RecordDelimiter':
-          result.recordDelimiter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.recordDelimiter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -100,16 +93,18 @@ class JsonOutputRestXmlSerializer
       const _i2.XmlElementName(
         'JsonOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final JsonOutput(:recordDelimiter) = object;
     if (recordDelimiter != null) {
       result$
         ..add(const _i2.XmlElementName('RecordDelimiter'))
-        ..add(serializers.serialize(
-          recordDelimiter,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            recordDelimiter,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

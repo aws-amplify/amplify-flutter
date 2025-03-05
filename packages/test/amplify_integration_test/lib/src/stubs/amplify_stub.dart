@@ -59,9 +59,7 @@ class AmplifyStub extends AmplifyClass {
     try {
       jsonDecode(configuration);
     } on FormatException {
-      throw Exception(
-        'The provided configuration is not a valid json.',
-      );
+      throw Exception('The provided configuration is not a valid json.');
     }
 
     _isConfigured = true;

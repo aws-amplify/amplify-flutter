@@ -28,9 +28,9 @@ Future<void> _handleH1(
   HttpRequest request,
   int port,
 ) async {
-  await const LineSplitter()
-      .bind(const Utf8Decoder().bind(request))
-      .forEach((value) {
+  await const LineSplitter().bind(const Utf8Decoder().bind(request)).forEach((
+    value,
+  ) {
     final lastReceived = int.parse(value.trim());
     if (lastReceived == 1000) {
       channel.sink.add(lastReceived);
@@ -53,8 +53,5 @@ Future<void> _handleH2(
       break;
     }
   }
-  request.sendHeaders(
-    [Header.ascii(':status', '200')],
-    endStream: true,
-  );
+  request.sendHeaders([Header.ascii(':status', '200')], endStream: true);
 }

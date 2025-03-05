@@ -46,31 +46,28 @@ void main() {
           path: StoragePath.fromString(metadataPath),
           data: StorageDataPayload.bytes('get properties'.codeUnits),
           options: StorageUploadDataOptions(
-            pluginOptions: const S3UploadDataPluginOptions(
-              getProperties: true,
-            ),
+            pluginOptions: const S3UploadDataPluginOptions(getProperties: true),
             metadata: metadata,
           ),
         ).result;
 
-        addTearDownPaths(
-          [
-            StoragePath.fromString(publicPath),
-            StoragePath.fromString(metadataPath),
-            StoragePath.fromIdentityId(
-              (identityId) => 'private/$identityId/$identityName',
-            ),
-          ],
-        );
+        addTearDownPaths([
+          StoragePath.fromString(publicPath),
+          StoragePath.fromString(metadataPath),
+          StoragePath.fromIdentityId(
+            (identityId) => 'private/$identityId/$identityName',
+          ),
+        ]);
       });
 
       group('downloadData without options', () {
         testWidgets('from identity ID', (_) async {
-          final downloadResult = await Amplify.Storage.downloadData(
-            path: StoragePath.fromIdentityId(
-              (identityId) => 'private/$identityId/$identityName',
-            ),
-          ).result;
+          final downloadResult =
+              await Amplify.Storage.downloadData(
+                path: StoragePath.fromIdentityId(
+                  (identityId) => 'private/$identityId/$identityName',
+                ),
+              ).result;
           expect(downloadResult.bytes, identityData);
           expect(
             downloadResult.downloadedItem.path,
@@ -80,9 +77,10 @@ void main() {
 
         testWidgets('unauthorized path', (_) async {
           await expectLater(
-            () => Amplify.Storage.downloadData(
-              path: const StoragePath.fromString('unauthorized/path'),
-            ).result,
+            () =>
+                Amplify.Storage.downloadData(
+                  path: const StoragePath.fromString('unauthorized/path'),
+                ).result,
             throwsA(isA<StorageAccessDeniedException>()),
           );
         });
@@ -90,28 +88,30 @@ void main() {
 
       group('with options', () {
         testWidgets('getProperties', (_) async {
-          final downloadResult = await Amplify.Storage.downloadData(
-            path: StoragePath.fromString(metadataPath),
-            options: const StorageDownloadDataOptions(
-              pluginOptions: S3DownloadDataPluginOptions(
-                getProperties: true,
-              ),
-            ),
-          ).result;
+          final downloadResult =
+              await Amplify.Storage.downloadData(
+                path: StoragePath.fromString(metadataPath),
+                options: const StorageDownloadDataOptions(
+                  pluginOptions: S3DownloadDataPluginOptions(
+                    getProperties: true,
+                  ),
+                ),
+              ).result;
 
           expect(downloadResult.downloadedItem.path, metadataPath);
           expect(downloadResult.downloadedItem.metadata, metadata);
         });
 
         testWidgets('useAccelerateEndpoint', (_) async {
-          final downloadResult = await Amplify.Storage.downloadData(
-            path: StoragePath.fromString(publicPath),
-            options: const StorageDownloadDataOptions(
-              pluginOptions: S3DownloadDataPluginOptions(
-                useAccelerateEndpoint: true,
-              ),
-            ),
-          ).result;
+          final downloadResult =
+              await Amplify.Storage.downloadData(
+                path: StoragePath.fromString(publicPath),
+                options: const StorageDownloadDataOptions(
+                  pluginOptions: S3DownloadDataPluginOptions(
+                    useAccelerateEndpoint: true,
+                  ),
+                ),
+              ).result;
 
           expect(downloadResult.downloadedItem.path, publicPath);
           expect(downloadResult.bytes, bytesData);
@@ -120,58 +120,48 @@ void main() {
         testWidgets('bytes range for "data" in "test data"', (_) async {
           final bytesRange = S3DataBytesRange(start: 5, end: 9);
 
-          final downloadResult = await Amplify.Storage.downloadData(
-            path: StoragePath.fromString(publicPath),
-            options: StorageDownloadDataOptions(
-              pluginOptions: S3DownloadDataPluginOptions(
-                bytesRange: bytesRange,
-              ),
-            ),
-          ).result;
+          final downloadResult =
+              await Amplify.Storage.downloadData(
+                path: StoragePath.fromString(publicPath),
+                options: StorageDownloadDataOptions(
+                  pluginOptions: S3DownloadDataPluginOptions(
+                    bytesRange: bytesRange,
+                  ),
+                ),
+              ).result;
 
           expect(utf8.decode(downloadResult.bytes), 'data');
           expect(downloadResult.downloadedItem.path, publicPath);
         });
 
         testWidgets('multi bucket', (_) async {
-          final mainBucket =
-              StorageBucket.fromOutputs('Storage Integ Test main bucket');
+          final mainBucket = StorageBucket.fromOutputs(
+            'Storage Integ Test main bucket',
+          );
           final secondaryBucket = StorageBucket.fromOutputs(
             'Storage Integ Test secondary bucket',
           );
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(publicPath),
             data: StorageDataPayload.bytes(bytesData),
-            options: StorageUploadDataOptions(
-              bucket: secondaryBucket,
-            ),
+            options: StorageUploadDataOptions(bucket: secondaryBucket),
           ).result;
 
-          final downloadResult = await Amplify.Storage.downloadData(
-            path: StoragePath.fromString(publicPath),
-            options: StorageDownloadDataOptions(bucket: mainBucket),
-          ).result;
-          expect(
-            downloadResult.bytes,
-            bytesData,
-          );
-          expect(
-            downloadResult.downloadedItem.path,
-            publicPath,
-          );
+          final downloadResult =
+              await Amplify.Storage.downloadData(
+                path: StoragePath.fromString(publicPath),
+                options: StorageDownloadDataOptions(bucket: mainBucket),
+              ).result;
+          expect(downloadResult.bytes, bytesData);
+          expect(downloadResult.downloadedItem.path, publicPath);
 
-          final downloadSecondaryResult = await Amplify.Storage.downloadData(
-            path: StoragePath.fromString(publicPath),
-            options: StorageDownloadDataOptions(bucket: secondaryBucket),
-          ).result;
-          expect(
-            downloadSecondaryResult.bytes,
-            bytesData,
-          );
-          expect(
-            downloadSecondaryResult.downloadedItem.path,
-            publicPath,
-          );
+          final downloadSecondaryResult =
+              await Amplify.Storage.downloadData(
+                path: StoragePath.fromString(publicPath),
+                options: StorageDownloadDataOptions(bucket: secondaryBucket),
+              ).result;
+          expect(downloadSecondaryResult.bytes, bytesData);
+          expect(downloadSecondaryResult.downloadedItem.path, publicPath);
         });
       });
 
@@ -260,33 +250,29 @@ void main() {
           data: StorageDataPayload.bytes(bytesData),
         ).result;
       });
-      testWidgets(
-        'standard download works',
-        (_) async {
-          final downloadResult = await Amplify.Storage.downloadData(
-            path: StoragePath.fromString(publicPath),
-          ).result;
-          expect(downloadResult.downloadedItem.path, publicPath);
-        },
-      );
-
-      testWidgets(
-        'useAccelerateEndpoint throws',
-        (_) async {
-          await expectLater(
-            () => Amplify.Storage.downloadData(
+      testWidgets('standard download works', (_) async {
+        final downloadResult =
+            await Amplify.Storage.downloadData(
               path: StoragePath.fromString(publicPath),
-              options: const StorageDownloadDataOptions(
-                pluginOptions: S3DownloadDataPluginOptions(
-                  useAccelerateEndpoint: true,
+            ).result;
+        expect(downloadResult.downloadedItem.path, publicPath);
+      });
+
+      testWidgets('useAccelerateEndpoint throws', (_) async {
+        await expectLater(
+          () =>
+              Amplify.Storage.downloadData(
+                path: StoragePath.fromString(publicPath),
+                options: const StorageDownloadDataOptions(
+                  pluginOptions: S3DownloadDataPluginOptions(
+                    useAccelerateEndpoint: true,
+                  ),
                 ),
-              ),
-            ).result,
-            // useAccelerateEndpoint is not supported with a bucket name with dots
-            throwsA(isA<ConfigurationError>()),
-          );
-        },
-      );
+              ).result,
+          // useAccelerateEndpoint is not supported with a bucket name with dots
+          throwsA(isA<ConfigurationError>()),
+        );
+      });
     });
   });
 }

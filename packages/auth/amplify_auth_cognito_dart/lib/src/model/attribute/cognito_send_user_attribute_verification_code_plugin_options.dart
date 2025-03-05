@@ -19,8 +19,7 @@ class CognitoSendUserAttributeVerificationCodePluginOptions
   /// {@macro amplify_auth_cognito.model.cognito_send_user_attribute_verification_code_plugin_options}
   factory CognitoSendUserAttributeVerificationCodePluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoSendUserAttributeVerificationCodePluginOptionsFromJson(json);
+  ) => _$CognitoSendUserAttributeVerificationCodePluginOptionsFromJson(json);
 
   /// {@template amplify_auth_cognito.model.cognito_send_user_attribute_verification_code_plugin_options.client_metadata}
   /// A map of custom key-value pairs that you can provide as input for certain

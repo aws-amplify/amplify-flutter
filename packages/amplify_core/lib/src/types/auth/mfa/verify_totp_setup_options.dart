@@ -12,9 +12,7 @@ class VerifyTotpSetupOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.verify_totp_setup_options}
-  const VerifyTotpSetupOptions({
-    this.pluginOptions,
-  });
+  const VerifyTotpSetupOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.verify_totp_setup_plugin_options}
   final VerifyTotpSetupPluginOptions? pluginOptions;
@@ -26,9 +24,7 @@ class VerifyTotpSetupOptions
   String get runtimeTypeName => 'VerifyTotpSetupOptions';
 
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// {@template amplify_core.auth.verify_totp_setup_plugin_options}

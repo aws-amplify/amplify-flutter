@@ -8,13 +8,13 @@ import 'package:aft/aft.dart';
 
 class GitHubData {
   GitHubData.fromJson(Map<String, dynamic> json)
-      : title = json['title'] as String,
-        body = json['body'] as String,
-        number = json['number'] as int,
-        changedFiles = json['changedFiles'] as int,
-        additions = json['additions'] as int,
-        deletions = json['deletions'] as int,
-        url = json['url'] as String;
+    : title = json['title'] as String,
+      body = json['body'] as String,
+      number = json['number'] as int,
+      changedFiles = json['changedFiles'] as int,
+      additions = json['additions'] as int,
+      deletions = json['deletions'] as int,
+      url = json['url'] as String;
 
   String title;
   String body;
@@ -89,10 +89,7 @@ class ReviewCommand extends AmplifyCommand {
 
   /// Verifies that the PR is ready using gh CLI.
   Future<void> _verifyPR(String ref) async {
-    final branchName = await Process.run(
-      'gh',
-      ['pr', 'ready', ref],
-    );
+    final branchName = await Process.run('gh', ['pr', 'ready', ref]);
     if (branchName.exitCode != 0) {
       final error = branchName.stderr.toString();
       if (error.contains('Could not resolve to a PullRequest')) {
@@ -106,16 +103,13 @@ class ReviewCommand extends AmplifyCommand {
 
   /// Fetches PR data from GitHub using gh CLI.
   Future<GitHubData> _getGitHubData(String ref) async {
-    final process = await Process.run(
-      'gh',
-      [
-        'pr',
-        'view',
-        ref,
-        '--json',
-        'title,body,number,changedFiles,additions,deletions,url',
-      ],
-    );
+    final process = await Process.run('gh', [
+      'pr',
+      'view',
+      ref,
+      '--json',
+      'title,body,number,changedFiles,additions,deletions,url',
+    ]);
     if (process.exitCode != 0) {
       logger.error('Could not fetch PR data from GitHub');
       exit(1);

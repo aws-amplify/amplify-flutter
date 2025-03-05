@@ -20,9 +20,7 @@ abstract class PrimitiveBooleanShape
   static void _init(PrimitiveBooleanShapeBuilder b) {
     b
       ..shapeId = id
-      ..traits = TraitMap.fromTraits(const [
-        DefaultTrait(false),
-      ]);
+      ..traits = TraitMap.fromTraits(const [DefaultTrait(false)]);
   }
 
   static const id = ShapeId.core('PrimitiveBoolean');

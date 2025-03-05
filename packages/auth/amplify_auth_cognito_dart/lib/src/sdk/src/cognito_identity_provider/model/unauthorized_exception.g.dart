@@ -12,16 +12,16 @@ class _$UnauthorizedException extends UnauthorizedException {
   @override
   final Map<String, String>? headers;
 
-  factory _$UnauthorizedException(
-          [void Function(UnauthorizedExceptionBuilder)? updates]) =>
-      (new UnauthorizedExceptionBuilder()..update(updates))._build();
+  factory _$UnauthorizedException([
+    void Function(UnauthorizedExceptionBuilder)? updates,
+  ]) => (new UnauthorizedExceptionBuilder()..update(updates))._build();
 
   _$UnauthorizedException._({this.message, this.headers}) : super._();
 
   @override
   UnauthorizedException rebuild(
-          void Function(UnauthorizedExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UnauthorizedExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UnauthorizedExceptionBuilder toBuilder() =>
@@ -81,11 +81,9 @@ class UnauthorizedExceptionBuilder
   UnauthorizedException build() => _build();
 
   _$UnauthorizedException _build() {
-    final _$result = _$v ??
-        new _$UnauthorizedException._(
-          message: message,
-          headers: headers,
-        );
+    final _$result =
+        _$v ??
+        new _$UnauthorizedException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

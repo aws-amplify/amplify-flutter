@@ -26,62 +26,60 @@ void main() {
     final testStorageOutputsMultiBucket = StorageOutputs(
       awsRegion: defaultBucketOutputs.awsRegion,
       bucketName: defaultBucketOutputs.bucketName,
-      buckets: [
-        defaultBucketOutputs,
-        secondBucketOutputs,
-      ],
+      buckets: [defaultBucketOutputs, secondBucketOutputs],
     );
     final testStorageOutputsSingleBucket = StorageOutputs(
       awsRegion: defaultBucketOutputs.awsRegion,
       bucketName: defaultBucketOutputs.bucketName,
     );
 
-    test(
-        'should return same bucket info when storage bucket is created from'
+    test('should return same bucket info when storage bucket is created from'
         ' a bucket info', () {
-      final storageBucket = StorageBucket.fromBucketInfo(
-        defaultBucketInfo,
-      );
+      final storageBucket = StorageBucket.fromBucketInfo(defaultBucketInfo);
       final bucketInfo = storageBucket.resolveBucketInfo(null);
       expect(bucketInfo, defaultBucketInfo);
     });
 
-    test(
-        'should return bucket info when storage bucket is created from'
+    test('should return bucket info when storage bucket is created from'
         ' buckets in storage outputs', () {
       final storageBucket = StorageBucket.fromOutputs(secondBucketOutputs.name);
-      final bucketInfo =
-          storageBucket.resolveBucketInfo(testStorageOutputsMultiBucket);
+      final bucketInfo = storageBucket.resolveBucketInfo(
+        testStorageOutputsMultiBucket,
+      );
       expect(bucketInfo, secondBucketInfo);
     });
 
-    test(
-        'should throw assertion error when storage bucket is created from'
+    test('should throw assertion error when storage bucket is created from'
         ' outputs and storage outputs is null', () {
-      final storageBucket =
-          StorageBucket.fromOutputs(defaultBucketOutputs.name);
+      final storageBucket = StorageBucket.fromOutputs(
+        defaultBucketOutputs.name,
+      );
       expect(
         () => storageBucket.resolveBucketInfo(null),
         throwsA(isA<AssertionError>()),
       );
     });
     test(
-        'should throw exception when storage bucket is created from outputs and'
-        ' storage outputs does not have buckets', () {
-      final storageBucket = StorageBucket.fromOutputs('bucket-name');
-      expect(
-        () => storageBucket.resolveBucketInfo(testStorageOutputsSingleBucket),
-        throwsA(isA<InvalidStorageBucketException>()),
-      );
-    });
+      'should throw exception when storage bucket is created from outputs and'
+      ' storage outputs does not have buckets',
+      () {
+        final storageBucket = StorageBucket.fromOutputs('bucket-name');
+        expect(
+          () => storageBucket.resolveBucketInfo(testStorageOutputsSingleBucket),
+          throwsA(isA<InvalidStorageBucketException>()),
+        );
+      },
+    );
     test(
-        'should throw exception when storage bucket is created from outputs and'
-        ' bucket name does not match any bucket in storage outputs', () {
-      final storageBucket = StorageBucket.fromOutputs('invalid-bucket-name');
-      expect(
-        () => storageBucket.resolveBucketInfo(testStorageOutputsMultiBucket),
-        throwsA(isA<InvalidStorageBucketException>()),
-      );
-    });
+      'should throw exception when storage bucket is created from outputs and'
+      ' bucket name does not match any bucket in storage outputs',
+      () {
+        final storageBucket = StorageBucket.fromOutputs('invalid-bucket-name');
+        expect(
+          () => storageBucket.resolveBucketInfo(testStorageOutputsMultiBucket),
+          throwsA(isA<InvalidStorageBucketException>()),
+        );
+      },
+    );
   });
 }

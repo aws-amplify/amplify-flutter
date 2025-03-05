@@ -9,19 +9,11 @@ import 'package:smithy/smithy.dart' as _i1;
 ///
 /// This functionality is not supported for directory buckets.
 class RequestPayer extends _i1.SmithyEnum<RequestPayer> {
-  const RequestPayer._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const RequestPayer._(super.index, super.name, super.value);
 
   const RequestPayer._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const requester = RequestPayer._(
-    0,
-    'requester',
-    'requester',
-  );
+  static const requester = RequestPayer._(0, 'requester', 'requester');
 
   /// All values of [RequestPayer].
   static const values = <RequestPayer>[RequestPayer.requester];
@@ -32,12 +24,9 @@ class RequestPayer extends _i1.SmithyEnum<RequestPayer> {
       values: values,
       sdkUnknown: RequestPayer._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

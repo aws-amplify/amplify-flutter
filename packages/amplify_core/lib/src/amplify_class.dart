@@ -190,10 +190,11 @@ abstract class AmplifyClass {
       Category.pushNotifications: Notifications.Push,
       Category.storage: Storage,
     };
-    final sortedCategories = topologicalSort(
-      categories.keys,
-      (category) => categories[category]!.categoryDependencies,
-    ).reversed;
+    final sortedCategories =
+        topologicalSort(
+          categories.keys,
+          (category) => categories[category]!.categoryDependencies,
+        ).reversed;
     for (final category in sortedCategories) {
       final plugins = categories[category]!.plugins;
       await Future.wait(

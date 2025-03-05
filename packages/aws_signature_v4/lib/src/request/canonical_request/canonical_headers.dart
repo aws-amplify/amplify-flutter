@@ -4,9 +4,7 @@
 part of 'canonical_request.dart';
 
 // Headers to ignore during signing.
-final _ignoredHeaders = CaseInsensitiveSet({
-  AWSHeaders.userAgent,
-});
+final _ignoredHeaders = CaseInsensitiveSet({AWSHeaders.userAgent});
 
 /// {@template aws_signature_v4.canonical_headers}
 /// A map of canonicalized headers.

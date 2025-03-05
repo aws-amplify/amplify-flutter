@@ -14,90 +14,93 @@ void main() {
 
   final enableCloudSync = shouldEnableCloudSync();
   group(
-      'Basic model operation${enableCloudSync ? ' with API sync 🌩 enabled' : ''} -',
-      () {
-    Blog testBlog = Blog(name: 'test blog');
+    'Basic model operation${enableCloudSync ? ' with API sync 🌩 enabled' : ''} -',
+    () {
+      Blog testBlog = Blog(name: 'test blog');
 
-    setUpAll(() async {
-      await configureDataStore(
+      setUpAll(() async {
+        await configureDataStore(
           enableCloudSync: enableCloudSync,
-          modelProvider: ModelProvider.instance);
-    });
+          modelProvider: ModelProvider.instance,
+        );
+      });
 
-    testWidgets(
+      testWidgets(
         'should save a new model ${enableCloudSync ? 'and sync to cloud' : ''}',
         (WidgetTester tester) async {
-      if (enableCloudSync) {
-        await testCloudSyncedModelOperation(
-          rootModels: [testBlog],
-          expectedRootModelVersion: 1,
-          rootModelOperator: Amplify.DataStore.save,
-          rootModelEventsAssertor: (events) {
-            events.forEach((event) {
-              expect(event.element.deleted, isFalse);
-            });
-          },
-        );
-      } else {
-        await Amplify.DataStore.save(testBlog);
-      }
+          if (enableCloudSync) {
+            await testCloudSyncedModelOperation(
+              rootModels: [testBlog],
+              expectedRootModelVersion: 1,
+              rootModelOperator: Amplify.DataStore.save,
+              rootModelEventsAssertor: (events) {
+                events.forEach((event) {
+                  expect(event.element.deleted, isFalse);
+                });
+              },
+            );
+          } else {
+            await Amplify.DataStore.save(testBlog);
+          }
 
-      var queriedBlogs = await Amplify.DataStore.query(Blog.classType);
-      expect(queriedBlogs, contains(testBlog));
-    });
+          var queriedBlogs = await Amplify.DataStore.query(Blog.classType);
+          expect(queriedBlogs, contains(testBlog));
+        },
+      );
 
-    testWidgets(
-      'should update existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
-      (WidgetTester tester) async {
-        var updatedTestBlog = testBlog.copyWith(name: "updated test blog");
+      testWidgets(
+        'should update existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
+        (WidgetTester tester) async {
+          var updatedTestBlog = testBlog.copyWith(name: "updated test blog");
 
-        if (enableCloudSync) {
-          await testCloudSyncedModelOperation(
-            rootModels: [updatedTestBlog],
-            expectedRootModelVersion: 2,
-            rootModelOperator: Amplify.DataStore.save,
-            rootModelEventsAssertor: (events) {
-              events.forEach((event) {
-                expect(event.element.deleted, isFalse);
-              });
-            },
+          if (enableCloudSync) {
+            await testCloudSyncedModelOperation(
+              rootModels: [updatedTestBlog],
+              expectedRootModelVersion: 2,
+              rootModelOperator: Amplify.DataStore.save,
+              rootModelEventsAssertor: (events) {
+                events.forEach((event) {
+                  expect(event.element.deleted, isFalse);
+                });
+              },
+            );
+          } else {
+            await Amplify.DataStore.save(updatedTestBlog);
+          }
+
+          var queriedBlogs = await Amplify.DataStore.query(
+            Blog.classType,
+            where: Blog.ID.eq(updatedTestBlog.id),
           );
-        } else {
-          await Amplify.DataStore.save(updatedTestBlog);
-        }
 
-        var queriedBlogs = await Amplify.DataStore.query(
-          Blog.classType,
-          where: Blog.ID.eq(updatedTestBlog.id),
-        );
+          expect(queriedBlogs, contains(updatedTestBlog));
+        },
+      );
 
-        expect(queriedBlogs, contains(updatedTestBlog));
-      },
-    );
+      testWidgets(
+        'should delete existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
+        (WidgetTester tester) async {
+          if (enableCloudSync) {
+            await testCloudSyncedModelOperation(
+              rootModels: [testBlog],
+              expectedRootModelVersion: 3,
+              rootModelOperator: Amplify.DataStore.delete,
+              rootModelEventsAssertor: (events) {
+                events.forEach((event) {
+                  expect(event.element.deleted, isTrue);
+                });
+              },
+            );
+          } else {
+            await Amplify.DataStore.delete(testBlog);
+          }
 
-    testWidgets(
-      'should delete existing model ${enableCloudSync ? 'and sync to cloud' : ''}',
-      (WidgetTester tester) async {
-        if (enableCloudSync) {
-          await testCloudSyncedModelOperation(
-            rootModels: [testBlog],
-            expectedRootModelVersion: 3,
-            rootModelOperator: Amplify.DataStore.delete,
-            rootModelEventsAssertor: (events) {
-              events.forEach((event) {
-                expect(event.element.deleted, isTrue);
-              });
-            },
-          );
-        } else {
-          await Amplify.DataStore.delete(testBlog);
-        }
+          var queriedBlogs = await Amplify.DataStore.query(Blog.classType);
 
-        var queriedBlogs = await Amplify.DataStore.query(Blog.classType);
-
-        // verify blog was deleted
-        expect(queriedBlogs, isNot(contains(testBlog)));
-      },
-    );
-  });
+          // verify blog was deleted
+          expect(queriedBlogs, isNot(contains(testBlog)));
+        },
+      );
+    },
+  );
 }

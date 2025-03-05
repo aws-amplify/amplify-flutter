@@ -18,7 +18,5 @@ class StorageBucket with AWSSerializable<Map<String, Object?>> {
   BucketInfo resolveBucketInfo(StorageOutputs? storageOutputs) => _info;
 
   @override
-  Map<String, Object?> toJson() => {
-        '_info': _info.toJson(),
-      };
+  Map<String, Object?> toJson() => {'_info': _info.toJson()};
 }

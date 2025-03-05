@@ -42,11 +42,12 @@ part 'serializers.g.dart';
   UnionShape,
 ])
 @internal
-final Serializers serializers = (_$serializers.toBuilder()
-      ..addPlugin(StandardJsonPlugin())
-      ..add(ShapeIdSerializer())
-      ..add(ShapeMapSerializer())
-      ..add(ShapeSerializer())
-      ..add(NamedMembersMapSerializer())
-      ..add(TraitMapSerializer()))
-    .build();
+final Serializers serializers =
+    (_$serializers.toBuilder()
+          ..addPlugin(StandardJsonPlugin())
+          ..add(ShapeIdSerializer())
+          ..add(ShapeMapSerializer())
+          ..add(ShapeSerializer())
+          ..add(NamedMembersMapSerializer())
+          ..add(TraitMapSerializer()))
+        .build();

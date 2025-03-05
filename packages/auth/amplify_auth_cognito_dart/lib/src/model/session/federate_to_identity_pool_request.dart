@@ -41,9 +41,7 @@ class FederateToIdentityPoolRequest
   ///
   /// See the [docs](https://docs.aws.amazon.com/cognito/latest/developerguide/external-identity-providers.html)
   /// for more information on how to configure external providers.
-  @JsonKey(
-    fromJson: _authProviderFromJson,
-  )
+  @JsonKey(fromJson: _authProviderFromJson)
   final AuthProvider provider;
 
   /// Additional options for the request.

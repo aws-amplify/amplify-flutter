@@ -19,9 +19,9 @@ class SignInPage extends AuthenticatorPage {
   Finder get forgotPasswordButton => find.byKey(keyForgotPasswordButton);
   Finder get confirmSignInField => find.byKey(keyCodeConfirmSignInFormField);
   Finder get signUpTab => find.descendant(
-        of: find.byType(TabBar),
-        matching: find.byKey(const ValueKey(AuthenticatorStep.signUp)),
-      );
+    of: find.byType(TabBar),
+    matching: find.byKey(const ValueKey(AuthenticatorStep.signUp)),
+  );
 
   /// When I sign in with "username" and "password"
   Future<void> signIn({

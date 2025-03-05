@@ -6,10 +6,7 @@
 /// {@endtemplate}
 class InvalidBytesRangeError extends Error {
   /// {@macro amplify_storage_s3_dart.invalid_bytes_range_error}
-  InvalidBytesRangeError(
-    this.message, {
-    this.recoverySuggestion,
-  });
+  InvalidBytesRangeError(this.message, {this.recoverySuggestion});
 
   /// A description of the error.
   final String message;

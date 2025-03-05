@@ -20,9 +20,7 @@ void main() {
   group('sign-in-with-username', () {
     // Given I'm running the example "ui/components/authenticator/sign-in-with-username.feature"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-username',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-username');
     });
 
     // Scenario: Sign in with unknown credentials
@@ -33,10 +31,7 @@ void main() {
 
       expect(
         tester.bloc.stream,
-        emitsInOrder([
-          UnauthenticatedState.signIn,
-          emitsDone,
-        ]),
+        emitsInOrder([UnauthenticatedState.signIn, emitsDone]),
       );
 
       // When I type my "username" with status "UNKNOWN"
@@ -93,8 +88,9 @@ void main() {
     });
 
     // Scenario: Sign in with confirmed credentials then sign out
-    testWidgets('Sign in with confirmed credentials then sign out',
-        (tester) async {
+    testWidgets('Sign in with confirmed credentials then sign out', (
+      tester,
+    ) async {
       final username = generateUsername();
       final password = generatePassword();
       await adminCreateUser(
@@ -140,8 +136,9 @@ void main() {
     });
 
     // Scenario: Sign in with force change password credentials
-    testWidgets('Sign in with force change password credentials',
-        (tester) async {
+    testWidgets('Sign in with force change password credentials', (
+      tester,
+    ) async {
       final username = generateUsername();
       final password = generatePassword();
       await adminCreateUser(username, password);

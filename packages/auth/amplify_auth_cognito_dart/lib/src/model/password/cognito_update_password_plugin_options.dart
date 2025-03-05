@@ -16,8 +16,7 @@ class CognitoUpdatePasswordPluginOptions extends UpdatePasswordPluginOptions {
   /// {@macro amplify_auth_cognito.model.cognito_update_password_plugin_options}
   factory CognitoUpdatePasswordPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoUpdatePasswordPluginOptionsFromJson(json);
+  ) => _$CognitoUpdatePasswordPluginOptionsFromJson(json);
 
   @override
   List<Object?> get props => [];

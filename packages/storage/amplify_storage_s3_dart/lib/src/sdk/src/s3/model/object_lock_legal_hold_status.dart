@@ -7,25 +7,13 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class ObjectLockLegalHoldStatus
     extends _i1.SmithyEnum<ObjectLockLegalHoldStatus> {
-  const ObjectLockLegalHoldStatus._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ObjectLockLegalHoldStatus._(super.index, super.name, super.value);
 
   const ObjectLockLegalHoldStatus._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const off = ObjectLockLegalHoldStatus._(
-    0,
-    'OFF',
-    'OFF',
-  );
+  static const off = ObjectLockLegalHoldStatus._(0, 'OFF', 'OFF');
 
-  static const on = ObjectLockLegalHoldStatus._(
-    1,
-    'ON',
-    'ON',
-  );
+  static const on = ObjectLockLegalHoldStatus._(1, 'ON', 'ON');
 
   /// All values of [ObjectLockLegalHoldStatus].
   static const values = <ObjectLockLegalHoldStatus>[
@@ -34,18 +22,15 @@ class ObjectLockLegalHoldStatus
   ];
 
   static const List<_i1.SmithySerializer<ObjectLockLegalHoldStatus>>
-      serializers = [
+  serializers = [
     _i1.SmithyEnumSerializer(
       'ObjectLockLegalHoldStatus',
       values: values,
       sdkUnknown: ObjectLockLegalHoldStatus._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

@@ -66,7 +66,7 @@ class _AuthenticatorCheckBoxState<T extends AuthenticatorCheckbox<T>>
 class RememberDeviceCheckbox
     extends AuthenticatorCheckbox<RememberDeviceCheckbox> {
   const RememberDeviceCheckbox({super.key})
-      : super(labelKey: InputResolverKey.rememberDevice);
+    : super(labelKey: InputResolverKey.rememberDevice);
 
   @override
   AuthenticatorComponentState<RememberDeviceCheckbox> createState() =>

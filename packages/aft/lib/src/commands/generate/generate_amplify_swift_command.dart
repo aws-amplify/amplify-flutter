@@ -12,10 +12,7 @@ import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
 
 class PluginConfig {
-  const PluginConfig({
-    required this.name,
-    required this.remotePathToSource,
-  });
+  const PluginConfig({required this.name, required this.remotePathToSource});
 
   /// The name of the plugin.
   final String name;
@@ -58,8 +55,10 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
   /// If not provided, defaults to `release`.
   late final branchTarget = argResults!['branch'] as String;
 
-  late final _dataStoreRootDir =
-      p.join(rootDir.path, 'packages/amplify_datastore');
+  late final _dataStoreRootDir = p.join(
+    rootDir.path,
+    'packages/amplify_datastore',
+  );
 
   final _pluginOutputDir = 'ios/internal';
   final _exampleOutputDir = 'example/ios';
@@ -81,10 +80,7 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
       name: 'AWSPluginsCore',
       remotePathToSource: 'AmplifyPlugins/Core/AWSPluginsCore',
     ),
-    const PluginConfig(
-      name: 'Amplify',
-      remotePathToSource: 'Amplify',
-    ),
+    const PluginConfig(name: 'Amplify', remotePathToSource: 'Amplify'),
   ];
 
   final _importsToRemove = [
@@ -95,24 +91,20 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
 
   /// Downloads Amplify Swift from GitHub into a temporary directory.
   Future<Directory> _downloadRepository() => _cloneMemo.runOnce(() async {
-        final cloneDir =
-            await Directory.systemTemp.createTemp('amplify_swift_');
-        logger
-          ..info('Downloading Amplify Swift...')
-          ..verbose('Cloning repo to ${cloneDir.path}');
-        await runGit(
-          [
-            'clone',
-            // https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
-            '--filter=tree:0',
-            'https://github.com/aws-amplify/amplify-swift.git',
-            cloneDir.path,
-          ],
-          echoOutput: verbose,
-        );
-        logger.info('Successfully cloned Amplify Swift Repo');
-        return cloneDir;
-      });
+    final cloneDir = await Directory.systemTemp.createTemp('amplify_swift_');
+    logger
+      ..info('Downloading Amplify Swift...')
+      ..verbose('Cloning repo to ${cloneDir.path}');
+    await runGit([
+      'clone',
+      // https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+      '--filter=tree:0',
+      'https://github.com/aws-amplify/amplify-swift.git',
+      cloneDir.path,
+    ], echoOutput: verbose);
+    logger.info('Successfully cloned Amplify Swift Repo');
+    return cloneDir;
+  });
 
   /// Checks out [ref] in [pluginDir].
   Future<Directory> _checkoutRepositoryRef(
@@ -122,13 +114,16 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     logger
       ..info('Checking out target branch: $ref')
       ..verbose('Creating git work tree in $pluginDir');
-    final worktreeDir =
-        await Directory.systemTemp.createTemp('amplify_swift_worktree_');
+    final worktreeDir = await Directory.systemTemp.createTemp(
+      'amplify_swift_worktree_',
+    );
     try {
-      await runGit(
-        ['worktree', 'add', worktreeDir.path, ref],
-        processWorkingDir: pluginDir.path,
-      );
+      await runGit([
+        'worktree',
+        'add',
+        worktreeDir.path,
+        ref,
+      ], processWorkingDir: pluginDir.path);
     } on Exception catch (e) {
       if (e.toString().contains('already checked out')) {
         return pluginDir;
@@ -151,9 +146,12 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
       }
       final contents = await file.readAsString();
       // remove the list of import statement for Amplify including line breaks
-      final newContents = contents.split('\n').where((line) {
-        return !_importsToRemove.any((import) => line.contains(import));
-      }).join('\n');
+      final newContents = contents
+          .split('\n')
+          .where((line) {
+            return !_importsToRemove.any((import) => line.contains(import));
+          })
+          .join('\n');
       await file.writeAsString(newContents);
     }
   }
@@ -200,9 +198,7 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
       exitError('No cached repo for branch $branchTarget');
     }
 
-    final pluginDir = Directory.fromUri(
-      repoDir.uri.resolve(path),
-    );
+    final pluginDir = Directory.fromUri(repoDir.uri.resolve(path));
 
     await _transformPlugin(pluginDir);
 
@@ -224,9 +220,7 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     // Clear out the directory if it already exists.
     // This is to ensure that we don't have any stale files.
     if (await outputDir.exists()) {
-      logger.info(
-        'Deleting existing plugin directory for ${plugin.name}...',
-      );
+      logger.info('Deleting existing plugin directory for ${plugin.name}...');
       await outputDir.delete(recursive: true);
     }
     await outputDir.create(recursive: true);
@@ -242,17 +236,13 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     logger.info('Checking diff for ${plugin.name}...');
     final incoming = (await _pluginDirForPath(plugin.remotePathToSource)).path;
     final current = p.join(_dataStoreRootDir, _pluginOutputDir, plugin.name);
-    final diffCmd = await Process.start(
-      'git',
-      [
-        'diff',
-        '--no-index',
-        '--exit-code',
-        incoming,
-        current,
-      ],
-      mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
-    );
+    final diffCmd = await Process.start('git', [
+      'diff',
+      '--no-index',
+      '--exit-code',
+      incoming,
+      current,
+    ], mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal);
     final exitCode = await diffCmd.exitCode;
     if (exitCode != 0) {
       exitError(
@@ -271,9 +261,7 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
 
     final podInstallCmd = await Process.start(
       'pod',
-      [
-        'install',
-      ],
+      ['install'],
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
       workingDirectory: podFilePath,
     );
@@ -288,9 +276,7 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     for (final plugin in _amplifySwiftPlugins) {
       await checkDiff(plugin);
     }
-    logger.info(
-      'Successfully checked diff for Amplify Swift plugins',
-    );
+    logger.info('Successfully checked diff for Amplify Swift plugins');
   }
 
   Future<void> _runGenerate() async {

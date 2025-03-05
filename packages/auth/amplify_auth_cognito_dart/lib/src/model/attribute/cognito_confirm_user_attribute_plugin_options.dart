@@ -17,8 +17,7 @@ class CognitoConfirmUserAttributePluginOptions
   /// {@macro amplify_auth_cognito.model.cognito_confirm_user_attribute_plugin_options}
   factory CognitoConfirmUserAttributePluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoConfirmUserAttributePluginOptionsFromJson(json);
+  ) => _$CognitoConfirmUserAttributePluginOptionsFromJson(json);
 
   @override
   List<Object?> get props => [];

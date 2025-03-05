@@ -19,18 +19,15 @@ void main() {
         late JsonWebKey publicJwk;
 
         test('parse', () {
-          expect(
-            () {
-              token = JsonWebToken.parse(testCase.jwt);
-              privateJwk = JsonWebKey.fromJson(
-                jsonDecode(testCase.privateJwk) as Map<String, Object?>,
-              );
-              publicJwk = JsonWebKey.fromJson(
-                jsonDecode(testCase.publicJwk) as Map<String, Object?>,
-              );
-            },
-            returnsNormally,
-          );
+          expect(() {
+            token = JsonWebToken.parse(testCase.jwt);
+            privateJwk = JsonWebKey.fromJson(
+              jsonDecode(testCase.privateJwk) as Map<String, Object?>,
+            );
+            publicJwk = JsonWebKey.fromJson(
+              jsonDecode(testCase.publicJwk) as Map<String, Object?>,
+            );
+          }, returnsNormally);
         });
 
         test('encode', () {
@@ -55,10 +52,7 @@ void main() {
           keyId: keyId,
           x509CertChain: const [cert],
         ),
-        claims: JsonWebClaims(
-          issuer: issuer,
-          expiration: expiration,
-        ),
+        claims: JsonWebClaims(issuer: issuer, expiration: expiration),
         signature: signature,
       );
       final t2 = JsonWebToken(
@@ -68,10 +62,7 @@ void main() {
           keyId: keyId,
           x509CertChain: const [cert],
         ),
-        claims: JsonWebClaims(
-          issuer: issuer,
-          expiration: expiration,
-        ),
+        claims: JsonWebClaims(issuer: issuer, expiration: expiration),
         signature: signature,
       );
       expect(t1, t2);

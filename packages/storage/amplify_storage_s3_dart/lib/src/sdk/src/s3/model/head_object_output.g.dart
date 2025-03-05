@@ -76,46 +76,46 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
 
-  factory _$HeadObjectOutput(
-          [void Function(HeadObjectOutputBuilder)? updates]) =>
-      (new HeadObjectOutputBuilder()..update(updates))._build();
+  factory _$HeadObjectOutput([
+    void Function(HeadObjectOutputBuilder)? updates,
+  ]) => (new HeadObjectOutputBuilder()..update(updates))._build();
 
-  _$HeadObjectOutput._(
-      {this.deleteMarker,
-      this.acceptRanges,
-      this.expiration,
-      this.restore,
-      this.archiveStatus,
-      this.lastModified,
-      this.contentLength,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.eTag,
-      this.missingMeta,
-      this.versionId,
-      this.cacheControl,
-      this.contentDisposition,
-      this.contentEncoding,
-      this.contentLanguage,
-      this.contentType,
-      this.expires,
-      this.websiteRedirectLocation,
-      this.serverSideEncryption,
-      this.metadata,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.bucketKeyEnabled,
-      this.storageClass,
-      this.requestCharged,
-      this.replicationStatus,
-      this.partsCount,
-      this.objectLockMode,
-      this.objectLockRetainUntilDate,
-      this.objectLockLegalHoldStatus})
-      : super._();
+  _$HeadObjectOutput._({
+    this.deleteMarker,
+    this.acceptRanges,
+    this.expiration,
+    this.restore,
+    this.archiveStatus,
+    this.lastModified,
+    this.contentLength,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.eTag,
+    this.missingMeta,
+    this.versionId,
+    this.cacheControl,
+    this.contentDisposition,
+    this.contentEncoding,
+    this.contentLanguage,
+    this.contentType,
+    this.expires,
+    this.websiteRedirectLocation,
+    this.serverSideEncryption,
+    this.metadata,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.bucketKeyEnabled,
+    this.storageClass,
+    this.requestCharged,
+    this.replicationStatus,
+    this.partsCount,
+    this.objectLockMode,
+    this.objectLockRetainUntilDate,
+    this.objectLockLegalHoldStatus,
+  }) : super._();
 
   @override
   HeadObjectOutput rebuild(void Function(HeadObjectOutputBuilder) updates) =>
@@ -369,8 +369,8 @@ class HeadObjectOutputBuilder
   ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
-      _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
+    ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+  ) => _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   HeadObjectOutputBuilder();
 
@@ -433,7 +433,8 @@ class HeadObjectOutputBuilder
   _$HeadObjectOutput _build() {
     _$HeadObjectOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HeadObjectOutput._(
             deleteMarker: deleteMarker,
             acceptRanges: acceptRanges,
@@ -477,7 +478,10 @@ class HeadObjectOutputBuilder
         _metadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HeadObjectOutput', _$failedField, e.toString());
+          r'HeadObjectOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -487,16 +491,16 @@ class HeadObjectOutputBuilder
 }
 
 class _$HeadObjectOutputPayload extends HeadObjectOutputPayload {
-  factory _$HeadObjectOutputPayload(
-          [void Function(HeadObjectOutputPayloadBuilder)? updates]) =>
-      (new HeadObjectOutputPayloadBuilder()..update(updates))._build();
+  factory _$HeadObjectOutputPayload([
+    void Function(HeadObjectOutputPayloadBuilder)? updates,
+  ]) => (new HeadObjectOutputPayloadBuilder()..update(updates))._build();
 
   _$HeadObjectOutputPayload._() : super._();
 
   @override
   HeadObjectOutputPayload rebuild(
-          void Function(HeadObjectOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HeadObjectOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HeadObjectOutputPayloadBuilder toBuilder() =>

@@ -24,13 +24,16 @@ void main() {
     }
 
     test('when id not equals', () async {
-      expect(Post.ID.ne("123").serializeAsMap(),
-          await getJsonFromFile('id_not_equals.json'));
+      expect(
+        Post.ID.ne("123").serializeAsMap(),
+        await getJsonFromFile('id_not_equals.json'),
+      );
     });
 
     test('bad model id field naming backwards compatibility', () async {
-      QueryPredicate testPredicateWithBadIdFiledNaming =
-          QueryField(fieldName: 'blog.id').ne('123');
+      QueryPredicate testPredicateWithBadIdFiledNaming = QueryField(
+        fieldName: 'blog.id',
+      ).ne('123');
       expect(
         testPredicateWithBadIdFiledNaming.serializeAsMap(),
         await getJsonFromFile('id_not_equals.json'),
@@ -38,34 +41,45 @@ void main() {
     });
 
     test('when rating greater or equal', () async {
-      expect(Post.RATING.ge(4).serializeAsMap(),
-          await getJsonFromFile('rating_greater_or_equal.json'));
-      expect((Post.RATING >= 4).serializeAsMap(),
-          await getJsonFromFile('rating_greater_or_equal.json'));
-    });
-
-    test('when rating less or equal AND \(id contains or title begins with\)',
-        () async {
-      QueryPredicate testPredicate = Post.RATING
-          .le(4)
-          .and(Post.ID.contains("abc").or(Post.TITLE.beginsWith("def")));
-
-      expect(testPredicate.serializeAsMap(),
-          await getJsonFromFile('complex_nested.json'));
+      expect(
+        Post.RATING.ge(4).serializeAsMap(),
+        await getJsonFromFile('rating_greater_or_equal.json'),
+      );
+      expect(
+        (Post.RATING >= 4).serializeAsMap(),
+        await getJsonFromFile('rating_greater_or_equal.json'),
+      );
     });
 
     test(
-        'when rating between AND id contains AND title begins_with AND created equals',
-        () async {
-      QueryPredicate testPredicate = Post.RATING
-          .between(1, 4)
-          .and(Post.ID.contains("abc"))
-          .and(Post.TITLE.beginsWith("def"))
-          .and(Post.CREATED.eq("2020-02-20T20:20:20-08:00"));
+      'when rating less or equal AND \(id contains or title begins with\)',
+      () async {
+        QueryPredicate testPredicate = Post.RATING
+            .le(4)
+            .and(Post.ID.contains("abc").or(Post.TITLE.beginsWith("def")));
 
-      expect(testPredicate.serializeAsMap(),
-          await getJsonFromFile('group_with_only_and.json'));
-    });
+        expect(
+          testPredicate.serializeAsMap(),
+          await getJsonFromFile('complex_nested.json'),
+        );
+      },
+    );
+
+    test(
+      'when rating between AND id contains AND title begins_with AND created equals',
+      () async {
+        QueryPredicate testPredicate = Post.RATING
+            .between(1, 4)
+            .and(Post.ID.contains("abc"))
+            .and(Post.TITLE.beginsWith("def"))
+            .and(Post.CREATED.eq("2020-02-20T20:20:20-08:00"));
+
+        expect(
+          testPredicate.serializeAsMap(),
+          await getJsonFromFile('group_with_only_and.json'),
+        );
+      },
+    );
 
     test('when rating lt AND id eq OR title contains', () async {
       QueryPredicate testPredicate = Post.RATING
@@ -73,33 +87,45 @@ void main() {
           .and(Post.ID.contains("abc"))
           .or(Post.TITLE.contains("def"));
 
-      expect(testPredicate.serializeAsMap(),
-          await getJsonFromFile('group_mixed_and_or.json'));
+      expect(
+        testPredicate.serializeAsMap(),
+        await getJsonFromFile('group_mixed_and_or.json'),
+      );
     });
 
     test('when rating gt but not eq', () async {
-      QueryPredicate testPredicate =
-          Post.RATING.gt(4).and(not(Post.RATING.eq(1)));
+      QueryPredicate testPredicate = Post.RATING
+          .gt(4)
+          .and(not(Post.RATING.eq(1)));
 
-      expect(testPredicate.serializeAsMap(),
-          await getJsonFromFile('mixed_with_not.json'));
+      expect(
+        testPredicate.serializeAsMap(),
+        await getJsonFromFile('mixed_with_not.json'),
+      );
     });
 
     test('when negate complex predicate', () async {
-      QueryPredicate testPredicate = not(Post.RATING
-          .eq(1)
-          .and(Post.RATING.eq(4).or(Post.TITLE.contains("crap"))));
+      QueryPredicate testPredicate = not(
+        Post.RATING
+            .eq(1)
+            .and(Post.RATING.eq(4).or(Post.TITLE.contains("crap"))),
+      );
 
-      expect(testPredicate.serializeAsMap(),
-          await getJsonFromFile('negate_complex_predicate.json'));
+      expect(
+        testPredicate.serializeAsMap(),
+        await getJsonFromFile('negate_complex_predicate.json'),
+      );
     });
 
     test('when operands are bool and double', () async {
-      QueryPredicate testPredicate =
-          Post.RATING.eq(1.3).and(Post.CREATED.eq(true));
+      QueryPredicate testPredicate = Post.RATING
+          .eq(1.3)
+          .and(Post.CREATED.eq(true));
 
-      expect(testPredicate.serializeAsMap(),
-          await getJsonFromFile('bool_and_double_operands.json'));
+      expect(
+        testPredicate.serializeAsMap(),
+        await getJsonFromFile('bool_and_double_operands.json'),
+      );
     });
 
     test('when value is a temporal type', () async {
@@ -107,8 +133,10 @@ void main() {
         TemporalDateTime(DateTime.utc(2020, 01, 01)),
       );
 
-      expect(testPredicate.serializeAsMap(),
-          await getJsonFromFile('temporal_predicate.json'));
+      expect(
+        testPredicate.serializeAsMap(),
+        await getJsonFromFile('temporal_predicate.json'),
+      );
     });
 
     test('when query by model identifier with eq()', () async {
@@ -136,8 +164,10 @@ void main() {
       );
 
       final serialized = testPredicate.serializeAsMap();
-      expect(serialized,
-          await getJsonFromFile('model_identifier_not_equals.json'));
+      expect(
+        serialized,
+        await getJsonFromFile('model_identifier_not_equals.json'),
+      );
     });
 
     test('when query by model identifier with not(eq())', () async {
@@ -153,8 +183,10 @@ void main() {
       );
 
       final serialized = testPredicate.serializeAsMap();
-      expect(serialized,
-          await getJsonFromFile('model_identifier_group_not_equals.json'));
+      expect(
+        serialized,
+        await getJsonFromFile('model_identifier_group_not_equals.json'),
+      );
     });
 
     test('when query by model identifier with not(ne())', () async {
@@ -170,8 +202,10 @@ void main() {
       );
 
       final serialized = testPredicate.serializeAsMap();
-      expect(serialized,
-          await getJsonFromFile('model_identifier_group_equals.json'));
+      expect(
+        serialized,
+        await getJsonFromFile('model_identifier_group_equals.json'),
+      );
     });
   });
 
@@ -197,10 +231,7 @@ void main() {
       created: TemporalDateTime(DateTime(2021, 01, 01, 12, 00)),
     );
 
-    Post post4 = Post(
-      title: 'post four',
-      rating: 1000,
-    );
+    Post post4 = Post(title: 'post four', rating: 1000);
 
     StringListTypeModel stringListTypeModel1 = StringListTypeModel(
       value: ['abc'],
@@ -322,9 +353,9 @@ void main() {
     });
 
     test('Temporal type', () {
-      QueryPredicate testPredicate = Post.CREATED.lt(TemporalDateTime(
-        DateTime(2020, 01, 01, 12, 00),
-      ));
+      QueryPredicate testPredicate = Post.CREATED.lt(
+        TemporalDateTime(DateTime(2020, 01, 01, 12, 00)),
+      );
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
     });

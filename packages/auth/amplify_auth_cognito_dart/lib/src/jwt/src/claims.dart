@@ -15,15 +15,7 @@ part 'claims.g.dart';
 
 /// Standard claims, as defined by
 /// [RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1).
-const _standardClaims = [
-  'iss',
-  'sub',
-  'aud',
-  'exp',
-  'nbf',
-  'iat',
-  'jti',
-];
+const _standardClaims = ['iss', 'sub', 'aud', 'exp', 'nbf', 'iat', 'jti'];
 
 /// {@template amplify_auth_cognito.json_web_claims}
 /// The body of a [JsonWebToken].
@@ -49,8 +41,9 @@ class JsonWebClaims with AWSEquatable<JsonWebClaims>, AWSSerializable {
   /// {@macro amplify_auth_cognito.json_web_claims}
   factory JsonWebClaims.fromJson(Map<String, Object?> json) {
     final instance = _$JsonWebClaimsFromJson(json);
-    final customClaims =
-        json.entries.where((entry) => !_standardClaims.contains(entry.key));
+    final customClaims = json.entries.where(
+      (entry) => !_standardClaims.contains(entry.key),
+    );
     return JsonWebClaims(
       issuer: instance.issuer,
       subject: instance.subject,
@@ -120,23 +113,20 @@ class JsonWebClaims with AWSEquatable<JsonWebClaims>, AWSSerializable {
 
   @override
   List<Object?> get props => [
-        issuer,
-        subject,
-        audience,
-        expiration,
-        notBefore,
-        issuedAt,
-        jwtId,
-        customClaims,
-      ];
+    issuer,
+    subject,
+    audience,
+    expiration,
+    notBefore,
+    issuedAt,
+    jwtId,
+    customClaims,
+  ];
 
   @override
   Map<String, Object?> toJson() {
     final map = _$JsonWebClaimsToJson(this);
-    return SplayTreeMap.from(<String, Object?>{
-      ...map,
-      ...customClaims,
-    });
+    return SplayTreeMap.from(<String, Object?>{...map, ...customClaims});
   }
 
   /// Encodes the claims to UTF-8 JSON.

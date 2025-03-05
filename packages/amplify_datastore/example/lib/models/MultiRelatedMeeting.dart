@@ -36,7 +36,8 @@ class MultiRelatedMeeting extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -49,11 +50,15 @@ class MultiRelatedMeeting extends amplify_core.Model {
       return _title!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -69,23 +74,30 @@ class MultiRelatedMeeting extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const MultiRelatedMeeting._internal(
-      {required this.id, required title, attendees, createdAt, updatedAt})
-      : _title = title,
-        _attendees = attendees,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const MultiRelatedMeeting._internal({
+    required this.id,
+    required title,
+    attendees,
+    createdAt,
+    updatedAt,
+  }) : _title = title,
+       _attendees = attendees,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory MultiRelatedMeeting(
-      {String? id,
-      required String title,
-      List<MultiRelatedRegistration>? attendees}) {
+  factory MultiRelatedMeeting({
+    String? id,
+    required String title,
+    List<MultiRelatedRegistration>? attendees,
+  }) {
     return MultiRelatedMeeting._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        title: title,
-        attendees: attendees != null
-            ? List<MultiRelatedRegistration>.unmodifiable(attendees)
-            : attendees);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      title: title,
+      attendees:
+          attendees != null
+              ? List<MultiRelatedRegistration>.unmodifiable(attendees)
+              : attendees,
+    );
   }
 
   bool equals(Object other) {
@@ -111,126 +123,157 @@ class MultiRelatedMeeting extends amplify_core.Model {
     buffer.write("MultiRelatedMeeting {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  MultiRelatedMeeting copyWith(
-      {String? title, List<MultiRelatedRegistration>? attendees}) {
+  MultiRelatedMeeting copyWith({
+    String? title,
+    List<MultiRelatedRegistration>? attendees,
+  }) {
     return MultiRelatedMeeting._internal(
-        id: id,
-        title: title ?? this.title,
-        attendees: attendees ?? this.attendees);
+      id: id,
+      title: title ?? this.title,
+      attendees: attendees ?? this.attendees,
+    );
   }
 
-  MultiRelatedMeeting copyWithModelFieldValues(
-      {ModelFieldValue<String>? title,
-      ModelFieldValue<List<MultiRelatedRegistration>?>? attendees}) {
+  MultiRelatedMeeting copyWithModelFieldValues({
+    ModelFieldValue<String>? title,
+    ModelFieldValue<List<MultiRelatedRegistration>?>? attendees,
+  }) {
     return MultiRelatedMeeting._internal(
-        id: id,
-        title: title == null ? this.title : title.value,
-        attendees: attendees == null ? this.attendees : attendees.value);
+      id: id,
+      title: title == null ? this.title : title.value,
+      attendees: attendees == null ? this.attendees : attendees.value,
+    );
   }
 
   MultiRelatedMeeting.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _title = json['title'],
-        _attendees = json['attendees'] is Map
-            ? (json['attendees']['items'] is List
-                ? (json['attendees']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) => MultiRelatedRegistration.fromJson(
-                        new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['attendees'] is List
-                ? (json['attendees'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => MultiRelatedRegistration.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _title = json['title'],
+      _attendees =
+          json['attendees'] is Map
+              ? (json['attendees']['items'] is List
+                  ? (json['attendees']['items'] as List)
+                      .where((e) => e != null)
+                      .map(
+                        (e) => MultiRelatedRegistration.fromJson(
+                          new Map<String, dynamic>.from(e),
+                        ),
+                      )
+                      .toList()
+                  : null)
+              : (json['attendees'] is List
+                  ? (json['attendees'] as List)
+                      .where((e) => e?['serializedData'] != null)
+                      .map(
+                        (e) => MultiRelatedRegistration.fromJson(
+                          new Map<String, dynamic>.from(e?['serializedData']),
+                        ),
+                      )
+                      .toList()
+                  : null),
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': _title,
-        'attendees': _attendees
-            ?.map((MultiRelatedRegistration? e) => e?.toJson())
-            .toList(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'title': _title,
+    'attendees':
+        _attendees?.map((MultiRelatedRegistration? e) => e?.toJson()).toList(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'title': _title,
-        'attendees': _attendees,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'title': _title,
+    'attendees': _attendees,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<MultiRelatedMeetingModelIdentifier>
-      MODEL_IDENTIFIER =
+  static final amplify_core.QueryModelIdentifier<
+    MultiRelatedMeetingModelIdentifier
+  >
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<MultiRelatedMeetingModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final TITLE = amplify_core.QueryField(fieldName: "title");
   static final ATTENDEES = amplify_core.QueryField(
-      fieldName: "attendees",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'MultiRelatedRegistration'));
+    fieldName: "attendees",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'MultiRelatedRegistration',
+    ),
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "MultiRelatedMeeting";
-    modelSchemaDefinition.pluralName = "MultiRelatedMeetings";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "MultiRelatedMeeting";
+      modelSchemaDefinition.pluralName = "MultiRelatedMeetings";
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(fields: const ["id"], name: null),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: MultiRelatedMeeting.TITLE,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: MultiRelatedMeeting.TITLE,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: MultiRelatedMeeting.ATTENDEES,
-        isRequired: false,
-        ofModelName: 'MultiRelatedRegistration',
-        associatedKey: MultiRelatedRegistration.MEETING));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasMany(
+          key: MultiRelatedMeeting.ATTENDEES,
+          isRequired: false,
+          ofModelName: 'MultiRelatedRegistration',
+          associatedKey: MultiRelatedRegistration.MEETING,
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _MultiRelatedMeetingModelType
@@ -263,10 +306,10 @@ class MultiRelatedMeetingModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

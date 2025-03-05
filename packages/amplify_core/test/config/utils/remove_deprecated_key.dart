@@ -12,28 +12,22 @@
 /// the output and need to be removed before comparison.
 Map<String, Object?> removeDeprecatedKeys(Map<String, Object?> object) {
   final newObject = {...object};
-  removeKey(
-    newObject,
-    [
-      'auth',
-      'plugins',
-      'awsCognitoAuthPlugin',
-      'Auth',
-      'DefaultCustomAuth',
-      'authenticationFlowType',
-    ],
-  );
-  removeKey(
-    newObject,
-    [
-      'auth',
-      'plugins',
-      'awsCognitoAuthPlugin',
-      'Auth',
-      'Default',
-      'authenticationFlowType',
-    ],
-  );
+  removeKey(newObject, [
+    'auth',
+    'plugins',
+    'awsCognitoAuthPlugin',
+    'Auth',
+    'DefaultCustomAuth',
+    'authenticationFlowType',
+  ]);
+  removeKey(newObject, [
+    'auth',
+    'plugins',
+    'awsCognitoAuthPlugin',
+    'Auth',
+    'Default',
+    'authenticationFlowType',
+  ]);
   return newObject;
 }
 

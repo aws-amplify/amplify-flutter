@@ -10,16 +10,16 @@ class _$CompletedMultipartUpload extends CompletedMultipartUpload {
   @override
   final _i2.BuiltList<CompletedPart>? parts;
 
-  factory _$CompletedMultipartUpload(
-          [void Function(CompletedMultipartUploadBuilder)? updates]) =>
-      (new CompletedMultipartUploadBuilder()..update(updates))._build();
+  factory _$CompletedMultipartUpload([
+    void Function(CompletedMultipartUploadBuilder)? updates,
+  ]) => (new CompletedMultipartUploadBuilder()..update(updates))._build();
 
   _$CompletedMultipartUpload._({this.parts}) : super._();
 
   @override
   CompletedMultipartUpload rebuild(
-          void Function(CompletedMultipartUploadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CompletedMultipartUploadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CompletedMultipartUploadBuilder toBuilder() =>
@@ -78,10 +78,8 @@ class CompletedMultipartUploadBuilder
   _$CompletedMultipartUpload _build() {
     _$CompletedMultipartUpload _$result;
     try {
-      _$result = _$v ??
-          new _$CompletedMultipartUpload._(
-            parts: _parts?.build(),
-          );
+      _$result =
+          _$v ?? new _$CompletedMultipartUpload._(parts: _parts?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -89,7 +87,10 @@ class CompletedMultipartUploadBuilder
         _parts?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'CompletedMultipartUpload', _$failedField, e.toString());
+          r'CompletedMultipartUpload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

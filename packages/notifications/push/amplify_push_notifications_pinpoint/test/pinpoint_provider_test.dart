@@ -47,10 +47,7 @@ void main() {
       );
       registerFallbackValue(
         const AWSCredentialsProvider(
-          AWSCredentials(
-            'accessKeyId',
-            'secretAccessKey',
-          ),
+          AWSCredentials('accessKeyId', 'secretAccessKey'),
         ),
       );
     });
@@ -74,89 +71,98 @@ void main() {
       );
     });
 
-    test('identifyUser fails when the Pinpoint Provider is not initialized',
-        () async {
-      expect(
-        () async => pinpointProvider.identifyUser(
-          userId: 'userId',
-          userProfile: MockUserProfile(),
-        ),
-        throwsA(
-          isA<ConfigurationError>().having(
-            (e) => e.message,
-            'Not configured',
-            contains('Provider is not initialized'),
+    test(
+      'identifyUser fails when the Pinpoint Provider is not initialized',
+      () async {
+        expect(
+          () async => pinpointProvider.identifyUser(
+            userId: 'userId',
+            userProfile: MockUserProfile(),
           ),
-        ),
-      );
-    });
-
-    test('identifyUser should throw exception if the underlying call throws',
-        () async {
-      when(
-        () => mockAmplifyAuthProviderRepository.getAuthProvider(
-          APIAuthorizationType.iam.authProviderToken,
-        ),
-      ).thenReturn(awsIamAmplifyAuthProvider);
-      when(
-        () => mockAnalyticsClient.init(
-          pinpointAppId: any(named: 'pinpointAppId'),
-          region: any(named: 'region'),
-          authProvider: any(named: 'authProvider'),
-        ),
-      ).thenAnswer((realInvocation) async {});
-
-      final mockEndpointClient = MockEndpointClient();
-
-      when(
-        () => mockAnalyticsClient.endpointClient,
-      ).thenReturn(mockEndpointClient);
-
-      await pinpointProvider.init(
-        config: notificationsPinpointConfig,
-        authProviderRepo: mockAmplifyAuthProviderRepository,
-        analyticsClient: mockAnalyticsClient,
-      );
-      when(() => mockEndpointClient.setUser(any(), any()))
-          .thenThrow(Exception());
-      expect(
-        pinpointProvider.identifyUser(
-          userId: 'userId',
-          userProfile: MockUserProfile(),
-        ),
-        throwsA(
-          isA<PushNotificationException>().having(
-            (e) => e.message,
-            'Unable to identify user',
-            contains('Unable to identify user.'),
+          throwsA(
+            isA<ConfigurationError>().having(
+              (e) => e.message,
+              'Not configured',
+              contains('Provider is not initialized'),
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
 
     test(
-        'constructEventInfo should return journey data when there is journey details in the payload',
-        () async {
-      final res = pinpointProvider.constructEventInfo(
-        notification: PushNotificationMessage.fromJson(androidJourneyMessage),
-      );
-      final properties = res.properties;
-      final source = res.source;
-      expect(properties.attributes.containsKey('journey_id'), isTrue);
-      expect(source, equals(PinpointEventTypeSource.journey.name));
-    });
+      'identifyUser should throw exception if the underlying call throws',
+      () async {
+        when(
+          () => mockAmplifyAuthProviderRepository.getAuthProvider(
+            APIAuthorizationType.iam.authProviderToken,
+          ),
+        ).thenReturn(awsIamAmplifyAuthProvider);
+        when(
+          () => mockAnalyticsClient.init(
+            pinpointAppId: any(named: 'pinpointAppId'),
+            region: any(named: 'region'),
+            authProvider: any(named: 'authProvider'),
+          ),
+        ).thenAnswer((realInvocation) async {});
+
+        final mockEndpointClient = MockEndpointClient();
+
+        when(
+          () => mockAnalyticsClient.endpointClient,
+        ).thenReturn(mockEndpointClient);
+
+        await pinpointProvider.init(
+          config: notificationsPinpointConfig,
+          authProviderRepo: mockAmplifyAuthProviderRepository,
+          analyticsClient: mockAnalyticsClient,
+        );
+        when(
+          () => mockEndpointClient.setUser(any(), any()),
+        ).thenThrow(Exception());
+        expect(
+          pinpointProvider.identifyUser(
+            userId: 'userId',
+            userProfile: MockUserProfile(),
+          ),
+          throwsA(
+            isA<PushNotificationException>().having(
+              (e) => e.message,
+              'Unable to identify user',
+              contains('Unable to identify user.'),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'constructEventInfo should return campaign data when there is campaign details in the payload',
-        () async {
-      final res = pinpointProvider.constructEventInfo(
-        notification: PushNotificationMessage.fromJson(androidCampaignMessage),
-      );
-      final properties = res.properties;
-      final source = res.source;
-      expect(properties.attributes.containsKey('campaign_id'), isTrue);
-      expect(source, equals(PinpointEventTypeSource.campaign.name));
-    });
+      'constructEventInfo should return journey data when there is journey details in the payload',
+      () async {
+        final res = pinpointProvider.constructEventInfo(
+          notification: PushNotificationMessage.fromJson(androidJourneyMessage),
+        );
+        final properties = res.properties;
+        final source = res.source;
+        expect(properties.attributes.containsKey('journey_id'), isTrue);
+        expect(source, equals(PinpointEventTypeSource.journey.name));
+      },
+    );
+
+    test(
+      'constructEventInfo should return campaign data when there is campaign details in the payload',
+      () async {
+        final res = pinpointProvider.constructEventInfo(
+          notification: PushNotificationMessage.fromJson(
+            androidCampaignMessage,
+          ),
+        );
+        final properties = res.properties;
+        final source = res.source;
+        expect(properties.attributes.containsKey('campaign_id'), isTrue);
+        expect(source, equals(PinpointEventTypeSource.campaign.name));
+      },
+    );
   });
 
   group('Happy path test', () {
@@ -166,10 +172,7 @@ void main() {
       );
       registerFallbackValue(
         const AWSCredentialsProvider(
-          AWSCredentials(
-            'accessKeyId',
-            'secretAccessKey',
-          ),
+          AWSCredentials('accessKeyId', 'secretAccessKey'),
         ),
       );
     });
@@ -239,8 +242,9 @@ void main() {
       ).thenAnswer((realInvocation) async {});
 
       final mockEndpointClient = MockEndpointClient();
-      when(() => mockEndpointClient.setUser(any(), any()))
-          .thenAnswer((_) async => {});
+      when(
+        () => mockEndpointClient.setUser(any(), any()),
+      ).thenAnswer((_) async => {});
       when(mockEndpointClient.updateEndpoint).thenAnswer((_) async => {});
 
       when(
@@ -278,8 +282,9 @@ void main() {
       ).thenAnswer((realInvocation) async {});
 
       final mockEndpointClient = MockEndpointClient();
-      when(() => mockEndpointClient.setUser(any(), any()))
-          .thenAnswer((_) async => {});
+      when(
+        () => mockEndpointClient.setUser(any(), any()),
+      ).thenAnswer((_) async => {});
       when(mockEndpointClient.updateEndpoint).thenAnswer((_) async => {});
 
       when(
@@ -295,98 +300,89 @@ void main() {
         completes,
       );
 
-      expect(
-        pinpointProvider.registerDevice(
-          '',
-        ),
-        completes,
-      );
+      expect(pinpointProvider.registerDevice(''), completes);
       verify(mockEndpointClient.updateEndpoint);
     });
 
-    test('registerDevice should run successfully when device is offline',
-        () async {
-      when(
-        () => mockAmplifyAuthProviderRepository.getAuthProvider(
-          APIAuthorizationType.iam.authProviderToken,
-        ),
-      ).thenReturn(awsIamAmplifyAuthProvider);
-      when(
-        () => mockAnalyticsClient.init(
-          pinpointAppId: any(named: 'pinpointAppId'),
-          region: any(named: 'region'),
-          authProvider: any(named: 'authProvider'),
-        ),
-      ).thenAnswer((realInvocation) async {});
+    test(
+      'registerDevice should run successfully when device is offline',
+      () async {
+        when(
+          () => mockAmplifyAuthProviderRepository.getAuthProvider(
+            APIAuthorizationType.iam.authProviderToken,
+          ),
+        ).thenReturn(awsIamAmplifyAuthProvider);
+        when(
+          () => mockAnalyticsClient.init(
+            pinpointAppId: any(named: 'pinpointAppId'),
+            region: any(named: 'region'),
+            authProvider: any(named: 'authProvider'),
+          ),
+        ).thenAnswer((realInvocation) async {});
 
-      final mockEndpointClient = MockEndpointClient();
+        final mockEndpointClient = MockEndpointClient();
 
-      when(mockEndpointClient.updateEndpoint)
-          .thenThrow(const NetworkException('message'));
+        when(
+          mockEndpointClient.updateEndpoint,
+        ).thenThrow(const NetworkException('message'));
 
-      when(
-        () => mockAnalyticsClient.endpointClient,
-      ).thenReturn(mockEndpointClient);
+        when(
+          () => mockAnalyticsClient.endpointClient,
+        ).thenReturn(mockEndpointClient);
 
-      await expectLater(
-        pinpointProvider.init(
-          config: notificationsPinpointConfig,
-          authProviderRepo: mockAmplifyAuthProviderRepository,
-          analyticsClient: mockAnalyticsClient,
-        ),
-        completes,
-      );
+        await expectLater(
+          pinpointProvider.init(
+            config: notificationsPinpointConfig,
+            authProviderRepo: mockAmplifyAuthProviderRepository,
+            analyticsClient: mockAnalyticsClient,
+          ),
+          completes,
+        );
 
-      expect(
-        pinpointProvider.registerDevice(
-          '',
-        ),
-        completes,
-      );
-      verify(mockEndpointClient.updateEndpoint);
-    });
+        expect(pinpointProvider.registerDevice(''), completes);
+        verify(mockEndpointClient.updateEndpoint);
+      },
+    );
 
-    test('registerDevice should run successfully when token is expired',
-        () async {
-      when(
-        () => mockAmplifyAuthProviderRepository.getAuthProvider(
-          APIAuthorizationType.iam.authProviderToken,
-        ),
-      ).thenReturn(awsIamAmplifyAuthProvider);
-      when(
-        () => mockAnalyticsClient.init(
-          pinpointAppId: any(named: 'pinpointAppId'),
-          region: any(named: 'region'),
-          authProvider: any(named: 'authProvider'),
-        ),
-      ).thenAnswer((realInvocation) async {});
+    test(
+      'registerDevice should run successfully when token is expired',
+      () async {
+        when(
+          () => mockAmplifyAuthProviderRepository.getAuthProvider(
+            APIAuthorizationType.iam.authProviderToken,
+          ),
+        ).thenReturn(awsIamAmplifyAuthProvider);
+        when(
+          () => mockAnalyticsClient.init(
+            pinpointAppId: any(named: 'pinpointAppId'),
+            region: any(named: 'region'),
+            authProvider: any(named: 'authProvider'),
+          ),
+        ).thenAnswer((realInvocation) async {});
 
-      final mockEndpointClient = MockEndpointClient();
+        final mockEndpointClient = MockEndpointClient();
 
-      when(mockEndpointClient.updateEndpoint)
-          .thenThrow(const UnknownException('message'));
+        when(
+          mockEndpointClient.updateEndpoint,
+        ).thenThrow(const UnknownException('message'));
 
-      when(
-        () => mockAnalyticsClient.endpointClient,
-      ).thenReturn(mockEndpointClient);
+        when(
+          () => mockAnalyticsClient.endpointClient,
+        ).thenReturn(mockEndpointClient);
 
-      await expectLater(
-        pinpointProvider.init(
-          config: notificationsPinpointConfig,
-          authProviderRepo: mockAmplifyAuthProviderRepository,
-          analyticsClient: mockAnalyticsClient,
-        ),
-        completes,
-      );
+        await expectLater(
+          pinpointProvider.init(
+            config: notificationsPinpointConfig,
+            authProviderRepo: mockAmplifyAuthProviderRepository,
+            analyticsClient: mockAnalyticsClient,
+          ),
+          completes,
+        );
 
-      expect(
-        pinpointProvider.registerDevice(
-          '',
-        ),
-        completes,
-      );
-      verify(mockEndpointClient.updateEndpoint);
-    });
+        expect(pinpointProvider.registerDevice(''), completes);
+        verify(mockEndpointClient.updateEndpoint);
+      },
+    );
 
     test('recordEvent should run successfully', () async {
       when(
@@ -411,9 +407,7 @@ void main() {
         ),
       ).thenAnswer((_) async => {});
 
-      when(
-        () => mockAnalyticsClient.eventClient,
-      ).thenReturn(mockEventClient);
+      when(() => mockAnalyticsClient.eventClient).thenReturn(mockEventClient);
 
       await expectLater(
         pinpointProvider.init(
@@ -427,8 +421,9 @@ void main() {
       await expectLater(
         pinpointProvider.recordNotificationEvent(
           eventType: PinpointEventType.foregroundMessageReceived,
-          notification:
-              PushNotificationMessage.fromJson(androidCampaignMessage),
+          notification: PushNotificationMessage.fromJson(
+            androidCampaignMessage,
+          ),
         ),
         completes,
       );

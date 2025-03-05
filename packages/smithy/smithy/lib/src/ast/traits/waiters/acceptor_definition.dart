@@ -13,10 +13,7 @@ enum AcceptorState { success, failure, retry }
 @JsonSerializable()
 class AcceptorDefinition
     with AWSSerializable, AWSEquatable<AcceptorDefinition> {
-  const AcceptorDefinition({
-    required this.state,
-    required this.matcher,
-  });
+  const AcceptorDefinition({required this.state, required this.matcher});
 
   factory AcceptorDefinition.fromJson(Object? json) =>
       _$AcceptorDefinitionFromJson((json as Map).cast<String, Object?>());

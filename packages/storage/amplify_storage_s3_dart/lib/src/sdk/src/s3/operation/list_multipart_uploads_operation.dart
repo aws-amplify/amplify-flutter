@@ -59,11 +59,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
 ///
 /// *   [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
-class ListMultipartUploadsOperation extends _i1.HttpOperation<
-    ListMultipartUploadsRequestPayload,
-    ListMultipartUploadsRequest,
-    ListMultipartUploadsOutputPayload,
-    ListMultipartUploadsOutput> {
+class ListMultipartUploadsOperation
+    extends
+        _i1.HttpOperation<
+          ListMultipartUploadsRequestPayload,
+          ListMultipartUploadsRequest,
+          ListMultipartUploadsOutputPayload,
+          ListMultipartUploadsOutput
+        > {
   /// This operation lists in-progress multipart uploads in a bucket. An in-progress multipart upload is a multipart upload that has been initiated by the `CreateMultipartUpload` request, but has not yet been completed or aborted.
   ///
   /// **Directory buckets** \- If multipart uploads in a directory bucket are in progress, you can't delete the bucket until all the in-progress multipart uploads are aborted or completed.
@@ -117,30 +120,35 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          ListMultipartUploadsRequestPayload,
-          ListMultipartUploadsRequest,
-          ListMultipartUploadsOutputPayload,
-          ListMultipartUploadsOutput>> protocols = [
+    _i1.HttpProtocol<
+      ListMultipartUploadsRequestPayload,
+      ListMultipartUploadsRequest,
+      ListMultipartUploadsOutputPayload,
+      ListMultipartUploadsOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -151,7 +159,7 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -172,58 +180,39 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(ListMultipartUploadsRequest input) =>
-      _i1.HttpRequest((b) {
-        b.method = 'GET';
-        b.path =
-            _s3ClientConfig.usePathStyle ? r'/{Bucket}?uploads' : r'/?uploads';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.delimiter != null) {
-          b.queryParameters.add(
-            'delimiter',
-            input.delimiter!,
-          );
-        }
-        if (input.encodingType != null) {
-          b.queryParameters.add(
-            'encoding-type',
-            input.encodingType!.value,
-          );
-        }
-        if (input.keyMarker != null) {
-          b.queryParameters.add(
-            'key-marker',
-            input.keyMarker!,
-          );
-        }
-        if (input.maxUploads != null) {
-          b.queryParameters.add(
-            'max-uploads',
-            input.maxUploads!.toString(),
-          );
-        }
-        if (input.prefix != null) {
-          b.queryParameters.add(
-            'prefix',
-            input.prefix!,
-          );
-        }
-        if (input.uploadIdMarker != null) {
-          b.queryParameters.add(
-            'upload-id-marker',
-            input.uploadIdMarker!,
-          );
-        }
-      });
+  _i1.HttpRequest buildRequest(
+    ListMultipartUploadsRequest input,
+  ) => _i1.HttpRequest((b) {
+    b.method = 'GET';
+    b.path = _s3ClientConfig.usePathStyle ? r'/{Bucket}?uploads' : r'/?uploads';
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.delimiter != null) {
+      b.queryParameters.add('delimiter', input.delimiter!);
+    }
+    if (input.encodingType != null) {
+      b.queryParameters.add('encoding-type', input.encodingType!.value);
+    }
+    if (input.keyMarker != null) {
+      b.queryParameters.add('key-marker', input.keyMarker!);
+    }
+    if (input.maxUploads != null) {
+      b.queryParameters.add('max-uploads', input.maxUploads!.toString());
+    }
+    if (input.prefix != null) {
+      b.queryParameters.add('prefix', input.prefix!);
+    }
+    if (input.uploadIdMarker != null) {
+      b.queryParameters.add('upload-id-marker', input.uploadIdMarker!);
+    }
+  });
 
   @override
   int successCode([ListMultipartUploadsOutput? output]) => 200;
@@ -232,11 +221,7 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
   ListMultipartUploadsOutput buildOutput(
     ListMultipartUploadsOutputPayload payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      ListMultipartUploadsOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => ListMultipartUploadsOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -275,11 +260,7 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

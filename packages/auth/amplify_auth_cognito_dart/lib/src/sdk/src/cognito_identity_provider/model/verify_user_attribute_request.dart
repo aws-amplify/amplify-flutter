@@ -31,9 +31,9 @@ abstract class VerifyUserAttributeRequest
   }
 
   /// Represents the request to verify user attributes.
-  factory VerifyUserAttributeRequest.build(
-          [void Function(VerifyUserAttributeRequestBuilder) updates]) =
-      _$VerifyUserAttributeRequest;
+  factory VerifyUserAttributeRequest.build([
+    void Function(VerifyUserAttributeRequestBuilder) updates,
+  ]) = _$VerifyUserAttributeRequest;
 
   const VerifyUserAttributeRequest._();
 
@@ -41,11 +41,10 @@ abstract class VerifyUserAttributeRequest
     VerifyUserAttributeRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<VerifyUserAttributeRequest>>
-      serializers = [VerifyUserAttributeRequestAwsJson11Serializer()];
+  serializers = [VerifyUserAttributeRequestAwsJson11Serializer()];
 
   /// A valid access token that Amazon Cognito issued to the user whose user attributes you want to verify.
   String get accessToken;
@@ -59,27 +58,15 @@ abstract class VerifyUserAttributeRequest
   VerifyUserAttributeRequest getPayload() => this;
 
   @override
-  List<Object?> get props => [
-        accessToken,
-        attributeName,
-        code,
-      ];
+  List<Object?> get props => [accessToken, attributeName, code];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VerifyUserAttributeRequest')
-      ..add(
-        'accessToken',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'attributeName',
-        attributeName,
-      )
-      ..add(
-        'code',
-        code,
-      );
+    final helper =
+        newBuiltValueToStringHelper('VerifyUserAttributeRequest')
+          ..add('accessToken', '***SENSITIVE***')
+          ..add('attributeName', attributeName)
+          ..add('code', code);
     return helper.toString();
   }
 }
@@ -87,21 +74,18 @@ abstract class VerifyUserAttributeRequest
 class VerifyUserAttributeRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<VerifyUserAttributeRequest> {
   const VerifyUserAttributeRequestAwsJson11Serializer()
-      : super('VerifyUserAttributeRequest');
+    : super('VerifyUserAttributeRequest');
 
   @override
   Iterable<Type> get types => const [
-        VerifyUserAttributeRequest,
-        _$VerifyUserAttributeRequest,
-      ];
+    VerifyUserAttributeRequest,
+    _$VerifyUserAttributeRequest,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   VerifyUserAttributeRequest deserialize(
@@ -120,20 +104,26 @@ class VerifyUserAttributeRequestAwsJson11Serializer
       }
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accessToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AttributeName':
-          result.attributeName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.attributeName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -151,20 +141,14 @@ class VerifyUserAttributeRequestAwsJson11Serializer
         object;
     result$.addAll([
       'AccessToken',
-      serializers.serialize(
-        accessToken,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(accessToken, specifiedType: const FullType(String)),
       'AttributeName',
       serializers.serialize(
         attributeName,
         specifiedType: const FullType(String),
       ),
       'Code',
-      serializers.serialize(
-        code,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(code, specifiedType: const FullType(String)),
     ]);
     return result$;
   }

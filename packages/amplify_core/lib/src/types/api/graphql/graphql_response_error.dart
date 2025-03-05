@@ -26,14 +26,15 @@ class GraphQLResponseError {
   factory GraphQLResponseError.fromJson(Map<String, dynamic> json) {
     return GraphQLResponseError(
       message: json['message'] as String,
-      locations: (json['locations'] as List?)
-          ?.cast<Map<Object?, Object?>>()
-          .map(
-            (json) => GraphQLResponseErrorLocation.fromJson(
-              json.cast<String, dynamic>(),
-            ),
-          )
-          .toList(),
+      locations:
+          (json['locations'] as List?)
+              ?.cast<Map<Object?, Object?>>()
+              .map(
+                (json) => GraphQLResponseErrorLocation.fromJson(
+                  json.cast<String, dynamic>(),
+                ),
+              )
+              .toList(),
       path: json['path'] as List?,
       extensions: (json['extensions'] as Map?)?.cast<String, dynamic>(),
       errorType: json['errorType'] as String?,
@@ -60,14 +61,14 @@ class GraphQLResponseError {
   final Map<String, dynamic>? errorInfo;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'message': message,
-        if (locations != null)
-          'locations': locations?.map((e) => e.toJson()).toList(),
-        if (path != null) 'path': path,
-        if (extensions != null) 'extensions': extensions,
-        if (errorType != null) 'errorType': errorType,
-        if (errorInfo != null) 'errorInfo': errorInfo,
-      };
+    'message': message,
+    if (locations != null)
+      'locations': locations?.map((e) => e.toJson()).toList(),
+    if (path != null) 'path': path,
+    if (extensions != null) 'extensions': extensions,
+    if (errorType != null) 'errorType': errorType,
+    if (errorInfo != null) 'errorInfo': errorInfo,
+  };
 
   @override
   bool operator ==(Object other) =>
@@ -87,13 +88,13 @@ class GraphQLResponseError {
 
   @override
   int get hashCode => const DeepCollectionEquality().hash([
-        message,
-        locations,
-        path,
-        extensions,
-        errorType,
-        errorInfo,
-      ]);
+    message,
+    locations,
+    path,
+    extensions,
+    errorType,
+    errorInfo,
+  ]);
 
   @override
   String toString() {
@@ -127,9 +128,9 @@ class GraphQLResponseErrorLocation {
   final int column;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'line': line,
-        'column': column,
-      };
+    'line': line,
+    'column': column,
+  };
 
   @override
   bool operator ==(Object other) =>

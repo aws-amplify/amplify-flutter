@@ -22,10 +22,10 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet<Object?>> {
 
   @override
   Iterable<Type> get types => [
-        BuiltSet,
-        BuiltSet<dynamic>().runtimeType,
-        BuiltSet<Object?>().runtimeType,
-      ];
+    BuiltSet,
+    BuiltSet<dynamic>().runtimeType,
+    BuiltSet<Object?>().runtimeType,
+  ];
 
   @override
   String get wireName => 'set';
@@ -40,9 +40,10 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet<Object?>> {
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
     if (!isUnderspecified) serializers.expectBuilder(specifiedType);
 
-    final elementType = specifiedType.parameters.isEmpty
-        ? FullType.unspecified
-        : specifiedType.parameters[0];
+    final elementType =
+        specifiedType.parameters.isEmpty
+            ? FullType.unspecified
+            : specifiedType.parameters[0];
 
     return builtSet.expandIndexed((index, Object? item) {
       var value = serializers.serialize(item, specifiedType: elementType);
@@ -51,10 +52,7 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet<Object?>> {
         value = value.children;
       }
       final elementName = indexer.elementName(memberName, index);
-      return [
-        XmlElementName(elementName, memberNamespace),
-        value,
-      ];
+      return [XmlElementName(elementName, memberNamespace), value];
     });
   }
 
@@ -67,12 +65,14 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet<Object?>> {
     final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
 
-    final elementType = specifiedType.parameters.isEmpty
-        ? FullType.unspecified
-        : specifiedType.parameters[0];
-    final result = isUnderspecified
-        ? SetBuilder<Object>()
-        : serializers.newBuilder(specifiedType) as SetBuilder;
+    final elementType =
+        specifiedType.parameters.isEmpty
+            ? FullType.unspecified
+            : specifiedType.parameters[0];
+    final result =
+        isUnderspecified
+            ? SetBuilder<Object>()
+            : serializers.newBuilder(specifiedType) as SetBuilder;
 
     // ignore: cascade_invocations
     result.replace(

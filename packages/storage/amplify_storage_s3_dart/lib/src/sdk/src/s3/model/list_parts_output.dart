@@ -59,8 +59,9 @@ abstract class ListPartsOutput
     );
   }
 
-  factory ListPartsOutput.build(
-      [void Function(ListPartsOutputBuilder) updates]) = _$ListPartsOutput;
+  factory ListPartsOutput.build([
+    void Function(ListPartsOutputBuilder) updates,
+  ]) = _$ListPartsOutput;
 
   const ListPartsOutput._();
 
@@ -68,40 +69,41 @@ abstract class ListPartsOutput
   factory ListPartsOutput.fromResponse(
     ListPartsOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      ListPartsOutput.build((b) {
-        b.bucket = payload.bucket;
-        b.checksumAlgorithm = payload.checksumAlgorithm;
-        if (payload.initiator != null) {
-          b.initiator.replace(payload.initiator!);
-        }
-        b.isTruncated = payload.isTruncated;
-        b.key = payload.key;
-        b.maxParts = payload.maxParts;
-        b.nextPartNumberMarker = payload.nextPartNumberMarker;
-        if (payload.owner != null) {
-          b.owner.replace(payload.owner!);
-        }
-        b.partNumberMarker = payload.partNumberMarker;
-        if (payload.parts != null) {
-          b.parts.replace(payload.parts!);
-        }
-        b.storageClass = payload.storageClass;
-        b.uploadId = payload.uploadId;
-        if (response.headers['x-amz-abort-date'] != null) {
-          b.abortDate = _i2.Timestamp.parse(
+  ) => ListPartsOutput.build((b) {
+    b.bucket = payload.bucket;
+    b.checksumAlgorithm = payload.checksumAlgorithm;
+    if (payload.initiator != null) {
+      b.initiator.replace(payload.initiator!);
+    }
+    b.isTruncated = payload.isTruncated;
+    b.key = payload.key;
+    b.maxParts = payload.maxParts;
+    b.nextPartNumberMarker = payload.nextPartNumberMarker;
+    if (payload.owner != null) {
+      b.owner.replace(payload.owner!);
+    }
+    b.partNumberMarker = payload.partNumberMarker;
+    if (payload.parts != null) {
+      b.parts.replace(payload.parts!);
+    }
+    b.storageClass = payload.storageClass;
+    b.uploadId = payload.uploadId;
+    if (response.headers['x-amz-abort-date'] != null) {
+      b.abortDate =
+          _i2.Timestamp.parse(
             response.headers['x-amz-abort-date']!,
             format: _i2.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (response.headers['x-amz-abort-rule-id'] != null) {
-          b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
-        }
-        if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = RequestCharged.values
-              .byValue(response.headers['x-amz-request-charged']!);
-        }
-      });
+    }
+    if (response.headers['x-amz-abort-rule-id'] != null) {
+      b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
+    }
+    if (response.headers['x-amz-request-charged'] != null) {
+      b.requestCharged = RequestCharged.values.byValue(
+        response.headers['x-amz-request-charged']!,
+      );
+    }
+  });
 
   static const List<_i2.SmithySerializer<ListPartsOutputPayload>> serializers =
       [ListPartsOutputRestXmlSerializer()];
@@ -164,108 +166,64 @@ abstract class ListPartsOutput
   ChecksumAlgorithm? get checksumAlgorithm;
   @override
   ListPartsOutputPayload getPayload() => ListPartsOutputPayload((b) {
-        b.bucket = bucket;
-        b.checksumAlgorithm = checksumAlgorithm;
-        if (initiator != null) {
-          b.initiator.replace(initiator!);
-        }
-        b.isTruncated = isTruncated;
-        b.key = key;
-        b.maxParts = maxParts;
-        b.nextPartNumberMarker = nextPartNumberMarker;
-        if (owner != null) {
-          b.owner.replace(owner!);
-        }
-        b.partNumberMarker = partNumberMarker;
-        if (parts != null) {
-          b.parts.replace(parts!);
-        }
-        b.storageClass = storageClass;
-        b.uploadId = uploadId;
-      });
+    b.bucket = bucket;
+    b.checksumAlgorithm = checksumAlgorithm;
+    if (initiator != null) {
+      b.initiator.replace(initiator!);
+    }
+    b.isTruncated = isTruncated;
+    b.key = key;
+    b.maxParts = maxParts;
+    b.nextPartNumberMarker = nextPartNumberMarker;
+    if (owner != null) {
+      b.owner.replace(owner!);
+    }
+    b.partNumberMarker = partNumberMarker;
+    if (parts != null) {
+      b.parts.replace(parts!);
+    }
+    b.storageClass = storageClass;
+    b.uploadId = uploadId;
+  });
 
   @override
   List<Object?> get props => [
-        abortDate,
-        abortRuleId,
-        bucket,
-        key,
-        uploadId,
-        partNumberMarker,
-        nextPartNumberMarker,
-        maxParts,
-        isTruncated,
-        parts,
-        initiator,
-        owner,
-        storageClass,
-        requestCharged,
-        checksumAlgorithm,
-      ];
+    abortDate,
+    abortRuleId,
+    bucket,
+    key,
+    uploadId,
+    partNumberMarker,
+    nextPartNumberMarker,
+    maxParts,
+    isTruncated,
+    parts,
+    initiator,
+    owner,
+    storageClass,
+    requestCharged,
+    checksumAlgorithm,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPartsOutput')
-      ..add(
-        'abortDate',
-        abortDate,
-      )
-      ..add(
-        'abortRuleId',
-        abortRuleId,
-      )
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'uploadId',
-        uploadId,
-      )
-      ..add(
-        'partNumberMarker',
-        partNumberMarker,
-      )
-      ..add(
-        'nextPartNumberMarker',
-        nextPartNumberMarker,
-      )
-      ..add(
-        'maxParts',
-        maxParts,
-      )
-      ..add(
-        'isTruncated',
-        isTruncated,
-      )
-      ..add(
-        'parts',
-        parts,
-      )
-      ..add(
-        'initiator',
-        initiator,
-      )
-      ..add(
-        'owner',
-        owner,
-      )
-      ..add(
-        'storageClass',
-        storageClass,
-      )
-      ..add(
-        'requestCharged',
-        requestCharged,
-      )
-      ..add(
-        'checksumAlgorithm',
-        checksumAlgorithm,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ListPartsOutput')
+          ..add('abortDate', abortDate)
+          ..add('abortRuleId', abortRuleId)
+          ..add('bucket', bucket)
+          ..add('key', key)
+          ..add('uploadId', uploadId)
+          ..add('partNumberMarker', partNumberMarker)
+          ..add('nextPartNumberMarker', nextPartNumberMarker)
+          ..add('maxParts', maxParts)
+          ..add('isTruncated', isTruncated)
+          ..add('parts', parts)
+          ..add('initiator', initiator)
+          ..add('owner', owner)
+          ..add('storageClass', storageClass)
+          ..add('requestCharged', requestCharged)
+          ..add('checksumAlgorithm', checksumAlgorithm);
     return helper.toString();
   }
 }
@@ -274,9 +232,9 @@ abstract class ListPartsOutput
 abstract class ListPartsOutputPayload
     with _i1.AWSEquatable<ListPartsOutputPayload>
     implements Built<ListPartsOutputPayload, ListPartsOutputPayloadBuilder> {
-  factory ListPartsOutputPayload(
-          [void Function(ListPartsOutputPayloadBuilder) updates]) =
-      _$ListPartsOutputPayload;
+  factory ListPartsOutputPayload([
+    void Function(ListPartsOutputPayloadBuilder) updates,
+  ]) = _$ListPartsOutputPayload;
 
   const ListPartsOutputPayload._();
 
@@ -321,71 +279,36 @@ abstract class ListPartsOutputPayload
   String? get uploadId;
   @override
   List<Object?> get props => [
-        bucket,
-        checksumAlgorithm,
-        initiator,
-        isTruncated,
-        key,
-        maxParts,
-        nextPartNumberMarker,
-        owner,
-        partNumberMarker,
-        parts,
-        storageClass,
-        uploadId,
-      ];
+    bucket,
+    checksumAlgorithm,
+    initiator,
+    isTruncated,
+    key,
+    maxParts,
+    nextPartNumberMarker,
+    owner,
+    partNumberMarker,
+    parts,
+    storageClass,
+    uploadId,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPartsOutputPayload')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'checksumAlgorithm',
-        checksumAlgorithm,
-      )
-      ..add(
-        'initiator',
-        initiator,
-      )
-      ..add(
-        'isTruncated',
-        isTruncated,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'maxParts',
-        maxParts,
-      )
-      ..add(
-        'nextPartNumberMarker',
-        nextPartNumberMarker,
-      )
-      ..add(
-        'owner',
-        owner,
-      )
-      ..add(
-        'partNumberMarker',
-        partNumberMarker,
-      )
-      ..add(
-        'parts',
-        parts,
-      )
-      ..add(
-        'storageClass',
-        storageClass,
-      )
-      ..add(
-        'uploadId',
-        uploadId,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ListPartsOutputPayload')
+          ..add('bucket', bucket)
+          ..add('checksumAlgorithm', checksumAlgorithm)
+          ..add('initiator', initiator)
+          ..add('isTruncated', isTruncated)
+          ..add('key', key)
+          ..add('maxParts', maxParts)
+          ..add('nextPartNumberMarker', nextPartNumberMarker)
+          ..add('owner', owner)
+          ..add('partNumberMarker', partNumberMarker)
+          ..add('parts', parts)
+          ..add('storageClass', storageClass)
+          ..add('uploadId', uploadId);
     return helper.toString();
   }
 }
@@ -396,19 +319,16 @@ class ListPartsOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        ListPartsOutput,
-        _$ListPartsOutput,
-        ListPartsOutputPayload,
-        _$ListPartsOutputPayload,
-      ];
+    ListPartsOutput,
+    _$ListPartsOutput,
+    ListPartsOutputPayload,
+    _$ListPartsOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ListPartsOutputPayload deserialize(
@@ -427,65 +347,89 @@ class ListPartsOutputRestXmlSerializer
       }
       switch (key) {
         case 'Bucket':
-          result.bucket = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.bucket =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChecksumAlgorithm':
-          result.checksumAlgorithm = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ChecksumAlgorithm),
-          ) as ChecksumAlgorithm);
+          result.checksumAlgorithm =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ChecksumAlgorithm),
+                  )
+                  as ChecksumAlgorithm);
         case 'Initiator':
-          result.initiator.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(Initiator),
-          ) as Initiator));
+          result.initiator.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(Initiator),
+                )
+                as Initiator),
+          );
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.isTruncated =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'Key':
-          result.key = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.key =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'MaxParts':
-          result.maxParts = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxParts =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'NextPartNumberMarker':
-          result.nextPartNumberMarker = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.nextPartNumberMarker =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Owner':
-          result.owner.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(Owner),
-          ) as Owner));
+          result.owner.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(Owner),
+                )
+                as Owner),
+          );
         case 'PartNumberMarker':
-          result.partNumberMarker = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.partNumberMarker =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Part':
-          result.parts.add((serializers.deserialize(
-            value,
-            specifiedType: const FullType(Part),
-          ) as Part));
+          result.parts.add(
+            (serializers.deserialize(value, specifiedType: const FullType(Part))
+                as Part),
+          );
         case 'StorageClass':
-          result.storageClass = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(StorageClass),
-          ) as StorageClass);
+          result.storageClass =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(StorageClass),
+                  )
+                  as StorageClass);
         case 'UploadId':
-          result.uploadId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.uploadId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -502,7 +446,7 @@ class ListPartsOutputRestXmlSerializer
       const _i2.XmlElementName(
         'ListPartsResult',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final ListPartsOutputPayload(
       :bucket,
@@ -516,106 +460,114 @@ class ListPartsOutputRestXmlSerializer
       :partNumberMarker,
       :parts,
       :storageClass,
-      :uploadId
+      :uploadId,
     ) = object;
     if (bucket != null) {
       result$
         ..add(const _i2.XmlElementName('Bucket'))
-        ..add(serializers.serialize(
-          bucket,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(bucket, specifiedType: const FullType(String)),
+        );
     }
     if (checksumAlgorithm != null) {
       result$
         ..add(const _i2.XmlElementName('ChecksumAlgorithm'))
-        ..add(serializers.serialize(
-          checksumAlgorithm,
-          specifiedType: const FullType(ChecksumAlgorithm),
-        ));
+        ..add(
+          serializers.serialize(
+            checksumAlgorithm,
+            specifiedType: const FullType(ChecksumAlgorithm),
+          ),
+        );
     }
     if (initiator != null) {
       result$
         ..add(const _i2.XmlElementName('Initiator'))
-        ..add(serializers.serialize(
-          initiator,
-          specifiedType: const FullType(Initiator),
-        ));
+        ..add(
+          serializers.serialize(
+            initiator,
+            specifiedType: const FullType(Initiator),
+          ),
+        );
     }
     if (isTruncated != null) {
       result$
         ..add(const _i2.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(
+            isTruncated,
+            specifiedType: const FullType(bool),
+          ),
+        );
     }
     if (key != null) {
       result$
         ..add(const _i2.XmlElementName('Key'))
-        ..add(serializers.serialize(
-          key,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(key, specifiedType: const FullType(String)),
+        );
     }
     if (maxParts != null) {
       result$
         ..add(const _i2.XmlElementName('MaxParts'))
-        ..add(serializers.serialize(
-          maxParts,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(maxParts, specifiedType: const FullType(int)),
+        );
     }
     if (nextPartNumberMarker != null) {
       result$
         ..add(const _i2.XmlElementName('NextPartNumberMarker'))
-        ..add(serializers.serialize(
-          nextPartNumberMarker,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            nextPartNumberMarker,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (owner != null) {
       result$
         ..add(const _i2.XmlElementName('Owner'))
-        ..add(serializers.serialize(
-          owner,
-          specifiedType: const FullType(Owner),
-        ));
+        ..add(
+          serializers.serialize(owner, specifiedType: const FullType(Owner)),
+        );
     }
     if (partNumberMarker != null) {
       result$
         ..add(const _i2.XmlElementName('PartNumberMarker'))
-        ..add(serializers.serialize(
-          partNumberMarker,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            partNumberMarker,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (parts != null) {
       result$.addAll(
-          const _i2.XmlBuiltListSerializer(memberName: 'Part').serialize(
-        serializers,
-        parts,
-        specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(Part)],
+        const _i2.XmlBuiltListSerializer(memberName: 'Part').serialize(
+          serializers,
+          parts,
+          specifiedType: const FullType(_i3.BuiltList, [FullType(Part)]),
         ),
-      ));
+      );
     }
     if (storageClass != null) {
       result$
         ..add(const _i2.XmlElementName('StorageClass'))
-        ..add(serializers.serialize(
-          storageClass,
-          specifiedType: const FullType(StorageClass),
-        ));
+        ..add(
+          serializers.serialize(
+            storageClass,
+            specifiedType: const FullType(StorageClass),
+          ),
+        );
     }
     if (uploadId != null) {
       result$
         ..add(const _i2.XmlElementName('UploadId'))
-        ..add(serializers.serialize(
-          uploadId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            uploadId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

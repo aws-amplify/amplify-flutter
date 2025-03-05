@@ -25,12 +25,12 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
 
   @override
   List<Object?> get props => [
-        endpointType,
-        endpoint,
-        region,
-        authorizationType,
-        apiKey,
-      ];
+    endpointType,
+    endpoint,
+    region,
+    authorizationType,
+    apiKey,
+  ];
 
   AWSApiConfig copyWith({
     EndpointType? endpointType,

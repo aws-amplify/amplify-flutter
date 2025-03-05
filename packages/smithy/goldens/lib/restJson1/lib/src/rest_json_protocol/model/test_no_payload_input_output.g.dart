@@ -10,16 +10,16 @@ class _$TestNoPayloadInputOutput extends TestNoPayloadInputOutput {
   @override
   final String? testId;
 
-  factory _$TestNoPayloadInputOutput(
-          [void Function(TestNoPayloadInputOutputBuilder)? updates]) =>
-      (new TestNoPayloadInputOutputBuilder()..update(updates))._build();
+  factory _$TestNoPayloadInputOutput([
+    void Function(TestNoPayloadInputOutputBuilder)? updates,
+  ]) => (new TestNoPayloadInputOutputBuilder()..update(updates))._build();
 
   _$TestNoPayloadInputOutput._({this.testId}) : super._();
 
   @override
   TestNoPayloadInputOutput rebuild(
-          void Function(TestNoPayloadInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TestNoPayloadInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TestNoPayloadInputOutputBuilder toBuilder() =>
@@ -83,16 +83,17 @@ class TestNoPayloadInputOutputBuilder
 
 class _$TestNoPayloadInputOutputPayload
     extends TestNoPayloadInputOutputPayload {
-  factory _$TestNoPayloadInputOutputPayload(
-          [void Function(TestNoPayloadInputOutputPayloadBuilder)? updates]) =>
+  factory _$TestNoPayloadInputOutputPayload([
+    void Function(TestNoPayloadInputOutputPayloadBuilder)? updates,
+  ]) =>
       (new TestNoPayloadInputOutputPayloadBuilder()..update(updates))._build();
 
   _$TestNoPayloadInputOutputPayload._() : super._();
 
   @override
   TestNoPayloadInputOutputPayload rebuild(
-          void Function(TestNoPayloadInputOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TestNoPayloadInputOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TestNoPayloadInputOutputPayloadBuilder toBuilder() =>
@@ -112,8 +113,10 @@ class _$TestNoPayloadInputOutputPayload
 
 class TestNoPayloadInputOutputPayloadBuilder
     implements
-        Builder<TestNoPayloadInputOutputPayload,
-            TestNoPayloadInputOutputPayloadBuilder> {
+        Builder<
+          TestNoPayloadInputOutputPayload,
+          TestNoPayloadInputOutputPayloadBuilder
+        > {
   _$TestNoPayloadInputOutputPayload? _$v;
 
   TestNoPayloadInputOutputPayloadBuilder();

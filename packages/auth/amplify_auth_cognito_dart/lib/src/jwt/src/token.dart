@@ -75,25 +75,21 @@ class JsonWebToken with AWSEquatable<JsonWebToken>, AWSSerializable {
   final List<int> signature;
 
   @override
-  List<Object?> get props => [
-        raw,
-        header,
-        claims,
-        signature,
-      ];
+  List<Object?> get props => [raw, header, claims, signature];
 
   @override
   String toJson() => raw;
 
   @override
   String toString() => prettyPrintJson({
-        'header': header.toJson(),
-        'claims': claims.toJson(),
-        'signature': base64Encode(signature),
-      });
+    'header': header.toJson(),
+    'claims': claims.toJson(),
+    'signature': base64Encode(signature),
+  });
 
   /// Encodes the JWT to a `.`-delimited string.
-  String encode() => '${header.encodeBase64()}.'
+  String encode() =>
+      '${header.encodeBase64()}.'
       '${claims.encodeBase64()}.'
       '${base64RawUrl.encode(signature)}';
 }

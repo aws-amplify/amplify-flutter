@@ -6,11 +6,7 @@ library amplify_auth_cognito_dart.cognito_identity_provider.model.auth_flow_type
 import 'package:smithy/smithy.dart' as _i1;
 
 class AuthFlowType extends _i1.SmithyEnum<AuthFlowType> {
-  const AuthFlowType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const AuthFlowType._(super.index, super.name, super.value);
 
   const AuthFlowType._sdkUnknown(super.value) : super.sdkUnknown();
 
@@ -26,11 +22,7 @@ class AuthFlowType extends _i1.SmithyEnum<AuthFlowType> {
     'ADMIN_USER_PASSWORD_AUTH',
   );
 
-  static const customAuth = AuthFlowType._(
-    2,
-    'CUSTOM_AUTH',
-    'CUSTOM_AUTH',
-  );
+  static const customAuth = AuthFlowType._(2, 'CUSTOM_AUTH', 'CUSTOM_AUTH');
 
   static const refreshToken = AuthFlowType._(
     3,
@@ -73,12 +65,9 @@ class AuthFlowType extends _i1.SmithyEnum<AuthFlowType> {
       values: values,
       sdkUnknown: AuthFlowType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

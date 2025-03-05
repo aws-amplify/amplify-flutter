@@ -12,16 +12,16 @@ class _$ExternalServiceException extends ExternalServiceException {
   @override
   final Map<String, String>? headers;
 
-  factory _$ExternalServiceException(
-          [void Function(ExternalServiceExceptionBuilder)? updates]) =>
-      (new ExternalServiceExceptionBuilder()..update(updates))._build();
+  factory _$ExternalServiceException([
+    void Function(ExternalServiceExceptionBuilder)? updates,
+  ]) => (new ExternalServiceExceptionBuilder()..update(updates))._build();
 
   _$ExternalServiceException._({this.message, this.headers}) : super._();
 
   @override
   ExternalServiceException rebuild(
-          void Function(ExternalServiceExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ExternalServiceExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ExternalServiceExceptionBuilder toBuilder() =>
@@ -82,11 +82,9 @@ class ExternalServiceExceptionBuilder
   ExternalServiceException build() => _build();
 
   _$ExternalServiceException _build() {
-    final _$result = _$v ??
-        new _$ExternalServiceException._(
-          message: message,
-          headers: headers,
-        );
+    final _$result =
+        _$v ??
+        new _$ExternalServiceException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

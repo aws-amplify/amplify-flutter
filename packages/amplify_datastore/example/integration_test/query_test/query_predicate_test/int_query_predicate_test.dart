@@ -163,33 +163,42 @@ void main() {
     testWidgets('beginsWith()', (WidgetTester tester) async {
       // test with exact match
       var exactMatchPattern = '1000';
-      var exactMatchModels = nonNullModels
-          .where((model) =>
-              model.intValue!.toString().startsWith(exactMatchPattern))
-          .toList();
+      var exactMatchModels =
+          nonNullModels
+              .where(
+                (model) =>
+                    model.intValue!.toString().startsWith(exactMatchPattern),
+              )
+              .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.INTVALUE.beginsWith(exactMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE.beginsWith(
+          exactMatchPattern,
+        ),
         expectedModels: exactMatchModels,
       );
 
       // test with partial match
       var partialMatchPattern = '10';
-      var partialMatchModels = nonNullModels
-          .where((model) =>
-              model.intValue!.toString().startsWith(partialMatchPattern))
-          .toList();
+      var partialMatchModels =
+          nonNullModels
+              .where(
+                (model) =>
+                    model.intValue!.toString().startsWith(partialMatchPattern),
+              )
+              .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE
-            .beginsWith(partialMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE.beginsWith(
+          partialMatchPattern,
+        ),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123';
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.INTVALUE.beginsWith(noMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE.beginsWith(
+          noMatchPattern,
+        ),
         expectedModels: [],
       );
     });
@@ -197,33 +206,42 @@ void main() {
     testWidgets('contains()', (WidgetTester tester) async {
       // test with exact match
       var exactMatchPattern = '1000';
-      var exactMatchModels = nonNullModels
-          .where(
-              (model) => model.intValue!.toString().contains(exactMatchPattern))
-          .toList();
+      var exactMatchModels =
+          nonNullModels
+              .where(
+                (model) =>
+                    model.intValue!.toString().contains(exactMatchPattern),
+              )
+              .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.INTVALUE.contains(exactMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE.contains(
+          exactMatchPattern,
+        ),
         expectedModels: exactMatchModels,
       );
 
       // test with partial match
       var partialMatchPattern = '0';
-      var partialMatchModels = nonNullModels
-          .where((model) =>
-              model.intValue!.toString().contains(partialMatchPattern))
-          .toList();
+      var partialMatchModels =
+          nonNullModels
+              .where(
+                (model) =>
+                    model.intValue!.toString().contains(partialMatchPattern),
+              )
+              .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.INTVALUE.contains(partialMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE.contains(
+          partialMatchPattern,
+        ),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123';
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate:
-            ModelWithAppsyncScalarTypes.INTVALUE.contains(noMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE.contains(
+          noMatchPattern,
+        ),
         expectedModels: [],
       );
     });
@@ -234,21 +252,26 @@ void main() {
       var exactMatchModels =
           models.where((model) => model.intValue == exactMatchPattern).toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE
-            .between(exactMatchPattern, exactMatchPattern),
+        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE.between(
+          exactMatchPattern,
+          exactMatchPattern,
+        ),
         expectedModels: exactMatchModels,
       );
 
       // test with partial match
       var partialMatchStart = -1;
       var partialMatchEnd = 1;
-      var rangeMatchModels = nonNullModels
-          .where((model) => model.intValue! >= partialMatchStart)
-          .where((model) => model.intValue! <= partialMatchEnd)
-          .toList();
+      var rangeMatchModels =
+          nonNullModels
+              .where((model) => model.intValue! >= partialMatchStart)
+              .where((model) => model.intValue! <= partialMatchEnd)
+              .toList();
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE
-            .between(partialMatchStart, partialMatchEnd),
+        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE.between(
+          partialMatchStart,
+          partialMatchEnd,
+        ),
         expectedModels: rangeMatchModels,
       );
 
@@ -256,8 +279,10 @@ void main() {
       var noMatchStart = 100000;
       var noMatchEnd = 100001;
       await testQueryPredicate<ModelWithAppsyncScalarTypes>(
-        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE
-            .between(noMatchStart, noMatchEnd),
+        queryPredicate: ModelWithAppsyncScalarTypes.INTVALUE.between(
+          noMatchStart,
+          noMatchEnd,
+        ),
         expectedModels: [],
       );
     });

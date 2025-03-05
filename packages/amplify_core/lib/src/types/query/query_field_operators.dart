@@ -68,7 +68,7 @@ abstract class QueryFieldOperator<T> {
 
 abstract class QueryFieldOperatorSingleValue<T> extends QueryFieldOperator<T> {
   const QueryFieldOperatorSingleValue(this.value, QueryFieldOperatorType type)
-      : super(type);
+    : super(type);
 
   final T value;
 
@@ -80,7 +80,7 @@ abstract class QueryFieldOperatorSingleValue<T> extends QueryFieldOperator<T> {
 
 class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const EqualQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.equal);
+    : super(value, QueryFieldOperatorType.equal);
 
   @override
   bool evaluate(T? other) {
@@ -98,7 +98,7 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
 class EqualModelIdentifierQueryOperator<T extends ModelIdentifier>
     extends QueryFieldOperatorSingleValue<T> {
   const EqualModelIdentifierQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.equal);
+    : super(value, QueryFieldOperatorType.equal);
 
   @override
   bool evaluate(T? other) {
@@ -113,7 +113,7 @@ class EqualModelIdentifierQueryOperator<T extends ModelIdentifier>
 
 class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const NotEqualQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.not_equal);
+    : super(value, QueryFieldOperatorType.not_equal);
 
   @override
   bool evaluate(T? other) {
@@ -130,7 +130,7 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
 class NotEqualModelIdentifierQueryOperator<T extends ModelIdentifier>
     extends QueryFieldOperatorSingleValue<T> {
   const NotEqualModelIdentifierQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.not_equal);
+    : super(value, QueryFieldOperatorType.not_equal);
 
   @override
   bool evaluate(T? other) {
@@ -146,7 +146,7 @@ class NotEqualModelIdentifierQueryOperator<T extends ModelIdentifier>
 class LessOrEqualQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const LessOrEqualQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.less_or_equal);
+    : super(value, QueryFieldOperatorType.less_or_equal);
 
   @override
   bool evaluate(T? other) {
@@ -160,7 +160,7 @@ class LessOrEqualQueryOperator<T extends Comparable<Object?>>
 class LessThanQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const LessThanQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.less_than);
+    : super(value, QueryFieldOperatorType.less_than);
 
   @override
   bool evaluate(T? other) {
@@ -174,7 +174,7 @@ class LessThanQueryOperator<T extends Comparable<Object?>>
 class GreaterOrEqualQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const GreaterOrEqualQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.greater_or_equal);
+    : super(value, QueryFieldOperatorType.greater_or_equal);
 
   @override
   bool evaluate(T? other) {
@@ -188,7 +188,7 @@ class GreaterOrEqualQueryOperator<T extends Comparable<Object?>>
 class GreaterThanQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const GreaterThanQueryOperator(T value)
-      : super(value, QueryFieldOperatorType.greater_than);
+    : super(value, QueryFieldOperatorType.greater_than);
 
   @override
   bool evaluate(T? other) {
@@ -201,7 +201,7 @@ class GreaterThanQueryOperator<T extends Comparable<Object?>>
 
 class ContainsQueryOperator extends QueryFieldOperatorSingleValue<String> {
   const ContainsQueryOperator(String value)
-      : super(value, QueryFieldOperatorType.contains);
+    : super(value, QueryFieldOperatorType.contains);
 
   @override
   bool evaluate(dynamic other) {
@@ -223,7 +223,7 @@ class ContainsQueryOperator extends QueryFieldOperatorSingleValue<String> {
 class BetweenQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperator<T> {
   const BetweenQueryOperator(this.start, this.end)
-      : super(QueryFieldOperatorType.between);
+    : super(QueryFieldOperatorType.between);
 
   final T start;
   final T end;
@@ -248,7 +248,7 @@ class BetweenQueryOperator<T extends Comparable<Object?>>
 
 class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
   const BeginsWithQueryOperator(String value)
-      : super(value, QueryFieldOperatorType.begins_with);
+    : super(value, QueryFieldOperatorType.begins_with);
 
   @override
   bool evaluate(String? other) {
@@ -261,7 +261,7 @@ class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
 
 class AttributeExistsQueryOperator<T> extends QueryFieldOperator<T> {
   const AttributeExistsQueryOperator({this.exists = true})
-      : super(QueryFieldOperatorType.attribute_exists);
+    : super(QueryFieldOperatorType.attribute_exists);
 
   final bool exists;
 

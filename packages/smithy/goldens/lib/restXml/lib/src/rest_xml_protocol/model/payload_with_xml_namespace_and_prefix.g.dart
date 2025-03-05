@@ -11,16 +11,17 @@ class _$PayloadWithXmlNamespaceAndPrefix
   @override
   final String? name;
 
-  factory _$PayloadWithXmlNamespaceAndPrefix(
-          [void Function(PayloadWithXmlNamespaceAndPrefixBuilder)? updates]) =>
+  factory _$PayloadWithXmlNamespaceAndPrefix([
+    void Function(PayloadWithXmlNamespaceAndPrefixBuilder)? updates,
+  ]) =>
       (new PayloadWithXmlNamespaceAndPrefixBuilder()..update(updates))._build();
 
   _$PayloadWithXmlNamespaceAndPrefix._({this.name}) : super._();
 
   @override
   PayloadWithXmlNamespaceAndPrefix rebuild(
-          void Function(PayloadWithXmlNamespaceAndPrefixBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PayloadWithXmlNamespaceAndPrefixBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PayloadWithXmlNamespaceAndPrefixBuilder toBuilder() =>
@@ -43,8 +44,10 @@ class _$PayloadWithXmlNamespaceAndPrefix
 
 class PayloadWithXmlNamespaceAndPrefixBuilder
     implements
-        Builder<PayloadWithXmlNamespaceAndPrefix,
-            PayloadWithXmlNamespaceAndPrefixBuilder> {
+        Builder<
+          PayloadWithXmlNamespaceAndPrefix,
+          PayloadWithXmlNamespaceAndPrefixBuilder
+        > {
   _$PayloadWithXmlNamespaceAndPrefix? _$v;
 
   String? _name;

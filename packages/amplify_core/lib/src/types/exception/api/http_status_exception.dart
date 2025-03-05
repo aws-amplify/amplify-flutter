@@ -10,10 +10,10 @@ part of '../amplify_exception.dart';
 class HttpStatusException extends ApiException {
   /// {@macro rest_exception}
   HttpStatusException(this.response)
-      : super(
-          response.decodeBody(),
-          underlyingException: 'HTTP Status code: ${response.statusCode}',
-        );
+    : super(
+        response.decodeBody(),
+        underlyingException: 'HTTP Status code: ${response.statusCode}',
+      );
 
   /// The HTTP response from the server.
   final AWSHttpResponse response;

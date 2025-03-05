@@ -44,11 +44,11 @@ class AuthNextSignInStep extends AuthNextStep
 
   @override
   List<Object?> get props => [
-        signInStep,
-        missingAttributes,
-        allowedMfaTypes,
-        totpSetupDetails,
-      ];
+    signInStep,
+    missingAttributes,
+    allowedMfaTypes,
+    totpSetupDetails,
+  ];
 
   @override
   String get runtimeTypeName => 'AuthNextSignInStep';

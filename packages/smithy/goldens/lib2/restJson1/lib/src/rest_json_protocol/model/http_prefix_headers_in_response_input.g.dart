@@ -8,16 +8,17 @@ part of 'http_prefix_headers_in_response_input.dart';
 
 class _$HttpPrefixHeadersInResponseInput
     extends HttpPrefixHeadersInResponseInput {
-  factory _$HttpPrefixHeadersInResponseInput(
-          [void Function(HttpPrefixHeadersInResponseInputBuilder)? updates]) =>
+  factory _$HttpPrefixHeadersInResponseInput([
+    void Function(HttpPrefixHeadersInResponseInputBuilder)? updates,
+  ]) =>
       (new HttpPrefixHeadersInResponseInputBuilder()..update(updates))._build();
 
   _$HttpPrefixHeadersInResponseInput._() : super._();
 
   @override
   HttpPrefixHeadersInResponseInput rebuild(
-          void Function(HttpPrefixHeadersInResponseInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPrefixHeadersInResponseInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPrefixHeadersInResponseInputBuilder toBuilder() =>
@@ -37,8 +38,10 @@ class _$HttpPrefixHeadersInResponseInput
 
 class HttpPrefixHeadersInResponseInputBuilder
     implements
-        Builder<HttpPrefixHeadersInResponseInput,
-            HttpPrefixHeadersInResponseInputBuilder> {
+        Builder<
+          HttpPrefixHeadersInResponseInput,
+          HttpPrefixHeadersInResponseInputBuilder
+        > {
   _$HttpPrefixHeadersInResponseInput? _$v;
 
   HttpPrefixHeadersInResponseInputBuilder();

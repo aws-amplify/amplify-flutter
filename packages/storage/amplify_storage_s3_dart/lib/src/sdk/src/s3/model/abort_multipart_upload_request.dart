@@ -36,9 +36,9 @@ abstract class AbortMultipartUploadRequest
     );
   }
 
-  factory AbortMultipartUploadRequest.build(
-          [void Function(AbortMultipartUploadRequestBuilder) updates]) =
-      _$AbortMultipartUploadRequest;
+  factory AbortMultipartUploadRequest.build([
+    void Function(AbortMultipartUploadRequestBuilder) updates,
+  ]) = _$AbortMultipartUploadRequest;
 
   const AbortMultipartUploadRequest._();
 
@@ -46,29 +46,28 @@ abstract class AbortMultipartUploadRequest
     AbortMultipartUploadRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      AbortMultipartUploadRequest.build((b) {
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.queryParameters['uploadId'] != null) {
-          b.uploadId = request.queryParameters['uploadId']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+  }) => AbortMultipartUploadRequest.build((b) {
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.queryParameters['uploadId'] != null) {
+      b.uploadId = request.queryParameters['uploadId']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<AbortMultipartUploadRequestPayload>>
-      serializers = [AbortMultipartUploadRequestRestXmlSerializer()];
+  serializers = [AbortMultipartUploadRequestRestXmlSerializer()];
 
   /// The bucket name to which the upload was taking place.
   ///
@@ -102,10 +101,7 @@ abstract class AbortMultipartUploadRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -114,51 +110,38 @@ abstract class AbortMultipartUploadRequest
 
   @override
   List<Object?> get props => [
-        bucket,
-        key,
-        uploadId,
-        requestPayer,
-        expectedBucketOwner,
-      ];
+    bucket,
+    key,
+    uploadId,
+    requestPayer,
+    expectedBucketOwner,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AbortMultipartUploadRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'uploadId',
-        uploadId,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      );
+    final helper =
+        newBuiltValueToStringHelper('AbortMultipartUploadRequest')
+          ..add('bucket', bucket)
+          ..add('key', key)
+          ..add('uploadId', uploadId)
+          ..add('requestPayer', requestPayer)
+          ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class AbortMultipartUploadRequestPayload
-    with
-        _i2.AWSEquatable<AbortMultipartUploadRequestPayload>
+    with _i2.AWSEquatable<AbortMultipartUploadRequestPayload>
     implements
-        Built<AbortMultipartUploadRequestPayload,
-            AbortMultipartUploadRequestPayloadBuilder>,
+        Built<
+          AbortMultipartUploadRequestPayload,
+          AbortMultipartUploadRequestPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory AbortMultipartUploadRequestPayload(
-          [void Function(AbortMultipartUploadRequestPayloadBuilder) updates]) =
-      _$AbortMultipartUploadRequestPayload;
+  factory AbortMultipartUploadRequestPayload([
+    void Function(AbortMultipartUploadRequestPayloadBuilder) updates,
+  ]) = _$AbortMultipartUploadRequestPayload;
 
   const AbortMultipartUploadRequestPayload._();
 
@@ -167,8 +150,9 @@ abstract class AbortMultipartUploadRequestPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AbortMultipartUploadRequestPayload');
+    final helper = newBuiltValueToStringHelper(
+      'AbortMultipartUploadRequestPayload',
+    );
     return helper.toString();
   }
 }
@@ -176,23 +160,20 @@ abstract class AbortMultipartUploadRequestPayload
 class AbortMultipartUploadRequestRestXmlSerializer
     extends _i1.StructuredSmithySerializer<AbortMultipartUploadRequestPayload> {
   const AbortMultipartUploadRequestRestXmlSerializer()
-      : super('AbortMultipartUploadRequest');
+    : super('AbortMultipartUploadRequest');
 
   @override
   Iterable<Type> get types => const [
-        AbortMultipartUploadRequest,
-        _$AbortMultipartUploadRequest,
-        AbortMultipartUploadRequestPayload,
-        _$AbortMultipartUploadRequestPayload,
-      ];
+    AbortMultipartUploadRequest,
+    _$AbortMultipartUploadRequest,
+    AbortMultipartUploadRequestPayload,
+    _$AbortMultipartUploadRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   AbortMultipartUploadRequestPayload deserialize(
@@ -213,7 +194,7 @@ class AbortMultipartUploadRequestRestXmlSerializer
       const _i1.XmlElementName(
         'AbortMultipartUploadRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

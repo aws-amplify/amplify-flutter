@@ -6,10 +6,11 @@ part of 'srp_init_worker.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(SrpInitMessage.serializer)
-      ..add(SrpInitResult.serializer))
-    .build();
+Serializers _$serializers =
+    (new Serializers().toBuilder()
+          ..add(SrpInitMessage.serializer)
+          ..add(SrpInitResult.serializer))
+        .build();
 Serializer<SrpInitMessage> _$srpInitMessageSerializer =
     new _$SrpInitMessageSerializer();
 
@@ -21,15 +22,20 @@ class _$SrpInitMessageSerializer
   final String wireName = 'SrpInitMessage';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, SrpInitMessage object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    SrpInitMessage object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return <Object?>[];
   }
 
   @override
   SrpInitMessage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return new SrpInitMessageBuilder().build();
   }
 }

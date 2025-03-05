@@ -14,11 +14,12 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'complete_multipart_upload_output.g.dart';
 
 abstract class CompleteMultipartUploadOutput
-    with
-        _i1.AWSEquatable<CompleteMultipartUploadOutput>
+    with _i1.AWSEquatable<CompleteMultipartUploadOutput>
     implements
-        Built<CompleteMultipartUploadOutput,
-            CompleteMultipartUploadOutputBuilder>,
+        Built<
+          CompleteMultipartUploadOutput,
+          CompleteMultipartUploadOutputBuilder
+        >,
         _i2.HasPayload<CompleteMultipartUploadOutputPayload> {
   factory CompleteMultipartUploadOutput({
     String? location,
@@ -54,9 +55,9 @@ abstract class CompleteMultipartUploadOutput
     );
   }
 
-  factory CompleteMultipartUploadOutput.build(
-          [void Function(CompleteMultipartUploadOutputBuilder) updates]) =
-      _$CompleteMultipartUploadOutput;
+  factory CompleteMultipartUploadOutput.build([
+    void Function(CompleteMultipartUploadOutputBuilder) updates,
+  ]) = _$CompleteMultipartUploadOutput;
 
   const CompleteMultipartUploadOutput._();
 
@@ -64,46 +65,47 @@ abstract class CompleteMultipartUploadOutput
   factory CompleteMultipartUploadOutput.fromResponse(
     CompleteMultipartUploadOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      CompleteMultipartUploadOutput.build((b) {
-        b.bucket = payload.bucket;
-        b.checksumCrc32 = payload.checksumCrc32;
-        b.checksumCrc32C = payload.checksumCrc32C;
-        b.checksumSha1 = payload.checksumSha1;
-        b.checksumSha256 = payload.checksumSha256;
-        b.eTag = payload.eTag;
-        b.key = payload.key;
-        b.location = payload.location;
-        if (response.headers['x-amz-expiration'] != null) {
-          b.expiration = response.headers['x-amz-expiration']!;
-        }
-        if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = ServerSideEncryption.values
-              .byValue(response.headers['x-amz-server-side-encryption']!);
-        }
-        if (response.headers['x-amz-version-id'] != null) {
-          b.versionId = response.headers['x-amz-version-id']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
-            null) {
-          b.ssekmsKeyId =
-              response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
-        }
-        if (response
-                .headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
-            null) {
-          b.bucketKeyEnabled = response.headers[
-                  'x-amz-server-side-encryption-bucket-key-enabled']! ==
-              'true';
-        }
-        if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = RequestCharged.values
-              .byValue(response.headers['x-amz-request-charged']!);
-        }
-      });
+  ) => CompleteMultipartUploadOutput.build((b) {
+    b.bucket = payload.bucket;
+    b.checksumCrc32 = payload.checksumCrc32;
+    b.checksumCrc32C = payload.checksumCrc32C;
+    b.checksumSha1 = payload.checksumSha1;
+    b.checksumSha256 = payload.checksumSha256;
+    b.eTag = payload.eTag;
+    b.key = payload.key;
+    b.location = payload.location;
+    if (response.headers['x-amz-expiration'] != null) {
+      b.expiration = response.headers['x-amz-expiration']!;
+    }
+    if (response.headers['x-amz-server-side-encryption'] != null) {
+      b.serverSideEncryption = ServerSideEncryption.values.byValue(
+        response.headers['x-amz-server-side-encryption']!,
+      );
+    }
+    if (response.headers['x-amz-version-id'] != null) {
+      b.versionId = response.headers['x-amz-version-id']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
+        null) {
+      b.ssekmsKeyId =
+          response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
+        null) {
+      b.bucketKeyEnabled =
+          response
+              .headers['x-amz-server-side-encryption-bucket-key-enabled']! ==
+          'true';
+    }
+    if (response.headers['x-amz-request-charged'] != null) {
+      b.requestCharged = RequestCharged.values.byValue(
+        response.headers['x-amz-request-charged']!,
+      );
+    }
+  });
 
   static const List<_i2.SmithySerializer<CompleteMultipartUploadOutputPayload>>
-      serializers = [CompleteMultipartUploadOutputRestXmlSerializer()];
+  serializers = [CompleteMultipartUploadOutputRestXmlSerializer()];
 
   /// The URI that identifies the newly created object.
   String? get location;
@@ -175,95 +177,55 @@ abstract class CompleteMultipartUploadOutput
 
   @override
   List<Object?> get props => [
-        location,
-        bucket,
-        key,
-        expiration,
-        eTag,
-        checksumCrc32,
-        checksumCrc32C,
-        checksumSha1,
-        checksumSha256,
-        serverSideEncryption,
-        versionId,
-        ssekmsKeyId,
-        bucketKeyEnabled,
-        requestCharged,
-      ];
+    location,
+    bucket,
+    key,
+    expiration,
+    eTag,
+    checksumCrc32,
+    checksumCrc32C,
+    checksumSha1,
+    checksumSha256,
+    serverSideEncryption,
+    versionId,
+    ssekmsKeyId,
+    bucketKeyEnabled,
+    requestCharged,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CompleteMultipartUploadOutput')
-      ..add(
-        'location',
-        location,
-      )
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'expiration',
-        expiration,
-      )
-      ..add(
-        'eTag',
-        eTag,
-      )
-      ..add(
-        'checksumCrc32',
-        checksumCrc32,
-      )
-      ..add(
-        'checksumCrc32C',
-        checksumCrc32C,
-      )
-      ..add(
-        'checksumSha1',
-        checksumSha1,
-      )
-      ..add(
-        'checksumSha256',
-        checksumSha256,
-      )
-      ..add(
-        'serverSideEncryption',
-        serverSideEncryption,
-      )
-      ..add(
-        'versionId',
-        versionId,
-      )
-      ..add(
-        'ssekmsKeyId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'bucketKeyEnabled',
-        bucketKeyEnabled,
-      )
-      ..add(
-        'requestCharged',
-        requestCharged,
-      );
+    final helper =
+        newBuiltValueToStringHelper('CompleteMultipartUploadOutput')
+          ..add('location', location)
+          ..add('bucket', bucket)
+          ..add('key', key)
+          ..add('expiration', expiration)
+          ..add('eTag', eTag)
+          ..add('checksumCrc32', checksumCrc32)
+          ..add('checksumCrc32C', checksumCrc32C)
+          ..add('checksumSha1', checksumSha1)
+          ..add('checksumSha256', checksumSha256)
+          ..add('serverSideEncryption', serverSideEncryption)
+          ..add('versionId', versionId)
+          ..add('ssekmsKeyId', '***SENSITIVE***')
+          ..add('bucketKeyEnabled', bucketKeyEnabled)
+          ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class CompleteMultipartUploadOutputPayload
-    with
-        _i1.AWSEquatable<CompleteMultipartUploadOutputPayload>
+    with _i1.AWSEquatable<CompleteMultipartUploadOutputPayload>
     implements
-        Built<CompleteMultipartUploadOutputPayload,
-            CompleteMultipartUploadOutputPayloadBuilder> {
-  factory CompleteMultipartUploadOutputPayload(
-      [void Function(CompleteMultipartUploadOutputPayloadBuilder)
-          updates]) = _$CompleteMultipartUploadOutputPayload;
+        Built<
+          CompleteMultipartUploadOutputPayload,
+          CompleteMultipartUploadOutputPayloadBuilder
+        > {
+  factory CompleteMultipartUploadOutputPayload([
+    void Function(CompleteMultipartUploadOutputPayloadBuilder) updates,
+  ]) = _$CompleteMultipartUploadOutputPayload;
 
   const CompleteMultipartUploadOutputPayload._();
 
@@ -294,76 +256,50 @@ abstract class CompleteMultipartUploadOutputPayload
   String? get location;
   @override
   List<Object?> get props => [
-        bucket,
-        checksumCrc32,
-        checksumCrc32C,
-        checksumSha1,
-        checksumSha256,
-        eTag,
-        key,
-        location,
-      ];
+    bucket,
+    checksumCrc32,
+    checksumCrc32C,
+    checksumSha1,
+    checksumSha256,
+    eTag,
+    key,
+    location,
+  ];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('CompleteMultipartUploadOutputPayload')
-          ..add(
-            'bucket',
-            bucket,
-          )
-          ..add(
-            'checksumCrc32',
-            checksumCrc32,
-          )
-          ..add(
-            'checksumCrc32C',
-            checksumCrc32C,
-          )
-          ..add(
-            'checksumSha1',
-            checksumSha1,
-          )
-          ..add(
-            'checksumSha256',
-            checksumSha256,
-          )
-          ..add(
-            'eTag',
-            eTag,
-          )
-          ..add(
-            'key',
-            key,
-          )
-          ..add(
-            'location',
-            location,
-          );
+          ..add('bucket', bucket)
+          ..add('checksumCrc32', checksumCrc32)
+          ..add('checksumCrc32C', checksumCrc32C)
+          ..add('checksumSha1', checksumSha1)
+          ..add('checksumSha256', checksumSha256)
+          ..add('eTag', eTag)
+          ..add('key', key)
+          ..add('location', location);
     return helper.toString();
   }
 }
 
-class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
-    .StructuredSmithySerializer<CompleteMultipartUploadOutputPayload> {
+class CompleteMultipartUploadOutputRestXmlSerializer
+    extends
+        _i2.StructuredSmithySerializer<CompleteMultipartUploadOutputPayload> {
   const CompleteMultipartUploadOutputRestXmlSerializer()
-      : super('CompleteMultipartUploadOutput');
+    : super('CompleteMultipartUploadOutput');
 
   @override
   Iterable<Type> get types => const [
-        CompleteMultipartUploadOutput,
-        _$CompleteMultipartUploadOutput,
-        CompleteMultipartUploadOutputPayload,
-        _$CompleteMultipartUploadOutputPayload,
-      ];
+    CompleteMultipartUploadOutput,
+    _$CompleteMultipartUploadOutput,
+    CompleteMultipartUploadOutputPayload,
+    _$CompleteMultipartUploadOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CompleteMultipartUploadOutputPayload deserialize(
@@ -382,45 +318,61 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
       }
       switch (key) {
         case 'Bucket':
-          result.bucket = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.bucket =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChecksumCRC32':
-          result.checksumCrc32 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksumCrc32 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChecksumCRC32C':
-          result.checksumCrc32C = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksumCrc32C =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChecksumSHA1':
-          result.checksumSha1 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksumSha1 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChecksumSHA256':
-          result.checksumSha256 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksumSha256 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ETag':
-          result.eTag = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.eTag =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Key':
-          result.key = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.key =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Location':
-          result.location = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.location =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -437,7 +389,7 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
       const _i2.XmlElementName(
         'CompleteMultipartUploadResult',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final CompleteMultipartUploadOutputPayload(
       :bucket,
@@ -447,71 +399,78 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
       :checksumSha256,
       :eTag,
       :key,
-      :location
+      :location,
     ) = object;
     if (bucket != null) {
       result$
         ..add(const _i2.XmlElementName('Bucket'))
-        ..add(serializers.serialize(
-          bucket,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(bucket, specifiedType: const FullType(String)),
+        );
     }
     if (checksumCrc32 != null) {
       result$
         ..add(const _i2.XmlElementName('ChecksumCRC32'))
-        ..add(serializers.serialize(
-          checksumCrc32,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            checksumCrc32,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (checksumCrc32C != null) {
       result$
         ..add(const _i2.XmlElementName('ChecksumCRC32C'))
-        ..add(serializers.serialize(
-          checksumCrc32C,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            checksumCrc32C,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (checksumSha1 != null) {
       result$
         ..add(const _i2.XmlElementName('ChecksumSHA1'))
-        ..add(serializers.serialize(
-          checksumSha1,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            checksumSha1,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (checksumSha256 != null) {
       result$
         ..add(const _i2.XmlElementName('ChecksumSHA256'))
-        ..add(serializers.serialize(
-          checksumSha256,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            checksumSha256,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (eTag != null) {
       result$
         ..add(const _i2.XmlElementName('ETag'))
-        ..add(serializers.serialize(
-          eTag,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(eTag, specifiedType: const FullType(String)),
+        );
     }
     if (key != null) {
       result$
         ..add(const _i2.XmlElementName('Key'))
-        ..add(serializers.serialize(
-          key,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(key, specifiedType: const FullType(String)),
+        );
     }
     if (location != null) {
       result$
         ..add(const _i2.XmlElementName('Location'))
-        ..add(serializers.serialize(
-          location,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            location,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

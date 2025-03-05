@@ -15,20 +15,28 @@ class _$DoubleShapeSerializer implements StructuredSerializer<DoubleShape> {
   final String wireName = 'DoubleShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, DoubleShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    DoubleShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  DoubleShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  DoubleShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new DoubleShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -38,8 +46,12 @@ class _$DoubleShapeSerializer implements StructuredSerializer<DoubleShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -136,12 +148,20 @@ class DoubleShapeBuilder
   DoubleShape build() => _build();
 
   _$DoubleShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$DoubleShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'DoubleShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'DoubleShape', 'traits'));
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'DoubleShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'DoubleShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

@@ -39,22 +39,22 @@ class _$PutObjectOutput extends PutObjectOutput {
   factory _$PutObjectOutput([void Function(PutObjectOutputBuilder)? updates]) =>
       (new PutObjectOutputBuilder()..update(updates))._build();
 
-  _$PutObjectOutput._(
-      {this.expiration,
-      this.eTag,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.serverSideEncryption,
-      this.versionId,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.ssekmsEncryptionContext,
-      this.bucketKeyEnabled,
-      this.requestCharged})
-      : super._();
+  _$PutObjectOutput._({
+    this.expiration,
+    this.eTag,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.serverSideEncryption,
+    this.versionId,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.bucketKeyEnabled,
+    this.requestCharged,
+  }) : super._();
 
   @override
   PutObjectOutput rebuild(void Function(PutObjectOutputBuilder) updates) =>
@@ -215,7 +215,8 @@ class PutObjectOutputBuilder
   PutObjectOutput build() => _build();
 
   _$PutObjectOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PutObjectOutput._(
           expiration: expiration,
           eTag: eTag,
@@ -238,16 +239,16 @@ class PutObjectOutputBuilder
 }
 
 class _$PutObjectOutputPayload extends PutObjectOutputPayload {
-  factory _$PutObjectOutputPayload(
-          [void Function(PutObjectOutputPayloadBuilder)? updates]) =>
-      (new PutObjectOutputPayloadBuilder()..update(updates))._build();
+  factory _$PutObjectOutputPayload([
+    void Function(PutObjectOutputPayloadBuilder)? updates,
+  ]) => (new PutObjectOutputPayloadBuilder()..update(updates))._build();
 
   _$PutObjectOutputPayload._() : super._();
 
   @override
   PutObjectOutputPayload rebuild(
-          void Function(PutObjectOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PutObjectOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PutObjectOutputPayloadBuilder toBuilder() =>

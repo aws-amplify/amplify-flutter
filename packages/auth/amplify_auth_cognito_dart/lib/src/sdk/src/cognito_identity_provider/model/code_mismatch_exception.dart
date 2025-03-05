@@ -22,9 +22,9 @@ abstract class CodeMismatchException
   }
 
   /// This exception is thrown if the provided code doesn't match what the server was expecting.
-  factory CodeMismatchException.build(
-          [void Function(CodeMismatchExceptionBuilder) updates]) =
-      _$CodeMismatchException;
+  factory CodeMismatchException.build([
+    void Function(CodeMismatchExceptionBuilder) updates,
+  ]) = _$CodeMismatchException;
 
   const CodeMismatchException._();
 
@@ -32,13 +32,12 @@ abstract class CodeMismatchException
   factory CodeMismatchException.fromResponse(
     CodeMismatchException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<CodeMismatchException>> serializers = [
-    CodeMismatchExceptionAwsJson11Serializer()
+    CodeMismatchExceptionAwsJson11Serializer(),
   ];
 
   /// The message provided when the code mismatch exception is thrown.
@@ -46,9 +45,9 @@ abstract class CodeMismatchException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'CodeMismatchException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'CodeMismatchException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -69,10 +68,7 @@ abstract class CodeMismatchException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CodeMismatchException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -80,21 +76,18 @@ abstract class CodeMismatchException
 class CodeMismatchExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<CodeMismatchException> {
   const CodeMismatchExceptionAwsJson11Serializer()
-      : super('CodeMismatchException');
+    : super('CodeMismatchException');
 
   @override
   Iterable<Type> get types => const [
-        CodeMismatchException,
-        _$CodeMismatchException,
-      ];
+    CodeMismatchException,
+    _$CodeMismatchException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   CodeMismatchException deserialize(
@@ -113,10 +106,12 @@ class CodeMismatchExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -134,10 +129,9 @@ class CodeMismatchExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

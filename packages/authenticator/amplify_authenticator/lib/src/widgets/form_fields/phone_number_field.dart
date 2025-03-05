@@ -16,9 +16,9 @@ class AuthenticatorPhoneField<FieldType extends Enum>
     this.errorMaxLines,
     super.autofillHints,
   }) : super._(
-          titleKey: InputResolverKey.phoneNumberTitle,
-          hintTextKey: InputResolverKey.phoneNumberHint,
-        );
+         titleKey: InputResolverKey.phoneNumberTitle,
+         hintTextKey: InputResolverKey.phoneNumberHint,
+       );
 
   final bool? enabled;
   final String? initialValue;
@@ -28,7 +28,7 @@ class AuthenticatorPhoneField<FieldType extends Enum>
 
   @override
   AuthenticatorComponentState<AuthenticatorPhoneField<FieldType>>
-      createState() => _AuthenticatorPhoneFieldState<FieldType>();
+  createState() => _AuthenticatorPhoneFieldState<FieldType>();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -50,11 +50,17 @@ class AuthenticatorPhoneField<FieldType extends Enum>
 }
 
 class _AuthenticatorPhoneFieldState<FieldType extends Enum>
-    extends AuthenticatorFormFieldState<FieldType, String,
-        AuthenticatorPhoneField<FieldType>>
+    extends
+        AuthenticatorFormFieldState<
+          FieldType,
+          String,
+          AuthenticatorPhoneField<FieldType>
+        >
     with
-        AuthenticatorPhoneFieldMixin<FieldType,
-            AuthenticatorPhoneField<FieldType>>,
+        AuthenticatorPhoneFieldMixin<
+          FieldType,
+          AuthenticatorPhoneField<FieldType>
+        >,
         AuthenticatorTextField<FieldType, AuthenticatorPhoneField<FieldType>> {
   @override
   String? get initialValue {
@@ -79,9 +85,9 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
 
   @override
   ValueChanged<String> get onChanged => (phoneNumber) {
-        phoneNumber = formatPhoneNumber(phoneNumber)!;
-        return (widget.onChanged ?? super.onChanged)(phoneNumber);
-      };
+    phoneNumber = formatPhoneNumber(phoneNumber)!;
+    return (widget.onChanged ?? super.onChanged)(phoneNumber);
+  };
 
   @override
   FormFieldValidator<String> get validator {
@@ -101,10 +107,7 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
 
   @override
   Iterable<String>? get autofillHints =>
-      widget.autofillHints ??
-      const [
-        AutofillHints.username,
-      ];
+      widget.autofillHints ?? const [AutofillHints.username];
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

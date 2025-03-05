@@ -34,7 +34,7 @@ abstract class Progress
   const Progress._();
 
   static const List<_i3.SmithySerializer<Progress>> serializers = [
-    ProgressRestXmlSerializer()
+    ProgressRestXmlSerializer(),
   ];
 
   /// The current number of object bytes scanned.
@@ -46,27 +46,15 @@ abstract class Progress
   /// The current number of bytes of records payload data returned.
   _i2.Int64? get bytesReturned;
   @override
-  List<Object?> get props => [
-        bytesScanned,
-        bytesProcessed,
-        bytesReturned,
-      ];
+  List<Object?> get props => [bytesScanned, bytesProcessed, bytesReturned];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Progress')
-      ..add(
-        'bytesScanned',
-        bytesScanned,
-      )
-      ..add(
-        'bytesProcessed',
-        bytesProcessed,
-      )
-      ..add(
-        'bytesReturned',
-        bytesReturned,
-      );
+    final helper =
+        newBuiltValueToStringHelper('Progress')
+          ..add('bytesScanned', bytesScanned)
+          ..add('bytesProcessed', bytesProcessed)
+          ..add('bytesReturned', bytesReturned);
     return helper.toString();
   }
 }
@@ -76,18 +64,12 @@ class ProgressRestXmlSerializer
   const ProgressRestXmlSerializer() : super('Progress');
 
   @override
-  Iterable<Type> get types => const [
-        Progress,
-        _$Progress,
-      ];
+  Iterable<Type> get types => const [Progress, _$Progress];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   Progress deserialize(
@@ -106,20 +88,26 @@ class ProgressRestXmlSerializer
       }
       switch (key) {
         case 'BytesProcessed':
-          result.bytesProcessed = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.bytesProcessed =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
         case 'BytesReturned':
-          result.bytesReturned = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.bytesReturned =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
         case 'BytesScanned':
-          result.bytesScanned = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.bytesScanned =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
       }
     }
 
@@ -136,32 +124,38 @@ class ProgressRestXmlSerializer
       const _i3.XmlElementName(
         'Progress',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final Progress(:bytesProcessed, :bytesReturned, :bytesScanned) = object;
     if (bytesProcessed != null) {
       result$
         ..add(const _i3.XmlElementName('BytesProcessed'))
-        ..add(serializers.serialize(
-          bytesProcessed,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            bytesProcessed,
+            specifiedType: const FullType(_i2.Int64),
+          ),
+        );
     }
     if (bytesReturned != null) {
       result$
         ..add(const _i3.XmlElementName('BytesReturned'))
-        ..add(serializers.serialize(
-          bytesReturned,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            bytesReturned,
+            specifiedType: const FullType(_i2.Int64),
+          ),
+        );
     }
     if (bytesScanned != null) {
       result$
         ..add(const _i3.XmlElementName('BytesScanned'))
-        ..add(serializers.serialize(
-          bytesScanned,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            bytesScanned,
+            specifiedType: const FullType(_i2.Int64),
+          ),
+        );
     }
     return result$;
   }

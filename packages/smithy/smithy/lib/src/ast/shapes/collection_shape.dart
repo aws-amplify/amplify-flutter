@@ -49,13 +49,16 @@ class NamedMembersMapSerializer extends StructuredSerializer<NamedMembersMap> {
       membersMap[memberName] = serializers
           .deserializeWith(
             MemberShape.serializer,
-            StandardJsonPlugin()
-                .beforeDeserialize(value, const FullType(MemberShape)),
+            StandardJsonPlugin().beforeDeserialize(
+              value,
+              const FullType(MemberShape),
+            ),
           )!
           .rebuild(
-            (b) => b
-              ..shapeId = shapeId
-              ..memberName = memberName,
+            (b) =>
+                b
+                  ..shapeId = shapeId
+                  ..memberName = memberName,
           );
     }
     return membersMap;

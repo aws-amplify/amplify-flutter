@@ -35,21 +35,29 @@ class CpkIntPrimaryKey extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => modelIdentifier.serializeAsString();
 
   CpkIntPrimaryKeyModelIdentifier get modelIdentifier {
     try {
       return CpkIntPrimaryKeyModelIdentifier(
-          intAsId: _intAsId!, fieldA: _fieldA!, fieldB: _fieldB!);
+        intAsId: _intAsId!,
+        fieldA: _fieldA!,
+        fieldB: _fieldB!,
+      );
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -58,11 +66,15 @@ class CpkIntPrimaryKey extends amplify_core.Model {
       return _intAsId!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -71,11 +83,15 @@ class CpkIntPrimaryKey extends amplify_core.Model {
       return _fieldA!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -84,11 +100,15 @@ class CpkIntPrimaryKey extends amplify_core.Model {
       return _fieldB!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -100,22 +120,28 @@ class CpkIntPrimaryKey extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const CpkIntPrimaryKey._internal(
-      {required intAsId,
-      required fieldA,
-      required fieldB,
-      createdAt,
-      updatedAt})
-      : _intAsId = intAsId,
-        _fieldA = fieldA,
-        _fieldB = fieldB,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const CpkIntPrimaryKey._internal({
+    required intAsId,
+    required fieldA,
+    required fieldB,
+    createdAt,
+    updatedAt,
+  }) : _intAsId = intAsId,
+       _fieldA = fieldA,
+       _fieldB = fieldB,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory CpkIntPrimaryKey(
-      {required int intAsId, required int fieldA, required int fieldB}) {
+  factory CpkIntPrimaryKey({
+    required int intAsId,
+    required int fieldA,
+    required int fieldB,
+  }) {
     return CpkIntPrimaryKey._internal(
-        intAsId: intAsId, fieldA: fieldA, fieldB: fieldB);
+      intAsId: intAsId,
+      fieldA: fieldA,
+      fieldB: fieldB,
+    );
   }
 
   bool equals(Object other) {
@@ -140,16 +166,22 @@ class CpkIntPrimaryKey extends amplify_core.Model {
 
     buffer.write("CpkIntPrimaryKey {");
     buffer.write(
-        "intAsId=" + (_intAsId != null ? _intAsId!.toString() : "null") + ", ");
+      "intAsId=" + (_intAsId != null ? _intAsId!.toString() : "null") + ", ",
+    );
     buffer.write(
-        "fieldA=" + (_fieldA != null ? _fieldA!.toString() : "null") + ", ");
+      "fieldA=" + (_fieldA != null ? _fieldA!.toString() : "null") + ", ",
+    );
     buffer.write(
-        "fieldB=" + (_fieldB != null ? _fieldB!.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
+      "fieldB=" + (_fieldB != null ? _fieldB!.toString() : "null") + ", ",
+    );
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -157,54 +189,64 @@ class CpkIntPrimaryKey extends amplify_core.Model {
 
   CpkIntPrimaryKey copyWith() {
     return CpkIntPrimaryKey._internal(
-        intAsId: intAsId, fieldA: fieldA, fieldB: fieldB);
+      intAsId: intAsId,
+      fieldA: fieldA,
+      fieldB: fieldB,
+    );
   }
 
   CpkIntPrimaryKey copyWithModelFieldValues() {
     return CpkIntPrimaryKey._internal(
-        intAsId: intAsId, fieldA: fieldA, fieldB: fieldB);
+      intAsId: intAsId,
+      fieldA: fieldA,
+      fieldB: fieldB,
+    );
   }
 
   CpkIntPrimaryKey.fromJson(Map<String, dynamic> json)
-      : _intAsId = (json['intAsId'] as num?)?.toInt(),
-        _fieldA = (json['fieldA'] as num?)?.toInt(),
-        _fieldB = (json['fieldB'] as num?)?.toInt(),
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : _intAsId = (json['intAsId'] as num?)?.toInt(),
+      _fieldA = (json['fieldA'] as num?)?.toInt(),
+      _fieldB = (json['fieldB'] as num?)?.toInt(),
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'intAsId': _intAsId,
-        'fieldA': _fieldA,
-        'fieldB': _fieldB,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'intAsId': _intAsId,
+    'fieldA': _fieldA,
+    'fieldB': _fieldB,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'intAsId': _intAsId,
-        'fieldA': _fieldA,
-        'fieldB': _fieldB,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'intAsId': _intAsId,
+    'fieldA': _fieldA,
+    'fieldB': _fieldB,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<CpkIntPrimaryKeyModelIdentifier> MODEL_IDENTIFIER =
+  static final amplify_core.QueryModelIdentifier<
+    CpkIntPrimaryKeyModelIdentifier
+  >
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<CpkIntPrimaryKeyModelIdentifier>();
   static final INTASID = amplify_core.QueryField(fieldName: "intAsId");
   static final FIELDA = amplify_core.QueryField(fieldName: "fieldA");
   static final FIELDB = amplify_core.QueryField(fieldName: "fieldB");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CpkIntPrimaryKey";
-    modelSchemaDefinition.pluralName = "CpkIntPrimaryKeys";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "CpkIntPrimaryKey";
+      modelSchemaDefinition.pluralName = "CpkIntPrimaryKeys";
 
-    modelSchemaDefinition.authRules = [
-      amplify_core.AuthRule(
+      modelSchemaDefinition.authRules = [
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
@@ -213,49 +255,71 @@ class CpkIntPrimaryKey extends amplify_core.Model {
             amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.UPDATE,
             amplify_core.ModelOperation.DELETE,
-            amplify_core.ModelOperation.READ
-          ])
-    ];
+            amplify_core.ModelOperation.READ,
+          ],
+        ),
+      ];
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(
-          fields: const ["intAsId", "fieldA", "fieldB"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(
+          fields: const ["intAsId", "fieldA", "fieldB"],
+          name: null,
+        ),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkIntPrimaryKey.INTASID,
-        isRequired: true,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.int)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkIntPrimaryKey.INTASID,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.int,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkIntPrimaryKey.FIELDA,
-        isRequired: true,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.int)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkIntPrimaryKey.FIELDA,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.int,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkIntPrimaryKey.FIELDB,
-        isRequired: true,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.int)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkIntPrimaryKey.FIELDB,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.int,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _CpkIntPrimaryKeyModelType
@@ -287,21 +351,24 @@ class CpkIntPrimaryKeyModelIdentifier
    * Create an instance of CpkIntPrimaryKeyModelIdentifier using [intAsId] the primary key.
    * And [fieldA], [fieldB] the sort keys.
    */
-  const CpkIntPrimaryKeyModelIdentifier(
-      {required this.intAsId, required this.fieldA, required this.fieldB});
+  const CpkIntPrimaryKeyModelIdentifier({
+    required this.intAsId,
+    required this.fieldA,
+    required this.fieldB,
+  });
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-        'intAsId': intAsId,
-        'fieldA': fieldA,
-        'fieldB': fieldB
-      });
+    'intAsId': intAsId,
+    'fieldA': fieldA,
+    'fieldB': fieldB,
+  });
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

@@ -28,12 +28,12 @@ var countries = [
   {
     'name': 'Bolivia (Plurinational State of)',
     'dial_code': '+591',
-    'code': 'BO'
+    'code': 'BO',
   },
   {
     'name': 'Bonaire, Sint Eustatius and Saba',
     'dial_code': '+599',
-    'code': 'BQ'
+    'code': 'BQ',
   },
   {'name': 'Bosnia and Herzegovina', 'dial_code': '+387', 'code': 'BA'},
   {'name': 'Botswana', 'dial_code': '+267', 'code': 'BW'},
@@ -125,7 +125,7 @@ var countries = [
   {
     'name': 'Korea (Democratic People\'s Republic of)',
     'dial_code': '+850',
-    'code': 'KP'
+    'code': 'KP',
   },
   {'name': 'Korea (Republic of)', 'dial_code': '+82', 'code': 'KR'},
 
@@ -159,7 +159,7 @@ var countries = [
   {
     'name': 'Micronesia (Federated States of)',
     'dial_code': '+691',
-    'code': 'FM'
+    'code': 'FM',
   },
   {'name': 'Moldova', 'dial_code': '+373', 'code': 'MD'},
   {'name': 'Monaco', 'dial_code': '+377', 'code': 'MC'},
@@ -204,7 +204,7 @@ var countries = [
   {
     'name': 'Saint Helena, Ascension and Tristan Da Cunha',
     'dial_code': '+290',
-    'code': 'SH'
+    'code': 'SH',
   },
   {'name': 'Saint Kitts and Nevis', 'dial_code': '+1869', 'code': 'KN'},
   {'name': 'Saint Lucia', 'dial_code': '+1758', 'code': 'LC'},
@@ -213,7 +213,7 @@ var countries = [
   {
     'name': 'Saint Vincent and the Grenadines',
     'dial_code': '+1784',
-    'code': 'VC'
+    'code': 'VC',
   },
   {'name': 'Samoa', 'dial_code': '+685', 'code': 'WS'},
   {'name': 'San Marino', 'dial_code': '+378', 'code': 'SM'},
@@ -232,7 +232,7 @@ var countries = [
   {
     'name': 'South Georgia and the South Sandwich Islands',
     'dial_code': '+500',
-    'code': 'GS'
+    'code': 'GS',
   },
   {'name': 'South Sudan', 'dial_code': '+211', 'code': 'SS'},
   {'name': 'Spain', 'dial_code': '+34', 'code': 'ES'},
@@ -264,7 +264,7 @@ var countries = [
   {
     'name': 'United States Minor Outlying Islands',
     'dial_code': '+246',
-    'code': 'UM'
+    'code': 'UM',
   },
   {'name': 'United States', 'dial_code': '+1', 'code': 'US'},
   {'name': 'Uruguay', 'dial_code': '+598', 'code': 'UY'},
@@ -273,7 +273,7 @@ var countries = [
   {
     'name': 'Venezuela (Bolivarian Republic of)',
     'dial_code': '+58',
-    'code': 'VE'
+    'code': 'VE',
   },
   {'name': 'Vietnam', 'dial_code': '+84', 'code': 'VN'},
   {'name': 'Virgin Islands (British)', 'dial_code': '+1284', 'code': 'VG'},
@@ -281,5 +281,5 @@ var countries = [
   {'name': 'Wallis and Futuna', 'dial_code': '+681', 'code': 'WF'},
   {'name': 'Yemen', 'dial_code': '+967', 'code': 'YE'},
   {'name': 'Zambia', 'dial_code': '+260', 'code': 'ZM'},
-  {'name': 'Zimbabwe', 'dial_code': '+263', 'code': 'ZW'}
+  {'name': 'Zimbabwe', 'dial_code': '+263', 'code': 'ZW'},
 ];

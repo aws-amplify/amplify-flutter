@@ -38,32 +38,32 @@ class _$MalformedRangeInput extends MalformedRangeInput {
   @override
   final double? maxFloat;
 
-  factory _$MalformedRangeInput(
-          [void Function(MalformedRangeInputBuilder)? updates]) =>
-      (new MalformedRangeInputBuilder()..update(updates))._build();
+  factory _$MalformedRangeInput([
+    void Function(MalformedRangeInputBuilder)? updates,
+  ]) => (new MalformedRangeInputBuilder()..update(updates))._build();
 
-  _$MalformedRangeInput._(
-      {this.byte,
-      this.minByte,
-      this.maxByte,
-      this.short,
-      this.minShort,
-      this.maxShort,
-      this.integer,
-      this.minInteger,
-      this.maxInteger,
-      this.long,
-      this.minLong,
-      this.maxLong,
-      this.float,
-      this.minFloat,
-      this.maxFloat})
-      : super._();
+  _$MalformedRangeInput._({
+    this.byte,
+    this.minByte,
+    this.maxByte,
+    this.short,
+    this.minShort,
+    this.maxShort,
+    this.integer,
+    this.minInteger,
+    this.maxInteger,
+    this.long,
+    this.minLong,
+    this.maxLong,
+    this.float,
+    this.minFloat,
+    this.maxFloat,
+  }) : super._();
 
   @override
   MalformedRangeInput rebuild(
-          void Function(MalformedRangeInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedRangeInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedRangeInputBuilder toBuilder() =>
@@ -217,23 +217,25 @@ class MalformedRangeInputBuilder
   MalformedRangeInput build() => _build();
 
   _$MalformedRangeInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MalformedRangeInput._(
-            byte: byte,
-            minByte: minByte,
-            maxByte: maxByte,
-            short: short,
-            minShort: minShort,
-            maxShort: maxShort,
-            integer: integer,
-            minInteger: minInteger,
-            maxInteger: maxInteger,
-            long: long,
-            minLong: minLong,
-            maxLong: maxLong,
-            float: float,
-            minFloat: minFloat,
-            maxFloat: maxFloat);
+          byte: byte,
+          minByte: minByte,
+          maxByte: maxByte,
+          short: short,
+          minShort: minShort,
+          maxShort: maxShort,
+          integer: integer,
+          minInteger: minInteger,
+          maxInteger: maxInteger,
+          long: long,
+          minLong: minLong,
+          maxLong: maxLong,
+          float: float,
+          minFloat: minFloat,
+          maxFloat: maxFloat,
+        );
     replace(_$result);
     return _$result;
   }
