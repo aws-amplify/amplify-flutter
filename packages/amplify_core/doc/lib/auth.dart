@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Code excerpts for the Auth category.
-library auth;
+library;
 
 // #docregion imports
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';

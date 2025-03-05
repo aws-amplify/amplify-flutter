@@ -3,7 +3,7 @@
 
 /// Bridging extensions between Cognito SDK and Amplify Flutter types.
 @internal
-library amplify_auth_cognito.sdk.sdk_bridge;
+library;
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'

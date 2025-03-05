@@ -18,7 +18,7 @@
     objcSourceOut: 'ios/Classes/PushNotificationsNativePlugin.m',
   ),
 )
-library push_notifications_plugin;
+library;
 
 import 'package:pigeon/pigeon.dart';
 

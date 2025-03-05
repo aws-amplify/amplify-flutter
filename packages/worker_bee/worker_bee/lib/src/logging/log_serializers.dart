@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library worker_bee.log_serializers;
+library;
 
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';

@@ -7,7 +7,7 @@
 /// - https://github.com/aws-amplify/aws-sdk-ios/blob/main/AWSCognitoIdentityProvider/AWSCognitoIdentityUserPool.m
 /// - https://github.com/aws-amplify/aws-sdk-ios/blob/main/AWSCore/Authentication/AWSCredentialsProvider.m
 @internal
-library amplify_auth_cognito.credentials.legacy_ios_cognito_keys;
+library;
 
 import 'dart:collection';
 

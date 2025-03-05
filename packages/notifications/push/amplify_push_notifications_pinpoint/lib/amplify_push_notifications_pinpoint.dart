@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library amplify_push_notifications_pinpoint;
+library;
 
 import 'package:amplify_push_notifications/amplify_push_notifications.dart';
 import 'package:amplify_push_notifications_pinpoint/src/pinpoint_provider.dart';
