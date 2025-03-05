@@ -317,18 +317,16 @@ class Authenticator extends StatefulWidget {
     this.dialCodeOptions = const DialCodeOptions(),
     this.totpOptions,
     @visibleForTesting this.authBlocOverride,
-    // ignore: prefer_asserts_with_message
-  }) : assert(() {
-         if (!validInitialAuthenticatorSteps.contains(initialStep)) {
-           throw FlutterError.fromParts([
-             ErrorSummary('Invalid initialStep'),
-             ErrorDescription(
-               'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
-             ),
-           ]);
-         }
-         return true;
-       });
+  }) {
+    if (!validInitialAuthenticatorSteps.contains(initialStep)) {
+      throw FlutterError.fromParts([
+        ErrorSummary('Invalid initialStep'),
+        ErrorDescription(
+          'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
+        ),
+      ]);
+    }
+  }
 
   /// Wraps user-defined navigators for integration with [MaterialApp] and
   /// [Navigator].

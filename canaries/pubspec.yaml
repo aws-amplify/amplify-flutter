@@ -1,5 +1,7 @@
 name: amplified_todo
-publish_to: none
+publish_to: none\
+
+version: 1.0.0+0
 
 environment:
   sdk: ^3.7.0
