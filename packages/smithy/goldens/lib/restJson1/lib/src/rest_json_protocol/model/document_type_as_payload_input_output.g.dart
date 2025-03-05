@@ -80,7 +80,9 @@ class DocumentTypeAsPayloadInputOutputBuilder
 
   _$DocumentTypeAsPayloadInputOutput _build() {
     final _$result = _$v ??
-        new _$DocumentTypeAsPayloadInputOutput._(documentValue: documentValue);
+        new _$DocumentTypeAsPayloadInputOutput._(
+          documentValue: documentValue,
+        );
     replace(_$result);
     return _$result;
   }

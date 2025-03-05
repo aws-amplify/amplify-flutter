@@ -144,13 +144,14 @@ class JsonTimestampsInputOutputBuilder
   _$JsonTimestampsInputOutput _build() {
     final _$result = _$v ??
         new _$JsonTimestampsInputOutput._(
-            normal: normal,
-            dateTime: dateTime,
-            dateTimeOnTarget: dateTimeOnTarget,
-            epochSeconds: epochSeconds,
-            epochSecondsOnTarget: epochSecondsOnTarget,
-            httpDate: httpDate,
-            httpDateOnTarget: httpDateOnTarget);
+          normal: normal,
+          dateTime: dateTime,
+          dateTimeOnTarget: dateTimeOnTarget,
+          epochSeconds: epochSeconds,
+          epochSecondsOnTarget: epochSecondsOnTarget,
+          httpDate: httpDate,
+          httpDateOnTarget: httpDateOnTarget,
+        );
     replace(_$result);
     return _$result;
   }

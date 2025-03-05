@@ -82,8 +82,10 @@ class OperationWithOptionalInputOutputOutputBuilder
   OperationWithOptionalInputOutputOutput build() => _build();
 
   _$OperationWithOptionalInputOutputOutput _build() {
-    final _$result =
-        _$v ?? new _$OperationWithOptionalInputOutputOutput._(value: value);
+    final _$result = _$v ??
+        new _$OperationWithOptionalInputOutputOutput._(
+          value: value,
+        );
     replace(_$result);
     return _$result;
   }

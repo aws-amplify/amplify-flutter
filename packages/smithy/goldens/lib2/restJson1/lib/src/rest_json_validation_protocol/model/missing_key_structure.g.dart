@@ -78,8 +78,9 @@ class MissingKeyStructureBuilder
   _$MissingKeyStructure _build() {
     final _$result = _$v ??
         new _$MissingKeyStructure._(
-            hi: BuiltValueNullFieldError.checkNotNull(
-                hi, r'MissingKeyStructure', 'hi'));
+          hi: BuiltValueNullFieldError.checkNotNull(
+              hi, r'MissingKeyStructure', 'hi'),
+        );
     replace(_$result);
     return _$result;
   }

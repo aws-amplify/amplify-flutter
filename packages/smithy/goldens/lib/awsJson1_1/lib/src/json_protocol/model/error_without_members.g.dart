@@ -79,7 +79,10 @@ class ErrorWithoutMembersBuilder
 
   _$ErrorWithoutMembers _build() {
     final _$result = _$v ??
-        new _$ErrorWithoutMembers._(statusCode: statusCode, headers: headers);
+        new _$ErrorWithoutMembers._(
+          statusCode: statusCode,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

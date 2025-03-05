@@ -89,7 +89,10 @@ class InvalidGreetingBuilder
   _$InvalidGreeting _build() {
     final _$result = _$v ??
         new _$InvalidGreeting._(
-            message: message, statusCode: statusCode, headers: headers);
+          message: message,
+          statusCode: statusCode,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

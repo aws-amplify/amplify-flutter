@@ -87,8 +87,11 @@ class QueryPrecedenceInputBuilder
   _$QueryPrecedenceInput _build() {
     _$QueryPrecedenceInput _$result;
     try {
-      _$result =
-          _$v ?? new _$QueryPrecedenceInput._(foo: foo, baz: _baz?.build());
+      _$result = _$v ??
+          new _$QueryPrecedenceInput._(
+            foo: foo,
+            baz: _baz?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

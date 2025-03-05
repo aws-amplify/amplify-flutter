@@ -303,32 +303,49 @@ class DefaultValuesOutputBuilder
     try {
       _$result = _$v ??
           new _$DefaultValuesOutput._(
-              requiredDefaultInt: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultInt, r'DefaultValuesOutput', 'requiredDefaultInt'),
-              optionalDefaultInt: BuiltValueNullFieldError.checkNotNull(
-                  optionalDefaultInt, r'DefaultValuesOutput', 'optionalDefaultInt'),
-              nullifiedDefaultInt: nullifiedDefaultInt,
-              requiredDefaultString: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultString, r'DefaultValuesOutput', 'requiredDefaultString'),
-              optionalDefaultString: BuiltValueNullFieldError.checkNotNull(
-                  optionalDefaultString, r'DefaultValuesOutput', 'optionalDefaultString'),
-              nullifiedDefaultString: nullifiedDefaultString,
-              requiredDefaultEnum: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultEnum, r'DefaultValuesOutput', 'requiredDefaultEnum'),
-              optionalDefaultEnum: BuiltValueNullFieldError.checkNotNull(
-                  optionalDefaultEnum, r'DefaultValuesOutput', 'optionalDefaultEnum'),
-              nullifiedDefaultEnum: nullifiedDefaultEnum,
-              requiredDefaultList: requiredDefaultList.build(),
-              optionalDefaultList: optionalDefaultList.build(),
-              nullifiedDefaultList: _nullifiedDefaultList?.build(),
-              requiredDefaultMap: requiredDefaultMap.build(),
-              optionalDefaultMap: optionalDefaultMap.build(),
-              nullifiedDefaultMap: _nullifiedDefaultMap?.build(),
-              requiredDefaultBool: BuiltValueNullFieldError.checkNotNull(
-                  requiredDefaultBool, r'DefaultValuesOutput', 'requiredDefaultBool'),
-              optionalDefaultBool:
-                  BuiltValueNullFieldError.checkNotNull(optionalDefaultBool, r'DefaultValuesOutput', 'optionalDefaultBool'),
-              nullifiedDefaultBool: nullifiedDefaultBool);
+            requiredDefaultInt: BuiltValueNullFieldError.checkNotNull(
+                requiredDefaultInt,
+                r'DefaultValuesOutput',
+                'requiredDefaultInt'),
+            optionalDefaultInt: BuiltValueNullFieldError.checkNotNull(
+                optionalDefaultInt,
+                r'DefaultValuesOutput',
+                'optionalDefaultInt'),
+            nullifiedDefaultInt: nullifiedDefaultInt,
+            requiredDefaultString: BuiltValueNullFieldError.checkNotNull(
+                requiredDefaultString,
+                r'DefaultValuesOutput',
+                'requiredDefaultString'),
+            optionalDefaultString: BuiltValueNullFieldError.checkNotNull(
+                optionalDefaultString,
+                r'DefaultValuesOutput',
+                'optionalDefaultString'),
+            nullifiedDefaultString: nullifiedDefaultString,
+            requiredDefaultEnum: BuiltValueNullFieldError.checkNotNull(
+                requiredDefaultEnum,
+                r'DefaultValuesOutput',
+                'requiredDefaultEnum'),
+            optionalDefaultEnum: BuiltValueNullFieldError.checkNotNull(
+                optionalDefaultEnum,
+                r'DefaultValuesOutput',
+                'optionalDefaultEnum'),
+            nullifiedDefaultEnum: nullifiedDefaultEnum,
+            requiredDefaultList: requiredDefaultList.build(),
+            optionalDefaultList: optionalDefaultList.build(),
+            nullifiedDefaultList: _nullifiedDefaultList?.build(),
+            requiredDefaultMap: requiredDefaultMap.build(),
+            optionalDefaultMap: optionalDefaultMap.build(),
+            nullifiedDefaultMap: _nullifiedDefaultMap?.build(),
+            requiredDefaultBool: BuiltValueNullFieldError.checkNotNull(
+                requiredDefaultBool,
+                r'DefaultValuesOutput',
+                'requiredDefaultBool'),
+            optionalDefaultBool: BuiltValueNullFieldError.checkNotNull(
+                optionalDefaultBool,
+                r'DefaultValuesOutput',
+                'optionalDefaultBool'),
+            nullifiedDefaultBool: nullifiedDefaultBool,
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -135,12 +135,13 @@ class MalformedLengthOverrideInputBuilder
     try {
       _$result = _$v ??
           new _$MalformedLengthOverrideInput._(
-              blob: blob,
-              string: string,
-              minString: minString,
-              maxString: maxString,
-              list: _list?.build(),
-              map: _map?.build());
+            blob: blob,
+            string: string,
+            minString: minString,
+            maxString: maxString,
+            list: _list?.build(),
+            map: _map?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

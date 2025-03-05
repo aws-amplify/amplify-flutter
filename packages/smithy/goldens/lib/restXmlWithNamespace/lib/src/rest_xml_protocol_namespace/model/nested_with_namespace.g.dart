@@ -74,7 +74,10 @@ class NestedWithNamespaceBuilder
   NestedWithNamespace build() => _build();
 
   _$NestedWithNamespace _build() {
-    final _$result = _$v ?? new _$NestedWithNamespace._(attrField: attrField);
+    final _$result = _$v ??
+        new _$NestedWithNamespace._(
+          attrField: attrField,
+        );
     replace(_$result);
     return _$result;
   }

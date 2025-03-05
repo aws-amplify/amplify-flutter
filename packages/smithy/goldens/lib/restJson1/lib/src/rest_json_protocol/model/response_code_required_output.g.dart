@@ -81,8 +81,9 @@ class ResponseCodeRequiredOutputBuilder
   _$ResponseCodeRequiredOutput _build() {
     final _$result = _$v ??
         new _$ResponseCodeRequiredOutput._(
-            responseCode: BuiltValueNullFieldError.checkNotNull(
-                responseCode, r'ResponseCodeRequiredOutput', 'responseCode'));
+          responseCode: BuiltValueNullFieldError.checkNotNull(
+              responseCode, r'ResponseCodeRequiredOutput', 'responseCode'),
+        );
     replace(_$result);
     return _$result;
   }

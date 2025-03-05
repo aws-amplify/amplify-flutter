@@ -88,8 +88,9 @@ class MalformedTimestampHeaderDateTimeInputBuilder
   _$MalformedTimestampHeaderDateTimeInput _build() {
     final _$result = _$v ??
         new _$MalformedTimestampHeaderDateTimeInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(timestamp,
-                r'MalformedTimestampHeaderDateTimeInput', 'timestamp'));
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+              timestamp, r'MalformedTimestampHeaderDateTimeInput', 'timestamp'),
+        );
     replace(_$result);
     return _$result;
   }

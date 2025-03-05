@@ -149,14 +149,15 @@ class XmlNestedUnionStructBuilder
   _$XmlNestedUnionStruct _build() {
     final _$result = _$v ??
         new _$XmlNestedUnionStruct._(
-            stringValue: stringValue,
-            booleanValue: booleanValue,
-            byteValue: byteValue,
-            shortValue: shortValue,
-            integerValue: integerValue,
-            longValue: longValue,
-            floatValue: floatValue,
-            doubleValue: doubleValue);
+          stringValue: stringValue,
+          booleanValue: booleanValue,
+          byteValue: byteValue,
+          shortValue: shortValue,
+          integerValue: integerValue,
+          longValue: longValue,
+          floatValue: floatValue,
+          doubleValue: doubleValue,
+        );
     replace(_$result);
     return _$result;
   }

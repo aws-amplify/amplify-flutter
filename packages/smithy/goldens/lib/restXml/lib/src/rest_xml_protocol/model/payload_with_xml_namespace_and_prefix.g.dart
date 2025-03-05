@@ -77,8 +77,10 @@ class PayloadWithXmlNamespaceAndPrefixBuilder
   PayloadWithXmlNamespaceAndPrefix build() => _build();
 
   _$PayloadWithXmlNamespaceAndPrefix _build() {
-    final _$result =
-        _$v ?? new _$PayloadWithXmlNamespaceAndPrefix._(name: name);
+    final _$result = _$v ??
+        new _$PayloadWithXmlNamespaceAndPrefix._(
+          name: name,
+        );
     replace(_$result);
     return _$result;
   }

@@ -80,8 +80,9 @@ class GetBucketLocationRequestBuilder
   _$GetBucketLocationRequest _build() {
     final _$result = _$v ??
         new _$GetBucketLocationRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'GetBucketLocationRequest', 'bucket'));
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'GetBucketLocationRequest', 'bucket'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -116,11 +116,12 @@ class MalformedIntegerInputBuilder
   _$MalformedIntegerInput _build() {
     final _$result = _$v ??
         new _$MalformedIntegerInput._(
-            integerInBody: integerInBody,
-            integerInPath: BuiltValueNullFieldError.checkNotNull(
-                integerInPath, r'MalformedIntegerInput', 'integerInPath'),
-            integerInQuery: integerInQuery,
-            integerInHeader: integerInHeader);
+          integerInBody: integerInBody,
+          integerInPath: BuiltValueNullFieldError.checkNotNull(
+              integerInPath, r'MalformedIntegerInput', 'integerInPath'),
+          integerInQuery: integerInQuery,
+          integerInHeader: integerInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -199,7 +200,9 @@ class MalformedIntegerInputPayloadBuilder
 
   _$MalformedIntegerInputPayload _build() {
     final _$result = _$v ??
-        new _$MalformedIntegerInputPayload._(integerInBody: integerInBody);
+        new _$MalformedIntegerInputPayload._(
+          integerInBody: integerInBody,
+        );
     replace(_$result);
     return _$result;
   }

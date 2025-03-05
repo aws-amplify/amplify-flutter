@@ -189,17 +189,18 @@ class SimpleScalarPropertiesInputOutputBuilder
     try {
       _$result = _$v ??
           new _$SimpleScalarPropertiesInputOutput._(
-              foo: foo,
-              stringValue: stringValue,
-              trueBooleanValue: trueBooleanValue,
-              falseBooleanValue: falseBooleanValue,
-              byteValue: byteValue,
-              shortValue: shortValue,
-              integerValue: integerValue,
-              longValue: longValue,
-              floatValue: floatValue,
-              nested: _nested?.build(),
-              doubleValue: doubleValue);
+            foo: foo,
+            stringValue: stringValue,
+            trueBooleanValue: trueBooleanValue,
+            falseBooleanValue: falseBooleanValue,
+            byteValue: byteValue,
+            shortValue: shortValue,
+            integerValue: integerValue,
+            longValue: longValue,
+            floatValue: floatValue,
+            nested: _nested?.build(),
+            doubleValue: doubleValue,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -391,16 +392,17 @@ class SimpleScalarPropertiesInputOutputPayloadBuilder
     try {
       _$result = _$v ??
           new _$SimpleScalarPropertiesInputOutputPayload._(
-              byteValue: byteValue,
-              doubleValue: doubleValue,
-              falseBooleanValue: falseBooleanValue,
-              floatValue: floatValue,
-              integerValue: integerValue,
-              longValue: longValue,
-              nested: _nested?.build(),
-              shortValue: shortValue,
-              stringValue: stringValue,
-              trueBooleanValue: trueBooleanValue);
+            byteValue: byteValue,
+            doubleValue: doubleValue,
+            falseBooleanValue: falseBooleanValue,
+            floatValue: floatValue,
+            integerValue: integerValue,
+            longValue: longValue,
+            nested: _nested?.build(),
+            shortValue: shortValue,
+            stringValue: stringValue,
+            trueBooleanValue: trueBooleanValue,
+          );
     } catch (_) {
       late String _$failedField;
       try {

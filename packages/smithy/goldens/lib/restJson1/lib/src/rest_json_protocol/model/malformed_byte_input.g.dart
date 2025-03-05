@@ -112,11 +112,12 @@ class MalformedByteInputBuilder
   _$MalformedByteInput _build() {
     final _$result = _$v ??
         new _$MalformedByteInput._(
-            byteInBody: byteInBody,
-            byteInPath: BuiltValueNullFieldError.checkNotNull(
-                byteInPath, r'MalformedByteInput', 'byteInPath'),
-            byteInQuery: byteInQuery,
-            byteInHeader: byteInHeader);
+          byteInBody: byteInBody,
+          byteInPath: BuiltValueNullFieldError.checkNotNull(
+              byteInPath, r'MalformedByteInput', 'byteInPath'),
+          byteInQuery: byteInQuery,
+          byteInHeader: byteInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -191,8 +192,10 @@ class MalformedByteInputPayloadBuilder
   MalformedByteInputPayload build() => _build();
 
   _$MalformedByteInputPayload _build() {
-    final _$result =
-        _$v ?? new _$MalformedByteInputPayload._(byteInBody: byteInBody);
+    final _$result = _$v ??
+        new _$MalformedByteInputPayload._(
+          byteInBody: byteInBody,
+        );
     replace(_$result);
     return _$result;
   }

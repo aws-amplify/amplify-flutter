@@ -75,7 +75,10 @@ class RecursiveStructuresInputBuilder
   RecursiveStructuresInput build() => _build();
 
   _$RecursiveStructuresInput _build() {
-    final _$result = _$v ?? new _$RecursiveStructuresInput._(union: union);
+    final _$result = _$v ??
+        new _$RecursiveStructuresInput._(
+          union: union,
+        );
     replace(_$result);
     return _$result;
   }

@@ -93,7 +93,9 @@ class RecursiveXmlShapesOutputNested1Builder
     try {
       _$result = _$v ??
           new _$RecursiveXmlShapesOutputNested1._(
-              foo: foo, nested: _nested?.build());
+            foo: foo,
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

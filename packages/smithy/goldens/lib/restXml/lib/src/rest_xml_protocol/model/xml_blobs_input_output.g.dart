@@ -74,7 +74,10 @@ class XmlBlobsInputOutputBuilder
   XmlBlobsInputOutput build() => _build();
 
   _$XmlBlobsInputOutput _build() {
-    final _$result = _$v ?? new _$XmlBlobsInputOutput._(data: data);
+    final _$result = _$v ??
+        new _$XmlBlobsInputOutput._(
+          data: data,
+        );
     replace(_$result);
     return _$result;
   }

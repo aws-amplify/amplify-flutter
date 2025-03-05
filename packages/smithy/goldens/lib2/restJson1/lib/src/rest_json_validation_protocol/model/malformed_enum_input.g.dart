@@ -120,11 +120,12 @@ class MalformedEnumInputBuilder
     try {
       _$result = _$v ??
           new _$MalformedEnumInput._(
-              string: string,
-              stringWithEnumTrait: stringWithEnumTrait,
-              list: _list?.build(),
-              map: _map?.build(),
-              union: union);
+            string: string,
+            stringWithEnumTrait: stringWithEnumTrait,
+            list: _list?.build(),
+            map: _map?.build(),
+            union: union,
+          );
     } catch (_) {
       late String _$failedField;
       try {

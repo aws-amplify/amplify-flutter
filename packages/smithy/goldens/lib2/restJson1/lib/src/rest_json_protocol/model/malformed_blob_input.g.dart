@@ -74,7 +74,10 @@ class MalformedBlobInputBuilder
   MalformedBlobInput build() => _build();
 
   _$MalformedBlobInput _build() {
-    final _$result = _$v ?? new _$MalformedBlobInput._(blob: blob);
+    final _$result = _$v ??
+        new _$MalformedBlobInput._(
+          blob: blob,
+        );
     replace(_$result);
     return _$result;
   }

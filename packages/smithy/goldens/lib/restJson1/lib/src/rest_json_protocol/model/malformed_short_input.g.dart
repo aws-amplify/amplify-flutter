@@ -113,11 +113,12 @@ class MalformedShortInputBuilder
   _$MalformedShortInput _build() {
     final _$result = _$v ??
         new _$MalformedShortInput._(
-            shortInBody: shortInBody,
-            shortInPath: BuiltValueNullFieldError.checkNotNull(
-                shortInPath, r'MalformedShortInput', 'shortInPath'),
-            shortInQuery: shortInQuery,
-            shortInHeader: shortInHeader);
+          shortInBody: shortInBody,
+          shortInPath: BuiltValueNullFieldError.checkNotNull(
+              shortInPath, r'MalformedShortInput', 'shortInPath'),
+          shortInQuery: shortInQuery,
+          shortInHeader: shortInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -193,8 +194,10 @@ class MalformedShortInputPayloadBuilder
   MalformedShortInputPayload build() => _build();
 
   _$MalformedShortInputPayload _build() {
-    final _$result =
-        _$v ?? new _$MalformedShortInputPayload._(shortInBody: shortInBody);
+    final _$result = _$v ??
+        new _$MalformedShortInputPayload._(
+          shortInBody: shortInBody,
+        );
     replace(_$result);
     return _$result;
   }

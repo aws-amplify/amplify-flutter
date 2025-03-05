@@ -94,7 +94,9 @@ class HttpChecksumReallyNotRequiredInputBuilder
   _$HttpChecksumReallyNotRequiredInput _build() {
     final _$result = _$v ??
         new _$HttpChecksumReallyNotRequiredInput._(
-            checksumAlgorithm: checksumAlgorithm, content: content);
+          checksumAlgorithm: checksumAlgorithm,
+          content: content,
+        );
     replace(_$result);
     return _$result;
   }

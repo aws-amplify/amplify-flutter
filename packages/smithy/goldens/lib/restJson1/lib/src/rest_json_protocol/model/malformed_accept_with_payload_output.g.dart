@@ -78,8 +78,10 @@ class MalformedAcceptWithPayloadOutputBuilder
   MalformedAcceptWithPayloadOutput build() => _build();
 
   _$MalformedAcceptWithPayloadOutput _build() {
-    final _$result =
-        _$v ?? new _$MalformedAcceptWithPayloadOutput._(payload: payload);
+    final _$result = _$v ??
+        new _$MalformedAcceptWithPayloadOutput._(
+          payload: payload,
+        );
     replace(_$result);
     return _$result;
   }

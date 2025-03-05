@@ -80,8 +80,11 @@ class RetryConfigBuilder implements Builder<RetryConfig, RetryConfigBuilder> {
   RetryConfig build() => _build();
 
   _$RetryConfig _build() {
-    final _$result =
-        _$v ?? new _$RetryConfig._(mode: mode, maxAttempts: maxAttempts);
+    final _$result = _$v ??
+        new _$RetryConfig._(
+          mode: mode,
+          maxAttempts: maxAttempts,
+        );
     replace(_$result);
     return _$result;
   }

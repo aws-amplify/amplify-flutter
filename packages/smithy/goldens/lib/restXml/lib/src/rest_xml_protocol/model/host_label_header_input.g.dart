@@ -79,8 +79,9 @@ class HostLabelHeaderInputBuilder
   _$HostLabelHeaderInput _build() {
     final _$result = _$v ??
         new _$HostLabelHeaderInput._(
-            accountId: BuiltValueNullFieldError.checkNotNull(
-                accountId, r'HostLabelHeaderInput', 'accountId'));
+          accountId: BuiltValueNullFieldError.checkNotNull(
+              accountId, r'HostLabelHeaderInput', 'accountId'),
+        );
     replace(_$result);
     return _$result;
   }

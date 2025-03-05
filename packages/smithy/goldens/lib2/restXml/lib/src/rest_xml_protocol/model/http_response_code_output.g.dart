@@ -74,7 +74,10 @@ class HttpResponseCodeOutputBuilder
   HttpResponseCodeOutput build() => _build();
 
   _$HttpResponseCodeOutput _build() {
-    final _$result = _$v ?? new _$HttpResponseCodeOutput._(status: status);
+    final _$result = _$v ??
+        new _$HttpResponseCodeOutput._(
+          status: status,
+        );
     replace(_$result);
     return _$result;
   }

@@ -74,7 +74,10 @@ class StructWithJsonNameBuilder
   StructWithJsonName build() => _build();
 
   _$StructWithJsonName _build() {
-    final _$result = _$v ?? new _$StructWithJsonName._(value: value);
+    final _$result = _$v ??
+        new _$StructWithJsonName._(
+          value: value,
+        );
     replace(_$result);
     return _$result;
   }

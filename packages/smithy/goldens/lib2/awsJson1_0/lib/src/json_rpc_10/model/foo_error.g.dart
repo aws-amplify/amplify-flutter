@@ -74,8 +74,11 @@ class FooErrorBuilder implements Builder<FooError, FooErrorBuilder> {
   FooError build() => _build();
 
   _$FooError _build() {
-    final _$result =
-        _$v ?? new _$FooError._(statusCode: statusCode, headers: headers);
+    final _$result = _$v ??
+        new _$FooError._(
+          statusCode: statusCode,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

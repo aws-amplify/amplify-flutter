@@ -87,8 +87,11 @@ class XmlNamespaceNestedBuilder
   _$XmlNamespaceNested _build() {
     _$XmlNamespaceNested _$result;
     try {
-      _$result =
-          _$v ?? new _$XmlNamespaceNested._(foo: foo, values: _values?.build());
+      _$result = _$v ??
+          new _$XmlNamespaceNested._(
+            foo: foo,
+            values: _values?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

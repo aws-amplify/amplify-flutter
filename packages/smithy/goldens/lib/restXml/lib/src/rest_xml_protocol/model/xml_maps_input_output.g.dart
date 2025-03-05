@@ -78,7 +78,10 @@ class XmlMapsInputOutputBuilder
   _$XmlMapsInputOutput _build() {
     _$XmlMapsInputOutput _$result;
     try {
-      _$result = _$v ?? new _$XmlMapsInputOutput._(myMap: _myMap?.build());
+      _$result = _$v ??
+          new _$XmlMapsInputOutput._(
+            myMap: _myMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

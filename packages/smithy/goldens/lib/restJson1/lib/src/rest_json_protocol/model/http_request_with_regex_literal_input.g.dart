@@ -82,8 +82,9 @@ class HttpRequestWithRegexLiteralInputBuilder
   _$HttpRequestWithRegexLiteralInput _build() {
     final _$result = _$v ??
         new _$HttpRequestWithRegexLiteralInput._(
-            str: BuiltValueNullFieldError.checkNotNull(
-                str, r'HttpRequestWithRegexLiteralInput', 'str'));
+          str: BuiltValueNullFieldError.checkNotNull(
+              str, r'HttpRequestWithRegexLiteralInput', 'str'),
+        );
     replace(_$result);
     return _$result;
   }

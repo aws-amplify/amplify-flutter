@@ -78,8 +78,10 @@ class MalformedListInputBuilder
   _$MalformedListInput _build() {
     _$MalformedListInput _$result;
     try {
-      _$result =
-          _$v ?? new _$MalformedListInput._(bodyList: _bodyList?.build());
+      _$result = _$v ??
+          new _$MalformedListInput._(
+            bodyList: _bodyList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

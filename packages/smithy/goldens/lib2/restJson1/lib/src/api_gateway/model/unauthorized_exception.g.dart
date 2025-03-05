@@ -82,7 +82,10 @@ class UnauthorizedExceptionBuilder
 
   _$UnauthorizedException _build() {
     final _$result = _$v ??
-        new _$UnauthorizedException._(message: message, headers: headers);
+        new _$UnauthorizedException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

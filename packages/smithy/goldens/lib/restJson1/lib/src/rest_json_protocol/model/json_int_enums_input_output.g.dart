@@ -138,12 +138,13 @@ class JsonIntEnumsInputOutputBuilder
     try {
       _$result = _$v ??
           new _$JsonIntEnumsInputOutput._(
-              integerEnum1: integerEnum1,
-              integerEnum2: integerEnum2,
-              integerEnum3: integerEnum3,
-              integerEnumList: _integerEnumList?.build(),
-              integerEnumSet: _integerEnumSet?.build(),
-              integerEnumMap: _integerEnumMap?.build());
+            integerEnum1: integerEnum1,
+            integerEnum2: integerEnum2,
+            integerEnum3: integerEnum3,
+            integerEnumList: _integerEnumList?.build(),
+            integerEnumSet: _integerEnumSet?.build(),
+            integerEnumMap: _integerEnumMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

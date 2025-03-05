@@ -74,7 +74,10 @@ class StringPayloadInputBuilder
   StringPayloadInput build() => _build();
 
   _$StringPayloadInput _build() {
-    final _$result = _$v ?? new _$StringPayloadInput._(payload: payload);
+    final _$result = _$v ??
+        new _$StringPayloadInput._(
+          payload: payload,
+        );
     replace(_$result);
     return _$result;
   }

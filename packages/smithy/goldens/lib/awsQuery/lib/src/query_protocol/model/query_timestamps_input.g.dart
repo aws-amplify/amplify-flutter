@@ -98,9 +98,10 @@ class QueryTimestampsInputBuilder
   _$QueryTimestampsInput _build() {
     final _$result = _$v ??
         new _$QueryTimestampsInput._(
-            normalFormat: normalFormat,
-            epochMember: epochMember,
-            epochTarget: epochTarget);
+          normalFormat: normalFormat,
+          epochMember: epochMember,
+          epochTarget: epochTarget,
+        );
     replace(_$result);
     return _$result;
   }

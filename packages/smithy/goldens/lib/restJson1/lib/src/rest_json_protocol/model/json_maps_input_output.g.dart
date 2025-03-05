@@ -192,16 +192,17 @@ class JsonMapsInputOutputBuilder
     try {
       _$result = _$v ??
           new _$JsonMapsInputOutput._(
-              denseStructMap: _denseStructMap?.build(),
-              sparseStructMap: _sparseStructMap?.build(),
-              denseNumberMap: _denseNumberMap?.build(),
-              denseBooleanMap: _denseBooleanMap?.build(),
-              denseStringMap: _denseStringMap?.build(),
-              sparseNumberMap: _sparseNumberMap?.build(),
-              sparseBooleanMap: _sparseBooleanMap?.build(),
-              sparseStringMap: _sparseStringMap?.build(),
-              denseSetMap: _denseSetMap?.build(),
-              sparseSetMap: _sparseSetMap?.build());
+            denseStructMap: _denseStructMap?.build(),
+            sparseStructMap: _sparseStructMap?.build(),
+            denseNumberMap: _denseNumberMap?.build(),
+            denseBooleanMap: _denseBooleanMap?.build(),
+            denseStringMap: _denseStringMap?.build(),
+            sparseNumberMap: _sparseNumberMap?.build(),
+            sparseBooleanMap: _sparseBooleanMap?.build(),
+            sparseStringMap: _sparseStringMap?.build(),
+            denseSetMap: _denseSetMap?.build(),
+            sparseSetMap: _sparseSetMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -95,8 +95,12 @@ class NullAndEmptyHeadersIoBuilder
   _$NullAndEmptyHeadersIo _build() {
     _$NullAndEmptyHeadersIo _$result;
     try {
-      _$result =
-          _$v ?? new _$NullAndEmptyHeadersIo._(a: a, b: b, c: _c?.build());
+      _$result = _$v ??
+          new _$NullAndEmptyHeadersIo._(
+            a: a,
+            b: b,
+            c: _c?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

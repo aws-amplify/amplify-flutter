@@ -244,21 +244,22 @@ class XmlListsOutputBuilder
     try {
       _$result = _$v ??
           new _$XmlListsOutput._(
-              stringList: _stringList?.build(),
-              stringSet: _stringSet?.build(),
-              integerList: _integerList?.build(),
-              booleanList: _booleanList?.build(),
-              timestampList: _timestampList?.build(),
-              enumList: _enumList?.build(),
-              intEnumList: _intEnumList?.build(),
-              nestedStringList: _nestedStringList?.build(),
-              renamedListMembers: _renamedListMembers?.build(),
-              flattenedList: _flattenedList?.build(),
-              flattenedList2: _flattenedList2?.build(),
-              flattenedListWithMemberNamespace:
-                  _flattenedListWithMemberNamespace?.build(),
-              flattenedListWithNamespace: _flattenedListWithNamespace?.build(),
-              structureList: _structureList?.build());
+            stringList: _stringList?.build(),
+            stringSet: _stringSet?.build(),
+            integerList: _integerList?.build(),
+            booleanList: _booleanList?.build(),
+            timestampList: _timestampList?.build(),
+            enumList: _enumList?.build(),
+            intEnumList: _intEnumList?.build(),
+            nestedStringList: _nestedStringList?.build(),
+            renamedListMembers: _renamedListMembers?.build(),
+            flattenedList: _flattenedList?.build(),
+            flattenedList2: _flattenedList2?.build(),
+            flattenedListWithMemberNamespace:
+                _flattenedListWithMemberNamespace?.build(),
+            flattenedListWithNamespace: _flattenedListWithNamespace?.build(),
+            structureList: _structureList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

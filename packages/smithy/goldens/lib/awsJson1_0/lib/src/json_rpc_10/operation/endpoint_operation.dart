@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas,unnecessary_library_name
 
 library aws_json1_0_v1.json_rpc_10.operation.endpoint_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,7 +35,7 @@ class EndpointOperation
               'X-Amz-Target',
               'JsonRpc10.EndpointOperation',
             ),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i2.WithSdkInvocationId(),
             const _i2.WithSdkRequest(),
           ] +

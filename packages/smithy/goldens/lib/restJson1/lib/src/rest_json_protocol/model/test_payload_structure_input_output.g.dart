@@ -94,7 +94,9 @@ class TestPayloadStructureInputOutputBuilder
     try {
       _$result = _$v ??
           new _$TestPayloadStructureInputOutput._(
-              testId: testId, payloadConfig: _payloadConfig?.build());
+            testId: testId,
+            payloadConfig: _payloadConfig?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

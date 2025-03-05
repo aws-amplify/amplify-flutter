@@ -75,8 +75,10 @@ class GreetingWithErrorsOutputBuilder
   GreetingWithErrorsOutput build() => _build();
 
   _$GreetingWithErrorsOutput _build() {
-    final _$result =
-        _$v ?? new _$GreetingWithErrorsOutput._(greeting: greeting);
+    final _$result = _$v ??
+        new _$GreetingWithErrorsOutput._(
+          greeting: greeting,
+        );
     replace(_$result);
     return _$result;
   }

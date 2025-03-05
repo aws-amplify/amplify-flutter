@@ -167,22 +167,23 @@ class HttpRequestWithLabelsInputBuilder
   _$HttpRequestWithLabelsInput _build() {
     final _$result = _$v ??
         new _$HttpRequestWithLabelsInput._(
-            string: BuiltValueNullFieldError.checkNotNull(
-                string, r'HttpRequestWithLabelsInput', 'string'),
-            short: BuiltValueNullFieldError.checkNotNull(
-                short, r'HttpRequestWithLabelsInput', 'short'),
-            integer: BuiltValueNullFieldError.checkNotNull(
-                integer, r'HttpRequestWithLabelsInput', 'integer'),
-            long: BuiltValueNullFieldError.checkNotNull(
-                long, r'HttpRequestWithLabelsInput', 'long'),
-            float: BuiltValueNullFieldError.checkNotNull(
-                float, r'HttpRequestWithLabelsInput', 'float'),
-            double_: BuiltValueNullFieldError.checkNotNull(
-                double_, r'HttpRequestWithLabelsInput', 'double_'),
-            boolean: BuiltValueNullFieldError.checkNotNull(
-                boolean, r'HttpRequestWithLabelsInput', 'boolean'),
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'HttpRequestWithLabelsInput', 'timestamp'));
+          string: BuiltValueNullFieldError.checkNotNull(
+              string, r'HttpRequestWithLabelsInput', 'string'),
+          short: BuiltValueNullFieldError.checkNotNull(
+              short, r'HttpRequestWithLabelsInput', 'short'),
+          integer: BuiltValueNullFieldError.checkNotNull(
+              integer, r'HttpRequestWithLabelsInput', 'integer'),
+          long: BuiltValueNullFieldError.checkNotNull(
+              long, r'HttpRequestWithLabelsInput', 'long'),
+          float: BuiltValueNullFieldError.checkNotNull(
+              float, r'HttpRequestWithLabelsInput', 'float'),
+          double_: BuiltValueNullFieldError.checkNotNull(
+              double_, r'HttpRequestWithLabelsInput', 'double_'),
+          boolean: BuiltValueNullFieldError.checkNotNull(
+              boolean, r'HttpRequestWithLabelsInput', 'boolean'),
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+              timestamp, r'HttpRequestWithLabelsInput', 'timestamp'),
+        );
     replace(_$result);
     return _$result;
   }

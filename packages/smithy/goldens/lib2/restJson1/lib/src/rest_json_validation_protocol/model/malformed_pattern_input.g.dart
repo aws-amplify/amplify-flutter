@@ -119,11 +119,12 @@ class MalformedPatternInputBuilder
     try {
       _$result = _$v ??
           new _$MalformedPatternInput._(
-              string: string,
-              evilString: evilString,
-              list: _list?.build(),
-              map: _map?.build(),
-              union: union);
+            string: string,
+            evilString: evilString,
+            list: _list?.build(),
+            map: _map?.build(),
+            union: union,
+          );
     } catch (_) {
       late String _$failedField;
       try {

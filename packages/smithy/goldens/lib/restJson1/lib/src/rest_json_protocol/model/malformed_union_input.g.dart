@@ -74,7 +74,10 @@ class MalformedUnionInputBuilder
   MalformedUnionInput build() => _build();
 
   _$MalformedUnionInput _build() {
-    final _$result = _$v ?? new _$MalformedUnionInput._(union: union);
+    final _$result = _$v ??
+        new _$MalformedUnionInput._(
+          union: union,
+        );
     replace(_$result);
     return _$result;
   }

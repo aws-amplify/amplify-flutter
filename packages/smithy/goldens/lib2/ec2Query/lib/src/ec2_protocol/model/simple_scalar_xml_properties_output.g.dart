@@ -175,16 +175,17 @@ class SimpleScalarXmlPropertiesOutputBuilder
   _$SimpleScalarXmlPropertiesOutput _build() {
     final _$result = _$v ??
         new _$SimpleScalarXmlPropertiesOutput._(
-            stringValue: stringValue,
-            emptyStringValue: emptyStringValue,
-            trueBooleanValue: trueBooleanValue,
-            falseBooleanValue: falseBooleanValue,
-            byteValue: byteValue,
-            shortValue: shortValue,
-            integerValue: integerValue,
-            longValue: longValue,
-            floatValue: floatValue,
-            doubleValue: doubleValue);
+          stringValue: stringValue,
+          emptyStringValue: emptyStringValue,
+          trueBooleanValue: trueBooleanValue,
+          falseBooleanValue: falseBooleanValue,
+          byteValue: byteValue,
+          shortValue: shortValue,
+          integerValue: integerValue,
+          longValue: longValue,
+          floatValue: floatValue,
+          doubleValue: doubleValue,
+        );
     replace(_$result);
     return _$result;
   }

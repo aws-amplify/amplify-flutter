@@ -166,14 +166,15 @@ class QueryMapsInputBuilder
     try {
       _$result = _$v ??
           new _$QueryMapsInput._(
-              mapArg: _mapArg?.build(),
-              renamedMapArg: _renamedMapArg?.build(),
-              complexMapArg: _complexMapArg?.build(),
-              mapWithXmlMemberName: _mapWithXmlMemberName?.build(),
-              flattenedMap: _flattenedMap?.build(),
-              flattenedMapWithXmlName: _flattenedMapWithXmlName?.build(),
-              mapOfLists: _mapOfLists?.build(),
-              nestedStructWithMap: _nestedStructWithMap?.build());
+            mapArg: _mapArg?.build(),
+            renamedMapArg: _renamedMapArg?.build(),
+            complexMapArg: _complexMapArg?.build(),
+            mapWithXmlMemberName: _mapWithXmlMemberName?.build(),
+            flattenedMap: _flattenedMap?.build(),
+            flattenedMapWithXmlName: _flattenedMapWithXmlName?.build(),
+            mapOfLists: _mapOfLists?.build(),
+            nestedStructWithMap: _nestedStructWithMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

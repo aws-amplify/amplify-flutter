@@ -97,9 +97,10 @@ class StreamingTraitsRequireLengthInputBuilder
   _$StreamingTraitsRequireLengthInput _build() {
     final _$result = _$v ??
         new _$StreamingTraitsRequireLengthInput._(
-            foo: foo,
-            blob: BuiltValueNullFieldError.checkNotNull(
-                blob, r'StreamingTraitsRequireLengthInput', 'blob'));
+          foo: foo,
+          blob: BuiltValueNullFieldError.checkNotNull(
+              blob, r'StreamingTraitsRequireLengthInput', 'blob'),
+        );
     replace(_$result);
     return _$result;
   }

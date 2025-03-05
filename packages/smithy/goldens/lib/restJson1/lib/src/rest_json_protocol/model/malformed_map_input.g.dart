@@ -77,7 +77,10 @@ class MalformedMapInputBuilder
   _$MalformedMapInput _build() {
     _$MalformedMapInput _$result;
     try {
-      _$result = _$v ?? new _$MalformedMapInput._(bodyMap: _bodyMap?.build());
+      _$result = _$v ??
+          new _$MalformedMapInput._(
+            bodyMap: _bodyMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

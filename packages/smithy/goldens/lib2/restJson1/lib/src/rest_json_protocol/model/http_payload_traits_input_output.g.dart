@@ -86,8 +86,11 @@ class HttpPayloadTraitsInputOutputBuilder
   HttpPayloadTraitsInputOutput build() => _build();
 
   _$HttpPayloadTraitsInputOutput _build() {
-    final _$result =
-        _$v ?? new _$HttpPayloadTraitsInputOutput._(foo: foo, blob: blob);
+    final _$result = _$v ??
+        new _$HttpPayloadTraitsInputOutput._(
+          foo: foo,
+          blob: blob,
+        );
     replace(_$result);
     return _$result;
   }

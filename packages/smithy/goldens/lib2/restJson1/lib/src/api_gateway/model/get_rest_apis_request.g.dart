@@ -84,8 +84,11 @@ class GetRestApisRequestBuilder
   GetRestApisRequest build() => _build();
 
   _$GetRestApisRequest _build() {
-    final _$result =
-        _$v ?? new _$GetRestApisRequest._(position: position, limit: limit);
+    final _$result = _$v ??
+        new _$GetRestApisRequest._(
+          position: position,
+          limit: limit,
+        );
     replace(_$result);
     return _$result;
   }

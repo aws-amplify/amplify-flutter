@@ -89,8 +89,11 @@ class StreamingTraitsRequireLengthInputBuilder
   StreamingTraitsRequireLengthInput build() => _build();
 
   _$StreamingTraitsRequireLengthInput _build() {
-    final _$result =
-        _$v ?? new _$StreamingTraitsRequireLengthInput._(foo: foo, blob: blob);
+    final _$result = _$v ??
+        new _$StreamingTraitsRequireLengthInput._(
+          foo: foo,
+          blob: blob,
+        );
     replace(_$result);
     return _$result;
   }

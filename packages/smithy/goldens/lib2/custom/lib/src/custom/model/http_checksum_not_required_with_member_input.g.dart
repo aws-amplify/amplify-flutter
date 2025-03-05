@@ -96,7 +96,9 @@ class HttpChecksumNotRequiredWithMemberInputBuilder
   _$HttpChecksumNotRequiredWithMemberInput _build() {
     final _$result = _$v ??
         new _$HttpChecksumNotRequiredWithMemberInput._(
-            checksumAlgorithm: checksumAlgorithm, content: content);
+          checksumAlgorithm: checksumAlgorithm,
+          content: content,
+        );
     replace(_$result);
     return _$result;
   }

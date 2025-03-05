@@ -79,8 +79,9 @@ class PostPlayerActionOutputBuilder
   _$PostPlayerActionOutput _build() {
     final _$result = _$v ??
         new _$PostPlayerActionOutput._(
-            action: BuiltValueNullFieldError.checkNotNull(
-                action, r'PostPlayerActionOutput', 'action'));
+          action: BuiltValueNullFieldError.checkNotNull(
+              action, r'PostPlayerActionOutput', 'action'),
+        );
     replace(_$result);
     return _$result;
   }

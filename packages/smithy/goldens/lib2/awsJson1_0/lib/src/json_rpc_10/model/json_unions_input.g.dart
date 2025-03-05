@@ -72,7 +72,10 @@ class JsonUnionsInputBuilder
   JsonUnionsInput build() => _build();
 
   _$JsonUnionsInput _build() {
-    final _$result = _$v ?? new _$JsonUnionsInput._(contents: contents);
+    final _$result = _$v ??
+        new _$JsonUnionsInput._(
+          contents: contents,
+        );
     replace(_$result);
     return _$result;
   }

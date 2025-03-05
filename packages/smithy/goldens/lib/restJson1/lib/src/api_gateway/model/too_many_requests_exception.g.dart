@@ -97,9 +97,10 @@ class TooManyRequestsExceptionBuilder
   _$TooManyRequestsException _build() {
     final _$result = _$v ??
         new _$TooManyRequestsException._(
-            retryAfterSeconds: retryAfterSeconds,
-            message: message,
-            headers: headers);
+          retryAfterSeconds: retryAfterSeconds,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }
@@ -176,8 +177,10 @@ class TooManyRequestsExceptionPayloadBuilder
   TooManyRequestsExceptionPayload build() => _build();
 
   _$TooManyRequestsExceptionPayload _build() {
-    final _$result =
-        _$v ?? new _$TooManyRequestsExceptionPayload._(message: message);
+    final _$result = _$v ??
+        new _$TooManyRequestsExceptionPayload._(
+          message: message,
+        );
     replace(_$result);
     return _$result;
   }

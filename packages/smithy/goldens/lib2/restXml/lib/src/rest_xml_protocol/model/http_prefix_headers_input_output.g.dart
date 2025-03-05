@@ -91,7 +91,9 @@ class HttpPrefixHeadersInputOutputBuilder
     try {
       _$result = _$v ??
           new _$HttpPrefixHeadersInputOutput._(
-              foo: foo, fooMap: _fooMap?.build());
+            foo: foo,
+            fooMap: _fooMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

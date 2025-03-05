@@ -76,8 +76,10 @@ class XmlEmptyStringsInputOutputBuilder
   XmlEmptyStringsInputOutput build() => _build();
 
   _$XmlEmptyStringsInputOutput _build() {
-    final _$result =
-        _$v ?? new _$XmlEmptyStringsInputOutput._(emptyString: emptyString);
+    final _$result = _$v ??
+        new _$XmlEmptyStringsInputOutput._(
+          emptyString: emptyString,
+        );
     replace(_$result);
     return _$result;
   }

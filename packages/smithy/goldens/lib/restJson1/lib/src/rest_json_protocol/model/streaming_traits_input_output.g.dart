@@ -85,8 +85,11 @@ class StreamingTraitsInputOutputBuilder
   StreamingTraitsInputOutput build() => _build();
 
   _$StreamingTraitsInputOutput _build() {
-    final _$result =
-        _$v ?? new _$StreamingTraitsInputOutput._(foo: foo, blob: blob);
+    final _$result = _$v ??
+        new _$StreamingTraitsInputOutput._(
+          foo: foo,
+          blob: blob,
+        );
     replace(_$result);
     return _$result;
   }

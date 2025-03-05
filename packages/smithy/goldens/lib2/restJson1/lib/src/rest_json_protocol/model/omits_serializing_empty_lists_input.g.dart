@@ -159,13 +159,14 @@ class OmitsSerializingEmptyListsInputBuilder
     try {
       _$result = _$v ??
           new _$OmitsSerializingEmptyListsInput._(
-              queryStringList: _queryStringList?.build(),
-              queryIntegerList: _queryIntegerList?.build(),
-              queryDoubleList: _queryDoubleList?.build(),
-              queryBooleanList: _queryBooleanList?.build(),
-              queryTimestampList: _queryTimestampList?.build(),
-              queryEnumList: _queryEnumList?.build(),
-              queryIntegerEnumList: _queryIntegerEnumList?.build());
+            queryStringList: _queryStringList?.build(),
+            queryIntegerList: _queryIntegerList?.build(),
+            queryDoubleList: _queryDoubleList?.build(),
+            queryBooleanList: _queryBooleanList?.build(),
+            queryTimestampList: _queryTimestampList?.build(),
+            queryEnumList: _queryEnumList?.build(),
+            queryIntegerEnumList: _queryIntegerEnumList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -221,21 +221,22 @@ class MalformedRangeOverrideInputBuilder
   _$MalformedRangeOverrideInput _build() {
     final _$result = _$v ??
         new _$MalformedRangeOverrideInput._(
-            byte: byte,
-            minByte: minByte,
-            maxByte: maxByte,
-            short: short,
-            minShort: minShort,
-            maxShort: maxShort,
-            integer: integer,
-            minInteger: minInteger,
-            maxInteger: maxInteger,
-            long: long,
-            minLong: minLong,
-            maxLong: maxLong,
-            float: float,
-            minFloat: minFloat,
-            maxFloat: maxFloat);
+          byte: byte,
+          minByte: minByte,
+          maxByte: maxByte,
+          short: short,
+          minShort: minShort,
+          maxShort: maxShort,
+          integer: integer,
+          minInteger: minInteger,
+          maxInteger: maxInteger,
+          long: long,
+          minLong: minLong,
+          maxLong: maxLong,
+          float: float,
+          minFloat: minFloat,
+          maxFloat: maxFloat,
+        );
     replace(_$result);
     return _$result;
   }

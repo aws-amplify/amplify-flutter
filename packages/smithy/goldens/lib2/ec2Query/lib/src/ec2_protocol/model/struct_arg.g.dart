@@ -95,9 +95,10 @@ class StructArgBuilder implements Builder<StructArg, StructArgBuilder> {
     try {
       _$result = _$v ??
           new _$StructArg._(
-              stringArg: stringArg,
-              otherArg: otherArg,
-              recursiveArg: _recursiveArg?.build());
+            stringArg: stringArg,
+            otherArg: otherArg,
+            recursiveArg: _recursiveArg?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

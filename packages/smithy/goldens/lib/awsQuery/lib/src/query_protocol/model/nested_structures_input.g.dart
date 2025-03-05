@@ -76,7 +76,10 @@ class NestedStructuresInputBuilder
   _$NestedStructuresInput _build() {
     _$NestedStructuresInput _$result;
     try {
-      _$result = _$v ?? new _$NestedStructuresInput._(nested: _nested?.build());
+      _$result = _$v ??
+          new _$NestedStructuresInput._(
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

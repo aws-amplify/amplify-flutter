@@ -144,13 +144,14 @@ class FileConfigSettingsBuilder
     try {
       _$result = _$v ??
           new _$FileConfigSettings._(
-              awsAccessKeyId: awsAccessKeyId,
-              awsSecretAccessKey: awsSecretAccessKey,
-              awsSessionToken: awsSessionToken,
-              region: region,
-              s3: _s3?.build(),
-              retryMode: retryMode,
-              maxAttempts: maxAttempts);
+            awsAccessKeyId: awsAccessKeyId,
+            awsSecretAccessKey: awsSecretAccessKey,
+            awsSessionToken: awsSessionToken,
+            region: region,
+            s3: _s3?.build(),
+            retryMode: retryMode,
+            maxAttempts: maxAttempts,
+          );
     } catch (_) {
       late String _$failedField;
       try {

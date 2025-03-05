@@ -75,8 +75,10 @@ class UploadMultipartPartOutputBuilder
   UploadMultipartPartOutput build() => _build();
 
   _$UploadMultipartPartOutput _build() {
-    final _$result =
-        _$v ?? new _$UploadMultipartPartOutput._(checksum: checksum);
+    final _$result = _$v ??
+        new _$UploadMultipartPartOutput._(
+          checksum: checksum,
+        );
     replace(_$result);
     return _$result;
   }

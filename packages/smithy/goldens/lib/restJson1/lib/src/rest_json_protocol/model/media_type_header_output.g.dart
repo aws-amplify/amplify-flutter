@@ -74,7 +74,10 @@ class MediaTypeHeaderOutputBuilder
   MediaTypeHeaderOutput build() => _build();
 
   _$MediaTypeHeaderOutput _build() {
-    final _$result = _$v ?? new _$MediaTypeHeaderOutput._(json: json);
+    final _$result = _$v ??
+        new _$MediaTypeHeaderOutput._(
+          json: json,
+        );
     replace(_$result);
     return _$result;
   }

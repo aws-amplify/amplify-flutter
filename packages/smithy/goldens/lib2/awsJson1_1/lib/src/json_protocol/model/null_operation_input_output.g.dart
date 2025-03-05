@@ -104,9 +104,10 @@ class NullOperationInputOutputBuilder
     try {
       _$result = _$v ??
           new _$NullOperationInputOutput._(
-              string: string,
-              sparseStringList: _sparseStringList?.build(),
-              sparseStringMap: _sparseStringMap?.build());
+            string: string,
+            sparseStringList: _sparseStringList?.build(),
+            sparseStringMap: _sparseStringMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

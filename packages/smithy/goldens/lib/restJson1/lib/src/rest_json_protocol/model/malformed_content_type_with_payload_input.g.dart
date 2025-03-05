@@ -81,8 +81,10 @@ class MalformedContentTypeWithPayloadInputBuilder
   MalformedContentTypeWithPayloadInput build() => _build();
 
   _$MalformedContentTypeWithPayloadInput _build() {
-    final _$result =
-        _$v ?? new _$MalformedContentTypeWithPayloadInput._(payload: payload);
+    final _$result = _$v ??
+        new _$MalformedContentTypeWithPayloadInput._(
+          payload: payload,
+        );
     replace(_$result);
     return _$result;
   }

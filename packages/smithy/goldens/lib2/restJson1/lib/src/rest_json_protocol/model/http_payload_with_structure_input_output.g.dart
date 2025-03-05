@@ -85,7 +85,9 @@ class HttpPayloadWithStructureInputOutputBuilder
     _$HttpPayloadWithStructureInputOutput _$result;
     try {
       _$result = _$v ??
-          new _$HttpPayloadWithStructureInputOutput._(nested: _nested?.build());
+          new _$HttpPayloadWithStructureInputOutput._(
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

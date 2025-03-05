@@ -83,7 +83,9 @@ class HttpPayloadWithXmlNameInputOutputBuilder
     _$HttpPayloadWithXmlNameInputOutput _$result;
     try {
       _$result = _$v ??
-          new _$HttpPayloadWithXmlNameInputOutput._(nested: _nested?.build());
+          new _$HttpPayloadWithXmlNameInputOutput._(
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

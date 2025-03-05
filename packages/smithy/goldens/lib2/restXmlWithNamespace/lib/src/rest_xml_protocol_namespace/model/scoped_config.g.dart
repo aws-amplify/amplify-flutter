@@ -129,11 +129,12 @@ class ScopedConfigBuilder
     try {
       _$result = _$v ??
           new _$ScopedConfig._(
-              environment: _environment?.build(),
-              configFile: _configFile?.build(),
-              credentialsFile: _credentialsFile?.build(),
-              client: _client?.build(),
-              operation: _operation?.build());
+            environment: _environment?.build(),
+            configFile: _configFile?.build(),
+            credentialsFile: _credentialsFile?.build(),
+            client: _client?.build(),
+            operation: _operation?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

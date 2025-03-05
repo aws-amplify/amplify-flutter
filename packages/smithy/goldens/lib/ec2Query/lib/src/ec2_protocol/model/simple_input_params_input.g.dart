@@ -180,17 +180,18 @@ class SimpleInputParamsInputBuilder
   _$SimpleInputParamsInput _build() {
     final _$result = _$v ??
         new _$SimpleInputParamsInput._(
-            foo: foo,
-            bar: bar,
-            baz: baz,
-            bam: bam,
-            floatValue: floatValue,
-            boo: boo,
-            qux: qux,
-            fooEnum: fooEnum,
-            hasQueryName: hasQueryName,
-            hasQueryAndXmlName: hasQueryAndXmlName,
-            usesXmlName: usesXmlName);
+          foo: foo,
+          bar: bar,
+          baz: baz,
+          bam: bam,
+          floatValue: floatValue,
+          boo: boo,
+          qux: qux,
+          fooEnum: fooEnum,
+          hasQueryName: hasQueryName,
+          hasQueryAndXmlName: hasQueryAndXmlName,
+          usesXmlName: usesXmlName,
+        );
     replace(_$result);
     return _$result;
   }

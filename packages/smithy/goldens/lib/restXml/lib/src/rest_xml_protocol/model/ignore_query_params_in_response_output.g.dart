@@ -79,7 +79,10 @@ class IgnoreQueryParamsInResponseOutputBuilder
   IgnoreQueryParamsInResponseOutput build() => _build();
 
   _$IgnoreQueryParamsInResponseOutput _build() {
-    final _$result = _$v ?? new _$IgnoreQueryParamsInResponseOutput._(baz: baz);
+    final _$result = _$v ??
+        new _$IgnoreQueryParamsInResponseOutput._(
+          baz: baz,
+        );
     replace(_$result);
     return _$result;
   }

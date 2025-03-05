@@ -82,8 +82,10 @@ class QueryIdempotencyTokenAutoFillInputBuilder
   QueryIdempotencyTokenAutoFillInput build() => _build();
 
   _$QueryIdempotencyTokenAutoFillInput _build() {
-    final _$result =
-        _$v ?? new _$QueryIdempotencyTokenAutoFillInput._(token: token);
+    final _$result = _$v ??
+        new _$QueryIdempotencyTokenAutoFillInput._(
+          token: token,
+        );
     replace(_$result);
     return _$result;
   }

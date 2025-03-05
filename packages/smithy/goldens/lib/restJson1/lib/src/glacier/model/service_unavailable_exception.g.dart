@@ -106,7 +106,11 @@ class ServiceUnavailableExceptionBuilder
   _$ServiceUnavailableException _build() {
     final _$result = _$v ??
         new _$ServiceUnavailableException._(
-            type: type, code: code, message: message, headers: headers);
+          type: type,
+          code: code,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

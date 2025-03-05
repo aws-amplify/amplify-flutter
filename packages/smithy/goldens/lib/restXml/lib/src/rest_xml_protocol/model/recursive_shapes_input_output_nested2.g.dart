@@ -98,7 +98,9 @@ class RecursiveShapesInputOutputNested2Builder
     try {
       _$result = _$v ??
           new _$RecursiveShapesInputOutputNested2._(
-              bar: bar, recursiveMember: _recursiveMember?.build());
+            bar: bar,
+            recursiveMember: _recursiveMember?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

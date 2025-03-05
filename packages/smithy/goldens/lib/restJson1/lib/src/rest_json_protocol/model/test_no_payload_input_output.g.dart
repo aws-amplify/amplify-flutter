@@ -75,7 +75,10 @@ class TestNoPayloadInputOutputBuilder
   TestNoPayloadInputOutput build() => _build();
 
   _$TestNoPayloadInputOutput _build() {
-    final _$result = _$v ?? new _$TestNoPayloadInputOutput._(testId: testId);
+    final _$result = _$v ??
+        new _$TestNoPayloadInputOutput._(
+          testId: testId,
+        );
     replace(_$result);
     return _$result;
   }

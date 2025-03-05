@@ -192,16 +192,17 @@ class JsonListsInputOutputBuilder
     try {
       _$result = _$v ??
           new _$JsonListsInputOutput._(
-              stringList: _stringList?.build(),
-              sparseStringList: _sparseStringList?.build(),
-              stringSet: _stringSet?.build(),
-              integerList: _integerList?.build(),
-              booleanList: _booleanList?.build(),
-              timestampList: _timestampList?.build(),
-              enumList: _enumList?.build(),
-              intEnumList: _intEnumList?.build(),
-              nestedStringList: _nestedStringList?.build(),
-              structureList: _structureList?.build());
+            stringList: _stringList?.build(),
+            sparseStringList: _sparseStringList?.build(),
+            stringSet: _stringSet?.build(),
+            integerList: _integerList?.build(),
+            booleanList: _booleanList?.build(),
+            timestampList: _timestampList?.build(),
+            enumList: _enumList?.build(),
+            intEnumList: _intEnumList?.build(),
+            nestedStringList: _nestedStringList?.build(),
+            structureList: _structureList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

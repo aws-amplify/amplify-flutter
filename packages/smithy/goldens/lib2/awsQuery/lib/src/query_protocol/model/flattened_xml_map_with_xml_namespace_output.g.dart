@@ -86,7 +86,9 @@ class FlattenedXmlMapWithXmlNamespaceOutputBuilder
     _$FlattenedXmlMapWithXmlNamespaceOutput _$result;
     try {
       _$result = _$v ??
-          new _$FlattenedXmlMapWithXmlNamespaceOutput._(myMap: _myMap?.build());
+          new _$FlattenedXmlMapWithXmlNamespaceOutput._(
+            myMap: _myMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

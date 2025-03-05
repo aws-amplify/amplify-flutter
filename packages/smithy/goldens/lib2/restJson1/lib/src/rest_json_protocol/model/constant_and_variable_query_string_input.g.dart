@@ -93,7 +93,9 @@ class ConstantAndVariableQueryStringInputBuilder
   _$ConstantAndVariableQueryStringInput _build() {
     final _$result = _$v ??
         new _$ConstantAndVariableQueryStringInput._(
-            baz: baz, maybeSet: maybeSet);
+          baz: baz,
+          maybeSet: maybeSet,
+        );
     replace(_$result);
     return _$result;
   }

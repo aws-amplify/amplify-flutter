@@ -84,7 +84,9 @@ class MalformedContentTypeWithGenericStringInputBuilder
 
   _$MalformedContentTypeWithGenericStringInput _build() {
     final _$result = _$v ??
-        new _$MalformedContentTypeWithGenericStringInput._(payload: payload);
+        new _$MalformedContentTypeWithGenericStringInput._(
+          payload: payload,
+        );
     replace(_$result);
     return _$result;
   }

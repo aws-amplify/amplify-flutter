@@ -102,12 +102,13 @@ class CopyObjectRequestBuilder
   _$CopyObjectRequest _build() {
     final _$result = _$v ??
         new _$CopyObjectRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'CopyObjectRequest', 'bucket'),
-            copySource: BuiltValueNullFieldError.checkNotNull(
-                copySource, r'CopyObjectRequest', 'copySource'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'CopyObjectRequest', 'key'));
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'CopyObjectRequest', 'bucket'),
+          copySource: BuiltValueNullFieldError.checkNotNull(
+              copySource, r'CopyObjectRequest', 'copySource'),
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'CopyObjectRequest', 'key'),
+        );
     replace(_$result);
     return _$result;
   }

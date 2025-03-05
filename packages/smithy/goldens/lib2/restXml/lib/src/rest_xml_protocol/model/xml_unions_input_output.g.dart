@@ -74,8 +74,10 @@ class XmlUnionsInputOutputBuilder
   XmlUnionsInputOutput build() => _build();
 
   _$XmlUnionsInputOutput _build() {
-    final _$result =
-        _$v ?? new _$XmlUnionsInputOutput._(unionValue: unionValue);
+    final _$result = _$v ??
+        new _$XmlUnionsInputOutput._(
+          unionValue: unionValue,
+        );
     replace(_$result);
     return _$result;
   }

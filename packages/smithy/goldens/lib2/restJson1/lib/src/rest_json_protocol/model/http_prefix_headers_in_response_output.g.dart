@@ -86,7 +86,8 @@ class HttpPrefixHeadersInResponseOutputBuilder
     try {
       _$result = _$v ??
           new _$HttpPrefixHeadersInResponseOutput._(
-              prefixHeaders: _prefixHeaders?.build());
+            prefixHeaders: _prefixHeaders?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -129,11 +129,12 @@ class QueryListsInputBuilder
     try {
       _$result = _$v ??
           new _$QueryListsInput._(
-              listArg: _listArg?.build(),
-              complexListArg: _complexListArg?.build(),
-              listArgWithXmlNameMember: _listArgWithXmlNameMember?.build(),
-              listArgWithXmlName: _listArgWithXmlName?.build(),
-              nestedWithList: _nestedWithList?.build());
+            listArg: _listArg?.build(),
+            complexListArg: _complexListArg?.build(),
+            listArgWithXmlNameMember: _listArgWithXmlNameMember?.build(),
+            listArgWithXmlName: _listArgWithXmlName?.build(),
+            nestedWithList: _nestedWithList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -137,12 +137,13 @@ class XmlIntEnumsInputOutputBuilder
     try {
       _$result = _$v ??
           new _$XmlIntEnumsInputOutput._(
-              intEnum1: intEnum1,
-              intEnum2: intEnum2,
-              intEnum3: intEnum3,
-              intEnumList: _intEnumList?.build(),
-              intEnumSet: _intEnumSet?.build(),
-              intEnumMap: _intEnumMap?.build());
+            intEnum1: intEnum1,
+            intEnum2: intEnum2,
+            intEnum3: intEnum3,
+            intEnumList: _intEnumList?.build(),
+            intEnumSet: _intEnumSet?.build(),
+            intEnumMap: _intEnumMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -143,13 +143,14 @@ class ClientConfigBuilder
     try {
       _$result = _$v ??
           new _$ClientConfig._(
-              awsAccessKeyId: awsAccessKeyId,
-              awsSecretAccessKey: awsSecretAccessKey,
-              awsSessionToken: awsSessionToken,
-              region: region,
-              s3: _s3?.build(),
-              retryConfig: _retryConfig?.build(),
-              awsProfile: awsProfile);
+            awsAccessKeyId: awsAccessKeyId,
+            awsSecretAccessKey: awsSecretAccessKey,
+            awsSessionToken: awsSessionToken,
+            region: region,
+            s3: _s3?.build(),
+            retryConfig: _retryConfig?.build(),
+            awsProfile: awsProfile,
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -86,7 +86,10 @@ class FractionalSecondsOutputBuilder
 
   _$FractionalSecondsOutput _build() {
     final _$result = _$v ??
-        new _$FractionalSecondsOutput._(datetime: datetime, httpdate: httpdate);
+        new _$FractionalSecondsOutput._(
+          datetime: datetime,
+          httpdate: httpdate,
+        );
     replace(_$result);
     return _$result;
   }

@@ -74,7 +74,10 @@ class DatetimeOffsetsOutputBuilder
   DatetimeOffsetsOutput build() => _build();
 
   _$DatetimeOffsetsOutput _build() {
-    final _$result = _$v ?? new _$DatetimeOffsetsOutput._(datetime: datetime);
+    final _$result = _$v ??
+        new _$DatetimeOffsetsOutput._(
+          datetime: datetime,
+        );
     replace(_$result);
     return _$result;
   }

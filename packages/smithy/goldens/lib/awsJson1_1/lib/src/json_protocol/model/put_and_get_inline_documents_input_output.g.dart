@@ -84,7 +84,8 @@ class PutAndGetInlineDocumentsInputOutputBuilder
   _$PutAndGetInlineDocumentsInputOutput _build() {
     final _$result = _$v ??
         new _$PutAndGetInlineDocumentsInputOutput._(
-            inlineDocument: inlineDocument);
+          inlineDocument: inlineDocument,
+        );
     replace(_$result);
     return _$result;
   }

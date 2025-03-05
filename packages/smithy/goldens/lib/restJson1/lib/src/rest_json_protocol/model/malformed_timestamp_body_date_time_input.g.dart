@@ -87,8 +87,9 @@ class MalformedTimestampBodyDateTimeInputBuilder
   _$MalformedTimestampBodyDateTimeInput _build() {
     final _$result = _$v ??
         new _$MalformedTimestampBodyDateTimeInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(timestamp,
-                r'MalformedTimestampBodyDateTimeInput', 'timestamp'));
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+              timestamp, r'MalformedTimestampBodyDateTimeInput', 'timestamp'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -86,7 +86,9 @@ class AwsConfigBuilder implements Builder<AwsConfig, AwsConfigBuilder> {
     try {
       _$result = _$v ??
           new _$AwsConfig._(
-              clockTime: clockTime, scopedConfig: _scopedConfig?.build());
+            clockTime: clockTime,
+            scopedConfig: _scopedConfig?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

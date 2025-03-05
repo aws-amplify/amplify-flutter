@@ -99,11 +99,12 @@ class GetObjectRequestBuilder
   _$GetObjectRequest _build() {
     final _$result = _$v ??
         new _$GetObjectRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'GetObjectRequest', 'bucket'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'GetObjectRequest', 'key'),
-            range: range);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'GetObjectRequest', 'bucket'),
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'GetObjectRequest', 'key'),
+          range: range,
+        );
     replace(_$result);
     return _$result;
   }

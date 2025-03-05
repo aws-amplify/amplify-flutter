@@ -133,12 +133,13 @@ class EnvironmentConfigBuilder
   _$EnvironmentConfig _build() {
     final _$result = _$v ??
         new _$EnvironmentConfig._(
-            awsAccessKeyId: awsAccessKeyId,
-            awsSecretAccessKey: awsSecretAccessKey,
-            awsDefaultRegion: awsDefaultRegion,
-            awsRetryMode: awsRetryMode,
-            awsSessionToken: awsSessionToken,
-            awsProfile: awsProfile);
+          awsAccessKeyId: awsAccessKeyId,
+          awsSecretAccessKey: awsSecretAccessKey,
+          awsDefaultRegion: awsDefaultRegion,
+          awsRetryMode: awsRetryMode,
+          awsSessionToken: awsSessionToken,
+          awsProfile: awsProfile,
+        );
     replace(_$result);
     return _$result;
   }

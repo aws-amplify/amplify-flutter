@@ -248,22 +248,23 @@ class InputAndOutputWithHeadersIoBuilder
     try {
       _$result = _$v ??
           new _$InputAndOutputWithHeadersIo._(
-              headerString: headerString,
-              headerByte: headerByte,
-              headerShort: headerShort,
-              headerInteger: headerInteger,
-              headerLong: headerLong,
-              headerFloat: headerFloat,
-              headerDouble: headerDouble,
-              headerTrueBool: headerTrueBool,
-              headerFalseBool: headerFalseBool,
-              headerStringList: _headerStringList?.build(),
-              headerStringSet: _headerStringSet?.build(),
-              headerIntegerList: _headerIntegerList?.build(),
-              headerBooleanList: _headerBooleanList?.build(),
-              headerTimestampList: _headerTimestampList?.build(),
-              headerEnum: headerEnum,
-              headerEnumList: _headerEnumList?.build());
+            headerString: headerString,
+            headerByte: headerByte,
+            headerShort: headerShort,
+            headerInteger: headerInteger,
+            headerLong: headerLong,
+            headerFloat: headerFloat,
+            headerDouble: headerDouble,
+            headerTrueBool: headerTrueBool,
+            headerFalseBool: headerFalseBool,
+            headerStringList: _headerStringList?.build(),
+            headerStringSet: _headerStringSet?.build(),
+            headerIntegerList: _headerIntegerList?.build(),
+            headerBooleanList: _headerBooleanList?.build(),
+            headerTimestampList: _headerTimestampList?.build(),
+            headerEnum: headerEnum,
+            headerEnumList: _headerEnumList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

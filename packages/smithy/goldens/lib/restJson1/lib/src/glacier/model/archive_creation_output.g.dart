@@ -96,7 +96,10 @@ class ArchiveCreationOutputBuilder
   _$ArchiveCreationOutput _build() {
     final _$result = _$v ??
         new _$ArchiveCreationOutput._(
-            location: location, checksum: checksum, archiveId: archiveId);
+          location: location,
+          checksum: checksum,
+          archiveId: archiveId,
+        );
     replace(_$result);
     return _$result;
   }

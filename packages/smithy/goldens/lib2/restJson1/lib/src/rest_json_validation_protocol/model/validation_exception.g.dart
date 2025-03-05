@@ -109,11 +109,12 @@ class ValidationExceptionBuilder
     try {
       _$result = _$v ??
           new _$ValidationException._(
-              message: BuiltValueNullFieldError.checkNotNull(
-                  message, r'ValidationException', 'message'),
-              fieldList: _fieldList?.build(),
-              statusCode: statusCode,
-              headers: headers);
+            message: BuiltValueNullFieldError.checkNotNull(
+                message, r'ValidationException', 'message'),
+            fieldList: _fieldList?.build(),
+            statusCode: statusCode,
+            headers: headers,
+          );
     } catch (_) {
       late String _$failedField;
       try {

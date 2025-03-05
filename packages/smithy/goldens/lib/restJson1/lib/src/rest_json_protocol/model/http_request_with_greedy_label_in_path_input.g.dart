@@ -100,10 +100,11 @@ class HttpRequestWithGreedyLabelInPathInputBuilder
   _$HttpRequestWithGreedyLabelInPathInput _build() {
     final _$result = _$v ??
         new _$HttpRequestWithGreedyLabelInPathInput._(
-            foo: BuiltValueNullFieldError.checkNotNull(
-                foo, r'HttpRequestWithGreedyLabelInPathInput', 'foo'),
-            baz: BuiltValueNullFieldError.checkNotNull(
-                baz, r'HttpRequestWithGreedyLabelInPathInput', 'baz'));
+          foo: BuiltValueNullFieldError.checkNotNull(
+              foo, r'HttpRequestWithGreedyLabelInPathInput', 'foo'),
+          baz: BuiltValueNullFieldError.checkNotNull(
+              baz, r'HttpRequestWithGreedyLabelInPathInput', 'baz'),
+        );
     replace(_$result);
     return _$result;
   }

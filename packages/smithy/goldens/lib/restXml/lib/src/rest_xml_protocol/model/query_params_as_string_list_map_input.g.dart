@@ -91,7 +91,10 @@ class QueryParamsAsStringListMapInputBuilder
     _$QueryParamsAsStringListMapInput _$result;
     try {
       _$result = _$v ??
-          new _$QueryParamsAsStringListMapInput._(qux: qux, foo: _foo?.build());
+          new _$QueryParamsAsStringListMapInput._(
+            qux: qux,
+            foo: _foo?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

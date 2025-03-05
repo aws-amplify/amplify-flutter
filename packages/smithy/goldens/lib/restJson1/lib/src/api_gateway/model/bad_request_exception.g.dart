@@ -81,8 +81,11 @@ class BadRequestExceptionBuilder
   BadRequestException build() => _build();
 
   _$BadRequestException _build() {
-    final _$result =
-        _$v ?? new _$BadRequestException._(message: message, headers: headers);
+    final _$result = _$v ??
+        new _$BadRequestException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

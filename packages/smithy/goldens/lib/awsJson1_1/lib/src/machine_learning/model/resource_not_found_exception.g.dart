@@ -95,7 +95,10 @@ class ResourceNotFoundExceptionBuilder
   _$ResourceNotFoundException _build() {
     final _$result = _$v ??
         new _$ResourceNotFoundException._(
-            message: message, code: code, headers: headers);
+          message: message,
+          code: code,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

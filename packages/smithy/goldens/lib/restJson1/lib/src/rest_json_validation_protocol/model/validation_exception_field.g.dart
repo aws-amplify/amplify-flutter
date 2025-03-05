@@ -93,10 +93,11 @@ class ValidationExceptionFieldBuilder
   _$ValidationExceptionField _build() {
     final _$result = _$v ??
         new _$ValidationExceptionField._(
-            path: BuiltValueNullFieldError.checkNotNull(
-                path, r'ValidationExceptionField', 'path'),
-            message: BuiltValueNullFieldError.checkNotNull(
-                message, r'ValidationExceptionField', 'message'));
+          path: BuiltValueNullFieldError.checkNotNull(
+              path, r'ValidationExceptionField', 'path'),
+          message: BuiltValueNullFieldError.checkNotNull(
+              message, r'ValidationExceptionField', 'message'),
+        );
     replace(_$result);
     return _$result;
   }

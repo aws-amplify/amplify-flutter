@@ -96,10 +96,11 @@ class HttpRequestWithFloatLabelsInputBuilder
   _$HttpRequestWithFloatLabelsInput _build() {
     final _$result = _$v ??
         new _$HttpRequestWithFloatLabelsInput._(
-            float: BuiltValueNullFieldError.checkNotNull(
-                float, r'HttpRequestWithFloatLabelsInput', 'float'),
-            double_: BuiltValueNullFieldError.checkNotNull(
-                double_, r'HttpRequestWithFloatLabelsInput', 'double_'));
+          float: BuiltValueNullFieldError.checkNotNull(
+              float, r'HttpRequestWithFloatLabelsInput', 'float'),
+          double_: BuiltValueNullFieldError.checkNotNull(
+              double_, r'HttpRequestWithFloatLabelsInput', 'double_'),
+        );
     replace(_$result);
     return _$result;
   }

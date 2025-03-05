@@ -85,8 +85,11 @@ class MalformedRequestBodyInputBuilder
   MalformedRequestBodyInput build() => _build();
 
   _$MalformedRequestBodyInput _build() {
-    final _$result =
-        _$v ?? new _$MalformedRequestBodyInput._(int_: int_, float: float);
+    final _$result = _$v ??
+        new _$MalformedRequestBodyInput._(
+          int_: int_,
+          float: float,
+        );
     replace(_$result);
     return _$result;
   }

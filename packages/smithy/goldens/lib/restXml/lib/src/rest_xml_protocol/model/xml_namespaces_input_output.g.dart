@@ -78,8 +78,10 @@ class XmlNamespacesInputOutputBuilder
   _$XmlNamespacesInputOutput _build() {
     _$XmlNamespacesInputOutput _$result;
     try {
-      _$result =
-          _$v ?? new _$XmlNamespacesInputOutput._(nested: _nested?.build());
+      _$result = _$v ??
+          new _$XmlNamespacesInputOutput._(
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

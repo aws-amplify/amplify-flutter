@@ -141,16 +141,17 @@ class UploadMultipartPartInputBuilder
   _$UploadMultipartPartInput _build() {
     final _$result = _$v ??
         new _$UploadMultipartPartInput._(
-            accountId: BuiltValueNullFieldError.checkNotNull(
-                accountId, r'UploadMultipartPartInput', 'accountId'),
-            vaultName: BuiltValueNullFieldError.checkNotNull(
-                vaultName, r'UploadMultipartPartInput', 'vaultName'),
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'UploadMultipartPartInput', 'uploadId'),
-            checksum: checksum,
-            range: range,
-            body: BuiltValueNullFieldError.checkNotNull(
-                body, r'UploadMultipartPartInput', 'body'));
+          accountId: BuiltValueNullFieldError.checkNotNull(
+              accountId, r'UploadMultipartPartInput', 'accountId'),
+          vaultName: BuiltValueNullFieldError.checkNotNull(
+              vaultName, r'UploadMultipartPartInput', 'vaultName'),
+          uploadId: BuiltValueNullFieldError.checkNotNull(
+              uploadId, r'UploadMultipartPartInput', 'uploadId'),
+          checksum: checksum,
+          range: range,
+          body: BuiltValueNullFieldError.checkNotNull(
+              body, r'UploadMultipartPartInput', 'body'),
+        );
     replace(_$result);
     return _$result;
   }

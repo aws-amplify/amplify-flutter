@@ -78,8 +78,10 @@ class FlattenedXmlMapInputOutputBuilder
   _$FlattenedXmlMapInputOutput _build() {
     _$FlattenedXmlMapInputOutput _$result;
     try {
-      _$result =
-          _$v ?? new _$FlattenedXmlMapInputOutput._(myMap: _myMap?.build());
+      _$result = _$v ??
+          new _$FlattenedXmlMapInputOutput._(
+            myMap: _myMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

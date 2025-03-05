@@ -76,7 +76,10 @@ class IgnoresWrappingXmlNameOutputBuilder
   IgnoresWrappingXmlNameOutput build() => _build();
 
   _$IgnoresWrappingXmlNameOutput _build() {
-    final _$result = _$v ?? new _$IgnoresWrappingXmlNameOutput._(foo: foo);
+    final _$result = _$v ??
+        new _$IgnoresWrappingXmlNameOutput._(
+          foo: foo,
+        );
     replace(_$result);
     return _$result;
   }

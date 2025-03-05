@@ -85,8 +85,9 @@ class MalformedTimestampQueryEpochInputBuilder
   _$MalformedTimestampQueryEpochInput _build() {
     final _$result = _$v ??
         new _$MalformedTimestampQueryEpochInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'MalformedTimestampQueryEpochInput', 'timestamp'));
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+              timestamp, r'MalformedTimestampQueryEpochInput', 'timestamp'),
+        );
     replace(_$result);
     return _$result;
   }

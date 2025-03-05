@@ -100,10 +100,11 @@ class GetObjectOutputBuilder
   _$GetObjectOutput _build() {
     final _$result = _$v ??
         new _$GetObjectOutput._(
-            body: BuiltValueNullFieldError.checkNotNull(
-                body, r'GetObjectOutput', 'body'),
-            contentLength: contentLength,
-            contentRange: contentRange);
+          body: BuiltValueNullFieldError.checkNotNull(
+              body, r'GetObjectOutput', 'body'),
+          contentLength: contentLength,
+          contentRange: contentRange,
+        );
     replace(_$result);
     return _$result;
   }

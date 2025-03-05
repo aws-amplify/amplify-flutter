@@ -85,7 +85,9 @@ class XmlAttributesOnPayloadInputOutputBuilder
     _$XmlAttributesOnPayloadInputOutput _$result;
     try {
       _$result = _$v ??
-          new _$XmlAttributesOnPayloadInputOutput._(payload: _payload?.build());
+          new _$XmlAttributesOnPayloadInputOutput._(
+            payload: _payload?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

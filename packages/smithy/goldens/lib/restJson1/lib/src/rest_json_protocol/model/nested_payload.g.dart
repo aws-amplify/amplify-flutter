@@ -81,8 +81,11 @@ class NestedPayloadBuilder
   NestedPayload build() => _build();
 
   _$NestedPayload _build() {
-    final _$result =
-        _$v ?? new _$NestedPayload._(greeting: greeting, name: name);
+    final _$result = _$v ??
+        new _$NestedPayload._(
+          greeting: greeting,
+          name: name,
+        );
     replace(_$result);
     return _$result;
   }

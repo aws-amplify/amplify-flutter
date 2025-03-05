@@ -88,7 +88,8 @@ class NestedCollectionsInputBuilder
     try {
       _$result = _$v ??
           new _$NestedCollectionsInput._(
-              mapOfListOfMapOfLists: _mapOfListOfMapOfLists?.build());
+            mapOfListOfMapOfLists: _mapOfListOfMapOfLists?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

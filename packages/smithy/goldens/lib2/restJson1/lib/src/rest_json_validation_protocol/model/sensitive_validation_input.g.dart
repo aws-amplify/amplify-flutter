@@ -75,7 +75,10 @@ class SensitiveValidationInputBuilder
   SensitiveValidationInput build() => _build();
 
   _$SensitiveValidationInput _build() {
-    final _$result = _$v ?? new _$SensitiveValidationInput._(string: string);
+    final _$result = _$v ??
+        new _$SensitiveValidationInput._(
+          string: string,
+        );
     replace(_$result);
     return _$result;
   }

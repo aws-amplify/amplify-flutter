@@ -94,7 +94,10 @@ class LimitExceededExceptionBuilder
   _$LimitExceededException _build() {
     final _$result = _$v ??
         new _$LimitExceededException._(
-            message: message, code: code, headers: headers);
+          message: message,
+          code: code,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

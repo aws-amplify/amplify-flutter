@@ -82,7 +82,11 @@ class StructureListMemberBuilder
   StructureListMember build() => _build();
 
   _$StructureListMember _build() {
-    final _$result = _$v ?? new _$StructureListMember._(a: a, b: b);
+    final _$result = _$v ??
+        new _$StructureListMember._(
+          a: a,
+          b: b,
+        );
     replace(_$result);
     return _$result;
   }

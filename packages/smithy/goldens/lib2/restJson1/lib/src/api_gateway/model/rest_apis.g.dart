@@ -83,8 +83,11 @@ class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
   _$RestApis _build() {
     _$RestApis _$result;
     try {
-      _$result =
-          _$v ?? new _$RestApis._(items: _items?.build(), position: position);
+      _$result = _$v ??
+          new _$RestApis._(
+            items: _items?.build(),
+            position: position,
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -114,11 +114,12 @@ class MalformedDoubleInputBuilder
   _$MalformedDoubleInput _build() {
     final _$result = _$v ??
         new _$MalformedDoubleInput._(
-            doubleInBody: doubleInBody,
-            doubleInPath: BuiltValueNullFieldError.checkNotNull(
-                doubleInPath, r'MalformedDoubleInput', 'doubleInPath'),
-            doubleInQuery: doubleInQuery,
-            doubleInHeader: doubleInHeader);
+          doubleInBody: doubleInBody,
+          doubleInPath: BuiltValueNullFieldError.checkNotNull(
+              doubleInPath, r'MalformedDoubleInput', 'doubleInPath'),
+          doubleInQuery: doubleInQuery,
+          doubleInHeader: doubleInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -195,8 +196,10 @@ class MalformedDoubleInputPayloadBuilder
   MalformedDoubleInputPayload build() => _build();
 
   _$MalformedDoubleInputPayload _build() {
-    final _$result =
-        _$v ?? new _$MalformedDoubleInputPayload._(doubleInBody: doubleInBody);
+    final _$result = _$v ??
+        new _$MalformedDoubleInputPayload._(
+          doubleInBody: doubleInBody,
+        );
     replace(_$result);
     return _$result;
   }

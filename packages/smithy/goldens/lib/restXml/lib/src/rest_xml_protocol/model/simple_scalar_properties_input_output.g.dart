@@ -176,16 +176,17 @@ class SimpleScalarPropertiesInputOutputBuilder
   _$SimpleScalarPropertiesInputOutput _build() {
     final _$result = _$v ??
         new _$SimpleScalarPropertiesInputOutput._(
-            foo: foo,
-            stringValue: stringValue,
-            trueBooleanValue: trueBooleanValue,
-            falseBooleanValue: falseBooleanValue,
-            byteValue: byteValue,
-            shortValue: shortValue,
-            integerValue: integerValue,
-            longValue: longValue,
-            floatValue: floatValue,
-            doubleValue: doubleValue);
+          foo: foo,
+          stringValue: stringValue,
+          trueBooleanValue: trueBooleanValue,
+          falseBooleanValue: falseBooleanValue,
+          byteValue: byteValue,
+          shortValue: shortValue,
+          integerValue: integerValue,
+          longValue: longValue,
+          floatValue: floatValue,
+          doubleValue: doubleValue,
+        );
     replace(_$result);
     return _$result;
   }
@@ -353,15 +354,16 @@ class SimpleScalarPropertiesInputOutputPayloadBuilder
   _$SimpleScalarPropertiesInputOutputPayload _build() {
     final _$result = _$v ??
         new _$SimpleScalarPropertiesInputOutputPayload._(
-            byteValue: byteValue,
-            doubleValue: doubleValue,
-            falseBooleanValue: falseBooleanValue,
-            floatValue: floatValue,
-            integerValue: integerValue,
-            longValue: longValue,
-            shortValue: shortValue,
-            stringValue: stringValue,
-            trueBooleanValue: trueBooleanValue);
+          byteValue: byteValue,
+          doubleValue: doubleValue,
+          falseBooleanValue: falseBooleanValue,
+          floatValue: floatValue,
+          integerValue: integerValue,
+          longValue: longValue,
+          shortValue: shortValue,
+          stringValue: stringValue,
+          trueBooleanValue: trueBooleanValue,
+        );
     replace(_$result);
     return _$result;
   }

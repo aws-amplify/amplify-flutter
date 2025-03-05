@@ -87,7 +87,8 @@ class HttpPayloadWithMemberXmlNameInputOutputBuilder
     try {
       _$result = _$v ??
           new _$HttpPayloadWithMemberXmlNameInputOutput._(
-              nested: _nested?.build());
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

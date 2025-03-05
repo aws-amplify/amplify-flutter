@@ -77,8 +77,10 @@ class MalformedLengthQueryStringInputBuilder
   MalformedLengthQueryStringInput build() => _build();
 
   _$MalformedLengthQueryStringInput _build() {
-    final _$result =
-        _$v ?? new _$MalformedLengthQueryStringInput._(string: string);
+    final _$result = _$v ??
+        new _$MalformedLengthQueryStringInput._(
+          string: string,
+        );
     replace(_$result);
     return _$result;
   }

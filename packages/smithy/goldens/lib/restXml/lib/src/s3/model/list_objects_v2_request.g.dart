@@ -176,17 +176,18 @@ class ListObjectsV2RequestBuilder
   _$ListObjectsV2Request _build() {
     final _$result = _$v ??
         new _$ListObjectsV2Request._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'ListObjectsV2Request', 'bucket'),
-            delimiter: delimiter,
-            encodingType: encodingType,
-            maxKeys: maxKeys,
-            prefix: prefix,
-            continuationToken: continuationToken,
-            fetchOwner: fetchOwner,
-            startAfter: startAfter,
-            requestPayer: requestPayer,
-            expectedBucketOwner: expectedBucketOwner);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'ListObjectsV2Request', 'bucket'),
+          delimiter: delimiter,
+          encodingType: encodingType,
+          maxKeys: maxKeys,
+          prefix: prefix,
+          continuationToken: continuationToken,
+          fetchOwner: fetchOwner,
+          startAfter: startAfter,
+          requestPayer: requestPayer,
+          expectedBucketOwner: expectedBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }

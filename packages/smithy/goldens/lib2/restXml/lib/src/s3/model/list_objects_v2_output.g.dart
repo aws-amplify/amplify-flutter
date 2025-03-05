@@ -198,18 +198,19 @@ class ListObjectsV2OutputBuilder
     try {
       _$result = _$v ??
           new _$ListObjectsV2Output._(
-              isTruncated: isTruncated,
-              contents: _contents?.build(),
-              name: name,
-              prefix: prefix,
-              delimiter: delimiter,
-              maxKeys: maxKeys,
-              commonPrefixes: _commonPrefixes?.build(),
-              encodingType: encodingType,
-              keyCount: keyCount,
-              continuationToken: continuationToken,
-              nextContinuationToken: nextContinuationToken,
-              startAfter: startAfter);
+            isTruncated: isTruncated,
+            contents: _contents?.build(),
+            name: name,
+            prefix: prefix,
+            delimiter: delimiter,
+            maxKeys: maxKeys,
+            commonPrefixes: _commonPrefixes?.build(),
+            encodingType: encodingType,
+            keyCount: keyCount,
+            continuationToken: continuationToken,
+            nextContinuationToken: nextContinuationToken,
+            startAfter: startAfter,
+          );
     } catch (_) {
       late String _$failedField;
       try {

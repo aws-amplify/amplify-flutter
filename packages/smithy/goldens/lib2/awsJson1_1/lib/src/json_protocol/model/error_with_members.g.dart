@@ -162,15 +162,16 @@ class ErrorWithMembersBuilder
     try {
       _$result = _$v ??
           new _$ErrorWithMembers._(
-              code: code,
-              complexData: _complexData?.build(),
-              integerField: integerField,
-              listField: _listField?.build(),
-              mapField: _mapField?.build(),
-              message: message,
-              stringField: stringField,
-              statusCode: statusCode,
-              headers: headers);
+            code: code,
+            complexData: _complexData?.build(),
+            integerField: integerField,
+            listField: _listField?.build(),
+            mapField: _mapField?.build(),
+            message: message,
+            stringField: stringField,
+            statusCode: statusCode,
+            headers: headers,
+          );
     } catch (_) {
       late String _$failedField;
       try {

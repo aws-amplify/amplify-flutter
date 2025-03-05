@@ -78,8 +78,10 @@ class BodyWithXmlNameInputOutputBuilder
   _$BodyWithXmlNameInputOutput _build() {
     _$BodyWithXmlNameInputOutput _$result;
     try {
-      _$result =
-          _$v ?? new _$BodyWithXmlNameInputOutput._(nested: _nested?.build());
+      _$result = _$v ??
+          new _$BodyWithXmlNameInputOutput._(
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

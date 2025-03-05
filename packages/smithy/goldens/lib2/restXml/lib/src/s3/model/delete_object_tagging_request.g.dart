@@ -116,12 +116,13 @@ class DeleteObjectTaggingRequestBuilder
   _$DeleteObjectTaggingRequest _build() {
     final _$result = _$v ??
         new _$DeleteObjectTaggingRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'DeleteObjectTaggingRequest', 'bucket'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'DeleteObjectTaggingRequest', 'key'),
-            versionId: versionId,
-            expectedBucketOwner: expectedBucketOwner);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'DeleteObjectTaggingRequest', 'bucket'),
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'DeleteObjectTaggingRequest', 'key'),
+          versionId: versionId,
+          expectedBucketOwner: expectedBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }

@@ -87,8 +87,9 @@ class MalformedTimestampPathDefaultInputBuilder
   _$MalformedTimestampPathDefaultInput _build() {
     final _$result = _$v ??
         new _$MalformedTimestampPathDefaultInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'MalformedTimestampPathDefaultInput', 'timestamp'));
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+              timestamp, r'MalformedTimestampPathDefaultInput', 'timestamp'),
+        );
     replace(_$result);
     return _$result;
   }

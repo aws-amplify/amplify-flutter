@@ -74,7 +74,10 @@ class PostPlayerActionInputBuilder
   PostPlayerActionInput build() => _build();
 
   _$PostPlayerActionInput _build() {
-    final _$result = _$v ?? new _$PostPlayerActionInput._(action: action);
+    final _$result = _$v ??
+        new _$PostPlayerActionInput._(
+          action: action,
+        );
     replace(_$result);
     return _$result;
   }

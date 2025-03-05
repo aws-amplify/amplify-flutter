@@ -81,8 +81,9 @@ class PostUnionWithJsonNameOutputBuilder
   _$PostUnionWithJsonNameOutput _build() {
     final _$result = _$v ??
         new _$PostUnionWithJsonNameOutput._(
-            value: BuiltValueNullFieldError.checkNotNull(
-                value, r'PostUnionWithJsonNameOutput', 'value'));
+          value: BuiltValueNullFieldError.checkNotNull(
+              value, r'PostUnionWithJsonNameOutput', 'value'),
+        );
     replace(_$result);
     return _$result;
   }

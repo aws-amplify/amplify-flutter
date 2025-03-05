@@ -73,7 +73,10 @@ class CopyObjectResultBuilder
   CopyObjectResult build() => _build();
 
   _$CopyObjectResult _build() {
-    final _$result = _$v ?? new _$CopyObjectResult._(eTag: eTag);
+    final _$result = _$v ??
+        new _$CopyObjectResult._(
+          eTag: eTag,
+        );
     replace(_$result);
     return _$result;
   }

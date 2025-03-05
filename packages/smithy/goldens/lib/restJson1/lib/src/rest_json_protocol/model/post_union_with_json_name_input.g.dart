@@ -75,7 +75,10 @@ class PostUnionWithJsonNameInputBuilder
   PostUnionWithJsonNameInput build() => _build();
 
   _$PostUnionWithJsonNameInput _build() {
-    final _$result = _$v ?? new _$PostUnionWithJsonNameInput._(value: value);
+    final _$result = _$v ??
+        new _$PostUnionWithJsonNameInput._(
+          value: value,
+        );
     replace(_$result);
     return _$result;
   }

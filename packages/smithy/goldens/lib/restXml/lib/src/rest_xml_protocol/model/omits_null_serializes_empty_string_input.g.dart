@@ -93,7 +93,9 @@ class OmitsNullSerializesEmptyStringInputBuilder
   _$OmitsNullSerializesEmptyStringInput _build() {
     final _$result = _$v ??
         new _$OmitsNullSerializesEmptyStringInput._(
-            nullValue: nullValue, emptyString: emptyString);
+          nullValue: nullValue,
+          emptyString: emptyString,
+        );
     replace(_$result);
     return _$result;
   }

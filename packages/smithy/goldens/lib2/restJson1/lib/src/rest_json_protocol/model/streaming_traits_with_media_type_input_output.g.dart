@@ -99,9 +99,10 @@ class StreamingTraitsWithMediaTypeInputOutputBuilder
   _$StreamingTraitsWithMediaTypeInputOutput _build() {
     final _$result = _$v ??
         new _$StreamingTraitsWithMediaTypeInputOutput._(
-            foo: foo,
-            blob: BuiltValueNullFieldError.checkNotNull(
-                blob, r'StreamingTraitsWithMediaTypeInputOutput', 'blob'));
+          foo: foo,
+          blob: BuiltValueNullFieldError.checkNotNull(
+              blob, r'StreamingTraitsWithMediaTypeInputOutput', 'blob'),
+        );
     replace(_$result);
     return _$result;
   }

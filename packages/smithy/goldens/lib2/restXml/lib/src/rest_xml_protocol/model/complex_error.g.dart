@@ -103,10 +103,11 @@ class ComplexErrorBuilder
     try {
       _$result = _$v ??
           new _$ComplexError._(
-              header: header,
-              topLevel: topLevel,
-              nested: _nested?.build(),
-              headers: headers);
+            header: header,
+            topLevel: topLevel,
+            nested: _nested?.build(),
+            headers: headers,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -206,7 +207,9 @@ class ComplexErrorPayloadBuilder
     try {
       _$result = _$v ??
           new _$ComplexErrorPayload._(
-              nested: _nested?.build(), topLevel: topLevel);
+            nested: _nested?.build(),
+            topLevel: topLevel,
+          );
     } catch (_) {
       late String _$failedField;
       try {

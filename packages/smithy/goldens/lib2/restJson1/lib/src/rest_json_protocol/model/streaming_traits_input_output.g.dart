@@ -92,9 +92,10 @@ class StreamingTraitsInputOutputBuilder
   _$StreamingTraitsInputOutput _build() {
     final _$result = _$v ??
         new _$StreamingTraitsInputOutput._(
-            foo: foo,
-            blob: BuiltValueNullFieldError.checkNotNull(
-                blob, r'StreamingTraitsInputOutput', 'blob'));
+          foo: foo,
+          blob: BuiltValueNullFieldError.checkNotNull(
+              blob, r'StreamingTraitsInputOutput', 'blob'),
+        );
     replace(_$result);
     return _$result;
   }

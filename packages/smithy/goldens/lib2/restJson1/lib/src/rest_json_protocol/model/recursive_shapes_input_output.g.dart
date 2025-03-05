@@ -79,8 +79,10 @@ class RecursiveShapesInputOutputBuilder
   _$RecursiveShapesInputOutput _build() {
     _$RecursiveShapesInputOutput _$result;
     try {
-      _$result =
-          _$v ?? new _$RecursiveShapesInputOutput._(nested: _nested?.build());
+      _$result = _$v ??
+          new _$RecursiveShapesInputOutput._(
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

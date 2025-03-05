@@ -108,12 +108,13 @@ class MalformedRequiredInputBuilder
   _$MalformedRequiredInput _build() {
     final _$result = _$v ??
         new _$MalformedRequiredInput._(
-            string: BuiltValueNullFieldError.checkNotNull(
-                string, r'MalformedRequiredInput', 'string'),
-            stringInQuery: BuiltValueNullFieldError.checkNotNull(
-                stringInQuery, r'MalformedRequiredInput', 'stringInQuery'),
-            stringInHeader: BuiltValueNullFieldError.checkNotNull(
-                stringInHeader, r'MalformedRequiredInput', 'stringInHeader'));
+          string: BuiltValueNullFieldError.checkNotNull(
+              string, r'MalformedRequiredInput', 'string'),
+          stringInQuery: BuiltValueNullFieldError.checkNotNull(
+              stringInQuery, r'MalformedRequiredInput', 'stringInQuery'),
+          stringInHeader: BuiltValueNullFieldError.checkNotNull(
+              stringInHeader, r'MalformedRequiredInput', 'stringInHeader'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -194,8 +195,9 @@ class MalformedRequiredInputPayloadBuilder
   _$MalformedRequiredInputPayload _build() {
     final _$result = _$v ??
         new _$MalformedRequiredInputPayload._(
-            string: BuiltValueNullFieldError.checkNotNull(
-                string, r'MalformedRequiredInputPayload', 'string'));
+          string: BuiltValueNullFieldError.checkNotNull(
+              string, r'MalformedRequiredInputPayload', 'string'),
+        );
     replace(_$result);
     return _$result;
   }

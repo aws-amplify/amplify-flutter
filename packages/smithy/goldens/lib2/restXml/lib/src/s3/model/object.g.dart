@@ -129,12 +129,13 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
     try {
       _$result = _$v ??
           new _$S3Object._(
-              key: key,
-              lastModified: lastModified,
-              eTag: eTag,
-              size: size,
-              storageClass: storageClass,
-              owner: _owner?.build());
+            key: key,
+            lastModified: lastModified,
+            eTag: eTag,
+            size: size,
+            storageClass: storageClass,
+            owner: _owner?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

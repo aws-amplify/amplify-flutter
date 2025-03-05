@@ -77,8 +77,10 @@ class NestedStructWithListBuilder
   _$NestedStructWithList _build() {
     _$NestedStructWithList _$result;
     try {
-      _$result =
-          _$v ?? new _$NestedStructWithList._(listArg: _listArg?.build());
+      _$result = _$v ??
+          new _$NestedStructWithList._(
+            listArg: _listArg?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

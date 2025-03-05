@@ -94,7 +94,10 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
 
   _$HttpPayloadTraitsWithMediaTypeInputOutput _build() {
     final _$result = _$v ??
-        new _$HttpPayloadTraitsWithMediaTypeInputOutput._(foo: foo, blob: blob);
+        new _$HttpPayloadTraitsWithMediaTypeInputOutput._(
+          foo: foo,
+          blob: blob,
+        );
     replace(_$result);
     return _$result;
   }

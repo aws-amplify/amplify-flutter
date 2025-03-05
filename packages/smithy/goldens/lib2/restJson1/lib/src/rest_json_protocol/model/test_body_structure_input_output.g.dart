@@ -92,7 +92,9 @@ class TestBodyStructureInputOutputBuilder
     try {
       _$result = _$v ??
           new _$TestBodyStructureInputOutput._(
-              testId: testId, testConfig: _testConfig?.build());
+            testId: testId,
+            testConfig: _testConfig?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -190,7 +192,8 @@ class TestBodyStructureInputOutputPayloadBuilder
     try {
       _$result = _$v ??
           new _$TestBodyStructureInputOutputPayload._(
-              testConfig: _testConfig?.build());
+            testConfig: _testConfig?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

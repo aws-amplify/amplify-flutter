@@ -99,8 +99,9 @@ class NestedXmlMapsInputOutputBuilder
     try {
       _$result = _$v ??
           new _$NestedXmlMapsInputOutput._(
-              nestedMap: _nestedMap?.build(),
-              flatNestedMap: _flatNestedMap?.build());
+            nestedMap: _nestedMap?.build(),
+            flatNestedMap: _flatNestedMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

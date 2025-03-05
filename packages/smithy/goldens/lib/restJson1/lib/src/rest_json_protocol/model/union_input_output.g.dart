@@ -73,7 +73,10 @@ class UnionInputOutputBuilder
   UnionInputOutput build() => _build();
 
   _$UnionInputOutput _build() {
-    final _$result = _$v ?? new _$UnionInputOutput._(contents: contents);
+    final _$result = _$v ??
+        new _$UnionInputOutput._(
+          contents: contents,
+        );
     replace(_$result);
     return _$result;
   }

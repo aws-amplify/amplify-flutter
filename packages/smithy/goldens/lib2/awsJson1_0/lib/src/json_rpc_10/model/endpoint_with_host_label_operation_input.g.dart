@@ -85,8 +85,9 @@ class EndpointWithHostLabelOperationInputBuilder
   _$EndpointWithHostLabelOperationInput _build() {
     final _$result = _$v ??
         new _$EndpointWithHostLabelOperationInput._(
-            label: BuiltValueNullFieldError.checkNotNull(
-                label, r'EndpointWithHostLabelOperationInput', 'label'));
+          label: BuiltValueNullFieldError.checkNotNull(
+              label, r'EndpointWithHostLabelOperationInput', 'label'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -72,7 +72,10 @@ class RenamedGreetingBuilder
   RenamedGreeting build() => _build();
 
   _$RenamedGreeting _build() {
-    final _$result = _$v ?? new _$RenamedGreeting._(salutation: salutation);
+    final _$result = _$v ??
+        new _$RenamedGreeting._(
+          salutation: salutation,
+        );
     replace(_$result);
     return _$result;
   }

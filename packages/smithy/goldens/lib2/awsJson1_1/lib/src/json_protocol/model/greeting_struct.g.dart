@@ -72,7 +72,10 @@ class GreetingStructBuilder
   GreetingStruct build() => _build();
 
   _$GreetingStruct _build() {
-    final _$result = _$v ?? new _$GreetingStruct._(hi: hi);
+    final _$result = _$v ??
+        new _$GreetingStruct._(
+          hi: hi,
+        );
     replace(_$result);
     return _$result;
   }

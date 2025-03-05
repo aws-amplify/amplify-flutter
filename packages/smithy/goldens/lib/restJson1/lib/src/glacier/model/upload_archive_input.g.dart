@@ -125,13 +125,14 @@ class UploadArchiveInputBuilder
   _$UploadArchiveInput _build() {
     final _$result = _$v ??
         new _$UploadArchiveInput._(
-            vaultName: BuiltValueNullFieldError.checkNotNull(
-                vaultName, r'UploadArchiveInput', 'vaultName'),
-            accountId: BuiltValueNullFieldError.checkNotNull(
-                accountId, r'UploadArchiveInput', 'accountId'),
-            archiveDescription: archiveDescription,
-            checksum: checksum,
-            body: body);
+          vaultName: BuiltValueNullFieldError.checkNotNull(
+              vaultName, r'UploadArchiveInput', 'vaultName'),
+          accountId: BuiltValueNullFieldError.checkNotNull(
+              accountId, r'UploadArchiveInput', 'accountId'),
+          archiveDescription: archiveDescription,
+          checksum: checksum,
+          body: body,
+        );
     replace(_$result);
     return _$result;
   }

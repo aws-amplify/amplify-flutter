@@ -113,11 +113,12 @@ class MalformedFloatInputBuilder
   _$MalformedFloatInput _build() {
     final _$result = _$v ??
         new _$MalformedFloatInput._(
-            floatInBody: floatInBody,
-            floatInPath: BuiltValueNullFieldError.checkNotNull(
-                floatInPath, r'MalformedFloatInput', 'floatInPath'),
-            floatInQuery: floatInQuery,
-            floatInHeader: floatInHeader);
+          floatInBody: floatInBody,
+          floatInPath: BuiltValueNullFieldError.checkNotNull(
+              floatInPath, r'MalformedFloatInput', 'floatInPath'),
+          floatInQuery: floatInQuery,
+          floatInHeader: floatInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -193,8 +194,10 @@ class MalformedFloatInputPayloadBuilder
   MalformedFloatInputPayload build() => _build();
 
   _$MalformedFloatInputPayload _build() {
-    final _$result =
-        _$v ?? new _$MalformedFloatInputPayload._(floatInBody: floatInBody);
+    final _$result = _$v ??
+        new _$MalformedFloatInputPayload._(
+          floatInBody: floatInBody,
+        );
     replace(_$result);
     return _$result;
   }

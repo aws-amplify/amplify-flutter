@@ -95,7 +95,10 @@ class InternalServerExceptionBuilder
   _$InternalServerException _build() {
     final _$result = _$v ??
         new _$InternalServerException._(
-            message: message, code: code, headers: headers);
+          message: message,
+          code: code,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

@@ -92,7 +92,9 @@ class SimpleScalarPropertiesInputOutputBuilder
   _$SimpleScalarPropertiesInputOutput _build() {
     final _$result = _$v ??
         new _$SimpleScalarPropertiesInputOutput._(
-            floatValue: floatValue, doubleValue: doubleValue);
+          floatValue: floatValue,
+          doubleValue: doubleValue,
+        );
     replace(_$result);
     return _$result;
   }

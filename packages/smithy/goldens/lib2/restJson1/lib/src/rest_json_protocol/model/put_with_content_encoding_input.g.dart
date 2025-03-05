@@ -87,7 +87,10 @@ class PutWithContentEncodingInputBuilder
 
   _$PutWithContentEncodingInput _build() {
     final _$result = _$v ??
-        new _$PutWithContentEncodingInput._(encoding: encoding, data: data);
+        new _$PutWithContentEncodingInput._(
+          encoding: encoding,
+          data: data,
+        );
     replace(_$result);
     return _$result;
   }
@@ -167,8 +170,10 @@ class PutWithContentEncodingInputPayloadBuilder
   PutWithContentEncodingInputPayload build() => _build();
 
   _$PutWithContentEncodingInputPayload _build() {
-    final _$result =
-        _$v ?? new _$PutWithContentEncodingInputPayload._(data: data);
+    final _$result = _$v ??
+        new _$PutWithContentEncodingInputPayload._(
+          data: data,
+        );
     replace(_$result);
     return _$result;
   }

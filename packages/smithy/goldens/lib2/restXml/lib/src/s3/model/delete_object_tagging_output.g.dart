@@ -75,8 +75,10 @@ class DeleteObjectTaggingOutputBuilder
   DeleteObjectTaggingOutput build() => _build();
 
   _$DeleteObjectTaggingOutput _build() {
-    final _$result =
-        _$v ?? new _$DeleteObjectTaggingOutput._(versionId: versionId);
+    final _$result = _$v ??
+        new _$DeleteObjectTaggingOutput._(
+          versionId: versionId,
+        );
     replace(_$result);
     return _$result;
   }

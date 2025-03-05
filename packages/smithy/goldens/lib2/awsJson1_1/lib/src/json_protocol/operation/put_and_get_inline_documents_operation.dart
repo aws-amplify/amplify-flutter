@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas,unnecessary_library_name
 
 library aws_json1_1_v2.json_protocol.operation.put_and_get_inline_documents_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,7 +55,7 @@ class PutAndGetInlineDocumentsOperation extends _i1.HttpOperation<
               service: _i4.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i3.WithSdkInvocationId(),
             const _i3.WithSdkRequest(),
           ] +

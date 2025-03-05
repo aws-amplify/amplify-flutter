@@ -80,7 +80,8 @@ class CopyObjectOutputBuilder
     try {
       _$result = _$v ??
           new _$CopyObjectOutput._(
-              copyObjectResult: _copyObjectResult?.build());
+            copyObjectResult: _copyObjectResult?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

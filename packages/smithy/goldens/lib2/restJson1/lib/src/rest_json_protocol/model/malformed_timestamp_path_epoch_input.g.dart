@@ -83,8 +83,9 @@ class MalformedTimestampPathEpochInputBuilder
   _$MalformedTimestampPathEpochInput _build() {
     final _$result = _$v ??
         new _$MalformedTimestampPathEpochInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'MalformedTimestampPathEpochInput', 'timestamp'));
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+              timestamp, r'MalformedTimestampPathEpochInput', 'timestamp'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -170,23 +170,33 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
   _$HttpRequestWithLabelsAndTimestampFormatInput _build() {
     final _$result = _$v ??
         new _$HttpRequestWithLabelsAndTimestampFormatInput._(
-            memberEpochSeconds: BuiltValueNullFieldError.checkNotNull(
-                memberEpochSeconds,
-                r'HttpRequestWithLabelsAndTimestampFormatInput',
-                'memberEpochSeconds'),
-            memberHttpDate: BuiltValueNullFieldError.checkNotNull(
-                memberHttpDate, r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberHttpDate'),
-            memberDateTime: BuiltValueNullFieldError.checkNotNull(
-                memberDateTime, r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberDateTime'),
-            defaultFormat: BuiltValueNullFieldError.checkNotNull(
-                defaultFormat, r'HttpRequestWithLabelsAndTimestampFormatInput', 'defaultFormat'),
-            targetEpochSeconds: BuiltValueNullFieldError.checkNotNull(
-                targetEpochSeconds,
-                r'HttpRequestWithLabelsAndTimestampFormatInput',
-                'targetEpochSeconds'),
-            targetHttpDate: BuiltValueNullFieldError.checkNotNull(
-                targetHttpDate, r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetHttpDate'),
-            targetDateTime: BuiltValueNullFieldError.checkNotNull(targetDateTime, r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetDateTime'));
+          memberEpochSeconds: BuiltValueNullFieldError.checkNotNull(
+              memberEpochSeconds,
+              r'HttpRequestWithLabelsAndTimestampFormatInput',
+              'memberEpochSeconds'),
+          memberHttpDate: BuiltValueNullFieldError.checkNotNull(
+              memberHttpDate,
+              r'HttpRequestWithLabelsAndTimestampFormatInput',
+              'memberHttpDate'),
+          memberDateTime: BuiltValueNullFieldError.checkNotNull(
+              memberDateTime,
+              r'HttpRequestWithLabelsAndTimestampFormatInput',
+              'memberDateTime'),
+          defaultFormat: BuiltValueNullFieldError.checkNotNull(defaultFormat,
+              r'HttpRequestWithLabelsAndTimestampFormatInput', 'defaultFormat'),
+          targetEpochSeconds: BuiltValueNullFieldError.checkNotNull(
+              targetEpochSeconds,
+              r'HttpRequestWithLabelsAndTimestampFormatInput',
+              'targetEpochSeconds'),
+          targetHttpDate: BuiltValueNullFieldError.checkNotNull(
+              targetHttpDate,
+              r'HttpRequestWithLabelsAndTimestampFormatInput',
+              'targetHttpDate'),
+          targetDateTime: BuiltValueNullFieldError.checkNotNull(
+              targetDateTime,
+              r'HttpRequestWithLabelsAndTimestampFormatInput',
+              'targetDateTime'),
+        );
     replace(_$result);
     return _$result;
   }

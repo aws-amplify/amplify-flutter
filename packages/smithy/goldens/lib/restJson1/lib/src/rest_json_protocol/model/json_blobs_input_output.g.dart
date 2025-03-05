@@ -74,7 +74,10 @@ class JsonBlobsInputOutputBuilder
   JsonBlobsInputOutput build() => _build();
 
   _$JsonBlobsInputOutput _build() {
-    final _$result = _$v ?? new _$JsonBlobsInputOutput._(data: data);
+    final _$result = _$v ??
+        new _$JsonBlobsInputOutput._(
+          data: data,
+        );
     replace(_$result);
     return _$result;
   }

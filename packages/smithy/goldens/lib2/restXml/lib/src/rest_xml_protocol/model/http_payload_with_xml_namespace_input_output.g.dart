@@ -87,7 +87,8 @@ class HttpPayloadWithXmlNamespaceInputOutputBuilder
     try {
       _$result = _$v ??
           new _$HttpPayloadWithXmlNamespaceInputOutput._(
-              nested: _nested?.build());
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

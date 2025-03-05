@@ -77,7 +77,10 @@ class NestedStructWithMapBuilder
   _$NestedStructWithMap _build() {
     _$NestedStructWithMap _$result;
     try {
-      _$result = _$v ?? new _$NestedStructWithMap._(mapArg: _mapArg?.build());
+      _$result = _$v ??
+          new _$NestedStructWithMap._(
+            mapArg: _mapArg?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

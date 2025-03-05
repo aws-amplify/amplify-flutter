@@ -112,10 +112,11 @@ class MalformedPatternOverrideInputBuilder
     try {
       _$result = _$v ??
           new _$MalformedPatternOverrideInput._(
-              string: string,
-              list: _list?.build(),
-              map: _map?.build(),
-              union: union);
+            string: string,
+            list: _list?.build(),
+            map: _map?.build(),
+            union: union,
+          );
     } catch (_) {
       late String _$failedField;
       try {

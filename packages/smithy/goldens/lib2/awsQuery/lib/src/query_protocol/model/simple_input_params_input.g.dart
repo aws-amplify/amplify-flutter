@@ -160,15 +160,16 @@ class SimpleInputParamsInputBuilder
   _$SimpleInputParamsInput _build() {
     final _$result = _$v ??
         new _$SimpleInputParamsInput._(
-            foo: foo,
-            bar: bar,
-            baz: baz,
-            bam: bam,
-            floatValue: floatValue,
-            boo: boo,
-            qux: qux,
-            fooEnum: fooEnum,
-            integerEnum: integerEnum);
+          foo: foo,
+          bar: bar,
+          baz: baz,
+          bam: bam,
+          floatValue: floatValue,
+          boo: boo,
+          qux: qux,
+          fooEnum: fooEnum,
+          integerEnum: integerEnum,
+        );
     replace(_$result);
     return _$result;
   }

@@ -87,7 +87,9 @@ class TestPayloadBlobInputOutputBuilder
   _$TestPayloadBlobInputOutput _build() {
     final _$result = _$v ??
         new _$TestPayloadBlobInputOutput._(
-            contentType: contentType, data: data);
+          contentType: contentType,
+          data: data,
+        );
     replace(_$result);
     return _$result;
   }

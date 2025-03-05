@@ -73,7 +73,10 @@ class JsonUnionsOutputBuilder
   JsonUnionsOutput build() => _build();
 
   _$JsonUnionsOutput _build() {
-    final _$result = _$v ?? new _$JsonUnionsOutput._(contents: contents);
+    final _$result = _$v ??
+        new _$JsonUnionsOutput._(
+          contents: contents,
+        );
     replace(_$result);
     return _$result;
   }

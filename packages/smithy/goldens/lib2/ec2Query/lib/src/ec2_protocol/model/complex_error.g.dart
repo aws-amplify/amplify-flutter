@@ -101,10 +101,11 @@ class ComplexErrorBuilder
     try {
       _$result = _$v ??
           new _$ComplexError._(
-              topLevel: topLevel,
-              nested: _nested?.build(),
-              statusCode: statusCode,
-              headers: headers);
+            topLevel: topLevel,
+            nested: _nested?.build(),
+            statusCode: statusCode,
+            headers: headers,
+          );
     } catch (_) {
       late String _$failedField;
       try {

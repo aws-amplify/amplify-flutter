@@ -147,13 +147,14 @@ class TimestampFormatHeadersIoBuilder
   _$TimestampFormatHeadersIo _build() {
     final _$result = _$v ??
         new _$TimestampFormatHeadersIo._(
-            memberEpochSeconds: memberEpochSeconds,
-            memberHttpDate: memberHttpDate,
-            memberDateTime: memberDateTime,
-            defaultFormat: defaultFormat,
-            targetEpochSeconds: targetEpochSeconds,
-            targetHttpDate: targetHttpDate,
-            targetDateTime: targetDateTime);
+          memberEpochSeconds: memberEpochSeconds,
+          memberHttpDate: memberHttpDate,
+          memberDateTime: memberDateTime,
+          defaultFormat: defaultFormat,
+          targetEpochSeconds: targetEpochSeconds,
+          targetHttpDate: targetHttpDate,
+          targetDateTime: targetDateTime,
+        );
     replace(_$result);
     return _$result;
   }

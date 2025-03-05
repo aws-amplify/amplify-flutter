@@ -106,11 +106,12 @@ class PredictInputBuilder
     try {
       _$result = _$v ??
           new _$PredictInput._(
-              mlModelId: BuiltValueNullFieldError.checkNotNull(
-                  mlModelId, r'PredictInput', 'mlModelId'),
-              record: record.build(),
-              predictEndpoint: BuiltValueNullFieldError.checkNotNull(
-                  predictEndpoint, r'PredictInput', 'predictEndpoint'));
+            mlModelId: BuiltValueNullFieldError.checkNotNull(
+                mlModelId, r'PredictInput', 'mlModelId'),
+            record: record.build(),
+            predictEndpoint: BuiltValueNullFieldError.checkNotNull(
+                predictEndpoint, r'PredictInput', 'predictEndpoint'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

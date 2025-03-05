@@ -208,19 +208,20 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
     try {
       _$result = _$v ??
           new _$RestApi._(
-              id: id,
-              name: name,
-              description: description,
-              createdDate: createdDate,
-              version: version,
-              warnings: _warnings?.build(),
-              binaryMediaTypes: _binaryMediaTypes?.build(),
-              minimumCompressionSize: minimumCompressionSize,
-              apiKeySource: apiKeySource,
-              endpointConfiguration: _endpointConfiguration?.build(),
-              policy: policy,
-              tags: _tags?.build(),
-              disableExecuteApiEndpoint: disableExecuteApiEndpoint);
+            id: id,
+            name: name,
+            description: description,
+            createdDate: createdDate,
+            version: version,
+            warnings: _warnings?.build(),
+            binaryMediaTypes: _binaryMediaTypes?.build(),
+            minimumCompressionSize: minimumCompressionSize,
+            apiKeySource: apiKeySource,
+            endpointConfiguration: _endpointConfiguration?.build(),
+            policy: policy,
+            tags: _tags?.build(),
+            disableExecuteApiEndpoint: disableExecuteApiEndpoint,
+          );
     } catch (_) {
       late String _$failedField;
       try {

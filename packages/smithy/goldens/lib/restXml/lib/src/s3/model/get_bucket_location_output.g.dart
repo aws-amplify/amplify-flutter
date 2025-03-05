@@ -79,7 +79,9 @@ class GetBucketLocationOutputBuilder
 
   _$GetBucketLocationOutput _build() {
     final _$result = _$v ??
-        new _$GetBucketLocationOutput._(locationConstraint: locationConstraint);
+        new _$GetBucketLocationOutput._(
+          locationConstraint: locationConstraint,
+        );
     replace(_$result);
     return _$result;
   }

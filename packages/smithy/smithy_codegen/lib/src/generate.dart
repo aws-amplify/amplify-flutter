@@ -12,6 +12,7 @@ const List<String> _ignoredRules = [
   'deprecated_member_use_from_same_package',
   'non_constant_identifier_names',
   'require_trailing_commas',
+  'unnecessary_library_name',
 ];
 
 /// Header which prefixes all generated files.

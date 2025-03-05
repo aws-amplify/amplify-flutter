@@ -75,7 +75,10 @@ class HttpChecksumRequiredInputBuilder
   HttpChecksumRequiredInput build() => _build();
 
   _$HttpChecksumRequiredInput _build() {
-    final _$result = _$v ?? new _$HttpChecksumRequiredInput._(content: content);
+    final _$result = _$v ??
+        new _$HttpChecksumRequiredInput._(
+          content: content,
+        );
     replace(_$result);
     return _$result;
   }

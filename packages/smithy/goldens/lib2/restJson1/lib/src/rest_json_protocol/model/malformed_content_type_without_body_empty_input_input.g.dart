@@ -86,7 +86,9 @@ class MalformedContentTypeWithoutBodyEmptyInputInputBuilder
 
   _$MalformedContentTypeWithoutBodyEmptyInputInput _build() {
     final _$result = _$v ??
-        new _$MalformedContentTypeWithoutBodyEmptyInputInput._(header: header);
+        new _$MalformedContentTypeWithoutBodyEmptyInputInput._(
+          header: header,
+        );
     replace(_$result);
     return _$result;
   }

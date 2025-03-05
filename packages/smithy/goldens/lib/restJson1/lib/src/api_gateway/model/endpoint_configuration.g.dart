@@ -91,7 +91,9 @@ class EndpointConfigurationBuilder
     try {
       _$result = _$v ??
           new _$EndpointConfiguration._(
-              types: _types?.build(), vpcEndpointIds: _vpcEndpointIds?.build());
+            types: _types?.build(),
+            vpcEndpointIds: _vpcEndpointIds?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

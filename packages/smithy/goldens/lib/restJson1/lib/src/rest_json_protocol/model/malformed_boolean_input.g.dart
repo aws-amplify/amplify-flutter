@@ -116,11 +116,12 @@ class MalformedBooleanInputBuilder
   _$MalformedBooleanInput _build() {
     final _$result = _$v ??
         new _$MalformedBooleanInput._(
-            booleanInBody: booleanInBody,
-            booleanInPath: BuiltValueNullFieldError.checkNotNull(
-                booleanInPath, r'MalformedBooleanInput', 'booleanInPath'),
-            booleanInQuery: booleanInQuery,
-            booleanInHeader: booleanInHeader);
+          booleanInBody: booleanInBody,
+          booleanInPath: BuiltValueNullFieldError.checkNotNull(
+              booleanInPath, r'MalformedBooleanInput', 'booleanInPath'),
+          booleanInQuery: booleanInQuery,
+          booleanInHeader: booleanInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -199,7 +200,9 @@ class MalformedBooleanInputPayloadBuilder
 
   _$MalformedBooleanInputPayload _build() {
     final _$result = _$v ??
-        new _$MalformedBooleanInputPayload._(booleanInBody: booleanInBody);
+        new _$MalformedBooleanInputPayload._(
+          booleanInBody: booleanInBody,
+        );
     replace(_$result);
     return _$result;
   }

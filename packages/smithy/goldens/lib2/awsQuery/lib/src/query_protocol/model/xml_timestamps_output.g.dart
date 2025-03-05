@@ -143,13 +143,14 @@ class XmlTimestampsOutputBuilder
   _$XmlTimestampsOutput _build() {
     final _$result = _$v ??
         new _$XmlTimestampsOutput._(
-            normal: normal,
-            dateTime: dateTime,
-            dateTimeOnTarget: dateTimeOnTarget,
-            epochSeconds: epochSeconds,
-            epochSecondsOnTarget: epochSecondsOnTarget,
-            httpDate: httpDate,
-            httpDateOnTarget: httpDateOnTarget);
+          normal: normal,
+          dateTime: dateTime,
+          dateTimeOnTarget: dateTimeOnTarget,
+          epochSeconds: epochSeconds,
+          epochSecondsOnTarget: epochSecondsOnTarget,
+          httpDate: httpDate,
+          httpDateOnTarget: httpDateOnTarget,
+        );
     replace(_$result);
     return _$result;
   }

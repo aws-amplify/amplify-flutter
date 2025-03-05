@@ -74,7 +74,10 @@ class ComplexNestedErrorDataBuilder
   ComplexNestedErrorData build() => _build();
 
   _$ComplexNestedErrorData _build() {
-    final _$result = _$v ?? new _$ComplexNestedErrorData._(foo: foo);
+    final _$result = _$v ??
+        new _$ComplexNestedErrorData._(
+          foo: foo,
+        );
     replace(_$result);
     return _$result;
   }

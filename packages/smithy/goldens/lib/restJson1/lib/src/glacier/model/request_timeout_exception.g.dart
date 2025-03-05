@@ -105,7 +105,11 @@ class RequestTimeoutExceptionBuilder
   _$RequestTimeoutException _build() {
     final _$result = _$v ??
         new _$RequestTimeoutException._(
-            type: type, code: code, message: message, headers: headers);
+          type: type,
+          code: code,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

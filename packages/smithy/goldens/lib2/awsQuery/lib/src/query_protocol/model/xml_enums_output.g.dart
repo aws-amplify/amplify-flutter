@@ -135,12 +135,13 @@ class XmlEnumsOutputBuilder
     try {
       _$result = _$v ??
           new _$XmlEnumsOutput._(
-              fooEnum1: fooEnum1,
-              fooEnum2: fooEnum2,
-              fooEnum3: fooEnum3,
-              fooEnumList: _fooEnumList?.build(),
-              fooEnumSet: _fooEnumSet?.build(),
-              fooEnumMap: _fooEnumMap?.build());
+            fooEnum1: fooEnum1,
+            fooEnum2: fooEnum2,
+            fooEnum3: fooEnum3,
+            fooEnumList: _fooEnumList?.build(),
+            fooEnumSet: _fooEnumSet?.build(),
+            fooEnumMap: _fooEnumMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

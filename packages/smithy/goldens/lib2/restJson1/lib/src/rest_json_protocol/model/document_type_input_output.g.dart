@@ -89,7 +89,9 @@ class DocumentTypeInputOutputBuilder
   _$DocumentTypeInputOutput _build() {
     final _$result = _$v ??
         new _$DocumentTypeInputOutput._(
-            stringValue: stringValue, documentValue: documentValue);
+          stringValue: stringValue,
+          documentValue: documentValue,
+        );
     replace(_$result);
     return _$result;
   }

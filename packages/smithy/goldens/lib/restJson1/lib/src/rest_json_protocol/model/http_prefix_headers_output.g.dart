@@ -89,7 +89,10 @@ class HttpPrefixHeadersOutputBuilder
     _$HttpPrefixHeadersOutput _$result;
     try {
       _$result = _$v ??
-          new _$HttpPrefixHeadersOutput._(foo: foo, fooMap: _fooMap?.build());
+          new _$HttpPrefixHeadersOutput._(
+            foo: foo,
+            fooMap: _fooMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

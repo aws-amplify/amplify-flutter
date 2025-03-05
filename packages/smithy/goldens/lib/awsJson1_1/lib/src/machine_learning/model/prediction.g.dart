@@ -113,10 +113,11 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
     try {
       _$result = _$v ??
           new _$Prediction._(
-              predictedLabel: predictedLabel,
-              predictedValue: predictedValue,
-              predictedScores: _predictedScores?.build(),
-              details: _details?.build());
+            predictedLabel: predictedLabel,
+            predictedValue: predictedValue,
+            predictedScores: _predictedScores?.build(),
+            details: _details?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

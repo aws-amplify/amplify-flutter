@@ -87,8 +87,9 @@ class MalformedTimestampHeaderEpochInputBuilder
   _$MalformedTimestampHeaderEpochInput _build() {
     final _$result = _$v ??
         new _$MalformedTimestampHeaderEpochInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'MalformedTimestampHeaderEpochInput', 'timestamp'));
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+              timestamp, r'MalformedTimestampHeaderEpochInput', 'timestamp'),
+        );
     replace(_$result);
     return _$result;
   }

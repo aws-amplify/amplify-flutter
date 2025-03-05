@@ -74,7 +74,10 @@ class MalformedStringInputBuilder
   MalformedStringInput build() => _build();
 
   _$MalformedStringInput _build() {
-    final _$result = _$v ?? new _$MalformedStringInput._(blob: blob);
+    final _$result = _$v ??
+        new _$MalformedStringInput._(
+          blob: blob,
+        );
     replace(_$result);
     return _$result;
   }

@@ -80,8 +80,9 @@ class ConstantQueryStringInputBuilder
   _$ConstantQueryStringInput _build() {
     final _$result = _$v ??
         new _$ConstantQueryStringInput._(
-            hello: BuiltValueNullFieldError.checkNotNull(
-                hello, r'ConstantQueryStringInput', 'hello'));
+          hello: BuiltValueNullFieldError.checkNotNull(
+              hello, r'ConstantQueryStringInput', 'hello'),
+        );
     replace(_$result);
     return _$result;
   }

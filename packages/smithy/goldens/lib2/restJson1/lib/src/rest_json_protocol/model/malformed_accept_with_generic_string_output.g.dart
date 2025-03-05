@@ -82,8 +82,10 @@ class MalformedAcceptWithGenericStringOutputBuilder
   MalformedAcceptWithGenericStringOutput build() => _build();
 
   _$MalformedAcceptWithGenericStringOutput _build() {
-    final _$result =
-        _$v ?? new _$MalformedAcceptWithGenericStringOutput._(payload: payload);
+    final _$result = _$v ??
+        new _$MalformedAcceptWithGenericStringOutput._(
+          payload: payload,
+        );
     replace(_$result);
     return _$result;
   }

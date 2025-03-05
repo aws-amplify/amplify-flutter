@@ -85,8 +85,11 @@ class XmlAttributesInputOutputBuilder
   XmlAttributesInputOutput build() => _build();
 
   _$XmlAttributesInputOutput _build() {
-    final _$result =
-        _$v ?? new _$XmlAttributesInputOutput._(foo: foo, attr: attr);
+    final _$result = _$v ??
+        new _$XmlAttributesInputOutput._(
+          foo: foo,
+          attr: attr,
+        );
     replace(_$result);
     return _$result;
   }

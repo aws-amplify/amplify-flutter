@@ -106,7 +106,11 @@ class InvalidParameterValueExceptionBuilder
   _$InvalidParameterValueException _build() {
     final _$result = _$v ??
         new _$InvalidParameterValueException._(
-            type: type, code: code, message: message, headers: headers);
+          type: type,
+          code: code,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }
