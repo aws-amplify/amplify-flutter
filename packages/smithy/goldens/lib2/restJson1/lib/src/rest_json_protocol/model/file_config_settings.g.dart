@@ -22,24 +22,24 @@ class _$FileConfigSettings extends FileConfigSettings {
   @override
   final int? maxAttempts;
 
-  factory _$FileConfigSettings(
-          [void Function(FileConfigSettingsBuilder)? updates]) =>
-      (new FileConfigSettingsBuilder()..update(updates))._build();
+  factory _$FileConfigSettings([
+    void Function(FileConfigSettingsBuilder)? updates,
+  ]) => (new FileConfigSettingsBuilder()..update(updates))._build();
 
-  _$FileConfigSettings._(
-      {this.awsAccessKeyId,
-      this.awsSecretAccessKey,
-      this.awsSessionToken,
-      this.region,
-      this.s3,
-      this.retryMode,
-      this.maxAttempts})
-      : super._();
+  _$FileConfigSettings._({
+    this.awsAccessKeyId,
+    this.awsSecretAccessKey,
+    this.awsSessionToken,
+    this.region,
+    this.s3,
+    this.retryMode,
+    this.maxAttempts,
+  }) : super._();
 
   @override
   FileConfigSettings rebuild(
-          void Function(FileConfigSettingsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(FileConfigSettingsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   FileConfigSettingsBuilder toBuilder() =>
@@ -142,7 +142,8 @@ class FileConfigSettingsBuilder
   _$FileConfigSettings _build() {
     _$FileConfigSettings _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$FileConfigSettings._(
             awsAccessKeyId: awsAccessKeyId,
             awsSecretAccessKey: awsSecretAccessKey,
@@ -159,7 +160,10 @@ class FileConfigSettingsBuilder
         _s3?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'FileConfigSettings', _$failedField, e.toString());
+          r'FileConfigSettings',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

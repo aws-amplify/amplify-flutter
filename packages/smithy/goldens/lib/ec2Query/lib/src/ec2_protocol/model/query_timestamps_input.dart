@@ -27,9 +27,9 @@ abstract class QueryTimestampsInput
     );
   }
 
-  factory QueryTimestampsInput.build(
-          [void Function(QueryTimestampsInputBuilder) updates]) =
-      _$QueryTimestampsInput;
+  factory QueryTimestampsInput.build([
+    void Function(QueryTimestampsInputBuilder) updates,
+  ]) = _$QueryTimestampsInput;
 
   const QueryTimestampsInput._();
 
@@ -37,11 +37,10 @@ abstract class QueryTimestampsInput
     QueryTimestampsInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<QueryTimestampsInput>> serializers = [
-    QueryTimestampsInputEc2QuerySerializer()
+    QueryTimestampsInputEc2QuerySerializer(),
   ];
 
   DateTime? get normalFormat;
@@ -51,27 +50,15 @@ abstract class QueryTimestampsInput
   QueryTimestampsInput getPayload() => this;
 
   @override
-  List<Object?> get props => [
-        normalFormat,
-        epochMember,
-        epochTarget,
-      ];
+  List<Object?> get props => [normalFormat, epochMember, epochTarget];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryTimestampsInput')
-      ..add(
-        'normalFormat',
-        normalFormat,
-      )
-      ..add(
-        'epochMember',
-        epochMember,
-      )
-      ..add(
-        'epochTarget',
-        epochTarget,
-      );
+    final helper =
+        newBuiltValueToStringHelper('QueryTimestampsInput')
+          ..add('normalFormat', normalFormat)
+          ..add('epochMember', epochMember)
+          ..add('epochTarget', epochTarget);
     return helper.toString();
   }
 }
@@ -79,21 +66,18 @@ abstract class QueryTimestampsInput
 class QueryTimestampsInputEc2QuerySerializer
     extends _i1.StructuredSmithySerializer<QueryTimestampsInput> {
   const QueryTimestampsInputEc2QuerySerializer()
-      : super('QueryTimestampsInput');
+    : super('QueryTimestampsInput');
 
   @override
   Iterable<Type> get types => const [
-        QueryTimestampsInput,
-        _$QueryTimestampsInput,
-      ];
+    QueryTimestampsInput,
+    _$QueryTimestampsInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   QueryTimestampsInput deserialize(
@@ -112,10 +96,12 @@ class QueryTimestampsInputEc2QuerySerializer
       }
       switch (key) {
         case 'normalFormat':
-          result.normalFormat = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.normalFormat =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
         case 'epochMember':
           result.epochMember = _i1.TimestampSerializer.epochSeconds.deserialize(
             serializers,
@@ -142,33 +128,39 @@ class QueryTimestampsInputEc2QuerySerializer
       const _i1.XmlElementName(
         'QueryTimestampsInputResponse',
         _i1.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final QueryTimestampsInput(:normalFormat, :epochMember, :epochTarget) =
         object;
     if (normalFormat != null) {
       result$
         ..add(const _i1.XmlElementName('NormalFormat'))
-        ..add(serializers.serialize(
-          normalFormat,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            normalFormat,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     if (epochMember != null) {
       result$
         ..add(const _i1.XmlElementName('EpochMember'))
-        ..add(_i1.TimestampSerializer.epochSeconds.serialize(
-          serializers,
-          epochMember,
-        ));
+        ..add(
+          _i1.TimestampSerializer.epochSeconds.serialize(
+            serializers,
+            epochMember,
+          ),
+        );
     }
     if (epochTarget != null) {
       result$
         ..add(const _i1.XmlElementName('EpochTarget'))
-        ..add(_i1.TimestampSerializer.epochSeconds.serialize(
-          serializers,
-          epochTarget,
-        ));
+        ..add(
+          _i1.TimestampSerializer.epochSeconds.serialize(
+            serializers,
+            epochTarget,
+          ),
+        );
     }
     return result$;
   }

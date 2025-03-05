@@ -44,7 +44,7 @@ abstract class ScopedConfig
   const ScopedConfig._();
 
   static const List<_i3.SmithySerializer<ScopedConfig>> serializers = [
-    ScopedConfigEc2QuerySerializer()
+    ScopedConfigEc2QuerySerializer(),
   ];
 
   /// Config settings that can be set as environment variables.
@@ -63,36 +63,22 @@ abstract class ScopedConfig
   OperationConfig? get operation;
   @override
   List<Object?> get props => [
-        environment,
-        configFile,
-        credentialsFile,
-        client,
-        operation,
-      ];
+    environment,
+    configFile,
+    credentialsFile,
+    client,
+    operation,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScopedConfig')
-      ..add(
-        'environment',
-        environment,
-      )
-      ..add(
-        'configFile',
-        configFile,
-      )
-      ..add(
-        'credentialsFile',
-        credentialsFile,
-      )
-      ..add(
-        'client',
-        client,
-      )
-      ..add(
-        'operation',
-        operation,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ScopedConfig')
+          ..add('environment', environment)
+          ..add('configFile', configFile)
+          ..add('credentialsFile', credentialsFile)
+          ..add('client', client)
+          ..add('operation', operation);
     return helper.toString();
   }
 }
@@ -102,18 +88,12 @@ class ScopedConfigEc2QuerySerializer
   const ScopedConfigEc2QuerySerializer() : super('ScopedConfig');
 
   @override
-  Iterable<Type> get types => const [
-        ScopedConfig,
-        _$ScopedConfig,
-      ];
+  Iterable<Type> get types => const [ScopedConfig, _$ScopedConfig];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   ScopedConfig deserialize(
@@ -132,46 +112,51 @@ class ScopedConfigEc2QuerySerializer
       }
       switch (key) {
         case 'environment':
-          result.environment.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(EnvironmentConfig),
-          ) as EnvironmentConfig));
+          result.environment.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(EnvironmentConfig),
+                )
+                as EnvironmentConfig),
+          );
         case 'configFile':
-          result.configFile
-              .replace(const _i3.XmlBuiltMapSerializer().deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
+          result.configFile.replace(
+            const _i3.XmlBuiltMapSerializer().deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i2.BuiltMap, [
                 FullType(String),
                 FullType(FileConfigSettings),
-              ],
+              ]),
             ),
-          ));
+          );
         case 'credentialsFile':
-          result.credentialsFile
-              .replace(const _i3.XmlBuiltMapSerializer().deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
+          result.credentialsFile.replace(
+            const _i3.XmlBuiltMapSerializer().deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i2.BuiltMap, [
                 FullType(String),
                 FullType(FileConfigSettings),
-              ],
+              ]),
             ),
-          ));
+          );
         case 'client':
-          result.client.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ClientConfig),
-          ) as ClientConfig));
+          result.client.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ClientConfig),
+                )
+                as ClientConfig),
+          );
         case 'operation':
-          result.operation.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(OperationConfig),
-          ) as OperationConfig));
+          result.operation.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(OperationConfig),
+                )
+                as OperationConfig),
+          );
       }
     }
 
@@ -188,68 +173,72 @@ class ScopedConfigEc2QuerySerializer
       const _i3.XmlElementName(
         'ScopedConfigResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final ScopedConfig(
       :environment,
       :configFile,
       :credentialsFile,
       :client,
-      :operation
+      :operation,
     ) = object;
     if (environment != null) {
       result$
         ..add(const _i3.XmlElementName('Environment'))
-        ..add(serializers.serialize(
-          environment,
-          specifiedType: const FullType(EnvironmentConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            environment,
+            specifiedType: const FullType(EnvironmentConfig),
+          ),
+        );
     }
     if (configFile != null) {
       result$
         ..add(const _i3.XmlElementName('ConfigFile'))
-        ..add(const _i3.XmlBuiltMapSerializer().serialize(
-          serializers,
-          configFile,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          const _i3.XmlBuiltMapSerializer().serialize(
+            serializers,
+            configFile,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(FileConfigSettings),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (credentialsFile != null) {
       result$
         ..add(const _i3.XmlElementName('CredentialsFile'))
-        ..add(const _i3.XmlBuiltMapSerializer().serialize(
-          serializers,
-          credentialsFile,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          const _i3.XmlBuiltMapSerializer().serialize(
+            serializers,
+            credentialsFile,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(FileConfigSettings),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (client != null) {
       result$
         ..add(const _i3.XmlElementName('Client'))
-        ..add(serializers.serialize(
-          client,
-          specifiedType: const FullType(ClientConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            client,
+            specifiedType: const FullType(ClientConfig),
+          ),
+        );
     }
     if (operation != null) {
       result$
         ..add(const _i3.XmlElementName('Operation'))
-        ..add(serializers.serialize(
-          operation,
-          specifiedType: const FullType(OperationConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            operation,
+            specifiedType: const FullType(OperationConfig),
+          ),
+        );
     }
     return result$;
   }

@@ -22,24 +22,24 @@ class _$TimestampFormatHeadersIo extends TimestampFormatHeadersIo {
   @override
   final DateTime? targetDateTime;
 
-  factory _$TimestampFormatHeadersIo(
-          [void Function(TimestampFormatHeadersIoBuilder)? updates]) =>
-      (new TimestampFormatHeadersIoBuilder()..update(updates))._build();
+  factory _$TimestampFormatHeadersIo([
+    void Function(TimestampFormatHeadersIoBuilder)? updates,
+  ]) => (new TimestampFormatHeadersIoBuilder()..update(updates))._build();
 
-  _$TimestampFormatHeadersIo._(
-      {this.memberEpochSeconds,
-      this.memberHttpDate,
-      this.memberDateTime,
-      this.defaultFormat,
-      this.targetEpochSeconds,
-      this.targetHttpDate,
-      this.targetDateTime})
-      : super._();
+  _$TimestampFormatHeadersIo._({
+    this.memberEpochSeconds,
+    this.memberHttpDate,
+    this.memberDateTime,
+    this.defaultFormat,
+    this.targetEpochSeconds,
+    this.targetHttpDate,
+    this.targetDateTime,
+  }) : super._();
 
   @override
   TimestampFormatHeadersIo rebuild(
-          void Function(TimestampFormatHeadersIoBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TimestampFormatHeadersIoBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TimestampFormatHeadersIoBuilder toBuilder() =>
@@ -145,7 +145,8 @@ class TimestampFormatHeadersIoBuilder
   TimestampFormatHeadersIo build() => _build();
 
   _$TimestampFormatHeadersIo _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$TimestampFormatHeadersIo._(
           memberEpochSeconds: memberEpochSeconds,
           memberHttpDate: memberHttpDate,
@@ -162,16 +163,17 @@ class TimestampFormatHeadersIoBuilder
 
 class _$TimestampFormatHeadersIoPayload
     extends TimestampFormatHeadersIoPayload {
-  factory _$TimestampFormatHeadersIoPayload(
-          [void Function(TimestampFormatHeadersIoPayloadBuilder)? updates]) =>
+  factory _$TimestampFormatHeadersIoPayload([
+    void Function(TimestampFormatHeadersIoPayloadBuilder)? updates,
+  ]) =>
       (new TimestampFormatHeadersIoPayloadBuilder()..update(updates))._build();
 
   _$TimestampFormatHeadersIoPayload._() : super._();
 
   @override
   TimestampFormatHeadersIoPayload rebuild(
-          void Function(TimestampFormatHeadersIoPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TimestampFormatHeadersIoPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TimestampFormatHeadersIoPayloadBuilder toBuilder() =>
@@ -191,8 +193,10 @@ class _$TimestampFormatHeadersIoPayload
 
 class TimestampFormatHeadersIoPayloadBuilder
     implements
-        Builder<TimestampFormatHeadersIoPayload,
-            TimestampFormatHeadersIoPayloadBuilder> {
+        Builder<
+          TimestampFormatHeadersIoPayload,
+          TimestampFormatHeadersIoPayloadBuilder
+        > {
   _$TimestampFormatHeadersIoPayload? _$v;
 
   TimestampFormatHeadersIoPayloadBuilder();

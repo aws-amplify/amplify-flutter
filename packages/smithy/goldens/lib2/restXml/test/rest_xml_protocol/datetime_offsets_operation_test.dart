@@ -12,91 +12,76 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestXmlDateTimeWithNegativeOffset (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: DatetimeOffsetsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'RestXmlDateTimeWithNegativeOffset',
-          documentation:
-              'Ensures that clients can correctly parse datetime (timestamps) with offsets',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<DatetimeOffsetsOutput>\n    <datetime>2019-12-16T22:48:18-01:00</datetime>\n</DatetimeOffsetsOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {'datetime': 1576540098},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [DatetimeOffsetsOutputRestXmlSerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'RestXmlDateTimeWithPositiveOffset (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: DatetimeOffsetsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'RestXmlDateTimeWithPositiveOffset',
-          documentation:
-              'Ensures that clients can correctly parse datetime (timestamps) with offsets',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<DatetimeOffsetsOutput>\n    <datetime>2019-12-17T00:48:18+01:00</datetime>\n</DatetimeOffsetsOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {'datetime': 1576540098},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [DatetimeOffsetsOutputRestXmlSerializer()],
-      );
-    },
-  );
+  _i1.test('RestXmlDateTimeWithNegativeOffset (response)', () async {
+    await _i2.httpResponseTest(
+      operation: DatetimeOffsetsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'RestXmlDateTimeWithNegativeOffset',
+        documentation:
+            'Ensures that clients can correctly parse datetime (timestamps) with offsets',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<DatetimeOffsetsOutput>\n    <datetime>2019-12-16T22:48:18-01:00</datetime>\n</DatetimeOffsetsOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'datetime': 1576540098},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [DatetimeOffsetsOutputRestXmlSerializer()],
+    );
+  });
+  _i1.test('RestXmlDateTimeWithPositiveOffset (response)', () async {
+    await _i2.httpResponseTest(
+      operation: DatetimeOffsetsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'RestXmlDateTimeWithPositiveOffset',
+        documentation:
+            'Ensures that clients can correctly parse datetime (timestamps) with offsets',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<DatetimeOffsetsOutput>\n    <datetime>2019-12-17T00:48:18+01:00</datetime>\n</DatetimeOffsetsOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'datetime': 1576540098},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [DatetimeOffsetsOutputRestXmlSerializer()],
+    );
+  });
 }
 
 class DatetimeOffsetsOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<DatetimeOffsetsOutput> {
   const DatetimeOffsetsOutputRestXmlSerializer()
-      : super('DatetimeOffsetsOutput');
+    : super('DatetimeOffsetsOutput');
 
   @override
   Iterable<Type> get types => const [DatetimeOffsetsOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   DatetimeOffsetsOutput deserialize(

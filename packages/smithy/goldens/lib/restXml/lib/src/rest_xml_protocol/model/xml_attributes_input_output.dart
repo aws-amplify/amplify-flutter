@@ -17,19 +17,13 @@ abstract class XmlAttributesInputOutput
         _i2.AWSEquatable<XmlAttributesInputOutput>
     implements
         Built<XmlAttributesInputOutput, XmlAttributesInputOutputBuilder> {
-  factory XmlAttributesInputOutput({
-    String? foo,
-    String? attr,
-  }) {
-    return _$XmlAttributesInputOutput._(
-      foo: foo,
-      attr: attr,
-    );
+  factory XmlAttributesInputOutput({String? foo, String? attr}) {
+    return _$XmlAttributesInputOutput._(foo: foo, attr: attr);
   }
 
-  factory XmlAttributesInputOutput.build(
-          [void Function(XmlAttributesInputOutputBuilder) updates]) =
-      _$XmlAttributesInputOutput;
+  factory XmlAttributesInputOutput.build([
+    void Function(XmlAttributesInputOutputBuilder) updates,
+  ]) = _$XmlAttributesInputOutput;
 
   const XmlAttributesInputOutput._();
 
@@ -37,18 +31,16 @@ abstract class XmlAttributesInputOutput
     XmlAttributesInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [XmlAttributesInputOutput] from a [payload] and [response].
   factory XmlAttributesInputOutput.fromResponse(
     XmlAttributesInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<XmlAttributesInputOutput>>
-      serializers = [XmlAttributesInputOutputRestXmlSerializer()];
+  serializers = [XmlAttributesInputOutputRestXmlSerializer()];
 
   String? get foo;
   String? get attr;
@@ -56,22 +48,14 @@ abstract class XmlAttributesInputOutput
   XmlAttributesInputOutput getPayload() => this;
 
   @override
-  List<Object?> get props => [
-        foo,
-        attr,
-      ];
+  List<Object?> get props => [foo, attr];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlAttributesInputOutput')
-      ..add(
-        'foo',
-        foo,
-      )
-      ..add(
-        'attr',
-        attr,
-      );
+    final helper =
+        newBuiltValueToStringHelper('XmlAttributesInputOutput')
+          ..add('foo', foo)
+          ..add('attr', attr);
     return helper.toString();
   }
 }
@@ -79,21 +63,18 @@ abstract class XmlAttributesInputOutput
 class XmlAttributesInputOutputRestXmlSerializer
     extends _i1.StructuredSmithySerializer<XmlAttributesInputOutput> {
   const XmlAttributesInputOutputRestXmlSerializer()
-      : super('XmlAttributesInputOutput');
+    : super('XmlAttributesInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        XmlAttributesInputOutput,
-        _$XmlAttributesInputOutput,
-      ];
+    XmlAttributesInputOutput,
+    _$XmlAttributesInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlAttributesInputOutput deserialize(
@@ -112,15 +93,19 @@ class XmlAttributesInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'test':
-          result.attr = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.attr =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -134,25 +119,24 @@ class XmlAttributesInputOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('XmlAttributesInputOutput')
+      const _i1.XmlElementName('XmlAttributesInputOutput'),
     ];
     final XmlAttributesInputOutput(:attr, :foo) = object;
     if (attr != null) {
-      result$.add(_i3.XmlAttribute(
-        _i3.XmlName('test'),
-        (serializers.serialize(
-          attr,
-          specifiedType: const FullType(String),
-        ) as String),
-      ));
+      result$.add(
+        _i3.XmlAttribute(
+          _i3.XmlName('test'),
+          (serializers.serialize(attr, specifiedType: const FullType(String))
+              as String),
+        ),
+      );
     }
     if (foo != null) {
       result$
         ..add(const _i1.XmlElementName('foo'))
-        ..add(serializers.serialize(
-          foo,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(foo, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

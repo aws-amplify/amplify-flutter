@@ -6,25 +6,13 @@ library rest_json1_v1.api_gateway.model.api_key_source_type; // ignore_for_file:
 import 'package:smithy/smithy.dart' as _i1;
 
 class ApiKeySourceType extends _i1.SmithyEnum<ApiKeySourceType> {
-  const ApiKeySourceType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ApiKeySourceType._(super.index, super.name, super.value);
 
   const ApiKeySourceType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const authorizer = ApiKeySourceType._(
-    0,
-    'AUTHORIZER',
-    'AUTHORIZER',
-  );
+  static const authorizer = ApiKeySourceType._(0, 'AUTHORIZER', 'AUTHORIZER');
 
-  static const header = ApiKeySourceType._(
-    1,
-    'HEADER',
-    'HEADER',
-  );
+  static const header = ApiKeySourceType._(1, 'HEADER', 'HEADER');
 
   /// All values of [ApiKeySourceType].
   static const values = <ApiKeySourceType>[
@@ -38,12 +26,9 @@ class ApiKeySourceType extends _i1.SmithyEnum<ApiKeySourceType> {
       values: values,
       sdkUnknown: ApiKeySourceType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

@@ -12,16 +12,16 @@ class _$QueryPrecedenceInput extends QueryPrecedenceInput {
   @override
   final _i3.BuiltMap<String, String>? baz;
 
-  factory _$QueryPrecedenceInput(
-          [void Function(QueryPrecedenceInputBuilder)? updates]) =>
-      (new QueryPrecedenceInputBuilder()..update(updates))._build();
+  factory _$QueryPrecedenceInput([
+    void Function(QueryPrecedenceInputBuilder)? updates,
+  ]) => (new QueryPrecedenceInputBuilder()..update(updates))._build();
 
   _$QueryPrecedenceInput._({this.foo, this.baz}) : super._();
 
   @override
   QueryPrecedenceInput rebuild(
-          void Function(QueryPrecedenceInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryPrecedenceInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryPrecedenceInputBuilder toBuilder() =>
@@ -87,11 +87,8 @@ class QueryPrecedenceInputBuilder
   _$QueryPrecedenceInput _build() {
     _$QueryPrecedenceInput _$result;
     try {
-      _$result = _$v ??
-          new _$QueryPrecedenceInput._(
-            foo: foo,
-            baz: _baz?.build(),
-          );
+      _$result =
+          _$v ?? new _$QueryPrecedenceInput._(foo: foo, baz: _baz?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -99,7 +96,10 @@ class QueryPrecedenceInputBuilder
         _baz?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'QueryPrecedenceInput', _$failedField, e.toString());
+          r'QueryPrecedenceInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -109,16 +109,16 @@ class QueryPrecedenceInputBuilder
 }
 
 class _$QueryPrecedenceInputPayload extends QueryPrecedenceInputPayload {
-  factory _$QueryPrecedenceInputPayload(
-          [void Function(QueryPrecedenceInputPayloadBuilder)? updates]) =>
-      (new QueryPrecedenceInputPayloadBuilder()..update(updates))._build();
+  factory _$QueryPrecedenceInputPayload([
+    void Function(QueryPrecedenceInputPayloadBuilder)? updates,
+  ]) => (new QueryPrecedenceInputPayloadBuilder()..update(updates))._build();
 
   _$QueryPrecedenceInputPayload._() : super._();
 
   @override
   QueryPrecedenceInputPayload rebuild(
-          void Function(QueryPrecedenceInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryPrecedenceInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryPrecedenceInputPayloadBuilder toBuilder() =>
@@ -138,8 +138,10 @@ class _$QueryPrecedenceInputPayload extends QueryPrecedenceInputPayload {
 
 class QueryPrecedenceInputPayloadBuilder
     implements
-        Builder<QueryPrecedenceInputPayload,
-            QueryPrecedenceInputPayloadBuilder> {
+        Builder<
+          QueryPrecedenceInputPayload,
+          QueryPrecedenceInputPayloadBuilder
+        > {
   _$QueryPrecedenceInputPayload? _$v;
 
   QueryPrecedenceInputPayloadBuilder();

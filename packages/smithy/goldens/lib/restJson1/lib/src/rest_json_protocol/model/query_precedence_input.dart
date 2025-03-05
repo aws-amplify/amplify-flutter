@@ -20,19 +20,16 @@ abstract class QueryPrecedenceInput
         Built<QueryPrecedenceInput, QueryPrecedenceInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<QueryPrecedenceInputPayload> {
-  factory QueryPrecedenceInput({
-    String? foo,
-    Map<String, String>? baz,
-  }) {
+  factory QueryPrecedenceInput({String? foo, Map<String, String>? baz}) {
     return _$QueryPrecedenceInput._(
       foo: foo,
       baz: baz == null ? null : _i3.BuiltMap(baz),
     );
   }
 
-  factory QueryPrecedenceInput.build(
-          [void Function(QueryPrecedenceInputBuilder) updates]) =
-      _$QueryPrecedenceInput;
+  factory QueryPrecedenceInput.build([
+    void Function(QueryPrecedenceInputBuilder) updates,
+  ]) = _$QueryPrecedenceInput;
 
   const QueryPrecedenceInput._();
 
@@ -40,15 +37,14 @@ abstract class QueryPrecedenceInput
     QueryPrecedenceInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      QueryPrecedenceInput.build((b) {
-        if (request.queryParameters['bar'] != null) {
-          b.foo = request.queryParameters['bar']!;
-        }
-      });
+  }) => QueryPrecedenceInput.build((b) {
+    if (request.queryParameters['bar'] != null) {
+      b.foo = request.queryParameters['bar']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<QueryPrecedenceInputPayload>>
-      serializers = [QueryPrecedenceInputRestJson1Serializer()];
+  serializers = [QueryPrecedenceInputRestJson1Serializer()];
 
   String? get foo;
   _i3.BuiltMap<String, String>? get baz;
@@ -56,22 +52,14 @@ abstract class QueryPrecedenceInput
   QueryPrecedenceInputPayload getPayload() => QueryPrecedenceInputPayload();
 
   @override
-  List<Object?> get props => [
-        foo,
-        baz,
-      ];
+  List<Object?> get props => [foo, baz];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryPrecedenceInput')
-      ..add(
-        'foo',
-        foo,
-      )
-      ..add(
-        'baz',
-        baz,
-      );
+    final helper =
+        newBuiltValueToStringHelper('QueryPrecedenceInput')
+          ..add('foo', foo)
+          ..add('baz', baz);
     return helper.toString();
   }
 }
@@ -82,9 +70,9 @@ abstract class QueryPrecedenceInputPayload
     implements
         Built<QueryPrecedenceInputPayload, QueryPrecedenceInputPayloadBuilder>,
         _i1.EmptyPayload {
-  factory QueryPrecedenceInputPayload(
-          [void Function(QueryPrecedenceInputPayloadBuilder) updates]) =
-      _$QueryPrecedenceInputPayload;
+  factory QueryPrecedenceInputPayload([
+    void Function(QueryPrecedenceInputPayloadBuilder) updates,
+  ]) = _$QueryPrecedenceInputPayload;
 
   const QueryPrecedenceInputPayload._();
 
@@ -101,23 +89,20 @@ abstract class QueryPrecedenceInputPayload
 class QueryPrecedenceInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<QueryPrecedenceInputPayload> {
   const QueryPrecedenceInputRestJson1Serializer()
-      : super('QueryPrecedenceInput');
+    : super('QueryPrecedenceInput');
 
   @override
   Iterable<Type> get types => const [
-        QueryPrecedenceInput,
-        _$QueryPrecedenceInput,
-        QueryPrecedenceInputPayload,
-        _$QueryPrecedenceInputPayload,
-      ];
+    QueryPrecedenceInput,
+    _$QueryPrecedenceInput,
+    QueryPrecedenceInputPayload,
+    _$QueryPrecedenceInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   QueryPrecedenceInputPayload deserialize(
@@ -133,6 +118,5 @@ class QueryPrecedenceInputRestJson1Serializer
     Serializers serializers,
     QueryPrecedenceInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

@@ -74,10 +74,14 @@ class HostLabelInputBuilder
   HostLabelInput build() => _build();
 
   _$HostLabelInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$HostLabelInput._(
           label: BuiltValueNullFieldError.checkNotNull(
-              label, r'HostLabelInput', 'label'),
+            label,
+            r'HostLabelInput',
+            'label',
+          ),
         );
     replace(_$result);
     return _$result;

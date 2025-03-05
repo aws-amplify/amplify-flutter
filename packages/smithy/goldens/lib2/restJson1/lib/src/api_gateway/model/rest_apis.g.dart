@@ -83,11 +83,8 @@ class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
   _$RestApis _build() {
     _$RestApis _$result;
     try {
-      _$result = _$v ??
-          new _$RestApis._(
-            items: _items?.build(),
-            position: position,
-          );
+      _$result =
+          _$v ?? new _$RestApis._(items: _items?.build(), position: position);
     } catch (_) {
       late String _$failedField;
       try {
@@ -95,7 +92,10 @@ class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
         _items?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'RestApis', _$failedField, e.toString());
+          r'RestApis',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

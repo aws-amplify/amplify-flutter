@@ -10,19 +10,22 @@ class _$PostUnionWithJsonNameOutput extends PostUnionWithJsonNameOutput {
   @override
   final UnionWithJsonName value;
 
-  factory _$PostUnionWithJsonNameOutput(
-          [void Function(PostUnionWithJsonNameOutputBuilder)? updates]) =>
-      (new PostUnionWithJsonNameOutputBuilder()..update(updates))._build();
+  factory _$PostUnionWithJsonNameOutput([
+    void Function(PostUnionWithJsonNameOutputBuilder)? updates,
+  ]) => (new PostUnionWithJsonNameOutputBuilder()..update(updates))._build();
 
   _$PostUnionWithJsonNameOutput._({required this.value}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        value, r'PostUnionWithJsonNameOutput', 'value');
+      value,
+      r'PostUnionWithJsonNameOutput',
+      'value',
+    );
   }
 
   @override
   PostUnionWithJsonNameOutput rebuild(
-          void Function(PostUnionWithJsonNameOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PostUnionWithJsonNameOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PostUnionWithJsonNameOutputBuilder toBuilder() =>
@@ -45,8 +48,10 @@ class _$PostUnionWithJsonNameOutput extends PostUnionWithJsonNameOutput {
 
 class PostUnionWithJsonNameOutputBuilder
     implements
-        Builder<PostUnionWithJsonNameOutput,
-            PostUnionWithJsonNameOutputBuilder> {
+        Builder<
+          PostUnionWithJsonNameOutput,
+          PostUnionWithJsonNameOutputBuilder
+        > {
   _$PostUnionWithJsonNameOutput? _$v;
 
   UnionWithJsonName? _value;
@@ -79,10 +84,14 @@ class PostUnionWithJsonNameOutputBuilder
   PostUnionWithJsonNameOutput build() => _build();
 
   _$PostUnionWithJsonNameOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PostUnionWithJsonNameOutput._(
           value: BuiltValueNullFieldError.checkNotNull(
-              value, r'PostUnionWithJsonNameOutput', 'value'),
+            value,
+            r'PostUnionWithJsonNameOutput',
+            'value',
+          ),
         );
     replace(_$result);
     return _$result;

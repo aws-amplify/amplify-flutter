@@ -12,103 +12,89 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonOmitsNullQuery (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: OmitsNullSerializesEmptyStringOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonOmitsNullQuery',
-          documentation: 'Omits null query values',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'nullValue': null},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          method: 'GET',
-          uri: '/OmitsNullSerializesEmptyString',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          OmitsNullSerializesEmptyStringInputRestJson1Serializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'RestJsonSerializesEmptyQueryValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: OmitsNullSerializesEmptyStringOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonSerializesEmptyQueryValue',
-          documentation: 'Serializes empty query strings',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'emptyString': ''},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/OmitsNullSerializesEmptyString',
-          host: null,
-          resolvedHost: null,
-          queryParams: ['Empty='],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          OmitsNullSerializesEmptyStringInputRestJson1Serializer()
-        ],
-      );
-    },
-  );
+  _i1.test('RestJsonOmitsNullQuery (request)', () async {
+    await _i2.httpRequestTest(
+      operation: OmitsNullSerializesEmptyStringOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonOmitsNullQuery',
+        documentation: 'Omits null query values',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'nullValue': null},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        method: 'GET',
+        uri: '/OmitsNullSerializesEmptyString',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        OmitsNullSerializesEmptyStringInputRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('RestJsonSerializesEmptyQueryValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: OmitsNullSerializesEmptyStringOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonSerializesEmptyQueryValue',
+        documentation: 'Serializes empty query strings',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'emptyString': ''},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/OmitsNullSerializesEmptyString',
+        host: null,
+        resolvedHost: null,
+        queryParams: ['Empty='],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        OmitsNullSerializesEmptyStringInputRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
-class OmitsNullSerializesEmptyStringInputRestJson1Serializer extends _i3
-    .StructuredSmithySerializer<OmitsNullSerializesEmptyStringInput> {
+class OmitsNullSerializesEmptyStringInputRestJson1Serializer
+    extends
+        _i3.StructuredSmithySerializer<OmitsNullSerializesEmptyStringInput> {
   const OmitsNullSerializesEmptyStringInputRestJson1Serializer()
-      : super('OmitsNullSerializesEmptyStringInput');
+    : super('OmitsNullSerializesEmptyStringInput');
 
   @override
   Iterable<Type> get types => const [OmitsNullSerializesEmptyStringInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   OmitsNullSerializesEmptyStringInput deserialize(
@@ -127,15 +113,19 @@ class OmitsNullSerializesEmptyStringInputRestJson1Serializer extends _i3
       }
       switch (key) {
         case 'nullValue':
-          result.nullValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.nullValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'emptyString':
-          result.emptyString = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.emptyString =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

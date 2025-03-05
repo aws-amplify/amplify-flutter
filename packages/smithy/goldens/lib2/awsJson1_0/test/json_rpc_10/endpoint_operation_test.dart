@@ -10,43 +10,37 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'AwsJson10EndpointTrait (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: EndpointOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson10EndpointTrait',
-          documentation:
-              'Operations can prepend to the given host if they define the\nendpoint trait.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body: '{}',
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: 'example.com',
-          resolvedHost: 'foo.example.com',
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [],
-      );
-    },
-  );
+  _i1.test('AwsJson10EndpointTrait (request)', () async {
+    await _i2.httpRequestTest(
+      operation: EndpointOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson10EndpointTrait',
+        documentation:
+            'Operations can prepend to the given host if they define the\nendpoint trait.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body: '{}',
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: 'example.com',
+        resolvedHost: 'foo.example.com',
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [],
+    );
+  });
 }

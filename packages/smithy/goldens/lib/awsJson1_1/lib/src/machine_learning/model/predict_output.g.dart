@@ -75,10 +75,7 @@ class PredictOutputBuilder
   _$PredictOutput _build() {
     _$PredictOutput _$result;
     try {
-      _$result = _$v ??
-          new _$PredictOutput._(
-            prediction: _prediction?.build(),
-          );
+      _$result = _$v ?? new _$PredictOutput._(prediction: _prediction?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -86,7 +83,10 @@ class PredictOutputBuilder
         _prediction?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PredictOutput', _$failedField, e.toString());
+          r'PredictOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

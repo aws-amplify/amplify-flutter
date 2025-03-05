@@ -18,19 +18,13 @@ abstract class PutWithContentEncodingInput
     implements
         Built<PutWithContentEncodingInput, PutWithContentEncodingInputBuilder>,
         _i1.HasPayload<PutWithContentEncodingInputPayload> {
-  factory PutWithContentEncodingInput({
-    String? encoding,
-    String? data,
-  }) {
-    return _$PutWithContentEncodingInput._(
-      encoding: encoding,
-      data: data,
-    );
+  factory PutWithContentEncodingInput({String? encoding, String? data}) {
+    return _$PutWithContentEncodingInput._(encoding: encoding, data: data);
   }
 
-  factory PutWithContentEncodingInput.build(
-          [void Function(PutWithContentEncodingInputBuilder) updates]) =
-      _$PutWithContentEncodingInput;
+  factory PutWithContentEncodingInput.build([
+    void Function(PutWithContentEncodingInputBuilder) updates,
+  ]) = _$PutWithContentEncodingInput;
 
   const PutWithContentEncodingInput._();
 
@@ -38,16 +32,15 @@ abstract class PutWithContentEncodingInput
     PutWithContentEncodingInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      PutWithContentEncodingInput.build((b) {
-        b.data = payload.data;
-        if (request.headers['Content-Encoding'] != null) {
-          b.encoding = request.headers['Content-Encoding']!;
-        }
-      });
+  }) => PutWithContentEncodingInput.build((b) {
+    b.data = payload.data;
+    if (request.headers['Content-Encoding'] != null) {
+      b.encoding = request.headers['Content-Encoding']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<PutWithContentEncodingInputPayload>>
-      serializers = [PutWithContentEncodingInputRestXmlSerializer()];
+  serializers = [PutWithContentEncodingInputRestXmlSerializer()];
 
   String? get encoding;
   String? get data;
@@ -58,36 +51,29 @@ abstract class PutWithContentEncodingInput
       });
 
   @override
-  List<Object?> get props => [
-        encoding,
-        data,
-      ];
+  List<Object?> get props => [encoding, data];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutWithContentEncodingInput')
-      ..add(
-        'encoding',
-        encoding,
-      )
-      ..add(
-        'data',
-        data,
-      );
+    final helper =
+        newBuiltValueToStringHelper('PutWithContentEncodingInput')
+          ..add('encoding', encoding)
+          ..add('data', data);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class PutWithContentEncodingInputPayload
-    with
-        _i2.AWSEquatable<PutWithContentEncodingInputPayload>
+    with _i2.AWSEquatable<PutWithContentEncodingInputPayload>
     implements
-        Built<PutWithContentEncodingInputPayload,
-            PutWithContentEncodingInputPayloadBuilder> {
-  factory PutWithContentEncodingInputPayload(
-          [void Function(PutWithContentEncodingInputPayloadBuilder) updates]) =
-      _$PutWithContentEncodingInputPayload;
+        Built<
+          PutWithContentEncodingInputPayload,
+          PutWithContentEncodingInputPayloadBuilder
+        > {
+  factory PutWithContentEncodingInputPayload([
+    void Function(PutWithContentEncodingInputPayloadBuilder) updates,
+  ]) = _$PutWithContentEncodingInputPayload;
 
   const PutWithContentEncodingInputPayload._();
 
@@ -97,12 +83,9 @@ abstract class PutWithContentEncodingInputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PutWithContentEncodingInputPayload')
-          ..add(
-            'data',
-            data,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'PutWithContentEncodingInputPayload',
+    )..add('data', data);
     return helper.toString();
   }
 }
@@ -110,23 +93,20 @@ abstract class PutWithContentEncodingInputPayload
 class PutWithContentEncodingInputRestXmlSerializer
     extends _i1.StructuredSmithySerializer<PutWithContentEncodingInputPayload> {
   const PutWithContentEncodingInputRestXmlSerializer()
-      : super('PutWithContentEncodingInput');
+    : super('PutWithContentEncodingInput');
 
   @override
   Iterable<Type> get types => const [
-        PutWithContentEncodingInput,
-        _$PutWithContentEncodingInput,
-        PutWithContentEncodingInputPayload,
-        _$PutWithContentEncodingInputPayload,
-      ];
+    PutWithContentEncodingInput,
+    _$PutWithContentEncodingInput,
+    PutWithContentEncodingInputPayload,
+    _$PutWithContentEncodingInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   PutWithContentEncodingInputPayload deserialize(
@@ -145,10 +125,12 @@ class PutWithContentEncodingInputRestXmlSerializer
       }
       switch (key) {
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -162,16 +144,15 @@ class PutWithContentEncodingInputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('PutWithContentEncodingInput')
+      const _i1.XmlElementName('PutWithContentEncodingInput'),
     ];
     final PutWithContentEncodingInputPayload(:data) = object;
     if (data != null) {
       result$
         ..add(const _i1.XmlElementName('data'))
-        ..add(serializers.serialize(
-          data,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(data, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

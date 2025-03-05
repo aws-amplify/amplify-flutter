@@ -13,11 +13,14 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-class NullOperation extends _i1.HttpOperation<
-    NullOperationInputOutput,
-    NullOperationInputOutput,
-    NullOperationInputOutput,
-    NullOperationInputOutput> {
+class NullOperation
+    extends
+        _i1.HttpOperation<
+          NullOperationInputOutput,
+          NullOperationInputOutput,
+          NullOperationInputOutput,
+          NullOperationInputOutput
+        > {
   NullOperation({
     required String region,
     Uri? baseUri,
@@ -25,26 +28,30 @@ class NullOperation extends _i1.HttpOperation<
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<NullOperationInputOutput, NullOperationInputOutput,
-          NullOperationInputOutput, NullOperationInputOutput>> protocols = [
+    _i1.HttpProtocol<
+      NullOperationInputOutput,
+      NullOperationInputOutput,
+      NullOperationInputOutput,
+      NullOperationInputOutput
+    >
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            const _i1.WithHeader(
-              'X-Amz-Target',
-              'JsonProtocol.NullOperation',
-            ),
+            const _i1.WithHeader('X-Amz-Target', 'JsonProtocol.NullOperation'),
             _i3.WithSigV4(
               region: _region,
               service: _i4.AWSService.iam,
@@ -57,7 +64,7 @@ class NullOperation extends _i1.HttpOperation<
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -89,11 +96,7 @@ class NullOperation extends _i1.HttpOperation<
   NullOperationInputOutput buildOutput(
     NullOperationInputOutput payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      NullOperationInputOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => NullOperationInputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -117,11 +120,7 @@ class NullOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

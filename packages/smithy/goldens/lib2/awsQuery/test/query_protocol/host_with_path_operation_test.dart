@@ -10,42 +10,36 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryHostWithPath (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HostWithPathOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com/custom'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'QueryHostWithPath',
-          documentation: 'Custom endpoints supplied by users can have paths',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body: 'Action=HostWithPathOperation&Version=2020-01-08',
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          method: 'POST',
-          uri: '/custom/',
-          host: 'example.com/custom',
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [],
-      );
-    },
-  );
+  _i1.test('QueryHostWithPath (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HostWithPathOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com/custom'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'QueryHostWithPath',
+        documentation: 'Custom endpoints supplied by users can have paths',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body: 'Action=HostWithPathOperation&Version=2020-01-08',
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        method: 'POST',
+        uri: '/custom/',
+        host: 'example.com/custom',
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [],
+    );
+  });
 }

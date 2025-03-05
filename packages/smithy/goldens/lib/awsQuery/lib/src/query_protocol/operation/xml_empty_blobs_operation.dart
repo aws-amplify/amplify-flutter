@@ -12,26 +12,29 @@ import 'package:aws_query_v1/src/query_protocol/model/xml_blobs_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-class XmlEmptyBlobsOperation extends _i1
-    .HttpOperation<_i1.Unit, _i1.Unit, XmlBlobsOutput, XmlBlobsOutput> {
+class XmlEmptyBlobsOperation
+    extends
+        _i1.HttpOperation<_i1.Unit, _i1.Unit, XmlBlobsOutput, XmlBlobsOutput> {
   XmlEmptyBlobsOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-          _i1.HttpProtocol<_i1.Unit, _i1.Unit, XmlBlobsOutput, XmlBlobsOutput>>
-      protocols = [
+    _i1.HttpProtocol<_i1.Unit, _i1.Unit, XmlBlobsOutput, XmlBlobsOutput>
+  >
+  protocols = [
     _i2.AwsQueryProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i2.WithSdkInvocationId(),
@@ -42,7 +45,7 @@ class XmlEmptyBlobsOperation extends _i1
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       action: 'XmlEmptyBlobs',
       version: '2020-01-08',
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -60,9 +63,9 @@ class XmlEmptyBlobsOperation extends _i1
 
   @override
   _i1.HttpRequest buildRequest(_i1.Unit input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/';
-      });
+    b.method = 'POST';
+    b.path = r'/';
+  });
 
   @override
   int successCode([XmlBlobsOutput? output]) => 200;
@@ -71,11 +74,7 @@ class XmlEmptyBlobsOperation extends _i1
   XmlBlobsOutput buildOutput(
     XmlBlobsOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      XmlBlobsOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => XmlBlobsOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -99,11 +98,7 @@ class XmlEmptyBlobsOperation extends _i1
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

@@ -10,16 +10,16 @@ class _$HttpResponseCodeOutput extends HttpResponseCodeOutput {
   @override
   final int? status;
 
-  factory _$HttpResponseCodeOutput(
-          [void Function(HttpResponseCodeOutputBuilder)? updates]) =>
-      (new HttpResponseCodeOutputBuilder()..update(updates))._build();
+  factory _$HttpResponseCodeOutput([
+    void Function(HttpResponseCodeOutputBuilder)? updates,
+  ]) => (new HttpResponseCodeOutputBuilder()..update(updates))._build();
 
   _$HttpResponseCodeOutput._({this.status}) : super._();
 
   @override
   HttpResponseCodeOutput rebuild(
-          void Function(HttpResponseCodeOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpResponseCodeOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpResponseCodeOutputBuilder toBuilder() =>
@@ -74,26 +74,23 @@ class HttpResponseCodeOutputBuilder
   HttpResponseCodeOutput build() => _build();
 
   _$HttpResponseCodeOutput _build() {
-    final _$result = _$v ??
-        new _$HttpResponseCodeOutput._(
-          status: status,
-        );
+    final _$result = _$v ?? new _$HttpResponseCodeOutput._(status: status);
     replace(_$result);
     return _$result;
   }
 }
 
 class _$HttpResponseCodeOutputPayload extends HttpResponseCodeOutputPayload {
-  factory _$HttpResponseCodeOutputPayload(
-          [void Function(HttpResponseCodeOutputPayloadBuilder)? updates]) =>
-      (new HttpResponseCodeOutputPayloadBuilder()..update(updates))._build();
+  factory _$HttpResponseCodeOutputPayload([
+    void Function(HttpResponseCodeOutputPayloadBuilder)? updates,
+  ]) => (new HttpResponseCodeOutputPayloadBuilder()..update(updates))._build();
 
   _$HttpResponseCodeOutputPayload._() : super._();
 
   @override
   HttpResponseCodeOutputPayload rebuild(
-          void Function(HttpResponseCodeOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpResponseCodeOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpResponseCodeOutputPayloadBuilder toBuilder() =>
@@ -113,8 +110,10 @@ class _$HttpResponseCodeOutputPayload extends HttpResponseCodeOutputPayload {
 
 class HttpResponseCodeOutputPayloadBuilder
     implements
-        Builder<HttpResponseCodeOutputPayload,
-            HttpResponseCodeOutputPayloadBuilder> {
+        Builder<
+          HttpResponseCodeOutputPayload,
+          HttpResponseCodeOutputPayloadBuilder
+        > {
   _$HttpResponseCodeOutputPayload? _$v;
 
   HttpResponseCodeOutputPayloadBuilder();

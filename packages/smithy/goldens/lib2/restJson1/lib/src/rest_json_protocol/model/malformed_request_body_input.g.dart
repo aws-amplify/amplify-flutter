@@ -12,16 +12,16 @@ class _$MalformedRequestBodyInput extends MalformedRequestBodyInput {
   @override
   final double? float;
 
-  factory _$MalformedRequestBodyInput(
-          [void Function(MalformedRequestBodyInputBuilder)? updates]) =>
-      (new MalformedRequestBodyInputBuilder()..update(updates))._build();
+  factory _$MalformedRequestBodyInput([
+    void Function(MalformedRequestBodyInputBuilder)? updates,
+  ]) => (new MalformedRequestBodyInputBuilder()..update(updates))._build();
 
   _$MalformedRequestBodyInput._({this.int_, this.float}) : super._();
 
   @override
   MalformedRequestBodyInput rebuild(
-          void Function(MalformedRequestBodyInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedRequestBodyInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedRequestBodyInputBuilder toBuilder() =>
@@ -85,11 +85,8 @@ class MalformedRequestBodyInputBuilder
   MalformedRequestBodyInput build() => _build();
 
   _$MalformedRequestBodyInput _build() {
-    final _$result = _$v ??
-        new _$MalformedRequestBodyInput._(
-          int_: int_,
-          float: float,
-        );
+    final _$result =
+        _$v ?? new _$MalformedRequestBodyInput._(int_: int_, float: float);
     replace(_$result);
     return _$result;
   }

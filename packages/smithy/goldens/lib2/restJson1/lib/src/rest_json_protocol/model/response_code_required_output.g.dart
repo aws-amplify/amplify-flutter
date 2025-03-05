@@ -10,19 +10,22 @@ class _$ResponseCodeRequiredOutput extends ResponseCodeRequiredOutput {
   @override
   final int responseCode;
 
-  factory _$ResponseCodeRequiredOutput(
-          [void Function(ResponseCodeRequiredOutputBuilder)? updates]) =>
-      (new ResponseCodeRequiredOutputBuilder()..update(updates))._build();
+  factory _$ResponseCodeRequiredOutput([
+    void Function(ResponseCodeRequiredOutputBuilder)? updates,
+  ]) => (new ResponseCodeRequiredOutputBuilder()..update(updates))._build();
 
   _$ResponseCodeRequiredOutput._({required this.responseCode}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        responseCode, r'ResponseCodeRequiredOutput', 'responseCode');
+      responseCode,
+      r'ResponseCodeRequiredOutput',
+      'responseCode',
+    );
   }
 
   @override
   ResponseCodeRequiredOutput rebuild(
-          void Function(ResponseCodeRequiredOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ResponseCodeRequiredOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResponseCodeRequiredOutputBuilder toBuilder() =>
@@ -79,10 +82,14 @@ class ResponseCodeRequiredOutputBuilder
   ResponseCodeRequiredOutput build() => _build();
 
   _$ResponseCodeRequiredOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ResponseCodeRequiredOutput._(
           responseCode: BuiltValueNullFieldError.checkNotNull(
-              responseCode, r'ResponseCodeRequiredOutput', 'responseCode'),
+            responseCode,
+            r'ResponseCodeRequiredOutput',
+            'responseCode',
+          ),
         );
     replace(_$result);
     return _$result;
@@ -91,8 +98,9 @@ class ResponseCodeRequiredOutputBuilder
 
 class _$ResponseCodeRequiredOutputPayload
     extends ResponseCodeRequiredOutputPayload {
-  factory _$ResponseCodeRequiredOutputPayload(
-          [void Function(ResponseCodeRequiredOutputPayloadBuilder)? updates]) =>
+  factory _$ResponseCodeRequiredOutputPayload([
+    void Function(ResponseCodeRequiredOutputPayloadBuilder)? updates,
+  ]) =>
       (new ResponseCodeRequiredOutputPayloadBuilder()..update(updates))
           ._build();
 
@@ -100,8 +108,8 @@ class _$ResponseCodeRequiredOutputPayload
 
   @override
   ResponseCodeRequiredOutputPayload rebuild(
-          void Function(ResponseCodeRequiredOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ResponseCodeRequiredOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResponseCodeRequiredOutputPayloadBuilder toBuilder() =>
@@ -121,8 +129,10 @@ class _$ResponseCodeRequiredOutputPayload
 
 class ResponseCodeRequiredOutputPayloadBuilder
     implements
-        Builder<ResponseCodeRequiredOutputPayload,
-            ResponseCodeRequiredOutputPayloadBuilder> {
+        Builder<
+          ResponseCodeRequiredOutputPayload,
+          ResponseCodeRequiredOutputPayloadBuilder
+        > {
   _$ResponseCodeRequiredOutputPayload? _$v;
 
   ResponseCodeRequiredOutputPayloadBuilder();
@@ -135,7 +145,8 @@ class ResponseCodeRequiredOutputPayloadBuilder
 
   @override
   void update(
-      void Function(ResponseCodeRequiredOutputPayloadBuilder)? updates) {
+    void Function(ResponseCodeRequiredOutputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

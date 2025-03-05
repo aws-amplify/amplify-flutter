@@ -16,17 +16,18 @@ abstract class NestedStructWithList
     implements Built<NestedStructWithList, NestedStructWithListBuilder> {
   factory NestedStructWithList({List<String>? listArg}) {
     return _$NestedStructWithList._(
-        listArg: listArg == null ? null : _i2.BuiltList(listArg));
+      listArg: listArg == null ? null : _i2.BuiltList(listArg),
+    );
   }
 
-  factory NestedStructWithList.build(
-          [void Function(NestedStructWithListBuilder) updates]) =
-      _$NestedStructWithList;
+  factory NestedStructWithList.build([
+    void Function(NestedStructWithListBuilder) updates,
+  ]) = _$NestedStructWithList;
 
   const NestedStructWithList._();
 
   static const List<_i3.SmithySerializer<NestedStructWithList>> serializers = [
-    NestedStructWithListAwsQuerySerializer()
+    NestedStructWithListAwsQuerySerializer(),
   ];
 
   _i2.BuiltList<String>? get listArg;
@@ -36,10 +37,7 @@ abstract class NestedStructWithList
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedStructWithList')
-      ..add(
-        'listArg',
-        listArg,
-      );
+      ..add('listArg', listArg);
     return helper.toString();
   }
 }
@@ -47,21 +45,18 @@ abstract class NestedStructWithList
 class NestedStructWithListAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<NestedStructWithList> {
   const NestedStructWithListAwsQuerySerializer()
-      : super('NestedStructWithList');
+    : super('NestedStructWithList');
 
   @override
   Iterable<Type> get types => const [
-        NestedStructWithList,
-        _$NestedStructWithList,
-      ];
+    NestedStructWithList,
+    _$NestedStructWithList,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   NestedStructWithList deserialize(
@@ -88,16 +83,18 @@ class NestedStructWithListAwsQuerySerializer
       }
       switch (key) {
         case 'ListArg':
-          result.listArg.replace((const _i3.XmlBuiltListSerializer(
-                  indexer: _i3.XmlIndexer.awsQueryList)
-              .deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i2.BuiltList<String>));
+          result.listArg.replace(
+            (const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList,
+                ).deserialize(
+                  serializers,
+                  value is String ? const [] : (value as Iterable<Object?>),
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltList<String>),
+          );
       }
     }
 
@@ -114,22 +111,21 @@ class NestedStructWithListAwsQuerySerializer
       const _i3.XmlElementName(
         'NestedStructWithListResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final NestedStructWithList(:listArg) = object;
     if (listArg != null) {
       result$
         ..add(const _i3.XmlElementName('ListArg'))
-        ..add(const _i3.XmlBuiltListSerializer(
-                indexer: _i3.XmlIndexer.awsQueryList)
-            .serialize(
-          serializers,
-          listArg,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(String)],
+        ..add(
+          const _i3.XmlBuiltListSerializer(
+            indexer: _i3.XmlIndexer.awsQueryList,
+          ).serialize(
+            serializers,
+            listArg,
+            specifiedType: const FullType(_i2.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     return result$;
   }

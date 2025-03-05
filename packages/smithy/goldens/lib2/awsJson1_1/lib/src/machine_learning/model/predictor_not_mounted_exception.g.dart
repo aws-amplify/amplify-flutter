@@ -12,16 +12,16 @@ class _$PredictorNotMountedException extends PredictorNotMountedException {
   @override
   final Map<String, String>? headers;
 
-  factory _$PredictorNotMountedException(
-          [void Function(PredictorNotMountedExceptionBuilder)? updates]) =>
-      (new PredictorNotMountedExceptionBuilder()..update(updates))._build();
+  factory _$PredictorNotMountedException([
+    void Function(PredictorNotMountedExceptionBuilder)? updates,
+  ]) => (new PredictorNotMountedExceptionBuilder()..update(updates))._build();
 
   _$PredictorNotMountedException._({this.message, this.headers}) : super._();
 
   @override
   PredictorNotMountedException rebuild(
-          void Function(PredictorNotMountedExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PredictorNotMountedExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PredictorNotMountedExceptionBuilder toBuilder() =>
@@ -44,8 +44,10 @@ class _$PredictorNotMountedException extends PredictorNotMountedException {
 
 class PredictorNotMountedExceptionBuilder
     implements
-        Builder<PredictorNotMountedException,
-            PredictorNotMountedExceptionBuilder> {
+        Builder<
+          PredictorNotMountedException,
+          PredictorNotMountedExceptionBuilder
+        > {
   _$PredictorNotMountedException? _$v;
 
   String? _message;
@@ -83,7 +85,8 @@ class PredictorNotMountedExceptionBuilder
   PredictorNotMountedException build() => _build();
 
   _$PredictorNotMountedException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PredictorNotMountedException._(
           message: message,
           headers: headers,

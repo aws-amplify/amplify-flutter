@@ -20,18 +20,18 @@ class _$XmlIntEnumsOutput extends XmlIntEnumsOutput {
   @override
   final _i2.BuiltMap<String, IntegerEnum>? intEnumMap;
 
-  factory _$XmlIntEnumsOutput(
-          [void Function(XmlIntEnumsOutputBuilder)? updates]) =>
-      (new XmlIntEnumsOutputBuilder()..update(updates))._build();
+  factory _$XmlIntEnumsOutput([
+    void Function(XmlIntEnumsOutputBuilder)? updates,
+  ]) => (new XmlIntEnumsOutputBuilder()..update(updates))._build();
 
-  _$XmlIntEnumsOutput._(
-      {this.intEnum1,
-      this.intEnum2,
-      this.intEnum3,
-      this.intEnumList,
-      this.intEnumSet,
-      this.intEnumMap})
-      : super._();
+  _$XmlIntEnumsOutput._({
+    this.intEnum1,
+    this.intEnum2,
+    this.intEnum3,
+    this.intEnumList,
+    this.intEnumSet,
+    this.intEnumMap,
+  }) : super._();
 
   @override
   XmlIntEnumsOutput rebuild(void Function(XmlIntEnumsOutputBuilder) updates) =>
@@ -134,7 +134,8 @@ class XmlIntEnumsOutputBuilder
   _$XmlIntEnumsOutput _build() {
     _$XmlIntEnumsOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$XmlIntEnumsOutput._(
             intEnum1: intEnum1,
             intEnum2: intEnum2,
@@ -154,7 +155,10 @@ class XmlIntEnumsOutputBuilder
         _intEnumMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlIntEnumsOutput', _$failedField, e.toString());
+          r'XmlIntEnumsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

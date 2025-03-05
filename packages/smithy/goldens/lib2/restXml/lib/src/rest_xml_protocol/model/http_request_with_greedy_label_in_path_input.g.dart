@@ -13,26 +13,32 @@ class _$HttpRequestWithGreedyLabelInPathInput
   @override
   final String baz;
 
-  factory _$HttpRequestWithGreedyLabelInPathInput(
-          [void Function(HttpRequestWithGreedyLabelInPathInputBuilder)?
-              updates]) =>
+  factory _$HttpRequestWithGreedyLabelInPathInput([
+    void Function(HttpRequestWithGreedyLabelInPathInputBuilder)? updates,
+  ]) =>
       (new HttpRequestWithGreedyLabelInPathInputBuilder()..update(updates))
           ._build();
 
-  _$HttpRequestWithGreedyLabelInPathInput._(
-      {required this.foo, required this.baz})
-      : super._() {
+  _$HttpRequestWithGreedyLabelInPathInput._({
+    required this.foo,
+    required this.baz,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        foo, r'HttpRequestWithGreedyLabelInPathInput', 'foo');
+      foo,
+      r'HttpRequestWithGreedyLabelInPathInput',
+      'foo',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        baz, r'HttpRequestWithGreedyLabelInPathInput', 'baz');
+      baz,
+      r'HttpRequestWithGreedyLabelInPathInput',
+      'baz',
+    );
   }
 
   @override
   HttpRequestWithGreedyLabelInPathInput rebuild(
-          void Function(HttpRequestWithGreedyLabelInPathInputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithGreedyLabelInPathInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithGreedyLabelInPathInputBuilder toBuilder() =>
@@ -58,8 +64,10 @@ class _$HttpRequestWithGreedyLabelInPathInput
 
 class HttpRequestWithGreedyLabelInPathInputBuilder
     implements
-        Builder<HttpRequestWithGreedyLabelInPathInput,
-            HttpRequestWithGreedyLabelInPathInputBuilder> {
+        Builder<
+          HttpRequestWithGreedyLabelInPathInput,
+          HttpRequestWithGreedyLabelInPathInputBuilder
+        > {
   _$HttpRequestWithGreedyLabelInPathInput? _$v;
 
   String? _foo;
@@ -90,7 +98,8 @@ class HttpRequestWithGreedyLabelInPathInputBuilder
 
   @override
   void update(
-      void Function(HttpRequestWithGreedyLabelInPathInputBuilder)? updates) {
+    void Function(HttpRequestWithGreedyLabelInPathInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -98,12 +107,19 @@ class HttpRequestWithGreedyLabelInPathInputBuilder
   HttpRequestWithGreedyLabelInPathInput build() => _build();
 
   _$HttpRequestWithGreedyLabelInPathInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$HttpRequestWithGreedyLabelInPathInput._(
           foo: BuiltValueNullFieldError.checkNotNull(
-              foo, r'HttpRequestWithGreedyLabelInPathInput', 'foo'),
+            foo,
+            r'HttpRequestWithGreedyLabelInPathInput',
+            'foo',
+          ),
           baz: BuiltValueNullFieldError.checkNotNull(
-              baz, r'HttpRequestWithGreedyLabelInPathInput', 'baz'),
+            baz,
+            r'HttpRequestWithGreedyLabelInPathInput',
+            'baz',
+          ),
         );
     replace(_$result);
     return _$result;
@@ -112,9 +128,9 @@ class HttpRequestWithGreedyLabelInPathInputBuilder
 
 class _$HttpRequestWithGreedyLabelInPathInputPayload
     extends HttpRequestWithGreedyLabelInPathInputPayload {
-  factory _$HttpRequestWithGreedyLabelInPathInputPayload(
-          [void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)?
-              updates]) =>
+  factory _$HttpRequestWithGreedyLabelInPathInputPayload([
+    void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)? updates,
+  ]) =>
       (new HttpRequestWithGreedyLabelInPathInputPayloadBuilder()
             ..update(updates))
           ._build();
@@ -123,9 +139,8 @@ class _$HttpRequestWithGreedyLabelInPathInputPayload
 
   @override
   HttpRequestWithGreedyLabelInPathInputPayload rebuild(
-          void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestWithGreedyLabelInPathInputPayloadBuilder toBuilder() =>
@@ -145,8 +160,10 @@ class _$HttpRequestWithGreedyLabelInPathInputPayload
 
 class HttpRequestWithGreedyLabelInPathInputPayloadBuilder
     implements
-        Builder<HttpRequestWithGreedyLabelInPathInputPayload,
-            HttpRequestWithGreedyLabelInPathInputPayloadBuilder> {
+        Builder<
+          HttpRequestWithGreedyLabelInPathInputPayload,
+          HttpRequestWithGreedyLabelInPathInputPayloadBuilder
+        > {
   _$HttpRequestWithGreedyLabelInPathInputPayload? _$v;
 
   HttpRequestWithGreedyLabelInPathInputPayloadBuilder();
@@ -159,8 +176,8 @@ class HttpRequestWithGreedyLabelInPathInputPayloadBuilder
 
   @override
   void update(
-      void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)?
-          updates) {
+    void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

@@ -11,51 +11,43 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'AwsJson11EndpointTrait (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: EndpointOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
+  _i1.test('AwsJson11EndpointTrait (request)', () async {
+    await _i2.httpRequestTest(
+      operation: EndpointOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11EndpointTrait',
-          documentation:
-              'Operations can prepend to the given host if they define the\nendpoint trait.',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{}',
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.EndpointOperation',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: 'example.com',
-          resolvedHost: 'foo.example.com',
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [],
-      );
-    },
-  );
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11EndpointTrait',
+        documentation:
+            'Operations can prepend to the given host if they define the\nendpoint trait.',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{}',
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.EndpointOperation',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: 'example.com',
+        resolvedHost: 'foo.example.com',
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [],
+    );
+  });
 }

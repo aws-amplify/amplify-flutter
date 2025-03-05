@@ -14,67 +14,56 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'HttpChecksumRequiredNoAlgorithm (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpChecksumRequiredOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'HttpChecksumRequiredNoAlgorithm',
-          documentation:
-              'Adds an MD5 checksum when required and no algorithm is provided',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: 'hello, world',
-          bodyMediaType: 'application/octet-stream',
-          params: {'content': 'hello, world'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/octet-stream',
-            'Content-MD5': '5NfxtO0uQtFYmPSyewGdpA==',
-          },
-          forbidHeaders: ['x-amz-request-algorithm'],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/required',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpChecksumRequiredInputRestJson1Serializer()
-        ],
-      );
-    },
-  );
+  _i1.test('HttpChecksumRequiredNoAlgorithm (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpChecksumRequiredOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'HttpChecksumRequiredNoAlgorithm',
+        documentation:
+            'Adds an MD5 checksum when required and no algorithm is provided',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: 'hello, world',
+        bodyMediaType: 'application/octet-stream',
+        params: {'content': 'hello, world'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/octet-stream',
+          'Content-MD5': '5NfxtO0uQtFYmPSyewGdpA==',
+        },
+        forbidHeaders: ['x-amz-request-algorithm'],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/required',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [HttpChecksumRequiredInputRestJson1Serializer()],
+    );
+  });
 }
 
 class HttpChecksumRequiredInputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<HttpChecksumRequiredInput> {
   const HttpChecksumRequiredInputRestJson1Serializer()
-      : super('HttpChecksumRequiredInput');
+    : super('HttpChecksumRequiredInput');
 
   @override
   Iterable<Type> get types => const [HttpChecksumRequiredInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   HttpChecksumRequiredInput deserialize(
@@ -93,10 +82,12 @@ class HttpChecksumRequiredInputRestJson1Serializer
       }
       switch (key) {
         case 'content':
-          result.content = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i4.Uint8List),
-          ) as _i4.Uint8List);
+          result.content =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.Uint8List),
+                  )
+                  as _i4.Uint8List);
       }
     }
 

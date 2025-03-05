@@ -21,19 +21,20 @@ class EndpointOperation
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<_i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>>
-      protocols = [
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithHeader(
               'X-Amz-Target',
@@ -51,7 +52,7 @@ class EndpointOperation
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -71,19 +72,16 @@ class EndpointOperation
 
   @override
   _i1.HttpRequest buildRequest(_i1.Unit input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/';
-        b.hostPrefix = 'foo.';
-      });
+    b.method = 'POST';
+    b.path = r'/';
+    b.hostPrefix = 'foo.';
+  });
 
   @override
   int successCode([_i1.Unit? output]) => 200;
 
   @override
-  _i1.Unit buildOutput(
-    _i1.Unit payload,
-    _i4.AWSBaseHttpResponse response,
-  ) =>
+  _i1.Unit buildOutput(_i1.Unit payload, _i4.AWSBaseHttpResponse response) =>
       payload;
 
   @override
@@ -108,11 +106,7 @@ class EndpointOperation
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

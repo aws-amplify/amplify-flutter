@@ -16,25 +16,29 @@ abstract class NestedCollectionsInput
         _i1.HttpInput<NestedCollectionsInput>,
         _i2.AWSEquatable<NestedCollectionsInput>
     implements Built<NestedCollectionsInput, NestedCollectionsInputBuilder> {
-  factory NestedCollectionsInput(
-      {Map<String, List<Map<String, List<String>>?>>? mapOfListOfMapOfLists}) {
+  factory NestedCollectionsInput({
+    Map<String, List<Map<String, List<String>>?>>? mapOfListOfMapOfLists,
+  }) {
     return _$NestedCollectionsInput._(
-        mapOfListOfMapOfLists: mapOfListOfMapOfLists == null
-            ? null
-            : _i3.BuiltListMultimap(mapOfListOfMapOfLists.map((
-                key,
-                value,
-              ) =>
-                MapEntry(
-                  key,
-                  value.map(
-                      (el) => el == null ? null : _i3.BuiltListMultimap(el)),
-                ))));
+      mapOfListOfMapOfLists:
+          mapOfListOfMapOfLists == null
+              ? null
+              : _i3.BuiltListMultimap(
+                mapOfListOfMapOfLists.map(
+                  (key, value) => MapEntry(
+                    key,
+                    value.map(
+                      (el) => el == null ? null : _i3.BuiltListMultimap(el),
+                    ),
+                  ),
+                ),
+              ),
+    );
   }
 
-  factory NestedCollectionsInput.build(
-          [void Function(NestedCollectionsInputBuilder) updates]) =
-      _$NestedCollectionsInput;
+  factory NestedCollectionsInput.build([
+    void Function(NestedCollectionsInputBuilder) updates,
+  ]) = _$NestedCollectionsInput;
 
   const NestedCollectionsInput._();
 
@@ -42,14 +46,13 @@ abstract class NestedCollectionsInput
     NestedCollectionsInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<NestedCollectionsInput>> serializers =
       [NestedCollectionsInputRestJson1Serializer()];
 
   _i3.BuiltListMultimap<String, _i3.BuiltListMultimap<String, String>?>?
-      get mapOfListOfMapOfLists;
+  get mapOfListOfMapOfLists;
   @override
   NestedCollectionsInput getPayload() => this;
 
@@ -59,10 +62,7 @@ abstract class NestedCollectionsInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedCollectionsInput')
-      ..add(
-        'mapOfListOfMapOfLists',
-        mapOfListOfMapOfLists,
-      );
+      ..add('mapOfListOfMapOfLists', mapOfListOfMapOfLists);
     return helper.toString();
   }
 }
@@ -70,21 +70,18 @@ abstract class NestedCollectionsInput
 class NestedCollectionsInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<NestedCollectionsInput> {
   const NestedCollectionsInputRestJson1Serializer()
-      : super('NestedCollectionsInput');
+    : super('NestedCollectionsInput');
 
   @override
   Iterable<Type> get types => const [
-        NestedCollectionsInput,
-        _$NestedCollectionsInput,
-      ];
+    NestedCollectionsInput,
+    _$NestedCollectionsInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   NestedCollectionsInput deserialize(
@@ -103,23 +100,22 @@ class NestedCollectionsInputRestJson1Serializer
       }
       switch (key) {
         case 'mapOfListOfMapOfLists':
-          result.mapOfListOfMapOfLists.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltListMultimap,
-              [
-                FullType(String),
-                FullType.nullable(
-                  _i3.BuiltListMultimap,
-                  [
+          result.mapOfListOfMapOfLists.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltListMultimap, [
                     FullType(String),
-                    FullType(String),
-                  ],
-                ),
-              ],
-            ),
-          ) as _i3.BuiltListMultimap<String,
-              _i3.BuiltListMultimap<String, String>?>));
+                    FullType.nullable(_i3.BuiltListMultimap, [
+                      FullType(String),
+                      FullType(String),
+                    ]),
+                  ]),
+                )
+                as _i3.BuiltListMultimap<
+                  String,
+                  _i3.BuiltListMultimap<String, String>?
+                >),
+          );
       }
     }
 
@@ -137,22 +133,18 @@ class NestedCollectionsInputRestJson1Serializer
     if (mapOfListOfMapOfLists != null) {
       result$
         ..add('mapOfListOfMapOfLists')
-        ..add(serializers.serialize(
-          mapOfListOfMapOfLists,
-          specifiedType: const FullType(
-            _i3.BuiltListMultimap,
-            [
+        ..add(
+          serializers.serialize(
+            mapOfListOfMapOfLists,
+            specifiedType: const FullType(_i3.BuiltListMultimap, [
               FullType(String),
-              FullType.nullable(
-                _i3.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ],
+              FullType.nullable(_i3.BuiltListMultimap, [
+                FullType(String),
+                FullType(String),
+              ]),
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

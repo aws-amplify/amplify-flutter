@@ -6,19 +6,11 @@ library rest_xml_v1.s3.model.encoding_type; // ignore_for_file: no_leading_under
 import 'package:smithy/smithy.dart' as _i1;
 
 class EncodingType extends _i1.SmithyEnum<EncodingType> {
-  const EncodingType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const EncodingType._(super.index, super.name, super.value);
 
   const EncodingType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const url = EncodingType._(
-    0,
-    'url',
-    'url',
-  );
+  static const url = EncodingType._(0, 'url', 'url');
 
   /// All values of [EncodingType].
   static const values = <EncodingType>[EncodingType.url];
@@ -29,12 +21,9 @@ class EncodingType extends _i1.SmithyEnum<EncodingType> {
       values: values,
       sdkUnknown: EncodingType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

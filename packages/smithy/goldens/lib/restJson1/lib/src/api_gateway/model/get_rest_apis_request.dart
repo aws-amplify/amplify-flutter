@@ -19,19 +19,13 @@ abstract class GetRestApisRequest
         Built<GetRestApisRequest, GetRestApisRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<GetRestApisRequestPayload> {
-  factory GetRestApisRequest({
-    String? position,
-    int? limit,
-  }) {
-    return _$GetRestApisRequest._(
-      position: position,
-      limit: limit,
-    );
+  factory GetRestApisRequest({String? position, int? limit}) {
+    return _$GetRestApisRequest._(position: position, limit: limit);
   }
 
-  factory GetRestApisRequest.build(
-          [void Function(GetRestApisRequestBuilder) updates]) =
-      _$GetRestApisRequest;
+  factory GetRestApisRequest.build([
+    void Function(GetRestApisRequestBuilder) updates,
+  ]) = _$GetRestApisRequest;
 
   const GetRestApisRequest._();
 
@@ -39,18 +33,17 @@ abstract class GetRestApisRequest
     GetRestApisRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      GetRestApisRequest.build((b) {
-        if (request.queryParameters['position'] != null) {
-          b.position = request.queryParameters['position']!;
-        }
-        if (request.queryParameters['limit'] != null) {
-          b.limit = int.parse(request.queryParameters['limit']!);
-        }
-      });
+  }) => GetRestApisRequest.build((b) {
+    if (request.queryParameters['position'] != null) {
+      b.position = request.queryParameters['position']!;
+    }
+    if (request.queryParameters['limit'] != null) {
+      b.limit = int.parse(request.queryParameters['limit']!);
+    }
+  });
 
   static const List<_i1.SmithySerializer<GetRestApisRequestPayload>>
-      serializers = [GetRestApisRequestRestJson1Serializer()];
+  serializers = [GetRestApisRequestRestJson1Serializer()];
 
   String? get position;
   int? get limit;
@@ -58,22 +51,14 @@ abstract class GetRestApisRequest
   GetRestApisRequestPayload getPayload() => GetRestApisRequestPayload();
 
   @override
-  List<Object?> get props => [
-        position,
-        limit,
-      ];
+  List<Object?> get props => [position, limit];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetRestApisRequest')
-      ..add(
-        'position',
-        position,
-      )
-      ..add(
-        'limit',
-        limit,
-      );
+    final helper =
+        newBuiltValueToStringHelper('GetRestApisRequest')
+          ..add('position', position)
+          ..add('limit', limit);
     return helper.toString();
   }
 }
@@ -84,9 +69,9 @@ abstract class GetRestApisRequestPayload
     implements
         Built<GetRestApisRequestPayload, GetRestApisRequestPayloadBuilder>,
         _i1.EmptyPayload {
-  factory GetRestApisRequestPayload(
-          [void Function(GetRestApisRequestPayloadBuilder) updates]) =
-      _$GetRestApisRequestPayload;
+  factory GetRestApisRequestPayload([
+    void Function(GetRestApisRequestPayloadBuilder) updates,
+  ]) = _$GetRestApisRequestPayload;
 
   const GetRestApisRequestPayload._();
 
@@ -106,19 +91,16 @@ class GetRestApisRequestRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        GetRestApisRequest,
-        _$GetRestApisRequest,
-        GetRestApisRequestPayload,
-        _$GetRestApisRequestPayload,
-      ];
+    GetRestApisRequest,
+    _$GetRestApisRequest,
+    GetRestApisRequestPayload,
+    _$GetRestApisRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   GetRestApisRequestPayload deserialize(
@@ -134,6 +116,5 @@ class GetRestApisRequestRestJson1Serializer
     Serializers serializers,
     GetRestApisRequestPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

@@ -10,16 +10,16 @@ class _$MalformedUnionInput extends MalformedUnionInput {
   @override
   final SimpleUnion? union;
 
-  factory _$MalformedUnionInput(
-          [void Function(MalformedUnionInputBuilder)? updates]) =>
-      (new MalformedUnionInputBuilder()..update(updates))._build();
+  factory _$MalformedUnionInput([
+    void Function(MalformedUnionInputBuilder)? updates,
+  ]) => (new MalformedUnionInputBuilder()..update(updates))._build();
 
   _$MalformedUnionInput._({this.union}) : super._();
 
   @override
   MalformedUnionInput rebuild(
-          void Function(MalformedUnionInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedUnionInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedUnionInputBuilder toBuilder() =>
@@ -74,10 +74,7 @@ class MalformedUnionInputBuilder
   MalformedUnionInput build() => _build();
 
   _$MalformedUnionInput _build() {
-    final _$result = _$v ??
-        new _$MalformedUnionInput._(
-          union: union,
-        );
+    final _$result = _$v ?? new _$MalformedUnionInput._(union: union);
     replace(_$result);
     return _$result;
   }

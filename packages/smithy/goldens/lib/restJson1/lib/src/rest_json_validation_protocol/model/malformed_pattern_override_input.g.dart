@@ -16,18 +16,21 @@ class _$MalformedPatternOverrideInput extends MalformedPatternOverrideInput {
   @override
   final PatternUnionOverride? union;
 
-  factory _$MalformedPatternOverrideInput(
-          [void Function(MalformedPatternOverrideInputBuilder)? updates]) =>
-      (new MalformedPatternOverrideInputBuilder()..update(updates))._build();
+  factory _$MalformedPatternOverrideInput([
+    void Function(MalformedPatternOverrideInputBuilder)? updates,
+  ]) => (new MalformedPatternOverrideInputBuilder()..update(updates))._build();
 
-  _$MalformedPatternOverrideInput._(
-      {this.string, this.list, this.map, this.union})
-      : super._();
+  _$MalformedPatternOverrideInput._({
+    this.string,
+    this.list,
+    this.map,
+    this.union,
+  }) : super._();
 
   @override
   MalformedPatternOverrideInput rebuild(
-          void Function(MalformedPatternOverrideInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedPatternOverrideInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedPatternOverrideInputBuilder toBuilder() =>
@@ -57,8 +60,10 @@ class _$MalformedPatternOverrideInput extends MalformedPatternOverrideInput {
 
 class MalformedPatternOverrideInputBuilder
     implements
-        Builder<MalformedPatternOverrideInput,
-            MalformedPatternOverrideInputBuilder> {
+        Builder<
+          MalformedPatternOverrideInput,
+          MalformedPatternOverrideInputBuilder
+        > {
   _$MalformedPatternOverrideInput? _$v;
 
   String? _string;
@@ -110,7 +115,8 @@ class MalformedPatternOverrideInputBuilder
   _$MalformedPatternOverrideInput _build() {
     _$MalformedPatternOverrideInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$MalformedPatternOverrideInput._(
             string: string,
             list: _list?.build(),
@@ -126,7 +132,10 @@ class MalformedPatternOverrideInputBuilder
         _map?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MalformedPatternOverrideInput', _$failedField, e.toString());
+          r'MalformedPatternOverrideInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

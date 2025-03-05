@@ -13,17 +13,18 @@ class _$RecursiveXmlShapesOutputNested2
   @override
   final RecursiveXmlShapesOutputNested1? recursiveMember;
 
-  factory _$RecursiveXmlShapesOutputNested2(
-          [void Function(RecursiveXmlShapesOutputNested2Builder)? updates]) =>
+  factory _$RecursiveXmlShapesOutputNested2([
+    void Function(RecursiveXmlShapesOutputNested2Builder)? updates,
+  ]) =>
       (new RecursiveXmlShapesOutputNested2Builder()..update(updates))._build();
 
   _$RecursiveXmlShapesOutputNested2._({this.bar, this.recursiveMember})
-      : super._();
+    : super._();
 
   @override
   RecursiveXmlShapesOutputNested2 rebuild(
-          void Function(RecursiveXmlShapesOutputNested2Builder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RecursiveXmlShapesOutputNested2Builder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RecursiveXmlShapesOutputNested2Builder toBuilder() =>
@@ -49,8 +50,10 @@ class _$RecursiveXmlShapesOutputNested2
 
 class RecursiveXmlShapesOutputNested2Builder
     implements
-        Builder<RecursiveXmlShapesOutputNested2,
-            RecursiveXmlShapesOutputNested2Builder> {
+        Builder<
+          RecursiveXmlShapesOutputNested2,
+          RecursiveXmlShapesOutputNested2Builder
+        > {
   _$RecursiveXmlShapesOutputNested2? _$v;
 
   String? _bar;
@@ -61,8 +64,8 @@ class RecursiveXmlShapesOutputNested2Builder
   RecursiveXmlShapesOutputNested1Builder get recursiveMember =>
       _$this._recursiveMember ??= new RecursiveXmlShapesOutputNested1Builder();
   set recursiveMember(
-          RecursiveXmlShapesOutputNested1Builder? recursiveMember) =>
-      _$this._recursiveMember = recursiveMember;
+    RecursiveXmlShapesOutputNested1Builder? recursiveMember,
+  ) => _$this._recursiveMember = recursiveMember;
 
   RecursiveXmlShapesOutputNested2Builder();
 
@@ -93,7 +96,8 @@ class RecursiveXmlShapesOutputNested2Builder
   _$RecursiveXmlShapesOutputNested2 _build() {
     _$RecursiveXmlShapesOutputNested2 _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$RecursiveXmlShapesOutputNested2._(
             bar: bar,
             recursiveMember: _recursiveMember?.build(),
@@ -105,7 +109,10 @@ class RecursiveXmlShapesOutputNested2Builder
         _recursiveMember?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'RecursiveXmlShapesOutputNested2', _$failedField, e.toString());
+          r'RecursiveXmlShapesOutputNested2',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

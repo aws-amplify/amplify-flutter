@@ -6,31 +6,15 @@ library rest_json1_v2.rest_json_validation_protocol.model.integer_enum; // ignor
 import 'package:smithy/smithy.dart' as _i1;
 
 class IntegerEnum extends _i1.SmithyIntEnum<IntegerEnum> {
-  const IntegerEnum._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const IntegerEnum._(super.index, super.name, super.value);
 
   const IntegerEnum._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const a = IntegerEnum._(
-    0,
-    'A',
-    1,
-  );
+  static const a = IntegerEnum._(0, 'A', 1);
 
-  static const b = IntegerEnum._(
-    1,
-    'B',
-    2,
-  );
+  static const b = IntegerEnum._(1, 'B', 2);
 
-  static const c = IntegerEnum._(
-    2,
-    'C',
-    3,
-  );
+  static const c = IntegerEnum._(2, 'C', 3);
 
   /// All values of [IntegerEnum].
   static const values = <IntegerEnum>[
@@ -45,12 +29,9 @@ class IntegerEnum extends _i1.SmithyIntEnum<IntegerEnum> {
       values: values,
       sdkUnknown: IntegerEnum._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

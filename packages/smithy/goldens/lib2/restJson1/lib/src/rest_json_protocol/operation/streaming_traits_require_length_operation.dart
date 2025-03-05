@@ -13,30 +13,40 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// This examples serializes a streaming blob shape with a required content length in the request body. In this example, no JSON document is synthesized because the payload is not a structure or a union type.
-class StreamingTraitsRequireLengthOperation extends _i1.HttpOperation<
-    _i2.Stream<List<int>>,
-    StreamingTraitsRequireLengthInput,
-    _i1.Unit,
-    _i1.Unit> {
+class StreamingTraitsRequireLengthOperation
+    extends
+        _i1.HttpOperation<
+          _i2.Stream<List<int>>,
+          StreamingTraitsRequireLengthInput,
+          _i1.Unit,
+          _i1.Unit
+        > {
   /// This examples serializes a streaming blob shape with a required content length in the request body. In this example, no JSON document is synthesized because the payload is not a structure or a union type.
   StreamingTraitsRequireLengthOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.Stream<List<int>>, StreamingTraitsRequireLengthInput,
-          _i1.Unit, _i1.Unit>> protocols = [
+    _i1.HttpProtocol<
+      _i2.Stream<List<int>>,
+      StreamingTraitsRequireLengthInput,
+      _i1.Unit,
+      _i1.Unit
+    >
+  >
+  protocols = [
     _i3.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
@@ -46,7 +56,7 @@ class StreamingTraitsRequireLengthOperation extends _i1.HttpOperation<
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -78,10 +88,7 @@ class StreamingTraitsRequireLengthOperation extends _i1.HttpOperation<
   int successCode([_i1.Unit? output]) => 200;
 
   @override
-  _i1.Unit buildOutput(
-    _i1.Unit payload,
-    _i4.AWSBaseHttpResponse response,
-  ) =>
+  _i1.Unit buildOutput(_i1.Unit payload, _i4.AWSBaseHttpResponse response) =>
       payload;
 
   @override
@@ -106,11 +113,7 @@ class StreamingTraitsRequireLengthOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

@@ -12,64 +12,52 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonConstantQueryString (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: ConstantQueryStringOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonConstantQueryString',
-          documentation: 'Includes constant query string parameters',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'hello': 'hi'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/ConstantQueryString/hi',
-          host: null,
-          resolvedHost: null,
-          queryParams: [
-            'foo=bar',
-            'hello',
-          ],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [ConstantQueryStringInputRestJson1Serializer()],
-      );
-    },
-  );
+  _i1.test('RestJsonConstantQueryString (request)', () async {
+    await _i2.httpRequestTest(
+      operation: ConstantQueryStringOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonConstantQueryString',
+        documentation: 'Includes constant query string parameters',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'hello': 'hi'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/ConstantQueryString/hi',
+        host: null,
+        resolvedHost: null,
+        queryParams: ['foo=bar', 'hello'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [ConstantQueryStringInputRestJson1Serializer()],
+    );
+  });
 }
 
 class ConstantQueryStringInputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<ConstantQueryStringInput> {
   const ConstantQueryStringInputRestJson1Serializer()
-      : super('ConstantQueryStringInput');
+    : super('ConstantQueryStringInput');
 
   @override
   Iterable<Type> get types => const [ConstantQueryStringInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   ConstantQueryStringInput deserialize(
@@ -88,10 +76,12 @@ class ConstantQueryStringInputRestJson1Serializer
       }
       switch (key) {
         case 'hello':
-          result.hello = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.hello =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

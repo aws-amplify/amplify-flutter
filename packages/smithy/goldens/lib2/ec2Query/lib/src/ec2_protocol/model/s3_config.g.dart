@@ -17,11 +17,11 @@ class _$S3Config extends S3Config {
   factory _$S3Config([void Function(S3ConfigBuilder)? updates]) =>
       (new S3ConfigBuilder()..update(updates))._build();
 
-  _$S3Config._(
-      {this.addressingStyle,
-      this.useAccelerateEndpoint,
-      this.useDualstackEndpoint})
-      : super._();
+  _$S3Config._({
+    this.addressingStyle,
+    this.useAccelerateEndpoint,
+    this.useDualstackEndpoint,
+  }) : super._();
 
   @override
   S3Config rebuild(void Function(S3ConfigBuilder) updates) =>
@@ -96,7 +96,8 @@ class S3ConfigBuilder implements Builder<S3Config, S3ConfigBuilder> {
   S3Config build() => _build();
 
   _$S3Config _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$S3Config._(
           addressingStyle: addressingStyle,
           useAccelerateEndpoint: useAccelerateEndpoint,

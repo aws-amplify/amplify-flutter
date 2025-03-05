@@ -75,10 +75,7 @@ class XmlMapsOutputBuilder
   _$XmlMapsOutput _build() {
     _$XmlMapsOutput _$result;
     try {
-      _$result = _$v ??
-          new _$XmlMapsOutput._(
-            myMap: _myMap?.build(),
-          );
+      _$result = _$v ?? new _$XmlMapsOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -86,7 +83,10 @@ class XmlMapsOutputBuilder
         _myMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlMapsOutput', _$failedField, e.toString());
+          r'XmlMapsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

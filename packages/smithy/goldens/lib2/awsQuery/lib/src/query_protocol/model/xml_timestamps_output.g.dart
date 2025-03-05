@@ -22,24 +22,24 @@ class _$XmlTimestampsOutput extends XmlTimestampsOutput {
   @override
   final DateTime? httpDateOnTarget;
 
-  factory _$XmlTimestampsOutput(
-          [void Function(XmlTimestampsOutputBuilder)? updates]) =>
-      (new XmlTimestampsOutputBuilder()..update(updates))._build();
+  factory _$XmlTimestampsOutput([
+    void Function(XmlTimestampsOutputBuilder)? updates,
+  ]) => (new XmlTimestampsOutputBuilder()..update(updates))._build();
 
-  _$XmlTimestampsOutput._(
-      {this.normal,
-      this.dateTime,
-      this.dateTimeOnTarget,
-      this.epochSeconds,
-      this.epochSecondsOnTarget,
-      this.httpDate,
-      this.httpDateOnTarget})
-      : super._();
+  _$XmlTimestampsOutput._({
+    this.normal,
+    this.dateTime,
+    this.dateTimeOnTarget,
+    this.epochSeconds,
+    this.epochSecondsOnTarget,
+    this.httpDate,
+    this.httpDateOnTarget,
+  }) : super._();
 
   @override
   XmlTimestampsOutput rebuild(
-          void Function(XmlTimestampsOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlTimestampsOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlTimestampsOutputBuilder toBuilder() =>
@@ -141,7 +141,8 @@ class XmlTimestampsOutputBuilder
   XmlTimestampsOutput build() => _build();
 
   _$XmlTimestampsOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$XmlTimestampsOutput._(
           normal: normal,
           dateTime: dateTime,

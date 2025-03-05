@@ -10,16 +10,16 @@ class _$GreetingWithErrorsOutput extends GreetingWithErrorsOutput {
   @override
   final String? greeting;
 
-  factory _$GreetingWithErrorsOutput(
-          [void Function(GreetingWithErrorsOutputBuilder)? updates]) =>
-      (new GreetingWithErrorsOutputBuilder()..update(updates))._build();
+  factory _$GreetingWithErrorsOutput([
+    void Function(GreetingWithErrorsOutputBuilder)? updates,
+  ]) => (new GreetingWithErrorsOutputBuilder()..update(updates))._build();
 
   _$GreetingWithErrorsOutput._({this.greeting}) : super._();
 
   @override
   GreetingWithErrorsOutput rebuild(
-          void Function(GreetingWithErrorsOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GreetingWithErrorsOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GreetingWithErrorsOutputBuilder toBuilder() =>
@@ -75,10 +75,8 @@ class GreetingWithErrorsOutputBuilder
   GreetingWithErrorsOutput build() => _build();
 
   _$GreetingWithErrorsOutput _build() {
-    final _$result = _$v ??
-        new _$GreetingWithErrorsOutput._(
-          greeting: greeting,
-        );
+    final _$result =
+        _$v ?? new _$GreetingWithErrorsOutput._(greeting: greeting);
     replace(_$result);
     return _$result;
   }

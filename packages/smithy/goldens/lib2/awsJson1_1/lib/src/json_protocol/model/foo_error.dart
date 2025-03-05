@@ -31,21 +31,18 @@ abstract class FooError
   factory FooError.fromResponse(
     FooError payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<FooError>> serializers = [
-    FooErrorAwsJson11Serializer()
+    FooErrorAwsJson11Serializer(),
   ];
 
   @override
-  _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'aws.protocoltests.json',
-        shape: 'FooError',
-      );
+  _i2.ShapeId get shapeId =>
+      const _i2.ShapeId(namespace: 'aws.protocoltests.json', shape: 'FooError');
 
   @override
   String? get message => null;
@@ -77,18 +74,12 @@ class FooErrorAwsJson11Serializer
   const FooErrorAwsJson11Serializer() : super('FooError');
 
   @override
-  Iterable<Type> get types => const [
-        FooError,
-        _$FooError,
-      ];
+  Iterable<Type> get types => const [FooError, _$FooError];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   FooError deserialize(
@@ -104,6 +95,5 @@ class FooErrorAwsJson11Serializer
     Serializers serializers,
     FooError object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

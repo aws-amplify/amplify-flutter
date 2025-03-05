@@ -20,7 +20,7 @@ class _$ComplexError extends ComplexError {
       (new ComplexErrorBuilder()..update(updates))._build();
 
   _$ComplexError._({this.header, this.topLevel, this.nested, this.headers})
-      : super._();
+    : super._();
 
   @override
   ComplexError rebuild(void Function(ComplexErrorBuilder) updates) =>
@@ -101,7 +101,8 @@ class ComplexErrorBuilder
   _$ComplexError _build() {
     _$ComplexError _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ComplexError._(
             header: header,
             topLevel: topLevel,
@@ -115,7 +116,10 @@ class ComplexErrorBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ComplexError', _$failedField, e.toString());
+          r'ComplexError',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -130,16 +134,16 @@ class _$ComplexErrorPayload extends ComplexErrorPayload {
   @override
   final String? topLevel;
 
-  factory _$ComplexErrorPayload(
-          [void Function(ComplexErrorPayloadBuilder)? updates]) =>
-      (new ComplexErrorPayloadBuilder()..update(updates))._build();
+  factory _$ComplexErrorPayload([
+    void Function(ComplexErrorPayloadBuilder)? updates,
+  ]) => (new ComplexErrorPayloadBuilder()..update(updates))._build();
 
   _$ComplexErrorPayload._({this.nested, this.topLevel}) : super._();
 
   @override
   ComplexErrorPayload rebuild(
-          void Function(ComplexErrorPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ComplexErrorPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ComplexErrorPayloadBuilder toBuilder() =>
@@ -205,7 +209,8 @@ class ComplexErrorPayloadBuilder
   _$ComplexErrorPayload _build() {
     _$ComplexErrorPayload _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ComplexErrorPayload._(
             nested: _nested?.build(),
             topLevel: topLevel,
@@ -217,7 +222,10 @@ class ComplexErrorPayloadBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ComplexErrorPayload', _$failedField, e.toString());
+          r'ComplexErrorPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

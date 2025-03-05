@@ -26,18 +26,16 @@ abstract class GreetingStruct
     GreetingStruct payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [GreetingStruct] from a [payload] and [response].
   factory GreetingStruct.fromResponse(
     GreetingStruct payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<GreetingStruct>> serializers = [
-    GreetingStructRestJson1Serializer()
+    GreetingStructRestJson1Serializer(),
   ];
 
   String? get hi;
@@ -49,11 +47,7 @@ abstract class GreetingStruct
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GreetingStruct')
-      ..add(
-        'hi',
-        hi,
-      );
+    final helper = newBuiltValueToStringHelper('GreetingStruct')..add('hi', hi);
     return helper.toString();
   }
 }
@@ -63,18 +57,12 @@ class GreetingStructRestJson1Serializer
   const GreetingStructRestJson1Serializer() : super('GreetingStruct');
 
   @override
-  Iterable<Type> get types => const [
-        GreetingStruct,
-        _$GreetingStruct,
-      ];
+  Iterable<Type> get types => const [GreetingStruct, _$GreetingStruct];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   GreetingStruct deserialize(
@@ -93,10 +81,12 @@ class GreetingStructRestJson1Serializer
       }
       switch (key) {
         case 'hi':
-          result.hi = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.hi =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -114,10 +104,7 @@ class GreetingStructRestJson1Serializer
     if (hi != null) {
       result$
         ..add('hi')
-        ..add(serializers.serialize(
-          hi,
-          specifiedType: const FullType(String),
-        ));
+        ..add(serializers.serialize(hi, specifiedType: const FullType(String)));
     }
     return result$;
   }

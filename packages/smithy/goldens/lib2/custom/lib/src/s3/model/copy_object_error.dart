@@ -20,8 +20,9 @@ abstract class CopyObjectError
     return _$CopyObjectError._();
   }
 
-  factory CopyObjectError.build(
-      [void Function(CopyObjectErrorBuilder) updates]) = _$CopyObjectError;
+  factory CopyObjectError.build([
+    void Function(CopyObjectErrorBuilder) updates,
+  ]) = _$CopyObjectError;
 
   const CopyObjectError._();
 
@@ -29,20 +30,19 @@ abstract class CopyObjectError
   factory CopyObjectError.fromResponse(
     CopyObjectError payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<CopyObjectError>> serializers = [
-    CopyObjectErrorRestXmlSerializer()
+    CopyObjectErrorRestXmlSerializer(),
   ];
 
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.s3',
-        shape: 'CopyObjectError',
-      );
+    namespace: 'com.amazonaws.s3',
+    shape: 'CopyObjectError',
+  );
 
   @override
   String? get message => null;
@@ -75,18 +75,12 @@ class CopyObjectErrorRestXmlSerializer
   const CopyObjectErrorRestXmlSerializer() : super('CopyObjectError');
 
   @override
-  Iterable<Type> get types => const [
-        CopyObjectError,
-        _$CopyObjectError,
-      ];
+  Iterable<Type> get types => const [CopyObjectError, _$CopyObjectError];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CopyObjectError deserialize(
@@ -107,7 +101,7 @@ class CopyObjectErrorRestXmlSerializer
       const _i2.XmlElementName(
         'CopyObjectError',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

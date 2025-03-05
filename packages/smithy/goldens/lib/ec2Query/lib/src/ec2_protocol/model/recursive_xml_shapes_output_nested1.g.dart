@@ -13,16 +13,17 @@ class _$RecursiveXmlShapesOutputNested1
   @override
   final RecursiveXmlShapesOutputNested2? nested;
 
-  factory _$RecursiveXmlShapesOutputNested1(
-          [void Function(RecursiveXmlShapesOutputNested1Builder)? updates]) =>
+  factory _$RecursiveXmlShapesOutputNested1([
+    void Function(RecursiveXmlShapesOutputNested1Builder)? updates,
+  ]) =>
       (new RecursiveXmlShapesOutputNested1Builder()..update(updates))._build();
 
   _$RecursiveXmlShapesOutputNested1._({this.foo, this.nested}) : super._();
 
   @override
   RecursiveXmlShapesOutputNested1 rebuild(
-          void Function(RecursiveXmlShapesOutputNested1Builder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RecursiveXmlShapesOutputNested1Builder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RecursiveXmlShapesOutputNested1Builder toBuilder() =>
@@ -48,8 +49,10 @@ class _$RecursiveXmlShapesOutputNested1
 
 class RecursiveXmlShapesOutputNested1Builder
     implements
-        Builder<RecursiveXmlShapesOutputNested1,
-            RecursiveXmlShapesOutputNested1Builder> {
+        Builder<
+          RecursiveXmlShapesOutputNested1,
+          RecursiveXmlShapesOutputNested1Builder
+        > {
   _$RecursiveXmlShapesOutputNested1? _$v;
 
   String? _foo;
@@ -91,7 +94,8 @@ class RecursiveXmlShapesOutputNested1Builder
   _$RecursiveXmlShapesOutputNested1 _build() {
     _$RecursiveXmlShapesOutputNested1 _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$RecursiveXmlShapesOutputNested1._(
             foo: foo,
             nested: _nested?.build(),
@@ -103,7 +107,10 @@ class RecursiveXmlShapesOutputNested1Builder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'RecursiveXmlShapesOutputNested1', _$failedField, e.toString());
+          r'RecursiveXmlShapesOutputNested1',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

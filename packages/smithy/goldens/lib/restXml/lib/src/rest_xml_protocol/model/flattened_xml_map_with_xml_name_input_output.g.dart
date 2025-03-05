@@ -11,9 +11,9 @@ class _$FlattenedXmlMapWithXmlNameInputOutput
   @override
   final _i3.BuiltMap<String, String>? myMap;
 
-  factory _$FlattenedXmlMapWithXmlNameInputOutput(
-          [void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder)?
-              updates]) =>
+  factory _$FlattenedXmlMapWithXmlNameInputOutput([
+    void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder)? updates,
+  ]) =>
       (new FlattenedXmlMapWithXmlNameInputOutputBuilder()..update(updates))
           ._build();
 
@@ -21,9 +21,8 @@ class _$FlattenedXmlMapWithXmlNameInputOutput
 
   @override
   FlattenedXmlMapWithXmlNameInputOutput rebuild(
-          void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   FlattenedXmlMapWithXmlNameInputOutputBuilder toBuilder() =>
@@ -47,8 +46,10 @@ class _$FlattenedXmlMapWithXmlNameInputOutput
 
 class FlattenedXmlMapWithXmlNameInputOutputBuilder
     implements
-        Builder<FlattenedXmlMapWithXmlNameInputOutput,
-            FlattenedXmlMapWithXmlNameInputOutputBuilder> {
+        Builder<
+          FlattenedXmlMapWithXmlNameInputOutput,
+          FlattenedXmlMapWithXmlNameInputOutputBuilder
+        > {
   _$FlattenedXmlMapWithXmlNameInputOutput? _$v;
 
   _i3.MapBuilder<String, String>? _myMap;
@@ -75,7 +76,8 @@ class FlattenedXmlMapWithXmlNameInputOutputBuilder
 
   @override
   void update(
-      void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder)? updates) {
+    void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -85,10 +87,9 @@ class FlattenedXmlMapWithXmlNameInputOutputBuilder
   _$FlattenedXmlMapWithXmlNameInputOutput _build() {
     _$FlattenedXmlMapWithXmlNameInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$FlattenedXmlMapWithXmlNameInputOutput._(
-            myMap: _myMap?.build(),
-          );
+      _$result =
+          _$v ??
+          new _$FlattenedXmlMapWithXmlNameInputOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -96,9 +97,10 @@ class FlattenedXmlMapWithXmlNameInputOutputBuilder
         _myMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'FlattenedXmlMapWithXmlNameInputOutput',
-            _$failedField,
-            e.toString());
+          r'FlattenedXmlMapWithXmlNameInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

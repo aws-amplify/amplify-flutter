@@ -54,7 +54,7 @@ abstract class RestApi
   const RestApi._();
 
   static const List<_i3.SmithySerializer<RestApi>> serializers = [
-    RestApiRestJson1Serializer()
+    RestApiRestJson1Serializer(),
   ];
 
   String? get id;
@@ -72,76 +72,38 @@ abstract class RestApi
   bool? get disableExecuteApiEndpoint;
   @override
   List<Object?> get props => [
-        id,
-        name,
-        description,
-        createdDate,
-        version,
-        warnings,
-        binaryMediaTypes,
-        minimumCompressionSize,
-        apiKeySource,
-        endpointConfiguration,
-        policy,
-        tags,
-        disableExecuteApiEndpoint,
-      ];
+    id,
+    name,
+    description,
+    createdDate,
+    version,
+    warnings,
+    binaryMediaTypes,
+    minimumCompressionSize,
+    apiKeySource,
+    endpointConfiguration,
+    policy,
+    tags,
+    disableExecuteApiEndpoint,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestApi')
-      ..add(
-        'id',
-        id,
-      )
-      ..add(
-        'name',
-        name,
-      )
-      ..add(
-        'description',
-        description,
-      )
-      ..add(
-        'createdDate',
-        createdDate,
-      )
-      ..add(
-        'version',
-        version,
-      )
-      ..add(
-        'warnings',
-        warnings,
-      )
-      ..add(
-        'binaryMediaTypes',
-        binaryMediaTypes,
-      )
-      ..add(
-        'minimumCompressionSize',
-        minimumCompressionSize,
-      )
-      ..add(
-        'apiKeySource',
-        apiKeySource,
-      )
-      ..add(
-        'endpointConfiguration',
-        endpointConfiguration,
-      )
-      ..add(
-        'policy',
-        policy,
-      )
-      ..add(
-        'tags',
-        tags,
-      )
-      ..add(
-        'disableExecuteApiEndpoint',
-        disableExecuteApiEndpoint,
-      );
+    final helper =
+        newBuiltValueToStringHelper('RestApi')
+          ..add('id', id)
+          ..add('name', name)
+          ..add('description', description)
+          ..add('createdDate', createdDate)
+          ..add('version', version)
+          ..add('warnings', warnings)
+          ..add('binaryMediaTypes', binaryMediaTypes)
+          ..add('minimumCompressionSize', minimumCompressionSize)
+          ..add('apiKeySource', apiKeySource)
+          ..add('endpointConfiguration', endpointConfiguration)
+          ..add('policy', policy)
+          ..add('tags', tags)
+          ..add('disableExecuteApiEndpoint', disableExecuteApiEndpoint);
     return helper.toString();
   }
 }
@@ -151,18 +113,12 @@ class RestApiRestJson1Serializer
   const RestApiRestJson1Serializer() : super('RestApi');
 
   @override
-  Iterable<Type> get types => const [
-        RestApi,
-        _$RestApi,
-      ];
+  Iterable<Type> get types => const [RestApi, _$RestApi];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   RestApi deserialize(
@@ -181,82 +137,107 @@ class RestApiRestJson1Serializer
       }
       switch (key) {
         case 'apiKeySource':
-          result.apiKeySource = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ApiKeySourceType),
-          ) as ApiKeySourceType);
+          result.apiKeySource =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ApiKeySourceType),
+                  )
+                  as ApiKeySourceType);
         case 'binaryMediaTypes':
-          result.binaryMediaTypes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i2.BuiltList<String>));
+          result.binaryMediaTypes.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltList<String>),
+          );
         case 'createdDate':
-          result.createdDate = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.createdDate =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
         case 'description':
-          result.description = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.description =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'disableExecuteApiEndpoint':
-          result.disableExecuteApiEndpoint = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.disableExecuteApiEndpoint =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'endpointConfiguration':
-          result.endpointConfiguration.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(EndpointConfiguration),
-          ) as EndpointConfiguration));
+          result.endpointConfiguration.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(EndpointConfiguration),
+                )
+                as EndpointConfiguration),
+          );
         case 'id':
-          result.id = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.id =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'minimumCompressionSize':
-          result.minimumCompressionSize = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.minimumCompressionSize =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'policy':
-          result.policy = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.policy =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'tags':
-          result.tags.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, String>));
+          result.tags.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltMap<String, String>),
+          );
         case 'version':
-          result.version = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.version =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'warnings':
-          result.warnings.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i2.BuiltList<String>));
+          result.warnings.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltList<String>),
+          );
       }
     }
 
@@ -283,123 +264,126 @@ class RestApiRestJson1Serializer
       :policy,
       :tags,
       :version,
-      :warnings
+      :warnings,
     ) = object;
     if (apiKeySource != null) {
       result$
         ..add('apiKeySource')
-        ..add(serializers.serialize(
-          apiKeySource,
-          specifiedType: const FullType(ApiKeySourceType),
-        ));
+        ..add(
+          serializers.serialize(
+            apiKeySource,
+            specifiedType: const FullType(ApiKeySourceType),
+          ),
+        );
     }
     if (binaryMediaTypes != null) {
       result$
         ..add('binaryMediaTypes')
-        ..add(serializers.serialize(
-          binaryMediaTypes,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(String)],
+        ..add(
+          serializers.serialize(
+            binaryMediaTypes,
+            specifiedType: const FullType(_i2.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     if (createdDate != null) {
       result$
         ..add('createdDate')
-        ..add(serializers.serialize(
-          createdDate,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            createdDate,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     if (description != null) {
       result$
         ..add('description')
-        ..add(serializers.serialize(
-          description,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            description,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (disableExecuteApiEndpoint != null) {
       result$
         ..add('disableExecuteApiEndpoint')
-        ..add(serializers.serialize(
-          disableExecuteApiEndpoint,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(
+            disableExecuteApiEndpoint,
+            specifiedType: const FullType(bool),
+          ),
+        );
     }
     if (endpointConfiguration != null) {
       result$
         ..add('endpointConfiguration')
-        ..add(serializers.serialize(
-          endpointConfiguration,
-          specifiedType: const FullType(EndpointConfiguration),
-        ));
+        ..add(
+          serializers.serialize(
+            endpointConfiguration,
+            specifiedType: const FullType(EndpointConfiguration),
+          ),
+        );
     }
     if (id != null) {
       result$
         ..add('id')
-        ..add(serializers.serialize(
-          id,
-          specifiedType: const FullType(String),
-        ));
+        ..add(serializers.serialize(id, specifiedType: const FullType(String)));
     }
     if (minimumCompressionSize != null) {
       result$
         ..add('minimumCompressionSize')
-        ..add(serializers.serialize(
-          minimumCompressionSize,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(
+            minimumCompressionSize,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     if (name != null) {
       result$
         ..add('name')
-        ..add(serializers.serialize(
-          name,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(name, specifiedType: const FullType(String)),
+        );
     }
     if (policy != null) {
       result$
         ..add('policy')
-        ..add(serializers.serialize(
-          policy,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(policy, specifiedType: const FullType(String)),
+        );
     }
     if (tags != null) {
       result$
         ..add('tags')
-        ..add(serializers.serialize(
-          tags,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            tags,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (version != null) {
       result$
         ..add('version')
-        ..add(serializers.serialize(
-          version,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(version, specifiedType: const FullType(String)),
+        );
     }
     if (warnings != null) {
       result$
         ..add('warnings')
-        ..add(serializers.serialize(
-          warnings,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(String)],
+        ..add(
+          serializers.serialize(
+            warnings,
+            specifiedType: const FullType(_i2.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     return result$;
   }

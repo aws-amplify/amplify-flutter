@@ -16,17 +16,19 @@ abstract class QueryIdempotencyTokenAutoFillInput
         _i1.HttpInput<QueryIdempotencyTokenAutoFillInputPayload>,
         _i2.AWSEquatable<QueryIdempotencyTokenAutoFillInput>
     implements
-        Built<QueryIdempotencyTokenAutoFillInput,
-            QueryIdempotencyTokenAutoFillInputBuilder>,
+        Built<
+          QueryIdempotencyTokenAutoFillInput,
+          QueryIdempotencyTokenAutoFillInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<QueryIdempotencyTokenAutoFillInputPayload> {
   factory QueryIdempotencyTokenAutoFillInput({String? token}) {
     return _$QueryIdempotencyTokenAutoFillInput._(token: token);
   }
 
-  factory QueryIdempotencyTokenAutoFillInput.build(
-          [void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates]) =
-      _$QueryIdempotencyTokenAutoFillInput;
+  factory QueryIdempotencyTokenAutoFillInput.build([
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates,
+  ]) = _$QueryIdempotencyTokenAutoFillInput;
 
   const QueryIdempotencyTokenAutoFillInput._();
 
@@ -34,22 +36,23 @@ abstract class QueryIdempotencyTokenAutoFillInput
     QueryIdempotencyTokenAutoFillInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      QueryIdempotencyTokenAutoFillInput.build((b) {
-        if (request.queryParameters['token'] != null) {
-          b.token = request.queryParameters['token']!;
-        }
-      });
+  }) => QueryIdempotencyTokenAutoFillInput.build((b) {
+    if (request.queryParameters['token'] != null) {
+      b.token = request.queryParameters['token']!;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<QueryIdempotencyTokenAutoFillInputPayload>>
-      serializers = [QueryIdempotencyTokenAutoFillInputRestXmlSerializer()];
+    _i1.SmithySerializer<QueryIdempotencyTokenAutoFillInputPayload>
+  >
+  serializers = [QueryIdempotencyTokenAutoFillInputRestXmlSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryIdempotencyTokenAutoFillInputBuilder b) {
-    b.token = const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
+    b.token =
+        const bool.hasEnvironment('SMITHY_TEST')
+            ? '00000000-0000-4000-8000-000000000000'
+            : _i2.uuid(secure: true);
   }
 
   String? get token;
@@ -62,27 +65,25 @@ abstract class QueryIdempotencyTokenAutoFillInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QueryIdempotencyTokenAutoFillInput')
-          ..add(
-            'token',
-            token,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'QueryIdempotencyTokenAutoFillInput',
+    )..add('token', token);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class QueryIdempotencyTokenAutoFillInputPayload
-    with
-        _i2.AWSEquatable<QueryIdempotencyTokenAutoFillInputPayload>
+    with _i2.AWSEquatable<QueryIdempotencyTokenAutoFillInputPayload>
     implements
-        Built<QueryIdempotencyTokenAutoFillInputPayload,
-            QueryIdempotencyTokenAutoFillInputPayloadBuilder>,
+        Built<
+          QueryIdempotencyTokenAutoFillInputPayload,
+          QueryIdempotencyTokenAutoFillInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory QueryIdempotencyTokenAutoFillInputPayload(
-      [void Function(QueryIdempotencyTokenAutoFillInputPayloadBuilder)
-          updates]) = _$QueryIdempotencyTokenAutoFillInputPayload;
+  factory QueryIdempotencyTokenAutoFillInputPayload([
+    void Function(QueryIdempotencyTokenAutoFillInputPayloadBuilder) updates,
+  ]) = _$QueryIdempotencyTokenAutoFillInputPayload;
 
   const QueryIdempotencyTokenAutoFillInputPayload._();
 
@@ -92,31 +93,32 @@ abstract class QueryIdempotencyTokenAutoFillInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'QueryIdempotencyTokenAutoFillInputPayload');
+      'QueryIdempotencyTokenAutoFillInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class QueryIdempotencyTokenAutoFillInputRestXmlSerializer extends _i1
-    .StructuredSmithySerializer<QueryIdempotencyTokenAutoFillInputPayload> {
+class QueryIdempotencyTokenAutoFillInputRestXmlSerializer
+    extends
+        _i1.StructuredSmithySerializer<
+          QueryIdempotencyTokenAutoFillInputPayload
+        > {
   const QueryIdempotencyTokenAutoFillInputRestXmlSerializer()
-      : super('QueryIdempotencyTokenAutoFillInput');
+    : super('QueryIdempotencyTokenAutoFillInput');
 
   @override
   Iterable<Type> get types => const [
-        QueryIdempotencyTokenAutoFillInput,
-        _$QueryIdempotencyTokenAutoFillInput,
-        QueryIdempotencyTokenAutoFillInputPayload,
-        _$QueryIdempotencyTokenAutoFillInputPayload,
-      ];
+    QueryIdempotencyTokenAutoFillInput,
+    _$QueryIdempotencyTokenAutoFillInput,
+    QueryIdempotencyTokenAutoFillInputPayload,
+    _$QueryIdempotencyTokenAutoFillInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   QueryIdempotencyTokenAutoFillInputPayload deserialize(
@@ -134,7 +136,7 @@ class QueryIdempotencyTokenAutoFillInputRestXmlSerializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('QueryIdempotencyTokenAutoFillInput')
+      const _i1.XmlElementName('QueryIdempotencyTokenAutoFillInput'),
     ];
 
     return result$;

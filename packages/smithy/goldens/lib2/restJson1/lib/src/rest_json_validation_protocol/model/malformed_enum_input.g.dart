@@ -18,18 +18,22 @@ class _$MalformedEnumInput extends MalformedEnumInput {
   @override
   final EnumUnion? union;
 
-  factory _$MalformedEnumInput(
-          [void Function(MalformedEnumInputBuilder)? updates]) =>
-      (new MalformedEnumInputBuilder()..update(updates))._build();
+  factory _$MalformedEnumInput([
+    void Function(MalformedEnumInputBuilder)? updates,
+  ]) => (new MalformedEnumInputBuilder()..update(updates))._build();
 
-  _$MalformedEnumInput._(
-      {this.string, this.stringWithEnumTrait, this.list, this.map, this.union})
-      : super._();
+  _$MalformedEnumInput._({
+    this.string,
+    this.stringWithEnumTrait,
+    this.list,
+    this.map,
+    this.union,
+  }) : super._();
 
   @override
   MalformedEnumInput rebuild(
-          void Function(MalformedEnumInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedEnumInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedEnumInputBuilder toBuilder() =>
@@ -118,7 +122,8 @@ class MalformedEnumInputBuilder
   _$MalformedEnumInput _build() {
     _$MalformedEnumInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$MalformedEnumInput._(
             string: string,
             stringWithEnumTrait: stringWithEnumTrait,
@@ -135,7 +140,10 @@ class MalformedEnumInputBuilder
         _map?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MalformedEnumInput', _$failedField, e.toString());
+          r'MalformedEnumInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

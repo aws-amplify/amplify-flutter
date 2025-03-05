@@ -39,22 +39,22 @@ class _$XmlListsOutput extends XmlListsOutput {
   factory _$XmlListsOutput([void Function(XmlListsOutputBuilder)? updates]) =>
       (new XmlListsOutputBuilder()..update(updates))._build();
 
-  _$XmlListsOutput._(
-      {this.stringList,
-      this.stringSet,
-      this.integerList,
-      this.booleanList,
-      this.timestampList,
-      this.enumList,
-      this.intEnumList,
-      this.nestedStringList,
-      this.renamedListMembers,
-      this.flattenedList,
-      this.flattenedList2,
-      this.flattenedListWithMemberNamespace,
-      this.flattenedListWithNamespace,
-      this.structureList})
-      : super._();
+  _$XmlListsOutput._({
+    this.stringList,
+    this.stringSet,
+    this.integerList,
+    this.booleanList,
+    this.timestampList,
+    this.enumList,
+    this.intEnumList,
+    this.nestedStringList,
+    this.renamedListMembers,
+    this.flattenedList,
+    this.flattenedList2,
+    this.flattenedListWithMemberNamespace,
+    this.flattenedListWithNamespace,
+    this.structureList,
+  }) : super._();
 
   @override
   XmlListsOutput rebuild(void Function(XmlListsOutputBuilder) updates) =>
@@ -157,8 +157,8 @@ class XmlListsOutputBuilder
   _i2.ListBuilder<_i2.BuiltList<String>> get nestedStringList =>
       _$this._nestedStringList ??= new _i2.ListBuilder<_i2.BuiltList<String>>();
   set nestedStringList(
-          _i2.ListBuilder<_i2.BuiltList<String>>? nestedStringList) =>
-      _$this._nestedStringList = nestedStringList;
+    _i2.ListBuilder<_i2.BuiltList<String>>? nestedStringList,
+  ) => _$this._nestedStringList = nestedStringList;
 
   _i2.ListBuilder<String>? _renamedListMembers;
   _i2.ListBuilder<String> get renamedListMembers =>
@@ -183,7 +183,8 @@ class XmlListsOutputBuilder
       _$this._flattenedListWithMemberNamespace ??=
           new _i2.ListBuilder<String>();
   set flattenedListWithMemberNamespace(
-          _i2.ListBuilder<String>? flattenedListWithMemberNamespace) =>
+    _i2.ListBuilder<String>? flattenedListWithMemberNamespace,
+  ) =>
       _$this._flattenedListWithMemberNamespace =
           flattenedListWithMemberNamespace;
 
@@ -191,8 +192,8 @@ class XmlListsOutputBuilder
   _i2.ListBuilder<String> get flattenedListWithNamespace =>
       _$this._flattenedListWithNamespace ??= new _i2.ListBuilder<String>();
   set flattenedListWithNamespace(
-          _i2.ListBuilder<String>? flattenedListWithNamespace) =>
-      _$this._flattenedListWithNamespace = flattenedListWithNamespace;
+    _i2.ListBuilder<String>? flattenedListWithNamespace,
+  ) => _$this._flattenedListWithNamespace = flattenedListWithNamespace;
 
   _i2.ListBuilder<StructureListMember>? _structureList;
   _i2.ListBuilder<StructureListMember> get structureList =>
@@ -242,7 +243,8 @@ class XmlListsOutputBuilder
   _$XmlListsOutput _build() {
     _$XmlListsOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$XmlListsOutput._(
             stringList: _stringList?.build(),
             stringSet: _stringSet?.build(),
@@ -293,7 +295,10 @@ class XmlListsOutputBuilder
         _structureList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlListsOutput', _$failedField, e.toString());
+          r'XmlListsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

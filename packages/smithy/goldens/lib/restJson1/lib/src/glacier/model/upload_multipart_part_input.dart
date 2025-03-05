@@ -37,9 +37,9 @@ abstract class UploadMultipartPartInput
     );
   }
 
-  factory UploadMultipartPartInput.build(
-          [void Function(UploadMultipartPartInputBuilder) updates]) =
-      _$UploadMultipartPartInput;
+  factory UploadMultipartPartInput.build([
+    void Function(UploadMultipartPartInputBuilder) updates,
+  ]) = _$UploadMultipartPartInput;
 
   const UploadMultipartPartInput._();
 
@@ -47,25 +47,24 @@ abstract class UploadMultipartPartInput
     _i2.Stream<List<int>>? payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      UploadMultipartPartInput.build((b) {
-        b.body = payload;
-        if (request.headers['x-amz-sha256-tree-hash'] != null) {
-          b.checksum = request.headers['x-amz-sha256-tree-hash']!;
-        }
-        if (request.headers['Content-Range'] != null) {
-          b.range = request.headers['Content-Range']!;
-        }
-        if (labels['accountId'] != null) {
-          b.accountId = labels['accountId']!;
-        }
-        if (labels['vaultName'] != null) {
-          b.vaultName = labels['vaultName']!;
-        }
-        if (labels['uploadId'] != null) {
-          b.uploadId = labels['uploadId']!;
-        }
-      });
+  }) => UploadMultipartPartInput.build((b) {
+    b.body = payload;
+    if (request.headers['x-amz-sha256-tree-hash'] != null) {
+      b.checksum = request.headers['x-amz-sha256-tree-hash']!;
+    }
+    if (request.headers['Content-Range'] != null) {
+      b.range = request.headers['Content-Range']!;
+    }
+    if (labels['accountId'] != null) {
+      b.accountId = labels['accountId']!;
+    }
+    if (labels['vaultName'] != null) {
+      b.vaultName = labels['vaultName']!;
+    }
+    if (labels['uploadId'] != null) {
+      b.uploadId = labels['uploadId']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
       [UploadMultipartPartInputRestJson1Serializer()];
@@ -86,10 +85,7 @@ abstract class UploadMultipartPartInput
       case 'uploadId':
         return uploadId;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -97,41 +93,24 @@ abstract class UploadMultipartPartInput
 
   @override
   List<Object?> get props => [
-        accountId,
-        vaultName,
-        uploadId,
-        checksum,
-        range,
-        body,
-      ];
+    accountId,
+    vaultName,
+    uploadId,
+    checksum,
+    range,
+    body,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadMultipartPartInput')
-      ..add(
-        'accountId',
-        accountId,
-      )
-      ..add(
-        'vaultName',
-        vaultName,
-      )
-      ..add(
-        'uploadId',
-        uploadId,
-      )
-      ..add(
-        'checksum',
-        checksum,
-      )
-      ..add(
-        'range',
-        range,
-      )
-      ..add(
-        'body',
-        body,
-      );
+    final helper =
+        newBuiltValueToStringHelper('UploadMultipartPartInput')
+          ..add('accountId', accountId)
+          ..add('vaultName', vaultName)
+          ..add('uploadId', uploadId)
+          ..add('checksum', checksum)
+          ..add('range', range)
+          ..add('body', body);
     return helper.toString();
   }
 }
@@ -139,21 +118,18 @@ abstract class UploadMultipartPartInput
 class UploadMultipartPartInputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<_i2.Stream<List<int>>> {
   const UploadMultipartPartInputRestJson1Serializer()
-      : super('UploadMultipartPartInput');
+    : super('UploadMultipartPartInput');
 
   @override
   Iterable<Type> get types => const [
-        UploadMultipartPartInput,
-        _$UploadMultipartPartInput,
-      ];
+    UploadMultipartPartInput,
+    _$UploadMultipartPartInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   _i2.Stream<List<int>> deserialize(
@@ -162,17 +138,12 @@ class UploadMultipartPartInputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
-    ) as _i2.Stream<List<int>>);
+          serialized,
+          specifiedType: const FullType(_i2.Stream, [
+            FullType(List, [FullType(int)]),
+          ]),
+        )
+        as _i2.Stream<List<int>>);
   }
 
   @override
@@ -183,15 +154,9 @@ class UploadMultipartPartInputRestJson1Serializer
   }) {
     return serializers.serialize(
       object,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
+      specifiedType: const FullType(_i2.Stream, [
+        FullType(List, [FullType(int)]),
+      ]),
     )!;
   }
 }

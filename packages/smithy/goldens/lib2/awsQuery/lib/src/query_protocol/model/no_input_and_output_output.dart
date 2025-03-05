@@ -19,9 +19,9 @@ abstract class NoInputAndOutputOutput
     return _$NoInputAndOutputOutput._();
   }
 
-  factory NoInputAndOutputOutput.build(
-          [void Function(NoInputAndOutputOutputBuilder) updates]) =
-      _$NoInputAndOutputOutput;
+  factory NoInputAndOutputOutput.build([
+    void Function(NoInputAndOutputOutputBuilder) updates,
+  ]) = _$NoInputAndOutputOutput;
 
   const NoInputAndOutputOutput._();
 
@@ -29,8 +29,7 @@ abstract class NoInputAndOutputOutput
   factory NoInputAndOutputOutput.fromResponse(
     NoInputAndOutputOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<NoInputAndOutputOutput>> serializers =
       [NoInputAndOutputOutputAwsQuerySerializer()];
@@ -48,21 +47,18 @@ abstract class NoInputAndOutputOutput
 class NoInputAndOutputOutputAwsQuerySerializer
     extends _i2.StructuredSmithySerializer<NoInputAndOutputOutput> {
   const NoInputAndOutputOutputAwsQuerySerializer()
-      : super('NoInputAndOutputOutput');
+    : super('NoInputAndOutputOutput');
 
   @override
   Iterable<Type> get types => const [
-        NoInputAndOutputOutput,
-        _$NoInputAndOutputOutput,
-      ];
+    NoInputAndOutputOutput,
+    _$NoInputAndOutputOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   NoInputAndOutputOutput deserialize(
@@ -83,7 +79,7 @@ class NoInputAndOutputOutputAwsQuerySerializer
       const _i2.XmlElementName(
         'NoInputAndOutputOutputResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
 
     return result$;

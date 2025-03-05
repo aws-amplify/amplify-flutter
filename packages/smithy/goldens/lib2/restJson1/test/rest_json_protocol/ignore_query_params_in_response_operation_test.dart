@@ -12,93 +12,78 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonIgnoreQueryParamsInResponse (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: IgnoreQueryParamsInResponseOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'RestJsonIgnoreQueryParamsInResponse',
-          documentation:
-              'Query parameters must be ignored when serializing the output\nof an operation. As of January 2021, server implementations\nare expected to respond with a JSON object regardless of\nif the output parameters are empty.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          IgnoreQueryParamsInResponseOutputRestJson1Serializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'RestJsonIgnoreQueryParamsInResponseNoPayload (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: IgnoreQueryParamsInResponseOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'RestJsonIgnoreQueryParamsInResponseNoPayload',
-          documentation:
-              'This test is similar to RestJsonIgnoreQueryParamsInResponse,\nbut it ensures that clients gracefully handle responses from\nthe server that do not serialize an empty JSON object.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [
-          IgnoreQueryParamsInResponseOutputRestJson1Serializer()
-        ],
-      );
-    },
-  );
+  _i1.test('RestJsonIgnoreQueryParamsInResponse (response)', () async {
+    await _i2.httpResponseTest(
+      operation: IgnoreQueryParamsInResponseOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'RestJsonIgnoreQueryParamsInResponse',
+        documentation:
+            'Query parameters must be ignored when serializing the output\nof an operation. As of January 2021, server implementations\nare expected to respond with a JSON object regardless of\nif the output parameters are empty.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        IgnoreQueryParamsInResponseOutputRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('RestJsonIgnoreQueryParamsInResponseNoPayload (response)', () async {
+    await _i2.httpResponseTest(
+      operation: IgnoreQueryParamsInResponseOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'RestJsonIgnoreQueryParamsInResponseNoPayload',
+        documentation:
+            'This test is similar to RestJsonIgnoreQueryParamsInResponse,\nbut it ensures that clients gracefully handle responses from\nthe server that do not serialize an empty JSON object.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [
+        IgnoreQueryParamsInResponseOutputRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
 class IgnoreQueryParamsInResponseOutputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<IgnoreQueryParamsInResponseOutput> {
   const IgnoreQueryParamsInResponseOutputRestJson1Serializer()
-      : super('IgnoreQueryParamsInResponseOutput');
+    : super('IgnoreQueryParamsInResponseOutput');
 
   @override
   Iterable<Type> get types => const [IgnoreQueryParamsInResponseOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   IgnoreQueryParamsInResponseOutput deserialize(
@@ -117,10 +102,12 @@ class IgnoreQueryParamsInResponseOutputRestJson1Serializer
       }
       switch (key) {
         case 'baz':
-          result.baz = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.baz =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

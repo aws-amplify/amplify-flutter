@@ -19,11 +19,14 @@ import 'package:rest_json1_v2/src/glacier/model/upload_multipart_part_output.dar
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i4;
 
-class UploadMultipartPartOperation extends _i1.HttpOperation<
-    _i2.Stream<List<int>>,
-    UploadMultipartPartInput,
-    UploadMultipartPartOutputPayload,
-    UploadMultipartPartOutput> {
+class UploadMultipartPartOperation
+    extends
+        _i1.HttpOperation<
+          _i2.Stream<List<int>>,
+          UploadMultipartPartInput,
+          UploadMultipartPartOutputPayload,
+          UploadMultipartPartOutput
+        > {
   UploadMultipartPartOperation({
     required String region,
     Uri? baseUri,
@@ -31,23 +34,27 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          _i2.Stream<List<int>>,
-          UploadMultipartPartInput,
-          UploadMultipartPartOutputPayload,
-          UploadMultipartPartOutput>> protocols = [
+    _i1.HttpProtocol<
+      _i2.Stream<List<int>>,
+      UploadMultipartPartInput,
+      UploadMultipartPartOutputPayload,
+      UploadMultipartPartOutput
+    >
+  >
+  protocols = [
     _i4.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i4.WithSigV4(
               region: _region,
@@ -61,7 +68,7 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -104,68 +111,67 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
   UploadMultipartPartOutput buildOutput(
     UploadMultipartPartOutputPayload payload,
     _i5.AWSBaseHttpResponse response,
-  ) =>
-      UploadMultipartPartOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => UploadMultipartPartOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<InvalidParameterValueException,
-            InvalidParameterValueException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.glacier',
-            shape: 'InvalidParameterValueException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidParameterValueException,
-          statusCode: 400,
-          builder: InvalidParameterValueException.fromResponse,
-        ),
-        _i1.SmithyError<MissingParameterValueException,
-            MissingParameterValueException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.glacier',
-            shape: 'MissingParameterValueException',
-          ),
-          _i1.ErrorKind.client,
-          MissingParameterValueException,
-          statusCode: 400,
-          builder: MissingParameterValueException.fromResponse,
-        ),
-        _i1.SmithyError<RequestTimeoutException, RequestTimeoutException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.glacier',
-            shape: 'RequestTimeoutException',
-          ),
-          _i1.ErrorKind.client,
-          RequestTimeoutException,
-          statusCode: 408,
-          builder: RequestTimeoutException.fromResponse,
-        ),
-        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.glacier',
-            shape: 'ResourceNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          ResourceNotFoundException,
-          statusCode: 404,
-          builder: ResourceNotFoundException.fromResponse,
-        ),
-        _i1.SmithyError<ServiceUnavailableException,
-            ServiceUnavailableException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.glacier',
-            shape: 'ServiceUnavailableException',
-          ),
-          _i1.ErrorKind.server,
-          ServiceUnavailableException,
-          statusCode: 500,
-          builder: ServiceUnavailableException.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<
+      InvalidParameterValueException,
+      InvalidParameterValueException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.glacier',
+        shape: 'InvalidParameterValueException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidParameterValueException,
+      statusCode: 400,
+      builder: InvalidParameterValueException.fromResponse,
+    ),
+    _i1.SmithyError<
+      MissingParameterValueException,
+      MissingParameterValueException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.glacier',
+        shape: 'MissingParameterValueException',
+      ),
+      _i1.ErrorKind.client,
+      MissingParameterValueException,
+      statusCode: 400,
+      builder: MissingParameterValueException.fromResponse,
+    ),
+    _i1.SmithyError<RequestTimeoutException, RequestTimeoutException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.glacier',
+        shape: 'RequestTimeoutException',
+      ),
+      _i1.ErrorKind.client,
+      RequestTimeoutException,
+      statusCode: 408,
+      builder: RequestTimeoutException.fromResponse,
+    ),
+    _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.glacier',
+        shape: 'ResourceNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      ResourceNotFoundException,
+      statusCode: 404,
+      builder: ResourceNotFoundException.fromResponse,
+    ),
+    _i1.SmithyError<ServiceUnavailableException, ServiceUnavailableException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.glacier',
+        shape: 'ServiceUnavailableException',
+      ),
+      _i1.ErrorKind.server,
+      ServiceUnavailableException,
+      statusCode: 500,
+      builder: ServiceUnavailableException.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'UploadMultipartPart';
@@ -186,11 +192,7 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},

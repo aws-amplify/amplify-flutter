@@ -20,23 +20,23 @@ class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
   @override
   final _i3.BuiltMap<String, FooEnum>? fooEnumMap;
 
-  factory _$XmlEnumsInputOutput(
-          [void Function(XmlEnumsInputOutputBuilder)? updates]) =>
-      (new XmlEnumsInputOutputBuilder()..update(updates))._build();
+  factory _$XmlEnumsInputOutput([
+    void Function(XmlEnumsInputOutputBuilder)? updates,
+  ]) => (new XmlEnumsInputOutputBuilder()..update(updates))._build();
 
-  _$XmlEnumsInputOutput._(
-      {this.fooEnum1,
-      this.fooEnum2,
-      this.fooEnum3,
-      this.fooEnumList,
-      this.fooEnumSet,
-      this.fooEnumMap})
-      : super._();
+  _$XmlEnumsInputOutput._({
+    this.fooEnum1,
+    this.fooEnum2,
+    this.fooEnum3,
+    this.fooEnumList,
+    this.fooEnumSet,
+    this.fooEnumMap,
+  }) : super._();
 
   @override
   XmlEnumsInputOutput rebuild(
-          void Function(XmlEnumsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlEnumsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlEnumsInputOutputBuilder toBuilder() =>
@@ -135,7 +135,8 @@ class XmlEnumsInputOutputBuilder
   _$XmlEnumsInputOutput _build() {
     _$XmlEnumsInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$XmlEnumsInputOutput._(
             fooEnum1: fooEnum1,
             fooEnum2: fooEnum2,
@@ -155,7 +156,10 @@ class XmlEnumsInputOutputBuilder
         _fooEnumMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlEnumsInputOutput', _$failedField, e.toString());
+          r'XmlEnumsInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

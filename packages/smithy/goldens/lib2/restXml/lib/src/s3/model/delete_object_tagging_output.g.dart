@@ -10,16 +10,16 @@ class _$DeleteObjectTaggingOutput extends DeleteObjectTaggingOutput {
   @override
   final String? versionId;
 
-  factory _$DeleteObjectTaggingOutput(
-          [void Function(DeleteObjectTaggingOutputBuilder)? updates]) =>
-      (new DeleteObjectTaggingOutputBuilder()..update(updates))._build();
+  factory _$DeleteObjectTaggingOutput([
+    void Function(DeleteObjectTaggingOutputBuilder)? updates,
+  ]) => (new DeleteObjectTaggingOutputBuilder()..update(updates))._build();
 
   _$DeleteObjectTaggingOutput._({this.versionId}) : super._();
 
   @override
   DeleteObjectTaggingOutput rebuild(
-          void Function(DeleteObjectTaggingOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectTaggingOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectTaggingOutputBuilder toBuilder() =>
@@ -75,10 +75,8 @@ class DeleteObjectTaggingOutputBuilder
   DeleteObjectTaggingOutput build() => _build();
 
   _$DeleteObjectTaggingOutput _build() {
-    final _$result = _$v ??
-        new _$DeleteObjectTaggingOutput._(
-          versionId: versionId,
-        );
+    final _$result =
+        _$v ?? new _$DeleteObjectTaggingOutput._(versionId: versionId);
     replace(_$result);
     return _$result;
   }
@@ -86,16 +84,17 @@ class DeleteObjectTaggingOutputBuilder
 
 class _$DeleteObjectTaggingOutputPayload
     extends DeleteObjectTaggingOutputPayload {
-  factory _$DeleteObjectTaggingOutputPayload(
-          [void Function(DeleteObjectTaggingOutputPayloadBuilder)? updates]) =>
+  factory _$DeleteObjectTaggingOutputPayload([
+    void Function(DeleteObjectTaggingOutputPayloadBuilder)? updates,
+  ]) =>
       (new DeleteObjectTaggingOutputPayloadBuilder()..update(updates))._build();
 
   _$DeleteObjectTaggingOutputPayload._() : super._();
 
   @override
   DeleteObjectTaggingOutputPayload rebuild(
-          void Function(DeleteObjectTaggingOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectTaggingOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectTaggingOutputPayloadBuilder toBuilder() =>
@@ -115,8 +114,10 @@ class _$DeleteObjectTaggingOutputPayload
 
 class DeleteObjectTaggingOutputPayloadBuilder
     implements
-        Builder<DeleteObjectTaggingOutputPayload,
-            DeleteObjectTaggingOutputPayloadBuilder> {
+        Builder<
+          DeleteObjectTaggingOutputPayload,
+          DeleteObjectTaggingOutputPayloadBuilder
+        > {
   _$DeleteObjectTaggingOutputPayload? _$v;
 
   DeleteObjectTaggingOutputPayloadBuilder();

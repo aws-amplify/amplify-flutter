@@ -27,16 +27,16 @@ class _$QueryMapsInput extends QueryMapsInput {
   factory _$QueryMapsInput([void Function(QueryMapsInputBuilder)? updates]) =>
       (new QueryMapsInputBuilder()..update(updates))._build();
 
-  _$QueryMapsInput._(
-      {this.mapArg,
-      this.renamedMapArg,
-      this.complexMapArg,
-      this.mapWithXmlMemberName,
-      this.flattenedMap,
-      this.flattenedMapWithXmlName,
-      this.mapOfLists,
-      this.nestedStructWithMap})
-      : super._();
+  _$QueryMapsInput._({
+    this.mapArg,
+    this.renamedMapArg,
+    this.complexMapArg,
+    this.mapWithXmlMemberName,
+    this.flattenedMap,
+    this.flattenedMapWithXmlName,
+    this.mapOfLists,
+    this.nestedStructWithMap,
+  }) : super._();
 
   @override
   QueryMapsInput rebuild(void Function(QueryMapsInputBuilder) updates) =>
@@ -101,8 +101,8 @@ class QueryMapsInputBuilder
   _i3.MapBuilder<String, String> get mapWithXmlMemberName =>
       _$this._mapWithXmlMemberName ??= new _i3.MapBuilder<String, String>();
   set mapWithXmlMemberName(
-          _i3.MapBuilder<String, String>? mapWithXmlMemberName) =>
-      _$this._mapWithXmlMemberName = mapWithXmlMemberName;
+    _i3.MapBuilder<String, String>? mapWithXmlMemberName,
+  ) => _$this._mapWithXmlMemberName = mapWithXmlMemberName;
 
   _i3.MapBuilder<String, String>? _flattenedMap;
   _i3.MapBuilder<String, String> get flattenedMap =>
@@ -114,8 +114,8 @@ class QueryMapsInputBuilder
   _i3.MapBuilder<String, String> get flattenedMapWithXmlName =>
       _$this._flattenedMapWithXmlName ??= new _i3.MapBuilder<String, String>();
   set flattenedMapWithXmlName(
-          _i3.MapBuilder<String, String>? flattenedMapWithXmlName) =>
-      _$this._flattenedMapWithXmlName = flattenedMapWithXmlName;
+    _i3.MapBuilder<String, String>? flattenedMapWithXmlName,
+  ) => _$this._flattenedMapWithXmlName = flattenedMapWithXmlName;
 
   _i3.ListMultimapBuilder<String, String>? _mapOfLists;
   _i3.ListMultimapBuilder<String, String> get mapOfLists =>
@@ -164,7 +164,8 @@ class QueryMapsInputBuilder
   _$QueryMapsInput _build() {
     _$QueryMapsInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$QueryMapsInput._(
             mapArg: _mapArg?.build(),
             renamedMapArg: _renamedMapArg?.build(),
@@ -196,7 +197,10 @@ class QueryMapsInputBuilder
         _nestedStructWithMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'QueryMapsInput', _$failedField, e.toString());
+          r'QueryMapsInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

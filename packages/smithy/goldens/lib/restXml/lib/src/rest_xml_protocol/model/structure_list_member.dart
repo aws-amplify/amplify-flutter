@@ -13,45 +13,31 @@ part 'structure_list_member.g.dart';
 abstract class StructureListMember
     with _i1.AWSEquatable<StructureListMember>
     implements Built<StructureListMember, StructureListMemberBuilder> {
-  factory StructureListMember({
-    String? a,
-    String? b,
-  }) {
-    return _$StructureListMember._(
-      a: a,
-      b: b,
-    );
+  factory StructureListMember({String? a, String? b}) {
+    return _$StructureListMember._(a: a, b: b);
   }
 
-  factory StructureListMember.build(
-          [void Function(StructureListMemberBuilder) updates]) =
-      _$StructureListMember;
+  factory StructureListMember.build([
+    void Function(StructureListMemberBuilder) updates,
+  ]) = _$StructureListMember;
 
   const StructureListMember._();
 
   static const List<_i2.SmithySerializer<StructureListMember>> serializers = [
-    StructureListMemberRestXmlSerializer()
+    StructureListMemberRestXmlSerializer(),
   ];
 
   String? get a;
   String? get b;
   @override
-  List<Object?> get props => [
-        a,
-        b,
-      ];
+  List<Object?> get props => [a, b];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StructureListMember')
-      ..add(
-        'a',
-        a,
-      )
-      ..add(
-        'b',
-        b,
-      );
+    final helper =
+        newBuiltValueToStringHelper('StructureListMember')
+          ..add('a', a)
+          ..add('b', b);
     return helper.toString();
   }
 }
@@ -62,17 +48,14 @@ class StructureListMemberRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        StructureListMember,
-        _$StructureListMember,
-      ];
+    StructureListMember,
+    _$StructureListMember,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   StructureListMember deserialize(
@@ -91,15 +74,19 @@ class StructureListMemberRestXmlSerializer
       }
       switch (key) {
         case 'value':
-          result.a = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.a =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'other':
-          result.b = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.b =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -117,18 +104,12 @@ class StructureListMemberRestXmlSerializer
     if (a != null) {
       result$
         ..add(const _i2.XmlElementName('value'))
-        ..add(serializers.serialize(
-          a,
-          specifiedType: const FullType(String),
-        ));
+        ..add(serializers.serialize(a, specifiedType: const FullType(String)));
     }
     if (b != null) {
       result$
         ..add(const _i2.XmlElementName('other'))
-        ..add(serializers.serialize(
-          b,
-          specifiedType: const FullType(String),
-        ));
+        ..add(serializers.serialize(b, specifiedType: const FullType(String)));
     }
     return result$;
   }

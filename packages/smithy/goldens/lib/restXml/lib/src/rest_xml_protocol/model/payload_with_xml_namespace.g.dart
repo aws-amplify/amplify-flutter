@@ -10,16 +10,16 @@ class _$PayloadWithXmlNamespace extends PayloadWithXmlNamespace {
   @override
   final String? name;
 
-  factory _$PayloadWithXmlNamespace(
-          [void Function(PayloadWithXmlNamespaceBuilder)? updates]) =>
-      (new PayloadWithXmlNamespaceBuilder()..update(updates))._build();
+  factory _$PayloadWithXmlNamespace([
+    void Function(PayloadWithXmlNamespaceBuilder)? updates,
+  ]) => (new PayloadWithXmlNamespaceBuilder()..update(updates))._build();
 
   _$PayloadWithXmlNamespace._({this.name}) : super._();
 
   @override
   PayloadWithXmlNamespace rebuild(
-          void Function(PayloadWithXmlNamespaceBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PayloadWithXmlNamespaceBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PayloadWithXmlNamespaceBuilder toBuilder() =>
@@ -75,10 +75,7 @@ class PayloadWithXmlNamespaceBuilder
   PayloadWithXmlNamespace build() => _build();
 
   _$PayloadWithXmlNamespace _build() {
-    final _$result = _$v ??
-        new _$PayloadWithXmlNamespace._(
-          name: name,
-        );
+    final _$result = _$v ?? new _$PayloadWithXmlNamespace._(name: name);
     replace(_$result);
     return _$result;
   }

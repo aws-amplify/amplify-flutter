@@ -16,24 +16,27 @@ class _$MalformedLongInput extends MalformedLongInput {
   @override
   final _i3.Int64? longInHeader;
 
-  factory _$MalformedLongInput(
-          [void Function(MalformedLongInputBuilder)? updates]) =>
-      (new MalformedLongInputBuilder()..update(updates))._build();
+  factory _$MalformedLongInput([
+    void Function(MalformedLongInputBuilder)? updates,
+  ]) => (new MalformedLongInputBuilder()..update(updates))._build();
 
-  _$MalformedLongInput._(
-      {this.longInBody,
-      required this.longInPath,
-      this.longInQuery,
-      this.longInHeader})
-      : super._() {
+  _$MalformedLongInput._({
+    this.longInBody,
+    required this.longInPath,
+    this.longInQuery,
+    this.longInHeader,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        longInPath, r'MalformedLongInput', 'longInPath');
+      longInPath,
+      r'MalformedLongInput',
+      'longInPath',
+    );
   }
 
   @override
   MalformedLongInput rebuild(
-          void Function(MalformedLongInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLongInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLongInputBuilder toBuilder() =>
@@ -111,11 +114,15 @@ class MalformedLongInputBuilder
   MalformedLongInput build() => _build();
 
   _$MalformedLongInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MalformedLongInput._(
           longInBody: longInBody,
           longInPath: BuiltValueNullFieldError.checkNotNull(
-              longInPath, r'MalformedLongInput', 'longInPath'),
+            longInPath,
+            r'MalformedLongInput',
+            'longInPath',
+          ),
           longInQuery: longInQuery,
           longInHeader: longInHeader,
         );
@@ -128,16 +135,16 @@ class _$MalformedLongInputPayload extends MalformedLongInputPayload {
   @override
   final _i3.Int64? longInBody;
 
-  factory _$MalformedLongInputPayload(
-          [void Function(MalformedLongInputPayloadBuilder)? updates]) =>
-      (new MalformedLongInputPayloadBuilder()..update(updates))._build();
+  factory _$MalformedLongInputPayload([
+    void Function(MalformedLongInputPayloadBuilder)? updates,
+  ]) => (new MalformedLongInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedLongInputPayload._({this.longInBody}) : super._();
 
   @override
   MalformedLongInputPayload rebuild(
-          void Function(MalformedLongInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLongInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLongInputPayloadBuilder toBuilder() =>
@@ -193,10 +200,8 @@ class MalformedLongInputPayloadBuilder
   MalformedLongInputPayload build() => _build();
 
   _$MalformedLongInputPayload _build() {
-    final _$result = _$v ??
-        new _$MalformedLongInputPayload._(
-          longInBody: longInBody,
-        );
+    final _$result =
+        _$v ?? new _$MalformedLongInputPayload._(longInBody: longInBody);
     replace(_$result);
     return _$result;
   }

@@ -23,7 +23,7 @@ abstract class GreetingStruct
   const GreetingStruct._();
 
   static const List<_i2.SmithySerializer<GreetingStruct>> serializers = [
-    GreetingStructRestXmlSerializer()
+    GreetingStructRestXmlSerializer(),
   ];
 
   String? get hi;
@@ -32,11 +32,7 @@ abstract class GreetingStruct
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GreetingStruct')
-      ..add(
-        'hi',
-        hi,
-      );
+    final helper = newBuiltValueToStringHelper('GreetingStruct')..add('hi', hi);
     return helper.toString();
   }
 }
@@ -46,18 +42,12 @@ class GreetingStructRestXmlSerializer
   const GreetingStructRestXmlSerializer() : super('GreetingStruct');
 
   @override
-  Iterable<Type> get types => const [
-        GreetingStruct,
-        _$GreetingStruct,
-      ];
+  Iterable<Type> get types => const [GreetingStruct, _$GreetingStruct];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   GreetingStruct deserialize(
@@ -76,10 +66,12 @@ class GreetingStructRestXmlSerializer
       }
       switch (key) {
         case 'hi':
-          result.hi = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.hi =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -97,10 +89,7 @@ class GreetingStructRestXmlSerializer
     if (hi != null) {
       result$
         ..add(const _i2.XmlElementName('hi'))
-        ..add(serializers.serialize(
-          hi,
-          specifiedType: const FullType(String),
-        ));
+        ..add(serializers.serialize(hi, specifiedType: const FullType(String)));
     }
     return result$;
   }

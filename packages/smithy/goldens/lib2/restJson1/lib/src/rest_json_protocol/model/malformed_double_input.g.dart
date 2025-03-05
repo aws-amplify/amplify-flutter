@@ -16,24 +16,27 @@ class _$MalformedDoubleInput extends MalformedDoubleInput {
   @override
   final double? doubleInHeader;
 
-  factory _$MalformedDoubleInput(
-          [void Function(MalformedDoubleInputBuilder)? updates]) =>
-      (new MalformedDoubleInputBuilder()..update(updates))._build();
+  factory _$MalformedDoubleInput([
+    void Function(MalformedDoubleInputBuilder)? updates,
+  ]) => (new MalformedDoubleInputBuilder()..update(updates))._build();
 
-  _$MalformedDoubleInput._(
-      {this.doubleInBody,
-      required this.doubleInPath,
-      this.doubleInQuery,
-      this.doubleInHeader})
-      : super._() {
+  _$MalformedDoubleInput._({
+    this.doubleInBody,
+    required this.doubleInPath,
+    this.doubleInQuery,
+    this.doubleInHeader,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        doubleInPath, r'MalformedDoubleInput', 'doubleInPath');
+      doubleInPath,
+      r'MalformedDoubleInput',
+      'doubleInPath',
+    );
   }
 
   @override
   MalformedDoubleInput rebuild(
-          void Function(MalformedDoubleInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedDoubleInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedDoubleInputBuilder toBuilder() =>
@@ -112,11 +115,15 @@ class MalformedDoubleInputBuilder
   MalformedDoubleInput build() => _build();
 
   _$MalformedDoubleInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MalformedDoubleInput._(
           doubleInBody: doubleInBody,
           doubleInPath: BuiltValueNullFieldError.checkNotNull(
-              doubleInPath, r'MalformedDoubleInput', 'doubleInPath'),
+            doubleInPath,
+            r'MalformedDoubleInput',
+            'doubleInPath',
+          ),
           doubleInQuery: doubleInQuery,
           doubleInHeader: doubleInHeader,
         );
@@ -129,16 +136,16 @@ class _$MalformedDoubleInputPayload extends MalformedDoubleInputPayload {
   @override
   final double? doubleInBody;
 
-  factory _$MalformedDoubleInputPayload(
-          [void Function(MalformedDoubleInputPayloadBuilder)? updates]) =>
-      (new MalformedDoubleInputPayloadBuilder()..update(updates))._build();
+  factory _$MalformedDoubleInputPayload([
+    void Function(MalformedDoubleInputPayloadBuilder)? updates,
+  ]) => (new MalformedDoubleInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedDoubleInputPayload._({this.doubleInBody}) : super._();
 
   @override
   MalformedDoubleInputPayload rebuild(
-          void Function(MalformedDoubleInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedDoubleInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedDoubleInputPayloadBuilder toBuilder() =>
@@ -162,8 +169,10 @@ class _$MalformedDoubleInputPayload extends MalformedDoubleInputPayload {
 
 class MalformedDoubleInputPayloadBuilder
     implements
-        Builder<MalformedDoubleInputPayload,
-            MalformedDoubleInputPayloadBuilder> {
+        Builder<
+          MalformedDoubleInputPayload,
+          MalformedDoubleInputPayloadBuilder
+        > {
   _$MalformedDoubleInputPayload? _$v;
 
   double? _doubleInBody;
@@ -196,10 +205,8 @@ class MalformedDoubleInputPayloadBuilder
   MalformedDoubleInputPayload build() => _build();
 
   _$MalformedDoubleInputPayload _build() {
-    final _$result = _$v ??
-        new _$MalformedDoubleInputPayload._(
-          doubleInBody: doubleInBody,
-        );
+    final _$result =
+        _$v ?? new _$MalformedDoubleInputPayload._(doubleInBody: doubleInBody);
     replace(_$result);
     return _$result;
   }

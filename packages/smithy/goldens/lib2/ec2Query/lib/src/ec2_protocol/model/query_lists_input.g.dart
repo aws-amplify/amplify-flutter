@@ -21,13 +21,13 @@ class _$QueryListsInput extends QueryListsInput {
   factory _$QueryListsInput([void Function(QueryListsInputBuilder)? updates]) =>
       (new QueryListsInputBuilder()..update(updates))._build();
 
-  _$QueryListsInput._(
-      {this.listArg,
-      this.complexListArg,
-      this.listArgWithXmlNameMember,
-      this.listArgWithXmlName,
-      this.nestedWithList})
-      : super._();
+  _$QueryListsInput._({
+    this.listArg,
+    this.complexListArg,
+    this.listArgWithXmlNameMember,
+    this.listArgWithXmlName,
+    this.nestedWithList,
+  }) : super._();
 
   @override
   QueryListsInput rebuild(void Function(QueryListsInputBuilder) updates) =>
@@ -80,8 +80,8 @@ class QueryListsInputBuilder
   _i3.ListBuilder<String> get listArgWithXmlNameMember =>
       _$this._listArgWithXmlNameMember ??= new _i3.ListBuilder<String>();
   set listArgWithXmlNameMember(
-          _i3.ListBuilder<String>? listArgWithXmlNameMember) =>
-      _$this._listArgWithXmlNameMember = listArgWithXmlNameMember;
+    _i3.ListBuilder<String>? listArgWithXmlNameMember,
+  ) => _$this._listArgWithXmlNameMember = listArgWithXmlNameMember;
 
   _i3.ListBuilder<String>? _listArgWithXmlName;
   _i3.ListBuilder<String> get listArgWithXmlName =>
@@ -127,7 +127,8 @@ class QueryListsInputBuilder
   _$QueryListsInput _build() {
     _$QueryListsInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$QueryListsInput._(
             listArg: _listArg?.build(),
             complexListArg: _complexListArg?.build(),
@@ -150,7 +151,10 @@ class QueryListsInputBuilder
         _nestedWithList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'QueryListsInput', _$failedField, e.toString());
+          r'QueryListsInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

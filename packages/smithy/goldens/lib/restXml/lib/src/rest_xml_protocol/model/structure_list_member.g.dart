@@ -12,16 +12,16 @@ class _$StructureListMember extends StructureListMember {
   @override
   final String? b;
 
-  factory _$StructureListMember(
-          [void Function(StructureListMemberBuilder)? updates]) =>
-      (new StructureListMemberBuilder()..update(updates))._build();
+  factory _$StructureListMember([
+    void Function(StructureListMemberBuilder)? updates,
+  ]) => (new StructureListMemberBuilder()..update(updates))._build();
 
   _$StructureListMember._({this.a, this.b}) : super._();
 
   @override
   StructureListMember rebuild(
-          void Function(StructureListMemberBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(StructureListMemberBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   StructureListMemberBuilder toBuilder() =>
@@ -82,11 +82,7 @@ class StructureListMemberBuilder
   StructureListMember build() => _build();
 
   _$StructureListMember _build() {
-    final _$result = _$v ??
-        new _$StructureListMember._(
-          a: a,
-          b: b,
-        );
+    final _$result = _$v ?? new _$StructureListMember._(a: a, b: b);
     replace(_$result);
     return _$result;
   }

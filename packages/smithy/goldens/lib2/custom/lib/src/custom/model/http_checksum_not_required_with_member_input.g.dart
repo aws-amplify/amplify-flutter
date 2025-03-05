@@ -13,21 +13,21 @@ class _$HttpChecksumNotRequiredWithMemberInput
   @override
   final _i2.Uint8List? content;
 
-  factory _$HttpChecksumNotRequiredWithMemberInput(
-          [void Function(HttpChecksumNotRequiredWithMemberInputBuilder)?
-              updates]) =>
+  factory _$HttpChecksumNotRequiredWithMemberInput([
+    void Function(HttpChecksumNotRequiredWithMemberInputBuilder)? updates,
+  ]) =>
       (new HttpChecksumNotRequiredWithMemberInputBuilder()..update(updates))
           ._build();
 
-  _$HttpChecksumNotRequiredWithMemberInput._(
-      {this.checksumAlgorithm, this.content})
-      : super._();
+  _$HttpChecksumNotRequiredWithMemberInput._({
+    this.checksumAlgorithm,
+    this.content,
+  }) : super._();
 
   @override
   HttpChecksumNotRequiredWithMemberInput rebuild(
-          void Function(HttpChecksumNotRequiredWithMemberInputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpChecksumNotRequiredWithMemberInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpChecksumNotRequiredWithMemberInputBuilder toBuilder() =>
@@ -53,8 +53,10 @@ class _$HttpChecksumNotRequiredWithMemberInput
 
 class HttpChecksumNotRequiredWithMemberInputBuilder
     implements
-        Builder<HttpChecksumNotRequiredWithMemberInput,
-            HttpChecksumNotRequiredWithMemberInputBuilder> {
+        Builder<
+          HttpChecksumNotRequiredWithMemberInput,
+          HttpChecksumNotRequiredWithMemberInputBuilder
+        > {
   _$HttpChecksumNotRequiredWithMemberInput? _$v;
 
   ChecksumAlgorithm? _checksumAlgorithm;
@@ -86,7 +88,8 @@ class HttpChecksumNotRequiredWithMemberInputBuilder
 
   @override
   void update(
-      void Function(HttpChecksumNotRequiredWithMemberInputBuilder)? updates) {
+    void Function(HttpChecksumNotRequiredWithMemberInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -94,7 +97,8 @@ class HttpChecksumNotRequiredWithMemberInputBuilder
   HttpChecksumNotRequiredWithMemberInput build() => _build();
 
   _$HttpChecksumNotRequiredWithMemberInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$HttpChecksumNotRequiredWithMemberInput._(
           checksumAlgorithm: checksumAlgorithm,
           content: content,

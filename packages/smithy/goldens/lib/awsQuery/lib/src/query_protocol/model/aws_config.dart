@@ -14,14 +14,8 @@ part 'aws_config.g.dart';
 abstract class AwsConfig
     with _i1.AWSEquatable<AwsConfig>
     implements Built<AwsConfig, AwsConfigBuilder> {
-  factory AwsConfig({
-    DateTime? clockTime,
-    ScopedConfig? scopedConfig,
-  }) {
-    return _$AwsConfig._(
-      clockTime: clockTime,
-      scopedConfig: scopedConfig,
-    );
+  factory AwsConfig({DateTime? clockTime, ScopedConfig? scopedConfig}) {
+    return _$AwsConfig._(clockTime: clockTime, scopedConfig: scopedConfig);
   }
 
   factory AwsConfig.build([void Function(AwsConfigBuilder) updates]) =
@@ -30,7 +24,7 @@ abstract class AwsConfig
   const AwsConfig._();
 
   static const List<_i2.SmithySerializer<AwsConfig>> serializers = [
-    AwsConfigAwsQuerySerializer()
+    AwsConfigAwsQuerySerializer(),
   ];
 
   /// This is the time that should be set during the course of the test. This is important for things like signing where the clock time impacts the result.
@@ -39,22 +33,14 @@ abstract class AwsConfig
   /// Config settings that are scoped to different sources, such as environment variables or the AWS config file.
   ScopedConfig? get scopedConfig;
   @override
-  List<Object?> get props => [
-        clockTime,
-        scopedConfig,
-      ];
+  List<Object?> get props => [clockTime, scopedConfig];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AwsConfig')
-      ..add(
-        'clockTime',
-        clockTime,
-      )
-      ..add(
-        'scopedConfig',
-        scopedConfig,
-      );
+    final helper =
+        newBuiltValueToStringHelper('AwsConfig')
+          ..add('clockTime', clockTime)
+          ..add('scopedConfig', scopedConfig);
     return helper.toString();
   }
 }
@@ -64,18 +50,12 @@ class AwsConfigAwsQuerySerializer
   const AwsConfigAwsQuerySerializer() : super('AwsConfig');
 
   @override
-  Iterable<Type> get types => const [
-        AwsConfig,
-        _$AwsConfig,
-      ];
+  Iterable<Type> get types => const [AwsConfig, _$AwsConfig];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   AwsConfig deserialize(
@@ -102,15 +82,20 @@ class AwsConfigAwsQuerySerializer
       }
       switch (key) {
         case 'clockTime':
-          result.clockTime = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.clockTime =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
         case 'scopedConfig':
-          result.scopedConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ScopedConfig),
-          ) as ScopedConfig));
+          result.scopedConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ScopedConfig),
+                )
+                as ScopedConfig),
+          );
       }
     }
 
@@ -127,24 +112,28 @@ class AwsConfigAwsQuerySerializer
       const _i2.XmlElementName(
         'AwsConfigResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final AwsConfig(:clockTime, :scopedConfig) = object;
     if (clockTime != null) {
       result$
         ..add(const _i2.XmlElementName('clockTime'))
-        ..add(serializers.serialize(
-          clockTime,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            clockTime,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     if (scopedConfig != null) {
       result$
         ..add(const _i2.XmlElementName('scopedConfig'))
-        ..add(serializers.serialize(
-          scopedConfig,
-          specifiedType: const FullType(ScopedConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            scopedConfig,
+            specifiedType: const FullType(ScopedConfig),
+          ),
+        );
     }
     return result$;
   }

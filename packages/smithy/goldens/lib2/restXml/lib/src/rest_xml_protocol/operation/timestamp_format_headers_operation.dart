@@ -13,33 +13,40 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// The example tests how timestamp request and response headers are serialized.
-class TimestampFormatHeadersOperation extends _i1.HttpOperation<
-    TimestampFormatHeadersIoPayload,
-    TimestampFormatHeadersIo,
-    TimestampFormatHeadersIoPayload,
-    TimestampFormatHeadersIo> {
+class TimestampFormatHeadersOperation
+    extends
+        _i1.HttpOperation<
+          TimestampFormatHeadersIoPayload,
+          TimestampFormatHeadersIo,
+          TimestampFormatHeadersIoPayload,
+          TimestampFormatHeadersIo
+        > {
   /// The example tests how timestamp request and response headers are serialized.
   TimestampFormatHeadersOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          TimestampFormatHeadersIoPayload,
-          TimestampFormatHeadersIo,
-          TimestampFormatHeadersIoPayload,
-          TimestampFormatHeadersIo>> protocols = [
+    _i1.HttpProtocol<
+      TimestampFormatHeadersIoPayload,
+      TimestampFormatHeadersIo,
+      TimestampFormatHeadersIoPayload,
+      TimestampFormatHeadersIo
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i2.WithSdkInvocationId(),
@@ -49,7 +56,7 @@ class TimestampFormatHeadersOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: false,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -72,40 +79,45 @@ class TimestampFormatHeadersOperation extends _i1.HttpOperation<
         b.path = r'/TimestampFormatHeaders';
         if (input.memberEpochSeconds != null) {
           b.headers['X-memberEpochSeconds'] =
-              _i1.Timestamp(input.memberEpochSeconds!)
-                  .format(_i1.TimestampFormat.epochSeconds)
-                  .toString();
+              _i1.Timestamp(
+                input.memberEpochSeconds!,
+              ).format(_i1.TimestampFormat.epochSeconds).toString();
         }
         if (input.memberHttpDate != null) {
-          b.headers['X-memberHttpDate'] = _i1.Timestamp(input.memberHttpDate!)
-              .format(_i1.TimestampFormat.httpDate)
-              .toString();
+          b.headers['X-memberHttpDate'] =
+              _i1.Timestamp(
+                input.memberHttpDate!,
+              ).format(_i1.TimestampFormat.httpDate).toString();
         }
         if (input.memberDateTime != null) {
-          b.headers['X-memberDateTime'] = _i1.Timestamp(input.memberDateTime!)
-              .format(_i1.TimestampFormat.dateTime)
-              .toString();
+          b.headers['X-memberDateTime'] =
+              _i1.Timestamp(
+                input.memberDateTime!,
+              ).format(_i1.TimestampFormat.dateTime).toString();
         }
         if (input.defaultFormat != null) {
-          b.headers['X-defaultFormat'] = _i1.Timestamp(input.defaultFormat!)
-              .format(_i1.TimestampFormat.httpDate)
-              .toString();
+          b.headers['X-defaultFormat'] =
+              _i1.Timestamp(
+                input.defaultFormat!,
+              ).format(_i1.TimestampFormat.httpDate).toString();
         }
         if (input.targetEpochSeconds != null) {
           b.headers['X-targetEpochSeconds'] =
-              _i1.Timestamp(input.targetEpochSeconds!)
-                  .format(_i1.TimestampFormat.epochSeconds)
-                  .toString();
+              _i1.Timestamp(
+                input.targetEpochSeconds!,
+              ).format(_i1.TimestampFormat.epochSeconds).toString();
         }
         if (input.targetHttpDate != null) {
-          b.headers['X-targetHttpDate'] = _i1.Timestamp(input.targetHttpDate!)
-              .format(_i1.TimestampFormat.httpDate)
-              .toString();
+          b.headers['X-targetHttpDate'] =
+              _i1.Timestamp(
+                input.targetHttpDate!,
+              ).format(_i1.TimestampFormat.httpDate).toString();
         }
         if (input.targetDateTime != null) {
-          b.headers['X-targetDateTime'] = _i1.Timestamp(input.targetDateTime!)
-              .format(_i1.TimestampFormat.dateTime)
-              .toString();
+          b.headers['X-targetDateTime'] =
+              _i1.Timestamp(
+                input.targetDateTime!,
+              ).format(_i1.TimestampFormat.dateTime).toString();
         }
       });
 
@@ -116,11 +128,7 @@ class TimestampFormatHeadersOperation extends _i1.HttpOperation<
   TimestampFormatHeadersIo buildOutput(
     TimestampFormatHeadersIoPayload payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      TimestampFormatHeadersIo.fromResponse(
-        payload,
-        response,
-      );
+  ) => TimestampFormatHeadersIo.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -144,11 +152,7 @@ class TimestampFormatHeadersOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

@@ -21,13 +21,13 @@ class _$ScopedConfig extends ScopedConfig {
   factory _$ScopedConfig([void Function(ScopedConfigBuilder)? updates]) =>
       (new ScopedConfigBuilder()..update(updates))._build();
 
-  _$ScopedConfig._(
-      {this.environment,
-      this.configFile,
-      this.credentialsFile,
-      this.client,
-      this.operation})
-      : super._();
+  _$ScopedConfig._({
+    this.environment,
+    this.configFile,
+    this.credentialsFile,
+    this.client,
+    this.operation,
+  }) : super._();
 
   @override
   ScopedConfig rebuild(void Function(ScopedConfigBuilder) updates) =>
@@ -81,8 +81,8 @@ class ScopedConfigBuilder
       _$this._credentialsFile ??=
           new _i2.MapBuilder<String, FileConfigSettings>();
   set credentialsFile(
-          _i2.MapBuilder<String, FileConfigSettings>? credentialsFile) =>
-      _$this._credentialsFile = credentialsFile;
+    _i2.MapBuilder<String, FileConfigSettings>? credentialsFile,
+  ) => _$this._credentialsFile = credentialsFile;
 
   ClientConfigBuilder? _client;
   ClientConfigBuilder get client =>
@@ -127,7 +127,8 @@ class ScopedConfigBuilder
   _$ScopedConfig _build() {
     _$ScopedConfig _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ScopedConfig._(
             environment: _environment?.build(),
             configFile: _configFile?.build(),
@@ -150,7 +151,10 @@ class ScopedConfigBuilder
         _operation?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ScopedConfig', _$failedField, e.toString());
+          r'ScopedConfig',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

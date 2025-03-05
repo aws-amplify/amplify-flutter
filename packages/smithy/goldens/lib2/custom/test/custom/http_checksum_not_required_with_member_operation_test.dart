@@ -15,115 +15,94 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'HttpChecksumNotRequiredWithMemberNoAlgorithm (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpChecksumNotRequiredWithMemberOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'HttpChecksumNotRequiredWithMemberNoAlgorithm',
-          documentation:
-              'Adds no checksum when not required and no algorithm is provided',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: 'hello, world',
-          bodyMediaType: 'application/octet-stream',
-          params: {'content': 'hello, world'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/octet-stream'},
-          forbidHeaders: [
-            'Content-MD5',
-            'x-amz-request-algorithm',
-          ],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/notRequiredWithMember',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpChecksumNotRequiredWithMemberInputRestJson1Serializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'HttpChecksumNotRequiredWithMemberWithSHA1 (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpChecksumNotRequiredWithMemberOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'HttpChecksumNotRequiredWithMemberWithSHA1',
-          documentation:
-              'Adds a SHA-1 checksum when that algorithm is provided',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: 'hello, world',
-          bodyMediaType: 'application/octet-stream',
-          params: {
-            'checksumAlgorithm': 'SHA1',
-            'content': 'hello, world',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/octet-stream',
-            'x-amz-checksum-sha1': 't+I+wpryKwtOQdox6GjVciYSHIQ=',
-            'x-amz-request-algorithm': 'SHA1',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/notRequiredWithMember',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpChecksumNotRequiredWithMemberInputRestJson1Serializer()
-        ],
-      );
-    },
-  );
+  _i1.test('HttpChecksumNotRequiredWithMemberNoAlgorithm (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpChecksumNotRequiredWithMemberOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'HttpChecksumNotRequiredWithMemberNoAlgorithm',
+        documentation:
+            'Adds no checksum when not required and no algorithm is provided',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: 'hello, world',
+        bodyMediaType: 'application/octet-stream',
+        params: {'content': 'hello, world'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/octet-stream'},
+        forbidHeaders: ['Content-MD5', 'x-amz-request-algorithm'],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/notRequiredWithMember',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        HttpChecksumNotRequiredWithMemberInputRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('HttpChecksumNotRequiredWithMemberWithSHA1 (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpChecksumNotRequiredWithMemberOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'HttpChecksumNotRequiredWithMemberWithSHA1',
+        documentation: 'Adds a SHA-1 checksum when that algorithm is provided',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: 'hello, world',
+        bodyMediaType: 'application/octet-stream',
+        params: {'checksumAlgorithm': 'SHA1', 'content': 'hello, world'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/octet-stream',
+          'x-amz-checksum-sha1': 't+I+wpryKwtOQdox6GjVciYSHIQ=',
+          'x-amz-request-algorithm': 'SHA1',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/notRequiredWithMember',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        HttpChecksumNotRequiredWithMemberInputRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
-class HttpChecksumNotRequiredWithMemberInputRestJson1Serializer extends _i3
-    .StructuredSmithySerializer<HttpChecksumNotRequiredWithMemberInput> {
+class HttpChecksumNotRequiredWithMemberInputRestJson1Serializer
+    extends
+        _i3.StructuredSmithySerializer<HttpChecksumNotRequiredWithMemberInput> {
   const HttpChecksumNotRequiredWithMemberInputRestJson1Serializer()
-      : super('HttpChecksumNotRequiredWithMemberInput');
+    : super('HttpChecksumNotRequiredWithMemberInput');
 
   @override
   Iterable<Type> get types => const [HttpChecksumNotRequiredWithMemberInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   HttpChecksumNotRequiredWithMemberInput deserialize(
@@ -142,15 +121,19 @@ class HttpChecksumNotRequiredWithMemberInputRestJson1Serializer extends _i3
       }
       switch (key) {
         case 'checksumAlgorithm':
-          result.checksumAlgorithm = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ChecksumAlgorithm),
-          ) as ChecksumAlgorithm);
+          result.checksumAlgorithm =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ChecksumAlgorithm),
+                  )
+                  as ChecksumAlgorithm);
         case 'content':
-          result.content = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i4.Uint8List),
-          ) as _i4.Uint8List);
+          result.content =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.Uint8List),
+                  )
+                  as _i4.Uint8List);
       }
     }
 

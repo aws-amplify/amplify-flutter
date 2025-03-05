@@ -16,24 +16,27 @@ class _$MalformedShortInput extends MalformedShortInput {
   @override
   final int? shortInHeader;
 
-  factory _$MalformedShortInput(
-          [void Function(MalformedShortInputBuilder)? updates]) =>
-      (new MalformedShortInputBuilder()..update(updates))._build();
+  factory _$MalformedShortInput([
+    void Function(MalformedShortInputBuilder)? updates,
+  ]) => (new MalformedShortInputBuilder()..update(updates))._build();
 
-  _$MalformedShortInput._(
-      {this.shortInBody,
-      required this.shortInPath,
-      this.shortInQuery,
-      this.shortInHeader})
-      : super._() {
+  _$MalformedShortInput._({
+    this.shortInBody,
+    required this.shortInPath,
+    this.shortInQuery,
+    this.shortInHeader,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        shortInPath, r'MalformedShortInput', 'shortInPath');
+      shortInPath,
+      r'MalformedShortInput',
+      'shortInPath',
+    );
   }
 
   @override
   MalformedShortInput rebuild(
-          void Function(MalformedShortInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedShortInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedShortInputBuilder toBuilder() =>
@@ -111,11 +114,15 @@ class MalformedShortInputBuilder
   MalformedShortInput build() => _build();
 
   _$MalformedShortInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MalformedShortInput._(
           shortInBody: shortInBody,
           shortInPath: BuiltValueNullFieldError.checkNotNull(
-              shortInPath, r'MalformedShortInput', 'shortInPath'),
+            shortInPath,
+            r'MalformedShortInput',
+            'shortInPath',
+          ),
           shortInQuery: shortInQuery,
           shortInHeader: shortInHeader,
         );
@@ -128,16 +135,16 @@ class _$MalformedShortInputPayload extends MalformedShortInputPayload {
   @override
   final int? shortInBody;
 
-  factory _$MalformedShortInputPayload(
-          [void Function(MalformedShortInputPayloadBuilder)? updates]) =>
-      (new MalformedShortInputPayloadBuilder()..update(updates))._build();
+  factory _$MalformedShortInputPayload([
+    void Function(MalformedShortInputPayloadBuilder)? updates,
+  ]) => (new MalformedShortInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedShortInputPayload._({this.shortInBody}) : super._();
 
   @override
   MalformedShortInputPayload rebuild(
-          void Function(MalformedShortInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedShortInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedShortInputPayloadBuilder toBuilder() =>
@@ -194,10 +201,8 @@ class MalformedShortInputPayloadBuilder
   MalformedShortInputPayload build() => _build();
 
   _$MalformedShortInputPayload _build() {
-    final _$result = _$v ??
-        new _$MalformedShortInputPayload._(
-          shortInBody: shortInBody,
-        );
+    final _$result =
+        _$v ?? new _$MalformedShortInputPayload._(shortInBody: shortInBody);
     replace(_$result);
     return _$result;
   }

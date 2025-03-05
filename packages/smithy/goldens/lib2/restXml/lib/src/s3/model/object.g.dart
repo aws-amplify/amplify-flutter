@@ -23,14 +23,14 @@ class _$S3Object extends S3Object {
   factory _$S3Object([void Function(S3ObjectBuilder)? updates]) =>
       (new S3ObjectBuilder()..update(updates))._build();
 
-  _$S3Object._(
-      {this.key,
-      this.lastModified,
-      this.eTag,
-      this.size,
-      this.storageClass,
-      this.owner})
-      : super._();
+  _$S3Object._({
+    this.key,
+    this.lastModified,
+    this.eTag,
+    this.size,
+    this.storageClass,
+    this.owner,
+  }) : super._();
 
   @override
   S3Object rebuild(void Function(S3ObjectBuilder) updates) =>
@@ -127,7 +127,8 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   _$S3Object _build() {
     _$S3Object _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$S3Object._(
             key: key,
             lastModified: lastModified,
@@ -143,7 +144,10 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
         _owner?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'S3Object', _$failedField, e.toString());
+          r'S3Object',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -12,16 +12,16 @@ class _$XmlAttributesInputOutput extends XmlAttributesInputOutput {
   @override
   final String? attr;
 
-  factory _$XmlAttributesInputOutput(
-          [void Function(XmlAttributesInputOutputBuilder)? updates]) =>
-      (new XmlAttributesInputOutputBuilder()..update(updates))._build();
+  factory _$XmlAttributesInputOutput([
+    void Function(XmlAttributesInputOutputBuilder)? updates,
+  ]) => (new XmlAttributesInputOutputBuilder()..update(updates))._build();
 
   _$XmlAttributesInputOutput._({this.foo, this.attr}) : super._();
 
   @override
   XmlAttributesInputOutput rebuild(
-          void Function(XmlAttributesInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlAttributesInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlAttributesInputOutputBuilder toBuilder() =>
@@ -85,11 +85,8 @@ class XmlAttributesInputOutputBuilder
   XmlAttributesInputOutput build() => _build();
 
   _$XmlAttributesInputOutput _build() {
-    final _$result = _$v ??
-        new _$XmlAttributesInputOutput._(
-          foo: foo,
-          attr: attr,
-        );
+    final _$result =
+        _$v ?? new _$XmlAttributesInputOutput._(foo: foo, attr: attr);
     replace(_$result);
     return _$result;
   }

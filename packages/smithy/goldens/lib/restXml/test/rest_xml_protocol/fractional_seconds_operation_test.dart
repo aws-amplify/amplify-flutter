@@ -12,57 +12,48 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestXmlDateTimeWithFractionalSeconds (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: FractionalSecondsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'RestXmlDateTimeWithFractionalSeconds',
-          documentation:
-              'Ensures that clients can correctly parse datetime timestamps with fractional seconds',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<FractionalSecondsOutput>\n    <datetime>2000-01-02T20:34:56.123Z</datetime>\n</FractionalSecondsOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {'datetime': 946845296.123},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [FractionalSecondsOutputRestXmlSerializer()],
-      );
-    },
-  );
+  _i1.test('RestXmlDateTimeWithFractionalSeconds (response)', () async {
+    await _i2.httpResponseTest(
+      operation: FractionalSecondsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'RestXmlDateTimeWithFractionalSeconds',
+        documentation:
+            'Ensures that clients can correctly parse datetime timestamps with fractional seconds',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<FractionalSecondsOutput>\n    <datetime>2000-01-02T20:34:56.123Z</datetime>\n</FractionalSecondsOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'datetime': 946845296.123},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [FractionalSecondsOutputRestXmlSerializer()],
+    );
+  });
 }
 
 class FractionalSecondsOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<FractionalSecondsOutput> {
   const FractionalSecondsOutputRestXmlSerializer()
-      : super('FractionalSecondsOutput');
+    : super('FractionalSecondsOutput');
 
   @override
   Iterable<Type> get types => const [FractionalSecondsOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   FractionalSecondsOutput deserialize(

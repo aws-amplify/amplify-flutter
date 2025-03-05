@@ -10,16 +10,16 @@ class _$PostPlayerActionInput extends PostPlayerActionInput {
   @override
   final PlayerAction? action;
 
-  factory _$PostPlayerActionInput(
-          [void Function(PostPlayerActionInputBuilder)? updates]) =>
-      (new PostPlayerActionInputBuilder()..update(updates))._build();
+  factory _$PostPlayerActionInput([
+    void Function(PostPlayerActionInputBuilder)? updates,
+  ]) => (new PostPlayerActionInputBuilder()..update(updates))._build();
 
   _$PostPlayerActionInput._({this.action}) : super._();
 
   @override
   PostPlayerActionInput rebuild(
-          void Function(PostPlayerActionInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PostPlayerActionInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PostPlayerActionInputBuilder toBuilder() =>
@@ -74,10 +74,7 @@ class PostPlayerActionInputBuilder
   PostPlayerActionInput build() => _build();
 
   _$PostPlayerActionInput _build() {
-    final _$result = _$v ??
-        new _$PostPlayerActionInput._(
-          action: action,
-        );
+    final _$result = _$v ?? new _$PostPlayerActionInput._(action: action);
     replace(_$result);
     return _$result;
   }

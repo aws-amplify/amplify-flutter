@@ -14,8 +14,14 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// This operation uses unions for inputs and outputs.
-class JsonUnionsOperation extends _i1.HttpOperation<UnionInputOutput,
-    UnionInputOutput, UnionInputOutput, UnionInputOutput> {
+class JsonUnionsOperation
+    extends
+        _i1.HttpOperation<
+          UnionInputOutput,
+          UnionInputOutput,
+          UnionInputOutput,
+          UnionInputOutput
+        > {
   /// This operation uses unions for inputs and outputs.
   JsonUnionsOperation({
     required String region,
@@ -24,26 +30,30 @@ class JsonUnionsOperation extends _i1.HttpOperation<UnionInputOutput,
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<UnionInputOutput, UnionInputOutput, UnionInputOutput,
-          UnionInputOutput>> protocols = [
+    _i1.HttpProtocol<
+      UnionInputOutput,
+      UnionInputOutput,
+      UnionInputOutput,
+      UnionInputOutput
+    >
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            const _i1.WithHeader(
-              'X-Amz-Target',
-              'JsonProtocol.JsonUnions',
-            ),
+            const _i1.WithHeader('X-Amz-Target', 'JsonProtocol.JsonUnions'),
             _i3.WithSigV4(
               region: _region,
               service: _i4.AWSService.iam,
@@ -56,7 +66,7 @@ class JsonUnionsOperation extends _i1.HttpOperation<UnionInputOutput,
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -76,9 +86,9 @@ class JsonUnionsOperation extends _i1.HttpOperation<UnionInputOutput,
 
   @override
   _i1.HttpRequest buildRequest(UnionInputOutput input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/';
-      });
+    b.method = 'POST';
+    b.path = r'/';
+  });
 
   @override
   int successCode([UnionInputOutput? output]) => 200;
@@ -87,11 +97,7 @@ class JsonUnionsOperation extends _i1.HttpOperation<UnionInputOutput,
   UnionInputOutput buildOutput(
     UnionInputOutput payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      UnionInputOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => UnionInputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -115,11 +121,7 @@ class JsonUnionsOperation extends _i1.HttpOperation<UnionInputOutput,
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

@@ -11,8 +11,9 @@ class _$IgnoreQueryParamsInResponseOutput
   @override
   final String? baz;
 
-  factory _$IgnoreQueryParamsInResponseOutput(
-          [void Function(IgnoreQueryParamsInResponseOutputBuilder)? updates]) =>
+  factory _$IgnoreQueryParamsInResponseOutput([
+    void Function(IgnoreQueryParamsInResponseOutputBuilder)? updates,
+  ]) =>
       (new IgnoreQueryParamsInResponseOutputBuilder()..update(updates))
           ._build();
 
@@ -20,8 +21,8 @@ class _$IgnoreQueryParamsInResponseOutput
 
   @override
   IgnoreQueryParamsInResponseOutput rebuild(
-          void Function(IgnoreQueryParamsInResponseOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(IgnoreQueryParamsInResponseOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   IgnoreQueryParamsInResponseOutputBuilder toBuilder() =>
@@ -44,8 +45,10 @@ class _$IgnoreQueryParamsInResponseOutput
 
 class IgnoreQueryParamsInResponseOutputBuilder
     implements
-        Builder<IgnoreQueryParamsInResponseOutput,
-            IgnoreQueryParamsInResponseOutputBuilder> {
+        Builder<
+          IgnoreQueryParamsInResponseOutput,
+          IgnoreQueryParamsInResponseOutputBuilder
+        > {
   _$IgnoreQueryParamsInResponseOutput? _$v;
 
   String? _baz;
@@ -71,7 +74,8 @@ class IgnoreQueryParamsInResponseOutputBuilder
 
   @override
   void update(
-      void Function(IgnoreQueryParamsInResponseOutputBuilder)? updates) {
+    void Function(IgnoreQueryParamsInResponseOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -79,10 +83,7 @@ class IgnoreQueryParamsInResponseOutputBuilder
   IgnoreQueryParamsInResponseOutput build() => _build();
 
   _$IgnoreQueryParamsInResponseOutput _build() {
-    final _$result = _$v ??
-        new _$IgnoreQueryParamsInResponseOutput._(
-          baz: baz,
-        );
+    final _$result = _$v ?? new _$IgnoreQueryParamsInResponseOutput._(baz: baz);
     replace(_$result);
     return _$result;
   }

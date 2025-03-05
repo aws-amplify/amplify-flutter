@@ -6,43 +6,19 @@ library ec2_query_v1.ec2_protocol.model.foo_enum; // ignore_for_file: no_leading
 import 'package:smithy/smithy.dart' as _i1;
 
 class FooEnum extends _i1.SmithyEnum<FooEnum> {
-  const FooEnum._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const FooEnum._(super.index, super.name, super.value);
 
   const FooEnum._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const bar = FooEnum._(
-    0,
-    'BAR',
-    'Bar',
-  );
+  static const bar = FooEnum._(0, 'BAR', 'Bar');
 
-  static const baz = FooEnum._(
-    1,
-    'BAZ',
-    'Baz',
-  );
+  static const baz = FooEnum._(1, 'BAZ', 'Baz');
 
-  static const foo = FooEnum._(
-    2,
-    'FOO',
-    'Foo',
-  );
+  static const foo = FooEnum._(2, 'FOO', 'Foo');
 
-  static const one = FooEnum._(
-    3,
-    'ONE',
-    '1',
-  );
+  static const one = FooEnum._(3, 'ONE', '1');
 
-  static const zero = FooEnum._(
-    4,
-    'ZERO',
-    '0',
-  );
+  static const zero = FooEnum._(4, 'ZERO', '0');
 
   /// All values of [FooEnum].
   static const values = <FooEnum>[
@@ -59,12 +35,9 @@ class FooEnum extends _i1.SmithyEnum<FooEnum> {
       values: values,
       sdkUnknown: FooEnum._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
       ],
-    )
+    ),
   ];
 }
 

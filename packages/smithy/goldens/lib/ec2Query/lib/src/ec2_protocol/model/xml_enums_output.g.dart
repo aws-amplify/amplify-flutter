@@ -23,14 +23,14 @@ class _$XmlEnumsOutput extends XmlEnumsOutput {
   factory _$XmlEnumsOutput([void Function(XmlEnumsOutputBuilder)? updates]) =>
       (new XmlEnumsOutputBuilder()..update(updates))._build();
 
-  _$XmlEnumsOutput._(
-      {this.fooEnum1,
-      this.fooEnum2,
-      this.fooEnum3,
-      this.fooEnumList,
-      this.fooEnumSet,
-      this.fooEnumMap})
-      : super._();
+  _$XmlEnumsOutput._({
+    this.fooEnum1,
+    this.fooEnum2,
+    this.fooEnum3,
+    this.fooEnumList,
+    this.fooEnumSet,
+    this.fooEnumMap,
+  }) : super._();
 
   @override
   XmlEnumsOutput rebuild(void Function(XmlEnumsOutputBuilder) updates) =>
@@ -133,7 +133,8 @@ class XmlEnumsOutputBuilder
   _$XmlEnumsOutput _build() {
     _$XmlEnumsOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$XmlEnumsOutput._(
             fooEnum1: fooEnum1,
             fooEnum2: fooEnum2,
@@ -153,7 +154,10 @@ class XmlEnumsOutputBuilder
         _fooEnumMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlEnumsOutput', _$failedField, e.toString());
+          r'XmlEnumsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

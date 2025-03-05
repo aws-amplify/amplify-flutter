@@ -84,7 +84,8 @@ class AwsConfigBuilder implements Builder<AwsConfig, AwsConfigBuilder> {
   _$AwsConfig _build() {
     _$AwsConfig _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$AwsConfig._(
             clockTime: clockTime,
             scopedConfig: _scopedConfig?.build(),
@@ -96,7 +97,10 @@ class AwsConfigBuilder implements Builder<AwsConfig, AwsConfigBuilder> {
         _scopedConfig?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'AwsConfig', _$failedField, e.toString());
+          r'AwsConfig',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

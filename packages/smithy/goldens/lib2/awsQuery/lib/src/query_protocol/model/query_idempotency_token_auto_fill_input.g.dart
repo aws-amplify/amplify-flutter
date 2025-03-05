@@ -11,9 +11,9 @@ class _$QueryIdempotencyTokenAutoFillInput
   @override
   final String? token;
 
-  factory _$QueryIdempotencyTokenAutoFillInput(
-          [void Function(QueryIdempotencyTokenAutoFillInputBuilder)?
-              updates]) =>
+  factory _$QueryIdempotencyTokenAutoFillInput([
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder)? updates,
+  ]) =>
       (new QueryIdempotencyTokenAutoFillInputBuilder()..update(updates))
           ._build();
 
@@ -21,8 +21,8 @@ class _$QueryIdempotencyTokenAutoFillInput
 
   @override
   QueryIdempotencyTokenAutoFillInput rebuild(
-          void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryIdempotencyTokenAutoFillInputBuilder toBuilder() =>
@@ -45,8 +45,10 @@ class _$QueryIdempotencyTokenAutoFillInput
 
 class QueryIdempotencyTokenAutoFillInputBuilder
     implements
-        Builder<QueryIdempotencyTokenAutoFillInput,
-            QueryIdempotencyTokenAutoFillInputBuilder> {
+        Builder<
+          QueryIdempotencyTokenAutoFillInput,
+          QueryIdempotencyTokenAutoFillInputBuilder
+        > {
   _$QueryIdempotencyTokenAutoFillInput? _$v;
 
   String? _token;
@@ -74,7 +76,8 @@ class QueryIdempotencyTokenAutoFillInputBuilder
 
   @override
   void update(
-      void Function(QueryIdempotencyTokenAutoFillInputBuilder)? updates) {
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -82,10 +85,8 @@ class QueryIdempotencyTokenAutoFillInputBuilder
   QueryIdempotencyTokenAutoFillInput build() => _build();
 
   _$QueryIdempotencyTokenAutoFillInput _build() {
-    final _$result = _$v ??
-        new _$QueryIdempotencyTokenAutoFillInput._(
-          token: token,
-        );
+    final _$result =
+        _$v ?? new _$QueryIdempotencyTokenAutoFillInput._(token: token);
     replace(_$result);
     return _$result;
   }

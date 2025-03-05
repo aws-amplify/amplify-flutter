@@ -34,11 +34,11 @@ class JsonRpc10Client {
     Uri? baseUri,
     List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -60,10 +60,7 @@ class JsonRpc10Client {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> endpointOperation({_i1.AWSHttpClient? client}) {
@@ -72,10 +69,7 @@ class JsonRpc10Client {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> endpointWithHostLabelOperation(
@@ -87,10 +81,7 @@ class JsonRpc10Client {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A ComplexError error. Implementations must be able to successfully take a response and properly deserialize successful and error responses.
@@ -103,10 +94,7 @@ class JsonRpc10Client {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> hostWithPathOperation({_i1.AWSHttpClient? client}) {
@@ -115,10 +103,7 @@ class JsonRpc10Client {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This operation uses unions for inputs and outputs.
@@ -131,10 +116,7 @@ class JsonRpc10Client {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input or output. While this should be rare, code generators must support this.
@@ -144,24 +126,19 @@ class JsonRpc10Client {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input and the output is empty. While this should be rare, code generators must support this.
-  _i2.SmithyOperation<NoInputAndOutputOutput> noInputAndOutput(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<NoInputAndOutputOutput> noInputAndOutput({
+    _i1.AWSHttpClient? client,
+  }) {
     return NoInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> putWithContentEncoding(
@@ -173,10 +150,7 @@ class JsonRpc10Client {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<SimpleScalarPropertiesOutput> simpleScalarProperties(
@@ -188,9 +162,6 @@ class JsonRpc10Client {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 }

@@ -13,33 +13,40 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// The example tests how requests and responses are serialized when there is no input or output payload but there are HTTP header bindings.
-class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
-    InputAndOutputWithHeadersIoPayload,
-    InputAndOutputWithHeadersIo,
-    InputAndOutputWithHeadersIoPayload,
-    InputAndOutputWithHeadersIo> {
+class InputAndOutputWithHeadersOperation
+    extends
+        _i1.HttpOperation<
+          InputAndOutputWithHeadersIoPayload,
+          InputAndOutputWithHeadersIo,
+          InputAndOutputWithHeadersIoPayload,
+          InputAndOutputWithHeadersIo
+        > {
   /// The example tests how requests and responses are serialized when there is no input or output payload but there are HTTP header bindings.
   InputAndOutputWithHeadersOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          InputAndOutputWithHeadersIoPayload,
-          InputAndOutputWithHeadersIo,
-          InputAndOutputWithHeadersIoPayload,
-          InputAndOutputWithHeadersIo>> protocols = [
+    _i1.HttpProtocol<
+      InputAndOutputWithHeadersIoPayload,
+      InputAndOutputWithHeadersIo,
+      InputAndOutputWithHeadersIoPayload,
+      InputAndOutputWithHeadersIo
+    >
+  >
+  protocols = [
     _i2.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithNoHeader('Content-Length'),
             const _i1.WithNoHeader('Content-Type'),
@@ -50,7 +57,7 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -133,13 +140,13 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
         if (input.headerTimestampList != null) {
           if (input.headerTimestampList!.isNotEmpty) {
             b.headers['X-TimestampList'] = input.headerTimestampList!
-                .map((el) => _i1.Timestamp(el)
-                    .format(_i1.TimestampFormat.httpDate)
-                    .toString())
-                .map((el) => _i1.sanitizeHeader(
-                      el,
-                      isTimestampList: true,
-                    ))
+                .map(
+                  (el) =>
+                      _i1.Timestamp(
+                        el,
+                      ).format(_i1.TimestampFormat.httpDate).toString(),
+                )
+                .map((el) => _i1.sanitizeHeader(el, isTimestampList: true))
                 .join(', ');
           }
         }
@@ -175,11 +182,7 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
   InputAndOutputWithHeadersIo buildOutput(
     InputAndOutputWithHeadersIoPayload payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      InputAndOutputWithHeadersIo.fromResponse(
-        payload,
-        response,
-      );
+  ) => InputAndOutputWithHeadersIo.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -203,11 +206,7 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

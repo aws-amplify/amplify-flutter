@@ -23,7 +23,7 @@ abstract class CommonPrefix
   const CommonPrefix._();
 
   static const List<_i2.SmithySerializer<CommonPrefix>> serializers = [
-    CommonPrefixRestXmlSerializer()
+    CommonPrefixRestXmlSerializer(),
   ];
 
   String? get prefix;
@@ -33,10 +33,7 @@ abstract class CommonPrefix
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CommonPrefix')
-      ..add(
-        'prefix',
-        prefix,
-      );
+      ..add('prefix', prefix);
     return helper.toString();
   }
 }
@@ -46,18 +43,12 @@ class CommonPrefixRestXmlSerializer
   const CommonPrefixRestXmlSerializer() : super('CommonPrefix');
 
   @override
-  Iterable<Type> get types => const [
-        CommonPrefix,
-        _$CommonPrefix,
-      ];
+  Iterable<Type> get types => const [CommonPrefix, _$CommonPrefix];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CommonPrefix deserialize(
@@ -76,10 +67,12 @@ class CommonPrefixRestXmlSerializer
       }
       switch (key) {
         case 'Prefix':
-          result.prefix = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.prefix =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -96,16 +89,15 @@ class CommonPrefixRestXmlSerializer
       const _i2.XmlElementName(
         'CommonPrefix',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final CommonPrefix(:prefix) = object;
     if (prefix != null) {
       result$
         ..add(const _i2.XmlElementName('Prefix'))
-        ..add(serializers.serialize(
-          prefix,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(prefix, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

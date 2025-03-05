@@ -28,30 +28,33 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
   @override
   final String? expectedBucketOwner;
 
-  factory _$ListObjectsV2Request(
-          [void Function(ListObjectsV2RequestBuilder)? updates]) =>
-      (new ListObjectsV2RequestBuilder()..update(updates))._build();
+  factory _$ListObjectsV2Request([
+    void Function(ListObjectsV2RequestBuilder)? updates,
+  ]) => (new ListObjectsV2RequestBuilder()..update(updates))._build();
 
-  _$ListObjectsV2Request._(
-      {required this.bucket,
-      this.delimiter,
-      this.encodingType,
-      this.maxKeys,
-      this.prefix,
-      this.continuationToken,
-      this.fetchOwner,
-      this.startAfter,
-      this.requestPayer,
-      this.expectedBucketOwner})
-      : super._() {
+  _$ListObjectsV2Request._({
+    required this.bucket,
+    this.delimiter,
+    this.encodingType,
+    this.maxKeys,
+    this.prefix,
+    this.continuationToken,
+    this.fetchOwner,
+    this.startAfter,
+    this.requestPayer,
+    this.expectedBucketOwner,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'ListObjectsV2Request', 'bucket');
+      bucket,
+      r'ListObjectsV2Request',
+      'bucket',
+    );
   }
 
   @override
   ListObjectsV2Request rebuild(
-          void Function(ListObjectsV2RequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListObjectsV2RequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListObjectsV2RequestBuilder toBuilder() =>
@@ -174,10 +177,14 @@ class ListObjectsV2RequestBuilder
   ListObjectsV2Request build() => _build();
 
   _$ListObjectsV2Request _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ListObjectsV2Request._(
           bucket: BuiltValueNullFieldError.checkNotNull(
-              bucket, r'ListObjectsV2Request', 'bucket'),
+            bucket,
+            r'ListObjectsV2Request',
+            'bucket',
+          ),
           delimiter: delimiter,
           encodingType: encodingType,
           maxKeys: maxKeys,
@@ -194,16 +201,16 @@ class ListObjectsV2RequestBuilder
 }
 
 class _$ListObjectsV2RequestPayload extends ListObjectsV2RequestPayload {
-  factory _$ListObjectsV2RequestPayload(
-          [void Function(ListObjectsV2RequestPayloadBuilder)? updates]) =>
-      (new ListObjectsV2RequestPayloadBuilder()..update(updates))._build();
+  factory _$ListObjectsV2RequestPayload([
+    void Function(ListObjectsV2RequestPayloadBuilder)? updates,
+  ]) => (new ListObjectsV2RequestPayloadBuilder()..update(updates))._build();
 
   _$ListObjectsV2RequestPayload._() : super._();
 
   @override
   ListObjectsV2RequestPayload rebuild(
-          void Function(ListObjectsV2RequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListObjectsV2RequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListObjectsV2RequestPayloadBuilder toBuilder() =>
@@ -223,8 +230,10 @@ class _$ListObjectsV2RequestPayload extends ListObjectsV2RequestPayload {
 
 class ListObjectsV2RequestPayloadBuilder
     implements
-        Builder<ListObjectsV2RequestPayload,
-            ListObjectsV2RequestPayloadBuilder> {
+        Builder<
+          ListObjectsV2RequestPayload,
+          ListObjectsV2RequestPayloadBuilder
+        > {
   _$ListObjectsV2RequestPayload? _$v;
 
   ListObjectsV2RequestPayloadBuilder();

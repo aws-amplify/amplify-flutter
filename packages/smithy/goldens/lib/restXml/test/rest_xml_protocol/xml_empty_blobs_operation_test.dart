@@ -14,72 +14,60 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'XmlEmptyBlobs (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlEmptyBlobsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'XmlEmptyBlobs',
-          documentation: 'Empty blobs are deserialized as empty string',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<XmlBlobsInputOutput>\n    <data></data>\n</XmlBlobsInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {'data': ''},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [XmlBlobsInputOutputRestXmlSerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'XmlEmptySelfClosedBlobs (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlEmptyBlobsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'XmlEmptySelfClosedBlobs',
-          documentation:
-              'Empty self closed blobs are deserialized as empty string',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '<XmlBlobsInputOutput>\n    <data/>\n</XmlBlobsInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {'data': ''},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [XmlBlobsInputOutputRestXmlSerializer()],
-      );
-    },
-  );
+  _i1.test('XmlEmptyBlobs (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlEmptyBlobsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'XmlEmptyBlobs',
+        documentation: 'Empty blobs are deserialized as empty string',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<XmlBlobsInputOutput>\n    <data></data>\n</XmlBlobsInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'data': ''},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [XmlBlobsInputOutputRestXmlSerializer()],
+    );
+  });
+  _i1.test('XmlEmptySelfClosedBlobs (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlEmptyBlobsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'XmlEmptySelfClosedBlobs',
+        documentation:
+            'Empty self closed blobs are deserialized as empty string',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '<XmlBlobsInputOutput>\n    <data/>\n</XmlBlobsInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'data': ''},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [XmlBlobsInputOutputRestXmlSerializer()],
+    );
+  });
 }
 
 class XmlBlobsInputOutputRestXmlSerializer
@@ -91,11 +79,8 @@ class XmlBlobsInputOutputRestXmlSerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlBlobsInputOutput deserialize(
@@ -114,10 +99,12 @@ class XmlBlobsInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i4.Uint8List),
-          ) as _i4.Uint8List);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.Uint8List),
+                  )
+                  as _i4.Uint8List);
       }
     }
 

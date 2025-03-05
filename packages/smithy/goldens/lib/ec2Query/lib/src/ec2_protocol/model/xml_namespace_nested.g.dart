@@ -12,16 +12,16 @@ class _$XmlNamespaceNested extends XmlNamespaceNested {
   @override
   final _i2.BuiltList<String>? values;
 
-  factory _$XmlNamespaceNested(
-          [void Function(XmlNamespaceNestedBuilder)? updates]) =>
-      (new XmlNamespaceNestedBuilder()..update(updates))._build();
+  factory _$XmlNamespaceNested([
+    void Function(XmlNamespaceNestedBuilder)? updates,
+  ]) => (new XmlNamespaceNestedBuilder()..update(updates))._build();
 
   _$XmlNamespaceNested._({this.foo, this.values}) : super._();
 
   @override
   XmlNamespaceNested rebuild(
-          void Function(XmlNamespaceNestedBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlNamespaceNestedBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlNamespaceNestedBuilder toBuilder() =>
@@ -87,11 +87,8 @@ class XmlNamespaceNestedBuilder
   _$XmlNamespaceNested _build() {
     _$XmlNamespaceNested _$result;
     try {
-      _$result = _$v ??
-          new _$XmlNamespaceNested._(
-            foo: foo,
-            values: _values?.build(),
-          );
+      _$result =
+          _$v ?? new _$XmlNamespaceNested._(foo: foo, values: _values?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -99,7 +96,10 @@ class XmlNamespaceNestedBuilder
         _values?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlNamespaceNested', _$failedField, e.toString());
+          r'XmlNamespaceNested',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

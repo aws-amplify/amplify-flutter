@@ -23,10 +23,7 @@ void main() {
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonConstantAndVariableQueryStringMissingOneValue',
           documentation: 'Mixes constant and variable query string parameters',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
+          protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
           authScheme: null,
           body: '',
           bodyMediaType: null,
@@ -42,15 +39,12 @@ void main() {
           uri: '/ConstantAndVariableQueryString',
           host: null,
           resolvedHost: null,
-          queryParams: [
-            'foo=bar',
-            'baz=bam',
-          ],
+          queryParams: ['foo=bar', 'baz=bam'],
           forbidQueryParams: ['maybeSet'],
           requireQueryParams: [],
         ),
         inputSerializers: const [
-          ConstantAndVariableQueryStringInputRestJson1Serializer()
+          ConstantAndVariableQueryStringInputRestJson1Serializer(),
         ],
       );
     },
@@ -66,17 +60,11 @@ void main() {
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonConstantAndVariableQueryStringAllValues',
           documentation: 'Mixes constant and variable query string parameters',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
+          protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
           authScheme: null,
           body: '',
           bodyMediaType: null,
-          params: {
-            'baz': 'bam',
-            'maybeSet': 'yes',
-          },
+          params: {'baz': 'bam', 'maybeSet': 'yes'},
           vendorParamsShape: null,
           vendorParams: {},
           headers: {},
@@ -88,37 +76,31 @@ void main() {
           uri: '/ConstantAndVariableQueryString',
           host: null,
           resolvedHost: null,
-          queryParams: [
-            'foo=bar',
-            'baz=bam',
-            'maybeSet=yes',
-          ],
+          queryParams: ['foo=bar', 'baz=bam', 'maybeSet=yes'],
           forbidQueryParams: [],
           requireQueryParams: [],
         ),
         inputSerializers: const [
-          ConstantAndVariableQueryStringInputRestJson1Serializer()
+          ConstantAndVariableQueryStringInputRestJson1Serializer(),
         ],
       );
     },
   );
 }
 
-class ConstantAndVariableQueryStringInputRestJson1Serializer extends _i3
-    .StructuredSmithySerializer<ConstantAndVariableQueryStringInput> {
+class ConstantAndVariableQueryStringInputRestJson1Serializer
+    extends
+        _i3.StructuredSmithySerializer<ConstantAndVariableQueryStringInput> {
   const ConstantAndVariableQueryStringInputRestJson1Serializer()
-      : super('ConstantAndVariableQueryStringInput');
+    : super('ConstantAndVariableQueryStringInput');
 
   @override
   Iterable<Type> get types => const [ConstantAndVariableQueryStringInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   ConstantAndVariableQueryStringInput deserialize(
@@ -137,15 +119,19 @@ class ConstantAndVariableQueryStringInputRestJson1Serializer extends _i3
       }
       switch (key) {
         case 'baz':
-          result.baz = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.baz =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'maybeSet':
-          result.maybeSet = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.maybeSet =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

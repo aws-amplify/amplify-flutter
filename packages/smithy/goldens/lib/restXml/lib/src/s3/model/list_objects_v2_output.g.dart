@@ -32,29 +32,29 @@ class _$ListObjectsV2Output extends ListObjectsV2Output {
   @override
   final String? startAfter;
 
-  factory _$ListObjectsV2Output(
-          [void Function(ListObjectsV2OutputBuilder)? updates]) =>
-      (new ListObjectsV2OutputBuilder()..update(updates))._build();
+  factory _$ListObjectsV2Output([
+    void Function(ListObjectsV2OutputBuilder)? updates,
+  ]) => (new ListObjectsV2OutputBuilder()..update(updates))._build();
 
-  _$ListObjectsV2Output._(
-      {this.isTruncated,
-      this.contents,
-      this.name,
-      this.prefix,
-      this.delimiter,
-      this.maxKeys,
-      this.commonPrefixes,
-      this.encodingType,
-      this.keyCount,
-      this.continuationToken,
-      this.nextContinuationToken,
-      this.startAfter})
-      : super._();
+  _$ListObjectsV2Output._({
+    this.isTruncated,
+    this.contents,
+    this.name,
+    this.prefix,
+    this.delimiter,
+    this.maxKeys,
+    this.commonPrefixes,
+    this.encodingType,
+    this.keyCount,
+    this.continuationToken,
+    this.nextContinuationToken,
+    this.startAfter,
+  }) : super._();
 
   @override
   ListObjectsV2Output rebuild(
-          void Function(ListObjectsV2OutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListObjectsV2OutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListObjectsV2OutputBuilder toBuilder() =>
@@ -196,7 +196,8 @@ class ListObjectsV2OutputBuilder
   _$ListObjectsV2Output _build() {
     _$ListObjectsV2Output _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ListObjectsV2Output._(
             isTruncated: isTruncated,
             contents: _contents?.build(),
@@ -221,7 +222,10 @@ class ListObjectsV2OutputBuilder
         _commonPrefixes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ListObjectsV2Output', _$failedField, e.toString());
+          r'ListObjectsV2Output',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

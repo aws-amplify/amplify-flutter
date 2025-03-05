@@ -84,126 +84,52 @@ const List<_i1.SmithySerializer> serializers = [
   ...AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(
-    _i2.BuiltList,
-    [FullType(FooEnum)],
-  ): _i2.ListBuilder<FooEnum>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(FooEnum)],
-  ): _i2.SetBuilder<FooEnum>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(FooEnum),
-    ],
-  ): _i2.MapBuilder<String, FooEnum>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(IntegerEnum)],
-  ): _i2.ListBuilder<IntegerEnum>.new,
-  const FullType(
-    _i2.BuiltSet,
-    [FullType(IntegerEnum)],
-  ): _i2.SetBuilder<IntegerEnum>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(IntegerEnum),
-    ],
-  ): _i2.MapBuilder<String, IntegerEnum>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(String)],
-  ): _i2.ListBuilder<String>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i2.MapBuilder<String, String>.new,
-  const FullType(
-    _i2.BuiltList,
-    [
-      FullType(
-        _i2.BuiltList,
-        [FullType(String)],
-      )
-    ],
-  ): _i2.ListBuilder<_i2.BuiltList<String>>.new,
-  const FullType(
-    _i2.BuiltList,
-    [
-      FullType(
-        _i2.BuiltMap,
-        [
-          FullType(String),
-          FullType(String),
-        ],
-      )
-    ],
-  ): _i2.ListBuilder<_i2.BuiltMap<String, String>>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(SimpleStruct)],
-  ): _i2.ListBuilder<SimpleStruct>.new,
-  const FullType(
-    _i2.BuiltListMultimap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i2.ListMultimapBuilder<String, String>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(
-        _i2.BuiltMap,
-        [
-          FullType(String),
-          FullType(String),
-        ],
-      ),
-    ],
-  ): _i2.MapBuilder<String, _i2.BuiltMap<String, String>>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(SimpleStruct),
-    ],
-  ): _i2.MapBuilder<String, SimpleStruct>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(KitchenSink)],
-  ): _i2.ListBuilder<KitchenSink>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(KitchenSink),
-    ],
-  ): _i2.MapBuilder<String, KitchenSink>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType.nullable(String)],
-  ): _i2.ListBuilder<String?>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType.nullable(String),
-    ],
-  ): _i2.MapBuilder<String, String?>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(FileConfigSettings),
-    ],
-  ): _i2.MapBuilder<String, FileConfigSettings>.new,
+  const FullType(_i2.BuiltList, [FullType(FooEnum)]):
+      _i2.ListBuilder<FooEnum>.new,
+  const FullType(_i2.BuiltSet, [FullType(FooEnum)]):
+      _i2.SetBuilder<FooEnum>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(FooEnum)]):
+      _i2.MapBuilder<String, FooEnum>.new,
+  const FullType(_i2.BuiltList, [FullType(IntegerEnum)]):
+      _i2.ListBuilder<IntegerEnum>.new,
+  const FullType(_i2.BuiltSet, [FullType(IntegerEnum)]):
+      _i2.SetBuilder<IntegerEnum>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(IntegerEnum)]):
+      _i2.MapBuilder<String, IntegerEnum>.new,
+  const FullType(_i2.BuiltList, [FullType(String)]):
+      _i2.ListBuilder<String>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(String)]):
+      _i2.MapBuilder<String, String>.new,
+  const FullType(_i2.BuiltList, [
+        FullType(_i2.BuiltList, [FullType(String)]),
+      ]):
+      _i2.ListBuilder<_i2.BuiltList<String>>.new,
+  const FullType(_i2.BuiltList, [
+        FullType(_i2.BuiltMap, [FullType(String), FullType(String)]),
+      ]):
+      _i2.ListBuilder<_i2.BuiltMap<String, String>>.new,
+  const FullType(_i2.BuiltList, [FullType(SimpleStruct)]):
+      _i2.ListBuilder<SimpleStruct>.new,
+  const FullType(_i2.BuiltListMultimap, [FullType(String), FullType(String)]):
+      _i2.ListMultimapBuilder<String, String>.new,
+  const FullType(_i2.BuiltMap, [
+        FullType(String),
+        FullType(_i2.BuiltMap, [FullType(String), FullType(String)]),
+      ]):
+      _i2.MapBuilder<String, _i2.BuiltMap<String, String>>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(SimpleStruct)]):
+      _i2.MapBuilder<String, SimpleStruct>.new,
+  const FullType(_i2.BuiltList, [FullType(KitchenSink)]):
+      _i2.ListBuilder<KitchenSink>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(KitchenSink)]):
+      _i2.MapBuilder<String, KitchenSink>.new,
+  const FullType(_i2.BuiltList, [FullType.nullable(String)]):
+      _i2.ListBuilder<String?>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType.nullable(String)]):
+      _i2.MapBuilder<String, String?>.new,
+  const FullType(_i2.BuiltMap, [
+        FullType(String),
+        FullType(FileConfigSettings),
+      ]):
+      _i2.MapBuilder<String, FileConfigSettings>.new,
 };

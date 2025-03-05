@@ -17,11 +17,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// See also:
 /// - [httpPrefixHeaders Trait](https://smithy.io/2.0/spec/http-bindings.html#httpprefixheaders-trait)
 
-class HttpPrefixHeadersOperation extends _i1.HttpOperation<
-    HttpPrefixHeadersInputPayload,
-    HttpPrefixHeadersInput,
-    HttpPrefixHeadersOutputPayload,
-    HttpPrefixHeadersOutput> {
+class HttpPrefixHeadersOperation
+    extends
+        _i1.HttpOperation<
+          HttpPrefixHeadersInputPayload,
+          HttpPrefixHeadersInput,
+          HttpPrefixHeadersOutputPayload,
+          HttpPrefixHeadersOutput
+        > {
   /// This examples adds headers to the input of a request and response by prefix.///
   /// See also:
   /// - [httpPrefixHeaders Trait](https://smithy.io/2.0/spec/http-bindings.html#httpprefixheaders-trait)
@@ -31,22 +34,26 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          HttpPrefixHeadersInputPayload,
-          HttpPrefixHeadersInput,
-          HttpPrefixHeadersOutputPayload,
-          HttpPrefixHeadersOutput>> protocols = [
+    _i1.HttpProtocol<
+      HttpPrefixHeadersInputPayload,
+      HttpPrefixHeadersInput,
+      HttpPrefixHeadersOutputPayload,
+      HttpPrefixHeadersOutput
+    >
+  >
+  protocols = [
     _i2.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithNoHeader('Content-Length'),
             const _i1.WithNoHeader('Content-Type'),
@@ -57,7 +64,7 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -99,11 +106,7 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
   HttpPrefixHeadersOutput buildOutput(
     HttpPrefixHeadersOutputPayload payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      HttpPrefixHeadersOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => HttpPrefixHeadersOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -127,11 +130,7 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

@@ -17,9 +17,9 @@ abstract class DatetimeOffsetsOutput
     return _$DatetimeOffsetsOutput._(datetime: datetime);
   }
 
-  factory DatetimeOffsetsOutput.build(
-          [void Function(DatetimeOffsetsOutputBuilder) updates]) =
-      _$DatetimeOffsetsOutput;
+  factory DatetimeOffsetsOutput.build([
+    void Function(DatetimeOffsetsOutputBuilder) updates,
+  ]) = _$DatetimeOffsetsOutput;
 
   const DatetimeOffsetsOutput._();
 
@@ -27,11 +27,10 @@ abstract class DatetimeOffsetsOutput
   factory DatetimeOffsetsOutput.fromResponse(
     DatetimeOffsetsOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<DatetimeOffsetsOutput>> serializers = [
-    DatetimeOffsetsOutputEc2QuerySerializer()
+    DatetimeOffsetsOutputEc2QuerySerializer(),
   ];
 
   DateTime? get datetime;
@@ -41,10 +40,7 @@ abstract class DatetimeOffsetsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DatetimeOffsetsOutput')
-      ..add(
-        'datetime',
-        datetime,
-      );
+      ..add('datetime', datetime);
     return helper.toString();
   }
 }
@@ -52,21 +48,18 @@ abstract class DatetimeOffsetsOutput
 class DatetimeOffsetsOutputEc2QuerySerializer
     extends _i2.StructuredSmithySerializer<DatetimeOffsetsOutput> {
   const DatetimeOffsetsOutputEc2QuerySerializer()
-      : super('DatetimeOffsetsOutput');
+    : super('DatetimeOffsetsOutput');
 
   @override
   Iterable<Type> get types => const [
-        DatetimeOffsetsOutput,
-        _$DatetimeOffsetsOutput,
-      ];
+    DatetimeOffsetsOutput,
+    _$DatetimeOffsetsOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   DatetimeOffsetsOutput deserialize(
@@ -105,16 +98,15 @@ class DatetimeOffsetsOutputEc2QuerySerializer
       const _i2.XmlElementName(
         'DatetimeOffsetsOutputResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final DatetimeOffsetsOutput(:datetime) = object;
     if (datetime != null) {
       result$
         ..add(const _i2.XmlElementName('Datetime'))
-        ..add(_i2.TimestampSerializer.dateTime.serialize(
-          serializers,
-          datetime,
-        ));
+        ..add(
+          _i2.TimestampSerializer.dateTime.serialize(serializers, datetime),
+        );
     }
     return result$;
   }

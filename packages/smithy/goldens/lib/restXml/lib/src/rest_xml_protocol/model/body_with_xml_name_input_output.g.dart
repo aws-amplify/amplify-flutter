@@ -10,16 +10,16 @@ class _$BodyWithXmlNameInputOutput extends BodyWithXmlNameInputOutput {
   @override
   final PayloadWithXmlName? nested;
 
-  factory _$BodyWithXmlNameInputOutput(
-          [void Function(BodyWithXmlNameInputOutputBuilder)? updates]) =>
-      (new BodyWithXmlNameInputOutputBuilder()..update(updates))._build();
+  factory _$BodyWithXmlNameInputOutput([
+    void Function(BodyWithXmlNameInputOutputBuilder)? updates,
+  ]) => (new BodyWithXmlNameInputOutputBuilder()..update(updates))._build();
 
   _$BodyWithXmlNameInputOutput._({this.nested}) : super._();
 
   @override
   BodyWithXmlNameInputOutput rebuild(
-          void Function(BodyWithXmlNameInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(BodyWithXmlNameInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   BodyWithXmlNameInputOutputBuilder toBuilder() =>
@@ -78,10 +78,8 @@ class BodyWithXmlNameInputOutputBuilder
   _$BodyWithXmlNameInputOutput _build() {
     _$BodyWithXmlNameInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$BodyWithXmlNameInputOutput._(
-            nested: _nested?.build(),
-          );
+      _$result =
+          _$v ?? new _$BodyWithXmlNameInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -89,7 +87,10 @@ class BodyWithXmlNameInputOutputBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'BodyWithXmlNameInputOutput', _$failedField, e.toString());
+          r'BodyWithXmlNameInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

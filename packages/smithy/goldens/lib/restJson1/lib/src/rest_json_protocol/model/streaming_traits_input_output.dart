@@ -23,15 +23,12 @@ abstract class StreamingTraitsInputOutput
     String? foo,
     _i2.Stream<List<int>>? blob,
   }) {
-    return _$StreamingTraitsInputOutput._(
-      foo: foo,
-      blob: blob,
-    );
+    return _$StreamingTraitsInputOutput._(foo: foo, blob: blob);
   }
 
-  factory StreamingTraitsInputOutput.build(
-          [void Function(StreamingTraitsInputOutputBuilder) updates]) =
-      _$StreamingTraitsInputOutput;
+  factory StreamingTraitsInputOutput.build([
+    void Function(StreamingTraitsInputOutputBuilder) updates,
+  ]) = _$StreamingTraitsInputOutput;
 
   const StreamingTraitsInputOutput._();
 
@@ -39,25 +36,23 @@ abstract class StreamingTraitsInputOutput
     _i2.Stream<List<int>>? payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      StreamingTraitsInputOutput.build((b) {
-        b.blob = payload;
-        if (request.headers['X-Foo'] != null) {
-          b.foo = request.headers['X-Foo']!;
-        }
-      });
+  }) => StreamingTraitsInputOutput.build((b) {
+    b.blob = payload;
+    if (request.headers['X-Foo'] != null) {
+      b.foo = request.headers['X-Foo']!;
+    }
+  });
 
   /// Constructs a [StreamingTraitsInputOutput] from a [payload] and [response].
   factory StreamingTraitsInputOutput.fromResponse(
     _i2.Stream<List<int>>? payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      StreamingTraitsInputOutput.build((b) {
-        b.blob = payload;
-        if (response.headers['X-Foo'] != null) {
-          b.foo = response.headers['X-Foo']!;
-        }
-      });
+  ) => StreamingTraitsInputOutput.build((b) {
+    b.blob = payload;
+    if (response.headers['X-Foo'] != null) {
+      b.foo = response.headers['X-Foo']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
       [StreamingTraitsInputOutputRestJson1Serializer()];
@@ -68,22 +63,14 @@ abstract class StreamingTraitsInputOutput
   _i2.Stream<List<int>>? getPayload() => blob;
 
   @override
-  List<Object?> get props => [
-        foo,
-        blob,
-      ];
+  List<Object?> get props => [foo, blob];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StreamingTraitsInputOutput')
-      ..add(
-        'foo',
-        foo,
-      )
-      ..add(
-        'blob',
-        blob,
-      );
+    final helper =
+        newBuiltValueToStringHelper('StreamingTraitsInputOutput')
+          ..add('foo', foo)
+          ..add('blob', blob);
     return helper.toString();
   }
 }
@@ -91,21 +78,18 @@ abstract class StreamingTraitsInputOutput
 class StreamingTraitsInputOutputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<_i2.Stream<List<int>>> {
   const StreamingTraitsInputOutputRestJson1Serializer()
-      : super('StreamingTraitsInputOutput');
+    : super('StreamingTraitsInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        StreamingTraitsInputOutput,
-        _$StreamingTraitsInputOutput,
-      ];
+    StreamingTraitsInputOutput,
+    _$StreamingTraitsInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   _i2.Stream<List<int>> deserialize(
@@ -114,17 +98,12 @@ class StreamingTraitsInputOutputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
-    ) as _i2.Stream<List<int>>);
+          serialized,
+          specifiedType: const FullType(_i2.Stream, [
+            FullType(List, [FullType(int)]),
+          ]),
+        )
+        as _i2.Stream<List<int>>);
   }
 
   @override
@@ -135,15 +114,9 @@ class StreamingTraitsInputOutputRestJson1Serializer
   }) {
     return serializers.serialize(
       object,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
+      specifiedType: const FullType(_i2.Stream, [
+        FullType(List, [FullType(int)]),
+      ]),
     )!;
   }
 }

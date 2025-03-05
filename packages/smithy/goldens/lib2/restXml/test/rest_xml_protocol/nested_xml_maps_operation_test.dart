@@ -14,185 +14,158 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'NestedXmlMapRequest (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: NestedXmlMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'NestedXmlMapRequest',
-          documentation: 'Tests requests with nested maps.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<NestedXmlMapsInputOutput>\n    <nestedMap>\n        <entry>\n            <key>foo</key>\n            <value>\n                <entry>\n                    <key>bar</key>\n                    <value>Bar</value>\n                </entry>\n            </value>\n        </entry>\n    </nestedMap>\n</NestedXmlMapsInputOutput>',
-          bodyMediaType: 'application/xml',
-          params: {
-            'nestedMap': {
-              'foo': {'bar': 'Bar'}
-            }
+  _i1.test('NestedXmlMapRequest (request)', () async {
+    await _i2.httpRequestTest(
+      operation: NestedXmlMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'NestedXmlMapRequest',
+        documentation: 'Tests requests with nested maps.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<NestedXmlMapsInputOutput>\n    <nestedMap>\n        <entry>\n            <key>foo</key>\n            <value>\n                <entry>\n                    <key>bar</key>\n                    <value>Bar</value>\n                </entry>\n            </value>\n        </entry>\n    </nestedMap>\n</NestedXmlMapsInputOutput>',
+        bodyMediaType: 'application/xml',
+        params: {
+          'nestedMap': {
+            'foo': {'bar': 'Bar'},
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/NestedXmlMaps',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [NestedXmlMapsInputOutputRestXmlSerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'FlatNestedXmlMapRequest (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: NestedXmlMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'FlatNestedXmlMapRequest',
-          documentation:
-              'Tests requests with nested flat maps. Since maps can only be\nflattened when they\'re structure members, only the outer map is flat.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<NestedXmlMapsInputOutput>\n    <flatNestedMap>\n        <key>foo</key>\n        <value>\n            <entry>\n                <key>bar</key>\n                <value>Bar</value>\n            </entry>\n        </value>\n    </flatNestedMap>\n</NestedXmlMapsInputOutput>',
-          bodyMediaType: 'application/xml',
-          params: {
-            'flatNestedMap': {
-              'foo': {'bar': 'Bar'}
-            }
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/NestedXmlMaps',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [NestedXmlMapsInputOutputRestXmlSerializer()],
+    );
+  });
+  _i1.test('FlatNestedXmlMapRequest (request)', () async {
+    await _i2.httpRequestTest(
+      operation: NestedXmlMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'FlatNestedXmlMapRequest',
+        documentation:
+            'Tests requests with nested flat maps. Since maps can only be\nflattened when they\'re structure members, only the outer map is flat.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<NestedXmlMapsInputOutput>\n    <flatNestedMap>\n        <key>foo</key>\n        <value>\n            <entry>\n                <key>bar</key>\n                <value>Bar</value>\n            </entry>\n        </value>\n    </flatNestedMap>\n</NestedXmlMapsInputOutput>',
+        bodyMediaType: 'application/xml',
+        params: {
+          'flatNestedMap': {
+            'foo': {'bar': 'Bar'},
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/NestedXmlMaps',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [NestedXmlMapsInputOutputRestXmlSerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'NestedXmlMapResponse (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: NestedXmlMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'NestedXmlMapResponse',
-          documentation: 'Tests responses with nested maps.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<NestedXmlMapsInputOutput>\n    <nestedMap>\n        <entry>\n            <key>foo</key>\n            <value>\n                <entry>\n                    <key>bar</key>\n                    <value>Bar</value>\n                </entry>\n            </value>\n        </entry>\n    </nestedMap>\n</NestedXmlMapsInputOutput>',
-          bodyMediaType: 'application/xml',
-          params: {
-            'nestedMap': {
-              'foo': {'bar': 'Bar'}
-            }
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/NestedXmlMaps',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [NestedXmlMapsInputOutputRestXmlSerializer()],
+    );
+  });
+  _i1.test('NestedXmlMapResponse (response)', () async {
+    await _i2.httpResponseTest(
+      operation: NestedXmlMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'NestedXmlMapResponse',
+        documentation: 'Tests responses with nested maps.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<NestedXmlMapsInputOutput>\n    <nestedMap>\n        <entry>\n            <key>foo</key>\n            <value>\n                <entry>\n                    <key>bar</key>\n                    <value>Bar</value>\n                </entry>\n            </value>\n        </entry>\n    </nestedMap>\n</NestedXmlMapsInputOutput>',
+        bodyMediaType: 'application/xml',
+        params: {
+          'nestedMap': {
+            'foo': {'bar': 'Bar'},
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [NestedXmlMapsInputOutputRestXmlSerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'FlatNestedXmlMapResponse (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: NestedXmlMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'FlatNestedXmlMapResponse',
-          documentation:
-              'Tests responses with nested flat maps. Since maps can only be\nflattened when they\'re structure members, only the outer map is flat.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<NestedXmlMapsInputOutput>\n    <flatNestedMap>\n        <key>foo</key>\n        <value>\n            <entry>\n                <key>bar</key>\n                <value>Bar</value>\n            </entry>\n        </value>\n    </flatNestedMap>\n</NestedXmlMapsInputOutput>',
-          bodyMediaType: 'application/xml',
-          params: {
-            'flatNestedMap': {
-              'foo': {'bar': 'Bar'}
-            }
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [NestedXmlMapsInputOutputRestXmlSerializer()],
+    );
+  });
+  _i1.test('FlatNestedXmlMapResponse (response)', () async {
+    await _i2.httpResponseTest(
+      operation: NestedXmlMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'FlatNestedXmlMapResponse',
+        documentation:
+            'Tests responses with nested flat maps. Since maps can only be\nflattened when they\'re structure members, only the outer map is flat.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<NestedXmlMapsInputOutput>\n    <flatNestedMap>\n        <key>foo</key>\n        <value>\n            <entry>\n                <key>bar</key>\n                <value>Bar</value>\n            </entry>\n        </value>\n    </flatNestedMap>\n</NestedXmlMapsInputOutput>',
+        bodyMediaType: 'application/xml',
+        params: {
+          'flatNestedMap': {
+            'foo': {'bar': 'Bar'},
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [NestedXmlMapsInputOutputRestXmlSerializer()],
-      );
-    },
-  );
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [NestedXmlMapsInputOutputRestXmlSerializer()],
+    );
+  });
 }
 
 class NestedXmlMapsInputOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<NestedXmlMapsInputOutput> {
   const NestedXmlMapsInputOutputRestXmlSerializer()
-      : super('NestedXmlMapsInputOutput');
+    : super('NestedXmlMapsInputOutput');
 
   @override
   Iterable<Type> get types => const [NestedXmlMapsInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   NestedXmlMapsInputOutput deserialize(
@@ -211,39 +184,33 @@ class NestedXmlMapsInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'nestedMap':
-          result.nestedMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(
-                  _i4.BuiltMap,
-                  [
+          result.nestedMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
                     FullType(String),
-                    FullType(FooEnum),
-                  ],
-                ),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, _i4.BuiltMap<String, FooEnum>>));
+                    FullType(_i4.BuiltMap, [
+                      FullType(String),
+                      FullType(FooEnum),
+                    ]),
+                  ]),
+                )
+                as _i4.BuiltMap<String, _i4.BuiltMap<String, FooEnum>>),
+          );
         case 'flatNestedMap':
-          result.flatNestedMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(
-                  _i4.BuiltMap,
-                  [
+          result.flatNestedMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
                     FullType(String),
-                    FullType(FooEnum),
-                  ],
-                ),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, _i4.BuiltMap<String, FooEnum>>));
+                    FullType(_i4.BuiltMap, [
+                      FullType(String),
+                      FullType(FooEnum),
+                    ]),
+                  ]),
+                )
+                as _i4.BuiltMap<String, _i4.BuiltMap<String, FooEnum>>),
+          );
       }
     }
 

@@ -13,97 +13,82 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryEmptyInputAndEmptyOutput (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: EmptyInputAndEmptyOutputOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'QueryEmptyInputAndEmptyOutput',
-          documentation: 'Empty input serializes no extra query params',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body: 'Action=EmptyInputAndEmptyOutput&Version=2020-01-08',
-          bodyMediaType: 'application/x-www-form-urlencoded',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          EmptyInputAndEmptyOutputInputAwsQuerySerializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'QueryEmptyInputAndEmptyOutput (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: EmptyInputAndEmptyOutputOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryEmptyInputAndEmptyOutput',
-          documentation: 'Empty output',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body: null,
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          EmptyInputAndEmptyOutputOutputAwsQuerySerializer()
-        ],
-      );
-    },
-  );
+  _i1.test('QueryEmptyInputAndEmptyOutput (request)', () async {
+    await _i2.httpRequestTest(
+      operation: EmptyInputAndEmptyOutputOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'QueryEmptyInputAndEmptyOutput',
+        documentation: 'Empty input serializes no extra query params',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body: 'Action=EmptyInputAndEmptyOutput&Version=2020-01-08',
+        bodyMediaType: 'application/x-www-form-urlencoded',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        EmptyInputAndEmptyOutputInputAwsQuerySerializer(),
+      ],
+    );
+  });
+  _i1.test('QueryEmptyInputAndEmptyOutput (response)', () async {
+    await _i2.httpResponseTest(
+      operation: EmptyInputAndEmptyOutputOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryEmptyInputAndEmptyOutput',
+        documentation: 'Empty output',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body: null,
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        EmptyInputAndEmptyOutputOutputAwsQuerySerializer(),
+      ],
+    );
+  });
 }
 
 class EmptyInputAndEmptyOutputInputAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<EmptyInputAndEmptyOutputInput> {
   const EmptyInputAndEmptyOutputInputAwsQuerySerializer()
-      : super('EmptyInputAndEmptyOutputInput');
+    : super('EmptyInputAndEmptyOutputInput');
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   EmptyInputAndEmptyOutputInput deserialize(
@@ -127,18 +112,15 @@ class EmptyInputAndEmptyOutputInputAwsQuerySerializer
 class EmptyInputAndEmptyOutputOutputAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<EmptyInputAndEmptyOutputOutput> {
   const EmptyInputAndEmptyOutputOutputAwsQuerySerializer()
-      : super('EmptyInputAndEmptyOutputOutput');
+    : super('EmptyInputAndEmptyOutputOutput');
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   EmptyInputAndEmptyOutputOutput deserialize(

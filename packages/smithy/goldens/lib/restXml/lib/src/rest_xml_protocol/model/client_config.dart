@@ -44,7 +44,7 @@ abstract class ClientConfig
   const ClientConfig._();
 
   static const List<_i2.SmithySerializer<ClientConfig>> serializers = [
-    ClientConfigRestXmlSerializer()
+    ClientConfigRestXmlSerializer(),
   ];
 
   String? get awsAccessKeyId;
@@ -60,46 +60,26 @@ abstract class ClientConfig
   String? get awsProfile;
   @override
   List<Object?> get props => [
-        awsAccessKeyId,
-        awsSecretAccessKey,
-        awsSessionToken,
-        region,
-        s3,
-        retryConfig,
-        awsProfile,
-      ];
+    awsAccessKeyId,
+    awsSecretAccessKey,
+    awsSessionToken,
+    region,
+    s3,
+    retryConfig,
+    awsProfile,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ClientConfig')
-      ..add(
-        'awsAccessKeyId',
-        awsAccessKeyId,
-      )
-      ..add(
-        'awsSecretAccessKey',
-        awsSecretAccessKey,
-      )
-      ..add(
-        'awsSessionToken',
-        awsSessionToken,
-      )
-      ..add(
-        'region',
-        region,
-      )
-      ..add(
-        's3',
-        s3,
-      )
-      ..add(
-        'retryConfig',
-        retryConfig,
-      )
-      ..add(
-        'awsProfile',
-        awsProfile,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ClientConfig')
+          ..add('awsAccessKeyId', awsAccessKeyId)
+          ..add('awsSecretAccessKey', awsSecretAccessKey)
+          ..add('awsSessionToken', awsSessionToken)
+          ..add('region', region)
+          ..add('s3', s3)
+          ..add('retryConfig', retryConfig)
+          ..add('awsProfile', awsProfile);
     return helper.toString();
   }
 }
@@ -109,18 +89,12 @@ class ClientConfigRestXmlSerializer
   const ClientConfigRestXmlSerializer() : super('ClientConfig');
 
   @override
-  Iterable<Type> get types => const [
-        ClientConfig,
-        _$ClientConfig,
-      ];
+  Iterable<Type> get types => const [ClientConfig, _$ClientConfig];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ClientConfig deserialize(
@@ -139,40 +113,56 @@ class ClientConfigRestXmlSerializer
       }
       switch (key) {
         case 'aws_access_key_id':
-          result.awsAccessKeyId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsAccessKeyId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_profile':
-          result.awsProfile = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsProfile =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_secret_access_key':
-          result.awsSecretAccessKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSecretAccessKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_session_token':
-          result.awsSessionToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSessionToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'region':
-          result.region = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.region =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'retry_config':
-          result.retryConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryConfig),
-          ) as RetryConfig));
+          result.retryConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(RetryConfig),
+                )
+                as RetryConfig),
+          );
         case 's3':
-          result.s3.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3Config),
-          ) as S3Config));
+          result.s3.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(S3Config),
+                )
+                as S3Config),
+          );
       }
     }
 
@@ -193,63 +183,71 @@ class ClientConfigRestXmlSerializer
       :awsSessionToken,
       :region,
       :retryConfig,
-      :s3
+      :s3,
     ) = object;
     if (awsAccessKeyId != null) {
       result$
         ..add(const _i2.XmlElementName('aws_access_key_id'))
-        ..add(serializers.serialize(
-          awsAccessKeyId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsAccessKeyId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (awsProfile != null) {
       result$
         ..add(const _i2.XmlElementName('aws_profile'))
-        ..add(serializers.serialize(
-          awsProfile,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsProfile,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (awsSecretAccessKey != null) {
       result$
         ..add(const _i2.XmlElementName('aws_secret_access_key'))
-        ..add(serializers.serialize(
-          awsSecretAccessKey,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsSecretAccessKey,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (awsSessionToken != null) {
       result$
         ..add(const _i2.XmlElementName('aws_session_token'))
-        ..add(serializers.serialize(
-          awsSessionToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsSessionToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (region != null) {
       result$
         ..add(const _i2.XmlElementName('region'))
-        ..add(serializers.serialize(
-          region,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(region, specifiedType: const FullType(String)),
+        );
     }
     if (retryConfig != null) {
       result$
         ..add(const _i2.XmlElementName('retry_config'))
-        ..add(serializers.serialize(
-          retryConfig,
-          specifiedType: const FullType(RetryConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            retryConfig,
+            specifiedType: const FullType(RetryConfig),
+          ),
+        );
     }
     if (s3 != null) {
       result$
         ..add(const _i2.XmlElementName('s3'))
-        ..add(serializers.serialize(
-          s3,
-          specifiedType: const FullType(S3Config),
-        ));
+        ..add(
+          serializers.serialize(s3, specifiedType: const FullType(S3Config)),
+        );
     }
     return result$;
   }

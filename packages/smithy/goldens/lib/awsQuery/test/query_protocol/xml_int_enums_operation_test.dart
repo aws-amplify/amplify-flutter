@@ -13,55 +13,40 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryXmlIntEnums (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlIntEnumsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlIntEnums',
-          documentation: 'Serializes simple scalar properties',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlIntEnumsResponse xmlns="https://example.com/">\n    <XmlIntEnumsResult>\n        <intEnum1>1</intEnum1>\n        <intEnum2>2</intEnum2>\n        <intEnum3>3</intEnum3>\n        <intEnumList>\n            <member>1</member>\n            <member>2</member>\n        </intEnumList>\n        <intEnumSet>\n            <member>1</member>\n            <member>2</member>\n        </intEnumSet>\n        <intEnumMap>\n            <entry>\n                <key>a</key>\n                <value>1</value>\n            </entry>\n            <entry>\n                <key>b</key>\n                <value>2</value>\n            </entry>\n        </intEnumMap>\n    </XmlIntEnumsResult>\n</XmlIntEnumsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'intEnum1': 1,
-            'intEnum2': 2,
-            'intEnum3': 3,
-            'intEnumList': [
-              1,
-              2,
-            ],
-            'intEnumSet': [
-              1,
-              2,
-            ],
-            'intEnumMap': {
-              'a': 1,
-              'b': 2,
-            },
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlIntEnumsOutputAwsQuerySerializer()],
-      );
-    },
-  );
+  _i1.test('QueryXmlIntEnums (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlIntEnumsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlIntEnums',
+        documentation: 'Serializes simple scalar properties',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlIntEnumsResponse xmlns="https://example.com/">\n    <XmlIntEnumsResult>\n        <intEnum1>1</intEnum1>\n        <intEnum2>2</intEnum2>\n        <intEnum3>3</intEnum3>\n        <intEnumList>\n            <member>1</member>\n            <member>2</member>\n        </intEnumList>\n        <intEnumSet>\n            <member>1</member>\n            <member>2</member>\n        </intEnumSet>\n        <intEnumMap>\n            <entry>\n                <key>a</key>\n                <value>1</value>\n            </entry>\n            <entry>\n                <key>b</key>\n                <value>2</value>\n            </entry>\n        </intEnumMap>\n    </XmlIntEnumsResult>\n</XmlIntEnumsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {
+          'intEnum1': 1,
+          'intEnum2': 2,
+          'intEnum3': 3,
+          'intEnumList': [1, 2],
+          'intEnumSet': [1, 2],
+          'intEnumMap': {'a': 1, 'b': 2},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlIntEnumsOutputAwsQuerySerializer()],
+    );
+  });
 }
 
 class XmlIntEnumsOutputAwsQuerySerializer
@@ -73,11 +58,8 @@ class XmlIntEnumsOutputAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlIntEnumsOutput deserialize(
@@ -96,47 +78,53 @@ class XmlIntEnumsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'intEnum1':
-          result.intEnum1 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.intEnum1 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'intEnum2':
-          result.intEnum2 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.intEnum2 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'intEnum3':
-          result.intEnum3 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.intEnum3 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'intEnumList':
-          result.intEnumList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(int)],
-            ),
-          ) as _i4.BuiltList<int>));
+          result.intEnumList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [FullType(int)]),
+                )
+                as _i4.BuiltList<int>),
+          );
         case 'intEnumSet':
-          result.intEnumSet.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltSet,
-              [FullType(int)],
-            ),
-          ) as _i4.BuiltSet<int>));
+          result.intEnumSet.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltSet, [FullType(int)]),
+                )
+                as _i4.BuiltSet<int>),
+          );
         case 'intEnumMap':
-          result.intEnumMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(int),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, int>));
+          result.intEnumMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(int),
+                  ]),
+                )
+                as _i4.BuiltMap<String, int>),
+          );
       }
     }
 

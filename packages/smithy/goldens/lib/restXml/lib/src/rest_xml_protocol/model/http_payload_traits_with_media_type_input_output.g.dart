@@ -13,20 +13,19 @@ class _$HttpPayloadTraitsWithMediaTypeInputOutput
   @override
   final _i2.Uint8List? blob;
 
-  factory _$HttpPayloadTraitsWithMediaTypeInputOutput(
-          [void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder)?
-              updates]) =>
+  factory _$HttpPayloadTraitsWithMediaTypeInputOutput([
+    void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder)? updates,
+  ]) =>
       (new HttpPayloadTraitsWithMediaTypeInputOutputBuilder()..update(updates))
           ._build();
 
   _$HttpPayloadTraitsWithMediaTypeInputOutput._({this.foo, this.blob})
-      : super._();
+    : super._();
 
   @override
   HttpPayloadTraitsWithMediaTypeInputOutput rebuild(
-          void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPayloadTraitsWithMediaTypeInputOutputBuilder toBuilder() =>
@@ -52,8 +51,10 @@ class _$HttpPayloadTraitsWithMediaTypeInputOutput
 
 class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
     implements
-        Builder<HttpPayloadTraitsWithMediaTypeInputOutput,
-            HttpPayloadTraitsWithMediaTypeInputOutputBuilder> {
+        Builder<
+          HttpPayloadTraitsWithMediaTypeInputOutput,
+          HttpPayloadTraitsWithMediaTypeInputOutputBuilder
+        > {
   _$HttpPayloadTraitsWithMediaTypeInputOutput? _$v;
 
   String? _foo;
@@ -84,8 +85,8 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
 
   @override
   void update(
-      void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder)?
-          updates) {
+    void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -93,11 +94,9 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
   HttpPayloadTraitsWithMediaTypeInputOutput build() => _build();
 
   _$HttpPayloadTraitsWithMediaTypeInputOutput _build() {
-    final _$result = _$v ??
-        new _$HttpPayloadTraitsWithMediaTypeInputOutput._(
-          foo: foo,
-          blob: blob,
-        );
+    final _$result =
+        _$v ??
+        new _$HttpPayloadTraitsWithMediaTypeInputOutput._(foo: foo, blob: blob);
     replace(_$result);
     return _$result;
   }

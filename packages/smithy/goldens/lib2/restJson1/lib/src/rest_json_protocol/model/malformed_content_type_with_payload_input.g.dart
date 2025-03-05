@@ -11,9 +11,9 @@ class _$MalformedContentTypeWithPayloadInput
   @override
   final _i2.Uint8List? payload;
 
-  factory _$MalformedContentTypeWithPayloadInput(
-          [void Function(MalformedContentTypeWithPayloadInputBuilder)?
-              updates]) =>
+  factory _$MalformedContentTypeWithPayloadInput([
+    void Function(MalformedContentTypeWithPayloadInputBuilder)? updates,
+  ]) =>
       (new MalformedContentTypeWithPayloadInputBuilder()..update(updates))
           ._build();
 
@@ -21,8 +21,8 @@ class _$MalformedContentTypeWithPayloadInput
 
   @override
   MalformedContentTypeWithPayloadInput rebuild(
-          void Function(MalformedContentTypeWithPayloadInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedContentTypeWithPayloadInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedContentTypeWithPayloadInputBuilder toBuilder() =>
@@ -46,8 +46,10 @@ class _$MalformedContentTypeWithPayloadInput
 
 class MalformedContentTypeWithPayloadInputBuilder
     implements
-        Builder<MalformedContentTypeWithPayloadInput,
-            MalformedContentTypeWithPayloadInputBuilder> {
+        Builder<
+          MalformedContentTypeWithPayloadInput,
+          MalformedContentTypeWithPayloadInputBuilder
+        > {
   _$MalformedContentTypeWithPayloadInput? _$v;
 
   _i2.Uint8List? _payload;
@@ -73,7 +75,8 @@ class MalformedContentTypeWithPayloadInputBuilder
 
   @override
   void update(
-      void Function(MalformedContentTypeWithPayloadInputBuilder)? updates) {
+    void Function(MalformedContentTypeWithPayloadInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -81,10 +84,8 @@ class MalformedContentTypeWithPayloadInputBuilder
   MalformedContentTypeWithPayloadInput build() => _build();
 
   _$MalformedContentTypeWithPayloadInput _build() {
-    final _$result = _$v ??
-        new _$MalformedContentTypeWithPayloadInput._(
-          payload: payload,
-        );
+    final _$result =
+        _$v ?? new _$MalformedContentTypeWithPayloadInput._(payload: payload);
     replace(_$result);
     return _$result;
   }

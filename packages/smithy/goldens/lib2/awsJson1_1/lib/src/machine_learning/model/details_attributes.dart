@@ -6,19 +6,11 @@ library aws_json1_1_v2.machine_learning.model.details_attributes; // ignore_for_
 import 'package:smithy/smithy.dart' as _i1;
 
 class DetailsAttributes extends _i1.SmithyEnum<DetailsAttributes> {
-  const DetailsAttributes._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const DetailsAttributes._(super.index, super.name, super.value);
 
   const DetailsAttributes._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const algorithm = DetailsAttributes._(
-    0,
-    'ALGORITHM',
-    'Algorithm',
-  );
+  static const algorithm = DetailsAttributes._(0, 'ALGORITHM', 'Algorithm');
 
   static const predictiveModelType = DetailsAttributes._(
     1,
@@ -38,12 +30,9 @@ class DetailsAttributes extends _i1.SmithyEnum<DetailsAttributes> {
       values: values,
       sdkUnknown: DetailsAttributes._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

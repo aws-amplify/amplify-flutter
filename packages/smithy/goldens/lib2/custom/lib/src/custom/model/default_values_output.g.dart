@@ -44,60 +44,96 @@ class _$DefaultValuesOutput extends DefaultValuesOutput {
   @override
   final bool? nullifiedDefaultBool;
 
-  factory _$DefaultValuesOutput(
-          [void Function(DefaultValuesOutputBuilder)? updates]) =>
-      (new DefaultValuesOutputBuilder()..update(updates))._build();
+  factory _$DefaultValuesOutput([
+    void Function(DefaultValuesOutputBuilder)? updates,
+  ]) => (new DefaultValuesOutputBuilder()..update(updates))._build();
 
-  _$DefaultValuesOutput._(
-      {required this.requiredDefaultInt,
-      required this.optionalDefaultInt,
-      this.nullifiedDefaultInt,
-      required this.requiredDefaultString,
-      required this.optionalDefaultString,
-      this.nullifiedDefaultString,
-      required this.requiredDefaultEnum,
-      required this.optionalDefaultEnum,
-      this.nullifiedDefaultEnum,
-      required this.requiredDefaultList,
-      required this.optionalDefaultList,
-      this.nullifiedDefaultList,
-      required this.requiredDefaultMap,
-      required this.optionalDefaultMap,
-      this.nullifiedDefaultMap,
-      required this.requiredDefaultBool,
-      required this.optionalDefaultBool,
-      this.nullifiedDefaultBool})
-      : super._() {
+  _$DefaultValuesOutput._({
+    required this.requiredDefaultInt,
+    required this.optionalDefaultInt,
+    this.nullifiedDefaultInt,
+    required this.requiredDefaultString,
+    required this.optionalDefaultString,
+    this.nullifiedDefaultString,
+    required this.requiredDefaultEnum,
+    required this.optionalDefaultEnum,
+    this.nullifiedDefaultEnum,
+    required this.requiredDefaultList,
+    required this.optionalDefaultList,
+    this.nullifiedDefaultList,
+    required this.requiredDefaultMap,
+    required this.optionalDefaultMap,
+    this.nullifiedDefaultMap,
+    required this.requiredDefaultBool,
+    required this.optionalDefaultBool,
+    this.nullifiedDefaultBool,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultInt, r'DefaultValuesOutput', 'requiredDefaultInt');
+      requiredDefaultInt,
+      r'DefaultValuesOutput',
+      'requiredDefaultInt',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultInt, r'DefaultValuesOutput', 'optionalDefaultInt');
+      optionalDefaultInt,
+      r'DefaultValuesOutput',
+      'optionalDefaultInt',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultString, r'DefaultValuesOutput', 'requiredDefaultString');
+      requiredDefaultString,
+      r'DefaultValuesOutput',
+      'requiredDefaultString',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultString, r'DefaultValuesOutput', 'optionalDefaultString');
+      optionalDefaultString,
+      r'DefaultValuesOutput',
+      'optionalDefaultString',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultEnum, r'DefaultValuesOutput', 'requiredDefaultEnum');
+      requiredDefaultEnum,
+      r'DefaultValuesOutput',
+      'requiredDefaultEnum',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultEnum, r'DefaultValuesOutput', 'optionalDefaultEnum');
+      optionalDefaultEnum,
+      r'DefaultValuesOutput',
+      'optionalDefaultEnum',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultList, r'DefaultValuesOutput', 'requiredDefaultList');
+      requiredDefaultList,
+      r'DefaultValuesOutput',
+      'requiredDefaultList',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultList, r'DefaultValuesOutput', 'optionalDefaultList');
+      optionalDefaultList,
+      r'DefaultValuesOutput',
+      'optionalDefaultList',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultMap, r'DefaultValuesOutput', 'requiredDefaultMap');
+      requiredDefaultMap,
+      r'DefaultValuesOutput',
+      'requiredDefaultMap',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultMap, r'DefaultValuesOutput', 'optionalDefaultMap');
+      optionalDefaultMap,
+      r'DefaultValuesOutput',
+      'optionalDefaultMap',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requiredDefaultBool, r'DefaultValuesOutput', 'requiredDefaultBool');
+      requiredDefaultBool,
+      r'DefaultValuesOutput',
+      'requiredDefaultBool',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        optionalDefaultBool, r'DefaultValuesOutput', 'optionalDefaultBool');
+      optionalDefaultBool,
+      r'DefaultValuesOutput',
+      'optionalDefaultBool',
+    );
   }
 
   @override
   DefaultValuesOutput rebuild(
-          void Function(DefaultValuesOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DefaultValuesOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DefaultValuesOutputBuilder toBuilder() =>
@@ -236,8 +272,8 @@ class DefaultValuesOutputBuilder
   _i2.MapBuilder<String, String> get nullifiedDefaultMap =>
       _$this._nullifiedDefaultMap ??= new _i2.MapBuilder<String, String>();
   set nullifiedDefaultMap(
-          _i2.MapBuilder<String, String>? nullifiedDefaultMap) =>
-      _$this._nullifiedDefaultMap = nullifiedDefaultMap;
+    _i2.MapBuilder<String, String>? nullifiedDefaultMap,
+  ) => _$this._nullifiedDefaultMap = nullifiedDefaultMap;
 
   bool? _requiredDefaultBool;
   bool? get requiredDefaultBool => _$this._requiredDefaultBool;
@@ -301,34 +337,41 @@ class DefaultValuesOutputBuilder
   _$DefaultValuesOutput _build() {
     _$DefaultValuesOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$DefaultValuesOutput._(
             requiredDefaultInt: BuiltValueNullFieldError.checkNotNull(
-                requiredDefaultInt,
-                r'DefaultValuesOutput',
-                'requiredDefaultInt'),
+              requiredDefaultInt,
+              r'DefaultValuesOutput',
+              'requiredDefaultInt',
+            ),
             optionalDefaultInt: BuiltValueNullFieldError.checkNotNull(
-                optionalDefaultInt,
-                r'DefaultValuesOutput',
-                'optionalDefaultInt'),
+              optionalDefaultInt,
+              r'DefaultValuesOutput',
+              'optionalDefaultInt',
+            ),
             nullifiedDefaultInt: nullifiedDefaultInt,
             requiredDefaultString: BuiltValueNullFieldError.checkNotNull(
-                requiredDefaultString,
-                r'DefaultValuesOutput',
-                'requiredDefaultString'),
+              requiredDefaultString,
+              r'DefaultValuesOutput',
+              'requiredDefaultString',
+            ),
             optionalDefaultString: BuiltValueNullFieldError.checkNotNull(
-                optionalDefaultString,
-                r'DefaultValuesOutput',
-                'optionalDefaultString'),
+              optionalDefaultString,
+              r'DefaultValuesOutput',
+              'optionalDefaultString',
+            ),
             nullifiedDefaultString: nullifiedDefaultString,
             requiredDefaultEnum: BuiltValueNullFieldError.checkNotNull(
-                requiredDefaultEnum,
-                r'DefaultValuesOutput',
-                'requiredDefaultEnum'),
+              requiredDefaultEnum,
+              r'DefaultValuesOutput',
+              'requiredDefaultEnum',
+            ),
             optionalDefaultEnum: BuiltValueNullFieldError.checkNotNull(
-                optionalDefaultEnum,
-                r'DefaultValuesOutput',
-                'optionalDefaultEnum'),
+              optionalDefaultEnum,
+              r'DefaultValuesOutput',
+              'optionalDefaultEnum',
+            ),
             nullifiedDefaultEnum: nullifiedDefaultEnum,
             requiredDefaultList: requiredDefaultList.build(),
             optionalDefaultList: optionalDefaultList.build(),
@@ -337,13 +380,15 @@ class DefaultValuesOutputBuilder
             optionalDefaultMap: optionalDefaultMap.build(),
             nullifiedDefaultMap: _nullifiedDefaultMap?.build(),
             requiredDefaultBool: BuiltValueNullFieldError.checkNotNull(
-                requiredDefaultBool,
-                r'DefaultValuesOutput',
-                'requiredDefaultBool'),
+              requiredDefaultBool,
+              r'DefaultValuesOutput',
+              'requiredDefaultBool',
+            ),
             optionalDefaultBool: BuiltValueNullFieldError.checkNotNull(
-                optionalDefaultBool,
-                r'DefaultValuesOutput',
-                'optionalDefaultBool'),
+              optionalDefaultBool,
+              r'DefaultValuesOutput',
+              'optionalDefaultBool',
+            ),
             nullifiedDefaultBool: nullifiedDefaultBool,
           );
     } catch (_) {
@@ -363,7 +408,10 @@ class DefaultValuesOutputBuilder
         _nullifiedDefaultMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'DefaultValuesOutput', _$failedField, e.toString());
+          r'DefaultValuesOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

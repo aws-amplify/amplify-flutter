@@ -69,10 +69,7 @@ class CopyObjectErrorBuilder
   CopyObjectError build() => _build();
 
   _$CopyObjectError _build() {
-    final _$result = _$v ??
-        new _$CopyObjectError._(
-          headers: headers,
-        );
+    final _$result = _$v ?? new _$CopyObjectError._(headers: headers);
     replace(_$result);
     return _$result;
   }

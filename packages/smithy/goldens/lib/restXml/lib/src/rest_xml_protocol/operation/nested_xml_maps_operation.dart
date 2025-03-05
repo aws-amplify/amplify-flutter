@@ -12,29 +12,39 @@ import 'package:rest_xml_v1/src/rest_xml_protocol/model/nested_xml_maps_input_ou
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-class NestedXmlMapsOperation extends _i1.HttpOperation<
-    NestedXmlMapsInputOutput,
-    NestedXmlMapsInputOutput,
-    NestedXmlMapsInputOutput,
-    NestedXmlMapsInputOutput> {
+class NestedXmlMapsOperation
+    extends
+        _i1.HttpOperation<
+          NestedXmlMapsInputOutput,
+          NestedXmlMapsInputOutput,
+          NestedXmlMapsInputOutput,
+          NestedXmlMapsInputOutput
+        > {
   NestedXmlMapsOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<NestedXmlMapsInputOutput, NestedXmlMapsInputOutput,
-          NestedXmlMapsInputOutput, NestedXmlMapsInputOutput>> protocols = [
+    _i1.HttpProtocol<
+      NestedXmlMapsInputOutput,
+      NestedXmlMapsInputOutput,
+      NestedXmlMapsInputOutput,
+      NestedXmlMapsInputOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
@@ -45,7 +55,7 @@ class NestedXmlMapsOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: false,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -75,11 +85,7 @@ class NestedXmlMapsOperation extends _i1.HttpOperation<
   NestedXmlMapsInputOutput buildOutput(
     NestedXmlMapsInputOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      NestedXmlMapsInputOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => NestedXmlMapsInputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -103,11 +109,7 @@ class NestedXmlMapsOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

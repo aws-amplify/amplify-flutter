@@ -14,27 +14,40 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// The example tests how requests and responses are serialized when there's no request payload or response members. While this should be rare, code generators must support this.
-class NoInputAndOutputOperation extends _i1.HttpOperation<NoInputAndOutputInput,
-    NoInputAndOutputInput, NoInputAndOutputOutput, NoInputAndOutputOutput> {
+class NoInputAndOutputOperation
+    extends
+        _i1.HttpOperation<
+          NoInputAndOutputInput,
+          NoInputAndOutputInput,
+          NoInputAndOutputOutput,
+          NoInputAndOutputOutput
+        > {
   /// The example tests how requests and responses are serialized when there's no request payload or response members. While this should be rare, code generators must support this.
   NoInputAndOutputOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<NoInputAndOutputInput, NoInputAndOutputInput,
-          NoInputAndOutputOutput, NoInputAndOutputOutput>> protocols = [
+    _i1.HttpProtocol<
+      NoInputAndOutputInput,
+      NoInputAndOutputInput,
+      NoInputAndOutputOutput,
+      NoInputAndOutputOutput
+    >
+  >
+  protocols = [
     _i2.AwsQueryProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i2.WithSdkInvocationId(),
@@ -45,7 +58,7 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<NoInputAndOutputInput,
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       action: 'NoInputAndOutput',
       version: '2020-01-08',
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -75,11 +88,7 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<NoInputAndOutputInput,
   NoInputAndOutputOutput buildOutput(
     NoInputAndOutputOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      NoInputAndOutputOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => NoInputAndOutputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -103,11 +112,7 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<NoInputAndOutputInput,
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

@@ -14,33 +14,40 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has an empty input and empty output structure that reuses the same shape. While this should be rare, code generators must support this.
-class EmptyInputAndEmptyOutputOperation extends _i1.HttpOperation<
-    EmptyInputAndEmptyOutputInput,
-    EmptyInputAndEmptyOutputInput,
-    EmptyInputAndEmptyOutputOutput,
-    EmptyInputAndEmptyOutputOutput> {
+class EmptyInputAndEmptyOutputOperation
+    extends
+        _i1.HttpOperation<
+          EmptyInputAndEmptyOutputInput,
+          EmptyInputAndEmptyOutputInput,
+          EmptyInputAndEmptyOutputOutput,
+          EmptyInputAndEmptyOutputOutput
+        > {
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has an empty input and empty output structure that reuses the same shape. While this should be rare, code generators must support this.
   EmptyInputAndEmptyOutputOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          EmptyInputAndEmptyOutputInput,
-          EmptyInputAndEmptyOutputInput,
-          EmptyInputAndEmptyOutputOutput,
-          EmptyInputAndEmptyOutputOutput>> protocols = [
+    _i1.HttpProtocol<
+      EmptyInputAndEmptyOutputInput,
+      EmptyInputAndEmptyOutputInput,
+      EmptyInputAndEmptyOutputOutput,
+      EmptyInputAndEmptyOutputOutput
+    >
+  >
+  protocols = [
     _i2.AwsJson1_0Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithHeader(
               'X-Amz-Target',
@@ -53,7 +60,7 @@ class EmptyInputAndEmptyOutputOperation extends _i1.HttpOperation<
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -83,11 +90,7 @@ class EmptyInputAndEmptyOutputOperation extends _i1.HttpOperation<
   EmptyInputAndEmptyOutputOutput buildOutput(
     EmptyInputAndEmptyOutputOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      EmptyInputAndEmptyOutputOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => EmptyInputAndEmptyOutputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -111,11 +114,7 @@ class EmptyInputAndEmptyOutputOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

@@ -13,32 +13,38 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 class MalformedContentTypeWithoutBodyEmptyInputOperation
-    extends _i1.HttpOperation<
-        MalformedContentTypeWithoutBodyEmptyInputInputPayload,
-        MalformedContentTypeWithoutBodyEmptyInputInput,
-        _i1.Unit,
-        _i1.Unit> {
+    extends
+        _i1.HttpOperation<
+          MalformedContentTypeWithoutBodyEmptyInputInputPayload,
+          MalformedContentTypeWithoutBodyEmptyInputInput,
+          _i1.Unit,
+          _i1.Unit
+        > {
   MalformedContentTypeWithoutBodyEmptyInputOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          MalformedContentTypeWithoutBodyEmptyInputInputPayload,
-          MalformedContentTypeWithoutBodyEmptyInputInput,
-          _i1.Unit,
-          _i1.Unit>> protocols = [
+    _i1.HttpProtocol<
+      MalformedContentTypeWithoutBodyEmptyInputInputPayload,
+      MalformedContentTypeWithoutBodyEmptyInputInput,
+      _i1.Unit,
+      _i1.Unit
+    >
+  >
+  protocols = [
     _i2.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithNoHeader('Content-Length'),
             const _i1.WithNoHeader('Content-Type'),
@@ -49,7 +55,7 @@ class MalformedContentTypeWithoutBodyEmptyInputOperation
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -67,25 +73,22 @@ class MalformedContentTypeWithoutBodyEmptyInputOperation
 
   @override
   _i1.HttpRequest buildRequest(
-          MalformedContentTypeWithoutBodyEmptyInputInput input) =>
-      _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/MalformedContentTypeWithoutBodyEmptyInput';
-        if (input.header != null) {
-          if (input.header!.isNotEmpty) {
-            b.headers['header'] = input.header!;
-          }
-        }
-      });
+    MalformedContentTypeWithoutBodyEmptyInputInput input,
+  ) => _i1.HttpRequest((b) {
+    b.method = 'POST';
+    b.path = r'/MalformedContentTypeWithoutBodyEmptyInput';
+    if (input.header != null) {
+      if (input.header!.isNotEmpty) {
+        b.headers['header'] = input.header!;
+      }
+    }
+  });
 
   @override
   int successCode([_i1.Unit? output]) => 200;
 
   @override
-  _i1.Unit buildOutput(
-    _i1.Unit payload,
-    _i3.AWSBaseHttpResponse response,
-  ) =>
+  _i1.Unit buildOutput(_i1.Unit payload, _i3.AWSBaseHttpResponse response) =>
       payload;
 
   @override
@@ -110,11 +113,7 @@ class MalformedContentTypeWithoutBodyEmptyInputOperation
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

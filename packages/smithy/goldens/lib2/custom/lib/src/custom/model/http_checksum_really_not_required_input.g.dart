@@ -13,19 +13,19 @@ class _$HttpChecksumReallyNotRequiredInput
   @override
   final _i2.Uint8List? content;
 
-  factory _$HttpChecksumReallyNotRequiredInput(
-          [void Function(HttpChecksumReallyNotRequiredInputBuilder)?
-              updates]) =>
+  factory _$HttpChecksumReallyNotRequiredInput([
+    void Function(HttpChecksumReallyNotRequiredInputBuilder)? updates,
+  ]) =>
       (new HttpChecksumReallyNotRequiredInputBuilder()..update(updates))
           ._build();
 
   _$HttpChecksumReallyNotRequiredInput._({this.checksumAlgorithm, this.content})
-      : super._();
+    : super._();
 
   @override
   HttpChecksumReallyNotRequiredInput rebuild(
-          void Function(HttpChecksumReallyNotRequiredInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpChecksumReallyNotRequiredInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpChecksumReallyNotRequiredInputBuilder toBuilder() =>
@@ -51,8 +51,10 @@ class _$HttpChecksumReallyNotRequiredInput
 
 class HttpChecksumReallyNotRequiredInputBuilder
     implements
-        Builder<HttpChecksumReallyNotRequiredInput,
-            HttpChecksumReallyNotRequiredInputBuilder> {
+        Builder<
+          HttpChecksumReallyNotRequiredInput,
+          HttpChecksumReallyNotRequiredInputBuilder
+        > {
   _$HttpChecksumReallyNotRequiredInput? _$v;
 
   ChecksumAlgorithm? _checksumAlgorithm;
@@ -84,7 +86,8 @@ class HttpChecksumReallyNotRequiredInputBuilder
 
   @override
   void update(
-      void Function(HttpChecksumReallyNotRequiredInputBuilder)? updates) {
+    void Function(HttpChecksumReallyNotRequiredInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -92,7 +95,8 @@ class HttpChecksumReallyNotRequiredInputBuilder
   HttpChecksumReallyNotRequiredInput build() => _build();
 
   _$HttpChecksumReallyNotRequiredInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$HttpChecksumReallyNotRequiredInput._(
           checksumAlgorithm: checksumAlgorithm,
           content: content,

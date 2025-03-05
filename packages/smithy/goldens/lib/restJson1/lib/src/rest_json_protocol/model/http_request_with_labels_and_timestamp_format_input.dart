@@ -16,8 +16,10 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
         _i1.HttpInput<HttpRequestWithLabelsAndTimestampFormatInputPayload>,
         _i2.AWSEquatable<HttpRequestWithLabelsAndTimestampFormatInput>
     implements
-        Built<HttpRequestWithLabelsAndTimestampFormatInput,
-            HttpRequestWithLabelsAndTimestampFormatInputBuilder>,
+        Built<
+          HttpRequestWithLabelsAndTimestampFormatInput,
+          HttpRequestWithLabelsAndTimestampFormatInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithLabelsAndTimestampFormatInputPayload> {
   factory HttpRequestWithLabelsAndTimestampFormatInput({
@@ -40,9 +42,9 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
     );
   }
 
-  factory HttpRequestWithLabelsAndTimestampFormatInput.build(
-      [void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder)
-          updates]) = _$HttpRequestWithLabelsAndTimestampFormatInput;
+  factory HttpRequestWithLabelsAndTimestampFormatInput.build([
+    void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder) updates,
+  ]) = _$HttpRequestWithLabelsAndTimestampFormatInput;
 
   const HttpRequestWithLabelsAndTimestampFormatInput._();
 
@@ -50,56 +52,63 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
     HttpRequestWithLabelsAndTimestampFormatInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpRequestWithLabelsAndTimestampFormatInput.build((b) {
-        if (labels['memberEpochSeconds'] != null) {
-          b.memberEpochSeconds = _i1.Timestamp.parse(
+  }) => HttpRequestWithLabelsAndTimestampFormatInput.build((b) {
+    if (labels['memberEpochSeconds'] != null) {
+      b.memberEpochSeconds =
+          _i1.Timestamp.parse(
             int.parse(labels['memberEpochSeconds']!),
             format: _i1.TimestampFormat.epochSeconds,
           ).asDateTime;
-        }
-        if (labels['memberHttpDate'] != null) {
-          b.memberHttpDate = _i1.Timestamp.parse(
+    }
+    if (labels['memberHttpDate'] != null) {
+      b.memberHttpDate =
+          _i1.Timestamp.parse(
             labels['memberHttpDate']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (labels['memberDateTime'] != null) {
-          b.memberDateTime = _i1.Timestamp.parse(
+    }
+    if (labels['memberDateTime'] != null) {
+      b.memberDateTime =
+          _i1.Timestamp.parse(
             labels['memberDateTime']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-        if (labels['defaultFormat'] != null) {
-          b.defaultFormat = _i1.Timestamp.parse(
+    }
+    if (labels['defaultFormat'] != null) {
+      b.defaultFormat =
+          _i1.Timestamp.parse(
             labels['defaultFormat']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-        if (labels['targetEpochSeconds'] != null) {
-          b.targetEpochSeconds = _i1.Timestamp.parse(
+    }
+    if (labels['targetEpochSeconds'] != null) {
+      b.targetEpochSeconds =
+          _i1.Timestamp.parse(
             int.parse(labels['targetEpochSeconds']!),
             format: _i1.TimestampFormat.epochSeconds,
           ).asDateTime;
-        }
-        if (labels['targetHttpDate'] != null) {
-          b.targetHttpDate = _i1.Timestamp.parse(
+    }
+    if (labels['targetHttpDate'] != null) {
+      b.targetHttpDate =
+          _i1.Timestamp.parse(
             labels['targetHttpDate']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (labels['targetDateTime'] != null) {
-          b.targetDateTime = _i1.Timestamp.parse(
+    }
+    if (labels['targetDateTime'] != null) {
+      b.targetDateTime =
+          _i1.Timestamp.parse(
             labels['targetDateTime']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-      });
+    }
+  });
 
   static const List<
-      _i1.SmithySerializer<
-          HttpRequestWithLabelsAndTimestampFormatInputPayload>> serializers = [
-    HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer()
+    _i1.SmithySerializer<HttpRequestWithLabelsAndTimestampFormatInputPayload>
+  >
+  serializers = [
+    HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer(),
   ];
 
   DateTime get memberEpochSeconds;
@@ -113,38 +122,35 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
   String labelFor(String key) {
     switch (key) {
       case 'memberEpochSeconds':
-        return _i1.Timestamp(memberEpochSeconds)
-            .format(_i1.TimestampFormat.epochSeconds)
-            .toString();
+        return _i1.Timestamp(
+          memberEpochSeconds,
+        ).format(_i1.TimestampFormat.epochSeconds).toString();
       case 'memberHttpDate':
-        return _i1.Timestamp(memberHttpDate)
-            .format(_i1.TimestampFormat.httpDate)
-            .toString();
+        return _i1.Timestamp(
+          memberHttpDate,
+        ).format(_i1.TimestampFormat.httpDate).toString();
       case 'memberDateTime':
-        return _i1.Timestamp(memberDateTime)
-            .format(_i1.TimestampFormat.dateTime)
-            .toString();
+        return _i1.Timestamp(
+          memberDateTime,
+        ).format(_i1.TimestampFormat.dateTime).toString();
       case 'defaultFormat':
-        return _i1.Timestamp(defaultFormat)
-            .format(_i1.TimestampFormat.dateTime)
-            .toString();
+        return _i1.Timestamp(
+          defaultFormat,
+        ).format(_i1.TimestampFormat.dateTime).toString();
       case 'targetEpochSeconds':
-        return _i1.Timestamp(targetEpochSeconds)
-            .format(_i1.TimestampFormat.epochSeconds)
-            .toString();
+        return _i1.Timestamp(
+          targetEpochSeconds,
+        ).format(_i1.TimestampFormat.epochSeconds).toString();
       case 'targetHttpDate':
-        return _i1.Timestamp(targetHttpDate)
-            .format(_i1.TimestampFormat.httpDate)
-            .toString();
+        return _i1.Timestamp(
+          targetHttpDate,
+        ).format(_i1.TimestampFormat.httpDate).toString();
       case 'targetDateTime':
-        return _i1.Timestamp(targetDateTime)
-            .format(_i1.TimestampFormat.dateTime)
-            .toString();
+        return _i1.Timestamp(
+          targetDateTime,
+        ).format(_i1.TimestampFormat.dateTime).toString();
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -153,62 +159,45 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
 
   @override
   List<Object?> get props => [
-        memberEpochSeconds,
-        memberHttpDate,
-        memberDateTime,
-        defaultFormat,
-        targetEpochSeconds,
-        targetHttpDate,
-        targetDateTime,
-      ];
+    memberEpochSeconds,
+    memberHttpDate,
+    memberDateTime,
+    defaultFormat,
+    targetEpochSeconds,
+    targetHttpDate,
+    targetDateTime,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'HttpRequestWithLabelsAndTimestampFormatInput')
-      ..add(
-        'memberEpochSeconds',
-        memberEpochSeconds,
-      )
-      ..add(
-        'memberHttpDate',
-        memberHttpDate,
-      )
-      ..add(
-        'memberDateTime',
-        memberDateTime,
-      )
-      ..add(
-        'defaultFormat',
-        defaultFormat,
-      )
-      ..add(
-        'targetEpochSeconds',
-        targetEpochSeconds,
-      )
-      ..add(
-        'targetHttpDate',
-        targetHttpDate,
-      )
-      ..add(
-        'targetDateTime',
-        targetDateTime,
-      );
+    final helper =
+        newBuiltValueToStringHelper(
+            'HttpRequestWithLabelsAndTimestampFormatInput',
+          )
+          ..add('memberEpochSeconds', memberEpochSeconds)
+          ..add('memberHttpDate', memberHttpDate)
+          ..add('memberDateTime', memberDateTime)
+          ..add('defaultFormat', defaultFormat)
+          ..add('targetEpochSeconds', targetEpochSeconds)
+          ..add('targetHttpDate', targetHttpDate)
+          ..add('targetDateTime', targetDateTime);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class HttpRequestWithLabelsAndTimestampFormatInputPayload
-    with
-        _i2.AWSEquatable<HttpRequestWithLabelsAndTimestampFormatInputPayload>
+    with _i2.AWSEquatable<HttpRequestWithLabelsAndTimestampFormatInputPayload>
     implements
-        Built<HttpRequestWithLabelsAndTimestampFormatInputPayload,
-            HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder>,
+        Built<
+          HttpRequestWithLabelsAndTimestampFormatInputPayload,
+          HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory HttpRequestWithLabelsAndTimestampFormatInputPayload(
-      [void Function(HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder)
-          updates]) = _$HttpRequestWithLabelsAndTimestampFormatInputPayload;
+  factory HttpRequestWithLabelsAndTimestampFormatInputPayload([
+    void Function(HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder)
+    updates,
+  ]) = _$HttpRequestWithLabelsAndTimestampFormatInputPayload;
 
   const HttpRequestWithLabelsAndTimestampFormatInputPayload._();
 
@@ -218,32 +207,32 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'HttpRequestWithLabelsAndTimestampFormatInputPayload');
+      'HttpRequestWithLabelsAndTimestampFormatInputPayload',
+    );
     return helper.toString();
   }
 }
 
 class HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer
-    extends _i1.StructuredSmithySerializer<
-        HttpRequestWithLabelsAndTimestampFormatInputPayload> {
+    extends
+        _i1.StructuredSmithySerializer<
+          HttpRequestWithLabelsAndTimestampFormatInputPayload
+        > {
   const HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer()
-      : super('HttpRequestWithLabelsAndTimestampFormatInput');
+    : super('HttpRequestWithLabelsAndTimestampFormatInput');
 
   @override
   Iterable<Type> get types => const [
-        HttpRequestWithLabelsAndTimestampFormatInput,
-        _$HttpRequestWithLabelsAndTimestampFormatInput,
-        HttpRequestWithLabelsAndTimestampFormatInputPayload,
-        _$HttpRequestWithLabelsAndTimestampFormatInputPayload,
-      ];
+    HttpRequestWithLabelsAndTimestampFormatInput,
+    _$HttpRequestWithLabelsAndTimestampFormatInput,
+    HttpRequestWithLabelsAndTimestampFormatInputPayload,
+    _$HttpRequestWithLabelsAndTimestampFormatInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   HttpRequestWithLabelsAndTimestampFormatInputPayload deserialize(
@@ -259,6 +248,5 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer
     Serializers serializers,
     HttpRequestWithLabelsAndTimestampFormatInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

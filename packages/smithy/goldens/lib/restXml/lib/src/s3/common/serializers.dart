@@ -58,19 +58,13 @@ const List<_i1.SmithySerializer> serializers = [
   ...S3AddressingStyle.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(FileConfigSettings),
-    ],
-  ): _i2.MapBuilder<String, FileConfigSettings>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(S3Object)],
-  ): _i2.ListBuilder<S3Object>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(CommonPrefix)],
-  ): _i2.ListBuilder<CommonPrefix>.new,
+  const FullType(_i2.BuiltMap, [
+        FullType(String),
+        FullType(FileConfigSettings),
+      ]):
+      _i2.MapBuilder<String, FileConfigSettings>.new,
+  const FullType(_i2.BuiltList, [FullType(S3Object)]):
+      _i2.ListBuilder<S3Object>.new,
+  const FullType(_i2.BuiltList, [FullType(CommonPrefix)]):
+      _i2.ListBuilder<CommonPrefix>.new,
 };

@@ -14,17 +14,17 @@ class _$InvalidInputException extends InvalidInputException {
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidInputException(
-          [void Function(InvalidInputExceptionBuilder)? updates]) =>
-      (new InvalidInputExceptionBuilder()..update(updates))._build();
+  factory _$InvalidInputException([
+    void Function(InvalidInputExceptionBuilder)? updates,
+  ]) => (new InvalidInputExceptionBuilder()..update(updates))._build();
 
   _$InvalidInputException._({this.message, this.code, this.headers})
-      : super._();
+    : super._();
 
   @override
   InvalidInputException rebuild(
-          void Function(InvalidInputExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidInputExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidInputExceptionBuilder toBuilder() =>
@@ -92,7 +92,8 @@ class InvalidInputExceptionBuilder
   InvalidInputException build() => _build();
 
   _$InvalidInputException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InvalidInputException._(
           message: message,
           code: code,

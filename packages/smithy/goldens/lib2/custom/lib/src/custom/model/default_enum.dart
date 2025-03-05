@@ -6,31 +6,15 @@ library custom_v2.custom.model.default_enum; // ignore_for_file: no_leading_unde
 import 'package:smithy/smithy.dart' as _i1;
 
 class DefaultEnum extends _i1.SmithyEnum<DefaultEnum> {
-  const DefaultEnum._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const DefaultEnum._(super.index, super.name, super.value);
 
   const DefaultEnum._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const a = DefaultEnum._(
-    0,
-    'A',
-    'A',
-  );
+  static const a = DefaultEnum._(0, 'A', 'A');
 
-  static const b = DefaultEnum._(
-    1,
-    'B',
-    'B',
-  );
+  static const b = DefaultEnum._(1, 'B', 'B');
 
-  static const c = DefaultEnum._(
-    2,
-    'C',
-    'C',
-  );
+  static const c = DefaultEnum._(2, 'C', 'C');
 
   /// All values of [DefaultEnum].
   static const values = <DefaultEnum>[
@@ -45,12 +29,9 @@ class DefaultEnum extends _i1.SmithyEnum<DefaultEnum> {
       values: values,
       sdkUnknown: DefaultEnum._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

@@ -42,11 +42,9 @@ const List<_i1.SmithySerializer> serializers = [
   ...AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(FileConfigSettings),
-    ],
-  ): _i2.MapBuilder<String, FileConfigSettings>.new
+  const FullType(_i2.BuiltMap, [
+        FullType(String),
+        FullType(FileConfigSettings),
+      ]):
+      _i2.MapBuilder<String, FileConfigSettings>.new,
 };

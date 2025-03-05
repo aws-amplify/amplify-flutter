@@ -14,143 +14,106 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'AwsJson11IntEnums (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonIntEnumsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
+  _i1.test('AwsJson11IntEnums (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonIntEnumsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11IntEnums',
-          documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "intEnum1": 1,\n    "intEnum2": 2,\n    "intEnum3": 3,\n    "intEnumList": [\n        1,\n        2\n    ],\n    "intEnumSet": [\n        1,\n        2\n    ],\n    "intEnumMap": {\n        "a": 1,\n        "b": 2\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'intEnum1': 1,
-            'intEnum2': 2,
-            'intEnum3': 3,
-            'intEnumList': [
-              1,
-              2,
-            ],
-            'intEnumSet': [
-              1,
-              2,
-            ],
-            'intEnumMap': {
-              'a': 1,
-              'b': 2,
-            },
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonIntEnums',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11IntEnums',
+        documentation: 'Serializes simple scalar properties',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "intEnum1": 1,\n    "intEnum2": 2,\n    "intEnum3": 3,\n    "intEnumList": [\n        1,\n        2\n    ],\n    "intEnumSet": [\n        1,\n        2\n    ],\n    "intEnumMap": {\n        "a": 1,\n        "b": 2\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'intEnum1': 1,
+          'intEnum2': 2,
+          'intEnum3': 3,
+          'intEnumList': [1, 2],
+          'intEnumSet': [1, 2],
+          'intEnumMap': {'a': 1, 'b': 2},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonIntEnums',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [JsonIntEnumsInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11IntEnums (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonIntEnumsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        inputSerializers: const [JsonIntEnumsInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11IntEnums (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonIntEnumsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11IntEnums',
-          documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "intEnum1": 1,\n    "intEnum2": 2,\n    "intEnum3": 3,\n    "intEnumList": [\n        1,\n        2\n    ],\n    "intEnumSet": [\n        1,\n        2\n    ],\n    "intEnumMap": {\n        "a": 1,\n        "b": 2\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'intEnum1': 1,
-            'intEnum2': 2,
-            'intEnum3': 3,
-            'intEnumList': [
-              1,
-              2,
-            ],
-            'intEnumSet': [
-              1,
-              2,
-            ],
-            'intEnumMap': {
-              'a': 1,
-              'b': 2,
-            },
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonIntEnums',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [JsonIntEnumsInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11IntEnums',
+        documentation: 'Serializes simple scalar properties',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "intEnum1": 1,\n    "intEnum2": 2,\n    "intEnum3": 3,\n    "intEnumList": [\n        1,\n        2\n    ],\n    "intEnumSet": [\n        1,\n        2\n    ],\n    "intEnumMap": {\n        "a": 1,\n        "b": 2\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'intEnum1': 1,
+          'intEnum2': 2,
+          'intEnum3': 3,
+          'intEnumList': [1, 2],
+          'intEnumSet': [1, 2],
+          'intEnumMap': {'a': 1, 'b': 2},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonIntEnums',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [JsonIntEnumsInputOutputAwsJson11Serializer()],
+    );
+  });
 }
 
 class JsonIntEnumsInputOutputAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<JsonIntEnumsInputOutput> {
   const JsonIntEnumsInputOutputAwsJson11Serializer()
-      : super('JsonIntEnumsInputOutput');
+    : super('JsonIntEnumsInputOutput');
 
   @override
   Iterable<Type> get types => const [JsonIntEnumsInputOutput];
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   JsonIntEnumsInputOutput deserialize(
@@ -169,47 +132,53 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
       }
       switch (key) {
         case 'intEnum1':
-          result.intEnum1 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.intEnum1 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'intEnum2':
-          result.intEnum2 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.intEnum2 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'intEnum3':
-          result.intEnum3 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.intEnum3 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'intEnumList':
-          result.intEnumList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(int)],
-            ),
-          ) as _i5.BuiltList<int>));
+          result.intEnumList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltList, [FullType(int)]),
+                )
+                as _i5.BuiltList<int>),
+          );
         case 'intEnumSet':
-          result.intEnumSet.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltSet,
-              [FullType(int)],
-            ),
-          ) as _i5.BuiltSet<int>));
+          result.intEnumSet.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltSet, [FullType(int)]),
+                )
+                as _i5.BuiltSet<int>),
+          );
         case 'intEnumMap':
-          result.intEnumMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltMap,
-              [
-                FullType(String),
-                FullType(int),
-              ],
-            ),
-          ) as _i5.BuiltMap<String, int>));
+          result.intEnumMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltMap, [
+                    FullType(String),
+                    FullType(int),
+                  ]),
+                )
+                as _i5.BuiltMap<String, int>),
+          );
       }
     }
 

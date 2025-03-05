@@ -10,16 +10,16 @@ class _$XmlEmptyStringsInputOutput extends XmlEmptyStringsInputOutput {
   @override
   final String? emptyString;
 
-  factory _$XmlEmptyStringsInputOutput(
-          [void Function(XmlEmptyStringsInputOutputBuilder)? updates]) =>
-      (new XmlEmptyStringsInputOutputBuilder()..update(updates))._build();
+  factory _$XmlEmptyStringsInputOutput([
+    void Function(XmlEmptyStringsInputOutputBuilder)? updates,
+  ]) => (new XmlEmptyStringsInputOutputBuilder()..update(updates))._build();
 
   _$XmlEmptyStringsInputOutput._({this.emptyString}) : super._();
 
   @override
   XmlEmptyStringsInputOutput rebuild(
-          void Function(XmlEmptyStringsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlEmptyStringsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlEmptyStringsInputOutputBuilder toBuilder() =>
@@ -76,10 +76,8 @@ class XmlEmptyStringsInputOutputBuilder
   XmlEmptyStringsInputOutput build() => _build();
 
   _$XmlEmptyStringsInputOutput _build() {
-    final _$result = _$v ??
-        new _$XmlEmptyStringsInputOutput._(
-          emptyString: emptyString,
-        );
+    final _$result =
+        _$v ?? new _$XmlEmptyStringsInputOutput._(emptyString: emptyString);
     replace(_$result);
     return _$result;
   }

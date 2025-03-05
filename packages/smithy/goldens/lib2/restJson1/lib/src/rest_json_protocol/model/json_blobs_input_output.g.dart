@@ -10,16 +10,16 @@ class _$JsonBlobsInputOutput extends JsonBlobsInputOutput {
   @override
   final _i3.Uint8List? data;
 
-  factory _$JsonBlobsInputOutput(
-          [void Function(JsonBlobsInputOutputBuilder)? updates]) =>
-      (new JsonBlobsInputOutputBuilder()..update(updates))._build();
+  factory _$JsonBlobsInputOutput([
+    void Function(JsonBlobsInputOutputBuilder)? updates,
+  ]) => (new JsonBlobsInputOutputBuilder()..update(updates))._build();
 
   _$JsonBlobsInputOutput._({this.data}) : super._();
 
   @override
   JsonBlobsInputOutput rebuild(
-          void Function(JsonBlobsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(JsonBlobsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   JsonBlobsInputOutputBuilder toBuilder() =>
@@ -74,10 +74,7 @@ class JsonBlobsInputOutputBuilder
   JsonBlobsInputOutput build() => _build();
 
   _$JsonBlobsInputOutput _build() {
-    final _$result = _$v ??
-        new _$JsonBlobsInputOutput._(
-          data: data,
-        );
+    final _$result = _$v ?? new _$JsonBlobsInputOutput._(data: data);
     replace(_$result);
     return _$result;
   }

@@ -71,10 +71,7 @@ class PayloadConfigBuilder
   PayloadConfig build() => _build();
 
   _$PayloadConfig _build() {
-    final _$result = _$v ??
-        new _$PayloadConfig._(
-          data: data,
-        );
+    final _$result = _$v ?? new _$PayloadConfig._(data: data);
     replace(_$result);
     return _$result;
   }

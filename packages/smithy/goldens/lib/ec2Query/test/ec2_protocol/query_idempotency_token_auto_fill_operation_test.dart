@@ -12,99 +12,98 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test('Ec2ProtocolIdempotencyTokenAutoFill (request)', () async {
-    await _i2.httpRequestTest(
-      operation: QueryIdempotencyTokenAutoFillOperation(
-        region: 'us-east-1',
-        baseUri: Uri.parse('https://example.com'),
-      ),
-      testCase: const _i2.HttpRequestTestCase(
-        id: 'Ec2ProtocolIdempotencyTokenAutoFill',
-        documentation: 'Automatically adds idempotency token when not set',
-        protocol: _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
+  _i1.test(
+    'Ec2ProtocolIdempotencyTokenAutoFill (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: QueryIdempotencyTokenAutoFillOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
         ),
-        authScheme: null,
-        body:
-            'Action=QueryIdempotencyTokenAutoFill&Version=2020-01-08&Token=00000000-0000-4000-8000-000000000000',
-        bodyMediaType: 'application/x-www-form-urlencoded',
-        params: {},
-        vendorParamsShape: null,
-        vendorParams: {},
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        forbidHeaders: [],
-        requireHeaders: ['Content-Length'],
-        tags: [],
-        appliesTo: _i2.AppliesTo.client,
-        method: 'POST',
-        uri: '/',
-        host: null,
-        resolvedHost: null,
-        queryParams: [],
-        forbidQueryParams: [],
-        requireQueryParams: [],
-      ),
-      inputSerializers: const [
-        QueryIdempotencyTokenAutoFillInputEc2QuerySerializer()
-      ],
-    );
-  }, skip: 'bool.fromEnvironment is not working in tests for some reason');
-  _i1.test('Ec2ProtocolIdempotencyTokenAutoFillIsSet (request)', () async {
-    await _i2.httpRequestTest(
-      operation: QueryIdempotencyTokenAutoFillOperation(
-        region: 'us-east-1',
-        baseUri: Uri.parse('https://example.com'),
-      ),
-      testCase: const _i2.HttpRequestTestCase(
-        id: 'Ec2ProtocolIdempotencyTokenAutoFillIsSet',
-        documentation: 'Uses the given idempotency token as-is',
-        protocol: _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'Ec2ProtocolIdempotencyTokenAutoFill',
+          documentation: 'Automatically adds idempotency token when not set',
+          protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+          authScheme: null,
+          body:
+              'Action=QueryIdempotencyTokenAutoFill&Version=2020-01-08&Token=00000000-0000-4000-8000-000000000000',
+          bodyMediaType: 'application/x-www-form-urlencoded',
+          params: {},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          forbidHeaders: [],
+          requireHeaders: ['Content-Length'],
+          tags: [],
+          appliesTo: _i2.AppliesTo.client,
+          method: 'POST',
+          uri: '/',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
         ),
-        authScheme: null,
-        body:
-            'Action=QueryIdempotencyTokenAutoFill&Version=2020-01-08&Token=00000000-0000-4000-8000-000000000123',
-        bodyMediaType: 'application/x-www-form-urlencoded',
-        params: {'token': '00000000-0000-4000-8000-000000000123'},
-        vendorParamsShape: null,
-        vendorParams: {},
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        forbidHeaders: [],
-        requireHeaders: ['Content-Length'],
-        tags: [],
-        appliesTo: _i2.AppliesTo.client,
-        method: 'POST',
-        uri: '/',
-        host: null,
-        resolvedHost: null,
-        queryParams: [],
-        forbidQueryParams: [],
-        requireQueryParams: [],
-      ),
-      inputSerializers: const [
-        QueryIdempotencyTokenAutoFillInputEc2QuerySerializer()
-      ],
-    );
-  }, skip: 'bool.fromEnvironment is not working in tests for some reason');
+        inputSerializers: const [
+          QueryIdempotencyTokenAutoFillInputEc2QuerySerializer(),
+        ],
+      );
+    },
+    skip: 'bool.fromEnvironment is not working in tests for some reason',
+  );
+  _i1.test(
+    'Ec2ProtocolIdempotencyTokenAutoFillIsSet (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: QueryIdempotencyTokenAutoFillOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'Ec2ProtocolIdempotencyTokenAutoFillIsSet',
+          documentation: 'Uses the given idempotency token as-is',
+          protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+          authScheme: null,
+          body:
+              'Action=QueryIdempotencyTokenAutoFill&Version=2020-01-08&Token=00000000-0000-4000-8000-000000000123',
+          bodyMediaType: 'application/x-www-form-urlencoded',
+          params: {'token': '00000000-0000-4000-8000-000000000123'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          forbidHeaders: [],
+          requireHeaders: ['Content-Length'],
+          tags: [],
+          appliesTo: _i2.AppliesTo.client,
+          method: 'POST',
+          uri: '/',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          QueryIdempotencyTokenAutoFillInputEc2QuerySerializer(),
+        ],
+      );
+    },
+    skip: 'bool.fromEnvironment is not working in tests for some reason',
+  );
 }
 
 class QueryIdempotencyTokenAutoFillInputEc2QuerySerializer
     extends _i3.StructuredSmithySerializer<QueryIdempotencyTokenAutoFillInput> {
   const QueryIdempotencyTokenAutoFillInputEc2QuerySerializer()
-      : super('QueryIdempotencyTokenAutoFillInput');
+    : super('QueryIdempotencyTokenAutoFillInput');
 
   @override
   Iterable<Type> get types => const [QueryIdempotencyTokenAutoFillInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   QueryIdempotencyTokenAutoFillInput deserialize(
@@ -123,10 +122,12 @@ class QueryIdempotencyTokenAutoFillInputEc2QuerySerializer
       }
       switch (key) {
         case 'token':
-          result.token = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.token =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

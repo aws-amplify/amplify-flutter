@@ -12,145 +12,114 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'XmlAttributes (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: XmlAttributesOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'XmlAttributes',
-          documentation:
-              'Serializes XML attributes on the synthesized document',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<XmlAttributesInputOutput test="test">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'foo': 'hi',
-            'attr': 'test',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'PUT',
-          uri: '/XmlAttributes',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [XmlAttributesInputOutputRestXmlSerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'XmlAttributesWithEscaping (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: XmlAttributesOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'XmlAttributesWithEscaping',
-          documentation:
-              'Serializes XML attributes with escaped characters on the synthesized document',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<XmlAttributesInputOutput test="&lt;test&amp;mock&gt;">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'foo': 'hi',
-            'attr': '<test&mock>',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'PUT',
-          uri: '/XmlAttributes',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [XmlAttributesInputOutputRestXmlSerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'XmlAttributes (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlAttributesOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'XmlAttributes',
-          documentation: 'Serializes simple scalar properties',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<XmlAttributesInputOutput test="test">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'foo': 'hi',
-            'attr': 'test',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlAttributesInputOutputRestXmlSerializer()],
-      );
-    },
-  );
+  _i1.test('XmlAttributes (request)', () async {
+    await _i2.httpRequestTest(
+      operation: XmlAttributesOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'XmlAttributes',
+        documentation: 'Serializes XML attributes on the synthesized document',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<XmlAttributesInputOutput test="test">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'foo': 'hi', 'attr': 'test'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'PUT',
+        uri: '/XmlAttributes',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [XmlAttributesInputOutputRestXmlSerializer()],
+    );
+  });
+  _i1.test('XmlAttributesWithEscaping (request)', () async {
+    await _i2.httpRequestTest(
+      operation: XmlAttributesOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'XmlAttributesWithEscaping',
+        documentation:
+            'Serializes XML attributes with escaped characters on the synthesized document',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<XmlAttributesInputOutput test="&lt;test&amp;mock&gt;">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'foo': 'hi', 'attr': '<test&mock>'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'PUT',
+        uri: '/XmlAttributes',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [XmlAttributesInputOutputRestXmlSerializer()],
+    );
+  });
+  _i1.test('XmlAttributes (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlAttributesOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'XmlAttributes',
+        documentation: 'Serializes simple scalar properties',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<XmlAttributesInputOutput test="test">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'foo': 'hi', 'attr': 'test'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlAttributesInputOutputRestXmlSerializer()],
+    );
+  });
 }
 
 class XmlAttributesInputOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<XmlAttributesInputOutput> {
   const XmlAttributesInputOutputRestXmlSerializer()
-      : super('XmlAttributesInputOutput');
+    : super('XmlAttributesInputOutput');
 
   @override
   Iterable<Type> get types => const [XmlAttributesInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlAttributesInputOutput deserialize(
@@ -169,15 +138,19 @@ class XmlAttributesInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'attr':
-          result.attr = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.attr =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

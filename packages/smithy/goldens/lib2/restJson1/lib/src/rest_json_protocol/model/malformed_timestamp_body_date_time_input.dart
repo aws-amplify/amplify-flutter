@@ -15,15 +15,17 @@ abstract class MalformedTimestampBodyDateTimeInput
         _i1.HttpInput<MalformedTimestampBodyDateTimeInput>,
         _i2.AWSEquatable<MalformedTimestampBodyDateTimeInput>
     implements
-        Built<MalformedTimestampBodyDateTimeInput,
-            MalformedTimestampBodyDateTimeInputBuilder> {
+        Built<
+          MalformedTimestampBodyDateTimeInput,
+          MalformedTimestampBodyDateTimeInputBuilder
+        > {
   factory MalformedTimestampBodyDateTimeInput({required DateTime timestamp}) {
     return _$MalformedTimestampBodyDateTimeInput._(timestamp: timestamp);
   }
 
-  factory MalformedTimestampBodyDateTimeInput.build(
-          [void Function(MalformedTimestampBodyDateTimeInputBuilder) updates]) =
-      _$MalformedTimestampBodyDateTimeInput;
+  factory MalformedTimestampBodyDateTimeInput.build([
+    void Function(MalformedTimestampBodyDateTimeInputBuilder) updates,
+  ]) = _$MalformedTimestampBodyDateTimeInput;
 
   const MalformedTimestampBodyDateTimeInput._();
 
@@ -31,11 +33,10 @@ abstract class MalformedTimestampBodyDateTimeInput
     MalformedTimestampBodyDateTimeInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<MalformedTimestampBodyDateTimeInput>>
-      serializers = [MalformedTimestampBodyDateTimeInputRestJson1Serializer()];
+  serializers = [MalformedTimestampBodyDateTimeInputRestJson1Serializer()];
 
   DateTime get timestamp;
   @override
@@ -46,34 +47,29 @@ abstract class MalformedTimestampBodyDateTimeInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedTimestampBodyDateTimeInput')
-          ..add(
-            'timestamp',
-            timestamp,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'MalformedTimestampBodyDateTimeInput',
+    )..add('timestamp', timestamp);
     return helper.toString();
   }
 }
 
-class MalformedTimestampBodyDateTimeInputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<MalformedTimestampBodyDateTimeInput> {
+class MalformedTimestampBodyDateTimeInputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<MalformedTimestampBodyDateTimeInput> {
   const MalformedTimestampBodyDateTimeInputRestJson1Serializer()
-      : super('MalformedTimestampBodyDateTimeInput');
+    : super('MalformedTimestampBodyDateTimeInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedTimestampBodyDateTimeInput,
-        _$MalformedTimestampBodyDateTimeInput,
-      ];
+    MalformedTimestampBodyDateTimeInput,
+    _$MalformedTimestampBodyDateTimeInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedTimestampBodyDateTimeInput deserialize(
@@ -112,10 +108,7 @@ class MalformedTimestampBodyDateTimeInputRestJson1Serializer extends _i1
     final MalformedTimestampBodyDateTimeInput(:timestamp) = object;
     result$.addAll([
       'timestamp',
-      _i1.TimestampSerializer.dateTime.serialize(
-        serializers,
-        timestamp,
-      ),
+      _i1.TimestampSerializer.dateTime.serialize(serializers, timestamp),
     ]);
     return result$;
   }

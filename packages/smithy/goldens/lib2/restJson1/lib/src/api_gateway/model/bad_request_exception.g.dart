@@ -12,16 +12,16 @@ class _$BadRequestException extends BadRequestException {
   @override
   final Map<String, String>? headers;
 
-  factory _$BadRequestException(
-          [void Function(BadRequestExceptionBuilder)? updates]) =>
-      (new BadRequestExceptionBuilder()..update(updates))._build();
+  factory _$BadRequestException([
+    void Function(BadRequestExceptionBuilder)? updates,
+  ]) => (new BadRequestExceptionBuilder()..update(updates))._build();
 
   _$BadRequestException._({this.message, this.headers}) : super._();
 
   @override
   BadRequestException rebuild(
-          void Function(BadRequestExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(BadRequestExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   BadRequestExceptionBuilder toBuilder() =>
@@ -81,11 +81,8 @@ class BadRequestExceptionBuilder
   BadRequestException build() => _build();
 
   _$BadRequestException _build() {
-    final _$result = _$v ??
-        new _$BadRequestException._(
-          message: message,
-          headers: headers,
-        );
+    final _$result =
+        _$v ?? new _$BadRequestException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

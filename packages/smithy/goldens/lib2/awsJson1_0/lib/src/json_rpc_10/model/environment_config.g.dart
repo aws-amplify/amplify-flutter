@@ -20,18 +20,18 @@ class _$EnvironmentConfig extends EnvironmentConfig {
   @override
   final String? awsProfile;
 
-  factory _$EnvironmentConfig(
-          [void Function(EnvironmentConfigBuilder)? updates]) =>
-      (new EnvironmentConfigBuilder()..update(updates))._build();
+  factory _$EnvironmentConfig([
+    void Function(EnvironmentConfigBuilder)? updates,
+  ]) => (new EnvironmentConfigBuilder()..update(updates))._build();
 
-  _$EnvironmentConfig._(
-      {this.awsAccessKeyId,
-      this.awsSecretAccessKey,
-      this.awsDefaultRegion,
-      this.awsRetryMode,
-      this.awsSessionToken,
-      this.awsProfile})
-      : super._();
+  _$EnvironmentConfig._({
+    this.awsAccessKeyId,
+    this.awsSecretAccessKey,
+    this.awsDefaultRegion,
+    this.awsRetryMode,
+    this.awsSessionToken,
+    this.awsProfile,
+  }) : super._();
 
   @override
   EnvironmentConfig rebuild(void Function(EnvironmentConfigBuilder) updates) =>
@@ -131,7 +131,8 @@ class EnvironmentConfigBuilder
   EnvironmentConfig build() => _build();
 
   _$EnvironmentConfig _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EnvironmentConfig._(
           awsAccessKeyId: awsAccessKeyId,
           awsSecretAccessKey: awsSecretAccessKey,

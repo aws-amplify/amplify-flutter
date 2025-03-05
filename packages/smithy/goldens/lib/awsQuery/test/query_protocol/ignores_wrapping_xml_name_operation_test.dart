@@ -12,59 +12,50 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryIgnoresWrappingXmlName (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: IgnoresWrappingXmlNameOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryIgnoresWrappingXmlName',
-          documentation:
-              'The xmlName trait on the output structure is ignored in AWS Query',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<IgnoresWrappingXmlNameResponse xmlns="https://example.com/">\n    <IgnoresWrappingXmlNameResult>\n        <foo>bar</foo>\n    </IgnoresWrappingXmlNameResult>\n</IgnoresWrappingXmlNameResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'foo': 'bar'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          IgnoresWrappingXmlNameOutputAwsQuerySerializer()
-        ],
-      );
-    },
-  );
+  _i1.test('QueryIgnoresWrappingXmlName (response)', () async {
+    await _i2.httpResponseTest(
+      operation: IgnoresWrappingXmlNameOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryIgnoresWrappingXmlName',
+        documentation:
+            'The xmlName trait on the output structure is ignored in AWS Query',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<IgnoresWrappingXmlNameResponse xmlns="https://example.com/">\n    <IgnoresWrappingXmlNameResult>\n        <foo>bar</foo>\n    </IgnoresWrappingXmlNameResult>\n</IgnoresWrappingXmlNameResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'foo': 'bar'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        IgnoresWrappingXmlNameOutputAwsQuerySerializer(),
+      ],
+    );
+  });
 }
 
 class IgnoresWrappingXmlNameOutputAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<IgnoresWrappingXmlNameOutput> {
   const IgnoresWrappingXmlNameOutputAwsQuerySerializer()
-      : super('IgnoresWrappingXmlNameOutput');
+    : super('IgnoresWrappingXmlNameOutput');
 
   @override
   Iterable<Type> get types => const [IgnoresWrappingXmlNameOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   IgnoresWrappingXmlNameOutput deserialize(
@@ -83,10 +74,12 @@ class IgnoresWrappingXmlNameOutputAwsQuerySerializer
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

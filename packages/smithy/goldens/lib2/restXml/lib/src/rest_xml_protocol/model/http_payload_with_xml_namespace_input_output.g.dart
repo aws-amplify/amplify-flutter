@@ -11,9 +11,9 @@ class _$HttpPayloadWithXmlNamespaceInputOutput
   @override
   final PayloadWithXmlNamespace? nested;
 
-  factory _$HttpPayloadWithXmlNamespaceInputOutput(
-          [void Function(HttpPayloadWithXmlNamespaceInputOutputBuilder)?
-              updates]) =>
+  factory _$HttpPayloadWithXmlNamespaceInputOutput([
+    void Function(HttpPayloadWithXmlNamespaceInputOutputBuilder)? updates,
+  ]) =>
       (new HttpPayloadWithXmlNamespaceInputOutputBuilder()..update(updates))
           ._build();
 
@@ -21,9 +21,8 @@ class _$HttpPayloadWithXmlNamespaceInputOutput
 
   @override
   HttpPayloadWithXmlNamespaceInputOutput rebuild(
-          void Function(HttpPayloadWithXmlNamespaceInputOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPayloadWithXmlNamespaceInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPayloadWithXmlNamespaceInputOutputBuilder toBuilder() =>
@@ -47,8 +46,10 @@ class _$HttpPayloadWithXmlNamespaceInputOutput
 
 class HttpPayloadWithXmlNamespaceInputOutputBuilder
     implements
-        Builder<HttpPayloadWithXmlNamespaceInputOutput,
-            HttpPayloadWithXmlNamespaceInputOutputBuilder> {
+        Builder<
+          HttpPayloadWithXmlNamespaceInputOutput,
+          HttpPayloadWithXmlNamespaceInputOutputBuilder
+        > {
   _$HttpPayloadWithXmlNamespaceInputOutput? _$v;
 
   PayloadWithXmlNamespaceBuilder? _nested;
@@ -75,7 +76,8 @@ class HttpPayloadWithXmlNamespaceInputOutputBuilder
 
   @override
   void update(
-      void Function(HttpPayloadWithXmlNamespaceInputOutputBuilder)? updates) {
+    void Function(HttpPayloadWithXmlNamespaceInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -85,7 +87,8 @@ class HttpPayloadWithXmlNamespaceInputOutputBuilder
   _$HttpPayloadWithXmlNamespaceInputOutput _build() {
     _$HttpPayloadWithXmlNamespaceInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpPayloadWithXmlNamespaceInputOutput._(
             nested: _nested?.build(),
           );
@@ -96,9 +99,10 @@ class HttpPayloadWithXmlNamespaceInputOutputBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpPayloadWithXmlNamespaceInputOutput',
-            _$failedField,
-            e.toString());
+          r'HttpPayloadWithXmlNamespaceInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

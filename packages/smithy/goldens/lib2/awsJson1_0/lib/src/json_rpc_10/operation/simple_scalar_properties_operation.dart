@@ -13,32 +13,39 @@ import 'package:aws_json1_0_v2/src/json_rpc_10/model/simple_scalar_properties_ou
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-class SimpleScalarPropertiesOperation extends _i1.HttpOperation<
-    SimpleScalarPropertiesInput,
-    SimpleScalarPropertiesInput,
-    SimpleScalarPropertiesOutput,
-    SimpleScalarPropertiesOutput> {
+class SimpleScalarPropertiesOperation
+    extends
+        _i1.HttpOperation<
+          SimpleScalarPropertiesInput,
+          SimpleScalarPropertiesInput,
+          SimpleScalarPropertiesOutput,
+          SimpleScalarPropertiesOutput
+        > {
   SimpleScalarPropertiesOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          SimpleScalarPropertiesInput,
-          SimpleScalarPropertiesInput,
-          SimpleScalarPropertiesOutput,
-          SimpleScalarPropertiesOutput>> protocols = [
+    _i1.HttpProtocol<
+      SimpleScalarPropertiesInput,
+      SimpleScalarPropertiesInput,
+      SimpleScalarPropertiesOutput,
+      SimpleScalarPropertiesOutput
+    >
+  >
+  protocols = [
     _i2.AwsJson1_0Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithHeader(
@@ -52,7 +59,7 @@ class SimpleScalarPropertiesOperation extends _i1.HttpOperation<
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -82,11 +89,7 @@ class SimpleScalarPropertiesOperation extends _i1.HttpOperation<
   SimpleScalarPropertiesOutput buildOutput(
     SimpleScalarPropertiesOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      SimpleScalarPropertiesOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => SimpleScalarPropertiesOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -110,11 +113,7 @@ class SimpleScalarPropertiesOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

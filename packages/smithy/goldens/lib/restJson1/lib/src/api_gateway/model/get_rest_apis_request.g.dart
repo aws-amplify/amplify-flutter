@@ -12,16 +12,16 @@ class _$GetRestApisRequest extends GetRestApisRequest {
   @override
   final int? limit;
 
-  factory _$GetRestApisRequest(
-          [void Function(GetRestApisRequestBuilder)? updates]) =>
-      (new GetRestApisRequestBuilder()..update(updates))._build();
+  factory _$GetRestApisRequest([
+    void Function(GetRestApisRequestBuilder)? updates,
+  ]) => (new GetRestApisRequestBuilder()..update(updates))._build();
 
   _$GetRestApisRequest._({this.position, this.limit}) : super._();
 
   @override
   GetRestApisRequest rebuild(
-          void Function(GetRestApisRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetRestApisRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetRestApisRequestBuilder toBuilder() =>
@@ -84,27 +84,24 @@ class GetRestApisRequestBuilder
   GetRestApisRequest build() => _build();
 
   _$GetRestApisRequest _build() {
-    final _$result = _$v ??
-        new _$GetRestApisRequest._(
-          position: position,
-          limit: limit,
-        );
+    final _$result =
+        _$v ?? new _$GetRestApisRequest._(position: position, limit: limit);
     replace(_$result);
     return _$result;
   }
 }
 
 class _$GetRestApisRequestPayload extends GetRestApisRequestPayload {
-  factory _$GetRestApisRequestPayload(
-          [void Function(GetRestApisRequestPayloadBuilder)? updates]) =>
-      (new GetRestApisRequestPayloadBuilder()..update(updates))._build();
+  factory _$GetRestApisRequestPayload([
+    void Function(GetRestApisRequestPayloadBuilder)? updates,
+  ]) => (new GetRestApisRequestPayloadBuilder()..update(updates))._build();
 
   _$GetRestApisRequestPayload._() : super._();
 
   @override
   GetRestApisRequestPayload rebuild(
-          void Function(GetRestApisRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetRestApisRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetRestApisRequestPayloadBuilder toBuilder() =>

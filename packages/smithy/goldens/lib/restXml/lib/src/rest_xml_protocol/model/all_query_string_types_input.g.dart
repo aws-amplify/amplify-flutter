@@ -50,38 +50,38 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
   @override
   final _i4.BuiltMap<String, String>? queryParamsMapOfStrings;
 
-  factory _$AllQueryStringTypesInput(
-          [void Function(AllQueryStringTypesInputBuilder)? updates]) =>
-      (new AllQueryStringTypesInputBuilder()..update(updates))._build();
+  factory _$AllQueryStringTypesInput([
+    void Function(AllQueryStringTypesInputBuilder)? updates,
+  ]) => (new AllQueryStringTypesInputBuilder()..update(updates))._build();
 
-  _$AllQueryStringTypesInput._(
-      {this.queryString,
-      this.queryStringList,
-      this.queryStringSet,
-      this.queryByte,
-      this.queryShort,
-      this.queryInteger,
-      this.queryIntegerList,
-      this.queryIntegerSet,
-      this.queryLong,
-      this.queryFloat,
-      this.queryDouble,
-      this.queryDoubleList,
-      this.queryBoolean,
-      this.queryBooleanList,
-      this.queryTimestamp,
-      this.queryTimestampList,
-      this.queryEnum,
-      this.queryEnumList,
-      this.queryIntegerEnum,
-      this.queryIntegerEnumList,
-      this.queryParamsMapOfStrings})
-      : super._();
+  _$AllQueryStringTypesInput._({
+    this.queryString,
+    this.queryStringList,
+    this.queryStringSet,
+    this.queryByte,
+    this.queryShort,
+    this.queryInteger,
+    this.queryIntegerList,
+    this.queryIntegerSet,
+    this.queryLong,
+    this.queryFloat,
+    this.queryDouble,
+    this.queryDoubleList,
+    this.queryBoolean,
+    this.queryBooleanList,
+    this.queryTimestamp,
+    this.queryTimestampList,
+    this.queryEnum,
+    this.queryEnumList,
+    this.queryIntegerEnum,
+    this.queryIntegerEnumList,
+    this.queryParamsMapOfStrings,
+  }) : super._();
 
   @override
   AllQueryStringTypesInput rebuild(
-          void Function(AllQueryStringTypesInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AllQueryStringTypesInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AllQueryStringTypesInputBuilder toBuilder() =>
@@ -252,8 +252,8 @@ class AllQueryStringTypesInputBuilder
   _i4.MapBuilder<String, String> get queryParamsMapOfStrings =>
       _$this._queryParamsMapOfStrings ??= new _i4.MapBuilder<String, String>();
   set queryParamsMapOfStrings(
-          _i4.MapBuilder<String, String>? queryParamsMapOfStrings) =>
-      _$this._queryParamsMapOfStrings = queryParamsMapOfStrings;
+    _i4.MapBuilder<String, String>? queryParamsMapOfStrings,
+  ) => _$this._queryParamsMapOfStrings = queryParamsMapOfStrings;
 
   AllQueryStringTypesInputBuilder();
 
@@ -303,7 +303,8 @@ class AllQueryStringTypesInputBuilder
   _$AllQueryStringTypesInput _build() {
     _$AllQueryStringTypesInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$AllQueryStringTypesInput._(
             queryString: queryString,
             queryStringList: _queryStringList?.build(),
@@ -358,7 +359,10 @@ class AllQueryStringTypesInputBuilder
         _queryParamsMapOfStrings?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'AllQueryStringTypesInput', _$failedField, e.toString());
+          r'AllQueryStringTypesInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -369,16 +373,17 @@ class AllQueryStringTypesInputBuilder
 
 class _$AllQueryStringTypesInputPayload
     extends AllQueryStringTypesInputPayload {
-  factory _$AllQueryStringTypesInputPayload(
-          [void Function(AllQueryStringTypesInputPayloadBuilder)? updates]) =>
+  factory _$AllQueryStringTypesInputPayload([
+    void Function(AllQueryStringTypesInputPayloadBuilder)? updates,
+  ]) =>
       (new AllQueryStringTypesInputPayloadBuilder()..update(updates))._build();
 
   _$AllQueryStringTypesInputPayload._() : super._();
 
   @override
   AllQueryStringTypesInputPayload rebuild(
-          void Function(AllQueryStringTypesInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AllQueryStringTypesInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AllQueryStringTypesInputPayloadBuilder toBuilder() =>
@@ -398,8 +403,10 @@ class _$AllQueryStringTypesInputPayload
 
 class AllQueryStringTypesInputPayloadBuilder
     implements
-        Builder<AllQueryStringTypesInputPayload,
-            AllQueryStringTypesInputPayloadBuilder> {
+        Builder<
+          AllQueryStringTypesInputPayload,
+          AllQueryStringTypesInputPayloadBuilder
+        > {
   _$AllQueryStringTypesInputPayload? _$v;
 
   AllQueryStringTypesInputPayloadBuilder();

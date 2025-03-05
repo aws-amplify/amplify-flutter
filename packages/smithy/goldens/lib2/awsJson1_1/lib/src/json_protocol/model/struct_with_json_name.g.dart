@@ -10,16 +10,16 @@ class _$StructWithJsonName extends StructWithJsonName {
   @override
   final String? value;
 
-  factory _$StructWithJsonName(
-          [void Function(StructWithJsonNameBuilder)? updates]) =>
-      (new StructWithJsonNameBuilder()..update(updates))._build();
+  factory _$StructWithJsonName([
+    void Function(StructWithJsonNameBuilder)? updates,
+  ]) => (new StructWithJsonNameBuilder()..update(updates))._build();
 
   _$StructWithJsonName._({this.value}) : super._();
 
   @override
   StructWithJsonName rebuild(
-          void Function(StructWithJsonNameBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(StructWithJsonNameBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   StructWithJsonNameBuilder toBuilder() =>
@@ -74,10 +74,7 @@ class StructWithJsonNameBuilder
   StructWithJsonName build() => _build();
 
   _$StructWithJsonName _build() {
-    final _$result = _$v ??
-        new _$StructWithJsonName._(
-          value: value,
-        );
+    final _$result = _$v ?? new _$StructWithJsonName._(value: value);
     replace(_$result);
     return _$result;
   }

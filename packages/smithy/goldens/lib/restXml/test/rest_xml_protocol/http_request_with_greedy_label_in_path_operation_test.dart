@@ -12,66 +12,55 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'HttpRequestWithGreedyLabelInPath (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpRequestWithGreedyLabelInPathOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'HttpRequestWithGreedyLabelInPath',
-          documentation: 'Serializes greedy labels and normal labels',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'foo': 'hello',
-            'baz': 'there/guy',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/HttpRequestWithGreedyLabelInPath/foo/hello/baz/there/guy',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpRequestWithGreedyLabelInPathInputRestXmlSerializer()
-        ],
-      );
-    },
-  );
+  _i1.test('HttpRequestWithGreedyLabelInPath (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpRequestWithGreedyLabelInPathOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'HttpRequestWithGreedyLabelInPath',
+        documentation: 'Serializes greedy labels and normal labels',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'foo': 'hello', 'baz': 'there/guy'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/HttpRequestWithGreedyLabelInPath/foo/hello/baz/there/guy',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        HttpRequestWithGreedyLabelInPathInputRestXmlSerializer(),
+      ],
+    );
+  });
 }
 
-class HttpRequestWithGreedyLabelInPathInputRestXmlSerializer extends _i3
-    .StructuredSmithySerializer<HttpRequestWithGreedyLabelInPathInput> {
+class HttpRequestWithGreedyLabelInPathInputRestXmlSerializer
+    extends
+        _i3.StructuredSmithySerializer<HttpRequestWithGreedyLabelInPathInput> {
   const HttpRequestWithGreedyLabelInPathInputRestXmlSerializer()
-      : super('HttpRequestWithGreedyLabelInPathInput');
+    : super('HttpRequestWithGreedyLabelInPathInput');
 
   @override
   Iterable<Type> get types => const [HttpRequestWithGreedyLabelInPathInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   HttpRequestWithGreedyLabelInPathInput deserialize(
@@ -90,15 +79,19 @@ class HttpRequestWithGreedyLabelInPathInputRestXmlSerializer extends _i3
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'baz':
-          result.baz = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.baz =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

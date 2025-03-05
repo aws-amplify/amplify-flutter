@@ -74,18 +74,20 @@ abstract class AllQueryStringTypesInput
       queryEnumList:
           queryEnumList == null ? null : _i4.BuiltList(queryEnumList),
       queryIntegerEnum: queryIntegerEnum,
-      queryIntegerEnumList: queryIntegerEnumList == null
-          ? null
-          : _i4.BuiltList(queryIntegerEnumList),
-      queryParamsMapOfStrings: queryParamsMapOfStrings == null
-          ? null
-          : _i4.BuiltMap(queryParamsMapOfStrings),
+      queryIntegerEnumList:
+          queryIntegerEnumList == null
+              ? null
+              : _i4.BuiltList(queryIntegerEnumList),
+      queryParamsMapOfStrings:
+          queryParamsMapOfStrings == null
+              ? null
+              : _i4.BuiltMap(queryParamsMapOfStrings),
     );
   }
 
-  factory AllQueryStringTypesInput.build(
-          [void Function(AllQueryStringTypesInputBuilder) updates]) =
-      _$AllQueryStringTypesInput;
+  factory AllQueryStringTypesInput.build([
+    void Function(AllQueryStringTypesInputBuilder) updates,
+  ]) = _$AllQueryStringTypesInput;
 
   const AllQueryStringTypesInput._();
 
@@ -93,101 +95,122 @@ abstract class AllQueryStringTypesInput
     AllQueryStringTypesInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      AllQueryStringTypesInput.build((b) {
-        if (request.queryParameters['String'] != null) {
-          b.queryString = request.queryParameters['String']!;
-        }
-        if (request.queryParameters['StringList'] != null) {
-          b.queryStringList.addAll(_i1
-              .parseHeader(request.queryParameters['StringList']!)
-              .map((el) => el.trim()));
-        }
-        if (request.queryParameters['StringSet'] != null) {
-          b.queryStringSet.addAll(_i1
-              .parseHeader(request.queryParameters['StringSet']!)
-              .map((el) => el.trim()));
-        }
-        if (request.queryParameters['Byte'] != null) {
-          b.queryByte = int.parse(request.queryParameters['Byte']!);
-        }
-        if (request.queryParameters['Short'] != null) {
-          b.queryShort = int.parse(request.queryParameters['Short']!);
-        }
-        if (request.queryParameters['Integer'] != null) {
-          b.queryInteger = int.parse(request.queryParameters['Integer']!);
-        }
-        if (request.queryParameters['IntegerList'] != null) {
-          b.queryIntegerList.addAll(_i1
-              .parseHeader(request.queryParameters['IntegerList']!)
-              .map((el) => int.parse(el.trim())));
-        }
-        if (request.queryParameters['IntegerSet'] != null) {
-          b.queryIntegerSet.addAll(_i1
-              .parseHeader(request.queryParameters['IntegerSet']!)
-              .map((el) => int.parse(el.trim())));
-        }
-        if (request.queryParameters['Long'] != null) {
-          b.queryLong = _i3.Int64.parseInt(request.queryParameters['Long']!);
-        }
-        if (request.queryParameters['Float'] != null) {
-          b.queryFloat = double.parse(request.queryParameters['Float']!);
-        }
-        if (request.queryParameters['Double'] != null) {
-          b.queryDouble = double.parse(request.queryParameters['Double']!);
-        }
-        if (request.queryParameters['DoubleList'] != null) {
-          b.queryDoubleList.addAll(_i1
-              .parseHeader(request.queryParameters['DoubleList']!)
-              .map((el) => double.parse(el.trim())));
-        }
-        if (request.queryParameters['Boolean'] != null) {
-          b.queryBoolean = request.queryParameters['Boolean']! == 'true';
-        }
-        if (request.queryParameters['BooleanList'] != null) {
-          b.queryBooleanList.addAll(_i1
-              .parseHeader(request.queryParameters['BooleanList']!)
-              .map((el) => el.trim() == 'true'));
-        }
-        if (request.queryParameters['Timestamp'] != null) {
-          b.queryTimestamp = _i1.Timestamp.parse(
+  }) => AllQueryStringTypesInput.build((b) {
+    if (request.queryParameters['String'] != null) {
+      b.queryString = request.queryParameters['String']!;
+    }
+    if (request.queryParameters['StringList'] != null) {
+      b.queryStringList.addAll(
+        _i1
+            .parseHeader(request.queryParameters['StringList']!)
+            .map((el) => el.trim()),
+      );
+    }
+    if (request.queryParameters['StringSet'] != null) {
+      b.queryStringSet.addAll(
+        _i1
+            .parseHeader(request.queryParameters['StringSet']!)
+            .map((el) => el.trim()),
+      );
+    }
+    if (request.queryParameters['Byte'] != null) {
+      b.queryByte = int.parse(request.queryParameters['Byte']!);
+    }
+    if (request.queryParameters['Short'] != null) {
+      b.queryShort = int.parse(request.queryParameters['Short']!);
+    }
+    if (request.queryParameters['Integer'] != null) {
+      b.queryInteger = int.parse(request.queryParameters['Integer']!);
+    }
+    if (request.queryParameters['IntegerList'] != null) {
+      b.queryIntegerList.addAll(
+        _i1
+            .parseHeader(request.queryParameters['IntegerList']!)
+            .map((el) => int.parse(el.trim())),
+      );
+    }
+    if (request.queryParameters['IntegerSet'] != null) {
+      b.queryIntegerSet.addAll(
+        _i1
+            .parseHeader(request.queryParameters['IntegerSet']!)
+            .map((el) => int.parse(el.trim())),
+      );
+    }
+    if (request.queryParameters['Long'] != null) {
+      b.queryLong = _i3.Int64.parseInt(request.queryParameters['Long']!);
+    }
+    if (request.queryParameters['Float'] != null) {
+      b.queryFloat = double.parse(request.queryParameters['Float']!);
+    }
+    if (request.queryParameters['Double'] != null) {
+      b.queryDouble = double.parse(request.queryParameters['Double']!);
+    }
+    if (request.queryParameters['DoubleList'] != null) {
+      b.queryDoubleList.addAll(
+        _i1
+            .parseHeader(request.queryParameters['DoubleList']!)
+            .map((el) => double.parse(el.trim())),
+      );
+    }
+    if (request.queryParameters['Boolean'] != null) {
+      b.queryBoolean = request.queryParameters['Boolean']! == 'true';
+    }
+    if (request.queryParameters['BooleanList'] != null) {
+      b.queryBooleanList.addAll(
+        _i1
+            .parseHeader(request.queryParameters['BooleanList']!)
+            .map((el) => el.trim() == 'true'),
+      );
+    }
+    if (request.queryParameters['Timestamp'] != null) {
+      b.queryTimestamp =
+          _i1.Timestamp.parse(
             request.queryParameters['Timestamp']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-        if (request.queryParameters['TimestampList'] != null) {
-          b.queryTimestampList.addAll(_i1
-              .parseHeader(
-                request.queryParameters['TimestampList']!,
-                isTimestampList: true,
-              )
-              .map((el) => _i1.Timestamp.parse(
+    }
+    if (request.queryParameters['TimestampList'] != null) {
+      b.queryTimestampList.addAll(
+        _i1
+            .parseHeader(
+              request.queryParameters['TimestampList']!,
+              isTimestampList: true,
+            )
+            .map(
+              (el) =>
+                  _i1.Timestamp.parse(
                     el.trim(),
                     format: _i1.TimestampFormat.httpDate,
-                  ).asDateTime));
-        }
-        if (request.queryParameters['Enum'] != null) {
-          b.queryEnum =
-              FooEnum.values.byValue(request.queryParameters['Enum']!);
-        }
-        if (request.queryParameters['EnumList'] != null) {
-          b.queryEnumList.addAll(_i1
-              .parseHeader(request.queryParameters['EnumList']!)
-              .map((el) => FooEnum.values.byValue(el.trim())));
-        }
-        if (request.queryParameters['IntegerEnum'] != null) {
-          b.queryIntegerEnum = IntegerEnum.values
-              .byValue(int.parse(request.queryParameters['IntegerEnum']!));
-        }
-        if (request.queryParameters['IntegerEnumList'] != null) {
-          b.queryIntegerEnumList.addAll(_i1
-              .parseHeader(request.queryParameters['IntegerEnumList']!)
-              .map((el) => IntegerEnum.values.byValue(int.parse(el.trim()))));
-        }
-      });
+                  ).asDateTime,
+            ),
+      );
+    }
+    if (request.queryParameters['Enum'] != null) {
+      b.queryEnum = FooEnum.values.byValue(request.queryParameters['Enum']!);
+    }
+    if (request.queryParameters['EnumList'] != null) {
+      b.queryEnumList.addAll(
+        _i1
+            .parseHeader(request.queryParameters['EnumList']!)
+            .map((el) => FooEnum.values.byValue(el.trim())),
+      );
+    }
+    if (request.queryParameters['IntegerEnum'] != null) {
+      b.queryIntegerEnum = IntegerEnum.values.byValue(
+        int.parse(request.queryParameters['IntegerEnum']!),
+      );
+    }
+    if (request.queryParameters['IntegerEnumList'] != null) {
+      b.queryIntegerEnumList.addAll(
+        _i1
+            .parseHeader(request.queryParameters['IntegerEnumList']!)
+            .map((el) => IntegerEnum.values.byValue(int.parse(el.trim()))),
+      );
+    }
+  });
 
   static const List<_i1.SmithySerializer<AllQueryStringTypesInputPayload>>
-      serializers = [AllQueryStringTypesInputRestXmlSerializer()];
+  serializers = [AllQueryStringTypesInputRestXmlSerializer()];
 
   String? get queryString;
   _i4.BuiltList<String>? get queryStringList;
@@ -216,131 +239,70 @@ abstract class AllQueryStringTypesInput
 
   @override
   List<Object?> get props => [
-        queryString,
-        queryStringList,
-        queryStringSet,
-        queryByte,
-        queryShort,
-        queryInteger,
-        queryIntegerList,
-        queryIntegerSet,
-        queryLong,
-        queryFloat,
-        queryDouble,
-        queryDoubleList,
-        queryBoolean,
-        queryBooleanList,
-        queryTimestamp,
-        queryTimestampList,
-        queryEnum,
-        queryEnumList,
-        queryIntegerEnum,
-        queryIntegerEnumList,
-        queryParamsMapOfStrings,
-      ];
+    queryString,
+    queryStringList,
+    queryStringSet,
+    queryByte,
+    queryShort,
+    queryInteger,
+    queryIntegerList,
+    queryIntegerSet,
+    queryLong,
+    queryFloat,
+    queryDouble,
+    queryDoubleList,
+    queryBoolean,
+    queryBooleanList,
+    queryTimestamp,
+    queryTimestampList,
+    queryEnum,
+    queryEnumList,
+    queryIntegerEnum,
+    queryIntegerEnumList,
+    queryParamsMapOfStrings,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AllQueryStringTypesInput')
-      ..add(
-        'queryString',
-        queryString,
-      )
-      ..add(
-        'queryStringList',
-        queryStringList,
-      )
-      ..add(
-        'queryStringSet',
-        queryStringSet,
-      )
-      ..add(
-        'queryByte',
-        queryByte,
-      )
-      ..add(
-        'queryShort',
-        queryShort,
-      )
-      ..add(
-        'queryInteger',
-        queryInteger,
-      )
-      ..add(
-        'queryIntegerList',
-        queryIntegerList,
-      )
-      ..add(
-        'queryIntegerSet',
-        queryIntegerSet,
-      )
-      ..add(
-        'queryLong',
-        queryLong,
-      )
-      ..add(
-        'queryFloat',
-        queryFloat,
-      )
-      ..add(
-        'queryDouble',
-        queryDouble,
-      )
-      ..add(
-        'queryDoubleList',
-        queryDoubleList,
-      )
-      ..add(
-        'queryBoolean',
-        queryBoolean,
-      )
-      ..add(
-        'queryBooleanList',
-        queryBooleanList,
-      )
-      ..add(
-        'queryTimestamp',
-        queryTimestamp,
-      )
-      ..add(
-        'queryTimestampList',
-        queryTimestampList,
-      )
-      ..add(
-        'queryEnum',
-        queryEnum,
-      )
-      ..add(
-        'queryEnumList',
-        queryEnumList,
-      )
-      ..add(
-        'queryIntegerEnum',
-        queryIntegerEnum,
-      )
-      ..add(
-        'queryIntegerEnumList',
-        queryIntegerEnumList,
-      )
-      ..add(
-        'queryParamsMapOfStrings',
-        queryParamsMapOfStrings,
-      );
+    final helper =
+        newBuiltValueToStringHelper('AllQueryStringTypesInput')
+          ..add('queryString', queryString)
+          ..add('queryStringList', queryStringList)
+          ..add('queryStringSet', queryStringSet)
+          ..add('queryByte', queryByte)
+          ..add('queryShort', queryShort)
+          ..add('queryInteger', queryInteger)
+          ..add('queryIntegerList', queryIntegerList)
+          ..add('queryIntegerSet', queryIntegerSet)
+          ..add('queryLong', queryLong)
+          ..add('queryFloat', queryFloat)
+          ..add('queryDouble', queryDouble)
+          ..add('queryDoubleList', queryDoubleList)
+          ..add('queryBoolean', queryBoolean)
+          ..add('queryBooleanList', queryBooleanList)
+          ..add('queryTimestamp', queryTimestamp)
+          ..add('queryTimestampList', queryTimestampList)
+          ..add('queryEnum', queryEnum)
+          ..add('queryEnumList', queryEnumList)
+          ..add('queryIntegerEnum', queryIntegerEnum)
+          ..add('queryIntegerEnumList', queryIntegerEnumList)
+          ..add('queryParamsMapOfStrings', queryParamsMapOfStrings);
     return helper.toString();
   }
 }
 
 @_i5.internal
 abstract class AllQueryStringTypesInputPayload
-    with
-        _i2.AWSEquatable<AllQueryStringTypesInputPayload>
+    with _i2.AWSEquatable<AllQueryStringTypesInputPayload>
     implements
-        Built<AllQueryStringTypesInputPayload,
-            AllQueryStringTypesInputPayloadBuilder>,
+        Built<
+          AllQueryStringTypesInputPayload,
+          AllQueryStringTypesInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory AllQueryStringTypesInputPayload(
-          [void Function(AllQueryStringTypesInputPayloadBuilder) updates]) =
-      _$AllQueryStringTypesInputPayload;
+  factory AllQueryStringTypesInputPayload([
+    void Function(AllQueryStringTypesInputPayloadBuilder) updates,
+  ]) = _$AllQueryStringTypesInputPayload;
 
   const AllQueryStringTypesInputPayload._();
 
@@ -349,8 +311,9 @@ abstract class AllQueryStringTypesInputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AllQueryStringTypesInputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'AllQueryStringTypesInputPayload',
+    );
     return helper.toString();
   }
 }
@@ -358,23 +321,20 @@ abstract class AllQueryStringTypesInputPayload
 class AllQueryStringTypesInputRestXmlSerializer
     extends _i1.StructuredSmithySerializer<AllQueryStringTypesInputPayload> {
   const AllQueryStringTypesInputRestXmlSerializer()
-      : super('AllQueryStringTypesInput');
+    : super('AllQueryStringTypesInput');
 
   @override
   Iterable<Type> get types => const [
-        AllQueryStringTypesInput,
-        _$AllQueryStringTypesInput,
-        AllQueryStringTypesInputPayload,
-        _$AllQueryStringTypesInputPayload,
-      ];
+    AllQueryStringTypesInput,
+    _$AllQueryStringTypesInput,
+    AllQueryStringTypesInputPayload,
+    _$AllQueryStringTypesInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   AllQueryStringTypesInputPayload deserialize(
@@ -392,7 +352,7 @@ class AllQueryStringTypesInputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('AllQueryStringTypesInput')
+      const _i1.XmlElementName('AllQueryStringTypesInput'),
     ];
 
     return result$;

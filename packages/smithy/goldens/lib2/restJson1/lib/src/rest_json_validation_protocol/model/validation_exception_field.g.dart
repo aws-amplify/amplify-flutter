@@ -12,22 +12,28 @@ class _$ValidationExceptionField extends ValidationExceptionField {
   @override
   final String message;
 
-  factory _$ValidationExceptionField(
-          [void Function(ValidationExceptionFieldBuilder)? updates]) =>
-      (new ValidationExceptionFieldBuilder()..update(updates))._build();
+  factory _$ValidationExceptionField([
+    void Function(ValidationExceptionFieldBuilder)? updates,
+  ]) => (new ValidationExceptionFieldBuilder()..update(updates))._build();
 
   _$ValidationExceptionField._({required this.path, required this.message})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        path, r'ValidationExceptionField', 'path');
+      path,
+      r'ValidationExceptionField',
+      'path',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        message, r'ValidationExceptionField', 'message');
+      message,
+      r'ValidationExceptionField',
+      'message',
+    );
   }
 
   @override
   ValidationExceptionField rebuild(
-          void Function(ValidationExceptionFieldBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ValidationExceptionFieldBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ValidationExceptionFieldBuilder toBuilder() =>
@@ -91,12 +97,19 @@ class ValidationExceptionFieldBuilder
   ValidationExceptionField build() => _build();
 
   _$ValidationExceptionField _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ValidationExceptionField._(
           path: BuiltValueNullFieldError.checkNotNull(
-              path, r'ValidationExceptionField', 'path'),
+            path,
+            r'ValidationExceptionField',
+            'path',
+          ),
           message: BuiltValueNullFieldError.checkNotNull(
-              message, r'ValidationExceptionField', 'message'),
+            message,
+            r'ValidationExceptionField',
+            'message',
+          ),
         );
     replace(_$result);
     return _$result;

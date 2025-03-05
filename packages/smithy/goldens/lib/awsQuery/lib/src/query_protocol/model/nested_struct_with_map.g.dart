@@ -10,16 +10,16 @@ class _$NestedStructWithMap extends NestedStructWithMap {
   @override
   final _i2.BuiltMap<String, String>? mapArg;
 
-  factory _$NestedStructWithMap(
-          [void Function(NestedStructWithMapBuilder)? updates]) =>
-      (new NestedStructWithMapBuilder()..update(updates))._build();
+  factory _$NestedStructWithMap([
+    void Function(NestedStructWithMapBuilder)? updates,
+  ]) => (new NestedStructWithMapBuilder()..update(updates))._build();
 
   _$NestedStructWithMap._({this.mapArg}) : super._();
 
   @override
   NestedStructWithMap rebuild(
-          void Function(NestedStructWithMapBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NestedStructWithMapBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NestedStructWithMapBuilder toBuilder() =>
@@ -77,10 +77,7 @@ class NestedStructWithMapBuilder
   _$NestedStructWithMap _build() {
     _$NestedStructWithMap _$result;
     try {
-      _$result = _$v ??
-          new _$NestedStructWithMap._(
-            mapArg: _mapArg?.build(),
-          );
+      _$result = _$v ?? new _$NestedStructWithMap._(mapArg: _mapArg?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -88,7 +85,10 @@ class NestedStructWithMapBuilder
         _mapArg?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'NestedStructWithMap', _$failedField, e.toString());
+          r'NestedStructWithMap',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

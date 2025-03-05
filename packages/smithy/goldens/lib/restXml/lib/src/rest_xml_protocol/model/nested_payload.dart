@@ -13,14 +13,8 @@ part 'nested_payload.g.dart';
 abstract class NestedPayload
     with _i1.AWSEquatable<NestedPayload>
     implements Built<NestedPayload, NestedPayloadBuilder> {
-  factory NestedPayload({
-    String? greeting,
-    String? name,
-  }) {
-    return _$NestedPayload._(
-      greeting: greeting,
-      name: name,
-    );
+  factory NestedPayload({String? greeting, String? name}) {
+    return _$NestedPayload._(greeting: greeting, name: name);
   }
 
   factory NestedPayload.build([void Function(NestedPayloadBuilder) updates]) =
@@ -29,28 +23,20 @@ abstract class NestedPayload
   const NestedPayload._();
 
   static const List<_i2.SmithySerializer<NestedPayload>> serializers = [
-    NestedPayloadRestXmlSerializer()
+    NestedPayloadRestXmlSerializer(),
   ];
 
   String? get greeting;
   String? get name;
   @override
-  List<Object?> get props => [
-        greeting,
-        name,
-      ];
+  List<Object?> get props => [greeting, name];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedPayload')
-      ..add(
-        'greeting',
-        greeting,
-      )
-      ..add(
-        'name',
-        name,
-      );
+    final helper =
+        newBuiltValueToStringHelper('NestedPayload')
+          ..add('greeting', greeting)
+          ..add('name', name);
     return helper.toString();
   }
 }
@@ -60,18 +46,12 @@ class NestedPayloadRestXmlSerializer
   const NestedPayloadRestXmlSerializer() : super('NestedPayload');
 
   @override
-  Iterable<Type> get types => const [
-        NestedPayload,
-        _$NestedPayload,
-      ];
+  Iterable<Type> get types => const [NestedPayload, _$NestedPayload];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   NestedPayload deserialize(
@@ -90,15 +70,19 @@ class NestedPayloadRestXmlSerializer
       }
       switch (key) {
         case 'greeting':
-          result.greeting = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.greeting =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -116,18 +100,19 @@ class NestedPayloadRestXmlSerializer
     if (greeting != null) {
       result$
         ..add(const _i2.XmlElementName('greeting'))
-        ..add(serializers.serialize(
-          greeting,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            greeting,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (name != null) {
       result$
         ..add(const _i2.XmlElementName('name'))
-        ..add(serializers.serialize(
-          name,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(name, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

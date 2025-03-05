@@ -74,10 +74,7 @@ class OperationConfigBuilder
   _$OperationConfig _build() {
     _$OperationConfig _$result;
     try {
-      _$result = _$v ??
-          new _$OperationConfig._(
-            s3: _s3?.build(),
-          );
+      _$result = _$v ?? new _$OperationConfig._(s3: _s3?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -85,7 +82,10 @@ class OperationConfigBuilder
         _s3?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'OperationConfig', _$failedField, e.toString());
+          r'OperationConfig',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

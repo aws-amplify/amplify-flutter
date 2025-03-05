@@ -28,11 +28,10 @@ abstract class XmlBlobsOutput
   factory XmlBlobsOutput.fromResponse(
     XmlBlobsOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<XmlBlobsOutput>> serializers = [
-    XmlBlobsOutputEc2QuerySerializer()
+    XmlBlobsOutputEc2QuerySerializer(),
   ];
 
   _i2.Uint8List? get data;
@@ -42,10 +41,7 @@ abstract class XmlBlobsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlBlobsOutput')
-      ..add(
-        'data',
-        data,
-      );
+      ..add('data', data);
     return helper.toString();
   }
 }
@@ -55,18 +51,12 @@ class XmlBlobsOutputEc2QuerySerializer
   const XmlBlobsOutputEc2QuerySerializer() : super('XmlBlobsOutput');
 
   @override
-  Iterable<Type> get types => const [
-        XmlBlobsOutput,
-        _$XmlBlobsOutput,
-      ];
+  Iterable<Type> get types => const [XmlBlobsOutput, _$XmlBlobsOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   XmlBlobsOutput deserialize(
@@ -85,10 +75,12 @@ class XmlBlobsOutputEc2QuerySerializer
       }
       switch (key) {
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Uint8List),
-          ) as _i2.Uint8List);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Uint8List),
+                  )
+                  as _i2.Uint8List);
       }
     }
 
@@ -105,16 +97,18 @@ class XmlBlobsOutputEc2QuerySerializer
       const _i3.XmlElementName(
         'XmlBlobsOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final XmlBlobsOutput(:data) = object;
     if (data != null) {
       result$
         ..add(const _i3.XmlElementName('Data'))
-        ..add(serializers.serialize(
-          data,
-          specifiedType: const FullType(_i2.Uint8List),
-        ));
+        ..add(
+          serializers.serialize(
+            data,
+            specifiedType: const FullType(_i2.Uint8List),
+          ),
+        );
     }
     return result$;
   }

@@ -18,8 +18,9 @@ abstract class JsonUnionsInput
     return _$JsonUnionsInput._(contents: contents);
   }
 
-  factory JsonUnionsInput.build(
-      [void Function(JsonUnionsInputBuilder) updates]) = _$JsonUnionsInput;
+  factory JsonUnionsInput.build([
+    void Function(JsonUnionsInputBuilder) updates,
+  ]) = _$JsonUnionsInput;
 
   const JsonUnionsInput._();
 
@@ -27,11 +28,10 @@ abstract class JsonUnionsInput
     JsonUnionsInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<JsonUnionsInput>> serializers = [
-    JsonUnionsInputAwsJson10Serializer()
+    JsonUnionsInputAwsJson10Serializer(),
   ];
 
   /// A union with a representative set of types for members.
@@ -45,10 +45,7 @@ abstract class JsonUnionsInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonUnionsInput')
-      ..add(
-        'contents',
-        contents,
-      );
+      ..add('contents', contents);
     return helper.toString();
   }
 }
@@ -58,18 +55,12 @@ class JsonUnionsInputAwsJson10Serializer
   const JsonUnionsInputAwsJson10Serializer() : super('JsonUnionsInput');
 
   @override
-  Iterable<Type> get types => const [
-        JsonUnionsInput,
-        _$JsonUnionsInput,
-      ];
+  Iterable<Type> get types => const [JsonUnionsInput, _$JsonUnionsInput];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   JsonUnionsInput deserialize(
@@ -88,10 +79,12 @@ class JsonUnionsInputAwsJson10Serializer
       }
       switch (key) {
         case 'contents':
-          result.contents = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(MyUnion),
-          ) as MyUnion);
+          result.contents =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(MyUnion),
+                  )
+                  as MyUnion);
       }
     }
 
@@ -109,10 +102,12 @@ class JsonUnionsInputAwsJson10Serializer
     if (contents != null) {
       result$
         ..add('contents')
-        ..add(serializers.serialize(
-          contents,
-          specifiedType: const FullType(MyUnion),
-        ));
+        ..add(
+          serializers.serialize(
+            contents,
+            specifiedType: const FullType(MyUnion),
+          ),
+        );
     }
     return result$;
   }

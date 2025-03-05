@@ -79,10 +79,7 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'cn-north-1',
-      'cn-northwest-1',
-    },
+    regions: const {'cn-north-1', 'cn-northwest-1'},
     endpoints: const {
       'cn-north-1': _i1.EndpointDefinition(variants: []),
       'cn-northwest-1': _i1.EndpointDefinition(variants: []),
@@ -100,10 +97,7 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-iso-east-1',
-      'us-iso-west-1',
-    },
+    regions: const {'us-iso-east-1', 'us-iso-west-1'},
     endpoints: const {'us-iso-east-1': _i1.EndpointDefinition(variants: [])},
   ),
   _i1.Partition(
@@ -133,10 +127,7 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-gov-east-1',
-      'us-gov-west-1',
-    },
+    regions: const {'us-gov-east-1', 'us-gov-west-1'},
     endpoints: const {
       'us-gov-east-1': _i1.EndpointDefinition(variants: []),
       'us-gov-west-1': _i1.EndpointDefinition(variants: []),
@@ -144,7 +135,8 @@ final _partitions = [
   ),
 ];
 @_i2.internal
-final _i1.AWSEndpointResolver endpointResolver =
-    _i1.AWSEndpointResolver(_partitions);
+final _i1.AWSEndpointResolver endpointResolver = _i1.AWSEndpointResolver(
+  _partitions,
+);
 @_i2.internal
 const String sdkId = 'API Gateway';

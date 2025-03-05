@@ -10,16 +10,16 @@ class _$RecursiveShapesInputOutput extends RecursiveShapesInputOutput {
   @override
   final RecursiveShapesInputOutputNested1? nested;
 
-  factory _$RecursiveShapesInputOutput(
-          [void Function(RecursiveShapesInputOutputBuilder)? updates]) =>
-      (new RecursiveShapesInputOutputBuilder()..update(updates))._build();
+  factory _$RecursiveShapesInputOutput([
+    void Function(RecursiveShapesInputOutputBuilder)? updates,
+  ]) => (new RecursiveShapesInputOutputBuilder()..update(updates))._build();
 
   _$RecursiveShapesInputOutput._({this.nested}) : super._();
 
   @override
   RecursiveShapesInputOutput rebuild(
-          void Function(RecursiveShapesInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RecursiveShapesInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RecursiveShapesInputOutputBuilder toBuilder() =>
@@ -79,10 +79,8 @@ class RecursiveShapesInputOutputBuilder
   _$RecursiveShapesInputOutput _build() {
     _$RecursiveShapesInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$RecursiveShapesInputOutput._(
-            nested: _nested?.build(),
-          );
+      _$result =
+          _$v ?? new _$RecursiveShapesInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -90,7 +88,10 @@ class RecursiveShapesInputOutputBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'RecursiveShapesInputOutput', _$failedField, e.toString());
+          r'RecursiveShapesInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

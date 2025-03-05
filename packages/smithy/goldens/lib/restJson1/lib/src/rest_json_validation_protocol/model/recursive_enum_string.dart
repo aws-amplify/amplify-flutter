@@ -6,25 +6,13 @@ library rest_json1_v1.rest_json_validation_protocol.model.recursive_enum_string;
 import 'package:smithy/smithy.dart' as _i1;
 
 class RecursiveEnumString extends _i1.SmithyEnum<RecursiveEnumString> {
-  const RecursiveEnumString._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const RecursiveEnumString._(super.index, super.name, super.value);
 
   const RecursiveEnumString._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const abc = RecursiveEnumString._(
-    0,
-    'ABC',
-    'abc',
-  );
+  static const abc = RecursiveEnumString._(0, 'ABC', 'abc');
 
-  static const def = RecursiveEnumString._(
-    1,
-    'DEF',
-    'def',
-  );
+  static const def = RecursiveEnumString._(1, 'DEF', 'def');
 
   /// All values of [RecursiveEnumString].
   static const values = <RecursiveEnumString>[
@@ -38,12 +26,9 @@ class RecursiveEnumString extends _i1.SmithyEnum<RecursiveEnumString> {
       values: values,
       sdkUnknown: RecursiveEnumString._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

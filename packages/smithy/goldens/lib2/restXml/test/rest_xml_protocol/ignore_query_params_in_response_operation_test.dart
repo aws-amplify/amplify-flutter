@@ -12,59 +12,50 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'IgnoreQueryParamsInResponse (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: IgnoreQueryParamsInResponseOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'IgnoreQueryParamsInResponse',
-          documentation:
-              'Query parameters must be ignored when serializing the output of an operation',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<IgnoreQueryParamsInResponseOutput><baz>bam</baz></IgnoreQueryParamsInResponseOutput>',
-          bodyMediaType: 'application/xml',
-          params: {'baz': 'bam'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          IgnoreQueryParamsInResponseOutputRestXmlSerializer()
-        ],
-      );
-    },
-  );
+  _i1.test('IgnoreQueryParamsInResponse (response)', () async {
+    await _i2.httpResponseTest(
+      operation: IgnoreQueryParamsInResponseOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'IgnoreQueryParamsInResponse',
+        documentation:
+            'Query parameters must be ignored when serializing the output of an operation',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<IgnoreQueryParamsInResponseOutput><baz>bam</baz></IgnoreQueryParamsInResponseOutput>',
+        bodyMediaType: 'application/xml',
+        params: {'baz': 'bam'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        IgnoreQueryParamsInResponseOutputRestXmlSerializer(),
+      ],
+    );
+  });
 }
 
 class IgnoreQueryParamsInResponseOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<IgnoreQueryParamsInResponseOutput> {
   const IgnoreQueryParamsInResponseOutputRestXmlSerializer()
-      : super('IgnoreQueryParamsInResponseOutput');
+    : super('IgnoreQueryParamsInResponseOutput');
 
   @override
   Iterable<Type> get types => const [IgnoreQueryParamsInResponseOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   IgnoreQueryParamsInResponseOutput deserialize(
@@ -83,10 +74,12 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
       }
       switch (key) {
         case 'baz':
-          result.baz = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.baz =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

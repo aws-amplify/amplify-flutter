@@ -12,64 +12,52 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'ConstantQueryString (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: ConstantQueryStringOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'ConstantQueryString',
-          documentation: 'Includes constant query string parameters',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'hello': 'hi'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/ConstantQueryString/hi',
-          host: null,
-          resolvedHost: null,
-          queryParams: [
-            'foo=bar',
-            'hello',
-          ],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [ConstantQueryStringInputRestXmlSerializer()],
-      );
-    },
-  );
+  _i1.test('ConstantQueryString (request)', () async {
+    await _i2.httpRequestTest(
+      operation: ConstantQueryStringOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'ConstantQueryString',
+        documentation: 'Includes constant query string parameters',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'hello': 'hi'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/ConstantQueryString/hi',
+        host: null,
+        resolvedHost: null,
+        queryParams: ['foo=bar', 'hello'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [ConstantQueryStringInputRestXmlSerializer()],
+    );
+  });
 }
 
 class ConstantQueryStringInputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<ConstantQueryStringInput> {
   const ConstantQueryStringInputRestXmlSerializer()
-      : super('ConstantQueryStringInput');
+    : super('ConstantQueryStringInput');
 
   @override
   Iterable<Type> get types => const [ConstantQueryStringInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ConstantQueryStringInput deserialize(
@@ -88,10 +76,12 @@ class ConstantQueryStringInputRestXmlSerializer
       }
       switch (key) {
         case 'hello':
-          result.hello = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.hello =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

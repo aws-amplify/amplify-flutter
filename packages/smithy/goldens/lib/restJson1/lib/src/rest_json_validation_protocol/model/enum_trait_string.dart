@@ -6,31 +6,15 @@ library rest_json1_v1.rest_json_validation_protocol.model.enum_trait_string; // 
 import 'package:smithy/smithy.dart' as _i1;
 
 class EnumTraitString extends _i1.SmithyEnum<EnumTraitString> {
-  const EnumTraitString._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const EnumTraitString._(super.index, super.name, super.value);
 
   const EnumTraitString._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const abc = EnumTraitString._(
-    0,
-    'ABC',
-    'abc',
-  );
+  static const abc = EnumTraitString._(0, 'ABC', 'abc');
 
-  static const def = EnumTraitString._(
-    1,
-    'DEF',
-    'def',
-  );
+  static const def = EnumTraitString._(1, 'DEF', 'def');
 
-  static const ghi = EnumTraitString._(
-    2,
-    'GHI',
-    'ghi',
-  );
+  static const ghi = EnumTraitString._(2, 'GHI', 'ghi');
 
   /// All values of [EnumTraitString].
   static const values = <EnumTraitString>[
@@ -45,12 +29,9 @@ class EnumTraitString extends _i1.SmithyEnum<EnumTraitString> {
       values: values,
       sdkUnknown: EnumTraitString._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

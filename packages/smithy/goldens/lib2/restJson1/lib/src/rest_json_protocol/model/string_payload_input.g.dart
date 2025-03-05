@@ -10,16 +10,16 @@ class _$StringPayloadInput extends StringPayloadInput {
   @override
   final String? payload;
 
-  factory _$StringPayloadInput(
-          [void Function(StringPayloadInputBuilder)? updates]) =>
-      (new StringPayloadInputBuilder()..update(updates))._build();
+  factory _$StringPayloadInput([
+    void Function(StringPayloadInputBuilder)? updates,
+  ]) => (new StringPayloadInputBuilder()..update(updates))._build();
 
   _$StringPayloadInput._({this.payload}) : super._();
 
   @override
   StringPayloadInput rebuild(
-          void Function(StringPayloadInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(StringPayloadInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   StringPayloadInputBuilder toBuilder() =>
@@ -74,10 +74,7 @@ class StringPayloadInputBuilder
   StringPayloadInput build() => _build();
 
   _$StringPayloadInput _build() {
-    final _$result = _$v ??
-        new _$StringPayloadInput._(
-          payload: payload,
-        );
+    final _$result = _$v ?? new _$StringPayloadInput._(payload: payload);
     replace(_$result);
     return _$result;
   }

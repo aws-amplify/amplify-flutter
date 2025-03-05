@@ -17,14 +17,14 @@ abstract class PayloadWithXmlName
     return _$PayloadWithXmlName._(name: name);
   }
 
-  factory PayloadWithXmlName.build(
-          [void Function(PayloadWithXmlNameBuilder) updates]) =
-      _$PayloadWithXmlName;
+  factory PayloadWithXmlName.build([
+    void Function(PayloadWithXmlNameBuilder) updates,
+  ]) = _$PayloadWithXmlName;
 
   const PayloadWithXmlName._();
 
   static const List<_i2.SmithySerializer<PayloadWithXmlName>> serializers = [
-    PayloadWithXmlNameRestXmlSerializer()
+    PayloadWithXmlNameRestXmlSerializer(),
   ];
 
   String? get name;
@@ -34,10 +34,7 @@ abstract class PayloadWithXmlName
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PayloadWithXmlName')
-      ..add(
-        'name',
-        name,
-      );
+      ..add('name', name);
     return helper.toString();
   }
 }
@@ -47,18 +44,12 @@ class PayloadWithXmlNameRestXmlSerializer
   const PayloadWithXmlNameRestXmlSerializer() : super('PayloadWithXmlName');
 
   @override
-  Iterable<Type> get types => const [
-        PayloadWithXmlName,
-        _$PayloadWithXmlName,
-      ];
+  Iterable<Type> get types => const [PayloadWithXmlName, _$PayloadWithXmlName];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   PayloadWithXmlName deserialize(
@@ -77,10 +68,12 @@ class PayloadWithXmlNameRestXmlSerializer
       }
       switch (key) {
         case 'name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -98,10 +91,9 @@ class PayloadWithXmlNameRestXmlSerializer
     if (name != null) {
       result$
         ..add(const _i2.XmlElementName('name'))
-        ..add(serializers.serialize(
-          name,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(name, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

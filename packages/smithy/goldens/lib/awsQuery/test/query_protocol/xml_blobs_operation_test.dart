@@ -14,39 +14,33 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryXmlBlobs (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlBlobsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlBlobs',
-          documentation: 'Blobs are base64 encoded',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlBlobsResponse xmlns="https://example.com/">\n    <XmlBlobsResult>\n        <data>dmFsdWU=</data>\n    </XmlBlobsResult>\n</XmlBlobsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'data': 'value'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlBlobsOutputAwsQuerySerializer()],
-      );
-    },
-  );
+  _i1.test('QueryXmlBlobs (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlBlobsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlBlobs',
+        documentation: 'Blobs are base64 encoded',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlBlobsResponse xmlns="https://example.com/">\n    <XmlBlobsResult>\n        <data>dmFsdWU=</data>\n    </XmlBlobsResult>\n</XmlBlobsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'data': 'value'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlBlobsOutputAwsQuerySerializer()],
+    );
+  });
 }
 
 class XmlBlobsOutputAwsQuerySerializer
@@ -58,11 +52,8 @@ class XmlBlobsOutputAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlBlobsOutput deserialize(
@@ -81,10 +72,12 @@ class XmlBlobsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i4.Uint8List),
-          ) as _i4.Uint8List);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.Uint8List),
+                  )
+                  as _i4.Uint8List);
       }
     }
 

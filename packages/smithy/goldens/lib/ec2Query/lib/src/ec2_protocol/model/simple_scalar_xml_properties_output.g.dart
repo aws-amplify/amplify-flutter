@@ -29,27 +29,28 @@ class _$SimpleScalarXmlPropertiesOutput
   @override
   final double? doubleValue;
 
-  factory _$SimpleScalarXmlPropertiesOutput(
-          [void Function(SimpleScalarXmlPropertiesOutputBuilder)? updates]) =>
+  factory _$SimpleScalarXmlPropertiesOutput([
+    void Function(SimpleScalarXmlPropertiesOutputBuilder)? updates,
+  ]) =>
       (new SimpleScalarXmlPropertiesOutputBuilder()..update(updates))._build();
 
-  _$SimpleScalarXmlPropertiesOutput._(
-      {this.stringValue,
-      this.emptyStringValue,
-      this.trueBooleanValue,
-      this.falseBooleanValue,
-      this.byteValue,
-      this.shortValue,
-      this.integerValue,
-      this.longValue,
-      this.floatValue,
-      this.doubleValue})
-      : super._();
+  _$SimpleScalarXmlPropertiesOutput._({
+    this.stringValue,
+    this.emptyStringValue,
+    this.trueBooleanValue,
+    this.falseBooleanValue,
+    this.byteValue,
+    this.shortValue,
+    this.integerValue,
+    this.longValue,
+    this.floatValue,
+    this.doubleValue,
+  }) : super._();
 
   @override
   SimpleScalarXmlPropertiesOutput rebuild(
-          void Function(SimpleScalarXmlPropertiesOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SimpleScalarXmlPropertiesOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SimpleScalarXmlPropertiesOutputBuilder toBuilder() =>
@@ -91,8 +92,10 @@ class _$SimpleScalarXmlPropertiesOutput
 
 class SimpleScalarXmlPropertiesOutputBuilder
     implements
-        Builder<SimpleScalarXmlPropertiesOutput,
-            SimpleScalarXmlPropertiesOutputBuilder> {
+        Builder<
+          SimpleScalarXmlPropertiesOutput,
+          SimpleScalarXmlPropertiesOutputBuilder
+        > {
   _$SimpleScalarXmlPropertiesOutput? _$v;
 
   String? _stringValue;
@@ -173,7 +176,8 @@ class SimpleScalarXmlPropertiesOutputBuilder
   SimpleScalarXmlPropertiesOutput build() => _build();
 
   _$SimpleScalarXmlPropertiesOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SimpleScalarXmlPropertiesOutput._(
           stringValue: stringValue,
           emptyStringValue: emptyStringValue,

@@ -70,10 +70,7 @@ class TestConfigBuilder implements Builder<TestConfig, TestConfigBuilder> {
   TestConfig build() => _build();
 
   _$TestConfig _build() {
-    final _$result = _$v ??
-        new _$TestConfig._(
-          timeout: timeout,
-        );
+    final _$result = _$v ?? new _$TestConfig._(timeout: timeout);
     replace(_$result);
     return _$result;
   }

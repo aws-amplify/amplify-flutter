@@ -12,55 +12,46 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestXmlHttpResponseCode (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: HttpResponseCodeOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'RestXmlHttpResponseCode',
-          documentation: 'Binds the http response code to an output structure.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: 'application/xml',
-          params: {'Status': 201},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 201,
-        ),
-        outputSerializers: const [HttpResponseCodeOutputRestXmlSerializer()],
-      );
-    },
-  );
+  _i1.test('RestXmlHttpResponseCode (response)', () async {
+    await _i2.httpResponseTest(
+      operation: HttpResponseCodeOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'RestXmlHttpResponseCode',
+        documentation: 'Binds the http response code to an output structure.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: 'application/xml',
+        params: {'Status': 201},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 201,
+      ),
+      outputSerializers: const [HttpResponseCodeOutputRestXmlSerializer()],
+    );
+  });
 }
 
 class HttpResponseCodeOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<HttpResponseCodeOutput> {
   const HttpResponseCodeOutputRestXmlSerializer()
-      : super('HttpResponseCodeOutput');
+    : super('HttpResponseCodeOutput');
 
   @override
   Iterable<Type> get types => const [HttpResponseCodeOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   HttpResponseCodeOutput deserialize(
@@ -79,10 +70,12 @@ class HttpResponseCodeOutputRestXmlSerializer
       }
       switch (key) {
         case 'Status':
-          result.status = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.status =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 

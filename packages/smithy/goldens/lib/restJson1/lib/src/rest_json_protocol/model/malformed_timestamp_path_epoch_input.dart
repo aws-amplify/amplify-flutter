@@ -16,17 +16,19 @@ abstract class MalformedTimestampPathEpochInput
         _i1.HttpInput<MalformedTimestampPathEpochInputPayload>,
         _i2.AWSEquatable<MalformedTimestampPathEpochInput>
     implements
-        Built<MalformedTimestampPathEpochInput,
-            MalformedTimestampPathEpochInputBuilder>,
+        Built<
+          MalformedTimestampPathEpochInput,
+          MalformedTimestampPathEpochInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<MalformedTimestampPathEpochInputPayload> {
   factory MalformedTimestampPathEpochInput({required DateTime timestamp}) {
     return _$MalformedTimestampPathEpochInput._(timestamp: timestamp);
   }
 
-  factory MalformedTimestampPathEpochInput.build(
-          [void Function(MalformedTimestampPathEpochInputBuilder) updates]) =
-      _$MalformedTimestampPathEpochInput;
+  factory MalformedTimestampPathEpochInput.build([
+    void Function(MalformedTimestampPathEpochInputBuilder) updates,
+  ]) = _$MalformedTimestampPathEpochInput;
 
   const MalformedTimestampPathEpochInput._();
 
@@ -34,33 +36,31 @@ abstract class MalformedTimestampPathEpochInput
     MalformedTimestampPathEpochInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedTimestampPathEpochInput.build((b) {
-        if (labels['timestamp'] != null) {
-          b.timestamp = _i1.Timestamp.parse(
+  }) => MalformedTimestampPathEpochInput.build((b) {
+    if (labels['timestamp'] != null) {
+      b.timestamp =
+          _i1.Timestamp.parse(
             int.parse(labels['timestamp']!),
             format: _i1.TimestampFormat.epochSeconds,
           ).asDateTime;
-        }
-      });
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<MalformedTimestampPathEpochInputPayload>>
-      serializers = [MalformedTimestampPathEpochInputRestJson1Serializer()];
+    _i1.SmithySerializer<MalformedTimestampPathEpochInputPayload>
+  >
+  serializers = [MalformedTimestampPathEpochInputRestJson1Serializer()];
 
   DateTime get timestamp;
   @override
   String labelFor(String key) {
     switch (key) {
       case 'timestamp':
-        return _i1.Timestamp(timestamp)
-            .format(_i1.TimestampFormat.epochSeconds)
-            .toString();
+        return _i1.Timestamp(
+          timestamp,
+        ).format(_i1.TimestampFormat.epochSeconds).toString();
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -72,27 +72,25 @@ abstract class MalformedTimestampPathEpochInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedTimestampPathEpochInput')
-          ..add(
-            'timestamp',
-            timestamp,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'MalformedTimestampPathEpochInput',
+    )..add('timestamp', timestamp);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class MalformedTimestampPathEpochInputPayload
-    with
-        _i2.AWSEquatable<MalformedTimestampPathEpochInputPayload>
+    with _i2.AWSEquatable<MalformedTimestampPathEpochInputPayload>
     implements
-        Built<MalformedTimestampPathEpochInputPayload,
-            MalformedTimestampPathEpochInputPayloadBuilder>,
+        Built<
+          MalformedTimestampPathEpochInputPayload,
+          MalformedTimestampPathEpochInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory MalformedTimestampPathEpochInputPayload(
-      [void Function(MalformedTimestampPathEpochInputPayloadBuilder)
-          updates]) = _$MalformedTimestampPathEpochInputPayload;
+  factory MalformedTimestampPathEpochInputPayload([
+    void Function(MalformedTimestampPathEpochInputPayloadBuilder) updates,
+  ]) = _$MalformedTimestampPathEpochInputPayload;
 
   const MalformedTimestampPathEpochInputPayload._();
 
@@ -101,32 +99,33 @@ abstract class MalformedTimestampPathEpochInputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedTimestampPathEpochInputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'MalformedTimestampPathEpochInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class MalformedTimestampPathEpochInputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<MalformedTimestampPathEpochInputPayload> {
+class MalformedTimestampPathEpochInputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<
+          MalformedTimestampPathEpochInputPayload
+        > {
   const MalformedTimestampPathEpochInputRestJson1Serializer()
-      : super('MalformedTimestampPathEpochInput');
+    : super('MalformedTimestampPathEpochInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedTimestampPathEpochInput,
-        _$MalformedTimestampPathEpochInput,
-        MalformedTimestampPathEpochInputPayload,
-        _$MalformedTimestampPathEpochInputPayload,
-      ];
+    MalformedTimestampPathEpochInput,
+    _$MalformedTimestampPathEpochInput,
+    MalformedTimestampPathEpochInputPayload,
+    _$MalformedTimestampPathEpochInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedTimestampPathEpochInputPayload deserialize(
@@ -142,6 +141,5 @@ class MalformedTimestampPathEpochInputRestJson1Serializer extends _i1
     Serializers serializers,
     MalformedTimestampPathEpochInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

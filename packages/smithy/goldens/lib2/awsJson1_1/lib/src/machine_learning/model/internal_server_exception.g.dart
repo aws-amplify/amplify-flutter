@@ -14,17 +14,17 @@ class _$InternalServerException extends InternalServerException {
   @override
   final Map<String, String>? headers;
 
-  factory _$InternalServerException(
-          [void Function(InternalServerExceptionBuilder)? updates]) =>
-      (new InternalServerExceptionBuilder()..update(updates))._build();
+  factory _$InternalServerException([
+    void Function(InternalServerExceptionBuilder)? updates,
+  ]) => (new InternalServerExceptionBuilder()..update(updates))._build();
 
   _$InternalServerException._({this.message, this.code, this.headers})
-      : super._();
+    : super._();
 
   @override
   InternalServerException rebuild(
-          void Function(InternalServerExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InternalServerExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InternalServerExceptionBuilder toBuilder() =>
@@ -93,7 +93,8 @@ class InternalServerExceptionBuilder
   InternalServerException build() => _build();
 
   _$InternalServerException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InternalServerException._(
           message: message,
           code: code,

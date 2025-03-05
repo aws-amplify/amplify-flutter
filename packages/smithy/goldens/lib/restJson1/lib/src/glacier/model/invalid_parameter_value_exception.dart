@@ -11,11 +11,12 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'invalid_parameter_value_exception.g.dart';
 
 abstract class InvalidParameterValueException
-    with
-        _i1.AWSEquatable<InvalidParameterValueException>
+    with _i1.AWSEquatable<InvalidParameterValueException>
     implements
-        Built<InvalidParameterValueException,
-            InvalidParameterValueExceptionBuilder>,
+        Built<
+          InvalidParameterValueException,
+          InvalidParameterValueExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   factory InvalidParameterValueException({
     String? type,
@@ -29,9 +30,9 @@ abstract class InvalidParameterValueException
     );
   }
 
-  factory InvalidParameterValueException.build(
-          [void Function(InvalidParameterValueExceptionBuilder) updates]) =
-      _$InvalidParameterValueException;
+  factory InvalidParameterValueException.build([
+    void Function(InvalidParameterValueExceptionBuilder) updates,
+  ]) = _$InvalidParameterValueException;
 
   const InvalidParameterValueException._();
 
@@ -39,13 +40,12 @@ abstract class InvalidParameterValueException
   factory InvalidParameterValueException.fromResponse(
     InvalidParameterValueException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<InvalidParameterValueException>>
-      serializers = [InvalidParameterValueExceptionRestJson1Serializer()];
+  serializers = [InvalidParameterValueExceptionRestJson1Serializer()];
 
   String? get type;
   String? get code;
@@ -53,9 +53,9 @@ abstract class InvalidParameterValueException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.glacier',
-        shape: 'InvalidParameterValueException',
-      );
+    namespace: 'com.amazonaws.glacier',
+    shape: 'InvalidParameterValueException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -71,27 +71,15 @@ abstract class InvalidParameterValueException
   Exception? get underlyingException => null;
 
   @override
-  List<Object?> get props => [
-        type,
-        code,
-        message,
-      ];
+  List<Object?> get props => [type, code, message];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidParameterValueException')
-      ..add(
-        'type',
-        type,
-      )
-      ..add(
-        'code',
-        code,
-      )
-      ..add(
-        'message',
-        message,
-      );
+    final helper =
+        newBuiltValueToStringHelper('InvalidParameterValueException')
+          ..add('type', type)
+          ..add('code', code)
+          ..add('message', message);
     return helper.toString();
   }
 }
@@ -99,21 +87,18 @@ abstract class InvalidParameterValueException
 class InvalidParameterValueExceptionRestJson1Serializer
     extends _i2.StructuredSmithySerializer<InvalidParameterValueException> {
   const InvalidParameterValueExceptionRestJson1Serializer()
-      : super('InvalidParameterValueException');
+    : super('InvalidParameterValueException');
 
   @override
   Iterable<Type> get types => const [
-        InvalidParameterValueException,
-        _$InvalidParameterValueException,
-      ];
+    InvalidParameterValueException,
+    _$InvalidParameterValueException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   InvalidParameterValueException deserialize(
@@ -132,20 +117,26 @@ class InvalidParameterValueExceptionRestJson1Serializer
       }
       switch (key) {
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'type':
-          result.type = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.type =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -163,26 +154,23 @@ class InvalidParameterValueExceptionRestJson1Serializer
     if (code != null) {
       result$
         ..add('code')
-        ..add(serializers.serialize(
-          code,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(code, specifiedType: const FullType(String)),
+        );
     }
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (type != null) {
       result$
         ..add('type')
-        ..add(serializers.serialize(
-          type,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(type, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

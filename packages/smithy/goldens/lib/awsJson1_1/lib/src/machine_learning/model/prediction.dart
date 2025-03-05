@@ -36,7 +36,7 @@ abstract class Prediction
   const Prediction._();
 
   static const List<_i3.SmithySerializer<Prediction>> serializers = [
-    PredictionAwsJson11Serializer()
+    PredictionAwsJson11Serializer(),
   ];
 
   String? get predictedLabel;
@@ -45,31 +45,20 @@ abstract class Prediction
   _i2.BuiltMap<DetailsAttributes, String>? get details;
   @override
   List<Object?> get props => [
-        predictedLabel,
-        predictedValue,
-        predictedScores,
-        details,
-      ];
+    predictedLabel,
+    predictedValue,
+    predictedScores,
+    details,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Prediction')
-      ..add(
-        'predictedLabel',
-        predictedLabel,
-      )
-      ..add(
-        'predictedValue',
-        predictedValue,
-      )
-      ..add(
-        'predictedScores',
-        predictedScores,
-      )
-      ..add(
-        'details',
-        details,
-      );
+    final helper =
+        newBuiltValueToStringHelper('Prediction')
+          ..add('predictedLabel', predictedLabel)
+          ..add('predictedValue', predictedValue)
+          ..add('predictedScores', predictedScores)
+          ..add('details', details);
     return helper.toString();
   }
 }
@@ -79,18 +68,12 @@ class PredictionAwsJson11Serializer
   const PredictionAwsJson11Serializer() : super('Prediction');
 
   @override
-  Iterable<Type> get types => const [
-        Prediction,
-        _$Prediction,
-      ];
+  Iterable<Type> get types => const [Prediction, _$Prediction];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   Prediction deserialize(
@@ -109,37 +92,41 @@ class PredictionAwsJson11Serializer
       }
       switch (key) {
         case 'predictedLabel':
-          result.predictedLabel = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.predictedLabel =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'predictedValue':
-          result.predictedValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.predictedValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'predictedScores':
-          result.predictedScores.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType(double),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, double>));
+          result.predictedScores.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(double),
+                  ]),
+                )
+                as _i2.BuiltMap<String, double>),
+          );
         case 'details':
-          result.details.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(DetailsAttributes),
-                FullType(String),
-              ],
-            ),
-          ) as _i2.BuiltMap<DetailsAttributes, String>));
+          result.details.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(DetailsAttributes),
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltMap<DetailsAttributes, String>),
+          );
       }
     }
 
@@ -157,51 +144,53 @@ class PredictionAwsJson11Serializer
       :predictedLabel,
       :predictedValue,
       :predictedScores,
-      :details
+      :details,
     ) = object;
     if (predictedLabel != null) {
       result$
         ..add('predictedLabel')
-        ..add(serializers.serialize(
-          predictedLabel,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            predictedLabel,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (predictedValue != null) {
       result$
         ..add('predictedValue')
-        ..add(serializers.serialize(
-          predictedValue,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            predictedValue,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     if (predictedScores != null) {
       result$
         ..add('predictedScores')
-        ..add(serializers.serialize(
-          predictedScores,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            predictedScores,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(double),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (details != null) {
       result$
         ..add('details')
-        ..add(serializers.serialize(
-          details,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            details,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(DetailsAttributes),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

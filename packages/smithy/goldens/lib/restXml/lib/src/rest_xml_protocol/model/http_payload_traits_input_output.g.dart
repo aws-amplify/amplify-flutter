@@ -12,16 +12,16 @@ class _$HttpPayloadTraitsInputOutput extends HttpPayloadTraitsInputOutput {
   @override
   final _i2.Uint8List? blob;
 
-  factory _$HttpPayloadTraitsInputOutput(
-          [void Function(HttpPayloadTraitsInputOutputBuilder)? updates]) =>
-      (new HttpPayloadTraitsInputOutputBuilder()..update(updates))._build();
+  factory _$HttpPayloadTraitsInputOutput([
+    void Function(HttpPayloadTraitsInputOutputBuilder)? updates,
+  ]) => (new HttpPayloadTraitsInputOutputBuilder()..update(updates))._build();
 
   _$HttpPayloadTraitsInputOutput._({this.foo, this.blob}) : super._();
 
   @override
   HttpPayloadTraitsInputOutput rebuild(
-          void Function(HttpPayloadTraitsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPayloadTraitsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPayloadTraitsInputOutputBuilder toBuilder() =>
@@ -47,8 +47,10 @@ class _$HttpPayloadTraitsInputOutput extends HttpPayloadTraitsInputOutput {
 
 class HttpPayloadTraitsInputOutputBuilder
     implements
-        Builder<HttpPayloadTraitsInputOutput,
-            HttpPayloadTraitsInputOutputBuilder> {
+        Builder<
+          HttpPayloadTraitsInputOutput,
+          HttpPayloadTraitsInputOutputBuilder
+        > {
   _$HttpPayloadTraitsInputOutput? _$v;
 
   String? _foo;
@@ -86,11 +88,8 @@ class HttpPayloadTraitsInputOutputBuilder
   HttpPayloadTraitsInputOutput build() => _build();
 
   _$HttpPayloadTraitsInputOutput _build() {
-    final _$result = _$v ??
-        new _$HttpPayloadTraitsInputOutput._(
-          foo: foo,
-          blob: blob,
-        );
+    final _$result =
+        _$v ?? new _$HttpPayloadTraitsInputOutput._(foo: foo, blob: blob);
     replace(_$result);
     return _$result;
   }

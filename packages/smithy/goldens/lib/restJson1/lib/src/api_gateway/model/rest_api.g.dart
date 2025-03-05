@@ -37,21 +37,21 @@ class _$RestApi extends RestApi {
   factory _$RestApi([void Function(RestApiBuilder)? updates]) =>
       (new RestApiBuilder()..update(updates))._build();
 
-  _$RestApi._(
-      {this.id,
-      this.name,
-      this.description,
-      this.createdDate,
-      this.version,
-      this.warnings,
-      this.binaryMediaTypes,
-      this.minimumCompressionSize,
-      this.apiKeySource,
-      this.endpointConfiguration,
-      this.policy,
-      this.tags,
-      this.disableExecuteApiEndpoint})
-      : super._();
+  _$RestApi._({
+    this.id,
+    this.name,
+    this.description,
+    this.createdDate,
+    this.version,
+    this.warnings,
+    this.binaryMediaTypes,
+    this.minimumCompressionSize,
+    this.apiKeySource,
+    this.endpointConfiguration,
+    this.policy,
+    this.tags,
+    this.disableExecuteApiEndpoint,
+  }) : super._();
 
   @override
   RestApi rebuild(void Function(RestApiBuilder) updates) =>
@@ -149,8 +149,8 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   EndpointConfigurationBuilder get endpointConfiguration =>
       _$this._endpointConfiguration ??= new EndpointConfigurationBuilder();
   set endpointConfiguration(
-          EndpointConfigurationBuilder? endpointConfiguration) =>
-      _$this._endpointConfiguration = endpointConfiguration;
+    EndpointConfigurationBuilder? endpointConfiguration,
+  ) => _$this._endpointConfiguration = endpointConfiguration;
 
   String? _policy;
   String? get policy => _$this._policy;
@@ -206,7 +206,8 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   _$RestApi _build() {
     _$RestApi _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$RestApi._(
             id: id,
             name: name,
@@ -237,7 +238,10 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
         _tags?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'RestApi', _$failedField, e.toString());
+          r'RestApi',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

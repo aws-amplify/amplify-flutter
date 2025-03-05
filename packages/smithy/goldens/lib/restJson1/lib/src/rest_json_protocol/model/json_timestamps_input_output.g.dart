@@ -22,24 +22,24 @@ class _$JsonTimestampsInputOutput extends JsonTimestampsInputOutput {
   @override
   final DateTime? httpDateOnTarget;
 
-  factory _$JsonTimestampsInputOutput(
-          [void Function(JsonTimestampsInputOutputBuilder)? updates]) =>
-      (new JsonTimestampsInputOutputBuilder()..update(updates))._build();
+  factory _$JsonTimestampsInputOutput([
+    void Function(JsonTimestampsInputOutputBuilder)? updates,
+  ]) => (new JsonTimestampsInputOutputBuilder()..update(updates))._build();
 
-  _$JsonTimestampsInputOutput._(
-      {this.normal,
-      this.dateTime,
-      this.dateTimeOnTarget,
-      this.epochSeconds,
-      this.epochSecondsOnTarget,
-      this.httpDate,
-      this.httpDateOnTarget})
-      : super._();
+  _$JsonTimestampsInputOutput._({
+    this.normal,
+    this.dateTime,
+    this.dateTimeOnTarget,
+    this.epochSeconds,
+    this.epochSecondsOnTarget,
+    this.httpDate,
+    this.httpDateOnTarget,
+  }) : super._();
 
   @override
   JsonTimestampsInputOutput rebuild(
-          void Function(JsonTimestampsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(JsonTimestampsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   JsonTimestampsInputOutputBuilder toBuilder() =>
@@ -142,7 +142,8 @@ class JsonTimestampsInputOutputBuilder
   JsonTimestampsInputOutput build() => _build();
 
   _$JsonTimestampsInputOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$JsonTimestampsInputOutput._(
           normal: normal,
           dateTime: dateTime,

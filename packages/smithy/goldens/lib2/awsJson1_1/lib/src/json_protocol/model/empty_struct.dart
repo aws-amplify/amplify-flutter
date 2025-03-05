@@ -23,7 +23,7 @@ abstract class EmptyStruct
   const EmptyStruct._();
 
   static const List<_i2.SmithySerializer<EmptyStruct>> serializers = [
-    EmptyStructAwsJson11Serializer()
+    EmptyStructAwsJson11Serializer(),
   ];
 
   @override
@@ -41,18 +41,12 @@ class EmptyStructAwsJson11Serializer
   const EmptyStructAwsJson11Serializer() : super('EmptyStruct');
 
   @override
-  Iterable<Type> get types => const [
-        EmptyStruct,
-        _$EmptyStruct,
-      ];
+  Iterable<Type> get types => const [EmptyStruct, _$EmptyStruct];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   EmptyStruct deserialize(
@@ -68,6 +62,5 @@ class EmptyStructAwsJson11Serializer
     Serializers serializers,
     EmptyStruct object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

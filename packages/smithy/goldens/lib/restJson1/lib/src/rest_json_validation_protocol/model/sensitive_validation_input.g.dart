@@ -10,16 +10,16 @@ class _$SensitiveValidationInput extends SensitiveValidationInput {
   @override
   final String? string;
 
-  factory _$SensitiveValidationInput(
-          [void Function(SensitiveValidationInputBuilder)? updates]) =>
-      (new SensitiveValidationInputBuilder()..update(updates))._build();
+  factory _$SensitiveValidationInput([
+    void Function(SensitiveValidationInputBuilder)? updates,
+  ]) => (new SensitiveValidationInputBuilder()..update(updates))._build();
 
   _$SensitiveValidationInput._({this.string}) : super._();
 
   @override
   SensitiveValidationInput rebuild(
-          void Function(SensitiveValidationInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SensitiveValidationInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SensitiveValidationInputBuilder toBuilder() =>
@@ -75,10 +75,7 @@ class SensitiveValidationInputBuilder
   SensitiveValidationInput build() => _build();
 
   _$SensitiveValidationInput _build() {
-    final _$result = _$v ??
-        new _$SensitiveValidationInput._(
-          string: string,
-        );
+    final _$result = _$v ?? new _$SensitiveValidationInput._(string: string);
     replace(_$result);
     return _$result;
   }

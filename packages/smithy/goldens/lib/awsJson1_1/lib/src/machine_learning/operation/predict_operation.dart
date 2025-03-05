@@ -19,8 +19,14 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-class PredictOperation extends _i1
-    .HttpOperation<PredictInput, PredictInput, PredictOutput, PredictOutput> {
+class PredictOperation
+    extends
+        _i1.HttpOperation<
+          PredictInput,
+          PredictInput,
+          PredictOutput,
+          PredictOutput
+        > {
   PredictOperation({
     required String region,
     Uri? baseUri,
@@ -28,26 +34,25 @@ class PredictOperation extends _i1
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<PredictInput, PredictInput, PredictOutput,
-          PredictOutput>> protocols = [
+    _i1.HttpProtocol<PredictInput, PredictInput, PredictOutput, PredictOutput>
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            const _i1.WithHeader(
-              'X-Amz-Target',
-              'AmazonML_20141212.Predict',
-            ),
+            const _i1.WithHeader('X-Amz-Target', 'AmazonML_20141212.Predict'),
             _i3.WithSigV4(
               region: _region,
               service: _i4.AWSService.machineLearning,
@@ -60,7 +65,7 @@ class PredictOperation extends _i1
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -80,9 +85,9 @@ class PredictOperation extends _i1
 
   @override
   _i1.HttpRequest buildRequest(PredictInput input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/';
-      });
+    b.method = 'POST';
+    b.path = r'/';
+  });
 
   @override
   int successCode([PredictOutput? output]) => 200;
@@ -91,66 +96,61 @@ class PredictOperation extends _i1
   PredictOutput buildOutput(
     PredictOutput payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      PredictOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => PredictOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<InternalServerException, InternalServerException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.machinelearning',
-            shape: 'InternalServerException',
-          ),
-          _i1.ErrorKind.server,
-          InternalServerException,
-          statusCode: 500,
-          builder: InternalServerException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidInputException, InvalidInputException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.machinelearning',
-            shape: 'InvalidInputException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidInputException,
-          statusCode: 400,
-          builder: InvalidInputException.fromResponse,
-        ),
-        _i1.SmithyError<LimitExceededException, LimitExceededException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.machinelearning',
-            shape: 'LimitExceededException',
-          ),
-          _i1.ErrorKind.client,
-          LimitExceededException,
-          statusCode: 417,
-          builder: LimitExceededException.fromResponse,
-        ),
-        _i1.SmithyError<PredictorNotMountedException,
-            PredictorNotMountedException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.machinelearning',
-            shape: 'PredictorNotMountedException',
-          ),
-          _i1.ErrorKind.client,
-          PredictorNotMountedException,
-          statusCode: 400,
-          builder: PredictorNotMountedException.fromResponse,
-        ),
-        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.machinelearning',
-            shape: 'ResourceNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          ResourceNotFoundException,
-          statusCode: 404,
-          builder: ResourceNotFoundException.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<InternalServerException, InternalServerException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.machinelearning',
+        shape: 'InternalServerException',
+      ),
+      _i1.ErrorKind.server,
+      InternalServerException,
+      statusCode: 500,
+      builder: InternalServerException.fromResponse,
+    ),
+    _i1.SmithyError<InvalidInputException, InvalidInputException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.machinelearning',
+        shape: 'InvalidInputException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidInputException,
+      statusCode: 400,
+      builder: InvalidInputException.fromResponse,
+    ),
+    _i1.SmithyError<LimitExceededException, LimitExceededException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.machinelearning',
+        shape: 'LimitExceededException',
+      ),
+      _i1.ErrorKind.client,
+      LimitExceededException,
+      statusCode: 417,
+      builder: LimitExceededException.fromResponse,
+    ),
+    _i1.SmithyError<PredictorNotMountedException, PredictorNotMountedException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.machinelearning',
+        shape: 'PredictorNotMountedException',
+      ),
+      _i1.ErrorKind.client,
+      PredictorNotMountedException,
+      statusCode: 400,
+      builder: PredictorNotMountedException.fromResponse,
+    ),
+    _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.machinelearning',
+        shape: 'ResourceNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      ResourceNotFoundException,
+      statusCode: 404,
+      builder: ResourceNotFoundException.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'Predict';
@@ -171,11 +171,7 @@ class PredictOperation extends _i1
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

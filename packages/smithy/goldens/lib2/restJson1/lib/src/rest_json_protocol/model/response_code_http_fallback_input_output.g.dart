@@ -8,9 +8,9 @@ part of 'response_code_http_fallback_input_output.dart';
 
 class _$ResponseCodeHttpFallbackInputOutput
     extends ResponseCodeHttpFallbackInputOutput {
-  factory _$ResponseCodeHttpFallbackInputOutput(
-          [void Function(ResponseCodeHttpFallbackInputOutputBuilder)?
-              updates]) =>
+  factory _$ResponseCodeHttpFallbackInputOutput([
+    void Function(ResponseCodeHttpFallbackInputOutputBuilder)? updates,
+  ]) =>
       (new ResponseCodeHttpFallbackInputOutputBuilder()..update(updates))
           ._build();
 
@@ -18,8 +18,8 @@ class _$ResponseCodeHttpFallbackInputOutput
 
   @override
   ResponseCodeHttpFallbackInputOutput rebuild(
-          void Function(ResponseCodeHttpFallbackInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ResponseCodeHttpFallbackInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResponseCodeHttpFallbackInputOutputBuilder toBuilder() =>
@@ -39,8 +39,10 @@ class _$ResponseCodeHttpFallbackInputOutput
 
 class ResponseCodeHttpFallbackInputOutputBuilder
     implements
-        Builder<ResponseCodeHttpFallbackInputOutput,
-            ResponseCodeHttpFallbackInputOutputBuilder> {
+        Builder<
+          ResponseCodeHttpFallbackInputOutput,
+          ResponseCodeHttpFallbackInputOutputBuilder
+        > {
   _$ResponseCodeHttpFallbackInputOutput? _$v;
 
   ResponseCodeHttpFallbackInputOutputBuilder();
@@ -53,7 +55,8 @@ class ResponseCodeHttpFallbackInputOutputBuilder
 
   @override
   void update(
-      void Function(ResponseCodeHttpFallbackInputOutputBuilder)? updates) {
+    void Function(ResponseCodeHttpFallbackInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

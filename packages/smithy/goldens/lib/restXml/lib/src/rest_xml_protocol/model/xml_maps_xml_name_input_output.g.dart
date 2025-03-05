@@ -10,16 +10,16 @@ class _$XmlMapsXmlNameInputOutput extends XmlMapsXmlNameInputOutput {
   @override
   final _i3.BuiltMap<String, GreetingStruct>? myMap;
 
-  factory _$XmlMapsXmlNameInputOutput(
-          [void Function(XmlMapsXmlNameInputOutputBuilder)? updates]) =>
-      (new XmlMapsXmlNameInputOutputBuilder()..update(updates))._build();
+  factory _$XmlMapsXmlNameInputOutput([
+    void Function(XmlMapsXmlNameInputOutputBuilder)? updates,
+  ]) => (new XmlMapsXmlNameInputOutputBuilder()..update(updates))._build();
 
   _$XmlMapsXmlNameInputOutput._({this.myMap}) : super._();
 
   @override
   XmlMapsXmlNameInputOutput rebuild(
-          void Function(XmlMapsXmlNameInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlMapsXmlNameInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlMapsXmlNameInputOutputBuilder toBuilder() =>
@@ -79,10 +79,8 @@ class XmlMapsXmlNameInputOutputBuilder
   _$XmlMapsXmlNameInputOutput _build() {
     _$XmlMapsXmlNameInputOutput _$result;
     try {
-      _$result = _$v ??
-          new _$XmlMapsXmlNameInputOutput._(
-            myMap: _myMap?.build(),
-          );
+      _$result =
+          _$v ?? new _$XmlMapsXmlNameInputOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -90,7 +88,10 @@ class XmlMapsXmlNameInputOutputBuilder
         _myMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlMapsXmlNameInputOutput', _$failedField, e.toString());
+          r'XmlMapsXmlNameInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

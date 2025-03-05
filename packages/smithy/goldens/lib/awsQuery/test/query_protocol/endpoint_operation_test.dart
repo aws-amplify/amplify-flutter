@@ -10,43 +10,37 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'AwsQueryEndpointTrait (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: EndpointOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsQueryEndpointTrait',
-          documentation:
-              'Operations can prepend to the given host if they define the\nendpoint trait.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body: 'Action=EndpointOperation&Version=2020-01-08',
-          bodyMediaType: 'application/x-www-form-urlencoded',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: 'example.com',
-          resolvedHost: 'foo.example.com',
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [],
-      );
-    },
-  );
+  _i1.test('AwsQueryEndpointTrait (request)', () async {
+    await _i2.httpRequestTest(
+      operation: EndpointOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsQueryEndpointTrait',
+        documentation:
+            'Operations can prepend to the given host if they define the\nendpoint trait.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body: 'Action=EndpointOperation&Version=2020-01-08',
+        bodyMediaType: 'application/x-www-form-urlencoded',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: 'example.com',
+        resolvedHost: 'foo.example.com',
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [],
+    );
+  });
 }

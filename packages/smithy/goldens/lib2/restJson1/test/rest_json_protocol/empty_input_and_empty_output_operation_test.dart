@@ -13,82 +13,70 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonEmptyInputAndEmptyOutput (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: EmptyInputAndEmptyOutputOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonEmptyInputAndEmptyOutput',
-          documentation:
-              'Clients should not serialize a JSON payload when no parameters\nare given that are sent in the body. A service will tolerate\nclients that omit a payload or that send a JSON object.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/EmptyInputAndEmptyOutput',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          EmptyInputAndEmptyOutputInputRestJson1Serializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'RestJsonEmptyInputAndEmptyOutput (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: EmptyInputAndEmptyOutputOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'RestJsonEmptyInputAndEmptyOutput',
-          documentation:
-              'As of January 2021, server implementations are expected to\nrespond with a JSON object regardless of if the output\nparameters are empty.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          EmptyInputAndEmptyOutputOutputRestJson1Serializer()
-        ],
-      );
-    },
-  );
+  _i1.test('RestJsonEmptyInputAndEmptyOutput (request)', () async {
+    await _i2.httpRequestTest(
+      operation: EmptyInputAndEmptyOutputOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonEmptyInputAndEmptyOutput',
+        documentation:
+            'Clients should not serialize a JSON payload when no parameters\nare given that are sent in the body. A service will tolerate\nclients that omit a payload or that send a JSON object.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/EmptyInputAndEmptyOutput',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        EmptyInputAndEmptyOutputInputRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('RestJsonEmptyInputAndEmptyOutput (response)', () async {
+    await _i2.httpResponseTest(
+      operation: EmptyInputAndEmptyOutputOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'RestJsonEmptyInputAndEmptyOutput',
+        documentation:
+            'As of January 2021, server implementations are expected to\nrespond with a JSON object regardless of if the output\nparameters are empty.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        EmptyInputAndEmptyOutputOutputRestJson1Serializer(),
+      ],
+    );
+  });
   _i1.test(
     'RestJsonEmptyInputAndEmptyOutputJsonObjectOutput (response)',
     () async {
@@ -101,10 +89,7 @@ void main() {
           id: 'RestJsonEmptyInputAndEmptyOutputJsonObjectOutput',
           documentation:
               'This test ensures that clients can gracefully handle\nsituations where a service omits a JSON payload entirely.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
+          protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
           authScheme: null,
           body: '',
           bodyMediaType: null,
@@ -119,7 +104,7 @@ void main() {
           code: 200,
         ),
         outputSerializers: const [
-          EmptyInputAndEmptyOutputOutputRestJson1Serializer()
+          EmptyInputAndEmptyOutputOutputRestJson1Serializer(),
         ],
       );
     },
@@ -129,18 +114,15 @@ void main() {
 class EmptyInputAndEmptyOutputInputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<EmptyInputAndEmptyOutputInput> {
   const EmptyInputAndEmptyOutputInputRestJson1Serializer()
-      : super('EmptyInputAndEmptyOutputInput');
+    : super('EmptyInputAndEmptyOutputInput');
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   EmptyInputAndEmptyOutputInput deserialize(
@@ -164,18 +146,15 @@ class EmptyInputAndEmptyOutputInputRestJson1Serializer
 class EmptyInputAndEmptyOutputOutputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<EmptyInputAndEmptyOutputOutput> {
   const EmptyInputAndEmptyOutputOutputRestJson1Serializer()
-      : super('EmptyInputAndEmptyOutputOutput');
+    : super('EmptyInputAndEmptyOutputOutput');
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   EmptyInputAndEmptyOutputOutput deserialize(

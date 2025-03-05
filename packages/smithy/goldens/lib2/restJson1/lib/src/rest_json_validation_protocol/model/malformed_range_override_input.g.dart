@@ -38,32 +38,32 @@ class _$MalformedRangeOverrideInput extends MalformedRangeOverrideInput {
   @override
   final double? maxFloat;
 
-  factory _$MalformedRangeOverrideInput(
-          [void Function(MalformedRangeOverrideInputBuilder)? updates]) =>
-      (new MalformedRangeOverrideInputBuilder()..update(updates))._build();
+  factory _$MalformedRangeOverrideInput([
+    void Function(MalformedRangeOverrideInputBuilder)? updates,
+  ]) => (new MalformedRangeOverrideInputBuilder()..update(updates))._build();
 
-  _$MalformedRangeOverrideInput._(
-      {this.byte,
-      this.minByte,
-      this.maxByte,
-      this.short,
-      this.minShort,
-      this.maxShort,
-      this.integer,
-      this.minInteger,
-      this.maxInteger,
-      this.long,
-      this.minLong,
-      this.maxLong,
-      this.float,
-      this.minFloat,
-      this.maxFloat})
-      : super._();
+  _$MalformedRangeOverrideInput._({
+    this.byte,
+    this.minByte,
+    this.maxByte,
+    this.short,
+    this.minShort,
+    this.maxShort,
+    this.integer,
+    this.minInteger,
+    this.maxInteger,
+    this.long,
+    this.minLong,
+    this.maxLong,
+    this.float,
+    this.minFloat,
+    this.maxFloat,
+  }) : super._();
 
   @override
   MalformedRangeOverrideInput rebuild(
-          void Function(MalformedRangeOverrideInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedRangeOverrideInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedRangeOverrideInputBuilder toBuilder() =>
@@ -115,8 +115,10 @@ class _$MalformedRangeOverrideInput extends MalformedRangeOverrideInput {
 
 class MalformedRangeOverrideInputBuilder
     implements
-        Builder<MalformedRangeOverrideInput,
-            MalformedRangeOverrideInputBuilder> {
+        Builder<
+          MalformedRangeOverrideInput,
+          MalformedRangeOverrideInputBuilder
+        > {
   _$MalformedRangeOverrideInput? _$v;
 
   int? _byte;
@@ -219,7 +221,8 @@ class MalformedRangeOverrideInputBuilder
   MalformedRangeOverrideInput build() => _build();
 
   _$MalformedRangeOverrideInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MalformedRangeOverrideInput._(
           byte: byte,
           minByte: minByte,

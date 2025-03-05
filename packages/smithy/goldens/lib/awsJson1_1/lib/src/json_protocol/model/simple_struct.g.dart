@@ -71,10 +71,7 @@ class SimpleStructBuilder
   SimpleStruct build() => _build();
 
   _$SimpleStruct _build() {
-    final _$result = _$v ??
-        new _$SimpleStruct._(
-          value: value,
-        );
+    final _$result = _$v ?? new _$SimpleStruct._(value: value);
     replace(_$result);
     return _$result;
   }

@@ -13,33 +13,40 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// Omits null, but serializes empty string value.
-class OmitsNullSerializesEmptyStringOperation extends _i1.HttpOperation<
-    OmitsNullSerializesEmptyStringInputPayload,
-    OmitsNullSerializesEmptyStringInput,
-    _i1.Unit,
-    _i1.Unit> {
+class OmitsNullSerializesEmptyStringOperation
+    extends
+        _i1.HttpOperation<
+          OmitsNullSerializesEmptyStringInputPayload,
+          OmitsNullSerializesEmptyStringInput,
+          _i1.Unit,
+          _i1.Unit
+        > {
   /// Omits null, but serializes empty string value.
   OmitsNullSerializesEmptyStringOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          OmitsNullSerializesEmptyStringInputPayload,
-          OmitsNullSerializesEmptyStringInput,
-          _i1.Unit,
-          _i1.Unit>> protocols = [
+    _i1.HttpProtocol<
+      OmitsNullSerializesEmptyStringInputPayload,
+      OmitsNullSerializesEmptyStringInput,
+      _i1.Unit,
+      _i1.Unit
+    >
+  >
+  protocols = [
     _i2.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithNoHeader('Content-Length'),
             const _i1.WithNoHeader('Content-Type'),
@@ -50,7 +57,7 @@ class OmitsNullSerializesEmptyStringOperation extends _i1.HttpOperation<
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -72,16 +79,10 @@ class OmitsNullSerializesEmptyStringOperation extends _i1.HttpOperation<
         b.method = 'GET';
         b.path = r'/OmitsNullSerializesEmptyString';
         if (input.nullValue != null) {
-          b.queryParameters.add(
-            'Null',
-            input.nullValue!,
-          );
+          b.queryParameters.add('Null', input.nullValue!);
         }
         if (input.emptyString != null) {
-          b.queryParameters.add(
-            'Empty',
-            input.emptyString!,
-          );
+          b.queryParameters.add('Empty', input.emptyString!);
         }
       });
 
@@ -89,10 +90,7 @@ class OmitsNullSerializesEmptyStringOperation extends _i1.HttpOperation<
   int successCode([_i1.Unit? output]) => 200;
 
   @override
-  _i1.Unit buildOutput(
-    _i1.Unit payload,
-    _i3.AWSBaseHttpResponse response,
-  ) =>
+  _i1.Unit buildOutput(_i1.Unit payload, _i3.AWSBaseHttpResponse response) =>
       payload;
 
   @override
@@ -117,11 +115,7 @@ class OmitsNullSerializesEmptyStringOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

@@ -46,11 +46,12 @@ class _RestXmlProtocolNamespaceServer
   final RestXmlProtocolNamespaceServerBase service;
 
   late final _i1.HttpProtocol<
-          SimpleScalarPropertiesInputOutputPayload,
-          SimpleScalarPropertiesInputOutput,
-          SimpleScalarPropertiesInputOutputPayload,
-          SimpleScalarPropertiesInputOutput> _simpleScalarPropertiesProtocol =
-      _i2.RestXmlProtocol(
+    SimpleScalarPropertiesInputOutputPayload,
+    SimpleScalarPropertiesInputOutput,
+    SimpleScalarPropertiesInputOutputPayload,
+    SimpleScalarPropertiesInputOutput
+  >
+  _simpleScalarPropertiesProtocol = _i2.RestXmlProtocol(
     serializers: serializers,
     builderFactories: builderFactories,
     noErrorWrapping: false,
@@ -64,40 +65,36 @@ class _RestXmlProtocolNamespaceServer
     try {
       final payload =
           (await _simpleScalarPropertiesProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(SimpleScalarPropertiesInputOutputPayload),
-      ) as SimpleScalarPropertiesInputOutputPayload);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(
+                  SimpleScalarPropertiesInputOutputPayload,
+                ),
+              )
+              as SimpleScalarPropertiesInputOutputPayload);
       final input = SimpleScalarPropertiesInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.simpleScalarProperties(
-        input,
-        context,
-      );
+      final output = await service.simpleScalarProperties(input, context);
       if (output.foo != null) {
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body =
-          await _simpleScalarPropertiesProtocol.wireSerializer.serialize(
-        output,
-        specifiedType: const FullType(
-          SimpleScalarPropertiesInputOutput,
-          [FullType(SimpleScalarPropertiesInputOutputPayload)],
-        ),
-      );
+      final body = await _simpleScalarPropertiesProtocol.wireSerializer
+          .serialize(
+            output,
+            specifiedType: const FullType(SimpleScalarPropertiesInputOutput, [
+              FullType(SimpleScalarPropertiesInputOutputPayload),
+            ]),
+          );
       return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 }

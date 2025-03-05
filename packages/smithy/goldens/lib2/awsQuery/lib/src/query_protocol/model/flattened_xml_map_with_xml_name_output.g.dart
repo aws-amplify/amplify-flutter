@@ -11,16 +11,17 @@ class _$FlattenedXmlMapWithXmlNameOutput
   @override
   final _i2.BuiltMap<String, String>? myMap;
 
-  factory _$FlattenedXmlMapWithXmlNameOutput(
-          [void Function(FlattenedXmlMapWithXmlNameOutputBuilder)? updates]) =>
+  factory _$FlattenedXmlMapWithXmlNameOutput([
+    void Function(FlattenedXmlMapWithXmlNameOutputBuilder)? updates,
+  ]) =>
       (new FlattenedXmlMapWithXmlNameOutputBuilder()..update(updates))._build();
 
   _$FlattenedXmlMapWithXmlNameOutput._({this.myMap}) : super._();
 
   @override
   FlattenedXmlMapWithXmlNameOutput rebuild(
-          void Function(FlattenedXmlMapWithXmlNameOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(FlattenedXmlMapWithXmlNameOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   FlattenedXmlMapWithXmlNameOutputBuilder toBuilder() =>
@@ -43,8 +44,10 @@ class _$FlattenedXmlMapWithXmlNameOutput
 
 class FlattenedXmlMapWithXmlNameOutputBuilder
     implements
-        Builder<FlattenedXmlMapWithXmlNameOutput,
-            FlattenedXmlMapWithXmlNameOutputBuilder> {
+        Builder<
+          FlattenedXmlMapWithXmlNameOutput,
+          FlattenedXmlMapWithXmlNameOutputBuilder
+        > {
   _$FlattenedXmlMapWithXmlNameOutput? _$v;
 
   _i2.MapBuilder<String, String>? _myMap;
@@ -80,10 +83,9 @@ class FlattenedXmlMapWithXmlNameOutputBuilder
   _$FlattenedXmlMapWithXmlNameOutput _build() {
     _$FlattenedXmlMapWithXmlNameOutput _$result;
     try {
-      _$result = _$v ??
-          new _$FlattenedXmlMapWithXmlNameOutput._(
-            myMap: _myMap?.build(),
-          );
+      _$result =
+          _$v ??
+          new _$FlattenedXmlMapWithXmlNameOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -91,7 +93,10 @@ class FlattenedXmlMapWithXmlNameOutputBuilder
         _myMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'FlattenedXmlMapWithXmlNameOutput', _$failedField, e.toString());
+          r'FlattenedXmlMapWithXmlNameOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -15,19 +15,13 @@ abstract class LimitExceededException
     implements
         Built<LimitExceededException, LimitExceededExceptionBuilder>,
         _i2.SmithyHttpException {
-  factory LimitExceededException({
-    String? message,
-    int? code,
-  }) {
-    return _$LimitExceededException._(
-      message: message,
-      code: code,
-    );
+  factory LimitExceededException({String? message, int? code}) {
+    return _$LimitExceededException._(message: message, code: code);
   }
 
-  factory LimitExceededException.build(
-          [void Function(LimitExceededExceptionBuilder) updates]) =
-      _$LimitExceededException;
+  factory LimitExceededException.build([
+    void Function(LimitExceededExceptionBuilder) updates,
+  ]) = _$LimitExceededException;
 
   const LimitExceededException._();
 
@@ -35,10 +29,9 @@ abstract class LimitExceededException
   factory LimitExceededException.fromResponse(
     LimitExceededException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<LimitExceededException>> serializers =
       [LimitExceededExceptionAwsJson11Serializer()];
@@ -48,9 +41,9 @@ abstract class LimitExceededException
   int? get code;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.machinelearning',
-        shape: 'LimitExceededException',
-      );
+    namespace: 'com.amazonaws.machinelearning',
+    shape: 'LimitExceededException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -66,22 +59,14 @@ abstract class LimitExceededException
   Exception? get underlyingException => null;
 
   @override
-  List<Object?> get props => [
-        message,
-        code,
-      ];
+  List<Object?> get props => [message, code];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LimitExceededException')
-      ..add(
-        'message',
-        message,
-      )
-      ..add(
-        'code',
-        code,
-      );
+    final helper =
+        newBuiltValueToStringHelper('LimitExceededException')
+          ..add('message', message)
+          ..add('code', code);
     return helper.toString();
   }
 }
@@ -89,21 +74,18 @@ abstract class LimitExceededException
 class LimitExceededExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<LimitExceededException> {
   const LimitExceededExceptionAwsJson11Serializer()
-      : super('LimitExceededException');
+    : super('LimitExceededException');
 
   @override
   Iterable<Type> get types => const [
-        LimitExceededException,
-        _$LimitExceededException,
-      ];
+    LimitExceededException,
+    _$LimitExceededException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   LimitExceededException deserialize(
@@ -122,15 +104,19 @@ class LimitExceededExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -148,18 +134,14 @@ class LimitExceededExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (code != null) {
       result$
         ..add('code')
-        ..add(serializers.serialize(
-          code,
-          specifiedType: const FullType(int),
-        ));
+        ..add(serializers.serialize(code, specifiedType: const FullType(int)));
     }
     return result$;
   }

@@ -12,26 +12,39 @@ import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_maps_input_output.da
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-class XmlEmptyMapsOperation extends _i1.HttpOperation<XmlMapsInputOutput,
-    XmlMapsInputOutput, XmlMapsInputOutput, XmlMapsInputOutput> {
+class XmlEmptyMapsOperation
+    extends
+        _i1.HttpOperation<
+          XmlMapsInputOutput,
+          XmlMapsInputOutput,
+          XmlMapsInputOutput,
+          XmlMapsInputOutput
+        > {
   XmlEmptyMapsOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<XmlMapsInputOutput, XmlMapsInputOutput,
-          XmlMapsInputOutput, XmlMapsInputOutput>> protocols = [
+    _i1.HttpProtocol<
+      XmlMapsInputOutput,
+      XmlMapsInputOutput,
+      XmlMapsInputOutput,
+      XmlMapsInputOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
@@ -42,7 +55,7 @@ class XmlEmptyMapsOperation extends _i1.HttpOperation<XmlMapsInputOutput,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: false,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -72,11 +85,7 @@ class XmlEmptyMapsOperation extends _i1.HttpOperation<XmlMapsInputOutput,
   XmlMapsInputOutput buildOutput(
     XmlMapsInputOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      XmlMapsInputOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => XmlMapsInputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -100,11 +109,7 @@ class XmlEmptyMapsOperation extends _i1.HttpOperation<XmlMapsInputOutput,
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

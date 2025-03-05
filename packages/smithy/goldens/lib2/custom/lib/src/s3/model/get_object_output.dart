@@ -30,8 +30,9 @@ abstract class GetObjectOutput
     );
   }
 
-  factory GetObjectOutput.build(
-      [void Function(GetObjectOutputBuilder) updates]) = _$GetObjectOutput;
+  factory GetObjectOutput.build([
+    void Function(GetObjectOutputBuilder) updates,
+  ]) = _$GetObjectOutput;
 
   const GetObjectOutput._();
 
@@ -39,19 +40,18 @@ abstract class GetObjectOutput
   factory GetObjectOutput.fromResponse(
     _i3.Stream<List<int>> payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      GetObjectOutput.build((b) {
-        b.body = payload;
-        if (response.headers['Content-Length'] != null) {
-          b.contentLength = int.parse(response.headers['Content-Length']!);
-        }
-        if (response.headers['Content-Range'] != null) {
-          b.contentRange = response.headers['Content-Range']!;
-        }
-      });
+  ) => GetObjectOutput.build((b) {
+    b.body = payload;
+    if (response.headers['Content-Length'] != null) {
+      b.contentLength = int.parse(response.headers['Content-Length']!);
+    }
+    if (response.headers['Content-Range'] != null) {
+      b.contentRange = response.headers['Content-Range']!;
+    }
+  });
 
   static const List<_i2.SmithySerializer<_i3.Stream<List<int>>>> serializers = [
-    GetObjectOutputRestXmlSerializer()
+    GetObjectOutputRestXmlSerializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -66,27 +66,15 @@ abstract class GetObjectOutput
   _i3.Stream<List<int>> getPayload() => body;
 
   @override
-  List<Object?> get props => [
-        body,
-        contentLength,
-        contentRange,
-      ];
+  List<Object?> get props => [body, contentLength, contentRange];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectOutput')
-      ..add(
-        'body',
-        body,
-      )
-      ..add(
-        'contentLength',
-        contentLength,
-      )
-      ..add(
-        'contentRange',
-        contentRange,
-      );
+    final helper =
+        newBuiltValueToStringHelper('GetObjectOutput')
+          ..add('body', body)
+          ..add('contentLength', contentLength)
+          ..add('contentRange', contentRange);
     return helper.toString();
   }
 }
@@ -96,18 +84,12 @@ class GetObjectOutputRestXmlSerializer
   const GetObjectOutputRestXmlSerializer() : super('GetObjectOutput');
 
   @override
-  Iterable<Type> get types => const [
-        GetObjectOutput,
-        _$GetObjectOutput,
-      ];
+  Iterable<Type> get types => const [GetObjectOutput, _$GetObjectOutput];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   _i3.Stream<List<int>> deserialize(
@@ -116,17 +98,12 @@ class GetObjectOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(
-        _i3.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
-    ) as _i3.Stream<List<int>>);
+          serialized,
+          specifiedType: const FullType(_i3.Stream, [
+            FullType(List, [FullType(int)]),
+          ]),
+        )
+        as _i3.Stream<List<int>>);
   }
 
   @override
@@ -139,21 +116,17 @@ class GetObjectOutputRestXmlSerializer
       const _i2.XmlElementName(
         'GetObjectOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
-    result$.add(serializers.serialize(
-      object,
-      specifiedType: const FullType(
-        _i3.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
+    result$.add(
+      serializers.serialize(
+        object,
+        specifiedType: const FullType(_i3.Stream, [
+          FullType(List, [FullType(int)]),
+        ]),
       ),
-    ));
+    );
     return result$;
   }
 }

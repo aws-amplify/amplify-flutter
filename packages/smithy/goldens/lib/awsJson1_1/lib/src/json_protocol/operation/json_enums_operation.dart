@@ -14,8 +14,14 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// This example serializes enums as top level properties, in lists, sets, and maps.
-class JsonEnumsOperation extends _i1.HttpOperation<JsonEnumsInputOutput,
-    JsonEnumsInputOutput, JsonEnumsInputOutput, JsonEnumsInputOutput> {
+class JsonEnumsOperation
+    extends
+        _i1.HttpOperation<
+          JsonEnumsInputOutput,
+          JsonEnumsInputOutput,
+          JsonEnumsInputOutput,
+          JsonEnumsInputOutput
+        > {
   /// This example serializes enums as top level properties, in lists, sets, and maps.
   JsonEnumsOperation({
     required String region,
@@ -24,26 +30,30 @@ class JsonEnumsOperation extends _i1.HttpOperation<JsonEnumsInputOutput,
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<JsonEnumsInputOutput, JsonEnumsInputOutput,
-          JsonEnumsInputOutput, JsonEnumsInputOutput>> protocols = [
+    _i1.HttpProtocol<
+      JsonEnumsInputOutput,
+      JsonEnumsInputOutput,
+      JsonEnumsInputOutput,
+      JsonEnumsInputOutput
+    >
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            const _i1.WithHeader(
-              'X-Amz-Target',
-              'JsonProtocol.JsonEnums',
-            ),
+            const _i1.WithHeader('X-Amz-Target', 'JsonProtocol.JsonEnums'),
             _i3.WithSigV4(
               region: _region,
               service: _i4.AWSService.iam,
@@ -56,7 +66,7 @@ class JsonEnumsOperation extends _i1.HttpOperation<JsonEnumsInputOutput,
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -88,11 +98,7 @@ class JsonEnumsOperation extends _i1.HttpOperation<JsonEnumsInputOutput,
   JsonEnumsInputOutput buildOutput(
     JsonEnumsInputOutput payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      JsonEnumsInputOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => JsonEnumsInputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -116,11 +122,7 @@ class JsonEnumsOperation extends _i1.HttpOperation<JsonEnumsInputOutput,
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

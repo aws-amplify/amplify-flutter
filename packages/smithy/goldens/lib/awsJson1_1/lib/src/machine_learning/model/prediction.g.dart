@@ -19,12 +19,12 @@ class _$Prediction extends Prediction {
   factory _$Prediction([void Function(PredictionBuilder)? updates]) =>
       (new PredictionBuilder()..update(updates))._build();
 
-  _$Prediction._(
-      {this.predictedLabel,
-      this.predictedValue,
-      this.predictedScores,
-      this.details})
-      : super._();
+  _$Prediction._({
+    this.predictedLabel,
+    this.predictedValue,
+    this.predictedScores,
+    this.details,
+  }) : super._();
 
   @override
   Prediction rebuild(void Function(PredictionBuilder) updates) =>
@@ -111,7 +111,8 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
   _$Prediction _build() {
     _$Prediction _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$Prediction._(
             predictedLabel: predictedLabel,
             predictedValue: predictedValue,
@@ -127,7 +128,10 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
         _details?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'Prediction', _$failedField, e.toString());
+          r'Prediction',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

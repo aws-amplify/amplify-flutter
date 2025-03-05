@@ -6,19 +6,11 @@ library rest_json1_v1.rest_json_protocol.model.string_enum; // ignore_for_file: 
 import 'package:smithy/smithy.dart' as _i1;
 
 class StringEnum extends _i1.SmithyEnum<StringEnum> {
-  const StringEnum._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const StringEnum._(super.index, super.name, super.value);
 
   const StringEnum._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const v = StringEnum._(
-    0,
-    'V',
-    'enumvalue',
-  );
+  static const v = StringEnum._(0, 'V', 'enumvalue');
 
   /// All values of [StringEnum].
   static const values = <StringEnum>[StringEnum.v];
@@ -29,12 +21,9 @@ class StringEnum extends _i1.SmithyEnum<StringEnum> {
       values: values,
       sdkUnknown: StringEnum._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

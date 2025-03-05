@@ -20,23 +20,23 @@ class _$MalformedLengthOverrideInput extends MalformedLengthOverrideInput {
   @override
   final _i4.BuiltListMultimap<String, String>? map;
 
-  factory _$MalformedLengthOverrideInput(
-          [void Function(MalformedLengthOverrideInputBuilder)? updates]) =>
-      (new MalformedLengthOverrideInputBuilder()..update(updates))._build();
+  factory _$MalformedLengthOverrideInput([
+    void Function(MalformedLengthOverrideInputBuilder)? updates,
+  ]) => (new MalformedLengthOverrideInputBuilder()..update(updates))._build();
 
-  _$MalformedLengthOverrideInput._(
-      {this.blob,
-      this.string,
-      this.minString,
-      this.maxString,
-      this.list,
-      this.map})
-      : super._();
+  _$MalformedLengthOverrideInput._({
+    this.blob,
+    this.string,
+    this.minString,
+    this.maxString,
+    this.list,
+    this.map,
+  }) : super._();
 
   @override
   MalformedLengthOverrideInput rebuild(
-          void Function(MalformedLengthOverrideInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLengthOverrideInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLengthOverrideInputBuilder toBuilder() =>
@@ -70,8 +70,10 @@ class _$MalformedLengthOverrideInput extends MalformedLengthOverrideInput {
 
 class MalformedLengthOverrideInputBuilder
     implements
-        Builder<MalformedLengthOverrideInput,
-            MalformedLengthOverrideInputBuilder> {
+        Builder<
+          MalformedLengthOverrideInput,
+          MalformedLengthOverrideInputBuilder
+        > {
   _$MalformedLengthOverrideInput? _$v;
 
   _i3.Uint8List? _blob;
@@ -133,7 +135,8 @@ class MalformedLengthOverrideInputBuilder
   _$MalformedLengthOverrideInput _build() {
     _$MalformedLengthOverrideInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$MalformedLengthOverrideInput._(
             blob: blob,
             string: string,
@@ -151,7 +154,10 @@ class MalformedLengthOverrideInputBuilder
         _map?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MalformedLengthOverrideInput', _$failedField, e.toString());
+          r'MalformedLengthOverrideInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

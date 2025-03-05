@@ -26,26 +26,26 @@ class _$SimpleInputParamsInput extends SimpleInputParamsInput {
   @override
   final int? integerEnum;
 
-  factory _$SimpleInputParamsInput(
-          [void Function(SimpleInputParamsInputBuilder)? updates]) =>
-      (new SimpleInputParamsInputBuilder()..update(updates))._build();
+  factory _$SimpleInputParamsInput([
+    void Function(SimpleInputParamsInputBuilder)? updates,
+  ]) => (new SimpleInputParamsInputBuilder()..update(updates))._build();
 
-  _$SimpleInputParamsInput._(
-      {this.foo,
-      this.bar,
-      this.baz,
-      this.bam,
-      this.floatValue,
-      this.boo,
-      this.qux,
-      this.fooEnum,
-      this.integerEnum})
-      : super._();
+  _$SimpleInputParamsInput._({
+    this.foo,
+    this.bar,
+    this.baz,
+    this.bam,
+    this.floatValue,
+    this.boo,
+    this.qux,
+    this.fooEnum,
+    this.integerEnum,
+  }) : super._();
 
   @override
   SimpleInputParamsInput rebuild(
-          void Function(SimpleInputParamsInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SimpleInputParamsInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SimpleInputParamsInputBuilder toBuilder() =>
@@ -157,7 +157,8 @@ class SimpleInputParamsInputBuilder
   SimpleInputParamsInput build() => _build();
 
   _$SimpleInputParamsInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SimpleInputParamsInput._(
           foo: foo,
           bar: bar,

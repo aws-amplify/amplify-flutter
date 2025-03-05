@@ -16,8 +16,14 @@ import 'package:custom_v2/src/s3/model/copy_object_result.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
-    CopyObjectRequest, CopyObjectResult, CopyObjectOutput> {
+class CopyObjectOperation
+    extends
+        _i1.HttpOperation<
+          CopyObjectRequestPayload,
+          CopyObjectRequest,
+          CopyObjectResult,
+          CopyObjectOutput
+        > {
   CopyObjectOperation({
     required String region,
     Uri? baseUri,
@@ -26,27 +32,35 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<CopyObjectRequestPayload, CopyObjectRequest,
-          CopyObjectResult, CopyObjectOutput>> protocols = [
+    _i1.HttpProtocol<
+      CopyObjectRequestPayload,
+      CopyObjectRequest,
+      CopyObjectResult,
+      CopyObjectOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
@@ -54,12 +68,11 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
             const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
-      responseInterceptors: <_i1.HttpResponseInterceptor>[
-            const _i2.CheckErrorOnSuccess()
-          ] +
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[const _i2.CheckErrorOnSuccess()] +
           _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -81,15 +94,16 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
 
   @override
   _i1.HttpRequest buildRequest(CopyObjectRequest input) => _i1.HttpRequest((b) {
-        b.method = 'PUT';
-        b.path = _s3ClientConfig.usePathStyle
+    b.method = 'PUT';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=CopyObject'
             : r'/{Key+}?x-id=CopyObject';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.copySource.isNotEmpty) {
-          b.headers['x-amz-copy-source'] = input.copySource;
-        }
-      });
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.copySource.isNotEmpty) {
+      b.headers['x-amz-copy-source'] = input.copySource;
+    }
+  });
 
   @override
   int successCode([CopyObjectOutput? output]) => 200;
@@ -98,25 +112,18 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
   CopyObjectOutput buildOutput(
     CopyObjectResult? payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      CopyObjectOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => CopyObjectOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<CopyObjectError, CopyObjectError>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.s3',
-            shape: 'CopyObjectError',
-          ),
-          _i1.ErrorKind.server,
-          CopyObjectError,
-          statusCode: 500,
-          builder: CopyObjectError.fromResponse,
-        )
-      ];
+    _i1.SmithyError<CopyObjectError, CopyObjectError>(
+      _i1.ShapeId(namespace: 'com.amazonaws.s3', shape: 'CopyObjectError'),
+      _i1.ErrorKind.server,
+      CopyObjectError,
+      statusCode: 500,
+      builder: CopyObjectError.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'CopyObject';
@@ -152,11 +159,7 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

@@ -36,13 +36,11 @@ sealed class MyUnion extends _i1.SmithyUnion<MyUnion> {
   factory MyUnion.structureValue({String? hi}) =>
       MyUnionStructureValue$(GreetingStruct(hi: hi));
 
-  const factory MyUnion.sdkUnknown(
-    String name,
-    Object value,
-  ) = MyUnionSdkUnknown$;
+  const factory MyUnion.sdkUnknown(String name, Object value) =
+      MyUnionSdkUnknown$;
 
   static const List<_i1.SmithySerializer<MyUnion>> serializers = [
-    MyUnionAwsJson11Serializer()
+    MyUnionAwsJson11Serializer(),
   ];
 
   String? get stringValue => null;
@@ -64,72 +62,46 @@ sealed class MyUnion extends _i1.SmithyUnion<MyUnion> {
   GreetingStruct? get structureValue => null;
 
   @override
-  Object get value => (stringValue ??
-      booleanValue ??
-      numberValue ??
-      blobValue ??
-      timestampValue ??
-      enumValue ??
-      listValue ??
-      mapValue ??
-      structureValue)!;
+  Object get value =>
+      (stringValue ??
+          booleanValue ??
+          numberValue ??
+          blobValue ??
+          timestampValue ??
+          enumValue ??
+          listValue ??
+          mapValue ??
+          structureValue)!;
 
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'MyUnion');
     if (stringValue != null) {
-      helper.add(
-        r'stringValue',
-        stringValue,
-      );
+      helper.add(r'stringValue', stringValue);
     }
     if (booleanValue != null) {
-      helper.add(
-        r'booleanValue',
-        booleanValue,
-      );
+      helper.add(r'booleanValue', booleanValue);
     }
     if (numberValue != null) {
-      helper.add(
-        r'numberValue',
-        numberValue,
-      );
+      helper.add(r'numberValue', numberValue);
     }
     if (blobValue != null) {
-      helper.add(
-        r'blobValue',
-        blobValue,
-      );
+      helper.add(r'blobValue', blobValue);
     }
     if (timestampValue != null) {
-      helper.add(
-        r'timestampValue',
-        timestampValue,
-      );
+      helper.add(r'timestampValue', timestampValue);
     }
     if (enumValue != null) {
-      helper.add(
-        r'enumValue',
-        enumValue,
-      );
+      helper.add(r'enumValue', enumValue);
     }
     if (listValue != null) {
-      helper.add(
-        r'listValue',
-        listValue,
-      );
+      helper.add(r'listValue', listValue);
     }
     if (mapValue != null) {
-      helper.add(
-        r'mapValue',
-        mapValue,
-      );
+      helper.add(r'mapValue', mapValue);
     }
     if (structureValue != null) {
-      helper.add(
-        r'structureValue',
-        structureValue,
-      );
+      helper.add(r'structureValue', structureValue);
     }
     return helper.toString();
   }
@@ -209,7 +181,7 @@ final class MyUnionListValue$ extends MyUnion {
 
 final class MyUnionMapValue$ extends MyUnion {
   MyUnionMapValue$(Map<String, String> mapValue)
-      : this._(_i3.BuiltMap(mapValue));
+    : this._(_i3.BuiltMap(mapValue));
 
   const MyUnionMapValue$._(this.mapValue) : super._();
 
@@ -231,10 +203,7 @@ final class MyUnionStructureValue$ extends MyUnion {
 }
 
 final class MyUnionSdkUnknown$ extends MyUnion {
-  const MyUnionSdkUnknown$(
-    this.name,
-    this.value,
-  ) : super._();
+  const MyUnionSdkUnknown$(this.name, this.value) : super._();
 
   @override
   final String name;
@@ -249,25 +218,22 @@ class MyUnionAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [
-        MyUnion,
-        MyUnionStringValue$,
-        MyUnionBooleanValue$,
-        MyUnionNumberValue$,
-        MyUnionBlobValue$,
-        MyUnionTimestampValue$,
-        MyUnionEnumValue$,
-        MyUnionListValue$,
-        MyUnionMapValue$,
-        MyUnionStructureValue$,
-      ];
+    MyUnion,
+    MyUnionStringValue$,
+    MyUnionBooleanValue$,
+    MyUnionNumberValue$,
+    MyUnionBlobValue$,
+    MyUnionTimestampValue$,
+    MyUnionEnumValue$,
+    MyUnionListValue$,
+    MyUnionMapValue$,
+    MyUnionStructureValue$,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   MyUnion deserialize(
@@ -278,64 +244,75 @@ class MyUnionAwsJson11Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'stringValue':
-        return MyUnionStringValue$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
+        return MyUnionStringValue$(
+          (serializers.deserialize(value, specifiedType: const FullType(String))
+              as String),
+        );
       case 'booleanValue':
-        return MyUnionBooleanValue$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(bool),
-        ) as bool));
+        return MyUnionBooleanValue$(
+          (serializers.deserialize(value, specifiedType: const FullType(bool))
+              as bool),
+        );
       case 'numberValue':
-        return MyUnionNumberValue$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(int),
-        ) as int));
+        return MyUnionNumberValue$(
+          (serializers.deserialize(value, specifiedType: const FullType(int))
+              as int),
+        );
       case 'blobValue':
-        return MyUnionBlobValue$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(_i2.Uint8List),
-        ) as _i2.Uint8List));
+        return MyUnionBlobValue$(
+          (serializers.deserialize(
+                value,
+                specifiedType: const FullType(_i2.Uint8List),
+              )
+              as _i2.Uint8List),
+        );
       case 'timestampValue':
-        return MyUnionTimestampValue$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(DateTime),
-        ) as DateTime));
+        return MyUnionTimestampValue$(
+          (serializers.deserialize(
+                value,
+                specifiedType: const FullType(DateTime),
+              )
+              as DateTime),
+        );
       case 'enumValue':
-        return MyUnionEnumValue$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(FooEnum),
-        ) as FooEnum));
+        return MyUnionEnumValue$(
+          (serializers.deserialize(
+                value,
+                specifiedType: const FullType(FooEnum),
+              )
+              as FooEnum),
+        );
       case 'listValue':
-        return MyUnionListValue$._((serializers.deserialize(
-          value,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
-          ),
-        ) as _i3.BuiltList<String>));
+        return MyUnionListValue$._(
+          (serializers.deserialize(
+                value,
+                specifiedType: const FullType(_i3.BuiltList, [
+                  FullType(String),
+                ]),
+              )
+              as _i3.BuiltList<String>),
+        );
       case 'mapValue':
-        return MyUnionMapValue$._((serializers.deserialize(
-          value,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
-              FullType(String),
-              FullType(String),
-            ],
-          ),
-        ) as _i3.BuiltMap<String, String>));
+        return MyUnionMapValue$._(
+          (serializers.deserialize(
+                value,
+                specifiedType: const FullType(_i3.BuiltMap, [
+                  FullType(String),
+                  FullType(String),
+                ]),
+              )
+              as _i3.BuiltMap<String, String>),
+        );
       case 'structureValue':
-        return MyUnionStructureValue$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(GreetingStruct),
-        ) as GreetingStruct));
+        return MyUnionStructureValue$(
+          (serializers.deserialize(
+                value,
+                specifiedType: const FullType(GreetingStruct),
+              )
+              as GreetingStruct),
+        );
     }
-    return MyUnion.sdkUnknown(
-      key,
-      value,
-    );
+    return MyUnion.sdkUnknown(key, value);
   }
 
   @override
@@ -348,50 +325,44 @@ class MyUnionAwsJson11Serializer
       object.name,
       switch (object) {
         MyUnionStringValue$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(String),
-          ),
+          value,
+          specifiedType: const FullType(String),
+        ),
         MyUnionBooleanValue$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(bool),
-          ),
+          value,
+          specifiedType: const FullType(bool),
+        ),
         MyUnionNumberValue$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(int),
-          ),
+          value,
+          specifiedType: const FullType(int),
+        ),
         MyUnionBlobValue$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(_i2.Uint8List),
-          ),
+          value,
+          specifiedType: const FullType(_i2.Uint8List),
+        ),
         MyUnionTimestampValue$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ),
+          value,
+          specifiedType: const FullType(DateTime),
+        ),
         MyUnionEnumValue$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(FooEnum),
-          ),
+          value,
+          specifiedType: const FullType(FooEnum),
+        ),
         MyUnionListValue$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(String)],
-            ),
-          ),
+          value,
+          specifiedType: const FullType(_i3.BuiltList, [FullType(String)]),
+        ),
         MyUnionMapValue$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ),
+          value,
+          specifiedType: const FullType(_i3.BuiltMap, [
+            FullType(String),
+            FullType(String),
+          ]),
+        ),
         MyUnionStructureValue$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(GreetingStruct),
-          ),
+          value,
+          specifiedType: const FullType(GreetingStruct),
+        ),
         MyUnionSdkUnknown$(:final value) => value,
       },
     ];

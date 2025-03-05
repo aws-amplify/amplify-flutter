@@ -63,34 +63,34 @@ class _$KitchenSink extends KitchenSink {
   factory _$KitchenSink([void Function(KitchenSinkBuilder)? updates]) =>
       (new KitchenSinkBuilder()..update(updates))._build();
 
-  _$KitchenSink._(
-      {this.blob,
-      this.boolean,
-      this.double_,
-      this.emptyStruct,
-      this.float,
-      this.httpdateTimestamp,
-      this.integer,
-      this.iso8601Timestamp,
-      this.jsonValue,
-      this.listOfLists,
-      this.listOfMapsOfStrings,
-      this.listOfStrings,
-      this.listOfStructs,
-      this.long,
-      this.mapOfListsOfStrings,
-      this.mapOfMaps,
-      this.mapOfStrings,
-      this.mapOfStructs,
-      this.recursiveList,
-      this.recursiveMap,
-      this.recursiveStruct,
-      this.simpleStruct,
-      this.string,
-      this.structWithJsonName,
-      this.timestamp,
-      this.unixTimestamp})
-      : super._();
+  _$KitchenSink._({
+    this.blob,
+    this.boolean,
+    this.double_,
+    this.emptyStruct,
+    this.float,
+    this.httpdateTimestamp,
+    this.integer,
+    this.iso8601Timestamp,
+    this.jsonValue,
+    this.listOfLists,
+    this.listOfMapsOfStrings,
+    this.listOfStrings,
+    this.listOfStructs,
+    this.long,
+    this.mapOfListsOfStrings,
+    this.mapOfMaps,
+    this.mapOfStrings,
+    this.mapOfStructs,
+    this.recursiveList,
+    this.recursiveMap,
+    this.recursiveStruct,
+    this.simpleStruct,
+    this.string,
+    this.structWithJsonName,
+    this.timestamp,
+    this.unixTimestamp,
+  }) : super._();
 
   @override
   KitchenSink rebuild(void Function(KitchenSinkBuilder) updates) =>
@@ -219,8 +219,8 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
       _$this._listOfMapsOfStrings ??=
           new _i6.ListBuilder<_i6.BuiltMap<String, String>>();
   set listOfMapsOfStrings(
-          _i6.ListBuilder<_i6.BuiltMap<String, String>>? listOfMapsOfStrings) =>
-      _$this._listOfMapsOfStrings = listOfMapsOfStrings;
+    _i6.ListBuilder<_i6.BuiltMap<String, String>>? listOfMapsOfStrings,
+  ) => _$this._listOfMapsOfStrings = listOfMapsOfStrings;
 
   _i6.ListBuilder<String>? _listOfStrings;
   _i6.ListBuilder<String> get listOfStrings =>
@@ -243,16 +243,16 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
       _$this._mapOfListsOfStrings ??=
           new _i6.ListMultimapBuilder<String, String>();
   set mapOfListsOfStrings(
-          _i6.ListMultimapBuilder<String, String>? mapOfListsOfStrings) =>
-      _$this._mapOfListsOfStrings = mapOfListsOfStrings;
+    _i6.ListMultimapBuilder<String, String>? mapOfListsOfStrings,
+  ) => _$this._mapOfListsOfStrings = mapOfListsOfStrings;
 
   _i6.MapBuilder<String, _i6.BuiltMap<String, String>>? _mapOfMaps;
   _i6.MapBuilder<String, _i6.BuiltMap<String, String>> get mapOfMaps =>
       _$this._mapOfMaps ??=
           new _i6.MapBuilder<String, _i6.BuiltMap<String, String>>();
   set mapOfMaps(
-          _i6.MapBuilder<String, _i6.BuiltMap<String, String>>? mapOfMaps) =>
-      _$this._mapOfMaps = mapOfMaps;
+    _i6.MapBuilder<String, _i6.BuiltMap<String, String>>? mapOfMaps,
+  ) => _$this._mapOfMaps = mapOfMaps;
 
   _i6.MapBuilder<String, String>? _mapOfStrings;
   _i6.MapBuilder<String, String> get mapOfStrings =>
@@ -362,7 +362,8 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
   _$KitchenSink _build() {
     _$KitchenSink _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$KitchenSink._(
             blob: blob,
             boolean: boolean,
@@ -427,7 +428,10 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
         _structWithJsonName?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'KitchenSink', _$failedField, e.toString());
+          r'KitchenSink',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -15,16 +15,18 @@ abstract class ResponseCodeHttpFallbackInputOutput
         _i1.HttpInput<ResponseCodeHttpFallbackInputOutput>,
         _i2.AWSEquatable<ResponseCodeHttpFallbackInputOutput>
     implements
-        Built<ResponseCodeHttpFallbackInputOutput,
-            ResponseCodeHttpFallbackInputOutputBuilder>,
+        Built<
+          ResponseCodeHttpFallbackInputOutput,
+          ResponseCodeHttpFallbackInputOutputBuilder
+        >,
         _i1.EmptyPayload {
   factory ResponseCodeHttpFallbackInputOutput() {
     return _$ResponseCodeHttpFallbackInputOutput._();
   }
 
-  factory ResponseCodeHttpFallbackInputOutput.build(
-          [void Function(ResponseCodeHttpFallbackInputOutputBuilder) updates]) =
-      _$ResponseCodeHttpFallbackInputOutput;
+  factory ResponseCodeHttpFallbackInputOutput.build([
+    void Function(ResponseCodeHttpFallbackInputOutputBuilder) updates,
+  ]) = _$ResponseCodeHttpFallbackInputOutput;
 
   const ResponseCodeHttpFallbackInputOutput._();
 
@@ -32,18 +34,16 @@ abstract class ResponseCodeHttpFallbackInputOutput
     ResponseCodeHttpFallbackInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [ResponseCodeHttpFallbackInputOutput] from a [payload] and [response].
   factory ResponseCodeHttpFallbackInputOutput.fromResponse(
     ResponseCodeHttpFallbackInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<ResponseCodeHttpFallbackInputOutput>>
-      serializers = [ResponseCodeHttpFallbackInputOutputRestJson1Serializer()];
+  serializers = [ResponseCodeHttpFallbackInputOutputRestJson1Serializer()];
 
   @override
   ResponseCodeHttpFallbackInputOutput getPayload() => this;
@@ -53,30 +53,29 @@ abstract class ResponseCodeHttpFallbackInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ResponseCodeHttpFallbackInputOutput');
+    final helper = newBuiltValueToStringHelper(
+      'ResponseCodeHttpFallbackInputOutput',
+    );
     return helper.toString();
   }
 }
 
-class ResponseCodeHttpFallbackInputOutputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<ResponseCodeHttpFallbackInputOutput> {
+class ResponseCodeHttpFallbackInputOutputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<ResponseCodeHttpFallbackInputOutput> {
   const ResponseCodeHttpFallbackInputOutputRestJson1Serializer()
-      : super('ResponseCodeHttpFallbackInputOutput');
+    : super('ResponseCodeHttpFallbackInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        ResponseCodeHttpFallbackInputOutput,
-        _$ResponseCodeHttpFallbackInputOutput,
-      ];
+    ResponseCodeHttpFallbackInputOutput,
+    _$ResponseCodeHttpFallbackInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   ResponseCodeHttpFallbackInputOutput deserialize(
@@ -92,6 +91,5 @@ class ResponseCodeHttpFallbackInputOutputRestJson1Serializer extends _i1
     Serializers serializers,
     ResponseCodeHttpFallbackInputOutput object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

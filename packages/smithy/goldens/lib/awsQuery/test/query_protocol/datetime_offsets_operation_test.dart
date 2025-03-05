@@ -12,91 +12,76 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'AwsQueryDateTimeWithNegativeOffset (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: DatetimeOffsetsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsQueryDateTimeWithNegativeOffset',
-          documentation:
-              'Ensures that clients can correctly parse datetime (timestamps) with offsets',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<DatetimeOffsetsResponse xmlns="https://example.com/">\n    <DatetimeOffsetsResult>\n        <datetime>2019-12-16T22:48:18-01:00</datetime>\n    </DatetimeOffsetsResult>\n</DatetimeOffsetsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'datetime': 1576540098},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [DatetimeOffsetsOutputAwsQuerySerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsQueryDateTimeWithPositiveOffset (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: DatetimeOffsetsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsQueryDateTimeWithPositiveOffset',
-          documentation:
-              'Ensures that clients can correctly parse datetime (timestamps) with offsets',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<DatetimeOffsetsResponse xmlns="https://example.com/">\n    <DatetimeOffsetsResult>\n        <datetime>2019-12-17T00:48:18+01:00</datetime>\n    </DatetimeOffsetsResult>\n</DatetimeOffsetsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'datetime': 1576540098},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [DatetimeOffsetsOutputAwsQuerySerializer()],
-      );
-    },
-  );
+  _i1.test('AwsQueryDateTimeWithNegativeOffset (response)', () async {
+    await _i2.httpResponseTest(
+      operation: DatetimeOffsetsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsQueryDateTimeWithNegativeOffset',
+        documentation:
+            'Ensures that clients can correctly parse datetime (timestamps) with offsets',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<DatetimeOffsetsResponse xmlns="https://example.com/">\n    <DatetimeOffsetsResult>\n        <datetime>2019-12-16T22:48:18-01:00</datetime>\n    </DatetimeOffsetsResult>\n</DatetimeOffsetsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'datetime': 1576540098},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [DatetimeOffsetsOutputAwsQuerySerializer()],
+    );
+  });
+  _i1.test('AwsQueryDateTimeWithPositiveOffset (response)', () async {
+    await _i2.httpResponseTest(
+      operation: DatetimeOffsetsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsQueryDateTimeWithPositiveOffset',
+        documentation:
+            'Ensures that clients can correctly parse datetime (timestamps) with offsets',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<DatetimeOffsetsResponse xmlns="https://example.com/">\n    <DatetimeOffsetsResult>\n        <datetime>2019-12-17T00:48:18+01:00</datetime>\n    </DatetimeOffsetsResult>\n</DatetimeOffsetsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'datetime': 1576540098},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [DatetimeOffsetsOutputAwsQuerySerializer()],
+    );
+  });
 }
 
 class DatetimeOffsetsOutputAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<DatetimeOffsetsOutput> {
   const DatetimeOffsetsOutputAwsQuerySerializer()
-      : super('DatetimeOffsetsOutput');
+    : super('DatetimeOffsetsOutput');
 
   @override
   Iterable<Type> get types => const [DatetimeOffsetsOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   DatetimeOffsetsOutput deserialize(

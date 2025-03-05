@@ -12,45 +12,39 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestXmlEndpointTraitWithHostLabelAndHttpBinding (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: EndpointWithHostLabelHeaderOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestXmlEndpointTraitWithHostLabelAndHttpBinding',
-          documentation:
-              'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input. The label must also\nbe serialized in into any other location it is bound to, such\nas the body or in this case an http header.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: 'application/xml',
-          params: {'accountId': 'bar'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'X-Amz-Account-Id': 'bar'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/EndpointWithHostLabelHeaderOperation',
-          host: 'example.com',
-          resolvedHost: 'bar.example.com',
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [HostLabelHeaderInputRestXmlSerializer()],
-      );
-    },
-  );
+  _i1.test('RestXmlEndpointTraitWithHostLabelAndHttpBinding (request)', () async {
+    await _i2.httpRequestTest(
+      operation: EndpointWithHostLabelHeaderOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestXmlEndpointTraitWithHostLabelAndHttpBinding',
+        documentation:
+            'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input. The label must also\nbe serialized in into any other location it is bound to, such\nas the body or in this case an http header.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: 'application/xml',
+        params: {'accountId': 'bar'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'X-Amz-Account-Id': 'bar'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/EndpointWithHostLabelHeaderOperation',
+        host: 'example.com',
+        resolvedHost: 'bar.example.com',
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [HostLabelHeaderInputRestXmlSerializer()],
+    );
+  });
 }
 
 class HostLabelHeaderInputRestXmlSerializer
@@ -62,11 +56,8 @@ class HostLabelHeaderInputRestXmlSerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   HostLabelHeaderInput deserialize(
@@ -85,10 +76,12 @@ class HostLabelHeaderInputRestXmlSerializer
       }
       switch (key) {
         case 'accountId':
-          result.accountId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accountId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

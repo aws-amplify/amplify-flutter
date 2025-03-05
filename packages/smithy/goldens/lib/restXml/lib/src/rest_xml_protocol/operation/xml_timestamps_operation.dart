@@ -13,30 +13,40 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This tests how timestamps are serialized, including using the default format of date-time and various @timestampFormat trait values.
-class XmlTimestampsOperation extends _i1.HttpOperation<
-    XmlTimestampsInputOutput,
-    XmlTimestampsInputOutput,
-    XmlTimestampsInputOutput,
-    XmlTimestampsInputOutput> {
+class XmlTimestampsOperation
+    extends
+        _i1.HttpOperation<
+          XmlTimestampsInputOutput,
+          XmlTimestampsInputOutput,
+          XmlTimestampsInputOutput,
+          XmlTimestampsInputOutput
+        > {
   /// This tests how timestamps are serialized, including using the default format of date-time and various @timestampFormat trait values.
   XmlTimestampsOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<XmlTimestampsInputOutput, XmlTimestampsInputOutput,
-          XmlTimestampsInputOutput, XmlTimestampsInputOutput>> protocols = [
+    _i1.HttpProtocol<
+      XmlTimestampsInputOutput,
+      XmlTimestampsInputOutput,
+      XmlTimestampsInputOutput,
+      XmlTimestampsInputOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
@@ -47,7 +57,7 @@ class XmlTimestampsOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: false,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -77,11 +87,7 @@ class XmlTimestampsOperation extends _i1.HttpOperation<
   XmlTimestampsInputOutput buildOutput(
     XmlTimestampsInputOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      XmlTimestampsInputOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => XmlTimestampsInputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -105,11 +111,7 @@ class XmlTimestampsOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

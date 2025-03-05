@@ -23,7 +23,7 @@ abstract class SimpleStruct
   const SimpleStruct._();
 
   static const List<_i2.SmithySerializer<SimpleStruct>> serializers = [
-    SimpleStructAwsJson11Serializer()
+    SimpleStructAwsJson11Serializer(),
   ];
 
   String? get value;
@@ -33,10 +33,7 @@ abstract class SimpleStruct
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SimpleStruct')
-      ..add(
-        'value',
-        value,
-      );
+      ..add('value', value);
     return helper.toString();
   }
 }
@@ -46,18 +43,12 @@ class SimpleStructAwsJson11Serializer
   const SimpleStructAwsJson11Serializer() : super('SimpleStruct');
 
   @override
-  Iterable<Type> get types => const [
-        SimpleStruct,
-        _$SimpleStruct,
-      ];
+  Iterable<Type> get types => const [SimpleStruct, _$SimpleStruct];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   SimpleStruct deserialize(
@@ -76,10 +67,12 @@ class SimpleStructAwsJson11Serializer
       }
       switch (key) {
         case 'Value':
-          result.value = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.value =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -97,10 +90,9 @@ class SimpleStructAwsJson11Serializer
     if (value != null) {
       result$
         ..add('Value')
-        ..add(serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

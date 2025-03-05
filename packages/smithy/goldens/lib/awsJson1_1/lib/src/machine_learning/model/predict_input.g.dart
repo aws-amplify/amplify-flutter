@@ -17,16 +17,22 @@ class _$PredictInput extends PredictInput {
   factory _$PredictInput([void Function(PredictInputBuilder)? updates]) =>
       (new PredictInputBuilder()..update(updates))._build();
 
-  _$PredictInput._(
-      {required this.mlModelId,
-      required this.record,
-      required this.predictEndpoint})
-      : super._() {
+  _$PredictInput._({
+    required this.mlModelId,
+    required this.record,
+    required this.predictEndpoint,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        mlModelId, r'PredictInput', 'mlModelId');
+      mlModelId,
+      r'PredictInput',
+      'mlModelId',
+    );
     BuiltValueNullFieldError.checkNotNull(record, r'PredictInput', 'record');
     BuiltValueNullFieldError.checkNotNull(
-        predictEndpoint, r'PredictInput', 'predictEndpoint');
+      predictEndpoint,
+      r'PredictInput',
+      'predictEndpoint',
+    );
   }
 
   @override
@@ -104,13 +110,20 @@ class PredictInputBuilder
   _$PredictInput _build() {
     _$PredictInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PredictInput._(
             mlModelId: BuiltValueNullFieldError.checkNotNull(
-                mlModelId, r'PredictInput', 'mlModelId'),
+              mlModelId,
+              r'PredictInput',
+              'mlModelId',
+            ),
             record: record.build(),
             predictEndpoint: BuiltValueNullFieldError.checkNotNull(
-                predictEndpoint, r'PredictInput', 'predictEndpoint'),
+              predictEndpoint,
+              r'PredictInput',
+              'predictEndpoint',
+            ),
           );
     } catch (_) {
       late String _$failedField;
@@ -119,7 +132,10 @@ class PredictInputBuilder
         record.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PredictInput', _$failedField, e.toString());
+          r'PredictInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -10,16 +10,16 @@ class _$XmlBlobsInputOutput extends XmlBlobsInputOutput {
   @override
   final _i3.Uint8List? data;
 
-  factory _$XmlBlobsInputOutput(
-          [void Function(XmlBlobsInputOutputBuilder)? updates]) =>
-      (new XmlBlobsInputOutputBuilder()..update(updates))._build();
+  factory _$XmlBlobsInputOutput([
+    void Function(XmlBlobsInputOutputBuilder)? updates,
+  ]) => (new XmlBlobsInputOutputBuilder()..update(updates))._build();
 
   _$XmlBlobsInputOutput._({this.data}) : super._();
 
   @override
   XmlBlobsInputOutput rebuild(
-          void Function(XmlBlobsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlBlobsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlBlobsInputOutputBuilder toBuilder() =>
@@ -74,10 +74,7 @@ class XmlBlobsInputOutputBuilder
   XmlBlobsInputOutput build() => _build();
 
   _$XmlBlobsInputOutput _build() {
-    final _$result = _$v ??
-        new _$XmlBlobsInputOutput._(
-          data: data,
-        );
+    final _$result = _$v ?? new _$XmlBlobsInputOutput._(data: data);
     replace(_$result);
     return _$result;
   }

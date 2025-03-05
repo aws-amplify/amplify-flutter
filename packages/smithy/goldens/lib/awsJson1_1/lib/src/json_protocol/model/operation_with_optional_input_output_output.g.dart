@@ -11,9 +11,9 @@ class _$OperationWithOptionalInputOutputOutput
   @override
   final String? value;
 
-  factory _$OperationWithOptionalInputOutputOutput(
-          [void Function(OperationWithOptionalInputOutputOutputBuilder)?
-              updates]) =>
+  factory _$OperationWithOptionalInputOutputOutput([
+    void Function(OperationWithOptionalInputOutputOutputBuilder)? updates,
+  ]) =>
       (new OperationWithOptionalInputOutputOutputBuilder()..update(updates))
           ._build();
 
@@ -21,9 +21,8 @@ class _$OperationWithOptionalInputOutputOutput
 
   @override
   OperationWithOptionalInputOutputOutput rebuild(
-          void Function(OperationWithOptionalInputOutputOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OperationWithOptionalInputOutputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OperationWithOptionalInputOutputOutputBuilder toBuilder() =>
@@ -47,8 +46,10 @@ class _$OperationWithOptionalInputOutputOutput
 
 class OperationWithOptionalInputOutputOutputBuilder
     implements
-        Builder<OperationWithOptionalInputOutputOutput,
-            OperationWithOptionalInputOutputOutputBuilder> {
+        Builder<
+          OperationWithOptionalInputOutputOutput,
+          OperationWithOptionalInputOutputOutputBuilder
+        > {
   _$OperationWithOptionalInputOutputOutput? _$v;
 
   String? _value;
@@ -74,7 +75,8 @@ class OperationWithOptionalInputOutputOutputBuilder
 
   @override
   void update(
-      void Function(OperationWithOptionalInputOutputOutputBuilder)? updates) {
+    void Function(OperationWithOptionalInputOutputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -82,10 +84,8 @@ class OperationWithOptionalInputOutputOutputBuilder
   OperationWithOptionalInputOutputOutput build() => _build();
 
   _$OperationWithOptionalInputOutputOutput _build() {
-    final _$result = _$v ??
-        new _$OperationWithOptionalInputOutputOutput._(
-          value: value,
-        );
+    final _$result =
+        _$v ?? new _$OperationWithOptionalInputOutputOutput._(value: value);
     replace(_$result);
     return _$result;
   }

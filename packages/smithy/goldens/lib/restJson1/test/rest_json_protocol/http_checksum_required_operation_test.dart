@@ -12,66 +12,57 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonHttpChecksumRequired (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpChecksumRequiredOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonHttpChecksumRequired',
-          documentation: 'Adds Content-MD5 header',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{\n    "foo":"base64 encoded md5 checksum"\n}\n',
-          bodyMediaType: 'application/json',
-          params: {'foo': 'base64 encoded md5 checksum'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-MD5': 'iB0/3YSo7maijL0IGOgA9g==',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/HttpChecksumRequired',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpChecksumRequiredInputOutputRestJson1Serializer()
-        ],
-      );
-    },
-  );
+  _i1.test('RestJsonHttpChecksumRequired (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpChecksumRequiredOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonHttpChecksumRequired',
+        documentation: 'Adds Content-MD5 header',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{\n    "foo":"base64 encoded md5 checksum"\n}\n',
+        bodyMediaType: 'application/json',
+        params: {'foo': 'base64 encoded md5 checksum'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-MD5': 'iB0/3YSo7maijL0IGOgA9g==',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/HttpChecksumRequired',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        HttpChecksumRequiredInputOutputRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
 class HttpChecksumRequiredInputOutputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<HttpChecksumRequiredInputOutput> {
   const HttpChecksumRequiredInputOutputRestJson1Serializer()
-      : super('HttpChecksumRequiredInputOutput');
+    : super('HttpChecksumRequiredInputOutput');
 
   @override
   Iterable<Type> get types => const [HttpChecksumRequiredInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   HttpChecksumRequiredInputOutput deserialize(
@@ -90,10 +81,12 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

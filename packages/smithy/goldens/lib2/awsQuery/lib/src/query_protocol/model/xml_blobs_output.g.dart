@@ -72,10 +72,7 @@ class XmlBlobsOutputBuilder
   XmlBlobsOutput build() => _build();
 
   _$XmlBlobsOutput _build() {
-    final _$result = _$v ??
-        new _$XmlBlobsOutput._(
-          data: data,
-        );
+    final _$result = _$v ?? new _$XmlBlobsOutput._(data: data);
     replace(_$result);
     return _$result;
   }

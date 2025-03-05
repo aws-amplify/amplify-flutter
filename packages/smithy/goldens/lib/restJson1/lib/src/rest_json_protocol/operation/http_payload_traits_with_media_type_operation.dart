@@ -14,33 +14,40 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// This examples uses a `@mediaType` trait on the payload to force a custom content-type to be serialized.
-class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
-    _i2.Uint8List,
-    HttpPayloadTraitsWithMediaTypeInputOutput,
-    _i2.Uint8List,
-    HttpPayloadTraitsWithMediaTypeInputOutput> {
+class HttpPayloadTraitsWithMediaTypeOperation
+    extends
+        _i1.HttpOperation<
+          _i2.Uint8List,
+          HttpPayloadTraitsWithMediaTypeInputOutput,
+          _i2.Uint8List,
+          HttpPayloadTraitsWithMediaTypeInputOutput
+        > {
   /// This examples uses a `@mediaType` trait on the payload to force a custom content-type to be serialized.
   HttpPayloadTraitsWithMediaTypeOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          _i2.Uint8List,
-          HttpPayloadTraitsWithMediaTypeInputOutput,
-          _i2.Uint8List,
-          HttpPayloadTraitsWithMediaTypeInputOutput>> protocols = [
+    _i1.HttpProtocol<
+      _i2.Uint8List,
+      HttpPayloadTraitsWithMediaTypeInputOutput,
+      _i2.Uint8List,
+      HttpPayloadTraitsWithMediaTypeInputOutput
+    >
+  >
+  protocols = [
     _i3.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
@@ -51,7 +58,7 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       mediaType: 'text/plain',
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -69,16 +76,16 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
 
   @override
   _i1.HttpRequest buildRequest(
-          HttpPayloadTraitsWithMediaTypeInputOutput input) =>
-      _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/HttpPayloadTraitsWithMediaType';
-        if (input.foo != null) {
-          if (input.foo!.isNotEmpty) {
-            b.headers['X-Foo'] = input.foo!;
-          }
-        }
-      });
+    HttpPayloadTraitsWithMediaTypeInputOutput input,
+  ) => _i1.HttpRequest((b) {
+    b.method = 'POST';
+    b.path = r'/HttpPayloadTraitsWithMediaType';
+    if (input.foo != null) {
+      if (input.foo!.isNotEmpty) {
+        b.headers['X-Foo'] = input.foo!;
+      }
+    }
+  });
 
   @override
   int successCode([HttpPayloadTraitsWithMediaTypeInputOutput? output]) => 200;
@@ -88,10 +95,7 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
     _i2.Uint8List? payload,
     _i4.AWSBaseHttpResponse response,
   ) =>
-      HttpPayloadTraitsWithMediaTypeInputOutput.fromResponse(
-        payload,
-        response,
-      );
+      HttpPayloadTraitsWithMediaTypeInputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -115,11 +119,7 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
