@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Smithy client runtime for Dart.
-library;
+library smithy;
 
 /// AST types
 export 'package:aws_common/aws_common.dart' show AlpnProtocol;

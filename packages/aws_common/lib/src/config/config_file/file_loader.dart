@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library;
+library aws_common.config_file.file_loader;
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/config/aws_path_provider.dart';

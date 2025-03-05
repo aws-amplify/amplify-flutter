@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Amplify Analytics Pinpoint.
-library;
+library amplify_analytics_pinpoint;
 
 export 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart'
     hide AmplifyAnalyticsPinpointDart;

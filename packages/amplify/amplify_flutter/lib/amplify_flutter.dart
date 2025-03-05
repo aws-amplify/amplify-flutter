@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library;
+library amplify_flutter;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';

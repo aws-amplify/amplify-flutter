@@ -4,7 +4,7 @@
 // Generated with tool/generate_sdk_exceptions.dart. Do not modify by hand.
 
 /// Exception types bridged from generated SDKs to their legacy counterparts.
-library;
+library amplify_auth_cognito_dart.sdk.sdk_exception;
 
 import 'package:amplify_core/amplify_core.dart' as core;
 import 'package:meta/meta.dart';

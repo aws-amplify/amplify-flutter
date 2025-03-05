@@ -1,7 +1,7 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
-library; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_with_namespace_v1.rest_xml_protocol_namespace.common.endpoint_resolver; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:meta/meta.dart' as _i2;
 import 'package:smithy_aws/smithy_aws.dart' as _i1;

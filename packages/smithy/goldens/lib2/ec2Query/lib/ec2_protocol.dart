@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// An EC2 query service that sends query requests and XML responses.
-library;
+library ec2_query_v2.ec2_protocol;
 
 export 'package:ec2_query_v2/src/ec2_protocol/ec2_protocol_client.dart';
 export 'package:ec2_query_v2/src/ec2_protocol/ec2_protocol_server.dart';

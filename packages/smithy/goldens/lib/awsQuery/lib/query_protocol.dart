@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// A query service that sends query requests and XML responses.
-library;
+library aws_query_v1.query_protocol;
 
 export 'package:aws_query_v1/src/query_protocol/model/aws_config.dart';
 export 'package:aws_query_v1/src/query_protocol/model/client_config.dart';

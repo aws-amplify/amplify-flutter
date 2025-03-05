@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// AWS runtime for Smithy.
-library;
+library smithy_aws;
 
 /// Endpoint
 export 'src/endpoint/aws_endpoint.dart';

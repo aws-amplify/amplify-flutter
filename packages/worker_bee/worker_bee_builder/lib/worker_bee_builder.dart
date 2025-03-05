@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Builder definitons for `worker_bee_builder`.
-library;
+library worker_bee_builder.builder;
 
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';

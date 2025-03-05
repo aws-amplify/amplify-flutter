@@ -13,7 +13,7 @@
         './android/src/main/kotlin/com/amazonaws/amplify/amplify_native_legacy_wrapper/pigeons/LegacyNativePluginPigeon.kt',
   ),
 )
-library;
+library legacy_native_plugin;
 
 import 'package:pigeon/pigeon.dart';
 

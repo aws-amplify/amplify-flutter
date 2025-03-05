@@ -3,7 +3,7 @@
 
 @internal
 /// Internal auth state machine code.
-library;
+library amplify_auth_cognito.state;
 
 import 'package:meta/meta.dart';
 

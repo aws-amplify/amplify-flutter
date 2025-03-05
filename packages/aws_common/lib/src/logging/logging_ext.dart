@@ -3,7 +3,7 @@
 
 /// Bridge methods for `package:logging` types.
 @internal
-library;
+library aws_common.logging.logging_ext;
 
 import 'package:aws_common/aws_common.dart';
 import 'package:logging/logging.dart';

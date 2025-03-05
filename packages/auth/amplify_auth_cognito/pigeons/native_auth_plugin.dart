@@ -15,7 +15,7 @@
     swiftOut: 'darwin/classes/pigeons/messages.g.swift',
   ),
 )
-library;
+library native_auth_plugin;
 
 import 'package:pigeon/pigeon.dart';
 

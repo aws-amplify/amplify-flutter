@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library;
+library amplify_auth_cognito.hostedui.oauth_parameters;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';

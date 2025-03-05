@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Smithy AST representation.
-library;
+library smithy_ast;
 
 export 'src/ast/pattern/invalid_pattern_exception.dart';
 export 'src/ast/pattern/segment.dart';

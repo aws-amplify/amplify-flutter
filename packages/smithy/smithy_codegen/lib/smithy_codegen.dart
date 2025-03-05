@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Code generation library for Smithy AST models.
-library;
+library smithy_codegen;
 
 export 'src/config.dart';
 export 'src/exception.dart';

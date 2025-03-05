@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// A REST XML service that sends XML requests and responses.
-library;
+library rest_xml_v1.rest_xml_protocol;
 
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/all_query_string_types_input.dart'
     hide AllQueryStringTypesInputPayload;

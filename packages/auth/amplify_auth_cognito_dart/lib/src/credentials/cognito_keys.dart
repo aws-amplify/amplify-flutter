@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library;
+library amplify_auth_cognito.credentials.cognito_keys;
 
 import 'dart:collection';
 

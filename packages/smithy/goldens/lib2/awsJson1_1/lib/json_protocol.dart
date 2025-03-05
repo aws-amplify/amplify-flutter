@@ -2,7 +2,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// # Sample Json 1.1 Protocol Service
-library;
+library aws_json1_1_v2.json_protocol;
 
 export 'package:aws_json1_1_v2/src/json_protocol/json_protocol_client.dart';
 export 'package:aws_json1_1_v2/src/json_protocol/json_protocol_server.dart';

@@ -4,7 +4,7 @@
 // ignore_for_file: public_member_api_docs
 
 @internal
-library;
+library amplify_api.graphql.ws.web_socket_types;
 
 import 'dart:convert';
 
