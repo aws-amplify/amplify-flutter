@@ -328,7 +328,7 @@ class Authenticator extends StatefulWidget {
            ]);
          }
          return true;
-       }());
+       }, 'initialStep should be a valid initial step');
 
   /// Wraps user-defined navigators for integration with [MaterialApp] and
   /// [Navigator].

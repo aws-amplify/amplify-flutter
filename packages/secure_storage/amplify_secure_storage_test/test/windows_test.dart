@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 @TestOn('windows')
+library;
+
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/data_protection.dart';
 import 'package:amplify_secure_storage_test/data/key_value_pairs.dart';

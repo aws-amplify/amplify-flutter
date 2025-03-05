@@ -66,8 +66,8 @@ void main() {
     test(
       'ModelMutations.create() on mtmRelationModel should have both relationships',
       () {
-        //ignore: missing_whitespace_between_adjacent_strings
         const expectedDoc =
+            // ignore: missing_whitespace_between_adjacent_strings
             'mutation createFirstMtmRelation('
             r'$input: CreateFirstMtmRelationInput!, '
             r'$condition:  ModelFirstMtmRelationConditionInput) { '
@@ -104,8 +104,8 @@ void main() {
     test(
       'ModelMutations.update() on mtmRelationModel should have both relationships',
       () {
-        //ignore: missing_whitespace_between_adjacent_strings
         const expectedDoc =
+            // ignore: missing_whitespace_between_adjacent_strings
             'mutation updateFirstMtmRelation('
             r'$input: UpdateFirstMtmRelationInput!, '
             r'$condition:  ModelFirstMtmRelationConditionInput) { '

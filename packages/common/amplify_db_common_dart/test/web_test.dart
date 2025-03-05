@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
+library;
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common_dart/src/connect_html.dart';
 import 'package:async/async.dart';

@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('mac-os')
+library;
+
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/cupertino/security.bindings.g.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_cupertino.dart';

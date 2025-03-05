@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
+library;
+
 import 'dart:async';
 import 'dart:convert';
 //ignore: deprecated_member_use
@@ -213,7 +215,7 @@ void main() {
 
 /// Collects an asynchronous sequence of byte lists into a single list of bytes.
 ///
-/// Similar to collectBytes from package:async, but works for any List<int>,
+/// Similar to collectBytes from package:async, but works for any List of int,
 /// where as collectBytes from package:async only supports [Uint8List].
 Future<List<int>> collectBytes(Stream<List<int>> source) {
   final bytes = <int>[];

@@ -18,7 +18,7 @@ final Glib glib = Glib(glibDyLib);
 final gStrHashPointer = glibDyLib
     .lookup<NativeFunction<guint Function(gconstpointer)>>('g_str_hash');
 
-/// Extensions on Pointer<GHashTable>.
+/// Extensions on Pointer GHashTable.
 extension GHashTablePointer on Pointer<GHashTable> {
   /// Inserts a new String into the hash table with provided key/value.
   void insert({

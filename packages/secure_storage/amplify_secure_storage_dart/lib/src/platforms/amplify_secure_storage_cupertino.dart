@@ -238,7 +238,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   /// allocations.
   ///
   /// The attributes keys & values should be a pointer to a CF type such
-  /// as Pointer<CFString> or Pointer<CFData>
+  /// as Pointer CFString or PointerCFData
   Pointer<CFDictionary> _createCFDictionary({
     required Map<Pointer, Pointer> map,
     required Arena arena,

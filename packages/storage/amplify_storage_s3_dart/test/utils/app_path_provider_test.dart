@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 @TestOn('vm')
+library;
+
 import 'dart:io';
 
 import 'package:amplify_storage_s3_dart/src/utils/app_path_provider/app_path_provider.dart';

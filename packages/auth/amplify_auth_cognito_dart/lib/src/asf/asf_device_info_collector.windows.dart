@@ -160,7 +160,7 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
       RegistryHive.localMachine,
       path: r'SOFTWARE\Microsoft\SQMClient',
     );
-    final deviceId = sqmClientKey.getValueAsString('MachineId');
+    final deviceId = sqmClientKey.getStringValue('MachineId');
     return (osVersion: osVersion, deviceId: deviceId);
   });
 

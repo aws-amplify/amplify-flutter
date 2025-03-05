@@ -195,7 +195,7 @@ class QueryField<T> {
   /// Matches models where the given field contains the provided value.
   ///
   /// This operation can be applied to fields of type String or
-  /// List<String>.
+  /// List of Strings.
   ///
   /// Example:
   /// ```dart

@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @OnPlatform(<String, Object>{'browser': Skip('Failing on web')})
+library;
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 

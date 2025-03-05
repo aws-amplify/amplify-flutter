@@ -144,7 +144,7 @@ class AmplifyWebSocketService
     _send(subscriptionRegistrationMessage);
   }
 
-  /// Transforms an event of <String> from AppSync and converts it into a
+  /// Transforms an event of String from AppSync and converts it into a
   ///  [WebSocketEvent] which gets consumed in [WebSocketBloc]
   @visibleForTesting
   Stream<WebSocketEvent> transformStream(Stream<dynamic> stream) {

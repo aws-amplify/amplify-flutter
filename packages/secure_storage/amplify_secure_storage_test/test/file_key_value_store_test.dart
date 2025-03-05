@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
+library;
+
 import 'dart:io';
 
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';

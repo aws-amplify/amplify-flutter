@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('mac-os || ios')
+library;
+
 import 'dart:io';
 
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';

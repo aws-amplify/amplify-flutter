@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
+library;
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database_html.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/transfer_record.dart';

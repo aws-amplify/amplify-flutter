@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
+library;
+
 import 'package:aws_common/aws_common.dart';
 import 'package:test/test.dart';
 

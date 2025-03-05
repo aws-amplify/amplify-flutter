@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
+library;
+
 import 'dart:async';
 import 'dart:convert';
 
