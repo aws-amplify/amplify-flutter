@@ -1,3 +1,7 @@
+## 0.7.4
+
+- Minor bug fixes and improvements
+
 ## 0.7.3
 
 - Minor bug fixes and improvements
