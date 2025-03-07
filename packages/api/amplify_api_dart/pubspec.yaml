@@ -17,7 +17,7 @@ dependencies:
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
   stream_transform: ^2.0.1
-  web_socket_channel: ^2.2.0
+  web_socket_channel: ^3.0.0
 
 dev_dependencies:
   amplify_lints: ">=3.1.0 <3.2.0"
