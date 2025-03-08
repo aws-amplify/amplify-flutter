@@ -10,9 +10,13 @@ class StorageListResult<Item extends StorageItem> {
   /// {@macro amplify_core.storage.list_result}
   const StorageListResult(
     this.items, {
+    this.excludedSubpaths = const [],
     required this.hasNextPage,
     this.nextToken,
   });
+
+  /// The subpaths that have been excluded
+  final List<String> excludedSubpaths;
 
   /// The objects listed in the current page.
   final List<Item> items;
