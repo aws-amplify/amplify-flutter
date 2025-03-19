@@ -284,7 +284,7 @@ class AWSSigV4Signer {
       }
     }
 
-    // Web sends an OPTIONS request to verify CORS compatability with the URL.
+    // Web sends an OPTIONS request to verify CORS compatibility with the URL.
     // A 404 can be returned if the URL contains unexpected query Parameters 
     // and URI.toString() appends a "?" to the URL for an empty query parameter 
     // map. Set the query parameter to null if it empty to avoid this.
