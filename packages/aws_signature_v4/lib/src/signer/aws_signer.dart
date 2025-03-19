@@ -256,7 +256,7 @@ class AWSSigV4Signer {
   }) {
     // The signing process requires component keys be encoded. However, the
     // actual HTTP request should have the pre-encoded keys.
-    final queryParameters = Map.of(canonicalRequest.queryParameters);
+    Map<String, String>? queryParameters = Map.of(canonicalRequest.queryParameters);
 
     // Similar to query parameters, some header values are canonicalized for
     // signing. However their original values should be included in the
@@ -283,6 +283,13 @@ class AWSSigV4Signer {
         headers[AWSHeaders.securityToken] = sessionToken;
       }
     }
+
+    // Web sends an OPTIONS request to verify CORS compatability with the URL.
+    // A 404 can be returned if the URL contains unexpected query Parameters 
+    // and URI.toString() appends a "?" to the URL for an empty query parameter 
+    // map. Set the query parameter to null if it empty to avoid this.
+    // https://github.com/dart-lang/sdk/issues/51656
+    queryParameters = queryParameters.isEmpty ? null : queryParameters;
 
     // On Web, sign the `Host` and `Content-Length` headers, but do not send
     // them as part of the request, since these will be included automatically
