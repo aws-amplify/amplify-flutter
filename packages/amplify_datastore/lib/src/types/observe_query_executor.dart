@@ -17,12 +17,11 @@ typedef Query<T extends Model> = Future<List<T>> Function(
 });
 
 typedef Observe<T extends Model> = Stream<SubscriptionEvent<T>> Function(
-    ModelType<T> modelType);
+  ModelType<T> modelType,
+);
 
 /// A class for handling observeQuery operations
 class ObserveQueryExecutor {
-  final Stream<dynamic> dataStoreEventStream;
-
   ObserveQueryExecutor({
     required this.dataStoreEventStream,
   }) : _dataStoreHubEventStream = dataStoreEventStream
@@ -31,6 +30,7 @@ class ObserveQueryExecutor {
             .asBroadcastStream() {
     _initModelSyncCache();
   }
+  final Stream<dynamic> dataStoreEventStream;
 
   /// A stream of ModelSyncEvents
   final Stream<DataStoreHubEvent> _dataStoreHubEventStream;
@@ -53,9 +53,9 @@ class ObserveQueryExecutor {
 
     // cached subscription events that occur prior to the
     // initial query completing
-    List<SubscriptionEvent<T>> subscriptionEvents = [];
+    final subscriptionEvents = <SubscriptionEvent<T>>[];
 
-    Stream<QuerySnapshot<T>> syncStatusStream = _isModelSyncedStream(modelType)
+    final syncStatusStream = _isModelSyncedStream(modelType)
         .skipWhile((element) => querySnapshot == null)
         .where((event) => event != querySnapshot!.isSynced)
         .map<QuerySnapshot<T>>((value) {
@@ -63,7 +63,7 @@ class ObserveQueryExecutor {
       return querySnapshot!;
     });
 
-    Stream<QuerySnapshot<T>> observeStream = observe(modelType)
+    final observeStream = observe(modelType)
         .map<QuerySnapshot<T>?>((event) {
           // cache subscription events until the initial query is returned
           if (querySnapshot == null) {
@@ -72,7 +72,7 @@ class ObserveQueryExecutor {
           }
 
           // apply the most recent event to the cached QuerySnapshot
-          var updatedQuerySnapshot = querySnapshot!.withSubscriptionEvent(
+          final updatedQuerySnapshot = querySnapshot!.withSubscriptionEvent(
             event: event,
           );
 
@@ -82,19 +82,18 @@ class ObserveQueryExecutor {
           }
 
           // otherwise, update the cached QuerySnapshot and return it
-          querySnapshot = updatedQuerySnapshot;
-          return querySnapshot;
+          return querySnapshot = updatedQuerySnapshot;
         })
         // filter out null values
         .where((event) => event != null)
         .cast<QuerySnapshot<T>>();
 
-    Future<QuerySnapshot<T>> queryFuture = query(
+    final queryFuture = query(
       modelType,
       where: where,
       sortBy: sortBy,
     ).then((value) {
-      // create & cache the intitial QuerySnapshot
+      // create & cache the initial QuerySnapshot
       querySnapshot = QuerySnapshot(
         items: value,
         isSynced: _isModelSyncComplete(modelType),
@@ -103,7 +102,7 @@ class ObserveQueryExecutor {
       );
 
       // apply any cached subscription events
-      for (var event in subscriptionEvents) {
+      for (final event in subscriptionEvents) {
         querySnapshot = querySnapshot!.withSubscriptionEvent(event: event);
       }
 
@@ -134,7 +133,7 @@ class ObserveQueryExecutor {
   }
 
   _ModelSyncStatus _getModelSyncStatus(ModelType type) {
-    _ModelSyncStatus? status = _modelSyncCache[type.modelName()];
+    final status = _modelSyncCache[type.modelName()];
     return status ?? _ModelSyncStatus.none;
   }
 
@@ -147,16 +146,13 @@ class ObserveQueryExecutor {
   }
 
   void _initModelSyncCache() {
-    this
-        ._dataStoreHubEventStream
-        .map((event) => event.payload)
-        .listen((payload) {
+    _dataStoreHubEventStream.map((event) => event.payload).listen((payload) {
       if (payload is ModelSyncedEvent) {
         _modelSyncCache[payload.modelName] = _ModelSyncStatus.complete;
       } else if (payload is SyncQueriesStartedEvent) {
-        payload.models.forEach((model) {
+        for (final model in payload.models) {
           _modelSyncCache[model] = _ModelSyncStatus.started;
-        });
+        }
       }
     });
   }

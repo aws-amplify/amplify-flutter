@@ -24,8 +24,7 @@ extension MockMethodChannel on MethodChannel {
 }
 
 void main() {
-  const MethodChannel dataStoreChannel =
-      MethodChannel('com.amazonaws.amplify/datastore');
+  const dataStoreChannel = MethodChannel('com.amazonaws.amplify/datastore');
 
   AmplifyException? receivedException;
 
@@ -38,45 +37,49 @@ void main() {
         return null;
       },
     );
-    AmplifyDataStore dataStore = AmplifyDataStore(
-        modelProvider: ModelProvider.instance,
-        options: DataStorePluginOptions(
-            errorHandler: (exception) => {receivedException = exception}));
+    final dataStore = AmplifyDataStore(
+      modelProvider: ModelProvider.instance,
+      options: DataStorePluginOptions(
+        errorHandler: (exception) => {receivedException = exception},
+      ),
+    );
     return dataStore.configureDataStore();
   });
 
   test(
       'DataStoreException from MethodChannel is properly serialized and called',
       () async {
-    await dataStoreChannel.invokeMockMethod("errorHandler", {
+    await dataStoreChannel.invokeMockMethod('errorHandler', {
       'errorCode': 'DataStoreException',
       'errorMessage': 'ErrorMessage',
       'details': {
         'message': 'message',
         'recoverySuggestion': 'recoverySuggestion',
-        'underlyingException': 'underlyingException'
-      }
+        'underlyingException': 'underlyingException',
+      },
     });
     expect(
-        receivedException,
-        DataStoreException.fromMap({
-          'message': 'message',
-          'recoverySuggestion': 'recoverySuggestion',
-          'underlyingException': 'underlyingException'
-        }));
+      receivedException,
+      DataStoreException.fromMap({
+        'message': 'message',
+        'recoverySuggestion': 'recoverySuggestion',
+        'underlyingException': 'underlyingException',
+      }),
+    );
   });
 
   test(
       'Unknown DataStoreException from MethodChannel is properly serialized and called',
       () async {
     await dataStoreChannel
-        .invokeMockMethod("errorHandler", {'badErrorFormat': 'badErrorFormat'});
+        .invokeMockMethod('errorHandler', {'badErrorFormat': 'badErrorFormat'});
     expect(
-        receivedException,
-        DataStoreException(AmplifyExceptionMessages.missingExceptionMessage,
-            recoverySuggestion:
-                AmplifyExceptionMessages.missingRecoverySuggestion,
-            underlyingException:
-                {'badErrorFormat': 'badErrorFormat'}.toString()));
+      receivedException,
+      DataStoreException(
+        AmplifyExceptionMessages.missingExceptionMessage,
+        recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
+        underlyingException: {'badErrorFormat': 'badErrorFormat'}.toString(),
+      ),
+    );
   });
 }

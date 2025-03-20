@@ -8,11 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  const MethodChannel dataStoreChannel =
-      MethodChannel('com.amazonaws.amplify/datastore');
+  const dataStoreChannel = MethodChannel('com.amazonaws.amplify/datastore');
 
-  AmplifyDataStore dataStore =
-      AmplifyDataStore(modelProvider: ModelProvider.instance);
+  final dataStore = AmplifyDataStore(modelProvider: ModelProvider.instance);
 
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -25,21 +23,23 @@ void main() {
     binding.defaultBinaryMessenger.setMockMethodCallHandler(
       dataStoreChannel,
       (MethodCall methodCall) async {
-        if (methodCall.method == "save") {
+        if (methodCall.method == 'save') {
           expect(
             methodCall.arguments,
             await getJsonFromFile(
-                'save_api/request/instance_without_predicate.json'),
+              'save_api/request/instance_without_predicate.json',
+            ),
           );
         }
         return null;
       },
     );
-    Post post = Post(
-        id: '9fc5fab4-37ff-4566-97e5-19c5d58a4c22',
-        title: 'New Post being saved',
-        rating: 10,
-        created: TemporalDateTime.fromString('2020-11-12T03:15:48+03:18'));
+    final post = Post(
+      id: '9fc5fab4-37ff-4566-97e5-19c5d58a4c22',
+      title: 'New Post being saved',
+      rating: 10,
+      created: TemporalDateTime.fromString('2020-11-12T03:15:48+03:18'),
+    );
     await dataStore.save(post);
   });
 
@@ -49,24 +49,42 @@ void main() {
     binding.defaultBinaryMessenger.setMockMethodCallHandler(
       dataStoreChannel,
       (MethodCall methodCall) async {
-        throw PlatformException(code: 'DataStoreException', details: {
-          'message': 'Save failed for whatever known reason',
-          'recoverySuggestion': 'some insightful suggestion',
-          'underlyingException': 'Act of God'
-        });
+        throw PlatformException(
+          code: 'DataStoreException',
+          details: {
+            'message': 'Save failed for whatever known reason',
+            'recoverySuggestion': 'some insightful suggestion',
+            'underlyingException': 'Act of God',
+          },
+        );
       },
     );
     expect(
-        () => dataStore.save(Post(
-            title: 'Test Post',
-            rating: 10,
-            created: TemporalDateTime.fromString("2020-02-20T20:20:20-08:00"))),
-        throwsA(isA<DataStoreException>()
-            .having((exception) => exception.message, 'message',
-                'Save failed for whatever known reason')
-            .having((exception) => exception.recoverySuggestion,
-                'recoverySuggestion', 'some insightful suggestion')
-            .having((exception) => exception.underlyingException,
-                'underlyingException', 'Act of God')));
+      () => dataStore.save(
+        Post(
+          title: 'Test Post',
+          rating: 10,
+          created: TemporalDateTime.fromString('2020-02-20T20:20:20-08:00'),
+        ),
+      ),
+      throwsA(
+        isA<DataStoreException>()
+            .having(
+              (exception) => exception.message,
+              'message',
+              'Save failed for whatever known reason',
+            )
+            .having(
+              (exception) => exception.recoverySuggestion,
+              'recoverySuggestion',
+              'some insightful suggestion',
+            )
+            .having(
+              (exception) => exception.underlyingException,
+              'underlyingException',
+              'Act of God',
+            ),
+      ),
+    );
   });
 }

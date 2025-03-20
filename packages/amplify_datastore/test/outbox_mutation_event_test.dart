@@ -7,32 +7,32 @@ import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() async {
-  var modelProvider = ModelProvider();
-  var outboxMutationEnqueuedEventJson =
+  final modelProvider = ModelProvider();
+  final outboxMutationEnqueuedEventJson =
       await getJsonFromFile('hub/outboxMutationEnqueuedEvent.json')
           as Map<String, Object?>;
-  var outboxMutationEnqueuedEvent = OutboxMutationEvent(
+  final outboxMutationEnqueuedEvent = OutboxMutationEvent(
     outboxMutationEnqueuedEventJson,
     modelProvider,
     'outboxMutationEnqueued',
   );
-  var outboxMutationProcessedEventJson =
+  final outboxMutationProcessedEventJson =
       await getJsonFromFile('hub/outboxMutationProcessedEvent.json')
           as Map<String, Object?>;
-  var outboxMutationProcessedEvent = OutboxMutationEvent(
+  final outboxMutationProcessedEvent = OutboxMutationEvent(
     outboxMutationProcessedEventJson,
     modelProvider,
     'outboxMutationProcessed',
   );
 
-  var expectedPost = Post(
+  final expectedPost = Post(
     id: '43036c6b-8044-4309-bddc-262b6c686026',
     title: 'Title 1',
     rating: 5,
     created: TemporalDateTime.fromString('2020-02-20T20:20:20-08:00'),
   );
 
-  var expectedProcessedHubEvent = HubEventElementWithMetadata(
+  final expectedProcessedHubEvent = HubEventElementWithMetadata(
     expectedPost,
     version: 1,
     lastChangedAt: 1624492860,
@@ -41,7 +41,7 @@ void main() async {
 
   group('OutboxMutationEvent', () {
     group('outboxMutationEnqueued', () {
-      var enqueuedHubEventElement = outboxMutationEnqueuedEvent.element;
+      final enqueuedHubEventElement = outboxMutationEnqueuedEvent.element;
 
       test('is HubEventElement', () {
         expect(
@@ -55,7 +55,7 @@ void main() async {
       });
 
       test('fromMap', () {
-        var post = enqueuedHubEventElement.model as Post;
+        final post = enqueuedHubEventElement.model as Post;
         expect(post, expectedPost);
       });
     });
@@ -70,7 +70,7 @@ void main() async {
 
       group('fromMap', () {
         test('all fields', () {
-          var processedHubEventElement = outboxMutationProcessedEvent.element
+          final processedHubEventElement = outboxMutationProcessedEvent.element
               as HubEventElementWithMetadata;
           expect(
             processedHubEventElement.model,
@@ -91,7 +91,7 @@ void main() async {
         });
 
         test('_deleted = null', () {
-          var outboxMutationProcessedEvent = OutboxMutationEvent(
+          final outboxMutationProcessedEvent = OutboxMutationEvent(
             {
               ...outboxMutationProcessedEventJson,
               '_deleted': null,
@@ -99,7 +99,7 @@ void main() async {
             modelProvider,
             'outboxMutationProcessed',
           );
-          var processedHubEventElement = outboxMutationProcessedEvent.element
+          final processedHubEventElement = outboxMutationProcessedEvent.element
               as HubEventElementWithMetadata;
           expect(processedHubEventElement.deleted, false);
         });
