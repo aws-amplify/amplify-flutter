@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:test/test.dart';
 
 final _builders = <StateMachineToken,
     StateMachineBuilder<StateMachineEvent, StateMachineState,
@@ -12,10 +13,22 @@ final _builders = <StateMachineToken,
   WorkerMachine.type: WorkerMachine.new,
 };
 
-enum MyType { initial, doWork, tryWork, delegateWork, failHard, success, error }
+enum MyType {
+  initial,
+  doWork,
+  tryWork,
+  delegateWork,
+  failPrecondition,
+  failHard,
+  success,
+  error
+}
 
 class MyPreconditionException implements PreconditionException {
-  const MyPreconditionException(this.precondition);
+  const MyPreconditionException(
+    this.precondition, {
+    this.shouldEmit = false,
+  });
 
   @override
   final String precondition;
@@ -24,7 +37,7 @@ class MyPreconditionException implements PreconditionException {
   bool get shouldLog => true;
 
   @override
-  bool get shouldEmit => false;
+  final bool shouldEmit;
 }
 
 final class MyEvent extends StateMachineEvent<MyType, MyType> {
@@ -38,6 +51,12 @@ final class MyEvent extends StateMachineEvent<MyType, MyType> {
 
   @override
   MyPreconditionException? checkPrecondition(MyState currentState) {
+    if (type == MyType.failPrecondition) {
+      return const MyPreconditionException(
+        'Failed precondition',
+        shouldEmit: true,
+      );
+    }
     if (currentState.type == type) {
       return const MyPreconditionException('Cannot process event of same type');
     }
@@ -98,6 +117,8 @@ class MyStateMachine extends StateMachine<MyEvent, MyState, StateMachineEvent,
       case MyType.success:
       case MyType.error:
         break;
+      case MyType.failPrecondition:
+        fail('Should never reach here');
       case MyType.doWork:
         await doWork(fail: false);
       case MyType.tryWork:
