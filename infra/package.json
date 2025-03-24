@@ -29,7 +29,7 @@
     "@aws-sdk/client-amplify": "^3.624.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.624.0",
     "@aws-sdk/client-s3": "^3.624.0",
-    "aws-cdk-lib": "2.177.0",
+    "aws-cdk-lib": "2.184.0",
     "constructs": "^10.3.0",
     "node-fetch": "^3.3.2",
     "source-map-support": "^0.5.21"
