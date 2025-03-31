@@ -147,10 +147,11 @@ class SrpInitResultBuilder
   _$SrpInitResult _build() {
     final _$result = _$v ??
         new _$SrpInitResult._(
-            privateA: BuiltValueNullFieldError.checkNotNull(
-                privateA, r'SrpInitResult', 'privateA'),
-            publicA: BuiltValueNullFieldError.checkNotNull(
-                publicA, r'SrpInitResult', 'publicA'));
+          privateA: BuiltValueNullFieldError.checkNotNull(
+              privateA, r'SrpInitResult', 'privateA'),
+          publicA: BuiltValueNullFieldError.checkNotNull(
+              publicA, r'SrpInitResult', 'publicA'),
+        );
     replace(_$result);
     return _$result;
   }

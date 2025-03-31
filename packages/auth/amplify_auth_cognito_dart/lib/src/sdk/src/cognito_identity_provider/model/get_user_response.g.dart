@@ -131,12 +131,13 @@ class GetUserResponseBuilder
     try {
       _$result = _$v ??
           new _$GetUserResponse._(
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'GetUserResponse', 'username'),
-              userAttributes: userAttributes.build(),
-              mfaOptions: _mfaOptions?.build(),
-              preferredMfaSetting: preferredMfaSetting,
-              userMfaSettingList: _userMfaSettingList?.build());
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, r'GetUserResponse', 'username'),
+            userAttributes: userAttributes.build(),
+            mfaOptions: _mfaOptions?.build(),
+            preferredMfaSetting: preferredMfaSetting,
+            userMfaSettingList: _userMfaSettingList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -100,9 +100,10 @@ class CodeDeliveryDetailsTypeBuilder
   _$CodeDeliveryDetailsType _build() {
     final _$result = _$v ??
         new _$CodeDeliveryDetailsType._(
-            destination: destination,
-            deliveryMedium: deliveryMedium,
-            attributeName: attributeName);
+          destination: destination,
+          deliveryMedium: deliveryMedium,
+          attributeName: attributeName,
+        );
     replace(_$result);
     return _$result;
   }

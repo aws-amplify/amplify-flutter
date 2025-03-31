@@ -3,7 +3,7 @@ description: E2E tests for the worker_bee package.
 publish_to: none
 
 environment:
-  sdk: ^3.3.0
+  sdk: ^3.6.0
 
 dependencies:
   aws_common: ">=0.4.0 <0.5.0"
@@ -26,6 +26,6 @@ dev_dependencies:
   build_runner: ^2.4.9
   build_verify: ^3.0.0
   build_web_compilers: ^4.0.0
-  built_value_generator: 8.8.1
+  built_value_generator: 8.9.3
   worker_bee_builder:
     path: ../worker_bee_builder

@@ -180,19 +180,20 @@ class ListPartsRequestBuilder
   _$ListPartsRequest _build() {
     final _$result = _$v ??
         new _$ListPartsRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'ListPartsRequest', 'bucket'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'ListPartsRequest', 'key'),
-            maxParts: maxParts,
-            partNumberMarker: partNumberMarker,
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'ListPartsRequest', 'uploadId'),
-            requestPayer: requestPayer,
-            expectedBucketOwner: expectedBucketOwner,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKey: sseCustomerKey,
-            sseCustomerKeyMd5: sseCustomerKeyMd5);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'ListPartsRequest', 'bucket'),
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'ListPartsRequest', 'key'),
+          maxParts: maxParts,
+          partNumberMarker: partNumberMarker,
+          uploadId: BuiltValueNullFieldError.checkNotNull(
+              uploadId, r'ListPartsRequest', 'uploadId'),
+          requestPayer: requestPayer,
+          expectedBucketOwner: expectedBucketOwner,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKey: sseCustomerKey,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+        );
     replace(_$result);
     return _$result;
   }

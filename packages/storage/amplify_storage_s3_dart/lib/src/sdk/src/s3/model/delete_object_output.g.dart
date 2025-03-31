@@ -98,9 +98,10 @@ class DeleteObjectOutputBuilder
   _$DeleteObjectOutput _build() {
     final _$result = _$v ??
         new _$DeleteObjectOutput._(
-            deleteMarker: deleteMarker,
-            versionId: versionId,
-            requestCharged: requestCharged);
+          deleteMarker: deleteMarker,
+          versionId: versionId,
+          requestCharged: requestCharged,
+        );
     replace(_$result);
     return _$result;
   }

@@ -85,7 +85,9 @@ class UnsupportedOperationExceptionBuilder
   _$UnsupportedOperationException _build() {
     final _$result = _$v ??
         new _$UnsupportedOperationException._(
-            message: message, headers: headers);
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

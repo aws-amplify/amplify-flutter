@@ -81,8 +81,11 @@ class ForbiddenExceptionBuilder
   ForbiddenException build() => _build();
 
   _$ForbiddenException _build() {
-    final _$result =
-        _$v ?? new _$ForbiddenException._(message: message, headers: headers);
+    final _$result = _$v ??
+        new _$ForbiddenException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

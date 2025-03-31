@@ -1,3 +1,4 @@
+// dart format width=80
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/tables.drift.dart'

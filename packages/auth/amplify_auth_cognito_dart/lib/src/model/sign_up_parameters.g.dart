@@ -99,10 +99,11 @@ class SignUpParametersBuilder
   _$SignUpParameters _build() {
     final _$result = _$v ??
         new _$SignUpParameters._(
-            username: BuiltValueNullFieldError.checkNotNull(
-                username, r'SignUpParameters', 'username'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'SignUpParameters', 'password'));
+          username: BuiltValueNullFieldError.checkNotNull(
+              username, r'SignUpParameters', 'username'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'SignUpParameters', 'password'),
+        );
     replace(_$result);
     return _$result;
   }

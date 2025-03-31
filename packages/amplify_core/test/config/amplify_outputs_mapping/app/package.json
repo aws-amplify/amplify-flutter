@@ -14,8 +14,8 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-      "@aws-amplify/backend": "1.0.3",
-      "@aws-amplify/backend-cli": "1.0.4",
+      "@aws-amplify/backend": "1.15.0",
+      "@aws-amplify/backend-cli": "1.5.0",
       "tsx": "^4.10.5",
       "typescript": "^5.4.5"
       

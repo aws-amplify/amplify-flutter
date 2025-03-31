@@ -142,14 +142,15 @@ class ForgotPasswordRequestBuilder
     try {
       _$result = _$v ??
           new _$ForgotPasswordRequest._(
-              clientId: BuiltValueNullFieldError.checkNotNull(
-                  clientId, r'ForgotPasswordRequest', 'clientId'),
-              secretHash: secretHash,
-              userContextData: _userContextData?.build(),
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'ForgotPasswordRequest', 'username'),
-              analyticsMetadata: _analyticsMetadata?.build(),
-              clientMetadata: _clientMetadata?.build());
+            clientId: BuiltValueNullFieldError.checkNotNull(
+                clientId, r'ForgotPasswordRequest', 'clientId'),
+            secretHash: secretHash,
+            userContextData: _userContextData?.build(),
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, r'ForgotPasswordRequest', 'username'),
+            analyticsMetadata: _analyticsMetadata?.build(),
+            clientMetadata: _clientMetadata?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

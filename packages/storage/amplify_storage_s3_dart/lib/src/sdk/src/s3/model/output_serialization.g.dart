@@ -87,7 +87,10 @@ class OutputSerializationBuilder
     _$OutputSerialization _$result;
     try {
       _$result = _$v ??
-          new _$OutputSerialization._(csv: _csv?.build(), json: _json?.build());
+          new _$OutputSerialization._(
+            csv: _csv?.build(),
+            json: _json?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -88,7 +88,10 @@ class VerifySoftwareTokenResponseBuilder
 
   _$VerifySoftwareTokenResponse _build() {
     final _$result = _$v ??
-        new _$VerifySoftwareTokenResponse._(status: status, session: session);
+        new _$VerifySoftwareTokenResponse._(
+          status: status,
+          session: session,
+        );
     replace(_$result);
     return _$result;
   }

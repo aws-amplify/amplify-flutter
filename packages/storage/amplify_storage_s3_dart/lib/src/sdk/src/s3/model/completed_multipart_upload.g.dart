@@ -78,8 +78,10 @@ class CompletedMultipartUploadBuilder
   _$CompletedMultipartUpload _build() {
     _$CompletedMultipartUpload _$result;
     try {
-      _$result =
-          _$v ?? new _$CompletedMultipartUpload._(parts: _parts?.build());
+      _$result = _$v ??
+          new _$CompletedMultipartUpload._(
+            parts: _parts?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

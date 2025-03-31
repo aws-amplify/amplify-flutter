@@ -348,8 +348,9 @@ class CustomTypeBuilder implements Builder<CustomType, CustomTypeBuilder> {
   _$CustomType _build() {
     final _$result = _$v ??
         new _$CustomType._(
-            customField: BuiltValueNullFieldError.checkNotNull(
-                customField, r'CustomType', 'customField'));
+          customField: BuiltValueNullFieldError.checkNotNull(
+              customField, r'CustomType', 'customField'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -641,33 +642,36 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
     try {
       _$result = _$v ??
           new _$E2EMessage._(
-              bigInt: BuiltValueNullFieldError.checkNotNull(
-                  bigInt, r'E2EMessage', 'bigInt'),
-              bool_: BuiltValueNullFieldError.checkNotNull(
-                  bool_, r'E2EMessage', 'bool_'),
-              builtList: builtList.build(),
-              builtListMultimap: builtListMultimap.build(),
-              builtMap: builtMap.build(),
-              builtSet: builtSet.build(),
-              builtSetMultimap: builtSetMultimap.build(),
-              dateTime: BuiltValueNullFieldError.checkNotNull(
-                  dateTime, r'E2EMessage', 'dateTime'),
-              double_: BuiltValueNullFieldError.checkNotNull(
-                  double_, r'E2EMessage', 'double_'),
-              duration: BuiltValueNullFieldError.checkNotNull(
-                  duration, r'E2EMessage', 'duration'),
-              int_: BuiltValueNullFieldError.checkNotNull(
-                  int_, r'E2EMessage', 'int_'),
-              int64: BuiltValueNullFieldError.checkNotNull(
-                  int64, r'E2EMessage', 'int64'),
-              jsonObject: BuiltValueNullFieldError.checkNotNull(
-                  jsonObject, r'E2EMessage', 'jsonObject'),
-              num_: BuiltValueNullFieldError.checkNotNull(
-                  num_, r'E2EMessage', 'num_'),
-              regExp: BuiltValueNullFieldError.checkNotNull(
-                  regExp, r'E2EMessage', 'regExp'),
-              string: BuiltValueNullFieldError.checkNotNull(string, r'E2EMessage', 'string'),
-              uri: BuiltValueNullFieldError.checkNotNull(uri, r'E2EMessage', 'uri'));
+            bigInt: BuiltValueNullFieldError.checkNotNull(
+                bigInt, r'E2EMessage', 'bigInt'),
+            bool_: BuiltValueNullFieldError.checkNotNull(
+                bool_, r'E2EMessage', 'bool_'),
+            builtList: builtList.build(),
+            builtListMultimap: builtListMultimap.build(),
+            builtMap: builtMap.build(),
+            builtSet: builtSet.build(),
+            builtSetMultimap: builtSetMultimap.build(),
+            dateTime: BuiltValueNullFieldError.checkNotNull(
+                dateTime, r'E2EMessage', 'dateTime'),
+            double_: BuiltValueNullFieldError.checkNotNull(
+                double_, r'E2EMessage', 'double_'),
+            duration: BuiltValueNullFieldError.checkNotNull(
+                duration, r'E2EMessage', 'duration'),
+            int_: BuiltValueNullFieldError.checkNotNull(
+                int_, r'E2EMessage', 'int_'),
+            int64: BuiltValueNullFieldError.checkNotNull(
+                int64, r'E2EMessage', 'int64'),
+            jsonObject: BuiltValueNullFieldError.checkNotNull(
+                jsonObject, r'E2EMessage', 'jsonObject'),
+            num_: BuiltValueNullFieldError.checkNotNull(
+                num_, r'E2EMessage', 'num_'),
+            regExp: BuiltValueNullFieldError.checkNotNull(
+                regExp, r'E2EMessage', 'regExp'),
+            string: BuiltValueNullFieldError.checkNotNull(
+                string, r'E2EMessage', 'string'),
+            uri: BuiltValueNullFieldError.checkNotNull(
+                uri, r'E2EMessage', 'uri'),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -766,7 +770,10 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
   _$E2EResult _build() {
     _$E2EResult _$result;
     try {
-      _$result = _$v ?? new _$E2EResult._(message: message.build());
+      _$result = _$v ??
+          new _$E2EResult._(
+            message: message.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

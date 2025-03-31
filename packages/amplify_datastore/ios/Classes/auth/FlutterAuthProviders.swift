@@ -30,19 +30,30 @@ class FlutterAuthProviders: APIAuthProviderFactory {
             let completer = DispatchSemaphore(value: 0)
 
             DispatchQueue.main.async {
-                self.nativeApiPlugin.getLatestAuthToken(providerName: type.rawValue) { resultToken in
-                    defer { completer.signal() }
+                self.nativeApiPlugin.getLatestAuthToken(providerName: type.rawValue) { result in
+                    switch result {
+                        case .success(let resultToken):
+                            defer { completer.signal() }
                     
-                    if let resultToken = resultToken {
-                        token = .success(resultToken)
-                    } else {
-                        token = .failure(APIError.operationError(
-                            "Unable to retrieve token for \(type)",
-                            """
-                            Make sure you register your auth providers in the addPlugin call and \
-                            that getLatestAuthToken returns a value.
-                            """
-                            ))
+                            if let resultToken = resultToken {
+                                token = .success(resultToken)
+                            } else {
+                                token = .failure(APIError.operationError(
+                                    "Unable to retrieve token for \(type)",
+                                    """
+                                    Make sure you register your auth providers in the addPlugin call and \
+                                    that getLatestAuthToken returns a value.
+                                    """
+                                    ))
+                            }
+                        case .failure(let error): 
+                            token = .failure(APIError.operationError(
+                                    "Unable to retrieve token for \(type)",
+                                    """
+                                    Make sure you register your auth providers in the addPlugin call and \
+                                    that getLatestAuthToken returns a value.
+                                    """
+                                    ))
                     }
                 }
             }

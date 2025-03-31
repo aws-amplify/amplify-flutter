@@ -14,7 +14,7 @@ class MockBinaryMessenger: NSObject, FlutterBinaryMessenger {
     
     let isSignedIn: Bool
     
-    lazy var codec = NativeAuthPluginCodec.shared
+    lazy var codec = NativePluginBindingsPigeonCodec.shared
     
     func send(onChannel channel: String, message: Data?) { }
     
@@ -30,7 +30,7 @@ class MockBinaryMessenger: NSObject, FlutterBinaryMessenger {
             identityId: nil,
             awsCredentials: nil
         )
-        let encodedAuthSession = codec.encode(authSession)
+        let encodedAuthSession = codec.encode([authSession])
         callback?(encodedAuthSession)
     }
     
@@ -51,10 +51,14 @@ class NativeAuthPluginTests: XCTestCase {
         let binaryMessenger = MockBinaryMessenger(isSignedIn: isSignedIn)
         let nativePlugin = NativeAuthPlugin(binaryMessenger: binaryMessenger)
         let expectation = expectation(description: "fetchAuthSession completes")
-        nativePlugin.fetchAuthSession { session in
+        nativePlugin.fetchAuthSession { result in
             defer { expectation.fulfill() }
-            XCTAssertNotNil(session)
-            XCTAssertEqual(session.isSignedIn, isSignedIn)
+            switch result {
+                case .success(let session):
+                    XCTAssertEqual(session.isSignedIn, isSignedIn)
+                case .failure(let error):
+                    XCTFail("fetchAuthSession failed with error: \(error)")
+            }
         }
         waitForExpectations(timeout: 1)
     }

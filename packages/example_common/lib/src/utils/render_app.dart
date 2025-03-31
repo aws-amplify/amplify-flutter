@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+//ignore: deprecated_member_use
 import 'dart:html';
 
 import 'package:example_common/example_common.dart';

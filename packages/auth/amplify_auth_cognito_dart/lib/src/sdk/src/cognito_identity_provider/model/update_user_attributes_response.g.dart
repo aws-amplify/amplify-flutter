@@ -85,7 +85,8 @@ class UpdateUserAttributesResponseBuilder
     try {
       _$result = _$v ??
           new _$UpdateUserAttributesResponse._(
-              codeDeliveryDetailsList: _codeDeliveryDetailsList?.build());
+            codeDeliveryDetailsList: _codeDeliveryDetailsList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

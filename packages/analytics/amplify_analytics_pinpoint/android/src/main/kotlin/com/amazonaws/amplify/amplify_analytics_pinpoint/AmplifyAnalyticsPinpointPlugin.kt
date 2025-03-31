@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PigeonLegacyDataProvider {
+class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PinpointLegacyDataProvider {
 
     private var context: Context? = null
     private var sharedPrefs: SharedPreferences? = null
@@ -19,15 +19,15 @@ class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PigeonLegacyDataPr
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         context = binding.applicationContext
-        Messages.PigeonLegacyDataProvider.setup(binding.binaryMessenger, this)
+        Messages.PinpointLegacyDataProvider.setUp(binding.binaryMessenger, this)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        Messages.PigeonLegacyDataProvider.setup(binding.binaryMessenger, null)
+        Messages.PinpointLegacyDataProvider.setUp(binding.binaryMessenger, null)
         context = null
     }
 
-    override fun getEndpointId(pinpointAppId: String, result: Messages.Result<String?>){
+    override fun getEndpointId(pinpointAppId: String, result: Messages.NullableResult<String?>){
         if (context == null) {
             result.error(Exception("Application context is null"))
             return

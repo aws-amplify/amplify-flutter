@@ -96,9 +96,10 @@ class InvalidObjectStateBuilder
   _$InvalidObjectState _build() {
     final _$result = _$v ??
         new _$InvalidObjectState._(
-            storageClass: storageClass,
-            accessTier: accessTier,
-            headers: headers);
+          storageClass: storageClass,
+          accessTier: accessTier,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

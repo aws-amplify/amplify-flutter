@@ -89,7 +89,9 @@ class AssociateSoftwareTokenRequestBuilder
   _$AssociateSoftwareTokenRequest _build() {
     final _$result = _$v ??
         new _$AssociateSoftwareTokenRequest._(
-            accessToken: accessToken, session: session);
+          accessToken: accessToken,
+          session: session,
+        );
     replace(_$result);
     return _$result;
   }

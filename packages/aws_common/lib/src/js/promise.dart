@@ -3,7 +3,9 @@
 
 import 'dart:async';
 
+//ignore: deprecated_member_use
 import 'package:js/js.dart';
+//ignore: deprecated_member_use
 import 'package:js/js_util.dart' as js_util;
 
 /// A [Promise] executor callback.

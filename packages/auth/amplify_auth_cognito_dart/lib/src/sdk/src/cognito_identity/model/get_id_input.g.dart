@@ -99,10 +99,11 @@ class GetIdInputBuilder implements Builder<GetIdInput, GetIdInputBuilder> {
     try {
       _$result = _$v ??
           new _$GetIdInput._(
-              accountId: accountId,
-              identityPoolId: BuiltValueNullFieldError.checkNotNull(
-                  identityPoolId, r'GetIdInput', 'identityPoolId'),
-              logins: _logins?.build());
+            accountId: accountId,
+            identityPoolId: BuiltValueNullFieldError.checkNotNull(
+                identityPoolId, r'GetIdInput', 'identityPoolId'),
+            logins: _logins?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

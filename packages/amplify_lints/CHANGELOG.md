@@ -1,3 +1,7 @@
+## 3.1.1
+
+- Minor bug fixes and improvements
+
 ## 3.1.0
 
 ### Features

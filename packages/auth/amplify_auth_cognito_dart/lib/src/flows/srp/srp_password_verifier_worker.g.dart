@@ -301,22 +301,23 @@ class SrpPasswordVerifierMessageBuilder
     SrpPasswordVerifierMessage._init(this);
     final _$result = _$v ??
         new _$SrpPasswordVerifierMessage._(
-            initResult: BuiltValueNullFieldError.checkNotNull(
-                initResult, r'SrpPasswordVerifierMessage', 'initResult'),
-            clientId: BuiltValueNullFieldError.checkNotNull(
-                clientId, r'SrpPasswordVerifierMessage', 'clientId'),
-            clientSecret: clientSecret,
-            poolId: BuiltValueNullFieldError.checkNotNull(
-                poolId, r'SrpPasswordVerifierMessage', 'poolId'),
-            deviceKey: deviceKey,
-            parameters: BuiltValueNullFieldError.checkNotNull(
-                parameters, r'SrpPasswordVerifierMessage', 'parameters'),
-            challengeParameters: BuiltValueNullFieldError.checkNotNull(
-                challengeParameters,
-                r'SrpPasswordVerifierMessage',
-                'challengeParameters'),
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'SrpPasswordVerifierMessage', 'timestamp'));
+          initResult: BuiltValueNullFieldError.checkNotNull(
+              initResult, r'SrpPasswordVerifierMessage', 'initResult'),
+          clientId: BuiltValueNullFieldError.checkNotNull(
+              clientId, r'SrpPasswordVerifierMessage', 'clientId'),
+          clientSecret: clientSecret,
+          poolId: BuiltValueNullFieldError.checkNotNull(
+              poolId, r'SrpPasswordVerifierMessage', 'poolId'),
+          deviceKey: deviceKey,
+          parameters: BuiltValueNullFieldError.checkNotNull(
+              parameters, r'SrpPasswordVerifierMessage', 'parameters'),
+          challengeParameters: BuiltValueNullFieldError.checkNotNull(
+              challengeParameters,
+              r'SrpPasswordVerifierMessage',
+              'challengeParameters'),
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+              timestamp, r'SrpPasswordVerifierMessage', 'timestamp'),
+        );
     replace(_$result);
     return _$result;
   }

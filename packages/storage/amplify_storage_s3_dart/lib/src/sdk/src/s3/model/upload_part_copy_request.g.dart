@@ -285,29 +285,30 @@ class UploadPartCopyRequestBuilder
   _$UploadPartCopyRequest _build() {
     final _$result = _$v ??
         new _$UploadPartCopyRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'UploadPartCopyRequest', 'bucket'),
-            copySource: BuiltValueNullFieldError.checkNotNull(
-                copySource, r'UploadPartCopyRequest', 'copySource'),
-            copySourceIfMatch: copySourceIfMatch,
-            copySourceIfModifiedSince: copySourceIfModifiedSince,
-            copySourceIfNoneMatch: copySourceIfNoneMatch,
-            copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
-            copySourceRange: copySourceRange,
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'UploadPartCopyRequest', 'key'),
-            partNumber: partNumber,
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'UploadPartCopyRequest', 'uploadId'),
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKey: sseCustomerKey,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
-            copySourceSseCustomerKey: copySourceSseCustomerKey,
-            copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
-            requestPayer: requestPayer,
-            expectedBucketOwner: expectedBucketOwner,
-            expectedSourceBucketOwner: expectedSourceBucketOwner);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'UploadPartCopyRequest', 'bucket'),
+          copySource: BuiltValueNullFieldError.checkNotNull(
+              copySource, r'UploadPartCopyRequest', 'copySource'),
+          copySourceIfMatch: copySourceIfMatch,
+          copySourceIfModifiedSince: copySourceIfModifiedSince,
+          copySourceIfNoneMatch: copySourceIfNoneMatch,
+          copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
+          copySourceRange: copySourceRange,
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'UploadPartCopyRequest', 'key'),
+          partNumber: partNumber,
+          uploadId: BuiltValueNullFieldError.checkNotNull(
+              uploadId, r'UploadPartCopyRequest', 'uploadId'),
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKey: sseCustomerKey,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
+          copySourceSseCustomerKey: copySourceSseCustomerKey,
+          copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
+          requestPayer: requestPayer,
+          expectedBucketOwner: expectedBucketOwner,
+          expectedSourceBucketOwner: expectedSourceBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }

@@ -71,7 +71,10 @@ class GetIdResponseBuilder
   GetIdResponse build() => _build();
 
   _$GetIdResponse _build() {
-    final _$result = _$v ?? new _$GetIdResponse._(identityId: identityId);
+    final _$result = _$v ??
+        new _$GetIdResponse._(
+          identityId: identityId,
+        );
     replace(_$result);
     return _$result;
   }

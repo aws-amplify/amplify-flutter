@@ -71,7 +71,10 @@ class RecordsEventBuilder
   RecordsEvent build() => _build();
 
   _$RecordsEvent _build() {
-    final _$result = _$v ?? new _$RecordsEvent._(payload: payload);
+    final _$result = _$v ??
+        new _$RecordsEvent._(
+          payload: payload,
+        );
     replace(_$result);
     return _$result;
   }

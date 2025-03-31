@@ -130,14 +130,15 @@ class AbortMultipartUploadRequestBuilder
   _$AbortMultipartUploadRequest _build() {
     final _$result = _$v ??
         new _$AbortMultipartUploadRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'AbortMultipartUploadRequest', 'bucket'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'AbortMultipartUploadRequest', 'key'),
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'AbortMultipartUploadRequest', 'uploadId'),
-            requestPayer: requestPayer,
-            expectedBucketOwner: expectedBucketOwner);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+              bucket, r'AbortMultipartUploadRequest', 'bucket'),
+          key: BuiltValueNullFieldError.checkNotNull(
+              key, r'AbortMultipartUploadRequest', 'key'),
+          uploadId: BuiltValueNullFieldError.checkNotNull(
+              uploadId, r'AbortMultipartUploadRequest', 'uploadId'),
+          requestPayer: requestPayer,
+          expectedBucketOwner: expectedBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }

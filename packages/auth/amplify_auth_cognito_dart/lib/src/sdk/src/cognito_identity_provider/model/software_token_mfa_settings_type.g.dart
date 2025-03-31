@@ -97,10 +97,11 @@ class SoftwareTokenMfaSettingsTypeBuilder
   _$SoftwareTokenMfaSettingsType _build() {
     final _$result = _$v ??
         new _$SoftwareTokenMfaSettingsType._(
-            enabled: BuiltValueNullFieldError.checkNotNull(
-                enabled, r'SoftwareTokenMfaSettingsType', 'enabled'),
-            preferredMfa: BuiltValueNullFieldError.checkNotNull(
-                preferredMfa, r'SoftwareTokenMfaSettingsType', 'preferredMfa'));
+          enabled: BuiltValueNullFieldError.checkNotNull(
+              enabled, r'SoftwareTokenMfaSettingsType', 'enabled'),
+          preferredMfa: BuiltValueNullFieldError.checkNotNull(
+              preferredMfa, r'SoftwareTokenMfaSettingsType', 'preferredMfa'),
+        );
     replace(_$result);
     return _$result;
   }

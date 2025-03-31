@@ -3,6 +3,7 @@
 
 import 'dart:convert';
 import 'dart:js_interop';
+//ignore: deprecated_member_use
 import 'dart:js_util';
 
 @JS()

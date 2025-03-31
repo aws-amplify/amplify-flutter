@@ -102,11 +102,12 @@ class RevokeTokenRequestBuilder
   _$RevokeTokenRequest _build() {
     final _$result = _$v ??
         new _$RevokeTokenRequest._(
-            token: BuiltValueNullFieldError.checkNotNull(
-                token, r'RevokeTokenRequest', 'token'),
-            clientId: BuiltValueNullFieldError.checkNotNull(
-                clientId, r'RevokeTokenRequest', 'clientId'),
-            clientSecret: clientSecret);
+          token: BuiltValueNullFieldError.checkNotNull(
+              token, r'RevokeTokenRequest', 'token'),
+          clientId: BuiltValueNullFieldError.checkNotNull(
+              clientId, r'RevokeTokenRequest', 'clientId'),
+          clientSecret: clientSecret,
+        );
     replace(_$result);
     return _$result;
   }

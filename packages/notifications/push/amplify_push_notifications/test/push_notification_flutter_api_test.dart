@@ -13,6 +13,7 @@ import 'amplify_push_notifications_impl_test.mocks.dart';
 import 'test_data/fake_notification_messges.dart';
 import 'test_data/test_amplify_push_notifications_impl.dart';
 
+@pragma('vm:entry-point')
 void testGlobalCallbackFunction(PushNotificationMessage pushMessage) {
   expect(
     pushMessage.title,

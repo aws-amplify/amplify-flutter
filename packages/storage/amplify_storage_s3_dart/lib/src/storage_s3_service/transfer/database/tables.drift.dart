@@ -1,9 +1,200 @@
+// dart format width=80
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/tables.drift.dart'
     as i1;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/tables.dart'
     as i2;
+
+typedef $$TransferRecordsTableCreateCompanionBuilder
+    = i1.TransferRecordsCompanion Function({
+  i0.Value<int> id,
+  required String uploadId,
+  required String objectKey,
+  required String createdAt,
+  i0.Value<String?> bucketName,
+  i0.Value<String?> awsRegion,
+});
+typedef $$TransferRecordsTableUpdateCompanionBuilder
+    = i1.TransferRecordsCompanion Function({
+  i0.Value<int> id,
+  i0.Value<String> uploadId,
+  i0.Value<String> objectKey,
+  i0.Value<String> createdAt,
+  i0.Value<String?> bucketName,
+  i0.Value<String?> awsRegion,
+});
+
+class $$TransferRecordsTableFilterComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.$TransferRecordsTable> {
+  $$TransferRecordsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get uploadId => $composableBuilder(
+      column: $table.uploadId, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get objectKey => $composableBuilder(
+      column: $table.objectKey, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get bucketName => $composableBuilder(
+      column: $table.bucketName, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get awsRegion => $composableBuilder(
+      column: $table.awsRegion, builder: (column) => i0.ColumnFilters(column));
+}
+
+class $$TransferRecordsTableOrderingComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.$TransferRecordsTable> {
+  $$TransferRecordsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get uploadId => $composableBuilder(
+      column: $table.uploadId, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get objectKey => $composableBuilder(
+      column: $table.objectKey,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get createdAt => $composableBuilder(
+      column: $table.createdAt,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get bucketName => $composableBuilder(
+      column: $table.bucketName,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get awsRegion => $composableBuilder(
+      column: $table.awsRegion,
+      builder: (column) => i0.ColumnOrderings(column));
+}
+
+class $$TransferRecordsTableAnnotationComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.$TransferRecordsTable> {
+  $$TransferRecordsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get uploadId =>
+      $composableBuilder(column: $table.uploadId, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get objectKey =>
+      $composableBuilder(column: $table.objectKey, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get bucketName => $composableBuilder(
+      column: $table.bucketName, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get awsRegion =>
+      $composableBuilder(column: $table.awsRegion, builder: (column) => column);
+}
+
+class $$TransferRecordsTableTableManager extends i0.RootTableManager<
+    i0.GeneratedDatabase,
+    i1.$TransferRecordsTable,
+    i1.TransferRecord,
+    i1.$$TransferRecordsTableFilterComposer,
+    i1.$$TransferRecordsTableOrderingComposer,
+    i1.$$TransferRecordsTableAnnotationComposer,
+    $$TransferRecordsTableCreateCompanionBuilder,
+    $$TransferRecordsTableUpdateCompanionBuilder,
+    (
+      i1.TransferRecord,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.$TransferRecordsTable,
+          i1.TransferRecord>
+    ),
+    i1.TransferRecord,
+    i0.PrefetchHooks Function()> {
+  $$TransferRecordsTableTableManager(
+      i0.GeneratedDatabase db, i1.$TransferRecordsTable table)
+      : super(i0.TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              i1.$$TransferRecordsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$$TransferRecordsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => i1
+              .$$TransferRecordsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            i0.Value<String> uploadId = const i0.Value.absent(),
+            i0.Value<String> objectKey = const i0.Value.absent(),
+            i0.Value<String> createdAt = const i0.Value.absent(),
+            i0.Value<String?> bucketName = const i0.Value.absent(),
+            i0.Value<String?> awsRegion = const i0.Value.absent(),
+          }) =>
+              i1.TransferRecordsCompanion(
+            id: id,
+            uploadId: uploadId,
+            objectKey: objectKey,
+            createdAt: createdAt,
+            bucketName: bucketName,
+            awsRegion: awsRegion,
+          ),
+          createCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            required String uploadId,
+            required String objectKey,
+            required String createdAt,
+            i0.Value<String?> bucketName = const i0.Value.absent(),
+            i0.Value<String?> awsRegion = const i0.Value.absent(),
+          }) =>
+              i1.TransferRecordsCompanion.insert(
+            id: id,
+            uploadId: uploadId,
+            objectKey: objectKey,
+            createdAt: createdAt,
+            bucketName: bucketName,
+            awsRegion: awsRegion,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$TransferRecordsTableProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.$TransferRecordsTable,
+    i1.TransferRecord,
+    i1.$$TransferRecordsTableFilterComposer,
+    i1.$$TransferRecordsTableOrderingComposer,
+    i1.$$TransferRecordsTableAnnotationComposer,
+    $$TransferRecordsTableCreateCompanionBuilder,
+    $$TransferRecordsTableUpdateCompanionBuilder,
+    (
+      i1.TransferRecord,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.$TransferRecordsTable,
+          i1.TransferRecord>
+    ),
+    i1.TransferRecord,
+    i0.PrefetchHooks Function()>;
 
 class $TransferRecordsTable extends i2.TransferRecords
     with i0.TableInfo<$TransferRecordsTable, i1.TransferRecord> {
@@ -222,6 +413,18 @@ class TransferRecord extends i0.DataClass
         bucketName: bucketName.present ? bucketName.value : this.bucketName,
         awsRegion: awsRegion.present ? awsRegion.value : this.awsRegion,
       );
+  TransferRecord copyWithCompanion(i1.TransferRecordsCompanion data) {
+    return TransferRecord(
+      id: data.id.present ? data.id.value : this.id,
+      uploadId: data.uploadId.present ? data.uploadId.value : this.uploadId,
+      objectKey: data.objectKey.present ? data.objectKey.value : this.objectKey,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      bucketName:
+          data.bucketName.present ? data.bucketName.value : this.bucketName,
+      awsRegion: data.awsRegion.present ? data.awsRegion.value : this.awsRegion,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('TransferRecord(')
@@ -346,159 +549,4 @@ class TransferRecordsCompanion extends i0.UpdateCompanion<i1.TransferRecord> {
           ..write(')'))
         .toString();
   }
-}
-
-typedef $$TransferRecordsTableInsertCompanionBuilder
-    = i1.TransferRecordsCompanion Function({
-  i0.Value<int> id,
-  required String uploadId,
-  required String objectKey,
-  required String createdAt,
-  i0.Value<String?> bucketName,
-  i0.Value<String?> awsRegion,
-});
-typedef $$TransferRecordsTableUpdateCompanionBuilder
-    = i1.TransferRecordsCompanion Function({
-  i0.Value<int> id,
-  i0.Value<String> uploadId,
-  i0.Value<String> objectKey,
-  i0.Value<String> createdAt,
-  i0.Value<String?> bucketName,
-  i0.Value<String?> awsRegion,
-});
-
-class $$TransferRecordsTableTableManager extends i0.RootTableManager<
-    i0.GeneratedDatabase,
-    i1.$TransferRecordsTable,
-    i1.TransferRecord,
-    i1.$$TransferRecordsTableFilterComposer,
-    i1.$$TransferRecordsTableOrderingComposer,
-    $$TransferRecordsTableProcessedTableManager,
-    $$TransferRecordsTableInsertCompanionBuilder,
-    $$TransferRecordsTableUpdateCompanionBuilder> {
-  $$TransferRecordsTableTableManager(
-      i0.GeneratedDatabase db, i1.$TransferRecordsTable table)
-      : super(i0.TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: i1.$$TransferRecordsTableFilterComposer(
-              i0.ComposerState(db, table)),
-          orderingComposer: i1.$$TransferRecordsTableOrderingComposer(
-              i0.ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$TransferRecordsTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            i0.Value<String> uploadId = const i0.Value.absent(),
-            i0.Value<String> objectKey = const i0.Value.absent(),
-            i0.Value<String> createdAt = const i0.Value.absent(),
-            i0.Value<String?> bucketName = const i0.Value.absent(),
-            i0.Value<String?> awsRegion = const i0.Value.absent(),
-          }) =>
-              i1.TransferRecordsCompanion(
-            id: id,
-            uploadId: uploadId,
-            objectKey: objectKey,
-            createdAt: createdAt,
-            bucketName: bucketName,
-            awsRegion: awsRegion,
-          ),
-          getInsertCompanionBuilder: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            required String uploadId,
-            required String objectKey,
-            required String createdAt,
-            i0.Value<String?> bucketName = const i0.Value.absent(),
-            i0.Value<String?> awsRegion = const i0.Value.absent(),
-          }) =>
-              i1.TransferRecordsCompanion.insert(
-            id: id,
-            uploadId: uploadId,
-            objectKey: objectKey,
-            createdAt: createdAt,
-            bucketName: bucketName,
-            awsRegion: awsRegion,
-          ),
-        ));
-}
-
-class $$TransferRecordsTableProcessedTableManager
-    extends i0.ProcessedTableManager<
-        i0.GeneratedDatabase,
-        i1.$TransferRecordsTable,
-        i1.TransferRecord,
-        i1.$$TransferRecordsTableFilterComposer,
-        i1.$$TransferRecordsTableOrderingComposer,
-        $$TransferRecordsTableProcessedTableManager,
-        $$TransferRecordsTableInsertCompanionBuilder,
-        $$TransferRecordsTableUpdateCompanionBuilder> {
-  $$TransferRecordsTableProcessedTableManager(super.$state);
-}
-
-class $$TransferRecordsTableFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.$TransferRecordsTable> {
-  $$TransferRecordsTableFilterComposer(super.$state);
-  i0.ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get uploadId => $state.composableBuilder(
-      column: $state.table.uploadId,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get objectKey => $state.composableBuilder(
-      column: $state.table.objectKey,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get bucketName => $state.composableBuilder(
-      column: $state.table.bucketName,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get awsRegion => $state.composableBuilder(
-      column: $state.table.awsRegion,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$TransferRecordsTableOrderingComposer extends i0
-    .OrderingComposer<i0.GeneratedDatabase, i1.$TransferRecordsTable> {
-  $$TransferRecordsTableOrderingComposer(super.$state);
-  i0.ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get uploadId => $state.composableBuilder(
-      column: $state.table.uploadId,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get objectKey => $state.composableBuilder(
-      column: $state.table.objectKey,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get bucketName => $state.composableBuilder(
-      column: $state.table.bucketName,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get awsRegion => $state.composableBuilder(
-      column: $state.table.awsRegion,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
 }

@@ -102,9 +102,10 @@ class DeleteObjectsOutputBuilder
     try {
       _$result = _$v ??
           new _$DeleteObjectsOutput._(
-              deleted: _deleted?.build(),
-              requestCharged: requestCharged,
-              errors: _errors?.build());
+            deleted: _deleted?.build(),
+            requestCharged: requestCharged,
+            errors: _errors?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -210,7 +211,9 @@ class DeleteObjectsOutputPayloadBuilder
     try {
       _$result = _$v ??
           new _$DeleteObjectsOutputPayload._(
-              deleted: _deleted?.build(), errors: _errors?.build());
+            deleted: _deleted?.build(),
+            errors: _errors?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

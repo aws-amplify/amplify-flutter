@@ -83,7 +83,10 @@ class InvalidPasswordExceptionBuilder
 
   _$InvalidPasswordException _build() {
     final _$result = _$v ??
-        new _$InvalidPasswordException._(message: message, headers: headers);
+        new _$InvalidPasswordException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

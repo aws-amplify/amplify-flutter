@@ -39,7 +39,7 @@ dependencies:
   oauth2: ^2.0.2
   package_info_plus: ^8.0.0
   pigeon: ^11.0.0
-  sqlite3: ">=2.0.0 <2.4.3"
+  sqlite3: ">=2.0.0 <2.7.0"
   source_gen: ^1.3.2
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <5.0.0"

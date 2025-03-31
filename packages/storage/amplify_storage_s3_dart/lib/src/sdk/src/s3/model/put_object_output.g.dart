@@ -217,20 +217,21 @@ class PutObjectOutputBuilder
   _$PutObjectOutput _build() {
     final _$result = _$v ??
         new _$PutObjectOutput._(
-            expiration: expiration,
-            eTag: eTag,
-            checksumCrc32: checksumCrc32,
-            checksumCrc32C: checksumCrc32C,
-            checksumSha1: checksumSha1,
-            checksumSha256: checksumSha256,
-            serverSideEncryption: serverSideEncryption,
-            versionId: versionId,
-            sseCustomerAlgorithm: sseCustomerAlgorithm,
-            sseCustomerKeyMd5: sseCustomerKeyMd5,
-            ssekmsKeyId: ssekmsKeyId,
-            ssekmsEncryptionContext: ssekmsEncryptionContext,
-            bucketKeyEnabled: bucketKeyEnabled,
-            requestCharged: requestCharged);
+          expiration: expiration,
+          eTag: eTag,
+          checksumCrc32: checksumCrc32,
+          checksumCrc32C: checksumCrc32C,
+          checksumSha1: checksumSha1,
+          checksumSha256: checksumSha256,
+          serverSideEncryption: serverSideEncryption,
+          versionId: versionId,
+          sseCustomerAlgorithm: sseCustomerAlgorithm,
+          sseCustomerKeyMd5: sseCustomerKeyMd5,
+          ssekmsKeyId: ssekmsKeyId,
+          ssekmsEncryptionContext: ssekmsEncryptionContext,
+          bucketKeyEnabled: bucketKeyEnabled,
+          requestCharged: requestCharged,
+        );
     replace(_$result);
     return _$result;
   }

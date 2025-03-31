@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+//ignore: deprecated_member_use
 import 'dart:html';
 
 import 'package:amplify_core/amplify_core.dart';

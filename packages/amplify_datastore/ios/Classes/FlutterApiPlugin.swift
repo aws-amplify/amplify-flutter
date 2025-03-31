@@ -30,7 +30,15 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
             let cancellable = try reachabilityPublisher()?.sink(receiveValue: { reachabilityUpdate in
                 if !reachabilityUpdate.isOnline {
                     DispatchQueue.main.async {
-                       self.nativeApiPlugin.deviceOffline {}
+                        self.nativeApiPlugin.deviceOffline { result in
+                            switch result {
+                                case .success(let session):
+                                    break //NoOp
+                                case .failure(let error):
+                                    break //NoOp
+                            }
+                            return     
+                        }
                    }
                 }
             })
@@ -94,7 +102,14 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
         func unsubscribe(subscriptionId: String?){
             if let subscriptionId {
                 DispatchQueue.main.async {
-                    self.nativeApiPlugin.unsubscribe(subscriptionId: subscriptionId) {}
+                    self.nativeApiPlugin.unsubscribe(subscriptionId: subscriptionId) { result in
+                        switch result {
+                            case .success(let session):
+                                break //NoOp
+                            case .failure(let error):
+                                break //NoOp
+                        }  
+                    }
                 }
             }
         }
@@ -154,8 +169,13 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
 
         sequence.send(.connection(.connecting))
         DispatchQueue.main.async {
-            self.nativeApiPlugin.subscribe(request: request.toNativeGraphQLRequest()) { response in
-                subscriptionId = response.subscriptionId
+            self.nativeApiPlugin.subscribe(request: request.toNativeGraphQLRequest()) { result in
+                switch result {
+                    case .success(let response):
+                         subscriptionId = response.subscriptionId
+                    case .failure(let error): 
+                        subscriptionId = nil
+                }
             }
         }
         return sequence
@@ -216,8 +236,13 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse {
         await withCheckedContinuation { continuation in
             DispatchQueue.main.async {
-                self.nativeApiPlugin.query(request: nativeRequest) { response in
-                    continuation.resume(returning: response)
+                self.nativeApiPlugin.query(request: nativeRequest) { result in
+                    switch result {
+                        case .success(let response):
+                            continuation.resume(returning: response)
+                        case .failure(let error): 
+                            continuation.resume(returning: NativeGraphQLResponse())
+                    }
                 }
             }
         }
@@ -226,8 +251,13 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     func asyncMutate(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse{
         await withCheckedContinuation { continuation in
             DispatchQueue.main.async {
-                self.nativeApiPlugin.mutate(request: nativeRequest) { response in
-                    continuation.resume(returning: response)
+                self.nativeApiPlugin.mutate(request: nativeRequest) { result in
+                    switch result {
+                        case .success(let response):
+                            continuation.resume(returning: response)
+                        case .failure(let error): 
+                            continuation.resume(returning: NativeGraphQLResponse())
+                    }
                 }
             }
         }

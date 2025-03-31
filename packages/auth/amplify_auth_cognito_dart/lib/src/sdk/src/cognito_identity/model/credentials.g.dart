@@ -102,10 +102,11 @@ class CredentialsBuilder implements Builder<Credentials, CredentialsBuilder> {
   _$Credentials _build() {
     final _$result = _$v ??
         new _$Credentials._(
-            accessKeyId: accessKeyId,
-            secretKey: secretKey,
-            sessionToken: sessionToken,
-            expiration: expiration);
+          accessKeyId: accessKeyId,
+          secretKey: secretKey,
+          sessionToken: sessionToken,
+          expiration: expiration,
+        );
     replace(_$result);
     return _$result;
   }

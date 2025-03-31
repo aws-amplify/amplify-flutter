@@ -94,10 +94,11 @@ class SmsMfaSettingsTypeBuilder
   _$SmsMfaSettingsType _build() {
     final _$result = _$v ??
         new _$SmsMfaSettingsType._(
-            enabled: BuiltValueNullFieldError.checkNotNull(
-                enabled, r'SmsMfaSettingsType', 'enabled'),
-            preferredMfa: BuiltValueNullFieldError.checkNotNull(
-                preferredMfa, r'SmsMfaSettingsType', 'preferredMfa'));
+          enabled: BuiltValueNullFieldError.checkNotNull(
+              enabled, r'SmsMfaSettingsType', 'enabled'),
+          preferredMfa: BuiltValueNullFieldError.checkNotNull(
+              preferredMfa, r'SmsMfaSettingsType', 'preferredMfa'),
+        );
     replace(_$result);
     return _$result;
   }

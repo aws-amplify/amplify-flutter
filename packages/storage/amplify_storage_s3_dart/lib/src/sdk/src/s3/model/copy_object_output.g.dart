@@ -190,17 +190,18 @@ class CopyObjectOutputBuilder
     try {
       _$result = _$v ??
           new _$CopyObjectOutput._(
-              copyObjectResult: _copyObjectResult?.build(),
-              expiration: expiration,
-              copySourceVersionId: copySourceVersionId,
-              versionId: versionId,
-              serverSideEncryption: serverSideEncryption,
-              sseCustomerAlgorithm: sseCustomerAlgorithm,
-              sseCustomerKeyMd5: sseCustomerKeyMd5,
-              ssekmsKeyId: ssekmsKeyId,
-              ssekmsEncryptionContext: ssekmsEncryptionContext,
-              bucketKeyEnabled: bucketKeyEnabled,
-              requestCharged: requestCharged);
+            copyObjectResult: _copyObjectResult?.build(),
+            expiration: expiration,
+            copySourceVersionId: copySourceVersionId,
+            versionId: versionId,
+            serverSideEncryption: serverSideEncryption,
+            sseCustomerAlgorithm: sseCustomerAlgorithm,
+            sseCustomerKeyMd5: sseCustomerKeyMd5,
+            ssekmsKeyId: ssekmsKeyId,
+            ssekmsEncryptionContext: ssekmsEncryptionContext,
+            bucketKeyEnabled: bucketKeyEnabled,
+            requestCharged: requestCharged,
+          );
     } catch (_) {
       late String _$failedField;
       try {

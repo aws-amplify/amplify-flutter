@@ -86,8 +86,9 @@ class RestoreStatusBuilder
   _$RestoreStatus _build() {
     final _$result = _$v ??
         new _$RestoreStatus._(
-            isRestoreInProgress: isRestoreInProgress,
-            restoreExpiryDate: restoreExpiryDate);
+          isRestoreInProgress: isRestoreInProgress,
+          restoreExpiryDate: restoreExpiryDate,
+        );
     replace(_$result);
     return _$result;
   }

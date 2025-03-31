@@ -1,7 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:amplify_native_legacy_wrapper/amplify_native_legacy_plugin.g.dart';
+import 'package:flutter/services.dart';
 
 /// A wrapper around the Native v1 Amplify plugins and the legacy SDKs.
 ///
@@ -30,4 +33,12 @@ class AmplifyNativeLegacyWrapper implements LegacyNativePlugin {
   Future<void> rememberDevice() {
     return _plugin.rememberDevice();
   }
+
+  @override
+  BinaryMessenger? get pigeonVar_binaryMessenger =>
+      _plugin.pigeonVar_binaryMessenger;
+
+  @override
+  String get pigeonVar_messageChannelSuffix =>
+      _plugin.pigeonVar_messageChannelSuffix;
 }

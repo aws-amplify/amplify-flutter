@@ -82,7 +82,10 @@ class CodeMismatchExceptionBuilder
 
   _$CodeMismatchException _build() {
     final _$result = _$v ??
-        new _$CodeMismatchException._(message: message, headers: headers);
+        new _$CodeMismatchException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

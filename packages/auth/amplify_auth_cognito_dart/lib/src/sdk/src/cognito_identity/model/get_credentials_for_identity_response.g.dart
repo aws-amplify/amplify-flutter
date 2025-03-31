@@ -96,7 +96,9 @@ class GetCredentialsForIdentityResponseBuilder
     try {
       _$result = _$v ??
           new _$GetCredentialsForIdentityResponse._(
-              identityId: identityId, credentials: _credentials?.build());
+            identityId: identityId,
+            credentials: _credentials?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -176,17 +176,18 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
     try {
       _$result = _$v ??
           new _$CognitoUser._(
-              identityId: identityId,
-              awsCredentials: awsCredentials,
-              userPoolTokens: _userPoolTokens?.build(),
-              deviceSecrets: _deviceSecrets?.build(),
-              userId: BuiltValueNullFieldError.checkNotNull(
-                  userId, r'CognitoUser', 'userId'),
-              username: BuiltValueNullFieldError.checkNotNull(
-                  username, r'CognitoUser', 'username'),
-              signInDetails: BuiltValueNullFieldError.checkNotNull(
-                  signInDetails, r'CognitoUser', 'signInDetails'),
-              attributes: attributes.build());
+            identityId: identityId,
+            awsCredentials: awsCredentials,
+            userPoolTokens: _userPoolTokens?.build(),
+            deviceSecrets: _deviceSecrets?.build(),
+            userId: BuiltValueNullFieldError.checkNotNull(
+                userId, r'CognitoUser', 'userId'),
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, r'CognitoUser', 'username'),
+            signInDetails: BuiltValueNullFieldError.checkNotNull(
+                signInDetails, r'CognitoUser', 'signInDetails'),
+            attributes: attributes.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

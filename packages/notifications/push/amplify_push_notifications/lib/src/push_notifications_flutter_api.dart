@@ -21,14 +21,14 @@ class AmplifyPushNotificationsFlutterApi
     implements PushNotificationsFlutterApi {
   /// {@macro amplify_push_notifications.amplify_push_notifications_flutter_api}
   AmplifyPushNotificationsFlutterApi._constructor() {
-    PushNotificationsFlutterApi.setup(this);
+    PushNotificationsFlutterApi.setUp(this);
   }
 
   /// {@template amplify_push_notifications.amplify_push_notifications_flutter_api.reset}
   /// Ability to reset the singleton only used for resetting between tests.
   /// {@endtemplate}
   static void reset() {
-    PushNotificationsFlutterApi.setup(null);
+    PushNotificationsFlutterApi.setUp(null);
     _instance = AmplifyPushNotificationsFlutterApi._constructor();
   }
 

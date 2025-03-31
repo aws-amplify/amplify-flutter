@@ -72,8 +72,10 @@ class ObjectNotInActiveTierErrorBuilder
   ObjectNotInActiveTierError build() => _build();
 
   _$ObjectNotInActiveTierError _build() {
-    final _$result =
-        _$v ?? new _$ObjectNotInActiveTierError._(headers: headers);
+    final _$result = _$v ??
+        new _$ObjectNotInActiveTierError._(
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }
