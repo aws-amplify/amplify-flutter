@@ -43,15 +43,13 @@ void main() {
 
           await Amplify.Auth.deleteUser();
 
-          final expectedException = environment.preventUserExistenceErrors
-              ? isA<AuthNotAuthorizedException>()
-              : isA<UserNotFoundException>();
+          final expectedException =
+              environment.preventUserExistenceErrors
+                  ? isA<AuthNotAuthorizedException>()
+                  : isA<UserNotFoundException>();
 
           await expectLater(
-            Amplify.Auth.signIn(
-              username: username,
-              password: password,
-            ),
+            Amplify.Auth.signIn(username: username, password: password),
             throwsA(expectedException),
             reason: 'Subsequent signIn calls should fail',
           );

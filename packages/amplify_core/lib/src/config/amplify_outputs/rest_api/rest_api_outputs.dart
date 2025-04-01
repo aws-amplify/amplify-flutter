@@ -48,12 +48,7 @@ class RestApiOutputs
   ApiType get apiType => ApiType.rest;
 
   @override
-  List<Object?> get props => [
-        awsRegion,
-        url,
-        apiKey,
-        authorizationType,
-      ];
+  List<Object?> get props => [awsRegion, url, apiKey, authorizationType];
 
   @override
   String get runtimeTypeName => 'RestApiOutputs';

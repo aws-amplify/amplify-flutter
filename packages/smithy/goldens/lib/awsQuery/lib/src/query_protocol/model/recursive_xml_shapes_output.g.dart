@@ -10,16 +10,16 @@ class _$RecursiveXmlShapesOutput extends RecursiveXmlShapesOutput {
   @override
   final RecursiveXmlShapesOutputNested1? nested;
 
-  factory _$RecursiveXmlShapesOutput(
-          [void Function(RecursiveXmlShapesOutputBuilder)? updates]) =>
-      (new RecursiveXmlShapesOutputBuilder()..update(updates))._build();
+  factory _$RecursiveXmlShapesOutput([
+    void Function(RecursiveXmlShapesOutputBuilder)? updates,
+  ]) => (new RecursiveXmlShapesOutputBuilder()..update(updates))._build();
 
   _$RecursiveXmlShapesOutput._({this.nested}) : super._();
 
   @override
   RecursiveXmlShapesOutput rebuild(
-          void Function(RecursiveXmlShapesOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RecursiveXmlShapesOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RecursiveXmlShapesOutputBuilder toBuilder() =>
@@ -88,7 +88,10 @@ class RecursiveXmlShapesOutputBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'RecursiveXmlShapesOutput', _$failedField, e.toString());
+          r'RecursiveXmlShapesOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

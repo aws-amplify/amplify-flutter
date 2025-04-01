@@ -54,7 +54,7 @@ enum PasswordPolicyCharacters {
   requiresNumbers,
 
   @JsonValue('REQUIRES_SYMBOLS')
-  requiresSymbols
+  requiresSymbols,
 }
 
 class _PasswordPolicyMinLengthConverter

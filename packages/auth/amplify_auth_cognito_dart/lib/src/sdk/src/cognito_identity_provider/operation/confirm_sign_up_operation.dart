@@ -34,8 +34,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 /// Local users who signed up in your user pool are the only type of user who can confirm sign-up with a code. Users who federate through an external identity provider (IdP) have already been confirmed by their IdP. Administrator-created users, users created with the [AdminCreateUser](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html) API operation, confirm their accounts when they respond to their invitation email message and choose a password. They do not receive a confirmation code. Instead, they receive a temporary password.
 ///
 /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
-class ConfirmSignUpOperation extends _i1.HttpOperation<ConfirmSignUpRequest,
-    ConfirmSignUpRequest, ConfirmSignUpResponse, ConfirmSignUpResponse> {
+class ConfirmSignUpOperation
+    extends
+        _i1.HttpOperation<
+          ConfirmSignUpRequest,
+          ConfirmSignUpRequest,
+          ConfirmSignUpResponse,
+          ConfirmSignUpResponse
+        > {
   /// This public API operation provides a code that Amazon Cognito sent to your user when they signed up in your user pool via the [SignUp](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html) API operation. After your user enters their code, they confirm ownership of the email address or phone number that they provided, and their user account becomes active. Depending on your user pool configuration, your users will receive their confirmation code in an email or SMS message.
   ///
   /// Local users who signed up in your user pool are the only type of user who can confirm sign-up with a code. Users who federate through an external identity provider (IdP) have already been confirmed by their IdP. Administrator-created users, users created with the [AdminCreateUser](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html) API operation, confirm their accounts when they respond to their invitation email message and choose a password. They do not receive a confirmation code. Instead, they receive a temporary password.
@@ -48,20 +54,27 @@ class ConfirmSignUpOperation extends _i1.HttpOperation<ConfirmSignUpRequest,
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<ConfirmSignUpRequest, ConfirmSignUpRequest,
-          ConfirmSignUpResponse, ConfirmSignUpResponse>> protocols = [
+    _i1.HttpProtocol<
+      ConfirmSignUpRequest,
+      ConfirmSignUpRequest,
+      ConfirmSignUpResponse,
+      ConfirmSignUpResponse
+    >
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithHeader(
@@ -81,7 +94,7 @@ class ConfirmSignUpOperation extends _i1.HttpOperation<ConfirmSignUpRequest,
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -113,167 +126,169 @@ class ConfirmSignUpOperation extends _i1.HttpOperation<ConfirmSignUpRequest,
   ConfirmSignUpResponse buildOutput(
     ConfirmSignUpResponse payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      ConfirmSignUpResponse.fromResponse(
-        payload,
-        response,
-      );
+  ) => ConfirmSignUpResponse.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<AliasExistsException, AliasExistsException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'AliasExistsException',
-          ),
-          _i1.ErrorKind.client,
-          AliasExistsException,
-          statusCode: 400,
-          builder: AliasExistsException.fromResponse,
-        ),
-        _i1.SmithyError<CodeMismatchException, CodeMismatchException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'CodeMismatchException',
-          ),
-          _i1.ErrorKind.client,
-          CodeMismatchException,
-          statusCode: 400,
-          builder: CodeMismatchException.fromResponse,
-        ),
-        _i1.SmithyError<ExpiredCodeException, ExpiredCodeException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'ExpiredCodeException',
-          ),
-          _i1.ErrorKind.client,
-          ExpiredCodeException,
-          statusCode: 400,
-          builder: ExpiredCodeException.fromResponse,
-        ),
-        _i1.SmithyError<ForbiddenException, ForbiddenException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'ForbiddenException',
-          ),
-          _i1.ErrorKind.client,
-          ForbiddenException,
-          statusCode: 403,
-          builder: ForbiddenException.fromResponse,
-        ),
-        _i1.SmithyError<InternalErrorException, InternalErrorException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InternalErrorException',
-          ),
-          _i1.ErrorKind.server,
-          InternalErrorException,
-          builder: InternalErrorException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidLambdaResponseException,
-            InvalidLambdaResponseException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InvalidLambdaResponseException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidLambdaResponseException,
-          statusCode: 400,
-          builder: InvalidLambdaResponseException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InvalidParameterException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidParameterException,
-          statusCode: 400,
-          builder: InvalidParameterException.fromResponse,
-        ),
-        _i1.SmithyError<LimitExceededException, LimitExceededException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'LimitExceededException',
-          ),
-          _i1.ErrorKind.client,
-          LimitExceededException,
-          statusCode: 400,
-          builder: LimitExceededException.fromResponse,
-        ),
-        _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'NotAuthorizedException',
-          ),
-          _i1.ErrorKind.client,
-          NotAuthorizedException,
-          statusCode: 403,
-          builder: NotAuthorizedException.fromResponse,
-        ),
-        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'ResourceNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          ResourceNotFoundException,
-          statusCode: 404,
-          builder: ResourceNotFoundException.fromResponse,
-        ),
-        _i1.SmithyError<TooManyFailedAttemptsException,
-            TooManyFailedAttemptsException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'TooManyFailedAttemptsException',
-          ),
-          _i1.ErrorKind.client,
-          TooManyFailedAttemptsException,
-          statusCode: 400,
-          builder: TooManyFailedAttemptsException.fromResponse,
-        ),
-        _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'TooManyRequestsException',
-          ),
-          _i1.ErrorKind.client,
-          TooManyRequestsException,
-          statusCode: 429,
-          builder: TooManyRequestsException.fromResponse,
-        ),
-        _i1.SmithyError<UnexpectedLambdaException, UnexpectedLambdaException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'UnexpectedLambdaException',
-          ),
-          _i1.ErrorKind.client,
-          UnexpectedLambdaException,
-          statusCode: 400,
-          builder: UnexpectedLambdaException.fromResponse,
-        ),
-        _i1.SmithyError<UserLambdaValidationException,
-            UserLambdaValidationException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'UserLambdaValidationException',
-          ),
-          _i1.ErrorKind.client,
-          UserLambdaValidationException,
-          statusCode: 400,
-          builder: UserLambdaValidationException.fromResponse,
-        ),
-        _i1.SmithyError<UserNotFoundException, UserNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'UserNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          UserNotFoundException,
-          statusCode: 404,
-          builder: UserNotFoundException.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<AliasExistsException, AliasExistsException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'AliasExistsException',
+      ),
+      _i1.ErrorKind.client,
+      AliasExistsException,
+      statusCode: 400,
+      builder: AliasExistsException.fromResponse,
+    ),
+    _i1.SmithyError<CodeMismatchException, CodeMismatchException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'CodeMismatchException',
+      ),
+      _i1.ErrorKind.client,
+      CodeMismatchException,
+      statusCode: 400,
+      builder: CodeMismatchException.fromResponse,
+    ),
+    _i1.SmithyError<ExpiredCodeException, ExpiredCodeException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'ExpiredCodeException',
+      ),
+      _i1.ErrorKind.client,
+      ExpiredCodeException,
+      statusCode: 400,
+      builder: ExpiredCodeException.fromResponse,
+    ),
+    _i1.SmithyError<ForbiddenException, ForbiddenException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'ForbiddenException',
+      ),
+      _i1.ErrorKind.client,
+      ForbiddenException,
+      statusCode: 403,
+      builder: ForbiddenException.fromResponse,
+    ),
+    _i1.SmithyError<InternalErrorException, InternalErrorException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InternalErrorException',
+      ),
+      _i1.ErrorKind.server,
+      InternalErrorException,
+      builder: InternalErrorException.fromResponse,
+    ),
+    _i1.SmithyError<
+      InvalidLambdaResponseException,
+      InvalidLambdaResponseException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidLambdaResponseException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidLambdaResponseException,
+      statusCode: 400,
+      builder: InvalidLambdaResponseException.fromResponse,
+    ),
+    _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidParameterException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidParameterException,
+      statusCode: 400,
+      builder: InvalidParameterException.fromResponse,
+    ),
+    _i1.SmithyError<LimitExceededException, LimitExceededException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'LimitExceededException',
+      ),
+      _i1.ErrorKind.client,
+      LimitExceededException,
+      statusCode: 400,
+      builder: LimitExceededException.fromResponse,
+    ),
+    _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'NotAuthorizedException',
+      ),
+      _i1.ErrorKind.client,
+      NotAuthorizedException,
+      statusCode: 403,
+      builder: NotAuthorizedException.fromResponse,
+    ),
+    _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'ResourceNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      ResourceNotFoundException,
+      statusCode: 404,
+      builder: ResourceNotFoundException.fromResponse,
+    ),
+    _i1.SmithyError<
+      TooManyFailedAttemptsException,
+      TooManyFailedAttemptsException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'TooManyFailedAttemptsException',
+      ),
+      _i1.ErrorKind.client,
+      TooManyFailedAttemptsException,
+      statusCode: 400,
+      builder: TooManyFailedAttemptsException.fromResponse,
+    ),
+    _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'TooManyRequestsException',
+      ),
+      _i1.ErrorKind.client,
+      TooManyRequestsException,
+      statusCode: 429,
+      builder: TooManyRequestsException.fromResponse,
+    ),
+    _i1.SmithyError<UnexpectedLambdaException, UnexpectedLambdaException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UnexpectedLambdaException',
+      ),
+      _i1.ErrorKind.client,
+      UnexpectedLambdaException,
+      statusCode: 400,
+      builder: UnexpectedLambdaException.fromResponse,
+    ),
+    _i1.SmithyError<
+      UserLambdaValidationException,
+      UserLambdaValidationException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UserLambdaValidationException',
+      ),
+      _i1.ErrorKind.client,
+      UserLambdaValidationException,
+      statusCode: 400,
+      builder: UserLambdaValidationException.fromResponse,
+    ),
+    _i1.SmithyError<UserNotFoundException, UserNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UserNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      UserNotFoundException,
+      statusCode: 404,
+      builder: UserNotFoundException.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'ConfirmSignUp';
@@ -294,11 +309,7 @@ class ConfirmSignUpOperation extends _i1.HttpOperation<ConfirmSignUpRequest,
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

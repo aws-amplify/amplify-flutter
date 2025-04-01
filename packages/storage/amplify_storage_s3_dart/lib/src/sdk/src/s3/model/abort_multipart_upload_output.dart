@@ -22,9 +22,9 @@ abstract class AbortMultipartUploadOutput
     return _$AbortMultipartUploadOutput._(requestCharged: requestCharged);
   }
 
-  factory AbortMultipartUploadOutput.build(
-          [void Function(AbortMultipartUploadOutputBuilder) updates]) =
-      _$AbortMultipartUploadOutput;
+  factory AbortMultipartUploadOutput.build([
+    void Function(AbortMultipartUploadOutputBuilder) updates,
+  ]) = _$AbortMultipartUploadOutput;
 
   const AbortMultipartUploadOutput._();
 
@@ -32,16 +32,16 @@ abstract class AbortMultipartUploadOutput
   factory AbortMultipartUploadOutput.fromResponse(
     AbortMultipartUploadOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      AbortMultipartUploadOutput.build((b) {
-        if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = RequestCharged.values
-              .byValue(response.headers['x-amz-request-charged']!);
-        }
-      });
+  ) => AbortMultipartUploadOutput.build((b) {
+    if (response.headers['x-amz-request-charged'] != null) {
+      b.requestCharged = RequestCharged.values.byValue(
+        response.headers['x-amz-request-charged']!,
+      );
+    }
+  });
 
   static const List<_i2.SmithySerializer<AbortMultipartUploadOutputPayload>>
-      serializers = [AbortMultipartUploadOutputRestXmlSerializer()];
+  serializers = [AbortMultipartUploadOutputRestXmlSerializer()];
 
   /// If present, indicates that the requester was successfully charged for the request.
   ///
@@ -57,25 +57,23 @@ abstract class AbortMultipartUploadOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AbortMultipartUploadOutput')
-      ..add(
-        'requestCharged',
-        requestCharged,
-      );
+      ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class AbortMultipartUploadOutputPayload
-    with
-        _i1.AWSEquatable<AbortMultipartUploadOutputPayload>
+    with _i1.AWSEquatable<AbortMultipartUploadOutputPayload>
     implements
-        Built<AbortMultipartUploadOutputPayload,
-            AbortMultipartUploadOutputPayloadBuilder>,
+        Built<
+          AbortMultipartUploadOutputPayload,
+          AbortMultipartUploadOutputPayloadBuilder
+        >,
         _i2.EmptyPayload {
-  factory AbortMultipartUploadOutputPayload(
-          [void Function(AbortMultipartUploadOutputPayloadBuilder) updates]) =
-      _$AbortMultipartUploadOutputPayload;
+  factory AbortMultipartUploadOutputPayload([
+    void Function(AbortMultipartUploadOutputPayloadBuilder) updates,
+  ]) = _$AbortMultipartUploadOutputPayload;
 
   const AbortMultipartUploadOutputPayload._();
 
@@ -84,8 +82,9 @@ abstract class AbortMultipartUploadOutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AbortMultipartUploadOutputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'AbortMultipartUploadOutputPayload',
+    );
     return helper.toString();
   }
 }
@@ -93,23 +92,20 @@ abstract class AbortMultipartUploadOutputPayload
 class AbortMultipartUploadOutputRestXmlSerializer
     extends _i2.StructuredSmithySerializer<AbortMultipartUploadOutputPayload> {
   const AbortMultipartUploadOutputRestXmlSerializer()
-      : super('AbortMultipartUploadOutput');
+    : super('AbortMultipartUploadOutput');
 
   @override
   Iterable<Type> get types => const [
-        AbortMultipartUploadOutput,
-        _$AbortMultipartUploadOutput,
-        AbortMultipartUploadOutputPayload,
-        _$AbortMultipartUploadOutputPayload,
-      ];
+    AbortMultipartUploadOutput,
+    _$AbortMultipartUploadOutput,
+    AbortMultipartUploadOutputPayload,
+    _$AbortMultipartUploadOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   AbortMultipartUploadOutputPayload deserialize(
@@ -130,7 +126,7 @@ class AbortMultipartUploadOutputRestXmlSerializer
       const _i2.XmlElementName(
         'AbortMultipartUploadOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

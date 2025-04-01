@@ -22,9 +22,7 @@ Future<void> loadAuthenticator({
       builder: Authenticator.builder(),
       home: const Scaffold(
         key: authenticatedAppKey,
-        body: Center(
-          child: SignOutButton(),
-        ),
+        body: Center(child: SignOutButton()),
       ),
     ),
   );
@@ -63,8 +61,9 @@ Future<void> signOut() async {
 extension BlocAccess on WidgetTester {
   /// The [StateMachineBloc] of the running Authenticator.
   StateMachineBloc get bloc {
-    final inheritedBloc =
-        widget<InheritedAuthBloc>(find.byKey(keyInheritedAuthBloc));
+    final inheritedBloc = widget<InheritedAuthBloc>(
+      find.byKey(keyInheritedAuthBloc),
+    );
     return inheritedBloc.authBloc;
   }
 }

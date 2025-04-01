@@ -39,21 +39,19 @@ void main() {
 
     final dependencies = AmplifyDependencyManager();
     final httpClient = MockAWSHttpClient(
-      expectAsync2(
-        (request, isCancelled) {
-          expect(
-            request.headers[AWSHeaders.platformUserAgent],
-            contains(osIdentifier),
-            reason: 'should contain default user agent component',
-          );
-          expect(
-            request.headers[AWSHeaders.platformUserAgent],
-            contains(myUserAgent),
-            reason: 'should contain custom user agent component',
-          );
-          return AWSHttpResponse(statusCode: 200);
-        },
-      ),
+      expectAsync2((request, isCancelled) {
+        expect(
+          request.headers[AWSHeaders.platformUserAgent],
+          contains(osIdentifier),
+          reason: 'should contain default user agent component',
+        );
+        expect(
+          request.headers[AWSHeaders.platformUserAgent],
+          contains(myUserAgent),
+          reason: 'should contain custom user agent component',
+        );
+        return AWSHttpResponse(statusCode: 200);
+      }),
     );
 
     dependencies.addInstance<AWSHttpClient>(httpClient);
@@ -61,9 +59,7 @@ void main() {
 
     final response = await dependencies
         .getOrCreate<AmplifyHttpClient>()
-        .send(
-          AWSHttpRequest.get(Uri.parse('https://example.com')),
-        )
+        .send(AWSHttpRequest.get(Uri.parse('https://example.com')))
         .response;
     expect(response.statusCode, 200);
   });
@@ -81,16 +77,14 @@ void main() {
     test('adds the category/method to the header', () async {
       const categoryMethod = AuthCategoryMethod.signIn;
       final httpClient = MockAWSHttpClient(
-        expectAsync2(
-          (request, isCancelled) {
-            expect(
-              request.headers[AWSHeaders.platformUserAgent],
-              contains(categoryMethod.headerValue),
-              reason: 'should contain category/method value',
-            );
-            return AWSHttpResponse(statusCode: 200);
-          },
-        ),
+        expectAsync2((request, isCancelled) {
+          expect(
+            request.headers[AWSHeaders.platformUserAgent],
+            contains(categoryMethod.headerValue),
+            reason: 'should contain category/method value',
+          );
+          return AWSHttpResponse(statusCode: 200);
+        }),
       );
 
       Amplify.dependencies.addInstance<AWSHttpClient>(httpClient);
@@ -102,21 +96,19 @@ void main() {
       const categoryMethod1 = AuthCategoryMethod.signInWithWebUI;
       const categoryMethod2 = AuthCategoryMethod.signIn;
       final httpClient = MockAWSHttpClient(
-        expectAsync2(
-          (request, isCancelled) {
-            expect(
-              request.headers[AWSHeaders.platformUserAgent],
-              contains(categoryMethod1.headerValue),
-              reason: 'should contain originating call',
-            );
-            expect(
-              request.headers[AWSHeaders.platformUserAgent],
-              isNot(contains(categoryMethod2.headerValue)),
-              reason: 'should not contain nested calls',
-            );
-            return AWSHttpResponse(statusCode: 200);
-          },
-        ),
+        expectAsync2((request, isCancelled) {
+          expect(
+            request.headers[AWSHeaders.platformUserAgent],
+            contains(categoryMethod1.headerValue),
+            reason: 'should contain originating call',
+          );
+          expect(
+            request.headers[AWSHeaders.platformUserAgent],
+            isNot(contains(categoryMethod2.headerValue)),
+            reason: 'should not contain nested calls',
+          );
+          return AWSHttpResponse(statusCode: 200);
+        }),
       );
 
       Amplify.dependencies.addInstance<AWSHttpClient>(httpClient);
@@ -144,9 +136,7 @@ class MockAuthPlugin extends AuthPluginInterface {
     await _sendRequest();
     return const SignInResult(
       isSignedIn: true,
-      nextStep: AuthNextSignInStep(
-        signInStep: AuthSignInStep.done,
-      ),
+      nextStep: AuthNextSignInStep(signInStep: AuthSignInStep.done),
     );
   }
 

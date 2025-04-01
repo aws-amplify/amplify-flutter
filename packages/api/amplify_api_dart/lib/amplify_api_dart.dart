@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Amplify API for Dart
-library amplify_api_dart;
+library;
 
 export 'package:amplify_core/src/types/api/api_types.dart'
     hide WebSocketOptions;

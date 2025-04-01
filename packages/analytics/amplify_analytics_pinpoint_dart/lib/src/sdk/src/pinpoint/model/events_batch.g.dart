@@ -87,9 +87,12 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
   _$EventsBatch _build() {
     _$EventsBatch _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$EventsBatch._(
-              endpoint: endpoint.build(), events: events.build());
+            endpoint: endpoint.build(),
+            events: events.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -99,7 +102,10 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
         events.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'EventsBatch', _$failedField, e.toString());
+          r'EventsBatch',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -46,10 +46,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   }) =>
       identifyCall(
         ApiCategoryMethod.subscribe,
-        () => defaultPlugin.subscribe(
-          request,
-          onEstablished: onEstablished,
-        ),
+        () => defaultPlugin.subscribe(request, onEstablished: onEstablished),
       );
 
   // ====== RestAPI ======

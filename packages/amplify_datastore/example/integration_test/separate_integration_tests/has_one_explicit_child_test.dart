@@ -29,7 +29,9 @@ void main() {
     // by assign child.id to the connection field of the parent
     var rootModels = [
       HasOneParent(
-          name: 'HasOne (explicit)', explicitChildID: associatedModels.first.id)
+        name: 'HasOne (explicit)',
+        explicitChildID: associatedModels.first.id,
+      ),
     ];
 
     testRootAndAssociatedModelsRelationship(

@@ -109,15 +109,15 @@ class HttpRequestTestCase extends HttpMessageTestCase<HttpRequestTestCase>
 
   @override
   List<Object?> get props => [
-        ...super.props,
-        method,
-        uri,
-        host,
-        resolvedHost,
-        queryParams,
-        forbidQueryParams,
-        requireQueryParams,
-      ];
+    ...super.props,
+    method,
+    uri,
+    host,
+    resolvedHost,
+    queryParams,
+    forbidQueryParams,
+    requireQueryParams,
+  ];
 
   @override
   Map<String, Object?> toJson() => _$HttpRequestTestCaseToJson(this);

@@ -12,8 +12,7 @@ const _httpErrorRecoveryMessage =
     'HTTP error returned from service, review the `underlyingException` for details.';
 
 /// The exception thrown when cancel a controllable operation.
-const s3ControllableOperationCanceledException =
-    StorageOperationCanceledException(
+const s3ControllableOperationCanceledException = StorageOperationCanceledException(
   'The operation has been canceled.',
   recoverySuggestion:
       'This is expected when you call cancel() on a storage operation. This'

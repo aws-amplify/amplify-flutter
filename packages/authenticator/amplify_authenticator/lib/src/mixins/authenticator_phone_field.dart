@@ -25,10 +25,8 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
   late final List<InputSelection<DialCodeResolverKey, DialCode>> selections =
       DialCode.values
           .map(
-            (DialCode country) => InputSelection(
-              label: country.key,
-              value: country,
-            ),
+            (DialCode country) =>
+                InputSelection(label: country.key, value: country),
           )
           .toList();
 
@@ -39,9 +37,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
             .toLowerCase()
             .contains(_searchVal.toLowerCase()),
       )
-      .sortedBy(
-        (dialCode) => _dialCodeResolver.resolve(context, dialCode.key),
-      );
+      .sortedBy((dialCode) => _dialCodeResolver.resolve(context, dialCode.key));
 
   String? formatPhoneNumber(String? phoneNumber) {
     return phoneNumber?.ensureStartsWith('+${state.dialCode.value}');
@@ -78,13 +74,8 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
           return Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                '+${state.dialCode.value}',
-                textAlign: TextAlign.center,
-              ),
-              const Flexible(
-                child: Icon(Icons.arrow_drop_down, size: 16),
-              ),
+              Text('+${state.dialCode.value}', textAlign: TextAlign.center),
+              const Flexible(child: Icon(Icons.arrow_drop_down, size: 16)),
             ],
           );
         },
@@ -111,8 +102,9 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
           final filteredCountries = DialCode.values
               .where(
                 (dialCode) =>
-                    dialCode.value
-                        .contains(controller.text.replaceFirst('+', '')) ||
+                    dialCode.value.contains(
+                      controller.text.replaceFirst('+', ''),
+                    ) ||
                     _dialCodeResolver
                         .resolve(context, dialCode.key)
                         .toLowerCase()
@@ -140,10 +132,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
                     ),
                     // Prevent overflows during animations.
                     trailing: constraints.maxWidth > 250
-                        ? Text(
-                            '+${country.value}',
-                            style: textStyle,
-                          )
+                        ? Text('+${country.value}', style: textStyle)
                         : null,
                   );
                 },
@@ -169,12 +158,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
                     Theme.of(context).textTheme.titleMedium,
                 textAlign: TextAlign.center,
               ),
-              const Flexible(
-                child: Icon(
-                  Icons.arrow_drop_down,
-                  size: 15,
-                ),
-              ),
+              const Flexible(child: Icon(Icons.arrow_drop_down, size: 15)),
               const SizedBox(width: 5),
             ],
           ),
@@ -220,9 +204,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
                             _searchVal = searchVal;
                           });
                         },
-                        autofillHints: const [
-                          AutofillHints.countryName,
-                        ],
+                        autofillHints: const [AutofillHints.countryName],
                       ),
                     ),
                     const SizedBox(height: 10),

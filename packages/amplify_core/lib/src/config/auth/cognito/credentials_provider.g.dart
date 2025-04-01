@@ -9,7 +9,8 @@ part of 'credentials_provider.dart';
 // **************************************************************************
 
 CognitoIdentityCredentialsProvider _$CognitoIdentityCredentialsProviderFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     $checkedCreate(
       'CognitoIdentityCredentialsProvider',
       json,
@@ -24,8 +25,6 @@ CognitoIdentityCredentialsProvider _$CognitoIdentityCredentialsProviderFromJson(
     );
 
 Map<String, dynamic> _$CognitoIdentityCredentialsProviderToJson(
-        CognitoIdentityCredentialsProvider instance) =>
-    <String, dynamic>{
-      'PoolId': instance.poolId,
-      'Region': instance.region,
-    };
+  CognitoIdentityCredentialsProvider instance,
+) =>
+    <String, dynamic>{'PoolId': instance.poolId, 'Region': instance.region};

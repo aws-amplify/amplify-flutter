@@ -51,10 +51,7 @@ class NotificationsPinpointPluginConfig
   @override
   List<Object?> get props => [appId, region];
 
-  NotificationsPinpointPluginConfig copyWith({
-    String? appId,
-    String? region,
-  }) {
+  NotificationsPinpointPluginConfig copyWith({String? appId, String? region}) {
     return NotificationsPinpointPluginConfig(
       appId: appId ?? this.appId,
       region: region ?? this.region,

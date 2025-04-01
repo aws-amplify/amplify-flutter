@@ -71,10 +71,8 @@ class JsonOutputBuilder implements Builder<JsonOutput, JsonOutputBuilder> {
   JsonOutput build() => _build();
 
   _$JsonOutput _build() {
-    final _$result = _$v ??
-        new _$JsonOutput._(
-          recordDelimiter: recordDelimiter,
-        );
+    final _$result =
+        _$v ?? new _$JsonOutput._(recordDelimiter: recordDelimiter);
     replace(_$result);
     return _$result;
   }

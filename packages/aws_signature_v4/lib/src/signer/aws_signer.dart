@@ -184,10 +184,7 @@ class AWSSigV4Signer {
             payloadHash: payloadHash,
             serviceConfiguration: serviceConfiguration,
           );
-    final signingKey = algorithm.deriveSigningKey(
-      credentials,
-      credentialScope,
-    );
+    final signingKey = algorithm.deriveSigningKey(credentials, credentialScope);
     final sts = stringToSign(
       algorithm: algorithm,
       credentialScope: credentialScope,
@@ -256,8 +253,9 @@ class AWSSigV4Signer {
   }) {
     // The signing process requires component keys be encoded. However, the
     // actual HTTP request should have the pre-encoded keys.
-    Map<String, String>? queryParameters =
-        Map.of(canonicalRequest.queryParameters);
+    Map<String, String>? queryParameters = Map.of(
+      canonicalRequest.queryParameters,
+    );
 
     // Similar to query parameters, some header values are canonicalized for
     // signing. However their original values should be included in the

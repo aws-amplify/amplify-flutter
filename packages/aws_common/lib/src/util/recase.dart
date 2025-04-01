@@ -13,7 +13,8 @@ extension StringRecase on String {
   }
 
   /// The `camelCase` version of `this`.
-  String get camelCase => groupIntoWords().mapIndexed((index, word) {
+  String get camelCase =>
+      groupIntoWords().mapIndexed((index, word) {
         if (index == 0) return word.toLowerCase();
         return word.capitalized;
       }).join();
@@ -26,7 +27,8 @@ extension StringRecase on String {
   static const _maintainCase = ['AWS'];
 
   /// The `PascalCase` version of `this`.
-  String get pascalCase => groupIntoWords().map((word) {
+  String get pascalCase =>
+      groupIntoWords().map((word) {
         if (_maintainCase.contains(word)) {
           return word;
         }
@@ -71,7 +73,6 @@ extension StringRecase on String {
           _standaloneVLower,
           (m) => '${m.group(1)} v${m.group(2)}',
         )
-
         // TestV4 -> "Test V4"
         .replaceAllMapped(
           _standaloneVUpper,
@@ -90,8 +91,7 @@ extension StringRecase on String {
         return substr;
       });
       yield result.substring(start);
-    }()
-        .join(' ');
+    }().join(' ');
 
     // add a space after acronyms: "ACMSuccess" -> "ACM Success"
     result = result.replaceAllMapped(

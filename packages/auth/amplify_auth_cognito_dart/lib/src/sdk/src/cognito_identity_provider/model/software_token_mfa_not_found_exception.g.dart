@@ -13,18 +13,19 @@ class _$SoftwareTokenMfaNotFoundException
   @override
   final Map<String, String>? headers;
 
-  factory _$SoftwareTokenMfaNotFoundException(
-          [void Function(SoftwareTokenMfaNotFoundExceptionBuilder)? updates]) =>
+  factory _$SoftwareTokenMfaNotFoundException([
+    void Function(SoftwareTokenMfaNotFoundExceptionBuilder)? updates,
+  ]) =>
       (new SoftwareTokenMfaNotFoundExceptionBuilder()..update(updates))
           ._build();
 
   _$SoftwareTokenMfaNotFoundException._({this.message, this.headers})
-      : super._();
+    : super._();
 
   @override
   SoftwareTokenMfaNotFoundException rebuild(
-          void Function(SoftwareTokenMfaNotFoundExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SoftwareTokenMfaNotFoundExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SoftwareTokenMfaNotFoundExceptionBuilder toBuilder() =>
@@ -48,8 +49,10 @@ class _$SoftwareTokenMfaNotFoundException
 
 class SoftwareTokenMfaNotFoundExceptionBuilder
     implements
-        Builder<SoftwareTokenMfaNotFoundException,
-            SoftwareTokenMfaNotFoundExceptionBuilder> {
+        Builder<
+          SoftwareTokenMfaNotFoundException,
+          SoftwareTokenMfaNotFoundExceptionBuilder
+        > {
   _$SoftwareTokenMfaNotFoundException? _$v;
 
   String? _message;
@@ -80,7 +83,8 @@ class SoftwareTokenMfaNotFoundExceptionBuilder
 
   @override
   void update(
-      void Function(SoftwareTokenMfaNotFoundExceptionBuilder)? updates) {
+    void Function(SoftwareTokenMfaNotFoundExceptionBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -88,7 +92,8 @@ class SoftwareTokenMfaNotFoundExceptionBuilder
   SoftwareTokenMfaNotFoundException build() => _build();
 
   _$SoftwareTokenMfaNotFoundException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SoftwareTokenMfaNotFoundException._(
           message: message,
           headers: headers,

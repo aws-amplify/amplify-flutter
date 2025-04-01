@@ -72,25 +72,31 @@ final _partitions = [
       ),
       'me-south-1': _i1.EndpointDefinition(variants: []),
       'sa-east-1': _i1.EndpointDefinition(variants: []),
-      'us-east-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 'cognito-identity-fips.us-east-1.amazonaws.com',
-          tags: ['fips'],
-        )
-      ]),
-      'us-east-2': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 'cognito-identity-fips.us-east-2.amazonaws.com',
-          tags: ['fips'],
-        )
-      ]),
+      'us-east-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 'cognito-identity-fips.us-east-1.amazonaws.com',
+            tags: ['fips'],
+          ),
+        ],
+      ),
+      'us-east-2': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 'cognito-identity-fips.us-east-2.amazonaws.com',
+            tags: ['fips'],
+          ),
+        ],
+      ),
       'us-west-1': _i1.EndpointDefinition(variants: []),
-      'us-west-2': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 'cognito-identity-fips.us-west-2.amazonaws.com',
-          tags: ['fips'],
-        )
-      ]),
+      'us-west-2': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 'cognito-identity-fips.us-west-2.amazonaws.com',
+            tags: ['fips'],
+          ),
+        ],
+      ),
     },
   ),
   _i1.Partition(
@@ -105,10 +111,7 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'cn-north-1',
-      'cn-northwest-1',
-    },
+    regions: const {'cn-north-1', 'cn-northwest-1'},
     endpoints: const {'cn-north-1': _i1.EndpointDefinition(variants: [])},
   ),
   _i1.Partition(
@@ -123,10 +126,7 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-iso-east-1',
-      'us-iso-west-1',
-    },
+    regions: const {'us-iso-east-1', 'us-iso-west-1'},
     endpoints: const {},
   ),
   _i1.Partition(
@@ -156,27 +156,27 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-gov-east-1',
-      'us-gov-west-1',
-    },
+    regions: const {'us-gov-east-1', 'us-gov-west-1'},
     endpoints: const {
       'fips-us-gov-west-1': _i1.EndpointDefinition(
         hostname: 'cognito-identity-fips.us-gov-west-1.amazonaws.com',
         credentialScope: _i1.CredentialScope(region: 'us-gov-west-1'),
         variants: [],
       ),
-      'us-gov-west-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 'cognito-identity-fips.us-gov-west-1.amazonaws.com',
-          tags: ['fips'],
-        )
-      ]),
+      'us-gov-west-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 'cognito-identity-fips.us-gov-west-1.amazonaws.com',
+            tags: ['fips'],
+          ),
+        ],
+      ),
     },
   ),
 ];
 @_i2.internal
-final _i1.AWSEndpointResolver endpointResolver =
-    _i1.AWSEndpointResolver(_partitions);
+final _i1.AWSEndpointResolver endpointResolver = _i1.AWSEndpointResolver(
+  _partitions,
+);
 @_i2.internal
 const String sdkId = 'Cognito Identity';

@@ -12,15 +12,12 @@ part 'cognito_resend_sign_up_code_plugin_options.g.dart';
 class CognitoResendSignUpCodePluginOptions
     extends ResendSignUpCodePluginOptions {
   /// {@macro amplify_auth_cognito_dart.model.cognito_resend_sign_up_code_plugin_options}
-  const CognitoResendSignUpCodePluginOptions({
-    this.clientMetadata = const {},
-  });
+  const CognitoResendSignUpCodePluginOptions({this.clientMetadata = const {}});
 
   /// {@macro amplify_auth_cognito_dart.model.cognito_resend_sign_up_code_plugin_options}
   factory CognitoResendSignUpCodePluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoResendSignUpCodePluginOptionsFromJson(json);
+  ) => _$CognitoResendSignUpCodePluginOptionsFromJson(json);
 
   /// {@template amplify_auth_cognito_dart.model.cognito_resend_sign_up_code_plugin_options.client_metadata}
   /// Additional custom attributes to be sent to the service such as information

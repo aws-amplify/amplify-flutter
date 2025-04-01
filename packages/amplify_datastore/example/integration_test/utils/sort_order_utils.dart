@@ -28,30 +28,28 @@ testSortOperations<T extends Model>({
     }
   });
 
-  testWidgets(
-    'ascending()',
-    (WidgetTester tester) async {
-      var actualModels = await Amplify.DataStore.query(classType,
-          sortBy: [queryField.ascending()]);
-      expect(actualModels, orderedEquals(ascendingSortedModels));
-    },
-    skip: skip,
-  );
+  testWidgets('ascending()', (WidgetTester tester) async {
+    var actualModels = await Amplify.DataStore.query(
+      classType,
+      sortBy: [queryField.ascending()],
+    );
+    expect(actualModels, orderedEquals(ascendingSortedModels));
+  }, skip: skip);
 
-  testWidgets(
-    'descending()',
-    (WidgetTester tester) async {
-      var actualModels = await Amplify.DataStore.query(classType,
-          sortBy: [queryField.descending()]);
-      expect(actualModels, orderedEquals(descendingSortedModels));
-    },
-    skip: skip,
-  );
+  testWidgets('descending()', (WidgetTester tester) async {
+    var actualModels = await Amplify.DataStore.query(
+      classType,
+      sortBy: [queryField.descending()],
+    );
+    expect(actualModels, orderedEquals(descendingSortedModels));
+  }, skip: skip);
 }
 
 /// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.STRINGVALUE], accounting for nulls
 int sortStringTypeModel(
-    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  ModelWithAppsyncScalarTypes a,
+  ModelWithAppsyncScalarTypes b,
+) {
   if (a.stringValue == null && b.stringValue == null) {
     return 0;
   } else if (a.stringValue == null) {
@@ -65,7 +63,9 @@ int sortStringTypeModel(
 
 /// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.INTVALUE], accounting for nulls
 int sortIntTypeModel(
-    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  ModelWithAppsyncScalarTypes a,
+  ModelWithAppsyncScalarTypes b,
+) {
   if (a.intValue == null && b.intValue == null) {
     return 0;
   } else if (a.intValue == null) {
@@ -79,7 +79,9 @@ int sortIntTypeModel(
 
 /// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.FLOATVALUE], accounting for nulls
 int sortFloatTypeModel(
-    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  ModelWithAppsyncScalarTypes a,
+  ModelWithAppsyncScalarTypes b,
+) {
   if (a.floatValue == null && b.floatValue == null) {
     return 0;
   } else if (a.floatValue == null) {
@@ -93,7 +95,9 @@ int sortFloatTypeModel(
 
 /// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.BOOLEANVALUE], accounting for nulls
 int sortBooleanTypeModel(
-    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  ModelWithAppsyncScalarTypes a,
+  ModelWithAppsyncScalarTypes b,
+) {
   if (a.booleanValue == b.booleanValue) {
     return 0;
   } else if (a.booleanValue == null) {
@@ -109,7 +113,9 @@ int sortBooleanTypeModel(
 
 /// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.AWSDATEVALUE], accounting for nulls
 int sortAWSDateTypeModel(
-    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  ModelWithAppsyncScalarTypes a,
+  ModelWithAppsyncScalarTypes b,
+) {
   if (a.awsDateValue == null && b.awsDateValue == null) {
     return 0;
   } else if (a.awsDateValue == null) {
@@ -117,15 +123,17 @@ int sortAWSDateTypeModel(
   } else if (b.awsDateValue == null) {
     return 1;
   } else {
-    return a.awsDateValue!
-        .getDateTime()
-        .compareTo(b.awsDateValue!.getDateTime());
+    return a.awsDateValue!.getDateTime().compareTo(
+      b.awsDateValue!.getDateTime(),
+    );
   }
 }
 
 /// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE], accounting for nulls
 int sortAWSDateTimeTypeModel(
-    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  ModelWithAppsyncScalarTypes a,
+  ModelWithAppsyncScalarTypes b,
+) {
   if (a.awsDateTimeValue == null && b.awsDateTimeValue == null) {
     return 0;
   } else if (a.awsDateTimeValue == null) {
@@ -133,15 +141,17 @@ int sortAWSDateTimeTypeModel(
   } else if (b.awsDateTimeValue == null) {
     return 1;
   } else {
-    return a.awsDateTimeValue!
-        .getDateTimeInUtc()
-        .compareTo(b.awsDateTimeValue!.getDateTimeInUtc());
+    return a.awsDateTimeValue!.getDateTimeInUtc().compareTo(
+      b.awsDateTimeValue!.getDateTimeInUtc(),
+    );
   }
 }
 
 /// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes], accounting for nulls
 int sortAWSTimeTypeModel(
-    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  ModelWithAppsyncScalarTypes a,
+  ModelWithAppsyncScalarTypes b,
+) {
   if (a.awsTimeValue == null && b.awsTimeValue == null) {
     return 0;
   } else if (a.awsTimeValue == null) {
@@ -149,15 +159,17 @@ int sortAWSTimeTypeModel(
   } else if (b.awsTimeValue == null) {
     return 1;
   } else {
-    return a.awsTimeValue!
-        .getDateTime()
-        .compareTo(b.awsTimeValue!.getDateTime());
+    return a.awsTimeValue!.getDateTime().compareTo(
+      b.awsTimeValue!.getDateTime(),
+    );
   }
 }
 
 /// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE], accounting for nulls
 int sortAWSTimestampTypeModel(
-    ModelWithAppsyncScalarTypes a, ModelWithAppsyncScalarTypes b) {
+  ModelWithAppsyncScalarTypes a,
+  ModelWithAppsyncScalarTypes b,
+) {
   if (a.awsTimestampValue == null && b.awsTimestampValue == null) {
     return 0;
   } else if (a.awsTimestampValue == null) {
@@ -165,8 +177,8 @@ int sortAWSTimestampTypeModel(
   } else if (b.awsTimestampValue == null) {
     return 1;
   } else {
-    return a.awsTimestampValue!
-        .toSeconds()
-        .compareTo(b.awsTimestampValue!.toSeconds());
+    return a.awsTimestampValue!.toSeconds().compareTo(
+      b.awsTimestampValue!.toSeconds(),
+    );
   }
 }

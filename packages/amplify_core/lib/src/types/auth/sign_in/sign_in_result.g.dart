@@ -9,18 +9,16 @@ part of 'sign_in_result.dart';
 // **************************************************************************
 
 SignInResult _$SignInResultFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'SignInResult',
-      json,
-      ($checkedConvert) {
-        final val = SignInResult(
-          isSignedIn: $checkedConvert('isSignedIn', (v) => v as bool),
-          nextStep: $checkedConvert('nextStep',
-              (v) => AuthNextSignInStep.fromJson(v as Map<String, dynamic>)),
-        );
-        return val;
-      },
-    );
+    $checkedCreate('SignInResult', json, ($checkedConvert) {
+      final val = SignInResult(
+        isSignedIn: $checkedConvert('isSignedIn', (v) => v as bool),
+        nextStep: $checkedConvert(
+          'nextStep',
+          (v) => AuthNextSignInStep.fromJson(v as Map<String, dynamic>),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$SignInResultToJson(SignInResult instance) =>
     <String, dynamic>{

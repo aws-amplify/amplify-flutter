@@ -30,9 +30,9 @@ abstract class VerifySoftwareTokenRequest
     );
   }
 
-  factory VerifySoftwareTokenRequest.build(
-          [void Function(VerifySoftwareTokenRequestBuilder) updates]) =
-      _$VerifySoftwareTokenRequest;
+  factory VerifySoftwareTokenRequest.build([
+    void Function(VerifySoftwareTokenRequestBuilder) updates,
+  ]) = _$VerifySoftwareTokenRequest;
 
   const VerifySoftwareTokenRequest._();
 
@@ -40,11 +40,10 @@ abstract class VerifySoftwareTokenRequest
     VerifySoftwareTokenRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<VerifySoftwareTokenRequest>>
-      serializers = [VerifySoftwareTokenRequestAwsJson11Serializer()];
+  serializers = [VerifySoftwareTokenRequestAwsJson11Serializer()];
 
   /// A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
   String? get accessToken;
@@ -62,31 +61,20 @@ abstract class VerifySoftwareTokenRequest
 
   @override
   List<Object?> get props => [
-        accessToken,
-        session,
-        userCode,
-        friendlyDeviceName,
-      ];
+    accessToken,
+    session,
+    userCode,
+    friendlyDeviceName,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VerifySoftwareTokenRequest')
-      ..add(
-        'accessToken',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'session',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'userCode',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'friendlyDeviceName',
-        friendlyDeviceName,
-      );
+    final helper =
+        newBuiltValueToStringHelper('VerifySoftwareTokenRequest')
+          ..add('accessToken', '***SENSITIVE***')
+          ..add('session', '***SENSITIVE***')
+          ..add('userCode', '***SENSITIVE***')
+          ..add('friendlyDeviceName', friendlyDeviceName);
     return helper.toString();
   }
 }
@@ -94,21 +82,18 @@ abstract class VerifySoftwareTokenRequest
 class VerifySoftwareTokenRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<VerifySoftwareTokenRequest> {
   const VerifySoftwareTokenRequestAwsJson11Serializer()
-      : super('VerifySoftwareTokenRequest');
+    : super('VerifySoftwareTokenRequest');
 
   @override
   Iterable<Type> get types => const [
-        VerifySoftwareTokenRequest,
-        _$VerifySoftwareTokenRequest,
-      ];
+    VerifySoftwareTokenRequest,
+    _$VerifySoftwareTokenRequest,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   VerifySoftwareTokenRequest deserialize(
@@ -127,25 +112,33 @@ class VerifySoftwareTokenRequestAwsJson11Serializer
       }
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accessToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Session':
-          result.session = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.session =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'UserCode':
-          result.userCode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.userCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'FriendlyDeviceName':
-          result.friendlyDeviceName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.friendlyDeviceName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -163,38 +156,38 @@ class VerifySoftwareTokenRequestAwsJson11Serializer
       :accessToken,
       :session,
       :userCode,
-      :friendlyDeviceName
+      :friendlyDeviceName,
     ) = object;
     result$.addAll([
       'UserCode',
-      serializers.serialize(
-        userCode,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(userCode, specifiedType: const FullType(String)),
     ]);
     if (accessToken != null) {
       result$
         ..add('AccessToken')
-        ..add(serializers.serialize(
-          accessToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            accessToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (session != null) {
       result$
         ..add('Session')
-        ..add(serializers.serialize(
-          session,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(session, specifiedType: const FullType(String)),
+        );
     }
     if (friendlyDeviceName != null) {
       result$
         ..add('FriendlyDeviceName')
-        ..add(serializers.serialize(
-          friendlyDeviceName,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            friendlyDeviceName,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

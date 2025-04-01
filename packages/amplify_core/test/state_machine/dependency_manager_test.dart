@@ -102,10 +102,7 @@ void main() {
         () => dependencyManager.getOrCreate<MyDependency>(),
         throwsStateError,
       );
-      expect(
-        () => dependencyManager.expect<MyDependency>(),
-        throwsStateError,
-      );
+      expect(() => dependencyManager.expect<MyDependency>(), throwsStateError);
       expect(
         () => scopedDependencyManager.get<MyDependency>(),
         returnsNormally,
@@ -139,10 +136,8 @@ void main() {
       dependencyManager
         ..addBuilder<Dispatcher>((_) => MyDispatcher())
         ..addBuilder<NeedsDependencyManagerAndDispatcher>(
-          (deps) => NeedsDependencyManagerAndDispatcher(
-            deps,
-            deps.getOrCreate(),
-          ),
+          (deps) =>
+              NeedsDependencyManagerAndDispatcher(deps, deps.getOrCreate()),
         );
 
       expect(

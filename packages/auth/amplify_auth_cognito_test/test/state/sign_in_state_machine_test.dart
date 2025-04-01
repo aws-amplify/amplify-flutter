@@ -29,20 +29,19 @@ void main() {
 
     setUp(() {
       secureStorage = MockSecureStorage();
-      stateMachine = CognitoAuthStateMachine()
-        ..addInstance<SecureStorageInterface>(secureStorage);
+      stateMachine =
+          CognitoAuthStateMachine()
+            ..addInstance<SecureStorageInterface>(secureStorage);
     });
 
     test('smoke test', () async {
       stateMachine
-          .dispatch(
-            ConfigurationEvent.configure(mockConfigUserPoolOnly),
-          )
+          .dispatch(ConfigurationEvent.configure(mockConfigUserPoolOnly))
           .ignore();
       await expectLater(
         stateMachine.stream.whereType<ConfigurationState>().firstWhere(
-              (event) => event is Configured || event is ConfigureFailure,
-            ),
+          (event) => event is Configured || event is ConfigureFailure,
+        ),
         completion(isA<Configured>()),
       );
 
@@ -63,9 +62,10 @@ void main() {
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
-              (p) => p
-                ..username = 'username'
-                ..password = 'password',
+              (p) =>
+                  p
+                    ..username = 'username'
+                    ..password = 'password',
             ),
           ),
         ).ignore();
@@ -96,14 +96,12 @@ void main() {
     group('custom auth', () {
       test('customAuthWithSrp requires password', () async {
         stateMachine
-            .dispatch(
-              ConfigurationEvent.configure(mockConfigUserPoolOnly),
-            )
+            .dispatch(ConfigurationEvent.configure(mockConfigUserPoolOnly))
             .ignore();
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
-                (event) => event is Configured || event is ConfigureFailure,
-              ),
+            (event) => event is Configured || event is ConfigureFailure,
+          ),
           completion(isA<Configured>()),
         );
 
@@ -111,9 +109,7 @@ void main() {
             .dispatch(
               SignInEvent.initiate(
                 authFlowType: AuthenticationFlowType.customAuthWithSrp,
-                parameters: SignInParameters(
-                  (p) => p..username = 'username',
-                ),
+                parameters: SignInParameters((p) => p..username = 'username'),
               ),
             )
             .ignore();
@@ -133,14 +129,12 @@ void main() {
 
       test('customAuthWithoutSrp forbids password', () async {
         stateMachine
-            .dispatch(
-              ConfigurationEvent.configure(mockConfigUserPoolOnly),
-            )
+            .dispatch(ConfigurationEvent.configure(mockConfigUserPoolOnly))
             .ignore();
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
-                (event) => event is Configured || event is ConfigureFailure,
-              ),
+            (event) => event is Configured || event is ConfigureFailure,
+          ),
           completion(isA<Configured>()),
         );
 
@@ -149,9 +143,10 @@ void main() {
               SignInEvent.initiate(
                 authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
                 parameters: SignInParameters(
-                  (p) => p
-                    ..username = 'username'
-                    ..password = 'password',
+                  (p) =>
+                      p
+                        ..username = 'username'
+                        ..password = 'password',
                 ),
               ),
             )
@@ -176,14 +171,12 @@ void main() {
 
       setUp(() async {
         stateMachine
-            .dispatch(
-              ConfigurationEvent.configure(mockConfig),
-            )
+            .dispatch(ConfigurationEvent.configure(mockConfig))
             .ignore();
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
-                (event) => event is Configured || event is ConfigureFailure,
-              ),
+            (event) => event is Configured || event is ConfigureFailure,
+          ),
           completion(isA<Configured>()),
         );
         deviceRepo = DeviceMetadataRepository(mockConfig.auth!, secureStorage);
@@ -194,10 +187,11 @@ void main() {
         await deviceRepo.put(
           srpUsername,
           CognitoDeviceSecrets(
-            (b) => b
-              ..deviceKey = deviceKey
-              ..deviceGroupKey = deviceGroupKey
-              ..devicePassword = devicePassword,
+            (b) =>
+                b
+                  ..deviceKey = deviceKey
+                  ..deviceGroupKey = deviceGroupKey
+                  ..devicePassword = devicePassword,
           ),
         );
 
@@ -222,17 +216,19 @@ void main() {
             throw cognito_idp.InvalidParameterException();
           },
         );
-        stateMachine
-            .addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient);
+        stateMachine.addInstance<cognito_idp.CognitoIdentityProviderClient>(
+          mockClient,
+        );
 
         expect(
           stateMachine
               .accept(
                 SignInEvent.initiate(
                   parameters: SignInParameters(
-                    (b) => b
-                      ..username = srpUsername
-                      ..password = srpPassword,
+                    (b) =>
+                        b
+                          ..username = srpUsername
+                          ..password = srpPassword,
                   ),
                 ),
               )
@@ -266,17 +262,19 @@ void main() {
             throw cognito_idp.InvalidParameterException();
           }),
         );
-        stateMachine
-            .addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient);
+        stateMachine.addInstance<cognito_idp.CognitoIdentityProviderClient>(
+          mockClient,
+        );
 
         await expectLater(
           stateMachine
               .accept(
                 SignInEvent.initiate(
                   parameters: SignInParameters(
-                    (b) => b
-                      ..username = srpUsername
-                      ..password = srpPassword,
+                    (b) =>
+                        b
+                          ..username = srpUsername
+                          ..password = srpPassword,
                   ),
                 ),
               )
@@ -314,17 +312,19 @@ void main() {
             );
           }),
         );
-        stateMachine
-            .addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient);
+        stateMachine.addInstance<cognito_idp.CognitoIdentityProviderClient>(
+          mockClient,
+        );
 
         await expectLater(
           stateMachine
               .accept(
                 SignInEvent.initiate(
                   parameters: SignInParameters(
-                    (b) => b
-                      ..username = username
-                      ..password = password,
+                    (b) =>
+                        b
+                          ..username = username
+                          ..password = password,
                   ),
                 ),
               )
@@ -339,10 +339,11 @@ void main() {
         await deviceRepo.put(
           username,
           CognitoDeviceSecrets(
-            (b) => b
-              ..deviceKey = deviceKey
-              ..deviceGroupKey = deviceGroupKey
-              ..devicePassword = devicePassword,
+            (b) =>
+                b
+                  ..deviceKey = deviceKey
+                  ..deviceGroupKey = deviceGroupKey
+                  ..devicePassword = devicePassword,
           ),
         );
 
@@ -367,10 +368,7 @@ void main() {
           respondToAuthChallenge: expectAsync1(max: -1, (_) async {
             try {
               if (retry) {
-                expect(
-                  await deviceRepo.get(username),
-                  isNull,
-                );
+                expect(await deviceRepo.get(username), isNull);
                 return cognito_idp.RespondToAuthChallengeResponse(
                   authenticationResult: cognito_idp.AuthenticationResultType(
                     accessToken: accessToken.raw,
@@ -395,17 +393,19 @@ void main() {
             );
           }),
         );
-        stateMachine
-            .addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient);
+        stateMachine.addInstance<cognito_idp.CognitoIdentityProviderClient>(
+          mockClient,
+        );
 
         await expectLater(
           stateMachine
               .accept(
                 SignInEvent.initiate(
                   parameters: SignInParameters(
-                    (b) => b
-                      ..username = username
-                      ..password = password,
+                    (b) =>
+                        b
+                          ..username = username
+                          ..password = password,
                   ),
                 ),
               )
@@ -417,76 +417,78 @@ void main() {
       });
 
       test(
-          'analyticsMetadata sent with InitiateAuthRequest and RespondToAuthChallengeRequest.',
-          () async {
-        const analyticsEndpointId = 'analyticsEndpointId';
+        'analyticsMetadata sent with InitiateAuthRequest and RespondToAuthChallengeRequest.',
+        () async {
+          const analyticsEndpointId = 'analyticsEndpointId';
 
-        final mockClient = MockCognitoIdentityProviderClient(
-          initiateAuth: expectAsync1((request) async {
-            expect(
-              request.analyticsMetadata?.analyticsEndpointId,
-              analyticsEndpointId,
-            );
-            return cognito_idp.InitiateAuthResponse(
-              challengeName: cognito_idp.ChallengeNameType.passwordVerifier,
-              challengeParameters: {
-                CognitoConstants.challengeParamUsername: username,
-                CognitoConstants.challengeParamUserIdForSrp: username,
-                CognitoConstants.challengeParamSecretBlock: secretBlock,
-                CognitoConstants.challengeParamSalt: salt,
-                CognitoConstants.challengeParamSrpB: publicB,
-              },
-            );
-          }),
-          respondToAuthChallenge: expectAsync1(max: -1, (request) async {
-            expect(
-              request.analyticsMetadata?.analyticsEndpointId,
-              analyticsEndpointId,
-            );
-            return cognito_idp.RespondToAuthChallengeResponse(
-              authenticationResult: cognito_idp.AuthenticationResultType(
-                accessToken: accessToken.raw,
-                refreshToken: refreshToken,
-                idToken: idToken.raw,
-                newDeviceMetadata: cognito_idp.NewDeviceMetadataType(
-                  deviceKey: deviceKey,
-                  deviceGroupKey: deviceGroupKey,
-                ),
-              ),
-            );
-          }),
-          confirmDevice: expectAsync0(() async {
-            return cognito_idp.ConfirmDeviceResponse(
-              userConfirmationNecessary: false,
-            );
-          }),
-        );
-
-        stateMachine
-          ..addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient)
-          ..addInstance<cognito_idp.AnalyticsMetadataType>(
-            cognito_idp.AnalyticsMetadataType(
-              analyticsEndpointId: analyticsEndpointId,
-            ),
-          );
-
-        await expectLater(
-          stateMachine
-              .accept(
-                SignInEvent.initiate(
-                  parameters: SignInParameters(
-                    (b) => b
-                      ..username = username
-                      ..password = password,
+          final mockClient = MockCognitoIdentityProviderClient(
+            initiateAuth: expectAsync1((request) async {
+              expect(
+                request.analyticsMetadata?.analyticsEndpointId,
+                analyticsEndpointId,
+              );
+              return cognito_idp.InitiateAuthResponse(
+                challengeName: cognito_idp.ChallengeNameType.passwordVerifier,
+                challengeParameters: {
+                  CognitoConstants.challengeParamUsername: username,
+                  CognitoConstants.challengeParamUserIdForSrp: username,
+                  CognitoConstants.challengeParamSecretBlock: secretBlock,
+                  CognitoConstants.challengeParamSalt: salt,
+                  CognitoConstants.challengeParamSrpB: publicB,
+                },
+              );
+            }),
+            respondToAuthChallenge: expectAsync1(max: -1, (request) async {
+              expect(
+                request.analyticsMetadata?.analyticsEndpointId,
+                analyticsEndpointId,
+              );
+              return cognito_idp.RespondToAuthChallengeResponse(
+                authenticationResult: cognito_idp.AuthenticationResultType(
+                  accessToken: accessToken.raw,
+                  refreshToken: refreshToken,
+                  idToken: idToken.raw,
+                  newDeviceMetadata: cognito_idp.NewDeviceMetadataType(
+                    deviceKey: deviceKey,
+                    deviceGroupKey: deviceGroupKey,
                   ),
                 ),
-              )
-              .completed,
-          completion(isA<SignInSuccess>()),
-        );
+              );
+            }),
+            confirmDevice: expectAsync0(() async {
+              return cognito_idp.ConfirmDeviceResponse(
+                userConfirmationNecessary: false,
+              );
+            }),
+          );
 
-        expect(await deviceRepo.get(username), isNotNull);
-      });
+          stateMachine
+            ..addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient)
+            ..addInstance<cognito_idp.AnalyticsMetadataType>(
+              cognito_idp.AnalyticsMetadataType(
+                analyticsEndpointId: analyticsEndpointId,
+              ),
+            );
+
+          await expectLater(
+            stateMachine
+                .accept(
+                  SignInEvent.initiate(
+                    parameters: SignInParameters(
+                      (b) =>
+                          b
+                            ..username = username
+                            ..password = password,
+                    ),
+                  ),
+                )
+                .completed,
+            completion(isA<SignInSuccess>()),
+          );
+
+          expect(await deviceRepo.get(username), isNotNull);
+        },
+      );
     });
 
     group('exception handling', () {
@@ -524,16 +526,18 @@ void main() {
             );
           }),
         );
-        stateMachine
-            .addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient);
+        stateMachine.addInstance<cognito_idp.CognitoIdentityProviderClient>(
+          mockClient,
+        );
 
         await expectLater(
           stateMachine.acceptAndComplete(
             SignInEvent.initiate(
               parameters: SignInParameters(
-                (b) => b
-                  ..username = username
-                  ..password = password,
+                (b) =>
+                    b
+                      ..username = username
+                      ..password = password,
               ),
             ),
           ),
@@ -545,7 +549,8 @@ void main() {
             const SignInEvent.respondToChallenge(answer: 'attempt'),
           ),
           throwsA(isA<AuthPreconditionException>()),
-          reason: 'Attempting to call confirmSignIn before a successful '
+          reason:
+              'Attempting to call confirmSignIn before a successful '
               'signIn call should throw',
         );
 
@@ -556,9 +561,10 @@ void main() {
           stateMachine.acceptAndComplete(
             SignInEvent.initiate(
               parameters: SignInParameters(
-                (b) => b
-                  ..username = username
-                  ..password = password,
+                (b) =>
+                    b
+                      ..username = username
+                      ..password = password,
               ),
             ),
           ),
@@ -600,16 +606,18 @@ void main() {
             }
           }),
         );
-        stateMachine
-            .addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient);
+        stateMachine.addInstance<cognito_idp.CognitoIdentityProviderClient>(
+          mockClient,
+        );
 
         await expectLater(
           stateMachine.acceptAndComplete(
             SignInEvent.initiate(
               parameters: SignInParameters(
-                (b) => b
-                  ..username = username
-                  ..password = password,
+                (b) =>
+                    b
+                      ..username = username
+                      ..password = password,
               ),
             ),
           ),
@@ -628,7 +636,8 @@ void main() {
             const SignInEvent.respondToChallenge(answer: 'good-answer'),
           ),
           completion(isA<SignInSuccess>()),
-          reason: 'Attempting to confirmSignIn after any exception is thrown '
+          reason:
+              'Attempting to confirmSignIn after any exception is thrown '
               'should be permitted',
         );
       });

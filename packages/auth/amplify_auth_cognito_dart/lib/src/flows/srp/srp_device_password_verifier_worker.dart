@@ -24,8 +24,10 @@ part 'srp_device_password_verifier_worker.g.dart';
 @BuiltValue(nestedBuilders: false)
 abstract class SrpDevicePasswordVerifierMessage
     implements
-        Built<SrpDevicePasswordVerifierMessage,
-            SrpDevicePasswordVerifierMessageBuilder> {
+        Built<
+          SrpDevicePasswordVerifierMessage,
+          SrpDevicePasswordVerifierMessageBuilder
+        > {
   /// {@macro amplify_auth_cognito.srp_device_password_verifier_message}
   factory SrpDevicePasswordVerifierMessage([
     void Function(SrpDevicePasswordVerifierMessageBuilder) updates,
@@ -57,8 +59,12 @@ abstract class SrpDevicePasswordVerifierMessage
 /// Worker bee for handling the SRP device password verifier challenge routine.
 /// {@endtemplate}
 @WorkerBee('lib/src/workers/workers.dart')
-abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
-    SrpDevicePasswordVerifierMessage, RespondToAuthChallengeRequest> {
+abstract class SrpDevicePasswordVerifierWorker
+    extends
+        WorkerBeeBase<
+          SrpDevicePasswordVerifierMessage,
+          RespondToAuthChallengeRequest
+        > {
   /// {@macro amplify_auth_cognito.srp_device_password_verifier_worker}
   SrpDevicePasswordVerifierWorker() : super(serializers: serializers);
 
@@ -117,10 +123,12 @@ abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
         b
           ..clientId = clientId
           ..challengeName = ChallengeNameType.devicePasswordVerifier
-          ..challengeResponses[
-              CognitoConstants.challengeParamPasswordSecretBlock] = secretBlock
-          ..challengeResponses[
-              CognitoConstants.challengeParamPasswordSignature] = encodedClaim
+          ..challengeResponses[CognitoConstants
+                  .challengeParamPasswordSecretBlock] =
+              secretBlock
+          ..challengeResponses[CognitoConstants
+                  .challengeParamPasswordSignature] =
+              encodedClaim
           ..challengeResponses[CognitoConstants.challengeParamUsername] =
               username
           ..challengeResponses[CognitoConstants.challengeParamTimestamp] =
@@ -141,15 +149,13 @@ abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
 }
 
 /// Serializers for the [SrpDevicePasswordVerifierWorker] worker.
-@SerializersFor([
-  SrpDevicePasswordVerifierMessage,
-])
-final Serializers serializers = (_$serializers.toBuilder()
-      ..addAll(const [
-        ...RespondToAuthChallengeRequest.serializers,
-        ...AnalyticsMetadataType.serializers,
-        ...ChallengeNameType.serializers,
-        ...UserContextDataType.serializers,
-        ...DeviceRememberedStatusType.serializers,
-      ]))
-    .build();
+@SerializersFor([SrpDevicePasswordVerifierMessage])
+final Serializers serializers =
+    (_$serializers.toBuilder()..addAll(const [
+          ...RespondToAuthChallengeRequest.serializers,
+          ...AnalyticsMetadataType.serializers,
+          ...ChallengeNameType.serializers,
+          ...UserContextDataType.serializers,
+          ...DeviceRememberedStatusType.serializers,
+        ]))
+        .build();

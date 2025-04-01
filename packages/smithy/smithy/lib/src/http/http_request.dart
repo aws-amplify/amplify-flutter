@@ -12,9 +12,7 @@ import 'package:smithy/smithy.dart';
 part 'http_request.g.dart';
 
 class RetryConfig with AWSEquatable<RetryConfig> {
-  const RetryConfig({
-    this.isThrottlingError = false,
-  });
+  const RetryConfig({this.isThrottlingError = false});
 
   final bool isThrottlingError;
 
@@ -114,8 +112,8 @@ class SmithyHttpRequest {
     this._baseRequest, {
     List<HttpRequestInterceptor> requestInterceptors = const [],
     List<HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   /// The pre-transformed [AWSBaseHttpRequest].
   final AWSBaseHttpRequest _baseRequest;

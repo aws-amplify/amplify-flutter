@@ -37,12 +37,15 @@ class UnauthenticatedState extends AuthState
 
   static const signUp = UnauthenticatedState(step: AuthenticatorStep.signUp);
   static const signIn = UnauthenticatedState(step: AuthenticatorStep.signIn);
-  static const confirmSignUp =
-      UnauthenticatedState(step: AuthenticatorStep.confirmSignUp);
-  static const confirmSignInMfa =
-      UnauthenticatedState(step: AuthenticatorStep.confirmSignInMfa);
-  static const confirmSignInNewPassword =
-      UnauthenticatedState(step: AuthenticatorStep.confirmSignInNewPassword);
+  static const confirmSignUp = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignUp,
+  );
+  static const confirmSignInMfa = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignInMfa,
+  );
+  static const confirmSignInNewPassword = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignInNewPassword,
+  );
   static const confirmSignInWithTotpMfaCode = UnauthenticatedState(
     step: AuthenticatorStep.confirmSignInWithTotpMfaCode,
   );
@@ -52,10 +55,12 @@ class UnauthenticatedState extends AuthState
   static const confirmSignInWithOtpCode = UnauthenticatedState(
     step: AuthenticatorStep.confirmSignInWithOtpCode,
   );
-  static const resetPassword =
-      UnauthenticatedState(step: AuthenticatorStep.resetPassword);
-  static const confirmResetPassword =
-      UnauthenticatedState(step: AuthenticatorStep.confirmResetPassword);
+  static const resetPassword = UnauthenticatedState(
+    step: AuthenticatorStep.resetPassword,
+  );
+  static const confirmResetPassword = UnauthenticatedState(
+    step: AuthenticatorStep.confirmResetPassword,
+  );
 
   @override
   List<Object?> get props => [step];
@@ -90,9 +95,8 @@ class VerifyUserFlow extends UnauthenticatedState {
 }
 
 class ConfirmSignInCustom extends UnauthenticatedState {
-  const ConfirmSignInCustom({
-    this.publicParameters = const <String, String>{},
-  }) : super(step: AuthenticatorStep.confirmSignInCustomAuth);
+  const ConfirmSignInCustom({this.publicParameters = const <String, String>{}})
+      : super(step: AuthenticatorStep.confirmSignInCustomAuth);
   final Map<String, String> publicParameters;
 
   @override
@@ -103,9 +107,8 @@ class ConfirmSignInCustom extends UnauthenticatedState {
 }
 
 class ContinueSignInWithMfaSelection extends UnauthenticatedState {
-  const ContinueSignInWithMfaSelection({
-    Set<MfaType>? allowedMfaTypes,
-  })  : allowedMfaTypes = allowedMfaTypes ?? const {},
+  const ContinueSignInWithMfaSelection({Set<MfaType>? allowedMfaTypes})
+      : allowedMfaTypes = allowedMfaTypes ?? const {},
         super(step: AuthenticatorStep.continueSignInWithMfaSelection);
 
   final Set<MfaType> allowedMfaTypes;
@@ -118,9 +121,8 @@ class ContinueSignInWithMfaSelection extends UnauthenticatedState {
 }
 
 class ContinueSignInWithMfaSetupSelection extends UnauthenticatedState {
-  const ContinueSignInWithMfaSetupSelection({
-    Set<MfaType>? allowedMfaTypes,
-  })  : allowedMfaTypes = allowedMfaTypes ?? const {},
+  const ContinueSignInWithMfaSetupSelection({Set<MfaType>? allowedMfaTypes})
+      : allowedMfaTypes = allowedMfaTypes ?? const {},
         super(step: AuthenticatorStep.continueSignInWithMfaSetupSelection);
 
   final Set<MfaType> allowedMfaTypes;
@@ -146,10 +148,7 @@ class ContinueSignInTotpSetup extends UnauthenticatedState {
           (await PackageInfo.fromPlatform()).appName,
     );
 
-    return ContinueSignInTotpSetup(
-      totpSetupDetails,
-      setupUri,
-    );
+    return ContinueSignInTotpSetup(totpSetupDetails, setupUri);
   }
 
   final TotpSetupDetails totpSetupDetails;

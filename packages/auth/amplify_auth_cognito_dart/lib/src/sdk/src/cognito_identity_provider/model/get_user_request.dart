@@ -29,11 +29,10 @@ abstract class GetUserRequest
     GetUserRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<GetUserRequest>> serializers = [
-    GetUserRequestAwsJson11Serializer()
+    GetUserRequestAwsJson11Serializer(),
   ];
 
   /// A non-expired access token for the user whose information you want to query.
@@ -47,10 +46,7 @@ abstract class GetUserRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetUserRequest')
-      ..add(
-        'accessToken',
-        '***SENSITIVE***',
-      );
+      ..add('accessToken', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -60,18 +56,12 @@ class GetUserRequestAwsJson11Serializer
   const GetUserRequestAwsJson11Serializer() : super('GetUserRequest');
 
   @override
-  Iterable<Type> get types => const [
-        GetUserRequest,
-        _$GetUserRequest,
-      ];
+  Iterable<Type> get types => const [GetUserRequest, _$GetUserRequest];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   GetUserRequest deserialize(
@@ -90,10 +80,12 @@ class GetUserRequestAwsJson11Serializer
       }
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accessToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -110,10 +102,7 @@ class GetUserRequestAwsJson11Serializer
     final GetUserRequest(:accessToken) = object;
     result$.addAll([
       'AccessToken',
-      serializers.serialize(
-        accessToken,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(accessToken, specifiedType: const FullType(String)),
     ]);
     return result$;
   }

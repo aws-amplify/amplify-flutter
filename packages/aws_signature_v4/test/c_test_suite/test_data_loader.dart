@@ -76,9 +76,7 @@ Future<List<SignerTest>> loadAllTests() async {
     final testFiles =
         testCaseDir.listSync().map((ent) => File(ent.path)).toList()
           ..sort(
-            (a, b) => path.basename(a.path).compareTo(
-                  path.basename(b.path),
-                ),
+            (a, b) => path.basename(a.path).compareTo(path.basename(b.path)),
           );
 
     // Some folders do not include all the necessary files. Not sure why - maybe
@@ -104,23 +102,14 @@ Future<List<SignerTest>> loadAllTests() async {
 }
 
 /// Parses `context.json`.
-Future<void> _parseContext(
-  SignerTestBuilder builder,
-  String data,
-) async {
+Future<void> _parseContext(SignerTestBuilder builder, String data) async {
   final json = jsonDecode(data) as Map<String, dynamic>;
   builder.context = Context.fromJson(json);
 }
 
 /// Parses `request.txt`.
-Future<void> _parseRequest(
-  SignerTestBuilder builder,
-  String data,
-) async {
-  builder.request = await _requestParser.parse(
-    data,
-    context: builder.context,
-  );
+Future<void> _parseRequest(SignerTestBuilder builder, String data) async {
+  builder.request = await _requestParser.parse(data, context: builder.context);
 }
 
 /// query-canonical-request.txt`.

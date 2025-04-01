@@ -7,8 +7,9 @@ part of 'context.dart';
 // **************************************************************************
 
 Context _$ContextFromJson(Map<String, dynamic> json) => Context(
-      credentials:
-          AWSCredentials.fromJson(json['credentials'] as Map<String, dynamic>),
+      credentials: AWSCredentials.fromJson(
+        json['credentials'] as Map<String, dynamic>,
+      ),
       expirationInSeconds: (json['expiration_in_seconds'] as num).toInt(),
       normalize: json['normalize'] as bool,
       region: json['region'] as String,

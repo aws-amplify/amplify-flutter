@@ -14,7 +14,6 @@ import 'package:pigeon/pigeon.dart';
     copyrightHeader: 'pigeons/copyright.txt',
   ),
 )
-
 /// A pigeon for interacting with the NSUserDefaults API on iOS and macOS.
 @HostApi()
 abstract class NSUserDefaultsPigeon {

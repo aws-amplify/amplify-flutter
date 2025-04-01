@@ -9,7 +9,8 @@ part of 'appsync.dart';
 // **************************************************************************
 
 CognitoAppSyncConfig _$CognitoAppSyncConfigFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     $checkedCreate(
       'CognitoAppSyncConfig',
       json,
@@ -18,10 +19,14 @@ CognitoAppSyncConfig _$CognitoAppSyncConfigFromJson(
           apiUrl: $checkedConvert('ApiUrl', (v) => v as String),
           region: $checkedConvert('Region', (v) => v as String),
           authMode: $checkedConvert(
-              'AuthMode', (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v)),
+            'AuthMode',
+            (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v),
+          ),
           apiKey: $checkedConvert('ApiKey', (v) => v as String?),
-          clientDatabasePrefix:
-              $checkedConvert('ClientDatabasePrefix', (v) => v as String),
+          clientDatabasePrefix: $checkedConvert(
+            'ClientDatabasePrefix',
+            (v) => v as String,
+          ),
         );
         return val;
       },
@@ -30,12 +35,13 @@ CognitoAppSyncConfig _$CognitoAppSyncConfigFromJson(
         'region': 'Region',
         'authMode': 'AuthMode',
         'apiKey': 'ApiKey',
-        'clientDatabasePrefix': 'ClientDatabasePrefix'
+        'clientDatabasePrefix': 'ClientDatabasePrefix',
       },
     );
 
 Map<String, dynamic> _$CognitoAppSyncConfigToJson(
-    CognitoAppSyncConfig instance) {
+  CognitoAppSyncConfig instance,
+) {
   final val = <String, dynamic>{
     'ApiUrl': instance.apiUrl,
     'Region': instance.region,

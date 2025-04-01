@@ -8,10 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class GraphQLOperation<T> extends AWSOperation<GraphQLResponse<T>> {
   /// Creates an [GraphQLOperation] from a [CancelableOperation].
-  GraphQLOperation(
-    super.operation, {
-    super.onCancel,
-  });
+  GraphQLOperation(super.operation, {super.onCancel});
 
   /// The [GraphQLResponse] returned from this [operation].
   ///

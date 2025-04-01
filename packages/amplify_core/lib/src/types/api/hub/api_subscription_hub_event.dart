@@ -14,7 +14,7 @@ enum NetworkState {
   disconnected,
 
   /// {@macro amplify_common.hub.api_network_state_failed}
-  failed;
+  failed,
 }
 
 /// {@template amplify_common.hub.api_intended_state}
@@ -25,7 +25,7 @@ enum IntendedState {
   connected,
 
   /// {@macro amplify_common.hub.api_intended_state_disconnected}
-  disconnected;
+  disconnected,
 }
 
 /// {@template amplify_common.hub.api_subscription_status}
@@ -46,7 +46,7 @@ enum SubscriptionStatus {
   pendingDisconnected,
 
   /// {@macro amplify_common.hub.api_subscription_status_failed}
-  failed;
+  failed,
 }
 
 class SubscriptionDetails extends ApiHubEventPayload

@@ -6,37 +6,17 @@ library amplify_analytics_pinpoint_dart.pinpoint.model.channel_type; // ignore_f
 import 'package:smithy/smithy.dart' as _i1;
 
 class ChannelType extends _i1.SmithyEnum<ChannelType> {
-  const ChannelType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ChannelType._(super.index, super.name, super.value);
 
   const ChannelType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const adm = ChannelType._(
-    0,
-    'ADM',
-    'ADM',
-  );
+  static const adm = ChannelType._(0, 'ADM', 'ADM');
 
-  static const apns = ChannelType._(
-    1,
-    'APNS',
-    'APNS',
-  );
+  static const apns = ChannelType._(1, 'APNS', 'APNS');
 
-  static const apnsSandbox = ChannelType._(
-    2,
-    'APNS_SANDBOX',
-    'APNS_SANDBOX',
-  );
+  static const apnsSandbox = ChannelType._(2, 'APNS_SANDBOX', 'APNS_SANDBOX');
 
-  static const apnsVoip = ChannelType._(
-    3,
-    'APNS_VOIP',
-    'APNS_VOIP',
-  );
+  static const apnsVoip = ChannelType._(3, 'APNS_VOIP', 'APNS_VOIP');
 
   static const apnsVoipSandbox = ChannelType._(
     4,
@@ -44,53 +24,21 @@ class ChannelType extends _i1.SmithyEnum<ChannelType> {
     'APNS_VOIP_SANDBOX',
   );
 
-  static const baidu = ChannelType._(
-    5,
-    'BAIDU',
-    'BAIDU',
-  );
+  static const baidu = ChannelType._(5, 'BAIDU', 'BAIDU');
 
-  static const custom = ChannelType._(
-    6,
-    'CUSTOM',
-    'CUSTOM',
-  );
+  static const custom = ChannelType._(6, 'CUSTOM', 'CUSTOM');
 
-  static const email = ChannelType._(
-    7,
-    'EMAIL',
-    'EMAIL',
-  );
+  static const email = ChannelType._(7, 'EMAIL', 'EMAIL');
 
-  static const gcm = ChannelType._(
-    8,
-    'GCM',
-    'GCM',
-  );
+  static const gcm = ChannelType._(8, 'GCM', 'GCM');
 
-  static const inApp = ChannelType._(
-    9,
-    'IN_APP',
-    'IN_APP',
-  );
+  static const inApp = ChannelType._(9, 'IN_APP', 'IN_APP');
 
-  static const push = ChannelType._(
-    10,
-    'PUSH',
-    'PUSH',
-  );
+  static const push = ChannelType._(10, 'PUSH', 'PUSH');
 
-  static const sms = ChannelType._(
-    11,
-    'SMS',
-    'SMS',
-  );
+  static const sms = ChannelType._(11, 'SMS', 'SMS');
 
-  static const voice = ChannelType._(
-    12,
-    'VOICE',
-    'VOICE',
-  );
+  static const voice = ChannelType._(12, 'VOICE', 'VOICE');
 
   /// All values of [ChannelType].
   static const values = <ChannelType>[
@@ -115,12 +63,9 @@ class ChannelType extends _i1.SmithyEnum<ChannelType> {
       values: values,
       sdkUnknown: ChannelType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

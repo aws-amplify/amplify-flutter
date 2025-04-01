@@ -51,15 +51,13 @@ class S3PathResolver {
     final resolvedPath = switch (path) {
       // ignore: invalid_use_of_internal_member
       final StoragePathFromIdentityId p => p.resolvePath(
-          identityId: identityId ?? await _getIdentityId(),
-        ),
+        identityId: identityId ?? await _getIdentityId(),
+      ),
       // ignore: invalid_use_of_internal_member
-      _ => path.resolvePath()
+      _ => path.resolvePath(),
     };
     if (resolvedPath.isEmpty) {
-      throw const StoragePathValidationException(
-        'StoragePath cannot be empty',
-      );
+      throw const StoragePathValidationException('StoragePath cannot be empty');
     }
     if (resolvedPath.startsWith('/')) {
       throw const StoragePathValidationException(
@@ -73,19 +71,12 @@ class S3PathResolver {
   /// Resolves multiple [StoragePath] objects.
   ///
   /// This method will only fetch the current user's identityId one time.
-  Future<List<String>> resolvePaths({
-    required List<StoragePath> paths,
-  }) async {
+  Future<List<String>> resolvePaths({required List<StoragePath> paths}) async {
     final requiresIdentityId =
         paths.whereType<StoragePathFromIdentityId>().isNotEmpty;
     final identityId = requiresIdentityId ? await _getIdentityId() : null;
     return Future.wait(
-      paths.map(
-        (path) => resolvePath(
-          path: path,
-          identityId: identityId,
-        ),
-      ),
+      paths.map((path) => resolvePath(path: path, identityId: identityId)),
     );
   }
 }

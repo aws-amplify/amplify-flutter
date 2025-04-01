@@ -163,14 +163,10 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
     if (widget.autofillHints != null) return widget.autofillHints;
     switch (widget.field) {
       case ResetPasswordField.verificationCode:
-        return const [
-          AutofillHints.oneTimeCode,
-        ];
+        return const [AutofillHints.oneTimeCode];
       case ResetPasswordField.newPassword:
       case ResetPasswordField.passwordConfirmation:
-        return const [
-          AutofillHints.newPassword,
-        ];
+        return const [AutofillHints.newPassword];
     }
   }
 }

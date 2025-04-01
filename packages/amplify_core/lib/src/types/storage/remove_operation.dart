@@ -11,8 +11,5 @@ class StorageRemoveOperation<Request extends StorageRemoveRequest,
         Result extends StorageRemoveResult>
     extends StorageOperation<Request, Result> {
   /// {@macro amplify_core.storage.remove_operation}
-  StorageRemoveOperation({
-    required super.request,
-    required super.result,
-  });
+  StorageRemoveOperation({required super.request, required super.result});
 }

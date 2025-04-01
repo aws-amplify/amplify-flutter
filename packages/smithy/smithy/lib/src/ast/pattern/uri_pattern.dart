@@ -76,10 +76,7 @@ class UriPattern extends SmithyPattern {
   final Map<String, String> queryLiterals;
 
   @override
-  List<Object> get props => [
-        queryLiterals,
-        ...super.props,
-      ];
+  List<Object> get props => [queryLiterals, ...super.props];
 
   Map<String, Object?> toJson() => _$UriPatternToJson(this);
 }

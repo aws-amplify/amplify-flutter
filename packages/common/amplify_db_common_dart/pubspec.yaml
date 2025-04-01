@@ -6,14 +6,14 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/co
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.7.0
 
 dependencies:
   amplify_core: ">=2.6.1 <2.7.0"
   async: ^2.10.0
   aws_common: ">=0.7.6 <0.8.0"
   drift: ^2.25.0
-  meta: ^1.7.0
+  meta: ^1.16.0
   path: ">=1.8.0 <2.0.0"
   sqlite3: ">=2.0.0 <2.7.0"
 

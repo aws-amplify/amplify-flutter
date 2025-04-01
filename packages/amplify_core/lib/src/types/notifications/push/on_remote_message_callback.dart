@@ -9,5 +9,4 @@ import 'package:amplify_core/src/types/notifications/notification_types.dart';
 /// Type definition for the callback functions provided to the `onNotificationReceivedInBackground` API
 /// {@endtemplate}
 typedef OnRemoteMessageCallback = FutureOr<void> Function(
-  PushNotificationMessage remotePushMessage,
-);
+    PushNotificationMessage remotePushMessage);

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('linux')
+library;
 
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -48,36 +49,34 @@ void main() {
       expect(await storage2.read(key: key1), isNull);
     });
 
-    test('Previous keys are NOT cleared on init when using an accessGroup',
-        () async {
-      // initialize storage and store a value
-      // ignore: invalid_use_of_internal_member
-      final storage = AmplifySecureStorage(
-        config: AmplifySecureStorageConfig(
-          scope: scope,
-          linuxOptions: LinuxSecureStorageOptions(
-            accessGroup: accessGroup,
+    test(
+      'Previous keys are NOT cleared on init when using an accessGroup',
+      () async {
+        // initialize storage and store a value
+        // ignore: invalid_use_of_internal_member
+        final storage = AmplifySecureStorage(
+          config: AmplifySecureStorageConfig(
+            scope: scope,
+            linuxOptions: LinuxSecureStorageOptions(accessGroup: accessGroup),
           ),
-        ),
-      );
-      await storage.write(key: key1, value: value1);
+        );
+        await storage.write(key: key1, value: value1);
 
-      // uninstall app
-      await uninstall();
+        // uninstall app
+        await uninstall();
 
-      // re-initialize storage
-      // ignore: invalid_use_of_internal_member
-      final storage2 = AmplifySecureStorage(
-        config: AmplifySecureStorageConfig(
-          scope: scope,
-          linuxOptions: LinuxSecureStorageOptions(
-            accessGroup: accessGroup,
+        // re-initialize storage
+        // ignore: invalid_use_of_internal_member
+        final storage2 = AmplifySecureStorage(
+          config: AmplifySecureStorageConfig(
+            scope: scope,
+            linuxOptions: LinuxSecureStorageOptions(accessGroup: accessGroup),
           ),
-        ),
-      );
+        );
 
-      // assert value is NOT cleared
-      expect(await storage2.read(key: key1), value1);
-    });
+        // assert value is NOT cleared
+        expect(await storage2.read(key: key1), value1);
+      },
+    );
   });
 }

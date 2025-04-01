@@ -22,10 +22,7 @@ class GraphQLQueryExamples extends StatelessWidget {
 
   /// Get a list of blogs with model query helper
   Future<void> queryBlogs() async {
-    final req = ModelQueries.list(
-      Blog.classType,
-      authorizationMode: authMode,
-    );
+    final req = ModelQueries.list(Blog.classType, authorizationMode: authMode);
 
     final operation = Amplify.API.query(request: req);
 
@@ -72,11 +69,11 @@ class GraphQLQueryExamples extends StatelessWidget {
 
     final req = GraphQLRequest<PaginatedResult<Comment>>(
       document: document,
+
       // The response from this query will be a list of Comments
       // these two parameters are required to decode the response
       // into type safe model objects.
       // Without them the response will be returned as a Map<String, dynamic>
-
       decodePath: 'listComments',
       modelType: const PaginatedModelType(Comment.classType),
     );
@@ -92,10 +89,7 @@ class GraphQLQueryExamples extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
-          'List',
-          textAlign: TextAlign.left,
-        ),
+        const Text('List', textAlign: TextAlign.left),
         Wrap(
           alignment: WrapAlignment.spaceBetween,
           spacing: 12,

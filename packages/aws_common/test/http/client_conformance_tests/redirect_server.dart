@@ -25,11 +25,7 @@ import '../http_server.dart';
 Future<void> hybridMain(StreamChannel<Object?> channel) =>
     clientHybridMain(channel, _handleH1, _handleH2);
 
-void _handleH1(
-  StreamChannel<Object?> channel,
-  HttpRequest request,
-  int port,
-) {
+void _handleH1(StreamChannel<Object?> channel, HttpRequest request, int port) {
   final requestedScheme = request.uri.scheme;
   if (request.requestedUri.pathSegments.isEmpty) {
     request.response.close();
@@ -66,35 +62,23 @@ Future<void> _handleH2(
   final method = AWSHttpMethod.fromString(headers[':method']!);
   final path = Uri.parse(headers[':path']!);
   if (method == AWSHttpMethod.options || path.pathSegments.isEmpty) {
-    request.sendHeaders(
-      [Header.ascii(':status', '200')],
-      endStream: true,
-    );
+    request.sendHeaders([Header.ascii(':status', '200')], endStream: true);
     return;
   }
   if (path.pathSegments.last == 'loop') {
-    request.sendHeaders(
-      [
-        Header.ascii(':status', '302'),
-        Header.ascii(
-          'Location',
-          Uri.http('localhost:$port', '/loop').toString(),
-        ),
-      ],
-      endStream: true,
-    );
+    request.sendHeaders([
+      Header.ascii(':status', '302'),
+      Header.ascii('Location', Uri.http('localhost:$port', '/loop').toString()),
+    ], endStream: true);
   } else {
     final n = int.parse(path.pathSegments.last);
     final nextPath = n - 1 == 0 ? '' : '${n - 1}';
-    request.sendHeaders(
-      [
-        Header.ascii(':status', '302'),
-        Header.ascii(
-          'Location',
-          Uri.http('localhost:$port', '/$nextPath').toString(),
-        ),
-      ],
-      endStream: true,
-    );
+    request.sendHeaders([
+      Header.ascii(':status', '302'),
+      Header.ascii(
+        'Location',
+        Uri.http('localhost:$port', '/$nextPath').toString(),
+      ),
+    ], endStream: true);
   }
 }

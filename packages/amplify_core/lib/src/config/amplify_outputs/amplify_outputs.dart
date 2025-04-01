@@ -103,9 +103,7 @@ const _dataPluginName = 'data';
 /// a single data object, but Amplify Flutter supports more than 1.
 Map<String, DataOutputs>? _dataFromJson(Map<String, Object?>? object) {
   if (object == null) return null;
-  return {
-    _dataPluginName: DataOutputs.fromJson(object),
-  };
+  return {_dataPluginName: DataOutputs.fromJson(object)};
 }
 
 /// Converts a map of [DataOutputs] to a single data json object.

@@ -8,8 +8,8 @@ import '../repo_state.g.dart';
 
 void main() {
   Matcher matchesPackagePaths(List<String> paths) => unorderedEquals(
-        paths.map((path) => repoState.rootDirectory.resolve(path).path),
-      );
+    paths.map((path) => repoState.rootDirectory.resolve(path).path),
+  );
 
   group('PackageSelector', () {
     group('packageOrComponent', () {
@@ -58,9 +58,7 @@ void main() {
         const nameSelector = PackageSelector.packageOrComponent('infra');
         expect(
           nameSelector.allPaths(repoState),
-          matchesPackagePaths([
-            'infra',
-          ]),
+          matchesPackagePaths(['infra']),
         );
       });
 

@@ -142,11 +142,7 @@ void main() {
         Amplify.Hub.addChannel(HubChannel.Auth, controller.stream);
 
         final finished = Completer<void>();
-        Amplify.Hub.listen(
-          HubChannel.Auth,
-          (_) {},
-          onError: finished.complete,
-        );
+        Amplify.Hub.listen(HubChannel.Auth, (_) {}, onError: finished.complete);
 
         controller.addError(Exception());
 

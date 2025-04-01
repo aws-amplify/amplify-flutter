@@ -52,14 +52,17 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
 ///
 /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-class ListPartsOperation extends _i1.PaginatedHttpOperation<
-    ListPartsRequestPayload,
-    ListPartsRequest,
-    ListPartsOutputPayload,
-    ListPartsOutput,
-    String,
-    int,
-    _i2.BuiltList<Part>> {
+class ListPartsOperation
+    extends
+        _i1.PaginatedHttpOperation<
+          ListPartsRequestPayload,
+          ListPartsRequest,
+          ListPartsOutputPayload,
+          ListPartsOutput,
+          String,
+          int,
+          _i2.BuiltList<Part>
+        > {
   /// Lists the parts that have been uploaded for a specific multipart upload.
   ///
   /// To use this operation, you must provide the `upload ID` in the request. You obtain this uploadID by sending the initiate multipart upload request through [CreateMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html).
@@ -104,27 +107,35 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
         const _i4.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<ListPartsRequestPayload, ListPartsRequest,
-          ListPartsOutputPayload, ListPartsOutput>> protocols = [
+    _i1.HttpProtocol<
+      ListPartsRequestPayload,
+      ListPartsRequest,
+      ListPartsOutputPayload,
+      ListPartsOutput
+    >
+  >
+  protocols = [
     _i3.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i3.WithSigV4(
               region: _region,
               service: _i5.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i4.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -135,7 +146,7 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -157,55 +168,46 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
 
   @override
   _i1.HttpRequest buildRequest(ListPartsRequest input) => _i1.HttpRequest((b) {
-        b.method = 'GET';
-        b.path = _s3ClientConfig.usePathStyle
+    b.method = 'GET';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=ListParts'
             : r'/{Key+}?x-id=ListParts';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.sseCustomerAlgorithm != null) {
-          if (input.sseCustomerAlgorithm!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-algorithm'] =
-                input.sseCustomerAlgorithm!;
-          }
-        }
-        if (input.sseCustomerKey != null) {
-          if (input.sseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key'] =
-                input.sseCustomerKey!;
-          }
-        }
-        if (input.sseCustomerKeyMd5 != null) {
-          if (input.sseCustomerKeyMd5!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
-                input.sseCustomerKeyMd5!;
-          }
-        }
-        if (input.maxParts != null) {
-          b.queryParameters.add(
-            'max-parts',
-            input.maxParts!.toString(),
-          );
-        }
-        if (input.partNumberMarker != null) {
-          b.queryParameters.add(
-            'part-number-marker',
-            input.partNumberMarker!,
-          );
-        }
-        b.queryParameters.add(
-          'uploadId',
-          input.uploadId,
-        );
-      });
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.sseCustomerAlgorithm != null) {
+      if (input.sseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-algorithm'] =
+            input.sseCustomerAlgorithm!;
+      }
+    }
+    if (input.sseCustomerKey != null) {
+      if (input.sseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key'] =
+            input.sseCustomerKey!;
+      }
+    }
+    if (input.sseCustomerKeyMd5 != null) {
+      if (input.sseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
+            input.sseCustomerKeyMd5!;
+      }
+    }
+    if (input.maxParts != null) {
+      b.queryParameters.add('max-parts', input.maxParts!.toString());
+    }
+    if (input.partNumberMarker != null) {
+      b.queryParameters.add('part-number-marker', input.partNumberMarker!);
+    }
+    b.queryParameters.add('uploadId', input.uploadId);
+  });
 
   @override
   int successCode([ListPartsOutput? output]) => 200;
@@ -214,11 +216,7 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
   ListPartsOutput buildOutput(
     ListPartsOutputPayload payload,
     _i5.AWSBaseHttpResponse response,
-  ) =>
-      ListPartsOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => ListPartsOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -257,11 +255,7 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i6.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
@@ -281,11 +275,10 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
     ListPartsRequest input,
     String token,
     int? pageSize,
-  ) =>
-      input.rebuild((b) {
-        b.partNumberMarker = token;
-        if (pageSize != null) {
-          b.maxParts = pageSize;
-        }
-      });
+  ) => input.rebuild((b) {
+    b.partNumberMarker = token;
+    if (pageSize != null) {
+      b.maxParts = pageSize;
+    }
+  });
 }

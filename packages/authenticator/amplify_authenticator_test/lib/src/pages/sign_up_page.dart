@@ -23,22 +23,22 @@ class SignUpPage extends AuthenticatorPage {
       find.byKey(keyPreferredUsernameSignUpFormField);
   Finder get birthdateField => find.byKey(keyBirthdateSignUpFormField);
   Finder get datePickerTextField => find.descendant(
-        of: find.byType(InputDatePickerFormField),
-        matching: find.byType(TextFormField),
-      );
+    of: find.byType(InputDatePickerFormField),
+    matching: find.byType(TextFormField),
+  );
   Finder get datePickerOkayButton => find.descendant(
-        of: find.byType(DatePickerDialog),
-        matching: find.byType(TextButton).at(1),
-      );
+    of: find.byType(DatePickerDialog),
+    matching: find.byType(TextButton).at(1),
+  );
   Finder get signUpButton => find.byKey(keySignUpButton);
 
   Finder get selectEmailButton => find.byKey(keyEmailUsernameToggleButton);
   Finder get selectPhoneButton => find.byKey(keyPhoneUsernameToggleButton);
 
   Finder get signInTab => find.descendant(
-        of: find.byType(TabBar),
-        matching: find.byKey(const ValueKey(AuthenticatorStep.signIn)),
-      );
+    of: find.byType(TabBar),
+    matching: find.byKey(const ValueKey(AuthenticatorStep.signIn)),
+  );
 
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {

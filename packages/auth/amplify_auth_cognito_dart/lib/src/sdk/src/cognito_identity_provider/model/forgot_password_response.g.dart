@@ -10,16 +10,16 @@ class _$ForgotPasswordResponse extends ForgotPasswordResponse {
   @override
   final CodeDeliveryDetailsType? codeDeliveryDetails;
 
-  factory _$ForgotPasswordResponse(
-          [void Function(ForgotPasswordResponseBuilder)? updates]) =>
-      (new ForgotPasswordResponseBuilder()..update(updates))._build();
+  factory _$ForgotPasswordResponse([
+    void Function(ForgotPasswordResponseBuilder)? updates,
+  ]) => (new ForgotPasswordResponseBuilder()..update(updates))._build();
 
   _$ForgotPasswordResponse._({this.codeDeliveryDetails}) : super._();
 
   @override
   ForgotPasswordResponse rebuild(
-          void Function(ForgotPasswordResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ForgotPasswordResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ForgotPasswordResponseBuilder toBuilder() =>
@@ -49,8 +49,8 @@ class ForgotPasswordResponseBuilder
   CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
       _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
-          CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
-      _$this._codeDeliveryDetails = codeDeliveryDetails;
+    CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
+  ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   ForgotPasswordResponseBuilder();
 
@@ -80,7 +80,8 @@ class ForgotPasswordResponseBuilder
   _$ForgotPasswordResponse _build() {
     _$ForgotPasswordResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ForgotPasswordResponse._(
             codeDeliveryDetails: _codeDeliveryDetails?.build(),
           );
@@ -91,7 +92,10 @@ class ForgotPasswordResponseBuilder
         _codeDeliveryDetails?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ForgotPasswordResponse', _$failedField, e.toString());
+          r'ForgotPasswordResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

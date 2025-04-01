@@ -16,11 +16,7 @@ class TemporalDate implements Comparable<TemporalDate> {
   factory TemporalDate(DateTime dateTime) {
     dateTime = dateTime.toUtc();
     return TemporalDate._(
-      DateTime.utc(
-        dateTime.year,
-        dateTime.month,
-        dateTime.day,
-      ),
+      DateTime.utc(dateTime.year, dateTime.month, dateTime.day),
     );
   }
 
@@ -33,11 +29,7 @@ class TemporalDate implements Comparable<TemporalDate> {
 
     dateTime = dateTime.toUtc();
     return TemporalDate._(
-      DateTime.utc(
-        dateTime.year,
-        dateTime.month,
-        dateTime.day,
-      ),
+      DateTime.utc(dateTime.year, dateTime.month, dateTime.day),
       offset,
     );
   }

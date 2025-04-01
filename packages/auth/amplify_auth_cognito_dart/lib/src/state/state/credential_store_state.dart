@@ -155,10 +155,7 @@ final class CredentialStoreSuccess extends CredentialStoreState
   CredentialStoreStateType get type => CredentialStoreStateType.success;
 
   @override
-  List<Object?> get props => [
-        type,
-        data,
-      ];
+  List<Object?> get props => [type, data];
 }
 
 /// {@template amplify_auth_cognito.credential_store_failure}
@@ -217,11 +214,11 @@ class CredentialStoreData
 
   @override
   List<Object?> get props => [
-        identityId,
-        awsCredentials,
-        userPoolTokens,
-        signInDetails,
-      ];
+    identityId,
+    awsCredentials,
+    userPoolTokens,
+    signInDetails,
+  ];
 
   @override
   Map<String, Object?> toJson() => _$CredentialStoreDataToJson(this);

@@ -16,18 +16,21 @@ class _$ServiceUnavailableException extends ServiceUnavailableException {
   @override
   final Map<String, String>? headers;
 
-  factory _$ServiceUnavailableException(
-          [void Function(ServiceUnavailableExceptionBuilder)? updates]) =>
-      (new ServiceUnavailableExceptionBuilder()..update(updates))._build();
+  factory _$ServiceUnavailableException([
+    void Function(ServiceUnavailableExceptionBuilder)? updates,
+  ]) => (new ServiceUnavailableExceptionBuilder()..update(updates))._build();
 
-  _$ServiceUnavailableException._(
-      {this.type, this.code, this.message, this.headers})
-      : super._();
+  _$ServiceUnavailableException._({
+    this.type,
+    this.code,
+    this.message,
+    this.headers,
+  }) : super._();
 
   @override
   ServiceUnavailableException rebuild(
-          void Function(ServiceUnavailableExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ServiceUnavailableExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ServiceUnavailableExceptionBuilder toBuilder() =>
@@ -55,8 +58,10 @@ class _$ServiceUnavailableException extends ServiceUnavailableException {
 
 class ServiceUnavailableExceptionBuilder
     implements
-        Builder<ServiceUnavailableException,
-            ServiceUnavailableExceptionBuilder> {
+        Builder<
+          ServiceUnavailableException,
+          ServiceUnavailableExceptionBuilder
+        > {
   _$ServiceUnavailableException? _$v;
 
   String? _type;
@@ -104,9 +109,14 @@ class ServiceUnavailableExceptionBuilder
   ServiceUnavailableException build() => _build();
 
   _$ServiceUnavailableException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ServiceUnavailableException._(
-            type: type, code: code, message: message, headers: headers);
+          type: type,
+          code: code,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

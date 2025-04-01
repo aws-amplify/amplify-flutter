@@ -21,8 +21,9 @@ class TimestampSerializer implements PrimitiveSerializer<DateTime> {
   static const httpDate = TimestampSerializer._(TimestampFormat.httpDate);
 
   /// {@macro smithy.timestamp_format_epochseconds}
-  static const epochSeconds =
-      TimestampSerializer._(TimestampFormat.epochSeconds);
+  static const epochSeconds = TimestampSerializer._(
+    TimestampFormat.epochSeconds,
+  );
 
   /// {@macro smithy.timestamp_format_unknown}
   static const unknown = TimestampSerializer._(TimestampFormat.unknown);

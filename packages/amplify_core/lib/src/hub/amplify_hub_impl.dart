@@ -34,8 +34,7 @@ class AmplifyHubImpl extends AmplifyHub {
 
   StreamGroup<HubEvent<Object?>>
       _initChannel<HubEventPayload, E extends HubEvent<HubEventPayload>>(
-    HubChannel<HubEventPayload, E> channel,
-  ) {
+          HubChannel<HubEventPayload, E> channel) {
     return _availableStreams[channel] ??= StreamGroup<E>.broadcast();
   }
 

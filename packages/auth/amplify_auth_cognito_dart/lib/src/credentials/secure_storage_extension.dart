@@ -18,10 +18,6 @@ extension SecureStorageInterfaceX on SecureStorageInterface {
 
   /// Delete all key-value pairs from storage
   Future<void> deleteMany(Iterable<String> keys) {
-    return Future.wait(
-      keys.map(
-        (key) async => delete(key: key),
-      ),
-    );
+    return Future.wait(keys.map((key) async => delete(key: key)));
   }
 }

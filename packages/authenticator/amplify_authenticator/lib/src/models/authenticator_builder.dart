@@ -8,6 +8,4 @@ import 'package:flutter/widgets.dart';
 /// bases on the current AuthenticatorState and the prebuilt
 /// authenticator screen
 typedef AuthenticatorBuilder = Widget? Function(
-  BuildContext,
-  AuthenticatorState,
-);
+    BuildContext, AuthenticatorState);

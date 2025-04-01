@@ -8,10 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class StorageDownloadDataRequest {
   /// {@macro amplify_core.storage.download_data_request}
-  const StorageDownloadDataRequest({
-    required this.path,
-    this.options,
-  });
+  const StorageDownloadDataRequest({required this.path, this.options});
 
   /// Path of the object to download.
   final StoragePath path;

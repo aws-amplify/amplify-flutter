@@ -19,15 +19,22 @@ class _$StringEnumShapeSerializer
   final String wireName = 'StringEnumShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, StringEnumShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    StringEnumShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'members',
-      serializers.serialize(object.members,
-          specifiedType: const FullType(NamedMembersMap)),
+      serializers.serialize(
+        object.members,
+        specifiedType: const FullType(NamedMembersMap),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -35,8 +42,10 @@ class _$StringEnumShapeSerializer
 
   @override
   StringEnumShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new StringEnumShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -46,13 +55,20 @@ class _$StringEnumShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'members':
-          result.members = serializers.deserialize(value,
-                  specifiedType: const FullType(NamedMembersMap))!
-              as NamedMembersMap;
+          result.members =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(NamedMembersMap),
+                  )!
+                  as NamedMembersMap;
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -68,15 +84,22 @@ class _$IntEnumShapeSerializer implements StructuredSerializer<IntEnumShape> {
   final String wireName = 'IntEnumShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, IntEnumShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    IntEnumShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'members',
-      serializers.serialize(object.members,
-          specifiedType: const FullType(NamedMembersMap)),
+      serializers.serialize(
+        object.members,
+        specifiedType: const FullType(NamedMembersMap),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -84,8 +107,10 @@ class _$IntEnumShapeSerializer implements StructuredSerializer<IntEnumShape> {
 
   @override
   IntEnumShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new IntEnumShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -95,13 +120,20 @@ class _$IntEnumShapeSerializer implements StructuredSerializer<IntEnumShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'members':
-          result.members = serializers.deserialize(value,
-                  specifiedType: const FullType(NamedMembersMap))!
-              as NamedMembersMap;
+          result.members =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(NamedMembersMap),
+                  )!
+                  as NamedMembersMap;
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -134,13 +166,21 @@ class _$StringEnumShape extends StringEnumShape {
   factory _$StringEnumShape([void Function(StringEnumShapeBuilder)? updates]) =>
       (new StringEnumShapeBuilder()..update(updates))._build();
 
-  _$StringEnumShape._(
-      {required this.members, required this.shapeId, required this.traits})
-      : super._() {
+  _$StringEnumShape._({
+    required this.members,
+    required this.shapeId,
+    required this.traits,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        members, r'StringEnumShape', 'members');
+      members,
+      r'StringEnumShape',
+      'members',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'StringEnumShape', 'shapeId');
+      shapeId,
+      r'StringEnumShape',
+      'shapeId',
+    );
     BuiltValueNullFieldError.checkNotNull(traits, r'StringEnumShape', 'traits');
   }
 
@@ -229,14 +269,25 @@ class StringEnumShapeBuilder
   StringEnumShape build() => _build();
 
   _$StringEnumShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$StringEnumShape._(
-            members: BuiltValueNullFieldError.checkNotNull(
-                members, r'StringEnumShape', 'members'),
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'StringEnumShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'StringEnumShape', 'traits'));
+          members: BuiltValueNullFieldError.checkNotNull(
+            members,
+            r'StringEnumShape',
+            'members',
+          ),
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'StringEnumShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'StringEnumShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -253,9 +304,11 @@ class _$IntEnumShape extends IntEnumShape {
   factory _$IntEnumShape([void Function(IntEnumShapeBuilder)? updates]) =>
       (new IntEnumShapeBuilder()..update(updates))._build();
 
-  _$IntEnumShape._(
-      {required this.members, required this.shapeId, required this.traits})
-      : super._() {
+  _$IntEnumShape._({
+    required this.members,
+    required this.shapeId,
+    required this.traits,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(members, r'IntEnumShape', 'members');
     BuiltValueNullFieldError.checkNotNull(shapeId, r'IntEnumShape', 'shapeId');
     BuiltValueNullFieldError.checkNotNull(traits, r'IntEnumShape', 'traits');
@@ -343,14 +396,25 @@ class IntEnumShapeBuilder
   IntEnumShape build() => _build();
 
   _$IntEnumShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$IntEnumShape._(
-            members: BuiltValueNullFieldError.checkNotNull(
-                members, r'IntEnumShape', 'members'),
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'IntEnumShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'IntEnumShape', 'traits'));
+          members: BuiltValueNullFieldError.checkNotNull(
+            members,
+            r'IntEnumShape',
+            'members',
+          ),
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'IntEnumShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'IntEnumShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

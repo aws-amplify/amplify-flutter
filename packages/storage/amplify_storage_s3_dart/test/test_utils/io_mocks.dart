@@ -7,6 +7,7 @@ import 'package:mocktail/mocktail.dart';
 
 class MockAWSFile extends Mock implements AWSFile {}
 
-class MockChunkedStreamReader extends Mock //
-    implements
-        ChunkedStreamReader<int> {}
+class MockChunkedStreamReader
+    extends
+        Mock //
+    implements ChunkedStreamReader<int> {}

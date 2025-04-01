@@ -15,68 +15,72 @@ extension MockMethodChannel on MethodChannel {
     final data = codec.encodeMethodCall(MethodCall(method, arguments));
 
     await TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .handlePlatformMessage(
-      name,
-      data,
-      (ByteData? data) {},
-    );
+        .handlePlatformMessage(name, data, (ByteData? data) {});
   }
 }
 
 void main() {
-  const MethodChannel dataStoreChannel =
-      MethodChannel('com.amazonaws.amplify/datastore');
+  const MethodChannel dataStoreChannel = MethodChannel(
+    'com.amazonaws.amplify/datastore',
+  );
 
   AmplifyException? receivedException;
 
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
-    binding.defaultBinaryMessenger.setMockMethodCallHandler(
-      dataStoreChannel,
-      (MethodCall methodCall) async {
-        return null;
-      },
-    );
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(dataStoreChannel, (
+      MethodCall methodCall,
+    ) async {
+      return null;
+    });
     AmplifyDataStore dataStore = AmplifyDataStore(
-        modelProvider: ModelProvider.instance,
-        options: DataStorePluginOptions(
-            errorHandler: (exception) => {receivedException = exception}));
+      modelProvider: ModelProvider.instance,
+      options: DataStorePluginOptions(
+        errorHandler: (exception) => {receivedException = exception},
+      ),
+    );
     return dataStore.configureDataStore();
   });
 
   test(
-      'DataStoreException from MethodChannel is properly serialized and called',
-      () async {
-    await dataStoreChannel.invokeMockMethod("errorHandler", {
-      'errorCode': 'DataStoreException',
-      'errorMessage': 'ErrorMessage',
-      'details': {
-        'message': 'message',
-        'recoverySuggestion': 'recoverySuggestion',
-        'underlyingException': 'underlyingException'
-      }
-    });
-    expect(
+    'DataStoreException from MethodChannel is properly serialized and called',
+    () async {
+      await dataStoreChannel.invokeMockMethod("errorHandler", {
+        'errorCode': 'DataStoreException',
+        'errorMessage': 'ErrorMessage',
+        'details': {
+          'message': 'message',
+          'recoverySuggestion': 'recoverySuggestion',
+          'underlyingException': 'underlyingException',
+        },
+      });
+      expect(
         receivedException,
         DataStoreException.fromMap({
           'message': 'message',
           'recoverySuggestion': 'recoverySuggestion',
-          'underlyingException': 'underlyingException'
-        }));
-  });
+          'underlyingException': 'underlyingException',
+        }),
+      );
+    },
+  );
 
   test(
-      'Unknown DataStoreException from MethodChannel is properly serialized and called',
-      () async {
-    await dataStoreChannel
-        .invokeMockMethod("errorHandler", {'badErrorFormat': 'badErrorFormat'});
-    expect(
+    'Unknown DataStoreException from MethodChannel is properly serialized and called',
+    () async {
+      await dataStoreChannel.invokeMockMethod("errorHandler", {
+        'badErrorFormat': 'badErrorFormat',
+      });
+      expect(
         receivedException,
-        DataStoreException(AmplifyExceptionMessages.missingExceptionMessage,
-            recoverySuggestion:
-                AmplifyExceptionMessages.missingRecoverySuggestion,
-            underlyingException:
-                {'badErrorFormat': 'badErrorFormat'}.toString()));
-  });
+        DataStoreException(
+          AmplifyExceptionMessages.missingExceptionMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: {'badErrorFormat': 'badErrorFormat'}.toString(),
+        ),
+      );
+    },
+  );
 }

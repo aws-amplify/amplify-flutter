@@ -15,12 +15,7 @@ void main() {
     group('Single Chunk', () {
       for (final signerTest in testCases) {
         test(signerTest.name, () {
-          runZoned(
-            signerTest.run,
-            zoneValues: {
-              zSigningTest: true,
-            },
-          );
+          runZoned(signerTest.run, zoneValues: {zSigningTest: true});
         });
       }
     });

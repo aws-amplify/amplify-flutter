@@ -6,31 +6,15 @@ library amplify_integration_test.cognito_identity_provider.model.event_response_
 import 'package:smithy/smithy.dart' as _i1;
 
 class EventResponseType extends _i1.SmithyEnum<EventResponseType> {
-  const EventResponseType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const EventResponseType._(super.index, super.name, super.value);
 
   const EventResponseType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const fail = EventResponseType._(
-    0,
-    'Fail',
-    'Fail',
-  );
+  static const fail = EventResponseType._(0, 'Fail', 'Fail');
 
-  static const inProgress = EventResponseType._(
-    1,
-    'InProgress',
-    'InProgress',
-  );
+  static const inProgress = EventResponseType._(1, 'InProgress', 'InProgress');
 
-  static const pass = EventResponseType._(
-    2,
-    'Pass',
-    'Pass',
-  );
+  static const pass = EventResponseType._(2, 'Pass', 'Pass');
 
   /// All values of [EventResponseType].
   static const values = <EventResponseType>[
@@ -45,12 +29,9 @@ class EventResponseType extends _i1.SmithyEnum<EventResponseType> {
       values: values,
       sdkUnknown: EventResponseType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

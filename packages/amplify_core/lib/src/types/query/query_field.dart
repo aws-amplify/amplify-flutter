@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library query_field;
+library;
 
 import 'package:amplify_core/amplify_core.dart';
 
@@ -195,7 +195,7 @@ class QueryField<T> {
   /// Matches models where the given field contains the provided value.
   ///
   /// This operation can be applied to fields of type String or
-  /// List<String>.
+  /// List of Strings.
   ///
   /// Example:
   /// ```dart
@@ -215,10 +215,8 @@ class QueryField<T> {
   ///   where: Blog.CATEGORIES.contains('bar'),
   /// );
   /// ```
-  QueryPredicateOperation contains(String value) => QueryPredicateOperation(
-        fieldName,
-        ContainsQueryOperator(value),
-      );
+  QueryPredicateOperation contains(String value) =>
+      QueryPredicateOperation(fieldName, ContainsQueryOperator(value));
 
   /// A **between** operation.
   ///
@@ -271,9 +269,7 @@ class QueryField<T> {
   QueryPredicateOperation attributeExists({bool exists = true}) =>
       QueryPredicateOperation(
         fieldName,
-        AttributeExistsQueryOperator(
-          exists: exists,
-        ),
+        AttributeExistsQueryOperator(exists: exists),
       );
 
   /// Sorts models by the given field in ascending order

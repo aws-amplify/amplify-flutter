@@ -13,19 +13,19 @@ class _$OmitsNullSerializesEmptyStringInput
   @override
   final String? emptyString;
 
-  factory _$OmitsNullSerializesEmptyStringInput(
-          [void Function(OmitsNullSerializesEmptyStringInputBuilder)?
-              updates]) =>
+  factory _$OmitsNullSerializesEmptyStringInput([
+    void Function(OmitsNullSerializesEmptyStringInputBuilder)? updates,
+  ]) =>
       (new OmitsNullSerializesEmptyStringInputBuilder()..update(updates))
           ._build();
 
   _$OmitsNullSerializesEmptyStringInput._({this.nullValue, this.emptyString})
-      : super._();
+    : super._();
 
   @override
   OmitsNullSerializesEmptyStringInput rebuild(
-          void Function(OmitsNullSerializesEmptyStringInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OmitsNullSerializesEmptyStringInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OmitsNullSerializesEmptyStringInputBuilder toBuilder() =>
@@ -51,8 +51,10 @@ class _$OmitsNullSerializesEmptyStringInput
 
 class OmitsNullSerializesEmptyStringInputBuilder
     implements
-        Builder<OmitsNullSerializesEmptyStringInput,
-            OmitsNullSerializesEmptyStringInputBuilder> {
+        Builder<
+          OmitsNullSerializesEmptyStringInput,
+          OmitsNullSerializesEmptyStringInputBuilder
+        > {
   _$OmitsNullSerializesEmptyStringInput? _$v;
 
   String? _nullValue;
@@ -83,7 +85,8 @@ class OmitsNullSerializesEmptyStringInputBuilder
 
   @override
   void update(
-      void Function(OmitsNullSerializesEmptyStringInputBuilder)? updates) {
+    void Function(OmitsNullSerializesEmptyStringInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -91,9 +94,12 @@ class OmitsNullSerializesEmptyStringInputBuilder
   OmitsNullSerializesEmptyStringInput build() => _build();
 
   _$OmitsNullSerializesEmptyStringInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$OmitsNullSerializesEmptyStringInput._(
-            nullValue: nullValue, emptyString: emptyString);
+          nullValue: nullValue,
+          emptyString: emptyString,
+        );
     replace(_$result);
     return _$result;
   }
@@ -101,9 +107,9 @@ class OmitsNullSerializesEmptyStringInputBuilder
 
 class _$OmitsNullSerializesEmptyStringInputPayload
     extends OmitsNullSerializesEmptyStringInputPayload {
-  factory _$OmitsNullSerializesEmptyStringInputPayload(
-          [void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)?
-              updates]) =>
+  factory _$OmitsNullSerializesEmptyStringInputPayload([
+    void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)? updates,
+  ]) =>
       (new OmitsNullSerializesEmptyStringInputPayloadBuilder()..update(updates))
           ._build();
 
@@ -111,9 +117,8 @@ class _$OmitsNullSerializesEmptyStringInputPayload
 
   @override
   OmitsNullSerializesEmptyStringInputPayload rebuild(
-          void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OmitsNullSerializesEmptyStringInputPayloadBuilder toBuilder() =>
@@ -133,8 +138,10 @@ class _$OmitsNullSerializesEmptyStringInputPayload
 
 class OmitsNullSerializesEmptyStringInputPayloadBuilder
     implements
-        Builder<OmitsNullSerializesEmptyStringInputPayload,
-            OmitsNullSerializesEmptyStringInputPayloadBuilder> {
+        Builder<
+          OmitsNullSerializesEmptyStringInputPayload,
+          OmitsNullSerializesEmptyStringInputPayloadBuilder
+        > {
   _$OmitsNullSerializesEmptyStringInputPayload? _$v;
 
   OmitsNullSerializesEmptyStringInputPayloadBuilder();
@@ -147,8 +154,8 @@ class OmitsNullSerializesEmptyStringInputPayloadBuilder
 
   @override
   void update(
-      void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)?
-          updates) {
+    void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

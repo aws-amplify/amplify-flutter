@@ -14,23 +14,31 @@ class _$RevokeTokenRequest extends RevokeTokenRequest {
   @override
   final String? clientSecret;
 
-  factory _$RevokeTokenRequest(
-          [void Function(RevokeTokenRequestBuilder)? updates]) =>
-      (new RevokeTokenRequestBuilder()..update(updates))._build();
+  factory _$RevokeTokenRequest([
+    void Function(RevokeTokenRequestBuilder)? updates,
+  ]) => (new RevokeTokenRequestBuilder()..update(updates))._build();
 
-  _$RevokeTokenRequest._(
-      {required this.token, required this.clientId, this.clientSecret})
-      : super._() {
+  _$RevokeTokenRequest._({
+    required this.token,
+    required this.clientId,
+    this.clientSecret,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        token, r'RevokeTokenRequest', 'token');
+      token,
+      r'RevokeTokenRequest',
+      'token',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        clientId, r'RevokeTokenRequest', 'clientId');
+      clientId,
+      r'RevokeTokenRequest',
+      'clientId',
+    );
   }
 
   @override
   RevokeTokenRequest rebuild(
-          void Function(RevokeTokenRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RevokeTokenRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RevokeTokenRequestBuilder toBuilder() =>
@@ -100,12 +108,19 @@ class RevokeTokenRequestBuilder
   RevokeTokenRequest build() => _build();
 
   _$RevokeTokenRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$RevokeTokenRequest._(
           token: BuiltValueNullFieldError.checkNotNull(
-              token, r'RevokeTokenRequest', 'token'),
+            token,
+            r'RevokeTokenRequest',
+            'token',
+          ),
           clientId: BuiltValueNullFieldError.checkNotNull(
-              clientId, r'RevokeTokenRequest', 'clientId'),
+            clientId,
+            r'RevokeTokenRequest',
+            'clientId',
+          ),
           clientSecret: clientSecret,
         );
     replace(_$result);

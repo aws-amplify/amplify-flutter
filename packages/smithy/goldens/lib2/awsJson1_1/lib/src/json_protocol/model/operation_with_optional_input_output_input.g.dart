@@ -11,9 +11,9 @@ class _$OperationWithOptionalInputOutputInput
   @override
   final String? value;
 
-  factory _$OperationWithOptionalInputOutputInput(
-          [void Function(OperationWithOptionalInputOutputInputBuilder)?
-              updates]) =>
+  factory _$OperationWithOptionalInputOutputInput([
+    void Function(OperationWithOptionalInputOutputInputBuilder)? updates,
+  ]) =>
       (new OperationWithOptionalInputOutputInputBuilder()..update(updates))
           ._build();
 
@@ -21,9 +21,8 @@ class _$OperationWithOptionalInputOutputInput
 
   @override
   OperationWithOptionalInputOutputInput rebuild(
-          void Function(OperationWithOptionalInputOutputInputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OperationWithOptionalInputOutputInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OperationWithOptionalInputOutputInputBuilder toBuilder() =>
@@ -47,8 +46,10 @@ class _$OperationWithOptionalInputOutputInput
 
 class OperationWithOptionalInputOutputInputBuilder
     implements
-        Builder<OperationWithOptionalInputOutputInput,
-            OperationWithOptionalInputOutputInputBuilder> {
+        Builder<
+          OperationWithOptionalInputOutputInput,
+          OperationWithOptionalInputOutputInputBuilder
+        > {
   _$OperationWithOptionalInputOutputInput? _$v;
 
   String? _value;
@@ -74,7 +75,8 @@ class OperationWithOptionalInputOutputInputBuilder
 
   @override
   void update(
-      void Function(OperationWithOptionalInputOutputInputBuilder)? updates) {
+    void Function(OperationWithOptionalInputOutputInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

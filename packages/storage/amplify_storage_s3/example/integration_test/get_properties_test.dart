@@ -30,9 +30,10 @@ void main() {
       });
 
       testWidgets('String StoragePath', (_) async {
-        final result = await Amplify.Storage.getProperties(
-          path: StoragePath.fromString(path),
-        ).result;
+        final result =
+            await Amplify.Storage.getProperties(
+              path: StoragePath.fromString(path),
+            ).result;
         expect(result.storageItem.path, path);
         expect(result.storageItem.metadata, metadata);
         expect(result.storageItem.eTag, isNotNull);
@@ -50,11 +51,12 @@ void main() {
           path: StoragePath.fromString(expectedResolvedPath),
           options: const StorageUploadDataOptions(metadata: metadata),
         ).result;
-        final result = await Amplify.Storage.getProperties(
-          path: StoragePath.fromIdentityId(
-            ((identityId) => 'private/$identityId/$name'),
-          ),
-        ).result;
+        final result =
+            await Amplify.Storage.getProperties(
+              path: StoragePath.fromIdentityId(
+                ((identityId) => 'private/$identityId/$name'),
+              ),
+            ).result;
         expect(result.storageItem.path, expectedResolvedPath);
         expect(result.storageItem.metadata, metadata);
         expect(result.storageItem.eTag, isNotNull);
@@ -63,18 +65,20 @@ void main() {
 
       testWidgets('unauthorized path', (_) async {
         await expectLater(
-          () => Amplify.Storage.getProperties(
-            path: const StoragePath.fromString('unauthorized/path'),
-          ).result,
+          () =>
+              Amplify.Storage.getProperties(
+                path: const StoragePath.fromString('unauthorized/path'),
+              ).result,
           throwsA(isA<StorageAccessDeniedException>()),
         );
       });
 
       testWidgets('not existent path', (_) async {
         await expectLater(
-          () => Amplify.Storage.getProperties(
-            path: const StoragePath.fromString('public/not-existent-path'),
-          ).result,
+          () =>
+              Amplify.Storage.getProperties(
+                path: const StoragePath.fromString('public/not-existent-path'),
+              ).result,
           throwsA(isA<StorageNotFoundException>()),
         );
       });
@@ -92,9 +96,10 @@ void main() {
       });
 
       testWidgets('getProperties works', (_) async {
-        final result = await Amplify.Storage.getProperties(
-          path: StoragePath.fromString(path),
-        ).result;
+        final result =
+            await Amplify.Storage.getProperties(
+              path: StoragePath.fromString(path),
+            ).result;
         expect(result.storageItem.path, path);
         expect(result.storageItem.metadata, metadata);
         expect(result.storageItem.eTag, isNotNull);
@@ -102,10 +107,12 @@ void main() {
       });
     });
     group('multibucket config', () {
-      final mainBucket =
-          StorageBucket.fromOutputs('Storage Integ Test main bucket');
-      final secondaryBucket =
-          StorageBucket.fromOutputs('Storage Integ Test secondary bucket');
+      final mainBucket = StorageBucket.fromOutputs(
+        'Storage Integ Test main bucket',
+      );
+      final secondaryBucket = StorageBucket.fromOutputs(
+        'Storage Integ Test secondary bucket',
+      );
       setUpAll(() async {
         await configure(amplifyEnvironments['main']!);
         addTearDownPath(StoragePath.fromString(path));
@@ -128,23 +135,21 @@ void main() {
       });
 
       testWidgets('String StoragePath', (_) async {
-        final result = await Amplify.Storage.getProperties(
-          path: StoragePath.fromString(path),
-          options: StorageGetPropertiesOptions(
-            bucket: mainBucket,
-          ),
-        ).result;
+        final result =
+            await Amplify.Storage.getProperties(
+              path: StoragePath.fromString(path),
+              options: StorageGetPropertiesOptions(bucket: mainBucket),
+            ).result;
         expect(result.storageItem.path, path);
         expect(result.storageItem.metadata, metadata);
         expect(result.storageItem.eTag, isNotNull);
         expect(result.storageItem.size, data.length);
 
-        final resultSecondaryBucket = await Amplify.Storage.getProperties(
-          path: StoragePath.fromString(path),
-          options: StorageGetPropertiesOptions(
-            bucket: secondaryBucket,
-          ),
-        ).result;
+        final resultSecondaryBucket =
+            await Amplify.Storage.getProperties(
+              path: StoragePath.fromString(path),
+              options: StorageGetPropertiesOptions(bucket: secondaryBucket),
+            ).result;
         expect(resultSecondaryBucket.storageItem.path, path);
         expect(resultSecondaryBucket.storageItem.metadata, metadata);
         expect(resultSecondaryBucket.storageItem.eTag, isNotNull);
@@ -165,14 +170,13 @@ void main() {
             bucket: secondaryBucket,
           ),
         ).result;
-        final result = await Amplify.Storage.getProperties(
-          path: StoragePath.fromIdentityId(
-            ((identityId) => 'private/$identityId/$name'),
-          ),
-          options: StorageGetPropertiesOptions(
-            bucket: secondaryBucket,
-          ),
-        ).result;
+        final result =
+            await Amplify.Storage.getProperties(
+              path: StoragePath.fromIdentityId(
+                ((identityId) => 'private/$identityId/$name'),
+              ),
+              options: StorageGetPropertiesOptions(bucket: secondaryBucket),
+            ).result;
         expect(result.storageItem.path, expectedResolvedPath);
         expect(result.storageItem.metadata, metadata);
         expect(result.storageItem.eTag, isNotNull);
@@ -182,41 +186,37 @@ void main() {
       testWidgets('not existent path', (_) async {
         // we expect StorageNotFoundException here since there is no data uploaded to either bucket on this path
         await expectLater(
-          () => Amplify.Storage.getProperties(
-            path: const StoragePath.fromString('public/not-existent-path'),
-            options: StorageGetPropertiesOptions(
-              bucket: mainBucket,
-            ),
-          ).result,
+          () =>
+              Amplify.Storage.getProperties(
+                path: const StoragePath.fromString('public/not-existent-path'),
+                options: StorageGetPropertiesOptions(bucket: mainBucket),
+              ).result,
           throwsA(isA<StorageNotFoundException>()),
         );
         await expectLater(
-          () => Amplify.Storage.getProperties(
-            path: const StoragePath.fromString('public/not-existent-path'),
-            options: StorageGetPropertiesOptions(
-              bucket: secondaryBucket,
-            ),
-          ).result,
+          () =>
+              Amplify.Storage.getProperties(
+                path: const StoragePath.fromString('public/not-existent-path'),
+                options: StorageGetPropertiesOptions(bucket: secondaryBucket),
+              ).result,
           throwsA(isA<StorageNotFoundException>()),
         );
       });
       testWidgets('unauthorized path', (_) async {
         await expectLater(
-          () => Amplify.Storage.getProperties(
-            path: const StoragePath.fromString('unauthorized/path'),
-            options: StorageGetPropertiesOptions(
-              bucket: mainBucket,
-            ),
-          ).result,
+          () =>
+              Amplify.Storage.getProperties(
+                path: const StoragePath.fromString('unauthorized/path'),
+                options: StorageGetPropertiesOptions(bucket: mainBucket),
+              ).result,
           throwsA(isA<StorageAccessDeniedException>()),
         );
         await expectLater(
-          () => Amplify.Storage.getProperties(
-            path: const StoragePath.fromString('unauthorized/path'),
-            options: StorageGetPropertiesOptions(
-              bucket: secondaryBucket,
-            ),
-          ).result,
+          () =>
+              Amplify.Storage.getProperties(
+                path: const StoragePath.fromString('unauthorized/path'),
+                options: StorageGetPropertiesOptions(bucket: secondaryBucket),
+              ).result,
           throwsA(isA<StorageAccessDeniedException>()),
         );
       });

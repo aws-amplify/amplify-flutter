@@ -14,21 +14,26 @@ class _$ListDevicesRequest extends ListDevicesRequest {
   @override
   final String? paginationToken;
 
-  factory _$ListDevicesRequest(
-          [void Function(ListDevicesRequestBuilder)? updates]) =>
-      (new ListDevicesRequestBuilder()..update(updates))._build();
+  factory _$ListDevicesRequest([
+    void Function(ListDevicesRequestBuilder)? updates,
+  ]) => (new ListDevicesRequestBuilder()..update(updates))._build();
 
-  _$ListDevicesRequest._(
-      {required this.accessToken, this.limit, this.paginationToken})
-      : super._() {
+  _$ListDevicesRequest._({
+    required this.accessToken,
+    this.limit,
+    this.paginationToken,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'ListDevicesRequest', 'accessToken');
+      accessToken,
+      r'ListDevicesRequest',
+      'accessToken',
+    );
   }
 
   @override
   ListDevicesRequest rebuild(
-          void Function(ListDevicesRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListDevicesRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListDevicesRequestBuilder toBuilder() =>
@@ -99,10 +104,14 @@ class ListDevicesRequestBuilder
   ListDevicesRequest build() => _build();
 
   _$ListDevicesRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ListDevicesRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
-              accessToken, r'ListDevicesRequest', 'accessToken'),
+            accessToken,
+            r'ListDevicesRequest',
+            'accessToken',
+          ),
           limit: limit,
           paginationToken: paginationToken,
         );

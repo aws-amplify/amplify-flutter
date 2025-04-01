@@ -13,10 +13,7 @@ part 'package_info.g.dart';
 /// {@template amplify_auth_cognito_dart.asf.package_info}
 /// Package information for the current application.
 /// {@endtemplate}
-@JsonSerializable(
-  fieldRename: FieldRename.snake,
-  includeIfNull: false,
-)
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class PackageInfo
     with
         AWSEquatable<PackageInfo>,

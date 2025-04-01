@@ -12,16 +12,16 @@ class _$TooManyFailedAttemptsException extends TooManyFailedAttemptsException {
   @override
   final Map<String, String>? headers;
 
-  factory _$TooManyFailedAttemptsException(
-          [void Function(TooManyFailedAttemptsExceptionBuilder)? updates]) =>
-      (new TooManyFailedAttemptsExceptionBuilder()..update(updates))._build();
+  factory _$TooManyFailedAttemptsException([
+    void Function(TooManyFailedAttemptsExceptionBuilder)? updates,
+  ]) => (new TooManyFailedAttemptsExceptionBuilder()..update(updates))._build();
 
   _$TooManyFailedAttemptsException._({this.message, this.headers}) : super._();
 
   @override
   TooManyFailedAttemptsException rebuild(
-          void Function(TooManyFailedAttemptsExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TooManyFailedAttemptsExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TooManyFailedAttemptsExceptionBuilder toBuilder() =>
@@ -44,8 +44,10 @@ class _$TooManyFailedAttemptsException extends TooManyFailedAttemptsException {
 
 class TooManyFailedAttemptsExceptionBuilder
     implements
-        Builder<TooManyFailedAttemptsException,
-            TooManyFailedAttemptsExceptionBuilder> {
+        Builder<
+          TooManyFailedAttemptsException,
+          TooManyFailedAttemptsExceptionBuilder
+        > {
   _$TooManyFailedAttemptsException? _$v;
 
   String? _message;
@@ -83,7 +85,8 @@ class TooManyFailedAttemptsExceptionBuilder
   TooManyFailedAttemptsException build() => _build();
 
   _$TooManyFailedAttemptsException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$TooManyFailedAttemptsException._(
           message: message,
           headers: headers,

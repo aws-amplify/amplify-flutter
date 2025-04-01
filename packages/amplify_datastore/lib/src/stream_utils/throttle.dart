@@ -26,10 +26,7 @@ extension Throttle<T> on Stream<T> {
       'throttleCount and duration cannot both be null',
     );
     if (throttleCount != null) {
-      assert(
-        throttleCount >= 1,
-        'throttleCount cannot be less than 1',
-      );
+      assert(throttleCount >= 1, 'throttleCount cannot be less than 1');
     }
 
     // number of items that have emitted from the source stream since
@@ -97,13 +94,15 @@ extension Throttle<T> on Stream<T> {
     }
 
     return this.transform(
-      StreamTransformer.fromHandlers(handleData: (data, sink) {
-        if (shouldEmitData(data)) {
-          emitData(data, sink);
-        } else {
-          throttleData(data, sink);
-        }
-      }),
+      StreamTransformer.fromHandlers(
+        handleData: (data, sink) {
+          if (shouldEmitData(data)) {
+            emitData(data, sink);
+          } else {
+            throttleData(data, sink);
+          }
+        },
+      ),
     );
   }
 }

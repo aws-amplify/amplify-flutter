@@ -38,7 +38,7 @@ abstract class RestoreStatus
   const RestoreStatus._();
 
   static const List<_i2.SmithySerializer<RestoreStatus>> serializers = [
-    RestoreStatusRestXmlSerializer()
+    RestoreStatusRestXmlSerializer(),
   ];
 
   /// Specifies whether the object is currently being restored. If the object restoration is in progress, the header returns the value `TRUE`. For example:
@@ -57,22 +57,14 @@ abstract class RestoreStatus
   /// `x-amz-optional-object-attributes: IsRestoreInProgress="false", RestoreExpiryDate="2012-12-21T00:00:00.000Z"`
   DateTime? get restoreExpiryDate;
   @override
-  List<Object?> get props => [
-        isRestoreInProgress,
-        restoreExpiryDate,
-      ];
+  List<Object?> get props => [isRestoreInProgress, restoreExpiryDate];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestoreStatus')
-      ..add(
-        'isRestoreInProgress',
-        isRestoreInProgress,
-      )
-      ..add(
-        'restoreExpiryDate',
-        restoreExpiryDate,
-      );
+    final helper =
+        newBuiltValueToStringHelper('RestoreStatus')
+          ..add('isRestoreInProgress', isRestoreInProgress)
+          ..add('restoreExpiryDate', restoreExpiryDate);
     return helper.toString();
   }
 }
@@ -82,18 +74,12 @@ class RestoreStatusRestXmlSerializer
   const RestoreStatusRestXmlSerializer() : super('RestoreStatus');
 
   @override
-  Iterable<Type> get types => const [
-        RestoreStatus,
-        _$RestoreStatus,
-      ];
+  Iterable<Type> get types => const [RestoreStatus, _$RestoreStatus];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   RestoreStatus deserialize(
@@ -112,15 +98,19 @@ class RestoreStatusRestXmlSerializer
       }
       switch (key) {
         case 'IsRestoreInProgress':
-          result.isRestoreInProgress = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.isRestoreInProgress =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'RestoreExpiryDate':
-          result.restoreExpiryDate = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.restoreExpiryDate =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
       }
     }
 
@@ -137,24 +127,28 @@ class RestoreStatusRestXmlSerializer
       const _i2.XmlElementName(
         'RestoreStatus',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final RestoreStatus(:isRestoreInProgress, :restoreExpiryDate) = object;
     if (isRestoreInProgress != null) {
       result$
         ..add(const _i2.XmlElementName('IsRestoreInProgress'))
-        ..add(serializers.serialize(
-          isRestoreInProgress,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(
+            isRestoreInProgress,
+            specifiedType: const FullType(bool),
+          ),
+        );
     }
     if (restoreExpiryDate != null) {
       result$
         ..add(const _i2.XmlElementName('RestoreExpiryDate'))
-        ..add(serializers.serialize(
-          restoreExpiryDate,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            restoreExpiryDate,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     return result$;
   }

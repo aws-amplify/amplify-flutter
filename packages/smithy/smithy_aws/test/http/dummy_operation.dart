@@ -26,34 +26,30 @@ class DummyHttpOperation extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   HttpRequest buildRequest(Unit input) => HttpRequest(
-        (b) => b
+    (b) =>
+        b
           ..method = 'GET'
           ..path = '/',
-      );
+  );
 
   @override
   List<SmithyError> get errorTypes => const [
-        SmithyError<DummySmithyException, DummySmithyException>(
-          DummySmithyException.id,
-          ErrorKind.server,
-          DummySmithyException,
-          statusCode: 500,
-          builder: DummySmithyException.fromResponse,
-        ),
-      ];
+    SmithyError<DummySmithyException, DummySmithyException>(
+      DummySmithyException.id,
+      ErrorKind.server,
+      DummySmithyException,
+      statusCode: 500,
+      builder: DummySmithyException.fromResponse,
+    ),
+  ];
 
   @override
   Iterable<HttpProtocol<Unit, Unit, Unit, Unit>> get protocols => [
-        DummyProtocol(
-          serializers: const [
-            _DummySmithyExceptionSerializer(),
-          ],
-          requestInterceptors: const [
-            WithSdkInvocationId(),
-            WithSdkRequest(),
-          ],
-        ),
-      ];
+    DummyProtocol(
+      serializers: const [_DummySmithyExceptionSerializer()],
+      requestInterceptors: const [WithSdkInvocationId(), WithSdkRequest()],
+    ),
+  ];
 
   @override
   int successCode([Unit? output]) => 200;
@@ -68,11 +64,10 @@ class DummySmithyException implements SmithyHttpException {
   factory DummySmithyException.fromResponse(
     DummySmithyException payload,
     AWSBaseHttpResponse response,
-  ) =>
-      DummySmithyException(
-        statusCode: response.statusCode,
-        headers: response.headers,
-      );
+  ) => DummySmithyException(
+    statusCode: response.statusCode,
+    headers: response.headers,
+  );
 
   static const id = ShapeId(
     namespace: 'com.example',
@@ -122,8 +117,9 @@ class _DummySmithyExceptionSerializer
   }
 
   @override
-  Iterable<ShapeId> get supportedProtocols =>
-      const [GenericJsonProtocolDefinitionTrait.id];
+  Iterable<ShapeId> get supportedProtocols => const [
+    GenericJsonProtocolDefinitionTrait.id,
+  ];
 
   @override
   Iterable<Type> get types => const [DummySmithyException];

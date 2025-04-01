@@ -15,14 +15,9 @@ void main() {
       );
 
       const maxAttempts = 123;
-      runZoned(
-        () {
-          expect(AWSConfigValue.maxAttempts.value, equals(maxAttempts));
-        },
-        zoneValues: {
-          AWSConfigValue.maxAttempts: 123,
-        },
-      );
+      runZoned(() {
+        expect(AWSConfigValue.maxAttempts.value, equals(maxAttempts));
+      }, zoneValues: {AWSConfigValue.maxAttempts: 123});
     });
 
     test('parses overrides', () {
@@ -32,14 +27,9 @@ void main() {
       );
 
       const maxAttempts = 123;
-      runZoned(
-        () {
-          expect(AWSConfigValue.maxAttempts.value, equals(maxAttempts));
-        },
-        zoneValues: {
-          AWSConfigValue.maxAttempts: '123',
-        },
-      );
+      runZoned(() {
+        expect(AWSConfigValue.maxAttempts.value, equals(maxAttempts));
+      }, zoneValues: {AWSConfigValue.maxAttempts: '123'});
     });
 
     test('throws when override cannot be parsed', () {
@@ -48,17 +38,12 @@ void main() {
         equals(AWSConfigValue.maxAttempts.defaultValue),
       );
 
-      runZoned(
-        () {
-          expect(
-            () => AWSConfigValue.maxAttempts.value,
-            throwsA(isA<FormatException>()),
-          );
-        },
-        zoneValues: {
-          AWSConfigValue.maxAttempts: 'abc',
-        },
-      );
+      runZoned(() {
+        expect(
+          () => AWSConfigValue.maxAttempts.value,
+          throwsA(isA<FormatException>()),
+        );
+      }, zoneValues: {AWSConfigValue.maxAttempts: 'abc'});
     });
   });
 }

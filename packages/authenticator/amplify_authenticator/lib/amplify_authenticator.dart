@@ -4,7 +4,7 @@
 /// A prebuilt sign in/sign up experience for Amplify Auth.
 ///
 /// See [Authenticator] for an overview on getting started.
-library amplify_authenticator;
+library;
 
 import 'dart:async';
 
@@ -317,19 +317,16 @@ class Authenticator extends StatefulWidget {
     this.dialCodeOptions = const DialCodeOptions(),
     this.totpOptions,
     @visibleForTesting this.authBlocOverride,
-  }) :
-        // ignore: prefer_asserts_with_message
-        assert(() {
-          if (!validInitialAuthenticatorSteps.contains(initialStep)) {
-            throw FlutterError.fromParts([
-              ErrorSummary('Invalid initialStep'),
-              ErrorDescription(
-                'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
-              ),
-            ]);
-          }
-          return true;
-        }());
+  }) {
+    if (!validInitialAuthenticatorSteps.contains(initialStep)) {
+      throw FlutterError.fromParts([
+        ErrorSummary('Invalid initialStep'),
+        ErrorDescription(
+          'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
+        ),
+      ]);
+    }
+  }
 
   /// Wraps user-defined navigators for integration with [MaterialApp] and
   /// [Navigator].
@@ -465,10 +462,7 @@ class Authenticator extends StatefulWidget {
         ),
       )
       ..add(
-        DiagnosticsProperty<bool>(
-          'preferPrivateSession',
-          preferPrivateSession,
-        ),
+        DiagnosticsProperty<bool>('preferPrivateSession', preferPrivateSession),
       )
       ..add(EnumProperty<AuthenticatorStep>('initialStep', initialStep))
       ..add(
@@ -560,10 +554,7 @@ class _AuthenticatorState extends State<Authenticator> {
       if (context != null && context.mounted) {
         final message = resolver.resolve(context, key);
         _logger.info(message);
-        _showExceptionBanner(
-          type: StatusType.info,
-          message: message,
-        );
+        _showExceptionBanner(type: StatusType.info, message: message);
       } else {
         _logger.info('Could not show banner for key: $key');
       }
@@ -736,10 +727,7 @@ class _AuthenticatorState extends State<Authenticator> {
 // and rebuilds based on the provided builder, which accepts the current
 // AuthState.
 class _AuthStateBuilder extends StatelessWidget {
-  const _AuthStateBuilder({
-    required this.child,
-    required this.builder,
-  });
+  const _AuthStateBuilder({required this.child, required this.builder});
 
   final Widget child;
   final Widget Function(AuthState, Widget) builder;
@@ -816,9 +804,7 @@ class _AuthStateBuilder extends StatelessWidget {
 /// All routes are wrapped with a Navigator which allows for separation between the
 /// the user's navigation and the Authenticator's.
 class _AuthenticatorBody extends StatelessWidget {
-  const _AuthenticatorBody({
-    required this.child,
-  });
+  const _AuthenticatorBody({required this.child});
 
   final Widget child;
 
@@ -836,11 +822,7 @@ class _AuthenticatorBody extends StatelessWidget {
             MaterialPage<void>(
               child: ScaffoldMessenger(
                 key: _AuthenticatorState.scaffoldMessengerKey,
-                child: Scaffold(
-                  body: SizedBox.expand(
-                    child: child,
-                  ),
-                ),
+                child: Scaffold(body: SizedBox.expand(child: child)),
               ),
             ),
           ],
@@ -857,10 +839,7 @@ class _AuthenticatorBody extends StatelessWidget {
 
 class AuthenticatedView extends StatelessWidget {
   /// {@macro amplify_authenticator.authenticated_view}
-  const AuthenticatedView({
-    super.key,
-    required this.child,
-  });
+  const AuthenticatedView({super.key, required this.child});
 
   final Widget child;
 

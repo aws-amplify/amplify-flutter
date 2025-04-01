@@ -12,16 +12,16 @@ class _$UnsupportedTokenTypeException extends UnsupportedTokenTypeException {
   @override
   final Map<String, String>? headers;
 
-  factory _$UnsupportedTokenTypeException(
-          [void Function(UnsupportedTokenTypeExceptionBuilder)? updates]) =>
-      (new UnsupportedTokenTypeExceptionBuilder()..update(updates))._build();
+  factory _$UnsupportedTokenTypeException([
+    void Function(UnsupportedTokenTypeExceptionBuilder)? updates,
+  ]) => (new UnsupportedTokenTypeExceptionBuilder()..update(updates))._build();
 
   _$UnsupportedTokenTypeException._({this.message, this.headers}) : super._();
 
   @override
   UnsupportedTokenTypeException rebuild(
-          void Function(UnsupportedTokenTypeExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UnsupportedTokenTypeExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UnsupportedTokenTypeExceptionBuilder toBuilder() =>
@@ -44,8 +44,10 @@ class _$UnsupportedTokenTypeException extends UnsupportedTokenTypeException {
 
 class UnsupportedTokenTypeExceptionBuilder
     implements
-        Builder<UnsupportedTokenTypeException,
-            UnsupportedTokenTypeExceptionBuilder> {
+        Builder<
+          UnsupportedTokenTypeException,
+          UnsupportedTokenTypeExceptionBuilder
+        > {
   _$UnsupportedTokenTypeException? _$v;
 
   String? _message;
@@ -83,7 +85,8 @@ class UnsupportedTokenTypeExceptionBuilder
   UnsupportedTokenTypeException build() => _build();
 
   _$UnsupportedTokenTypeException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$UnsupportedTokenTypeException._(
           message: message,
           headers: headers,

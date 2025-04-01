@@ -26,8 +26,9 @@ void main() {
       final fromPath = SmithyLibraryX.fromPath(packageName, serviceName);
       expect(fromPath, equals(expected));
 
-      final fromLibraryName =
-          SmithyLibraryX.fromLibraryName('$packageName.$serviceName');
+      final fromLibraryName = SmithyLibraryX.fromLibraryName(
+        '$packageName.$serviceName',
+      );
       expect(fromLibraryName, equals(expected));
 
       expect(expected.filename, equals('foo'));
@@ -46,12 +47,17 @@ void main() {
         filename: filename,
       );
 
-      final fromParts =
-          SmithyLibraryX.fromParts([packageName, serviceName, clientName]);
+      final fromParts = SmithyLibraryX.fromParts([
+        packageName,
+        serviceName,
+        clientName,
+      ]);
       expect(fromParts, equals(expected));
 
-      final fromPath =
-          SmithyLibraryX.fromPath(packageName, 'src/$serviceName/$filename');
+      final fromPath = SmithyLibraryX.fromPath(
+        packageName,
+        'src/$serviceName/$filename',
+      );
       expect(fromPath, equals(expected));
 
       final fromLibraryName = SmithyLibraryX.fromLibraryName(

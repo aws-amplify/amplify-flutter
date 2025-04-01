@@ -13,18 +13,19 @@ class _$SimpleScalarPropertiesInputOutput
   @override
   final double? doubleValue;
 
-  factory _$SimpleScalarPropertiesInputOutput(
-          [void Function(SimpleScalarPropertiesInputOutputBuilder)? updates]) =>
+  factory _$SimpleScalarPropertiesInputOutput([
+    void Function(SimpleScalarPropertiesInputOutputBuilder)? updates,
+  ]) =>
       (new SimpleScalarPropertiesInputOutputBuilder()..update(updates))
           ._build();
 
   _$SimpleScalarPropertiesInputOutput._({this.floatValue, this.doubleValue})
-      : super._();
+    : super._();
 
   @override
   SimpleScalarPropertiesInputOutput rebuild(
-          void Function(SimpleScalarPropertiesInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SimpleScalarPropertiesInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SimpleScalarPropertiesInputOutputBuilder toBuilder() =>
@@ -50,8 +51,10 @@ class _$SimpleScalarPropertiesInputOutput
 
 class SimpleScalarPropertiesInputOutputBuilder
     implements
-        Builder<SimpleScalarPropertiesInputOutput,
-            SimpleScalarPropertiesInputOutputBuilder> {
+        Builder<
+          SimpleScalarPropertiesInputOutput,
+          SimpleScalarPropertiesInputOutputBuilder
+        > {
   _$SimpleScalarPropertiesInputOutput? _$v;
 
   double? _floatValue;
@@ -82,7 +85,8 @@ class SimpleScalarPropertiesInputOutputBuilder
 
   @override
   void update(
-      void Function(SimpleScalarPropertiesInputOutputBuilder)? updates) {
+    void Function(SimpleScalarPropertiesInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -90,9 +94,12 @@ class SimpleScalarPropertiesInputOutputBuilder
   SimpleScalarPropertiesInputOutput build() => _build();
 
   _$SimpleScalarPropertiesInputOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SimpleScalarPropertiesInputOutput._(
-            floatValue: floatValue, doubleValue: doubleValue);
+          floatValue: floatValue,
+          doubleValue: doubleValue,
+        );
     replace(_$result);
     return _$result;
   }

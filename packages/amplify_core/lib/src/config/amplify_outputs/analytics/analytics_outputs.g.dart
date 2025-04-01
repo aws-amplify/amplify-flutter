@@ -9,21 +9,17 @@ part of 'analytics_outputs.dart';
 // **************************************************************************
 
 AnalyticsOutputs _$AnalyticsOutputsFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'AnalyticsOutputs',
-      json,
-      ($checkedConvert) {
-        final val = AnalyticsOutputs(
-          amazonPinpoint: $checkedConvert(
-              'amazon_pinpoint',
-              (v) => v == null
-                  ? null
-                  : AmazonPinpointOutputs.fromJson(v as Map<String, dynamic>)),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'amazonPinpoint': 'amazon_pinpoint'},
-    );
+    $checkedCreate('AnalyticsOutputs', json, ($checkedConvert) {
+      final val = AnalyticsOutputs(
+        amazonPinpoint: $checkedConvert(
+          'amazon_pinpoint',
+          (v) => v == null
+              ? null
+              : AmazonPinpointOutputs.fromJson(v as Map<String, dynamic>),
+        ),
+      );
+      return val;
+    }, fieldKeyMap: const {'amazonPinpoint': 'amazon_pinpoint'});
 
 Map<String, dynamic> _$AnalyticsOutputsToJson(AnalyticsOutputs instance) {
   final val = <String, dynamic>{};

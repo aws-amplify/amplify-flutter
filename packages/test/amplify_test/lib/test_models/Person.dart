@@ -37,7 +37,8 @@ class Person extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -50,11 +51,15 @@ class Person extends amplify_core.Model {
       return _name!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -67,11 +72,15 @@ class Person extends amplify_core.Model {
       return _contact!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -83,31 +92,34 @@ class Person extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const Person._internal(
-      {required this.id,
-      required name,
-      propertiesAddresses,
-      required contact,
-      createdAt,
-      updatedAt})
-      : _name = name,
-        _propertiesAddresses = propertiesAddresses,
-        _contact = contact,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const Person._internal({
+    required this.id,
+    required name,
+    propertiesAddresses,
+    required contact,
+    createdAt,
+    updatedAt,
+  }) : _name = name,
+       _propertiesAddresses = propertiesAddresses,
+       _contact = contact,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory Person(
-      {String? id,
-      required String name,
-      List<Address>? propertiesAddresses,
-      required Contact contact}) {
+  factory Person({
+    String? id,
+    required String name,
+    List<Address>? propertiesAddresses,
+    required Contact contact,
+  }) {
     return Person._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        propertiesAddresses: propertiesAddresses != null
-            ? List<Address>.unmodifiable(propertiesAddresses)
-            : propertiesAddresses,
-        contact: contact);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      propertiesAddresses:
+          propertiesAddresses != null
+              ? List<Address>.unmodifiable(propertiesAddresses)
+              : propertiesAddresses,
+      contact: contact,
+    );
   }
 
   bool equals(Object other) {
@@ -120,8 +132,10 @@ class Person extends amplify_core.Model {
     return other is Person &&
         id == other.id &&
         _name == other._name &&
-        DeepCollectionEquality()
-            .equals(_propertiesAddresses, other._propertiesAddresses) &&
+        DeepCollectionEquality().equals(
+          _propertiesAddresses,
+          other._propertiesAddresses,
+        ) &&
         _contact == other._contact;
   }
 
@@ -135,135 +149,173 @@ class Person extends amplify_core.Model {
     buffer.write("Person {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("propertiesAddresses=" +
-        (_propertiesAddresses != null
-            ? _propertiesAddresses!.toString()
-            : "null") +
-        ", ");
     buffer.write(
-        "contact=" + (_contact != null ? _contact!.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
+      "propertiesAddresses=" +
+          (_propertiesAddresses != null
+              ? _propertiesAddresses!.toString()
+              : "null") +
+          ", ",
+    );
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "contact=" + (_contact != null ? _contact!.toString() : "null") + ", ",
+    );
+    buffer.write(
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Person copyWith(
-      {String? name, List<Address>? propertiesAddresses, Contact? contact}) {
+  Person copyWith({
+    String? name,
+    List<Address>? propertiesAddresses,
+    Contact? contact,
+  }) {
     return Person._internal(
-        id: id,
-        name: name ?? this.name,
-        propertiesAddresses: propertiesAddresses ?? this.propertiesAddresses,
-        contact: contact ?? this.contact);
+      id: id,
+      name: name ?? this.name,
+      propertiesAddresses: propertiesAddresses ?? this.propertiesAddresses,
+      contact: contact ?? this.contact,
+    );
   }
 
-  Person copyWithModelFieldValues(
-      {ModelFieldValue<String>? name,
-      ModelFieldValue<List<Address>?>? propertiesAddresses,
-      ModelFieldValue<Contact>? contact}) {
+  Person copyWithModelFieldValues({
+    ModelFieldValue<String>? name,
+    ModelFieldValue<List<Address>?>? propertiesAddresses,
+    ModelFieldValue<Contact>? contact,
+  }) {
     return Person._internal(
-        id: id,
-        name: name == null ? this.name : name.value,
-        propertiesAddresses: propertiesAddresses == null
-            ? this.propertiesAddresses
-            : propertiesAddresses.value,
-        contact: contact == null ? this.contact : contact.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+      propertiesAddresses:
+          propertiesAddresses == null
+              ? this.propertiesAddresses
+              : propertiesAddresses.value,
+      contact: contact == null ? this.contact : contact.value,
+    );
   }
 
   Person.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _propertiesAddresses = json['propertiesAddresses'] is List
-            ? (json['propertiesAddresses'] as List)
-                .where((e) => e != null)
-                .map((e) => Address.fromJson(new Map<String, dynamic>.from(e)))
-                .toList()
-            : null,
-        _contact = json['contact'] != null
-            ? Contact.fromJson(new Map<String, dynamic>.from(json['contact']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _name = json['name'],
+      _propertiesAddresses =
+          json['propertiesAddresses'] is List
+              ? (json['propertiesAddresses'] as List)
+                  .where((e) => e != null)
+                  .map(
+                    (e) => Address.fromJson(new Map<String, dynamic>.from(e)),
+                  )
+                  .toList()
+              : null,
+      _contact =
+          json['contact'] != null
+              ? Contact.fromJson(new Map<String, dynamic>.from(json['contact']))
+              : null,
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'propertiesAddresses':
-            _propertiesAddresses?.map((Address? e) => e?.toJson()).toList(),
-        'contact': _contact?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'propertiesAddresses':
+        _propertiesAddresses?.map((Address? e) => e?.toJson()).toList(),
+    'contact': _contact?.toJson(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'propertiesAddresses': _propertiesAddresses,
-        'contact': _contact,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'propertiesAddresses': _propertiesAddresses,
+    'contact': _contact,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<PersonModelIdentifier>
-      MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<PersonModelIdentifier>();
+  MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<PersonModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
-  static final PROPERTIESADDRESSES =
-      amplify_core.QueryField(fieldName: "propertiesAddresses");
+  static final PROPERTIESADDRESSES = amplify_core.QueryField(
+    fieldName: "propertiesAddresses",
+  );
   static final CONTACT = amplify_core.QueryField(fieldName: "contact");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Person";
-    modelSchemaDefinition.pluralName = "People";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "Person";
+      modelSchemaDefinition.pluralName = "People";
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Person.NAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Person.NAME,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
-        fieldName: 'propertiesAddresses',
-        isRequired: false,
-        isArray: true,
-        ofType: amplify_core.ModelFieldType(
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.embedded(
+          fieldName: 'propertiesAddresses',
+          isRequired: false,
+          isArray: true,
+          ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.embeddedCollection,
-            ofCustomTypeName: 'Address')));
+            ofCustomTypeName: 'Address',
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
-        fieldName: 'contact',
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.embedded(
+          fieldName: 'contact',
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'Contact')));
+            ofCustomTypeName: 'Contact',
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _PersonModelType extends amplify_core.ModelType<Person> {
@@ -294,10 +346,10 @@ class PersonModelIdentifier implements amplify_core.ModelIdentifier<Person> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

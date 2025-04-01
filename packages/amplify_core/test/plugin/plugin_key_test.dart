@@ -39,14 +39,11 @@ class MockCategory<Value extends Object, P extends MockPluginInterface<Value>>
   Set<Category> get categoryDependencies => const {};
 
   MockCategory<GetValue, GetPlugin> getPlugin<GetValue extends Object,
-          GetPlugin extends MockPluginInterface<GetValue>>(
-    MockPluginKey<GetValue, GetPlugin> pluginKey,
-  ) =>
+              GetPlugin extends MockPluginInterface<GetValue>>(
+          MockPluginKey<GetValue, GetPlugin> pluginKey) =>
       MockCategory(
-        plugins.singleWhere(
-          (p) => p is GetPlugin,
-          orElse: () => throw Exception(),
-        ) as GetPlugin,
+        plugins.singleWhere((p) => p is GetPlugin,
+            orElse: () => throw Exception()) as GetPlugin,
       );
 
   Value getValue() => _plugin.getValue();
@@ -86,17 +83,11 @@ void main() {
 
     test('can register multiple plugins', () {
       expect(
-        category.addPlugin(
-          intPlugin,
-          authProviderRepo: authProviderRepo,
-        ),
+        category.addPlugin(intPlugin, authProviderRepo: authProviderRepo),
         completes,
       );
       expect(
-        category.addPlugin(
-          stringPlugin,
-          authProviderRepo: authProviderRepo,
-        ),
+        category.addPlugin(stringPlugin, authProviderRepo: authProviderRepo),
         completes,
       );
     });
@@ -109,10 +100,7 @@ void main() {
     });
 
     test('getPlugin returns reified types', () async {
-      await category.addPlugin(
-        intPlugin,
-        authProviderRepo: authProviderRepo,
-      );
+      await category.addPlugin(intPlugin, authProviderRepo: authProviderRepo);
       await category.addPlugin(
         stringPlugin,
         authProviderRepo: authProviderRepo,

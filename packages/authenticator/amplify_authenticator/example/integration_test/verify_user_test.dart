@@ -15,9 +15,7 @@ void main() {
   group('verify-user', () {
     // Given I'm running the example "ui/components/authenticator/verify-user"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-email',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-email');
     });
 
     // Scenario: Redirect to "Verify" page
@@ -42,9 +40,7 @@ void main() {
         username,
         password,
         autoConfirm: true,
-        attributes: {
-          AuthUserAttributeKey.email: username,
-        },
+        attributes: {AuthUserAttributeKey.email: username},
       );
 
       // When I type my "email" with status "UNVERIFIED"
@@ -92,9 +88,7 @@ void main() {
         username,
         password,
         autoConfirm: true,
-        attributes: {
-          AuthUserAttributeKey.email: username,
-        },
+        attributes: {AuthUserAttributeKey.email: username},
       );
 
       // When I type my "email" with status "UNVERIFIED"
@@ -119,9 +113,7 @@ void main() {
     testWidgets('Redirect to "Confirm Verify" page', (tester) async {
       final signInPage = SignInPage(tester: tester);
       final verifyUserPage = VerifyUserPage(tester: tester);
-      final confirmVerifyUserPage = ConfirmVerifyUserPage(
-        tester: tester,
-      );
+      final confirmVerifyUserPage = ConfirmVerifyUserPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -153,9 +145,7 @@ void main() {
         username,
         password,
         autoConfirm: true,
-        attributes: {
-          AuthUserAttributeKey.email: username,
-        },
+        attributes: {AuthUserAttributeKey.email: username},
       );
 
       // When I type my "email" with status "UNVERIFIED"
@@ -195,9 +185,7 @@ void main() {
     testWidgets('Can confirm phone number attribute', (tester) async {
       final signInPage = SignInPage(tester: tester);
       final verifyUserPage = VerifyUserPage(tester: tester);
-      final confirmVerifyUserPage = ConfirmVerifyUserPage(
-        tester: tester,
-      );
+      final confirmVerifyUserPage = ConfirmVerifyUserPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -245,9 +233,7 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
-      final code = await getOtpCode(
-        UserAttribute.phone(phoneNumber.toE164()),
-      );
+      final code = await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
 
       // And I see "Account recovery requires verified contact information"
       verifyUserPage.expectTitleIsVisible();
@@ -272,8 +258,9 @@ void main() {
       await tester.bloc.close();
     });
 
-    testWidgets('Auth.signIn does not redirect to "Verify" page',
-        (tester) async {
+    testWidgets('Auth.signIn does not redirect to "Verify" page', (
+      tester,
+    ) async {
       final signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
@@ -293,9 +280,7 @@ void main() {
         username,
         password,
         autoConfirm: true,
-        attributes: {
-          AuthUserAttributeKey.email: username,
-        },
+        attributes: {AuthUserAttributeKey.email: username},
       );
 
       // When I sign in with username and password.

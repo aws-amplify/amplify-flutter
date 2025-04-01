@@ -40,33 +40,33 @@ class _$MalformedUniqueItemsInput extends MalformedUniqueItemsInput {
   @override
   final _i5.BuiltSet<FooUnion>? unionList;
 
-  factory _$MalformedUniqueItemsInput(
-          [void Function(MalformedUniqueItemsInputBuilder)? updates]) =>
-      (new MalformedUniqueItemsInputBuilder()..update(updates))._build();
+  factory _$MalformedUniqueItemsInput([
+    void Function(MalformedUniqueItemsInputBuilder)? updates,
+  ]) => (new MalformedUniqueItemsInputBuilder()..update(updates))._build();
 
-  _$MalformedUniqueItemsInput._(
-      {this.blobList,
-      this.booleanList,
-      this.stringList,
-      this.byteList,
-      this.shortList,
-      this.integerList,
-      this.longList,
-      this.timestampList,
-      this.dateTimeList,
-      this.httpDateList,
-      this.enumList,
-      this.intEnumList,
-      this.listList,
-      this.structureList,
-      this.structureListWithNoKey,
-      this.unionList})
-      : super._();
+  _$MalformedUniqueItemsInput._({
+    this.blobList,
+    this.booleanList,
+    this.stringList,
+    this.byteList,
+    this.shortList,
+    this.integerList,
+    this.longList,
+    this.timestampList,
+    this.dateTimeList,
+    this.httpDateList,
+    this.enumList,
+    this.intEnumList,
+    this.listList,
+    this.structureList,
+    this.structureListWithNoKey,
+    this.unionList,
+  }) : super._();
 
   @override
   MalformedUniqueItemsInput rebuild(
-          void Function(MalformedUniqueItemsInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedUniqueItemsInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedUniqueItemsInputBuilder toBuilder() =>
@@ -211,8 +211,8 @@ class MalformedUniqueItemsInputBuilder
       _$this._structureListWithNoKey ??=
           new _i5.SetBuilder<MissingKeyStructure>();
   set structureListWithNoKey(
-          _i5.SetBuilder<MissingKeyStructure>? structureListWithNoKey) =>
-      _$this._structureListWithNoKey = structureListWithNoKey;
+    _i5.SetBuilder<MissingKeyStructure>? structureListWithNoKey,
+  ) => _$this._structureListWithNoKey = structureListWithNoKey;
 
   _i5.SetBuilder<FooUnion>? _unionList;
   _i5.SetBuilder<FooUnion> get unionList =>
@@ -263,24 +263,26 @@ class MalformedUniqueItemsInputBuilder
   _$MalformedUniqueItemsInput _build() {
     _$MalformedUniqueItemsInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$MalformedUniqueItemsInput._(
-              blobList: _blobList?.build(),
-              booleanList: _booleanList?.build(),
-              stringList: _stringList?.build(),
-              byteList: _byteList?.build(),
-              shortList: _shortList?.build(),
-              integerList: _integerList?.build(),
-              longList: _longList?.build(),
-              timestampList: _timestampList?.build(),
-              dateTimeList: _dateTimeList?.build(),
-              httpDateList: _httpDateList?.build(),
-              enumList: _enumList?.build(),
-              intEnumList: _intEnumList?.build(),
-              listList: _listList?.build(),
-              structureList: _structureList?.build(),
-              structureListWithNoKey: _structureListWithNoKey?.build(),
-              unionList: _unionList?.build());
+            blobList: _blobList?.build(),
+            booleanList: _booleanList?.build(),
+            stringList: _stringList?.build(),
+            byteList: _byteList?.build(),
+            shortList: _shortList?.build(),
+            integerList: _integerList?.build(),
+            longList: _longList?.build(),
+            timestampList: _timestampList?.build(),
+            dateTimeList: _dateTimeList?.build(),
+            httpDateList: _httpDateList?.build(),
+            enumList: _enumList?.build(),
+            intEnumList: _intEnumList?.build(),
+            listList: _listList?.build(),
+            structureList: _structureList?.build(),
+            structureListWithNoKey: _structureListWithNoKey?.build(),
+            unionList: _unionList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -318,7 +320,10 @@ class MalformedUniqueItemsInputBuilder
         _unionList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MalformedUniqueItemsInput', _$failedField, e.toString());
+          r'MalformedUniqueItemsInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -7,15 +7,17 @@ part of 'matcher.dart';
 // **************************************************************************
 
 Matcher _$MatcherFromJson(Map<String, dynamic> json) => Matcher(
-      success: json['success'] as bool?,
-      errorType: json['errorType'] as String?,
-      output: json['output'] == null
+  success: json['success'] as bool?,
+  errorType: json['errorType'] as String?,
+  output:
+      json['output'] == null
           ? null
           : PathMatcher.fromJson(json['output'] as Map<String, dynamic>),
-      inputOutput: json['inputOutput'] == null
+  inputOutput:
+      json['inputOutput'] == null
           ? null
           : PathMatcher.fromJson(json['inputOutput'] as Map<String, dynamic>),
-    );
+);
 
 Map<String, dynamic> _$MatcherToJson(Matcher instance) {
   final val = <String, dynamic>{};
@@ -34,10 +36,10 @@ Map<String, dynamic> _$MatcherToJson(Matcher instance) {
 }
 
 PathMatcher _$PathMatcherFromJson(Map<String, dynamic> json) => PathMatcher(
-      path: json['path'] as String,
-      expected: json['expected'] as String,
-      comparator: $enumDecode(_$PathComparatorEnumMap, json['comparator']),
-    );
+  path: json['path'] as String,
+  expected: json['expected'] as String,
+  comparator: $enumDecode(_$PathComparatorEnumMap, json['comparator']),
+);
 
 Map<String, dynamic> _$PathMatcherToJson(PathMatcher instance) =>
     <String, dynamic>{

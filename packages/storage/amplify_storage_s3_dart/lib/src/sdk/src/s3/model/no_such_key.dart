@@ -32,20 +32,17 @@ abstract class NoSuchKey
   factory NoSuchKey.fromResponse(
     NoSuchKey payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<NoSuchKey>> serializers = [
-    NoSuchKeyRestXmlSerializer()
+    NoSuchKeyRestXmlSerializer(),
   ];
 
   @override
-  _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.s3',
-        shape: 'NoSuchKey',
-      );
+  _i2.ShapeId get shapeId =>
+      const _i2.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NoSuchKey');
 
   @override
   String? get message => null;
@@ -78,18 +75,12 @@ class NoSuchKeyRestXmlSerializer
   const NoSuchKeyRestXmlSerializer() : super('NoSuchKey');
 
   @override
-  Iterable<Type> get types => const [
-        NoSuchKey,
-        _$NoSuchKey,
-      ];
+  Iterable<Type> get types => const [NoSuchKey, _$NoSuchKey];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   NoSuchKey deserialize(
@@ -110,7 +101,7 @@ class NoSuchKeyRestXmlSerializer
       const _i2.XmlElementName(
         'NoSuchKey',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

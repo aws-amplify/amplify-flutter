@@ -29,30 +29,30 @@ final class ASFDeviceInfoPlatform extends NativeASFDeviceInfoCollector {
   /// For Dart apps, there is not a good mechanism to retrieve this info.
   final AsyncMemoizer<PackageInfo> _packageInfoMemo = AsyncMemoizer();
   Future<PackageInfo> get _packageInfo => _packageInfoMemo.runOnce(() async {
-        final cacheBuster = DateTime.now().millisecondsSinceEpoch;
-        final uri = Uri.parse(url.join(_baseUrl, 'version.json')).replace(
-          queryParameters: {'cachebuster': cacheBuster.toString()},
-        );
-        try {
-          final versionResp = await AWSHttpRequest.get(uri).send().response;
-          final versionJson = await versionResp.decodeBody();
-          final versionData = jsonDecode(versionJson) as Map<String, Object?>;
-          return PackageInfo.fromJson(versionData);
-        } on Exception {
-          return const PackageInfo();
-        }
-      });
+    final cacheBuster = DateTime.now().millisecondsSinceEpoch;
+    final uri = Uri.parse(
+      url.join(_baseUrl, 'version.json'),
+    ).replace(queryParameters: {'cachebuster': cacheBuster.toString()});
+    try {
+      final versionResp = await AWSHttpRequest.get(uri).send().response;
+      final versionJson = await versionResp.decodeBody();
+      final versionData = jsonDecode(versionJson) as Map<String, Object?>;
+      return PackageInfo.fromJson(versionData);
+    } on Exception {
+      return const PackageInfo();
+    }
+  });
 
   @override
   Future<String?> get applicationName async => (await _packageInfo).appName;
 
   @override
   Future<String?> get applicationVersion async => switch (await _packageInfo) {
-        PackageInfo(:final version?, :final buildNumber?) =>
-          '$version($buildNumber)',
-        PackageInfo(:final version?) => version,
-        _ => null,
-      };
+    PackageInfo(:final version?, :final buildNumber?) =>
+      '$version($buildNumber)',
+    PackageInfo(:final version?) => version,
+    _ => null,
+  };
 
   @override
   Future<String?> get deviceFingerprint async => null;

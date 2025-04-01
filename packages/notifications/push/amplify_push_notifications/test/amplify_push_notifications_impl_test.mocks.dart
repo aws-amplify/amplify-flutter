@@ -34,34 +34,19 @@ import 'package:mockito/src/dummies.dart' as _i8;
 
 class _FakeGetPermissionStatusResult_0 extends _i1.SmartFake
     implements _i2.GetPermissionStatusResult {
-  _FakeGetPermissionStatusResult_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeGetPermissionStatusResult_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeAmplifySecureStorageConfig_1 extends _i1.SmartFake
     implements _i3.AmplifySecureStorageConfig {
-  _FakeAmplifySecureStorageConfig_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeAmplifySecureStorageConfig_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeAWSLogger_2 extends _i1.SmartFake implements _i4.AWSLogger {
-  _FakeAWSLogger_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeAWSLogger_2(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [PushNotificationsHostApi].
@@ -74,83 +59,70 @@ class MockPushNotificationsHostApi extends _i1.Mock
   }
 
   @override
-  _i5.Future<void> requestInitialToken() => (super.noSuchMethod(
-        Invocation.method(
-          #requestInitialToken,
-          [],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+  _i5.Future<void> requestInitialToken() =>
+      (super.noSuchMethod(
+            Invocation.method(#requestInitialToken, []),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 
   @override
   _i5.Future<_i2.GetPermissionStatusResult> getPermissionStatus() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getPermissionStatus,
-          [],
-        ),
-        returnValue: _i5.Future<_i2.GetPermissionStatusResult>.value(
-            _FakeGetPermissionStatusResult_0(
-          this,
-          Invocation.method(
-            #getPermissionStatus,
-            [],
-          ),
-        )),
-      ) as _i5.Future<_i2.GetPermissionStatusResult>);
+            Invocation.method(#getPermissionStatus, []),
+            returnValue: _i5.Future<_i2.GetPermissionStatusResult>.value(
+              _FakeGetPermissionStatusResult_0(
+                this,
+                Invocation.method(#getPermissionStatus, []),
+              ),
+            ),
+          )
+          as _i5.Future<_i2.GetPermissionStatusResult>);
 
   @override
   _i5.Future<bool> requestPermissions(
-          _i2.PermissionsOptions? arg_withPermissionOptions) =>
+    _i2.PermissionsOptions? arg_withPermissionOptions,
+  ) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #requestPermissions,
-          [arg_withPermissionOptions],
-        ),
-        returnValue: _i5.Future<bool>.value(false),
-      ) as _i5.Future<bool>);
+            Invocation.method(#requestPermissions, [arg_withPermissionOptions]),
+            returnValue: _i5.Future<bool>.value(false),
+          )
+          as _i5.Future<bool>);
 
   @override
   _i5.Future<Map<Object?, Object?>?> getLaunchNotification() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getLaunchNotification,
-          [],
-        ),
-        returnValue: _i5.Future<Map<Object?, Object?>?>.value(),
-      ) as _i5.Future<Map<Object?, Object?>?>);
+            Invocation.method(#getLaunchNotification, []),
+            returnValue: _i5.Future<Map<Object?, Object?>?>.value(),
+          )
+          as _i5.Future<Map<Object?, Object?>?>);
 
   @override
-  _i5.Future<int> getBadgeCount() => (super.noSuchMethod(
-        Invocation.method(
-          #getBadgeCount,
-          [],
-        ),
-        returnValue: _i5.Future<int>.value(0),
-      ) as _i5.Future<int>);
+  _i5.Future<int> getBadgeCount() =>
+      (super.noSuchMethod(
+            Invocation.method(#getBadgeCount, []),
+            returnValue: _i5.Future<int>.value(0),
+          )
+          as _i5.Future<int>);
 
   @override
   _i5.Future<void> setBadgeCount(int? arg_withBadgeCount) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #setBadgeCount,
-          [arg_withBadgeCount],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+            Invocation.method(#setBadgeCount, [arg_withBadgeCount]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 
   @override
   _i5.Future<void> registerCallbackFunction(int? arg_callbackHandle) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #registerCallbackFunction,
-          [arg_callbackHandle],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+            Invocation.method(#registerCallbackFunction, [arg_callbackHandle]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 }
 
 /// A class which mocks [ServiceProviderClient].
@@ -168,27 +140,23 @@ class MockServiceProviderClient extends _i1.Mock
     required _i4.AmplifyAuthProviderRepository? authProviderRepo,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #init,
-          [],
-          {
-            #config: config,
-            #authProviderRepo: authProviderRepo,
-          },
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+            Invocation.method(#init, [], {
+              #config: config,
+              #authProviderRepo: authProviderRepo,
+            }),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 
   @override
-  _i5.Future<void> registerDevice(String? deviceToken) => (super.noSuchMethod(
-        Invocation.method(
-          #registerDevice,
-          [deviceToken],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+  _i5.Future<void> registerDevice(String? deviceToken) =>
+      (super.noSuchMethod(
+            Invocation.method(#registerDevice, [deviceToken]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 
   @override
   _i5.Future<void> recordNotificationEvent({
@@ -196,17 +164,14 @@ class MockServiceProviderClient extends _i1.Mock
     required _i4.PushNotificationMessage? notification,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #recordNotificationEvent,
-          [],
-          {
-            #eventType: eventType,
-            #notification: notification,
-          },
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+            Invocation.method(#recordNotificationEvent, [], {
+              #eventType: eventType,
+              #notification: notification,
+            }),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 
   @override
   _i5.Future<void> identifyUser({
@@ -214,17 +179,14 @@ class MockServiceProviderClient extends _i1.Mock
     _i4.UserProfile? userProfile,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #identifyUser,
-          [],
-          {
-            #userId: userId,
-            #userProfile: userProfile,
-          },
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+            Invocation.method(#identifyUser, [], {
+              #userId: userId,
+              #userProfile: userProfile,
+            }),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 }
 
 /// A class which mocks [AmplifySecureStorage].
@@ -237,80 +199,69 @@ class MockAmplifySecureStorage extends _i1.Mock
   }
 
   @override
-  _i3.AmplifySecureStorageConfig get config => (super.noSuchMethod(
-        Invocation.getter(#config),
-        returnValue: _FakeAmplifySecureStorageConfig_1(
-          this,
-          Invocation.getter(#config),
-        ),
-      ) as _i3.AmplifySecureStorageConfig);
-
-  @override
-  String get runtimeTypeName => (super.noSuchMethod(
-        Invocation.getter(#runtimeTypeName),
-        returnValue: _i8.dummyValue<String>(
-          this,
-          Invocation.getter(#runtimeTypeName),
-        ),
-      ) as String);
-
-  @override
-  _i4.AWSLogger get logger => (super.noSuchMethod(
-        Invocation.getter(#logger),
-        returnValue: _FakeAWSLogger_2(
-          this,
-          Invocation.getter(#logger),
-        ),
-      ) as _i4.AWSLogger);
-
-  @override
-  _i5.Future<void> delete({required String? key}) => (super.noSuchMethod(
-        Invocation.method(
-          #delete,
-          [],
-          {#key: key},
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-
-  @override
-  _i5.Future<String?> read({required String? key}) => (super.noSuchMethod(
-        Invocation.method(
-          #read,
-          [],
-          {#key: key},
-        ),
-        returnValue: _i5.Future<String?>.value(),
-      ) as _i5.Future<String?>);
-
-  @override
-  _i5.Future<void> write({
-    required String? key,
-    required String? value,
-  }) =>
+  _i3.AmplifySecureStorageConfig get config =>
       (super.noSuchMethod(
-        Invocation.method(
-          #write,
-          [],
-          {
-            #key: key,
-            #value: value,
-          },
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+            Invocation.getter(#config),
+            returnValue: _FakeAmplifySecureStorageConfig_1(
+              this,
+              Invocation.getter(#config),
+            ),
+          )
+          as _i3.AmplifySecureStorageConfig);
 
   @override
-  _i5.Future<void> removeAll() => (super.noSuchMethod(
-        Invocation.method(
-          #removeAll,
-          [],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+  String get runtimeTypeName =>
+      (super.noSuchMethod(
+            Invocation.getter(#runtimeTypeName),
+            returnValue: _i8.dummyValue<String>(
+              this,
+              Invocation.getter(#runtimeTypeName),
+            ),
+          )
+          as String);
+
+  @override
+  _i4.AWSLogger get logger =>
+      (super.noSuchMethod(
+            Invocation.getter(#logger),
+            returnValue: _FakeAWSLogger_2(this, Invocation.getter(#logger)),
+          )
+          as _i4.AWSLogger);
+
+  @override
+  _i5.Future<void> delete({required String? key}) =>
+      (super.noSuchMethod(
+            Invocation.method(#delete, [], {#key: key}),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
+  _i5.Future<String?> read({required String? key}) =>
+      (super.noSuchMethod(
+            Invocation.method(#read, [], {#key: key}),
+            returnValue: _i5.Future<String?>.value(),
+          )
+          as _i5.Future<String?>);
+
+  @override
+  _i5.Future<void> write({required String? key, required String? value}) =>
+      (super.noSuchMethod(
+            Invocation.method(#write, [], {#key: key, #value: value}),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> removeAll() =>
+      (super.noSuchMethod(
+            Invocation.method(#removeAll, []),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 }
 
 /// A class which mocks [AmplifyPushNotificationsFlutterApi].
@@ -323,60 +274,49 @@ class MockAmplifyPushNotificationsFlutterApi extends _i1.Mock
   }
 
   @override
-  List<_i4.PushNotificationMessage> get eventQueue => (super.noSuchMethod(
-        Invocation.getter(#eventQueue),
-        returnValue: <_i4.PushNotificationMessage>[],
-      ) as List<_i4.PushNotificationMessage>);
+  List<_i4.PushNotificationMessage> get eventQueue =>
+      (super.noSuchMethod(
+            Invocation.getter(#eventQueue),
+            returnValue: <_i4.PushNotificationMessage>[],
+          )
+          as List<_i4.PushNotificationMessage>);
 
   @override
   set onNullifyLaunchNotificationCallback(void Function()? callback) =>
       super.noSuchMethod(
-        Invocation.setter(
-          #onNullifyLaunchNotificationCallback,
-          callback,
-        ),
+        Invocation.setter(#onNullifyLaunchNotificationCallback, callback),
         returnValueForMissingStub: null,
       );
 
   @override
   set serviceProviderClient(_i4.ServiceProviderClient? serviceProviderClient) =>
       super.noSuchMethod(
-        Invocation.setter(
-          #serviceProviderClient,
-          serviceProviderClient,
-        ),
+        Invocation.setter(#serviceProviderClient, serviceProviderClient),
         returnValueForMissingStub: null,
       );
 
   @override
   void registerOnReceivedInBackgroundCallback(
-          _i4.OnRemoteMessageCallback? callback) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #registerOnReceivedInBackgroundCallback,
-          [callback],
-        ),
-        returnValueForMissingStub: null,
-      );
+    _i4.OnRemoteMessageCallback? callback,
+  ) => super.noSuchMethod(
+    Invocation.method(#registerOnReceivedInBackgroundCallback, [callback]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   _i5.Future<void> onNotificationReceivedInBackground(
-          Map<Object?, Object?>? payload) =>
+    Map<Object?, Object?>? payload,
+  ) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #onNotificationReceivedInBackground,
-          [payload],
-        ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+            Invocation.method(#onNotificationReceivedInBackground, [payload]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 
   @override
   void nullifyLaunchNotification() => super.noSuchMethod(
-        Invocation.method(
-          #nullifyLaunchNotification,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#nullifyLaunchNotification, []),
+    returnValueForMissingStub: null,
+  );
 }

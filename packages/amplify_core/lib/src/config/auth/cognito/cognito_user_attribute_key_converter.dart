@@ -48,7 +48,5 @@ class CognitoUserAttributeMapConverter
 
   @override
   Map<String, String> toJson(Map<CognitoUserAttributeKey, String> object) =>
-      object.map(
-        (key, value) => MapEntry(key.toJson(), value),
-      );
+      object.map((key, value) => MapEntry(key.toJson(), value));
 }

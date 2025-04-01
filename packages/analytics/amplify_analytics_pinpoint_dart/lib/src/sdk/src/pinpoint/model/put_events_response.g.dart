@@ -10,13 +10,16 @@ class _$PutEventsResponse extends PutEventsResponse {
   @override
   final EventsResponse eventsResponse;
 
-  factory _$PutEventsResponse(
-          [void Function(PutEventsResponseBuilder)? updates]) =>
-      (new PutEventsResponseBuilder()..update(updates))._build();
+  factory _$PutEventsResponse([
+    void Function(PutEventsResponseBuilder)? updates,
+  ]) => (new PutEventsResponseBuilder()..update(updates))._build();
 
   _$PutEventsResponse._({required this.eventsResponse}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        eventsResponse, r'PutEventsResponse', 'eventsResponse');
+      eventsResponse,
+      r'PutEventsResponse',
+      'eventsResponse',
+    );
   }
 
   @override
@@ -80,7 +83,8 @@ class PutEventsResponseBuilder
   _$PutEventsResponse _build() {
     _$PutEventsResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PutEventsResponse._(eventsResponse: eventsResponse.build());
     } catch (_) {
       late String _$failedField;
@@ -89,7 +93,10 @@ class PutEventsResponseBuilder
         eventsResponse.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PutEventsResponse', _$failedField, e.toString());
+          r'PutEventsResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

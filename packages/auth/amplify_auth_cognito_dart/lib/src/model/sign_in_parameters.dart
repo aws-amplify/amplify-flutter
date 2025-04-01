@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library amplify_auth_cognito.model.sign_in_parameters;
+library;
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';

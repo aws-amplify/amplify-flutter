@@ -22,9 +22,10 @@ class _CrcValueToHeaderConverter extends Converter<CrcValue, String> {
   @override
   Sink<CrcValue> startChunkedConversion(Sink<String> sink) {
     return ChunkedConversionSink.withCallback(
-      (value) => sink
-        ..add(convert(value.last))
-        ..close(),
+      (value) =>
+          sink
+            ..add(convert(value.last))
+            ..close(),
     );
   }
 }
@@ -40,9 +41,10 @@ class _DigestToHeaderConverter extends Converter<Digest, String> {
   @override
   Sink<Digest> startChunkedConversion(Sink<String> sink) {
     return ChunkedConversionSink.withCallback(
-      (value) => sink
-        ..add(convert(value.last))
-        ..close(),
+      (value) =>
+          sink
+            ..add(convert(value.last))
+            ..close(),
     );
   }
 }
@@ -60,29 +62,25 @@ class WithChecksum extends HttpRequestInterceptor {
 
   // https://awslabs.github.io/smithy/2.0/aws/aws-core.html#resolving-checksum-name
   String get _header => switch (_algorithm) {
-        'CRC32C' ||
-        'CRC32' ||
-        'SHA1' ||
-        'SHA256' =>
-          'x-amz-checksum-${_algorithm.toLowerCase()}',
-        'MD5' || _ => 'Content-MD5',
-      };
+    'CRC32C' ||
+    'CRC32' ||
+    'SHA1' ||
+    'SHA256' => 'x-amz-checksum-${_algorithm.toLowerCase()}',
+    'MD5' || _ => 'Content-MD5',
+  };
 
   static Converter<List<int>, String> _converterForAlgorithm(
     String algorithm,
-  ) =>
-      switch (algorithm) {
-        'CRC32C' => Crc32C().fuse(const _CrcValueToHeaderConverter()),
-        'CRC32' => Crc32().fuse(const _CrcValueToHeaderConverter()),
-        'SHA1' => sha1.fuse(const _DigestToHeaderConverter()),
-        'SHA256' => sha256.fuse(const _DigestToHeaderConverter()),
-        'MD5' || _ => md5.fuse(const _DigestToHeaderConverter()),
-      };
+  ) => switch (algorithm) {
+    'CRC32C' => Crc32C().fuse(const _CrcValueToHeaderConverter()),
+    'CRC32' => Crc32().fuse(const _CrcValueToHeaderConverter()),
+    'SHA1' => sha1.fuse(const _DigestToHeaderConverter()),
+    'SHA256' => sha256.fuse(const _DigestToHeaderConverter()),
+    'MD5' || _ => md5.fuse(const _DigestToHeaderConverter()),
+  };
 
   @override
-  Future<AWSBaseHttpRequest> intercept(
-    AWSBaseHttpRequest request,
-  ) async {
+  Future<AWSBaseHttpRequest> intercept(AWSBaseHttpRequest request) async {
     if (request.headers.containsKey(_header)) {
       return request;
     }

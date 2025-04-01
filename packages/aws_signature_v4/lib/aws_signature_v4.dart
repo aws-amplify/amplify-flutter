@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// HTTP request signer for AWS (Version 4).
-library aws_signature_v4;
+library;
 
 export 'package:aws_common/src/credentials/aws_credentials.dart';
 export 'package:aws_common/src/credentials/aws_credentials_provider.dart';

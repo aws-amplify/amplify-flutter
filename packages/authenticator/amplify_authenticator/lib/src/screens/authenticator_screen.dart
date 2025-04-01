@@ -11,10 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticatorScreen extends StatelessAuthenticatorComponent {
-  const AuthenticatorScreen({
-    super.key,
-    required this.step,
-  });
+  const AuthenticatorScreen({super.key, required this.step});
 
   const AuthenticatorScreen.signUp({Key? key})
       : this(key: key, step: AuthenticatorStep.signUp);
@@ -158,9 +155,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 }
 
 class _FormWrapperView extends StatelessAuthenticatorComponent {
-  const _FormWrapperView({
-    required this.step,
-  });
+  const _FormWrapperView({required this.step});
 
   final AuthenticatorStep step;
 
@@ -186,9 +181,7 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
               titleResolver.resolve(context, step),
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const SizedBox(
-              height: AuthenticatorContainerConstants.gap,
-            ),
+            const SizedBox(height: AuthenticatorContainerConstants.gap),
             form,
           ],
         );

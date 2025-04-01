@@ -72,9 +72,7 @@ void main() {
 
         // confirm tokens can be refreshed
         final session3 = await plugin.fetchAuthSession(
-          options: const FetchAuthSessionOptions(
-            forceRefresh: true,
-          ),
+          options: const FetchAuthSessionOptions(forceRefresh: true),
         );
         expect(session3.isSignedIn, isTrue);
 

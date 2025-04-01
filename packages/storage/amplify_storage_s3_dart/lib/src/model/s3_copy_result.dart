@@ -9,7 +9,5 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 /// {@endtemplate}
 class S3CopyResult extends StorageCopyResult<S3Item> {
   /// {@macro storage.amplify_storage_s3.get_url_result}
-  const S3CopyResult({
-    required super.copiedItem,
-  });
+  const S3CopyResult({required super.copiedItem});
 }

@@ -32,10 +32,7 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     Library library, {
     SmithyLibrary? smithyLibrary,
   }) =>
-      GeneratedLibrary(
-        smithyLibrary ?? shape.smithyLibrary(context),
-        library,
-      );
+      GeneratedLibrary(smithyLibrary ?? shape.smithyLibrary(context), library);
 
   @override
   Iterable<GeneratedLibrary> operationShape(
@@ -48,10 +45,7 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     seen.add(shape.shapeId);
 
     // Build the operation class.
-    yield _buildLibrary(
-      shape,
-      OperationGenerator(shape, context).generate(),
-    );
+    yield _buildLibrary(shape, OperationGenerator(shape, context).generate());
 
     // Build the waiters, if any
     // if (shape.hasTrait<WaitableTrait>()) {
@@ -75,11 +69,12 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
       libraryType: SmithyLibrary_LibraryType.TEST,
       filename: shape.dartName(context),
     );
-    final generated = OperationTestGenerator(
-      shape,
-      context,
-      smithyLibrary: testLibrary,
-    ).generate();
+    final generated =
+        OperationTestGenerator(
+          shape,
+          context,
+          smithyLibrary: testLibrary,
+        ).generate();
     if (generated != null) {
       yield GeneratedLibrary(
         testLibrary,
@@ -89,11 +84,12 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     }
 
     // Build the input, output and error shapes
-    final shapes = [
-      if (shape.input != null) shape.input!.target,
-      if (shape.output != null) shape.output!.target,
-      ...shape.errors.map((ref) => ref.target),
-    ].map(context.shapeFor).cast<StructureShape>();
+    final shapes =
+        [
+          if (shape.input != null) shape.input!.target,
+          if (shape.output != null) shape.output!.target,
+          ...shape.errors.map((ref) => ref.target),
+        ].map(context.shapeFor).cast<StructureShape>();
 
     for (final child in shapes) {
       yield* structureShape(child);
@@ -142,10 +138,7 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     final endpointResolver =
         EndpointResolverGenerator(shape, context).generate();
     if (endpointResolver != null) {
-      yield GeneratedLibrary(
-        context.endpointResolverLibrary,
-        endpointResolver,
-      );
+      yield GeneratedLibrary(context.endpointResolverLibrary, endpointResolver);
     }
 
     // Build top-level service library (should be last thing built)
@@ -228,10 +221,7 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     yield* _foreignMembers(shape.members.values.map((member) => member.target));
 
     if (!context.hasSymbolOverrideFor(shape)) {
-      yield _buildLibrary(
-        shape,
-        StructureGenerator(shape, context).generate(),
-      );
+      yield _buildLibrary(shape, StructureGenerator(shape, context).generate());
     }
   }
 
@@ -253,13 +243,16 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
   }
 
   Iterable<GeneratedLibrary> _foreignMembers(Iterable<ShapeId> shapeIds) {
-    return shapeIds.map(context.shapeFor).expand((shape) {
-      if (shape is CollectionShape) {
-        return [context.shapeFor(shape.member.target)];
-      } else if (shape is MapShape) {
-        return [shape.key.target, shape.value.target].map(context.shapeFor);
-      }
-      return [shape];
-    }).expand((shape) => shape.accept(this) ?? const []);
+    return shapeIds
+        .map(context.shapeFor)
+        .expand((shape) {
+          if (shape is CollectionShape) {
+            return [context.shapeFor(shape.member.target)];
+          } else if (shape is MapShape) {
+            return [shape.key.target, shape.value.target].map(context.shapeFor);
+          }
+          return [shape];
+        })
+        .expand((shape) => shape.accept(this) ?? const []);
   }
 }

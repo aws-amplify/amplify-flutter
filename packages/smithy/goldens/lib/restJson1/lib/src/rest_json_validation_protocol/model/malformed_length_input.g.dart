@@ -20,23 +20,23 @@ class _$MalformedLengthInput extends MalformedLengthInput {
   @override
   final _i4.BuiltListMultimap<String, String>? map;
 
-  factory _$MalformedLengthInput(
-          [void Function(MalformedLengthInputBuilder)? updates]) =>
-      (new MalformedLengthInputBuilder()..update(updates))._build();
+  factory _$MalformedLengthInput([
+    void Function(MalformedLengthInputBuilder)? updates,
+  ]) => (new MalformedLengthInputBuilder()..update(updates))._build();
 
-  _$MalformedLengthInput._(
-      {this.blob,
-      this.string,
-      this.minString,
-      this.maxString,
-      this.list,
-      this.map})
-      : super._();
+  _$MalformedLengthInput._({
+    this.blob,
+    this.string,
+    this.minString,
+    this.maxString,
+    this.list,
+    this.map,
+  }) : super._();
 
   @override
   MalformedLengthInput rebuild(
-          void Function(MalformedLengthInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLengthInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLengthInputBuilder toBuilder() =>
@@ -131,14 +131,16 @@ class MalformedLengthInputBuilder
   _$MalformedLengthInput _build() {
     _$MalformedLengthInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$MalformedLengthInput._(
-              blob: blob,
-              string: string,
-              minString: minString,
-              maxString: maxString,
-              list: _list?.build(),
-              map: _map?.build());
+            blob: blob,
+            string: string,
+            minString: minString,
+            maxString: maxString,
+            list: _list?.build(),
+            map: _map?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -148,7 +150,10 @@ class MalformedLengthInputBuilder
         _map?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MalformedLengthInput', _$failedField, e.toString());
+          r'MalformedLengthInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

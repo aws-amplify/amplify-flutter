@@ -6,9 +6,7 @@ import 'package:cognito_example/common.dart';
 import 'package:example_common/example_common.dart';
 
 class ConfirmSignInComponent extends StatefulComponent {
-  ConfirmSignInComponent({
-    required this.onSuccess,
-  });
+  ConfirmSignInComponent({required this.onSuccess});
 
   final void Function(SignInResult) onSuccess;
 

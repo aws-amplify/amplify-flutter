@@ -19,9 +19,9 @@ abstract class RevokeTokenResponse
     return _$RevokeTokenResponse._();
   }
 
-  factory RevokeTokenResponse.build(
-          [void Function(RevokeTokenResponseBuilder) updates]) =
-      _$RevokeTokenResponse;
+  factory RevokeTokenResponse.build([
+    void Function(RevokeTokenResponseBuilder) updates,
+  ]) = _$RevokeTokenResponse;
 
   const RevokeTokenResponse._();
 
@@ -29,11 +29,10 @@ abstract class RevokeTokenResponse
   factory RevokeTokenResponse.fromResponse(
     RevokeTokenResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<RevokeTokenResponse>> serializers = [
-    RevokeTokenResponseAwsJson11Serializer()
+    RevokeTokenResponseAwsJson11Serializer(),
   ];
 
   @override
@@ -52,17 +51,14 @@ class RevokeTokenResponseAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [
-        RevokeTokenResponse,
-        _$RevokeTokenResponse,
-      ];
+    RevokeTokenResponse,
+    _$RevokeTokenResponse,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   RevokeTokenResponse deserialize(
@@ -78,6 +74,5 @@ class RevokeTokenResponseAwsJson11Serializer
     Serializers serializers,
     RevokeTokenResponse object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

@@ -36,7 +36,8 @@ class CpkManyToManyTag extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -45,11 +46,15 @@ class CpkManyToManyTag extends amplify_core.Model {
       return CpkManyToManyTagModelIdentifier(id: id, label: _label!);
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -58,11 +63,15 @@ class CpkManyToManyTag extends amplify_core.Model {
       return _label!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -78,19 +87,27 @@ class CpkManyToManyTag extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const CpkManyToManyTag._internal(
-      {required this.id, required label, posts, createdAt, updatedAt})
-      : _label = label,
-        _posts = posts,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const CpkManyToManyTag._internal({
+    required this.id,
+    required label,
+    posts,
+    createdAt,
+    updatedAt,
+  }) : _label = label,
+       _posts = posts,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory CpkManyToManyTag(
-      {String? id, required String label, List<CpkPostTags>? posts}) {
+  factory CpkManyToManyTag({
+    String? id,
+    required String label,
+    List<CpkPostTags>? posts,
+  }) {
     return CpkManyToManyTag._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        label: label,
-        posts: posts != null ? List<CpkPostTags>.unmodifiable(posts) : posts);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      label: label,
+      posts: posts != null ? List<CpkPostTags>.unmodifiable(posts) : posts,
+    );
   }
 
   bool equals(Object other) {
@@ -116,11 +133,12 @@ class CpkManyToManyTag extends amplify_core.Model {
     buffer.write("CpkManyToManyTag {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("label=" + "$_label" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -128,105 +146,139 @@ class CpkManyToManyTag extends amplify_core.Model {
 
   CpkManyToManyTag copyWith({List<CpkPostTags>? posts}) {
     return CpkManyToManyTag._internal(
-        id: id, label: label, posts: posts ?? this.posts);
+      id: id,
+      label: label,
+      posts: posts ?? this.posts,
+    );
   }
 
-  CpkManyToManyTag copyWithModelFieldValues(
-      {ModelFieldValue<List<CpkPostTags>?>? posts}) {
+  CpkManyToManyTag copyWithModelFieldValues({
+    ModelFieldValue<List<CpkPostTags>?>? posts,
+  }) {
     return CpkManyToManyTag._internal(
-        id: id, label: label, posts: posts == null ? this.posts : posts.value);
+      id: id,
+      label: label,
+      posts: posts == null ? this.posts : posts.value,
+    );
   }
 
   CpkManyToManyTag.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _label = json['label'],
-        _posts = json['posts'] is Map
-            ? (json['posts']['items'] is List
-                ? (json['posts']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) =>
-                        CpkPostTags.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['posts'] is List
-                ? (json['posts'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => CpkPostTags.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _label = json['label'],
+      _posts =
+          json['posts'] is Map
+              ? (json['posts']['items'] is List
+                  ? (json['posts']['items'] as List)
+                      .where((e) => e != null)
+                      .map(
+                        (e) => CpkPostTags.fromJson(
+                          new Map<String, dynamic>.from(e),
+                        ),
+                      )
+                      .toList()
+                  : null)
+              : (json['posts'] is List
+                  ? (json['posts'] as List)
+                      .where((e) => e?['serializedData'] != null)
+                      .map(
+                        (e) => CpkPostTags.fromJson(
+                          new Map<String, dynamic>.from(e?['serializedData']),
+                        ),
+                      )
+                      .toList()
+                  : null),
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'label': _label,
-        'posts': _posts?.map((CpkPostTags? e) => e?.toJson()).toList(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'label': _label,
+    'posts': _posts?.map((CpkPostTags? e) => e?.toJson()).toList(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'label': _label,
-        'posts': _posts,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'label': _label,
+    'posts': _posts,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<CpkManyToManyTagModelIdentifier> MODEL_IDENTIFIER =
+  static final amplify_core.QueryModelIdentifier<
+    CpkManyToManyTagModelIdentifier
+  >
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<CpkManyToManyTagModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final LABEL = amplify_core.QueryField(fieldName: "label");
   static final POSTS = amplify_core.QueryField(
-      fieldName: "posts",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'CpkPostTags'));
+    fieldName: "posts",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'CpkPostTags',
+    ),
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CpkManyToManyTag";
-    modelSchemaDefinition.pluralName = "CpkManyToManyTags";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "CpkManyToManyTag";
+      modelSchemaDefinition.pluralName = "CpkManyToManyTags";
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id", "label"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(fields: const ["id", "label"], name: null),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkManyToManyTag.LABEL,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: CpkManyToManyTag.LABEL,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: CpkManyToManyTag.POSTS,
-        isRequired: false,
-        ofModelName: 'CpkPostTags',
-        associatedKey: CpkPostTags.CPKMANYTOMANYTAG));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasMany(
+          key: CpkManyToManyTag.POSTS,
+          isRequired: false,
+          ofModelName: 'CpkPostTags',
+          associatedKey: CpkPostTags.CPKMANYTOMANYTAG,
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _CpkManyToManyTagModelType
@@ -257,18 +309,22 @@ class CpkManyToManyTagModelIdentifier
    * Create an instance of CpkManyToManyTagModelIdentifier using [id] the primary key.
    * And [label] the sort key.
    */
-  const CpkManyToManyTagModelIdentifier(
-      {required this.id, required this.label});
+  const CpkManyToManyTagModelIdentifier({
+    required this.id,
+    required this.label,
+  });
 
   @override
-  Map<String, dynamic> serializeAsMap() =>
-      (<String, dynamic>{'id': id, 'label': label});
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id,
+    'label': label,
+  });
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

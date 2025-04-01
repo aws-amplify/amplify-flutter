@@ -23,9 +23,9 @@ abstract class ObjectNotInActiveTierError
   }
 
   /// The source object of the COPY action is not in the active tier and is only stored in Amazon S3 Glacier.
-  factory ObjectNotInActiveTierError.build(
-          [void Function(ObjectNotInActiveTierErrorBuilder) updates]) =
-      _$ObjectNotInActiveTierError;
+  factory ObjectNotInActiveTierError.build([
+    void Function(ObjectNotInActiveTierErrorBuilder) updates,
+  ]) = _$ObjectNotInActiveTierError;
 
   const ObjectNotInActiveTierError._();
 
@@ -33,19 +33,18 @@ abstract class ObjectNotInActiveTierError
   factory ObjectNotInActiveTierError.fromResponse(
     ObjectNotInActiveTierError payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<ObjectNotInActiveTierError>>
-      serializers = [ObjectNotInActiveTierErrorRestXmlSerializer()];
+  serializers = [ObjectNotInActiveTierErrorRestXmlSerializer()];
 
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.s3',
-        shape: 'ObjectNotInActiveTierError',
-      );
+    namespace: 'com.amazonaws.s3',
+    shape: 'ObjectNotInActiveTierError',
+  );
 
   @override
   String? get message => null;
@@ -76,21 +75,18 @@ abstract class ObjectNotInActiveTierError
 class ObjectNotInActiveTierErrorRestXmlSerializer
     extends _i2.StructuredSmithySerializer<ObjectNotInActiveTierError> {
   const ObjectNotInActiveTierErrorRestXmlSerializer()
-      : super('ObjectNotInActiveTierError');
+    : super('ObjectNotInActiveTierError');
 
   @override
   Iterable<Type> get types => const [
-        ObjectNotInActiveTierError,
-        _$ObjectNotInActiveTierError,
-      ];
+    ObjectNotInActiveTierError,
+    _$ObjectNotInActiveTierError,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ObjectNotInActiveTierError deserialize(
@@ -111,7 +107,7 @@ class ObjectNotInActiveTierErrorRestXmlSerializer
       const _i2.XmlElementName(
         'ObjectNotInActiveTierError',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

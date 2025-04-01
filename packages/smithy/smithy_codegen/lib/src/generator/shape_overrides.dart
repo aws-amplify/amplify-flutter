@@ -31,10 +31,7 @@ base class ShapeOverrides {
   /// {@macro smithy_codegen.shape_overrides}
   ///
   /// {@macro smithy_codegen.shape_overrides.friendly}
-  const ShapeOverrides(
-    Reference this.symbol, {
-    this.serializerSymbol,
-  });
+  const ShapeOverrides(Reference this.symbol, {this.serializerSymbol});
 
   /// Creates an override for a type's Smithy Dart public representation.
   ///
@@ -54,10 +51,7 @@ base class ShapeOverrides {
     required TransformToFriendly transformToFriendly,
   }) = _TransformedShapeOverride;
 
-  const ShapeOverrides._(
-    this.symbol, {
-    this.serializerSymbol,
-  });
+  const ShapeOverrides._(this.symbol, {this.serializerSymbol});
 
   /// The Smithy Dart representation of a shape.
   ///
@@ -86,8 +80,7 @@ base class ShapeOverrides {
   Expression transformFromFriendly(
     Expression ref, {
     required bool isNullable,
-  }) =>
-      ref;
+  }) => ref;
 
   /// {@template smithy_codegen.shape_overrides.transform_to_friendly}
   /// Transforms an expression representing a value of type [symbol]
@@ -97,22 +90,20 @@ base class ShapeOverrides {
     Expression ref, {
     required bool isNullable,
     required bool isConst,
-  }) =>
-      ref;
+  }) => ref;
 }
 
 /// {@macro smithy_codegen.shape_overrides.transform_from_friendly}
-typedef TransformFromFriendly = Expression Function(
-  Expression ref, {
-  required bool isNullable,
-});
+typedef TransformFromFriendly =
+    Expression Function(Expression ref, {required bool isNullable});
 
 /// {@macro smithy_codegen.shape_overrides.transform_to_friendly}
-typedef TransformToFriendly = Expression Function(
-  Expression ref, {
-  required bool isNullable,
-  required bool isConst,
-});
+typedef TransformToFriendly =
+    Expression Function(
+      Expression ref, {
+      required bool isNullable,
+      required bool isConst,
+    });
 
 final class _TransformedShapeOverride extends ShapeOverrides {
   const _TransformedShapeOverride({
@@ -121,9 +112,9 @@ final class _TransformedShapeOverride extends ShapeOverrides {
     required this.friendlySymbol,
     required TransformFromFriendly transformFromFriendly,
     required TransformToFriendly transformToFriendly,
-  })  : _transformFromFriendly = transformFromFriendly,
-        _transformToFriendly = transformToFriendly,
-        super._(symbol);
+  }) : _transformFromFriendly = transformFromFriendly,
+       _transformToFriendly = transformToFriendly,
+       super._(symbol);
 
   @override
   final Reference friendlySymbol;
@@ -135,18 +126,12 @@ final class _TransformedShapeOverride extends ShapeOverrides {
   Expression transformFromFriendly(
     Expression ref, {
     required bool isNullable,
-  }) =>
-      _transformFromFriendly(ref, isNullable: isNullable);
+  }) => _transformFromFriendly(ref, isNullable: isNullable);
 
   @override
   Expression transformToFriendly(
     Expression ref, {
     required bool isNullable,
     required bool isConst,
-  }) =>
-      _transformToFriendly(
-        ref,
-        isNullable: isNullable,
-        isConst: isConst,
-      );
+  }) => _transformToFriendly(ref, isNullable: isNullable, isConst: isConst);
 }

@@ -12,10 +12,7 @@ class StorageRemoveManyOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.remove_many_options}
-  const StorageRemoveManyOptions({
-    this.pluginOptions,
-    this.bucket,
-  });
+  const StorageRemoveManyOptions({this.pluginOptions, this.bucket});
 
   /// {@macro amplify_core.storage.remove_many_plugin_options}
   final StorageRemoveManyPluginOptions? pluginOptions;
@@ -24,10 +21,7 @@ class StorageRemoveManyOptions
   final StorageBucket? bucket;
 
   @override
-  List<Object?> get props => [
-        pluginOptions,
-        bucket,
-      ];
+  List<Object?> get props => [pluginOptions, bucket];
 
   @override
   String get runtimeTypeName => 'StorageRemoveManyOptions';

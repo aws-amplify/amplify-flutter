@@ -44,9 +44,7 @@ void main() {
       builder: Authenticator.builder(),
       home: const Scaffold(
         key: authenticatedAppKey,
-        body: Center(
-          child: SignOutButton(),
-        ),
+        body: Center(child: SignOutButton()),
       ),
     ),
   );
@@ -54,9 +52,7 @@ void main() {
   group('custom ui', () {
     // Given I'm running the example "ui/components/authenticator/sign-in-with-email.feature"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-email',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-email');
     });
 
     // Scenario: Sign in then sign out
@@ -68,9 +64,7 @@ void main() {
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: {
-          AuthUserAttributeKey.email: username,
-        },
+        attributes: {AuthUserAttributeKey.email: username},
       );
 
       await loadAuthenticator(tester: tester, authenticator: authenticator);

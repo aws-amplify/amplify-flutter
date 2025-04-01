@@ -7,35 +7,39 @@ part of 'cognito_confirm_sign_in_plugin_options.dart';
 // **************************************************************************
 
 CognitoConfirmSignInPluginOptions _$CognitoConfirmSignInPluginOptionsFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      'CognitoConfirmSignInPluginOptions',
-      json,
-      ($checkedConvert) {
-        final val = CognitoConfirmSignInPluginOptions(
-          clientMetadata: $checkedConvert(
-              'clientMetadata',
-              (v) => (v as Map<String, dynamic>?)?.map(
-                    (k, e) => MapEntry(k, e as String),
-                  )),
-          userAttributes: $checkedConvert(
-              'userAttributes',
-              (v) => _$JsonConverterFromJson<Map<String, String>,
-                      Map<CognitoUserAttributeKey, String>>(
-                  v, const CognitoUserAttributeMapConverter().fromJson)),
-          friendlyDeviceName:
-              $checkedConvert('friendlyDeviceName', (v) => v as String?),
-        );
-        return val;
-      },
-    );
+  Map<String, dynamic> json,
+) => $checkedCreate('CognitoConfirmSignInPluginOptions', json, (
+  $checkedConvert,
+) {
+  final val = CognitoConfirmSignInPluginOptions(
+    clientMetadata: $checkedConvert(
+      'clientMetadata',
+      (v) =>
+          (v as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as String)),
+    ),
+    userAttributes: $checkedConvert(
+      'userAttributes',
+      (v) => _$JsonConverterFromJson<
+        Map<String, String>,
+        Map<CognitoUserAttributeKey, String>
+      >(v, const CognitoUserAttributeMapConverter().fromJson),
+    ),
+    friendlyDeviceName: $checkedConvert(
+      'friendlyDeviceName',
+      (v) => v as String?,
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$CognitoConfirmSignInPluginOptionsToJson(
-    CognitoConfirmSignInPluginOptions instance) {
+  CognitoConfirmSignInPluginOptions instance,
+) {
   final val = <String, dynamic>{
     'clientMetadata': instance.clientMetadata,
-    'userAttributes': const CognitoUserAttributeMapConverter()
-        .toJson(instance.userAttributes),
+    'userAttributes': const CognitoUserAttributeMapConverter().toJson(
+      instance.userAttributes,
+    ),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -51,5 +55,4 @@ Map<String, dynamic> _$CognitoConfirmSignInPluginOptionsToJson(
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,
   Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
+) => json == null ? null : fromJson(json as Json);

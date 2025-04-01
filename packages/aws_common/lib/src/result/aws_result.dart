@@ -43,7 +43,8 @@ sealed class AWSResult<V extends Object?, E extends Exception>
 /// For successful results, [value] is guaranteed to not throw.
 /// {@endtemplate}
 final class AWSSuccessResult<V extends Object?, E extends Exception>
-    extends AWSResult<V, E> with AWSEquatable<AWSSuccessResult<V, E>> {
+    extends AWSResult<V, E>
+    with AWSEquatable<AWSSuccessResult<V, E>> {
   /// {@macro aws_common.aws_success_result}
   const AWSSuccessResult(this.value) : super._();
 
@@ -64,24 +65,23 @@ final class AWSSuccessResult<V extends Object?, E extends Exception>
 
   @override
   String get runtimeTypeName {
-    final typeName = StringBuffer('AWSSuccessResult<')
-      ..write(
-        switch (value) {
-          AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
-          _ => V,
-        },
-      )
-      ..write(', $E>');
+    final typeName =
+        StringBuffer('AWSSuccessResult<')
+          ..write(switch (value) {
+            AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
+            _ => V,
+          })
+          ..write(', $E>');
     return typeName.toString();
   }
 
   @override
   Map<String, Object?> toJson() => {
-        'value': switch (value) {
-          final AWSSerializable serializable => serializable.toJson(),
-          _ => value.toString(),
-        },
-      };
+    'value': switch (value) {
+      final AWSSerializable serializable => serializable.toJson(),
+      _ => value.toString(),
+    },
+  };
 }
 
 /// {@template aws_common.aws_error_result}
@@ -91,7 +91,8 @@ final class AWSSuccessResult<V extends Object?, E extends Exception>
 /// to not be `null`.
 /// {@endtemplate}
 final class AWSErrorResult<V extends Object?, E extends Exception>
-    extends AWSResult<V, E> with AWSEquatable<AWSErrorResult<V, E>> {
+    extends AWSResult<V, E>
+    with AWSEquatable<AWSErrorResult<V, E>> {
   /// {@macro aws_common.aws_error_result}
   const AWSErrorResult(this.exception, [this.stackTrace]) : super._();
 
@@ -118,23 +119,22 @@ final class AWSErrorResult<V extends Object?, E extends Exception>
 
   @override
   String get runtimeTypeName {
-    final typeName = StringBuffer('AWSErrorResult<$V, ')
-      ..write(
-        switch (exception) {
-          AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
-          _ => E,
-        },
-      )
-      ..write('>');
+    final typeName =
+        StringBuffer('AWSErrorResult<$V, ')
+          ..write(switch (exception) {
+            AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
+            _ => E,
+          })
+          ..write('>');
     return typeName.toString();
   }
 
   @override
   Map<String, Object?> toJson() => {
-        'exception': switch (exception) {
-          final AWSSerializable serializable => serializable.toJson(),
-          _ => exception.toString(),
-        },
-        'stackTrace': stackTrace?.toString(),
-      };
+    'exception': switch (exception) {
+      final AWSSerializable serializable => serializable.toJson(),
+      _ => exception.toString(),
+    },
+    'stackTrace': stackTrace?.toString(),
+  };
 }

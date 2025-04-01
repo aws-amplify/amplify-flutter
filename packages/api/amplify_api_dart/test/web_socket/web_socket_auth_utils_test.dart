@@ -10,15 +10,16 @@ import 'package:test/test.dart';
 import '../util.dart';
 
 void main() {
-  final authProviderRepo = AmplifyAuthProviderRepository()
-    ..registerAuthProvider(
-      APIAuthorizationType.apiKey.authProviderToken,
-      AppSyncApiKeyAuthProvider(),
-    )
-    ..registerAuthProvider(
-      APIAuthorizationType.userPools.authProviderToken,
-      TestTokenAuthProvider(),
-    );
+  final authProviderRepo =
+      AmplifyAuthProviderRepository()
+        ..registerAuthProvider(
+          APIAuthorizationType.apiKey.authProviderToken,
+          AppSyncApiKeyAuthProvider(),
+        )
+        ..registerAuthProvider(
+          APIAuthorizationType.userPools.authProviderToken,
+          TestTokenAuthProvider(),
+        );
 
   const graphQLDocument = '''subscription MySubscription {
     onCreateBlog {
@@ -78,38 +79,34 @@ void main() {
           authorizedMessage.payload as SubscriptionRegistrationPayload;
 
       assertBasicSubscriptionPayloadHeaders(payload);
-      expect(
-        payload.authorizationHeaders[xApiKey],
-        testApiKeyConfig.apiKey,
-      );
+      expect(payload.authorizationHeaders[xApiKey], testApiKeyConfig.apiKey);
     });
 
-    test('should generate an authorized message with custom authorizationMode',
-        () async {
-      final subscriptionRequestUserPools = GraphQLRequest<String>(
-        document: graphQLDocument,
-        authorizationMode: APIAuthorizationType.userPools,
-      );
+    test(
+      'should generate an authorized message with custom authorizationMode',
+      () async {
+        final subscriptionRequestUserPools = GraphQLRequest<String>(
+          document: graphQLDocument,
+          authorizationMode: APIAuthorizationType.userPools,
+        );
 
-      final authorizedMessage = await generateSubscriptionRegistrationMessage(
-        testApiKeyConfig,
-        id: 'abc123',
-        authRepo: authProviderRepo,
-        request: subscriptionRequestUserPools,
-      );
-      final payload =
-          authorizedMessage.payload as SubscriptionRegistrationPayload;
+        final authorizedMessage = await generateSubscriptionRegistrationMessage(
+          testApiKeyConfig,
+          id: 'abc123',
+          authRepo: authProviderRepo,
+          request: subscriptionRequestUserPools,
+        );
+        final payload =
+            authorizedMessage.payload as SubscriptionRegistrationPayload;
 
-      assertBasicSubscriptionPayloadHeaders(payload);
-      expect(
-        payload.authorizationHeaders[xApiKey],
-        isNull,
-      );
-      expect(
-        payload.authorizationHeaders[AWSHeaders.authorization],
-        testAccessToken,
-      );
-    });
+        assertBasicSubscriptionPayloadHeaders(payload);
+        expect(payload.authorizationHeaders[xApiKey], isNull);
+        expect(
+          payload.authorizationHeaders[AWSHeaders.authorization],
+          testAccessToken,
+        );
+      },
+    );
 
     test('should generate an authorized message with custom headers', () async {
       const testCustomToken = 'xyz567';
@@ -128,10 +125,7 @@ void main() {
           authorizedMessage.payload as SubscriptionRegistrationPayload;
 
       assertBasicSubscriptionPayloadHeaders(payload);
-      expect(
-        payload.authorizationHeaders[xApiKey],
-        isNull,
-      );
+      expect(payload.authorizationHeaders[xApiKey], isNull);
       expect(
         payload.authorizationHeaders[AWSHeaders.authorization],
         testCustomToken,

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library amplify_interface;
+library;
 
 import 'dart:async';
 
@@ -93,9 +93,7 @@ abstract class AmplifyCategory<P extends AmplifyPluginInterface> {
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     try {
-      await plugin.addPlugin(
-        authProviderRepo: authProviderRepo,
-      );
+      await plugin.addPlugin(authProviderRepo: authProviderRepo);
       _plugins.add(plugin);
     } on AmplifyAlreadyConfiguredException {
       _plugins.add(plugin);

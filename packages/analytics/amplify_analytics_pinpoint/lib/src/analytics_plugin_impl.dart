@@ -21,12 +21,12 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
     @visibleForTesting SecureStorageFactory? secureStorageFactory,
     super.options,
   }) : super(
-          pathProvider: FlutterPathProvider(),
-          legacyNativeDataProvider: FlutterLegacyNativeDataProvider(),
-          deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
-          appLifecycleProvider:
-              appLifecycleProvider ?? FlutterAppLifecycleProvider(),
-          secureStorageFactory:
-              secureStorageFactory ?? AmplifySecureStorage.factoryFrom(),
-        );
+         pathProvider: FlutterPathProvider(),
+         legacyNativeDataProvider: FlutterLegacyNativeDataProvider(),
+         deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
+         appLifecycleProvider:
+             appLifecycleProvider ?? FlutterAppLifecycleProvider(),
+         secureStorageFactory:
+             secureStorageFactory ?? AmplifySecureStorage.factoryFrom(),
+       );
 }

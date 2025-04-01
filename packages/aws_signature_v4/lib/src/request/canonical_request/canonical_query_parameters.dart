@@ -12,9 +12,7 @@ class CanonicalQueryParameters extends DelegatingMap<String, String> {
       : super(canonicalize(queryParameters));
 
   /// Encodes and sorts the query parameters.
-  static Map<String, String> canonicalize(
-    Map<String, String> queryParameters,
-  ) {
+  static Map<String, String> canonicalize(Map<String, String> queryParameters) {
     final map = SplayTreeMap<String, String>();
     for (final entry in queryParameters.entries) {
       final key = _safeEncode(entry.key);

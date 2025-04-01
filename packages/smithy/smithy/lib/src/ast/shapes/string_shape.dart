@@ -38,16 +38,17 @@ abstract class StringShape
         final docs = definition.documentation;
         final tags = definition.tags;
         b.members![memberName] = MemberShape(
-          (b) => b
-            ..target = Shape.unit
-            ..memberName = memberName
-            ..shapeId = shapeId.replace(member: memberName)
-            ..traits = TraitMap.fromTraits([
-              if (deprecated) const DeprecatedTrait(),
-              if (docs != null) DocumentationTrait(docs),
-              if (tags.isNotEmpty) TagsTrait(tags),
-              EnumValueTrait(definition.value),
-            ]),
+          (b) =>
+              b
+                ..target = Shape.unit
+                ..memberName = memberName
+                ..shapeId = shapeId.replace(member: memberName)
+                ..traits = TraitMap.fromTraits([
+                  if (deprecated) const DeprecatedTrait(),
+                  if (docs != null) DocumentationTrait(docs),
+                  if (tags.isNotEmpty) TagsTrait(tags),
+                  EnumValueTrait(definition.value),
+                ]),
         );
       }
     });

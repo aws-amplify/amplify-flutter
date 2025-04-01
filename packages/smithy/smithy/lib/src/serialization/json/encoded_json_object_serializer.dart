@@ -11,13 +11,13 @@ class EncodedJsonObjectSerializer implements PrimitiveSerializer<JsonObject> {
 
   @override
   Iterable<Type> get types => const [
-        JsonObject,
-        BoolJsonObject,
-        ListJsonObject,
-        MapJsonObject,
-        NumJsonObject,
-        StringJsonObject,
-      ];
+    JsonObject,
+    BoolJsonObject,
+    ListJsonObject,
+    MapJsonObject,
+    NumJsonObject,
+    StringJsonObject,
+  ];
 
   @override
   String get wireName => 'JsonObject';

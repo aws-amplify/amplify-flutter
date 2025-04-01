@@ -45,12 +45,8 @@ class FlexComponent extends Component {
 /// {@endtemplate}
 class ColumnComponent extends FlexComponent {
   /// {@macro example_common.column_component}
-  ColumnComponent({
-    super.alignItems,
-    required super.children,
-  }) : super(
-          direction: Axis.vertical,
-        );
+  ColumnComponent({super.alignItems, required super.children})
+    : super(direction: Axis.vertical);
 }
 
 /// {@template example_common.row_component}
@@ -58,10 +54,6 @@ class ColumnComponent extends FlexComponent {
 /// {@endtemplate}
 class RowComponent extends FlexComponent {
   /// {@macro example_common.row_component}
-  RowComponent({
-    super.alignItems,
-    required super.children,
-  }) : super(
-          direction: Axis.horizontal,
-        );
+  RowComponent({super.alignItems, required super.children})
+    : super(direction: Axis.horizontal);
 }

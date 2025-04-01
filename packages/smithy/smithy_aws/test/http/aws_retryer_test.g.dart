@@ -6,123 +6,110 @@ part of 'aws_retryer_test.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TestSuite _$TestSuiteFromJson(Map json) => $checkedCreate(
-      'TestSuite',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const ['given', 'responses'],
-        );
-        final val = TestSuite(
-          given: $checkedConvert(
-              'given',
-              (v) =>
-                  TestSuiteGiven.fromJson(Map<String, Object?>.from(v as Map))),
-          responses: $checkedConvert(
-              'responses',
-              (v) => (v as List<dynamic>)
-                  .map((e) =>
-                      TestCase.fromJson(Map<String, Object?>.from(e as Map)))
-                  .toList()),
-        );
-        return val;
-      },
-    );
+TestSuite _$TestSuiteFromJson(Map json) => $checkedCreate('TestSuite', json, (
+  $checkedConvert,
+) {
+  $checkKeys(json, allowedKeys: const ['given', 'responses']);
+  final val = TestSuite(
+    given: $checkedConvert(
+      'given',
+      (v) => TestSuiteGiven.fromJson(Map<String, Object?>.from(v as Map)),
+    ),
+    responses: $checkedConvert(
+      'responses',
+      (v) =>
+          (v as List<dynamic>)
+              .map(
+                (e) => TestCase.fromJson(Map<String, Object?>.from(e as Map)),
+              )
+              .toList(),
+    ),
+  );
+  return val;
+});
 
 TestSuiteGiven _$TestSuiteGivenFromJson(Map json) => $checkedCreate(
-      'TestSuiteGiven',
+  'TestSuiteGiven',
+  json,
+  ($checkedConvert) {
+    $checkKeys(
       json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const [
-            'max_attempts',
-            'initial_retry_tokens',
-            'exponential_base',
-            'exponential_power',
-            'max_backoff_time'
-          ],
-        );
-        final val = TestSuiteGiven(
-          maxAttempts:
-              $checkedConvert('max_attempts', (v) => (v as num).toInt()),
-          initialRetryTokens: $checkedConvert(
-              'initial_retry_tokens', (v) => (v as num).toInt()),
-          exponentialBase:
-              $checkedConvert('exponential_base', (v) => (v as num).toDouble()),
-          exponentialPower: $checkedConvert(
-              'exponential_power', (v) => (v as num).toDouble()),
-          maxBackoffTime:
-              $checkedConvert('max_backoff_time', (v) => (v as num).toInt()),
-        );
-        return val;
-      },
-      fieldKeyMap: const {
-        'maxAttempts': 'max_attempts',
-        'initialRetryTokens': 'initial_retry_tokens',
-        'exponentialBase': 'exponential_base',
-        'exponentialPower': 'exponential_power',
-        'maxBackoffTime': 'max_backoff_time'
-      },
+      allowedKeys: const [
+        'max_attempts',
+        'initial_retry_tokens',
+        'exponential_base',
+        'exponential_power',
+        'max_backoff_time',
+      ],
     );
+    final val = TestSuiteGiven(
+      maxAttempts: $checkedConvert('max_attempts', (v) => (v as num).toInt()),
+      initialRetryTokens: $checkedConvert(
+        'initial_retry_tokens',
+        (v) => (v as num).toInt(),
+      ),
+      exponentialBase: $checkedConvert(
+        'exponential_base',
+        (v) => (v as num).toDouble(),
+      ),
+      exponentialPower: $checkedConvert(
+        'exponential_power',
+        (v) => (v as num).toDouble(),
+      ),
+      maxBackoffTime: $checkedConvert(
+        'max_backoff_time',
+        (v) => (v as num).toInt(),
+      ),
+    );
+    return val;
+  },
+  fieldKeyMap: const {
+    'maxAttempts': 'max_attempts',
+    'initialRetryTokens': 'initial_retry_tokens',
+    'exponentialBase': 'exponential_base',
+    'exponentialPower': 'exponential_power',
+    'maxBackoffTime': 'max_backoff_time',
+  },
+);
 
-TestCase _$TestCaseFromJson(Map json) => $checkedCreate(
-      'TestCase',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const ['response', 'expected'],
-        );
-        final val = TestCase(
-          response: $checkedConvert(
-              'response',
-              (v) => TestCaseResponse.fromJson(
-                  Map<String, Object?>.from(v as Map))),
-          expected: $checkedConvert(
-              'expected',
-              (v) => TestCaseExpected.fromJson(
-                  Map<String, Object?>.from(v as Map))),
-        );
-        return val;
-      },
-    );
+TestCase _$TestCaseFromJson(Map json) =>
+    $checkedCreate('TestCase', json, ($checkedConvert) {
+      $checkKeys(json, allowedKeys: const ['response', 'expected']);
+      final val = TestCase(
+        response: $checkedConvert(
+          'response',
+          (v) => TestCaseResponse.fromJson(Map<String, Object?>.from(v as Map)),
+        ),
+        expected: $checkedConvert(
+          'expected',
+          (v) => TestCaseExpected.fromJson(Map<String, Object?>.from(v as Map)),
+        ),
+      );
+      return val;
+    });
 
-TestCaseResponse _$TestCaseResponseFromJson(Map json) => $checkedCreate(
-      'TestCaseResponse',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const ['status_code'],
-        );
-        final val = TestCaseResponse(
-          statusCode: $checkedConvert('status_code', (v) => (v as num).toInt()),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'statusCode': 'status_code'},
-    );
+TestCaseResponse _$TestCaseResponseFromJson(Map json) =>
+    $checkedCreate('TestCaseResponse', json, ($checkedConvert) {
+      $checkKeys(json, allowedKeys: const ['status_code']);
+      final val = TestCaseResponse(
+        statusCode: $checkedConvert('status_code', (v) => (v as num).toInt()),
+      );
+      return val;
+    }, fieldKeyMap: const {'statusCode': 'status_code'});
 
-TestCaseExpected _$TestCaseExpectedFromJson(Map json) => $checkedCreate(
-      'TestCaseExpected',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const ['outcome', 'retry_quota', 'delay'],
-        );
-        final val = TestCaseExpected(
-          outcome: $checkedConvert(
-              'outcome', (v) => $enumDecode(_$OutcomeEnumMap, v)),
-          retryQuota: $checkedConvert('retry_quota', (v) => (v as num).toInt()),
-          delay: $checkedConvert('delay', (v) => (v as num?)?.toInt()),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'retryQuota': 'retry_quota'},
-    );
+TestCaseExpected _$TestCaseExpectedFromJson(Map json) =>
+    $checkedCreate('TestCaseExpected', json, ($checkedConvert) {
+      $checkKeys(json, allowedKeys: const ['outcome', 'retry_quota', 'delay']);
+      final val = TestCaseExpected(
+        outcome: $checkedConvert(
+          'outcome',
+          (v) => $enumDecode(_$OutcomeEnumMap, v),
+        ),
+        retryQuota: $checkedConvert('retry_quota', (v) => (v as num).toInt()),
+        delay: $checkedConvert('delay', (v) => (v as num?)?.toInt()),
+      );
+      return val;
+    }, fieldKeyMap: const {'retryQuota': 'retry_quota'});
 
 const _$OutcomeEnumMap = {
   Outcome.success: 'success',

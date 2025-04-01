@@ -14,10 +14,7 @@ abstract class StorageUploadFileOperation<
     extends StorageOperation<Request, Result>
     implements StorageResumableOperation, StorageCancelableOperation {
   /// {@macro amplify_core.storage.upload_file_operation}
-  StorageUploadFileOperation({
-    required super.request,
-    required super.result,
-  });
+  StorageUploadFileOperation({required super.request, required super.result});
 
   /// Pauses the operation that is in progress.
   ///

@@ -9,10 +9,7 @@ part of '../form_field.dart';
 /// {@endtemplate}
 
 class _MfaMethodRadioField extends ConfirmSignInFormField<MfaType> {
-  const _MfaMethodRadioField({
-    super.key,
-    required super.field,
-  }) : super._();
+  const _MfaMethodRadioField({super.key, required super.field}) : super._();
 
   @override
   _MfaSelectionFieldState createState() => _MfaSelectionFieldState();

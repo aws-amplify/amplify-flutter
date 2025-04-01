@@ -44,14 +44,11 @@ class AuthenticatorInputLocalizationsEn
 
   @override
   String genders(String gender) {
-    final temp0 = intl.Intl.selectLogic(
-      gender,
-      {
-        'male': 'male',
-        'female': 'female',
-        'other': 'other',
-      },
-    );
+    final temp0 = intl.Intl.selectLogic(gender, {
+      'male': 'male',
+      'female': 'female',
+      'other': 'other',
+    });
     return temp0;
   }
 
@@ -106,16 +103,13 @@ class AuthenticatorInputLocalizationsEn
 
   @override
   String passwordRequirementsCharacterType(String characterType) {
-    final temp0 = intl.Intl.selectLogic(
-      characterType,
-      {
-        'requiresUppercase': 'uppercase',
-        'requiresLowercase': 'lowercase',
-        'requiresNumbers': 'number',
-        'requiresSymbols': 'symbol',
-        'other': '',
-      },
-    );
+    final temp0 = intl.Intl.selectLogic(characterType, {
+      'requiresUppercase': 'uppercase',
+      'requiresLowercase': 'lowercase',
+      'requiresNumbers': 'number',
+      'requiresSymbols': 'symbol',
+      'other': '',
+    });
     return ' $temp0';
   }
 

@@ -7,16 +7,14 @@ part of 'cognito_fetch_auth_session_plugin_options.dart';
 // **************************************************************************
 
 CognitoFetchAuthSessionPluginOptions
-    _$CognitoFetchAuthSessionPluginOptionsFromJson(Map<String, dynamic> json) =>
-        $checkedCreate(
-          'CognitoFetchAuthSessionPluginOptions',
-          json,
-          ($checkedConvert) {
-            final val = CognitoFetchAuthSessionPluginOptions();
-            return val;
-          },
-        );
+_$CognitoFetchAuthSessionPluginOptionsFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('CognitoFetchAuthSessionPluginOptions', json, (
+      $checkedConvert,
+    ) {
+      final val = CognitoFetchAuthSessionPluginOptions();
+      return val;
+    });
 
 Map<String, dynamic> _$CognitoFetchAuthSessionPluginOptionsToJson(
-        CognitoFetchAuthSessionPluginOptions instance) =>
-    <String, dynamic>{};
+  CognitoFetchAuthSessionPluginOptions instance,
+) => <String, dynamic>{};

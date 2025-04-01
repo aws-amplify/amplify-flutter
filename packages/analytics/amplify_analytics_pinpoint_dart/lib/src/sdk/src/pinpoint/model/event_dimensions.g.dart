@@ -18,7 +18,7 @@ class _$EventDimensions extends EventDimensions {
       (new EventDimensionsBuilder()..update(updates))._build();
 
   _$EventDimensions._({this.attributes, this.eventType, this.metrics})
-      : super._();
+    : super._();
 
   @override
   EventDimensions rebuild(void Function(EventDimensionsBuilder) updates) =>
@@ -100,11 +100,13 @@ class EventDimensionsBuilder
   _$EventDimensions _build() {
     _$EventDimensions _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$EventDimensions._(
-              attributes: _attributes?.build(),
-              eventType: _eventType?.build(),
-              metrics: _metrics?.build());
+            attributes: _attributes?.build(),
+            eventType: _eventType?.build(),
+            metrics: _metrics?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -116,7 +118,10 @@ class EventDimensionsBuilder
         _metrics?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'EventDimensions', _$failedField, e.toString());
+          r'EventDimensions',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

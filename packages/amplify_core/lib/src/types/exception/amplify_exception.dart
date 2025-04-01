@@ -73,11 +73,7 @@ abstract class AmplifyException
   final Object? underlyingException;
 
   @override
-  List<Object?> get props => [
-        message,
-        recoverySuggestion,
-        underlyingException,
-      ];
+  List<Object?> get props => [message, recoverySuggestion, underlyingException];
 
   @override
   String get runtimeTypeName => 'AmplifyException';

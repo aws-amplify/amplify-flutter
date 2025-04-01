@@ -35,7 +35,7 @@ class AWSLogger with AWSDebuggable implements Closeable {
   ///
   /// {@macro aws_common.logging.aws_logger}
   AWSLogger.detached([String namespace = 'Detached'])
-      : _logger = Logger.detached(namespace);
+    : _logger = Logger.detached(namespace);
 
   /// {@macro aws_common.logging.aws_logger}
   @protected
@@ -95,9 +95,11 @@ class AWSLogger with AWSDebuggable implements Closeable {
   /// Returns a plugin of type [Plugin] registered to this
   /// logger hierarchy or `null`.
   Plugin? getPlugin<Plugin extends AWSLoggerPlugin>() {
-    final registeredPlugin = _subscriptions.keys
-            .firstWhereOrNull((element) => element.runtimeType == Plugin)
-        as Plugin?;
+    final registeredPlugin =
+        _subscriptions.keys.firstWhereOrNull(
+              (element) => element.runtimeType == Plugin,
+            )
+            as Plugin?;
     return registeredPlugin ?? _parent?.getPlugin<Plugin>();
   }
 
@@ -106,9 +108,7 @@ class AWSLogger with AWSDebuggable implements Closeable {
   ///
   /// Throws [StateError] if a plugin with same type is registered to this
   /// logger hierarchy.
-  void registerPlugin<T extends AWSLoggerPlugin>(
-    T plugin,
-  ) {
+  void registerPlugin<T extends AWSLoggerPlugin>(T plugin) {
     bool hasPlugin(AWSLogger logger) =>
         logger._subscriptions.keys.any((element) => element.runtimeType == T) ||
         logger._children.any(hasPlugin);

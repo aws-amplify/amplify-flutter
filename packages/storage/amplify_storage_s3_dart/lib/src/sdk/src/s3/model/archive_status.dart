@@ -6,11 +6,7 @@ library amplify_storage_s3_dart.s3.model.archive_status; // ignore_for_file: no_
 import 'package:smithy/smithy.dart' as _i1;
 
 class ArchiveStatus extends _i1.SmithyEnum<ArchiveStatus> {
-  const ArchiveStatus._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ArchiveStatus._(super.index, super.name, super.value);
 
   const ArchiveStatus._sdkUnknown(super.value) : super.sdkUnknown();
 
@@ -38,12 +34,9 @@ class ArchiveStatus extends _i1.SmithyEnum<ArchiveStatus> {
       values: values,
       sdkUnknown: ArchiveStatus._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

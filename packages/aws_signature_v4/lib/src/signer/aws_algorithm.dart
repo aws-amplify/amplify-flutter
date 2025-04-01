@@ -51,8 +51,10 @@ class _AWSHmacSha256 extends AWSAlgorithm {
     final kSecret = credentials.secretAccessKey;
 
     // kDate = HMAC("AWS4" + kSecret, Date)
-    final kDate = Hmac(_hash, 'AWS4$kSecret'.codeUnits)
-        .convert(date.formatDate().codeUnits);
+    final kDate = Hmac(
+      _hash,
+      'AWS4$kSecret'.codeUnits,
+    ).convert(date.formatDate().codeUnits);
 
     // kRegion = HMAC(kDate, Region)
     final kRegion = Hmac(_hash, kDate.bytes).convert(region.codeUnits);
@@ -61,8 +63,10 @@ class _AWSHmacSha256 extends AWSAlgorithm {
     final kService = Hmac(_hash, kRegion.bytes).convert(service.codeUnits);
 
     // kSigning = HMAC(kService, "aws4_request")
-    final kSigning = Hmac(_hash, kService.bytes)
-        .convert(AWSSigV4Signer.terminationString.codeUnits);
+    final kSigning = Hmac(
+      _hash,
+      kService.bytes,
+    ).convert(AWSSigV4Signer.terminationString.codeUnits);
 
     return kSigning.bytes;
   }

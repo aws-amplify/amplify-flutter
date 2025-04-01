@@ -12,9 +12,9 @@ class _$ObjectIdentifier extends ObjectIdentifier {
   @override
   final String? versionId;
 
-  factory _$ObjectIdentifier(
-          [void Function(ObjectIdentifierBuilder)? updates]) =>
-      (new ObjectIdentifierBuilder()..update(updates))._build();
+  factory _$ObjectIdentifier([
+    void Function(ObjectIdentifierBuilder)? updates,
+  ]) => (new ObjectIdentifierBuilder()..update(updates))._build();
 
   _$ObjectIdentifier._({required this.key, this.versionId}) : super._() {
     BuiltValueNullFieldError.checkNotNull(key, r'ObjectIdentifier', 'key');
@@ -85,10 +85,14 @@ class ObjectIdentifierBuilder
   ObjectIdentifier build() => _build();
 
   _$ObjectIdentifier _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ObjectIdentifier._(
           key: BuiltValueNullFieldError.checkNotNull(
-              key, r'ObjectIdentifier', 'key'),
+            key,
+            r'ObjectIdentifier',
+            'key',
+          ),
           versionId: versionId,
         );
     replace(_$result);

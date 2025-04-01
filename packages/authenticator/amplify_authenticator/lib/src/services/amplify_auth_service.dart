@@ -94,10 +94,7 @@ class AmplifyAuthService
   @override
   Future<SignInResult> signIn(String username, String password) async {
     final result = await _withUserAgent(
-      () => Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      ),
+      () => Amplify.Auth.signIn(username: username, password: password),
     );
 
     return result;
@@ -137,9 +134,7 @@ class AmplifyAuthService
       return Amplify.Auth.signUp(
         username: username,
         password: password,
-        options: SignUpOptions(
-          userAttributes: attributes,
-        ),
+        options: SignUpOptions(userAttributes: attributes),
       );
     });
   }
@@ -173,9 +168,7 @@ class AmplifyAuthService
 
   @override
   Future<void> rememberDevice() {
-    return _withUserAgent(
-      () => Amplify.Auth.rememberDevice(),
-    );
+    return _withUserAgent(() => Amplify.Auth.rememberDevice());
   }
 
   @override
@@ -235,9 +228,7 @@ class AmplifyAuthService
 
   @override
   Future<ResetPasswordResult> resetPassword(String username) {
-    return _withUserAgent(
-      () => Amplify.Auth.resetPassword(username: username),
-    );
+    return _withUserAgent(() => Amplify.Auth.resetPassword(username: username));
   }
 
   @override

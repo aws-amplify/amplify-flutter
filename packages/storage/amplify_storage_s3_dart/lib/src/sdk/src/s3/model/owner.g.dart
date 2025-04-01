@@ -78,11 +78,7 @@ class OwnerBuilder implements Builder<Owner, OwnerBuilder> {
   Owner build() => _build();
 
   _$Owner _build() {
-    final _$result = _$v ??
-        new _$Owner._(
-          displayName: displayName,
-          id: id,
-        );
+    final _$result = _$v ?? new _$Owner._(displayName: displayName, id: id);
     replace(_$result);
     return _$result;
   }

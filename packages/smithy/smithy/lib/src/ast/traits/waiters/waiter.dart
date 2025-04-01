@@ -31,12 +31,12 @@ class Waiter with AWSSerializable, AWSEquatable<Waiter> {
 
   @override
   List<Object?> get props => [
-        documentation,
-        acceptors,
-        minDelay,
-        maxDelay,
-        tags,
-      ];
+    documentation,
+    acceptors,
+    minDelay,
+    maxDelay,
+    tags,
+  ];
 
   @override
   Map<String, Object?> toJson() => _$WaiterToJson(this);

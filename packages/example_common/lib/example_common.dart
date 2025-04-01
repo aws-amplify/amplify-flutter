@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Common components and utilities for example apps in amplify dart.
-library example_common;
+library;
 
 export 'src/components/builder_component.dart';
 export 'src/components/button_component.dart';

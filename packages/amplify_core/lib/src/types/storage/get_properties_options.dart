@@ -12,10 +12,7 @@ class StorageGetPropertiesOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.get_properties_options}
-  const StorageGetPropertiesOptions({
-    this.pluginOptions,
-    this.bucket,
-  });
+  const StorageGetPropertiesOptions({this.pluginOptions, this.bucket});
 
   /// {@macro amplify_core.storage.download_get_properties_plugin_options}
   final StorageGetPropertiesPluginOptions? pluginOptions;

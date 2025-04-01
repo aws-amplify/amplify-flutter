@@ -29,10 +29,7 @@ void main() {
       expect(event.payload, isNull);
       expect(event.type, equals(DataStoreHubEventType.ready));
 
-      Amplify.Hub.addChannel(
-        HubChannel.DataStore,
-        controller.stream,
-      );
+      Amplify.Hub.addChannel(HubChannel.DataStore, controller.stream);
 
       final subscriber = expectAsync1((e) => expect(e, equals(event)));
       Amplify.Hub.listen(HubChannel.DataStore, subscriber);
@@ -75,10 +72,7 @@ void main() {
       expect(event.payload, payload);
       expect(event.type, equals(DataStoreHubEventType.outboxMutationProcessed));
 
-      Amplify.Hub.addChannel(
-        HubChannel.DataStore,
-        controller.stream,
-      );
+      Amplify.Hub.addChannel(HubChannel.DataStore, controller.stream);
 
       final subscriber = expectAsync1((e) => expect(e, equals(event)));
       Amplify.Hub.listen(HubChannel.DataStore, subscriber);

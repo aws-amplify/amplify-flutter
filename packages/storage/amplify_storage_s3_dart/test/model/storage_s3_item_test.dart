@@ -23,34 +23,28 @@ void main() {
           ..lastModified = testLastModified;
       });
 
-      final storageS3Item = S3Item.fromS3Object(
-        testS3Object,
-      );
+      final storageS3Item = S3Item.fromS3Object(testS3Object);
 
       expect(storageS3Item.eTag, testETag);
-      expect(
-        storageS3Item.path,
-        testKey,
-      );
+      expect(storageS3Item.path, testKey);
       expect(storageS3Item.lastModified, testLastModified);
       expect(storageS3Item.size, testSize.toInt());
     });
 
     test(
-        'should throw StorageUnknownException when S3Object.key is null (should never happen)',
-        () {
-      final testS3Object = S3Object.build((builder) {
-        builder.eTag = testETag;
-      });
+      'should throw StorageUnknownException when S3Object.key is null (should never happen)',
+      () {
+        final testS3Object = S3Object.build((builder) {
+          builder.eTag = testETag;
+        });
 
-      try {
-        S3Item.fromS3Object(
-          testS3Object,
-        );
-        fail("Expected exception wasn't thrown.");
-      } on StorageException catch (error) {
-        expect(error, isA<UnknownException>());
-      }
-    });
+        try {
+          S3Item.fromS3Object(testS3Object);
+          fail("Expected exception wasn't thrown.");
+        } on StorageException catch (error) {
+          expect(error, isA<UnknownException>());
+        }
+      },
+    );
   });
 }

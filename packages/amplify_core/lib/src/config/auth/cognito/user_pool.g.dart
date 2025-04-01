@@ -9,7 +9,8 @@ part of 'user_pool.dart';
 // **************************************************************************
 
 CognitoUserPoolConfig _$CognitoUserPoolConfigFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     $checkedCreate(
       'CognitoUserPoolConfig',
       json,
@@ -21,10 +22,11 @@ CognitoUserPoolConfig _$CognitoUserPoolConfigFromJson(
               $checkedConvert('AppClientSecret', (v) => v as String?),
           region: $checkedConvert('Region', (v) => v as String),
           hostedUI: $checkedConvert(
-              'HostedUI',
-              (v) => v == null
-                  ? null
-                  : CognitoOAuthConfig.fromJson(v as Map<String, dynamic>)),
+            'HostedUI',
+            (v) => v == null
+                ? null
+                : CognitoOAuthConfig.fromJson(v as Map<String, dynamic>),
+          ),
           endpoint: $checkedConvert('Endpoint', (v) => v as String?),
         );
         return val;
@@ -35,12 +37,13 @@ CognitoUserPoolConfig _$CognitoUserPoolConfigFromJson(
         'appClientSecret': 'AppClientSecret',
         'region': 'Region',
         'hostedUI': 'HostedUI',
-        'endpoint': 'Endpoint'
+        'endpoint': 'Endpoint',
       },
     );
 
 Map<String, dynamic> _$CognitoUserPoolConfigToJson(
-    CognitoUserPoolConfig instance) {
+  CognitoUserPoolConfig instance,
+) {
   final val = <String, dynamic>{
     'PoolId': instance.poolId,
     'AppClientId': instance.appClientId,

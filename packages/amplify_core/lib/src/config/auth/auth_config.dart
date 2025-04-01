@@ -107,7 +107,7 @@ class AuthConfig extends AmplifyPluginConfigMap {
           requireSymbols: settings.passwordPolicyCharacters.contains(
             PasswordPolicyCharacters.requiresSymbols,
           ),
-        )
+        ),
     };
 
     final oAuthConfig = plugin?.oAuth;

@@ -23,22 +23,31 @@ class _$ConfigParameter extends ConfigParameter {
   factory _$ConfigParameter([void Function(ConfigParameterBuilder)? updates]) =>
       (new ConfigParameterBuilder()..update(updates))._build();
 
-  _$ConfigParameter._(
-      {required this.name,
-      required this.type,
-      required this.required,
-      required this.isOverride,
-      required this.location,
-      this.defaultTo})
-      : super._() {
+  _$ConfigParameter._({
+    required this.name,
+    required this.type,
+    required this.required,
+    required this.isOverride,
+    required this.location,
+    this.defaultTo,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(name, r'ConfigParameter', 'name');
     BuiltValueNullFieldError.checkNotNull(type, r'ConfigParameter', 'type');
     BuiltValueNullFieldError.checkNotNull(
-        required, r'ConfigParameter', 'required');
+      required,
+      r'ConfigParameter',
+      'required',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        isOverride, r'ConfigParameter', 'isOverride');
+      isOverride,
+      r'ConfigParameter',
+      'isOverride',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        location, r'ConfigParameter', 'location');
+      location,
+      r'ConfigParameter',
+      'location',
+    );
   }
 
   @override
@@ -148,18 +157,34 @@ class ConfigParameterBuilder
   ConfigParameter build() => _build();
 
   _$ConfigParameter _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ConfigParameter._(
           name: BuiltValueNullFieldError.checkNotNull(
-              name, r'ConfigParameter', 'name'),
+            name,
+            r'ConfigParameter',
+            'name',
+          ),
           type: BuiltValueNullFieldError.checkNotNull(
-              type, r'ConfigParameter', 'type'),
+            type,
+            r'ConfigParameter',
+            'type',
+          ),
           required: BuiltValueNullFieldError.checkNotNull(
-              required, r'ConfigParameter', 'required'),
+            required,
+            r'ConfigParameter',
+            'required',
+          ),
           isOverride: BuiltValueNullFieldError.checkNotNull(
-              isOverride, r'ConfigParameter', 'isOverride'),
+            isOverride,
+            r'ConfigParameter',
+            'isOverride',
+          ),
           location: BuiltValueNullFieldError.checkNotNull(
-              location, r'ConfigParameter', 'location'),
+            location,
+            r'ConfigParameter',
+            'location',
+          ),
           defaultTo: defaultTo,
         );
     replace(_$result);

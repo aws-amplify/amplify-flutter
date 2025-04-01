@@ -19,14 +19,14 @@ void main() {
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
 
-    AWSHttpRequest makeRequest() => AWSHttpRequest.get(
-          (isSecure ? Uri.https : Uri.http)(host, '/'),
-        );
+    AWSHttpRequest makeRequest() =>
+        AWSHttpRequest.get((isSecure ? Uri.https : Uri.http)(host, '/'));
 
     setUpAll(() async {
-      httpServerChannel = await startServer()
-        ..sink.add(AlpnProtocol.http1_1.value)
-        ..sink.add(isSecure);
+      httpServerChannel =
+          await startServer()
+            ..sink.add(AlpnProtocol.http1_1.value)
+            ..sink.add(isSecure);
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
@@ -35,33 +35,26 @@ void main() {
       httpServerChannel.sink.add(null);
     });
 
-    test(
-      'downgrades to HTTP/1.1 when HTTP/2 is unavailable and '
-      'supportedProtocols contains HTTP/1.1',
-      () async {
-        final client = debugClient
-          ..supportedProtocols = SupportedProtocols.http1_2_3;
-        expect(
-          client.send(makeRequest()).response,
-          completes,
-          reason: 'supportedProtocols allows downgrade to HTTP/1.1',
-        );
-      },
-    );
+    test('downgrades to HTTP/1.1 when HTTP/2 is unavailable and '
+        'supportedProtocols contains HTTP/1.1', () async {
+      final client =
+          debugClient..supportedProtocols = SupportedProtocols.http1_2_3;
+      expect(
+        client.send(makeRequest()).response,
+        completes,
+        reason: 'supportedProtocols allows downgrade to HTTP/1.1',
+      );
+    });
 
-    test(
-      'fails when HTTP/2 is unavailable and supportedProtocols '
-      'does not contain HTTP/1.1',
-      () async {
-        final client = debugClient
-          ..supportedProtocols = SupportedProtocols.http2_3;
-        expect(
-          client.send(makeRequest()).response,
-          throwsA(isA<Exception>()),
-          reason: 'supportedProtocols does not allow HTTP/1.1',
-        );
-      },
-      skip: zIsWeb ? 'Web client cannot select protocols' : null,
-    );
+    test('fails when HTTP/2 is unavailable and supportedProtocols '
+        'does not contain HTTP/1.1', () async {
+      final client =
+          debugClient..supportedProtocols = SupportedProtocols.http2_3;
+      expect(
+        client.send(makeRequest()).response,
+        throwsA(isA<Exception>()),
+        reason: 'supportedProtocols does not allow HTTP/1.1',
+      );
+    }, skip: zIsWeb ? 'Web client cannot select protocols' : null);
   });
 }

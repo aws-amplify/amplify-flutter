@@ -11,19 +11,23 @@ class _$MalformedTimestampPathEpochInput
   @override
   final DateTime timestamp;
 
-  factory _$MalformedTimestampPathEpochInput(
-          [void Function(MalformedTimestampPathEpochInputBuilder)? updates]) =>
+  factory _$MalformedTimestampPathEpochInput([
+    void Function(MalformedTimestampPathEpochInputBuilder)? updates,
+  ]) =>
       (new MalformedTimestampPathEpochInputBuilder()..update(updates))._build();
 
   _$MalformedTimestampPathEpochInput._({required this.timestamp}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        timestamp, r'MalformedTimestampPathEpochInput', 'timestamp');
+      timestamp,
+      r'MalformedTimestampPathEpochInput',
+      'timestamp',
+    );
   }
 
   @override
   MalformedTimestampPathEpochInput rebuild(
-          void Function(MalformedTimestampPathEpochInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedTimestampPathEpochInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedTimestampPathEpochInputBuilder toBuilder() =>
@@ -47,8 +51,10 @@ class _$MalformedTimestampPathEpochInput
 
 class MalformedTimestampPathEpochInputBuilder
     implements
-        Builder<MalformedTimestampPathEpochInput,
-            MalformedTimestampPathEpochInputBuilder> {
+        Builder<
+          MalformedTimestampPathEpochInput,
+          MalformedTimestampPathEpochInputBuilder
+        > {
   _$MalformedTimestampPathEpochInput? _$v;
 
   DateTime? _timestamp;
@@ -81,10 +87,15 @@ class MalformedTimestampPathEpochInputBuilder
   MalformedTimestampPathEpochInput build() => _build();
 
   _$MalformedTimestampPathEpochInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MalformedTimestampPathEpochInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(
-                timestamp, r'MalformedTimestampPathEpochInput', 'timestamp'));
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+            timestamp,
+            r'MalformedTimestampPathEpochInput',
+            'timestamp',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -92,9 +103,9 @@ class MalformedTimestampPathEpochInputBuilder
 
 class _$MalformedTimestampPathEpochInputPayload
     extends MalformedTimestampPathEpochInputPayload {
-  factory _$MalformedTimestampPathEpochInputPayload(
-          [void Function(MalformedTimestampPathEpochInputPayloadBuilder)?
-              updates]) =>
+  factory _$MalformedTimestampPathEpochInputPayload([
+    void Function(MalformedTimestampPathEpochInputPayloadBuilder)? updates,
+  ]) =>
       (new MalformedTimestampPathEpochInputPayloadBuilder()..update(updates))
           ._build();
 
@@ -102,9 +113,8 @@ class _$MalformedTimestampPathEpochInputPayload
 
   @override
   MalformedTimestampPathEpochInputPayload rebuild(
-          void Function(MalformedTimestampPathEpochInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedTimestampPathEpochInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedTimestampPathEpochInputPayloadBuilder toBuilder() =>
@@ -124,8 +134,10 @@ class _$MalformedTimestampPathEpochInputPayload
 
 class MalformedTimestampPathEpochInputPayloadBuilder
     implements
-        Builder<MalformedTimestampPathEpochInputPayload,
-            MalformedTimestampPathEpochInputPayloadBuilder> {
+        Builder<
+          MalformedTimestampPathEpochInputPayload,
+          MalformedTimestampPathEpochInputPayloadBuilder
+        > {
   _$MalformedTimestampPathEpochInputPayload? _$v;
 
   MalformedTimestampPathEpochInputPayloadBuilder();
@@ -138,7 +150,8 @@ class MalformedTimestampPathEpochInputPayloadBuilder
 
   @override
   void update(
-      void Function(MalformedTimestampPathEpochInputPayloadBuilder)? updates) {
+    void Function(MalformedTimestampPathEpochInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

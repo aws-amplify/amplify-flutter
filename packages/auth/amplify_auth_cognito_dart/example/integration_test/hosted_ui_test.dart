@@ -25,14 +25,11 @@ Future<HostedUiClient> runApp() async {
       '--port=$chromedriverPort',
     ]);
   }
-  final application = await manager.spawnBackgroundInTest(
-    'dart',
-    ['integration_test/hosted_ui.dart'],
-  );
+  final application = await manager.spawnBackgroundInTest('dart', [
+    'integration_test/hosted_ui.dart',
+  ]);
   await application.stdout.first; // Wait for server to connect.
-  return HostedUiClient.connect(
-    amplifyEnvironments['hosted-ui']!,
-  );
+  return HostedUiClient.connect(amplifyEnvironments['hosted-ui']!);
 }
 
 /// Tests Hosted UI on VM by driving `hosted_ui.dart` via an RPC server.
@@ -42,65 +39,61 @@ Future<HostedUiClient> runApp() async {
 /// dart test integration_test/hosted_ui_test.dart
 /// ```
 void main() {
-  group(
-    'HostedUI',
-    () {
-      group('VM', () {
-        late HostedUiClient application;
-        late WebDriver driver;
-        late String username;
-        late String password;
+  group('HostedUI', () {
+    group('VM', () {
+      late HostedUiClient application;
+      late WebDriver driver;
+      late String username;
+      late String password;
 
-        setUp(() async {
-          application = await runApp();
-          addTearDown(application.close);
+      setUp(() async {
+        application = await runApp();
+        addTearDown(application.close);
 
-          await Amplify.configure(jsonEncode(config));
-          addTearDown(Amplify.reset);
+        await Amplify.configure(jsonEncode(config));
+        addTearDown(Amplify.reset);
 
-          username = generateUsername();
-          password = generatePassword();
+        username = generateUsername();
+        password = generatePassword();
 
-          logger.debug('Creating user $username...');
-          await adminCreateUser(username, password, autoConfirm: true);
-          addTearDown(() => adminDeleteUser(username));
+        logger.debug('Creating user $username...');
+        await adminCreateUser(username, password, autoConfirm: true);
+        addTearDown(() => adminDeleteUser(username));
 
-          driver = await createWebDriver();
-          addTearDown(driver.quit);
-        });
+        driver = await createWebDriver();
+        addTearDown(driver.quit);
+      });
 
-        test('sign in / sign out', () async {
-          // Launch Hosted UI
-          final signInUrl = await application.signInWithWebUI();
-          logger.info('Launching URL: $signInUrl');
-          await driver.get(signInUrl);
+      test('sign in / sign out', () async {
+        // Launch Hosted UI
+        final signInUrl = await application.signInWithWebUI();
+        logger.info('Launching URL: $signInUrl');
+        await driver.get(signInUrl);
 
-          await driver.signInCognito(username: username, password: password);
-          {
-            final credentials = await application.getCredentials();
-            check(
-              because: 'User should be logged in after redirect',
-              credentials.userPoolTokens,
-            ).isNotNull();
-          }
+        await driver.signInCognito(username: username, password: password);
+        {
+          final credentials = await application.getCredentials();
+          check(
+            because: 'User should be logged in after redirect',
+            credentials.userPoolTokens,
+          ).isNotNull();
+        }
 
-          final signOutUrl = await application.signOutWithWebUI();
-          logger.info('Launching URL: $signOutUrl');
-          await driver.get(signOutUrl);
-          {
-            final credentials = await application.getCredentials();
+        final signOutUrl = await application.signOutWithWebUI();
+        logger.info('Launching URL: $signOutUrl');
+        await driver.get(signOutUrl);
+        {
+          final credentials = await application.getCredentials();
 
-            check(
+          check(
               because: 'User should be signed out without redirecting',
               credentials,
             )
-              ..has((creds) => creds.awsCredentials, 'awsCredentials').isNull()
-              ..has((creds) => creds.identityId, 'identityId').isNull()
-              ..has((creds) => creds.userPoolTokens, 'userPoolTokens').isNull();
-          }
-        });
+            ..has((creds) => creds.awsCredentials, 'awsCredentials').isNull()
+            ..has((creds) => creds.identityId, 'identityId').isNull()
+            ..has((creds) => creds.userPoolTokens, 'userPoolTokens').isNull();
+        }
       });
-    },
-    timeout: const Timeout(Duration(minutes: 10)),
-  );
+    });
+  }, timeout: const Timeout(Duration(minutes: 10)));
 }

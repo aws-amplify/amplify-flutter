@@ -9,26 +9,29 @@ part of 'auth_code_delivery_details.dart';
 // **************************************************************************
 
 AuthCodeDeliveryDetails _$AuthCodeDeliveryDetailsFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      'AuthCodeDeliveryDetails',
-      json,
-      ($checkedConvert) {
-        final val = AuthCodeDeliveryDetails(
-          deliveryMedium: $checkedConvert(
-              'deliveryMedium', (v) => $enumDecode(_$DeliveryMediumEnumMap, v)),
-          destination: $checkedConvert('destination', (v) => v as String?),
-          attributeKey: $checkedConvert(
-              'attributeKey',
-              (v) => _$JsonConverterFromJson<String, AuthUserAttributeKey>(
-                  v, const AuthUserAttributeKeyConverter().fromJson)),
-        );
-        return val;
-      },
-    );
+  Map<String, dynamic> json,
+) =>
+    $checkedCreate('AuthCodeDeliveryDetails', json, ($checkedConvert) {
+      final val = AuthCodeDeliveryDetails(
+        deliveryMedium: $checkedConvert(
+          'deliveryMedium',
+          (v) => $enumDecode(_$DeliveryMediumEnumMap, v),
+        ),
+        destination: $checkedConvert('destination', (v) => v as String?),
+        attributeKey: $checkedConvert(
+          'attributeKey',
+          (v) => _$JsonConverterFromJson<String, AuthUserAttributeKey>(
+            v,
+            const AuthUserAttributeKeyConverter().fromJson,
+          ),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$AuthCodeDeliveryDetailsToJson(
-    AuthCodeDeliveryDetails instance) {
+  AuthCodeDeliveryDetails instance,
+) {
   final val = <String, dynamic>{
     'deliveryMedium': _$DeliveryMediumEnumMap[instance.deliveryMedium]!,
   };
@@ -41,9 +44,12 @@ Map<String, dynamic> _$AuthCodeDeliveryDetailsToJson(
 
   writeNotNull('destination', instance.destination);
   writeNotNull(
-      'attributeKey',
-      _$JsonConverterToJson<String, AuthUserAttributeKey>(
-          instance.attributeKey, const AuthUserAttributeKeyConverter().toJson));
+    'attributeKey',
+    _$JsonConverterToJson<String, AuthUserAttributeKey>(
+      instance.attributeKey,
+      const AuthUserAttributeKeyConverter().toJson,
+    ),
+  );
   return val;
 }
 

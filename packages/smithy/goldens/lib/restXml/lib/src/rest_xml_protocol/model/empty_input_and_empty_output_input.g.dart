@@ -7,16 +7,16 @@ part of 'empty_input_and_empty_output_input.dart';
 // **************************************************************************
 
 class _$EmptyInputAndEmptyOutputInput extends EmptyInputAndEmptyOutputInput {
-  factory _$EmptyInputAndEmptyOutputInput(
-          [void Function(EmptyInputAndEmptyOutputInputBuilder)? updates]) =>
-      (new EmptyInputAndEmptyOutputInputBuilder()..update(updates))._build();
+  factory _$EmptyInputAndEmptyOutputInput([
+    void Function(EmptyInputAndEmptyOutputInputBuilder)? updates,
+  ]) => (new EmptyInputAndEmptyOutputInputBuilder()..update(updates))._build();
 
   _$EmptyInputAndEmptyOutputInput._() : super._();
 
   @override
   EmptyInputAndEmptyOutputInput rebuild(
-          void Function(EmptyInputAndEmptyOutputInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EmptyInputAndEmptyOutputInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EmptyInputAndEmptyOutputInputBuilder toBuilder() =>
@@ -36,8 +36,10 @@ class _$EmptyInputAndEmptyOutputInput extends EmptyInputAndEmptyOutputInput {
 
 class EmptyInputAndEmptyOutputInputBuilder
     implements
-        Builder<EmptyInputAndEmptyOutputInput,
-            EmptyInputAndEmptyOutputInputBuilder> {
+        Builder<
+          EmptyInputAndEmptyOutputInput,
+          EmptyInputAndEmptyOutputInputBuilder
+        > {
   _$EmptyInputAndEmptyOutputInput? _$v;
 
   EmptyInputAndEmptyOutputInputBuilder();

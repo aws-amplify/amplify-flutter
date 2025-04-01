@@ -145,23 +145,21 @@ extension PropsEventTarget on EventTarget {
   void addEventListener<T extends Event>(
     String type,
     EventHandler<T> listener,
-  ) =>
-      js_util.callMethod(this, 'addEventListener', [
-        type,
-        allowInterop(listener),
-        false,
-      ]);
+  ) => js_util.callMethod(this, 'addEventListener', [
+    type,
+    allowInterop(listener),
+    false,
+  ]);
 
   /// Removes [listener] as a callback for events of type [type].
   void removeEventListener<T extends Event>(
     String type,
     EventHandler<T> listener,
-  ) =>
-      js_util.callMethod(this, 'removeEventListener', [
-        type,
-        allowInterop(listener),
-        false,
-      ]);
+  ) => js_util.callMethod(this, 'removeEventListener', [
+    type,
+    allowInterop(listener),
+    false,
+  ]);
 }
 
 /// {@template worker_bee.js.interop.global_scope}
@@ -184,14 +182,11 @@ extension PropsGlobalScope on GlobalScope {
   ///
   /// When called on a [Window], this sends a message to the parent window
   /// object.
-  void postMessage(
-    Object? o, [
-    List<Object>? transfer,
-  ]) =>
-      js_util.callMethod(this, 'postMessage', [
-        js_util.jsify(o),
-        transfer?.map(js_util.jsify).toList(),
-      ]);
+  void postMessage(Object? o, [List<Object>? transfer]) => js_util.callMethod(
+    this,
+    'postMessage',
+    [js_util.jsify(o), transfer?.map(js_util.jsify).toList()],
+  );
 }
 
 /// {@template worker_bee.js.interop.message_event}
@@ -232,28 +227,22 @@ extension PropsMessagePort on MessagePort {
   Stream<MessageEvent> get onMessage {
     final controller = StreamController<MessageEvent>();
     addEventListener<MessageEvent>('message', controller.add);
-    addEventListener<MessageEvent>(
-      'messageerror',
-      (event) {
-        controller
-          ..addError(event)
-          ..close();
-      },
-    );
+    addEventListener<MessageEvent>('messageerror', (event) {
+      controller
+        ..addError(event)
+        ..close();
+    });
     scheduleMicrotask(start);
     return controller.stream;
   }
 
   /// Sends a message from the port, and optionally, transfers ownership of
   /// objects to other browsing contexts.
-  void postMessage(
-    Object? o, [
-    List<Object>? transfer,
-  ]) =>
-      js_util.callMethod(this, 'postMessage', [
-        js_util.jsify(o),
-        transfer?.map(js_util.jsify).toList(),
-      ]);
+  void postMessage(Object? o, [List<Object>? transfer]) => js_util.callMethod(
+    this,
+    'postMessage',
+    [js_util.jsify(o), transfer?.map(js_util.jsify).toList()],
+  );
 
   /// Starts the sending of messages queued on the port.
   ///
@@ -295,9 +284,7 @@ extension PropsLocation on Location {
 @staticInterop
 abstract class WorkerInit {
   /// {@macro worker_bee.js.interop.worker_init}
-  external factory WorkerInit({
-    String? type,
-  });
+  external factory WorkerInit({String? type});
 }
 
 /// {@template worker_bee.js.interop.worker}

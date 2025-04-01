@@ -14,9 +14,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'test_runner.dart';
 
 class InlineHttpClient extends AWSCustomHttpClient {
-  InlineHttpClient({
-    this.transformRequest,
-  });
+  InlineHttpClient({this.transformRequest});
 
   final AWSBaseHttpRequest Function(AWSBaseHttpRequest)? transformRequest;
 

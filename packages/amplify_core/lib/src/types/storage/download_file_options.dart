@@ -12,10 +12,7 @@ class StorageDownloadFileOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.download_file_options}
-  const StorageDownloadFileOptions({
-    this.pluginOptions,
-    this.bucket,
-  });
+  const StorageDownloadFileOptions({this.pluginOptions, this.bucket});
 
   /// {@macro amplify_core.storage.download_file_plugin_options}
   final StorageDownloadFilePluginOptions? pluginOptions;

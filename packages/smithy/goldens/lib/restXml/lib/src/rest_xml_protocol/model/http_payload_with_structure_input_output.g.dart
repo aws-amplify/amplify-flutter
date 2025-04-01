@@ -11,9 +11,9 @@ class _$HttpPayloadWithStructureInputOutput
   @override
   final NestedPayload? nested;
 
-  factory _$HttpPayloadWithStructureInputOutput(
-          [void Function(HttpPayloadWithStructureInputOutputBuilder)?
-              updates]) =>
+  factory _$HttpPayloadWithStructureInputOutput([
+    void Function(HttpPayloadWithStructureInputOutputBuilder)? updates,
+  ]) =>
       (new HttpPayloadWithStructureInputOutputBuilder()..update(updates))
           ._build();
 
@@ -21,8 +21,8 @@ class _$HttpPayloadWithStructureInputOutput
 
   @override
   HttpPayloadWithStructureInputOutput rebuild(
-          void Function(HttpPayloadWithStructureInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPayloadWithStructureInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPayloadWithStructureInputOutputBuilder toBuilder() =>
@@ -46,8 +46,10 @@ class _$HttpPayloadWithStructureInputOutput
 
 class HttpPayloadWithStructureInputOutputBuilder
     implements
-        Builder<HttpPayloadWithStructureInputOutput,
-            HttpPayloadWithStructureInputOutputBuilder> {
+        Builder<
+          HttpPayloadWithStructureInputOutput,
+          HttpPayloadWithStructureInputOutputBuilder
+        > {
   _$HttpPayloadWithStructureInputOutput? _$v;
 
   NestedPayloadBuilder? _nested;
@@ -74,7 +76,8 @@ class HttpPayloadWithStructureInputOutputBuilder
 
   @override
   void update(
-      void Function(HttpPayloadWithStructureInputOutputBuilder)? updates) {
+    void Function(HttpPayloadWithStructureInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -84,7 +87,8 @@ class HttpPayloadWithStructureInputOutputBuilder
   _$HttpPayloadWithStructureInputOutput _build() {
     _$HttpPayloadWithStructureInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpPayloadWithStructureInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
@@ -93,9 +97,10 @@ class HttpPayloadWithStructureInputOutputBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpPayloadWithStructureInputOutput',
-            _$failedField,
-            e.toString());
+          r'HttpPayloadWithStructureInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

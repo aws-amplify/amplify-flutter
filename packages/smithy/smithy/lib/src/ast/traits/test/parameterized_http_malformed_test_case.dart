@@ -25,8 +25,7 @@ class ParameterizedHttpMalformedRequestTestCase
 
   factory ParameterizedHttpMalformedRequestTestCase.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$ParameterizedHttpMalformedRequestTestCaseFromJson(json);
+  ) => _$ParameterizedHttpMalformedRequestTestCaseFromJson(json);
 
   final String? documentation;
   final String id;
@@ -42,12 +41,12 @@ class ParameterizedHttpMalformedRequestTestCase
 
   @override
   List<Object?> get props => [
-        documentation,
-        id,
-        protocol,
-        request,
-        response,
-        tags,
-        testParameters,
-      ];
+    documentation,
+    id,
+    protocol,
+    request,
+    response,
+    tags,
+    testParameters,
+  ];
 }

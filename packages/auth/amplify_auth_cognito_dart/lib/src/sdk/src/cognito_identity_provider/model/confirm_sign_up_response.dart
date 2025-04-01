@@ -22,9 +22,9 @@ abstract class ConfirmSignUpResponse
   }
 
   /// Represents the response from the server for the registration confirmation.
-  factory ConfirmSignUpResponse.build(
-          [void Function(ConfirmSignUpResponseBuilder) updates]) =
-      _$ConfirmSignUpResponse;
+  factory ConfirmSignUpResponse.build([
+    void Function(ConfirmSignUpResponseBuilder) updates,
+  ]) = _$ConfirmSignUpResponse;
 
   const ConfirmSignUpResponse._();
 
@@ -32,11 +32,10 @@ abstract class ConfirmSignUpResponse
   factory ConfirmSignUpResponse.fromResponse(
     ConfirmSignUpResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<ConfirmSignUpResponse>> serializers = [
-    ConfirmSignUpResponseAwsJson11Serializer()
+    ConfirmSignUpResponseAwsJson11Serializer(),
   ];
 
   @override
@@ -52,21 +51,18 @@ abstract class ConfirmSignUpResponse
 class ConfirmSignUpResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ConfirmSignUpResponse> {
   const ConfirmSignUpResponseAwsJson11Serializer()
-      : super('ConfirmSignUpResponse');
+    : super('ConfirmSignUpResponse');
 
   @override
   Iterable<Type> get types => const [
-        ConfirmSignUpResponse,
-        _$ConfirmSignUpResponse,
-      ];
+    ConfirmSignUpResponse,
+    _$ConfirmSignUpResponse,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ConfirmSignUpResponse deserialize(
@@ -82,6 +78,5 @@ class ConfirmSignUpResponseAwsJson11Serializer
     Serializers serializers,
     ConfirmSignUpResponse object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

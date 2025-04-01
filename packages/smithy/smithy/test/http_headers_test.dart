@@ -12,9 +12,9 @@ void main() {
     // );
     expect(
       parseHeader(
-        'Mon, 16 Dec 2019 23:48:18 GMT, Mon, 16 Dec 2019 23:48:18 GMT',
-        isTimestampList: true,
-      )
+            'Mon, 16 Dec 2019 23:48:18 GMT, Mon, 16 Dec 2019 23:48:18 GMT',
+            isTimestampList: true,
+          )
           .map((t) => Timestamp.parse(t, format: TimestampFormat.httpDate))
           .map((t) => t.format(TimestampFormat.epochSeconds)),
       equals([1576540098, 1576540098]),

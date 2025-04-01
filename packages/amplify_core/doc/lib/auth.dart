@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Code excerpts for the Auth category.
-library auth;
+library;
 
 // #docregion imports
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -16,9 +16,7 @@ Future<CognitoSignInResult> signInWithCognito(
   String username,
   String password,
 ) async {
-  final cognitoPlugin = Amplify.Auth.getPlugin(
-    AmplifyAuthCognito.pluginKey,
-  );
+  final cognitoPlugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
   return cognitoPlugin.signIn(username: username, password: password);
 }
 // #enddocregion get-plugin
@@ -62,9 +60,7 @@ Future<void> signUpUser({
     final result = await Amplify.Auth.signUp(
       username: username,
       password: password,
-      options: SignUpOptions(
-        userAttributes: userAttributes,
-      ),
+      options: SignUpOptions(userAttributes: userAttributes),
     );
     return _handleSignUpResult(result);
   } on AuthException catch (e) {
@@ -93,9 +89,7 @@ Future<void> confirmUser({
 // #docregion resend-signup-code
 Future<void> resendSignUpCode(String username) async {
   try {
-    final result = await Amplify.Auth.resendSignUpCode(
-      username: username,
-    );
+    final result = await Amplify.Auth.resendSignUpCode(username: username);
     final codeDeliveryDetails = result.codeDeliveryDetails;
     _handleCodeDelivery(codeDeliveryDetails);
   } on AuthException catch (e) {
@@ -162,9 +156,7 @@ Future<void> _handleSignInResult(SignInResult result) async {
     // #enddocregion handle-confirm-signin-custom-challenge
     // #docregion handle-confirm-signin-reset-password
     case AuthSignInStep.resetPassword:
-      final resetResult = await Amplify.Auth.resetPassword(
-        username: username,
-      );
+      final resetResult = await Amplify.Auth.resetPassword(username: username);
       await _handleResetPasswordResult(resetResult);
     // #enddocregion handle-confirm-signin-reset-password
     // #docregion handle-confirm-signin-confirm-signup
@@ -226,9 +218,7 @@ Future<void> _handleResetPasswordResult(ResetPasswordResult result) async {
 // #docregion confirm-signin
 Future<void> confirmMfaUser(String mfaCode) async {
   try {
-    final result = await Amplify.Auth.confirmSignIn(
-      confirmationValue: mfaCode,
-    );
+    final result = await Amplify.Auth.confirmSignIn(confirmationValue: mfaCode);
     return _handleSignInResult(result);
   } on AuthException catch (e) {
     safePrint('Error confirming MFA code: ${e.message}');
@@ -306,9 +296,7 @@ Future<void> updatePassword({
 // #docregion reset-password
 Future<void> resetPassword(String username) async {
   try {
-    final result = await Amplify.Auth.resetPassword(
-      username: username,
-    );
+    final result = await Amplify.Auth.resetPassword(username: username);
     return _handleResetPasswordResult(result);
   } on AuthException catch (e) {
     safePrint('Error resetting password: ${e.message}');
@@ -385,9 +373,7 @@ Future<void> fetchCurrentUserAttributes() async {
 // #enddocregion fetch-user-attributes
 
 // #docregion handle-update-user-attribute
-void _handleUpdateUserAttributeResult(
-  UpdateUserAttributeResult result,
-) {
+void _handleUpdateUserAttributeResult(UpdateUserAttributeResult result) {
   switch (result.nextStep.updateAttributeStep) {
     case AuthUpdateAttributeStep.confirmAttributeWithCode:
       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
@@ -399,9 +385,7 @@ void _handleUpdateUserAttributeResult(
 // #enddocregion handle-update-user-attribute
 
 // #docregion update-user-attribute
-Future<void> updateUserEmail({
-  required String newEmail,
-}) async {
+Future<void> updateUserEmail({required String newEmail}) async {
   try {
     final result = await Amplify.Auth.updateUserAttribute(
       userAttributeKey: AuthUserAttributeKey.email,
@@ -537,4 +521,5 @@ Future<void> deleteUser() async {
     safePrint('Delete user failed with error: $e');
   }
 }
+
 // #enddocregion delete-user

@@ -303,8 +303,7 @@ extension PropsHeaders on Headers {
   /// Executes [callback] once for each array element.
   void forEach(
     void Function(String value, String key, Headers parent) callback,
-  ) =>
-      js_util.callMethod(this, 'forEach', [allowInterop(callback)]);
+  ) => js_util.callMethod(this, 'forEach', [allowInterop(callback)]);
 }
 
 /// {@template aws_common.js.request}
@@ -335,8 +334,9 @@ final Expando<ReadableStreamView> _responseStreams = Expando('ResponseStreams');
 /// {@macro aws_common.js.response}
 extension PropsResponse on Response {
   /// The response's body as a Dart [Stream].
-  ReadableStreamView get body => _responseStreams[this] ??=
-      js_util.getProperty<ReadableStream?>(this, 'body')?.stream ??
+  ReadableStreamView get body =>
+      _responseStreams[this] ??=
+          js_util.getProperty<ReadableStream?>(this, 'body')?.stream ??
           const ReadableStreamView.empty();
 
   /// The response's headers.

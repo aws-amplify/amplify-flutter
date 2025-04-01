@@ -51,11 +51,7 @@ mixin AuthenticatorDateField<FieldType extends Enum,
     }
 
     return TextFormField(
-      style: enabled
-          ? null
-          : TextStyle(
-              color: Theme.of(context).disabledColor,
-            ),
+      style: enabled ? null : TextStyle(color: Theme.of(context).disabledColor),
       enabled: enabled,
       readOnly: true,
       onTap: pickTime,

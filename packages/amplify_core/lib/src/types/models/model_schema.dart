@@ -42,13 +42,7 @@ class ModelSchema with AWSEquatable<ModelSchema> {
   }
 
   @override
-  List<Object?> get props => [
-        name,
-        pluralName,
-        authRules,
-        fields,
-        indexes,
-      ];
+  List<Object?> get props => [name, pluralName, authRules, fields, indexes];
 
   Map<String, Object?> toMap() => {
         'name': name,

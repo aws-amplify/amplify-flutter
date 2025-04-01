@@ -17,13 +17,15 @@ DataOutputs _$DataOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
           url: $checkedConvert('url', (v) => v as String),
           apiKey: $checkedConvert('api_key', (v) => v as String?),
           defaultAuthorizationType: $checkedConvert(
-              'default_authorization_type',
-              (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v)),
+            'default_authorization_type',
+            (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v),
+          ),
           authorizationTypes: $checkedConvert(
-              'authorization_types',
-              (v) => (v as List<dynamic>)
-                  .map((e) => $enumDecode(_$APIAuthorizationTypeEnumMap, e))
-                  .toList()),
+            'authorization_types',
+            (v) => (v as List<dynamic>)
+                .map((e) => $enumDecode(_$APIAuthorizationTypeEnumMap, e))
+                .toList(),
+          ),
         );
         return val;
       },
@@ -31,7 +33,7 @@ DataOutputs _$DataOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
         'awsRegion': 'aws_region',
         'apiKey': 'api_key',
         'defaultAuthorizationType': 'default_authorization_type',
-        'authorizationTypes': 'authorization_types'
+        'authorizationTypes': 'authorization_types',
       },
     );
 

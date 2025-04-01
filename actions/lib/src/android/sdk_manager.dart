@@ -9,18 +9,15 @@ import 'package:actions/src/android/avd_manager.dart';
 import 'package:actions/src/android/types.dart';
 import 'package:path/path.dart' as p;
 
-final androidHome = process.getEnv('ANDROID_HOME') ??
+final androidHome =
+    process.getEnv('ANDROID_HOME') ??
     (throw StateError(
       'ANDROID_HOME env not set. Is the Android SDK installed?',
     ));
 
 /// Manages installation of Android SDK tools and system images.
 final class SdkManager {
-  SdkManager({
-    required this.apiLevel,
-    required this.target,
-    required this.abi,
-  });
+  SdkManager({required this.apiLevel, required this.target, required this.abi});
 
   final AndroidApiLevel apiLevel;
   final AndroidSystemImageTarget target;
@@ -48,8 +45,11 @@ final class SdkManager {
   ///
   /// The `sdkmanager` CLI expects cmdline-tools to be installed here and
   /// will throw unhelpful errors otherwise.
-  static final _cmdlineToolsPath =
-      p.join(androidHome, 'cmdline-tools', 'latest');
+  static final _cmdlineToolsPath = p.join(
+    androidHome,
+    'cmdline-tools',
+    'latest',
+  );
 
   /// Ensures the latest Android SDK and build tools are installed and available
   /// in the system PATH.
@@ -82,42 +82,44 @@ final class SdkManager {
   static const _latestCmdlineToolsVersion = '11076708';
 
   /// Installs the latest version of cmdline-tools if not already available.
-  Future<void> _ensureCmdlineTools() async =>
-      core.withGroup('Install cmdline-tools', () async {
-        if (fs.existsSync(_cmdlineToolsPath)) {
-          core.info('Found existing cmdline-tools installation');
-          return;
-        }
-        if (toolCache.find('cmdline-tools', _latestCmdlineToolsVersion)
-            case final toolCachePath?) {
-          core.info('Found cached cmdline-tools install: $toolCachePath');
-          return;
-        }
+  Future<void> _ensureCmdlineTools() async => core.withGroup(
+    'Install cmdline-tools',
+    () async {
+      if (fs.existsSync(_cmdlineToolsPath)) {
+        core.info('Found existing cmdline-tools installation');
+        return;
+      }
+      if (toolCache.find('cmdline-tools', _latestCmdlineToolsVersion)
+          case final toolCachePath?) {
+        core.info('Found cached cmdline-tools install: $toolCachePath');
+        return;
+      }
 
-        final os = switch (process.platform) {
-          OS.linux => 'linux',
-          OS.macOS => 'mac',
-        };
-        final downloadUrl =
-            'https://dl.google.com/android/repository/commandlinetools-$os-${_latestCmdlineToolsVersion}_latest.zip';
-        core.info('Downloading cmdline-tools from $downloadUrl');
+      final os = switch (process.platform) {
+        OS.linux => 'linux',
+        OS.macOS => 'mac',
+      };
+      final downloadUrl =
+          'https://dl.google.com/android/repository/commandlinetools-$os-${_latestCmdlineToolsVersion}_latest.zip';
+      core.info('Downloading cmdline-tools from $downloadUrl');
 
-        final downloadPath = await toolCache.downloadTool(downloadUrl);
-        core.info('Downloaded cmdline-tools to $downloadPath');
+      final downloadPath = await toolCache.downloadTool(downloadUrl);
+      core.info('Downloaded cmdline-tools to $downloadPath');
 
-        final extractPath = await toolCache.extractZip(
-          downloadPath,
-          _cmdlineToolsPath,
-        );
-        core.info('Extracted cmdline-tools to $extractPath');
+      final extractPath = await toolCache.extractZip(
+        downloadPath,
+        _cmdlineToolsPath,
+      );
+      core.info('Extracted cmdline-tools to $extractPath');
 
-        final toolCachePath = await toolCache.cacheDir(
-          extractPath,
-          'cmdline-tools',
-          _latestCmdlineToolsVersion,
-        );
-        core.info('Installed cmdline-tools to $toolCachePath');
-      });
+      final toolCachePath = await toolCache.cacheDir(
+        extractPath,
+        'cmdline-tools',
+        _latestCmdlineToolsVersion,
+      );
+      core.info('Installed cmdline-tools to $toolCachePath');
+    },
+  );
 
   /// Installs prerequisites for building Android apps for the current
   /// [compileSdk] and given [apiLevel], [target], and [abi].
@@ -133,9 +135,7 @@ final class SdkManager {
     final buildToolsPackage =
         LineSplitter.split(availableTools.stdout as String)
             .map((line) => line.trim())
-            .firstWhere(
-              (line) => line.startsWith('build-tools;$compileSdk'),
-            )
+            .firstWhere((line) => line.startsWith('build-tools;$compileSdk'))
             .split(RegExp(r'\s+'))
             .first;
 
@@ -147,13 +147,10 @@ final class SdkManager {
       },
     );
 
-    await core.withGroup(
-      'Install/update platform tools',
-      () async {
-        await _sdkmanager(['platform-tools']);
-        core.info('Successfully installed platform-tools');
-      },
-    );
+    await core.withGroup('Install/update platform tools', () async {
+      await _sdkmanager(['platform-tools']);
+      core.info('Successfully installed platform-tools');
+    });
 
     // Install the Android platform for the compileSdk used by the repo.
     await core.withGroup(

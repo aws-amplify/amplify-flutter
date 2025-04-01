@@ -14,7 +14,7 @@ final DynamicLibrary libsecretDyLib = openDynamicLibrary('libsecret-1');
 
 final Libsecret libsecret = Libsecret(libsecretDyLib);
 
-/// Extensions on Pointer<SecretSchema>.
+/// Extensions on Pointer SecretSchema.
 extension SecretSchemaPointer on Pointer<SecretSchema> {
   /// Inserts the attribute into the schema with a type SECRET_SCHEMA_ATTRIBUTE_STRING.
   void insertAttribute(int index, String attribute, {required Arena arena}) {

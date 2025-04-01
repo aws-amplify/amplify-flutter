@@ -65,7 +65,7 @@ class PushNotificationMessage
         final (deeplinkUrl, goToUrl) = switch (json['action']) {
           {'deeplink': final String deeplink, 'url': final String url} => (
               deeplink,
-              url
+              url,
             ),
           {'deeplink': final String deeplink} => (deeplink, null),
           {'url': final String url} => (null, url),

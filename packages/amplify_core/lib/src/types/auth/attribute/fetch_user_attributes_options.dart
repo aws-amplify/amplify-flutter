@@ -13,9 +13,7 @@ class FetchUserAttributesOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.fetch_user_attributes_options}
-  const FetchUserAttributesOptions({
-    this.pluginOptions,
-  });
+  const FetchUserAttributesOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.fetch_user_attributes_plugin_options}
   final FetchUserAttributesPluginOptions? pluginOptions;
@@ -27,9 +25,7 @@ class FetchUserAttributesOptions
   String get runtimeTypeName => 'FetchUserAttributesOptions';
 
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

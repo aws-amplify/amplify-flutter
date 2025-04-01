@@ -24,9 +24,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   ) =>
       plugins.singleWhere(
         (p) => p is P,
-        orElse: () => throw PluginError(
-          'No plugin registered for $pluginKey',
-        ),
+        orElse: () => throw PluginError('No plugin registered for $pluginKey'),
       ) as P;
 
   /// {@template amplify_core.amplify_storage_category.list}
@@ -39,10 +37,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }) {
     return identifyCall(
       StorageCategoryMethod.list,
-      () => defaultPlugin.list(
-        path: path,
-        options: options,
-      ),
+      () => defaultPlugin.list(path: path, options: options),
     );
   }
 
@@ -60,10 +55,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }) {
     return identifyCall(
       StorageCategoryMethod.getProperties,
-      () => defaultPlugin.getProperties(
-        path: path,
-        options: options,
-      ),
+      () => defaultPlugin.getProperties(path: path, options: options),
     );
   }
 
@@ -80,10 +72,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }) {
     return identifyCall(
       StorageCategoryMethod.getUrl,
-      () => defaultPlugin.getUrl(
-        path: path,
-        options: options,
-      ),
+      () => defaultPlugin.getUrl(path: path, options: options),
     );
   }
 
@@ -228,10 +217,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }) {
     return identifyCall(
       StorageCategoryMethod.removeMany,
-      () => defaultPlugin.removeMany(
-        paths: paths,
-        options: options,
-      ),
+      () => defaultPlugin.removeMany(paths: paths, options: options),
     );
   }
 }

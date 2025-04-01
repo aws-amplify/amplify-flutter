@@ -26,7 +26,7 @@ void main() {
     // }
     final enableCloudSync = shouldEnableCloudSync();
     var rootModels = [
-      CpkHasManyParentBidirectionalImplicit(name: 'has many parent (explicit)')
+      CpkHasManyParentBidirectionalImplicit(name: 'has many parent (explicit)'),
     ];
     var associatedModels = List.generate(
       5,
@@ -35,20 +35,22 @@ void main() {
         hasManyParent: rootModels.first,
       ),
     );
-    var associatedModelQueryPredicates = associatedModels
-        .map(
-          (associatedModel) => CpkHasManyChildBidirectionalImplicit.NAME
-              .eq(associatedModel.name),
-        )
-        .toList();
-    var associatedModelNeQueryPredicates = associatedModels
-        .map(
-          (associatedModel) =>
-              CpkHasManyChildBidirectionalImplicit.MODEL_IDENTIFIER.ne(
-            associatedModel.modelIdentifier,
-          ),
-        )
-        .toList();
+    var associatedModelQueryPredicates =
+        associatedModels
+            .map(
+              (associatedModel) => CpkHasManyChildBidirectionalImplicit.NAME.eq(
+                associatedModel.name,
+              ),
+            )
+            .toList();
+    var associatedModelNeQueryPredicates =
+        associatedModels
+            .map(
+              (associatedModel) => CpkHasManyChildBidirectionalImplicit
+                  .MODEL_IDENTIFIER
+                  .ne(associatedModel.modelIdentifier),
+            )
+            .toList();
 
     testRootAndAssociatedModelsRelationship(
       modelProvider: ModelProvider.instance,

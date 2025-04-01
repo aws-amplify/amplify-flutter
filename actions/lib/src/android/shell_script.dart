@@ -15,20 +15,22 @@ extension type ShellScript(String script) {
 set -eo pipefail
 $script
 ''';
-    core.info('Running script:\n$fullScript\n=======================================');
+    core.info(
+      'Running script:\n$fullScript\n=======================================',
+    );
     await fs.withTempDir('launch_android_emulator', (tempDir) async {
       final scriptPath = p.join(tempDir, 'script.sh');
       fs.writeFileSync(scriptPath, fullScript);
-      final result = await processManager.start(
-        ['/bin/bash', scriptPath], 
-        mode: ProcessStartMode.inheritStdio,
-      );
+      final result = await processManager.start([
+        '/bin/bash',
+        scriptPath,
+      ], mode: ProcessStartMode.inheritStdio);
       final exitCode = await result.exitCode;
       if (exitCode != 0) {
         throw ProcessException(
           '/bin/bash',
           [script],
-          'Script failed with exit code', 
+          'Script failed with exit code',
           exitCode,
         );
       }

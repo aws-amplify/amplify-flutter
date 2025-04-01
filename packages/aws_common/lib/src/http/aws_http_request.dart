@@ -31,10 +31,10 @@ sealed class AWSBaseHttpRequest
     Map<String, String>? headers,
     bool? followRedirects,
     int? maxRedirects,
-  })  : _queryParameters = queryParameters,
-        headers = CaseInsensitiveMap(headers ?? {}),
-        followRedirects = followRedirects ?? true,
-        maxRedirects = maxRedirects ?? 5;
+  }) : _queryParameters = queryParameters,
+       headers = CaseInsensitiveMap(headers ?? {}),
+       followRedirects = followRedirects ?? true,
+       maxRedirects = maxRedirects ?? 5;
 
   /// The method of the request.
   final AWSHttpMethod method;
@@ -176,15 +176,15 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     List<int>? body,
     super.followRedirects,
     super.maxRedirects,
-  })  : bodyBytes = body ?? const [],
-        contentLength = body?.length ?? 0,
-        super._(
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.hasPort ? uri.port : null,
-          path: uri.path,
-          queryParameters: uri.hasQuery ? uri.queryParametersAll : null,
-        );
+  }) : bodyBytes = body ?? const [],
+       contentLength = body?.length ?? 0,
+       super._(
+         scheme: uri.scheme,
+         host: uri.host,
+         port: uri.hasPort ? uri.port : null,
+         path: uri.path,
+         queryParameters: uri.hasQuery ? uri.queryParametersAll : null,
+       );
 
   /// Creates a "raw", or unprocessed, HTTP request. Since the [Uri] constructor
   /// will normalize paths by default, this constructor provides an escape hatch
@@ -203,9 +203,9 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     List<int>? body,
     super.followRedirects,
     super.maxRedirects,
-  })  : bodyBytes = body ?? const [],
-        contentLength = body?.length ?? 0,
-        super._();
+  }) : bodyBytes = body ?? const [],
+       contentLength = body?.length ?? 0,
+       super._();
 
   /// Creates a `GET` request for [uri].
   AWSHttpRequest.get(
@@ -214,12 +214,12 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.get,
-          uri: uri,
-          headers: headers,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.get,
+         uri: uri,
+         headers: headers,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `HEAD` request for [uri].
   AWSHttpRequest.head(
@@ -228,12 +228,12 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.head,
-          uri: uri,
-          headers: headers,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.head,
+         uri: uri,
+         headers: headers,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `PUT` request for [uri].
   AWSHttpRequest.put(
@@ -243,13 +243,13 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.put,
-          uri: uri,
-          body: body,
-          headers: headers,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.put,
+         uri: uri,
+         body: body,
+         headers: headers,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `POST` request for [uri].
   AWSHttpRequest.post(
@@ -259,13 +259,13 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.post,
-          uri: uri,
-          body: body,
-          headers: headers,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.post,
+         uri: uri,
+         body: body,
+         headers: headers,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `PATCH` request for [uri].
   AWSHttpRequest.patch(
@@ -275,13 +275,13 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.patch,
-          uri: uri,
-          body: body,
-          headers: headers,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.patch,
+         uri: uri,
+         body: body,
+         headers: headers,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `DELETE` request for [uri].
   AWSHttpRequest.delete(
@@ -291,13 +291,13 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.delete,
-          uri: uri,
-          body: body,
-          headers: headers,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.delete,
+         uri: uri,
+         body: body,
+         headers: headers,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   @override
   Stream<List<int>> get body =>
@@ -342,15 +342,15 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
     int? contentLength,
     super.followRedirects,
     super.maxRedirects,
-  })  : _body = body ?? const Stream.empty(),
-        _contentLength = contentLength,
-        super._(
-          scheme: uri.scheme,
-          host: uri.host,
-          port: uri.hasPort ? uri.port : null,
-          path: uri.path,
-          queryParameters: uri.hasQuery ? uri.queryParametersAll : null,
-        ) {
+  }) : _body = body ?? const Stream.empty(),
+       _contentLength = contentLength,
+       super._(
+         scheme: uri.scheme,
+         host: uri.host,
+         port: uri.hasPort ? uri.port : null,
+         path: uri.path,
+         queryParameters: uri.hasQuery ? uri.queryParametersAll : null,
+       ) {
     _setContentTypeIfProvided(body);
   }
 
@@ -375,9 +375,9 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
     int? contentLength,
     super.followRedirects,
     super.maxRedirects,
-  })  : _body = body ?? const Stream.empty(),
-        _contentLength = contentLength,
-        super._() {
+  }) : _body = body ?? const Stream.empty(),
+       _contentLength = contentLength,
+       super._() {
     _setContentTypeIfProvided(body);
   }
 
@@ -388,13 +388,13 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.get,
-          uri: uri,
-          headers: headers,
-          contentLength: 0,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.get,
+         uri: uri,
+         headers: headers,
+         contentLength: 0,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `HEAD` request for [uri].
   AWSStreamedHttpRequest.head(
@@ -403,13 +403,13 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.head,
-          uri: uri,
-          headers: headers,
-          contentLength: 0,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.head,
+         uri: uri,
+         headers: headers,
+         contentLength: 0,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `POST` request for [uri].
   AWSStreamedHttpRequest.post(
@@ -420,14 +420,14 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.post,
-          uri: uri,
-          headers: headers,
-          body: body,
-          contentLength: contentLength,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.post,
+         uri: uri,
+         headers: headers,
+         body: body,
+         contentLength: contentLength,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `PUT` request for [uri].
   AWSStreamedHttpRequest.put(
@@ -438,14 +438,14 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.put,
-          uri: uri,
-          headers: headers,
-          body: body,
-          contentLength: contentLength,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.put,
+         uri: uri,
+         headers: headers,
+         body: body,
+         contentLength: contentLength,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `PATCH` request for [uri].
   AWSStreamedHttpRequest.patch(
@@ -456,14 +456,14 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.patch,
-          uri: uri,
-          headers: headers,
-          body: body,
-          contentLength: contentLength,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.patch,
+         uri: uri,
+         headers: headers,
+         body: body,
+         contentLength: contentLength,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   /// Creates a `DELETE` request for [uri].
   AWSStreamedHttpRequest.delete(
@@ -474,14 +474,14 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
     bool? followRedirects,
     int? maxRedirects,
   }) : this(
-          method: AWSHttpMethod.delete,
-          uri: uri,
-          headers: headers,
-          body: body,
-          contentLength: contentLength,
-          followRedirects: followRedirects,
-          maxRedirects: maxRedirects,
-        );
+         method: AWSHttpMethod.delete,
+         uri: uri,
+         headers: headers,
+         body: body,
+         contentLength: contentLength,
+         followRedirects: followRedirects,
+         maxRedirects: maxRedirects,
+       );
 
   void _setContentTypeIfProvided(Stream<List<int>>? body) {
     if (body is HttpPayload && body.contentType != null) {
@@ -536,9 +536,10 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
   bool get hasContentLength => _contentLength != null;
 
   @override
-  late final FutureOr<int> contentLength = (_contentLength ??
-          split().fold<int>(0, (length, el) => length + el.length))
-      as FutureOr<int>;
+  late final FutureOr<int> contentLength =
+      (_contentLength ??
+              split().fold<int>(0, (length, el) => length + el.length))
+          as FutureOr<int>;
 
   @override
   Future<void> close() => _splitter?.close() ?? Future.value();

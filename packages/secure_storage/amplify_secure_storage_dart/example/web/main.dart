@@ -6,9 +6,7 @@ import 'package:example_common/example_common.dart';
 
 // ignore: invalid_use_of_internal_member
 final storage = AmplifySecureStorageDart(
-  config: AmplifySecureStorageConfig(
-    scope: 'default',
-  ),
+  config: AmplifySecureStorageConfig(scope: 'default'),
 );
 Future<void> main() async {
   renderApp(AppComponent());
@@ -83,18 +81,9 @@ class AppComponent extends StatefulComponent {
               ),
               RowComponent(
                 children: [
-                  ButtonComponent(
-                    innerHtml: 'Write',
-                    onClick: _write,
-                  ),
-                  ButtonComponent(
-                    innerHtml: 'Read',
-                    onClick: _read,
-                  ),
-                  ButtonComponent(
-                    innerHtml: 'delete',
-                    onClick: _delete,
-                  ),
+                  ButtonComponent(innerHtml: 'Write', onClick: _write),
+                  ButtonComponent(innerHtml: 'Read', onClick: _read),
+                  ButtonComponent(innerHtml: 'delete', onClick: _delete),
                 ],
               ),
             ],

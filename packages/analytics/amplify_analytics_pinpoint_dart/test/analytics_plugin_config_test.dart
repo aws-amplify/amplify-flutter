@@ -77,9 +77,9 @@ void main() {
 
     setUpAll(() async {
       mockPathProvider = MockPathProvider();
-      when(mockPathProvider.getApplicationSupportPath).thenAnswer(
-        (_) async => '/tmp',
-      );
+      when(
+        mockPathProvider.getApplicationSupportPath,
+      ).thenAnswer((_) async => '/tmp');
 
       mockAuthProvider = MockIamAuthProvider();
       when(mockAuthProvider.retrieve).thenAnswer(
@@ -89,25 +89,27 @@ void main() {
       Amplify.dependencies.addInstance<AnalyticsClient>(MockAnalyticsClient());
     });
 
-    test('throws ConfigurationError when no analytics config is provided',
-        () async {
-      final plugin = AmplifyAnalyticsPinpointDart(
-        secureStorageFactory: (_) => MockSecureStorage(),
-      );
+    test(
+      'throws ConfigurationError when no analytics config is provided',
+      () async {
+        final plugin = AmplifyAnalyticsPinpointDart(
+          secureStorageFactory: (_) => MockSecureStorage(),
+        );
 
-      await expectLater(
-        plugin.configure(
-          // ignore: invalid_use_of_internal_member
-          config: const AmplifyOutputs(version: '1'),
-          authProviderRepo: AmplifyAuthProviderRepository()
-            ..registerAuthProvider(
-              APIAuthorizationType.iam.authProviderToken,
-              mockAuthProvider,
-            ),
-        ),
-        throwsA(isA<ConfigurationError>()),
-      );
-    });
+        await expectLater(
+          plugin.configure(
+            // ignore: invalid_use_of_internal_member
+            config: const AmplifyOutputs(version: '1'),
+            authProviderRepo: AmplifyAuthProviderRepository()
+              ..registerAuthProvider(
+                APIAuthorizationType.iam.authProviderToken,
+                mockAuthProvider,
+              ),
+          ),
+          throwsA(isA<ConfigurationError>()),
+        );
+      },
+    );
     test('throws ConfigurationError when negative', () async {
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,

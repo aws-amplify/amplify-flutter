@@ -8,9 +8,7 @@ part 'credentials_provider.g.dart';
 typedef CognitoIdentityPoolConfig = CognitoIdentityCredentialsProvider;
 
 class CredentialsProviders extends AWSConfigMap {
-  const CredentialsProviders(
-    super.providers,
-  );
+  const CredentialsProviders(super.providers);
 
   factory CredentialsProviders.fromJson(Map<String, Object?> json) {
     final providers = json.map((key, value) {

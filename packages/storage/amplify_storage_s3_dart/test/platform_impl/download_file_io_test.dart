@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
+library;
 
 import 'dart:async';
 import 'dart:convert';
@@ -44,9 +45,7 @@ void main() {
     setUpAll(() {
       storageS3Service = MockStorageS3Service();
       downloadTask = MockS3DownloadTask();
-      registerFallbackValue(
-        const StorageDownloadDataOptions(),
-      );
+      registerFallbackValue(const StorageDownloadDataOptions());
       registerFallbackValue(const StoragePath.fromString('public/$testKey'));
       registerFallbackValue(
         StoragePathFromIdentityId(
@@ -66,72 +65,75 @@ void main() {
         ),
       ).thenAnswer((_) => downloadTask);
 
-      when(
-        () => downloadTask.result,
-      ).thenAnswer((_) async => testItem);
+      when(() => downloadTask.result).thenAnswer((_) async => testItem);
     });
 
-    test('should invoke StorageS3Service.downloadData with expected parameters',
-        () async {
-      const options = StorageDownloadFileOptions(
-        pluginOptions: S3DownloadFilePluginOptions(
-          getProperties: true,
-        ),
-      );
-      final downloadFileOperation = downloadFile(
-        path: StoragePath.fromIdentityId(
-          (identityId) => 'private/$identityId/$testKey',
-        ),
-        localFile: AWSFile.fromPath(testDestinationPath),
-        options: options,
-        storageOutputs: testStorageOutputs,
-        storageS3Service: storageS3Service,
-        appPathProvider: appPathProvider,
-        onProgress: (progress) {
-          expectedProgress = progress;
-        },
-      );
-
-      final captureParams = verify(
-        () => storageS3Service.downloadData(
-          path: captureAny<StoragePathFromIdentityId>(named: 'path'),
-          options: captureAny<StorageDownloadDataOptions>(
-            named: 'options',
+    test(
+      'should invoke StorageS3Service.downloadData with expected parameters',
+      () async {
+        const options = StorageDownloadFileOptions(
+          pluginOptions: S3DownloadFilePluginOptions(getProperties: true),
+        );
+        final downloadFileOperation = downloadFile(
+          path: StoragePath.fromIdentityId(
+            (identityId) => 'private/$identityId/$testKey',
           ),
-          preStart: captureAny<FutureOr<void> Function()?>(named: 'preStart'),
-          onProgress: captureAny<void Function(S3TransferProgress)?>(
-            named: 'onProgress',
+          localFile: AWSFile.fromPath(testDestinationPath),
+          options: options,
+          storageOutputs: testStorageOutputs,
+          storageS3Service: storageS3Service,
+          appPathProvider: appPathProvider,
+          onProgress: (progress) {
+            expectedProgress = progress;
+          },
+        );
+
+        final captureParams =
+            verify(
+              () => storageS3Service.downloadData(
+                path: captureAny<StoragePathFromIdentityId>(named: 'path'),
+                options: captureAny<StorageDownloadDataOptions>(
+                  named: 'options',
+                ),
+                preStart: captureAny<FutureOr<void> Function()?>(
+                  named: 'preStart',
+                ),
+                onProgress: captureAny<void Function(S3TransferProgress)?>(
+                  named: 'onProgress',
+                ),
+                onData: captureAny<void Function(List<int>)?>(named: 'onData'),
+                onDone: captureAny<FutureOr<void> Function()?>(named: 'onDone'),
+                onError: captureAny<FutureOr<void> Function()?>(
+                  named: 'onError',
+                ),
+              ),
+            ).captured;
+
+        final capturedOptions = captureParams[1];
+
+        expect(
+          capturedOptions,
+          isA<StorageDownloadDataOptions>().having(
+            (o) =>
+                (o.pluginOptions! as S3DownloadDataPluginOptions).getProperties,
+            'getProperties',
+            isTrue,
           ),
-          onData: captureAny<void Function(List<int>)?>(named: 'onData'),
-          onDone: captureAny<FutureOr<void> Function()?>(named: 'onDone'),
-          onError: captureAny<FutureOr<void> Function()?>(named: 'onError'),
-        ),
-      ).captured;
+        );
 
-      final capturedOptions = captureParams[1];
+        expect(captureParams[2] is Function, true);
+        preStart = captureParams[2] as FutureOr<void> Function();
+        expect(captureParams[3] is Function, true);
+        onProgress = captureParams[3] as void Function(S3TransferProgress);
+        expect(captureParams[4] is Function, true);
+        onData = captureParams[4] as void Function(List<int>);
+        expect(captureParams[5] is Function, true);
+        onDone = captureParams[5] as FutureOr<void> Function();
 
-      expect(
-        capturedOptions,
-        isA<StorageDownloadDataOptions>().having(
-          (o) =>
-              (o.pluginOptions! as S3DownloadDataPluginOptions).getProperties,
-          'getProperties',
-          isTrue,
-        ),
-      );
-
-      expect(captureParams[2] is Function, true);
-      preStart = captureParams[2] as FutureOr<void> Function();
-      expect(captureParams[3] is Function, true);
-      onProgress = captureParams[3] as void Function(S3TransferProgress);
-      expect(captureParams[4] is Function, true);
-      onData = captureParams[4] as void Function(List<int>);
-      expect(captureParams[5] is Function, true);
-      onDone = captureParams[5] as FutureOr<void> Function();
-
-      final result = await downloadFileOperation.result;
-      expect(result.downloadedItem, testItem);
-    });
+        final result = await downloadFileOperation.result;
+        expect(result.downloadedItem, testItem);
+      },
+    );
 
     test('supplied callback parameters should function correctly', () async {
       // 0. create a existing file on the destination path
@@ -160,99 +162,108 @@ void main() {
 
     group('preStart callback should throw exceptions', () {
       test(
-          'when destination path is null is throws StorageLocalFileNotFoundException',
-          () {
-        downloadFile(
-          path: const StoragePath.fromString('public/$testKey'),
-          localFile: AWSFile.fromData([101]),
-          options: const StorageDownloadFileOptions(
-            pluginOptions: S3DownloadFilePluginOptions(),
-          ),
-          storageOutputs: testStorageOutputs,
-          storageS3Service: storageS3Service,
-          appPathProvider: appPathProvider,
-          onProgress: (progress) {
-            expectedProgress = progress;
-          },
-        );
-
-        final capturedPreStart = verify(
-          () => storageS3Service.downloadData(
+        'when destination path is null is throws StorageLocalFileNotFoundException',
+        () {
+          downloadFile(
             path: const StoragePath.fromString('public/$testKey'),
-            options: any(named: 'options'),
-            preStart: captureAny<FutureOr<void> Function()?>(named: 'preStart'),
-            onProgress: any(named: 'onProgress'),
-            onData: any(named: 'onData'),
-            onDone: any(named: 'onDone'),
-            onError: any(named: 'onError'),
-          ),
-        ).captured.last;
-        final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<UnknownException>()));
-      });
+            localFile: AWSFile.fromData([101]),
+            options: const StorageDownloadFileOptions(
+              pluginOptions: S3DownloadFilePluginOptions(),
+            ),
+            storageOutputs: testStorageOutputs,
+            storageS3Service: storageS3Service,
+            appPathProvider: appPathProvider,
+            onProgress: (progress) {
+              expectedProgress = progress;
+            },
+          );
 
-      test(
-          'when destination path is a directory instead of a file it throws StorageLocalFileNotFoundException',
-          () {
-        downloadFile(
-          path: const StoragePath.fromString('public/$testKey'),
-          localFile: AWSFile.fromPath(Directory.systemTemp.path),
-          options: const StorageDownloadFileOptions(
-            pluginOptions: S3DownloadFilePluginOptions(),
-          ),
-          storageOutputs: testStorageOutputs,
-          storageS3Service: storageS3Service,
-          appPathProvider: appPathProvider,
-          onProgress: (progress) {
-            expectedProgress = progress;
-          },
-        );
-
-        final capturedPreStart = verify(
-          () => storageS3Service.downloadData(
-            path: const StoragePath.fromString('public/$testKey'),
-            options: any(named: 'options'),
-            preStart: captureAny<FutureOr<void> Function()?>(named: 'preStart'),
-            onProgress: any(named: 'onProgress'),
-            onData: any(named: 'onData'),
-            onDone: any(named: 'onDone'),
-            onError: any(named: 'onError'),
-          ),
-        ).captured.last;
-        final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<UnknownException>()));
-      });
-    });
-
-    test(
-        'returned S3DownloadFileOperation pause resume and cancel APIs should interact with S3DownloadTask',
-        () async {
-      when(() => downloadTask.result).thenAnswer((_) async => testItem);
-      when(downloadTask.pause).thenAnswer((_) async {});
-      when(downloadTask.resume).thenAnswer((_) async {});
-      when(downloadTask.cancel).thenAnswer((_) async {});
-
-      final downloadFileOperation = downloadFile(
-        path: const StoragePath.fromString('public/$testKey'),
-        localFile: AWSFile.fromPath('path'),
-        options: const StorageDownloadFileOptions(
-          pluginOptions: S3DownloadFilePluginOptions(),
-        ),
-        storageOutputs: testStorageOutputs,
-        storageS3Service: storageS3Service,
-        appPathProvider: appPathProvider,
-        onProgress: (progress) {
-          expectedProgress = progress;
+          final capturedPreStart =
+              verify(
+                () => storageS3Service.downloadData(
+                  path: const StoragePath.fromString('public/$testKey'),
+                  options: any(named: 'options'),
+                  preStart: captureAny<FutureOr<void> Function()?>(
+                    named: 'preStart',
+                  ),
+                  onProgress: any(named: 'onProgress'),
+                  onData: any(named: 'onData'),
+                  onDone: any(named: 'onDone'),
+                  onError: any(named: 'onError'),
+                ),
+              ).captured.last;
+          final preStart = capturedPreStart as FutureOr<void> Function();
+          expect(preStart(), throwsA(isA<UnknownException>()));
         },
       );
 
-      await downloadFileOperation.pause();
-      await downloadFileOperation.resume();
-      await downloadFileOperation.cancel();
+      test(
+        'when destination path is a directory instead of a file it throws StorageLocalFileNotFoundException',
+        () {
+          downloadFile(
+            path: const StoragePath.fromString('public/$testKey'),
+            localFile: AWSFile.fromPath(Directory.systemTemp.path),
+            options: const StorageDownloadFileOptions(
+              pluginOptions: S3DownloadFilePluginOptions(),
+            ),
+            storageOutputs: testStorageOutputs,
+            storageS3Service: storageS3Service,
+            appPathProvider: appPathProvider,
+            onProgress: (progress) {
+              expectedProgress = progress;
+            },
+          );
 
-      verify(downloadTask.pause).called(1);
-      verify(downloadTask.resume).called(1);
-      verify(downloadTask.cancel).called(1);
+          final capturedPreStart =
+              verify(
+                () => storageS3Service.downloadData(
+                  path: const StoragePath.fromString('public/$testKey'),
+                  options: any(named: 'options'),
+                  preStart: captureAny<FutureOr<void> Function()?>(
+                    named: 'preStart',
+                  ),
+                  onProgress: any(named: 'onProgress'),
+                  onData: any(named: 'onData'),
+                  onDone: any(named: 'onDone'),
+                  onError: any(named: 'onError'),
+                ),
+              ).captured.last;
+          final preStart = capturedPreStart as FutureOr<void> Function();
+          expect(preStart(), throwsA(isA<UnknownException>()));
+        },
+      );
     });
+
+    test(
+      'returned S3DownloadFileOperation pause resume and cancel APIs should interact with S3DownloadTask',
+      () async {
+        when(() => downloadTask.result).thenAnswer((_) async => testItem);
+        when(downloadTask.pause).thenAnswer((_) async {});
+        when(downloadTask.resume).thenAnswer((_) async {});
+        when(downloadTask.cancel).thenAnswer((_) async {});
+
+        final downloadFileOperation = downloadFile(
+          path: const StoragePath.fromString('public/$testKey'),
+          localFile: AWSFile.fromPath('path'),
+          options: const StorageDownloadFileOptions(
+            pluginOptions: S3DownloadFilePluginOptions(),
+          ),
+          storageOutputs: testStorageOutputs,
+          storageS3Service: storageS3Service,
+          appPathProvider: appPathProvider,
+          onProgress: (progress) {
+            expectedProgress = progress;
+          },
+        );
+
+        await downloadFileOperation.pause();
+        await downloadFileOperation.resume();
+        await downloadFileOperation.cancel();
+
+        verify(downloadTask.pause).called(1);
+        verify(downloadTask.resume).called(1);
+        verify(downloadTask.cancel).called(1);
+      },
+    );
   });
 }

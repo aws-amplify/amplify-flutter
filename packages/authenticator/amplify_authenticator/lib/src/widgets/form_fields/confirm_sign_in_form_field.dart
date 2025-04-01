@@ -24,9 +24,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     bool? required,
     super.autofillHints,
   })  : _customAttributeKey = customAttributeKey,
-        super._(
-          requiredOverride: required,
-        );
+        super._(requiredOverride: required);
 
   /// Creates a new password component.
   static ConfirmSignInFormField<String> newPassword({
@@ -80,18 +78,14 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       );
 
   /// Creates an mfa preference selection  component.
-  static ConfirmSignInFormField<MfaType> mfaSelection({
-    Key? key,
-  }) =>
+  static ConfirmSignInFormField<MfaType> mfaSelection({Key? key}) =>
       _MfaMethodRadioField(
         key: key ?? keyMfaMethodRadioConfirmSignInFormField,
         field: ConfirmSignInField.mfaMethod,
       );
 
   /// creates an mfa preference setup selection component.
-  static ConfirmSignInFormField<MfaType> mfaSetupSelection({
-    Key? key,
-  }) =>
+  static ConfirmSignInFormField<MfaType> mfaSetupSelection({Key? key}) =>
       _MfaSetupMethodRadioField(
         key: key ?? keyMfaSetupMethodRadioConfirmSignInFormField,
         field: ConfirmSignInField.mfaMethod,
@@ -454,58 +448,32 @@ abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
     if (widget.autofillHints != null) return widget.autofillHints;
     switch (widget.field) {
       case ConfirmSignInField.code:
-        return const [
-          AutofillHints.oneTimeCode,
-        ];
+        return const [AutofillHints.oneTimeCode];
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.confirmNewPassword:
-        return const [
-          AutofillHints.newPassword,
-        ];
+        return const [AutofillHints.newPassword];
       case ConfirmSignInField.address:
-        return const [
-          AutofillHints.fullStreetAddress,
-        ];
+        return const [AutofillHints.fullStreetAddress];
       case ConfirmSignInField.email:
-        return const [
-          AutofillHints.email,
-        ];
+        return const [AutofillHints.email];
       case ConfirmSignInField.name:
-        return const [
-          AutofillHints.name,
-        ];
+        return const [AutofillHints.name];
       case ConfirmSignInField.phoneNumber:
-        return const [
-          AutofillHints.telephoneNumber,
-        ];
+        return const [AutofillHints.telephoneNumber];
       case ConfirmSignInField.birthdate:
-        return const [
-          AutofillHints.newUsername,
-        ];
+        return const [AutofillHints.newUsername];
       case ConfirmSignInField.familyName:
-        return const [
-          AutofillHints.familyName,
-        ];
+        return const [AutofillHints.familyName];
       case ConfirmSignInField.gender:
-        return const [
-          AutofillHints.gender,
-        ];
+        return const [AutofillHints.gender];
       case ConfirmSignInField.givenName:
-        return const [
-          AutofillHints.givenName,
-        ];
+        return const [AutofillHints.givenName];
       case ConfirmSignInField.middleName:
-        return const [
-          AutofillHints.middleName,
-        ];
+        return const [AutofillHints.middleName];
       case ConfirmSignInField.nickname:
-        return const [
-          AutofillHints.nickname,
-        ];
+        return const [AutofillHints.nickname];
       case ConfirmSignInField.preferredUsername:
-        return const [
-          AutofillHints.newUsername,
-        ];
+        return const [AutofillHints.newUsername];
       case ConfirmSignInField.custom:
       case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.mfaMethod:
@@ -535,9 +503,7 @@ class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
-  }) : super._(
-          customAttributeKey: attributeKey,
-        );
+  }) : super._(customAttributeKey: attributeKey);
 
   @override
   _ConfirmSignInPhoneFieldState createState() =>
@@ -590,9 +556,7 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
-  }) : super._(
-          customAttributeKey: attributeKey,
-        );
+  }) : super._(customAttributeKey: attributeKey);
 
   @override
   _ConfirmSignInTextFieldState createState() => _ConfirmSignInTextFieldState();
@@ -657,10 +621,8 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
       case ConfirmSignInField.preferredUsername:
         return (v) => state.preferredUsername = v;
       case ConfirmSignInField.custom:
-        return (String value) => state.setCustomAttribute(
-              widget._customAttributeKey!,
-              value,
-            );
+        return (String value) =>
+            state.setCustomAttribute(widget._customAttributeKey!, value);
       default:
         return super.onChanged;
     }
@@ -694,10 +656,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         );
       case ConfirmSignInField.address:
         return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.addressEmpty,
-          ),
+          stringResolver.inputs.resolve(context, InputResolverKey.addressEmpty),
           isOptional: isOptional,
         );
       case ConfirmSignInField.birthdate:
@@ -718,10 +677,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         );
       case ConfirmSignInField.gender:
         return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.genderEmpty,
-          ),
+          stringResolver.inputs.resolve(context, InputResolverKey.genderEmpty),
           isOptional: isOptional,
         );
       case ConfirmSignInField.givenName:
@@ -742,10 +698,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         );
       case ConfirmSignInField.name:
         return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.nameEmpty,
-          ),
+          stringResolver.inputs.resolve(context, InputResolverKey.nameEmpty),
           isOptional: isOptional,
         );
       case ConfirmSignInField.nickname:
@@ -780,9 +733,7 @@ class _ConfirmSignInDateField extends ConfirmSignInFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
-  }) : super._(
-          customAttributeKey: attributeKey,
-        );
+  }) : super._(customAttributeKey: attributeKey);
 
   @override
   _ConfirmSignInDateFieldState createState() => _ConfirmSignInDateFieldState();
@@ -803,10 +754,7 @@ class _ConfirmSignInDateFieldState extends _ConfirmSignInFormFieldState<String>
   @override
   FormFieldValidator<String> get validator {
     return simpleValidator(
-      stringResolver.inputs.resolve(
-        context,
-        InputResolverKey.birthdateEmpty,
-      ),
+      stringResolver.inputs.resolve(context, InputResolverKey.birthdateEmpty),
       isOptional: isOptional,
     );
   }

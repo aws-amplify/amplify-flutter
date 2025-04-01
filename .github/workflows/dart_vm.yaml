@@ -21,7 +21,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - "3.6.0"
+          - "3.7.0"
           - stable
           - beta
         # Skips 'beta' tests on PRs
@@ -77,7 +77,7 @@ jobs:
 
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
-        run: dart format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed --output show .
         working-directory: ${{ inputs.working-directory }}
 
       - name: Check for Tests

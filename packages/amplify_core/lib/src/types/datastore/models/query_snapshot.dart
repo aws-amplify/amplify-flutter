@@ -95,10 +95,7 @@ class QuerySnapshot<T extends Model> {
           // updated item during the create mutation. This can happen when using
           // custom resolvers.
           updatedSortedList = _sortedList.copy()
-            ..updateAtSorted(
-              currentIndex,
-              newItem,
-            );
+            ..updateAtSorted(currentIndex, newItem);
         }
       case EventType.update:
         if (currentItem == null && matchesPredicate) {
@@ -109,10 +106,7 @@ class QuerySnapshot<T extends Model> {
           // Update the item in the list. This item exists in the list but the
           // value of the item has changed.
           updatedSortedList = _sortedList.copy()
-            ..updateAtSorted(
-              currentIndex,
-              newItem,
-            );
+            ..updateAtSorted(currentIndex, newItem);
         } else if (currentItem != null && !matchesPredicate) {
           // Remove the item from the list. The item exist in the list but no
           // longer matches the predicate.

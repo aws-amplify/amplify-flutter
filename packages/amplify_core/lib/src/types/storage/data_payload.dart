@@ -35,10 +35,8 @@ class StorageDataPayload extends StreamView<List<int>> {
         super(const Stream.empty());
 
   /// A byte buffer [StorageDataPayload].
-  StorageDataPayload.bytes(
-    List<int> body, {
-    this.contentType,
-  })  : size = body.length,
+  StorageDataPayload.bytes(List<int> body, {this.contentType})
+      : size = body.length,
         super(Stream.value(body));
 
   /// A [StorageDataPayload].
@@ -88,10 +86,8 @@ class StorageDataPayload extends StreamView<List<int>> {
   }
 
   /// A streaming [StorageDataPayload].
-  const StorageDataPayload.streaming(
-    super.body, {
-    this.contentType,
-  }) : size = -1;
+  const StorageDataPayload.streaming(super.body, {this.contentType})
+      : size = -1;
 
   /// A data url [StorageDataPayload].
   factory StorageDataPayload.dataUrl(String dataUrl) {

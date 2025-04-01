@@ -35,7 +35,7 @@ abstract class Error
   const Error._();
 
   static const List<_i2.SmithySerializer<Error>> serializers = [
-    ErrorRestXmlSerializer()
+    ErrorRestXmlSerializer(),
   ];
 
   /// The error key.
@@ -756,32 +756,16 @@ abstract class Error
   /// The error message contains a generic description of the error condition in English. It is intended for a human audience. Simple programs display the message directly to the end user if they encounter an error condition they don't know how or don't care to handle. Sophisticated programs with more exhaustive error handling and proper internationalization are more likely to ignore the error message.
   String? get message;
   @override
-  List<Object?> get props => [
-        key,
-        versionId,
-        code,
-        message,
-      ];
+  List<Object?> get props => [key, versionId, code, message];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Error')
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'versionId',
-        versionId,
-      )
-      ..add(
-        'code',
-        code,
-      )
-      ..add(
-        'message',
-        message,
-      );
+    final helper =
+        newBuiltValueToStringHelper('Error')
+          ..add('key', key)
+          ..add('versionId', versionId)
+          ..add('code', code)
+          ..add('message', message);
     return helper.toString();
   }
 }
@@ -790,18 +774,12 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
   const ErrorRestXmlSerializer() : super('Error');
 
   @override
-  Iterable<Type> get types => const [
-        Error,
-        _$Error,
-      ];
+  Iterable<Type> get types => const [Error, _$Error];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   Error deserialize(
@@ -820,25 +798,33 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
       }
       switch (key) {
         case 'Code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Key':
-          result.key = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.key =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'VersionId':
-          result.versionId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.versionId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -855,40 +841,39 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
       const _i2.XmlElementName(
         'Error',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final Error(:code, :key, :message, :versionId) = object;
     if (code != null) {
       result$
         ..add(const _i2.XmlElementName('Code'))
-        ..add(serializers.serialize(
-          code,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(code, specifiedType: const FullType(String)),
+        );
     }
     if (key != null) {
       result$
         ..add(const _i2.XmlElementName('Key'))
-        ..add(serializers.serialize(
-          key,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(key, specifiedType: const FullType(String)),
+        );
     }
     if (message != null) {
       result$
         ..add(const _i2.XmlElementName('Message'))
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (versionId != null) {
       result$
         ..add(const _i2.XmlElementName('VersionId'))
-        ..add(serializers.serialize(
-          versionId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            versionId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

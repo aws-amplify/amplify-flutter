@@ -7,12 +7,9 @@ part of 'range_trait.dart';
 // **************************************************************************
 
 RangeTrait _$RangeTraitFromJson(Map<String, dynamic> json) => RangeTrait(
-      min: (json['min'] as num?)?.toDouble(),
-      max: (json['max'] as num?)?.toDouble(),
-    );
+  min: (json['min'] as num?)?.toDouble(),
+  max: (json['max'] as num?)?.toDouble(),
+);
 
 Map<String, dynamic> _$RangeTraitToJson(RangeTrait instance) =>
-    <String, dynamic>{
-      'min': instance.min,
-      'max': instance.max,
-    };
+    <String, dynamic>{'min': instance.min, 'max': instance.max};

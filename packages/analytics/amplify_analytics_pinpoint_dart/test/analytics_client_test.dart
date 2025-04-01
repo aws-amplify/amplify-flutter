@@ -29,9 +29,7 @@ void main() {
       store = MockSecureStorage();
 
       analyticsEventStore = InMemoryQueuedItemStore();
-      analyticsClient = AnalyticsClient(
-        endpointStorage: store,
-      );
+      analyticsClient = AnalyticsClient(endpointStorage: store);
       await analyticsClient.init(
         pinpointAppId: analyticsPinpointAppId,
         region: analyticsRegion,
@@ -40,9 +38,7 @@ void main() {
       );
 
       notificationsEventStore = InMemoryQueuedItemStore();
-      notificationsClient = AnalyticsClient(
-        endpointStorage: store,
-      );
+      notificationsClient = AnalyticsClient(endpointStorage: store);
       await notificationsClient.init(
         pinpointAppId: notificationsPinpointAppId,
         region: analyticsRegion,
@@ -74,14 +70,14 @@ void main() {
       final analyticsStore = EndpointStore(analyticsPinpointAppId, store);
 
       final analyticsAttributes =
-          await EndpointGlobalFieldsManager.getStoredAttributes(
-        analyticsStore,
-      );
+          await EndpointGlobalFieldsManager.getStoredAttributes(analyticsStore);
       final analyticsMetrics =
           await EndpointGlobalFieldsManager.getStoredMetrics(analyticsStore);
 
-      final notificationsStore =
-          EndpointStore(notificationsPinpointAppId, store);
+      final notificationsStore = EndpointStore(
+        notificationsPinpointAppId,
+        store,
+      );
 
       final notificationsAttributes =
           await EndpointGlobalFieldsManager.getStoredAttributes(

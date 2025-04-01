@@ -8,10 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class S3GetUrlResult extends StorageGetUrlResult {
   /// {@macro storage.amplify_storage_s3.get_url_result}
-  const S3GetUrlResult({
-    required super.url,
-    this.expiresAt,
-  });
+  const S3GetUrlResult({required super.url, this.expiresAt});
 
   /// The date and time that the url expires at.
   final DateTime? expiresAt;

@@ -12,7 +12,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   var rootModels = [
-    CpkHasManyParentBidirectionalExplicit(name: 'has many parent (explicit)')
+    CpkHasManyParentBidirectionalExplicit(name: 'has many parent (explicit)'),
   ];
   var associatedModels = List.generate(
     5,
@@ -25,7 +25,9 @@ void main() {
   group('Query child models by the parent model', () {
     setUpAll(() async {
       await configureDataStore(
-          enableCloudSync: false, modelProvider: ModelProvider.instance);
+        enableCloudSync: false,
+        modelProvider: ModelProvider.instance,
+      );
 
       for (var parent in rootModels) await Amplify.DataStore.save(parent);
       for (var child in associatedModels) await Amplify.DataStore.save(child);

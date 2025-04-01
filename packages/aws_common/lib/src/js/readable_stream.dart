@@ -60,7 +60,8 @@ abstract class UnderlyingSource {
     FutureOr<void> Function([
       String? reason,
       ReadableStreamController? controller,
-    ])? cancel,
+    ])?
+    cancel,
 
     /// This property controls what type of readable stream is being dealt with.
     ReadableStreamType type = ReadableStreamType.default$,
@@ -74,32 +75,36 @@ abstract class UnderlyingSource {
     /// consumer can also use a default reader.
     int? autoAllocateChunkSize,
   }) {
-    final startFn = start == null
-        ? undefined
-        : start is Future<void> Function(ReadableStreamController)
+    final startFn =
+        start == null
+            ? undefined
+            : start is Future<void> Function(ReadableStreamController)
             ? allowInterop((ReadableStreamController controller) {
-                return Promise.fromFuture(start(controller));
-              })
+              return Promise.fromFuture(start(controller));
+            })
             : allowInterop(start);
-    final pullFn = pull == null
-        ? undefined
-        : pull is Future<void> Function(ReadableStreamController)
+    final pullFn =
+        pull == null
+            ? undefined
+            : pull is Future<void> Function(ReadableStreamController)
             ? allowInterop((ReadableStreamController controller) {
-                return Promise.fromFuture(pull(controller));
-              })
+              return Promise.fromFuture(pull(controller));
+            })
             : allowInterop(pull);
-    final cancelFn = cancel == null
-        ? undefined
-        : cancel is Future<void> Function([
-            String? reason,
-            ReadableStreamController? controller,
-          ])
+    final cancelFn =
+        cancel == null
+            ? undefined
+            : cancel
+                is Future<void> Function([
+                  String? reason,
+                  ReadableStreamController? controller,
+                ])
             ? allowInterop((
-                String? reason,
-                ReadableStreamController? controller,
-              ) {
-                return Promise.fromFuture(cancel(reason, controller));
-              })
+              String? reason,
+              ReadableStreamController? controller,
+            ) {
+              return Promise.fromFuture(cancel(reason, controller));
+            })
             : allowInterop(cancel);
     return UnderlyingSource._(
       start: startFn,
@@ -182,8 +187,9 @@ abstract class ReadableStream {
 
 /// Used to expand [ReadableStream] and treat `ReadableStream.stream` as a
 /// `late final` property so that multiple accesses return the same value.
-final Expando<ReadableStreamView> _readableStreamViews =
-    Expando('ReadableStreamViews');
+final Expando<ReadableStreamView> _readableStreamViews = Expando(
+  'ReadableStreamViews',
+);
 
 /// {@macro aws_common.js.readable_stream}
 extension PropsReadableStream on ReadableStream {
@@ -204,8 +210,7 @@ extension PropsReadableStream on ReadableStream {
   /// is released.
   ReadableStreamReader getReader({
     ReadableStreamReaderMode mode = ReadableStreamReaderMode.default$,
-  }) =>
-      js_util.callMethod(this, 'getReader', [mode.jsValue]);
+  }) => js_util.callMethod(this, 'getReader', [mode.jsValue]);
 
   /// Creates a Dart [Stream] from `this`.
   ReadableStreamView get stream =>
@@ -282,7 +287,7 @@ enum ReadableStreamReaderMode with JSEnum {
 
   /// Results in a [ReadableStreamDefaultReader] being created that can read
   /// individual chunks from a stream.
-  default$
+  default$,
 }
 
 /// {@template aws_common.js.readable_stream_chunk}
@@ -317,15 +322,12 @@ final class ReadableStreamView extends StreamView<List<int>> {
     // ignore: close_sinks
     final progressController = StreamController<int>.broadcast(sync: true);
     _pipeFrom(stream, controller.sink, progressController.sink);
-    return ReadableStreamView._(
-      controller.stream,
-      progressController.stream,
-    );
+    return ReadableStreamView._(controller.stream, progressController.stream);
   }
 
   /// Creates an empty [ReadableStreamView] which emits a single `done` event.
   const ReadableStreamView.empty()
-      : this._(const Stream.empty(), const Stream.empty());
+    : this._(const Stream.empty(), const Stream.empty());
 
   const ReadableStreamView._(super.stream, this.progress);
 

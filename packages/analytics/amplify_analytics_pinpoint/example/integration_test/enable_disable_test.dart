@@ -20,9 +20,7 @@ void main() {
     late Stream<TestEvent> eventsStream;
 
     setUp(() async {
-      await configureAnalytics(
-        appLifecycleProvider: mockLifecycleProvider,
-      );
+      await configureAnalytics(appLifecycleProvider: mockLifecycleProvider);
       eventsStream = await subscribeToEvents();
     });
 

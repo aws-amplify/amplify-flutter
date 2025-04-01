@@ -97,11 +97,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
 ///
 /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-class UploadPartCopyOperation extends _i1.HttpOperation<
-    UploadPartCopyRequestPayload,
-    UploadPartCopyRequest,
-    CopyPartResult,
-    UploadPartCopyOutput> {
+class UploadPartCopyOperation
+    extends
+        _i1.HttpOperation<
+          UploadPartCopyRequestPayload,
+          UploadPartCopyRequest,
+          CopyPartResult,
+          UploadPartCopyOutput
+        > {
   /// Uploads a part by copying data from an existing object as data source. To specify the data source, you add the request header `x-amz-copy-source` in your request. To specify a byte range, you add the request header `x-amz-copy-source-range` in your request.
   ///
   /// For information about maximum and minimum part sizes and other multipart upload specifications, see [Multipart upload limits](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html) in the _Amazon S3 User Guide_.
@@ -192,27 +195,35 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<UploadPartCopyRequestPayload, UploadPartCopyRequest,
-          CopyPartResult, UploadPartCopyOutput>> protocols = [
+    _i1.HttpProtocol<
+      UploadPartCopyRequestPayload,
+      UploadPartCopyRequest,
+      CopyPartResult,
+      UploadPartCopyOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -220,12 +231,11 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
             const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
-      responseInterceptors: <_i1.HttpResponseInterceptor>[
-            const _i2.CheckErrorOnSuccess()
-          ] +
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[const _i2.CheckErrorOnSuccess()] +
           _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -246,108 +256,101 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(UploadPartCopyRequest input) =>
-      _i1.HttpRequest((b) {
-        b.method = 'PUT';
-        b.path = _s3ClientConfig.usePathStyle
+  _i1.HttpRequest buildRequest(UploadPartCopyRequest input) => _i1.HttpRequest((
+    b,
+  ) {
+    b.method = 'PUT';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=UploadPartCopy'
             : r'/{Key+}?x-id=UploadPartCopy';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.copySource.isNotEmpty) {
-          b.headers['x-amz-copy-source'] = input.copySource;
-        }
-        if (input.copySourceIfMatch != null) {
-          if (input.copySourceIfMatch!.isNotEmpty) {
-            b.headers['x-amz-copy-source-if-match'] = input.copySourceIfMatch!;
-          }
-        }
-        if (input.copySourceIfModifiedSince != null) {
-          b.headers['x-amz-copy-source-if-modified-since'] =
-              _i1.Timestamp(input.copySourceIfModifiedSince!)
-                  .format(_i1.TimestampFormat.httpDate)
-                  .toString();
-        }
-        if (input.copySourceIfNoneMatch != null) {
-          if (input.copySourceIfNoneMatch!.isNotEmpty) {
-            b.headers['x-amz-copy-source-if-none-match'] =
-                input.copySourceIfNoneMatch!;
-          }
-        }
-        if (input.copySourceIfUnmodifiedSince != null) {
-          b.headers['x-amz-copy-source-if-unmodified-since'] =
-              _i1.Timestamp(input.copySourceIfUnmodifiedSince!)
-                  .format(_i1.TimestampFormat.httpDate)
-                  .toString();
-        }
-        if (input.copySourceRange != null) {
-          if (input.copySourceRange!.isNotEmpty) {
-            b.headers['x-amz-copy-source-range'] = input.copySourceRange!;
-          }
-        }
-        if (input.sseCustomerAlgorithm != null) {
-          if (input.sseCustomerAlgorithm!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-algorithm'] =
-                input.sseCustomerAlgorithm!;
-          }
-        }
-        if (input.sseCustomerKey != null) {
-          if (input.sseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key'] =
-                input.sseCustomerKey!;
-          }
-        }
-        if (input.sseCustomerKeyMd5 != null) {
-          if (input.sseCustomerKeyMd5!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
-                input.sseCustomerKeyMd5!;
-          }
-        }
-        if (input.copySourceSseCustomerAlgorithm != null) {
-          if (input.copySourceSseCustomerAlgorithm!.isNotEmpty) {
-            b.headers[
-                    'x-amz-copy-source-server-side-encryption-customer-algorithm'] =
-                input.copySourceSseCustomerAlgorithm!;
-          }
-        }
-        if (input.copySourceSseCustomerKey != null) {
-          if (input.copySourceSseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-copy-source-server-side-encryption-customer-key'] =
-                input.copySourceSseCustomerKey!;
-          }
-        }
-        if (input.copySourceSseCustomerKeyMd5 != null) {
-          if (input.copySourceSseCustomerKeyMd5!.isNotEmpty) {
-            b.headers[
-                    'x-amz-copy-source-server-side-encryption-customer-key-MD5'] =
-                input.copySourceSseCustomerKeyMd5!;
-          }
-        }
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.expectedSourceBucketOwner != null) {
-          if (input.expectedSourceBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-source-expected-bucket-owner'] =
-                input.expectedSourceBucketOwner!;
-          }
-        }
-        if (input.partNumber != null) {
-          b.queryParameters.add(
-            'partNumber',
-            input.partNumber!.toString(),
-          );
-        }
-        b.queryParameters.add(
-          'uploadId',
-          input.uploadId,
-        );
-      });
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.copySource.isNotEmpty) {
+      b.headers['x-amz-copy-source'] = input.copySource;
+    }
+    if (input.copySourceIfMatch != null) {
+      if (input.copySourceIfMatch!.isNotEmpty) {
+        b.headers['x-amz-copy-source-if-match'] = input.copySourceIfMatch!;
+      }
+    }
+    if (input.copySourceIfModifiedSince != null) {
+      b.headers['x-amz-copy-source-if-modified-since'] =
+          _i1.Timestamp(
+            input.copySourceIfModifiedSince!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.copySourceIfNoneMatch != null) {
+      if (input.copySourceIfNoneMatch!.isNotEmpty) {
+        b.headers['x-amz-copy-source-if-none-match'] =
+            input.copySourceIfNoneMatch!;
+      }
+    }
+    if (input.copySourceIfUnmodifiedSince != null) {
+      b.headers['x-amz-copy-source-if-unmodified-since'] =
+          _i1.Timestamp(
+            input.copySourceIfUnmodifiedSince!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.copySourceRange != null) {
+      if (input.copySourceRange!.isNotEmpty) {
+        b.headers['x-amz-copy-source-range'] = input.copySourceRange!;
+      }
+    }
+    if (input.sseCustomerAlgorithm != null) {
+      if (input.sseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-algorithm'] =
+            input.sseCustomerAlgorithm!;
+      }
+    }
+    if (input.sseCustomerKey != null) {
+      if (input.sseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key'] =
+            input.sseCustomerKey!;
+      }
+    }
+    if (input.sseCustomerKeyMd5 != null) {
+      if (input.sseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
+            input.sseCustomerKeyMd5!;
+      }
+    }
+    if (input.copySourceSseCustomerAlgorithm != null) {
+      if (input.copySourceSseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-copy-source-server-side-encryption-customer-algorithm'] =
+            input.copySourceSseCustomerAlgorithm!;
+      }
+    }
+    if (input.copySourceSseCustomerKey != null) {
+      if (input.copySourceSseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-copy-source-server-side-encryption-customer-key'] =
+            input.copySourceSseCustomerKey!;
+      }
+    }
+    if (input.copySourceSseCustomerKeyMd5 != null) {
+      if (input.copySourceSseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-copy-source-server-side-encryption-customer-key-MD5'] =
+            input.copySourceSseCustomerKeyMd5!;
+      }
+    }
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.expectedSourceBucketOwner != null) {
+      if (input.expectedSourceBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-source-expected-bucket-owner'] =
+            input.expectedSourceBucketOwner!;
+      }
+    }
+    if (input.partNumber != null) {
+      b.queryParameters.add('partNumber', input.partNumber!.toString());
+    }
+    b.queryParameters.add('uploadId', input.uploadId);
+  });
 
   @override
   int successCode([UploadPartCopyOutput? output]) => 200;
@@ -356,11 +359,7 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
   UploadPartCopyOutput buildOutput(
     CopyPartResult? payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      UploadPartCopyOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => UploadPartCopyOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -399,11 +398,7 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

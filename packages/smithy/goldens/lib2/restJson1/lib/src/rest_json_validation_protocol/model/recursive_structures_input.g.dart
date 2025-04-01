@@ -10,16 +10,16 @@ class _$RecursiveStructuresInput extends RecursiveStructuresInput {
   @override
   final RecursiveUnionOne? union;
 
-  factory _$RecursiveStructuresInput(
-          [void Function(RecursiveStructuresInputBuilder)? updates]) =>
-      (new RecursiveStructuresInputBuilder()..update(updates))._build();
+  factory _$RecursiveStructuresInput([
+    void Function(RecursiveStructuresInputBuilder)? updates,
+  ]) => (new RecursiveStructuresInputBuilder()..update(updates))._build();
 
   _$RecursiveStructuresInput._({this.union}) : super._();
 
   @override
   RecursiveStructuresInput rebuild(
-          void Function(RecursiveStructuresInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RecursiveStructuresInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RecursiveStructuresInputBuilder toBuilder() =>

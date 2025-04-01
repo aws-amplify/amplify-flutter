@@ -12,11 +12,12 @@ part 'unsupported_operation_exception.g.dart';
 
 /// Exception that is thrown when you attempt to perform an operation that isn't enabled for the user pool client.
 abstract class UnsupportedOperationException
-    with
-        _i1.AWSEquatable<UnsupportedOperationException>
+    with _i1.AWSEquatable<UnsupportedOperationException>
     implements
-        Built<UnsupportedOperationException,
-            UnsupportedOperationExceptionBuilder>,
+        Built<
+          UnsupportedOperationException,
+          UnsupportedOperationExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   /// Exception that is thrown when you attempt to perform an operation that isn't enabled for the user pool client.
   factory UnsupportedOperationException({String? message}) {
@@ -24,9 +25,9 @@ abstract class UnsupportedOperationException
   }
 
   /// Exception that is thrown when you attempt to perform an operation that isn't enabled for the user pool client.
-  factory UnsupportedOperationException.build(
-          [void Function(UnsupportedOperationExceptionBuilder) updates]) =
-      _$UnsupportedOperationException;
+  factory UnsupportedOperationException.build([
+    void Function(UnsupportedOperationExceptionBuilder) updates,
+  ]) = _$UnsupportedOperationException;
 
   const UnsupportedOperationException._();
 
@@ -34,21 +35,20 @@ abstract class UnsupportedOperationException
   factory UnsupportedOperationException.fromResponse(
     UnsupportedOperationException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<UnsupportedOperationException>>
-      serializers = [UnsupportedOperationExceptionAwsJson11Serializer()];
+  serializers = [UnsupportedOperationExceptionAwsJson11Serializer()];
 
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'UnsupportedOperationException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'UnsupportedOperationException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -69,10 +69,7 @@ abstract class UnsupportedOperationException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnsupportedOperationException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -80,21 +77,18 @@ abstract class UnsupportedOperationException
 class UnsupportedOperationExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UnsupportedOperationException> {
   const UnsupportedOperationExceptionAwsJson11Serializer()
-      : super('UnsupportedOperationException');
+    : super('UnsupportedOperationException');
 
   @override
   Iterable<Type> get types => const [
-        UnsupportedOperationException,
-        _$UnsupportedOperationException,
-      ];
+    UnsupportedOperationException,
+    _$UnsupportedOperationException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   UnsupportedOperationException deserialize(
@@ -113,10 +107,12 @@ class UnsupportedOperationExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -134,10 +130,9 @@ class UnsupportedOperationExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

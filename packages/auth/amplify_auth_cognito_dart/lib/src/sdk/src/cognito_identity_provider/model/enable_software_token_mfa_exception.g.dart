@@ -13,16 +13,17 @@ class _$EnableSoftwareTokenMfaException
   @override
   final Map<String, String>? headers;
 
-  factory _$EnableSoftwareTokenMfaException(
-          [void Function(EnableSoftwareTokenMfaExceptionBuilder)? updates]) =>
+  factory _$EnableSoftwareTokenMfaException([
+    void Function(EnableSoftwareTokenMfaExceptionBuilder)? updates,
+  ]) =>
       (new EnableSoftwareTokenMfaExceptionBuilder()..update(updates))._build();
 
   _$EnableSoftwareTokenMfaException._({this.message, this.headers}) : super._();
 
   @override
   EnableSoftwareTokenMfaException rebuild(
-          void Function(EnableSoftwareTokenMfaExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EnableSoftwareTokenMfaExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EnableSoftwareTokenMfaExceptionBuilder toBuilder() =>
@@ -45,8 +46,10 @@ class _$EnableSoftwareTokenMfaException
 
 class EnableSoftwareTokenMfaExceptionBuilder
     implements
-        Builder<EnableSoftwareTokenMfaException,
-            EnableSoftwareTokenMfaExceptionBuilder> {
+        Builder<
+          EnableSoftwareTokenMfaException,
+          EnableSoftwareTokenMfaExceptionBuilder
+        > {
   _$EnableSoftwareTokenMfaException? _$v;
 
   String? _message;
@@ -84,7 +87,8 @@ class EnableSoftwareTokenMfaExceptionBuilder
   EnableSoftwareTokenMfaException build() => _build();
 
   _$EnableSoftwareTokenMfaException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EnableSoftwareTokenMfaException._(
           message: message,
           headers: headers,

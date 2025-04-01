@@ -17,9 +17,7 @@ void main() {
   group('sign-up-with-username', () {
     // Given I'm running the example "ui/components/authenticator/sign-up-with-username"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-username',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-username');
     });
 
     // Scenario: Login mechanism set to "username"
@@ -44,24 +42,26 @@ void main() {
     });
 
     // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
-    testWidgets('"Email" is included from aws_cognito_verification_mechanisms',
-        (tester) async {
-      final signUpPage = SignUpPage(tester: tester);
-      final signInPage = SignInPage(tester: tester);
-      await loadAuthenticator(tester: tester);
+    testWidgets(
+      '"Email" is included from aws_cognito_verification_mechanisms',
+      (tester) async {
+        final signUpPage = SignUpPage(tester: tester);
+        final signInPage = SignInPage(tester: tester);
+        await loadAuthenticator(tester: tester);
 
-      expect(
-        tester.bloc.stream,
-        emitsInOrder([
-          UnauthenticatedState.signIn,
-          UnauthenticatedState.signUp,
-          emitsDone,
-        ]),
-      );
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.signUp,
+            emitsDone,
+          ]),
+        );
 
-      await signInPage.navigateToSignUp();
-      signUpPage.expectEmailIsPresent();
-    });
+        await signInPage.navigateToSignUp();
+        signUpPage.expectEmailIsPresent();
+      },
+    );
 
     // Scenario: "Phone Number" is not included
     testWidgets('"Phone Number" is not included', (tester) async {

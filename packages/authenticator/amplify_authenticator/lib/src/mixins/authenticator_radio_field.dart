@@ -27,12 +27,7 @@ mixin AuthenticatorRadioField<FieldType extends Enum, FieldValue extends Object,
             key: Key('${selection.value}${widget.titleKey}'),
             horizontalTitleGap: 0,
             contentPadding: EdgeInsets.zero,
-            title: Text(
-              inputResolver.resolve(
-                context,
-                selection.label,
-              ),
-            ),
+            title: Text(inputResolver.resolve(context, selection.label)),
             leading: Radio<FieldValue>(
               value: selection.value,
               groupValue: selectionValue,

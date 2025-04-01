@@ -108,8 +108,10 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey {
   /// Federated identities of the user.
   ///
   /// Read-only: `true`
-  static const identities =
-      CognitoUserAttributeKey._('identities', readOnly: true);
+  static const identities = CognitoUserAttributeKey._(
+    'identities',
+    readOnly: true,
+  );
 
   /// {@macro amplify_core.user_attribute.locale}
   ///
@@ -153,8 +155,9 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey {
   /// {@macro amplify_core.user_attribute.preferred_username}
   ///
   /// Read-only: `false`
-  static const preferredUsername =
-      CognitoUserAttributeKey._('preferred_username');
+  static const preferredUsername = CognitoUserAttributeKey._(
+    'preferred_username',
+  );
 
   /// {@macro amplify_core.user_attribute.profile}
   ///

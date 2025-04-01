@@ -15,8 +15,5 @@ abstract class StorageUploadDataOperation<
     extends StorageOperation<Request, Result>
     implements StorageCancelableOperation {
   /// {@macro amplify_core.storage.upload_data_operation}
-  StorageUploadDataOperation({
-    required super.request,
-    required super.result,
-  });
+  StorageUploadDataOperation({required super.request, required super.result});
 }

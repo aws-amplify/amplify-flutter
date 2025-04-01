@@ -78,9 +78,9 @@ class _ConstraintsSubcommand extends AmplifyCommand with GlobOptions {
       }
 
       if (package.pubspecInfo.pubspecYamlEditor.edits.isNotEmpty) {
-        File.fromUri(package.pubspecInfo.uri).writeAsStringSync(
-          package.pubspecInfo.pubspecYamlEditor.toString(),
-        );
+        File.fromUri(
+          package.pubspecInfo.uri,
+        ).writeAsStringSync(package.pubspecInfo.pubspecYamlEditor.toString());
       }
     }
     final mismatchedDependencies = constraintsCheckers.expand(
@@ -137,10 +137,10 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
       final versionConstraint = entry.value;
 
       void updateConstraint(VersionConstraint newVersionConstraint) {
-        aftEditor.update(
-          ['dependencies', package],
-          newVersionConstraint.toString(),
-        );
+        aftEditor.update([
+          'dependencies',
+          package,
+        ], newVersionConstraint.toString());
       }
 
       // Get the currently published version of the package.
@@ -159,10 +159,7 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
           // create a range).
           if (latestVersion != versionConstraint) {
             updateConstraint(
-              maxBy(
-                [versionConstraint, latestVersion],
-                (v) => v,
-              )!,
+              maxBy([versionConstraint, latestVersion], (v) => v)!,
             );
           }
         } else {
@@ -241,10 +238,9 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
 
     final hasUpdates = aftEditor.edits.isNotEmpty;
     if (hasUpdates) {
-      File.fromUri(rootPubspec.uri).writeAsStringSync(
-        aftEditor.toString(),
-        flush: true,
-      );
+      File.fromUri(
+        rootPubspec.uri,
+      ).writeAsStringSync(aftEditor.toString(), flush: true);
       aftConfigLoader.reload();
     } else {
       logger.info('No dependencies updated');
@@ -289,10 +285,7 @@ class _ConstraintsPubVerifyCommand extends AmplifyCommand {
 
     // Packages with version constraints so old, we consider them abandoned
     // and don't bother running the constraint check for them.
-    const unofficiallyAbandonedPackages = [
-      'chewie',
-      'wakelock',
-    ];
+    const unofficiallyAbandonedPackages = ['chewie', 'wakelock'];
 
     // List top pub.dev packages
     logger.info('Collecting top $count pub.dev packages...');
@@ -313,8 +306,9 @@ class _ConstraintsPubVerifyCommand extends AmplifyCommand {
 
     // Create app with all Amplify Flutter dependencies
     logger.info('Creating temporary app...');
-    final appDir =
-        Directory.systemTemp.createTempSync('amplify_constraints_verify_');
+    final appDir = Directory.systemTemp.createTempSync(
+      'amplify_constraints_verify_',
+    );
     final createRes = await Process.start(
       'flutter',
       ['create', '--project-name=constraints_verify', '.'],
@@ -340,9 +334,7 @@ class _ConstraintsPubVerifyCommand extends AmplifyCommand {
       stderrEncoding: utf8,
     );
     if (addRes.exitCode != 0) {
-      throw Exception(
-        'Could not add Amplify packages: ${addRes.stderr}',
-      );
+      throw Exception('Could not add Amplify packages: ${addRes.stderr}');
     }
 
     // Try adding each package

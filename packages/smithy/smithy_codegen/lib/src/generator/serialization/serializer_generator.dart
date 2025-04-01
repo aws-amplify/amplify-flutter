@@ -14,7 +14,8 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 /// Generates a serializer class for [shape] and [protocol].
 abstract class SerializerGenerator<S extends NamedMembersShape>
-    extends ShapeGenerator<S, Class?> with NamedMembersGenerationContext {
+    extends ShapeGenerator<S, Class?>
+    with NamedMembersGenerationContext {
   SerializerGenerator(
     super.shape,
     super.context,
@@ -46,23 +47,25 @@ abstract class SerializerGenerator<S extends NamedMembersShape>
 
   /// The primary, unnamed initializer.
   Constructor get constructor => Constructor(
-        (c) => c
+    (c) =>
+        c
           ..constant = true
           ..initializers.add(
             refer('super').call([literalString(wireName)]).code,
           ),
-      );
+  );
 
   /// The `supportedProtocols` getter.
   Method get supportedProtocols => Method(
-        (m) => m
+    (m) =>
+        m
           ..annotations.add(DartTypes.core.override)
           ..returns = DartTypes.core.iterable(DartTypes.smithy.shapeId)
           ..type = MethodType.getter
           ..name = 'supportedProtocols'
           ..lambda = true
           ..body = literalConstList([protocol.shapeId.constructed]).code,
-      );
+  );
 
   /// Destructures [members] from [variable] (of type [symbol]) to local final variables.
   Code destructure(
@@ -80,72 +83,88 @@ abstract class SerializerGenerator<S extends NamedMembersShape>
 
   /// The deserialize method.
   Method get deserialize => Method(
-        (m) => m
+    (m) =>
+        m
           ..annotations.add(DartTypes.core.override)
           ..returns = serializedSymbol
           ..name = 'deserialize'
           ..requiredParameters.addAll([
             Parameter(
-              (p) => p
-                ..type = DartTypes.builtValue.serializers
-                ..name = 'serializers',
+              (p) =>
+                  p
+                    ..type = DartTypes.builtValue.serializers
+                    ..name = 'serializers',
             ),
             Parameter(
-              (p) => p
-                ..type = isStructuredSerializer
-                    ? DartTypes.core.iterable(DartTypes.core.object.boxed)
-                    : DartTypes.core.object
-                ..name = 'serialized',
+              (p) =>
+                  p
+                    ..type =
+                        isStructuredSerializer
+                            ? DartTypes.core.iterable(
+                              DartTypes.core.object.boxed,
+                            )
+                            : DartTypes.core.object
+                    ..name = 'serialized',
             ),
           ])
           ..optionalParameters.add(
             Parameter(
-              (p) => p
-                ..type = DartTypes.builtValue.fullType
-                ..named = true
-                ..name = 'specifiedType'
-                ..defaultTo =
-                    DartTypes.builtValue.fullType.property('unspecified').code,
+              (p) =>
+                  p
+                    ..type = DartTypes.builtValue.fullType
+                    ..named = true
+                    ..name = 'specifiedType'
+                    ..defaultTo =
+                        DartTypes.builtValue.fullType
+                            .property('unspecified')
+                            .code,
             ),
           )
           ..body = deserializeCode,
-      );
+  );
 
   /// Returns the code needed to deserialize [shape].
   Code get deserializeCode;
 
   // The serialize method.
   Method get serialize => Method(
-        (m) => m
+    (m) =>
+        m
           ..annotations.add(DartTypes.core.override)
-          ..returns = isStructuredSerializer
-              ? DartTypes.core.iterable(DartTypes.core.object.boxed)
-              : DartTypes.core.object
+          ..returns =
+              isStructuredSerializer
+                  ? DartTypes.core.iterable(DartTypes.core.object.boxed)
+                  : DartTypes.core.object
           ..name = 'serialize'
           ..requiredParameters.addAll([
             Parameter(
-              (p) => p
-                ..type = DartTypes.builtValue.serializers
-                ..name = 'serializers',
+              (p) =>
+                  p
+                    ..type = DartTypes.builtValue.serializers
+                    ..name = 'serializers',
             ),
             Parameter(
-              (p) => p
-                ..type = serializedSymbol
-                ..name = 'object',
+              (p) =>
+                  p
+                    ..type = serializedSymbol
+                    ..name = 'object',
             ),
           ])
           ..optionalParameters.add(
             Parameter(
-              (p) => p
-                ..type = DartTypes.builtValue.fullType
-                ..named = true
-                ..name = 'specifiedType'
-                ..defaultTo =
-                    DartTypes.builtValue.fullType.property('unspecified').code,
+              (p) =>
+                  p
+                    ..type = DartTypes.builtValue.fullType
+                    ..named = true
+                    ..name = 'specifiedType'
+                    ..defaultTo =
+                        DartTypes.builtValue.fullType
+                            .property('unspecified')
+                            .code,
             ),
           )
           ..body = serializeCode,
-      );
+  );
 
   /// Returns the code needed to serialize [shape].
   Code get serializeCode;
@@ -184,11 +203,9 @@ abstract class SerializerGenerator<S extends NamedMembersShape>
 
     // For timestamps without custom serialization annotations, and all other
     // shapes, use the default serializer for the context.
-    return refer('serializers').property('serialize').call([
-      memberRef,
-    ], {
-      'specifiedType': memberSymbol.fullType(),
-    });
+    return refer('serializers')
+        .property('serialize')
+        .call([memberRef], {'specifiedType': memberSymbol.fullType()});
   }
 
   /// Deserializes [member] using `built_value` constructs.
@@ -204,11 +221,12 @@ abstract class SerializerGenerator<S extends NamedMembersShape>
     // For timestamps, check if there is a custom serializer needed.
     if (type == ShapeType.timestamp &&
         protocol.supportsTrait(TimestampFormatTrait.id)) {
-      final format = config.isTest
-          // Test params are always in epoch seconds.
-          // https://awslabs.github.io/smithy/1.0/spec/http-protocol-compliance-tests.html#parameter-format
-          ? TimestampFormat.epochSeconds
-          : member.timestampFormat ?? targetShape.timestampFormat;
+      final format =
+          config.isTest
+              // Test params are always in epoch seconds.
+              // https://awslabs.github.io/smithy/1.0/spec/http-protocol-compliance-tests.html#parameter-format
+              ? TimestampFormat.epochSeconds
+              : member.timestampFormat ?? targetShape.timestampFormat;
       if (format != null) {
         return DartTypes.smithy.timestampSerializer
             .property(format.name)
@@ -229,10 +247,9 @@ abstract class SerializerGenerator<S extends NamedMembersShape>
 
     // For timestamps without custom serialization annotations, and all other
     // shapes, use the default serializer for the context.
-    return refer('serializers').property('deserialize').call([
-      value,
-    ], {
-      'specifiedType': memberSymbol.fullType(),
-    }).asA(memberSymbol);
+    return refer('serializers')
+        .property('deserialize')
+        .call([value], {'specifiedType': memberSymbol.fullType()})
+        .asA(memberSymbol);
   }
 }

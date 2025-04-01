@@ -17,28 +17,36 @@ class _$SignInParametersSerializer
   final String wireName = 'SignInParameters';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, SignInParameters object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    SignInParameters object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'username',
-      serializers.serialize(object.username,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.username,
+        specifiedType: const FullType(String),
+      ),
     ];
     Object? value;
     value = object.password;
     if (value != null) {
       result
         ..add('password')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   SignInParameters deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new SignInParametersBuilder();
 
     final iterator = serialized.iterator;
@@ -48,12 +56,20 @@ class _$SignInParametersSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'username':
-          result.username = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.username =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'password':
-          result.password = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.password =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -68,13 +84,16 @@ class _$SignInParameters extends SignInParameters {
   @override
   final String? password;
 
-  factory _$SignInParameters(
-          [void Function(SignInParametersBuilder)? updates]) =>
-      (new SignInParametersBuilder()..update(updates))._build();
+  factory _$SignInParameters([
+    void Function(SignInParametersBuilder)? updates,
+  ]) => (new SignInParametersBuilder()..update(updates))._build();
 
   _$SignInParameters._({required this.username, this.password}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        username, r'SignInParameters', 'username');
+      username,
+      r'SignInParameters',
+      'username',
+    );
   }
 
   @override
@@ -150,10 +169,14 @@ class SignInParametersBuilder
   SignInParameters build() => _build();
 
   _$SignInParameters _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SignInParameters._(
           username: BuiltValueNullFieldError.checkNotNull(
-              username, r'SignInParameters', 'username'),
+            username,
+            r'SignInParameters',
+            'username',
+          ),
           password: password,
         );
     replace(_$result);

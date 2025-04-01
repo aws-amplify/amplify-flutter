@@ -24,25 +24,25 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$UploadPartCopyOutput(
-          [void Function(UploadPartCopyOutputBuilder)? updates]) =>
-      (new UploadPartCopyOutputBuilder()..update(updates))._build();
+  factory _$UploadPartCopyOutput([
+    void Function(UploadPartCopyOutputBuilder)? updates,
+  ]) => (new UploadPartCopyOutputBuilder()..update(updates))._build();
 
-  _$UploadPartCopyOutput._(
-      {this.copySourceVersionId,
-      this.copyPartResult,
-      this.serverSideEncryption,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.bucketKeyEnabled,
-      this.requestCharged})
-      : super._();
+  _$UploadPartCopyOutput._({
+    this.copySourceVersionId,
+    this.copyPartResult,
+    this.serverSideEncryption,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.bucketKeyEnabled,
+    this.requestCharged,
+  }) : super._();
 
   @override
   UploadPartCopyOutput rebuild(
-          void Function(UploadPartCopyOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UploadPartCopyOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UploadPartCopyOutputBuilder toBuilder() =>
@@ -158,7 +158,8 @@ class UploadPartCopyOutputBuilder
   _$UploadPartCopyOutput _build() {
     _$UploadPartCopyOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$UploadPartCopyOutput._(
             copySourceVersionId: copySourceVersionId,
             copyPartResult: _copyPartResult?.build(),
@@ -176,7 +177,10 @@ class UploadPartCopyOutputBuilder
         _copyPartResult?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'UploadPartCopyOutput', _$failedField, e.toString());
+          r'UploadPartCopyOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

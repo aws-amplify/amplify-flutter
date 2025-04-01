@@ -12,11 +12,12 @@ part 'user_lambda_validation_exception.g.dart';
 
 /// This exception is thrown when the Amazon Cognito service encounters a user validation exception with the Lambda service.
 abstract class UserLambdaValidationException
-    with
-        _i1.AWSEquatable<UserLambdaValidationException>
+    with _i1.AWSEquatable<UserLambdaValidationException>
     implements
-        Built<UserLambdaValidationException,
-            UserLambdaValidationExceptionBuilder>,
+        Built<
+          UserLambdaValidationException,
+          UserLambdaValidationExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   /// This exception is thrown when the Amazon Cognito service encounters a user validation exception with the Lambda service.
   factory UserLambdaValidationException({String? message}) {
@@ -24,9 +25,9 @@ abstract class UserLambdaValidationException
   }
 
   /// This exception is thrown when the Amazon Cognito service encounters a user validation exception with the Lambda service.
-  factory UserLambdaValidationException.build(
-          [void Function(UserLambdaValidationExceptionBuilder) updates]) =
-      _$UserLambdaValidationException;
+  factory UserLambdaValidationException.build([
+    void Function(UserLambdaValidationExceptionBuilder) updates,
+  ]) = _$UserLambdaValidationException;
 
   const UserLambdaValidationException._();
 
@@ -34,22 +35,21 @@ abstract class UserLambdaValidationException
   factory UserLambdaValidationException.fromResponse(
     UserLambdaValidationException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<UserLambdaValidationException>>
-      serializers = [UserLambdaValidationExceptionAwsJson11Serializer()];
+  serializers = [UserLambdaValidationExceptionAwsJson11Serializer()];
 
   /// The message returned when the Amazon Cognito service returns a user validation exception with the Lambda service.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'UserLambdaValidationException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'UserLambdaValidationException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -70,10 +70,7 @@ abstract class UserLambdaValidationException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UserLambdaValidationException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -81,21 +78,18 @@ abstract class UserLambdaValidationException
 class UserLambdaValidationExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UserLambdaValidationException> {
   const UserLambdaValidationExceptionAwsJson11Serializer()
-      : super('UserLambdaValidationException');
+    : super('UserLambdaValidationException');
 
   @override
   Iterable<Type> get types => const [
-        UserLambdaValidationException,
-        _$UserLambdaValidationException,
-      ];
+    UserLambdaValidationException,
+    _$UserLambdaValidationException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   UserLambdaValidationException deserialize(
@@ -114,10 +108,12 @@ class UserLambdaValidationExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -135,10 +131,9 @@ class UserLambdaValidationExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

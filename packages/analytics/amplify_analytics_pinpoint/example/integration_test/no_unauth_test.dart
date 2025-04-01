@@ -17,31 +17,28 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group(
-      'Amplify.configure should complete even when unauthenticated access is disabled.',
-      () {
-    tearDown(Amplify.reset);
+    'Amplify.configure should complete even when unauthenticated access is disabled.',
+    () {
+      tearDown(Amplify.reset);
 
-    for (final environmentName in const [
-      'no-unauth-access',
-      'no-unauth-identities',
-    ]) {
-      testWidgets(environmentName, (_) async {
-        storageFactory(scope) => setupAndCreateMockPersistedSecuredStorage();
-        await Amplify.addPlugins([
-          AmplifyAuthCognito(
-            secureStorageFactory: storageFactory,
-          ),
-          AmplifyAnalyticsPinpoint(
-            secureStorageFactory: storageFactory,
-          ),
-          AmplifyAPI(),
-        ]);
-        await completesWithoutError(
-          () => Amplify.configure(amplifyEnvironments[environmentName]!),
-        );
-      });
-    }
-  });
+      for (final environmentName in const [
+        'no-unauth-access',
+        'no-unauth-identities',
+      ]) {
+        testWidgets(environmentName, (_) async {
+          storageFactory(scope) => setupAndCreateMockPersistedSecuredStorage();
+          await Amplify.addPlugins([
+            AmplifyAuthCognito(secureStorageFactory: storageFactory),
+            AmplifyAnalyticsPinpoint(secureStorageFactory: storageFactory),
+            AmplifyAPI(),
+          ]);
+          await completesWithoutError(
+            () => Amplify.configure(amplifyEnvironments[environmentName]!),
+          );
+        });
+      }
+    },
+  );
 }
 
 /// Tests that [callback] can complete without an error, while ignoring any errors
@@ -58,11 +55,9 @@ void main() {
 Future<void> completesWithoutError(Future<Object?> Function() callback) async {
   await runZonedGuarded(
     () async {
-      await callback().onError(
-        (error, stackTrace) {
-          fail('should complete without error but failed with $error');
-        },
-      );
+      await callback().onError((error, stackTrace) {
+        fail('should complete without error but failed with $error');
+      });
     },
     (error, stack) {
       if (error is TestFailure) {

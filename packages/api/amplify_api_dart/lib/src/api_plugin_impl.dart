@@ -32,9 +32,9 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     APIPluginOptions options = const APIPluginOptions(),
     ConnectivityPlatform connectivity = const ConnectivityPlatform(),
     ProcessLifeCycle processLifeCycle = const ProcessLifeCycle(),
-  })  : _options = options,
-        _connectivity = connectivity,
-        _processLifeCycle = processLifeCycle {
+  }) : _options = options,
+       _connectivity = connectivity,
+       _processLifeCycle = processLifeCycle {
     _options.authProviders.forEach(registerAuthProvider);
   }
 
@@ -97,7 +97,8 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     if (dataConfig == null && restApiConfig == null) {
       throw ConfigurationError(
         'No API config found',
-        recoverySuggestion: 'Add API configuration to use API plugin. See '
+        recoverySuggestion:
+            'Add API configuration to use API plugin. See '
             'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
       );
     }
@@ -132,8 +133,9 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       // Check the presence of apiKey (not auth type) because other modes might
       // have a key if not the primary auth mode.
       if (value.defaultAuthorizationType == APIAuthorizationType.apiKey ||
-          value.authorizationTypes
-              .any((element) => element == APIAuthorizationType.apiKey)) {
+          value.authorizationTypes.any(
+            (element) => element == APIAuthorizationType.apiKey,
+          )) {
         _authProviderRepo.registerAuthProvider(
           APIAuthorizationType.apiKey.authProviderToken,
           AppSyncApiKeyAuthProvider(),
@@ -192,20 +194,21 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   EndpointConfig _getEndpointConfig(ApiType type, String? apiName) {
     if (type == ApiType.graphQL) {
       if (_dataConfig == null) {
-        throw ConfigurationError(
-          'No GraphQL API endpoint found.',
-        );
+        throw ConfigurationError('No GraphQL API endpoint found.');
       }
       DataOutputs config;
       if (apiName != null) {
-        config = _dataConfig.entries
-            .firstWhere(
-              (config) => config.key == apiName,
-              orElse: () => throw ConfigurationError(
-                'No GraphQL API endpoint found matching apiName $apiName.',
-              ),
-            )
-            .value;
+        config =
+            _dataConfig.entries
+                .firstWhere(
+                  (config) => config.key == apiName,
+                  orElse:
+                      () =>
+                          throw ConfigurationError(
+                            'No GraphQL API endpoint found matching apiName $apiName.',
+                          ),
+                )
+                .value;
       } else {
         if (_dataConfig.length > 1) {
           throw ConfigurationError(
@@ -216,27 +219,25 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
         config = _dataConfig.values.first;
         apiName = _dataConfig.keys.first;
       }
-      return EndpointConfig(
-        apiName,
-        config,
-      );
+      return EndpointConfig(apiName, config);
     }
     if (type == ApiType.rest) {
       if (_restConfig == null) {
-        throw ConfigurationError(
-          'No REST API endpoint found.',
-        );
+        throw ConfigurationError('No REST API endpoint found.');
       }
       RestApiOutputs config;
       if (apiName != null) {
-        config = _restConfig.entries
-            .firstWhere(
-              (config) => config.key == apiName,
-              orElse: () => throw ConfigurationError(
-                'No REST API endpoint found matching apiName $apiName.',
-              ),
-            )
-            .value;
+        config =
+            _restConfig.entries
+                .firstWhere(
+                  (config) => config.key == apiName,
+                  orElse:
+                      () =>
+                          throw ConfigurationError(
+                            'No REST API endpoint found matching apiName $apiName.',
+                          ),
+                )
+                .value;
       } else {
         if (_restConfig.length > 1) {
           throw ConfigurationError(
@@ -247,21 +248,13 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
         config = _restConfig.values.first;
         apiName = _restConfig.keys.first;
       }
-      return EndpointConfig(
-        apiName,
-        config,
-      );
+      return EndpointConfig(apiName, config);
     }
-    throw ConfigurationError(
-      'Endpoint type $type is not supported.',
-    );
+    throw ConfigurationError('Endpoint type $type is not supported.');
   }
 
   WebSocketBloc _webSocketBloc({String? apiName}) {
-    final endpoint = _getEndpointConfig(
-      ApiType.graphQL,
-      apiName,
-    );
+    final endpoint = _getEndpointConfig(ApiType.graphQL, apiName);
 
     return _webSocketBlocPool[endpoint.name] ??= createWebSocketBloc(endpoint)
       ..stream.listen((event) {
@@ -288,10 +281,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   }
 
   Uri _getGraphQLUri(String? apiName) {
-    final endpoint = _getEndpointConfig(
-      ApiType.graphQL,
-      apiName,
-    );
+    final endpoint = _getEndpointConfig(ApiType.graphQL, apiName);
     return endpoint.getUri();
   }
 
@@ -300,10 +290,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     String? apiName,
     Map<String, dynamic>? queryParameters,
   ) {
-    final endpoint = _getEndpointConfig(
-      ApiType.rest,
-      apiName,
-    );
+    final endpoint = _getEndpointConfig(ApiType.rest, apiName);
     return endpoint.getUri(path: path, queryParameters: queryParameters);
   }
 
@@ -383,10 +370,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(ApiType.rest, apiName: apiName);
     return RestOperation.fromHttpOperation(
-      AWSHttpRequest.get(
-        uri,
-        headers: headers,
-      ).send(client: client),
+      AWSHttpRequest.get(uri, headers: headers).send(client: client),
     );
   }
 
@@ -400,10 +384,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(ApiType.rest, apiName: apiName);
     return RestOperation.fromHttpOperation(
-      AWSHttpRequest.head(
-        uri,
-        headers: headers,
-      ).send(client: client),
+      AWSHttpRequest.head(uri, headers: headers).send(client: client),
     );
   }
 

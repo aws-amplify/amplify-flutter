@@ -33,9 +33,7 @@ Future<void> configureAmplify({bool useGen1 = false}) async {
         ),
       ),
       AmplifyAPI(
-        options: APIPluginOptions(
-          modelProvider: ModelProvider.instance,
-        ),
+        options: APIPluginOptions(modelProvider: ModelProvider.instance),
       ),
     ]);
     if (useGen1) {
@@ -69,16 +67,8 @@ Future<Blog> addBlog(String name) async {
 }
 
 // declare utility which creates post with title and blog as parameter
-Future<Post> addPost(
-  String name,
-  int rating,
-  Blog blog,
-) async {
-  final post = Post(
-    title: name,
-    blog: blog,
-    rating: rating,
-  );
+Future<Post> addPost(String name, int rating, Blog blog) async {
+  final post = Post(title: name, blog: blog, rating: rating);
   final request = ModelMutations.create(
     post,
     authorizationMode: APIAuthorizationType.userPools,
@@ -137,17 +127,15 @@ Future<GraphQLResponse<String>> runPartialMutation(String name) async {
   expect(response, hasNoGraphQLErrors);
   // Add to cache so it can be cleaned up with other test artifacts.
   final responseJson = json.decode(response.data!) as Map<String, dynamic>;
-  final blogFromResponse =
-      Blog.fromJson(responseJson['createBlog'] as Map<String, dynamic>);
+  final blogFromResponse = Blog.fromJson(
+    responseJson['createBlog'] as Map<String, dynamic>,
+  );
   blogCache.add(blogFromResponse);
 
   return response;
 }
 
-Future<Post> addPostAndBlog(
-  String title,
-  int rating,
-) async {
+Future<Post> addPostAndBlog(String title, int rating) async {
   const name = 'Integration Test Blog with a post - create';
   final createdBlog = await addBlog(name);
   return addPost(title, rating, createdBlog);
@@ -291,9 +279,7 @@ Future<Sample> deleteSample(Sample sample) async {
 
 Future<void> deleteTestModels() async {
   await Future.wait(blogCache.map(deleteBlog));
-  await Future.wait(
-    postCache.map(deletePost),
-  );
+  await Future.wait(postCache.map(deletePost));
   await Future.wait(cpkParentCache.map(deleteCpkParent));
   await Future.wait(cpkExplicitChildCache.map(deleteCpkExplicitChild));
   await Future.wait(cpkImplicitChildCache.map(deleteCpkImplicitChild));
@@ -304,7 +290,7 @@ Future<void> deleteTestModels() async {
 
 /// Wait for subscription established for given request.
 Future<StreamSubscription<GraphQLResponse<T>>>
-    getEstablishedSubscriptionOperation<T>(
+getEstablishedSubscriptionOperation<T>(
   GraphQLRequest<T> subscriptionRequest,
   void Function(GraphQLResponse<T>) onData,
 ) async {
@@ -318,8 +304,9 @@ Future<StreamSubscription<GraphQLResponse<T>>>
     onError: (Object e) => fail('Error in subscription stream: $e'),
   );
 
-  await establishedCompleter.future
-      .timeout(const Duration(seconds: _subscriptionTimeoutInterval));
+  await establishedCompleter.future.timeout(
+    const Duration(seconds: _subscriptionTimeoutInterval),
+  );
   return subscription;
 }
 

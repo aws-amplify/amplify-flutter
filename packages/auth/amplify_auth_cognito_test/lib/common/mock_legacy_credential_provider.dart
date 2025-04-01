@@ -7,14 +7,12 @@ import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 
 class MockLegacyCredentialProvider implements LegacyCredentialProvider {
   MockLegacyCredentialProvider({CredentialStoreData? initialData})
-      : data = initialData;
+    : data = initialData;
 
   CredentialStoreData? data;
 
   @override
-  Future<void> deleteLegacyCredentials(
-    AuthOutputs authOutputs,
-  ) async {
+  Future<void> deleteLegacyCredentials(AuthOutputs authOutputs) async {
     data = null;
   }
 

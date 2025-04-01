@@ -11,8 +11,5 @@ class StorageGetUrlOperation<Request extends StorageGetUrlRequest,
         Result extends StorageGetUrlResult>
     extends StorageOperation<Request, Result> {
   /// {@macro amplify_core.storage.get_url_operation}
-  StorageGetUrlOperation({
-    required super.request,
-    required super.result,
-  });
+  StorageGetUrlOperation({required super.request, required super.result});
 }

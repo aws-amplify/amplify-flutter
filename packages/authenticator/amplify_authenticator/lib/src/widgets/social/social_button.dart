@@ -14,10 +14,7 @@ import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/material.dart';
 
 class SocialSignInButtons extends StatelessAuthenticatorComponent {
-  const SocialSignInButtons({
-    super.key,
-    required this.providers,
-  });
+  const SocialSignInButtons({super.key, required this.providers});
 
   final List<AuthProvider> providers;
 
@@ -38,18 +35,13 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
             context,
             ButtonResolverKey.signInWith(provider),
           );
-          final style = Theme.of(context)
-                  .outlinedButtonTheme
-                  .style
-                  ?.textStyle
-                  ?.resolve({}) ??
+          final style = Theme.of(
+                context,
+              ).outlinedButtonTheme.style?.textStyle?.resolve({}) ??
               Theme.of(context).textTheme.labelLarge;
           final tp = TextPainter(
             textScaler: MediaQuery.textScalerOf(context),
-            text: TextSpan(
-              text: text,
-              style: style,
-            ),
+            text: TextSpan(text: text, style: style),
             maxLines: 1,
             textDirection: TextDirection.ltr,
           )..layout(maxWidth: constraints.maxWidth);
@@ -138,9 +130,9 @@ class _SocialSignInButtonState
   /// The size of the (square) logo, in pixels.
   static const double logoSize = 40;
 
-  static final AmplifyLogger logger = AmplifyLogger.category(Category.auth)
-      .createChild('Authenticator')
-      .createChild('SocialSignInButton');
+  static final AmplifyLogger logger = AmplifyLogger.category(
+    Category.auth,
+  ).createChild('Authenticator').createChild('SocialSignInButton');
 
   Widget get icon {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -164,10 +156,7 @@ class _SocialSignInButtonState
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            SocialIcons.apple,
-            color: isDark ? Colors.white : Colors.black,
-          ),
+          Icon(SocialIcons.apple, color: isDark ? Colors.white : Colors.black),
           const SizedBox(height: 4),
         ],
       );
@@ -182,10 +171,7 @@ class _SocialSignInButtonState
     // Split the space remaining after laying out the logo, its text,
     // and the spacing.
     final textWidth = widget.maxWidth;
-    return max(
-      0,
-      (constraints.maxWidth - logoSize - spacing - textWidth) / 2,
-    );
+    return max(0, (constraints.maxWidth - logoSize - spacing - textWidth) / 2);
   }
 
   // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
@@ -210,9 +196,7 @@ class _SocialSignInButtonState
       constraints: const BoxConstraints(minHeight: 40),
       child: OutlinedButton(
         focusNode: focusNode,
-        style: ButtonStyle(
-          foregroundColor: getButtonForegroundColor(context),
-        ),
+        style: ButtonStyle(foregroundColor: getButtonForegroundColor(context)),
         onPressed: state.isBusy
             ? null
             : () => state.signInWithProvider(widget.provider),

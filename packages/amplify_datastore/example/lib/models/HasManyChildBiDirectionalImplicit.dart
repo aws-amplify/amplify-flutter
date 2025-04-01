@@ -35,7 +35,8 @@ class HasManyChildBiDirectionalImplicit extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -59,21 +60,27 @@ class HasManyChildBiDirectionalImplicit extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const HasManyChildBiDirectionalImplicit._internal(
-      {required this.id, name, hasManyParent, createdAt, updatedAt})
-      : _name = name,
-        _hasManyParent = hasManyParent,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const HasManyChildBiDirectionalImplicit._internal({
+    required this.id,
+    name,
+    hasManyParent,
+    createdAt,
+    updatedAt,
+  }) : _name = name,
+       _hasManyParent = hasManyParent,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory HasManyChildBiDirectionalImplicit(
-      {String? id,
-      String? name,
-      HasManyParentBiDirectionalImplicit? hasManyParent}) {
+  factory HasManyChildBiDirectionalImplicit({
+    String? id,
+    String? name,
+    HasManyParentBiDirectionalImplicit? hasManyParent,
+  }) {
     return HasManyChildBiDirectionalImplicit._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        hasManyParent: hasManyParent);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      hasManyParent: hasManyParent,
+    );
   }
 
   bool equals(Object other) {
@@ -99,119 +106,152 @@ class HasManyChildBiDirectionalImplicit extends amplify_core.Model {
     buffer.write("HasManyChildBiDirectionalImplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("hasManyParent=" +
-        (_hasManyParent != null ? _hasManyParent.toString() : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+      "hasManyParent=" +
+          (_hasManyParent != null ? _hasManyParent.toString() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  HasManyChildBiDirectionalImplicit copyWith(
-      {String? name, HasManyParentBiDirectionalImplicit? hasManyParent}) {
+  HasManyChildBiDirectionalImplicit copyWith({
+    String? name,
+    HasManyParentBiDirectionalImplicit? hasManyParent,
+  }) {
     return HasManyChildBiDirectionalImplicit._internal(
-        id: id,
-        name: name ?? this.name,
-        hasManyParent: hasManyParent ?? this.hasManyParent);
+      id: id,
+      name: name ?? this.name,
+      hasManyParent: hasManyParent ?? this.hasManyParent,
+    );
   }
 
-  HasManyChildBiDirectionalImplicit copyWithModelFieldValues(
-      {ModelFieldValue<String?>? name,
-      ModelFieldValue<HasManyParentBiDirectionalImplicit?>? hasManyParent}) {
+  HasManyChildBiDirectionalImplicit copyWithModelFieldValues({
+    ModelFieldValue<String?>? name,
+    ModelFieldValue<HasManyParentBiDirectionalImplicit?>? hasManyParent,
+  }) {
     return HasManyChildBiDirectionalImplicit._internal(
-        id: id,
-        name: name == null ? this.name : name.value,
-        hasManyParent:
-            hasManyParent == null ? this.hasManyParent : hasManyParent.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+      hasManyParent:
+          hasManyParent == null ? this.hasManyParent : hasManyParent.value,
+    );
   }
 
   HasManyChildBiDirectionalImplicit.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _hasManyParent = json['hasManyParent'] != null
-            ? json['hasManyParent']['serializedData'] != null
-                ? HasManyParentBiDirectionalImplicit.fromJson(
+    : id = json['id'],
+      _name = json['name'],
+      _hasManyParent =
+          json['hasManyParent'] != null
+              ? json['hasManyParent']['serializedData'] != null
+                  ? HasManyParentBiDirectionalImplicit.fromJson(
                     new Map<String, dynamic>.from(
-                        json['hasManyParent']['serializedData']))
-                : HasManyParentBiDirectionalImplicit.fromJson(
-                    new Map<String, dynamic>.from(json['hasManyParent']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+                      json['hasManyParent']['serializedData'],
+                    ),
+                  )
+                  : HasManyParentBiDirectionalImplicit.fromJson(
+                    new Map<String, dynamic>.from(json['hasManyParent']),
+                  )
+              : null,
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'hasManyParent': _hasManyParent?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'hasManyParent': _hasManyParent?.toJson(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'hasManyParent': _hasManyParent,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'hasManyParent': _hasManyParent,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<HasManyChildBiDirectionalImplicitModelIdentifier>
-      MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
-          HasManyChildBiDirectionalImplicitModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<
+    HasManyChildBiDirectionalImplicitModelIdentifier
+  >
+  MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<
+        HasManyChildBiDirectionalImplicitModelIdentifier
+      >();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final HASMANYPARENT = amplify_core.QueryField(
-      fieldName: "hasManyParent",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'HasManyParentBiDirectionalImplicit'));
+    fieldName: "hasManyParent",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'HasManyParentBiDirectionalImplicit',
+    ),
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasManyChildBiDirectionalImplicit";
-    modelSchemaDefinition.pluralName = "HasManyChildBiDirectionalImplicits";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "HasManyChildBiDirectionalImplicit";
+      modelSchemaDefinition.pluralName = "HasManyChildBiDirectionalImplicits";
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: HasManyChildBiDirectionalImplicit.NAME,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: HasManyChildBiDirectionalImplicit.NAME,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: HasManyChildBiDirectionalImplicit.HASMANYPARENT,
-        isRequired: false,
-        targetNames: [
-          'hasManyParentBiDirectionalImplicitBiDirectionalImplicitChildrenId'
-        ],
-        ofModelName: 'HasManyParentBiDirectionalImplicit'));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.belongsTo(
+          key: HasManyChildBiDirectionalImplicit.HASMANYPARENT,
+          isRequired: false,
+          targetNames: [
+            'hasManyParentBiDirectionalImplicitBiDirectionalImplicitChildrenId',
+          ],
+          ofModelName: 'HasManyParentBiDirectionalImplicit',
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _HasManyChildBiDirectionalImplicitModelType
@@ -244,10 +284,10 @@ class HasManyChildBiDirectionalImplicitModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

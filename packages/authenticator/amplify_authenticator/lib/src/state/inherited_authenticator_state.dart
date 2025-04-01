@@ -10,9 +10,7 @@ class InheritedAuthenticatorState extends InheritedNotifier {
     super.key,
     required super.child,
     required this.state,
-  }) : super(
-          notifier: state,
-        );
+  }) : super(notifier: state);
 
   final AuthenticatorState state;
 

@@ -38,7 +38,8 @@ class Sample extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -74,37 +75,39 @@ class Sample extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const Sample._internal(
-      {required this.id,
-      name,
-      number,
-      flag,
-      date,
-      rootbeer,
-      createdAt,
-      updatedAt})
-      : _name = name,
-        _number = number,
-        _flag = flag,
-        _date = date,
-        _rootbeer = rootbeer,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const Sample._internal({
+    required this.id,
+    name,
+    number,
+    flag,
+    date,
+    rootbeer,
+    createdAt,
+    updatedAt,
+  }) : _name = name,
+       _number = number,
+       _flag = flag,
+       _date = date,
+       _rootbeer = rootbeer,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory Sample(
-      {String? id,
-      String? name,
-      int? number,
-      bool? flag,
-      amplify_core.TemporalTime? date,
-      double? rootbeer}) {
+  factory Sample({
+    String? id,
+    String? name,
+    int? number,
+    bool? flag,
+    amplify_core.TemporalTime? date,
+    double? rootbeer,
+  }) {
     return Sample._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        number: number,
-        flag: flag,
-        date: date,
-        rootbeer: rootbeer);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      number: number,
+      flag: flag,
+      date: date,
+      rootbeer: rootbeer,
+    );
   }
 
   bool equals(Object other) {
@@ -134,93 +137,103 @@ class Sample extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write(
-        "number=" + (_number != null ? _number!.toString() : "null") + ", ");
+      "number=" + (_number != null ? _number!.toString() : "null") + ", ",
+    );
     buffer.write("flag=" + (_flag != null ? _flag!.toString() : "null") + ", ");
     buffer.write("date=" + (_date != null ? _date!.format() : "null") + ", ");
-    buffer.write("rootbeer=" +
-        (_rootbeer != null ? _rootbeer!.toString() : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "rootbeer=" + (_rootbeer != null ? _rootbeer!.toString() : "null") + ", ",
+    );
+    buffer.write(
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Sample copyWith(
-      {String? name,
-      int? number,
-      bool? flag,
-      amplify_core.TemporalTime? date,
-      double? rootbeer}) {
+  Sample copyWith({
+    String? name,
+    int? number,
+    bool? flag,
+    amplify_core.TemporalTime? date,
+    double? rootbeer,
+  }) {
     return Sample._internal(
-        id: id,
-        name: name ?? this.name,
-        number: number ?? this.number,
-        flag: flag ?? this.flag,
-        date: date ?? this.date,
-        rootbeer: rootbeer ?? this.rootbeer);
+      id: id,
+      name: name ?? this.name,
+      number: number ?? this.number,
+      flag: flag ?? this.flag,
+      date: date ?? this.date,
+      rootbeer: rootbeer ?? this.rootbeer,
+    );
   }
 
-  Sample copyWithModelFieldValues(
-      {ModelFieldValue<String?>? name,
-      ModelFieldValue<int?>? number,
-      ModelFieldValue<bool?>? flag,
-      ModelFieldValue<amplify_core.TemporalTime?>? date,
-      ModelFieldValue<double?>? rootbeer}) {
+  Sample copyWithModelFieldValues({
+    ModelFieldValue<String?>? name,
+    ModelFieldValue<int?>? number,
+    ModelFieldValue<bool?>? flag,
+    ModelFieldValue<amplify_core.TemporalTime?>? date,
+    ModelFieldValue<double?>? rootbeer,
+  }) {
     return Sample._internal(
-        id: id,
-        name: name == null ? this.name : name.value,
-        number: number == null ? this.number : number.value,
-        flag: flag == null ? this.flag : flag.value,
-        date: date == null ? this.date : date.value,
-        rootbeer: rootbeer == null ? this.rootbeer : rootbeer.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+      number: number == null ? this.number : number.value,
+      flag: flag == null ? this.flag : flag.value,
+      date: date == null ? this.date : date.value,
+      rootbeer: rootbeer == null ? this.rootbeer : rootbeer.value,
+    );
   }
 
   Sample.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _number = (json['number'] as num?)?.toInt(),
-        _flag = json['flag'],
-        _date = json['date'] != null
-            ? amplify_core.TemporalTime.fromString(json['date'])
-            : null,
-        _rootbeer = (json['rootbeer'] as num?)?.toDouble(),
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _name = json['name'],
+      _number = (json['number'] as num?)?.toInt(),
+      _flag = json['flag'],
+      _date =
+          json['date'] != null
+              ? amplify_core.TemporalTime.fromString(json['date'])
+              : null,
+      _rootbeer = (json['rootbeer'] as num?)?.toDouble(),
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'number': _number,
-        'flag': _flag,
-        'date': _date?.format(),
-        'rootbeer': _rootbeer,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'number': _number,
+    'flag': _flag,
+    'date': _date?.format(),
+    'rootbeer': _rootbeer,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'number': _number,
-        'flag': _flag,
-        'date': _date,
-        'rootbeer': _rootbeer,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'number': _number,
+    'flag': _flag,
+    'date': _date,
+    'rootbeer': _rootbeer,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<SampleModelIdentifier>
-      MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<SampleModelIdentifier>();
+  MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<SampleModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final NUMBER = amplify_core.QueryField(fieldName: "number");
@@ -228,28 +241,32 @@ class Sample extends amplify_core.Model {
   static final DATE = amplify_core.QueryField(fieldName: "date");
   static final ROOTBEER = amplify_core.QueryField(fieldName: "rootbeer");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Sample";
-    modelSchemaDefinition.pluralName = "Samples";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "Sample";
+      modelSchemaDefinition.pluralName = "Samples";
 
-    modelSchemaDefinition.authRules = [
-      amplify_core.AuthRule(
+      modelSchemaDefinition.authRules = [
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PUBLIC,
           provider: amplify_core.AuthRuleProvider.APIKEY,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PUBLIC,
           provider: amplify_core.AuthRuleProvider.IAM,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
           provider: amplify_core.AuthRuleProvider.IAM,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
           provider: amplify_core.AuthRuleProvider.USERPOOLS,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
@@ -258,62 +275,90 @@ class Sample extends amplify_core.Model {
             amplify_core.ModelOperation.READ,
             amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.UPDATE,
-            amplify_core.ModelOperation.DELETE
-          ])
-    ];
+            amplify_core.ModelOperation.DELETE,
+          ],
+        ),
+      ];
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(fields: const ["id"], name: null),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Sample.NAME,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Sample.NAME,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Sample.NUMBER,
-        isRequired: false,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.int)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Sample.NUMBER,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.int,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Sample.FLAG,
-        isRequired: false,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Sample.FLAG,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.bool,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Sample.DATE,
-        isRequired: false,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.time)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Sample.DATE,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.time,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Sample.ROOTBEER,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.double)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Sample.ROOTBEER,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.double,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _SampleModelType extends amplify_core.ModelType<Sample> {
@@ -344,10 +389,10 @@ class SampleModelIdentifier implements amplify_core.ModelIdentifier<Sample> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

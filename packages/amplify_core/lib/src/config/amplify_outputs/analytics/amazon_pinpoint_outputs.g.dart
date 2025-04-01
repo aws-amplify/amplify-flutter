@@ -9,7 +9,8 @@ part of 'amazon_pinpoint_outputs.dart';
 // **************************************************************************
 
 AmazonPinpointOutputs _$AmazonPinpointOutputsFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     $checkedCreate(
       'AmazonPinpointOutputs',
       json,
@@ -24,7 +25,8 @@ AmazonPinpointOutputs _$AmazonPinpointOutputsFromJson(
     );
 
 Map<String, dynamic> _$AmazonPinpointOutputsToJson(
-        AmazonPinpointOutputs instance) =>
+  AmazonPinpointOutputs instance,
+) =>
     <String, dynamic>{
       'aws_region': instance.awsRegion,
       'app_id': instance.appId,

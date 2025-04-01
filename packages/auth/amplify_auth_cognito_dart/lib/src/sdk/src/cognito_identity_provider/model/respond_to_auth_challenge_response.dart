@@ -15,11 +15,12 @@ part 'respond_to_auth_challenge_response.g.dart';
 
 /// The response to respond to the authentication challenge.
 abstract class RespondToAuthChallengeResponse
-    with
-        _i1.AWSEquatable<RespondToAuthChallengeResponse>
+    with _i1.AWSEquatable<RespondToAuthChallengeResponse>
     implements
-        Built<RespondToAuthChallengeResponse,
-            RespondToAuthChallengeResponseBuilder> {
+        Built<
+          RespondToAuthChallengeResponse,
+          RespondToAuthChallengeResponseBuilder
+        > {
   /// The response to respond to the authentication challenge.
   factory RespondToAuthChallengeResponse({
     ChallengeNameType? challengeName,
@@ -30,17 +31,18 @@ abstract class RespondToAuthChallengeResponse
     return _$RespondToAuthChallengeResponse._(
       challengeName: challengeName,
       session: session,
-      challengeParameters: challengeParameters == null
-          ? null
-          : _i2.BuiltMap(challengeParameters),
+      challengeParameters:
+          challengeParameters == null
+              ? null
+              : _i2.BuiltMap(challengeParameters),
       authenticationResult: authenticationResult,
     );
   }
 
   /// The response to respond to the authentication challenge.
-  factory RespondToAuthChallengeResponse.build(
-          [void Function(RespondToAuthChallengeResponseBuilder) updates]) =
-      _$RespondToAuthChallengeResponse;
+  factory RespondToAuthChallengeResponse.build([
+    void Function(RespondToAuthChallengeResponseBuilder) updates,
+  ]) = _$RespondToAuthChallengeResponse;
 
   const RespondToAuthChallengeResponse._();
 
@@ -48,11 +50,10 @@ abstract class RespondToAuthChallengeResponse
   factory RespondToAuthChallengeResponse.fromResponse(
     RespondToAuthChallengeResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<RespondToAuthChallengeResponse>>
-      serializers = [RespondToAuthChallengeResponseAwsJson11Serializer()];
+  serializers = [RespondToAuthChallengeResponseAwsJson11Serializer()];
 
   /// The challenge name. For more information, see [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html).
   ChallengeNameType? get challengeName;
@@ -67,31 +68,20 @@ abstract class RespondToAuthChallengeResponse
   AuthenticationResultType? get authenticationResult;
   @override
   List<Object?> get props => [
-        challengeName,
-        session,
-        challengeParameters,
-        authenticationResult,
-      ];
+    challengeName,
+    session,
+    challengeParameters,
+    authenticationResult,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RespondToAuthChallengeResponse')
-      ..add(
-        'challengeName',
-        challengeName,
-      )
-      ..add(
-        'session',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'challengeParameters',
-        challengeParameters,
-      )
-      ..add(
-        'authenticationResult',
-        authenticationResult,
-      );
+    final helper =
+        newBuiltValueToStringHelper('RespondToAuthChallengeResponse')
+          ..add('challengeName', challengeName)
+          ..add('session', '***SENSITIVE***')
+          ..add('challengeParameters', challengeParameters)
+          ..add('authenticationResult', authenticationResult);
     return helper.toString();
   }
 }
@@ -99,21 +89,18 @@ abstract class RespondToAuthChallengeResponse
 class RespondToAuthChallengeResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<RespondToAuthChallengeResponse> {
   const RespondToAuthChallengeResponseAwsJson11Serializer()
-      : super('RespondToAuthChallengeResponse');
+    : super('RespondToAuthChallengeResponse');
 
   @override
   Iterable<Type> get types => const [
-        RespondToAuthChallengeResponse,
-        _$RespondToAuthChallengeResponse,
-      ];
+    RespondToAuthChallengeResponse,
+    _$RespondToAuthChallengeResponse,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   RespondToAuthChallengeResponse deserialize(
@@ -132,31 +119,38 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
       }
       switch (key) {
         case 'ChallengeName':
-          result.challengeName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ChallengeNameType),
-          ) as ChallengeNameType);
+          result.challengeName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ChallengeNameType),
+                  )
+                  as ChallengeNameType);
         case 'Session':
-          result.session = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.session =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChallengeParameters':
-          result.challengeParameters.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType.nullable(String),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, String?>));
+          result.challengeParameters.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType.nullable(String),
+                  ]),
+                )
+                as _i2.BuiltMap<String, String?>),
+          );
         case 'AuthenticationResult':
-          result.authenticationResult.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(AuthenticationResultType),
-          ) as AuthenticationResultType));
+          result.authenticationResult.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(AuthenticationResultType),
+                )
+                as AuthenticationResultType),
+          );
       }
     }
 
@@ -174,45 +168,47 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
       :challengeName,
       :session,
       :challengeParameters,
-      :authenticationResult
+      :authenticationResult,
     ) = object;
     if (challengeName != null) {
       result$
         ..add('ChallengeName')
-        ..add(serializers.serialize(
-          challengeName,
-          specifiedType: const FullType(ChallengeNameType),
-        ));
+        ..add(
+          serializers.serialize(
+            challengeName,
+            specifiedType: const FullType(ChallengeNameType),
+          ),
+        );
     }
     if (session != null) {
       result$
         ..add('Session')
-        ..add(serializers.serialize(
-          session,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(session, specifiedType: const FullType(String)),
+        );
     }
     if (challengeParameters != null) {
       result$
         ..add('ChallengeParameters')
-        ..add(serializers.serialize(
-          challengeParameters,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            challengeParameters,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType.nullable(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (authenticationResult != null) {
       result$
         ..add('AuthenticationResult')
-        ..add(serializers.serialize(
-          authenticationResult,
-          specifiedType: const FullType(AuthenticationResultType),
-        ));
+        ..add(
+          serializers.serialize(
+            authenticationResult,
+            specifiedType: const FullType(AuthenticationResultType),
+          ),
+        );
     }
     return result$;
   }

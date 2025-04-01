@@ -8,10 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class StorageRemoveRequest {
   /// {@macro amplify_core.storage.remove_request}
-  const StorageRemoveRequest({
-    required this.path,
-    this.options,
-  });
+  const StorageRemoveRequest({required this.path, this.options});
 
   /// The object key to be removed.
   final StoragePath path;

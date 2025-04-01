@@ -5,8 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 typedef DataStoreConflictHandler = ConflictResolutionDecision Function(
-  ConflictData,
-);
+    ConflictData);
 
 @immutable
 class ConflictData {

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library amplify_storage_plugin_interface;
+library;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';

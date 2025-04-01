@@ -6,11 +6,7 @@ library amplify_auth_cognito_dart.cognito_identity_provider.model.challenge_name
 import 'package:smithy/smithy.dart' as _i1;
 
 class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
-  const ChallengeNameType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ChallengeNameType._(super.index, super.name, super.value);
 
   const ChallengeNameType._sdkUnknown(super.value) : super.sdkUnknown();
 
@@ -38,17 +34,9 @@ class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
     'DEVICE_SRP_AUTH',
   );
 
-  static const emailOtp = ChallengeNameType._(
-    4,
-    'EMAIL_OTP',
-    'EMAIL_OTP',
-  );
+  static const emailOtp = ChallengeNameType._(4, 'EMAIL_OTP', 'EMAIL_OTP');
 
-  static const mfaSetup = ChallengeNameType._(
-    5,
-    'MFA_SETUP',
-    'MFA_SETUP',
-  );
+  static const mfaSetup = ChallengeNameType._(5, 'MFA_SETUP', 'MFA_SETUP');
 
   static const newPasswordRequired = ChallengeNameType._(
     6,
@@ -68,11 +56,7 @@ class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
     'SELECT_MFA_TYPE',
   );
 
-  static const smsMfa = ChallengeNameType._(
-    9,
-    'SMS_MFA',
-    'SMS_MFA',
-  );
+  static const smsMfa = ChallengeNameType._(9, 'SMS_MFA', 'SMS_MFA');
 
   static const softwareTokenMfa = ChallengeNameType._(
     10,
@@ -101,12 +85,9 @@ class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
       values: values,
       sdkUnknown: ChallengeNameType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

@@ -10,16 +10,16 @@ class _$PostUnionWithJsonNameInput extends PostUnionWithJsonNameInput {
   @override
   final UnionWithJsonName? value;
 
-  factory _$PostUnionWithJsonNameInput(
-          [void Function(PostUnionWithJsonNameInputBuilder)? updates]) =>
-      (new PostUnionWithJsonNameInputBuilder()..update(updates))._build();
+  factory _$PostUnionWithJsonNameInput([
+    void Function(PostUnionWithJsonNameInputBuilder)? updates,
+  ]) => (new PostUnionWithJsonNameInputBuilder()..update(updates))._build();
 
   _$PostUnionWithJsonNameInput._({this.value}) : super._();
 
   @override
   PostUnionWithJsonNameInput rebuild(
-          void Function(PostUnionWithJsonNameInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PostUnionWithJsonNameInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PostUnionWithJsonNameInputBuilder toBuilder() =>

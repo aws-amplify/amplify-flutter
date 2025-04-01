@@ -24,9 +24,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     bool? required,
     super.autofillHints,
   })  : _customAttributeKey = customAttributeKey,
-        super._(
-          requiredOverride: required,
-        );
+        super._(requiredOverride: required);
 
   /// {@template amplify_authenticator.username_form_field}
   /// Creates a username component based on your app's configuration.
@@ -424,57 +422,31 @@ abstract class _SignUpFormFieldState<FieldValue extends Object>
     switch (widget.field) {
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
-        return const [
-          AutofillHints.newPassword,
-        ];
+        return const [AutofillHints.newPassword];
       case SignUpField.address:
-        return const [
-          AutofillHints.fullStreetAddress,
-        ];
+        return const [AutofillHints.fullStreetAddress];
       case SignUpField.email:
-        return const [
-          AutofillHints.email,
-        ];
+        return const [AutofillHints.email];
       case SignUpField.name:
-        return const [
-          AutofillHints.name,
-        ];
+        return const [AutofillHints.name];
       case SignUpField.phoneNumber:
-        return const [
-          AutofillHints.telephoneNumber,
-        ];
+        return const [AutofillHints.telephoneNumber];
       case SignUpField.username:
-        return const [
-          AutofillHints.newUsername,
-        ];
+        return const [AutofillHints.newUsername];
       case SignUpField.birthdate:
-        return const [
-          AutofillHints.birthday,
-        ];
+        return const [AutofillHints.birthday];
       case SignUpField.familyName:
-        return const [
-          AutofillHints.familyName,
-        ];
+        return const [AutofillHints.familyName];
       case SignUpField.gender:
-        return const [
-          AutofillHints.gender,
-        ];
+        return const [AutofillHints.gender];
       case SignUpField.givenName:
-        return const [
-          AutofillHints.givenName,
-        ];
+        return const [AutofillHints.givenName];
       case SignUpField.middleName:
-        return const [
-          AutofillHints.middleName,
-        ];
+        return const [AutofillHints.middleName];
       case SignUpField.nickname:
-        return const [
-          AutofillHints.nickname,
-        ];
+        return const [AutofillHints.nickname];
       case SignUpField.preferredUsername:
-        return const [
-          AutofillHints.newUsername,
-        ];
+        return const [AutofillHints.newUsername];
       case SignUpField.custom:
         return null;
     }
@@ -493,9 +465,7 @@ class _SignUpTextField extends SignUpFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
-  }) : super._(
-          customAttributeKey: attributeKey,
-        );
+  }) : super._(customAttributeKey: attributeKey);
 
   @override
   _SignUpTextFieldState createState() => _SignUpTextFieldState();
@@ -565,10 +535,8 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
       case SignUpField.preferredUsername:
         return (v) => state.preferredUsername = v;
       case SignUpField.custom:
-        return (String value) => state.setCustomAttribute(
-              widget._customAttributeKey!,
-              value,
-            );
+        return (String value) =>
+            state.setCustomAttribute(widget._customAttributeKey!, value);
       default:
         return super.onChanged;
     }
@@ -604,10 +572,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         );
       case SignUpField.address:
         return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.addressEmpty,
-          ),
+          stringResolver.inputs.resolve(context, InputResolverKey.addressEmpty),
           isOptional: isOptional,
         );
       case SignUpField.birthdate:
@@ -628,10 +593,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         );
       case SignUpField.gender:
         return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.genderEmpty,
-          ),
+          stringResolver.inputs.resolve(context, InputResolverKey.genderEmpty),
           isOptional: isOptional,
         );
       case SignUpField.givenName:
@@ -652,10 +614,7 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
         );
       case SignUpField.name:
         return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.nameEmpty,
-          ),
+          stringResolver.inputs.resolve(context, InputResolverKey.nameEmpty),
           isOptional: isOptional,
         );
       case SignUpField.nickname:
@@ -681,11 +640,8 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
 }
 
 class _SignUpUsernameField extends SignUpFormField<UsernameInput> {
-  const _SignUpUsernameField({
-    super.key,
-    super.validator,
-    super.autofillHints,
-  }) : super._(
+  const _SignUpUsernameField({super.key, super.validator, super.autofillHints})
+      : super._(
           field: SignUpField.username,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
@@ -708,9 +664,7 @@ class _SignUpPhoneField extends SignUpFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
-  }) : super._(
-          customAttributeKey: attributeKey,
-        );
+  }) : super._(customAttributeKey: attributeKey);
 
   @override
   _SignUpPhoneFieldState createState() => _SignUpPhoneFieldState();
@@ -758,9 +712,7 @@ class _SignUpDateField extends SignUpFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
-  }) : super._(
-          customAttributeKey: attributeKey,
-        );
+  }) : super._(customAttributeKey: attributeKey);
 
   @override
   _SignUpDateFieldState createState() => _SignUpDateFieldState();
@@ -784,10 +736,7 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
       return widget.validatorOverride!;
     }
     return simpleValidator(
-      stringResolver.inputs.resolve(
-        context,
-        InputResolverKey.birthdateEmpty,
-      ),
+      stringResolver.inputs.resolve(context, InputResolverKey.birthdateEmpty),
       isOptional: isOptional,
     );
   }

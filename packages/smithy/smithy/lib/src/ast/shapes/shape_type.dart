@@ -9,12 +9,7 @@ import 'package:smithy/src/ast/serializers.dart';
 
 part 'shape_type.g.dart';
 
-enum Category {
-  simple,
-  aggregate,
-  service,
-  apply,
-}
+enum Category { simple, aggregate, service, apply }
 
 class ShapeType extends EnumClass {
   const ShapeType._(super.name);

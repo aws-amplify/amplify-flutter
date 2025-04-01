@@ -115,10 +115,7 @@ abstract class IDBFactory {}
 extension PropsIDBFactory on IDBFactory {
   /// The current method to request opening a connection to a database.
   IDBOpenDBRequest open(String name, [int? version]) =>
-      js_util.callMethod(this, 'open', [
-        name,
-        if (version != null) version,
-      ]);
+      js_util.callMethod(this, 'open', [name, if (version != null) version]);
 }
 
 /// {@template amplify_secure_storage_dart.idb_database}
@@ -142,8 +139,7 @@ extension PropsIDBDatabase on IDBDatabase {
   IDBTransaction transaction(
     String storeNames, {
     IDBTransactionMode mode = IDBTransactionMode.readonly,
-  }) =>
-      js_util.callMethod(this, 'transaction', [storeNames, mode.name]);
+  }) => js_util.callMethod(this, 'transaction', [storeNames, mode.name]);
 
   /// Creates a new object store with the given name and options and returns a
   /// new [IDBObjectStore].
@@ -163,11 +159,10 @@ extension PropsIDBDatabase on IDBDatabase {
       params['autoIncrement'] = autoIncrement;
     }
 
-    return js_util.callMethod(
-      this,
-      'createObjectStore',
-      [name, js_util.jsify(params)],
-    );
+    return js_util.callMethod(this, 'createObjectStore', [
+      name,
+      js_util.jsify(params),
+    ]);
   }
 
   /// Returns the object store for [storeName] in a new transaction.

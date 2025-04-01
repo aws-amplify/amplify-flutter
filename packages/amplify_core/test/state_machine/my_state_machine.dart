@@ -212,9 +212,8 @@ class WorkerMachine extends StateMachine<WorkerEvent, WorkerState,
 
 class MyStateMachineManager extends StateMachineManager<StateMachineEvent,
     StateMachineState, MyStateMachineManager> {
-  MyStateMachineManager(
-    DependencyManager dependencyManager,
-  ) : super(_builders, dependencyManager);
+  MyStateMachineManager(DependencyManager dependencyManager)
+      : super(_builders, dependencyManager);
 
   Future<void> delegateWork() async {
     dispatch(const WorkerEvent(WorkType.doWork)).ignore();

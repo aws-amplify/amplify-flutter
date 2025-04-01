@@ -25,10 +25,10 @@ class WrappedPinpointClient implements PinpointClient {
     Uri? baseUri,
     required AWSCredentialsProvider credentialsProvider,
   }) : _base = PinpointClient(
-          region: region,
-          baseUri: baseUri,
-          credentialsProvider: credentialsProvider,
-        );
+         region: region,
+         baseUri: baseUri,
+         credentialsProvider: credentialsProvider,
+       );
 
   final PinpointClient _base;
 

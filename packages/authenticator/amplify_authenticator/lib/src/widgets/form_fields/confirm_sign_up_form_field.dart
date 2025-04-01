@@ -113,13 +113,9 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
     if (widget.autofillHints != null) return widget.autofillHints;
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return const [
-          AutofillHints.newUsername,
-        ];
+        return const [AutofillHints.newUsername];
       case ConfirmSignUpField.code:
-        return const [
-          AutofillHints.oneTimeCode,
-        ];
+        return const [AutofillHints.oneTimeCode];
     }
   }
 }

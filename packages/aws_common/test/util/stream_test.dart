@@ -19,14 +19,8 @@ void main() {
 
     test('forwards errors', () {
       final controller = StreamController<int>();
-      expect(
-        Stream<int>.error('error').forward(controller),
-        completes,
-      );
-      expect(
-        controller.stream,
-        emitsInOrder([emitsError('error'), emitsDone]),
-      );
+      expect(Stream<int>.error('error').forward(controller), completes);
+      expect(controller.stream, emitsInOrder([emitsError('error'), emitsDone]));
     });
 
     test('does not add events when closed', () {
@@ -40,10 +34,7 @@ void main() {
 
     test('does not add errors when closed', () {
       final controller = StreamController<int>()..close();
-      expect(
-        Stream<int>.error('error').forward(controller),
-        completes,
-      );
+      expect(Stream<int>.error('error').forward(controller), completes);
       expect(controller.stream, emitsDone);
     });
 
@@ -59,8 +50,7 @@ void main() {
           await Future<void>.delayed(Duration.zero);
           yield n;
         }
-      }()
-          .forward(controller);
+      }().forward(controller);
       expect(
         controller.stream,
         emitsInOrder([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, emitsDone]),
@@ -70,16 +60,16 @@ void main() {
     test('keeps controller alive', () async {
       final controller = StreamController<int>();
       expect(
-        Stream.fromIterable([1, 2, 3, 4, 5]).forward(
-          controller,
-          closeWhenDone: false,
-        ),
+        Stream.fromIterable([
+          1,
+          2,
+          3,
+          4,
+          5,
+        ]).forward(controller, closeWhenDone: false),
         completes,
       );
-      await expectLater(
-        controller.stream,
-        emitsInOrder([1, 2, 3, 4, 5]),
-      );
+      await expectLater(controller.stream, emitsInOrder([1, 2, 3, 4, 5]));
       expect(controller.isClosed, isFalse);
     });
 

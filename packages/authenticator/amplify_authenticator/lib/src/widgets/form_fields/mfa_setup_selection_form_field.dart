@@ -11,10 +11,8 @@ part of '../form_field.dart';
 /// A prebuilt form widget for use on the MFA setup selection step.
 /// {@endtemplate}
 class _MfaSetupMethodRadioField extends ConfirmSignInFormField<MfaType> {
-  const _MfaSetupMethodRadioField({
-    super.key,
-    required super.field,
-  }) : super._();
+  const _MfaSetupMethodRadioField({super.key, required super.field})
+      : super._();
 
   @override
   _MfaSetupSelectionFieldState createState() => _MfaSetupSelectionFieldState();

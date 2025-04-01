@@ -8,7 +8,9 @@ part of 'storage_outputs.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-StorageOutputs _$StorageOutputsFromJson(Map<String, dynamic> json) =>
+StorageOutputs _$StorageOutputsFromJson(
+  Map<String, dynamic> json,
+) =>
     $checkedCreate(
       'StorageOutputs',
       json,
@@ -17,11 +19,11 @@ StorageOutputs _$StorageOutputsFromJson(Map<String, dynamic> json) =>
           awsRegion: $checkedConvert('aws_region', (v) => v as String),
           bucketName: $checkedConvert('bucket_name', (v) => v as String),
           buckets: $checkedConvert(
-              'buckets',
-              (v) => (v as List<dynamic>?)
-                  ?.map(
-                      (e) => BucketOutputs.fromJson(e as Map<String, dynamic>))
-                  .toList()),
+            'buckets',
+            (v) => (v as List<dynamic>?)
+                ?.map((e) => BucketOutputs.fromJson(e as Map<String, dynamic>))
+                .toList(),
+          ),
         );
         return val;
       },

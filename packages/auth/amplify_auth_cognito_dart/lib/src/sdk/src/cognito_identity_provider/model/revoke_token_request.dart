@@ -25,9 +25,9 @@ abstract class RevokeTokenRequest
     );
   }
 
-  factory RevokeTokenRequest.build(
-          [void Function(RevokeTokenRequestBuilder) updates]) =
-      _$RevokeTokenRequest;
+  factory RevokeTokenRequest.build([
+    void Function(RevokeTokenRequestBuilder) updates,
+  ]) = _$RevokeTokenRequest;
 
   const RevokeTokenRequest._();
 
@@ -35,11 +35,10 @@ abstract class RevokeTokenRequest
     RevokeTokenRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<RevokeTokenRequest>> serializers = [
-    RevokeTokenRequestAwsJson11Serializer()
+    RevokeTokenRequestAwsJson11Serializer(),
   ];
 
   /// The refresh token that you want to revoke.
@@ -54,27 +53,15 @@ abstract class RevokeTokenRequest
   RevokeTokenRequest getPayload() => this;
 
   @override
-  List<Object?> get props => [
-        token,
-        clientId,
-        clientSecret,
-      ];
+  List<Object?> get props => [token, clientId, clientSecret];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RevokeTokenRequest')
-      ..add(
-        'token',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'clientId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'clientSecret',
-        '***SENSITIVE***',
-      );
+    final helper =
+        newBuiltValueToStringHelper('RevokeTokenRequest')
+          ..add('token', '***SENSITIVE***')
+          ..add('clientId', '***SENSITIVE***')
+          ..add('clientSecret', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -84,18 +71,12 @@ class RevokeTokenRequestAwsJson11Serializer
   const RevokeTokenRequestAwsJson11Serializer() : super('RevokeTokenRequest');
 
   @override
-  Iterable<Type> get types => const [
-        RevokeTokenRequest,
-        _$RevokeTokenRequest,
-      ];
+  Iterable<Type> get types => const [RevokeTokenRequest, _$RevokeTokenRequest];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   RevokeTokenRequest deserialize(
@@ -114,20 +95,26 @@ class RevokeTokenRequestAwsJson11Serializer
       }
       switch (key) {
         case 'Token':
-          result.token = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.token =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ClientId':
-          result.clientId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.clientId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ClientSecret':
-          result.clientSecret = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.clientSecret =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -144,23 +131,19 @@ class RevokeTokenRequestAwsJson11Serializer
     final RevokeTokenRequest(:token, :clientId, :clientSecret) = object;
     result$.addAll([
       'Token',
-      serializers.serialize(
-        token,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(token, specifiedType: const FullType(String)),
       'ClientId',
-      serializers.serialize(
-        clientId,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(clientId, specifiedType: const FullType(String)),
     ]);
     if (clientSecret != null) {
       result$
         ..add('ClientSecret')
-        ..add(serializers.serialize(
-          clientSecret,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            clientSecret,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

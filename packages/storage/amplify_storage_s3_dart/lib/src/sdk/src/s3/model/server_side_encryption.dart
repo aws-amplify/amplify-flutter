@@ -6,25 +6,13 @@ library amplify_storage_s3_dart.s3.model.server_side_encryption; // ignore_for_f
 import 'package:smithy/smithy.dart' as _i1;
 
 class ServerSideEncryption extends _i1.SmithyEnum<ServerSideEncryption> {
-  const ServerSideEncryption._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ServerSideEncryption._(super.index, super.name, super.value);
 
   const ServerSideEncryption._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const aes256 = ServerSideEncryption._(
-    0,
-    'AES256',
-    'AES256',
-  );
+  static const aes256 = ServerSideEncryption._(0, 'AES256', 'AES256');
 
-  static const awsKms = ServerSideEncryption._(
-    1,
-    'aws_kms',
-    'aws:kms',
-  );
+  static const awsKms = ServerSideEncryption._(1, 'aws_kms', 'aws:kms');
 
   static const awsKmsDsse = ServerSideEncryption._(
     2,
@@ -45,12 +33,9 @@ class ServerSideEncryption extends _i1.SmithyEnum<ServerSideEncryption> {
       values: values,
       sdkUnknown: ServerSideEncryption._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

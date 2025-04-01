@@ -19,18 +19,16 @@ class WorkerLogEntry extends LogEntry {
   });
 
   /// Creates a [WorkerLogEntry] by wrapping [entry].
-  WorkerLogEntry.fromLogEntry(
-    LogEntry entry, {
-    required bool local,
-  }) : this(
-          level: entry.level,
-          message: entry.message,
-          loggerName: entry.loggerName,
-          local: local,
-          time: entry.time,
-          error: entry.error,
-          stackTrace: entry.stackTrace,
-        );
+  WorkerLogEntry.fromLogEntry(LogEntry entry, {required bool local})
+    : this(
+        level: entry.level,
+        message: entry.message,
+        loggerName: entry.loggerName,
+        local: local,
+        time: entry.time,
+        error: entry.error,
+        stackTrace: entry.stackTrace,
+      );
 
   /// Whether the log was emitted locally or in a worker.
   final bool local;

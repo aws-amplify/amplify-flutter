@@ -17,14 +17,8 @@ abstract class Delete
     with _i1.AWSEquatable<Delete>
     implements Built<Delete, DeleteBuilder> {
   /// Container for the objects to delete.
-  factory Delete({
-    required List<ObjectIdentifier> objects,
-    bool? quiet,
-  }) {
-    return _$Delete._(
-      objects: _i2.BuiltList(objects),
-      quiet: quiet,
-    );
+  factory Delete({required List<ObjectIdentifier> objects, bool? quiet}) {
+    return _$Delete._(objects: _i2.BuiltList(objects), quiet: quiet);
   }
 
   /// Container for the objects to delete.
@@ -33,7 +27,7 @@ abstract class Delete
   const Delete._();
 
   static const List<_i3.SmithySerializer<Delete>> serializers = [
-    DeleteRestXmlSerializer()
+    DeleteRestXmlSerializer(),
   ];
 
   /// The object to delete.
@@ -44,22 +38,14 @@ abstract class Delete
   /// Element to enable quiet mode for the request. When you add this element, you must set its value to `true`.
   bool? get quiet;
   @override
-  List<Object?> get props => [
-        objects,
-        quiet,
-      ];
+  List<Object?> get props => [objects, quiet];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Delete')
-      ..add(
-        'objects',
-        objects,
-      )
-      ..add(
-        'quiet',
-        quiet,
-      );
+    final helper =
+        newBuiltValueToStringHelper('Delete')
+          ..add('objects', objects)
+          ..add('quiet', quiet);
     return helper.toString();
   }
 }
@@ -68,18 +54,12 @@ class DeleteRestXmlSerializer extends _i3.StructuredSmithySerializer<Delete> {
   const DeleteRestXmlSerializer() : super('Delete');
 
   @override
-  Iterable<Type> get types => const [
-        Delete,
-        _$Delete,
-      ];
+  Iterable<Type> get types => const [Delete, _$Delete];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   Delete deserialize(
@@ -98,15 +78,20 @@ class DeleteRestXmlSerializer extends _i3.StructuredSmithySerializer<Delete> {
       }
       switch (key) {
         case 'Object':
-          result.objects.add((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ObjectIdentifier),
-          ) as ObjectIdentifier));
+          result.objects.add(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ObjectIdentifier),
+                )
+                as ObjectIdentifier),
+          );
         case 'Quiet':
-          result.quiet = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.quiet =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 
@@ -123,25 +108,24 @@ class DeleteRestXmlSerializer extends _i3.StructuredSmithySerializer<Delete> {
       const _i3.XmlElementName(
         'Delete',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final Delete(:objects, :quiet) = object;
     result$.addAll(
-        const _i3.XmlBuiltListSerializer(memberName: 'Object').serialize(
-      serializers,
-      objects,
-      specifiedType: const FullType(
-        _i2.BuiltList,
-        [FullType(ObjectIdentifier)],
+      const _i3.XmlBuiltListSerializer(memberName: 'Object').serialize(
+        serializers,
+        objects,
+        specifiedType: const FullType(_i2.BuiltList, [
+          FullType(ObjectIdentifier),
+        ]),
       ),
-    ));
+    );
     if (quiet != null) {
       result$
         ..add(const _i3.XmlElementName('Quiet'))
-        ..add(serializers.serialize(
-          quiet,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(quiet, specifiedType: const FullType(bool)),
+        );
     }
     return result$;
   }

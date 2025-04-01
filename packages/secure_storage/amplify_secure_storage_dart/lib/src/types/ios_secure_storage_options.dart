@@ -37,10 +37,7 @@ abstract class IOSSecureStorageOptions
   /// This will result in the default values being used.
   @internal
   factory IOSSecureStorageOptions.empty() {
-    return _$IOSSecureStorageOptions._(
-      accessible: null,
-      accessGroup: null,
-    );
+    return _$IOSSecureStorageOptions._(accessible: null, accessGroup: null);
   }
 
   const IOSSecureStorageOptions._();

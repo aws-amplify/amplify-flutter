@@ -120,10 +120,7 @@ class GraphQLGetByIdExamples extends StatelessWidget {
             setBlogID(BlogModelIdentifier(id: newValue));
           },
         ),
-        apiButton(
-          onPressed: getBlog,
-          text: 'Get Blog',
-        ),
+        apiButton(onPressed: getBlog, text: 'Get Blog'),
         const SizedBox(height: 10),
         TextFormField(
           decoration: const InputDecoration(
@@ -134,10 +131,7 @@ class GraphQLGetByIdExamples extends StatelessWidget {
             setPostID(PostModelIdentifier(id: newValue));
           },
         ),
-        apiButton(
-          onPressed: getPost,
-          text: 'Get Post',
-        ),
+        apiButton(onPressed: getPost, text: 'Get Post'),
         const SizedBox(height: 10),
         TextFormField(
           decoration: const InputDecoration(
@@ -148,10 +142,7 @@ class GraphQLGetByIdExamples extends StatelessWidget {
             setCommentID(CommentModelIdentifier(id: newValue));
           },
         ),
-        apiButton(
-          onPressed: getComment,
-          text: 'Get Comment',
-        ),
+        apiButton(onPressed: getComment, text: 'Get Comment'),
       ],
     );
   }

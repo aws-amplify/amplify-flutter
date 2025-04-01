@@ -14,10 +14,7 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   const S3ListPluginOptions({
     bool excludeSubPaths = false,
     String delimiter = '/',
-  }) : this._(
-          excludeSubPaths: excludeSubPaths,
-          delimiter: delimiter,
-        );
+  }) : this._(excludeSubPaths: excludeSubPaths, delimiter: delimiter);
 
   const S3ListPluginOptions._({
     this.excludeSubPaths = false,
@@ -28,12 +25,8 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   ///
   /// Use this to list all objects without pagination.
-  const S3ListPluginOptions.listAll({
-    bool excludeSubPaths = false,
-  }) : this._(
-          excludeSubPaths: excludeSubPaths,
-          listAll: true,
-        );
+  const S3ListPluginOptions.listAll({bool excludeSubPaths = false})
+    : this._(excludeSubPaths: excludeSubPaths, listAll: true);
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   factory S3ListPluginOptions.fromJson(Map<String, Object?> json) =>
@@ -56,10 +49,7 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   final bool listAll;
 
   @override
-  List<Object?> get props => [
-        excludeSubPaths,
-        listAll,
-      ];
+  List<Object?> get props => [excludeSubPaths, listAll];
 
   @override
   String get runtimeTypeName => 'S3ListPluginOptions';

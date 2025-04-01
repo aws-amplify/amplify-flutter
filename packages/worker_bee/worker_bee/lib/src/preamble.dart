@@ -26,8 +26,8 @@ class WorkerAssignment {
 }
 
 /// Factory for a worker bee.
-typedef WorkerBeeBuilder<W extends WorkerBeeBase<Object, dynamic>> = W
-    Function();
+typedef WorkerBeeBuilder<W extends WorkerBeeBase<Object, dynamic>> =
+    W Function();
 
 /// Initializes worker bees by checking if running in a web worker, and awaiting
 /// the assigned role if so.
@@ -60,17 +60,15 @@ R runTraced<R>(
   // of a worker pool, any uncaught errors lose visibility when they're
   // reported back _unless_ we serialize them first.
   void wrappedOnError(Object error, StackTrace stackTrace) {
-    final workerException = error is WorkerBeeException
-        ? error.rebuild((b) => b.stackTrace = stackTrace)
-        : WorkerBeeExceptionImpl(error, stackTrace);
+    final workerException =
+        error is WorkerBeeException
+            ? error.rebuild((b) => b.stackTrace = stackTrace)
+            : WorkerBeeExceptionImpl(error, stackTrace);
     onError(workerException, stackTrace);
   }
 
   if (zDebugMode) {
-    return Chain.capture(
-      action,
-      onError: wrappedOnError,
-    );
+    return Chain.capture(action, onError: wrappedOnError);
   }
   return runZonedGuarded(action, wrappedOnError) as R;
 }

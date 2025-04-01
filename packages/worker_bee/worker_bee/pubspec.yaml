@@ -6,7 +6,7 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/wo
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.7.0
 
 dependencies:
   async: ^2.10.0
@@ -15,7 +15,7 @@ dependencies:
   built_value: ^8.6.0
   collection: ^1.15.0
   js: ">=0.6.4 <0.8.0"
-  meta: ^1.7.0
+  meta: ^1.16.0
   path: ">=1.8.0 <2.0.0"
   stack_trace: ^1.10.0
   stream_channel: ^2.1.0

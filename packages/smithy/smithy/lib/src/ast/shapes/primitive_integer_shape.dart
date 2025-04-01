@@ -20,9 +20,7 @@ abstract class PrimitiveIntegerShape
   static void _init(PrimitiveIntegerShapeBuilder b) {
     b
       ..shapeId = id
-      ..traits = TraitMap.fromTraits(const [
-        DefaultTrait(0),
-      ]);
+      ..traits = TraitMap.fromTraits(const [DefaultTrait(0)]);
   }
 
   static const id = ShapeId.core('PrimitiveInteger');

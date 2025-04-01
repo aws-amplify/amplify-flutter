@@ -8,40 +8,49 @@ part of 'amplify_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AmplifyConfig _$AmplifyConfigFromJson(Map<String, dynamic> json) =>
+AmplifyConfig _$AmplifyConfigFromJson(
+  Map<String, dynamic> json,
+) =>
     $checkedCreate(
       'AmplifyConfig',
       json,
       ($checkedConvert) {
         final val = AmplifyConfig(
           userAgent: $checkedConvert(
-              'UserAgent', (v) => v as String? ?? 'aws-amplify-cli/2.0'),
+            'UserAgent',
+            (v) => v as String? ?? 'aws-amplify-cli/2.0',
+          ),
           version: $checkedConvert('Version', (v) => v as String? ?? '1.0'),
           api: $checkedConvert(
-              'api',
-              (v) => v == null
-                  ? null
-                  : ApiConfig.fromJson(v as Map<String, dynamic>)),
+            'api',
+            (v) => v == null
+                ? null
+                : ApiConfig.fromJson(v as Map<String, dynamic>),
+          ),
           analytics: $checkedConvert(
-              'analytics',
-              (v) => v == null
-                  ? null
-                  : AnalyticsConfig.fromJson(v as Map<String, dynamic>)),
+            'analytics',
+            (v) => v == null
+                ? null
+                : AnalyticsConfig.fromJson(v as Map<String, dynamic>),
+          ),
           auth: $checkedConvert(
-              'auth',
-              (v) => v == null
-                  ? null
-                  : AuthConfig.fromJson(v as Map<String, dynamic>)),
+            'auth',
+            (v) => v == null
+                ? null
+                : AuthConfig.fromJson(v as Map<String, dynamic>),
+          ),
           notifications: $checkedConvert(
-              'notifications',
-              (v) => v == null
-                  ? null
-                  : NotificationsConfig.fromJson(v as Map<String, dynamic>)),
+            'notifications',
+            (v) => v == null
+                ? null
+                : NotificationsConfig.fromJson(v as Map<String, dynamic>),
+          ),
           storage: $checkedConvert(
-              'storage',
-              (v) => v == null
-                  ? null
-                  : StorageConfig.fromJson(v as Map<String, dynamic>)),
+            'storage',
+            (v) => v == null
+                ? null
+                : StorageConfig.fromJson(v as Map<String, dynamic>),
+          ),
         );
         return val;
       },

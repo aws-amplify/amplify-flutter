@@ -17,9 +17,11 @@ class _$EventRiskType extends EventRiskType {
   factory _$EventRiskType([void Function(EventRiskTypeBuilder)? updates]) =>
       (new EventRiskTypeBuilder()..update(updates))._build();
 
-  _$EventRiskType._(
-      {this.riskDecision, this.riskLevel, this.compromisedCredentialsDetected})
-      : super._();
+  _$EventRiskType._({
+    this.riskDecision,
+    this.riskLevel,
+    this.compromisedCredentialsDetected,
+  }) : super._();
 
   @override
   EventRiskType rebuild(void Function(EventRiskTypeBuilder) updates) =>
@@ -95,11 +97,13 @@ class EventRiskTypeBuilder
   EventRiskType build() => _build();
 
   _$EventRiskType _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EventRiskType._(
-            riskDecision: riskDecision,
-            riskLevel: riskLevel,
-            compromisedCredentialsDetected: compromisedCredentialsDetected);
+          riskDecision: riskDecision,
+          riskLevel: riskLevel,
+          compromisedCredentialsDetected: compromisedCredentialsDetected,
+        );
     replace(_$result);
     return _$result;
   }

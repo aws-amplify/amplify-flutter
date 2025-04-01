@@ -19,13 +19,14 @@ abstract class ContinuationEvent
     return _$ContinuationEvent._();
   }
 
-  factory ContinuationEvent.build(
-      [void Function(ContinuationEventBuilder) updates]) = _$ContinuationEvent;
+  factory ContinuationEvent.build([
+    void Function(ContinuationEventBuilder) updates,
+  ]) = _$ContinuationEvent;
 
   const ContinuationEvent._();
 
   static const List<_i2.SmithySerializer<ContinuationEvent>> serializers = [
-    ContinuationEventRestXmlSerializer()
+    ContinuationEventRestXmlSerializer(),
   ];
 
   @override
@@ -43,18 +44,12 @@ class ContinuationEventRestXmlSerializer
   const ContinuationEventRestXmlSerializer() : super('ContinuationEvent');
 
   @override
-  Iterable<Type> get types => const [
-        ContinuationEvent,
-        _$ContinuationEvent,
-      ];
+  Iterable<Type> get types => const [ContinuationEvent, _$ContinuationEvent];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ContinuationEvent deserialize(
@@ -75,7 +70,7 @@ class ContinuationEventRestXmlSerializer
       const _i2.XmlElementName(
         'ContinuationEvent',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

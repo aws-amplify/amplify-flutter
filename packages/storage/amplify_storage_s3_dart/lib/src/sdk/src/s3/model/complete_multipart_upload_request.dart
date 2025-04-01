@@ -19,8 +19,10 @@ abstract class CompleteMultipartUploadRequest
         _i1.HttpInput<CompletedMultipartUpload>,
         _i2.AWSEquatable<CompleteMultipartUploadRequest>
     implements
-        Built<CompleteMultipartUploadRequest,
-            CompleteMultipartUploadRequestBuilder>,
+        Built<
+          CompleteMultipartUploadRequest,
+          CompleteMultipartUploadRequestBuilder
+        >,
         _i1.HasPayload<CompletedMultipartUpload> {
   factory CompleteMultipartUploadRequest({
     required String bucket,
@@ -54,9 +56,9 @@ abstract class CompleteMultipartUploadRequest
     );
   }
 
-  factory CompleteMultipartUploadRequest.build(
-          [void Function(CompleteMultipartUploadRequestBuilder) updates]) =
-      _$CompleteMultipartUploadRequest;
+  factory CompleteMultipartUploadRequest.build([
+    void Function(CompleteMultipartUploadRequestBuilder) updates,
+  ]) = _$CompleteMultipartUploadRequest;
 
   const CompleteMultipartUploadRequest._();
 
@@ -64,60 +66,57 @@ abstract class CompleteMultipartUploadRequest
     CompletedMultipartUpload? payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      CompleteMultipartUploadRequest.build((b) {
-        if (payload != null) {
-          b.multipartUpload.replace(payload);
-        }
-        if (request.headers['x-amz-checksum-crc32'] != null) {
-          b.checksumCrc32 = request.headers['x-amz-checksum-crc32']!;
-        }
-        if (request.headers['x-amz-checksum-crc32c'] != null) {
-          b.checksumCrc32C = request.headers['x-amz-checksum-crc32c']!;
-        }
-        if (request.headers['x-amz-checksum-sha1'] != null) {
-          b.checksumSha1 = request.headers['x-amz-checksum-sha1']!;
-        }
-        if (request.headers['x-amz-checksum-sha256'] != null) {
-          b.checksumSha256 = request.headers['x-amz-checksum-sha256']!;
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = request
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key'] !=
-            null) {
-          b.sseCustomerKey =
-              request.headers['x-amz-server-side-encryption-customer-key']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 =
-              request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.queryParameters['uploadId'] != null) {
-          b.uploadId = request.queryParameters['uploadId']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+  }) => CompleteMultipartUploadRequest.build((b) {
+    if (payload != null) {
+      b.multipartUpload.replace(payload);
+    }
+    if (request.headers['x-amz-checksum-crc32'] != null) {
+      b.checksumCrc32 = request.headers['x-amz-checksum-crc32']!;
+    }
+    if (request.headers['x-amz-checksum-crc32c'] != null) {
+      b.checksumCrc32C = request.headers['x-amz-checksum-crc32c']!;
+    }
+    if (request.headers['x-amz-checksum-sha1'] != null) {
+      b.checksumSha1 = request.headers['x-amz-checksum-sha1']!;
+    }
+    if (request.headers['x-amz-checksum-sha256'] != null) {
+      b.checksumSha256 = request.headers['x-amz-checksum-sha256']!;
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          request.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key'] != null) {
+      b.sseCustomerKey =
+          request.headers['x-amz-server-side-encryption-customer-key']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.queryParameters['uploadId'] != null) {
+      b.uploadId = request.queryParameters['uploadId']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<CompletedMultipartUpload?>>
-      serializers = [CompleteMultipartUploadRequestRestXmlSerializer()];
+  serializers = [CompleteMultipartUploadRequestRestXmlSerializer()];
 
   /// Name of the bucket to which the multipart upload was initiated.
   ///
@@ -181,10 +180,7 @@ abstract class CompleteMultipartUploadRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -193,76 +189,38 @@ abstract class CompleteMultipartUploadRequest
 
   @override
   List<Object?> get props => [
-        bucket,
-        key,
-        multipartUpload,
-        uploadId,
-        checksumCrc32,
-        checksumCrc32C,
-        checksumSha1,
-        checksumSha256,
-        requestPayer,
-        expectedBucketOwner,
-        sseCustomerAlgorithm,
-        sseCustomerKey,
-        sseCustomerKeyMd5,
-      ];
+    bucket,
+    key,
+    multipartUpload,
+    uploadId,
+    checksumCrc32,
+    checksumCrc32C,
+    checksumSha1,
+    checksumSha256,
+    requestPayer,
+    expectedBucketOwner,
+    sseCustomerAlgorithm,
+    sseCustomerKey,
+    sseCustomerKeyMd5,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CompleteMultipartUploadRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'multipartUpload',
-        multipartUpload,
-      )
-      ..add(
-        'uploadId',
-        uploadId,
-      )
-      ..add(
-        'checksumCrc32',
-        checksumCrc32,
-      )
-      ..add(
-        'checksumCrc32C',
-        checksumCrc32C,
-      )
-      ..add(
-        'checksumSha1',
-        checksumSha1,
-      )
-      ..add(
-        'checksumSha256',
-        checksumSha256,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      );
+    final helper =
+        newBuiltValueToStringHelper('CompleteMultipartUploadRequest')
+          ..add('bucket', bucket)
+          ..add('key', key)
+          ..add('multipartUpload', multipartUpload)
+          ..add('uploadId', uploadId)
+          ..add('checksumCrc32', checksumCrc32)
+          ..add('checksumCrc32C', checksumCrc32C)
+          ..add('checksumSha1', checksumSha1)
+          ..add('checksumSha256', checksumSha256)
+          ..add('requestPayer', requestPayer)
+          ..add('expectedBucketOwner', expectedBucketOwner)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKey', '***SENSITIVE***')
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5);
     return helper.toString();
   }
 }
@@ -270,21 +228,18 @@ abstract class CompleteMultipartUploadRequest
 class CompleteMultipartUploadRequestRestXmlSerializer
     extends _i1.StructuredSmithySerializer<CompletedMultipartUpload> {
   const CompleteMultipartUploadRequestRestXmlSerializer()
-      : super('CompleteMultipartUploadRequest');
+    : super('CompleteMultipartUploadRequest');
 
   @override
   Iterable<Type> get types => const [
-        CompleteMultipartUploadRequest,
-        _$CompleteMultipartUploadRequest,
-      ];
+    CompleteMultipartUploadRequest,
+    _$CompleteMultipartUploadRequest,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CompletedMultipartUpload deserialize(
@@ -303,10 +258,13 @@ class CompleteMultipartUploadRequestRestXmlSerializer
       }
       switch (key) {
         case 'Part':
-          result.parts.add((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CompletedPart),
-          ) as CompletedPart));
+          result.parts.add(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CompletedPart),
+                )
+                as CompletedPart),
+          );
       }
     }
 
@@ -323,19 +281,19 @@ class CompleteMultipartUploadRequestRestXmlSerializer
       const _i1.XmlElementName(
         'CompleteMultipartUpload',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final CompletedMultipartUpload(:parts) = object;
     if (parts != null) {
       result$.addAll(
-          const _i1.XmlBuiltListSerializer(memberName: 'Part').serialize(
-        serializers,
-        parts,
-        specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(CompletedPart)],
+        const _i1.XmlBuiltListSerializer(memberName: 'Part').serialize(
+          serializers,
+          parts,
+          specifiedType: const FullType(_i3.BuiltList, [
+            FullType(CompletedPart),
+          ]),
         ),
-      ));
+      );
     }
     return result$;
   }

@@ -7,18 +7,16 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('QuerySnapshot', () {
-    TemporalDateTime _temporalDateTime =
-        TemporalDateTime.fromString("2021-11-09T18:53:12.183540Z");
+    TemporalDateTime _temporalDateTime = TemporalDateTime.fromString(
+      "2021-11-09T18:53:12.183540Z",
+    );
     group('withSubscriptionEvent()', () {
       group('with no query predicate or sort order', () {
         late List<Blog> blogs;
         late QuerySnapshot<Blog> snapshot;
         setUp(() {
           blogs = List.generate(5, (index) => Blog(name: 'blog $index'));
-          snapshot = QuerySnapshot(
-            items: blogs,
-            isSynced: false,
-          );
+          snapshot = QuerySnapshot(items: blogs, isSynced: false);
         });
 
         group('create event', () {
@@ -31,131 +29,126 @@ void main() {
               eventType: EventType.create,
             );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+            QuerySnapshot<Blog> updatedSnapshot = snapshot
+                .withSubscriptionEvent(event: subscriptionEvent);
 
             expect(updatedSnapshot.items.length, snapshot.items.length + 1);
             expect(updatedSnapshot.items.last, newBlog);
           });
 
           test(
-              'returns a QuerySnapshot with an updated item if the item already exists',
-              () async {
-            final blog = Blog(name: 'new blog');
+            'returns a QuerySnapshot with an updated item if the item already exists',
+            () async {
+              final blog = Blog(name: 'new blog');
 
-            final subscriptionEvent = SubscriptionEvent(
-              item: blog,
-              modelType: Blog.classType,
-              eventType: EventType.create,
-            );
+              final subscriptionEvent = SubscriptionEvent(
+                item: blog,
+                modelType: Blog.classType,
+                eventType: EventType.create,
+              );
 
-            final updatedSnapshot = snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              final updatedSnapshot = snapshot.withSubscriptionEvent(
+                event: subscriptionEvent,
+              );
 
-            expect(updatedSnapshot.items.contains(blog), isTrue);
+              expect(updatedSnapshot.items.contains(blog), isTrue);
 
-            final updatedBlog = blog.copyWith(name: 'updated name');
+              final updatedBlog = blog.copyWith(name: 'updated name');
 
-            final subscriptionEvent2 = SubscriptionEvent(
-              item: updatedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.create,
-            );
+              final subscriptionEvent2 = SubscriptionEvent(
+                item: updatedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.create,
+              );
 
-            final updatedSnapshot2 = updatedSnapshot.withSubscriptionEvent(
-              event: subscriptionEvent2,
-            );
+              final updatedSnapshot2 = updatedSnapshot.withSubscriptionEvent(
+                event: subscriptionEvent2,
+              );
 
-            expect(updatedSnapshot2.items.contains(updatedBlog), isTrue);
-            expect(updatedSnapshot2.items.contains(blog), isFalse);
-          });
+              expect(updatedSnapshot2.items.contains(updatedBlog), isTrue);
+              expect(updatedSnapshot2.items.contains(blog), isFalse);
+            },
+          );
         });
 
         group('update event', () {
           test(
-              'returns a QuerySnapshot with one updated item if event.item is in snapshot.items',
-              () async {
-            Blog updatedBlog = blogs[2].copyWith(name: 'updated blog');
+            'returns a QuerySnapshot with one updated item if event.item is in snapshot.items',
+            () async {
+              Blog updatedBlog = blogs[2].copyWith(name: 'updated blog');
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: updatedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.update,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: updatedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.update,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length);
-            expect(updatedSnapshot.items[2], updatedBlog);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length);
+              expect(updatedSnapshot.items[2], updatedBlog);
+            },
+          );
 
           test(
-              'returns a QuerySnapshot with one new if event.item is not in snapshot.items',
-              () async {
-            Blog updatedBlog = Blog(name: 'updated blog');
+            'returns a QuerySnapshot with one new if event.item is not in snapshot.items',
+            () async {
+              Blog updatedBlog = Blog(name: 'updated blog');
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: updatedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.update,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: updatedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.update,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length + 1);
-            expect(updatedSnapshot.items.last, updatedBlog);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length + 1);
+              expect(updatedSnapshot.items.last, updatedBlog);
+            },
+          );
         });
 
         group('delete event', () {
           test(
-              'returns a QuerySnapshot with one item removed if event.item is in snapshot.items',
-              () async {
-            Blog deletedBlog = snapshot.items[2];
+            'returns a QuerySnapshot with one item removed if event.item is in snapshot.items',
+            () async {
+              Blog deletedBlog = snapshot.items[2];
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: deletedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.delete,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: deletedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.delete,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length - 1);
-            expect(updatedSnapshot.items.contains(deletedBlog), isFalse);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length - 1);
+              expect(updatedSnapshot.items.contains(deletedBlog), isFalse);
+            },
+          );
 
           test(
-              'returns the original snapshot if event.item is not in snapshot.items',
-              () async {
-            Blog deletedBlog = Blog(name: 'other blog');
+            'returns the original snapshot if event.item is not in snapshot.items',
+            () async {
+              Blog deletedBlog = Blog(name: 'other blog');
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: deletedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.delete,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: deletedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.delete,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length);
-            expect(updatedSnapshot, snapshot);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length);
+              expect(updatedSnapshot, snapshot);
+            },
+          );
         });
       });
 
@@ -173,169 +166,161 @@ void main() {
 
         group('create event', () {
           test(
-              'returns a QuerySnapshot with one new item if event.item matches the predicate',
-              () async {
-            Blog newBlog = Blog(name: 'new blog');
+            'returns a QuerySnapshot with one new item if event.item matches the predicate',
+            () async {
+              Blog newBlog = Blog(name: 'new blog');
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: newBlog,
-              modelType: Blog.classType,
-              eventType: EventType.create,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: newBlog,
+                modelType: Blog.classType,
+                eventType: EventType.create,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length + 1);
-            expect(updatedSnapshot.items.last, newBlog);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length + 1);
+              expect(updatedSnapshot.items.last, newBlog);
+            },
+          );
 
           test(
-              'returns the original QuerySnapshot for if event.item does not match the predicate',
-              () async {
-            Blog newBlog = Blog(name: 'other');
+            'returns the original QuerySnapshot for if event.item does not match the predicate',
+            () async {
+              Blog newBlog = Blog(name: 'other');
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: newBlog,
-              modelType: Blog.classType,
-              eventType: EventType.create,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: newBlog,
+                modelType: Blog.classType,
+                eventType: EventType.create,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length);
-            expect(updatedSnapshot, snapshot);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length);
+              expect(updatedSnapshot, snapshot);
+            },
+          );
         });
 
         group('update event', () {
           test(
-              'returns a QuerySnapshot with one updated item if event.item matches the predicate and an item with event.item.id was is found in snapshot.items',
-              () async {
-            Blog updatedBlog = blogs[2].copyWith(name: 'updated blog');
+            'returns a QuerySnapshot with one updated item if event.item matches the predicate and an item with event.item.id was is found in snapshot.items',
+            () async {
+              Blog updatedBlog = blogs[2].copyWith(name: 'updated blog');
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: updatedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.update,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: updatedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.update,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length);
-            expect(updatedSnapshot.items[2], updatedBlog);
-          });
-
-          test(
-              'returns a QuerySnapshot with one item removed if event.item does NOT match the predicate, but an item with event.item.id was is found in snapshot.items',
-              () async {
-            Blog updatedBlog = blogs[2].copyWith(name: 'updated title');
-
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: updatedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.update,
-            );
-
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
-
-            expect(updatedSnapshot.items.length, snapshot.items.length - 1);
-            expect(updatedSnapshot.items.contains(updatedBlog), isFalse);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length);
+              expect(updatedSnapshot.items[2], updatedBlog);
+            },
+          );
 
           test(
-              'returns a QuerySnapshot with one item added if event.item matches the predicate, but an item with event.item.id was NOT is found in snapshot.items',
-              () async {
-            Blog updatedBlog = Blog(name: 'blog 6');
+            'returns a QuerySnapshot with one item removed if event.item does NOT match the predicate, but an item with event.item.id was is found in snapshot.items',
+            () async {
+              Blog updatedBlog = blogs[2].copyWith(name: 'updated title');
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: updatedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.update,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: updatedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.update,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length + 1);
-            // TODO: Should updatedBlog be at a specific index?
-            expect(updatedSnapshot.items.contains(updatedBlog), isTrue);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length - 1);
+              expect(updatedSnapshot.items.contains(updatedBlog), isFalse);
+            },
+          );
 
           test(
-              'returns the original QuerySnapshot for if event.item does NOT match the predicate and an item with event.item.id was NOT is found in snapshot.items',
-              () async {
-            Blog updatedBlog = Blog(name: 'other');
+            'returns a QuerySnapshot with one item added if event.item matches the predicate, but an item with event.item.id was NOT is found in snapshot.items',
+            () async {
+              Blog updatedBlog = Blog(name: 'blog 6');
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: updatedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.update,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: updatedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.update,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length);
-            expect(updatedSnapshot, snapshot);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length + 1);
+              // TODO: Should updatedBlog be at a specific index?
+              expect(updatedSnapshot.items.contains(updatedBlog), isTrue);
+            },
+          );
+
+          test(
+            'returns the original QuerySnapshot for if event.item does NOT match the predicate and an item with event.item.id was NOT is found in snapshot.items',
+            () async {
+              Blog updatedBlog = Blog(name: 'other');
+
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: updatedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.update,
+              );
+
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
+
+              expect(updatedSnapshot.items.length, snapshot.items.length);
+              expect(updatedSnapshot, snapshot);
+            },
+          );
         });
 
         group('delete event', () {
           test(
-              'returns a QuerySnapshot with one item removed if event.item is found in snapshot.items',
-              () async {
-            Blog deletedBlog = snapshot.items[2];
+            'returns a QuerySnapshot with one item removed if event.item is found in snapshot.items',
+            () async {
+              Blog deletedBlog = snapshot.items[2];
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: deletedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.delete,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: deletedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.delete,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length - 1);
-            expect(updatedSnapshot.items.contains(deletedBlog), isFalse);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length - 1);
+              expect(updatedSnapshot.items.contains(deletedBlog), isFalse);
+            },
+          );
 
           test(
-              'returns the original snapshot if event.item is NOT found in snapshot.items',
-              () async {
-            Blog deletedBlog = Blog(name: 'other blog');
+            'returns the original snapshot if event.item is NOT found in snapshot.items',
+            () async {
+              Blog deletedBlog = Blog(name: 'other blog');
 
-            SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
-              item: deletedBlog,
-              modelType: Blog.classType,
-              eventType: EventType.delete,
-            );
+              SubscriptionEvent<Blog> subscriptionEvent = SubscriptionEvent(
+                item: deletedBlog,
+                modelType: Blog.classType,
+                eventType: EventType.delete,
+              );
 
-            QuerySnapshot<Blog> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Blog> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            expect(updatedSnapshot.items.length, snapshot.items.length);
-            expect(updatedSnapshot, snapshot);
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length);
+              expect(updatedSnapshot, snapshot);
+            },
+          );
         });
       });
       group('with a sort order', () {
@@ -358,93 +343,87 @@ void main() {
         });
 
         group('create event', () {
-          test('returns a QuerySnapshot with one new item in the correct order',
-              () async {
-            Post newPost = Post(
-              title: 'new post',
-              rating: 25,
-              created: _temporalDateTime,
-            );
+          test(
+            'returns a QuerySnapshot with one new item in the correct order',
+            () async {
+              Post newPost = Post(
+                title: 'new post',
+                rating: 25,
+                created: _temporalDateTime,
+              );
 
-            SubscriptionEvent<Post> subscriptionEvent = SubscriptionEvent(
-              item: newPost,
-              modelType: Post.classType,
-              eventType: EventType.create,
-            );
+              SubscriptionEvent<Post> subscriptionEvent = SubscriptionEvent(
+                item: newPost,
+                modelType: Post.classType,
+                eventType: EventType.create,
+              );
 
-            QuerySnapshot<Post> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Post> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            var expectedItems = [
-              ...snapshot.items,
-              newPost,
-            ]..sort((a, b) => a.rating.compareTo(b.rating));
+              var expectedItems = [...snapshot.items, newPost]
+                ..sort((a, b) => a.rating.compareTo(b.rating));
 
-            expect(updatedSnapshot.items.length, snapshot.items.length + 1);
-            expect(updatedSnapshot.items, orderedEquals(expectedItems));
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length + 1);
+              expect(updatedSnapshot.items, orderedEquals(expectedItems));
+            },
+          );
         });
 
         group('update event', () {
           test(
-              'returns a QuerySnapshot with one updated item in the correct order if event.item is in snapshot.items',
-              () async {
-            Post updatedPost = posts[2].copyWith(
-              title: 'updated blog',
-              rating: 35,
-            );
+            'returns a QuerySnapshot with one updated item in the correct order if event.item is in snapshot.items',
+            () async {
+              Post updatedPost = posts[2].copyWith(
+                title: 'updated blog',
+                rating: 35,
+              );
 
-            SubscriptionEvent<Post> subscriptionEvent = SubscriptionEvent(
-              item: updatedPost,
-              modelType: Post.classType,
-              eventType: EventType.update,
-            );
+              SubscriptionEvent<Post> subscriptionEvent = SubscriptionEvent(
+                item: updatedPost,
+                modelType: Post.classType,
+                eventType: EventType.update,
+              );
 
-            QuerySnapshot<Post> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Post> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            var expectedItems = [
-              ...snapshot.items
-                ..removeWhere((item) => item.id == updatedPost.id),
-              updatedPost,
-            ]..sort((a, b) => a.rating.compareTo(b.rating));
+              var expectedItems = [
+                ...snapshot.items
+                  ..removeWhere((item) => item.id == updatedPost.id),
+                updatedPost,
+              ]..sort((a, b) => a.rating.compareTo(b.rating));
 
-            expect(updatedSnapshot.items.length, snapshot.items.length);
-            expect(updatedSnapshot.items, orderedEquals(expectedItems));
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length);
+              expect(updatedSnapshot.items, orderedEquals(expectedItems));
+            },
+          );
 
           test(
-              'returns a QuerySnapshot with one new item in the correct order if event.item is not in snapshot.items',
-              () async {
-            Post updatedPost = Post(
-              title: 'new post',
-              rating: 25,
-              created: _temporalDateTime,
-            );
+            'returns a QuerySnapshot with one new item in the correct order if event.item is not in snapshot.items',
+            () async {
+              Post updatedPost = Post(
+                title: 'new post',
+                rating: 25,
+                created: _temporalDateTime,
+              );
 
-            SubscriptionEvent<Post> subscriptionEvent = SubscriptionEvent(
-              item: updatedPost,
-              modelType: Post.classType,
-              eventType: EventType.update,
-            );
+              SubscriptionEvent<Post> subscriptionEvent = SubscriptionEvent(
+                item: updatedPost,
+                modelType: Post.classType,
+                eventType: EventType.update,
+              );
 
-            QuerySnapshot<Post> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent,
-            );
+              QuerySnapshot<Post> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent);
 
-            var expectedItems = [
-              ...snapshot.items,
-              updatedPost,
-            ]..sort((a, b) => a.rating.compareTo(b.rating));
+              var expectedItems = [...snapshot.items, updatedPost]
+                ..sort((a, b) => a.rating.compareTo(b.rating));
 
-            expect(updatedSnapshot.items.length, snapshot.items.length + 1);
-            expect(updatedSnapshot.items, orderedEquals(expectedItems));
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length + 1);
+              expect(updatedSnapshot.items, orderedEquals(expectedItems));
+            },
+          );
         });
       });
 
@@ -468,84 +447,84 @@ void main() {
         });
 
         group('create event', () {
-          test('returns a QuerySnapshot with new items in the correct order',
-              () async {
-            Post newPost1 = Post(
-              title: 'new post a',
-              rating: 25,
-              created: _temporalDateTime,
-            );
+          test(
+            'returns a QuerySnapshot with new items in the correct order',
+            () async {
+              Post newPost1 = Post(
+                title: 'new post a',
+                rating: 25,
+                created: _temporalDateTime,
+              );
 
-            Post newPost2 = Post(
-              title: 'new post a',
-              rating: 40,
-              created: _temporalDateTime,
-            );
+              Post newPost2 = Post(
+                title: 'new post a',
+                rating: 40,
+                created: _temporalDateTime,
+              );
 
-            Post newPost3 = Post(
-              title: 'new post b',
-              rating: 25,
-              created: _temporalDateTime,
-            );
+              Post newPost3 = Post(
+                title: 'new post b',
+                rating: 25,
+                created: _temporalDateTime,
+              );
 
-            Post newPost4 = Post(
-              title: 'new post b',
-              rating: 40,
-              created: _temporalDateTime,
-            );
+              Post newPost4 = Post(
+                title: 'new post b',
+                rating: 40,
+                created: _temporalDateTime,
+              );
 
-            SubscriptionEvent<Post> subscriptionEvent1 = SubscriptionEvent(
-              item: newPost1,
-              modelType: Post.classType,
-              eventType: EventType.create,
-            );
+              SubscriptionEvent<Post> subscriptionEvent1 = SubscriptionEvent(
+                item: newPost1,
+                modelType: Post.classType,
+                eventType: EventType.create,
+              );
 
-            SubscriptionEvent<Post> subscriptionEvent2 = SubscriptionEvent(
-              item: newPost2,
-              modelType: Post.classType,
-              eventType: EventType.create,
-            );
+              SubscriptionEvent<Post> subscriptionEvent2 = SubscriptionEvent(
+                item: newPost2,
+                modelType: Post.classType,
+                eventType: EventType.create,
+              );
 
-            SubscriptionEvent<Post> subscriptionEvent3 = SubscriptionEvent(
-              item: newPost3,
-              modelType: Post.classType,
-              eventType: EventType.create,
-            );
+              SubscriptionEvent<Post> subscriptionEvent3 = SubscriptionEvent(
+                item: newPost3,
+                modelType: Post.classType,
+                eventType: EventType.create,
+              );
 
-            SubscriptionEvent<Post> subscriptionEvent4 = SubscriptionEvent(
-              item: newPost4,
-              modelType: Post.classType,
-              eventType: EventType.create,
-            );
+              SubscriptionEvent<Post> subscriptionEvent4 = SubscriptionEvent(
+                item: newPost4,
+                modelType: Post.classType,
+                eventType: EventType.create,
+              );
 
-            QuerySnapshot<Post> updatedSnapshot =
-                snapshot.withSubscriptionEvent(
-              event: subscriptionEvent1,
-            );
+              QuerySnapshot<Post> updatedSnapshot = snapshot
+                  .withSubscriptionEvent(event: subscriptionEvent1);
 
-            updatedSnapshot = updatedSnapshot.withSubscriptionEvent(
-              event: subscriptionEvent2,
-            );
+              updatedSnapshot = updatedSnapshot.withSubscriptionEvent(
+                event: subscriptionEvent2,
+              );
 
-            updatedSnapshot = updatedSnapshot.withSubscriptionEvent(
-              event: subscriptionEvent3,
-            );
+              updatedSnapshot = updatedSnapshot.withSubscriptionEvent(
+                event: subscriptionEvent3,
+              );
 
-            updatedSnapshot = updatedSnapshot.withSubscriptionEvent(
-              event: subscriptionEvent4,
-            );
+              updatedSnapshot = updatedSnapshot.withSubscriptionEvent(
+                event: subscriptionEvent4,
+              );
 
-            var expectedItems = [
-              ...snapshot.items,
-              newPost1,
-              newPost3,
-              newPost2,
-              newPost4,
-            ];
+              var expectedItems = [
+                ...snapshot.items,
+                newPost1,
+                newPost3,
+                newPost2,
+                newPost4,
+              ];
 
-            expect(updatedSnapshot.items.length, snapshot.items.length + 4);
-            expect(updatedSnapshot.items, orderedEquals(expectedItems));
-          });
+              expect(updatedSnapshot.items.length, snapshot.items.length + 4);
+              expect(updatedSnapshot.items, orderedEquals(expectedItems));
+            },
+          );
         });
       });
     });
@@ -553,10 +532,7 @@ void main() {
     group('withSyncStatus()', () {
       test('should return a QuerySnapshot with the updated status', () {
         var blogs = List.generate(5, (index) => Blog(name: 'blog $index'));
-        var snapshot = QuerySnapshot(
-          items: blogs,
-          isSynced: false,
-        );
+        var snapshot = QuerySnapshot(items: blogs, isSynced: false);
         var newSnapshot = snapshot.withSyncStatus(true);
         expect(newSnapshot.isSynced, true);
       });

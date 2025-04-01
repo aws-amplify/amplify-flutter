@@ -11,8 +11,5 @@ class StorageListOperation<Request extends StorageListRequest,
         Result extends StorageListResult>
     extends StorageOperation<Request, Result> {
   /// {@macro amplify_core.storage.list_operation}
-  StorageListOperation({
-    required super.request,
-    required super.result,
-  });
+  StorageListOperation({required super.request, required super.result});
 }

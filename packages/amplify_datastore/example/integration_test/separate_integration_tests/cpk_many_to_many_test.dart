@@ -33,23 +33,24 @@ void main() {
     ];
     var tags = [
       CpkManyToManyTag(label: 'many to many tag 1'),
-      CpkManyToManyTag(label: 'many to maby tag 2')
+      CpkManyToManyTag(label: 'many to maby tag 2'),
     ];
     var postTags = [
       CpkPostTags(cpkManyToManyPost: posts[0], cpkManyToManyTag: tags[0]),
       CpkPostTags(cpkManyToManyPost: posts[0], cpkManyToManyTag: tags[0]),
       CpkPostTags(cpkManyToManyPost: posts[1], cpkManyToManyTag: tags[1]),
-      CpkPostTags(cpkManyToManyPost: posts[1], cpkManyToManyTag: tags[1])
+      CpkPostTags(cpkManyToManyPost: posts[1], cpkManyToManyTag: tags[1]),
     ];
     late Future<List<SubscriptionEvent<CpkManyToManyPost>>>
-        postModelEventsGetter;
+    postModelEventsGetter;
     late Future<List<SubscriptionEvent<CpkManyToManyTag>>> tagModelEventsGetter;
     late Future<List<SubscriptionEvent<CpkPostTags>>> postTagsModelEventsGetter;
 
     setUpAll(() async {
       await configureDataStore(
-          enableCloudSync: enableCloudSync,
-          modelProvider: ModelProvider.instance);
+        enableCloudSync: enableCloudSync,
+        modelProvider: ModelProvider.instance,
+      );
 
       postModelEventsGetter = createObservedEventsGetter(
         CpkManyToManyPost.classType,
@@ -88,8 +89,9 @@ void main() {
         }
       }
 
-      var queriedPosts =
-          await Amplify.DataStore.query(CpkManyToManyPost.classType);
+      var queriedPosts = await Amplify.DataStore.query(
+        CpkManyToManyPost.classType,
+      );
       expect(queriedPosts, containsAll(posts));
     });
 
@@ -106,8 +108,9 @@ void main() {
           await Amplify.DataStore.save(tag);
         }
       }
-      var queriedTags =
-          await Amplify.DataStore.query(CpkManyToManyTag.classType);
+      var queriedTags = await Amplify.DataStore.query(
+        CpkManyToManyTag.classType,
+      );
       expect(queriedTags, containsAll(tags));
     });
 
@@ -125,8 +128,9 @@ void main() {
         }
       }
 
-      var queriedPostTags =
-          await Amplify.DataStore.query(CpkPostTags.classType);
+      var queriedPostTags = await Amplify.DataStore.query(
+        CpkPostTags.classType,
+      );
       expect(queriedPostTags, containsAll(postTags));
     });
 
@@ -143,11 +147,14 @@ void main() {
     testWidgets('observe postTags', (WidgetTester tester) async {
       var events = await postTagsModelEventsGetter;
       expectObservedEventsToMatchModels(
-          events: events, referenceModels: postTags);
+        events: events,
+        referenceModels: postTags,
+      );
     });
 
-    testWidgets('delete post (cascade delete associated postTag)',
-        (WidgetTester tester) async {
+    testWidgets('delete post (cascade delete associated postTag)', (
+      WidgetTester tester,
+    ) async {
       var deletedPost = posts[0];
       var deletedPostTags = postTags.getRange(0, 2).toList();
 
@@ -165,17 +172,20 @@ void main() {
         await Amplify.DataStore.delete(deletedPost);
       }
 
-      var queriedPosts =
-          await Amplify.DataStore.query(CpkManyToManyPost.classType);
+      var queriedPosts = await Amplify.DataStore.query(
+        CpkManyToManyPost.classType,
+      );
       expect(queriedPosts, isNot(contains(deletedPost)));
 
-      var queriedPostTags =
-          await Amplify.DataStore.query(CpkPostTags.classType);
+      var queriedPostTags = await Amplify.DataStore.query(
+        CpkPostTags.classType,
+      );
       expect(queriedPostTags, isNot(containsAll(deletedPostTags)));
     });
 
-    testWidgets('delete tag (cascade delete associated postTag)',
-        (WidgetTester tester) async {
+    testWidgets('delete tag (cascade delete associated postTag)', (
+      WidgetTester tester,
+    ) async {
       var deletedTag = tags[1];
       var deletedPostTags = postTags.getRange(2, postTags.length).toList();
 
@@ -193,12 +203,14 @@ void main() {
         await Amplify.DataStore.delete(deletedTag);
       }
 
-      var queriedTags =
-          await Amplify.DataStore.query(CpkManyToManyTag.classType);
+      var queriedTags = await Amplify.DataStore.query(
+        CpkManyToManyTag.classType,
+      );
       expect(queriedTags, isNot(contains(deletedTag)));
 
-      var queriedPostTags =
-          await Amplify.DataStore.query(CpkPostTags.classType);
+      var queriedPostTags = await Amplify.DataStore.query(
+        CpkPostTags.classType,
+      );
       expect(queriedPostTags, isNot(containsAll(deletedPostTags)));
     });
 
@@ -216,8 +228,9 @@ void main() {
         await Amplify.DataStore.delete(deletedPost);
       }
 
-      var queriedPosts =
-          await Amplify.DataStore.query(CpkManyToManyPost.classType);
+      var queriedPosts = await Amplify.DataStore.query(
+        CpkManyToManyPost.classType,
+      );
       expect(queriedPosts, isNot(contains(deletedPost)));
     });
 
@@ -235,8 +248,9 @@ void main() {
         await Amplify.DataStore.delete(deletedTag);
       }
 
-      var queriedTags =
-          await Amplify.DataStore.query(CpkManyToManyTag.classType);
+      var queriedTags = await Amplify.DataStore.query(
+        CpkManyToManyTag.classType,
+      );
       expect(queriedTags, isNot(contains(deletedTag)));
     });
   });

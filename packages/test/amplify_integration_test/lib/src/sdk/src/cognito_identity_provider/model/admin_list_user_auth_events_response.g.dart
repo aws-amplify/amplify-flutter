@@ -13,17 +13,18 @@ class _$AdminListUserAuthEventsResponse
   @override
   final String? nextToken;
 
-  factory _$AdminListUserAuthEventsResponse(
-          [void Function(AdminListUserAuthEventsResponseBuilder)? updates]) =>
+  factory _$AdminListUserAuthEventsResponse([
+    void Function(AdminListUserAuthEventsResponseBuilder)? updates,
+  ]) =>
       (new AdminListUserAuthEventsResponseBuilder()..update(updates))._build();
 
   _$AdminListUserAuthEventsResponse._({this.authEvents, this.nextToken})
-      : super._();
+    : super._();
 
   @override
   AdminListUserAuthEventsResponse rebuild(
-          void Function(AdminListUserAuthEventsResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AdminListUserAuthEventsResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AdminListUserAuthEventsResponseBuilder toBuilder() =>
@@ -49,8 +50,10 @@ class _$AdminListUserAuthEventsResponse
 
 class AdminListUserAuthEventsResponseBuilder
     implements
-        Builder<AdminListUserAuthEventsResponse,
-            AdminListUserAuthEventsResponseBuilder> {
+        Builder<
+          AdminListUserAuthEventsResponse,
+          AdminListUserAuthEventsResponseBuilder
+        > {
   _$AdminListUserAuthEventsResponse? _$v;
 
   _i2.ListBuilder<AuthEventType>? _authEvents;
@@ -92,9 +95,12 @@ class AdminListUserAuthEventsResponseBuilder
   _$AdminListUserAuthEventsResponse _build() {
     _$AdminListUserAuthEventsResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$AdminListUserAuthEventsResponse._(
-              authEvents: _authEvents?.build(), nextToken: nextToken);
+            authEvents: _authEvents?.build(),
+            nextToken: nextToken,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -102,7 +108,10 @@ class AdminListUserAuthEventsResponseBuilder
         _authEvents?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'AdminListUserAuthEventsResponse', _$failedField, e.toString());
+          r'AdminListUserAuthEventsResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

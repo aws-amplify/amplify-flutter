@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('mac-os || ios')
+library;
 
 import 'dart:io';
 
@@ -95,8 +96,9 @@ void main() {
           config: AmplifySecureStorageConfig(
             scope: scope,
             iOSOptions: IOSSecureStorageOptions(
-              accessible: KeychainAttributeAccessible
-                  .accessibleAfterFirstUnlockThisDeviceOnly,
+              accessible:
+                  KeychainAttributeAccessible
+                      .accessibleAfterFirstUnlockThisDeviceOnly,
             ),
           ),
         );
@@ -104,8 +106,9 @@ void main() {
           config: AmplifySecureStorageConfig(
             scope: scope,
             iOSOptions: IOSSecureStorageOptions(
-              accessible: KeychainAttributeAccessible
-                  .accessibleWhenUnlockedThisDeviceOnly,
+              accessible:
+                  KeychainAttributeAccessible
+                      .accessibleWhenUnlockedThisDeviceOnly,
             ),
           ),
         );

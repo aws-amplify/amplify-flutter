@@ -22,9 +22,9 @@ abstract class ExternalServiceException
   }
 
   /// An exception thrown when a dependent service such as Facebook or Twitter is not responding
-  factory ExternalServiceException.build(
-          [void Function(ExternalServiceExceptionBuilder) updates]) =
-      _$ExternalServiceException;
+  factory ExternalServiceException.build([
+    void Function(ExternalServiceExceptionBuilder) updates,
+  ]) = _$ExternalServiceException;
 
   const ExternalServiceException._();
 
@@ -32,22 +32,21 @@ abstract class ExternalServiceException
   factory ExternalServiceException.fromResponse(
     ExternalServiceException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<ExternalServiceException>>
-      serializers = [ExternalServiceExceptionAwsJson11Serializer()];
+  serializers = [ExternalServiceExceptionAwsJson11Serializer()];
 
   /// The message returned by an ExternalServiceException
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentity',
-        shape: 'ExternalServiceException',
-      );
+    namespace: 'com.amazonaws.cognitoidentity',
+    shape: 'ExternalServiceException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -68,10 +67,7 @@ abstract class ExternalServiceException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExternalServiceException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -79,21 +75,18 @@ abstract class ExternalServiceException
 class ExternalServiceExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ExternalServiceException> {
   const ExternalServiceExceptionAwsJson11Serializer()
-      : super('ExternalServiceException');
+    : super('ExternalServiceException');
 
   @override
   Iterable<Type> get types => const [
-        ExternalServiceException,
-        _$ExternalServiceException,
-      ];
+    ExternalServiceException,
+    _$ExternalServiceException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ExternalServiceException deserialize(
@@ -112,10 +105,12 @@ class ExternalServiceExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -133,10 +128,9 @@ class ExternalServiceExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

@@ -9,7 +9,8 @@ part of 'pinpoint_analytics.dart';
 // **************************************************************************
 
 CognitoPinpointAnalyticsConfig _$CognitoPinpointAnalyticsConfigFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     $checkedCreate(
       'CognitoPinpointAnalyticsConfig',
       json,
@@ -24,8 +25,6 @@ CognitoPinpointAnalyticsConfig _$CognitoPinpointAnalyticsConfigFromJson(
     );
 
 Map<String, dynamic> _$CognitoPinpointAnalyticsConfigToJson(
-        CognitoPinpointAnalyticsConfig instance) =>
-    <String, dynamic>{
-      'AppId': instance.appId,
-      'Region': instance.region,
-    };
+  CognitoPinpointAnalyticsConfig instance,
+) =>
+    <String, dynamic>{'AppId': instance.appId, 'Region': instance.region};

@@ -14,8 +14,5 @@ abstract class StorageDownloadFileOperation<
     extends StorageOperation<Request, Result>
     implements StorageResumableOperation, StorageCancelableOperation {
   /// {@macro amplify_core.storage.download_file_operation}
-  StorageDownloadFileOperation({
-    required super.request,
-    required super.result,
-  });
+  StorageDownloadFileOperation({required super.request, required super.result});
 }

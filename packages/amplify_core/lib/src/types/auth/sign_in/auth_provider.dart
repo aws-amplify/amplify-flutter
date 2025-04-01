@@ -60,14 +60,7 @@ class AuthProvider
   static const cognito = AuthProvider._('cognito');
   static const twitter = AuthProvider._('twitter');
 
-  static const values = [
-    google,
-    facebook,
-    amazon,
-    apple,
-    cognito,
-    twitter,
-  ];
+  static const values = [google, facebook, amazon, apple, cognito, twitter];
 
   /// The value of the `identity_provider` URI parameter.
   ///

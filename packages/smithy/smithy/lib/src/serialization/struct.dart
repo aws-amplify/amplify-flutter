@@ -18,7 +18,8 @@ abstract class SmithySerializer<T extends Object?> implements Serializer<T> {
 }
 
 abstract class StructuredSmithySerializer<T extends Object?>
-    extends SmithySerializer<T> implements StructuredSerializer<T> {
+    extends SmithySerializer<T>
+    implements StructuredSerializer<T> {
   const StructuredSmithySerializer(super.wireName);
 
   @override
@@ -40,7 +41,8 @@ abstract class StructuredSmithySerializer<T extends Object?>
 }
 
 abstract class PrimitiveSmithySerializer<T extends Object?>
-    extends SmithySerializer<T> implements PrimitiveSerializer<T> {
+    extends SmithySerializer<T>
+    implements PrimitiveSerializer<T> {
   const PrimitiveSmithySerializer(super.wireName);
 
   @override

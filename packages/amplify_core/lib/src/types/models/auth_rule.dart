@@ -19,7 +19,7 @@ enum ModelOperation {
   LIST,
   SYNC,
   LISTEN,
-  SEARCH
+  SEARCH,
 }
 
 enum AuthRuleProvider { APIKEY, OIDC, IAM, USERPOOLS, FUNCTION }

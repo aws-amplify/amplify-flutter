@@ -12,10 +12,7 @@ class StorageRemoveOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.remove_options}
-  const StorageRemoveOptions({
-    this.pluginOptions,
-    this.bucket,
-  });
+  const StorageRemoveOptions({this.pluginOptions, this.bucket});
 
   /// {@macro amplify_core.storage.remove_plugin_options}
   final StorageRemovePluginOptions? pluginOptions;

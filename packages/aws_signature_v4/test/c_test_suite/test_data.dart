@@ -31,8 +31,9 @@ class SignerTestMethodData {
       canonicalRequest: json['canonicalRequest'] as String,
       stringToSign: json['stringToSign'] as String,
       signature: json['signature'] as String,
-      signedRequest:
-          AWSHttpRequestX.fromJson((json['signedRequest'] as Map).cast()),
+      signedRequest: AWSHttpRequestX.fromJson(
+        (json['signedRequest'] as Map).cast(),
+      ),
     );
   }
 
@@ -275,11 +276,7 @@ class SignerTest {
       final body = await collectBytes(signedRequest.split());
       final expectedRequest = testMethodData.signedRequest;
       final expected = await collectBytes(expectedRequest.split());
-      expect(
-        body,
-        orderedEquals(expected),
-        reason: 'Bodies must be identical',
-      );
+      expect(body, orderedEquals(expected), reason: 'Bodies must be identical');
     }
   }
 

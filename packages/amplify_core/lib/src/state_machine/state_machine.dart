@@ -89,8 +89,9 @@ abstract class StateMachineManager<
   final Map<StateMachineToken, StateMachine> _stateMachines = {};
 
   final _eventController = StreamController<EventCompleter<E, S>>();
-  final StreamController<S> _stateController =
-      StreamController.broadcast(sync: true);
+  final StreamController<S> _stateController = StreamController.broadcast(
+    sync: true,
+  );
   final StreamController<Transition<E, S>> _transitionController =
       StreamController.broadcast(sync: true);
 
@@ -122,10 +123,7 @@ abstract class StateMachineManager<
   }
 
   @override
-  void addInstance<T extends Object>(
-    T instance, [
-    Token<T>? token,
-  ]) {
+  void addInstance<T extends Object>(T instance, [Token<T>? token]) {
     _dependencyManager.addInstance<T>(instance, token);
   }
 
@@ -191,9 +189,7 @@ abstract class StateMachineManager<
   @override
   @protected
   @visibleForTesting
-  Future<SuccessState> dispatchAndComplete<SuccessState extends S>(
-    E event,
-  ) =>
+  Future<SuccessState> dispatchAndComplete<SuccessState extends S>(E event) =>
       super.dispatchAndComplete(event);
 
   /// Maps [event] to its state machine.
@@ -280,11 +276,7 @@ abstract class StateMachine<
   void emit(State state) {
     _stateController.add(state);
     manager._stateController.add(state);
-    final transition = Transition(
-      _currentState,
-      _currentEvent,
-      state,
-    );
+    final transition = Transition(_currentState, _currentEvent, state);
     _transitionController.add(transition);
     manager._transitionController.add(transition);
     _currentState = state;
@@ -393,10 +385,7 @@ abstract class StateMachine<
       manager.addBuilder<T>(builder, token);
 
   @override
-  void addInstance<T extends Object>(
-    T instance, [
-    Token<T>? token,
-  ]) =>
+  void addInstance<T extends Object>(T instance, [Token<T>? token]) =>
       manager.addInstance<T>(instance, token);
 
   @override

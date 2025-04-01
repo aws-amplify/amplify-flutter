@@ -97,10 +97,7 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
 
   @override
   Iterable<String>? get autofillHints =>
-      widget.autofillHints ??
-      [
-        AutofillHints.oneTimeCode,
-      ];
+      widget.autofillHints ?? [AutofillHints.oneTimeCode];
 
   @override
   FormFieldValidator<String> get validator {

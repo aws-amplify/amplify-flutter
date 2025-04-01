@@ -49,17 +49,18 @@ void main() {
     });
 
     test(
-        'returns all stored items when get request size exceeds stored item count',
-        () async {
-      const values = ['0', '1', '2', '3', '4', '5'];
-      for (final value in values) {
-        await db.addItem(value);
-      }
+      'returns all stored items when get request size exceeds stored item count',
+      () async {
+        const values = ['0', '1', '2', '3', '4', '5'];
+        for (final value in values) {
+          await db.addItem(value);
+        }
 
-      final readItems = await db.getCount(100);
-      final readValues = readItems.map((e) => e.value);
-      expect(readValues, values);
-    });
+        final readItems = await db.getCount(100);
+        final readValues = readItems.map((e) => e.value);
+        expect(readValues, values);
+      },
+    );
 
     test('deletes all items in storage', () async {
       const values = ['0', '1', '2', '3', '4', '5'];

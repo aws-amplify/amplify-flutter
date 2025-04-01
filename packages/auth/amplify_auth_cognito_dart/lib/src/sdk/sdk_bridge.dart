@@ -3,7 +3,7 @@
 
 /// Bridging extensions between Cognito SDK and Amplify Flutter types.
 @internal
-library amplify_auth_cognito.sdk.sdk_bridge;
+library;
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
@@ -21,34 +21,34 @@ import 'package:smithy/smithy.dart';
 extension ChallengeNameTypeBridge on ChallengeNameType {
   /// The sign in step corresponding to this challenge.
   AuthSignInStep get signInStep => switch (this) {
-        ChallengeNameType.customChallenge =>
-          AuthSignInStep.confirmSignInWithCustomChallenge,
-        ChallengeNameType.newPasswordRequired =>
-          AuthSignInStep.confirmSignInWithNewPassword,
-        ChallengeNameType.smsMfa => AuthSignInStep.confirmSignInWithSmsMfaCode,
-        ChallengeNameType.selectMfaType =>
-          AuthSignInStep.continueSignInWithMfaSelection,
-        ChallengeNameType.mfaSetup =>
-          AuthSignInStep.continueSignInWithMfaSetupSelection,
-        ChallengeNameType.softwareTokenMfa =>
-          AuthSignInStep.confirmSignInWithTotpMfaCode,
-        ChallengeNameType.emailOtp => AuthSignInStep.confirmSignInWithOtpCode,
-        ChallengeNameType.adminNoSrpAuth ||
-        ChallengeNameType.passwordVerifier ||
-        ChallengeNameType.devicePasswordVerifier ||
-        ChallengeNameType.deviceSrpAuth ||
-        _ =>
-          throw InvalidStateException('Unrecognized challenge type: $this'),
-      };
+    ChallengeNameType.customChallenge =>
+      AuthSignInStep.confirmSignInWithCustomChallenge,
+    ChallengeNameType.newPasswordRequired =>
+      AuthSignInStep.confirmSignInWithNewPassword,
+    ChallengeNameType.smsMfa => AuthSignInStep.confirmSignInWithSmsMfaCode,
+    ChallengeNameType.selectMfaType =>
+      AuthSignInStep.continueSignInWithMfaSelection,
+    ChallengeNameType.mfaSetup =>
+      AuthSignInStep.continueSignInWithMfaSetupSelection,
+    ChallengeNameType.softwareTokenMfa =>
+      AuthSignInStep.confirmSignInWithTotpMfaCode,
+    ChallengeNameType.emailOtp => AuthSignInStep.confirmSignInWithOtpCode,
+    ChallengeNameType.adminNoSrpAuth ||
+    ChallengeNameType.passwordVerifier ||
+    ChallengeNameType.devicePasswordVerifier ||
+    ChallengeNameType.deviceSrpAuth ||
+    _ => throw InvalidStateException('Unrecognized challenge type: $this'),
+  };
 }
 
 /// Bridging helpers for [CodeDeliveryDetailsType].
 extension CodeDeliveryDetailsBridge on CodeDeliveryDetailsType {
   /// The [AuthCodeDeliveryDetails] representation of `this`.
   AuthCodeDeliveryDetails get asAuthCodeDeliveryDetails {
-    final attributeKey = attributeName == null
-        ? null
-        : CognitoUserAttributeKey.parse(attributeName!);
+    final attributeKey =
+        attributeName == null
+            ? null
+            : CognitoUserAttributeKey.parse(attributeName!);
     return AuthCodeDeliveryDetails(
       destination: destination,
       deliveryMedium:
@@ -62,19 +62,17 @@ extension CodeDeliveryDetailsBridge on CodeDeliveryDetailsType {
 extension DeliveryMediumTypeBridge on DeliveryMediumType {
   /// The [DeliveryMedium] representation of `this`.
   DeliveryMedium get asDeliveryMedium => switch (this) {
-        DeliveryMediumType.sms => DeliveryMedium.sms,
-        DeliveryMediumType.email => DeliveryMedium.email,
-        _ => DeliveryMedium.unknown,
-      };
+    DeliveryMediumType.sms => DeliveryMedium.sms,
+    DeliveryMediumType.email => DeliveryMedium.email,
+    _ => DeliveryMedium.unknown,
+  };
 }
 
 /// Bridging helpers for [AuthUserAttribute].
 extension AuthUserAttributeBridge on AuthUserAttribute {
   /// This attribute as an [AttributeType].
-  AttributeType get asAttributeType => AttributeType(
-        name: userAttributeKey.key,
-        value: value,
-      );
+  AttributeType get asAttributeType =>
+      AttributeType(name: userAttributeKey.key, value: value);
 }
 
 /// Bridging helpers for [AttributeType].
@@ -82,10 +80,7 @@ extension AttributeTypeBridge on AttributeType {
   /// This attribute as an [AuthUserAttribute].
   AuthUserAttribute get asAuthUserAttribute {
     final key = CognitoUserAttributeKey.parse(name);
-    return AuthUserAttribute(
-      userAttributeKey: key,
-      value: value ?? '',
-    );
+    return AuthUserAttribute(userAttributeKey: key, value: value ?? '');
   }
 }
 
@@ -93,13 +88,11 @@ extension AttributeTypeBridge on AttributeType {
 extension AuthenticationFlowTypeBridge on AuthenticationFlowType {
   /// The Cognito SDK value of `this`.
   AuthFlowType get sdkValue => switch (this) {
-        AuthenticationFlowType.userSrpAuth => AuthFlowType.userSrpAuth,
-        AuthenticationFlowType.customAuthWithSrp ||
-        AuthenticationFlowType.customAuthWithoutSrp =>
-          AuthFlowType.customAuth,
-        AuthenticationFlowType.userPasswordAuth =>
-          AuthFlowType.userPasswordAuth,
-      };
+    AuthenticationFlowType.userSrpAuth => AuthFlowType.userSrpAuth,
+    AuthenticationFlowType.customAuthWithSrp ||
+    AuthenticationFlowType.customAuthWithoutSrp => AuthFlowType.customAuth,
+    AuthenticationFlowType.userPasswordAuth => AuthFlowType.userPasswordAuth,
+  };
 }
 
 /// {@template amplify_auth_cognito_dart.sdk.wrapped_cognito_identity_provider_client}
@@ -112,14 +105,14 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
     required String region,
     required AWSCredentialsProvider credentialsProvider,
     required DependencyManager dependencyManager,
-  })  : _base = CognitoIdentityClient(
-          region: region,
-          credentialsProvider: credentialsProvider,
-          requestInterceptors: const [
-            WithHeader(AWSHeaders.cacheControl, 'no-store'),
-          ],
-        ),
-        _dependencyManager = dependencyManager;
+  }) : _base = CognitoIdentityClient(
+         region: region,
+         credentialsProvider: credentialsProvider,
+         requestInterceptors: const [
+           WithHeader(AWSHeaders.cacheControl, 'no-store'),
+         ],
+       ),
+       _dependencyManager = dependencyManager;
 
   final CognitoIdentityClient _base;
   final DependencyManager _dependencyManager;
@@ -185,19 +178,20 @@ class WrappedCognitoIdentityProviderClient
     String? endpoint,
     required AWSCredentialsProvider credentialsProvider,
     required DependencyManager dependencyManager,
-  })  : _base = CognitoIdentityProviderClient(
-          region: region,
-          credentialsProvider: credentialsProvider,
-          baseUri: endpoint == null
-              ? null
-              : (endpoint.startsWith('http')
-                  ? Uri.parse(endpoint)
-                  : Uri.parse('https://$endpoint')),
-          requestInterceptors: const [
-            WithHeader(AWSHeaders.cacheControl, 'no-store'),
-          ],
-        ),
-        _dependencyManager = dependencyManager;
+  }) : _base = CognitoIdentityProviderClient(
+         region: region,
+         credentialsProvider: credentialsProvider,
+         baseUri:
+             endpoint == null
+                 ? null
+                 : (endpoint.startsWith('http')
+                     ? Uri.parse(endpoint)
+                     : Uri.parse('https://$endpoint')),
+         requestInterceptors: const [
+           WithHeader(AWSHeaders.cacheControl, 'no-store'),
+         ],
+       ),
+       _dependencyManager = dependencyManager;
 
   final DependencyManager _dependencyManager;
   final CognitoIdentityProviderClient _base;
@@ -444,7 +438,7 @@ class WrappedCognitoIdentityProviderClient
 
   @override
   SmithyOperation<GetUserAttributeVerificationCodeResponse>
-      getUserAttributeVerificationCode(
+  getUserAttributeVerificationCode(
     GetUserAttributeVerificationCodeRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
@@ -761,9 +755,7 @@ extension MfaSettings on CognitoIdentityProviderClient {
   Future<UserMfaPreference> _getRawUserSettings({
     required String accessToken,
   }) async {
-    final user = await getUser(
-      GetUserRequest(accessToken: accessToken),
-    ).result;
+    final user = await getUser(GetUserRequest(accessToken: accessToken)).result;
     final enabled = <MfaType>{
       ...?user.userMfaSettingList?.map((setting) => setting.mfaType),
     };
@@ -805,7 +797,7 @@ extension MfaSettings on CognitoIdentityProviderClient {
 
     var preferred =
         _getNewPreferredMethod(sms: sms, totp: totp, email: email) ??
-            currentPreference;
+        currentPreference;
 
     if (_isCurrentPreferenceDisabled(
       currentPreference,
@@ -899,9 +891,9 @@ extension MfaSettings on CognitoIdentityProviderClient {
 extension on String {
   /// The [MfaType] representing `this`.
   MfaType get mfaType => switch (this) {
-        'SOFTWARE_TOKEN_MFA' => MfaType.totp,
-        'SMS_MFA' => MfaType.sms,
-        'EMAIL_OTP' => MfaType.email,
-        final invalidType => throw StateError('Invalid MFA type: $invalidType'),
-      };
+    'SOFTWARE_TOKEN_MFA' => MfaType.totp,
+    'SMS_MFA' => MfaType.sms,
+    'EMAIL_OTP' => MfaType.email,
+    final invalidType => throw StateError('Invalid MFA type: $invalidType'),
+  };
 }

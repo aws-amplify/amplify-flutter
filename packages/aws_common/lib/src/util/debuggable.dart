@@ -17,9 +17,9 @@ mixin AWSDebuggable on Object {
 
   @override
   String toString() => switch (this) {
-        AWSSerializable(:final toJson) =>
-          '$runtimeTypeName ${prettyPrintJson(toJson())}',
-        AWSEquatable(:final props) => '$runtimeTypeName $props',
-        _ => 'Instance of $runtimeTypeName',
-      };
+    AWSSerializable(:final toJson) =>
+      '$runtimeTypeName ${prettyPrintJson(toJson())}',
+    AWSEquatable(:final props) => '$runtimeTypeName $props',
+    _ => 'Instance of $runtimeTypeName',
+  };
 }

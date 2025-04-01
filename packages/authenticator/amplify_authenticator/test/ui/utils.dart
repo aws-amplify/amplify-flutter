@@ -73,10 +73,7 @@ void testMatrix2<D1 extends Enum, D2 extends Enum>(
   void Function(D1, D2) cb,
 ) {
   testMatrix1<D1>(values1, (a) {
-    testMatrix1<D2>(
-      values2,
-      (b) => cb(a, b),
-    );
+    testMatrix1<D2>(values2, (b) => cb(a, b));
   });
 }
 
@@ -89,11 +86,7 @@ void testMatrix3<D1 extends Enum, D2 extends Enum, D3 extends Enum>(
   void Function(D1, D2, D3) cb,
 ) {
   testMatrix1<D1>(values1, (a) {
-    testMatrix2<D2, D3>(
-      values2,
-      values3,
-      (b, c) => cb(a, b, c),
-    );
+    testMatrix2<D2, D3>(values2, values3, (b, c) => cb(a, b, c));
   });
 }
 

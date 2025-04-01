@@ -69,24 +69,21 @@ void main() {
           containsAll([signInRedirectUri1, signInRedirectUri2]),
         );
         expect(oauth.signInUri, signInUri);
-        expect(
-          oauth.signInUriQueryParameters,
-          {signInQueryParamKey: signInQueryParamValue},
-        );
+        expect(oauth.signInUriQueryParameters, {
+          signInQueryParamKey: signInQueryParamValue,
+        });
         expect(
           oauth.redirectSignOutUri,
           containsAll([signOutRedirectUri1, signOutRedirectUri2]),
         );
         expect(oauth.signOutUri, signOutUri);
-        expect(
-          oauth.signOutUriQueryParameters,
-          {signOutQueryParamKey: signOutQueryParamValue},
-        );
+        expect(oauth.signOutUriQueryParameters, {
+          signOutQueryParamKey: signOutQueryParamValue,
+        });
         expect(oauth.tokenUri, tokenUri);
-        expect(
-          oauth.tokenUriQueryParameters,
-          {tokenQueryParamKey: tokenQueryParamValue},
-        );
+        expect(oauth.tokenUriQueryParameters, {
+          tokenQueryParamKey: tokenQueryParamValue,
+        });
         expect(oauth.scopes, containsAll([scope1, scope2]));
       });
 
@@ -98,14 +95,16 @@ void main() {
         expect(mappedOutputs.auth?.appClientSecret, appClientSecret);
       });
 
-      test('maps config with only the required options for a user pool',
-          () async {
-        final configJson =
-            jsonDecode(userPoolOnlyConfig) as Map<String, Object?>;
-        final amplifyConfig = AmplifyConfig.fromJson(configJson);
-        final mappedOutputs = amplifyConfig.toAmplifyOutputs();
-        expect(mappedOutputs.auth?.passwordPolicy, null);
-      });
+      test(
+        'maps config with only the required options for a user pool',
+        () async {
+          final configJson =
+              jsonDecode(userPoolOnlyConfig) as Map<String, Object?>;
+          final amplifyConfig = AmplifyConfig.fromJson(configJson);
+          final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+          expect(mappedOutputs.auth?.passwordPolicy, null);
+        },
+      );
     });
   });
 }
@@ -260,11 +259,6 @@ Map<String, Object?> updateConfig(Map<String, Object?> config) {
   final defaultAuth = cognitoPlugin['Auth']['Default'] as Map<String, Object?>;
   final oAuthConfig = defaultAuth['OAuth'] as Map<String, Object?>;
   oAuthConfig['AppClientId'] = 'fake-client-id';
-  defaultAuth['socialProviders'] = [
-    'GOOGLE',
-    'FACEBOOK',
-    'AMAZON',
-    'APPLE',
-  ];
+  defaultAuth['socialProviders'] = ['GOOGLE', 'FACEBOOK', 'AMAZON', 'APPLE'];
   return config;
 }

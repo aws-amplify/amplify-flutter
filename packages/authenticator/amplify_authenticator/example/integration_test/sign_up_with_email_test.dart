@@ -17,9 +17,7 @@ void main() {
   group('sign-up-with-email', () {
     // Given I'm running the example "ui/components/authenticator/sign-up-with-email"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-email',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-email');
     });
 
     // Scenario: Login mechanism set to "email"

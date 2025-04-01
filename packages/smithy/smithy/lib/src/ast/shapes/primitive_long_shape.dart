@@ -21,9 +21,7 @@ abstract class PrimitiveLongShape
   static void _init(PrimitiveLongShapeBuilder b) {
     b
       ..shapeId = id
-      ..traits = TraitMap.fromTraits(const [
-        DefaultTrait(Int64.ZERO),
-      ]);
+      ..traits = TraitMap.fromTraits(const [DefaultTrait(Int64.ZERO)]);
   }
 
   static const id = ShapeId.core('PrimitiveLong');

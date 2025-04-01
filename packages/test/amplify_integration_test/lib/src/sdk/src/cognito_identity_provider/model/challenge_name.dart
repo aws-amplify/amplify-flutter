@@ -6,25 +6,13 @@ library amplify_integration_test.cognito_identity_provider.model.challenge_name;
 import 'package:smithy/smithy.dart' as _i1;
 
 class ChallengeName extends _i1.SmithyEnum<ChallengeName> {
-  const ChallengeName._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ChallengeName._(super.index, super.name, super.value);
 
   const ChallengeName._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const mfa = ChallengeName._(
-    0,
-    'Mfa',
-    'Mfa',
-  );
+  static const mfa = ChallengeName._(0, 'Mfa', 'Mfa');
 
-  static const password = ChallengeName._(
-    1,
-    'Password',
-    'Password',
-  );
+  static const password = ChallengeName._(1, 'Password', 'Password');
 
   /// All values of [ChallengeName].
   static const values = <ChallengeName>[
@@ -38,12 +26,9 @@ class ChallengeName extends _i1.SmithyEnum<ChallengeName> {
       values: values,
       sdkUnknown: ChallengeName._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

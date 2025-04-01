@@ -23,36 +23,21 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
     }
     try {
       if (plugin is AuthPluginInterface) {
-        await Auth.addPlugin(
-          plugin,
-          authProviderRepo: authProviderRepo,
-        );
+        await Auth.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else if (plugin is AnalyticsPluginInterface) {
-        await Analytics.addPlugin(
-          plugin,
-          authProviderRepo: authProviderRepo,
-        );
+        await Analytics.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else if (plugin is StoragePluginInterface) {
-        await Storage.addPlugin(
-          plugin,
-          authProviderRepo: authProviderRepo,
-        );
+        await Storage.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else if (plugin is DataStorePluginInterface) {
         try {
-          await DataStore.addPlugin(
-            plugin,
-            authProviderRepo: authProviderRepo,
-          );
+          await DataStore.addPlugin(plugin, authProviderRepo: authProviderRepo);
         } on AmplifyAlreadyConfiguredException {
           // A new plugin is added in native libraries during `addPlugin`
           // call for DataStore, which means during an app restart, this
           // method will throw an exception in android. We will ignore this
           // like other plugins and move on. Other exceptions fall through.
         }
-        Hub.addChannel(
-          HubChannel.DataStore,
-          plugin.streamController.stream,
-        );
+        Hub.addChannel(HubChannel.DataStore, plugin.streamController.stream);
       } else if (plugin is APIPluginInterface) {
         await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else if (plugin is PushNotificationsPluginInterface) {

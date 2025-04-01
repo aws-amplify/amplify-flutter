@@ -16,26 +16,32 @@ class _$DeleteObjectTaggingRequest extends DeleteObjectTaggingRequest {
   @override
   final String? expectedBucketOwner;
 
-  factory _$DeleteObjectTaggingRequest(
-          [void Function(DeleteObjectTaggingRequestBuilder)? updates]) =>
-      (new DeleteObjectTaggingRequestBuilder()..update(updates))._build();
+  factory _$DeleteObjectTaggingRequest([
+    void Function(DeleteObjectTaggingRequestBuilder)? updates,
+  ]) => (new DeleteObjectTaggingRequestBuilder()..update(updates))._build();
 
-  _$DeleteObjectTaggingRequest._(
-      {required this.bucket,
-      required this.key,
-      this.versionId,
-      this.expectedBucketOwner})
-      : super._() {
+  _$DeleteObjectTaggingRequest._({
+    required this.bucket,
+    required this.key,
+    this.versionId,
+    this.expectedBucketOwner,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'DeleteObjectTaggingRequest', 'bucket');
+      bucket,
+      r'DeleteObjectTaggingRequest',
+      'bucket',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        key, r'DeleteObjectTaggingRequest', 'key');
+      key,
+      r'DeleteObjectTaggingRequest',
+      'key',
+    );
   }
 
   @override
   DeleteObjectTaggingRequest rebuild(
-          void Function(DeleteObjectTaggingRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectTaggingRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectTaggingRequestBuilder toBuilder() =>
@@ -114,14 +120,22 @@ class DeleteObjectTaggingRequestBuilder
   DeleteObjectTaggingRequest build() => _build();
 
   _$DeleteObjectTaggingRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$DeleteObjectTaggingRequest._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'DeleteObjectTaggingRequest', 'bucket'),
-            key: BuiltValueNullFieldError.checkNotNull(
-                key, r'DeleteObjectTaggingRequest', 'key'),
-            versionId: versionId,
-            expectedBucketOwner: expectedBucketOwner);
+          bucket: BuiltValueNullFieldError.checkNotNull(
+            bucket,
+            r'DeleteObjectTaggingRequest',
+            'bucket',
+          ),
+          key: BuiltValueNullFieldError.checkNotNull(
+            key,
+            r'DeleteObjectTaggingRequest',
+            'key',
+          ),
+          versionId: versionId,
+          expectedBucketOwner: expectedBucketOwner,
+        );
     replace(_$result);
     return _$result;
   }
@@ -129,8 +143,9 @@ class DeleteObjectTaggingRequestBuilder
 
 class _$DeleteObjectTaggingRequestPayload
     extends DeleteObjectTaggingRequestPayload {
-  factory _$DeleteObjectTaggingRequestPayload(
-          [void Function(DeleteObjectTaggingRequestPayloadBuilder)? updates]) =>
+  factory _$DeleteObjectTaggingRequestPayload([
+    void Function(DeleteObjectTaggingRequestPayloadBuilder)? updates,
+  ]) =>
       (new DeleteObjectTaggingRequestPayloadBuilder()..update(updates))
           ._build();
 
@@ -138,8 +153,8 @@ class _$DeleteObjectTaggingRequestPayload
 
   @override
   DeleteObjectTaggingRequestPayload rebuild(
-          void Function(DeleteObjectTaggingRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectTaggingRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectTaggingRequestPayloadBuilder toBuilder() =>
@@ -159,8 +174,10 @@ class _$DeleteObjectTaggingRequestPayload
 
 class DeleteObjectTaggingRequestPayloadBuilder
     implements
-        Builder<DeleteObjectTaggingRequestPayload,
-            DeleteObjectTaggingRequestPayloadBuilder> {
+        Builder<
+          DeleteObjectTaggingRequestPayload,
+          DeleteObjectTaggingRequestPayloadBuilder
+        > {
   _$DeleteObjectTaggingRequestPayload? _$v;
 
   DeleteObjectTaggingRequestPayloadBuilder();
@@ -173,7 +190,8 @@ class DeleteObjectTaggingRequestPayloadBuilder
 
   @override
   void update(
-      void Function(DeleteObjectTaggingRequestPayloadBuilder)? updates) {
+    void Function(DeleteObjectTaggingRequestPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

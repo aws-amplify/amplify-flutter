@@ -42,12 +42,7 @@ class AmplifyUserAgent {
   }) {
     final scopedUserAgent = _ScopedUserAgent(this);
     updates(scopedUserAgent);
-    return runZoned(
-      fn,
-      zoneValues: {
-        AmplifyUserAgent: scopedUserAgent,
-      },
-    );
+    return runZoned(fn, zoneValues: {AmplifyUserAgent: scopedUserAgent});
   }
 
   @override
@@ -60,8 +55,5 @@ class _ScopedUserAgent extends AmplifyUserAgent {
   final AmplifyUserAgent _base;
 
   @override
-  String toString() => <String>{
-        ..._base._components,
-        ..._components,
-      }.join(' ');
+  String toString() => <String>{..._base._components, ..._components}.join(' ');
 }

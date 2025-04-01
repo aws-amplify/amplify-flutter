@@ -101,10 +101,7 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
 
   @override
   Iterable<String>? get autofillHints =>
-      widget.autofillHints ??
-      const [
-        AutofillHints.username,
-      ];
+      widget.autofillHints ?? const [AutofillHints.username];
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

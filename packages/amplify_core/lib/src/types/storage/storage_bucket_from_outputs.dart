@@ -14,10 +14,7 @@ class StorageBucketFromOutputs implements StorageBucket {
 
   @override
   BucketInfo resolveBucketInfo(StorageOutputs? storageOutputs) {
-    assert(
-      storageOutputs != null,
-      'storageOutputs can not be null',
-    );
+    assert(storageOutputs != null, 'storageOutputs can not be null');
     final buckets = storageOutputs!.buckets;
     if (buckets == null) {
       throw const InvalidStorageBucketException(
@@ -35,14 +32,9 @@ class StorageBucketFromOutputs implements StorageBucket {
             'bucket configuration.',
       ),
     );
-    return BucketInfo(
-      bucketName: bucket.bucketName,
-      region: bucket.awsRegion,
-    );
+    return BucketInfo(bucketName: bucket.bucketName, region: bucket.awsRegion);
   }
 
   @override
-  Map<String, Object?> toJson() => {
-        '_name': _name,
-      };
+  Map<String, Object?> toJson() => {'_name': _name};
 }

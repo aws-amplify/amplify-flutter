@@ -164,12 +164,12 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     Post.schema,
     PostTags.schema,
     PrivateTodo.schema,
-    Tag.schema
+    Tag.schema,
   ];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [
     CustomTypeWithAppsyncScalarTypes.schema,
-    SimpleCustomType.schema
+    SimpleCustomType.schema,
   ];
   static final ModelProvider _instance = ModelProvider();
 
@@ -267,8 +267,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Tag.classType;
       default:
         throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+          "Failed to find model in model provider for model name: " + modelName,
+        );
     }
   }
 }

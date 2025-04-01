@@ -11,15 +11,13 @@ part 'cognito_reset_password_plugin_options.g.dart';
 @zAmplifySerializable
 class CognitoResetPasswordPluginOptions extends ResetPasswordPluginOptions {
   /// {@macro amplify_auth_cognito.model.cognito_reset_password_plugin_options}
-  const CognitoResetPasswordPluginOptions({
-    Map<String, String>? clientMetadata,
-  }) : clientMetadata = clientMetadata ?? const {};
+  const CognitoResetPasswordPluginOptions({Map<String, String>? clientMetadata})
+    : clientMetadata = clientMetadata ?? const {};
 
   /// {@macro amplify_auth_cognito.model.cognito_reset_password_plugin_options}
   factory CognitoResetPasswordPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoResetPasswordPluginOptionsFromJson(json);
+  ) => _$CognitoResetPasswordPluginOptionsFromJson(json);
 
   /// Additional custom attributes to be sent to the service such as information
   /// about the client.

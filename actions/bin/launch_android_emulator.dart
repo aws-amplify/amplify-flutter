@@ -25,11 +25,7 @@ Future<void> _action() async {
   );
   final script = core.getRequiredInput('script');
 
-  final sdkManager = SdkManager(
-    apiLevel: apiLevel,
-    target: target,
-    abi: abi,
-  );
+  final sdkManager = SdkManager(apiLevel: apiLevel, target: target, abi: abi);
   final avdManager = AvdManager(
     apiLevel: apiLevel,
     target: target,
@@ -39,8 +35,5 @@ Future<void> _action() async {
 
   await sdkManager.ensureSdk();
   await avdManager.launchEmulator();
-  await core.withGroup(
-    'Running script',
-    () => ShellScript(script).run(),
-  );
+  await core.withGroup('Running script', () => ShellScript(script).run());
 }

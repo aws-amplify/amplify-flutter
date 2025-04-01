@@ -17,8 +17,7 @@ class CognitoFetchUserAttributesPluginOptions
   /// {@macro amplify_auth_cognito.model.cognito_fetch_user_attributes_plugin_options}
   factory CognitoFetchUserAttributesPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoFetchUserAttributesPluginOptionsFromJson(json);
+  ) => _$CognitoFetchUserAttributesPluginOptionsFromJson(json);
 
   @override
   List<Object?> get props => [];

@@ -31,9 +31,10 @@ String decryptString(Uint8List data) {
 Uint8List encrypt(Uint8List list) {
   return using((Arena arena) {
     final blob = list.allocatePointerWith(arena);
-    final dataPtr = arena<CRYPT_INTEGER_BLOB>()
-      ..ref.cbData = list.length
-      ..ref.pbData = blob;
+    final dataPtr =
+        arena<CRYPT_INTEGER_BLOB>()
+          ..ref.cbData = list.length
+          ..ref.pbData = blob;
     final encryptedPtr = arena<CRYPT_INTEGER_BLOB>();
     CryptProtectData(
       dataPtr,
@@ -60,9 +61,10 @@ Uint8List encrypt(Uint8List list) {
 Uint8List decrypt(Uint8List list) {
   return using((Arena arena) {
     final blob = list.allocatePointerWith(arena);
-    final dataPtr = arena<CRYPT_INTEGER_BLOB>()
-      ..ref.cbData = list.length
-      ..ref.pbData = blob;
+    final dataPtr =
+        arena<CRYPT_INTEGER_BLOB>()
+          ..ref.cbData = list.length
+          ..ref.pbData = blob;
     final unencryptedPtr = arena<CRYPT_INTEGER_BLOB>();
     CryptUnprotectData(
       dataPtr,

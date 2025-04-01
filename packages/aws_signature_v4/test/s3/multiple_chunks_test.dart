@@ -13,12 +13,7 @@ import 'testdata/multiple_chunks_testdata.dart';
 void main() {
   group('S3 Multiple Chunks', () {
     test('PUT Object', () {
-      runZoned(
-        putObjectTest.run,
-        zoneValues: {
-          zSigningTest: true,
-        },
-      );
+      runZoned(putObjectTest.run, zoneValues: {zSigningTest: true});
     });
   });
 }

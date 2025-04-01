@@ -12,9 +12,7 @@ import 'package:path/path.dart' as p;
 
 class _PathSet extends DelegatingSet<String> {
   _PathSet(Iterable<String> paths)
-      : super(
-          HashSet(equals: p.equals, hashCode: p.hash)..addAll(paths),
-        );
+    : super(HashSet(equals: p.equals, hashCode: p.hash)..addAll(paths));
 }
 
 /// {@template aft.models.package_selector}
@@ -72,9 +70,7 @@ abstract class PackageSelector with AWSSerializable<Object?> {
       return PackageSelector.packageOrComponent(json);
     }
     if (json is List) {
-      return PackageSelector.or(
-        json.map(PackageSelector.fromJson).toList(),
-      );
+      return PackageSelector.or(json.map(PackageSelector.fromJson).toList());
     }
     if (json is Map) {
       final include = json['include'];
@@ -94,17 +90,13 @@ abstract class PackageSelector with AWSSerializable<Object?> {
         if (include != null || exclude != null || or != null) {
           throw ArgumentError('and cannot be used with include/exclude/or');
         }
-        return PackageSelector.and(
-          and.map(PackageSelector.fromJson).toList(),
-        );
+        return PackageSelector.and(and.map(PackageSelector.fromJson).toList());
       }
       if (or != null) {
         if (include != null || exclude != null || and != null) {
           throw ArgumentError('and cannot be used with include/exclude/and');
         }
-        return PackageSelector.or(
-          or.map(PackageSelector.fromJson).toList(),
-        );
+        return PackageSelector.or(or.map(PackageSelector.fromJson).toList());
       }
     }
     throw ArgumentError(
@@ -156,12 +148,10 @@ abstract class PackageSelector with AWSSerializable<Object?> {
 }
 
 class _PackageSelector extends PackageSelector {
-  _PackageSelector({
-    PackageSelector? include,
-    PackageSelector? exclude,
-  })  : _include = include ?? const PackageSelector.all(),
-        _exclude = exclude,
-        super._();
+  _PackageSelector({PackageSelector? include, PackageSelector? exclude})
+    : _include = include ?? const PackageSelector.all(),
+      _exclude = exclude,
+      super._();
 
   final PackageSelector _include;
   final PackageSelector? _exclude;
@@ -175,9 +165,9 @@ class _PackageSelector extends PackageSelector {
 
   @override
   Object? toJson() => {
-        'include': _include.toJson(),
-        if (_exclude != null) 'exclude': _exclude.toJson(),
-      };
+    'include': _include.toJson(),
+    if (_exclude != null) 'exclude': _exclude.toJson(),
+  };
 }
 
 /// {@template aft.models.package_selector.package_or_component}
@@ -383,8 +373,8 @@ class _OrPackageSelector extends PackageSelector {
 
   @override
   Object? toJson() => {
-        'or': selectors.map((selector) => selector.toJson()).toList(),
-      };
+    'or': selectors.map((selector) => selector.toJson()).toList(),
+  };
 }
 
 /// {@template aft.models.package_selector.and}
@@ -397,17 +387,19 @@ class _AndPackageSelector extends PackageSelector {
 
   @override
   Iterable<String> allPaths(AftConfig config) {
-    return selectors.map<Set<String>>((selector) {
-      return _PathSet(selector.allPaths(config));
-    }).reduce((value, element) {
-      return value.intersection(element);
-    });
+    return selectors
+        .map<Set<String>>((selector) {
+          return _PathSet(selector.allPaths(config));
+        })
+        .reduce((value, element) {
+          return value.intersection(element);
+        });
   }
 
   @override
   Object? toJson() => {
-        'and': selectors.map((selector) => selector.toJson()).toList(),
-      };
+    'and': selectors.map((selector) => selector.toJson()).toList(),
+  };
 }
 
 class PackageSelectorConverter

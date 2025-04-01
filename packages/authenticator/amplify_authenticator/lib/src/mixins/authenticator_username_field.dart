@@ -76,14 +76,8 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
       context,
       InputField.phoneNumber,
     );
-    final emailTitle = inputResolver.title(
-      context,
-      InputField.email,
-    );
-    final usernameTitle = inputResolver.title(
-      context,
-      InputField.usernameType,
-    );
+    final emailTitle = inputResolver.title(context, InputField.email);
+    final usernameTitle = inputResolver.title(context, InputField.usernameType);
     switch (usernameType) {
       case UsernameConfigType.emailOrPhoneNumber:
         return Column(
@@ -130,14 +124,16 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
                     }
                     // Determine the new username value based off the new username selection
                     // and the current user attributes
-                    final newUsername = newUsernameSelection ==
-                            UsernameSelection.email
-                        ? state.getAttribute(CognitoUserAttributeKey.email) ??
-                            ''
-                        : state.getAttribute(
-                              CognitoUserAttributeKey.phoneNumber,
-                            ) ??
-                            '';
+                    final newUsername =
+                        newUsernameSelection == UsernameSelection.email
+                            ? state.getAttribute(
+                                  CognitoUserAttributeKey.email,
+                                ) ??
+                                ''
+                            : state.getAttribute(
+                                  CognitoUserAttributeKey.phoneNumber,
+                                ) ??
+                                '';
                     // Clear user attributes
                     state.authAttributes.clear();
                     // Reset country code if phone is not being used as a username
@@ -201,20 +197,14 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
 
     void onChanged(String username) {
       return this.onChanged(
-        UsernameInput(
-          type: selectedUsernameType,
-          username: username,
-        ),
+        UsernameInput(type: selectedUsernameType, username: username),
       );
     }
 
     String? validator(String? username) {
       final validator = widget.validatorOverride ?? this.validator;
       return validator(
-        UsernameInput(
-          type: selectedUsernameType,
-          username: username ?? '',
-        ),
+        UsernameInput(type: selectedUsernameType, username: username ?? ''),
       );
     }
 
@@ -231,11 +221,7 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
       );
     }
     return TextFormField(
-      style: enabled
-          ? null
-          : TextStyle(
-              color: Theme.of(context).disabledColor,
-            ),
+      style: enabled ? null : TextStyle(color: Theme.of(context).disabledColor),
       initialValue: initialValue?.username,
       enabled: enabled,
       validator: validator,

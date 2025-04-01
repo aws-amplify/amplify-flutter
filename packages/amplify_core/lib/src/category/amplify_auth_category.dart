@@ -46,9 +46,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ) =>
       plugins.singleWhere(
         (p) => p is Plugin,
-        orElse: () => throw PluginError(
-          'No plugin registered for $pluginKey',
-        ),
+        orElse: () => throw PluginError('No plugin registered for $pluginKey'),
       ) as Plugin;
 
   /// {@template amplify_core.amplify_auth_category.sign_up}
@@ -274,9 +272,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
       identifyCall(
         AuthCategoryMethod.resendSignUpCode,
         () => defaultPlugin.resendSignUpCode(
-          username: username,
-          options: options,
-        ),
+            username: username, options: options),
       );
 
   /// {@template amplify_core.amplify_auth_category.sign_in}
@@ -661,10 +657,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<SignOutResult> signOut({
-    SignOutOptions? options,
-  }) =>
-      identifyCall(
+  Future<SignOutResult> signOut({SignOutOptions? options}) => identifyCall(
         AuthCategoryMethod.signOut,
         () => defaultPlugin.signOut(options: options),
       );
@@ -810,10 +803,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   }) =>
       identifyCall(
         AuthCategoryMethod.resetPassword,
-        () => defaultPlugin.resetPassword(
-          username: username,
-          options: options,
-        ),
+        () => defaultPlugin.resetPassword(username: username, options: options),
       );
 
   /// {@template amplify_core.amplify_auth_category.confirm_reset_password}
@@ -904,9 +894,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<AuthUser> getCurrentUser({
-    GetCurrentUserOptions? options,
-  }) =>
+  Future<AuthUser> getCurrentUser({GetCurrentUserOptions? options}) =>
       identifyCall(
         AuthCategoryMethod.getCurrentUser,
         () => defaultPlugin.getCurrentUser(options: options),
@@ -999,9 +987,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<AuthSession> fetchAuthSession({
-    FetchAuthSessionOptions? options,
-  }) =>
+  Future<AuthSession> fetchAuthSession({FetchAuthSessionOptions? options}) =>
       identifyCall(
         AuthCategoryMethod.fetchAuthSession,
         () => defaultPlugin.fetchAuthSession(options: options),
@@ -1049,10 +1035,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   }) =>
       identifyCall(
         AuthCategoryMethod.signInWithWebUI,
-        () => defaultPlugin.signInWithWebUI(
-          provider: provider,
-          options: options,
-        ),
+        () =>
+            defaultPlugin.signInWithWebUI(provider: provider, options: options),
       );
 
   /// {@template amplify_core.amplify_auth_category.update_user_attribute}
@@ -1304,9 +1288,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// complete on the user's end, call [verifyTotpSetup] with a one-time code to
   /// complete registration.
   /// {@endtemplate}
-  Future<TotpSetupDetails> setUpTotp({
-    TotpSetupOptions? options,
-  }) =>
+  Future<TotpSetupDetails> setUpTotp({TotpSetupOptions? options}) =>
       defaultPlugin.setUpTotp(options: options);
 
   /// {@template amplify_core.amplify_auth_category.verify_totp_setup}
@@ -1319,10 +1301,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     String totpCode, {
     VerifyTotpSetupOptions? options,
   }) =>
-      defaultPlugin.verifyTotpSetup(
-        totpCode,
-        options: options,
-      );
+      defaultPlugin.verifyTotpSetup(totpCode, options: options);
 
   /// {@template amplify_core.amplify_auth_category.remember_device}
   /// Remembers the current device.

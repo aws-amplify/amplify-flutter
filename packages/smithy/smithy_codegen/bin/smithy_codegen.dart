@@ -35,9 +35,10 @@ void main(List<String> args) async {
 
   // Read from stdin or inputFile, depending on configuration.
   final inputFile = config.inputFile;
-  final json = inputFile != null
-      ? File(inputFile).readAsStringSync()
-      : stdin.readLineSync(encoding: utf8);
+  final json =
+      inputFile != null
+          ? File(inputFile).readAsStringSync()
+          : stdin.readLineSync(encoding: utf8);
   if (json == null) {
     usage();
   }
@@ -65,10 +66,7 @@ void main(List<String> args) async {
   final dependencies = <String>{};
   for (final library in outputs.values.expand((out) => out.libraries)) {
     final smithyLibrary = library.smithyLibrary;
-    final outPath = path.join(
-      outputPath,
-      smithyLibrary.projectRelativePath,
-    );
+    final outPath = path.join(outputPath, smithyLibrary.projectRelativePath);
     final output = library.emit();
     dependencies.addAll(library.dependencies);
     final outFile = File(outPath);
@@ -84,11 +82,12 @@ void main(List<String> args) async {
         '${packageName.split('_').map((s) => s.capitalized).join(' ')} SDK',
     version: Version(0, 1, 0),
   );
-  final pubspecYaml = PubspecGenerator(
-    pubspec,
-    dependencies,
-    smithyPath: config.smithyPath,
-  ).generate();
+  final pubspecYaml =
+      PubspecGenerator(
+        pubspec,
+        dependencies,
+        smithyPath: config.smithyPath,
+      ).generate();
 
   await File(pubspecPath).writeAsString(pubspecYaml);
 
@@ -108,10 +107,7 @@ analyzer:
   // Run `dart pub get`
   final pubGetRes = await Process.run(
     'dart',
-    [
-      'pub',
-      'upgrade',
-    ],
+    ['pub', 'upgrade'],
     workingDirectory: outputPath,
     stdoutEncoding: utf8,
     stderrEncoding: utf8,
@@ -125,16 +121,12 @@ analyzer:
   }
 
   // Run built_value generator
-  final buildRunnerCmd = await Process.start(
-    'dart',
-    [
-      'run',
-      'build_runner',
-      'build',
-      '--delete-conflicting-outputs',
-    ],
-    workingDirectory: outputPath,
-  );
+  final buildRunnerCmd = await Process.start('dart', [
+    'run',
+    'build_runner',
+    'build',
+    '--delete-conflicting-outputs',
+  ], workingDirectory: outputPath);
   buildRunnerCmd.stdout
       .transform(utf8.decoder)
       .transform(const LineSplitter())

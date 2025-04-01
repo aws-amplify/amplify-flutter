@@ -10,10 +10,7 @@ part 'xml_namespace_trait.g.dart';
 @ShapeIdConverter()
 @JsonSerializable()
 class XmlNamespaceTrait implements Trait<XmlNamespaceTrait> {
-  const XmlNamespaceTrait({
-    required this.uri,
-    this.prefix,
-  });
+  const XmlNamespaceTrait({required this.uri, this.prefix});
 
   factory XmlNamespaceTrait.fromJson(Object? json) =>
       _$XmlNamespaceTraitFromJson((json as Map).cast<String, Object?>());

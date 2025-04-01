@@ -4,9 +4,7 @@
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-AnalyticsException _fromBadRequestException(
-  BadRequestException exception,
-) {
+AnalyticsException _fromBadRequestException(BadRequestException exception) {
   return UnknownException(
     'Error in request data sent to Pinpoint.',
     recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
@@ -15,9 +13,7 @@ AnalyticsException _fromBadRequestException(
 }
 
 /// Creates a [AnalyticsException] from a [ForbiddenException].
-AnalyticsException _fromForbiddenException(
-  ForbiddenException exception,
-) {
+AnalyticsException _fromForbiddenException(ForbiddenException exception) {
   return UnknownException(
     'Forbidden from accessing the Pinpoint resource.',
     recoverySuggestion:

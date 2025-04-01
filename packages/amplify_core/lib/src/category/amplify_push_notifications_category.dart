@@ -99,9 +99,7 @@ class PushNotificationsCategory
       identifyCall(
         PushNotificationsCategoryMethod.identifyUser,
         () => defaultPlugin.identifyUser(
-          userId: userId,
-          userProfile: userProfile,
-        ),
+            userId: userId, userProfile: userProfile),
       );
 
   /// {@template amplify_core.amplify_push_notifications_category.get_badge_count}

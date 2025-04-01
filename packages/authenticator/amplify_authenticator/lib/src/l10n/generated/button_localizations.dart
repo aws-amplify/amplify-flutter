@@ -95,9 +95,7 @@ abstract class AuthenticatorButtonLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
   /// Label of the button to sign in the user.
   ///
@@ -238,8 +236,9 @@ Future<AuthenticatorButtonLocalizations> lookupAuthenticatorButtonLocalizations(
   }
 
   throw FlutterError(
-      'AuthenticatorButtonLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AuthenticatorButtonLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

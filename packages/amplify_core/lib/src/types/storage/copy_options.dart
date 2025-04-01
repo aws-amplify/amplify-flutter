@@ -12,10 +12,7 @@ class StorageCopyOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.copy_options}
-  const StorageCopyOptions({
-    this.pluginOptions,
-    this.buckets,
-  });
+  const StorageCopyOptions({this.pluginOptions, this.buckets});
 
   /// plugin specific options for `Amplify.Storage.copy`.
   final StorageCopyPluginOptions? pluginOptions;

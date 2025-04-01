@@ -50,8 +50,7 @@ class AnalyticsCategory extends AmplifyCategory<AnalyticsPluginInterface> {
       identifyCall(
         AnalyticsCategoryMethod.unregisterGlobalProperties,
         () => defaultPlugin.unregisterGlobalProperties(
-          propertyNames: propertyNames,
-        ),
+            propertyNames: propertyNames),
       );
 
   /// {@template amplify_core.amplify_analytics_category.enable}
@@ -80,8 +79,6 @@ class AnalyticsCategory extends AmplifyCategory<AnalyticsPluginInterface> {
       identifyCall(
         AnalyticsCategoryMethod.identifyUser,
         () => defaultPlugin.identifyUser(
-          userId: userId,
-          userProfile: userProfile,
-        ),
+            userId: userId, userProfile: userProfile),
       );
 }

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library amplify_secure_storage_dart.ffi.linux_utils;
+library;
 
 import 'dart:ffi';
 import 'dart:io';
