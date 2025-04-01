@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-part of sample_app;
+part of '../../main.dart';
 
 Widget displayQueryButtons(
   bool isAmplifyConfigured,
