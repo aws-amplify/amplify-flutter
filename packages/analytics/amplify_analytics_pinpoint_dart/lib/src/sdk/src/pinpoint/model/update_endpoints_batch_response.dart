@@ -12,11 +12,12 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'update_endpoints_batch_response.g.dart';
 
 abstract class UpdateEndpointsBatchResponse
-    with
-        _i1.AWSEquatable<UpdateEndpointsBatchResponse>
+    with _i1.AWSEquatable<UpdateEndpointsBatchResponse>
     implements
-        Built<UpdateEndpointsBatchResponse,
-            UpdateEndpointsBatchResponseBuilder>,
+        Built<
+          UpdateEndpointsBatchResponse,
+          UpdateEndpointsBatchResponseBuilder
+        >,
         _i2.HasPayload<MessageBody> {
   factory UpdateEndpointsBatchResponse({required MessageBody messageBody}) {
     return _$UpdateEndpointsBatchResponse._(messageBody: messageBody);
@@ -32,10 +33,9 @@ abstract class UpdateEndpointsBatchResponse
   factory UpdateEndpointsBatchResponse.fromResponse(
     MessageBody payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      UpdateEndpointsBatchResponse.build((b) {
-        b.messageBody.replace(payload);
-      });
+  ) => UpdateEndpointsBatchResponse.build((b) {
+    b.messageBody.replace(payload);
+  });
 
   static const List<_i2.SmithySerializer<MessageBody>> serializers = [
     UpdateEndpointsBatchResponseRestJson1Serializer(),
@@ -58,17 +58,17 @@ abstract class UpdateEndpointsBatchResponse
 class UpdateEndpointsBatchResponseRestJson1Serializer
     extends _i2.PrimitiveSmithySerializer<MessageBody> {
   const UpdateEndpointsBatchResponseRestJson1Serializer()
-      : super('UpdateEndpointsBatchResponse');
+    : super('UpdateEndpointsBatchResponse');
 
   @override
   Iterable<Type> get types => const [
-        UpdateEndpointsBatchResponse,
-        _$UpdateEndpointsBatchResponse,
-      ];
+    UpdateEndpointsBatchResponse,
+    _$UpdateEndpointsBatchResponse,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   MessageBody deserialize(
     Serializers serializers,
@@ -76,9 +76,10 @@ class UpdateEndpointsBatchResponseRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(MessageBody),
-    ) as MessageBody);
+          serialized,
+          specifiedType: const FullType(MessageBody),
+        )
+        as MessageBody);
   }
 
   @override

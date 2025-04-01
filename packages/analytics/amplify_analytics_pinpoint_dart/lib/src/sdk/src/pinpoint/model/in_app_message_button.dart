@@ -57,11 +57,12 @@ abstract class InAppMessageButton
   List<Object?> get props => [android, defaultConfig, ios, web];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageButton')
-      ..add('android', android)
-      ..add('defaultConfig', defaultConfig)
-      ..add('ios', ios)
-      ..add('web', web);
+    final helper =
+        newBuiltValueToStringHelper('InAppMessageButton')
+          ..add('android', android)
+          ..add('defaultConfig', defaultConfig)
+          ..add('ios', ios)
+          ..add('web', web);
     return helper.toString();
   }
 }
@@ -74,8 +75,8 @@ class InAppMessageButtonRestJson1Serializer
   Iterable<Type> get types => const [InAppMessageButton, _$InAppMessageButton];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppMessageButton deserialize(
     Serializers serializers,
@@ -95,30 +96,34 @@ class InAppMessageButtonRestJson1Serializer
         case 'Android':
           result.android.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(OverrideButtonConfiguration),
-            ) as OverrideButtonConfiguration),
+                  value,
+                  specifiedType: const FullType(OverrideButtonConfiguration),
+                )
+                as OverrideButtonConfiguration),
           );
         case 'DefaultConfig':
           result.defaultConfig.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DefaultButtonConfiguration),
-            ) as DefaultButtonConfiguration),
+                  value,
+                  specifiedType: const FullType(DefaultButtonConfiguration),
+                )
+                as DefaultButtonConfiguration),
           );
         case 'IOS':
           result.ios.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(OverrideButtonConfiguration),
-            ) as OverrideButtonConfiguration),
+                  value,
+                  specifiedType: const FullType(OverrideButtonConfiguration),
+                )
+                as OverrideButtonConfiguration),
           );
         case 'Web':
           result.web.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(OverrideButtonConfiguration),
-            ) as OverrideButtonConfiguration),
+                  value,
+                  specifiedType: const FullType(OverrideButtonConfiguration),
+                )
+                as OverrideButtonConfiguration),
           );
       }
     }

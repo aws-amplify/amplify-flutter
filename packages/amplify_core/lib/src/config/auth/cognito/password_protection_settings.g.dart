@@ -10,25 +10,23 @@ part of 'password_protection_settings.dart';
 
 PasswordProtectionSettings _$PasswordProtectionSettingsFromJson(
   Map<String, dynamic> json,
-) =>
-    $checkedCreate('PasswordProtectionSettings', json, ($checkedConvert) {
-      final val = PasswordProtectionSettings(
-        passwordPolicyMinLength: $checkedConvert(
-          'passwordPolicyMinLength',
-          (v) => const _PasswordPolicyMinLengthConverter().fromJson(v),
-        ),
-        passwordPolicyCharacters: $checkedConvert(
-          'passwordPolicyCharacters',
-          (v) =>
-              (v as List<dynamic>?)
-                  ?.map(
-                      (e) => $enumDecode(_$PasswordPolicyCharactersEnumMap, e))
-                  .toList() ??
-              const [],
-        ),
-      );
-      return val;
-    });
+) => $checkedCreate('PasswordProtectionSettings', json, ($checkedConvert) {
+  final val = PasswordProtectionSettings(
+    passwordPolicyMinLength: $checkedConvert(
+      'passwordPolicyMinLength',
+      (v) => const _PasswordPolicyMinLengthConverter().fromJson(v),
+    ),
+    passwordPolicyCharacters: $checkedConvert(
+      'passwordPolicyCharacters',
+      (v) =>
+          (v as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$PasswordPolicyCharactersEnumMap, e))
+              .toList() ??
+          const [],
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$PasswordProtectionSettingsToJson(
   PasswordProtectionSettings instance,
@@ -47,9 +45,10 @@ Map<String, dynamic> _$PasswordProtectionSettingsToJson(
       instance.passwordPolicyMinLength,
     ),
   );
-  val['passwordPolicyCharacters'] = instance.passwordPolicyCharacters
-      .map((e) => _$PasswordPolicyCharactersEnumMap[e]!)
-      .toList();
+  val['passwordPolicyCharacters'] =
+      instance.passwordPolicyCharacters
+          .map((e) => _$PasswordPolicyCharactersEnumMap[e]!)
+          .toList();
   return val;
 }
 

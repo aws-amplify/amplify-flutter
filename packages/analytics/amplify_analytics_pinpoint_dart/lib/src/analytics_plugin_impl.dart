@@ -41,13 +41,13 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     SecureStorageFactory? secureStorageFactory,
     AnalyticsPinpointPluginOptions options =
         const AnalyticsPinpointPluginOptions(),
-  })  : _pathProvider = pathProvider,
-        _legacyNativeDataProvider = legacyNativeDataProvider,
-        _deviceContextInfoProvider = deviceContextInfoProvider,
-        _appLifecycleProvider = appLifecycleProvider,
-        _secureStorageFactory =
-            secureStorageFactory ?? AmplifySecureStorageWorker.factoryFrom(),
-        _options = options;
+  }) : _pathProvider = pathProvider,
+       _legacyNativeDataProvider = legacyNativeDataProvider,
+       _deviceContextInfoProvider = deviceContextInfoProvider,
+       _appLifecycleProvider = appLifecycleProvider,
+       _secureStorageFactory =
+           secureStorageFactory ?? AmplifySecureStorageWorker.factoryFrom(),
+       _options = options;
 
   void _ensureConfigured() {
     if (!_isConfigured) {
@@ -114,7 +114,8 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
     );
 
-    final analyticsClient = dependencies.get<AnalyticsClient>() ??
+    final analyticsClient =
+        dependencies.get<AnalyticsClient>() ??
         AnalyticsClient(
           endpointStorage: endpointStorage,
           deviceContextInfoProvider: _deviceContextInfoProvider,

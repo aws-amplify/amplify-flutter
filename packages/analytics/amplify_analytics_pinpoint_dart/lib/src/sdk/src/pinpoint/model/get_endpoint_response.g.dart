@@ -12,8 +12,7 @@ class _$GetEndpointResponse extends GetEndpointResponse {
 
   factory _$GetEndpointResponse([
     void Function(GetEndpointResponseBuilder)? updates,
-  ]) =>
-      (new GetEndpointResponseBuilder()..update(updates))._build();
+  ]) => (new GetEndpointResponseBuilder()..update(updates))._build();
 
   _$GetEndpointResponse._({required this.endpointResponse}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -26,8 +25,7 @@ class _$GetEndpointResponse extends GetEndpointResponse {
   @override
   GetEndpointResponse rebuild(
     void Function(GetEndpointResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetEndpointResponseBuilder toBuilder() =>
@@ -87,7 +85,8 @@ class GetEndpointResponseBuilder
   _$GetEndpointResponse _build() {
     _$GetEndpointResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$GetEndpointResponse._(
             endpointResponse: endpointResponse.build(),
           );

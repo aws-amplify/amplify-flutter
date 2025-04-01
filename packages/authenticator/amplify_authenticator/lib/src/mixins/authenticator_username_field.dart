@@ -10,8 +10,10 @@ import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
-mixin AuthenticatorUsernameField<FieldType extends Enum,
-        T extends AuthenticatorFormField<FieldType, UsernameInput>>
+mixin AuthenticatorUsernameField<
+  FieldType extends Enum,
+  T extends AuthenticatorFormField<FieldType, UsernameInput>
+>
     on AuthenticatorFormFieldState<FieldType, UsernameInput, T> {
   @override
   UsernameInput? get initialValue {
@@ -85,7 +87,8 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
           children: [
             Text(
               usernameTitle,
-              style: Theme.of(context).inputDecorationTheme.labelStyle ??
+              style:
+                  Theme.of(context).inputDecorationTheme.labelStyle ??
                   const TextStyle(fontSize: 16),
             ),
             SizedBox(height: labelGap),
@@ -98,7 +101,8 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
                 final toggleButtonsTheme = Theme.of(context).toggleButtonsTheme;
                 final buttonBorderWidth = toggleButtonsTheme.borderWidth ?? 1.0;
                 // half of the total width, minus the with of the borders
-                final buttonWidth = (constraints.maxWidth / buttonCount) -
+                final buttonWidth =
+                    (constraints.maxWidth / buttonCount) -
                     (buttonBorderWidth * bordersPerButton);
                 final buttonMinHeight =
                     toggleButtonsTheme.constraints?.minHeight ?? 36.0;
@@ -115,9 +119,10 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
                     state.usernameSelection == UsernameSelection.phoneNumber,
                   ],
                   onPressed: (int index) {
-                    final newUsernameSelection = index == 0
-                        ? UsernameSelection.email
-                        : UsernameSelection.phoneNumber;
+                    final newUsernameSelection =
+                        index == 0
+                            ? UsernameSelection.email
+                            : UsernameSelection.phoneNumber;
                     // Return if username selection has not changed
                     if (newUsernameSelection == state.usernameSelection) {
                       return;
@@ -165,21 +170,21 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
     switch (selectedUsernameType) {
       case UsernameType.username:
         return (input) => usernameValidator(
-              context: context,
-              inputResolver: stringResolver.inputs,
-            )(input?.username);
+          context: context,
+          inputResolver: stringResolver.inputs,
+        )(input?.username);
       case UsernameType.email:
         return (input) => validateEmail(
-              isOptional: isOptional,
-              context: context,
-              inputResolver: stringResolver.inputs,
-            )(input?.username);
+          isOptional: isOptional,
+          context: context,
+          inputResolver: stringResolver.inputs,
+        )(input?.username);
       case UsernameType.phoneNumber:
         return (input) => validatePhoneNumber(
-              isOptional: isOptional,
-              context: context,
-              inputResolver: stringResolver.inputs,
-            )(input?.username);
+          isOptional: isOptional,
+          context: context,
+          inputResolver: stringResolver.inputs,
+        )(input?.username);
     }
   }
 

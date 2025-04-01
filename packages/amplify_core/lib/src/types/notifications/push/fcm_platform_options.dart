@@ -22,7 +22,7 @@ class FcmPlatformOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'channelId': channelId,
-        'messageId': messageId,
-      };
+    'channelId': channelId,
+    'messageId': messageId,
+  };
 }

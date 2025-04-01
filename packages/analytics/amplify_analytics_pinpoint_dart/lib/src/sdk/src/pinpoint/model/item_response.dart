@@ -48,9 +48,10 @@ abstract class ItemResponse
   List<Object?> get props => [endpointItemResponse, eventsItemResponse];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ItemResponse')
-      ..add('endpointItemResponse', endpointItemResponse)
-      ..add('eventsItemResponse', eventsItemResponse);
+    final helper =
+        newBuiltValueToStringHelper('ItemResponse')
+          ..add('endpointItemResponse', endpointItemResponse)
+          ..add('eventsItemResponse', eventsItemResponse);
     return helper.toString();
   }
 }
@@ -63,8 +64,8 @@ class ItemResponseRestJson1Serializer
   Iterable<Type> get types => const [ItemResponse, _$ItemResponse];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   ItemResponse deserialize(
     Serializers serializers,
@@ -84,19 +85,21 @@ class ItemResponseRestJson1Serializer
         case 'EndpointItemResponse':
           result.endpointItemResponse.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(EndpointItemResponse),
-            ) as EndpointItemResponse),
+                  value,
+                  specifiedType: const FullType(EndpointItemResponse),
+                )
+                as EndpointItemResponse),
           );
         case 'EventsItemResponse':
           result.eventsItemResponse.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltMap, [
-                FullType(String),
-                FullType(EventItemResponse),
-              ]),
-            ) as _i2.BuiltMap<String, EventItemResponse>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(EventItemResponse),
+                  ]),
+                )
+                as _i2.BuiltMap<String, EventItemResponse>),
           );
       }
     }

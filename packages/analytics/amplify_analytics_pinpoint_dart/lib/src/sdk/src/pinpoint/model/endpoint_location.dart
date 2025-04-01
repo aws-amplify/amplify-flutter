@@ -63,22 +63,23 @@ abstract class EndpointLocation
   String? get region;
   @override
   List<Object?> get props => [
-        city,
-        country,
-        latitude,
-        longitude,
-        postalCode,
-        region,
-      ];
+    city,
+    country,
+    latitude,
+    longitude,
+    postalCode,
+    region,
+  ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointLocation')
-      ..add('city', city)
-      ..add('country', country)
-      ..add('latitude', latitude)
-      ..add('longitude', longitude)
-      ..add('postalCode', postalCode)
-      ..add('region', region);
+    final helper =
+        newBuiltValueToStringHelper('EndpointLocation')
+          ..add('city', city)
+          ..add('country', country)
+          ..add('latitude', latitude)
+          ..add('longitude', longitude)
+          ..add('postalCode', postalCode)
+          ..add('region', region);
     return helper.toString();
   }
 }
@@ -91,8 +92,8 @@ class EndpointLocationRestJson1Serializer
   Iterable<Type> get types => const [EndpointLocation, _$EndpointLocation];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EndpointLocation deserialize(
     Serializers serializers,
@@ -110,35 +111,47 @@ class EndpointLocationRestJson1Serializer
       }
       switch (key) {
         case 'City':
-          result.city = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.city =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Country':
-          result.country = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.country =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Latitude':
-          result.latitude = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.latitude =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'Longitude':
-          result.longitude = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.longitude =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'PostalCode':
-          result.postalCode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.postalCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Region':
-          result.region = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.region =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

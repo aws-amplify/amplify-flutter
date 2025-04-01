@@ -74,8 +74,9 @@ void main() {
 
       await endpointClient.updateEndpoint();
 
-      final captured = verify(() => pinpointClient.updateEndpoint(captureAny()))
-          .captured[0] as UpdateEndpointRequest;
+      final captured =
+          verify(() => pinpointClient.updateEndpoint(captureAny())).captured[0]
+              as UpdateEndpointRequest;
 
       expect(captured.applicationId, pinpointAppId);
       expect(captured.endpointId, mockEndpointId);
@@ -133,9 +134,11 @@ void main() {
 
         await endpointClient.updateEndpoint();
 
-        final captured = verify(
-          () => pinpointClient.updateEndpoint(captureAny()),
-        ).captured[0] as UpdateEndpointRequest;
+        final captured =
+            verify(
+                  () => pinpointClient.updateEndpoint(captureAny()),
+                ).captured[0]
+                as UpdateEndpointRequest;
 
         final endpointRequest = captured.endpointRequest;
 
@@ -163,8 +166,9 @@ void main() {
 
       await endpointClient.updateEndpoint();
 
-      final captured = verify(() => pinpointClient.updateEndpoint(captureAny()))
-          .captured[0] as UpdateEndpointRequest;
+      final captured =
+          verify(() => pinpointClient.updateEndpoint(captureAny())).captured[0]
+              as UpdateEndpointRequest;
 
       final endpointRequest = captured.endpointRequest;
 

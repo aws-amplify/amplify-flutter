@@ -11,8 +11,8 @@ import 'package:test/test.dart';
 import 'common.dart';
 
 AWSHttpClient get mockClient => MockAWSHttpClient((req, _) {
-      return AWSHttpResponse(statusCode: 200);
-    });
+  return AWSHttpResponse(statusCode: 200);
+});
 
 void main() {
   final uri = Uri.parse('https://example.com');
@@ -22,10 +22,10 @@ void main() {
       credentialsProvider: AWSCredentialsProvider(dummyCredentials),
     );
     Stream<List<int>> makeBody() => Stream.fromIterable([
-          [0],
-          [1],
-          [2],
-        ]);
+      [0],
+      [1],
+      [2],
+    ]);
 
     group('base service configuration', () {
       test('| body is split twice with contentLength given', () async {

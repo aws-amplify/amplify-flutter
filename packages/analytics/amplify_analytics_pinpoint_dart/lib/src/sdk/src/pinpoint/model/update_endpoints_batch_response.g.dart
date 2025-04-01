@@ -12,8 +12,7 @@ class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
 
   factory _$UpdateEndpointsBatchResponse([
     void Function(UpdateEndpointsBatchResponseBuilder)? updates,
-  ]) =>
-      (new UpdateEndpointsBatchResponseBuilder()..update(updates))._build();
+  ]) => (new UpdateEndpointsBatchResponseBuilder()..update(updates))._build();
 
   _$UpdateEndpointsBatchResponse._({required this.messageBody}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -26,8 +25,7 @@ class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
   @override
   UpdateEndpointsBatchResponse rebuild(
     void Function(UpdateEndpointsBatchResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateEndpointsBatchResponseBuilder toBuilder() =>
@@ -51,8 +49,10 @@ class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
 
 class UpdateEndpointsBatchResponseBuilder
     implements
-        Builder<UpdateEndpointsBatchResponse,
-            UpdateEndpointsBatchResponseBuilder> {
+        Builder<
+          UpdateEndpointsBatchResponse,
+          UpdateEndpointsBatchResponseBuilder
+        > {
   _$UpdateEndpointsBatchResponse? _$v;
 
   MessageBodyBuilder? _messageBody;
@@ -89,7 +89,8 @@ class UpdateEndpointsBatchResponseBuilder
   _$UpdateEndpointsBatchResponse _build() {
     _$UpdateEndpointsBatchResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$UpdateEndpointsBatchResponse._(
             messageBody: messageBody.build(),
           );

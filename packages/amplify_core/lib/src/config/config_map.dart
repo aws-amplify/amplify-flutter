@@ -62,8 +62,7 @@ class AWSConfigMap<T extends AWSSerializable> extends ConfigMap<T> {
   factory AWSConfigMap.fromJson(
     Map<String, Object?> json,
     T Function(Object? json) fromJsonT,
-  ) =>
-      _$AWSConfigMapFromJson(<String, Object?>{'configs': json}, fromJsonT);
+  ) => _$AWSConfigMapFromJson(<String, Object?>{'configs': json}, fromJsonT);
 
   /// Creates an [AWSConfigMap] with a single, default, [value].
   factory AWSConfigMap.withDefault(T value) =>

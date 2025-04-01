@@ -22,8 +22,8 @@ class SortedList<E> with ListMixin<E> {
   const SortedList.fromPresortedList({
     required List<E> items,
     int Function(E a, E b)? compare,
-  })  : _items = items,
-        _compare = compare;
+  }) : _items = items,
+       _compare = compare;
 
   // Required for ListMixin
   @override

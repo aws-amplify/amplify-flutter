@@ -22,8 +22,7 @@ class _$InAppMessageContent extends InAppMessageContent {
 
   factory _$InAppMessageContent([
     void Function(InAppMessageContentBuilder)? updates,
-  ]) =>
-      (new InAppMessageContentBuilder()..update(updates))._build();
+  ]) => (new InAppMessageContentBuilder()..update(updates))._build();
 
   _$InAppMessageContent._({
     this.backgroundColor,
@@ -37,8 +36,7 @@ class _$InAppMessageContent extends InAppMessageContent {
   @override
   InAppMessageContent rebuild(
     void Function(InAppMessageContentBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageContentBuilder toBuilder() =>
@@ -140,7 +138,8 @@ class InAppMessageContentBuilder
   _$InAppMessageContent _build() {
     _$InAppMessageContent _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$InAppMessageContent._(
             backgroundColor: backgroundColor,
             bodyConfig: _bodyConfig?.build(),

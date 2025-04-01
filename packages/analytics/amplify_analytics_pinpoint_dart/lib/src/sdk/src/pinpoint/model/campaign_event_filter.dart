@@ -47,9 +47,10 @@ abstract class CampaignEventFilter
   List<Object?> get props => [dimensions, filterType];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CampaignEventFilter')
-      ..add('dimensions', dimensions)
-      ..add('filterType', filterType);
+    final helper =
+        newBuiltValueToStringHelper('CampaignEventFilter')
+          ..add('dimensions', dimensions)
+          ..add('filterType', filterType);
     return helper.toString();
   }
 }
@@ -60,13 +61,13 @@ class CampaignEventFilterRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        CampaignEventFilter,
-        _$CampaignEventFilter,
-      ];
+    CampaignEventFilter,
+    _$CampaignEventFilter,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   CampaignEventFilter deserialize(
     Serializers serializers,
@@ -86,15 +87,18 @@ class CampaignEventFilterRestJson1Serializer
         case 'Dimensions':
           result.dimensions.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(EventDimensions),
-            ) as EventDimensions),
+                  value,
+                  specifiedType: const FullType(EventDimensions),
+                )
+                as EventDimensions),
           );
         case 'FilterType':
-          result.filterType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(FilterType),
-          ) as FilterType);
+          result.filterType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(FilterType),
+                  )
+                  as FilterType);
       }
     }
 

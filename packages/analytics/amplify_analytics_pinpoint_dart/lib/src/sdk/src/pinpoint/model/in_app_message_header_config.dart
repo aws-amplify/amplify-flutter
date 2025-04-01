@@ -37,7 +37,7 @@ abstract class InAppMessageHeaderConfig
   const InAppMessageHeaderConfig._();
 
   static const List<_i2.SmithySerializer<InAppMessageHeaderConfig>>
-      serializers = [InAppMessageHeaderConfigRestJson1Serializer()];
+  serializers = [InAppMessageHeaderConfigRestJson1Serializer()];
 
   /// The alignment of the text. Valid values: LEFT, CENTER, RIGHT.
   Alignment get alignment;
@@ -51,10 +51,11 @@ abstract class InAppMessageHeaderConfig
   List<Object?> get props => [alignment, header, textColor];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageHeaderConfig')
-      ..add('alignment', alignment)
-      ..add('header', header)
-      ..add('textColor', textColor);
+    final helper =
+        newBuiltValueToStringHelper('InAppMessageHeaderConfig')
+          ..add('alignment', alignment)
+          ..add('header', header)
+          ..add('textColor', textColor);
     return helper.toString();
   }
 }
@@ -62,17 +63,17 @@ abstract class InAppMessageHeaderConfig
 class InAppMessageHeaderConfigRestJson1Serializer
     extends _i2.StructuredSmithySerializer<InAppMessageHeaderConfig> {
   const InAppMessageHeaderConfigRestJson1Serializer()
-      : super('InAppMessageHeaderConfig');
+    : super('InAppMessageHeaderConfig');
 
   @override
   Iterable<Type> get types => const [
-        InAppMessageHeaderConfig,
-        _$InAppMessageHeaderConfig,
-      ];
+    InAppMessageHeaderConfig,
+    _$InAppMessageHeaderConfig,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppMessageHeaderConfig deserialize(
     Serializers serializers,
@@ -90,20 +91,26 @@ class InAppMessageHeaderConfigRestJson1Serializer
       }
       switch (key) {
         case 'Alignment':
-          result.alignment = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(Alignment),
-          ) as Alignment);
+          result.alignment =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Alignment),
+                  )
+                  as Alignment);
         case 'Header':
-          result.header = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.header =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'TextColor':
-          result.textColor = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.textColor =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

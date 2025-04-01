@@ -12,16 +12,14 @@ class _$InAppMessagesResponse extends InAppMessagesResponse {
 
   factory _$InAppMessagesResponse([
     void Function(InAppMessagesResponseBuilder)? updates,
-  ]) =>
-      (new InAppMessagesResponseBuilder()..update(updates))._build();
+  ]) => (new InAppMessagesResponseBuilder()..update(updates))._build();
 
   _$InAppMessagesResponse._({this.inAppMessageCampaigns}) : super._();
 
   @override
   InAppMessagesResponse rebuild(
     void Function(InAppMessagesResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InAppMessagesResponseBuilder toBuilder() =>
@@ -53,8 +51,7 @@ class InAppMessagesResponseBuilder
           new _i2.ListBuilder<InAppMessageCampaign>();
   set inAppMessageCampaigns(
     _i2.ListBuilder<InAppMessageCampaign>? inAppMessageCampaigns,
-  ) =>
-      _$this._inAppMessageCampaigns = inAppMessageCampaigns;
+  ) => _$this._inAppMessageCampaigns = inAppMessageCampaigns;
 
   InAppMessagesResponseBuilder();
 
@@ -84,7 +81,8 @@ class InAppMessagesResponseBuilder
   _$InAppMessagesResponse _build() {
     _$InAppMessagesResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$InAppMessagesResponse._(
             inAppMessageCampaigns: _inAppMessageCampaigns?.build(),
           );

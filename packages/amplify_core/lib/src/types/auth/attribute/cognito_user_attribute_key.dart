@@ -14,17 +14,17 @@ import 'package:amplify_core/amplify_core.dart';
 /// Use [CognitoUserAttributeKey.custom] to create a custom Cognito attribute.
 class CognitoUserAttributeKey extends AuthUserAttributeKey {
   const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
-      : isCustom = false;
+    : isCustom = false;
 
   /// Creates a custom Cognito attribute.
   const CognitoUserAttributeKey.custom(this._key)
-      : isCustom = true,
-        readOnly = false;
+    : isCustom = true,
+      readOnly = false;
 
   /// Creates an unknown Cognito attribute.
   const CognitoUserAttributeKey._unknown(this._key)
-      : isCustom = false,
-        readOnly = true;
+    : isCustom = false,
+      readOnly = true;
 
   /// Parses the given Cognito attribute key.
   ///

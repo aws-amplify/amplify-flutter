@@ -83,30 +83,31 @@ abstract class Event
   String get timestamp;
   @override
   List<Object?> get props => [
-        appPackageName,
-        appTitle,
-        appVersionCode,
-        attributes,
-        clientSdkVersion,
-        eventType,
-        metrics,
-        sdkName,
-        session,
-        timestamp,
-      ];
+    appPackageName,
+    appTitle,
+    appVersionCode,
+    attributes,
+    clientSdkVersion,
+    eventType,
+    metrics,
+    sdkName,
+    session,
+    timestamp,
+  ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Event')
-      ..add('appPackageName', appPackageName)
-      ..add('appTitle', appTitle)
-      ..add('appVersionCode', appVersionCode)
-      ..add('attributes', attributes)
-      ..add('clientSdkVersion', clientSdkVersion)
-      ..add('eventType', eventType)
-      ..add('metrics', metrics)
-      ..add('sdkName', sdkName)
-      ..add('session', session)
-      ..add('timestamp', timestamp);
+    final helper =
+        newBuiltValueToStringHelper('Event')
+          ..add('appPackageName', appPackageName)
+          ..add('appTitle', appTitle)
+          ..add('appVersionCode', appVersionCode)
+          ..add('attributes', attributes)
+          ..add('clientSdkVersion', clientSdkVersion)
+          ..add('eventType', eventType)
+          ..add('metrics', metrics)
+          ..add('sdkName', sdkName)
+          ..add('session', session)
+          ..add('timestamp', timestamp);
     return helper.toString();
   }
 }
@@ -118,8 +119,8 @@ class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
   Iterable<Type> get types => const [Event, _$Event];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   Event deserialize(
     Serializers serializers,
@@ -137,67 +138,84 @@ class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
       }
       switch (key) {
         case 'AppPackageName':
-          result.appPackageName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.appPackageName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AppTitle':
-          result.appTitle = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.appTitle =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AppVersionCode':
-          result.appVersionCode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.appVersionCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Attributes':
           result.attributes.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltMap, [
-                FullType(String),
-                FullType(String),
-              ]),
-            ) as _i2.BuiltMap<String, String>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltMap<String, String>),
           );
         case 'ClientSdkVersion':
-          result.clientSdkVersion = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.clientSdkVersion =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'EventType':
-          result.eventType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.eventType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Metrics':
           result.metrics.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltMap, [
-                FullType(String),
-                FullType(double),
-              ]),
-            ) as _i2.BuiltMap<String, double>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(double),
+                  ]),
+                )
+                as _i2.BuiltMap<String, double>),
           );
         case 'SdkName':
-          result.sdkName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.sdkName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Session':
           result.session.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(Session),
-            ) as Session),
+                  value,
+                  specifiedType: const FullType(Session),
+                )
+                as Session),
           );
         case 'Timestamp':
-          result.timestamp = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.timestamp =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

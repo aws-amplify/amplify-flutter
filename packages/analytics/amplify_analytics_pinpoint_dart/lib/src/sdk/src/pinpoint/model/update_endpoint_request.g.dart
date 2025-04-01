@@ -16,8 +16,7 @@ class _$UpdateEndpointRequest extends UpdateEndpointRequest {
 
   factory _$UpdateEndpointRequest([
     void Function(UpdateEndpointRequestBuilder)? updates,
-  ]) =>
-      (new UpdateEndpointRequestBuilder()..update(updates))._build();
+  ]) => (new UpdateEndpointRequestBuilder()..update(updates))._build();
 
   _$UpdateEndpointRequest._({
     required this.applicationId,
@@ -44,8 +43,7 @@ class _$UpdateEndpointRequest extends UpdateEndpointRequest {
   @override
   UpdateEndpointRequest rebuild(
     void Function(UpdateEndpointRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateEndpointRequestBuilder toBuilder() =>
@@ -120,7 +118,8 @@ class UpdateEndpointRequestBuilder
   _$UpdateEndpointRequest _build() {
     _$UpdateEndpointRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$UpdateEndpointRequest._(
             applicationId: BuiltValueNullFieldError.checkNotNull(
               applicationId,

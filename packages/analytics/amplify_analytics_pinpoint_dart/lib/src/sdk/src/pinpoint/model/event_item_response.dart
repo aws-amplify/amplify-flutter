@@ -39,9 +39,10 @@ abstract class EventItemResponse
   List<Object?> get props => [message, statusCode];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventItemResponse')
-      ..add('message', message)
-      ..add('statusCode', statusCode);
+    final helper =
+        newBuiltValueToStringHelper('EventItemResponse')
+          ..add('message', message)
+          ..add('statusCode', statusCode);
     return helper.toString();
   }
 }
@@ -54,8 +55,8 @@ class EventItemResponseRestJson1Serializer
   Iterable<Type> get types => const [EventItemResponse, _$EventItemResponse];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EventItemResponse deserialize(
     Serializers serializers,
@@ -73,15 +74,19 @@ class EventItemResponseRestJson1Serializer
       }
       switch (key) {
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'StatusCode':
-          result.statusCode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.statusCode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 

@@ -135,9 +135,10 @@ final Map<FullType, Function> builderFactories = {
   const FullType(_i2.BuiltList, [FullType(String)]):
       _i2.ListBuilder<String>.new,
   const FullType(_i2.BuiltMap, [
-    FullType(String),
-    FullType(AttributeDimension),
-  ]): _i2.MapBuilder<String, AttributeDimension>.new,
+        FullType(String),
+        FullType(AttributeDimension),
+      ]):
+      _i2.MapBuilder<String, AttributeDimension>.new,
   const FullType(_i2.BuiltMap, [FullType(String), FullType(MetricDimension)]):
       _i2.MapBuilder<String, MetricDimension>.new,
   const FullType(_i2.BuiltList, [FullType(InAppMessageCampaign)]):

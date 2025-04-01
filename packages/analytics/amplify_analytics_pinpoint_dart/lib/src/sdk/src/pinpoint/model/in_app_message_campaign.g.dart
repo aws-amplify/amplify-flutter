@@ -26,8 +26,7 @@ class _$InAppMessageCampaign extends InAppMessageCampaign {
 
   factory _$InAppMessageCampaign([
     void Function(InAppMessageCampaignBuilder)? updates,
-  ]) =>
-      (new InAppMessageCampaignBuilder()..update(updates))._build();
+  ]) => (new InAppMessageCampaignBuilder()..update(updates))._build();
 
   _$InAppMessageCampaign._({
     this.campaignId,
@@ -43,8 +42,7 @@ class _$InAppMessageCampaign extends InAppMessageCampaign {
   @override
   InAppMessageCampaign rebuild(
     void Function(InAppMessageCampaignBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageCampaignBuilder toBuilder() =>
@@ -155,7 +153,8 @@ class InAppMessageCampaignBuilder
   _$InAppMessageCampaign _build() {
     _$InAppMessageCampaign _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$InAppMessageCampaign._(
             campaignId: campaignId,
             dailyCap: dailyCap,

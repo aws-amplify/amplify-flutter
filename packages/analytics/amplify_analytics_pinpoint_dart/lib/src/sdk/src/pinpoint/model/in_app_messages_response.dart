@@ -21,9 +21,10 @@ abstract class InAppMessagesResponse
     List<InAppMessageCampaign>? inAppMessageCampaigns,
   }) {
     return _$InAppMessagesResponse._(
-      inAppMessageCampaigns: inAppMessageCampaigns == null
-          ? null
-          : _i2.BuiltList(inAppMessageCampaigns),
+      inAppMessageCampaigns:
+          inAppMessageCampaigns == null
+              ? null
+              : _i2.BuiltList(inAppMessageCampaigns),
     );
   }
 
@@ -53,17 +54,17 @@ abstract class InAppMessagesResponse
 class InAppMessagesResponseRestJson1Serializer
     extends _i3.StructuredSmithySerializer<InAppMessagesResponse> {
   const InAppMessagesResponseRestJson1Serializer()
-      : super('InAppMessagesResponse');
+    : super('InAppMessagesResponse');
 
   @override
   Iterable<Type> get types => const [
-        InAppMessagesResponse,
-        _$InAppMessagesResponse,
-      ];
+    InAppMessagesResponse,
+    _$InAppMessagesResponse,
+  ];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppMessagesResponse deserialize(
     Serializers serializers,
@@ -83,11 +84,12 @@ class InAppMessagesResponseRestJson1Serializer
         case 'InAppMessageCampaigns':
           result.inAppMessageCampaigns.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltList, [
-                FullType(InAppMessageCampaign),
-              ]),
-            ) as _i2.BuiltList<InAppMessageCampaign>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(InAppMessageCampaign),
+                  ]),
+                )
+                as _i2.BuiltList<InAppMessageCampaign>),
           );
       }
     }

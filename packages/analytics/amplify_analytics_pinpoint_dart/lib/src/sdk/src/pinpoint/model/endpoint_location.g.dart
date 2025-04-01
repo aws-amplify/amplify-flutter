@@ -22,8 +22,7 @@ class _$EndpointLocation extends EndpointLocation {
 
   factory _$EndpointLocation([
     void Function(EndpointLocationBuilder)? updates,
-  ]) =>
-      (new EndpointLocationBuilder()..update(updates))._build();
+  ]) => (new EndpointLocationBuilder()..update(updates))._build();
 
   _$EndpointLocation._({
     this.city,
@@ -127,7 +126,8 @@ class EndpointLocationBuilder
   EndpointLocation build() => _build();
 
   _$EndpointLocation _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EndpointLocation._(
           city: city,
           country: country,

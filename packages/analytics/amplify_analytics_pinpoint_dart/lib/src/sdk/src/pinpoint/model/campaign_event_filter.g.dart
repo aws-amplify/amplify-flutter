@@ -14,11 +14,10 @@ class _$CampaignEventFilter extends CampaignEventFilter {
 
   factory _$CampaignEventFilter([
     void Function(CampaignEventFilterBuilder)? updates,
-  ]) =>
-      (new CampaignEventFilterBuilder()..update(updates))._build();
+  ]) => (new CampaignEventFilterBuilder()..update(updates))._build();
 
   _$CampaignEventFilter._({required this.dimensions, required this.filterType})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
       dimensions,
       r'CampaignEventFilter',
@@ -34,8 +33,7 @@ class _$CampaignEventFilter extends CampaignEventFilter {
   @override
   CampaignEventFilter rebuild(
     void Function(CampaignEventFilterBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CampaignEventFilterBuilder toBuilder() =>
@@ -102,7 +100,8 @@ class CampaignEventFilterBuilder
   _$CampaignEventFilter _build() {
     _$CampaignEventFilter _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$CampaignEventFilter._(
             dimensions: dimensions.build(),
             filterType: BuiltValueNullFieldError.checkNotNull(

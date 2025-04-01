@@ -16,9 +16,10 @@ OAuthOutputs _$OAuthOutputsFromJson(Map<String, dynamic> json) =>
         final val = OAuthOutputs(
           identityProviders: $checkedConvert(
             'identity_providers',
-            (v) => (v as List<dynamic>)
-                .map((e) => $enumDecode(_$IdentityProviderEnumMap, e))
-                .toList(),
+            (v) =>
+                (v as List<dynamic>)
+                    .map((e) => $enumDecode(_$IdentityProviderEnumMap, e))
+                    .toList(),
           ),
           domain: $checkedConvert('domain', (v) => v as String),
           scopes: $checkedConvert(
@@ -77,9 +78,10 @@ OAuthOutputs _$OAuthOutputsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$OAuthOutputsToJson(OAuthOutputs instance) {
   final val = <String, dynamic>{
-    'identity_providers': instance.identityProviders
-        .map((e) => _$IdentityProviderEnumMap[e]!)
-        .toList(),
+    'identity_providers':
+        instance.identityProviders
+            .map((e) => _$IdentityProviderEnumMap[e]!)
+            .toList(),
     'domain': instance.domain,
     'scopes': instance.scopes,
     'redirect_sign_in_uri': instance.redirectSignInUri,

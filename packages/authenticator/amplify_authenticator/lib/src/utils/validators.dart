@@ -62,34 +62,34 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
 }) {
   final passwordPolicies = amplifyOutputs?.auth?.passwordPolicy;
   return (BuildContext context) => (String? password) {
-        if (password == null || password.isEmpty) {
-          return inputResolver.resolve(context, InputResolverKey.passwordEmpty);
-        }
-        password = password.trim();
-        if (passwordPolicies == null) {
-          return null;
-        }
+    if (password == null || password.isEmpty) {
+      return inputResolver.resolve(context, InputResolverKey.passwordEmpty);
+    }
+    password = password.trim();
+    if (passwordPolicies == null) {
+      return null;
+    }
 
-        final minLength = passwordPolicies.minLength;
-        final meetsMinLengthRequirement =
-            minLength == null || password.length >= minLength;
+    final minLength = passwordPolicies.minLength;
+    final meetsMinLengthRequirement =
+        minLength == null || password.length >= minLength;
 
-        final unmetCharacterReqs = _getUnmetCharacterRequirements(
-          password,
-          passwordPolicies,
-        );
+    final unmetCharacterReqs = _getUnmetCharacterRequirements(
+      password,
+      passwordPolicies,
+    );
 
-        final error = inputResolver.resolve(
-          context,
-          InputResolverKey.passwordRequirementsUnmet(
-            UnmetPasswordRequirements(
-              minLength: meetsMinLengthRequirement ? null : minLength,
-              characterRequirements: unmetCharacterReqs,
-            ),
-          ),
-        );
-        return error.isEmpty ? null : error;
-      };
+    final error = inputResolver.resolve(
+      context,
+      InputResolverKey.passwordRequirementsUnmet(
+        UnmetPasswordRequirements(
+          minLength: meetsMinLengthRequirement ? null : minLength,
+          characterRequirements: unmetCharacterReqs,
+        ),
+      ),
+    );
+    return error.isEmpty ? null : error;
+  };
 }
 
 List<CharacterRequirements> _getUnmetCharacterRequirements(

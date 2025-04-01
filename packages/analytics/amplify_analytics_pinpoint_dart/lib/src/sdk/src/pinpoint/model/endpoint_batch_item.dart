@@ -102,34 +102,35 @@ abstract class EndpointBatchItem
   EndpointUser? get user;
   @override
   List<Object?> get props => [
-        address,
-        attributes,
-        channelType,
-        demographic,
-        effectiveDate,
-        endpointStatus,
-        id,
-        location,
-        metrics,
-        optOut,
-        requestId,
-        user,
-      ];
+    address,
+    attributes,
+    channelType,
+    demographic,
+    effectiveDate,
+    endpointStatus,
+    id,
+    location,
+    metrics,
+    optOut,
+    requestId,
+    user,
+  ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointBatchItem')
-      ..add('address', address)
-      ..add('attributes', attributes)
-      ..add('channelType', channelType)
-      ..add('demographic', demographic)
-      ..add('effectiveDate', effectiveDate)
-      ..add('endpointStatus', endpointStatus)
-      ..add('id', id)
-      ..add('location', location)
-      ..add('metrics', metrics)
-      ..add('optOut', optOut)
-      ..add('requestId', requestId)
-      ..add('user', user);
+    final helper =
+        newBuiltValueToStringHelper('EndpointBatchItem')
+          ..add('address', address)
+          ..add('attributes', attributes)
+          ..add('channelType', channelType)
+          ..add('demographic', demographic)
+          ..add('effectiveDate', effectiveDate)
+          ..add('endpointStatus', endpointStatus)
+          ..add('id', id)
+          ..add('location', location)
+          ..add('metrics', metrics)
+          ..add('optOut', optOut)
+          ..add('requestId', requestId)
+          ..add('user', user);
     return helper.toString();
   }
 }
@@ -142,8 +143,8 @@ class EndpointBatchItemRestJson1Serializer
   Iterable<Type> get types => const [EndpointBatchItem, _$EndpointBatchItem];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EndpointBatchItem deserialize(
     Serializers serializers,
@@ -161,80 +162,99 @@ class EndpointBatchItemRestJson1Serializer
       }
       switch (key) {
         case 'Address':
-          result.address = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.address =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Attributes':
           result.attributes.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltListMultimap, [
-                FullType(String),
-                FullType(String),
-              ]),
-            ) as _i2.BuiltListMultimap<String, String>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltListMultimap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltListMultimap<String, String>),
           );
         case 'ChannelType':
-          result.channelType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ChannelType),
-          ) as ChannelType);
+          result.channelType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ChannelType),
+                  )
+                  as ChannelType);
         case 'Demographic':
           result.demographic.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(EndpointDemographic),
-            ) as EndpointDemographic),
+                  value,
+                  specifiedType: const FullType(EndpointDemographic),
+                )
+                as EndpointDemographic),
           );
         case 'EffectiveDate':
-          result.effectiveDate = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.effectiveDate =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'EndpointStatus':
-          result.endpointStatus = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.endpointStatus =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Id':
-          result.id = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.id =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Location':
           result.location.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(EndpointLocation),
-            ) as EndpointLocation),
+                  value,
+                  specifiedType: const FullType(EndpointLocation),
+                )
+                as EndpointLocation),
           );
         case 'Metrics':
           result.metrics.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltMap, [
-                FullType(String),
-                FullType(double),
-              ]),
-            ) as _i2.BuiltMap<String, double>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(double),
+                  ]),
+                )
+                as _i2.BuiltMap<String, double>),
           );
         case 'OptOut':
-          result.optOut = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.optOut =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'RequestId':
-          result.requestId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.requestId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'User':
           result.user.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(EndpointUser),
-            ) as EndpointUser),
+                  value,
+                  specifiedType: const FullType(EndpointUser),
+                )
+                as EndpointUser),
           );
       }
     }

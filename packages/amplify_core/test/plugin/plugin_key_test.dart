@@ -38,19 +38,22 @@ class MockCategory<Value extends Object, P extends MockPluginInterface<Value>>
   @override
   Set<Category> get categoryDependencies => const {};
 
-  MockCategory<GetValue, GetPlugin> getPlugin<GetValue extends Object,
-              GetPlugin extends MockPluginInterface<GetValue>>(
-          MockPluginKey<GetValue, GetPlugin> pluginKey) =>
-      MockCategory(
-        plugins.singleWhere((p) => p is GetPlugin,
-            orElse: () => throw Exception()) as GetPlugin,
-      );
+  MockCategory<GetValue, GetPlugin> getPlugin<
+    GetValue extends Object,
+    GetPlugin extends MockPluginInterface<GetValue>
+  >(MockPluginKey<GetValue, GetPlugin> pluginKey) => MockCategory(
+    plugins.singleWhere((p) => p is GetPlugin, orElse: () => throw Exception())
+        as GetPlugin,
+  );
 
   Value getValue() => _plugin.getValue();
 }
 
-abstract class MockPluginKey<Value extends Object,
-    P extends MockPluginInterface<Value>> extends AmplifyPluginKey<P> {
+abstract class MockPluginKey<
+  Value extends Object,
+  P extends MockPluginInterface<Value>
+>
+    extends AmplifyPluginKey<P> {
   const MockPluginKey();
 }
 

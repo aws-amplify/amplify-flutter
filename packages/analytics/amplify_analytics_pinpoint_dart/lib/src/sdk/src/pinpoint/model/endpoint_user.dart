@@ -48,9 +48,10 @@ abstract class EndpointUser
   List<Object?> get props => [userAttributes, userId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointUser')
-      ..add('userAttributes', userAttributes)
-      ..add('userId', userId);
+    final helper =
+        newBuiltValueToStringHelper('EndpointUser')
+          ..add('userAttributes', userAttributes)
+          ..add('userId', userId);
     return helper.toString();
   }
 }
@@ -63,8 +64,8 @@ class EndpointUserRestJson1Serializer
   Iterable<Type> get types => const [EndpointUser, _$EndpointUser];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EndpointUser deserialize(
     Serializers serializers,
@@ -84,18 +85,21 @@ class EndpointUserRestJson1Serializer
         case 'UserAttributes':
           result.userAttributes.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltListMultimap, [
-                FullType(String),
-                FullType(String),
-              ]),
-            ) as _i2.BuiltListMultimap<String, String>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltListMultimap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltListMultimap<String, String>),
           );
         case 'UserId':
-          result.userId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.userId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

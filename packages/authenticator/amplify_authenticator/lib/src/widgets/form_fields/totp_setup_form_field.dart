@@ -34,14 +34,18 @@ abstract class TotpSetupFormField<FieldValue extends Object>
 
   /// Creates a TOTP setup component.
   static TotpSetupFormField totpSetup({Key? key}) => _TotpSetupField(
-        key: key ?? keyTotpSetupFormField,
-        field: TotpSetupField.totpSetup,
-      );
+    key: key ?? keyTotpSetupFormField,
+    field: TotpSetupField.totpSetup,
+  );
 }
 
 abstract class _InstructionFormFieldState<FieldValue extends Object>
-    extends AuthenticatorFormFieldState<TotpSetupField, FieldValue,
-        TotpSetupFormField<FieldValue>> {}
+    extends
+        AuthenticatorFormFieldState<
+          TotpSetupField,
+          FieldValue,
+          TotpSetupFormField<FieldValue>
+        > {}
 
 class _TotpSetupField extends TotpSetupFormField<String> {
   const _TotpSetupField({super.key, required super.field}) : super._();
@@ -89,7 +93,7 @@ class _InstructionTotpSetupFieldState
 
 class _InstructionTotpCopyKeyField extends TotpSetupFormField<String> {
   const _InstructionTotpCopyKeyField({super.key, required super.field})
-      : super._();
+    : super._();
 
   @override
   _InstructionTotpCopyKeyFieldState createState() =>
@@ -146,7 +150,7 @@ class _InstructionTotpCopyKeyFieldState
 
 class _InstructionTotpQrCodeField extends TotpSetupFormField<String> {
   const _InstructionTotpQrCodeField({super.key, required super.field})
-      : super._();
+    : super._();
 
   @override
   _InstructionTotpQrCodeFieldState createState() =>

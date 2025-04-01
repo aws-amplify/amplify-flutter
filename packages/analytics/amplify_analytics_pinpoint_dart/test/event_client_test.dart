@@ -162,8 +162,9 @@ void main() {
 
       await eventClient.flushEvents();
 
-      final captured = verify(() => pinpointClient.putEvents(captureAny()))
-          .captured[0] as PutEventsRequest;
+      final captured =
+          verify(() => pinpointClient.putEvents(captureAny())).captured[0]
+              as PutEventsRequest;
 
       expect(captured.applicationId, pinpointAppId);
 
@@ -212,8 +213,9 @@ void main() {
 
         await eventClient.flushEvents();
 
-        final captured = verify(() => pinpointClient.putEvents(captureAny()))
-            .captured[0] as PutEventsRequest;
+        final captured =
+            verify(() => pinpointClient.putEvents(captureAny())).captured[0]
+                as PutEventsRequest;
 
         final batchItem = captured.eventsRequest.batchItem;
 
@@ -255,8 +257,9 @@ void main() {
 
         await eventClient.flushEvents();
 
-        final captured = verify(() => pinpointClient.putEvents(captureAny()))
-            .captured[0] as PutEventsRequest;
+        final captured =
+            verify(() => pinpointClient.putEvents(captureAny())).captured[0]
+                as PutEventsRequest;
 
         final batchItem = captured.eventsRequest.batchItem;
 

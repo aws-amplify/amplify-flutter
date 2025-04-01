@@ -36,13 +36,12 @@ abstract class PutEventsRequest
     EventsRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      PutEventsRequest.build((b) {
-        b.eventsRequest.replace(payload);
-        if (labels['applicationId'] != null) {
-          b.applicationId = labels['applicationId']!;
-        }
-      });
+  }) => PutEventsRequest.build((b) {
+    b.eventsRequest.replace(payload);
+    if (labels['applicationId'] != null) {
+      b.applicationId = labels['applicationId']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<EventsRequest>> serializers = [
     PutEventsRequestRestJson1Serializer(),
@@ -68,9 +67,10 @@ abstract class PutEventsRequest
   List<Object?> get props => [applicationId, eventsRequest];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutEventsRequest')
-      ..add('applicationId', applicationId)
-      ..add('eventsRequest', eventsRequest);
+    final helper =
+        newBuiltValueToStringHelper('PutEventsRequest')
+          ..add('applicationId', applicationId)
+          ..add('eventsRequest', eventsRequest);
     return helper.toString();
   }
 }
@@ -83,8 +83,8 @@ class PutEventsRequestRestJson1Serializer
   Iterable<Type> get types => const [PutEventsRequest, _$PutEventsRequest];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EventsRequest deserialize(
     Serializers serializers,
@@ -92,9 +92,10 @@ class PutEventsRequestRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(EventsRequest),
-    ) as EventsRequest);
+          serialized,
+          specifiedType: const FullType(EventsRequest),
+        )
+        as EventsRequest);
   }
 
   @override

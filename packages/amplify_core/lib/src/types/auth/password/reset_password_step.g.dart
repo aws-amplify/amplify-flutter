@@ -19,9 +19,10 @@ ResetPasswordStep _$ResetPasswordStepFromJson(Map<String, dynamic> json) =>
         ),
         codeDeliveryDetails: $checkedConvert(
           'codeDeliveryDetails',
-          (v) => v == null
-              ? null
-              : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
+          (v) =>
+              v == null
+                  ? null
+                  : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
         ),
         updateStep: $checkedConvert(
           'updateStep',
