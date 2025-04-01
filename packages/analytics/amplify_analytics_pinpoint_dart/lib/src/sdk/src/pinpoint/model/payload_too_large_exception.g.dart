@@ -16,17 +16,15 @@ class _$PayloadTooLargeException extends PayloadTooLargeException {
 
   factory _$PayloadTooLargeException([
     void Function(PayloadTooLargeExceptionBuilder)? updates,
-  ]) =>
-      (new PayloadTooLargeExceptionBuilder()..update(updates))._build();
+  ]) => (new PayloadTooLargeExceptionBuilder()..update(updates))._build();
 
   _$PayloadTooLargeException._({this.message, this.requestId, this.headers})
-      : super._();
+    : super._();
 
   @override
   PayloadTooLargeException rebuild(
     void Function(PayloadTooLargeExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PayloadTooLargeExceptionBuilder toBuilder() =>
@@ -95,7 +93,8 @@ class PayloadTooLargeExceptionBuilder
   PayloadTooLargeException build() => _build();
 
   _$PayloadTooLargeException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PayloadTooLargeException._(
           message: message,
           requestId: requestId,

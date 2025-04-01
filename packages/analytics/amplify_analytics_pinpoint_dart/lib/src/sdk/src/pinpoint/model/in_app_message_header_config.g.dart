@@ -16,8 +16,7 @@ class _$InAppMessageHeaderConfig extends InAppMessageHeaderConfig {
 
   factory _$InAppMessageHeaderConfig([
     void Function(InAppMessageHeaderConfigBuilder)? updates,
-  ]) =>
-      (new InAppMessageHeaderConfigBuilder()..update(updates))._build();
+  ]) => (new InAppMessageHeaderConfigBuilder()..update(updates))._build();
 
   _$InAppMessageHeaderConfig._({
     required this.alignment,
@@ -44,8 +43,7 @@ class _$InAppMessageHeaderConfig extends InAppMessageHeaderConfig {
   @override
   InAppMessageHeaderConfig rebuild(
     void Function(InAppMessageHeaderConfigBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageHeaderConfigBuilder toBuilder() =>
@@ -116,7 +114,8 @@ class InAppMessageHeaderConfigBuilder
   InAppMessageHeaderConfig build() => _build();
 
   _$InAppMessageHeaderConfig _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InAppMessageHeaderConfig._(
           alignment: BuiltValueNullFieldError.checkNotNull(
             alignment,

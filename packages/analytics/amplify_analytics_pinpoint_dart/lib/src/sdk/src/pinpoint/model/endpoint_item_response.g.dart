@@ -14,16 +14,14 @@ class _$EndpointItemResponse extends EndpointItemResponse {
 
   factory _$EndpointItemResponse([
     void Function(EndpointItemResponseBuilder)? updates,
-  ]) =>
-      (new EndpointItemResponseBuilder()..update(updates))._build();
+  ]) => (new EndpointItemResponseBuilder()..update(updates))._build();
 
   _$EndpointItemResponse._({this.message, this.statusCode}) : super._();
 
   @override
   EndpointItemResponse rebuild(
     void Function(EndpointItemResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EndpointItemResponseBuilder toBuilder() =>
@@ -86,7 +84,8 @@ class EndpointItemResponseBuilder
   EndpointItemResponse build() => _build();
 
   _$EndpointItemResponse _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EndpointItemResponse._(message: message, statusCode: statusCode);
     replace(_$result);
     return _$result;

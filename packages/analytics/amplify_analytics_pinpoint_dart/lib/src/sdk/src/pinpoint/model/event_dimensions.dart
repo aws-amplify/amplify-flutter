@@ -54,10 +54,11 @@ abstract class EventDimensions
   List<Object?> get props => [attributes, eventType, metrics];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventDimensions')
-      ..add('attributes', attributes)
-      ..add('eventType', eventType)
-      ..add('metrics', metrics);
+    final helper =
+        newBuiltValueToStringHelper('EventDimensions')
+          ..add('attributes', attributes)
+          ..add('eventType', eventType)
+          ..add('metrics', metrics);
     return helper.toString();
   }
 }
@@ -70,8 +71,8 @@ class EventDimensionsRestJson1Serializer
   Iterable<Type> get types => const [EventDimensions, _$EventDimensions];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EventDimensions deserialize(
     Serializers serializers,
@@ -91,29 +92,32 @@ class EventDimensionsRestJson1Serializer
         case 'Attributes':
           result.attributes.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltMap, [
-                FullType(String),
-                FullType(AttributeDimension),
-              ]),
-            ) as _i2.BuiltMap<String, AttributeDimension>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(AttributeDimension),
+                  ]),
+                )
+                as _i2.BuiltMap<String, AttributeDimension>),
           );
         case 'EventType':
           result.eventType.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(SetDimension),
-            ) as SetDimension),
+                  value,
+                  specifiedType: const FullType(SetDimension),
+                )
+                as SetDimension),
           );
         case 'Metrics':
           result.metrics.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltMap, [
-                FullType(String),
-                FullType(MetricDimension),
-              ]),
-            ) as _i2.BuiltMap<String, MetricDimension>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(MetricDimension),
+                  ]),
+                )
+                as _i2.BuiltMap<String, MetricDimension>),
           );
       }
     }

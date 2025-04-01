@@ -12,8 +12,7 @@ class _$PutEventsResponse extends PutEventsResponse {
 
   factory _$PutEventsResponse([
     void Function(PutEventsResponseBuilder)? updates,
-  ]) =>
-      (new PutEventsResponseBuilder()..update(updates))._build();
+  ]) => (new PutEventsResponseBuilder()..update(updates))._build();
 
   _$PutEventsResponse._({required this.eventsResponse}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -84,7 +83,8 @@ class PutEventsResponseBuilder
   _$PutEventsResponse _build() {
     _$PutEventsResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PutEventsResponse._(eventsResponse: eventsResponse.build());
     } catch (_) {
       late String _$failedField;

@@ -52,10 +52,11 @@ abstract class InAppMessage
   List<Object?> get props => [content, customConfig, layout];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessage')
-      ..add('content', content)
-      ..add('customConfig', customConfig)
-      ..add('layout', layout);
+    final helper =
+        newBuiltValueToStringHelper('InAppMessage')
+          ..add('content', content)
+          ..add('customConfig', customConfig)
+          ..add('layout', layout);
     return helper.toString();
   }
 }
@@ -68,8 +69,8 @@ class InAppMessageRestJson1Serializer
   Iterable<Type> get types => const [InAppMessage, _$InAppMessage];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppMessage deserialize(
     Serializers serializers,
@@ -89,27 +90,31 @@ class InAppMessageRestJson1Serializer
         case 'Content':
           result.content.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltList, [
-                FullType(InAppMessageContent),
-              ]),
-            ) as _i2.BuiltList<InAppMessageContent>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(InAppMessageContent),
+                  ]),
+                )
+                as _i2.BuiltList<InAppMessageContent>),
           );
         case 'CustomConfig':
           result.customConfig.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BuiltMap, [
-                FullType(String),
-                FullType(String),
-              ]),
-            ) as _i2.BuiltMap<String, String>),
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltMap<String, String>),
           );
         case 'Layout':
-          result.layout = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(Layout),
-          ) as Layout);
+          result.layout =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(Layout),
+                  )
+                  as Layout);
       }
     }
 

@@ -35,7 +35,7 @@ abstract class OverrideButtonConfiguration
   const OverrideButtonConfiguration._();
 
   static const List<_i2.SmithySerializer<OverrideButtonConfiguration>>
-      serializers = [OverrideButtonConfigurationRestJson1Serializer()];
+  serializers = [OverrideButtonConfigurationRestJson1Serializer()];
 
   /// Action triggered by the button.
   ButtonAction get buttonAction;
@@ -46,9 +46,10 @@ abstract class OverrideButtonConfiguration
   List<Object?> get props => [buttonAction, link];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OverrideButtonConfiguration')
-      ..add('buttonAction', buttonAction)
-      ..add('link', link);
+    final helper =
+        newBuiltValueToStringHelper('OverrideButtonConfiguration')
+          ..add('buttonAction', buttonAction)
+          ..add('link', link);
     return helper.toString();
   }
 }
@@ -56,17 +57,17 @@ abstract class OverrideButtonConfiguration
 class OverrideButtonConfigurationRestJson1Serializer
     extends _i2.StructuredSmithySerializer<OverrideButtonConfiguration> {
   const OverrideButtonConfigurationRestJson1Serializer()
-      : super('OverrideButtonConfiguration');
+    : super('OverrideButtonConfiguration');
 
   @override
   Iterable<Type> get types => const [
-        OverrideButtonConfiguration,
-        _$OverrideButtonConfiguration,
-      ];
+    OverrideButtonConfiguration,
+    _$OverrideButtonConfiguration,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   OverrideButtonConfiguration deserialize(
     Serializers serializers,
@@ -84,15 +85,19 @@ class OverrideButtonConfigurationRestJson1Serializer
       }
       switch (key) {
         case 'ButtonAction':
-          result.buttonAction = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ButtonAction),
-          ) as ButtonAction);
+          result.buttonAction =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ButtonAction),
+                  )
+                  as ButtonAction);
         case 'Link':
-          result.link = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.link =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

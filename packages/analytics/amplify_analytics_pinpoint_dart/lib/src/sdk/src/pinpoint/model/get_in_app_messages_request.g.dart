@@ -14,8 +14,7 @@ class _$GetInAppMessagesRequest extends GetInAppMessagesRequest {
 
   factory _$GetInAppMessagesRequest([
     void Function(GetInAppMessagesRequestBuilder)? updates,
-  ]) =>
-      (new GetInAppMessagesRequestBuilder()..update(updates))._build();
+  ]) => (new GetInAppMessagesRequestBuilder()..update(updates))._build();
 
   _$GetInAppMessagesRequest._({
     required this.applicationId,
@@ -36,8 +35,7 @@ class _$GetInAppMessagesRequest extends GetInAppMessagesRequest {
   @override
   GetInAppMessagesRequest rebuild(
     void Function(GetInAppMessagesRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetInAppMessagesRequestBuilder toBuilder() =>
@@ -102,7 +100,8 @@ class GetInAppMessagesRequestBuilder
   GetInAppMessagesRequest build() => _build();
 
   _$GetInAppMessagesRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$GetInAppMessagesRequest._(
           applicationId: BuiltValueNullFieldError.checkNotNull(
             applicationId,
@@ -123,16 +122,14 @@ class GetInAppMessagesRequestBuilder
 class _$GetInAppMessagesRequestPayload extends GetInAppMessagesRequestPayload {
   factory _$GetInAppMessagesRequestPayload([
     void Function(GetInAppMessagesRequestPayloadBuilder)? updates,
-  ]) =>
-      (new GetInAppMessagesRequestPayloadBuilder()..update(updates))._build();
+  ]) => (new GetInAppMessagesRequestPayloadBuilder()..update(updates))._build();
 
   _$GetInAppMessagesRequestPayload._() : super._();
 
   @override
   GetInAppMessagesRequestPayload rebuild(
     void Function(GetInAppMessagesRequestPayloadBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetInAppMessagesRequestPayloadBuilder toBuilder() =>
@@ -152,8 +149,10 @@ class _$GetInAppMessagesRequestPayload extends GetInAppMessagesRequestPayload {
 
 class GetInAppMessagesRequestPayloadBuilder
     implements
-        Builder<GetInAppMessagesRequestPayload,
-            GetInAppMessagesRequestPayloadBuilder> {
+        Builder<
+          GetInAppMessagesRequestPayload,
+          GetInAppMessagesRequestPayloadBuilder
+        > {
   _$GetInAppMessagesRequestPayload? _$v;
 
   GetInAppMessagesRequestPayloadBuilder();

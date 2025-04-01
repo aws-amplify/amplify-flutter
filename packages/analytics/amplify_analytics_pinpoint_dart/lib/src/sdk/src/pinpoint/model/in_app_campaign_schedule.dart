@@ -52,10 +52,11 @@ abstract class InAppCampaignSchedule
   List<Object?> get props => [endDate, eventFilter, quietTime];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppCampaignSchedule')
-      ..add('endDate', endDate)
-      ..add('eventFilter', eventFilter)
-      ..add('quietTime', quietTime);
+    final helper =
+        newBuiltValueToStringHelper('InAppCampaignSchedule')
+          ..add('endDate', endDate)
+          ..add('eventFilter', eventFilter)
+          ..add('quietTime', quietTime);
     return helper.toString();
   }
 }
@@ -63,17 +64,17 @@ abstract class InAppCampaignSchedule
 class InAppCampaignScheduleRestJson1Serializer
     extends _i2.StructuredSmithySerializer<InAppCampaignSchedule> {
   const InAppCampaignScheduleRestJson1Serializer()
-      : super('InAppCampaignSchedule');
+    : super('InAppCampaignSchedule');
 
   @override
   Iterable<Type> get types => const [
-        InAppCampaignSchedule,
-        _$InAppCampaignSchedule,
-      ];
+    InAppCampaignSchedule,
+    _$InAppCampaignSchedule,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppCampaignSchedule deserialize(
     Serializers serializers,
@@ -91,23 +92,27 @@ class InAppCampaignScheduleRestJson1Serializer
       }
       switch (key) {
         case 'EndDate':
-          result.endDate = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.endDate =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'EventFilter':
           result.eventFilter.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(CampaignEventFilter),
-            ) as CampaignEventFilter),
+                  value,
+                  specifiedType: const FullType(CampaignEventFilter),
+                )
+                as CampaignEventFilter),
           );
         case 'QuietTime':
           result.quietTime.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(QuietTime),
-            ) as QuietTime),
+                  value,
+                  specifiedType: const FullType(QuietTime),
+                )
+                as QuietTime),
           );
       }
     }

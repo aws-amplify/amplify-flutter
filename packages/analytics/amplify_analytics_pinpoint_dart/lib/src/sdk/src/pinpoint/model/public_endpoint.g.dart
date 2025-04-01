@@ -188,7 +188,8 @@ class PublicEndpointBuilder
   _$PublicEndpoint _build() {
     _$PublicEndpoint _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PublicEndpoint._(
             address: address,
             attributes: _attributes?.build(),

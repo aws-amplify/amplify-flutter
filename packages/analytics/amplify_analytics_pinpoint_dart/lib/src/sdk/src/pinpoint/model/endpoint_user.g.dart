@@ -85,7 +85,8 @@ class EndpointUserBuilder
   _$EndpointUser _build() {
     _$EndpointUser _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$EndpointUser._(
             userAttributes: _userAttributes?.build(),
             userId: userId,

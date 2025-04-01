@@ -34,8 +34,7 @@ class _$EndpointBatchItem extends EndpointBatchItem {
 
   factory _$EndpointBatchItem([
     void Function(EndpointBatchItemBuilder)? updates,
-  ]) =>
-      (new EndpointBatchItemBuilder()..update(updates))._build();
+  ]) => (new EndpointBatchItemBuilder()..update(updates))._build();
 
   _$EndpointBatchItem._({
     this.address,
@@ -200,7 +199,8 @@ class EndpointBatchItemBuilder
   _$EndpointBatchItem _build() {
     _$EndpointBatchItem _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$EndpointBatchItem._(
             address: address,
             attributes: _attributes?.build(),

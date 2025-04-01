@@ -17,8 +17,8 @@ class EndpointInfoStoreManager {
   EndpointInfoStoreManager({
     required SecureStorageInterface store,
     LegacyNativeDataProvider? legacyNativeDataProvider,
-  })  : _store = store,
-        _legacyNativeDataProvider = legacyNativeDataProvider;
+  }) : _store = store,
+       _legacyNativeDataProvider = legacyNativeDataProvider;
 
   final SecureStorageInterface _store;
   final LegacyNativeDataProvider? _legacyNativeDataProvider;

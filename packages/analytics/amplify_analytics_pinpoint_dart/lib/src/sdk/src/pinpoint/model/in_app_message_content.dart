@@ -66,22 +66,23 @@ abstract class InAppMessageContent
   InAppMessageButton? get secondaryBtn;
   @override
   List<Object?> get props => [
-        backgroundColor,
-        bodyConfig,
-        headerConfig,
-        imageUrl,
-        primaryBtn,
-        secondaryBtn,
-      ];
+    backgroundColor,
+    bodyConfig,
+    headerConfig,
+    imageUrl,
+    primaryBtn,
+    secondaryBtn,
+  ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageContent')
-      ..add('backgroundColor', backgroundColor)
-      ..add('bodyConfig', bodyConfig)
-      ..add('headerConfig', headerConfig)
-      ..add('imageUrl', imageUrl)
-      ..add('primaryBtn', primaryBtn)
-      ..add('secondaryBtn', secondaryBtn);
+    final helper =
+        newBuiltValueToStringHelper('InAppMessageContent')
+          ..add('backgroundColor', backgroundColor)
+          ..add('bodyConfig', bodyConfig)
+          ..add('headerConfig', headerConfig)
+          ..add('imageUrl', imageUrl)
+          ..add('primaryBtn', primaryBtn)
+          ..add('secondaryBtn', secondaryBtn);
     return helper.toString();
   }
 }
@@ -92,13 +93,13 @@ class InAppMessageContentRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        InAppMessageContent,
-        _$InAppMessageContent,
-      ];
+    InAppMessageContent,
+    _$InAppMessageContent,
+  ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   InAppMessageContent deserialize(
     Serializers serializers,
@@ -116,42 +117,50 @@ class InAppMessageContentRestJson1Serializer
       }
       switch (key) {
         case 'BackgroundColor':
-          result.backgroundColor = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.backgroundColor =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'BodyConfig':
           result.bodyConfig.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(InAppMessageBodyConfig),
-            ) as InAppMessageBodyConfig),
+                  value,
+                  specifiedType: const FullType(InAppMessageBodyConfig),
+                )
+                as InAppMessageBodyConfig),
           );
         case 'HeaderConfig':
           result.headerConfig.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(InAppMessageHeaderConfig),
-            ) as InAppMessageHeaderConfig),
+                  value,
+                  specifiedType: const FullType(InAppMessageHeaderConfig),
+                )
+                as InAppMessageHeaderConfig),
           );
         case 'ImageUrl':
-          result.imageUrl = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.imageUrl =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'PrimaryBtn':
           result.primaryBtn.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(InAppMessageButton),
-            ) as InAppMessageButton),
+                  value,
+                  specifiedType: const FullType(InAppMessageButton),
+                )
+                as InAppMessageButton),
           );
         case 'SecondaryBtn':
           result.secondaryBtn.replace(
             (serializers.deserialize(
-              value,
-              specifiedType: const FullType(InAppMessageButton),
-            ) as InAppMessageButton),
+                  value,
+                  specifiedType: const FullType(InAppMessageButton),
+                )
+                as InAppMessageButton),
           );
       }
     }

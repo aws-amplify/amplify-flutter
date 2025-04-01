@@ -53,11 +53,12 @@ abstract class Session
   List<Object?> get props => [duration, id, startTimestamp, stopTimestamp];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Session')
-      ..add('duration', duration)
-      ..add('id', id)
-      ..add('startTimestamp', startTimestamp)
-      ..add('stopTimestamp', stopTimestamp);
+    final helper =
+        newBuiltValueToStringHelper('Session')
+          ..add('duration', duration)
+          ..add('id', id)
+          ..add('startTimestamp', startTimestamp)
+          ..add('stopTimestamp', stopTimestamp);
     return helper.toString();
   }
 }
@@ -70,8 +71,8 @@ class SessionRestJson1Serializer
   Iterable<Type> get types => const [Session, _$Session];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   Session deserialize(
     Serializers serializers,
@@ -89,25 +90,33 @@ class SessionRestJson1Serializer
       }
       switch (key) {
         case 'Duration':
-          result.duration = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.duration =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'Id':
-          result.id = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.id =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'StartTimestamp':
-          result.startTimestamp = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.startTimestamp =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'StopTimestamp':
-          result.stopTimestamp = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.stopTimestamp =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

@@ -96,7 +96,8 @@ class InAppMessageBuilder
   _$InAppMessage _build() {
     _$InAppMessage _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$InAppMessage._(
             content: _content?.build(),
             customConfig: _customConfig?.build(),

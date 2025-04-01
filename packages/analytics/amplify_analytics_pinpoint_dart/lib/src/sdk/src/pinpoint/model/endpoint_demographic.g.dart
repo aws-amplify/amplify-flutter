@@ -26,8 +26,7 @@ class _$EndpointDemographic extends EndpointDemographic {
 
   factory _$EndpointDemographic([
     void Function(EndpointDemographicBuilder)? updates,
-  ]) =>
-      (new EndpointDemographicBuilder()..update(updates))._build();
+  ]) => (new EndpointDemographicBuilder()..update(updates))._build();
 
   _$EndpointDemographic._({
     this.appVersion,
@@ -43,8 +42,7 @@ class _$EndpointDemographic extends EndpointDemographic {
   @override
   EndpointDemographic rebuild(
     void Function(EndpointDemographicBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EndpointDemographicBuilder toBuilder() =>
@@ -150,7 +148,8 @@ class EndpointDemographicBuilder
   EndpointDemographic build() => _build();
 
   _$EndpointDemographic _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EndpointDemographic._(
           appVersion: appVersion,
           locale: locale,

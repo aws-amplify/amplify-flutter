@@ -12,8 +12,7 @@ class _$EndpointBatchRequest extends EndpointBatchRequest {
 
   factory _$EndpointBatchRequest([
     void Function(EndpointBatchRequestBuilder)? updates,
-  ]) =>
-      (new EndpointBatchRequestBuilder()..update(updates))._build();
+  ]) => (new EndpointBatchRequestBuilder()..update(updates))._build();
 
   _$EndpointBatchRequest._({required this.item}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -26,8 +25,7 @@ class _$EndpointBatchRequest extends EndpointBatchRequest {
   @override
   EndpointBatchRequest rebuild(
     void Function(EndpointBatchRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EndpointBatchRequestBuilder toBuilder() =>

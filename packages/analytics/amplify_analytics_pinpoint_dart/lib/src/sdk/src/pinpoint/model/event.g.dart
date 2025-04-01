@@ -175,7 +175,8 @@ class EventBuilder implements Builder<Event, EventBuilder> {
   _$Event _build() {
     _$Event _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$Event._(
             appPackageName: appPackageName,
             appTitle: appTitle,

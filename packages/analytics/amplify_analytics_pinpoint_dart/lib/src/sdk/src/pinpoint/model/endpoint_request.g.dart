@@ -188,7 +188,8 @@ class EndpointRequestBuilder
   _$EndpointRequest _build() {
     _$EndpointRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$EndpointRequest._(
             address: address,
             attributes: _attributes?.build(),

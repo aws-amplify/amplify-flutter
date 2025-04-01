@@ -18,17 +18,15 @@ class _$InAppMessageButton extends InAppMessageButton {
 
   factory _$InAppMessageButton([
     void Function(InAppMessageButtonBuilder)? updates,
-  ]) =>
-      (new InAppMessageButtonBuilder()..update(updates))._build();
+  ]) => (new InAppMessageButtonBuilder()..update(updates))._build();
 
   _$InAppMessageButton._({this.android, this.defaultConfig, this.ios, this.web})
-      : super._();
+    : super._();
 
   @override
   InAppMessageButton rebuild(
     void Function(InAppMessageButtonBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageButtonBuilder toBuilder() =>
@@ -113,7 +111,8 @@ class InAppMessageButtonBuilder
   _$InAppMessageButton _build() {
     _$InAppMessageButton _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$InAppMessageButton._(
             android: _android?.build(),
             defaultConfig: _defaultConfig?.build(),

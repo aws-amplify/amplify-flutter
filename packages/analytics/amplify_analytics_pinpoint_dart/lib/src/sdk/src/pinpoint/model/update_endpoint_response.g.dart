@@ -12,8 +12,7 @@ class _$UpdateEndpointResponse extends UpdateEndpointResponse {
 
   factory _$UpdateEndpointResponse([
     void Function(UpdateEndpointResponseBuilder)? updates,
-  ]) =>
-      (new UpdateEndpointResponseBuilder()..update(updates))._build();
+  ]) => (new UpdateEndpointResponseBuilder()..update(updates))._build();
 
   _$UpdateEndpointResponse._({required this.messageBody}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -26,8 +25,7 @@ class _$UpdateEndpointResponse extends UpdateEndpointResponse {
   @override
   UpdateEndpointResponse rebuild(
     void Function(UpdateEndpointResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateEndpointResponseBuilder toBuilder() =>
@@ -86,7 +84,8 @@ class UpdateEndpointResponseBuilder
   _$UpdateEndpointResponse _build() {
     _$UpdateEndpointResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$UpdateEndpointResponse._(messageBody: messageBody.build());
     } catch (_) {
       late String _$failedField;
