@@ -23,11 +23,9 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     StoragePluginKey<P> pluginKey,
   ) =>
       plugins.singleWhere(
-            (p) => p is P,
-            orElse:
-                () => throw PluginError('No plugin registered for $pluginKey'),
-          )
-          as P;
+        (p) => p is P,
+        orElse: () => throw PluginError('No plugin registered for $pluginKey'),
+      ) as P;
 
   /// {@template amplify_core.amplify_storage_category.list}
   /// Lists objects under the [path] with optional [StorageListOptions] and

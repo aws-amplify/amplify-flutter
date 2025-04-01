@@ -46,10 +46,9 @@ abstract class SetDimension
   List<Object?> get props => [dimensionType, values];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SetDimension')
-          ..add('dimensionType', dimensionType)
-          ..add('values', values);
+    final helper = newBuiltValueToStringHelper('SetDimension')
+      ..add('dimensionType', dimensionType)
+      ..add('values', values);
     return helper.toString();
   }
 }
@@ -62,8 +61,8 @@ class SetDimensionRestJson1Serializer
   Iterable<Type> get types => const [SetDimension, _$SetDimension];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   SetDimension deserialize(
     Serializers serializers,
@@ -81,21 +80,18 @@ class SetDimensionRestJson1Serializer
       }
       switch (key) {
         case 'DimensionType':
-          result.dimensionType =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(DimensionType),
-                  )
-                  as DimensionType);
+          result.dimensionType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DimensionType),
+          ) as DimensionType);
         case 'Values':
           result.values.replace(
             (serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(_i2.BuiltList, [
-                    FullType(String),
-                  ]),
-                )
-                as _i2.BuiltList<String>),
+              value,
+              specifiedType: const FullType(_i2.BuiltList, [
+                FullType(String),
+              ]),
+            ) as _i2.BuiltList<String>),
           );
       }
     }

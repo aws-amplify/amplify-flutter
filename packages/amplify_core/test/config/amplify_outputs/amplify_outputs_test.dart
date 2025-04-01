@@ -9,7 +9,8 @@ import 'package:test/test.dart';
 import 'test_data.dart';
 
 void main() {
-  test('Should successfully create an AmplifyOutputs object'
+  test(
+      'Should successfully create an AmplifyOutputs object'
       ' from an amplify outputs json object.', () {
     final actualConfig = jsonDecode(amplifyoutputs) as Map<String, Object?>;
     final parsed = AmplifyOutputs.fromJson(actualConfig);

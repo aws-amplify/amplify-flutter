@@ -9,34 +9,33 @@ part of 'data_outputs.dart';
 // **************************************************************************
 
 DataOutputs _$DataOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
-  'DataOutputs',
-  json,
-  ($checkedConvert) {
-    final val = DataOutputs(
-      awsRegion: $checkedConvert('aws_region', (v) => v as String),
-      url: $checkedConvert('url', (v) => v as String),
-      apiKey: $checkedConvert('api_key', (v) => v as String?),
-      defaultAuthorizationType: $checkedConvert(
-        'default_authorization_type',
-        (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v),
-      ),
-      authorizationTypes: $checkedConvert(
-        'authorization_types',
-        (v) =>
-            (v as List<dynamic>)
+      'DataOutputs',
+      json,
+      ($checkedConvert) {
+        final val = DataOutputs(
+          awsRegion: $checkedConvert('aws_region', (v) => v as String),
+          url: $checkedConvert('url', (v) => v as String),
+          apiKey: $checkedConvert('api_key', (v) => v as String?),
+          defaultAuthorizationType: $checkedConvert(
+            'default_authorization_type',
+            (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v),
+          ),
+          authorizationTypes: $checkedConvert(
+            'authorization_types',
+            (v) => (v as List<dynamic>)
                 .map((e) => $enumDecode(_$APIAuthorizationTypeEnumMap, e))
                 .toList(),
-      ),
+          ),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'awsRegion': 'aws_region',
+        'apiKey': 'api_key',
+        'defaultAuthorizationType': 'default_authorization_type',
+        'authorizationTypes': 'authorization_types',
+      },
     );
-    return val;
-  },
-  fieldKeyMap: const {
-    'awsRegion': 'aws_region',
-    'apiKey': 'api_key',
-    'defaultAuthorizationType': 'default_authorization_type',
-    'authorizationTypes': 'authorization_types',
-  },
-);
 
 Map<String, dynamic> _$DataOutputsToJson(DataOutputs instance) {
   final val = <String, dynamic>{
@@ -53,10 +52,9 @@ Map<String, dynamic> _$DataOutputsToJson(DataOutputs instance) {
   writeNotNull('api_key', instance.apiKey);
   val['default_authorization_type'] =
       _$APIAuthorizationTypeEnumMap[instance.defaultAuthorizationType]!;
-  val['authorization_types'] =
-      instance.authorizationTypes
-          .map((e) => _$APIAuthorizationTypeEnumMap[e]!)
-          .toList();
+  val['authorization_types'] = instance.authorizationTypes
+      .map((e) => _$APIAuthorizationTypeEnumMap[e]!)
+      .toList();
   return val;
 }
 

@@ -112,8 +112,7 @@ class SessionBuilder implements Builder<Session, SessionBuilder> {
   Session build() => _build();
 
   _$Session _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$Session._(
           duration: duration,
           id: BuiltValueNullFieldError.checkNotNull(id, r'Session', 'id'),

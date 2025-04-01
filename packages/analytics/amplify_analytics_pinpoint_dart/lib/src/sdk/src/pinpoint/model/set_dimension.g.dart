@@ -87,8 +87,7 @@ class SetDimensionBuilder
   _$SetDimension _build() {
     _$SetDimension _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$SetDimension._(
             dimensionType: dimensionType,
             values: values.build(),

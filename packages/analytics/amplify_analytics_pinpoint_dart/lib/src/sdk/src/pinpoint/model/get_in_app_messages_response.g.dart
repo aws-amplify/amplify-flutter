@@ -12,10 +12,11 @@ class _$GetInAppMessagesResponse extends GetInAppMessagesResponse {
 
   factory _$GetInAppMessagesResponse([
     void Function(GetInAppMessagesResponseBuilder)? updates,
-  ]) => (new GetInAppMessagesResponseBuilder()..update(updates))._build();
+  ]) =>
+      (new GetInAppMessagesResponseBuilder()..update(updates))._build();
 
   _$GetInAppMessagesResponse._({required this.inAppMessagesResponse})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
       inAppMessagesResponse,
       r'GetInAppMessagesResponse',
@@ -26,7 +27,8 @@ class _$GetInAppMessagesResponse extends GetInAppMessagesResponse {
   @override
   GetInAppMessagesResponse rebuild(
     void Function(GetInAppMessagesResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   GetInAppMessagesResponseBuilder toBuilder() =>
@@ -58,7 +60,8 @@ class GetInAppMessagesResponseBuilder
       _$this._inAppMessagesResponse ??= new InAppMessagesResponseBuilder();
   set inAppMessagesResponse(
     InAppMessagesResponseBuilder? inAppMessagesResponse,
-  ) => _$this._inAppMessagesResponse = inAppMessagesResponse;
+  ) =>
+      _$this._inAppMessagesResponse = inAppMessagesResponse;
 
   GetInAppMessagesResponseBuilder();
 
@@ -88,8 +91,7 @@ class GetInAppMessagesResponseBuilder
   _$GetInAppMessagesResponse _build() {
     _$GetInAppMessagesResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$GetInAppMessagesResponse._(
             inAppMessagesResponse: inAppMessagesResponse.build(),
           );

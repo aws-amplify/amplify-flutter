@@ -36,10 +36,8 @@ class CognitoUserAttributeKeyConverter
 
 class CognitoUserAttributeMapConverter
     implements
-        JsonConverter<
-          Map<CognitoUserAttributeKey, String>,
-          Map<String, String>
-        > {
+        JsonConverter<Map<CognitoUserAttributeKey, String>,
+            Map<String, String>> {
   const CognitoUserAttributeMapConverter();
 
   @override

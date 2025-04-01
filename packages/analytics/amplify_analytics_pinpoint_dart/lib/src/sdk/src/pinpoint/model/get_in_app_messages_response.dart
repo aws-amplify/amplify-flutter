@@ -34,9 +34,10 @@ abstract class GetInAppMessagesResponse
   factory GetInAppMessagesResponse.fromResponse(
     InAppMessagesResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) => GetInAppMessagesResponse.build((b) {
-    b.inAppMessagesResponse.replace(payload);
-  });
+  ) =>
+      GetInAppMessagesResponse.build((b) {
+        b.inAppMessagesResponse.replace(payload);
+      });
 
   static const List<_i2.SmithySerializer<InAppMessagesResponse>> serializers = [
     GetInAppMessagesResponseRestJson1Serializer(),
@@ -59,17 +60,17 @@ abstract class GetInAppMessagesResponse
 class GetInAppMessagesResponseRestJson1Serializer
     extends _i2.PrimitiveSmithySerializer<InAppMessagesResponse> {
   const GetInAppMessagesResponseRestJson1Serializer()
-    : super('GetInAppMessagesResponse');
+      : super('GetInAppMessagesResponse');
 
   @override
   Iterable<Type> get types => const [
-    GetInAppMessagesResponse,
-    _$GetInAppMessagesResponse,
-  ];
+        GetInAppMessagesResponse,
+        _$GetInAppMessagesResponse,
+      ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   InAppMessagesResponse deserialize(
     Serializers serializers,
@@ -77,10 +78,9 @@ class GetInAppMessagesResponseRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-          serialized,
-          specifiedType: const FullType(InAppMessagesResponse),
-        )
-        as InAppMessagesResponse);
+      serialized,
+      specifiedType: const FullType(InAppMessagesResponse),
+    ) as InAppMessagesResponse);
   }
 
   @override

@@ -30,14 +30,14 @@ class EventClient implements Closeable {
     required EndpointClient endpointClient,
     QueuedItemStore? eventStore,
     DeviceContextInfo? deviceContextInfo,
-  }) : _pinpointAppId = pinpointAppId,
-       _fixedEndpointId = endpointClient.fixedEndpointId,
-       _pinpointClient = pinpointClient,
-       _endpointClient = endpointClient,
-       _eventStorage = EventStorageAdapter(
-         eventStore ?? InMemoryQueuedItemStore(),
-       ),
-       _eventCreator = EventCreator(deviceContextInfo: deviceContextInfo) {
+  })  : _pinpointAppId = pinpointAppId,
+        _fixedEndpointId = endpointClient.fixedEndpointId,
+        _pinpointClient = pinpointClient,
+        _endpointClient = endpointClient,
+        _eventStorage = EventStorageAdapter(
+          eventStore ?? InMemoryQueuedItemStore(),
+        ),
+        _eventCreator = EventCreator(deviceContextInfo: deviceContextInfo) {
     _listenForFlushEvents();
   }
 
@@ -131,15 +131,14 @@ class EventClient implements Closeable {
     final batchItems = {_fixedEndpointId: batch};
 
     try {
-      final result =
-          await _pinpointClient
-              .putEvents(
-                PutEventsRequest(
-                  applicationId: _pinpointAppId,
-                  eventsRequest: EventsRequest(batchItem: batchItems),
-                ),
-              )
-              .result;
+      final result = await _pinpointClient
+          .putEvents(
+            PutEventsRequest(
+              applicationId: _pinpointAppId,
+              eventsRequest: EventsRequest(batchItem: batchItems),
+            ),
+          )
+          .result;
 
       // Parse the EndpointResponse portion of Result
       final endpointResponse = result.eventsResponse.results?[_fixedEndpointId];

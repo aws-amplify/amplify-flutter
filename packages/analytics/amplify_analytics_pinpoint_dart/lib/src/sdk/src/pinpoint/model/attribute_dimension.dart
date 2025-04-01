@@ -55,10 +55,9 @@ abstract class AttributeDimension
   List<Object?> get props => [attributeType, values];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AttributeDimension')
-          ..add('attributeType', attributeType)
-          ..add('values', values);
+    final helper = newBuiltValueToStringHelper('AttributeDimension')
+      ..add('attributeType', attributeType)
+      ..add('values', values);
     return helper.toString();
   }
 }
@@ -71,8 +70,8 @@ class AttributeDimensionRestJson1Serializer
   Iterable<Type> get types => const [AttributeDimension, _$AttributeDimension];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   AttributeDimension deserialize(
     Serializers serializers,
@@ -90,21 +89,18 @@ class AttributeDimensionRestJson1Serializer
       }
       switch (key) {
         case 'AttributeType':
-          result.attributeType =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(AttributeType),
-                  )
-                  as AttributeType);
+          result.attributeType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(AttributeType),
+          ) as AttributeType);
         case 'Values':
           result.values.replace(
             (serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(_i2.BuiltList, [
-                    FullType(String),
-                  ]),
-                )
-                as _i2.BuiltList<String>),
+              value,
+              specifiedType: const FullType(_i2.BuiltList, [
+                FullType(String),
+              ]),
+            ) as _i2.BuiltList<String>),
           );
       }
     }

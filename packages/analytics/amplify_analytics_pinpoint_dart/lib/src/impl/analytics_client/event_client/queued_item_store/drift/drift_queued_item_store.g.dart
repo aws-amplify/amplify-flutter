@@ -65,16 +65,14 @@ class $DriftQueuedItemsTable extends DriftQueuedItems
   DriftQueuedItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DriftQueuedItem(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      value:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}value'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      value: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}value'],
+      )!,
     );
   }
 
@@ -214,10 +212,11 @@ abstract class _$DriftQueuedItemStore extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [driftQueuedItems];
 }
 
-typedef $$DriftQueuedItemsTableCreateCompanionBuilder =
-    DriftQueuedItemsCompanion Function({Value<int> id, required String value});
-typedef $$DriftQueuedItemsTableUpdateCompanionBuilder =
-    DriftQueuedItemsCompanion Function({Value<int> id, Value<String> value});
+typedef $$DriftQueuedItemsTableCreateCompanionBuilder
+    = DriftQueuedItemsCompanion Function(
+        {Value<int> id, required String value});
+typedef $$DriftQueuedItemsTableUpdateCompanionBuilder
+    = DriftQueuedItemsCompanion Function({Value<int> id, Value<String> value});
 
 class $$DriftQueuedItemsTableFilterComposer
     extends Composer<_$DriftQueuedItemStore, $DriftQueuedItemsTable> {
@@ -229,14 +228,14 @@ class $$DriftQueuedItemsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+        column: $table.id,
+        builder: (column) => ColumnFilters(column),
+      );
 
   ColumnFilters<String> get value => $composableBuilder(
-    column: $table.value,
-    builder: (column) => ColumnFilters(column),
-  );
+        column: $table.value,
+        builder: (column) => ColumnFilters(column),
+      );
 }
 
 class $$DriftQueuedItemsTableOrderingComposer
@@ -249,14 +248,14 @@ class $$DriftQueuedItemsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+        column: $table.id,
+        builder: (column) => ColumnOrderings(column),
+      );
 
   ColumnOrderings<String> get value => $composableBuilder(
-    column: $table.value,
-    builder: (column) => ColumnOrderings(column),
-  );
+        column: $table.value,
+        builder: (column) => ColumnOrderings(column),
+      );
 }
 
 class $$DriftQueuedItemsTableAnnotationComposer
@@ -275,92 +274,79 @@ class $$DriftQueuedItemsTableAnnotationComposer
       $composableBuilder(column: $table.value, builder: (column) => column);
 }
 
-class $$DriftQueuedItemsTableTableManager
-    extends
-        RootTableManager<
-          _$DriftQueuedItemStore,
-          $DriftQueuedItemsTable,
-          DriftQueuedItem,
-          $$DriftQueuedItemsTableFilterComposer,
-          $$DriftQueuedItemsTableOrderingComposer,
-          $$DriftQueuedItemsTableAnnotationComposer,
-          $$DriftQueuedItemsTableCreateCompanionBuilder,
-          $$DriftQueuedItemsTableUpdateCompanionBuilder,
-          (
-            DriftQueuedItem,
-            BaseReferences<
-              _$DriftQueuedItemStore,
-              $DriftQueuedItemsTable,
-              DriftQueuedItem
-            >,
-          ),
-          DriftQueuedItem,
-          PrefetchHooks Function()
-        > {
+class $$DriftQueuedItemsTableTableManager extends RootTableManager<
+    _$DriftQueuedItemStore,
+    $DriftQueuedItemsTable,
+    DriftQueuedItem,
+    $$DriftQueuedItemsTableFilterComposer,
+    $$DriftQueuedItemsTableOrderingComposer,
+    $$DriftQueuedItemsTableAnnotationComposer,
+    $$DriftQueuedItemsTableCreateCompanionBuilder,
+    $$DriftQueuedItemsTableUpdateCompanionBuilder,
+    (
+      DriftQueuedItem,
+      BaseReferences<_$DriftQueuedItemStore, $DriftQueuedItemsTable,
+          DriftQueuedItem>,
+    ),
+    DriftQueuedItem,
+    PrefetchHooks Function()> {
   $$DriftQueuedItemsTableTableManager(
     _$DriftQueuedItemStore db,
     $DriftQueuedItemsTable table,
   ) : super(
-        TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer:
-              () =>
-                  $$DriftQueuedItemsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$DriftQueuedItemsTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer:
-              () => $$DriftQueuedItemsTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<String> value = const Value.absent(),
-              }) => DriftQueuedItemsCompanion(id: id, value: value),
-          createCompanionCallback:
-              ({Value<int> id = const Value.absent(), required String value}) =>
-                  DriftQueuedItemsCompanion.insert(id: id, value: value),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
-          prefetchHooksCallback: null,
-        ),
-      );
+          TableManagerState(
+            db: db,
+            table: table,
+            createFilteringComposer: () =>
+                $$DriftQueuedItemsTableFilterComposer($db: db, $table: table),
+            createOrderingComposer: () =>
+                $$DriftQueuedItemsTableOrderingComposer(
+              $db: db,
+              $table: table,
+            ),
+            createComputedFieldComposer: () =>
+                $$DriftQueuedItemsTableAnnotationComposer(
+              $db: db,
+              $table: table,
+            ),
+            updateCompanionCallback: ({
+              Value<int> id = const Value.absent(),
+              Value<String> value = const Value.absent(),
+            }) =>
+                DriftQueuedItemsCompanion(id: id, value: value),
+            createCompanionCallback: (
+                    {Value<int> id = const Value.absent(),
+                    required String value}) =>
+                DriftQueuedItemsCompanion.insert(id: id, value: value),
+            withReferenceMapper: (p0) => p0
+                .map(
+                  (e) => (
+                    e.readTable(table),
+                    BaseReferences(db, table, e),
+                  ),
+                )
+                .toList(),
+            prefetchHooksCallback: null,
+          ),
+        );
 }
 
-typedef $$DriftQueuedItemsTableProcessedTableManager =
-    ProcessedTableManager<
-      _$DriftQueuedItemStore,
-      $DriftQueuedItemsTable,
+typedef $$DriftQueuedItemsTableProcessedTableManager = ProcessedTableManager<
+    _$DriftQueuedItemStore,
+    $DriftQueuedItemsTable,
+    DriftQueuedItem,
+    $$DriftQueuedItemsTableFilterComposer,
+    $$DriftQueuedItemsTableOrderingComposer,
+    $$DriftQueuedItemsTableAnnotationComposer,
+    $$DriftQueuedItemsTableCreateCompanionBuilder,
+    $$DriftQueuedItemsTableUpdateCompanionBuilder,
+    (
       DriftQueuedItem,
-      $$DriftQueuedItemsTableFilterComposer,
-      $$DriftQueuedItemsTableOrderingComposer,
-      $$DriftQueuedItemsTableAnnotationComposer,
-      $$DriftQueuedItemsTableCreateCompanionBuilder,
-      $$DriftQueuedItemsTableUpdateCompanionBuilder,
-      (
-        DriftQueuedItem,
-        BaseReferences<
-          _$DriftQueuedItemStore,
-          $DriftQueuedItemsTable,
-          DriftQueuedItem
-        >,
-      ),
-      DriftQueuedItem,
-      PrefetchHooks Function()
-    >;
+      BaseReferences<_$DriftQueuedItemStore, $DriftQueuedItemsTable,
+          DriftQueuedItem>,
+    ),
+    DriftQueuedItem,
+    PrefetchHooks Function()>;
 
 class $DriftQueuedItemStoreManager {
   final _$DriftQueuedItemStore _db;

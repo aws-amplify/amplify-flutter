@@ -28,22 +28,22 @@ class _MfaSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
 
   @override
   List<InputSelection<InputResolverKey, MfaType>> get selections => [
-    if (_allowedMfaTypes.contains(MfaType.totp))
-      const InputSelection<InputResolverKey, MfaType>(
-        label: InputResolverKey.selectTotp,
-        value: MfaType.totp,
-      ),
-    if (_allowedMfaTypes.contains(MfaType.sms))
-      const InputSelection<InputResolverKey, MfaType>(
-        label: InputResolverKey.selectSms,
-        value: MfaType.sms,
-      ),
-    if (_allowedMfaTypes.contains(MfaType.email))
-      const InputSelection<InputResolverKey, MfaType>(
-        label: InputResolverKey.selectEmail,
-        value: MfaType.email,
-      ),
-  ];
+        if (_allowedMfaTypes.contains(MfaType.totp))
+          const InputSelection<InputResolverKey, MfaType>(
+            label: InputResolverKey.selectTotp,
+            value: MfaType.totp,
+          ),
+        if (_allowedMfaTypes.contains(MfaType.sms))
+          const InputSelection<InputResolverKey, MfaType>(
+            label: InputResolverKey.selectSms,
+            value: MfaType.sms,
+          ),
+        if (_allowedMfaTypes.contains(MfaType.email))
+          const InputSelection<InputResolverKey, MfaType>(
+            label: InputResolverKey.selectEmail,
+            value: MfaType.email,
+          ),
+      ];
 
   @override
   MfaType get initialValue => selections.first.value;

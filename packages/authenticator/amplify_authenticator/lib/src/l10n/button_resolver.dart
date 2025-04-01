@@ -29,9 +29,9 @@ enum ButtonResolverKeyType {
 
 class ButtonResolverKey {
   const ButtonResolverKey.signInWith(AuthProvider provider)
-    : this._(ButtonResolverKeyType.signInWith, provider: provider);
+      : this._(ButtonResolverKeyType.signInWith, provider: provider);
   const ButtonResolverKey.backTo(AuthenticatorStep previousStep)
-    : this._(ButtonResolverKeyType.backTo, previousStep: previousStep);
+      : this._(ButtonResolverKeyType.backTo, previousStep: previousStep);
   const ButtonResolverKey._(this.type, {this.provider, this.previousStep});
 
   final ButtonResolverKeyType type;

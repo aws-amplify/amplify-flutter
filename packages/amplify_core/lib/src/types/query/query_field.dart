@@ -86,9 +86,9 @@ class QueryField<T> {
   /// ```
   /// {@endtemplate}
   QueryPredicateOperation le(Comparable<T> value) => QueryPredicateOperation(
-    fieldName,
-    LessOrEqualQueryOperator<Comparable<T>>(value),
-  );
+        fieldName,
+        LessOrEqualQueryOperator<Comparable<T>>(value),
+      );
 
   /// {@macro amplify_core.query_field.le}
   QueryPredicateOperation operator <=(Comparable<T> value) => le(value);
@@ -118,9 +118,9 @@ class QueryField<T> {
   /// ```
   /// {@endtemplate}
   QueryPredicateOperation lt(Comparable<T> value) => QueryPredicateOperation(
-    fieldName,
-    LessThanQueryOperator<Comparable<T>>(value),
-  );
+        fieldName,
+        LessThanQueryOperator<Comparable<T>>(value),
+      );
 
   /// {@macro amplify_core.query_field.lt}
   QueryPredicateOperation operator <(Comparable<T> value) => lt(value);
@@ -151,9 +151,9 @@ class QueryField<T> {
   /// ```
   /// {@endtemplate}
   QueryPredicateOperation ge(Comparable<T> value) => QueryPredicateOperation(
-    fieldName,
-    GreaterOrEqualQueryOperator<Comparable<T>>(value),
-  );
+        fieldName,
+        GreaterOrEqualQueryOperator<Comparable<T>>(value),
+      );
 
   /// {@macro amplify_core.query_field.ge}
   QueryPredicateOperation operator >=(Comparable<T> value) => ge(value);
@@ -183,9 +183,9 @@ class QueryField<T> {
   /// ```
   /// {@endtemplate}
   QueryPredicateOperation gt(Comparable<T> value) => QueryPredicateOperation(
-    fieldName,
-    GreaterThanQueryOperator<Comparable<T>>(value),
-  );
+        fieldName,
+        GreaterThanQueryOperator<Comparable<T>>(value),
+      );
 
   /// {@macro amplify_core.query_field.gt}
   QueryPredicateOperation operator >(Comparable<T> value) => gt(value);

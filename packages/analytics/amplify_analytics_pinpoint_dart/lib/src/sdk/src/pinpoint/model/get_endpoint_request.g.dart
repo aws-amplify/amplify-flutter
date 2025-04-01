@@ -14,7 +14,8 @@ class _$GetEndpointRequest extends GetEndpointRequest {
 
   factory _$GetEndpointRequest([
     void Function(GetEndpointRequestBuilder)? updates,
-  ]) => (new GetEndpointRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new GetEndpointRequestBuilder()..update(updates))._build();
 
   _$GetEndpointRequest._({
     required this.applicationId,
@@ -35,7 +36,8 @@ class _$GetEndpointRequest extends GetEndpointRequest {
   @override
   GetEndpointRequest rebuild(
     void Function(GetEndpointRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   GetEndpointRequestBuilder toBuilder() =>
@@ -99,8 +101,7 @@ class GetEndpointRequestBuilder
   GetEndpointRequest build() => _build();
 
   _$GetEndpointRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$GetEndpointRequest._(
           applicationId: BuiltValueNullFieldError.checkNotNull(
             applicationId,
@@ -121,14 +122,16 @@ class GetEndpointRequestBuilder
 class _$GetEndpointRequestPayload extends GetEndpointRequestPayload {
   factory _$GetEndpointRequestPayload([
     void Function(GetEndpointRequestPayloadBuilder)? updates,
-  ]) => (new GetEndpointRequestPayloadBuilder()..update(updates))._build();
+  ]) =>
+      (new GetEndpointRequestPayloadBuilder()..update(updates))._build();
 
   _$GetEndpointRequestPayload._() : super._();
 
   @override
   GetEndpointRequestPayload rebuild(
     void Function(GetEndpointRequestPayloadBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   GetEndpointRequestPayloadBuilder toBuilder() =>

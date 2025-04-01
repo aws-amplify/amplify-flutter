@@ -14,10 +14,11 @@ class _$AttributeDimension extends AttributeDimension {
 
   factory _$AttributeDimension([
     void Function(AttributeDimensionBuilder)? updates,
-  ]) => (new AttributeDimensionBuilder()..update(updates))._build();
+  ]) =>
+      (new AttributeDimensionBuilder()..update(updates))._build();
 
   _$AttributeDimension._({this.attributeType, required this.values})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
       values,
       r'AttributeDimension',
@@ -28,7 +29,8 @@ class _$AttributeDimension extends AttributeDimension {
   @override
   AttributeDimension rebuild(
     void Function(AttributeDimensionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   AttributeDimensionBuilder toBuilder() =>
@@ -95,8 +97,7 @@ class AttributeDimensionBuilder
   _$AttributeDimension _build() {
     _$AttributeDimension _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$AttributeDimension._(
             attributeType: attributeType,
             values: values.build(),

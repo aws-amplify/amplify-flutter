@@ -36,10 +36,9 @@ class CredentialsProviders extends AWSConfigMap {
   CredentialsProviders copy() => CredentialsProviders(configs);
 
   @override
-  CognitoIdentityCredentialsProvider? get default$ =>
-      (this['CognitoIdentity']
-              as AWSConfigMap<CognitoIdentityCredentialsProvider>?)
-          ?.default$;
+  CognitoIdentityCredentialsProvider? get default$ => (this['CognitoIdentity']
+          as AWSConfigMap<CognitoIdentityCredentialsProvider>?)
+      ?.default$;
 }
 
 @zAwsSerializable
@@ -52,7 +51,8 @@ class CognitoIdentityCredentialsProvider
 
   factory CognitoIdentityCredentialsProvider.fromJson(
     Map<String, Object?> json,
-  ) => _$CognitoIdentityCredentialsProviderFromJson(json);
+  ) =>
+      _$CognitoIdentityCredentialsProviderFromJson(json);
   static const configKey = 'CognitoIdentity';
 
   final String poolId;

@@ -14,7 +14,8 @@ class _$PutEventsRequest extends PutEventsRequest {
 
   factory _$PutEventsRequest([
     void Function(PutEventsRequestBuilder)? updates,
-  ]) => (new PutEventsRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new PutEventsRequestBuilder()..update(updates))._build();
 
   _$PutEventsRequest._({
     required this.applicationId,
@@ -102,8 +103,7 @@ class PutEventsRequestBuilder
   _$PutEventsRequest _build() {
     _$PutEventsRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$PutEventsRequest._(
             applicationId: BuiltValueNullFieldError.checkNotNull(
               applicationId,

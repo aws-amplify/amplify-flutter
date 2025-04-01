@@ -5,14 +5,9 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 
-final _builders = <
-  StateMachineToken,
-  StateMachineBuilder<
-    StateMachineEvent,
-    StateMachineState,
-    MyStateMachineManager
-  >
->{
+final _builders = <StateMachineToken,
+    StateMachineBuilder<StateMachineEvent, StateMachineState,
+        MyStateMachineManager>>{
   MyStateMachine.type: MyStateMachine.new,
   WorkerMachine.type: WorkerMachine.new,
 };
@@ -76,26 +71,12 @@ final class MyErrorState extends MyState with ErrorState {
   final StackTrace stackTrace;
 }
 
-class MyStateMachine
-    extends
-        StateMachine<
-          MyEvent,
-          MyState,
-          StateMachineEvent,
-          StateMachineState,
-          MyStateMachineManager
-        > {
+class MyStateMachine extends StateMachine<MyEvent, MyState, StateMachineEvent,
+    StateMachineState, MyStateMachineManager> {
   MyStateMachine(MyStateMachineManager manager) : super(manager, type);
 
-  static const type =
-      StateMachineToken<
-        MyEvent,
-        MyState,
-        StateMachineEvent,
-        StateMachineState,
-        MyStateMachineManager,
-        MyStateMachine
-      >();
+  static const type = StateMachineToken<MyEvent, MyState, StateMachineEvent,
+      StateMachineState, MyStateMachineManager, MyStateMachine>();
 
   @override
   MyState get initialState => const MyState(MyType.initial);
@@ -179,7 +160,7 @@ final class WorkerState extends StateMachineState<WorkType> {
 
 final class WorkerErrorState extends WorkerState with ErrorState {
   const WorkerErrorState(this.exception, this.stackTrace)
-    : super(WorkType.error);
+      : super(WorkType.error);
 
   @override
   final Exception exception;
@@ -188,26 +169,17 @@ final class WorkerErrorState extends WorkerState with ErrorState {
   final StackTrace stackTrace;
 }
 
-class WorkerMachine
-    extends
-        StateMachine<
-          WorkerEvent,
-          WorkerState,
-          StateMachineEvent,
-          StateMachineState,
-          MyStateMachineManager
-        > {
+class WorkerMachine extends StateMachine<WorkerEvent, WorkerState,
+    StateMachineEvent, StateMachineState, MyStateMachineManager> {
   WorkerMachine(MyStateMachineManager manager) : super(manager, type);
 
-  static const type =
-      StateMachineToken<
-        WorkerEvent,
-        WorkerState,
-        StateMachineEvent,
-        StateMachineState,
-        MyStateMachineManager,
-        WorkerMachine
-      >();
+  static const type = StateMachineToken<
+      WorkerEvent,
+      WorkerState,
+      StateMachineEvent,
+      StateMachineState,
+      MyStateMachineManager,
+      WorkerMachine>();
 
   @override
   WorkerState get initialState => const WorkerState(WorkType.initial);
@@ -238,15 +210,10 @@ class WorkerMachine
   String get runtimeTypeName => 'WorkerMachine';
 }
 
-class MyStateMachineManager
-    extends
-        StateMachineManager<
-          StateMachineEvent,
-          StateMachineState,
-          MyStateMachineManager
-        > {
+class MyStateMachineManager extends StateMachineManager<StateMachineEvent,
+    StateMachineState, MyStateMachineManager> {
   MyStateMachineManager(DependencyManager dependencyManager)
-    : super(_builders, dependencyManager);
+      : super(_builders, dependencyManager);
 
   Future<void> delegateWork() async {
     dispatch(const WorkerEvent(WorkType.doWork)).ignore();

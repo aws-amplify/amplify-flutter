@@ -16,7 +16,7 @@ import 'package:amplify_core/amplify_core.dart';
 class EventCreator {
   /// {@macro amplify_analytics_pinpoint_dart.event_creator}
   EventCreator({DeviceContextInfo? deviceContextInfo})
-    : _deviceContextInfo = deviceContextInfo;
+      : _deviceContextInfo = deviceContextInfo;
 
   static const int _maxEventTypeLength = 50;
 
@@ -38,15 +38,14 @@ class EventCreator {
       );
     }
 
-    final eventBuilder =
-        EventBuilder()
-          ..eventType = eventType
-          ..sdkName = 'amplify-flutter'
-          ..clientSdkVersion = packageVersion
-          ..timestamp = DateTime.now().toUtc().toIso8601String()
-          ..appTitle = _deviceContextInfo?.appName
-          ..appPackageName = _deviceContextInfo?.appPackageName
-          ..appVersionCode = _deviceContextInfo?.appVersion;
+    final eventBuilder = EventBuilder()
+      ..eventType = eventType
+      ..sdkName = 'amplify-flutter'
+      ..clientSdkVersion = packageVersion
+      ..timestamp = DateTime.now().toUtc().toIso8601String()
+      ..appTitle = _deviceContextInfo?.appName
+      ..appPackageName = _deviceContextInfo?.appPackageName
+      ..appVersionCode = _deviceContextInfo?.appVersion;
     if (session != null) eventBuilder.session.replace(session);
 
     eventBuilder

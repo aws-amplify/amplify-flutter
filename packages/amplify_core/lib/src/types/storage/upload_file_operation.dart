@@ -9,9 +9,8 @@ import 'package:amplify_core/src/types/storage/base/storage_operation.dart';
 /// Presents a upload file operation.
 /// {@endtemplate}
 abstract class StorageUploadFileOperation<
-  Request extends StorageUploadFileRequest,
-  Result extends StorageUploadFileResult
->
+        Request extends StorageUploadFileRequest,
+        Result extends StorageUploadFileResult>
     extends StorageOperation<Request, Result>
     implements StorageResumableOperation, StorageCancelableOperation {
   /// {@macro amplify_core.storage.upload_file_operation}

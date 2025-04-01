@@ -39,8 +39,7 @@ Future<void> main(List<String> args) async {
 
   final parsedArgs = argParser.parse(args);
 
-  final bucket =
-      parsedArgs[bucketArg] as String? ??
+  final bucket = parsedArgs[bucketArg] as String? ??
       'mybucket-${Random().nextInt(1 << 30)}';
   final region = parsedArgs[regionArg] as String;
   final filename = parsedArgs.rest.singleOrNull;

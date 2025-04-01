@@ -34,8 +34,8 @@ void main() {
               expectedConfig.toJson(),
               equals(
                 // ignore: avoid_dynamic_calls
-                (expectedJson['auth']
-                    as Map)['plugins']['awsCognitoAuthPlugin']['Auth']['Default'],
+                (expectedJson['auth'] as Map)['plugins']['awsCognitoAuthPlugin']
+                    ['Auth']['Default'],
               ),
             );
           });

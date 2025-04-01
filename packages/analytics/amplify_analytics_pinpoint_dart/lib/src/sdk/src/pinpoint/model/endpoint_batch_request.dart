@@ -47,17 +47,17 @@ abstract class EndpointBatchRequest
 class EndpointBatchRequestRestJson1Serializer
     extends _i3.StructuredSmithySerializer<EndpointBatchRequest> {
   const EndpointBatchRequestRestJson1Serializer()
-    : super('EndpointBatchRequest');
+      : super('EndpointBatchRequest');
 
   @override
   Iterable<Type> get types => const [
-    EndpointBatchRequest,
-    _$EndpointBatchRequest,
-  ];
+        EndpointBatchRequest,
+        _$EndpointBatchRequest,
+      ];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   EndpointBatchRequest deserialize(
     Serializers serializers,
@@ -77,12 +77,11 @@ class EndpointBatchRequestRestJson1Serializer
         case 'Item':
           result.item.replace(
             (serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(_i2.BuiltList, [
-                    FullType(EndpointBatchItem),
-                  ]),
-                )
-                as _i2.BuiltList<EndpointBatchItem>),
+              value,
+              specifiedType: const FullType(_i2.BuiltList, [
+                FullType(EndpointBatchItem),
+              ]),
+            ) as _i2.BuiltList<EndpointBatchItem>),
           );
       }
     }

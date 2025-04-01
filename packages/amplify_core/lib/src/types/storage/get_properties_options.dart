@@ -28,9 +28,9 @@ class StorageGetPropertiesOptions
 
   @override
   Map<String, Object?> toJson() => {
-    'pluginOptions': pluginOptions?.toJson(),
-    'bucket': bucket?.toJson(),
-  };
+        'pluginOptions': pluginOptions?.toJson(),
+        'bucket': bucket?.toJson(),
+      };
 }
 
 /// {@template amplify_core.storage.download_get_properties_plugin_options}

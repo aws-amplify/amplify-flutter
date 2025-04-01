@@ -16,15 +16,17 @@ class _$InAppCampaignSchedule extends InAppCampaignSchedule {
 
   factory _$InAppCampaignSchedule([
     void Function(InAppCampaignScheduleBuilder)? updates,
-  ]) => (new InAppCampaignScheduleBuilder()..update(updates))._build();
+  ]) =>
+      (new InAppCampaignScheduleBuilder()..update(updates))._build();
 
   _$InAppCampaignSchedule._({this.endDate, this.eventFilter, this.quietTime})
-    : super._();
+      : super._();
 
   @override
   InAppCampaignSchedule rebuild(
     void Function(InAppCampaignScheduleBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InAppCampaignScheduleBuilder toBuilder() =>
@@ -99,8 +101,7 @@ class InAppCampaignScheduleBuilder
   _$InAppCampaignSchedule _build() {
     _$InAppCampaignSchedule _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$InAppCampaignSchedule._(
             endDate: endDate,
             eventFilter: _eventFilter?.build(),

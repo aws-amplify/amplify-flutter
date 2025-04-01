@@ -28,9 +28,9 @@ class StorageRemoveManyOptions
 
   @override
   Map<String, Object?> toJson() => {
-    'pluginOptions': pluginOptions?.toJson(),
-    'bucket': bucket?.toJson(),
-  };
+        'pluginOptions': pluginOptions?.toJson(),
+        'bucket': bucket?.toJson(),
+      };
 }
 
 /// {@template amplify_core.storage.remove_many_plugin_options}

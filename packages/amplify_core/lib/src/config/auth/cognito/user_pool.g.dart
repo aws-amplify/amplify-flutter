@@ -10,35 +10,36 @@ part of 'user_pool.dart';
 
 CognitoUserPoolConfig _$CognitoUserPoolConfigFromJson(
   Map<String, dynamic> json,
-) => $checkedCreate(
-  'CognitoUserPoolConfig',
-  json,
-  ($checkedConvert) {
-    final val = CognitoUserPoolConfig(
-      poolId: $checkedConvert('PoolId', (v) => v as String),
-      appClientId: $checkedConvert('AppClientId', (v) => v as String),
-      appClientSecret: $checkedConvert('AppClientSecret', (v) => v as String?),
-      region: $checkedConvert('Region', (v) => v as String),
-      hostedUI: $checkedConvert(
-        'HostedUI',
-        (v) =>
-            v == null
+) =>
+    $checkedCreate(
+      'CognitoUserPoolConfig',
+      json,
+      ($checkedConvert) {
+        final val = CognitoUserPoolConfig(
+          poolId: $checkedConvert('PoolId', (v) => v as String),
+          appClientId: $checkedConvert('AppClientId', (v) => v as String),
+          appClientSecret:
+              $checkedConvert('AppClientSecret', (v) => v as String?),
+          region: $checkedConvert('Region', (v) => v as String),
+          hostedUI: $checkedConvert(
+            'HostedUI',
+            (v) => v == null
                 ? null
                 : CognitoOAuthConfig.fromJson(v as Map<String, dynamic>),
-      ),
-      endpoint: $checkedConvert('Endpoint', (v) => v as String?),
+          ),
+          endpoint: $checkedConvert('Endpoint', (v) => v as String?),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'poolId': 'PoolId',
+        'appClientId': 'AppClientId',
+        'appClientSecret': 'AppClientSecret',
+        'region': 'Region',
+        'hostedUI': 'HostedUI',
+        'endpoint': 'Endpoint',
+      },
     );
-    return val;
-  },
-  fieldKeyMap: const {
-    'poolId': 'PoolId',
-    'appClientId': 'AppClientId',
-    'appClientSecret': 'AppClientSecret',
-    'region': 'Region',
-    'hostedUI': 'HostedUI',
-    'endpoint': 'Endpoint',
-  },
-);
 
 Map<String, dynamic> _$CognitoUserPoolConfigToJson(
   CognitoUserPoolConfig instance,

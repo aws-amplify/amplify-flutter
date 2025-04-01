@@ -14,7 +14,8 @@ class _$EventItemResponse extends EventItemResponse {
 
   factory _$EventItemResponse([
     void Function(EventItemResponseBuilder)? updates,
-  ]) => (new EventItemResponseBuilder()..update(updates))._build();
+  ]) =>
+      (new EventItemResponseBuilder()..update(updates))._build();
 
   _$EventItemResponse._({this.message, this.statusCode}) : super._();
 
@@ -83,8 +84,7 @@ class EventItemResponseBuilder
   EventItemResponse build() => _build();
 
   _$EventItemResponse _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$EventItemResponse._(message: message, statusCode: statusCode);
     replace(_$result);
     return _$result;

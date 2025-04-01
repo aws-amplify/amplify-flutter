@@ -33,14 +33,16 @@ void main() {
       bucketName: defaultBucketOutputs.bucketName,
     );
 
-    test('should return same bucket info when storage bucket is created from'
+    test(
+        'should return same bucket info when storage bucket is created from'
         ' a bucket info', () {
       final storageBucket = StorageBucket.fromBucketInfo(defaultBucketInfo);
       final bucketInfo = storageBucket.resolveBucketInfo(null);
       expect(bucketInfo, defaultBucketInfo);
     });
 
-    test('should return bucket info when storage bucket is created from'
+    test(
+        'should return bucket info when storage bucket is created from'
         ' buckets in storage outputs', () {
       final storageBucket = StorageBucket.fromOutputs(secondBucketOutputs.name);
       final bucketInfo = storageBucket.resolveBucketInfo(
@@ -49,7 +51,8 @@ void main() {
       expect(bucketInfo, secondBucketInfo);
     });
 
-    test('should throw assertion error when storage bucket is created from'
+    test(
+        'should throw assertion error when storage bucket is created from'
         ' outputs and storage outputs is null', () {
       final storageBucket = StorageBucket.fromOutputs(
         defaultBucketOutputs.name,

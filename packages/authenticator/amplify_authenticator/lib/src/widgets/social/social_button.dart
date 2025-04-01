@@ -35,8 +35,7 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
             context,
             ButtonResolverKey.signInWith(provider),
           );
-          final style =
-              Theme.of(
+          final style = Theme.of(
                 context,
               ).outlinedButtonTheme.style?.textStyle?.resolve({}) ??
               Theme.of(context).textTheme.labelLarge;
@@ -79,19 +78,19 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
 
   /// A social sign-in button for Facebook.
   const SocialSignInButton.facebook({Key? key})
-    : this(key: key, provider: AuthProvider.facebook);
+      : this(key: key, provider: AuthProvider.facebook);
 
   /// A social sign-in button for Google.
   const SocialSignInButton.google({Key? key})
-    : this(key: key, provider: AuthProvider.google);
+      : this(key: key, provider: AuthProvider.google);
 
   /// A social sign-in button for Amazon.
   const SocialSignInButton.amazon({Key? key})
-    : this(key: key, provider: AuthProvider.amazon);
+      : this(key: key, provider: AuthProvider.amazon);
 
   /// A social sign-in button for Apple.
   const SocialSignInButton.apple({Key? key})
-    : this(key: key, provider: AuthProvider.apple);
+      : this(key: key, provider: AuthProvider.apple);
 
   /// The Cognito social sign-in provider.
   final AuthProvider provider;
@@ -198,20 +197,18 @@ class _SocialSignInButtonState
       child: OutlinedButton(
         focusNode: focusNode,
         style: ButtonStyle(foregroundColor: getButtonForegroundColor(context)),
-        onPressed:
-            state.isBusy
-                ? null
-                : () => state.signInWithProvider(widget.provider),
+        onPressed: state.isBusy
+            ? null
+            : () => state.signInWithProvider(widget.provider),
         child: LayoutBuilder(
           builder: (context, constraints) {
             final padding = calculatePadding(constraints);
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: padding),
               child: Row(
-                mainAxisAlignment:
-                    padding == 0
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.start,
+                mainAxisAlignment: padding == 0
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.start,
                 children: [
                   SizedBox.square(
                     dimension: logoSize,
@@ -248,7 +245,7 @@ extension on AuthProvider {
   /// Used to provide additional padding for the logos which don't have
   /// padding built into their vector image.
   EdgeInsets get logoInsets => switch (this) {
-    AuthProvider.google => const EdgeInsets.all(8),
-    _ => EdgeInsets.zero,
-  };
+        AuthProvider.google => const EdgeInsets.all(8),
+        _ => EdgeInsets.zero,
+      };
 }

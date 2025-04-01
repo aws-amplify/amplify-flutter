@@ -28,9 +28,9 @@ class StorageDownloadFileOptions
 
   @override
   Map<String, Object?> toJson() => {
-    'pluginOptions': pluginOptions?.toJson(),
-    'bucket': bucket?.toJson(),
-  };
+        'pluginOptions': pluginOptions?.toJson(),
+        'bucket': bucket?.toJson(),
+      };
 }
 
 /// {@template amplify_core.storage.download_file_plugin_options}

@@ -30,9 +30,10 @@ abstract class PutEventsResponse
   factory PutEventsResponse.fromResponse(
     EventsResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) => PutEventsResponse.build((b) {
-    b.eventsResponse.replace(payload);
-  });
+  ) =>
+      PutEventsResponse.build((b) {
+        b.eventsResponse.replace(payload);
+      });
 
   static const List<_i2.SmithySerializer<EventsResponse>> serializers = [
     PutEventsResponseRestJson1Serializer(),
@@ -60,8 +61,8 @@ class PutEventsResponseRestJson1Serializer
   Iterable<Type> get types => const [PutEventsResponse, _$PutEventsResponse];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   EventsResponse deserialize(
     Serializers serializers,
@@ -69,10 +70,9 @@ class PutEventsResponseRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-          serialized,
-          specifiedType: const FullType(EventsResponse),
-        )
-        as EventsResponse);
+      serialized,
+      specifiedType: const FullType(EventsResponse),
+    ) as EventsResponse);
   }
 
   @override

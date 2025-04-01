@@ -10,27 +10,27 @@ part of 'auth_next_update_attribute_step.dart';
 
 AuthNextUpdateAttributeStep _$AuthNextUpdateAttributeStepFromJson(
   Map<String, dynamic> json,
-) => $checkedCreate('AuthNextUpdateAttributeStep', json, ($checkedConvert) {
-  final val = AuthNextUpdateAttributeStep(
-    additionalInfo: $checkedConvert(
-      'additionalInfo',
-      (v) =>
-          (v as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as String)),
-    ),
-    codeDeliveryDetails: $checkedConvert(
-      'codeDeliveryDetails',
-      (v) =>
-          v == null
+) =>
+    $checkedCreate('AuthNextUpdateAttributeStep', json, ($checkedConvert) {
+      final val = AuthNextUpdateAttributeStep(
+        additionalInfo: $checkedConvert(
+          'additionalInfo',
+          (v) => (v as Map<String, dynamic>?)
+              ?.map((k, e) => MapEntry(k, e as String)),
+        ),
+        codeDeliveryDetails: $checkedConvert(
+          'codeDeliveryDetails',
+          (v) => v == null
               ? null
               : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
-    ),
-    updateAttributeStep: $checkedConvert(
-      'updateAttributeStep',
-      (v) => $enumDecode(_$AuthUpdateAttributeStepEnumMap, v),
-    ),
-  );
-  return val;
-});
+        ),
+        updateAttributeStep: $checkedConvert(
+          'updateAttributeStep',
+          (v) => $enumDecode(_$AuthUpdateAttributeStepEnumMap, v),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$AuthNextUpdateAttributeStepToJson(
   AuthNextUpdateAttributeStep instance,

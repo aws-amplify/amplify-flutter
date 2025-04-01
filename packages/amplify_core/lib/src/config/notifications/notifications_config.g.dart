@@ -21,6 +21,7 @@ NotificationsConfig _$NotificationsConfigFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$NotificationsConfigToJson(
   NotificationsConfig instance,
-) => <String, dynamic>{
-  'plugins': instance.plugins.map((k, e) => MapEntry(k, e.toJson())),
-};
+) =>
+    <String, dynamic>{
+      'plugins': instance.plugins.map((k, e) => MapEntry(k, e.toJson())),
+    };

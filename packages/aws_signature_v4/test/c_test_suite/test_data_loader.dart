@@ -74,9 +74,10 @@ Future<List<SignerTest>> loadAllTests() async {
     // since its data is used to parse other files accordingly, namely
     // `request.txt`.
     final testFiles =
-        testCaseDir.listSync().map((ent) => File(ent.path)).toList()..sort(
-          (a, b) => path.basename(a.path).compareTo(path.basename(b.path)),
-        );
+        testCaseDir.listSync().map((ent) => File(ent.path)).toList()
+          ..sort(
+            (a, b) => path.basename(a.path).compareTo(path.basename(b.path)),
+          );
 
     // Some folders do not include all the necessary files. Not sure why - maybe
     // they are borrowing the rest of the files from other folders, but it's not

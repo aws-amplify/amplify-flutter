@@ -16,15 +16,17 @@ class _$InternalServerErrorException extends InternalServerErrorException {
 
   factory _$InternalServerErrorException([
     void Function(InternalServerErrorExceptionBuilder)? updates,
-  ]) => (new InternalServerErrorExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new InternalServerErrorExceptionBuilder()..update(updates))._build();
 
   _$InternalServerErrorException._({this.message, this.requestId, this.headers})
-    : super._();
+      : super._();
 
   @override
   InternalServerErrorException rebuild(
     void Function(InternalServerErrorExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InternalServerErrorExceptionBuilder toBuilder() =>
@@ -50,10 +52,8 @@ class _$InternalServerErrorException extends InternalServerErrorException {
 
 class InternalServerErrorExceptionBuilder
     implements
-        Builder<
-          InternalServerErrorException,
-          InternalServerErrorExceptionBuilder
-        > {
+        Builder<InternalServerErrorException,
+            InternalServerErrorExceptionBuilder> {
   _$InternalServerErrorException? _$v;
 
   String? _message;
@@ -96,8 +96,7 @@ class InternalServerErrorExceptionBuilder
   InternalServerErrorException build() => _build();
 
   _$InternalServerErrorException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$InternalServerErrorException._(
           message: message,
           requestId: requestId,

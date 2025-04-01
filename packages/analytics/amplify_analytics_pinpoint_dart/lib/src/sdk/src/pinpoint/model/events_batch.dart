@@ -44,10 +44,9 @@ abstract class EventsBatch
   List<Object?> get props => [endpoint, events];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EventsBatch')
-          ..add('endpoint', endpoint)
-          ..add('events', events);
+    final helper = newBuiltValueToStringHelper('EventsBatch')
+      ..add('endpoint', endpoint)
+      ..add('events', events);
     return helper.toString();
   }
 }
@@ -60,8 +59,8 @@ class EventsBatchRestJson1Serializer
   Iterable<Type> get types => const [EventsBatch, _$EventsBatch];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   EventsBatch deserialize(
     Serializers serializers,
@@ -81,21 +80,19 @@ class EventsBatchRestJson1Serializer
         case 'Endpoint':
           result.endpoint.replace(
             (serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(PublicEndpoint),
-                )
-                as PublicEndpoint),
+              value,
+              specifiedType: const FullType(PublicEndpoint),
+            ) as PublicEndpoint),
           );
         case 'Events':
           result.events.replace(
             (serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(_i2.BuiltMap, [
-                    FullType(String),
-                    FullType(Event),
-                  ]),
-                )
-                as _i2.BuiltMap<String, Event>),
+              value,
+              specifiedType: const FullType(_i2.BuiltMap, [
+                FullType(String),
+                FullType(Event),
+              ]),
+            ) as _i2.BuiltMap<String, Event>),
           );
       }
     }

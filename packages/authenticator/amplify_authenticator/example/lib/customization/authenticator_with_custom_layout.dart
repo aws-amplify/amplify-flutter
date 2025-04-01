@@ -124,13 +124,12 @@ class SignUpView extends StatelessWidget {
                 // custom form validation will prevent sign up if the checkbox is not
                 // checked, and a custom error message will be displayed.
                 TermsAndConditionsCheckBox(
-                  onChanged:
-                      (value) => state.setCustomAttribute(
-                        const CognitoUserAttributeKey.custom(
-                          'terms-and-conditions',
-                        ),
-                        value.toString(),
-                      ),
+                  onChanged: (value) => state.setCustomAttribute(
+                    const CognitoUserAttributeKey.custom(
+                      'terms-and-conditions',
+                    ),
+                    value.toString(),
+                  ),
                 ),
 
                 // prebuilt sign up button from amplify_authenticator package
@@ -192,58 +191,55 @@ class NavigateToSignInButton extends StatelessWidget {
 
 class TermsAndConditionsCheckBox extends FormField<bool> {
   TermsAndConditionsCheckBox({super.key, required this.onChanged})
-    : super(
-        validator: (value) {
-          if (value != true) {
-            return 'You must agree to the terms and conditions';
-          }
-          return null;
-        },
-        initialValue: false,
-        builder: (FormFieldState<bool> state) {
-          return CheckboxListTile(
-            dense: true,
-            title: Row(
-              children: [
-                const Text('I agree to the'),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
+      : super(
+          validator: (value) {
+            if (value != true) {
+              return 'You must agree to the terms and conditions';
+            }
+            return null;
+          },
+          initialValue: false,
+          builder: (FormFieldState<bool> state) {
+            return CheckboxListTile(
+              dense: true,
+              title: Row(
+                children: [
+                  const Text('I agree to the'),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                    ),
+                    onPressed: () {
+                      Navigator.of(state.context).push(
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const TermsAndConditionsView(),
+                        ),
+                      );
+                    },
+                    child: const Text('terms and conditions'),
                   ),
-                  onPressed: () {
-                    Navigator.of(state.context).push(
-                      MaterialPageRoute<void>(
-                        builder:
-                            (BuildContext context) =>
-                                const TermsAndConditionsView(),
+                ],
+              ),
+              value: state.value,
+              onChanged: (value) {
+                onChanged(value);
+                state.didChange(value);
+              },
+              subtitle: state.hasError
+                  ? Builder(
+                      builder: (BuildContext context) => Text(
+                        state.errorText!,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.error,
+                        ),
                       ),
-                    );
-                  },
-                  child: const Text('terms and conditions'),
-                ),
-              ],
-            ),
-            value: state.value,
-            onChanged: (value) {
-              onChanged(value);
-              state.didChange(value);
-            },
-            subtitle:
-                state.hasError
-                    ? Builder(
-                      builder:
-                          (BuildContext context) => Text(
-                            state.errorText!,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                          ),
                     )
-                    : null,
-            controlAffinity: ListTileControlAffinity.leading,
-          );
-        },
-      );
+                  : null,
+              controlAffinity: ListTileControlAffinity.leading,
+            );
+          },
+        );
   final void Function(bool?) onChanged;
 }
 

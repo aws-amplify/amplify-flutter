@@ -340,18 +340,18 @@ class Authenticator extends StatefulWidget {
   /// );
   /// ```
   static TransitionBuilder builder() => (BuildContext context, Widget? child) {
-    if (child == null) {
-      throw FlutterError.fromParts([
-        ErrorSummary('No Navigator or Router provided.'),
-        ErrorSpacer(),
-        ErrorDescription(
-          'Did you include a home Widget or provide routes to your MaterialApp?',
-        ),
-        ErrorSpacer(),
-      ]);
-    }
-    return _AuthenticatorBody(child: child);
-  };
+        if (child == null) {
+          throw FlutterError.fromParts([
+            ErrorSummary('No Navigator or Router provided.'),
+            ErrorSpacer(),
+            ErrorDescription(
+              'Did you include a home Widget or provide routes to your MaterialApp?',
+            ),
+            ErrorSpacer(),
+          ]);
+        }
+        return _AuthenticatorBody(child: child);
+      };
 
   // Padding around each authenticator view
   final EdgeInsets padding;
@@ -513,8 +513,7 @@ class _AuthenticatorState extends State<Authenticator> {
   void initState() {
     super.initState();
     // ignore: invalid_use_of_visible_for_testing_member
-    _stateMachineBloc =
-        widget.authBlocOverride ??
+    _stateMachineBloc = widget.authBlocOverride ??
         (StateMachineBloc(
           authService: _authService,
           preferPrivateSession: widget.preferPrivateSession,
@@ -579,10 +578,9 @@ class _AuthenticatorState extends State<Authenticator> {
       final screenSize = MediaQuery.of(scaffoldMessengerContext).size;
       final isDesktop =
           screenSize.width > AuthenticatorContainerConstants.smallView;
-      location =
-          isDesktop
-              ? ExceptionBannerLocation.top
-              : ExceptionBannerLocation.bottom;
+      location = isDesktop
+          ? ExceptionBannerLocation.top
+          : ExceptionBannerLocation.bottom;
     }
     if (location == ExceptionBannerLocation.top) {
       scaffoldMessengerState
@@ -695,7 +693,7 @@ class _AuthenticatorState extends State<Authenticator> {
               child: InheritedForms(
                 confirmSignInNewPasswordForm:
                     widget.confirmSignInNewPasswordForm ??
-                    ConfirmSignInNewPasswordForm(),
+                        ConfirmSignInNewPasswordForm(),
                 resetPasswordForm: ResetPasswordForm(),
                 confirmResetPasswordForm: const ConfirmResetPasswordForm(),
                 signInForm: widget.signInForm ?? SignInForm(),
@@ -858,10 +856,9 @@ class AuthenticatedView extends StatelessWidget {
             key: _AuthenticatorState.scaffoldMessengerKey,
             child: Scaffold(
               body: SizedBox.expand(
-                child:
-                    child is AuthenticatorScreen
-                        ? SingleChildScrollView(child: child)
-                        : child,
+                child: child is AuthenticatorScreen
+                    ? SingleChildScrollView(child: child)
+                    : child,
               ),
             ),
           );

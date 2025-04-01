@@ -127,8 +127,7 @@ BucketUpload? getBucketUpload() {
   final bucketName = bucketNameEl.value;
   final region = regionEl.value;
   final files = fileEl.files;
-  final hasInvalidProps =
-      bucketName == null ||
+  final hasInvalidProps = bucketName == null ||
       bucketName.isEmpty ||
       region == null ||
       region.isEmpty ||

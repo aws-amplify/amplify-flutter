@@ -45,10 +45,9 @@ abstract class MetricDimension
   List<Object?> get props => [comparisonOperator, value];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MetricDimension')
-          ..add('comparisonOperator', comparisonOperator)
-          ..add('value', value);
+    final helper = newBuiltValueToStringHelper('MetricDimension')
+      ..add('comparisonOperator', comparisonOperator)
+      ..add('value', value);
     return helper.toString();
   }
 }
@@ -61,8 +60,8 @@ class MetricDimensionRestJson1Serializer
   Iterable<Type> get types => const [MetricDimension, _$MetricDimension];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   MetricDimension deserialize(
     Serializers serializers,
@@ -80,19 +79,15 @@ class MetricDimensionRestJson1Serializer
       }
       switch (key) {
         case 'ComparisonOperator':
-          result.comparisonOperator =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String);
+          result.comparisonOperator = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Value':
-          result.value =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(double),
-                  )
-                  as double);
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 

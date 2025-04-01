@@ -16,7 +16,8 @@ class _$InAppMessageBodyConfig extends InAppMessageBodyConfig {
 
   factory _$InAppMessageBodyConfig([
     void Function(InAppMessageBodyConfigBuilder)? updates,
-  ]) => (new InAppMessageBodyConfigBuilder()..update(updates))._build();
+  ]) =>
+      (new InAppMessageBodyConfigBuilder()..update(updates))._build();
 
   _$InAppMessageBodyConfig._({
     required this.alignment,
@@ -43,7 +44,8 @@ class _$InAppMessageBodyConfig extends InAppMessageBodyConfig {
   @override
   InAppMessageBodyConfig rebuild(
     void Function(InAppMessageBodyConfigBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageBodyConfigBuilder toBuilder() =>
@@ -113,8 +115,7 @@ class InAppMessageBodyConfigBuilder
   InAppMessageBodyConfig build() => _build();
 
   _$InAppMessageBodyConfig _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$InAppMessageBodyConfig._(
           alignment: BuiltValueNullFieldError.checkNotNull(
             alignment,

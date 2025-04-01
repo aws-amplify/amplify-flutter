@@ -11,10 +11,10 @@ void main() {
   const bodyHash =
       '44ce7dd67c959e0d3524ffac1771dfbba87d2b6b4b4e99e42034a8b803f8b072';
   AWSBaseHttpRequest createRequest() => AWSHttpRequest(
-    method: AWSHttpMethod.put,
-    uri: Uri.https('examplebucket.s3.amazonaws.com', r'/test$file.text'),
-    body: 'Welcome to Amazon S3.'.codeUnits,
-  );
+        method: AWSHttpMethod.put,
+        uri: Uri.https('examplebucket.s3.amazonaws.com', r'/test$file.text'),
+        body: 'Welcome to Amazon S3.'.codeUnits,
+      );
 
   Future<void> expectHash({
     required bool signPayload,
@@ -86,7 +86,8 @@ void main() {
 
       group('sign', () {
         for (final serviceConfiguration in serviceConfigurations) {
-          test('chunked=${serviceConfiguration.chunked}, '
+          test(
+              'chunked=${serviceConfiguration.chunked}, '
               'signPayload=${serviceConfiguration.signBody}', () async {
             final signedRequest = await signer.sign(
               request,
@@ -100,7 +101,8 @@ void main() {
 
       group('signSync', () {
         for (final serviceConfiguration in serviceConfigurations) {
-          test('chunked=${serviceConfiguration.chunked}, '
+          test(
+              'chunked=${serviceConfiguration.chunked}, '
               'signPayload=${serviceConfiguration.signBody}', () {
             final signedRequest = signer.signSync(
               request,

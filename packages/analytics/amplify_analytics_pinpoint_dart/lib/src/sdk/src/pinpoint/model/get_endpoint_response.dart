@@ -30,9 +30,10 @@ abstract class GetEndpointResponse
   factory GetEndpointResponse.fromResponse(
     EndpointResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) => GetEndpointResponse.build((b) {
-    b.endpointResponse.replace(payload);
-  });
+  ) =>
+      GetEndpointResponse.build((b) {
+        b.endpointResponse.replace(payload);
+      });
 
   static const List<_i2.SmithySerializer<EndpointResponse>> serializers = [
     GetEndpointResponseRestJson1Serializer(),
@@ -58,13 +59,13 @@ class GetEndpointResponseRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-    GetEndpointResponse,
-    _$GetEndpointResponse,
-  ];
+        GetEndpointResponse,
+        _$GetEndpointResponse,
+      ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   EndpointResponse deserialize(
     Serializers serializers,
@@ -72,10 +73,9 @@ class GetEndpointResponseRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-          serialized,
-          specifiedType: const FullType(EndpointResponse),
-        )
-        as EndpointResponse);
+      serialized,
+      specifiedType: const FullType(EndpointResponse),
+    ) as EndpointResponse);
   }
 
   @override

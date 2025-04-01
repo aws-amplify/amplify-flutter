@@ -16,15 +16,17 @@ class _$MethodNotAllowedException extends MethodNotAllowedException {
 
   factory _$MethodNotAllowedException([
     void Function(MethodNotAllowedExceptionBuilder)? updates,
-  ]) => (new MethodNotAllowedExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new MethodNotAllowedExceptionBuilder()..update(updates))._build();
 
   _$MethodNotAllowedException._({this.message, this.requestId, this.headers})
-    : super._();
+      : super._();
 
   @override
   MethodNotAllowedException rebuild(
     void Function(MethodNotAllowedExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   MethodNotAllowedExceptionBuilder toBuilder() =>
@@ -93,8 +95,7 @@ class MethodNotAllowedExceptionBuilder
   MethodNotAllowedException build() => _build();
 
   _$MethodNotAllowedException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$MethodNotAllowedException._(
           message: message,
           requestId: requestId,

@@ -36,10 +36,9 @@ class CognitoUserPoolConfig
       appClientId: authOutputs.userPoolClientId!,
       appClientSecret: authOutputs.appClientSecret,
       region: authOutputs.awsRegion,
-      hostedUI:
-          authOutputs.oauth == null
-              ? null
-              : CognitoOAuthConfig.fromAuthOutputs(authOutputs),
+      hostedUI: authOutputs.oauth == null
+          ? null
+          : CognitoOAuthConfig.fromAuthOutputs(authOutputs),
     );
   }
 
@@ -54,13 +53,13 @@ class CognitoUserPoolConfig
 
   @override
   List<Object?> get props => [
-    poolId,
-    appClientId,
-    appClientSecret,
-    region,
-    hostedUI,
-    endpoint,
-  ];
+        poolId,
+        appClientId,
+        appClientSecret,
+        region,
+        hostedUI,
+        endpoint,
+      ];
 
   CognitoUserPoolConfig copyWith({
     String? poolId,

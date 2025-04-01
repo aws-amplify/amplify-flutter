@@ -7,10 +7,8 @@ import 'package:amplify_core/src/types/storage/base/storage_operation.dart';
 /// {@template amplify_core.storage.get_url_operation}
 /// Presents a storage get url operation.
 /// {@endtemplate}
-class StorageGetUrlOperation<
-  Request extends StorageGetUrlRequest,
-  Result extends StorageGetUrlResult
->
+class StorageGetUrlOperation<Request extends StorageGetUrlRequest,
+        Result extends StorageGetUrlResult>
     extends StorageOperation<Request, Result> {
   /// {@macro amplify_core.storage.get_url_operation}
   StorageGetUrlOperation({required super.request, required super.result});

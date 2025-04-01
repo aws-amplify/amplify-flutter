@@ -51,8 +51,8 @@ class EventsRequestRestJson1Serializer
   Iterable<Type> get types => const [EventsRequest, _$EventsRequest];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   EventsRequest deserialize(
     Serializers serializers,
@@ -72,13 +72,12 @@ class EventsRequestRestJson1Serializer
         case 'BatchItem':
           result.batchItem.replace(
             (serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(_i2.BuiltMap, [
-                    FullType(String),
-                    FullType(EventsBatch),
-                  ]),
-                )
-                as _i2.BuiltMap<String, EventsBatch>),
+              value,
+              specifiedType: const FullType(_i2.BuiltMap, [
+                FullType(String),
+                FullType(EventsBatch),
+              ]),
+            ) as _i2.BuiltMap<String, EventsBatch>),
           );
       }
     }
