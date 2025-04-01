@@ -12,7 +12,6 @@ import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
-import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/config/amplify_outputs/auth/identity_provider.dart';
 // ignore: implementation_imports
