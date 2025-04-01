@@ -14,7 +14,7 @@ class TotpSetupDetails
         AWSDebuggable {
   /// {@macro amplify_core.auth.totp_setup_details}
   const TotpSetupDetails({required this.sharedSecret, required String username})
-    : _username = username;
+      : _username = username;
 
   /// {@macro amplify_core.auth.totp_setup_details}
   factory TotpSetupDetails.fromJson(Map<String, Object?> json) {
@@ -37,11 +37,12 @@ class TotpSetupDetails
   /// authenticator app. Optionally, pass an [accountName] which will be set to
   /// the user's username by default.
   Uri getSetupUri({required String appName, String? accountName}) => Uri(
-    scheme: 'otpauth',
-    host: 'totp',
-    path: '/$appName:${accountName ?? _username}',
-    query: _encodeQueryParameters({'secret': sharedSecret, 'issuer': appName}),
-  );
+        scheme: 'otpauth',
+        host: 'totp',
+        path: '/$appName:${accountName ?? _username}',
+        query:
+            _encodeQueryParameters({'secret': sharedSecret, 'issuer': appName}),
+      );
 
   /// Encodes query parameters to match path encoding on non-http URIs
   /// so that Authenticator apps can correctly match the `appName` and
@@ -65,7 +66,7 @@ class TotpSetupDetails
 
   @override
   Map<String, Object?> toJson() => {
-    'sharedSecret': sharedSecret,
-    'username': _username,
-  };
+        'sharedSecret': sharedSecret,
+        'username': _username,
+      };
 }

@@ -75,27 +75,26 @@ abstract class InAppMessageCampaign
   String? get treatmentId;
   @override
   List<Object?> get props => [
-    campaignId,
-    dailyCap,
-    inAppMessage,
-    priority,
-    schedule,
-    sessionCap,
-    totalCap,
-    treatmentId,
-  ];
+        campaignId,
+        dailyCap,
+        inAppMessage,
+        priority,
+        schedule,
+        sessionCap,
+        totalCap,
+        treatmentId,
+      ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InAppMessageCampaign')
-          ..add('campaignId', campaignId)
-          ..add('dailyCap', dailyCap)
-          ..add('inAppMessage', inAppMessage)
-          ..add('priority', priority)
-          ..add('schedule', schedule)
-          ..add('sessionCap', sessionCap)
-          ..add('totalCap', totalCap)
-          ..add('treatmentId', treatmentId);
+    final helper = newBuiltValueToStringHelper('InAppMessageCampaign')
+      ..add('campaignId', campaignId)
+      ..add('dailyCap', dailyCap)
+      ..add('inAppMessage', inAppMessage)
+      ..add('priority', priority)
+      ..add('schedule', schedule)
+      ..add('sessionCap', sessionCap)
+      ..add('totalCap', totalCap)
+      ..add('treatmentId', treatmentId);
     return helper.toString();
   }
 }
@@ -103,17 +102,17 @@ abstract class InAppMessageCampaign
 class InAppMessageCampaignRestJson1Serializer
     extends _i2.StructuredSmithySerializer<InAppMessageCampaign> {
   const InAppMessageCampaignRestJson1Serializer()
-    : super('InAppMessageCampaign');
+      : super('InAppMessageCampaign');
 
   @override
   Iterable<Type> get types => const [
-    InAppMessageCampaign,
-    _$InAppMessageCampaign,
-  ];
+        InAppMessageCampaign,
+        _$InAppMessageCampaign,
+      ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   InAppMessageCampaign deserialize(
     Serializers serializers,
@@ -131,63 +130,49 @@ class InAppMessageCampaignRestJson1Serializer
       }
       switch (key) {
         case 'CampaignId':
-          result.campaignId =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String);
+          result.campaignId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DailyCap':
-          result.dailyCap =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int);
+          result.dailyCap = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'InAppMessage':
           result.inAppMessage.replace(
             (serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(InAppMessage),
-                )
-                as InAppMessage),
+              value,
+              specifiedType: const FullType(InAppMessage),
+            ) as InAppMessage),
           );
         case 'Priority':
-          result.priority =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int);
+          result.priority = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Schedule':
           result.schedule.replace(
             (serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(InAppCampaignSchedule),
-                )
-                as InAppCampaignSchedule),
+              value,
+              specifiedType: const FullType(InAppCampaignSchedule),
+            ) as InAppCampaignSchedule),
           );
         case 'SessionCap':
-          result.sessionCap =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int);
+          result.sessionCap = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'TotalCap':
-          result.totalCap =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int);
+          result.totalCap = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'TreatmentId':
-          result.treatmentId =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String);
+          result.treatmentId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

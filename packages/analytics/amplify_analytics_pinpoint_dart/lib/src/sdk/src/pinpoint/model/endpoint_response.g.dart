@@ -40,7 +40,8 @@ class _$EndpointResponse extends EndpointResponse {
 
   factory _$EndpointResponse([
     void Function(EndpointResponseBuilder)? updates,
-  ]) => (new EndpointResponseBuilder()..update(updates))._build();
+  ]) =>
+      (new EndpointResponseBuilder()..update(updates))._build();
 
   _$EndpointResponse._({
     this.address,
@@ -230,8 +231,7 @@ class EndpointResponseBuilder
   _$EndpointResponse _build() {
     _$EndpointResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$EndpointResponse._(
             address: address,
             applicationId: applicationId,

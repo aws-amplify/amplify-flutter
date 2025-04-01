@@ -28,9 +28,9 @@ class StorageCopyOptions
 
   @override
   Map<String, Object?> toJson() => {
-    'pluginOptions': pluginOptions?.toJson(),
-    'buckets': buckets?.toJson(),
-  };
+        'pluginOptions': pluginOptions?.toJson(),
+        'buckets': buckets?.toJson(),
+      };
 }
 
 /// {@template amplify_core.storage.copy_plugin_options}

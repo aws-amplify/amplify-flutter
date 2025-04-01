@@ -71,16 +71,16 @@ class AmplifyOutputs
 
   @override
   List<Object?> get props => [
-    schema,
-    version,
-    analytics,
-    auth,
-    data,
-    restApi,
-    notifications,
-    storage,
-    custom,
-  ];
+        schema,
+        version,
+        analytics,
+        auth,
+        data,
+        restApi,
+        notifications,
+        storage,
+        custom,
+      ];
 
   @override
   String get runtimeTypeName => 'AmplifyOutputs';

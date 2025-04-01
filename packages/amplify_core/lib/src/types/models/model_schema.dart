@@ -45,15 +45,15 @@ class ModelSchema with AWSEquatable<ModelSchema> {
   List<Object?> get props => [name, pluralName, authRules, fields, indexes];
 
   Map<String, Object?> toMap() => {
-    'name': name,
-    if (pluralName != null) 'pluralName': pluralName,
-    if (authRules != null)
-      'authRules': authRules?.map((x) => x.toMap()).toList(),
-    if (fields != null)
-      'fields': fields?.map((key, value) => MapEntry(key, value.toMap())),
-    if (indexes != null)
-      'indexes': indexes?.map((value) => value.toJson()).toList(),
-  };
+        'name': name,
+        if (pluralName != null) 'pluralName': pluralName,
+        if (authRules != null)
+          'authRules': authRules?.map((x) => x.toMap()).toList(),
+        if (fields != null)
+          'fields': fields?.map((key, value) => MapEntry(key, value.toMap())),
+        if (indexes != null)
+          'indexes': indexes?.map((value) => value.toJson()).toList(),
+      };
 
   String toJson() => json.encode(toMap());
 

@@ -12,13 +12,13 @@ import 'package:amplify_core/src/platform/platform.dart';
 class AmplifyUserAgent {
   /// {@macro amplify_core.http.amplify_user_agent}
   AmplifyUserAgent()
-    : _components = {
-        if (zIsFlutter)
-          'amplify-flutter/${Amplify.version}'
-        else
-          'amplify-dart/${Amplify.version}',
-        osIdentifier,
-      };
+      : _components = {
+          if (zIsFlutter)
+            'amplify-flutter/${Amplify.version}'
+          else
+            'amplify-dart/${Amplify.version}',
+          osIdentifier,
+        };
 
   AmplifyUserAgent._(this._components);
 

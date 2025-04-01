@@ -16,7 +16,7 @@ part 'notifications_config.g.dart';
 class NotificationsConfig extends AmplifyPluginConfigMap {
   /// {@macro amplify_core.notifications_config}
   const NotificationsConfig({required Map<String, AmplifyPluginConfig> plugins})
-    : super(plugins);
+      : super(plugins);
 
   factory NotificationsConfig.fromJson(Map<String, Object?> json) =>
       _$NotificationsConfigFromJson(json);

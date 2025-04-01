@@ -17,7 +17,7 @@ part 'analytics_config.g.dart';
 class AnalyticsConfig extends AmplifyPluginConfigMap {
   /// {@macro amplify_core.analytics_config}
   const AnalyticsConfig({required Map<String, AmplifyPluginConfig> plugins})
-    : super(plugins);
+      : super(plugins);
 
   factory AnalyticsConfig.fromJson(Map<String, Object?> json) =>
       _$AnalyticsConfigFromJson(json);

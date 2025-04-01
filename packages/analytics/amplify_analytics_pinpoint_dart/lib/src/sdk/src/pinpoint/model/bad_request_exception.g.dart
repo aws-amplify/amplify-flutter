@@ -16,15 +16,17 @@ class _$BadRequestException extends BadRequestException {
 
   factory _$BadRequestException([
     void Function(BadRequestExceptionBuilder)? updates,
-  ]) => (new BadRequestExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new BadRequestExceptionBuilder()..update(updates))._build();
 
   _$BadRequestException._({this.message, this.requestId, this.headers})
-    : super._();
+      : super._();
 
   @override
   BadRequestException rebuild(
     void Function(BadRequestExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   BadRequestExceptionBuilder toBuilder() =>
@@ -92,8 +94,7 @@ class BadRequestExceptionBuilder
   BadRequestException build() => _build();
 
   _$BadRequestException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$BadRequestException._(
           message: message,
           requestId: requestId,

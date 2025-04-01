@@ -13,46 +13,41 @@ CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
       final val = CognitoAuthConfig(
         oAuth: $checkedConvert(
           'OAuth',
-          (v) =>
-              v == null
-                  ? null
-                  : CognitoOAuthConfig.fromJson(v as Map<String, dynamic>),
+          (v) => v == null
+              ? null
+              : CognitoOAuthConfig.fromJson(v as Map<String, dynamic>),
         ),
         socialProviders: $checkedConvert(
           'socialProviders',
-          (v) =>
-              (v as List<dynamic>?)
-                  ?.map((e) => $enumDecode(_$SocialProviderEnumMap, e))
-                  .toList(),
+          (v) => (v as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$SocialProviderEnumMap, e))
+              .toList(),
         ),
         usernameAttributes: $checkedConvert(
           'usernameAttributes',
-          (v) =>
-              (v as List<dynamic>?)
-                  ?.map(
-                    (e) => const CognitoUserAttributeKeyToUpperCaseConverter()
-                        .fromJson(e as String),
-                  )
-                  .toList(),
+          (v) => (v as List<dynamic>?)
+              ?.map(
+                (e) => const CognitoUserAttributeKeyToUpperCaseConverter()
+                    .fromJson(e as String),
+              )
+              .toList(),
         ),
         signupAttributes: $checkedConvert(
           'signupAttributes',
-          (v) =>
-              (v as List<dynamic>?)
-                  ?.map(
-                    (e) => const CognitoUserAttributeKeyToUpperCaseConverter()
-                        .fromJson(e as String),
-                  )
-                  .toList(),
+          (v) => (v as List<dynamic>?)
+              ?.map(
+                (e) => const CognitoUserAttributeKeyToUpperCaseConverter()
+                    .fromJson(e as String),
+              )
+              .toList(),
         ),
         passwordProtectionSettings: $checkedConvert(
           'passwordProtectionSettings',
-          (v) =>
-              v == null
-                  ? null
-                  : PasswordProtectionSettings.fromJson(
-                    v as Map<String, dynamic>,
-                  ),
+          (v) => v == null
+              ? null
+              : PasswordProtectionSettings.fromJson(
+                  v as Map<String, dynamic>,
+                ),
         ),
         mfaConfiguration: $checkedConvert(
           'mfaConfiguration',
@@ -60,20 +55,18 @@ CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
         ),
         mfaTypes: $checkedConvert(
           'mfaTypes',
-          (v) =>
-              (v as List<dynamic>?)
-                  ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
-                  .toList(),
+          (v) => (v as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
+              .toList(),
         ),
         verificationMechanisms: $checkedConvert(
           'verificationMechanisms',
-          (v) =>
-              (v as List<dynamic>?)
-                  ?.map(
-                    (e) => const CognitoUserAttributeKeyToUpperCaseConverter()
-                        .fromJson(e as String),
-                  )
-                  .toList(),
+          (v) => (v as List<dynamic>?)
+              ?.map(
+                (e) => const CognitoUserAttributeKeyToUpperCaseConverter()
+                    .fromJson(e as String),
+              )
+              .toList(),
         ),
       );
       return val;

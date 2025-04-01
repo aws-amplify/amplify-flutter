@@ -93,10 +93,9 @@ void main() {
       });
 
       test('dispatch', () async {
-        final completion =
-            await stateMachine
-                .dispatch(const MyEvent(MyType.tryWork))
-                .completed;
+        final completion = await stateMachine
+            .dispatch(const MyEvent(MyType.tryWork))
+            .completed;
         expect(
           completion,
           isA<MyErrorState>().having(

@@ -53,8 +53,8 @@ class EventsResponseRestJson1Serializer
   Iterable<Type> get types => const [EventsResponse, _$EventsResponse];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   EventsResponse deserialize(
     Serializers serializers,
@@ -74,13 +74,12 @@ class EventsResponseRestJson1Serializer
         case 'Results':
           result.results.replace(
             (serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(_i2.BuiltMap, [
-                    FullType(String),
-                    FullType(ItemResponse),
-                  ]),
-                )
-                as _i2.BuiltMap<String, ItemResponse>),
+              value,
+              specifiedType: const FullType(_i2.BuiltMap, [
+                FullType(String),
+                FullType(ItemResponse),
+              ]),
+            ) as _i2.BuiltMap<String, ItemResponse>),
           );
       }
     }

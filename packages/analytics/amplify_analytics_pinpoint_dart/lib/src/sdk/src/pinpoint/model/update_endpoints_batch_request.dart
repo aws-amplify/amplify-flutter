@@ -38,12 +38,13 @@ abstract class UpdateEndpointsBatchRequest
     EndpointBatchRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) => UpdateEndpointsBatchRequest.build((b) {
-    b.endpointBatchRequest.replace(payload);
-    if (labels['applicationId'] != null) {
-      b.applicationId = labels['applicationId']!;
-    }
-  });
+  }) =>
+      UpdateEndpointsBatchRequest.build((b) {
+        b.endpointBatchRequest.replace(payload);
+        if (labels['applicationId'] != null) {
+          b.applicationId = labels['applicationId']!;
+        }
+      });
 
   static const List<_i1.SmithySerializer<EndpointBatchRequest>> serializers = [
     UpdateEndpointsBatchRequestRestJson1Serializer(),
@@ -69,10 +70,9 @@ abstract class UpdateEndpointsBatchRequest
   List<Object?> get props => [applicationId, endpointBatchRequest];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateEndpointsBatchRequest')
-          ..add('applicationId', applicationId)
-          ..add('endpointBatchRequest', endpointBatchRequest);
+    final helper = newBuiltValueToStringHelper('UpdateEndpointsBatchRequest')
+      ..add('applicationId', applicationId)
+      ..add('endpointBatchRequest', endpointBatchRequest);
     return helper.toString();
   }
 }
@@ -80,17 +80,17 @@ abstract class UpdateEndpointsBatchRequest
 class UpdateEndpointsBatchRequestRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<EndpointBatchRequest> {
   const UpdateEndpointsBatchRequestRestJson1Serializer()
-    : super('UpdateEndpointsBatchRequest');
+      : super('UpdateEndpointsBatchRequest');
 
   @override
   Iterable<Type> get types => const [
-    UpdateEndpointsBatchRequest,
-    _$UpdateEndpointsBatchRequest,
-  ];
+        UpdateEndpointsBatchRequest,
+        _$UpdateEndpointsBatchRequest,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   EndpointBatchRequest deserialize(
     Serializers serializers,
@@ -98,10 +98,9 @@ class UpdateEndpointsBatchRequestRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-          serialized,
-          specifiedType: const FullType(EndpointBatchRequest),
-        )
-        as EndpointBatchRequest);
+      serialized,
+      specifiedType: const FullType(EndpointBatchRequest),
+    ) as EndpointBatchRequest);
   }
 
   @override

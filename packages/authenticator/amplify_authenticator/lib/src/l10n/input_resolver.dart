@@ -53,10 +53,10 @@ class InputResolverKey {
   const InputResolverKey.passwordRequirementsUnmet(
     UnmetPasswordRequirements requirements,
   ) : this._(
-        InputResolverKeyType.passwordRequirements,
-        field: InputField.password,
-        unmetPasswordRequirements: requirements,
-      );
+          InputResolverKeyType.passwordRequirements,
+          field: InputField.password,
+          unmetPasswordRequirements: requirements,
+        );
   const InputResolverKey._(
     this.type, {
     required this.field,
@@ -522,12 +522,12 @@ class InputResolver extends Resolver<InputResolverKey> {
     if (minLength == null && (characterReqs.isEmpty)) {
       return '';
     }
-    final sb =
-        StringBuffer()..writeln(
-          AuthenticatorLocalizations.inputsOf(
-            context,
-          ).passwordRequirementsPreamble,
-        );
+    final sb = StringBuffer()
+      ..writeln(
+        AuthenticatorLocalizations.inputsOf(
+          context,
+        ).passwordRequirementsPreamble,
+      );
     if (minLength != null) {
       final atLeast = AuthenticatorLocalizations.inputsOf(
         context,

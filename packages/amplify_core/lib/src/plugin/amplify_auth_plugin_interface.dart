@@ -127,7 +127,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_auth_category.update_user_attributes}
   Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
-  updateUserAttributes({
+      updateUserAttributes({
     required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
   }) {
@@ -149,7 +149,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_auth_category.send_attribute_verification_code}
   Future<SendUserAttributeVerificationCodeResult>
-  sendUserAttributeVerificationCode({
+      sendUserAttributeVerificationCode({
     required AuthUserAttributeKey userAttributeKey,
     SendUserAttributeVerificationCodeOptions? options,
   }) {

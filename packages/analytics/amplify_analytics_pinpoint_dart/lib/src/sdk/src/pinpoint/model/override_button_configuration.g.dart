@@ -14,10 +14,11 @@ class _$OverrideButtonConfiguration extends OverrideButtonConfiguration {
 
   factory _$OverrideButtonConfiguration([
     void Function(OverrideButtonConfigurationBuilder)? updates,
-  ]) => (new OverrideButtonConfigurationBuilder()..update(updates))._build();
+  ]) =>
+      (new OverrideButtonConfigurationBuilder()..update(updates))._build();
 
   _$OverrideButtonConfiguration._({required this.buttonAction, this.link})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
       buttonAction,
       r'OverrideButtonConfiguration',
@@ -28,7 +29,8 @@ class _$OverrideButtonConfiguration extends OverrideButtonConfiguration {
   @override
   OverrideButtonConfiguration rebuild(
     void Function(OverrideButtonConfigurationBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   OverrideButtonConfigurationBuilder toBuilder() =>
@@ -54,10 +56,8 @@ class _$OverrideButtonConfiguration extends OverrideButtonConfiguration {
 
 class OverrideButtonConfigurationBuilder
     implements
-        Builder<
-          OverrideButtonConfiguration,
-          OverrideButtonConfigurationBuilder
-        > {
+        Builder<OverrideButtonConfiguration,
+            OverrideButtonConfigurationBuilder> {
   _$OverrideButtonConfiguration? _$v;
 
   ButtonAction? _buttonAction;
@@ -96,8 +96,7 @@ class OverrideButtonConfigurationBuilder
   OverrideButtonConfiguration build() => _build();
 
   _$OverrideButtonConfiguration _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$OverrideButtonConfiguration._(
           buttonAction: BuiltValueNullFieldError.checkNotNull(
             buttonAction,

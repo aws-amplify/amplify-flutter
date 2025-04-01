@@ -30,9 +30,10 @@ abstract class UpdateEndpointResponse
   factory UpdateEndpointResponse.fromResponse(
     MessageBody payload,
     _i1.AWSBaseHttpResponse response,
-  ) => UpdateEndpointResponse.build((b) {
-    b.messageBody.replace(payload);
-  });
+  ) =>
+      UpdateEndpointResponse.build((b) {
+        b.messageBody.replace(payload);
+      });
 
   static const List<_i2.SmithySerializer<MessageBody>> serializers = [
     UpdateEndpointResponseRestJson1Serializer(),
@@ -55,17 +56,17 @@ abstract class UpdateEndpointResponse
 class UpdateEndpointResponseRestJson1Serializer
     extends _i2.PrimitiveSmithySerializer<MessageBody> {
   const UpdateEndpointResponseRestJson1Serializer()
-    : super('UpdateEndpointResponse');
+      : super('UpdateEndpointResponse');
 
   @override
   Iterable<Type> get types => const [
-    UpdateEndpointResponse,
-    _$UpdateEndpointResponse,
-  ];
+        UpdateEndpointResponse,
+        _$UpdateEndpointResponse,
+      ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   MessageBody deserialize(
     Serializers serializers,
@@ -73,10 +74,9 @@ class UpdateEndpointResponseRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-          serialized,
-          specifiedType: const FullType(MessageBody),
-        )
-        as MessageBody);
+      serialized,
+      specifiedType: const FullType(MessageBody),
+    ) as MessageBody);
   }
 
   @override

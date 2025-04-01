@@ -13,9 +13,9 @@ class ModelIndex with AWSEquatable<ModelIndex>, AWSSerializable {
 
   /// Create an instance of [ModelIndex] from a json object
   factory ModelIndex.fromJson(Map<String, Object?> map) => ModelIndex(
-    fields: (map['fields'] as List<Object?>).cast(),
-    name: map['name'] as String?,
-  );
+        fields: (map['fields'] as List<Object?>).cast(),
+        name: map['name'] as String?,
+      );
 
   /// Index name that is defined by the name parameter of `@index` directive in
   /// a model schema. This will always be null when the index is representing

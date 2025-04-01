@@ -10,33 +10,34 @@ part of 'appsync.dart';
 
 CognitoAppSyncConfig _$CognitoAppSyncConfigFromJson(
   Map<String, dynamic> json,
-) => $checkedCreate(
-  'CognitoAppSyncConfig',
-  json,
-  ($checkedConvert) {
-    final val = CognitoAppSyncConfig(
-      apiUrl: $checkedConvert('ApiUrl', (v) => v as String),
-      region: $checkedConvert('Region', (v) => v as String),
-      authMode: $checkedConvert(
-        'AuthMode',
-        (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v),
-      ),
-      apiKey: $checkedConvert('ApiKey', (v) => v as String?),
-      clientDatabasePrefix: $checkedConvert(
-        'ClientDatabasePrefix',
-        (v) => v as String,
-      ),
+) =>
+    $checkedCreate(
+      'CognitoAppSyncConfig',
+      json,
+      ($checkedConvert) {
+        final val = CognitoAppSyncConfig(
+          apiUrl: $checkedConvert('ApiUrl', (v) => v as String),
+          region: $checkedConvert('Region', (v) => v as String),
+          authMode: $checkedConvert(
+            'AuthMode',
+            (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v),
+          ),
+          apiKey: $checkedConvert('ApiKey', (v) => v as String?),
+          clientDatabasePrefix: $checkedConvert(
+            'ClientDatabasePrefix',
+            (v) => v as String,
+          ),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'apiUrl': 'ApiUrl',
+        'region': 'Region',
+        'authMode': 'AuthMode',
+        'apiKey': 'ApiKey',
+        'clientDatabasePrefix': 'ClientDatabasePrefix',
+      },
     );
-    return val;
-  },
-  fieldKeyMap: const {
-    'apiUrl': 'ApiUrl',
-    'region': 'Region',
-    'authMode': 'AuthMode',
-    'apiKey': 'ApiKey',
-    'clientDatabasePrefix': 'ClientDatabasePrefix',
-  },
-);
 
 Map<String, dynamic> _$CognitoAppSyncConfigToJson(
   CognitoAppSyncConfig instance,

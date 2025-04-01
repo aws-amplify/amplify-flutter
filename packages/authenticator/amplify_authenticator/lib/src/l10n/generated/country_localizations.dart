@@ -62,7 +62,7 @@ import 'package:intl/intl.dart' as intl;
 /// property.
 abstract class AuthenticatorCountryLocalizations {
   AuthenticatorCountryLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale);
+      : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
@@ -74,7 +74,7 @@ abstract class AuthenticatorCountryLocalizations {
   }
 
   static const LocalizationsDelegate<AuthenticatorCountryLocalizations>
-  delegate = _AuthenticatorCountryLocalizationsDelegate();
+      delegate = _AuthenticatorCountryLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -88,11 +88,11 @@ abstract class AuthenticatorCountryLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
@@ -1592,14 +1592,14 @@ class _AuthenticatorCountryLocalizationsDelegate
 }
 
 Future<AuthenticatorCountryLocalizations>
-lookupAuthenticatorCountryLocalizations(Locale locale) {
+    lookupAuthenticatorCountryLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
       return country_localizations_en.loadLibrary().then(
-        (dynamic _) =>
-            country_localizations_en.AuthenticatorCountryLocalizationsEn(),
-      );
+            (dynamic _) =>
+                country_localizations_en.AuthenticatorCountryLocalizationsEn(),
+          );
   }
 
   throw FlutterError(

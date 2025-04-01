@@ -51,8 +51,7 @@ void main() {
         expect(
           subscriber.future,
           completes,
-          reason:
-              'The subscriber should receive the event even though it '
+          reason: 'The subscriber should receive the event even though it '
               'subscribed before the stream was added',
         );
 

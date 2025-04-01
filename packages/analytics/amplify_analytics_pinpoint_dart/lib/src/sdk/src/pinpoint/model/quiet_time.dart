@@ -38,10 +38,9 @@ abstract class QuietTime
   List<Object?> get props => [end, start];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QuietTime')
-          ..add('end', end)
-          ..add('start', start);
+    final helper = newBuiltValueToStringHelper('QuietTime')
+      ..add('end', end)
+      ..add('start', start);
     return helper.toString();
   }
 }
@@ -54,8 +53,8 @@ class QuietTimeRestJson1Serializer
   Iterable<Type> get types => const [QuietTime, _$QuietTime];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-  ];
+        _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+      ];
   @override
   QuietTime deserialize(
     Serializers serializers,
@@ -73,19 +72,15 @@ class QuietTimeRestJson1Serializer
       }
       switch (key) {
         case 'End':
-          result.end =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String);
+          result.end = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Start':
-          result.start =
-              (serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String);
+          result.start = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

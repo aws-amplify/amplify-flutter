@@ -23,9 +23,9 @@ class PasswordProtectionSettings
 
   @override
   List<Object?> get props => [
-    passwordPolicyMinLength,
-    passwordPolicyCharacters,
-  ];
+        passwordPolicyMinLength,
+        passwordPolicyCharacters,
+      ];
 
   PasswordProtectionSettings copyWith({
     int? passwordPolicyMinLength,

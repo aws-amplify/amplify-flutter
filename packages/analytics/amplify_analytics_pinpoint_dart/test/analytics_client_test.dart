@@ -81,12 +81,12 @@ void main() {
 
       final notificationsAttributes =
           await EndpointGlobalFieldsManager.getStoredAttributes(
-            notificationsStore,
-          );
+        notificationsStore,
+      );
       final notificationsMetrics =
           await EndpointGlobalFieldsManager.getStoredMetrics(
-            notificationsStore,
-          );
+        notificationsStore,
+      );
 
       expect(analyticsAttributes[attributeKey], attributeValue);
       expect(analyticsMetrics[metricKey], metricValue);

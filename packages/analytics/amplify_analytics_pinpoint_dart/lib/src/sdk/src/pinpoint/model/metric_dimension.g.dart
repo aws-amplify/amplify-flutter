@@ -16,7 +16,7 @@ class _$MetricDimension extends MetricDimension {
       (new MetricDimensionBuilder()..update(updates))._build();
 
   _$MetricDimension._({required this.comparisonOperator, required this.value})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
       comparisonOperator,
       r'MetricDimension',
@@ -91,8 +91,7 @@ class MetricDimensionBuilder
   MetricDimension build() => _build();
 
   _$MetricDimension _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$MetricDimension._(
           comparisonOperator: BuiltValueNullFieldError.checkNotNull(
             comparisonOperator,

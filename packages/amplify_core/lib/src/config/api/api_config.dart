@@ -17,7 +17,7 @@ part 'api_config.g.dart';
 class ApiConfig extends AmplifyPluginConfigMap {
   /// {@macro amplify_core.api_config}
   const ApiConfig({required Map<String, AmplifyPluginConfig> plugins})
-    : super(plugins);
+      : super(plugins);
 
   factory ApiConfig.fromJson(Map<String, Object?> json) =>
       _$ApiConfigFromJson(json);
@@ -46,14 +46,13 @@ class ApiConfig extends AmplifyPluginConfigMap {
       final awsRegion = plugin.region;
       final url = plugin.endpoint;
       final allModes = (appSync?.all.values ?? []);
-      final authorizationTypes =
-          allModes
-              .where(
-                (plugin) => plugin.apiUrl == url && plugin.region == awsRegion,
-              )
-              .map((config) => config.authMode)
-              .where((mode) => mode != defaultAuthorizationType)
-              .toList();
+      final authorizationTypes = allModes
+          .where(
+            (plugin) => plugin.apiUrl == url && plugin.region == awsRegion,
+          )
+          .map((config) => config.authMode)
+          .where((mode) => mode != defaultAuthorizationType)
+          .toList();
       final data = DataOutputs(
         awsRegion: awsRegion,
         url: url,

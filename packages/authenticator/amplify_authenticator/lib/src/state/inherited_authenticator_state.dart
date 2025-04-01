@@ -20,11 +20,8 @@ class InheritedAuthenticatorState extends InheritedNotifier {
   static AuthenticatorState of(BuildContext context, {bool listen = true}) {
     InheritedAuthenticatorState? inheritedViewModel;
     if (listen) {
-      inheritedViewModel =
-          context
-              .dependOnInheritedWidgetOfExactType<
-                InheritedAuthenticatorState
-              >();
+      inheritedViewModel = context
+          .dependOnInheritedWidgetOfExactType<InheritedAuthenticatorState>();
     } else {
       inheritedViewModel =
           context.findAncestorWidgetOfExactType<InheritedAuthenticatorState>();

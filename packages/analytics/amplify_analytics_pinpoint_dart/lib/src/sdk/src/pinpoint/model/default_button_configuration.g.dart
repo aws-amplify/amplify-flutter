@@ -22,7 +22,8 @@ class _$DefaultButtonConfiguration extends DefaultButtonConfiguration {
 
   factory _$DefaultButtonConfiguration([
     void Function(DefaultButtonConfigurationBuilder)? updates,
-  ]) => (new DefaultButtonConfigurationBuilder()..update(updates))._build();
+  ]) =>
+      (new DefaultButtonConfigurationBuilder()..update(updates))._build();
 
   _$DefaultButtonConfiguration._({
     this.backgroundColor,
@@ -47,7 +48,8 @@ class _$DefaultButtonConfiguration extends DefaultButtonConfiguration {
   @override
   DefaultButtonConfiguration rebuild(
     void Function(DefaultButtonConfigurationBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   DefaultButtonConfigurationBuilder toBuilder() =>
@@ -141,8 +143,7 @@ class DefaultButtonConfigurationBuilder
   DefaultButtonConfiguration build() => _build();
 
   _$DefaultButtonConfiguration _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$DefaultButtonConfiguration._(
           backgroundColor: backgroundColor,
           borderRadius: borderRadius,

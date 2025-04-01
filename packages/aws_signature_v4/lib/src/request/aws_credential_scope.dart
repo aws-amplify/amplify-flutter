@@ -23,9 +23,9 @@ class AWSCredentialScope {
     AWSDateTime? dateTime,
     required String region,
     required String service,
-  }) : _region = region,
-       _service = service,
-       dateTime = dateTime ?? AWSDateTime.now();
+  })  : _region = region,
+        _service = service,
+        dateTime = dateTime ?? AWSDateTime.now();
 
   /// The time of the request.
   final AWSDateTime dateTime;

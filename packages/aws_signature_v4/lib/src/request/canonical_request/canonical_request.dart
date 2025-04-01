@@ -132,9 +132,9 @@ class CanonicalRequest {
     required this.presignedUrl,
     this.algorithm,
     Duration? expiresIn,
-  }) : normalizePath = serviceConfiguration.normalizePath,
-       omitSessionTokenFromSigning = serviceConfiguration.omitSessionToken,
-       expiresIn = expiresIn?.inSeconds;
+  })  : normalizePath = serviceConfiguration.normalizePath,
+        omitSessionTokenFromSigning = serviceConfiguration.omitSessionToken,
+        expiresIn = expiresIn?.inSeconds;
 
   /// The original HTTP request.
   final AWSBaseHttpRequest request;
@@ -209,14 +209,13 @@ class CanonicalRequest {
   /// Creates the canonical request string.
   @override
   String toString() {
-    final sb =
-        StringBuffer()
-          ..writeln(request.method.value)
-          ..writeln(canonicalPath)
-          ..writeln(canonicalQueryParameters)
-          ..writeln(canonicalHeaders)
-          ..writeln(signedHeaders)
-          ..write(payloadHash);
+    final sb = StringBuffer()
+      ..writeln(request.method.value)
+      ..writeln(canonicalPath)
+      ..writeln(canonicalQueryParameters)
+      ..writeln(canonicalHeaders)
+      ..writeln(signedHeaders)
+      ..write(payloadHash);
     return sb.toString();
   }
 }
