@@ -65,9 +65,6 @@ jobs:
 
       - name: Dart Version
         run: dart --version
-      
-      - name: Dart Format Version
-        run: dart format --version
 
       - name: Setup aft
         shell: bash # Run in bash regardless of platform
@@ -80,7 +77,7 @@ jobs:
 
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
-        run: dart format --summary --set-exit-if-changed .
+        run: dart format --summary line --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
 
       - name: Check for Tests
