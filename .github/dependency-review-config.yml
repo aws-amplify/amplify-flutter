@@ -9,6 +9,7 @@ allow_licenses:
   - "BSD-Source-Code"
   - "bzip2-1.0.6"
   - "CC0-1.0"
+  - "CC-BY-4.0"
   - "curl"
   - "ISC"
   - "MIT"
