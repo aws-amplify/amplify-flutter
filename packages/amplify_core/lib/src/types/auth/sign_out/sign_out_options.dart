@@ -32,9 +32,9 @@ class SignOutOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'globalSignOut': globalSignOut,
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+    'globalSignOut': globalSignOut,
+    'pluginOptions': pluginOptions?.toJson(),
+  };
 }
 
 /// @nodoc

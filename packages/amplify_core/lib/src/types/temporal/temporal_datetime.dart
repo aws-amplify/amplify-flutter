@@ -122,8 +122,8 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     this._dateTime, {
     int nanoseconds = 0,
     Duration? offset,
-  })  : _nanoseconds = nanoseconds,
-        _offset = offset;
+  }) : _nanoseconds = nanoseconds,
+       _offset = offset;
   final DateTime _dateTime;
   final int _nanoseconds;
   final Duration? _offset;

@@ -388,10 +388,10 @@ class StateMachineBloc
               (result) => _processSignInResult(result, isSocialSignIn: true),
             )
             .onError<Exception>((error, stackTrace) {
-          final log =
-              error is UserCancelledException ? logger.info : logger.error;
-          log('Error signing in', error, stackTrace);
-        });
+              final log =
+                  error is UserCancelledException ? logger.info : logger.error;
+              log('Error signing in', error, stackTrace);
+            });
       } else {
         throw StateError('Bad sign in data: $data');
       }

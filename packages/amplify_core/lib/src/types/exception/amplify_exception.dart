@@ -80,12 +80,11 @@ abstract class AmplifyException
 
   @override
   Map<String, Object?> toJson() => {
-        'message': message,
-        if (recoverySuggestion != null)
-          'recoverySuggestion': recoverySuggestion,
-        if (underlyingException != null)
-          'underlyingException': underlyingException.toString(),
-      };
+    'message': message,
+    if (recoverySuggestion != null) 'recoverySuggestion': recoverySuggestion,
+    if (underlyingException != null)
+      'underlyingException': underlyingException.toString(),
+  };
 }
 
 class _AmplifyException extends AmplifyException {

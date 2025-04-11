@@ -32,7 +32,7 @@ final class UserMfaPreference
 
   @override
   Map<String, Object?> toJson() => {
-        'enabled': enabled.map((type) => type.name.toUpperCase()).toList(),
-        'preferred': preferred?.name.toUpperCase(),
-      };
+    'enabled': enabled.map((type) => type.name.toUpperCase()).toList(),
+    'preferred': preferred?.name.toUpperCase(),
+  };
 }

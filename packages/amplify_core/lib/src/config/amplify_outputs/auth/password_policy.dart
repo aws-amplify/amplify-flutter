@@ -40,12 +40,12 @@ class PasswordPolicy
 
   @override
   List<Object?> get props => [
-        minLength,
-        requireNumbers,
-        requireLowercase,
-        requireUppercase,
-        requireSymbols,
-      ];
+    minLength,
+    requireNumbers,
+    requireLowercase,
+    requireUppercase,
+    requireSymbols,
+  ];
 
   @override
   String get runtimeTypeName => 'PasswordPolicy';

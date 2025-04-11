@@ -19,9 +19,10 @@ AuthNextSignUpStep _$AuthNextSignUpStepFromJson(Map<String, dynamic> json) =>
         ),
         codeDeliveryDetails: $checkedConvert(
           'codeDeliveryDetails',
-          (v) => v == null
-              ? null
-              : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
+          (v) =>
+              v == null
+                  ? null
+                  : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
         ),
         signUpStep: $checkedConvert(
           'signUpStep',

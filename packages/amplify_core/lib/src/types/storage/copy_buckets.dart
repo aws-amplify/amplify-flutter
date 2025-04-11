@@ -7,15 +7,15 @@ class CopyBuckets with AWSSerializable<Map<String, Object?>> {
 
   /// Creates a [CopyBuckets] with the same [bucket] for the [source] and [destination].
   CopyBuckets.sameBucket(StorageBucket bucket)
-      : source = bucket,
-        destination = bucket;
+    : source = bucket,
+      destination = bucket;
 
   final StorageBucket source;
   final StorageBucket destination;
 
   @override
   Map<String, Object?> toJson() => {
-        'source': source.toJson(),
-        'destination': destination.toJson(),
-      };
+    'source': source.toJson(),
+    'destination': destination.toJson(),
+  };
 }

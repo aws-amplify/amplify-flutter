@@ -44,12 +44,12 @@ class SignerTestMethodData {
   final AWSBaseHttpRequest signedRequest;
 
   Future<Map<String, Object?>> toJson() async => {
-        'method': method.name,
-        'canonicalRequest': canonicalRequest,
-        'stringToSign': stringToSign,
-        'signature': signature,
-        'signedRequest': await signedRequest.toJson(),
-      };
+    'method': method.name,
+    'canonicalRequest': canonicalRequest,
+    'stringToSign': stringToSign,
+    'signature': signature,
+    'signedRequest': await signedRequest.toJson(),
+  };
 }
 
 /// Builder class to make it easy to lazily create a [SignerTest].
@@ -104,42 +104,45 @@ class SignerTest {
     this.headerTestData,
     this.queryTestData,
     ServiceConfiguration? serviceConfiguration,
-  })  : signer = AWSSigV4Signer(
-          credentialsProvider: AWSCredentialsProvider(context.credentials),
-          algorithm: algorithm,
-        ),
-        credentialScope = AWSCredentialScope.raw(
-          dateTime: context.awsDateTime,
-          region: context.region,
-          service: context.service,
-        ),
-        serviceConfiguration = serviceConfiguration ??
-            BaseServiceConfiguration(
-              normalizePath: context.normalize,
-              omitSessionToken: context.omitSessionToken,
+  }) : signer = AWSSigV4Signer(
+         credentialsProvider: AWSCredentialsProvider(context.credentials),
+         algorithm: algorithm,
+       ),
+       credentialScope = AWSCredentialScope.raw(
+         dateTime: context.awsDateTime,
+         region: context.region,
+         service: context.service,
+       ),
+       serviceConfiguration =
+           serviceConfiguration ??
+           BaseServiceConfiguration(
+             normalizePath: context.normalize,
+             omitSessionToken: context.omitSessionToken,
 
-              // Although most SigV4 services expect double encoding, the C
-              // tests expect single encoding like S3.
-              // https://github.com/awslabs/aws-c-auth/issues/162
-              doubleEncodePathSegments: false,
-              signBody: context.signBody,
-            );
+             // Although most SigV4 services expect double encoding, the C
+             // tests expect single encoding like S3.
+             // https://github.com/awslabs/aws-c-auth/issues/162
+             doubleEncodePathSegments: false,
+             signBody: context.signBody,
+           );
 
   factory SignerTest.fromJson(Map<String, Object?> json) {
     return SignerTest(
       name: json['name'] as String,
       context: Context.fromJson((json['context'] as Map).cast()),
       request: AWSHttpRequestX.fromJson((json['request'] as Map).cast()),
-      headerTestData: json['headerTestData'] == null
-          ? null
-          : SignerTestMethodData.fromJson(
-              (json['headerTestData'] as Map).cast(),
-            ),
-      queryTestData: json['queryTestData'] == null
-          ? null
-          : SignerTestMethodData.fromJson(
-              (json['queryTestData'] as Map).cast(),
-            ),
+      headerTestData:
+          json['headerTestData'] == null
+              ? null
+              : SignerTestMethodData.fromJson(
+                (json['headerTestData'] as Map).cast(),
+              ),
+      queryTestData:
+          json['queryTestData'] == null
+              ? null
+              : SignerTestMethodData.fromJson(
+                (json['queryTestData'] as Map).cast(),
+              ),
     );
   }
 
@@ -163,35 +166,37 @@ class SignerTest {
       return;
     }
     final presignedUrl = method == SignerTestMethod.query;
-    final payloadHash = sync
-        ? serviceConfiguration.hashPayloadSync(
-            request,
-            presignedUrl: presignedUrl,
-          )
-        : await serviceConfiguration.hashPayload(
-            request,
-            presignedUrl: presignedUrl,
-          );
+    final payloadHash =
+        sync
+            ? serviceConfiguration.hashPayloadSync(
+              request,
+              presignedUrl: presignedUrl,
+            )
+            : await serviceConfiguration.hashPayload(
+              request,
+              presignedUrl: presignedUrl,
+            );
     final contentLength = request.contentLength as int;
-    final canonicalRequest = presignedUrl
-        ? CanonicalRequest.presignedUrl(
-            request: request,
-            credentials: context.credentials,
-            credentialScope: credentialScope,
-            algorithm: algorithm,
-            expiresIn: Duration(seconds: context.expirationInSeconds),
-            contentLength: contentLength,
-            payloadHash: payloadHash,
-            serviceConfiguration: serviceConfiguration,
-          )
-        : CanonicalRequest(
-            request: request,
-            credentials: context.credentials,
-            credentialScope: credentialScope,
-            contentLength: contentLength,
-            payloadHash: payloadHash,
-            serviceConfiguration: serviceConfiguration,
-          );
+    final canonicalRequest =
+        presignedUrl
+            ? CanonicalRequest.presignedUrl(
+              request: request,
+              credentials: context.credentials,
+              credentialScope: credentialScope,
+              algorithm: algorithm,
+              expiresIn: Duration(seconds: context.expirationInSeconds),
+              contentLength: contentLength,
+              payloadHash: payloadHash,
+              serviceConfiguration: serviceConfiguration,
+            )
+            : CanonicalRequest(
+              request: request,
+              credentials: context.credentials,
+              credentialScope: credentialScope,
+              contentLength: contentLength,
+              payloadHash: payloadHash,
+              serviceConfiguration: serviceConfiguration,
+            );
     final stringToSign = signer.stringToSign(
       algorithm: algorithm,
       credentialScope: credentialScope,
@@ -211,19 +216,20 @@ class SignerTest {
     );
 
     if (presignedUrl) {
-      final uri = sync
-          ? signer.presignSync(
-              request as AWSHttpRequest,
-              credentialScope: credentialScope,
-              expiresIn: Duration(seconds: context.expirationInSeconds),
-              serviceConfiguration: serviceConfiguration,
-            )
-          : await signer.presign(
-              request as AWSHttpRequest,
-              credentialScope: credentialScope,
-              expiresIn: Duration(seconds: context.expirationInSeconds),
-              serviceConfiguration: serviceConfiguration,
-            );
+      final uri =
+          sync
+              ? signer.presignSync(
+                request as AWSHttpRequest,
+                credentialScope: credentialScope,
+                expiresIn: Duration(seconds: context.expirationInSeconds),
+                serviceConfiguration: serviceConfiguration,
+              )
+              : await signer.presign(
+                request as AWSHttpRequest,
+                credentialScope: credentialScope,
+                expiresIn: Duration(seconds: context.expirationInSeconds),
+                serviceConfiguration: serviceConfiguration,
+              );
 
       expect(
         uri.queryParameters[AWSHeaders.signature],
@@ -231,17 +237,18 @@ class SignerTest {
         reason: 'Signatures must be identical',
       );
     } else {
-      final signedRequest = sync
-          ? signer.signSync(
-              request,
-              credentialScope: credentialScope,
-              serviceConfiguration: serviceConfiguration,
-            )
-          : await signer.sign(
-              request,
-              credentialScope: credentialScope,
-              serviceConfiguration: serviceConfiguration,
-            );
+      final signedRequest =
+          sync
+              ? signer.signSync(
+                request,
+                credentialScope: credentialScope,
+                serviceConfiguration: serviceConfiguration,
+              )
+              : await signer.sign(
+                request,
+                credentialScope: credentialScope,
+                serviceConfiguration: serviceConfiguration,
+              );
 
       expect(
         signedRequest.signature,
@@ -288,14 +295,14 @@ class SignerTest {
   }
 
   Future<Map<String, Object?>> toJson() async => {
-        'name': name,
-        'context': context.toJson(),
-        'request': await request.toJson(),
-        'headerTestData': await headerTestData?.toJson(),
-        'queryTestData': await queryTestData?.toJson(),
-        'serviceConfiguration':
-            serviceConfiguration is S3ServiceConfiguration ? 's3' : null,
-      };
+    'name': name,
+    'context': context.toJson(),
+    'request': await request.toJson(),
+    'headerTestData': await headerTestData?.toJson(),
+    'queryTestData': await queryTestData?.toJson(),
+    'serviceConfiguration':
+        serviceConfiguration is S3ServiceConfiguration ? 's3' : null,
+  };
 }
 
 extension AWSHttpRequestX on AWSBaseHttpRequest {
@@ -311,11 +318,11 @@ extension AWSHttpRequestX on AWSBaseHttpRequest {
   }
 
   Future<Map<String, Object>> toJson() async => {
-        'method': method.value,
-        'host': host,
-        'path': path,
-        'queryParameters': queryParametersAll,
-        'headers': headers,
-        'body': await body.first.catchError((Object _) => const <int>[]),
-      };
+    'method': method.value,
+    'host': host,
+    'path': path,
+    'queryParameters': queryParametersAll,
+    'headers': headers,
+    'body': await body.first.catchError((Object _) => const <int>[]),
+  };
 }

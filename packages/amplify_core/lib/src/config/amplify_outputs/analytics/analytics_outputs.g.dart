@@ -13,9 +13,10 @@ AnalyticsOutputs _$AnalyticsOutputsFromJson(Map<String, dynamic> json) =>
       final val = AnalyticsOutputs(
         amazonPinpoint: $checkedConvert(
           'amazon_pinpoint',
-          (v) => v == null
-              ? null
-              : AmazonPinpointOutputs.fromJson(v as Map<String, dynamic>),
+          (v) =>
+              v == null
+                  ? null
+                  : AmazonPinpointOutputs.fromJson(v as Map<String, dynamic>),
         ),
       );
       return val;

@@ -121,8 +121,8 @@ class TemporalTime implements Comparable<TemporalTime> {
   }
 
   const TemporalTime._(this._dateTime, {int nanoseconds = 0, Duration? offset})
-      : _nanoseconds = nanoseconds,
-        _offset = offset;
+    : _nanoseconds = nanoseconds,
+      _offset = offset;
   final DateTime _dateTime;
   final int _nanoseconds; // DateTime only stores millisecond and microsecond
   final Duration? _offset;

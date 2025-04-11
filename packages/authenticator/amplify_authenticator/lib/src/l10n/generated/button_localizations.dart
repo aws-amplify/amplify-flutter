@@ -62,7 +62,7 @@ import 'package:intl/intl.dart' as intl;
 /// property.
 abstract class AuthenticatorButtonLocalizations {
   AuthenticatorButtonLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale);
+    : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
@@ -74,7 +74,7 @@ abstract class AuthenticatorButtonLocalizations {
   }
 
   static const LocalizationsDelegate<AuthenticatorButtonLocalizations>
-      delegate = _AuthenticatorButtonLocalizationsDelegate();
+  delegate = _AuthenticatorButtonLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -88,11 +88,11 @@ abstract class AuthenticatorButtonLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
@@ -230,9 +230,9 @@ Future<AuthenticatorButtonLocalizations> lookupAuthenticatorButtonLocalizations(
   switch (locale.languageCode) {
     case 'en':
       return button_localizations_en.loadLibrary().then(
-            (dynamic _) =>
-                button_localizations_en.AuthenticatorButtonLocalizationsEn(),
-          );
+        (dynamic _) =>
+            button_localizations_en.AuthenticatorButtonLocalizationsEn(),
+      );
   }
 
   throw FlutterError(

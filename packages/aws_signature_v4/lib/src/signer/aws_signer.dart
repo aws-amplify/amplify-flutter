@@ -135,9 +135,10 @@ class AWSSigV4Signer {
       if (credentials is! AWSCredentials) {
         throw ArgumentError('Must use sign');
       }
-      final contentLength = request.hasContentLength
-          ? request.contentLength as int
-          : throw ArgumentError('Must use sign');
+      final contentLength =
+          request.hasContentLength
+              ? request.contentLength as int
+              : throw ArgumentError('Must use sign');
       final payloadHash = serviceConfiguration.hashPayloadSync(
         request,
         presignedUrl: false,
@@ -165,25 +166,26 @@ class AWSSigV4Signer {
     Duration? expiresIn,
     required bool presignedUrl,
   }) {
-    final canonicalRequest = presignedUrl
-        ? CanonicalRequest.presignedUrl(
-            request: request,
-            credentials: credentials,
-            credentialScope: credentialScope,
-            algorithm: algorithm,
-            expiresIn: expiresIn!,
-            contentLength: contentLength,
-            payloadHash: payloadHash,
-            serviceConfiguration: serviceConfiguration,
-          )
-        : CanonicalRequest(
-            request: request,
-            credentials: credentials,
-            credentialScope: credentialScope,
-            contentLength: contentLength,
-            payloadHash: payloadHash,
-            serviceConfiguration: serviceConfiguration,
-          );
+    final canonicalRequest =
+        presignedUrl
+            ? CanonicalRequest.presignedUrl(
+              request: request,
+              credentials: credentials,
+              credentialScope: credentialScope,
+              algorithm: algorithm,
+              expiresIn: expiresIn!,
+              contentLength: contentLength,
+              payloadHash: payloadHash,
+              serviceConfiguration: serviceConfiguration,
+            )
+            : CanonicalRequest(
+              request: request,
+              credentials: credentials,
+              credentialScope: credentialScope,
+              contentLength: contentLength,
+              payloadHash: payloadHash,
+              serviceConfiguration: serviceConfiguration,
+            );
     final signingKey = algorithm.deriveSigningKey(credentials, credentialScope);
     final sts = stringToSign(
       algorithm: algorithm,
@@ -217,11 +219,12 @@ class AWSSigV4Signer {
     required AWSCredentialScope credentialScope,
     required CanonicalRequest canonicalRequest,
   }) {
-    final sb = StringBuffer()
-      ..writeln(algorithm)
-      ..writeln(credentialScope.dateTime)
-      ..writeln(credentialScope)
-      ..write(canonicalRequest.hash);
+    final sb =
+        StringBuffer()
+          ..writeln(algorithm)
+          ..writeln(credentialScope.dateTime)
+          ..writeln(credentialScope)
+          ..write(canonicalRequest.hash);
 
     return sb.toString();
   }

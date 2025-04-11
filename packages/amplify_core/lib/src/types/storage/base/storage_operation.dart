@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 
 abstract class StorageOperation<Request, Result> {
   StorageOperation({required this.request, required this.result})
-      : operationId = uuid();
+    : operationId = uuid();
 
   @internal
   final Request request;

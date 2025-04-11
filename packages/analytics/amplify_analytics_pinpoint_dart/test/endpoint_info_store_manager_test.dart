@@ -71,8 +71,8 @@ void main() {
 
         final attributesA =
             await EndpointGlobalFieldsManager.getStoredAttributes(
-          endpointStoreA,
-        );
+              endpointStoreA,
+            );
         final metricsA = await EndpointGlobalFieldsManager.getStoredMetrics(
           endpointStoreA,
         );
@@ -82,8 +82,8 @@ void main() {
 
         final attributesB =
             await EndpointGlobalFieldsManager.getStoredAttributes(
-          endpointStoreB,
-        );
+              endpointStoreB,
+            );
         final metricsB = await EndpointGlobalFieldsManager.getStoredMetrics(
           endpointStoreB,
         );

@@ -25,9 +25,9 @@ String _recoverySuggestionPluginNotAdded(String pluginName) =>
     'Add $pluginName plugin to Amplify and call configure before calling $pluginName related APIs';
 
 PluginError _pluginNotAddedException(String pluginName) => PluginError(
-      _errorMsgPluginNotAdded(pluginName),
-      recoverySuggestion: _recoverySuggestionPluginNotAdded(pluginName),
-    );
+  _errorMsgPluginNotAdded(pluginName),
+  recoverySuggestion: _recoverySuggestionPluginNotAdded(pluginName),
+);
 
 /// Amplify category types.
 enum Category {
@@ -53,14 +53,14 @@ enum Category {
   pushNotifications;
 
   String get name => switch (this) {
-        Category.analytics => 'Analytics',
-        Category.api => 'API',
-        Category.auth => 'Auth',
-        Category.dataStore => 'DataStore',
-        Category.hub => 'Hub',
-        Category.storage => 'Storage',
-        Category.pushNotifications => 'PushNotifications',
-      };
+    Category.analytics => 'Analytics',
+    Category.api => 'API',
+    Category.auth => 'Auth',
+    Category.dataStore => 'DataStore',
+    Category.hub => 'Hub',
+    Category.storage => 'Storage',
+    Category.pushNotifications => 'PushNotifications',
+  };
 }
 
 /// Base functionality for Amplify categories.

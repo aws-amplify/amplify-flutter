@@ -12,7 +12,7 @@ typedef DependencyBuilder<T extends Object> = T Function(DependencyManager);
 class DependencyManager implements Closeable {
   /// {@macro amplify_core.dependency_manager}
   DependencyManager([Map<Token, DependencyBuilder>? builders])
-      : _builders = builders ?? {} {
+    : _builders = builders ?? {} {
     addInstance<DependencyManager>(this);
   }
 
@@ -115,9 +115,9 @@ class _ScopedDependencyManager extends DependencyManager {
 
   final DependencyManager _parent;
   Map<Token, DependencyBuilder> get _allBuilders => {
-        ..._parent._builders,
-        ..._builders,
-      };
+    ..._parent._builders,
+    ..._builders,
+  };
 
   @override
   void addInstance<T extends Object>(T instance, [Token<T>? token]) {

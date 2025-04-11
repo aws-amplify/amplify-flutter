@@ -16,7 +16,7 @@ part 'storage_config.g.dart';
 class StorageConfig extends AmplifyPluginConfigMap {
   /// {@macro amplify_core.storage_config}
   const StorageConfig({required Map<String, AmplifyPluginConfig> plugins})
-      : super(plugins);
+    : super(plugins);
 
   factory StorageConfig.fromJson(Map<String, Object?> json) =>
       _$StorageConfigFromJson(json);

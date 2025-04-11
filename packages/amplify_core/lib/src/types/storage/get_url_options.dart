@@ -28,9 +28,9 @@ class StorageGetUrlOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-        'bucket': bucket?.toJson(),
-      };
+    'pluginOptions': pluginOptions?.toJson(),
+    'bucket': bucket?.toJson(),
+  };
 }
 
 /// {@template amplify_core.storage.get_url_plugin_options}

@@ -28,30 +28,28 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
-  }) =>
-      _ConfirmSignUpUsernameField(
-        key: key ?? keyUsernameConfirmSignUpFormField,
-        titleKey: InputResolverKey.usernameTitle,
-        hintTextKey: InputResolverKey.usernameHint,
-        field: ConfirmSignUpField.username,
-        validator: validator,
-        autofillHints: autofillHints,
-      );
+  }) => _ConfirmSignUpUsernameField(
+    key: key ?? keyUsernameConfirmSignUpFormField,
+    titleKey: InputResolverKey.usernameTitle,
+    hintTextKey: InputResolverKey.usernameHint,
+    field: ConfirmSignUpField.username,
+    validator: validator,
+    autofillHints: autofillHints,
+  );
 
   /// Creates a verificationCode component.
   static ConfirmSignUpFormField<String> verificationCode({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-  }) =>
-      _ConfirmSignUpTextField(
-        key: key ?? keyCodeConfirmSignUpFormField,
-        titleKey: InputResolverKey.verificationCodeTitle,
-        hintTextKey: InputResolverKey.verificationCodeHint,
-        field: ConfirmSignUpField.code,
-        validator: validator,
-        autofillHints: autofillHints,
-      );
+  }) => _ConfirmSignUpTextField(
+    key: key ?? keyCodeConfirmSignUpFormField,
+    titleKey: InputResolverKey.verificationCodeTitle,
+    hintTextKey: InputResolverKey.verificationCodeHint,
+    field: ConfirmSignUpField.code,
+    validator: validator,
+    autofillHints: autofillHints,
+  );
 
   @override
   int get displayPriority {
@@ -74,8 +72,12 @@ abstract class ConfirmSignUpFormField<FieldValue extends Object>
 }
 
 abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
-    extends AuthenticatorFormFieldState<ConfirmSignUpField, FieldValue,
-        ConfirmSignUpFormField<FieldValue>> {
+    extends
+        AuthenticatorFormFieldState<
+          ConfirmSignUpField,
+          FieldValue,
+          ConfirmSignUpFormField<FieldValue>
+        > {
   @override
   TextInputType get keyboardType {
     switch (widget.field) {
@@ -206,8 +208,10 @@ class _ConfirmSignUpUsernameField
 class _ConfirmSignUpUsernameFieldState
     extends _ConfirmSignUpFormFieldState<UsernameInput>
     with
-        AuthenticatorUsernameField<ConfirmSignUpField,
-            ConfirmSignUpFormField<UsernameInput>> {
+        AuthenticatorUsernameField<
+          ConfirmSignUpField,
+          ConfirmSignUpFormField<UsernameInput>
+        > {
   @override
   Widget? get surlabel => null;
 }

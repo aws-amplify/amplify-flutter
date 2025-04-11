@@ -10,28 +10,26 @@ part of 'pinpoint_config.dart';
 
 PinpointPluginConfig _$PinpointPluginConfigFromJson(
   Map<String, dynamic> json,
-) =>
-    $checkedCreate('PinpointPluginConfig', json, ($checkedConvert) {
-      final val = PinpointPluginConfig(
-        pinpointAnalytics: $checkedConvert(
-          'pinpointAnalytics',
-          (v) => PinpointAnalytics.fromJson(v as Map<String, dynamic>),
-        ),
-        pinpointTargeting: $checkedConvert(
-          'pinpointTargeting',
-          (v) => PinpointTargeting.fromJson(v as Map<String, dynamic>),
-        ),
-      );
-      return val;
-    });
+) => $checkedCreate('PinpointPluginConfig', json, ($checkedConvert) {
+  final val = PinpointPluginConfig(
+    pinpointAnalytics: $checkedConvert(
+      'pinpointAnalytics',
+      (v) => PinpointAnalytics.fromJson(v as Map<String, dynamic>),
+    ),
+    pinpointTargeting: $checkedConvert(
+      'pinpointTargeting',
+      (v) => PinpointTargeting.fromJson(v as Map<String, dynamic>),
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$PinpointPluginConfigToJson(
   PinpointPluginConfig instance,
-) =>
-    <String, dynamic>{
-      'pinpointAnalytics': instance.pinpointAnalytics.toJson(),
-      'pinpointTargeting': instance.pinpointTargeting.toJson(),
-    };
+) => <String, dynamic>{
+  'pinpointAnalytics': instance.pinpointAnalytics.toJson(),
+  'pinpointTargeting': instance.pinpointTargeting.toJson(),
+};
 
 PinpointAnalytics _$PinpointAnalyticsFromJson(Map<String, dynamic> json) =>
     $checkedCreate('PinpointAnalytics', json, ($checkedConvert) {

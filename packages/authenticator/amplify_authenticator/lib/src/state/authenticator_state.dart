@@ -235,8 +235,8 @@ class AuthenticatorState extends ChangeNotifier {
     final currentPhoneNumber =
         authAttributes[CognitoUserAttributeKey.phoneNumber];
     if (currentPhoneNumber != null) {
-      authAttributes[CognitoUserAttributeKey.phoneNumber] =
-          currentPhoneNumber.replaceFirst(oldDialCode.value, newDialCode.value);
+      authAttributes[CognitoUserAttributeKey.phoneNumber] = currentPhoneNumber
+          .replaceFirst(oldDialCode.value, newDialCode.value);
     }
     _dialCode = newDialCode;
     notifyListeners();
@@ -622,8 +622,9 @@ class AuthenticatorState extends ChangeNotifier {
     );
     _authBloc.add(AuthConfirmVerifyUser(authConfirmVerifyUserData));
     await nextBlocEvent(
-      where: (state) =>
-          state is UnauthenticatedState || state is AuthenticatedState,
+      where:
+          (state) =>
+              state is UnauthenticatedState || state is AuthenticatedState,
     );
     _setIsBusy(false);
   }
