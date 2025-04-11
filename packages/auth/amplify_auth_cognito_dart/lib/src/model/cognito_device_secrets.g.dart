@@ -66,36 +66,28 @@ class _$CognitoDeviceSecretsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'deviceGroupKey':
-          result.deviceGroupKey =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.deviceGroupKey = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          )! as String;
           break;
         case 'deviceKey':
-          result.deviceKey =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.deviceKey = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          )! as String;
           break;
         case 'devicePassword':
-          result.devicePassword =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.devicePassword = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          )! as String;
           break;
         case 'deviceStatus':
-          result.deviceStatus =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(DeviceRememberedStatusType),
-                  )!
-                  as DeviceRememberedStatusType;
+          result.deviceStatus = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DeviceRememberedStatusType),
+          )! as DeviceRememberedStatusType;
           break;
       }
     }
@@ -116,7 +108,8 @@ class _$CognitoDeviceSecrets extends CognitoDeviceSecrets {
 
   factory _$CognitoDeviceSecrets([
     void Function(CognitoDeviceSecretsBuilder)? updates,
-  ]) => (new CognitoDeviceSecretsBuilder()..update(updates))._build();
+  ]) =>
+      (new CognitoDeviceSecretsBuilder()..update(updates))._build();
 
   _$CognitoDeviceSecrets._({
     required this.deviceGroupKey,
@@ -149,7 +142,8 @@ class _$CognitoDeviceSecrets extends CognitoDeviceSecrets {
   @override
   CognitoDeviceSecrets rebuild(
     void Function(CognitoDeviceSecretsBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   CognitoDeviceSecretsBuilder toBuilder() =>
@@ -240,8 +234,7 @@ class CognitoDeviceSecretsBuilder
 
   _$CognitoDeviceSecrets _build() {
     CognitoDeviceSecrets._init(this);
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$CognitoDeviceSecrets._(
           deviceGroupKey: BuiltValueNullFieldError.checkNotNull(
             deviceGroupKey,

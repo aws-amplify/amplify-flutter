@@ -14,14 +14,16 @@ class _$UserNotConfirmedException extends UserNotConfirmedException {
 
   factory _$UserNotConfirmedException([
     void Function(UserNotConfirmedExceptionBuilder)? updates,
-  ]) => (new UserNotConfirmedExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new UserNotConfirmedExceptionBuilder()..update(updates))._build();
 
   _$UserNotConfirmedException._({this.message, this.headers}) : super._();
 
   @override
   UserNotConfirmedException rebuild(
     void Function(UserNotConfirmedExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   UserNotConfirmedExceptionBuilder toBuilder() =>
@@ -82,8 +84,7 @@ class UserNotConfirmedExceptionBuilder
   UserNotConfirmedException build() => _build();
 
   _$UserNotConfirmedException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$UserNotConfirmedException._(message: message, headers: headers);
     replace(_$result);
     return _$result;

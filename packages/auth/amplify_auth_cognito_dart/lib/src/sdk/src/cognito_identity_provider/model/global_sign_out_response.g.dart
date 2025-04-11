@@ -9,14 +9,16 @@ part of 'global_sign_out_response.dart';
 class _$GlobalSignOutResponse extends GlobalSignOutResponse {
   factory _$GlobalSignOutResponse([
     void Function(GlobalSignOutResponseBuilder)? updates,
-  ]) => (new GlobalSignOutResponseBuilder()..update(updates))._build();
+  ]) =>
+      (new GlobalSignOutResponseBuilder()..update(updates))._build();
 
   _$GlobalSignOutResponse._() : super._();
 
   @override
   GlobalSignOutResponse rebuild(
     void Function(GlobalSignOutResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   GlobalSignOutResponseBuilder toBuilder() =>

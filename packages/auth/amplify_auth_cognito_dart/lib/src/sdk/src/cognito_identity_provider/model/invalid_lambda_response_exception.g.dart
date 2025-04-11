@@ -14,14 +14,16 @@ class _$InvalidLambdaResponseException extends InvalidLambdaResponseException {
 
   factory _$InvalidLambdaResponseException([
     void Function(InvalidLambdaResponseExceptionBuilder)? updates,
-  ]) => (new InvalidLambdaResponseExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new InvalidLambdaResponseExceptionBuilder()..update(updates))._build();
 
   _$InvalidLambdaResponseException._({this.message, this.headers}) : super._();
 
   @override
   InvalidLambdaResponseException rebuild(
     void Function(InvalidLambdaResponseExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InvalidLambdaResponseExceptionBuilder toBuilder() =>
@@ -44,10 +46,8 @@ class _$InvalidLambdaResponseException extends InvalidLambdaResponseException {
 
 class InvalidLambdaResponseExceptionBuilder
     implements
-        Builder<
-          InvalidLambdaResponseException,
-          InvalidLambdaResponseExceptionBuilder
-        > {
+        Builder<InvalidLambdaResponseException,
+            InvalidLambdaResponseExceptionBuilder> {
   _$InvalidLambdaResponseException? _$v;
 
   String? _message;
@@ -85,8 +85,7 @@ class InvalidLambdaResponseExceptionBuilder
   InvalidLambdaResponseException build() => _build();
 
   _$InvalidLambdaResponseException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$InvalidLambdaResponseException._(
           message: message,
           headers: headers,

@@ -22,7 +22,8 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
 
   factory _$InitiateAuthRequest([
     void Function(InitiateAuthRequestBuilder)? updates,
-  ]) => (new InitiateAuthRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new InitiateAuthRequestBuilder()..update(updates))._build();
 
   _$InitiateAuthRequest._({
     required this.authFlow,
@@ -47,7 +48,8 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
   @override
   InitiateAuthRequest rebuild(
     void Function(InitiateAuthRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InitiateAuthRequestBuilder toBuilder() =>
@@ -148,8 +150,7 @@ class InitiateAuthRequestBuilder
   _$InitiateAuthRequest _build() {
     _$InitiateAuthRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$InitiateAuthRequest._(
             authFlow: BuiltValueNullFieldError.checkNotNull(
               authFlow,

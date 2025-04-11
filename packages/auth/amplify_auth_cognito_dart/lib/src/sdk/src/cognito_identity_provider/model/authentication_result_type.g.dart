@@ -22,7 +22,8 @@ class _$AuthenticationResultType extends AuthenticationResultType {
 
   factory _$AuthenticationResultType([
     void Function(AuthenticationResultTypeBuilder)? updates,
-  ]) => (new AuthenticationResultTypeBuilder()..update(updates))._build();
+  ]) =>
+      (new AuthenticationResultTypeBuilder()..update(updates))._build();
 
   _$AuthenticationResultType._({
     this.accessToken,
@@ -42,7 +43,8 @@ class _$AuthenticationResultType extends AuthenticationResultType {
   @override
   AuthenticationResultType rebuild(
     void Function(AuthenticationResultTypeBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   AuthenticationResultTypeBuilder toBuilder() =>
@@ -140,8 +142,7 @@ class AuthenticationResultTypeBuilder
   _$AuthenticationResultType _build() {
     _$AuthenticationResultType _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$AuthenticationResultType._(
             accessToken: accessToken,
             expiresIn: BuiltValueNullFieldError.checkNotNull(

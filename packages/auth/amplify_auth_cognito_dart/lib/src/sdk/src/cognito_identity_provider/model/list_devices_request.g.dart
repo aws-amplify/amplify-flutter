@@ -16,7 +16,8 @@ class _$ListDevicesRequest extends ListDevicesRequest {
 
   factory _$ListDevicesRequest([
     void Function(ListDevicesRequestBuilder)? updates,
-  ]) => (new ListDevicesRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new ListDevicesRequestBuilder()..update(updates))._build();
 
   _$ListDevicesRequest._({
     required this.accessToken,
@@ -33,7 +34,8 @@ class _$ListDevicesRequest extends ListDevicesRequest {
   @override
   ListDevicesRequest rebuild(
     void Function(ListDevicesRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ListDevicesRequestBuilder toBuilder() =>
@@ -104,8 +106,7 @@ class ListDevicesRequestBuilder
   ListDevicesRequest build() => _build();
 
   _$ListDevicesRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$ListDevicesRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,

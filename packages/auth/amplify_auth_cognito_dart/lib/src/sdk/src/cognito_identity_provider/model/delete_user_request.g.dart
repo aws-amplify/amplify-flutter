@@ -12,7 +12,8 @@ class _$DeleteUserRequest extends DeleteUserRequest {
 
   factory _$DeleteUserRequest([
     void Function(DeleteUserRequestBuilder)? updates,
-  ]) => (new DeleteUserRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new DeleteUserRequestBuilder()..update(updates))._build();
 
   _$DeleteUserRequest._({required this.accessToken}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -79,8 +80,7 @@ class DeleteUserRequestBuilder
   DeleteUserRequest build() => _build();
 
   _$DeleteUserRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$DeleteUserRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,

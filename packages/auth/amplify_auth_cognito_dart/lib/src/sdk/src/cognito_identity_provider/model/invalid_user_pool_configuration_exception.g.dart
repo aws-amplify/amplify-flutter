@@ -20,12 +20,13 @@ class _$InvalidUserPoolConfigurationException
           ._build();
 
   _$InvalidUserPoolConfigurationException._({this.message, this.headers})
-    : super._();
+      : super._();
 
   @override
   InvalidUserPoolConfigurationException rebuild(
     void Function(InvalidUserPoolConfigurationExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InvalidUserPoolConfigurationExceptionBuilder toBuilder() =>
@@ -49,10 +50,8 @@ class _$InvalidUserPoolConfigurationException
 
 class InvalidUserPoolConfigurationExceptionBuilder
     implements
-        Builder<
-          InvalidUserPoolConfigurationException,
-          InvalidUserPoolConfigurationExceptionBuilder
-        > {
+        Builder<InvalidUserPoolConfigurationException,
+            InvalidUserPoolConfigurationExceptionBuilder> {
   _$InvalidUserPoolConfigurationException? _$v;
 
   String? _message;
@@ -92,8 +91,7 @@ class InvalidUserPoolConfigurationExceptionBuilder
   InvalidUserPoolConfigurationException build() => _build();
 
   _$InvalidUserPoolConfigurationException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$InvalidUserPoolConfigurationException._(
           message: message,
           headers: headers,

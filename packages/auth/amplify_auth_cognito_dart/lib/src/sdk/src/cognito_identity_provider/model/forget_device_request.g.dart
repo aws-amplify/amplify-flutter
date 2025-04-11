@@ -14,10 +14,11 @@ class _$ForgetDeviceRequest extends ForgetDeviceRequest {
 
   factory _$ForgetDeviceRequest([
     void Function(ForgetDeviceRequestBuilder)? updates,
-  ]) => (new ForgetDeviceRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new ForgetDeviceRequestBuilder()..update(updates))._build();
 
   _$ForgetDeviceRequest._({this.accessToken, required this.deviceKey})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
       deviceKey,
       r'ForgetDeviceRequest',
@@ -28,7 +29,8 @@ class _$ForgetDeviceRequest extends ForgetDeviceRequest {
   @override
   ForgetDeviceRequest rebuild(
     void Function(ForgetDeviceRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ForgetDeviceRequestBuilder toBuilder() =>
@@ -91,8 +93,7 @@ class ForgetDeviceRequestBuilder
   ForgetDeviceRequest build() => _build();
 
   _$ForgetDeviceRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$ForgetDeviceRequest._(
           accessToken: accessToken,
           deviceKey: BuiltValueNullFieldError.checkNotNull(

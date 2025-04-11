@@ -14,15 +14,17 @@ class _$AssociateSoftwareTokenRequest extends AssociateSoftwareTokenRequest {
 
   factory _$AssociateSoftwareTokenRequest([
     void Function(AssociateSoftwareTokenRequestBuilder)? updates,
-  ]) => (new AssociateSoftwareTokenRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new AssociateSoftwareTokenRequestBuilder()..update(updates))._build();
 
   _$AssociateSoftwareTokenRequest._({this.accessToken, this.session})
-    : super._();
+      : super._();
 
   @override
   AssociateSoftwareTokenRequest rebuild(
     void Function(AssociateSoftwareTokenRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   AssociateSoftwareTokenRequestBuilder toBuilder() =>
@@ -48,10 +50,8 @@ class _$AssociateSoftwareTokenRequest extends AssociateSoftwareTokenRequest {
 
 class AssociateSoftwareTokenRequestBuilder
     implements
-        Builder<
-          AssociateSoftwareTokenRequest,
-          AssociateSoftwareTokenRequestBuilder
-        > {
+        Builder<AssociateSoftwareTokenRequest,
+            AssociateSoftwareTokenRequestBuilder> {
   _$AssociateSoftwareTokenRequest? _$v;
 
   String? _accessToken;
@@ -89,8 +89,7 @@ class AssociateSoftwareTokenRequestBuilder
   AssociateSoftwareTokenRequest build() => _build();
 
   _$AssociateSoftwareTokenRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$AssociateSoftwareTokenRequest._(
           accessToken: accessToken,
           session: session,

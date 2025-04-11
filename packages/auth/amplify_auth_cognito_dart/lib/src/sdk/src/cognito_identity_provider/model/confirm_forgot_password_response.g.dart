@@ -9,14 +9,16 @@ part of 'confirm_forgot_password_response.dart';
 class _$ConfirmForgotPasswordResponse extends ConfirmForgotPasswordResponse {
   factory _$ConfirmForgotPasswordResponse([
     void Function(ConfirmForgotPasswordResponseBuilder)? updates,
-  ]) => (new ConfirmForgotPasswordResponseBuilder()..update(updates))._build();
+  ]) =>
+      (new ConfirmForgotPasswordResponseBuilder()..update(updates))._build();
 
   _$ConfirmForgotPasswordResponse._() : super._();
 
   @override
   ConfirmForgotPasswordResponse rebuild(
     void Function(ConfirmForgotPasswordResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ConfirmForgotPasswordResponseBuilder toBuilder() =>
@@ -36,10 +38,8 @@ class _$ConfirmForgotPasswordResponse extends ConfirmForgotPasswordResponse {
 
 class ConfirmForgotPasswordResponseBuilder
     implements
-        Builder<
-          ConfirmForgotPasswordResponse,
-          ConfirmForgotPasswordResponseBuilder
-        > {
+        Builder<ConfirmForgotPasswordResponse,
+            ConfirmForgotPasswordResponseBuilder> {
   _$ConfirmForgotPasswordResponse? _$v;
 
   ConfirmForgotPasswordResponseBuilder();

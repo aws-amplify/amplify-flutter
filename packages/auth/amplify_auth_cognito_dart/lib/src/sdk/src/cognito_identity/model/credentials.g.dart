@@ -103,8 +103,7 @@ class CredentialsBuilder implements Builder<Credentials, CredentialsBuilder> {
   Credentials build() => _build();
 
   _$Credentials _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$Credentials._(
           accessKeyId: accessKeyId,
           secretKey: secretKey,

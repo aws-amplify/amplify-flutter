@@ -81,8 +81,7 @@ class AttributeTypeBuilder
   AttributeType build() => _build();
 
   _$AttributeType _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$AttributeType._(
           name: BuiltValueNullFieldError.checkNotNull(
             name,

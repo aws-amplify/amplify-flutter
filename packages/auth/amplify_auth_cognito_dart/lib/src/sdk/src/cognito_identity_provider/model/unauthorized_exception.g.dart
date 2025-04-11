@@ -14,14 +14,16 @@ class _$UnauthorizedException extends UnauthorizedException {
 
   factory _$UnauthorizedException([
     void Function(UnauthorizedExceptionBuilder)? updates,
-  ]) => (new UnauthorizedExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new UnauthorizedExceptionBuilder()..update(updates))._build();
 
   _$UnauthorizedException._({this.message, this.headers}) : super._();
 
   @override
   UnauthorizedException rebuild(
     void Function(UnauthorizedExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   UnauthorizedExceptionBuilder toBuilder() =>
@@ -81,8 +83,7 @@ class UnauthorizedExceptionBuilder
   UnauthorizedException build() => _build();
 
   _$UnauthorizedException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$UnauthorizedException._(message: message, headers: headers);
     replace(_$result);
     return _$result;

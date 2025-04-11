@@ -16,7 +16,8 @@ class _$RevokeTokenRequest extends RevokeTokenRequest {
 
   factory _$RevokeTokenRequest([
     void Function(RevokeTokenRequestBuilder)? updates,
-  ]) => (new RevokeTokenRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new RevokeTokenRequestBuilder()..update(updates))._build();
 
   _$RevokeTokenRequest._({
     required this.token,
@@ -38,7 +39,8 @@ class _$RevokeTokenRequest extends RevokeTokenRequest {
   @override
   RevokeTokenRequest rebuild(
     void Function(RevokeTokenRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   RevokeTokenRequestBuilder toBuilder() =>
@@ -108,8 +110,7 @@ class RevokeTokenRequestBuilder
   RevokeTokenRequest build() => _build();
 
   _$RevokeTokenRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$RevokeTokenRequest._(
           token: BuiltValueNullFieldError.checkNotNull(
             token,

@@ -14,14 +14,16 @@ class _$UserNotFoundException extends UserNotFoundException {
 
   factory _$UserNotFoundException([
     void Function(UserNotFoundExceptionBuilder)? updates,
-  ]) => (new UserNotFoundExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new UserNotFoundExceptionBuilder()..update(updates))._build();
 
   _$UserNotFoundException._({this.message, this.headers}) : super._();
 
   @override
   UserNotFoundException rebuild(
     void Function(UserNotFoundExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   UserNotFoundExceptionBuilder toBuilder() =>
@@ -81,8 +83,7 @@ class UserNotFoundExceptionBuilder
   UserNotFoundException build() => _build();
 
   _$UserNotFoundException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$UserNotFoundException._(message: message, headers: headers);
     replace(_$result);
     return _$result;

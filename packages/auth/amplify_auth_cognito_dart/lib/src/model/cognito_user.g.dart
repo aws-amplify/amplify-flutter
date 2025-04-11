@@ -180,8 +180,7 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
     CognitoUser._finalize(this);
     _$CognitoUser _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$CognitoUser._(
             identityId: identityId,
             awsCredentials: awsCredentials,

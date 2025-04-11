@@ -14,14 +14,16 @@ class _$InvalidPasswordException extends InvalidPasswordException {
 
   factory _$InvalidPasswordException([
     void Function(InvalidPasswordExceptionBuilder)? updates,
-  ]) => (new InvalidPasswordExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new InvalidPasswordExceptionBuilder()..update(updates))._build();
 
   _$InvalidPasswordException._({this.message, this.headers}) : super._();
 
   @override
   InvalidPasswordException rebuild(
     void Function(InvalidPasswordExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InvalidPasswordExceptionBuilder toBuilder() =>
@@ -82,8 +84,7 @@ class InvalidPasswordExceptionBuilder
   InvalidPasswordException build() => _build();
 
   _$InvalidPasswordException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$InvalidPasswordException._(message: message, headers: headers);
     replace(_$result);
     return _$result;

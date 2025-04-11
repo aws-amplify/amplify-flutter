@@ -118,78 +118,60 @@ class _$ASFContextDataSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'deviceName':
-          result.deviceName =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.deviceName = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'thirdPartyDeviceId':
-          result.thirdPartyDeviceId =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.thirdPartyDeviceId = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'deviceFingerprint':
-          result.deviceFingerprint =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.deviceFingerprint = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'clientTimezone':
-          result.clientTimezone =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.clientTimezone = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'applicationName':
-          result.applicationName =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.applicationName = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'applicationVersion':
-          result.applicationVersion =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.applicationVersion = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'deviceLanguage':
-          result.deviceLanguage =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.deviceLanguage = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'deviceOsReleaseVersion':
-          result.deviceOsReleaseVersion =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.deviceOsReleaseVersion = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'screenHeightPixels':
-          result.screenHeightPixels =
-              serializers.deserialize(value, specifiedType: const FullType(int))
-                  as int?;
+          result.screenHeightPixels = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'screenWidthPixels':
-          result.screenWidthPixels =
-              serializers.deserialize(value, specifiedType: const FullType(int))
-                  as int?;
+          result.screenWidthPixels = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
           break;
       }
     }
@@ -382,8 +364,7 @@ class ASFContextDataBuilder
   ASFContextData build() => _build();
 
   _$ASFContextData _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$ASFContextData._(
           deviceName: deviceName,
           thirdPartyDeviceId: thirdPartyDeviceId,

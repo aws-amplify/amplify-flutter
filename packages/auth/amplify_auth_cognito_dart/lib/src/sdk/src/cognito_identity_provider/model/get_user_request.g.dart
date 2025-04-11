@@ -78,8 +78,7 @@ class GetUserRequestBuilder
   GetUserRequest build() => _build();
 
   _$GetUserRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$GetUserRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,

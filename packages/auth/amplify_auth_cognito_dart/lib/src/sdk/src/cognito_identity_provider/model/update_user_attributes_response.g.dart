@@ -12,14 +12,16 @@ class _$UpdateUserAttributesResponse extends UpdateUserAttributesResponse {
 
   factory _$UpdateUserAttributesResponse([
     void Function(UpdateUserAttributesResponseBuilder)? updates,
-  ]) => (new UpdateUserAttributesResponseBuilder()..update(updates))._build();
+  ]) =>
+      (new UpdateUserAttributesResponseBuilder()..update(updates))._build();
 
   _$UpdateUserAttributesResponse._({this.codeDeliveryDetailsList}) : super._();
 
   @override
   UpdateUserAttributesResponse rebuild(
     void Function(UpdateUserAttributesResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   UpdateUserAttributesResponseBuilder toBuilder() =>
@@ -43,10 +45,8 @@ class _$UpdateUserAttributesResponse extends UpdateUserAttributesResponse {
 
 class UpdateUserAttributesResponseBuilder
     implements
-        Builder<
-          UpdateUserAttributesResponse,
-          UpdateUserAttributesResponseBuilder
-        > {
+        Builder<UpdateUserAttributesResponse,
+            UpdateUserAttributesResponseBuilder> {
   _$UpdateUserAttributesResponse? _$v;
 
   _i2.ListBuilder<CodeDeliveryDetailsType>? _codeDeliveryDetailsList;
@@ -55,7 +55,8 @@ class UpdateUserAttributesResponseBuilder
           new _i2.ListBuilder<CodeDeliveryDetailsType>();
   set codeDeliveryDetailsList(
     _i2.ListBuilder<CodeDeliveryDetailsType>? codeDeliveryDetailsList,
-  ) => _$this._codeDeliveryDetailsList = codeDeliveryDetailsList;
+  ) =>
+      _$this._codeDeliveryDetailsList = codeDeliveryDetailsList;
 
   UpdateUserAttributesResponseBuilder();
 
@@ -85,8 +86,7 @@ class UpdateUserAttributesResponseBuilder
   _$UpdateUserAttributesResponse _build() {
     _$UpdateUserAttributesResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$UpdateUserAttributesResponse._(
             codeDeliveryDetailsList: _codeDeliveryDetailsList?.build(),
           );

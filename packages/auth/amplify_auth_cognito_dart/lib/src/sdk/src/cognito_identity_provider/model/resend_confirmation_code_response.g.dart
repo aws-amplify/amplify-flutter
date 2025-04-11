@@ -12,14 +12,16 @@ class _$ResendConfirmationCodeResponse extends ResendConfirmationCodeResponse {
 
   factory _$ResendConfirmationCodeResponse([
     void Function(ResendConfirmationCodeResponseBuilder)? updates,
-  ]) => (new ResendConfirmationCodeResponseBuilder()..update(updates))._build();
+  ]) =>
+      (new ResendConfirmationCodeResponseBuilder()..update(updates))._build();
 
   _$ResendConfirmationCodeResponse._({this.codeDeliveryDetails}) : super._();
 
   @override
   ResendConfirmationCodeResponse rebuild(
     void Function(ResendConfirmationCodeResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ResendConfirmationCodeResponseBuilder toBuilder() =>
@@ -43,10 +45,8 @@ class _$ResendConfirmationCodeResponse extends ResendConfirmationCodeResponse {
 
 class ResendConfirmationCodeResponseBuilder
     implements
-        Builder<
-          ResendConfirmationCodeResponse,
-          ResendConfirmationCodeResponseBuilder
-        > {
+        Builder<ResendConfirmationCodeResponse,
+            ResendConfirmationCodeResponseBuilder> {
   _$ResendConfirmationCodeResponse? _$v;
 
   CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
@@ -54,7 +54,8 @@ class ResendConfirmationCodeResponseBuilder
       _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
     CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
-  ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
+  ) =>
+      _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   ResendConfirmationCodeResponseBuilder();
 
@@ -84,8 +85,7 @@ class ResendConfirmationCodeResponseBuilder
   _$ResendConfirmationCodeResponse _build() {
     _$ResendConfirmationCodeResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$ResendConfirmationCodeResponse._(
             codeDeliveryDetails: _codeDeliveryDetails?.build(),
           );

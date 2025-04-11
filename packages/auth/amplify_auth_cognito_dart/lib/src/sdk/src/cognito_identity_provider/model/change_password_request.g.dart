@@ -16,7 +16,8 @@ class _$ChangePasswordRequest extends ChangePasswordRequest {
 
   factory _$ChangePasswordRequest([
     void Function(ChangePasswordRequestBuilder)? updates,
-  ]) => (new ChangePasswordRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new ChangePasswordRequestBuilder()..update(updates))._build();
 
   _$ChangePasswordRequest._({
     required this.previousPassword,
@@ -43,7 +44,8 @@ class _$ChangePasswordRequest extends ChangePasswordRequest {
   @override
   ChangePasswordRequest rebuild(
     void Function(ChangePasswordRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ChangePasswordRequestBuilder toBuilder() =>
@@ -115,8 +117,7 @@ class ChangePasswordRequestBuilder
   ChangePasswordRequest build() => _build();
 
   _$ChangePasswordRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$ChangePasswordRequest._(
           previousPassword: BuiltValueNullFieldError.checkNotNull(
             previousPassword,

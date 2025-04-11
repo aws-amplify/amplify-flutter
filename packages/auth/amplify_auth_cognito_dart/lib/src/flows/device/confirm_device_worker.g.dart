@@ -6,11 +6,10 @@ part of 'confirm_device_worker.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$_serializers =
-    (new Serializers().toBuilder()
-          ..add(ConfirmDeviceMessage.serializer)
-          ..add(ConfirmDeviceResponse.serializer))
-        .build();
+Serializers _$_serializers = (new Serializers().toBuilder()
+      ..add(ConfirmDeviceMessage.serializer)
+      ..add(ConfirmDeviceResponse.serializer))
+    .build();
 Serializer<ConfirmDeviceMessage> _$confirmDeviceMessageSerializer =
     new _$ConfirmDeviceMessageSerializer();
 Serializer<ConfirmDeviceResponse> _$confirmDeviceResponseSerializer =
@@ -63,20 +62,17 @@ class _$ConfirmDeviceMessageSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'accessToken':
-          result.accessToken =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.accessToken = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          )! as String;
           break;
         case 'newDeviceMetadata':
           result.newDeviceMetadata.replace(
             serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(NewDeviceMetadataType),
-                )!
-                as NewDeviceMetadataType,
+              value,
+              specifiedType: const FullType(NewDeviceMetadataType),
+            )! as NewDeviceMetadataType,
           );
           break;
       }
@@ -133,20 +129,17 @@ class _$ConfirmDeviceResponseSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'devicePassword':
-          result.devicePassword =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.devicePassword = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          )! as String;
           break;
         case 'request':
           result.request.replace(
             serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(ConfirmDeviceRequest),
-                )!
-                as ConfirmDeviceRequest,
+              value,
+              specifiedType: const FullType(ConfirmDeviceRequest),
+            )! as ConfirmDeviceRequest,
           );
           break;
       }
@@ -164,7 +157,8 @@ class _$ConfirmDeviceMessage extends ConfirmDeviceMessage {
 
   factory _$ConfirmDeviceMessage([
     void Function(ConfirmDeviceMessageBuilder)? updates,
-  ]) => (new ConfirmDeviceMessageBuilder()..update(updates))._build();
+  ]) =>
+      (new ConfirmDeviceMessageBuilder()..update(updates))._build();
 
   _$ConfirmDeviceMessage._({
     required this.accessToken,
@@ -185,7 +179,8 @@ class _$ConfirmDeviceMessage extends ConfirmDeviceMessage {
   @override
   ConfirmDeviceMessage rebuild(
     void Function(ConfirmDeviceMessageBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ConfirmDeviceMessageBuilder toBuilder() =>
@@ -260,8 +255,7 @@ class ConfirmDeviceMessageBuilder
   _$ConfirmDeviceMessage _build() {
     _$ConfirmDeviceMessage _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$ConfirmDeviceMessage._(
             accessToken: BuiltValueNullFieldError.checkNotNull(
               accessToken,
@@ -297,7 +291,8 @@ class _$ConfirmDeviceResponse extends ConfirmDeviceResponse {
 
   factory _$ConfirmDeviceResponse([
     void Function(ConfirmDeviceResponseBuilder)? updates,
-  ]) => (new ConfirmDeviceResponseBuilder()..update(updates))._build();
+  ]) =>
+      (new ConfirmDeviceResponseBuilder()..update(updates))._build();
 
   _$ConfirmDeviceResponse._({
     required this.devicePassword,
@@ -318,7 +313,8 @@ class _$ConfirmDeviceResponse extends ConfirmDeviceResponse {
   @override
   ConfirmDeviceResponse rebuild(
     void Function(ConfirmDeviceResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ConfirmDeviceResponseBuilder toBuilder() =>
@@ -394,8 +390,7 @@ class ConfirmDeviceResponseBuilder
   _$ConfirmDeviceResponse _build() {
     _$ConfirmDeviceResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$ConfirmDeviceResponse._(
             devicePassword: BuiltValueNullFieldError.checkNotNull(
               devicePassword,

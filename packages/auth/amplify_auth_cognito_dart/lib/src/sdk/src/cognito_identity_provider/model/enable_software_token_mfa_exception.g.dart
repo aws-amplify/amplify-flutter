@@ -23,7 +23,8 @@ class _$EnableSoftwareTokenMfaException
   @override
   EnableSoftwareTokenMfaException rebuild(
     void Function(EnableSoftwareTokenMfaExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   EnableSoftwareTokenMfaExceptionBuilder toBuilder() =>
@@ -46,10 +47,8 @@ class _$EnableSoftwareTokenMfaException
 
 class EnableSoftwareTokenMfaExceptionBuilder
     implements
-        Builder<
-          EnableSoftwareTokenMfaException,
-          EnableSoftwareTokenMfaExceptionBuilder
-        > {
+        Builder<EnableSoftwareTokenMfaException,
+            EnableSoftwareTokenMfaExceptionBuilder> {
   _$EnableSoftwareTokenMfaException? _$v;
 
   String? _message;
@@ -87,8 +86,7 @@ class EnableSoftwareTokenMfaExceptionBuilder
   EnableSoftwareTokenMfaException build() => _build();
 
   _$EnableSoftwareTokenMfaException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$EnableSoftwareTokenMfaException._(
           message: message,
           headers: headers,

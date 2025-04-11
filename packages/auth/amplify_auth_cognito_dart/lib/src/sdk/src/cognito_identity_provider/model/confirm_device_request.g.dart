@@ -18,7 +18,8 @@ class _$ConfirmDeviceRequest extends ConfirmDeviceRequest {
 
   factory _$ConfirmDeviceRequest([
     void Function(ConfirmDeviceRequestBuilder)? updates,
-  ]) => (new ConfirmDeviceRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new ConfirmDeviceRequestBuilder()..update(updates))._build();
 
   _$ConfirmDeviceRequest._({
     required this.accessToken,
@@ -41,7 +42,8 @@ class _$ConfirmDeviceRequest extends ConfirmDeviceRequest {
   @override
   ConfirmDeviceRequest rebuild(
     void Function(ConfirmDeviceRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ConfirmDeviceRequestBuilder toBuilder() =>
@@ -87,7 +89,8 @@ class ConfirmDeviceRequestBuilder
           new DeviceSecretVerifierConfigTypeBuilder();
   set deviceSecretVerifierConfig(
     DeviceSecretVerifierConfigTypeBuilder? deviceSecretVerifierConfig,
-  ) => _$this._deviceSecretVerifierConfig = deviceSecretVerifierConfig;
+  ) =>
+      _$this._deviceSecretVerifierConfig = deviceSecretVerifierConfig;
 
   String? _deviceName;
   String? get deviceName => _$this._deviceName;
@@ -124,8 +127,7 @@ class ConfirmDeviceRequestBuilder
   _$ConfirmDeviceRequest _build() {
     _$ConfirmDeviceRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$ConfirmDeviceRequest._(
             accessToken: BuiltValueNullFieldError.checkNotNull(
               accessToken,

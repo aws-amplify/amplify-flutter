@@ -14,14 +14,16 @@ class _$UsernameExistsException extends UsernameExistsException {
 
   factory _$UsernameExistsException([
     void Function(UsernameExistsExceptionBuilder)? updates,
-  ]) => (new UsernameExistsExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new UsernameExistsExceptionBuilder()..update(updates))._build();
 
   _$UsernameExistsException._({this.message, this.headers}) : super._();
 
   @override
   UsernameExistsException rebuild(
     void Function(UsernameExistsExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   UsernameExistsExceptionBuilder toBuilder() =>
@@ -82,8 +84,7 @@ class UsernameExistsExceptionBuilder
   UsernameExistsException build() => _build();
 
   _$UsernameExistsException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$UsernameExistsException._(message: message, headers: headers);
     replace(_$result);
     return _$result;

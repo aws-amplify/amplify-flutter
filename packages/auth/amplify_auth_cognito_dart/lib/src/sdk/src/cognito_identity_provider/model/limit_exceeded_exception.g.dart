@@ -14,14 +14,16 @@ class _$LimitExceededException extends LimitExceededException {
 
   factory _$LimitExceededException([
     void Function(LimitExceededExceptionBuilder)? updates,
-  ]) => (new LimitExceededExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new LimitExceededExceptionBuilder()..update(updates))._build();
 
   _$LimitExceededException._({this.message, this.headers}) : super._();
 
   @override
   LimitExceededException rebuild(
     void Function(LimitExceededExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   LimitExceededExceptionBuilder toBuilder() =>
@@ -81,8 +83,7 @@ class LimitExceededExceptionBuilder
   LimitExceededException build() => _build();
 
   _$LimitExceededException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$LimitExceededException._(message: message, headers: headers);
     replace(_$result);
     return _$result;

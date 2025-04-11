@@ -20,12 +20,13 @@ class _$InvalidEmailRoleAccessPolicyException
           ._build();
 
   _$InvalidEmailRoleAccessPolicyException._({this.message, this.headers})
-    : super._();
+      : super._();
 
   @override
   InvalidEmailRoleAccessPolicyException rebuild(
     void Function(InvalidEmailRoleAccessPolicyExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InvalidEmailRoleAccessPolicyExceptionBuilder toBuilder() =>
@@ -49,10 +50,8 @@ class _$InvalidEmailRoleAccessPolicyException
 
 class InvalidEmailRoleAccessPolicyExceptionBuilder
     implements
-        Builder<
-          InvalidEmailRoleAccessPolicyException,
-          InvalidEmailRoleAccessPolicyExceptionBuilder
-        > {
+        Builder<InvalidEmailRoleAccessPolicyException,
+            InvalidEmailRoleAccessPolicyExceptionBuilder> {
   _$InvalidEmailRoleAccessPolicyException? _$v;
 
   String? _message;
@@ -92,8 +91,7 @@ class InvalidEmailRoleAccessPolicyExceptionBuilder
   InvalidEmailRoleAccessPolicyException build() => _build();
 
   _$InvalidEmailRoleAccessPolicyException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$InvalidEmailRoleAccessPolicyException._(
           message: message,
           headers: headers,

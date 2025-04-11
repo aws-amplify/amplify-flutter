@@ -88,29 +88,28 @@ OAuthErrorCode _$valueOf(String name) {
 
 final BuiltSet<OAuthErrorCode> _$values =
     new BuiltSet<OAuthErrorCode>(const <OAuthErrorCode>[
-      _$invalidRequest,
-      _$unauthorizedClient,
-      _$accessDenied,
-      _$unsupportedResponseType,
-      _$invalidScope,
-      _$serverError,
-      _$temporarilyUnavailable,
-      _$interactionRequired,
-      _$loginRequired,
-      _$accountSelectionRequired,
-      _$consentRequired,
-      _$invalidRequestUri,
-      _$invalidRequestObject,
-      _$requestNotSupported,
-      _$requestUriNotSupported,
-      _$registrationUriNotSupported,
-    ]);
+  _$invalidRequest,
+  _$unauthorizedClient,
+  _$accessDenied,
+  _$unsupportedResponseType,
+  _$invalidScope,
+  _$serverError,
+  _$temporarilyUnavailable,
+  _$interactionRequired,
+  _$loginRequired,
+  _$accountSelectionRequired,
+  _$consentRequired,
+  _$invalidRequestUri,
+  _$invalidRequestObject,
+  _$requestNotSupported,
+  _$requestUriNotSupported,
+  _$registrationUriNotSupported,
+]);
 
-Serializers _$oauthSerializers =
-    (new Serializers().toBuilder()
-          ..add(OAuthErrorCode.serializer)
-          ..add(OAuthParameters.serializer))
-        .build();
+Serializers _$oauthSerializers = (new Serializers().toBuilder()
+      ..add(OAuthErrorCode.serializer)
+      ..add(OAuthParameters.serializer))
+    .build();
 Serializer<OAuthErrorCode> _$oAuthErrorCodeSerializer =
     new _$OAuthErrorCodeSerializer();
 Serializer<OAuthParameters> _$oAuthParametersSerializer =
@@ -165,16 +164,18 @@ class _$OAuthErrorCodeSerializer
     Serializers serializers,
     OAuthErrorCode object, {
     FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  }) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   OAuthErrorCode deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
-  }) => OAuthErrorCode.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+  }) =>
+      OAuthErrorCode.valueOf(
+        _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+      );
 }
 
 class _$OAuthParametersSerializer
@@ -251,44 +252,34 @@ class _$OAuthParametersSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'state':
-          result.state =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.state = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          )! as String;
           break;
         case 'code':
-          result.code =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.code = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'error':
-          result.error =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(OAuthErrorCode),
-                  )
-                  as OAuthErrorCode?;
+          result.error = serializers.deserialize(
+            value,
+            specifiedType: const FullType(OAuthErrorCode),
+          ) as OAuthErrorCode?;
           break;
         case 'error_description':
-          result.errorDescription =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.errorDescription = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'error_uri':
-          result.errorUri =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.errorUri = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
       }
     }
@@ -421,8 +412,7 @@ class OAuthParametersBuilder
 
   _$OAuthParameters _build() {
     OAuthParameters._finalize(this);
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$OAuthParameters._(
           state: BuiltValueNullFieldError.checkNotNull(
             state,

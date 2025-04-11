@@ -20,12 +20,13 @@ class _$GetCredentialsForIdentityResponse
           ._build();
 
   _$GetCredentialsForIdentityResponse._({this.identityId, this.credentials})
-    : super._();
+      : super._();
 
   @override
   GetCredentialsForIdentityResponse rebuild(
     void Function(GetCredentialsForIdentityResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   GetCredentialsForIdentityResponseBuilder toBuilder() =>
@@ -51,10 +52,8 @@ class _$GetCredentialsForIdentityResponse
 
 class GetCredentialsForIdentityResponseBuilder
     implements
-        Builder<
-          GetCredentialsForIdentityResponse,
-          GetCredentialsForIdentityResponseBuilder
-        > {
+        Builder<GetCredentialsForIdentityResponse,
+            GetCredentialsForIdentityResponseBuilder> {
   _$GetCredentialsForIdentityResponse? _$v;
 
   String? _identityId;
@@ -98,8 +97,7 @@ class GetCredentialsForIdentityResponseBuilder
   _$GetCredentialsForIdentityResponse _build() {
     _$GetCredentialsForIdentityResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$GetCredentialsForIdentityResponse._(
             identityId: identityId,
             credentials: _credentials?.build(),

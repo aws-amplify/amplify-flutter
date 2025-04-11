@@ -14,14 +14,16 @@ class _$ResourceNotFoundException extends ResourceNotFoundException {
 
   factory _$ResourceNotFoundException([
     void Function(ResourceNotFoundExceptionBuilder)? updates,
-  ]) => (new ResourceNotFoundExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new ResourceNotFoundExceptionBuilder()..update(updates))._build();
 
   _$ResourceNotFoundException._({this.message, this.headers}) : super._();
 
   @override
   ResourceNotFoundException rebuild(
     void Function(ResourceNotFoundExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ResourceNotFoundExceptionBuilder toBuilder() =>
@@ -82,8 +84,7 @@ class ResourceNotFoundExceptionBuilder
   ResourceNotFoundException build() => _build();
 
   _$ResourceNotFoundException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$ResourceNotFoundException._(message: message, headers: headers);
     replace(_$result);
     return _$result;

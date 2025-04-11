@@ -14,7 +14,8 @@ class _$SoftwareTokenMfaSettingsType extends SoftwareTokenMfaSettingsType {
 
   factory _$SoftwareTokenMfaSettingsType([
     void Function(SoftwareTokenMfaSettingsTypeBuilder)? updates,
-  ]) => (new SoftwareTokenMfaSettingsTypeBuilder()..update(updates))._build();
+  ]) =>
+      (new SoftwareTokenMfaSettingsTypeBuilder()..update(updates))._build();
 
   _$SoftwareTokenMfaSettingsType._({
     required this.enabled,
@@ -35,7 +36,8 @@ class _$SoftwareTokenMfaSettingsType extends SoftwareTokenMfaSettingsType {
   @override
   SoftwareTokenMfaSettingsType rebuild(
     void Function(SoftwareTokenMfaSettingsTypeBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   SoftwareTokenMfaSettingsTypeBuilder toBuilder() =>
@@ -61,10 +63,8 @@ class _$SoftwareTokenMfaSettingsType extends SoftwareTokenMfaSettingsType {
 
 class SoftwareTokenMfaSettingsTypeBuilder
     implements
-        Builder<
-          SoftwareTokenMfaSettingsType,
-          SoftwareTokenMfaSettingsTypeBuilder
-        > {
+        Builder<SoftwareTokenMfaSettingsType,
+            SoftwareTokenMfaSettingsTypeBuilder> {
   _$SoftwareTokenMfaSettingsType? _$v;
 
   bool? _enabled;
@@ -104,8 +104,7 @@ class SoftwareTokenMfaSettingsTypeBuilder
   SoftwareTokenMfaSettingsType build() => _build();
 
   _$SoftwareTokenMfaSettingsType _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$SoftwareTokenMfaSettingsType._(
           enabled: BuiltValueNullFieldError.checkNotNull(
             enabled,

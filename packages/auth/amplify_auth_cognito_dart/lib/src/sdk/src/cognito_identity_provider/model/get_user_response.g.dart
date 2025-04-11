@@ -135,8 +135,7 @@ class GetUserResponseBuilder
   _$GetUserResponse _build() {
     _$GetUserResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$GetUserResponse._(
             username: BuiltValueNullFieldError.checkNotNull(
               username,

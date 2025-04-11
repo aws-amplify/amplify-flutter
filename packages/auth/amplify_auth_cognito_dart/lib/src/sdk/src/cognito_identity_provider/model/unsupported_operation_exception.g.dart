@@ -14,14 +14,16 @@ class _$UnsupportedOperationException extends UnsupportedOperationException {
 
   factory _$UnsupportedOperationException([
     void Function(UnsupportedOperationExceptionBuilder)? updates,
-  ]) => (new UnsupportedOperationExceptionBuilder()..update(updates))._build();
+  ]) =>
+      (new UnsupportedOperationExceptionBuilder()..update(updates))._build();
 
   _$UnsupportedOperationException._({this.message, this.headers}) : super._();
 
   @override
   UnsupportedOperationException rebuild(
     void Function(UnsupportedOperationExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   UnsupportedOperationExceptionBuilder toBuilder() =>
@@ -44,10 +46,8 @@ class _$UnsupportedOperationException extends UnsupportedOperationException {
 
 class UnsupportedOperationExceptionBuilder
     implements
-        Builder<
-          UnsupportedOperationException,
-          UnsupportedOperationExceptionBuilder
-        > {
+        Builder<UnsupportedOperationException,
+            UnsupportedOperationExceptionBuilder> {
   _$UnsupportedOperationException? _$v;
 
   String? _message;
@@ -85,8 +85,7 @@ class UnsupportedOperationExceptionBuilder
   UnsupportedOperationException build() => _build();
 
   _$UnsupportedOperationException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$UnsupportedOperationException._(
           message: message,
           headers: headers,

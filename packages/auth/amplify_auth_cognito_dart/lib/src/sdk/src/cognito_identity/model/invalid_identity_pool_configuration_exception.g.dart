@@ -20,12 +20,13 @@ class _$InvalidIdentityPoolConfigurationException
           ._build();
 
   _$InvalidIdentityPoolConfigurationException._({this.message, this.headers})
-    : super._();
+      : super._();
 
   @override
   InvalidIdentityPoolConfigurationException rebuild(
     void Function(InvalidIdentityPoolConfigurationExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InvalidIdentityPoolConfigurationExceptionBuilder toBuilder() =>
@@ -49,10 +50,8 @@ class _$InvalidIdentityPoolConfigurationException
 
 class InvalidIdentityPoolConfigurationExceptionBuilder
     implements
-        Builder<
-          InvalidIdentityPoolConfigurationException,
-          InvalidIdentityPoolConfigurationExceptionBuilder
-        > {
+        Builder<InvalidIdentityPoolConfigurationException,
+            InvalidIdentityPoolConfigurationExceptionBuilder> {
   _$InvalidIdentityPoolConfigurationException? _$v;
 
   String? _message;
@@ -92,8 +91,7 @@ class InvalidIdentityPoolConfigurationExceptionBuilder
   InvalidIdentityPoolConfigurationException build() => _build();
 
   _$InvalidIdentityPoolConfigurationException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$InvalidIdentityPoolConfigurationException._(
           message: message,
           headers: headers,

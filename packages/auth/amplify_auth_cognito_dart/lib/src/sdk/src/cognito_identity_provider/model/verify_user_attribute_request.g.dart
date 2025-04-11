@@ -16,7 +16,8 @@ class _$VerifyUserAttributeRequest extends VerifyUserAttributeRequest {
 
   factory _$VerifyUserAttributeRequest([
     void Function(VerifyUserAttributeRequestBuilder)? updates,
-  ]) => (new VerifyUserAttributeRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new VerifyUserAttributeRequestBuilder()..update(updates))._build();
 
   _$VerifyUserAttributeRequest._({
     required this.accessToken,
@@ -43,7 +44,8 @@ class _$VerifyUserAttributeRequest extends VerifyUserAttributeRequest {
   @override
   VerifyUserAttributeRequest rebuild(
     void Function(VerifyUserAttributeRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   VerifyUserAttributeRequestBuilder toBuilder() =>
@@ -115,8 +117,7 @@ class VerifyUserAttributeRequestBuilder
   VerifyUserAttributeRequest build() => _build();
 
   _$VerifyUserAttributeRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$VerifyUserAttributeRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,

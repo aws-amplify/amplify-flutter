@@ -6,19 +6,18 @@ part of 'srp_password_verifier_worker.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$serializers =
-    (new Serializers().toBuilder()
-          ..add(SignInParameters.serializer)
-          ..add(SrpInitResult.serializer)
-          ..add(SrpPasswordVerifierMessage.serializer)
-          ..addBuilderFactory(
-            const FullType(BuiltMap, const [
-              const FullType(String),
-              const FullType(String),
-            ]),
-            () => new MapBuilder<String, String>(),
-          ))
-        .build();
+Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(SignInParameters.serializer)
+      ..add(SrpInitResult.serializer)
+      ..add(SrpPasswordVerifierMessage.serializer)
+      ..addBuilderFactory(
+        const FullType(BuiltMap, const [
+          const FullType(String),
+          const FullType(String),
+        ]),
+        () => new MapBuilder<String, String>(),
+      ))
+    .build();
 Serializer<SrpPasswordVerifierMessage> _$srpPasswordVerifierMessageSerializer =
     new _$SrpPasswordVerifierMessageSerializer();
 
@@ -108,71 +107,55 @@ class _$SrpPasswordVerifierMessageSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'initResult':
-          result.initResult =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(SrpInitResult),
-                  )!
-                  as SrpInitResult;
+          result.initResult = serializers.deserialize(
+            value,
+            specifiedType: const FullType(SrpInitResult),
+          )! as SrpInitResult;
           break;
         case 'clientId':
-          result.clientId =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.clientId = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          )! as String;
           break;
         case 'clientSecret':
-          result.clientSecret =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.clientSecret = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'poolId':
-          result.poolId =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.poolId = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          )! as String;
           break;
         case 'deviceKey':
-          result.deviceKey =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String?;
+          result.deviceKey = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String?;
           break;
         case 'parameters':
-          result.parameters =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(SignInParameters),
-                  )!
-                  as SignInParameters;
+          result.parameters = serializers.deserialize(
+            value,
+            specifiedType: const FullType(SignInParameters),
+          )! as SignInParameters;
           break;
         case 'challengeParameters':
-          result.challengeParameters =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltMap, const [
-                      const FullType(String),
-                      const FullType(String),
-                    ]),
-                  )!
-                  as BuiltMap<String, String>;
+          result.challengeParameters = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltMap, const [
+              const FullType(String),
+              const FullType(String),
+            ]),
+          )! as BuiltMap<String, String>;
           break;
         case 'timestamp':
-          result.timestamp =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(DateTime),
-                  )!
-                  as DateTime;
+          result.timestamp = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          )! as DateTime;
           break;
       }
     }
@@ -201,7 +184,8 @@ class _$SrpPasswordVerifierMessage extends SrpPasswordVerifierMessage {
 
   factory _$SrpPasswordVerifierMessage([
     void Function(SrpPasswordVerifierMessageBuilder)? updates,
-  ]) => (new SrpPasswordVerifierMessageBuilder()..update(updates))._build();
+  ]) =>
+      (new SrpPasswordVerifierMessageBuilder()..update(updates))._build();
 
   _$SrpPasswordVerifierMessage._({
     required this.initResult,
@@ -248,7 +232,8 @@ class _$SrpPasswordVerifierMessage extends SrpPasswordVerifierMessage {
   @override
   SrpPasswordVerifierMessage rebuild(
     void Function(SrpPasswordVerifierMessageBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   SrpPasswordVerifierMessageBuilder toBuilder() =>
@@ -372,8 +357,7 @@ class SrpPasswordVerifierMessageBuilder
 
   _$SrpPasswordVerifierMessage _build() {
     SrpPasswordVerifierMessage._init(this);
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$SrpPasswordVerifierMessage._(
           initResult: BuiltValueNullFieldError.checkNotNull(
             initResult,

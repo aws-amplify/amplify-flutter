@@ -22,7 +22,8 @@ class _$ForgotPasswordRequest extends ForgotPasswordRequest {
 
   factory _$ForgotPasswordRequest([
     void Function(ForgotPasswordRequestBuilder)? updates,
-  ]) => (new ForgotPasswordRequestBuilder()..update(updates))._build();
+  ]) =>
+      (new ForgotPasswordRequestBuilder()..update(updates))._build();
 
   _$ForgotPasswordRequest._({
     required this.clientId,
@@ -47,7 +48,8 @@ class _$ForgotPasswordRequest extends ForgotPasswordRequest {
   @override
   ForgotPasswordRequest rebuild(
     void Function(ForgotPasswordRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+  ) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ForgotPasswordRequestBuilder toBuilder() =>
@@ -146,8 +148,7 @@ class ForgotPasswordRequestBuilder
   _$ForgotPasswordRequest _build() {
     _$ForgotPasswordRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$ForgotPasswordRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,
