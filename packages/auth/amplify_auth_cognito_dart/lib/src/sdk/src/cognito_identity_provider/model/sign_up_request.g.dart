@@ -182,7 +182,8 @@ class SignUpRequestBuilder
   _$SignUpRequest _build() {
     _$SignUpRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$SignUpRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,

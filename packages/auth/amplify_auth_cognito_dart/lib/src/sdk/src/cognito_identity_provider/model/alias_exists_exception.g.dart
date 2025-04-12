@@ -14,16 +14,14 @@ class _$AliasExistsException extends AliasExistsException {
 
   factory _$AliasExistsException([
     void Function(AliasExistsExceptionBuilder)? updates,
-  ]) =>
-      (new AliasExistsExceptionBuilder()..update(updates))._build();
+  ]) => (new AliasExistsExceptionBuilder()..update(updates))._build();
 
   _$AliasExistsException._({this.message, this.headers}) : super._();
 
   @override
   AliasExistsException rebuild(
     void Function(AliasExistsExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AliasExistsExceptionBuilder toBuilder() =>

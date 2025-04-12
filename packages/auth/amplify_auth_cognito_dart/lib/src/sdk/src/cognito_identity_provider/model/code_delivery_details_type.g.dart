@@ -16,8 +16,7 @@ class _$CodeDeliveryDetailsType extends CodeDeliveryDetailsType {
 
   factory _$CodeDeliveryDetailsType([
     void Function(CodeDeliveryDetailsTypeBuilder)? updates,
-  ]) =>
-      (new CodeDeliveryDetailsTypeBuilder()..update(updates))._build();
+  ]) => (new CodeDeliveryDetailsTypeBuilder()..update(updates))._build();
 
   _$CodeDeliveryDetailsType._({
     this.destination,
@@ -28,8 +27,7 @@ class _$CodeDeliveryDetailsType extends CodeDeliveryDetailsType {
   @override
   CodeDeliveryDetailsType rebuild(
     void Function(CodeDeliveryDetailsTypeBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CodeDeliveryDetailsTypeBuilder toBuilder() =>
@@ -102,7 +100,8 @@ class CodeDeliveryDetailsTypeBuilder
   CodeDeliveryDetailsType build() => _build();
 
   _$CodeDeliveryDetailsType _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CodeDeliveryDetailsType._(
           destination: destination,
           deliveryMedium: deliveryMedium,

@@ -14,17 +14,15 @@ class _$AssociateSoftwareTokenResponse extends AssociateSoftwareTokenResponse {
 
   factory _$AssociateSoftwareTokenResponse([
     void Function(AssociateSoftwareTokenResponseBuilder)? updates,
-  ]) =>
-      (new AssociateSoftwareTokenResponseBuilder()..update(updates))._build();
+  ]) => (new AssociateSoftwareTokenResponseBuilder()..update(updates))._build();
 
   _$AssociateSoftwareTokenResponse._({this.secretCode, this.session})
-      : super._();
+    : super._();
 
   @override
   AssociateSoftwareTokenResponse rebuild(
     void Function(AssociateSoftwareTokenResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AssociateSoftwareTokenResponseBuilder toBuilder() =>
@@ -50,8 +48,10 @@ class _$AssociateSoftwareTokenResponse extends AssociateSoftwareTokenResponse {
 
 class AssociateSoftwareTokenResponseBuilder
     implements
-        Builder<AssociateSoftwareTokenResponse,
-            AssociateSoftwareTokenResponseBuilder> {
+        Builder<
+          AssociateSoftwareTokenResponse,
+          AssociateSoftwareTokenResponseBuilder
+        > {
   _$AssociateSoftwareTokenResponse? _$v;
 
   String? _secretCode;
@@ -89,7 +89,8 @@ class AssociateSoftwareTokenResponseBuilder
   AssociateSoftwareTokenResponse build() => _build();
 
   _$AssociateSoftwareTokenResponse _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$AssociateSoftwareTokenResponse._(
           secretCode: secretCode,
           session: session,

@@ -8,25 +8,25 @@ part of 'federate_to_identity_pool_request.dart';
 
 FederateToIdentityPoolRequest _$FederateToIdentityPoolRequestFromJson(
   Map<String, dynamic> json,
-) =>
-    $checkedCreate('FederateToIdentityPoolRequest', json, ($checkedConvert) {
-      final val = FederateToIdentityPoolRequest(
-        token: $checkedConvert('token', (v) => v as String),
-        provider: $checkedConvert(
-          'provider',
-          (v) => _authProviderFromJson(v as String),
-        ),
-        options: $checkedConvert(
-          'options',
-          (v) => v == null
+) => $checkedCreate('FederateToIdentityPoolRequest', json, ($checkedConvert) {
+  final val = FederateToIdentityPoolRequest(
+    token: $checkedConvert('token', (v) => v as String),
+    provider: $checkedConvert(
+      'provider',
+      (v) => _authProviderFromJson(v as String),
+    ),
+    options: $checkedConvert(
+      'options',
+      (v) =>
+          v == null
               ? null
               : FederateToIdentityPoolOptions.fromJson(
-                  v as Map<String, dynamic>,
-                ),
-        ),
-      );
-      return val;
-    });
+                v as Map<String, dynamic>,
+              ),
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$FederateToIdentityPoolRequestToJson(
   FederateToIdentityPoolRequest instance,

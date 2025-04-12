@@ -16,8 +16,7 @@ class _$UpdateDeviceStatusRequest extends UpdateDeviceStatusRequest {
 
   factory _$UpdateDeviceStatusRequest([
     void Function(UpdateDeviceStatusRequestBuilder)? updates,
-  ]) =>
-      (new UpdateDeviceStatusRequestBuilder()..update(updates))._build();
+  ]) => (new UpdateDeviceStatusRequestBuilder()..update(updates))._build();
 
   _$UpdateDeviceStatusRequest._({
     required this.accessToken,
@@ -39,8 +38,7 @@ class _$UpdateDeviceStatusRequest extends UpdateDeviceStatusRequest {
   @override
   UpdateDeviceStatusRequest rebuild(
     void Function(UpdateDeviceStatusRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateDeviceStatusRequestBuilder toBuilder() =>
@@ -84,8 +82,7 @@ class UpdateDeviceStatusRequestBuilder
       _$this._deviceRememberedStatus;
   set deviceRememberedStatus(
     DeviceRememberedStatusType? deviceRememberedStatus,
-  ) =>
-      _$this._deviceRememberedStatus = deviceRememberedStatus;
+  ) => _$this._deviceRememberedStatus = deviceRememberedStatus;
 
   UpdateDeviceStatusRequestBuilder();
 
@@ -115,7 +112,8 @@ class UpdateDeviceStatusRequestBuilder
   UpdateDeviceStatusRequest build() => _build();
 
   _$UpdateDeviceStatusRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$UpdateDeviceStatusRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,

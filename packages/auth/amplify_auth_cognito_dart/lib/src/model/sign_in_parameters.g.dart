@@ -56,16 +56,20 @@ class _$SignInParametersSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'username':
-          result.username = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          )! as String;
+          result.username =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'password':
-          result.password = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String?;
+          result.password =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -82,8 +86,7 @@ class _$SignInParameters extends SignInParameters {
 
   factory _$SignInParameters([
     void Function(SignInParametersBuilder)? updates,
-  ]) =>
-      (new SignInParametersBuilder()..update(updates))._build();
+  ]) => (new SignInParametersBuilder()..update(updates))._build();
 
   _$SignInParameters._({required this.username, this.password}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -166,7 +169,8 @@ class SignInParametersBuilder
   SignInParameters build() => _build();
 
   _$SignInParameters _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SignInParameters._(
           username: BuiltValueNullFieldError.checkNotNull(
             username,

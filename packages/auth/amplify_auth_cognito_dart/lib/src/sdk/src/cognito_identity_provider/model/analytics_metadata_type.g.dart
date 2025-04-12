@@ -12,16 +12,14 @@ class _$AnalyticsMetadataType extends AnalyticsMetadataType {
 
   factory _$AnalyticsMetadataType([
     void Function(AnalyticsMetadataTypeBuilder)? updates,
-  ]) =>
-      (new AnalyticsMetadataTypeBuilder()..update(updates))._build();
+  ]) => (new AnalyticsMetadataTypeBuilder()..update(updates))._build();
 
   _$AnalyticsMetadataType._({this.analyticsEndpointId}) : super._();
 
   @override
   AnalyticsMetadataType rebuild(
     void Function(AnalyticsMetadataTypeBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AnalyticsMetadataTypeBuilder toBuilder() =>
@@ -78,7 +76,8 @@ class AnalyticsMetadataTypeBuilder
   AnalyticsMetadataType build() => _build();
 
   _$AnalyticsMetadataType _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$AnalyticsMetadataType._(analyticsEndpointId: analyticsEndpointId);
     replace(_$result);
     return _$result;

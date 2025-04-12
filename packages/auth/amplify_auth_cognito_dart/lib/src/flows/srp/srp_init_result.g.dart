@@ -52,16 +52,20 @@ class _$SrpInitResultSerializer implements StructuredSerializer<SrpInitResult> {
       final Object? value = iterator.current;
       switch (key) {
         case 'privateA':
-          result.privateA = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BigInt),
-          )! as BigInt;
+          result.privateA =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BigInt),
+                  )!
+                  as BigInt;
           break;
         case 'publicA':
-          result.publicA = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BigInt),
-          )! as BigInt;
+          result.publicA =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BigInt),
+                  )!
+                  as BigInt;
           break;
       }
     }
@@ -80,7 +84,7 @@ class _$SrpInitResult extends SrpInitResult {
       (new SrpInitResultBuilder()..update(updates))._build();
 
   _$SrpInitResult._({required this.privateA, required this.publicA})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
       privateA,
       r'SrpInitResult',
@@ -161,7 +165,8 @@ class SrpInitResultBuilder
   SrpInitResult build() => _build();
 
   _$SrpInitResult _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SrpInitResult._(
           privateA: BuiltValueNullFieldError.checkNotNull(
             privateA,

@@ -23,8 +23,7 @@ class _$ConcurrentModificationException
   @override
   ConcurrentModificationException rebuild(
     void Function(ConcurrentModificationExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConcurrentModificationExceptionBuilder toBuilder() =>
@@ -47,8 +46,10 @@ class _$ConcurrentModificationException
 
 class ConcurrentModificationExceptionBuilder
     implements
-        Builder<ConcurrentModificationException,
-            ConcurrentModificationExceptionBuilder> {
+        Builder<
+          ConcurrentModificationException,
+          ConcurrentModificationExceptionBuilder
+        > {
   _$ConcurrentModificationException? _$v;
 
   String? _message;
@@ -86,7 +87,8 @@ class ConcurrentModificationExceptionBuilder
   ConcurrentModificationException build() => _build();
 
   _$ConcurrentModificationException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ConcurrentModificationException._(
           message: message,
           headers: headers,

@@ -14,16 +14,14 @@ class _$UserContextDataType extends UserContextDataType {
 
   factory _$UserContextDataType([
     void Function(UserContextDataTypeBuilder)? updates,
-  ]) =>
-      (new UserContextDataTypeBuilder()..update(updates))._build();
+  ]) => (new UserContextDataTypeBuilder()..update(updates))._build();
 
   _$UserContextDataType._({this.ipAddress, this.encodedData}) : super._();
 
   @override
   UserContextDataType rebuild(
     void Function(UserContextDataTypeBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UserContextDataTypeBuilder toBuilder() =>
@@ -86,7 +84,8 @@ class UserContextDataTypeBuilder
   UserContextDataType build() => _build();
 
   _$UserContextDataType _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$UserContextDataType._(
           ipAddress: ipAddress,
           encodedData: encodedData,

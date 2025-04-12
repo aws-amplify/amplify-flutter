@@ -18,13 +18,12 @@ class _$GetUserAttributeVerificationCodeResponse
           ._build();
 
   _$GetUserAttributeVerificationCodeResponse._({this.codeDeliveryDetails})
-      : super._();
+    : super._();
 
   @override
   GetUserAttributeVerificationCodeResponse rebuild(
     void Function(GetUserAttributeVerificationCodeResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetUserAttributeVerificationCodeResponseBuilder toBuilder() =>
@@ -48,8 +47,10 @@ class _$GetUserAttributeVerificationCodeResponse
 
 class GetUserAttributeVerificationCodeResponseBuilder
     implements
-        Builder<GetUserAttributeVerificationCodeResponse,
-            GetUserAttributeVerificationCodeResponseBuilder> {
+        Builder<
+          GetUserAttributeVerificationCodeResponse,
+          GetUserAttributeVerificationCodeResponseBuilder
+        > {
   _$GetUserAttributeVerificationCodeResponse? _$v;
 
   CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
@@ -57,8 +58,7 @@ class GetUserAttributeVerificationCodeResponseBuilder
       _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
     CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
-  ) =>
-      _$this._codeDeliveryDetails = codeDeliveryDetails;
+  ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   GetUserAttributeVerificationCodeResponseBuilder();
 
@@ -90,7 +90,8 @@ class GetUserAttributeVerificationCodeResponseBuilder
   _$GetUserAttributeVerificationCodeResponse _build() {
     _$GetUserAttributeVerificationCodeResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$GetUserAttributeVerificationCodeResponse._(
             codeDeliveryDetails: _codeDeliveryDetails?.build(),
           );

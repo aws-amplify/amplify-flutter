@@ -12,8 +12,7 @@ class _$GetDeviceResponse extends GetDeviceResponse {
 
   factory _$GetDeviceResponse([
     void Function(GetDeviceResponseBuilder)? updates,
-  ]) =>
-      (new GetDeviceResponseBuilder()..update(updates))._build();
+  ]) => (new GetDeviceResponseBuilder()..update(updates))._build();
 
   _$GetDeviceResponse._({required this.device}) : super._() {
     BuiltValueNullFieldError.checkNotNull(

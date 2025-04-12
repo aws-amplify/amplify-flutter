@@ -14,16 +14,14 @@ class _$TooManyRequestsException extends TooManyRequestsException {
 
   factory _$TooManyRequestsException([
     void Function(TooManyRequestsExceptionBuilder)? updates,
-  ]) =>
-      (new TooManyRequestsExceptionBuilder()..update(updates))._build();
+  ]) => (new TooManyRequestsExceptionBuilder()..update(updates))._build();
 
   _$TooManyRequestsException._({this.message, this.headers}) : super._();
 
   @override
   TooManyRequestsException rebuild(
     void Function(TooManyRequestsExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TooManyRequestsExceptionBuilder toBuilder() =>
@@ -84,7 +82,8 @@ class TooManyRequestsExceptionBuilder
   TooManyRequestsException build() => _build();
 
   _$TooManyRequestsException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$TooManyRequestsException._(message: message, headers: headers);
     replace(_$result);
     return _$result;

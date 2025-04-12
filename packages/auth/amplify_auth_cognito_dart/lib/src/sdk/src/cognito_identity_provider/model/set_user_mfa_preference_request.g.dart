@@ -18,8 +18,7 @@ class _$SetUserMfaPreferenceRequest extends SetUserMfaPreferenceRequest {
 
   factory _$SetUserMfaPreferenceRequest([
     void Function(SetUserMfaPreferenceRequestBuilder)? updates,
-  ]) =>
-      (new SetUserMfaPreferenceRequestBuilder()..update(updates))._build();
+  ]) => (new SetUserMfaPreferenceRequestBuilder()..update(updates))._build();
 
   _$SetUserMfaPreferenceRequest._({
     this.smsMfaSettings,
@@ -37,8 +36,7 @@ class _$SetUserMfaPreferenceRequest extends SetUserMfaPreferenceRequest {
   @override
   SetUserMfaPreferenceRequest rebuild(
     void Function(SetUserMfaPreferenceRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SetUserMfaPreferenceRequestBuilder toBuilder() =>
@@ -68,8 +66,10 @@ class _$SetUserMfaPreferenceRequest extends SetUserMfaPreferenceRequest {
 
 class SetUserMfaPreferenceRequestBuilder
     implements
-        Builder<SetUserMfaPreferenceRequest,
-            SetUserMfaPreferenceRequestBuilder> {
+        Builder<
+          SetUserMfaPreferenceRequest,
+          SetUserMfaPreferenceRequestBuilder
+        > {
   _$SetUserMfaPreferenceRequest? _$v;
 
   SmsMfaSettingsTypeBuilder? _smsMfaSettings;
@@ -84,8 +84,7 @@ class SetUserMfaPreferenceRequestBuilder
           new SoftwareTokenMfaSettingsTypeBuilder();
   set softwareTokenMfaSettings(
     SoftwareTokenMfaSettingsTypeBuilder? softwareTokenMfaSettings,
-  ) =>
-      _$this._softwareTokenMfaSettings = softwareTokenMfaSettings;
+  ) => _$this._softwareTokenMfaSettings = softwareTokenMfaSettings;
 
   EmailMfaSettingsTypeBuilder? _emailMfaSettings;
   EmailMfaSettingsTypeBuilder get emailMfaSettings =>
@@ -128,7 +127,8 @@ class SetUserMfaPreferenceRequestBuilder
   _$SetUserMfaPreferenceRequest _build() {
     _$SetUserMfaPreferenceRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$SetUserMfaPreferenceRequest._(
             smsMfaSettings: _smsMfaSettings?.build(),
             softwareTokenMfaSettings: _softwareTokenMfaSettings?.build(),

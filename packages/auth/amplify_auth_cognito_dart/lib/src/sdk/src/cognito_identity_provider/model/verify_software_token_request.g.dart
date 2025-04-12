@@ -18,8 +18,7 @@ class _$VerifySoftwareTokenRequest extends VerifySoftwareTokenRequest {
 
   factory _$VerifySoftwareTokenRequest([
     void Function(VerifySoftwareTokenRequestBuilder)? updates,
-  ]) =>
-      (new VerifySoftwareTokenRequestBuilder()..update(updates))._build();
+  ]) => (new VerifySoftwareTokenRequestBuilder()..update(updates))._build();
 
   _$VerifySoftwareTokenRequest._({
     this.accessToken,
@@ -37,8 +36,7 @@ class _$VerifySoftwareTokenRequest extends VerifySoftwareTokenRequest {
   @override
   VerifySoftwareTokenRequest rebuild(
     void Function(VerifySoftwareTokenRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   VerifySoftwareTokenRequestBuilder toBuilder() =>
@@ -117,7 +115,8 @@ class VerifySoftwareTokenRequestBuilder
   VerifySoftwareTokenRequest build() => _build();
 
   _$VerifySoftwareTokenRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$VerifySoftwareTokenRequest._(
           accessToken: accessToken,
           session: session,

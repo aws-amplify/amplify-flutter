@@ -16,8 +16,7 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
 
   factory _$UpdateUserAttributesRequest([
     void Function(UpdateUserAttributesRequestBuilder)? updates,
-  ]) =>
-      (new UpdateUserAttributesRequestBuilder()..update(updates))._build();
+  ]) => (new UpdateUserAttributesRequestBuilder()..update(updates))._build();
 
   _$UpdateUserAttributesRequest._({
     required this.userAttributes,
@@ -39,8 +38,7 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
   @override
   UpdateUserAttributesRequest rebuild(
     void Function(UpdateUserAttributesRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateUserAttributesRequestBuilder toBuilder() =>
@@ -68,8 +66,10 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
 
 class UpdateUserAttributesRequestBuilder
     implements
-        Builder<UpdateUserAttributesRequest,
-            UpdateUserAttributesRequestBuilder> {
+        Builder<
+          UpdateUserAttributesRequest,
+          UpdateUserAttributesRequestBuilder
+        > {
   _$UpdateUserAttributesRequest? _$v;
 
   _i3.ListBuilder<AttributeType>? _userAttributes;
@@ -118,7 +118,8 @@ class UpdateUserAttributesRequestBuilder
   _$UpdateUserAttributesRequest _build() {
     _$UpdateUserAttributesRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$UpdateUserAttributesRequest._(
             userAttributes: userAttributes.build(),
             accessToken: BuiltValueNullFieldError.checkNotNull(

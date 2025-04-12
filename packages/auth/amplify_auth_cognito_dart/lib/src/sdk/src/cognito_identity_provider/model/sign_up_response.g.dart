@@ -76,8 +76,7 @@ class SignUpResponseBuilder
       _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
     CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
-  ) =>
-      _$this._codeDeliveryDetails = codeDeliveryDetails;
+  ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   String? _userSub;
   String? get userSub => _$this._userSub;
@@ -115,7 +114,8 @@ class SignUpResponseBuilder
   _$SignUpResponse _build() {
     _$SignUpResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$SignUpResponse._(
             userConfirmed: BuiltValueNullFieldError.checkNotNull(
               userConfirmed,

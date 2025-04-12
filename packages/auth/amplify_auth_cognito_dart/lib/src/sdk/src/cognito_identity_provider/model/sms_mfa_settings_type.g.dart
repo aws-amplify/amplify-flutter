@@ -14,11 +14,10 @@ class _$SmsMfaSettingsType extends SmsMfaSettingsType {
 
   factory _$SmsMfaSettingsType([
     void Function(SmsMfaSettingsTypeBuilder)? updates,
-  ]) =>
-      (new SmsMfaSettingsTypeBuilder()..update(updates))._build();
+  ]) => (new SmsMfaSettingsTypeBuilder()..update(updates))._build();
 
   _$SmsMfaSettingsType._({required this.enabled, required this.preferredMfa})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
       enabled,
       r'SmsMfaSettingsType',
@@ -34,8 +33,7 @@ class _$SmsMfaSettingsType extends SmsMfaSettingsType {
   @override
   SmsMfaSettingsType rebuild(
     void Function(SmsMfaSettingsTypeBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SmsMfaSettingsTypeBuilder toBuilder() =>
@@ -100,7 +98,8 @@ class SmsMfaSettingsTypeBuilder
   SmsMfaSettingsType build() => _build();
 
   _$SmsMfaSettingsType _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SmsMfaSettingsType._(
           enabled: BuiltValueNullFieldError.checkNotNull(
             enabled,

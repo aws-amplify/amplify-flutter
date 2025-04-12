@@ -14,11 +14,10 @@ class _$EmailMfaSettingsType extends EmailMfaSettingsType {
 
   factory _$EmailMfaSettingsType([
     void Function(EmailMfaSettingsTypeBuilder)? updates,
-  ]) =>
-      (new EmailMfaSettingsTypeBuilder()..update(updates))._build();
+  ]) => (new EmailMfaSettingsTypeBuilder()..update(updates))._build();
 
   _$EmailMfaSettingsType._({required this.enabled, required this.preferredMfa})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
       enabled,
       r'EmailMfaSettingsType',
@@ -34,8 +33,7 @@ class _$EmailMfaSettingsType extends EmailMfaSettingsType {
   @override
   EmailMfaSettingsType rebuild(
     void Function(EmailMfaSettingsTypeBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EmailMfaSettingsTypeBuilder toBuilder() =>
@@ -100,7 +98,8 @@ class EmailMfaSettingsTypeBuilder
   EmailMfaSettingsType build() => _build();
 
   _$EmailMfaSettingsType _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EmailMfaSettingsType._(
           enabled: BuiltValueNullFieldError.checkNotNull(
             enabled,

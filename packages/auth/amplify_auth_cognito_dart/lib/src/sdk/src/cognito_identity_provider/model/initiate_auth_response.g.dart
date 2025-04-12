@@ -18,8 +18,7 @@ class _$InitiateAuthResponse extends InitiateAuthResponse {
 
   factory _$InitiateAuthResponse([
     void Function(InitiateAuthResponseBuilder)? updates,
-  ]) =>
-      (new InitiateAuthResponseBuilder()..update(updates))._build();
+  ]) => (new InitiateAuthResponseBuilder()..update(updates))._build();
 
   _$InitiateAuthResponse._({
     this.challengeName,
@@ -31,8 +30,7 @@ class _$InitiateAuthResponse extends InitiateAuthResponse {
   @override
   InitiateAuthResponse rebuild(
     void Function(InitiateAuthResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InitiateAuthResponseBuilder toBuilder() =>
@@ -78,16 +76,14 @@ class InitiateAuthResponseBuilder
       _$this._challengeParameters ??= new _i2.MapBuilder<String, String?>();
   set challengeParameters(
     _i2.MapBuilder<String, String?>? challengeParameters,
-  ) =>
-      _$this._challengeParameters = challengeParameters;
+  ) => _$this._challengeParameters = challengeParameters;
 
   AuthenticationResultTypeBuilder? _authenticationResult;
   AuthenticationResultTypeBuilder get authenticationResult =>
       _$this._authenticationResult ??= new AuthenticationResultTypeBuilder();
   set authenticationResult(
     AuthenticationResultTypeBuilder? authenticationResult,
-  ) =>
-      _$this._authenticationResult = authenticationResult;
+  ) => _$this._authenticationResult = authenticationResult;
 
   InitiateAuthResponseBuilder();
 
@@ -120,7 +116,8 @@ class InitiateAuthResponseBuilder
   _$InitiateAuthResponse _build() {
     _$InitiateAuthResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$InitiateAuthResponse._(
             challengeName: challengeName,
             session: session,

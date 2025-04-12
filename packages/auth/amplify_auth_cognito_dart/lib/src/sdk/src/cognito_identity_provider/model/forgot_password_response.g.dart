@@ -12,16 +12,14 @@ class _$ForgotPasswordResponse extends ForgotPasswordResponse {
 
   factory _$ForgotPasswordResponse([
     void Function(ForgotPasswordResponseBuilder)? updates,
-  ]) =>
-      (new ForgotPasswordResponseBuilder()..update(updates))._build();
+  ]) => (new ForgotPasswordResponseBuilder()..update(updates))._build();
 
   _$ForgotPasswordResponse._({this.codeDeliveryDetails}) : super._();
 
   @override
   ForgotPasswordResponse rebuild(
     void Function(ForgotPasswordResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ForgotPasswordResponseBuilder toBuilder() =>
@@ -52,8 +50,7 @@ class ForgotPasswordResponseBuilder
       _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
     CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
-  ) =>
-      _$this._codeDeliveryDetails = codeDeliveryDetails;
+  ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   ForgotPasswordResponseBuilder();
 
@@ -83,7 +80,8 @@ class ForgotPasswordResponseBuilder
   _$ForgotPasswordResponse _build() {
     _$ForgotPasswordResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ForgotPasswordResponse._(
             codeDeliveryDetails: _codeDeliveryDetails?.build(),
           );

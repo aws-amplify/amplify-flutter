@@ -12,8 +12,7 @@ class _$GlobalSignOutRequest extends GlobalSignOutRequest {
 
   factory _$GlobalSignOutRequest([
     void Function(GlobalSignOutRequestBuilder)? updates,
-  ]) =>
-      (new GlobalSignOutRequestBuilder()..update(updates))._build();
+  ]) => (new GlobalSignOutRequestBuilder()..update(updates))._build();
 
   _$GlobalSignOutRequest._({required this.accessToken}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -26,8 +25,7 @@ class _$GlobalSignOutRequest extends GlobalSignOutRequest {
   @override
   GlobalSignOutRequest rebuild(
     void Function(GlobalSignOutRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GlobalSignOutRequestBuilder toBuilder() =>
@@ -82,7 +80,8 @@ class GlobalSignOutRequestBuilder
   GlobalSignOutRequest build() => _build();
 
   _$GlobalSignOutRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$GlobalSignOutRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,

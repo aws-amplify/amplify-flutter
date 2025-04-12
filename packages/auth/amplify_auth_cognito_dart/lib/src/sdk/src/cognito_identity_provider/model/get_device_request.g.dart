@@ -14,11 +14,10 @@ class _$GetDeviceRequest extends GetDeviceRequest {
 
   factory _$GetDeviceRequest([
     void Function(GetDeviceRequestBuilder)? updates,
-  ]) =>
-      (new GetDeviceRequestBuilder()..update(updates))._build();
+  ]) => (new GetDeviceRequestBuilder()..update(updates))._build();
 
   _$GetDeviceRequest._({required this.deviceKey, this.accessToken})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
       deviceKey,
       r'GetDeviceRequest',
@@ -91,7 +90,8 @@ class GetDeviceRequestBuilder
   GetDeviceRequest build() => _build();
 
   _$GetDeviceRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$GetDeviceRequest._(
           deviceKey: BuiltValueNullFieldError.checkNotNull(
             deviceKey,

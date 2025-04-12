@@ -26,8 +26,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
 
   factory _$ConfirmSignUpRequest([
     void Function(ConfirmSignUpRequestBuilder)? updates,
-  ]) =>
-      (new ConfirmSignUpRequestBuilder()..update(updates))._build();
+  ]) => (new ConfirmSignUpRequestBuilder()..update(updates))._build();
 
   _$ConfirmSignUpRequest._({
     required this.clientId,
@@ -64,8 +63,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
   @override
   ConfirmSignUpRequest rebuild(
     void Function(ConfirmSignUpRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConfirmSignUpRequestBuilder toBuilder() =>
@@ -182,7 +180,8 @@ class ConfirmSignUpRequestBuilder
   _$ConfirmSignUpRequest _build() {
     _$ConfirmSignUpRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ConfirmSignUpRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,

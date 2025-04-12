@@ -9,16 +9,14 @@ part of 'verify_user_attribute_response.dart';
 class _$VerifyUserAttributeResponse extends VerifyUserAttributeResponse {
   factory _$VerifyUserAttributeResponse([
     void Function(VerifyUserAttributeResponseBuilder)? updates,
-  ]) =>
-      (new VerifyUserAttributeResponseBuilder()..update(updates))._build();
+  ]) => (new VerifyUserAttributeResponseBuilder()..update(updates))._build();
 
   _$VerifyUserAttributeResponse._() : super._();
 
   @override
   VerifyUserAttributeResponse rebuild(
     void Function(VerifyUserAttributeResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   VerifyUserAttributeResponseBuilder toBuilder() =>
@@ -38,8 +36,10 @@ class _$VerifyUserAttributeResponse extends VerifyUserAttributeResponse {
 
 class VerifyUserAttributeResponseBuilder
     implements
-        Builder<VerifyUserAttributeResponse,
-            VerifyUserAttributeResponseBuilder> {
+        Builder<
+          VerifyUserAttributeResponse,
+          VerifyUserAttributeResponseBuilder
+        > {
   _$VerifyUserAttributeResponse? _$v;
 
   VerifyUserAttributeResponseBuilder();

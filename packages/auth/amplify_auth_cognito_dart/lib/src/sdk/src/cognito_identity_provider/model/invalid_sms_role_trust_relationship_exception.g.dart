@@ -20,13 +20,12 @@ class _$InvalidSmsRoleTrustRelationshipException
           ._build();
 
   _$InvalidSmsRoleTrustRelationshipException._({this.message, this.headers})
-      : super._();
+    : super._();
 
   @override
   InvalidSmsRoleTrustRelationshipException rebuild(
     void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidSmsRoleTrustRelationshipExceptionBuilder toBuilder() =>
@@ -50,8 +49,10 @@ class _$InvalidSmsRoleTrustRelationshipException
 
 class InvalidSmsRoleTrustRelationshipExceptionBuilder
     implements
-        Builder<InvalidSmsRoleTrustRelationshipException,
-            InvalidSmsRoleTrustRelationshipExceptionBuilder> {
+        Builder<
+          InvalidSmsRoleTrustRelationshipException,
+          InvalidSmsRoleTrustRelationshipExceptionBuilder
+        > {
   _$InvalidSmsRoleTrustRelationshipException? _$v;
 
   String? _message;
@@ -91,7 +92,8 @@ class InvalidSmsRoleTrustRelationshipExceptionBuilder
   InvalidSmsRoleTrustRelationshipException build() => _build();
 
   _$InvalidSmsRoleTrustRelationshipException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InvalidSmsRoleTrustRelationshipException._(
           message: message,
           headers: headers,

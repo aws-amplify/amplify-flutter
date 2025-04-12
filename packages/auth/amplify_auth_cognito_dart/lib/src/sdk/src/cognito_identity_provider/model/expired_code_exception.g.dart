@@ -14,16 +14,14 @@ class _$ExpiredCodeException extends ExpiredCodeException {
 
   factory _$ExpiredCodeException([
     void Function(ExpiredCodeExceptionBuilder)? updates,
-  ]) =>
-      (new ExpiredCodeExceptionBuilder()..update(updates))._build();
+  ]) => (new ExpiredCodeExceptionBuilder()..update(updates))._build();
 
   _$ExpiredCodeException._({this.message, this.headers}) : super._();
 
   @override
   ExpiredCodeException rebuild(
     void Function(ExpiredCodeExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ExpiredCodeExceptionBuilder toBuilder() =>

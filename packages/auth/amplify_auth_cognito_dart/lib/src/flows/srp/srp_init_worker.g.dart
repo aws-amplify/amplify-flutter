@@ -6,10 +6,11 @@ part of 'srp_init_worker.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(SrpInitMessage.serializer)
-      ..add(SrpInitResult.serializer))
-    .build();
+Serializers _$serializers =
+    (new Serializers().toBuilder()
+          ..add(SrpInitMessage.serializer)
+          ..add(SrpInitResult.serializer))
+        .build();
 Serializer<SrpInitMessage> _$srpInitMessageSerializer =
     new _$SrpInitMessageSerializer();
 

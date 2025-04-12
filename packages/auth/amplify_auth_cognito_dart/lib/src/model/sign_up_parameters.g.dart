@@ -14,11 +14,10 @@ class _$SignUpParameters extends SignUpParameters {
 
   factory _$SignUpParameters([
     void Function(SignUpParametersBuilder)? updates,
-  ]) =>
-      (new SignUpParametersBuilder()..update(updates))._build();
+  ]) => (new SignUpParametersBuilder()..update(updates))._build();
 
   _$SignUpParameters._({required this.username, required this.password})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
       username,
       r'SignUpParameters',
@@ -104,7 +103,8 @@ class SignUpParametersBuilder
   SignUpParameters build() => _build();
 
   _$SignUpParameters _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SignUpParameters._(
           username: BuiltValueNullFieldError.checkNotNull(
             username,

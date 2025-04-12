@@ -121,7 +121,8 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   _$DeviceType _build() {
     _$DeviceType _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$DeviceType._(
             deviceKey: deviceKey,
             deviceAttributes: _deviceAttributes?.build(),

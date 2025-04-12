@@ -24,8 +24,7 @@ class _$RespondToAuthChallengeRequest extends RespondToAuthChallengeRequest {
 
   factory _$RespondToAuthChallengeRequest([
     void Function(RespondToAuthChallengeRequestBuilder)? updates,
-  ]) =>
-      (new RespondToAuthChallengeRequestBuilder()..update(updates))._build();
+  ]) => (new RespondToAuthChallengeRequestBuilder()..update(updates))._build();
 
   _$RespondToAuthChallengeRequest._({
     required this.clientId,
@@ -51,8 +50,7 @@ class _$RespondToAuthChallengeRequest extends RespondToAuthChallengeRequest {
   @override
   RespondToAuthChallengeRequest rebuild(
     void Function(RespondToAuthChallengeRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RespondToAuthChallengeRequestBuilder toBuilder() =>
@@ -88,8 +86,10 @@ class _$RespondToAuthChallengeRequest extends RespondToAuthChallengeRequest {
 
 class RespondToAuthChallengeRequestBuilder
     implements
-        Builder<RespondToAuthChallengeRequest,
-            RespondToAuthChallengeRequestBuilder> {
+        Builder<
+          RespondToAuthChallengeRequest,
+          RespondToAuthChallengeRequestBuilder
+        > {
   _$RespondToAuthChallengeRequest? _$v;
 
   String? _clientId;
@@ -163,7 +163,8 @@ class RespondToAuthChallengeRequestBuilder
   _$RespondToAuthChallengeRequest _build() {
     _$RespondToAuthChallengeRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$RespondToAuthChallengeRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,

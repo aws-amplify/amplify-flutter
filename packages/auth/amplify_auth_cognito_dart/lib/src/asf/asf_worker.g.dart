@@ -6,11 +6,12 @@ part of 'asf_worker.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$_serializers = (new Serializers().toBuilder()
-      ..add(ASFContextData.serializer)
-      ..add(ASFWorkerRequest.serializer)
-      ..add(ASFWorkerResponse.serializer))
-    .build();
+Serializers _$_serializers =
+    (new Serializers().toBuilder()
+          ..add(ASFContextData.serializer)
+          ..add(ASFWorkerRequest.serializer)
+          ..add(ASFWorkerResponse.serializer))
+        .build();
 Serializer<ASFWorkerRequest> _$aSFWorkerRequestSerializer =
     new _$ASFWorkerRequestSerializer();
 Serializer<ASFWorkerResponse> _$aSFWorkerResponseSerializer =
@@ -80,41 +81,52 @@ class _$ASFWorkerRequestSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'requestId':
-          result.requestId = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          )! as int;
+          result.requestId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'userPoolId':
-          result.userPoolId = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          )! as String;
+          result.userPoolId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'clientId':
-          result.clientId = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          )! as String;
+          result.clientId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'username':
-          result.username = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          )! as String;
+          result.username =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'deviceId':
-          result.deviceId = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          )! as String;
+          result.deviceId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'nativeContextData':
           result.nativeContextData.replace(
             serializers.deserialize(
-              value,
-              specifiedType: const FullType(ASFContextData),
-            )! as ASFContextData,
+                  value,
+                  specifiedType: const FullType(ASFContextData),
+                )!
+                as ASFContextData,
           );
           break;
       }
@@ -168,17 +180,20 @@ class _$ASFWorkerResponseSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'requestId':
-          result.requestId = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          )! as int;
+          result.requestId =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )!
+                  as int;
           break;
         case 'userContextData':
           result.userContextData.replace(
             serializers.deserialize(
-              value,
-              specifiedType: const FullType(UserContextDataType),
-            )! as UserContextDataType,
+                  value,
+                  specifiedType: const FullType(UserContextDataType),
+                )!
+                as UserContextDataType,
           );
           break;
       }
@@ -204,8 +219,7 @@ class _$ASFWorkerRequest extends ASFWorkerRequest {
 
   factory _$ASFWorkerRequest([
     void Function(ASFWorkerRequestBuilder)? updates,
-  ]) =>
-      (new ASFWorkerRequestBuilder()..update(updates))._build();
+  ]) => (new ASFWorkerRequestBuilder()..update(updates))._build();
 
   _$ASFWorkerRequest._({
     required this.requestId,
@@ -358,7 +372,8 @@ class ASFWorkerRequestBuilder
   _$ASFWorkerRequest _build() {
     _$ASFWorkerRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ASFWorkerRequest._(
             requestId: BuiltValueNullFieldError.checkNotNull(
               requestId,
@@ -414,8 +429,7 @@ class _$ASFWorkerResponse extends ASFWorkerResponse {
 
   factory _$ASFWorkerResponse([
     void Function(ASFWorkerResponseBuilder)? updates,
-  ]) =>
-      (new ASFWorkerResponseBuilder()..update(updates))._build();
+  ]) => (new ASFWorkerResponseBuilder()..update(updates))._build();
 
   _$ASFWorkerResponse._({
     required this.requestId,
@@ -510,7 +524,8 @@ class ASFWorkerResponseBuilder
   _$ASFWorkerResponse _build() {
     _$ASFWorkerResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ASFWorkerResponse._(
             requestId: BuiltValueNullFieldError.checkNotNull(
               requestId,

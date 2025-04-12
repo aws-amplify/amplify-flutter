@@ -20,13 +20,12 @@ class _$PasswordHistoryPolicyViolationException
           ._build();
 
   _$PasswordHistoryPolicyViolationException._({this.message, this.headers})
-      : super._();
+    : super._();
 
   @override
   PasswordHistoryPolicyViolationException rebuild(
     void Function(PasswordHistoryPolicyViolationExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PasswordHistoryPolicyViolationExceptionBuilder toBuilder() =>
@@ -50,8 +49,10 @@ class _$PasswordHistoryPolicyViolationException
 
 class PasswordHistoryPolicyViolationExceptionBuilder
     implements
-        Builder<PasswordHistoryPolicyViolationException,
-            PasswordHistoryPolicyViolationExceptionBuilder> {
+        Builder<
+          PasswordHistoryPolicyViolationException,
+          PasswordHistoryPolicyViolationExceptionBuilder
+        > {
   _$PasswordHistoryPolicyViolationException? _$v;
 
   String? _message;
@@ -91,7 +92,8 @@ class PasswordHistoryPolicyViolationExceptionBuilder
   PasswordHistoryPolicyViolationException build() => _build();
 
   _$PasswordHistoryPolicyViolationException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PasswordHistoryPolicyViolationException._(
           message: message,
           headers: headers,

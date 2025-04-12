@@ -9,16 +9,14 @@ part of 'update_device_status_response.dart';
 class _$UpdateDeviceStatusResponse extends UpdateDeviceStatusResponse {
   factory _$UpdateDeviceStatusResponse([
     void Function(UpdateDeviceStatusResponseBuilder)? updates,
-  ]) =>
-      (new UpdateDeviceStatusResponseBuilder()..update(updates))._build();
+  ]) => (new UpdateDeviceStatusResponseBuilder()..update(updates))._build();
 
   _$UpdateDeviceStatusResponse._() : super._();
 
   @override
   UpdateDeviceStatusResponse rebuild(
     void Function(UpdateDeviceStatusResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateDeviceStatusResponseBuilder toBuilder() =>

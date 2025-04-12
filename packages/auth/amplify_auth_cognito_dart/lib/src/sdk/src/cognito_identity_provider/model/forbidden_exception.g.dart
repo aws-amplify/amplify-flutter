@@ -14,16 +14,14 @@ class _$ForbiddenException extends ForbiddenException {
 
   factory _$ForbiddenException([
     void Function(ForbiddenExceptionBuilder)? updates,
-  ]) =>
-      (new ForbiddenExceptionBuilder()..update(updates))._build();
+  ]) => (new ForbiddenExceptionBuilder()..update(updates))._build();
 
   _$ForbiddenException._({this.message, this.headers}) : super._();
 
   @override
   ForbiddenException rebuild(
     void Function(ForbiddenExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ForbiddenExceptionBuilder toBuilder() =>

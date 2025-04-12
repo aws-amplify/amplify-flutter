@@ -14,16 +14,14 @@ class _$CodeMismatchException extends CodeMismatchException {
 
   factory _$CodeMismatchException([
     void Function(CodeMismatchExceptionBuilder)? updates,
-  ]) =>
-      (new CodeMismatchExceptionBuilder()..update(updates))._build();
+  ]) => (new CodeMismatchExceptionBuilder()..update(updates))._build();
 
   _$CodeMismatchException._({this.message, this.headers}) : super._();
 
   @override
   CodeMismatchException rebuild(
     void Function(CodeMismatchExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CodeMismatchExceptionBuilder toBuilder() =>
@@ -83,7 +81,8 @@ class CodeMismatchExceptionBuilder
   CodeMismatchException build() => _build();
 
   _$CodeMismatchException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CodeMismatchException._(message: message, headers: headers);
     replace(_$result);
     return _$result;

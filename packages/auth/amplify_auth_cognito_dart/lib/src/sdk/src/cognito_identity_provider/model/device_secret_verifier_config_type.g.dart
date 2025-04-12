@@ -14,17 +14,15 @@ class _$DeviceSecretVerifierConfigType extends DeviceSecretVerifierConfigType {
 
   factory _$DeviceSecretVerifierConfigType([
     void Function(DeviceSecretVerifierConfigTypeBuilder)? updates,
-  ]) =>
-      (new DeviceSecretVerifierConfigTypeBuilder()..update(updates))._build();
+  ]) => (new DeviceSecretVerifierConfigTypeBuilder()..update(updates))._build();
 
   _$DeviceSecretVerifierConfigType._({this.passwordVerifier, this.salt})
-      : super._();
+    : super._();
 
   @override
   DeviceSecretVerifierConfigType rebuild(
     void Function(DeviceSecretVerifierConfigTypeBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeviceSecretVerifierConfigTypeBuilder toBuilder() =>
@@ -50,8 +48,10 @@ class _$DeviceSecretVerifierConfigType extends DeviceSecretVerifierConfigType {
 
 class DeviceSecretVerifierConfigTypeBuilder
     implements
-        Builder<DeviceSecretVerifierConfigType,
-            DeviceSecretVerifierConfigTypeBuilder> {
+        Builder<
+          DeviceSecretVerifierConfigType,
+          DeviceSecretVerifierConfigTypeBuilder
+        > {
   _$DeviceSecretVerifierConfigType? _$v;
 
   String? _passwordVerifier;
@@ -90,7 +90,8 @@ class DeviceSecretVerifierConfigTypeBuilder
   DeviceSecretVerifierConfigType build() => _build();
 
   _$DeviceSecretVerifierConfigType _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$DeviceSecretVerifierConfigType._(
           passwordVerifier: passwordVerifier,
           salt: salt,

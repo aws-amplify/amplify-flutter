@@ -20,13 +20,12 @@ class _$SoftwareTokenMfaNotFoundException
           ._build();
 
   _$SoftwareTokenMfaNotFoundException._({this.message, this.headers})
-      : super._();
+    : super._();
 
   @override
   SoftwareTokenMfaNotFoundException rebuild(
     void Function(SoftwareTokenMfaNotFoundExceptionBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SoftwareTokenMfaNotFoundExceptionBuilder toBuilder() =>
@@ -50,8 +49,10 @@ class _$SoftwareTokenMfaNotFoundException
 
 class SoftwareTokenMfaNotFoundExceptionBuilder
     implements
-        Builder<SoftwareTokenMfaNotFoundException,
-            SoftwareTokenMfaNotFoundExceptionBuilder> {
+        Builder<
+          SoftwareTokenMfaNotFoundException,
+          SoftwareTokenMfaNotFoundExceptionBuilder
+        > {
   _$SoftwareTokenMfaNotFoundException? _$v;
 
   String? _message;
@@ -91,7 +92,8 @@ class SoftwareTokenMfaNotFoundExceptionBuilder
   SoftwareTokenMfaNotFoundException build() => _build();
 
   _$SoftwareTokenMfaNotFoundException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SoftwareTokenMfaNotFoundException._(
           message: message,
           headers: headers,

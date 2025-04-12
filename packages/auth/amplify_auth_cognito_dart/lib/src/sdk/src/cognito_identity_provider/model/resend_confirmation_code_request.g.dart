@@ -22,8 +22,7 @@ class _$ResendConfirmationCodeRequest extends ResendConfirmationCodeRequest {
 
   factory _$ResendConfirmationCodeRequest([
     void Function(ResendConfirmationCodeRequestBuilder)? updates,
-  ]) =>
-      (new ResendConfirmationCodeRequestBuilder()..update(updates))._build();
+  ]) => (new ResendConfirmationCodeRequestBuilder()..update(updates))._build();
 
   _$ResendConfirmationCodeRequest._({
     required this.clientId,
@@ -48,8 +47,7 @@ class _$ResendConfirmationCodeRequest extends ResendConfirmationCodeRequest {
   @override
   ResendConfirmationCodeRequest rebuild(
     void Function(ResendConfirmationCodeRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResendConfirmationCodeRequestBuilder toBuilder() =>
@@ -83,8 +81,10 @@ class _$ResendConfirmationCodeRequest extends ResendConfirmationCodeRequest {
 
 class ResendConfirmationCodeRequestBuilder
     implements
-        Builder<ResendConfirmationCodeRequest,
-            ResendConfirmationCodeRequestBuilder> {
+        Builder<
+          ResendConfirmationCodeRequest,
+          ResendConfirmationCodeRequestBuilder
+        > {
   _$ResendConfirmationCodeRequest? _$v;
 
   String? _clientId;
@@ -150,7 +150,8 @@ class ResendConfirmationCodeRequestBuilder
   _$ResendConfirmationCodeRequest _build() {
     _$ResendConfirmationCodeRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ResendConfirmationCodeRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,

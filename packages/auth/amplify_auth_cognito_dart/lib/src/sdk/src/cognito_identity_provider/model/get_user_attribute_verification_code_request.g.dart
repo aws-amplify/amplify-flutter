@@ -41,8 +41,7 @@ class _$GetUserAttributeVerificationCodeRequest
   @override
   GetUserAttributeVerificationCodeRequest rebuild(
     void Function(GetUserAttributeVerificationCodeRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetUserAttributeVerificationCodeRequestBuilder toBuilder() =>
@@ -70,8 +69,10 @@ class _$GetUserAttributeVerificationCodeRequest
 
 class GetUserAttributeVerificationCodeRequestBuilder
     implements
-        Builder<GetUserAttributeVerificationCodeRequest,
-            GetUserAttributeVerificationCodeRequestBuilder> {
+        Builder<
+          GetUserAttributeVerificationCodeRequest,
+          GetUserAttributeVerificationCodeRequestBuilder
+        > {
   _$GetUserAttributeVerificationCodeRequest? _$v;
 
   String? _accessToken;
@@ -121,7 +122,8 @@ class GetUserAttributeVerificationCodeRequestBuilder
   _$GetUserAttributeVerificationCodeRequest _build() {
     _$GetUserAttributeVerificationCodeRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$GetUserAttributeVerificationCodeRequest._(
             accessToken: BuiltValueNullFieldError.checkNotNull(
               accessToken,

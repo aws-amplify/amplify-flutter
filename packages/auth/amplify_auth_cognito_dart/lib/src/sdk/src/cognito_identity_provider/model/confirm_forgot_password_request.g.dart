@@ -26,8 +26,7 @@ class _$ConfirmForgotPasswordRequest extends ConfirmForgotPasswordRequest {
 
   factory _$ConfirmForgotPasswordRequest([
     void Function(ConfirmForgotPasswordRequestBuilder)? updates,
-  ]) =>
-      (new ConfirmForgotPasswordRequestBuilder()..update(updates))._build();
+  ]) => (new ConfirmForgotPasswordRequestBuilder()..update(updates))._build();
 
   _$ConfirmForgotPasswordRequest._({
     required this.clientId,
@@ -64,8 +63,7 @@ class _$ConfirmForgotPasswordRequest extends ConfirmForgotPasswordRequest {
   @override
   ConfirmForgotPasswordRequest rebuild(
     void Function(ConfirmForgotPasswordRequestBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConfirmForgotPasswordRequestBuilder toBuilder() =>
@@ -103,8 +101,10 @@ class _$ConfirmForgotPasswordRequest extends ConfirmForgotPasswordRequest {
 
 class ConfirmForgotPasswordRequestBuilder
     implements
-        Builder<ConfirmForgotPasswordRequest,
-            ConfirmForgotPasswordRequestBuilder> {
+        Builder<
+          ConfirmForgotPasswordRequest,
+          ConfirmForgotPasswordRequestBuilder
+        > {
   _$ConfirmForgotPasswordRequest? _$v;
 
   String? _clientId;
@@ -181,7 +181,8 @@ class ConfirmForgotPasswordRequestBuilder
   _$ConfirmForgotPasswordRequest _build() {
     _$ConfirmForgotPasswordRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ConfirmForgotPasswordRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,

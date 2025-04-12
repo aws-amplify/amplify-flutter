@@ -18,7 +18,7 @@ class _$GetIdInput extends GetIdInput {
       (new GetIdInputBuilder()..update(updates))._build();
 
   _$GetIdInput._({this.accountId, required this.identityPoolId, this.logins})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
       identityPoolId,
       r'GetIdInput',
@@ -100,7 +100,8 @@ class GetIdInputBuilder implements Builder<GetIdInput, GetIdInputBuilder> {
   _$GetIdInput _build() {
     _$GetIdInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$GetIdInput._(
             accountId: accountId,
             identityPoolId: BuiltValueNullFieldError.checkNotNull(

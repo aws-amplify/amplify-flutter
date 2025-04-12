@@ -14,16 +14,14 @@ class _$ListDevicesResponse extends ListDevicesResponse {
 
   factory _$ListDevicesResponse([
     void Function(ListDevicesResponseBuilder)? updates,
-  ]) =>
-      (new ListDevicesResponseBuilder()..update(updates))._build();
+  ]) => (new ListDevicesResponseBuilder()..update(updates))._build();
 
   _$ListDevicesResponse._({this.devices, this.paginationToken}) : super._();
 
   @override
   ListDevicesResponse rebuild(
     void Function(ListDevicesResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListDevicesResponseBuilder toBuilder() =>
@@ -91,7 +89,8 @@ class ListDevicesResponseBuilder
   _$ListDevicesResponse _build() {
     _$ListDevicesResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ListDevicesResponse._(
             devices: _devices?.build(),
             paginationToken: paginationToken,

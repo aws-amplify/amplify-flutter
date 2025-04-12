@@ -9,16 +9,14 @@ part of 'change_password_response.dart';
 class _$ChangePasswordResponse extends ChangePasswordResponse {
   factory _$ChangePasswordResponse([
     void Function(ChangePasswordResponseBuilder)? updates,
-  ]) =>
-      (new ChangePasswordResponseBuilder()..update(updates))._build();
+  ]) => (new ChangePasswordResponseBuilder()..update(updates))._build();
 
   _$ChangePasswordResponse._() : super._();
 
   @override
   ChangePasswordResponse rebuild(
     void Function(ChangePasswordResponseBuilder) updates,
-  ) =>
-      (toBuilder()..update(updates)).build();
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ChangePasswordResponseBuilder toBuilder() =>
