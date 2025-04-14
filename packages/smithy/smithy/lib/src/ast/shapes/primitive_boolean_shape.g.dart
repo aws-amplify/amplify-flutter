@@ -14,19 +14,23 @@ class _$PrimitiveBooleanShapeSerializer
   @override
   final Iterable<Type> types = const [
     PrimitiveBooleanShape,
-    _$PrimitiveBooleanShape
+    _$PrimitiveBooleanShape,
   ];
   @override
   final String wireName = 'PrimitiveBooleanShape';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, PrimitiveBooleanShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    PrimitiveBooleanShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -34,8 +38,10 @@ class _$PrimitiveBooleanShapeSerializer
 
   @override
   PrimitiveBooleanShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new PrimitiveBooleanShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -45,8 +51,12 @@ class _$PrimitiveBooleanShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -61,22 +71,28 @@ class _$PrimitiveBooleanShape extends PrimitiveBooleanShape {
   @override
   final TraitMap traits;
 
-  factory _$PrimitiveBooleanShape(
-          [void Function(PrimitiveBooleanShapeBuilder)? updates]) =>
-      (new PrimitiveBooleanShapeBuilder()..update(updates))._build();
+  factory _$PrimitiveBooleanShape([
+    void Function(PrimitiveBooleanShapeBuilder)? updates,
+  ]) => (new PrimitiveBooleanShapeBuilder()..update(updates))._build();
 
   _$PrimitiveBooleanShape._({required this.shapeId, required this.traits})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'PrimitiveBooleanShape', 'shapeId');
+      shapeId,
+      r'PrimitiveBooleanShape',
+      'shapeId',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        traits, r'PrimitiveBooleanShape', 'traits');
+      traits,
+      r'PrimitiveBooleanShape',
+      'traits',
+    );
   }
 
   @override
   PrimitiveBooleanShape rebuild(
-          void Function(PrimitiveBooleanShapeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PrimitiveBooleanShapeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PrimitiveBooleanShapeBuilder toBuilder() =>
@@ -151,12 +167,19 @@ class PrimitiveBooleanShapeBuilder
   PrimitiveBooleanShape build() => _build();
 
   _$PrimitiveBooleanShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PrimitiveBooleanShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-              shapeId, r'PrimitiveBooleanShape', 'shapeId'),
+            shapeId,
+            r'PrimitiveBooleanShape',
+            'shapeId',
+          ),
           traits: BuiltValueNullFieldError.checkNotNull(
-              traits, r'PrimitiveBooleanShape', 'traits'),
+            traits,
+            r'PrimitiveBooleanShape',
+            'traits',
+          ),
         );
     replace(_$result);
     return _$result;

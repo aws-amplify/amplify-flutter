@@ -11,18 +11,13 @@ part of 'config_map.dart';
 AWSConfigMap<T> _$AWSConfigMapFromJson<T extends AWSSerializable<Object?>>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
-) =>
-    $checkedCreate(
-      'AWSConfigMap',
-      json,
-      ($checkedConvert) {
-        final val = AWSConfigMap<T>(
-          $checkedConvert(
-              'configs',
-              (v) => (v as Map<String, dynamic>).map(
-                    (k, e) => MapEntry(k, fromJsonT(e)),
-                  )),
-        );
-        return val;
-      },
-    );
+) => $checkedCreate('AWSConfigMap', json, ($checkedConvert) {
+  final val = AWSConfigMap<T>(
+    $checkedConvert(
+      'configs',
+      (v) =>
+          (v as Map<String, dynamic>).map((k, e) => MapEntry(k, fromJsonT(e))),
+    ),
+  );
+  return val;
+});

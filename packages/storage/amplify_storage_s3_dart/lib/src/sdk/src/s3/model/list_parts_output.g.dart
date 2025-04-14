@@ -41,23 +41,23 @@ class _$ListPartsOutput extends ListPartsOutput {
   factory _$ListPartsOutput([void Function(ListPartsOutputBuilder)? updates]) =>
       (new ListPartsOutputBuilder()..update(updates))._build();
 
-  _$ListPartsOutput._(
-      {this.abortDate,
-      this.abortRuleId,
-      this.bucket,
-      this.key,
-      this.uploadId,
-      this.partNumberMarker,
-      this.nextPartNumberMarker,
-      this.maxParts,
-      this.isTruncated,
-      this.parts,
-      this.initiator,
-      this.owner,
-      this.storageClass,
-      this.requestCharged,
-      this.checksumAlgorithm})
-      : super._();
+  _$ListPartsOutput._({
+    this.abortDate,
+    this.abortRuleId,
+    this.bucket,
+    this.key,
+    this.uploadId,
+    this.partNumberMarker,
+    this.nextPartNumberMarker,
+    this.maxParts,
+    this.isTruncated,
+    this.parts,
+    this.initiator,
+    this.owner,
+    this.storageClass,
+    this.requestCharged,
+    this.checksumAlgorithm,
+  }) : super._();
 
   @override
   ListPartsOutput rebuild(void Function(ListPartsOutputBuilder) updates) =>
@@ -224,7 +224,8 @@ class ListPartsOutputBuilder
   _$ListPartsOutput _build() {
     _$ListPartsOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ListPartsOutput._(
             abortDate: abortDate,
             abortRuleId: abortRuleId,
@@ -253,7 +254,10 @@ class ListPartsOutputBuilder
         _owner?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ListPartsOutput', _$failedField, e.toString());
+          r'ListPartsOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -288,29 +292,29 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final String? uploadId;
 
-  factory _$ListPartsOutputPayload(
-          [void Function(ListPartsOutputPayloadBuilder)? updates]) =>
-      (new ListPartsOutputPayloadBuilder()..update(updates))._build();
+  factory _$ListPartsOutputPayload([
+    void Function(ListPartsOutputPayloadBuilder)? updates,
+  ]) => (new ListPartsOutputPayloadBuilder()..update(updates))._build();
 
-  _$ListPartsOutputPayload._(
-      {this.bucket,
-      this.checksumAlgorithm,
-      this.initiator,
-      this.isTruncated,
-      this.key,
-      this.maxParts,
-      this.nextPartNumberMarker,
-      this.owner,
-      this.partNumberMarker,
-      this.parts,
-      this.storageClass,
-      this.uploadId})
-      : super._();
+  _$ListPartsOutputPayload._({
+    this.bucket,
+    this.checksumAlgorithm,
+    this.initiator,
+    this.isTruncated,
+    this.key,
+    this.maxParts,
+    this.nextPartNumberMarker,
+    this.owner,
+    this.partNumberMarker,
+    this.parts,
+    this.storageClass,
+    this.uploadId,
+  }) : super._();
 
   @override
   ListPartsOutputPayload rebuild(
-          void Function(ListPartsOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListPartsOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListPartsOutputPayloadBuilder toBuilder() =>
@@ -451,7 +455,8 @@ class ListPartsOutputPayloadBuilder
   _$ListPartsOutputPayload _build() {
     _$ListPartsOutputPayload _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ListPartsOutputPayload._(
             bucket: bucket,
             checksumAlgorithm: checksumAlgorithm,
@@ -479,7 +484,10 @@ class ListPartsOutputPayloadBuilder
         _parts?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ListPartsOutputPayload', _$failedField, e.toString());
+          r'ListPartsOutputPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

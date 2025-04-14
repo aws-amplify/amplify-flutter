@@ -16,12 +16,17 @@ class _$BooleanShapeSerializer implements StructuredSerializer<BooleanShape> {
   final String wireName = 'BooleanShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, BooleanShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    BooleanShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -29,8 +34,10 @@ class _$BooleanShapeSerializer implements StructuredSerializer<BooleanShape> {
 
   @override
   BooleanShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new BooleanShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -40,8 +47,12 @@ class _$BooleanShapeSerializer implements StructuredSerializer<BooleanShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -138,12 +149,19 @@ class BooleanShapeBuilder
   BooleanShape build() => _build();
 
   _$BooleanShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$BooleanShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-              shapeId, r'BooleanShape', 'shapeId'),
+            shapeId,
+            r'BooleanShape',
+            'shapeId',
+          ),
           traits: BuiltValueNullFieldError.checkNotNull(
-              traits, r'BooleanShape', 'traits'),
+            traits,
+            r'BooleanShape',
+            'traits',
+          ),
         );
     replace(_$result);
     return _$result;

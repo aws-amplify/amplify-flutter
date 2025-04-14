@@ -16,12 +16,17 @@ class _$DocumentShapeSerializer implements StructuredSerializer<DocumentShape> {
   final String wireName = 'DocumentShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, DocumentShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    DocumentShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -29,8 +34,10 @@ class _$DocumentShapeSerializer implements StructuredSerializer<DocumentShape> {
 
   @override
   DocumentShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new DocumentShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -40,8 +47,12 @@ class _$DocumentShapeSerializer implements StructuredSerializer<DocumentShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -140,12 +151,19 @@ class DocumentShapeBuilder
   DocumentShape build() => _build();
 
   _$DocumentShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$DocumentShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-              shapeId, r'DocumentShape', 'shapeId'),
+            shapeId,
+            r'DocumentShape',
+            'shapeId',
+          ),
           traits: BuiltValueNullFieldError.checkNotNull(
-              traits, r'DocumentShape', 'traits'),
+            traits,
+            r'DocumentShape',
+            'traits',
+          ),
         );
     replace(_$result);
     return _$result;

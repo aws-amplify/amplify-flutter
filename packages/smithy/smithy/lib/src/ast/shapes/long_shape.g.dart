@@ -15,20 +15,28 @@ class _$LongShapeSerializer implements StructuredSerializer<LongShape> {
   final String wireName = 'LongShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, LongShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    LongShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  LongShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  LongShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new LongShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -38,8 +46,12 @@ class _$LongShapeSerializer implements StructuredSerializer<LongShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -136,12 +148,19 @@ class LongShapeBuilder
   LongShape build() => _build();
 
   _$LongShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$LongShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-              shapeId, r'LongShape', 'shapeId'),
+            shapeId,
+            r'LongShape',
+            'shapeId',
+          ),
           traits: BuiltValueNullFieldError.checkNotNull(
-              traits, r'LongShape', 'traits'),
+            traits,
+            r'LongShape',
+            'traits',
+          ),
         );
     replace(_$result);
     return _$result;

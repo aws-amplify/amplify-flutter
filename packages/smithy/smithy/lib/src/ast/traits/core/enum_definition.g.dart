@@ -13,7 +13,7 @@ EnumDefinition _$EnumDefinitionFromJson(Map<String, dynamic> json) =>
       documentation: json['documentation'] as String?,
       tags:
           (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-              const [],
+          const [],
       deprecated: json['deprecated'] as bool?,
     );
 

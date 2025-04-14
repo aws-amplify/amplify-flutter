@@ -15,20 +15,28 @@ class _$ShortShapeSerializer implements StructuredSerializer<ShortShape> {
   final String wireName = 'ShortShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ShortShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ShortShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  ShortShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  ShortShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new ShortShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -38,8 +46,12 @@ class _$ShortShapeSerializer implements StructuredSerializer<ShortShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -136,12 +148,19 @@ class ShortShapeBuilder
   ShortShape build() => _build();
 
   _$ShortShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ShortShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-              shapeId, r'ShortShape', 'shapeId'),
+            shapeId,
+            r'ShortShape',
+            'shapeId',
+          ),
           traits: BuiltValueNullFieldError.checkNotNull(
-              traits, r'ShortShape', 'traits'),
+            traits,
+            r'ShortShape',
+            'traits',
+          ),
         );
     replace(_$result);
     return _$result;

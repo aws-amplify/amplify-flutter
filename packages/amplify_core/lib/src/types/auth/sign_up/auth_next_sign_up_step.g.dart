@@ -9,28 +9,28 @@ part of 'auth_next_sign_up_step.dart';
 // **************************************************************************
 
 AuthNextSignUpStep _$AuthNextSignUpStepFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'AuthNextSignUpStep',
-      json,
-      ($checkedConvert) {
-        final val = AuthNextSignUpStep(
-          additionalInfo: $checkedConvert(
-              'additionalInfo',
-              (v) => (v as Map<String, dynamic>?)?.map(
-                    (k, e) => MapEntry(k, e as String),
-                  )),
-          codeDeliveryDetails: $checkedConvert(
-              'codeDeliveryDetails',
-              (v) => v == null
+    $checkedCreate('AuthNextSignUpStep', json, ($checkedConvert) {
+      final val = AuthNextSignUpStep(
+        additionalInfo: $checkedConvert(
+          'additionalInfo',
+          (v) => (v as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ),
+        ),
+        codeDeliveryDetails: $checkedConvert(
+          'codeDeliveryDetails',
+          (v) =>
+              v == null
                   ? null
-                  : AuthCodeDeliveryDetails.fromJson(
-                      v as Map<String, dynamic>)),
-          signUpStep: $checkedConvert(
-              'signUpStep', (v) => $enumDecode(_$AuthSignUpStepEnumMap, v)),
-        );
-        return val;
-      },
-    );
+                  : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
+        ),
+        signUpStep: $checkedConvert(
+          'signUpStep',
+          (v) => $enumDecode(_$AuthSignUpStepEnumMap, v),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$AuthNextSignUpStepToJson(AuthNextSignUpStep instance) =>
     <String, dynamic>{

@@ -83,44 +83,44 @@ class _$GetObjectOutput extends GetObjectOutput {
   factory _$GetObjectOutput([void Function(GetObjectOutputBuilder)? updates]) =>
       (new GetObjectOutputBuilder()..update(updates))._build();
 
-  _$GetObjectOutput._(
-      {required this.body,
-      this.deleteMarker,
-      this.acceptRanges,
-      this.expiration,
-      this.restore,
-      this.lastModified,
-      this.contentLength,
-      this.eTag,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.missingMeta,
-      this.versionId,
-      this.cacheControl,
-      this.contentDisposition,
-      this.contentEncoding,
-      this.contentLanguage,
-      this.contentRange,
-      this.contentType,
-      this.expires,
-      this.websiteRedirectLocation,
-      this.serverSideEncryption,
-      this.metadata,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.bucketKeyEnabled,
-      this.storageClass,
-      this.requestCharged,
-      this.replicationStatus,
-      this.partsCount,
-      this.tagCount,
-      this.objectLockMode,
-      this.objectLockRetainUntilDate,
-      this.objectLockLegalHoldStatus})
-      : super._() {
+  _$GetObjectOutput._({
+    required this.body,
+    this.deleteMarker,
+    this.acceptRanges,
+    this.expiration,
+    this.restore,
+    this.lastModified,
+    this.contentLength,
+    this.eTag,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.missingMeta,
+    this.versionId,
+    this.cacheControl,
+    this.contentDisposition,
+    this.contentEncoding,
+    this.contentLanguage,
+    this.contentRange,
+    this.contentType,
+    this.expires,
+    this.websiteRedirectLocation,
+    this.serverSideEncryption,
+    this.metadata,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.bucketKeyEnabled,
+    this.storageClass,
+    this.requestCharged,
+    this.replicationStatus,
+    this.partsCount,
+    this.tagCount,
+    this.objectLockMode,
+    this.objectLockRetainUntilDate,
+    this.objectLockLegalHoldStatus,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(body, r'GetObjectOutput', 'body');
   }
 
@@ -387,8 +387,8 @@ class GetObjectOutputBuilder
   ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
-      _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
+    ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+  ) => _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   GetObjectOutputBuilder() {
     GetObjectOutput._init(this);
@@ -455,10 +455,14 @@ class GetObjectOutputBuilder
   _$GetObjectOutput _build() {
     _$GetObjectOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$GetObjectOutput._(
             body: BuiltValueNullFieldError.checkNotNull(
-                body, r'GetObjectOutput', 'body'),
+              body,
+              r'GetObjectOutput',
+              'body',
+            ),
             deleteMarker: deleteMarker,
             acceptRanges: acceptRanges,
             expiration: expiration,
@@ -502,7 +506,10 @@ class GetObjectOutputBuilder
         _metadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GetObjectOutput', _$failedField, e.toString());
+          r'GetObjectOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

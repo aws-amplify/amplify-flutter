@@ -15,26 +15,38 @@ class _$MemberShapeSerializer implements StructuredSerializer<MemberShape> {
   final String wireName = 'MemberShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, MemberShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    MemberShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'target',
-      serializers.serialize(object.target,
-          specifiedType: const FullType(ShapeId)),
+      serializers.serialize(
+        object.target,
+        specifiedType: const FullType(ShapeId),
+      ),
       'memberName',
-      serializers.serialize(object.memberName,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.memberName,
+        specifiedType: const FullType(String),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  MemberShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  MemberShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new MemberShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -44,16 +56,28 @@ class _$MemberShapeSerializer implements StructuredSerializer<MemberShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'target':
-          result.target = serializers.deserialize(value,
-              specifiedType: const FullType(ShapeId))! as ShapeId;
+          result.target =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ShapeId),
+                  )!
+                  as ShapeId;
           break;
         case 'memberName':
-          result.memberName = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.memberName =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -75,15 +99,18 @@ class _$MemberShape extends MemberShape {
   factory _$MemberShape([void Function(MemberShapeBuilder)? updates]) =>
       (new MemberShapeBuilder()..update(updates))._build();
 
-  _$MemberShape._(
-      {required this.target,
-      required this.memberName,
-      required this.shapeId,
-      required this.traits})
-      : super._() {
+  _$MemberShape._({
+    required this.target,
+    required this.memberName,
+    required this.shapeId,
+    required this.traits,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(target, r'MemberShape', 'target');
     BuiltValueNullFieldError.checkNotNull(
-        memberName, r'MemberShape', 'memberName');
+      memberName,
+      r'MemberShape',
+      'memberName',
+    );
     BuiltValueNullFieldError.checkNotNull(shapeId, r'MemberShape', 'shapeId');
     BuiltValueNullFieldError.checkNotNull(traits, r'MemberShape', 'traits');
   }
@@ -179,16 +206,29 @@ class MemberShapeBuilder
   MemberShape build() => _build();
 
   _$MemberShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MemberShape._(
           target: BuiltValueNullFieldError.checkNotNull(
-              target, r'MemberShape', 'target'),
+            target,
+            r'MemberShape',
+            'target',
+          ),
           memberName: BuiltValueNullFieldError.checkNotNull(
-              memberName, r'MemberShape', 'memberName'),
+            memberName,
+            r'MemberShape',
+            'memberName',
+          ),
           shapeId: BuiltValueNullFieldError.checkNotNull(
-              shapeId, r'MemberShape', 'shapeId'),
+            shapeId,
+            r'MemberShape',
+            'shapeId',
+          ),
           traits: BuiltValueNullFieldError.checkNotNull(
-              traits, r'MemberShape', 'traits'),
+            traits,
+            r'MemberShape',
+            'traits',
+          ),
         );
     replace(_$result);
     return _$result;

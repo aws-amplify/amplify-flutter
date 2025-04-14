@@ -15,26 +15,38 @@ class _$MapShapeSerializer implements StructuredSerializer<MapShape> {
   final String wireName = 'MapShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, MapShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    MapShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'key',
-      serializers.serialize(object.key,
-          specifiedType: const FullType(ShapeRef)),
+      serializers.serialize(
+        object.key,
+        specifiedType: const FullType(ShapeRef),
+      ),
       'value',
-      serializers.serialize(object.value,
-          specifiedType: const FullType(ShapeRef)),
+      serializers.serialize(
+        object.value,
+        specifiedType: const FullType(ShapeRef),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  MapShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  MapShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new MapShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -44,16 +56,30 @@ class _$MapShapeSerializer implements StructuredSerializer<MapShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'key':
-          result.key.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.key.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'value':
-          result.value.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ShapeRef))! as ShapeRef);
+          result.value.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ShapeRef),
+                )!
+                as ShapeRef,
+          );
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -75,12 +101,12 @@ class _$MapShape extends MapShape {
   factory _$MapShape([void Function(MapShapeBuilder)? updates]) =>
       (new MapShapeBuilder()..update(updates))._build();
 
-  _$MapShape._(
-      {required this.key,
-      required this.value,
-      required this.shapeId,
-      required this.traits})
-      : super._() {
+  _$MapShape._({
+    required this.key,
+    required this.value,
+    required this.shapeId,
+    required this.traits,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(key, r'MapShape', 'key');
     BuiltValueNullFieldError.checkNotNull(value, r'MapShape', 'value');
     BuiltValueNullFieldError.checkNotNull(shapeId, r'MapShape', 'shapeId');
@@ -179,14 +205,21 @@ class MapShapeBuilder
   _$MapShape _build() {
     _$MapShape _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$MapShape._(
             key: key.build(),
             value: value.build(),
             shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'MapShape', 'shapeId'),
+              shapeId,
+              r'MapShape',
+              'shapeId',
+            ),
             traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'MapShape', 'traits'),
+              traits,
+              r'MapShape',
+              'traits',
+            ),
           );
     } catch (_) {
       late String _$failedField;
@@ -197,7 +230,10 @@ class MapShapeBuilder
         value.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MapShape', _$failedField, e.toString());
+          r'MapShape',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
