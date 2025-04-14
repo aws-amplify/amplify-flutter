@@ -22,15 +22,7 @@ _$CognitoVerifyTotpSetupPluginOptionsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CognitoVerifyTotpSetupPluginOptionsToJson(
   CognitoVerifyTotpSetupPluginOptions instance,
-) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('friendlyDeviceName', instance.friendlyDeviceName);
-  return val;
-}
+) => <String, dynamic>{
+  if (instance.friendlyDeviceName case final value?)
+    'friendlyDeviceName': value,
+};

@@ -50,24 +50,15 @@ CognitoSignInDetailsApiBased _$CognitoSignInDetailsApiBasedFromJson(
 
 Map<String, dynamic> _$CognitoSignInDetailsApiBasedToJson(
   CognitoSignInDetailsApiBased instance,
-) {
-  final val = <String, dynamic>{'username': instance.username};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-    'authFlowType',
-    _$JsonConverterToJson<String, AuthFlowType>(
-      instance.authFlowType,
-      const _AuthFlowTypeSerializer().toJson,
-    ),
-  );
-  return val;
-}
+) => <String, dynamic>{
+  'username': instance.username,
+  if (_$JsonConverterToJson<String, AuthFlowType>(
+        instance.authFlowType,
+        const _AuthFlowTypeSerializer().toJson,
+      )
+      case final value?)
+    'authFlowType': value,
+};
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,
@@ -94,18 +85,9 @@ CognitoSignInDetailsHostedUi _$CognitoSignInDetailsHostedUiFromJson(
 
 Map<String, dynamic> _$CognitoSignInDetailsHostedUiToJson(
   CognitoSignInDetailsHostedUi instance,
-) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('provider', instance.provider?.toJson());
-  return val;
-}
+) => <String, dynamic>{
+  if (instance.provider?.toJson() case final value?) 'provider': value,
+};
 
 CognitoSignInDetailsFederated _$CognitoSignInDetailsFederatedFromJson(
   Map<String, dynamic> json,

@@ -35,18 +35,14 @@ CredentialStoreData _$CredentialStoreDataFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$CredentialStoreDataToJson(CredentialStoreData instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('identityId', instance.identityId);
-  writeNotNull('awsCredentials', instance.awsCredentials?.toJson());
-  writeNotNull('userPoolTokens', instance.userPoolTokens?.toJson());
-  writeNotNull('signInDetails', instance.signInDetails?.toJson());
-  return val;
-}
+Map<String, dynamic> _$CredentialStoreDataToJson(
+  CredentialStoreData instance,
+) => <String, dynamic>{
+  if (instance.identityId case final value?) 'identityId': value,
+  if (instance.awsCredentials?.toJson() case final value?)
+    'awsCredentials': value,
+  if (instance.userPoolTokens?.toJson() case final value?)
+    'userPoolTokens': value,
+  if (instance.signInDetails?.toJson() case final value?)
+    'signInDetails': value,
+};

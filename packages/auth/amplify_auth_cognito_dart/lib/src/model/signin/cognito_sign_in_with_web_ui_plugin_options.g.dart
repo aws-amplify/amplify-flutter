@@ -26,17 +26,8 @@ _$CognitoSignInWithWebUIPluginOptionsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CognitoSignInWithWebUIPluginOptionsToJson(
   CognitoSignInWithWebUIPluginOptions instance,
-) {
-  final val = <String, dynamic>{
-    'isPreferPrivateSession': instance.isPreferPrivateSession,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('browserPackageName', instance.browserPackageName);
-  return val;
-}
+) => <String, dynamic>{
+  'isPreferPrivateSession': instance.isPreferPrivateSession,
+  if (instance.browserPackageName case final value?)
+    'browserPackageName': value,
+};

@@ -30,18 +30,8 @@ FederateToIdentityPoolRequest _$FederateToIdentityPoolRequestFromJson(
 
 Map<String, dynamic> _$FederateToIdentityPoolRequestToJson(
   FederateToIdentityPoolRequest instance,
-) {
-  final val = <String, dynamic>{
-    'token': instance.token,
-    'provider': instance.provider.toJson(),
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('options', instance.options?.toJson());
-  return val;
-}
+) => <String, dynamic>{
+  'token': instance.token,
+  'provider': instance.provider.toJson(),
+  if (instance.options?.toJson() case final value?) 'options': value,
+};

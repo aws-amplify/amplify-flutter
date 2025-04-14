@@ -20,18 +20,7 @@ FederateToIdentityPoolOptions _$FederateToIdentityPoolOptionsFromJson(
 
 Map<String, dynamic> _$FederateToIdentityPoolOptionsToJson(
   FederateToIdentityPoolOptions instance,
-) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-    'developerProvidedIdentityId',
-    instance.developerProvidedIdentityId,
-  );
-  return val;
-}
+) => <String, dynamic>{
+  if (instance.developerProvidedIdentityId case final value?)
+    'developerProvidedIdentityId': value,
+};

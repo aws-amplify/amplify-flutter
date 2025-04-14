@@ -28,22 +28,11 @@ CognitoSignInPluginOptions _$CognitoSignInPluginOptionsFromJson(
 
 Map<String, dynamic> _$CognitoSignInPluginOptionsToJson(
   CognitoSignInPluginOptions instance,
-) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-    'authFlowType',
-    _$AuthenticationFlowTypeEnumMap[instance.authFlowType],
-  );
-  val['clientMetadata'] = instance.clientMetadata;
-  return val;
-}
+) => <String, dynamic>{
+  if (_$AuthenticationFlowTypeEnumMap[instance.authFlowType] case final value?)
+    'authFlowType': value,
+  'clientMetadata': instance.clientMetadata,
+};
 
 const _$AuthenticationFlowTypeEnumMap = {
   AuthenticationFlowType.userSrpAuth: 'USER_SRP_AUTH',
