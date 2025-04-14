@@ -246,7 +246,7 @@ class QueryListsInputAwsQuerySerializer
         );
     }
     if (flattenedListArg != null) {
-      result$..addAll(
+      result$.addAll(
         const _i1.XmlBuiltListSerializer(
           memberName: 'FlattenedListArg',
           indexer: _i1.XmlIndexer.awsQueryList,
@@ -272,7 +272,7 @@ class QueryListsInputAwsQuerySerializer
         );
     }
     if (flattenedListArgWithXmlName != null) {
-      result$..addAll(
+      result$.addAll(
         const _i1.XmlBuiltListSerializer(
           memberName: 'Hi',
           indexer: _i1.XmlIndexer.awsQueryList,

@@ -494,7 +494,7 @@ class XmlListsOutputAwsQuerySerializer
         );
     }
     if (flattenedList != null) {
-      result$..addAll(
+      result$.addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'flattenedList',
           indexer: _i3.XmlIndexer.awsQueryList,
@@ -506,7 +506,7 @@ class XmlListsOutputAwsQuerySerializer
       );
     }
     if (flattenedList2 != null) {
-      result$..addAll(
+      result$.addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'customName',
           indexer: _i3.XmlIndexer.awsQueryList,
@@ -518,7 +518,7 @@ class XmlListsOutputAwsQuerySerializer
       );
     }
     if (flattenedListWithMemberNamespace != null) {
-      result$..addAll(
+      result$.addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'flattenedListWithMemberNamespace',
           memberNamespace: _i3.XmlNamespace('https://xml-member.example.com'),
@@ -531,7 +531,7 @@ class XmlListsOutputAwsQuerySerializer
       );
     }
     if (flattenedListWithNamespace != null) {
-      result$..addAll(
+      result$.addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'flattenedListWithNamespace',
           indexer: _i3.XmlIndexer.awsQueryList,

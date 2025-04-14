@@ -158,7 +158,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
     ];
     final NestedXmlMapsInputOutput(:flatNestedMap, :nestedMap) = object;
     if (flatNestedMap != null) {
-      result$..addAll(
+      result$.addAll(
         const _i1.XmlBuiltMapSerializer(
           flattenedKey: 'flatNestedMap',
         ).serialize(

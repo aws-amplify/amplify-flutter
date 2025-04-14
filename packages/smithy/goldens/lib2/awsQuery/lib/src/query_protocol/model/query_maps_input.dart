@@ -340,7 +340,7 @@ class QueryMapsInputAwsQuerySerializer
         );
     }
     if (flattenedMap != null) {
-      result$..addAll(
+      result$.addAll(
         const _i1.XmlBuiltMapSerializer(
           flattenedKey: 'FlattenedMap',
           indexer: _i1.XmlIndexer.awsQueryMap,
@@ -355,7 +355,7 @@ class QueryMapsInputAwsQuerySerializer
       );
     }
     if (flattenedMapWithXmlName != null) {
-      result$..addAll(
+      result$.addAll(
         const _i1.XmlBuiltMapSerializer(
           keyName: 'K',
           valueName: 'V',

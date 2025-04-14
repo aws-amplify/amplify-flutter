@@ -56,7 +56,7 @@ abstract class GetObjectOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectOutputBuilder b) {
-    b..body = const _i3.Stream.empty();
+    b.body = const _i3.Stream.empty();
   }
 
   _i3.Stream<List<int>> get body;

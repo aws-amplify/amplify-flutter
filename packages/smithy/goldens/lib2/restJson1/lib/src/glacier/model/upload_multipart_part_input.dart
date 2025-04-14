@@ -73,7 +73,7 @@ abstract class UploadMultipartPartInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadMultipartPartInputBuilder b) {
-    b..body = const _i2.Stream.empty();
+    b.body = const _i2.Stream.empty();
   }
 
   String get accountId;
