@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas,unnecessary_library_name
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v1.ec2_protocol.model.xml_lists_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -481,7 +481,7 @@ class XmlListsOutputEc2QuerySerializer
         );
     }
     if (flattenedList != null) {
-      result$.addAll(
+      result$..addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'FlattenedList',
           indexer: _i3.XmlIndexer.ec2QueryList,
@@ -493,7 +493,7 @@ class XmlListsOutputEc2QuerySerializer
       );
     }
     if (flattenedList2 != null) {
-      result$.addAll(
+      result$..addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'CustomName',
           indexer: _i3.XmlIndexer.ec2QueryList,
@@ -505,7 +505,7 @@ class XmlListsOutputEc2QuerySerializer
       );
     }
     if (flattenedListWithMemberNamespace != null) {
-      result$.addAll(
+      result$..addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'FlattenedListWithMemberNamespace',
           memberNamespace: _i3.XmlNamespace('https://xml-member.example.com'),
@@ -518,7 +518,7 @@ class XmlListsOutputEc2QuerySerializer
       );
     }
     if (flattenedListWithNamespace != null) {
-      result$.addAll(
+      result$..addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'FlattenedListWithNamespace',
           indexer: _i3.XmlIndexer.ec2QueryList,

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas,unnecessary_library_name
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.streaming_traits_require_length_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,7 +53,7 @@ abstract class StreamingTraitsRequireLengthInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StreamingTraitsRequireLengthInputBuilder b) {
-    b.blob = const _i2.Stream.empty();
+    b..blob = const _i2.Stream.empty();
   }
 
   String? get foo;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas,unnecessary_library_name
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.rest_xml_protocol.model.xml_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -388,7 +388,7 @@ class XmlListsInputOutputRestXmlSerializer
         );
     }
     if (flattenedList != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(memberName: 'flattenedList').serialize(
           serializers,
           flattenedList,
@@ -397,7 +397,7 @@ class XmlListsInputOutputRestXmlSerializer
       );
     }
     if (flattenedList2 != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(memberName: 'customName').serialize(
           serializers,
           flattenedList2,
@@ -406,7 +406,7 @@ class XmlListsInputOutputRestXmlSerializer
       );
     }
     if (flattenedListWithMemberNamespace != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(
           memberName: 'flattenedListWithMemberNamespace',
           memberNamespace: _i1.XmlNamespace('https://xml-member.example.com'),
@@ -418,7 +418,7 @@ class XmlListsInputOutputRestXmlSerializer
       );
     }
     if (flattenedListWithNamespace != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(
           memberName: 'flattenedListWithNamespace',
         ).serialize(
@@ -429,7 +429,7 @@ class XmlListsInputOutputRestXmlSerializer
       );
     }
     if (flattenedStructureList != null) {
-      result$.addAll(
+      result$..addAll(
         const _i1.XmlBuiltListSerializer(
           memberName: 'flattenedStructureList',
         ).serialize(

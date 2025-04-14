@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.2. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas,unnecessary_library_name
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.s3.model.list_objects_v2_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -262,7 +262,7 @@ class ListObjectsV2OutputRestXmlSerializer
       :startAfter,
     ) = object;
     if (commonPrefixes != null) {
-      result$.addAll(
+      result$..addAll(
         const _i3.XmlBuiltListSerializer(
           memberName: 'CommonPrefixes',
         ).serialize(
@@ -275,7 +275,7 @@ class ListObjectsV2OutputRestXmlSerializer
       );
     }
     if (contents != null) {
-      result$.addAll(
+      result$..addAll(
         const _i3.XmlBuiltListSerializer(memberName: 'Contents').serialize(
           serializers,
           contents,
