@@ -27,16 +27,16 @@ class _$Part extends Part {
   factory _$Part([void Function(PartBuilder)? updates]) =>
       (new PartBuilder()..update(updates))._build();
 
-  _$Part._({
-    this.partNumber,
-    this.lastModified,
-    this.eTag,
-    this.size,
-    this.checksumCrc32,
-    this.checksumCrc32C,
-    this.checksumSha1,
-    this.checksumSha256,
-  }) : super._();
+  _$Part._(
+      {this.partNumber,
+      this.lastModified,
+      this.eTag,
+      this.size,
+      this.checksumCrc32,
+      this.checksumCrc32C,
+      this.checksumSha1,
+      this.checksumSha256})
+      : super._();
 
   @override
   Part rebuild(void Function(PartBuilder) updates) =>
@@ -147,8 +147,7 @@ class PartBuilder implements Builder<Part, PartBuilder> {
   Part build() => _build();
 
   _$Part _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$Part._(
           partNumber: partNumber,
           lastModified: lastModified,

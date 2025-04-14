@@ -18,7 +18,7 @@ class _$Stats extends Stats {
       (new StatsBuilder()..update(updates))._build();
 
   _$Stats._({this.bytesScanned, this.bytesProcessed, this.bytesReturned})
-    : super._();
+      : super._();
 
   @override
   Stats rebuild(void Function(StatsBuilder) updates) =>
@@ -93,8 +93,7 @@ class StatsBuilder implements Builder<Stats, StatsBuilder> {
   Stats build() => _build();
 
   _$Stats _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$Stats._(
           bytesScanned: bytesScanned,
           bytesProcessed: bytesProcessed,

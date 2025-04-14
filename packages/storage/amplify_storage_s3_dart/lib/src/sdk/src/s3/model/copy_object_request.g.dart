@@ -90,63 +90,57 @@ class _$CopyObjectRequest extends CopyObjectRequest {
   @override
   final String? expectedSourceBucketOwner;
 
-  factory _$CopyObjectRequest([
-    void Function(CopyObjectRequestBuilder)? updates,
-  ]) => (new CopyObjectRequestBuilder()..update(updates))._build();
+  factory _$CopyObjectRequest(
+          [void Function(CopyObjectRequestBuilder)? updates]) =>
+      (new CopyObjectRequestBuilder()..update(updates))._build();
 
-  _$CopyObjectRequest._({
-    this.acl,
-    required this.bucket,
-    this.cacheControl,
-    this.checksumAlgorithm,
-    this.contentDisposition,
-    this.contentEncoding,
-    this.contentLanguage,
-    this.contentType,
-    required this.copySource,
-    this.copySourceIfMatch,
-    this.copySourceIfModifiedSince,
-    this.copySourceIfNoneMatch,
-    this.copySourceIfUnmodifiedSince,
-    this.expires,
-    this.grantFullControl,
-    this.grantRead,
-    this.grantReadAcp,
-    this.grantWriteAcp,
-    required this.key,
-    this.metadata,
-    this.metadataDirective,
-    this.taggingDirective,
-    this.serverSideEncryption,
-    this.storageClass,
-    this.websiteRedirectLocation,
-    this.sseCustomerAlgorithm,
-    this.sseCustomerKey,
-    this.sseCustomerKeyMd5,
-    this.ssekmsKeyId,
-    this.ssekmsEncryptionContext,
-    this.bucketKeyEnabled,
-    this.copySourceSseCustomerAlgorithm,
-    this.copySourceSseCustomerKey,
-    this.copySourceSseCustomerKeyMd5,
-    this.requestPayer,
-    this.tagging,
-    this.objectLockMode,
-    this.objectLockRetainUntilDate,
-    this.objectLockLegalHoldStatus,
-    this.expectedBucketOwner,
-    this.expectedSourceBucketOwner,
-  }) : super._() {
+  _$CopyObjectRequest._(
+      {this.acl,
+      required this.bucket,
+      this.cacheControl,
+      this.checksumAlgorithm,
+      this.contentDisposition,
+      this.contentEncoding,
+      this.contentLanguage,
+      this.contentType,
+      required this.copySource,
+      this.copySourceIfMatch,
+      this.copySourceIfModifiedSince,
+      this.copySourceIfNoneMatch,
+      this.copySourceIfUnmodifiedSince,
+      this.expires,
+      this.grantFullControl,
+      this.grantRead,
+      this.grantReadAcp,
+      this.grantWriteAcp,
+      required this.key,
+      this.metadata,
+      this.metadataDirective,
+      this.taggingDirective,
+      this.serverSideEncryption,
+      this.storageClass,
+      this.websiteRedirectLocation,
+      this.sseCustomerAlgorithm,
+      this.sseCustomerKey,
+      this.sseCustomerKeyMd5,
+      this.ssekmsKeyId,
+      this.ssekmsEncryptionContext,
+      this.bucketKeyEnabled,
+      this.copySourceSseCustomerAlgorithm,
+      this.copySourceSseCustomerKey,
+      this.copySourceSseCustomerKeyMd5,
+      this.requestPayer,
+      this.tagging,
+      this.objectLockMode,
+      this.objectLockRetainUntilDate,
+      this.objectLockLegalHoldStatus,
+      this.expectedBucketOwner,
+      this.expectedSourceBucketOwner})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'CopyObjectRequest',
-      'bucket',
-    );
+        bucket, r'CopyObjectRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(
-      copySource,
-      r'CopyObjectRequest',
-      'copySource',
-    );
+        copySource, r'CopyObjectRequest', 'copySource');
     BuiltValueNullFieldError.checkNotNull(key, r'CopyObjectRequest', 'key');
   }
 
@@ -447,8 +441,8 @@ class CopyObjectRequestBuilder
   ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-    ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
-  ) => _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
+          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+      _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
@@ -528,15 +522,11 @@ class CopyObjectRequestBuilder
   _$CopyObjectRequest _build() {
     _$CopyObjectRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$CopyObjectRequest._(
             acl: acl,
             bucket: BuiltValueNullFieldError.checkNotNull(
-              bucket,
-              r'CopyObjectRequest',
-              'bucket',
-            ),
+                bucket, r'CopyObjectRequest', 'bucket'),
             cacheControl: cacheControl,
             checksumAlgorithm: checksumAlgorithm,
             contentDisposition: contentDisposition,
@@ -544,10 +534,7 @@ class CopyObjectRequestBuilder
             contentLanguage: contentLanguage,
             contentType: contentType,
             copySource: BuiltValueNullFieldError.checkNotNull(
-              copySource,
-              r'CopyObjectRequest',
-              'copySource',
-            ),
+                copySource, r'CopyObjectRequest', 'copySource'),
             copySourceIfMatch: copySourceIfMatch,
             copySourceIfModifiedSince: copySourceIfModifiedSince,
             copySourceIfNoneMatch: copySourceIfNoneMatch,
@@ -558,10 +545,7 @@ class CopyObjectRequestBuilder
             grantReadAcp: grantReadAcp,
             grantWriteAcp: grantWriteAcp,
             key: BuiltValueNullFieldError.checkNotNull(
-              key,
-              r'CopyObjectRequest',
-              'key',
-            ),
+                key, r'CopyObjectRequest', 'key'),
             metadata: _metadata?.build(),
             metadataDirective: metadataDirective,
             taggingDirective: taggingDirective,
@@ -592,10 +576,7 @@ class CopyObjectRequestBuilder
         _metadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'CopyObjectRequest',
-          _$failedField,
-          e.toString(),
-        );
+            r'CopyObjectRequest', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -605,16 +586,16 @@ class CopyObjectRequestBuilder
 }
 
 class _$CopyObjectRequestPayload extends CopyObjectRequestPayload {
-  factory _$CopyObjectRequestPayload([
-    void Function(CopyObjectRequestPayloadBuilder)? updates,
-  ]) => (new CopyObjectRequestPayloadBuilder()..update(updates))._build();
+  factory _$CopyObjectRequestPayload(
+          [void Function(CopyObjectRequestPayloadBuilder)? updates]) =>
+      (new CopyObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$CopyObjectRequestPayload._() : super._();
 
   @override
   CopyObjectRequestPayload rebuild(
-    void Function(CopyObjectRequestPayloadBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(CopyObjectRequestPayloadBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   CopyObjectRequestPayloadBuilder toBuilder() =>

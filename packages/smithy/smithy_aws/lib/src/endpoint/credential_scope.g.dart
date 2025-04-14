@@ -13,4 +13,7 @@ CredentialScope _$CredentialScopeFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$CredentialScopeToJson(CredentialScope instance) =>
-    <String, dynamic>{'region': instance.region, 'service': instance.service};
+    <String, dynamic>{
+      'region': instance.region,
+      'service': instance.service,
+    };

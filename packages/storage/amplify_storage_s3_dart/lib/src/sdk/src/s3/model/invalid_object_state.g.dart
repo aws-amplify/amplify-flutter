@@ -14,17 +14,17 @@ class _$InvalidObjectState extends InvalidObjectState {
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidObjectState([
-    void Function(InvalidObjectStateBuilder)? updates,
-  ]) => (new InvalidObjectStateBuilder()..update(updates))._build();
+  factory _$InvalidObjectState(
+          [void Function(InvalidObjectStateBuilder)? updates]) =>
+      (new InvalidObjectStateBuilder()..update(updates))._build();
 
   _$InvalidObjectState._({this.storageClass, this.accessTier, this.headers})
-    : super._();
+      : super._();
 
   @override
   InvalidObjectState rebuild(
-    void Function(InvalidObjectStateBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(InvalidObjectStateBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InvalidObjectStateBuilder toBuilder() =>
@@ -94,8 +94,7 @@ class InvalidObjectStateBuilder
   InvalidObjectState build() => _build();
 
   _$InvalidObjectState _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$InvalidObjectState._(
           storageClass: storageClass,
           accessTier: accessTier,

@@ -15,33 +15,23 @@ class _$SetShapeSerializer implements StructuredSerializer<SetShape> {
   final String wireName = 'SetShape';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    SetShape object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, SetShape object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'member',
-      serializers.serialize(
-        object.member,
-        specifiedType: const FullType(MemberShape),
-      ),
+      serializers.serialize(object.member,
+          specifiedType: const FullType(MemberShape)),
       'traits',
-      serializers.serialize(
-        object.traits,
-        specifiedType: const FullType(TraitMap),
-      ),
+      serializers.serialize(object.traits,
+          specifiedType: const FullType(TraitMap)),
     ];
 
     return result;
   }
 
   @override
-  SetShape deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  SetShape deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new SetShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -51,21 +41,12 @@ class _$SetShapeSerializer implements StructuredSerializer<SetShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'member':
-          result.member.replace(
-            serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(MemberShape),
-                )!
-                as MemberShape,
-          );
+          result.member.replace(serializers.deserialize(value,
+              specifiedType: const FullType(MemberShape))! as MemberShape);
           break;
         case 'traits':
-          result.traits =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(TraitMap),
-                  )!
-                  as TraitMap;
+          result.traits = serializers.deserialize(value,
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }
@@ -85,11 +66,9 @@ class _$SetShape extends SetShape {
   factory _$SetShape([void Function(SetShapeBuilder)? updates]) =>
       (new SetShapeBuilder()..update(updates))._build();
 
-  _$SetShape._({
-    required this.member,
-    required this.shapeId,
-    required this.traits,
-  }) : super._() {
+  _$SetShape._(
+      {required this.member, required this.shapeId, required this.traits})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(member, r'SetShape', 'member');
     BuiltValueNullFieldError.checkNotNull(shapeId, r'SetShape', 'shapeId');
     BuiltValueNullFieldError.checkNotNull(traits, r'SetShape', 'traits');
@@ -179,20 +158,13 @@ class SetShapeBuilder
   _$SetShape _build() {
     _$SetShape _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$SetShape._(
             member: member.build(),
             shapeId: BuiltValueNullFieldError.checkNotNull(
-              shapeId,
-              r'SetShape',
-              'shapeId',
-            ),
+                shapeId, r'SetShape', 'shapeId'),
             traits: BuiltValueNullFieldError.checkNotNull(
-              traits,
-              r'SetShape',
-              'traits',
-            ),
+                traits, r'SetShape', 'traits'),
           );
     } catch (_) {
       late String _$failedField;
@@ -201,10 +173,7 @@ class SetShapeBuilder
         member.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'SetShape',
-          _$failedField,
-          e.toString(),
-        );
+            r'SetShape', _$failedField, e.toString());
       }
       rethrow;
     }

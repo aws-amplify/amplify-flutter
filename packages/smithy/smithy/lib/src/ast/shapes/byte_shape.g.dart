@@ -15,28 +15,20 @@ class _$ByteShapeSerializer implements StructuredSerializer<ByteShape> {
   final String wireName = 'ByteShape';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    ByteShape object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, ByteShape object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(
-        object.traits,
-        specifiedType: const FullType(TraitMap),
-      ),
+      serializers.serialize(object.traits,
+          specifiedType: const FullType(TraitMap)),
     ];
 
     return result;
   }
 
   @override
-  ByteShape deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  ByteShape deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new ByteShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -46,12 +38,8 @@ class _$ByteShapeSerializer implements StructuredSerializer<ByteShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(TraitMap),
-                  )!
-                  as TraitMap;
+          result.traits = serializers.deserialize(value,
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }
@@ -148,19 +136,12 @@ class ByteShapeBuilder
   ByteShape build() => _build();
 
   _$ByteShape _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$ByteShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-            shapeId,
-            r'ByteShape',
-            'shapeId',
-          ),
+              shapeId, r'ByteShape', 'shapeId'),
           traits: BuiltValueNullFieldError.checkNotNull(
-            traits,
-            r'ByteShape',
-            'traits',
-          ),
+              traits, r'ByteShape', 'traits'),
         );
     replace(_$result);
     return _$result;

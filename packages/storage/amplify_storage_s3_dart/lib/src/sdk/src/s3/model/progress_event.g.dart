@@ -73,7 +73,10 @@ class ProgressEventBuilder
   _$ProgressEvent _build() {
     _$ProgressEvent _$result;
     try {
-      _$result = _$v ?? new _$ProgressEvent._(details: _details?.build());
+      _$result = _$v ??
+          new _$ProgressEvent._(
+            details: _details?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -81,10 +84,7 @@ class ProgressEventBuilder
         _details?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'ProgressEvent',
-          _$failedField,
-          e.toString(),
-        );
+            r'ProgressEvent', _$failedField, e.toString());
       }
       rethrow;
     }
