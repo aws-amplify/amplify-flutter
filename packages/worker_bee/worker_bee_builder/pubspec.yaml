@@ -9,10 +9,10 @@ environment:
   sdk: ^3.7.0
 
 dependencies:
-  analyzer: ">=5.1.0 <7.0.0"
+  analyzer: ^7.3.0
   async: ^2.10.0
   build: ^2.2.1
-  code_builder: 4.10.0
+  code_builder: ^4.10.1
   collection: ^1.15.0
   dart_style: ^3.0.1
   meta: ^1.16.0
