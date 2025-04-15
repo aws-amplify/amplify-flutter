@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.http_prefix_headers_in_response_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,23 +13,25 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'http_prefix_headers_in_response_output.g.dart';
 
 abstract class HttpPrefixHeadersInResponseOutput
-    with
-        _i1.AWSEquatable<HttpPrefixHeadersInResponseOutput>
+    with _i1.AWSEquatable<HttpPrefixHeadersInResponseOutput>
     implements
-        Built<HttpPrefixHeadersInResponseOutput,
-            HttpPrefixHeadersInResponseOutputBuilder>,
+        Built<
+          HttpPrefixHeadersInResponseOutput,
+          HttpPrefixHeadersInResponseOutputBuilder
+        >,
         _i2.EmptyPayload,
         _i2.HasPayload<HttpPrefixHeadersInResponseOutputPayload> {
-  factory HttpPrefixHeadersInResponseOutput(
-      {Map<String, String>? prefixHeaders}) {
+  factory HttpPrefixHeadersInResponseOutput({
+    Map<String, String>? prefixHeaders,
+  }) {
     return _$HttpPrefixHeadersInResponseOutput._(
-        prefixHeaders:
-            prefixHeaders == null ? null : _i3.BuiltMap(prefixHeaders));
+      prefixHeaders: prefixHeaders == null ? null : _i3.BuiltMap(prefixHeaders),
+    );
   }
 
-  factory HttpPrefixHeadersInResponseOutput.build(
-          [void Function(HttpPrefixHeadersInResponseOutputBuilder) updates]) =
-      _$HttpPrefixHeadersInResponseOutput;
+  factory HttpPrefixHeadersInResponseOutput.build([
+    void Function(HttpPrefixHeadersInResponseOutputBuilder) updates,
+  ]) = _$HttpPrefixHeadersInResponseOutput;
 
   const HttpPrefixHeadersInResponseOutput._();
 
@@ -37,14 +39,14 @@ abstract class HttpPrefixHeadersInResponseOutput
   factory HttpPrefixHeadersInResponseOutput.fromResponse(
     HttpPrefixHeadersInResponseOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      HttpPrefixHeadersInResponseOutput.build((b) {
-        b.prefixHeaders.addEntries(response.headers.entries);
-      });
+  ) => HttpPrefixHeadersInResponseOutput.build((b) {
+    b.prefixHeaders.addEntries(response.headers.entries);
+  });
 
   static const List<
-          _i2.SmithySerializer<HttpPrefixHeadersInResponseOutputPayload>>
-      serializers = [HttpPrefixHeadersInResponseOutputRestJson1Serializer()];
+    _i2.SmithySerializer<HttpPrefixHeadersInResponseOutputPayload>
+  >
+  serializers = [HttpPrefixHeadersInResponseOutputRestJson1Serializer()];
 
   _i3.BuiltMap<String, String>? get prefixHeaders;
   @override
@@ -56,27 +58,25 @@ abstract class HttpPrefixHeadersInResponseOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpPrefixHeadersInResponseOutput')
-          ..add(
-            'prefixHeaders',
-            prefixHeaders,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'HttpPrefixHeadersInResponseOutput',
+    )..add('prefixHeaders', prefixHeaders);
     return helper.toString();
   }
 }
 
 @_i4.internal
 abstract class HttpPrefixHeadersInResponseOutputPayload
-    with
-        _i1.AWSEquatable<HttpPrefixHeadersInResponseOutputPayload>
+    with _i1.AWSEquatable<HttpPrefixHeadersInResponseOutputPayload>
     implements
-        Built<HttpPrefixHeadersInResponseOutputPayload,
-            HttpPrefixHeadersInResponseOutputPayloadBuilder>,
+        Built<
+          HttpPrefixHeadersInResponseOutputPayload,
+          HttpPrefixHeadersInResponseOutputPayloadBuilder
+        >,
         _i2.EmptyPayload {
-  factory HttpPrefixHeadersInResponseOutputPayload(
-      [void Function(HttpPrefixHeadersInResponseOutputPayloadBuilder)
-          updates]) = _$HttpPrefixHeadersInResponseOutputPayload;
+  factory HttpPrefixHeadersInResponseOutputPayload([
+    void Function(HttpPrefixHeadersInResponseOutputPayloadBuilder) updates,
+  ]) = _$HttpPrefixHeadersInResponseOutputPayload;
 
   const HttpPrefixHeadersInResponseOutputPayload._();
 
@@ -85,32 +85,33 @@ abstract class HttpPrefixHeadersInResponseOutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpPrefixHeadersInResponseOutputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'HttpPrefixHeadersInResponseOutputPayload',
+    );
     return helper.toString();
   }
 }
 
-class HttpPrefixHeadersInResponseOutputRestJson1Serializer extends _i2
-    .StructuredSmithySerializer<HttpPrefixHeadersInResponseOutputPayload> {
+class HttpPrefixHeadersInResponseOutputRestJson1Serializer
+    extends
+        _i2.StructuredSmithySerializer<
+          HttpPrefixHeadersInResponseOutputPayload
+        > {
   const HttpPrefixHeadersInResponseOutputRestJson1Serializer()
-      : super('HttpPrefixHeadersInResponseOutput');
+    : super('HttpPrefixHeadersInResponseOutput');
 
   @override
   Iterable<Type> get types => const [
-        HttpPrefixHeadersInResponseOutput,
-        _$HttpPrefixHeadersInResponseOutput,
-        HttpPrefixHeadersInResponseOutputPayload,
-        _$HttpPrefixHeadersInResponseOutputPayload,
-      ];
+    HttpPrefixHeadersInResponseOutput,
+    _$HttpPrefixHeadersInResponseOutput,
+    HttpPrefixHeadersInResponseOutputPayload,
+    _$HttpPrefixHeadersInResponseOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   HttpPrefixHeadersInResponseOutputPayload deserialize(
@@ -126,6 +127,5 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer extends _i2
     Serializers serializers,
     HttpPrefixHeadersInResponseOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

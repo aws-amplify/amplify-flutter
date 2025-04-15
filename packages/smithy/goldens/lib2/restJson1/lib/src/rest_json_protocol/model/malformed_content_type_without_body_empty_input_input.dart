@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.malformed_content_type_without_body_empty_input_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,20 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInput
         _i1.HttpInput<MalformedContentTypeWithoutBodyEmptyInputInputPayload>,
         _i2.AWSEquatable<MalformedContentTypeWithoutBodyEmptyInputInput>
     implements
-        Built<MalformedContentTypeWithoutBodyEmptyInputInput,
-            MalformedContentTypeWithoutBodyEmptyInputInputBuilder>,
+        Built<
+          MalformedContentTypeWithoutBodyEmptyInputInput,
+          MalformedContentTypeWithoutBodyEmptyInputInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<MalformedContentTypeWithoutBodyEmptyInputInputPayload> {
   factory MalformedContentTypeWithoutBodyEmptyInputInput({String? header}) {
     return _$MalformedContentTypeWithoutBodyEmptyInputInput._(header: header);
   }
 
-  factory MalformedContentTypeWithoutBodyEmptyInputInput.build(
-      [void Function(MalformedContentTypeWithoutBodyEmptyInputInputBuilder)
-          updates]) = _$MalformedContentTypeWithoutBodyEmptyInputInput;
+  factory MalformedContentTypeWithoutBodyEmptyInputInput.build([
+    void Function(MalformedContentTypeWithoutBodyEmptyInputInputBuilder)
+    updates,
+  ]) = _$MalformedContentTypeWithoutBodyEmptyInputInput;
 
   const MalformedContentTypeWithoutBodyEmptyInputInput._();
 
@@ -34,18 +37,17 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInput
     MalformedContentTypeWithoutBodyEmptyInputInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedContentTypeWithoutBodyEmptyInputInput.build((b) {
-        if (request.headers['header'] != null) {
-          b.header = request.headers['header']!;
-        }
-      });
+  }) => MalformedContentTypeWithoutBodyEmptyInputInput.build((b) {
+    if (request.headers['header'] != null) {
+      b.header = request.headers['header']!;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<
-              MalformedContentTypeWithoutBodyEmptyInputInputPayload>>
-      serializers = [
-    MalformedContentTypeWithoutBodyEmptyInputInputRestJson1Serializer()
+    _i1.SmithySerializer<MalformedContentTypeWithoutBodyEmptyInputInputPayload>
+  >
+  serializers = [
+    MalformedContentTypeWithoutBodyEmptyInputInputRestJson1Serializer(),
   ];
 
   String? get header;
@@ -59,27 +61,25 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MalformedContentTypeWithoutBodyEmptyInputInput')
-      ..add(
-        'header',
-        header,
-      );
+      'MalformedContentTypeWithoutBodyEmptyInputInput',
+    )..add('header', header);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class MalformedContentTypeWithoutBodyEmptyInputInputPayload
-    with
-        _i2.AWSEquatable<MalformedContentTypeWithoutBodyEmptyInputInputPayload>
+    with _i2.AWSEquatable<MalformedContentTypeWithoutBodyEmptyInputInputPayload>
     implements
-        Built<MalformedContentTypeWithoutBodyEmptyInputInputPayload,
-            MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder>,
+        Built<
+          MalformedContentTypeWithoutBodyEmptyInputInputPayload,
+          MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory MalformedContentTypeWithoutBodyEmptyInputInputPayload(
-      [void Function(
-              MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder)
-          updates]) = _$MalformedContentTypeWithoutBodyEmptyInputInputPayload;
+  factory MalformedContentTypeWithoutBodyEmptyInputInputPayload([
+    void Function(MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder)
+    updates,
+  ]) = _$MalformedContentTypeWithoutBodyEmptyInputInputPayload;
 
   const MalformedContentTypeWithoutBodyEmptyInputInputPayload._();
 
@@ -89,32 +89,32 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MalformedContentTypeWithoutBodyEmptyInputInputPayload');
+      'MalformedContentTypeWithoutBodyEmptyInputInputPayload',
+    );
     return helper.toString();
   }
 }
 
 class MalformedContentTypeWithoutBodyEmptyInputInputRestJson1Serializer
-    extends _i1.StructuredSmithySerializer<
-        MalformedContentTypeWithoutBodyEmptyInputInputPayload> {
+    extends
+        _i1.StructuredSmithySerializer<
+          MalformedContentTypeWithoutBodyEmptyInputInputPayload
+        > {
   const MalformedContentTypeWithoutBodyEmptyInputInputRestJson1Serializer()
-      : super('MalformedContentTypeWithoutBodyEmptyInputInput');
+    : super('MalformedContentTypeWithoutBodyEmptyInputInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedContentTypeWithoutBodyEmptyInputInput,
-        _$MalformedContentTypeWithoutBodyEmptyInputInput,
-        MalformedContentTypeWithoutBodyEmptyInputInputPayload,
-        _$MalformedContentTypeWithoutBodyEmptyInputInputPayload,
-      ];
+    MalformedContentTypeWithoutBodyEmptyInputInput,
+    _$MalformedContentTypeWithoutBodyEmptyInputInput,
+    MalformedContentTypeWithoutBodyEmptyInputInputPayload,
+    _$MalformedContentTypeWithoutBodyEmptyInputInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedContentTypeWithoutBodyEmptyInputInputPayload deserialize(
@@ -131,6 +131,5 @@ class MalformedContentTypeWithoutBodyEmptyInputInputRestJson1Serializer
     Serializers serializers,
     MalformedContentTypeWithoutBodyEmptyInputInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

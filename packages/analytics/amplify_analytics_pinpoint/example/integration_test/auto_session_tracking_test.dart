@@ -21,50 +21,39 @@ void main() {
     late Stream<TestEvent> eventsStream;
 
     setUp(() async {
-      await configureAnalytics(
-        appLifecycleProvider: mockLifecycleProvider,
-      );
+      await configureAnalytics(appLifecycleProvider: mockLifecycleProvider);
       eventsStream = await subscribeToEvents();
     });
 
-    testWidgets(
-      'manual trigger of onBackground/onForeground triggers session '
-      'start/end events ',
-      (_) async {
-        mockLifecycleProvider.triggerOnBackgroundListener();
+    testWidgets('manual trigger of onBackground/onForeground triggers session '
+        'start/end events ', (_) async {
+      mockLifecycleProvider.triggerOnBackgroundListener();
 
-        TestSession? sessionStop;
+      TestSession? sessionStop;
 
-        // Verify new session has newer values than old session
-        final streamSubscription = eventsStream.listen(
-          expectAsync1(
-            count: 2,
-            (event) async {
-              if (sessionStop == null) {
-                expect(event.eventType, zSessionStopEventType);
-                sessionStop = event.session;
-                mockLifecycleProvider.triggerOnForegroundListener();
-                await Amplify.Analytics.flushEvents();
-              } else {
-                expect(event.eventType, zSessionStartEventType);
-                final sessionStart = event.session;
-                expect(
-                  sessionStop!.sessionId,
-                  isNot(sessionStart.sessionId),
-                );
-                expect(
-                  sessionStart.startTimestamp
-                      .isAfter(sessionStop!.stopTimestamp!),
-                  isTrue,
-                  reason: 'onForeground was called after onBackground',
-                );
-              }
-            },
-          ),
-        );
-        addTearDown(streamSubscription.cancel);
+      // Verify new session has newer values than old session
+      final streamSubscription = eventsStream.listen(
+        expectAsync1(count: 2, (event) async {
+          if (sessionStop == null) {
+            expect(event.eventType, zSessionStopEventType);
+            sessionStop = event.session;
+            mockLifecycleProvider.triggerOnForegroundListener();
+            await Amplify.Analytics.flushEvents();
+          } else {
+            expect(event.eventType, zSessionStartEventType);
+            final sessionStart = event.session;
+            expect(sessionStop!.sessionId, isNot(sessionStart.sessionId));
+            expect(
+              sessionStart.startTimestamp.isAfter(sessionStop!.stopTimestamp!),
+              isTrue,
+              reason: 'onForeground was called after onBackground',
+            );
+          }
+        }),
+      );
+      addTearDown(streamSubscription.cancel);
 
-        /*
+      /*
         await expectLater(
           eventsStream,
           emits(
@@ -92,8 +81,6 @@ void main() {
         );
 
          */
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+    }, timeout: const Timeout(Duration(minutes: 3)));
   });
 }

@@ -13,19 +13,19 @@ class _$ConstantAndVariableQueryStringInput
   @override
   final String? maybeSet;
 
-  factory _$ConstantAndVariableQueryStringInput(
-          [void Function(ConstantAndVariableQueryStringInputBuilder)?
-              updates]) =>
+  factory _$ConstantAndVariableQueryStringInput([
+    void Function(ConstantAndVariableQueryStringInputBuilder)? updates,
+  ]) =>
       (new ConstantAndVariableQueryStringInputBuilder()..update(updates))
           ._build();
 
   _$ConstantAndVariableQueryStringInput._({this.baz, this.maybeSet})
-      : super._();
+    : super._();
 
   @override
   ConstantAndVariableQueryStringInput rebuild(
-          void Function(ConstantAndVariableQueryStringInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConstantAndVariableQueryStringInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConstantAndVariableQueryStringInputBuilder toBuilder() =>
@@ -51,8 +51,10 @@ class _$ConstantAndVariableQueryStringInput
 
 class ConstantAndVariableQueryStringInputBuilder
     implements
-        Builder<ConstantAndVariableQueryStringInput,
-            ConstantAndVariableQueryStringInputBuilder> {
+        Builder<
+          ConstantAndVariableQueryStringInput,
+          ConstantAndVariableQueryStringInputBuilder
+        > {
   _$ConstantAndVariableQueryStringInput? _$v;
 
   String? _baz;
@@ -83,7 +85,8 @@ class ConstantAndVariableQueryStringInputBuilder
 
   @override
   void update(
-      void Function(ConstantAndVariableQueryStringInputBuilder)? updates) {
+    void Function(ConstantAndVariableQueryStringInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -91,9 +94,12 @@ class ConstantAndVariableQueryStringInputBuilder
   ConstantAndVariableQueryStringInput build() => _build();
 
   _$ConstantAndVariableQueryStringInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ConstantAndVariableQueryStringInput._(
-            baz: baz, maybeSet: maybeSet);
+          baz: baz,
+          maybeSet: maybeSet,
+        );
     replace(_$result);
     return _$result;
   }
@@ -101,9 +107,9 @@ class ConstantAndVariableQueryStringInputBuilder
 
 class _$ConstantAndVariableQueryStringInputPayload
     extends ConstantAndVariableQueryStringInputPayload {
-  factory _$ConstantAndVariableQueryStringInputPayload(
-          [void Function(ConstantAndVariableQueryStringInputPayloadBuilder)?
-              updates]) =>
+  factory _$ConstantAndVariableQueryStringInputPayload([
+    void Function(ConstantAndVariableQueryStringInputPayloadBuilder)? updates,
+  ]) =>
       (new ConstantAndVariableQueryStringInputPayloadBuilder()..update(updates))
           ._build();
 
@@ -111,9 +117,8 @@ class _$ConstantAndVariableQueryStringInputPayload
 
   @override
   ConstantAndVariableQueryStringInputPayload rebuild(
-          void Function(ConstantAndVariableQueryStringInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConstantAndVariableQueryStringInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConstantAndVariableQueryStringInputPayloadBuilder toBuilder() =>
@@ -133,8 +138,10 @@ class _$ConstantAndVariableQueryStringInputPayload
 
 class ConstantAndVariableQueryStringInputPayloadBuilder
     implements
-        Builder<ConstantAndVariableQueryStringInputPayload,
-            ConstantAndVariableQueryStringInputPayloadBuilder> {
+        Builder<
+          ConstantAndVariableQueryStringInputPayload,
+          ConstantAndVariableQueryStringInputPayloadBuilder
+        > {
   _$ConstantAndVariableQueryStringInputPayload? _$v;
 
   ConstantAndVariableQueryStringInputPayloadBuilder();
@@ -147,8 +154,8 @@ class ConstantAndVariableQueryStringInputPayloadBuilder
 
   @override
   void update(
-      void Function(ConstantAndVariableQueryStringInputPayloadBuilder)?
-          updates) {
+    void Function(ConstantAndVariableQueryStringInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

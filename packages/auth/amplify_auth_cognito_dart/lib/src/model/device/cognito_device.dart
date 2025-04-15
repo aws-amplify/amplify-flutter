@@ -7,9 +7,10 @@ import 'package:meta/meta.dart';
 /// Helper functions for [AuthDevice].
 extension AuthDeviceX on AuthDevice {
   /// Returns this device as a [CognitoDevice].
-  CognitoDevice get asCognitoDevice => this is CognitoDevice
-      ? this as CognitoDevice
-      : CognitoDevice(id: id, name: name);
+  CognitoDevice get asCognitoDevice =>
+      this is CognitoDevice
+          ? this as CognitoDevice
+          : CognitoDevice(id: id, name: name);
 }
 
 /// {@template amplify_auth_cognito.cognito_device}
@@ -38,15 +39,18 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
       name: json['name'] as String?,
       attributes:
           attributes == null ? null : Map<String, String>.from(attributes),
-      createdDate: createdDate == null
-          ? null
-          : DateTime.fromMillisecondsSinceEpoch(createdDate),
-      lastAuthenticatedDate: lastAuthenticatedDate == null
-          ? null
-          : DateTime.fromMillisecondsSinceEpoch(lastAuthenticatedDate),
-      lastModifiedDate: lastModifiedDate == null
-          ? null
-          : DateTime.fromMillisecondsSinceEpoch(lastModifiedDate),
+      createdDate:
+          createdDate == null
+              ? null
+              : DateTime.fromMillisecondsSinceEpoch(createdDate),
+      lastAuthenticatedDate:
+          lastAuthenticatedDate == null
+              ? null
+              : DateTime.fromMillisecondsSinceEpoch(lastAuthenticatedDate),
+      lastModifiedDate:
+          lastModifiedDate == null
+              ? null
+              : DateTime.fromMillisecondsSinceEpoch(lastModifiedDate),
     );
   }
 
@@ -76,25 +80,23 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
 
   @override
   Map<String, Object?> toJson() => {
-        'id': id,
-        'name': name,
-        if (attributes != null) 'attributes': attributes,
-        if (createdDate != null)
-          'createdDate': createdDate!.millisecondsSinceEpoch,
-        if (lastAuthenticatedDate != null)
-          'lastAuthenticatedDate':
-              lastAuthenticatedDate!.millisecondsSinceEpoch,
-        if (lastModifiedDate != null)
-          'lastModifiedDate': lastModifiedDate!.millisecondsSinceEpoch,
-      };
+    'id': id,
+    'name': name,
+    if (attributes != null) 'attributes': attributes,
+    if (createdDate != null) 'createdDate': createdDate!.millisecondsSinceEpoch,
+    if (lastAuthenticatedDate != null)
+      'lastAuthenticatedDate': lastAuthenticatedDate!.millisecondsSinceEpoch,
+    if (lastModifiedDate != null)
+      'lastModifiedDate': lastModifiedDate!.millisecondsSinceEpoch,
+  };
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        attributes,
-        createdDate,
-        lastAuthenticatedDate,
-        lastModifiedDate,
-      ];
+    id,
+    name,
+    attributes,
+    createdDate,
+    lastAuthenticatedDate,
+    lastModifiedDate,
+  ];
 }

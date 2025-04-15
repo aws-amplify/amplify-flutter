@@ -13,19 +13,19 @@ class _$InvalidSmsRoleAccessPolicyException
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidSmsRoleAccessPolicyException(
-          [void Function(InvalidSmsRoleAccessPolicyExceptionBuilder)?
-              updates]) =>
+  factory _$InvalidSmsRoleAccessPolicyException([
+    void Function(InvalidSmsRoleAccessPolicyExceptionBuilder)? updates,
+  ]) =>
       (new InvalidSmsRoleAccessPolicyExceptionBuilder()..update(updates))
           ._build();
 
   _$InvalidSmsRoleAccessPolicyException._({this.message, this.headers})
-      : super._();
+    : super._();
 
   @override
   InvalidSmsRoleAccessPolicyException rebuild(
-          void Function(InvalidSmsRoleAccessPolicyExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidSmsRoleAccessPolicyExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidSmsRoleAccessPolicyExceptionBuilder toBuilder() =>
@@ -49,8 +49,10 @@ class _$InvalidSmsRoleAccessPolicyException
 
 class InvalidSmsRoleAccessPolicyExceptionBuilder
     implements
-        Builder<InvalidSmsRoleAccessPolicyException,
-            InvalidSmsRoleAccessPolicyExceptionBuilder> {
+        Builder<
+          InvalidSmsRoleAccessPolicyException,
+          InvalidSmsRoleAccessPolicyExceptionBuilder
+        > {
   _$InvalidSmsRoleAccessPolicyException? _$v;
 
   String? _message;
@@ -81,7 +83,8 @@ class InvalidSmsRoleAccessPolicyExceptionBuilder
 
   @override
   void update(
-      void Function(InvalidSmsRoleAccessPolicyExceptionBuilder)? updates) {
+    void Function(InvalidSmsRoleAccessPolicyExceptionBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -89,7 +92,8 @@ class InvalidSmsRoleAccessPolicyExceptionBuilder
   InvalidSmsRoleAccessPolicyException build() => _build();
 
   _$InvalidSmsRoleAccessPolicyException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InvalidSmsRoleAccessPolicyException._(
           message: message,
           headers: headers,

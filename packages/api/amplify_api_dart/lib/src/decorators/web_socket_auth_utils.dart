@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library amplify_api.decorators.web_socket_auth_utils;
+library;
 
 import 'dart:convert';
 
@@ -60,16 +60,14 @@ Future<Uri> generateConnectionUri(ApiOutputs config) async {
     scheme: 'wss',
     host: endpointUriHost,
     path: path,
-  ).replace(
-    queryParameters: authQueryParameters,
-  );
+  ).replace(queryParameters: authQueryParameters);
 }
 
 /// Generate websocket message with authorized payload to register subscription.
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#subscription-registration-message
 Future<WebSocketSubscriptionRegistrationMessage>
-    generateSubscriptionRegistrationMessage<T>(
+generateSubscriptionRegistrationMessage<T>(
   ApiOutputs config, {
   required String id,
   required AmplifyAuthProviderRepository authRepo,
@@ -121,10 +119,7 @@ Future<Map<String, String>> generateAuthorizationHeaders(
   final maybeConnect = isConnectionInit ? '/connect' : '';
   final canonicalHttpRequest = AWSStreamedHttpRequest.post(
     Uri.parse('${config.url}$maybeConnect'),
-    headers: {
-      ...?customHeaders,
-      ..._requiredHeaders,
-    },
+    headers: {...?customHeaders, ..._requiredHeaders},
     body: HttpPayload.json(body),
   );
   final authorizedHttpRequest = await authorizeHttpRequest(
@@ -135,8 +130,5 @@ Future<Map<String, String>> generateAuthorizationHeaders(
   );
 
   // Take authorized HTTP headers as map with "host" value added.
-  return {
-    ...authorizedHttpRequest.headers,
-    AWSHeaders.host: endpointHost,
-  };
+  return {...authorizedHttpRequest.headers, AWSHeaders.host: endpointHost};
 }

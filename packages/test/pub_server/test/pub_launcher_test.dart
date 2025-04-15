@@ -24,10 +24,7 @@ void main() {
       final pubServer = PubServer.test();
       server = await io.serve(pubServer.handler, 'localhost', 0);
       pubServerUri = Uri.parse('http://localhost:${server.port}');
-      client = PubClient(
-        pubUrl: pubServerUri.toString(),
-        debug: true,
-      );
+      client = PubClient(pubUrl: pubServerUri.toString(), debug: true);
       tmpDir = await Directory.systemTemp.createTemp('pub_launcher_test_');
     });
 

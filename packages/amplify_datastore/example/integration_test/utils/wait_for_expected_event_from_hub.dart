@@ -21,8 +21,9 @@ class WaitForExpectedEventFromHub<T extends DataStoreHubEventPayload> {
   }) : this.timeout = timeout;
 
   Future<T> start() {
-    hubSubscription =
-        Amplify.Hub.listen(HubChannel.DataStore, (DataStoreHubEvent event) {
+    hubSubscription = Amplify.Hub.listen(HubChannel.DataStore, (
+      DataStoreHubEvent event,
+    ) {
       if (event.eventName == this.eventName) {
         if (this.eventMatcher(event.payload)) {
           hubSubscription.cancel();
@@ -36,7 +37,7 @@ class WaitForExpectedEventFromHub<T extends DataStoreHubEventPayload> {
 }
 
 Future<SubscriptionDataProcessedEvent>
-    getExpectedSubscriptionDataProcessedEvent({
+getExpectedSubscriptionDataProcessedEvent({
   required bool Function(SubscriptionDataProcessedEvent) eventMatcher,
 }) async {
   var getter = WaitForExpectedEventFromHub<SubscriptionDataProcessedEvent>(

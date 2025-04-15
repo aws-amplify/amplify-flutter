@@ -57,7 +57,6 @@ Libraries will use the `package:lints` "recommended" ruleset plus the following:
 - [prefer_null_aware_method_calls](https://dart.dev/tools/linter-rules#prefer_null_aware_method_calls)
 - [prefer_single_quotes](https://dart.dev/tools/linter-rules#prefer_single_quotes)
 - [public_member_api_docs](https://dart.dev/tools/linter-rules#public_member_api_docs)
-- [require_trailing_commas](https://dart.dev/tools/linter-rules#require_trailing_commas)
 - [sized_box_for_whitespace](https://dart.dev/tools/linter-rules#sized_box_for_whitespace)
 - [sort_child_properties_last](https://dart.dev/tools/linter-rules#sort_child_properties_last)
 - [sort_constructors_first](https://dart.dev/tools/linter-rules#sort_constructors_first)

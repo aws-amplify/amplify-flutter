@@ -27,11 +27,11 @@ class ModelAssociation with AWSEquatable<ModelAssociation>, AWSSerializable {
 
   @override
   List<Object?> get props => [
-        associationType,
-        targetNames,
-        associatedName,
-        associatedType,
-      ];
+    associationType,
+    targetNames,
+    associatedName,
+    associatedType,
+  ];
 
   ModelAssociation copyWith({
     ModelAssociationEnum? associationType,

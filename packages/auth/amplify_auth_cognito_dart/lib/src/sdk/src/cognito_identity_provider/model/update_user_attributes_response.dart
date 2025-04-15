@@ -14,24 +14,28 @@ part 'update_user_attributes_response.g.dart';
 
 /// Represents the response from the server for the request to update user attributes.
 abstract class UpdateUserAttributesResponse
-    with
-        _i1.AWSEquatable<UpdateUserAttributesResponse>
+    with _i1.AWSEquatable<UpdateUserAttributesResponse>
     implements
-        Built<UpdateUserAttributesResponse,
-            UpdateUserAttributesResponseBuilder> {
+        Built<
+          UpdateUserAttributesResponse,
+          UpdateUserAttributesResponseBuilder
+        > {
   /// Represents the response from the server for the request to update user attributes.
-  factory UpdateUserAttributesResponse(
-      {List<CodeDeliveryDetailsType>? codeDeliveryDetailsList}) {
+  factory UpdateUserAttributesResponse({
+    List<CodeDeliveryDetailsType>? codeDeliveryDetailsList,
+  }) {
     return _$UpdateUserAttributesResponse._(
-        codeDeliveryDetailsList: codeDeliveryDetailsList == null
-            ? null
-            : _i2.BuiltList(codeDeliveryDetailsList));
+      codeDeliveryDetailsList:
+          codeDeliveryDetailsList == null
+              ? null
+              : _i2.BuiltList(codeDeliveryDetailsList),
+    );
   }
 
   /// Represents the response from the server for the request to update user attributes.
-  factory UpdateUserAttributesResponse.build(
-          [void Function(UpdateUserAttributesResponseBuilder) updates]) =
-      _$UpdateUserAttributesResponse;
+  factory UpdateUserAttributesResponse.build([
+    void Function(UpdateUserAttributesResponseBuilder) updates,
+  ]) = _$UpdateUserAttributesResponse;
 
   const UpdateUserAttributesResponse._();
 
@@ -39,11 +43,10 @@ abstract class UpdateUserAttributesResponse
   factory UpdateUserAttributesResponse.fromResponse(
     UpdateUserAttributesResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<UpdateUserAttributesResponse>>
-      serializers = [UpdateUserAttributesResponseAwsJson11Serializer()];
+  serializers = [UpdateUserAttributesResponseAwsJson11Serializer()];
 
   /// The code delivery details list from the server for the request to update user attributes.
   _i2.BuiltList<CodeDeliveryDetailsType>? get codeDeliveryDetailsList;
@@ -53,10 +56,7 @@ abstract class UpdateUserAttributesResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateUserAttributesResponse')
-      ..add(
-        'codeDeliveryDetailsList',
-        codeDeliveryDetailsList,
-      );
+      ..add('codeDeliveryDetailsList', codeDeliveryDetailsList);
     return helper.toString();
   }
 }
@@ -64,21 +64,18 @@ abstract class UpdateUserAttributesResponse
 class UpdateUserAttributesResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<UpdateUserAttributesResponse> {
   const UpdateUserAttributesResponseAwsJson11Serializer()
-      : super('UpdateUserAttributesResponse');
+    : super('UpdateUserAttributesResponse');
 
   @override
   Iterable<Type> get types => const [
-        UpdateUserAttributesResponse,
-        _$UpdateUserAttributesResponse,
-      ];
+    UpdateUserAttributesResponse,
+    _$UpdateUserAttributesResponse,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   UpdateUserAttributesResponse deserialize(
@@ -97,13 +94,15 @@ class UpdateUserAttributesResponseAwsJson11Serializer
       }
       switch (key) {
         case 'CodeDeliveryDetailsList':
-          result.codeDeliveryDetailsList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(CodeDeliveryDetailsType)],
-            ),
-          ) as _i2.BuiltList<CodeDeliveryDetailsType>));
+          result.codeDeliveryDetailsList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(CodeDeliveryDetailsType),
+                  ]),
+                )
+                as _i2.BuiltList<CodeDeliveryDetailsType>),
+          );
       }
     }
 
@@ -121,13 +120,14 @@ class UpdateUserAttributesResponseAwsJson11Serializer
     if (codeDeliveryDetailsList != null) {
       result$
         ..add('CodeDeliveryDetailsList')
-        ..add(serializers.serialize(
-          codeDeliveryDetailsList,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(CodeDeliveryDetailsType)],
+        ..add(
+          serializers.serialize(
+            codeDeliveryDetailsList,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(CodeDeliveryDetailsType),
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

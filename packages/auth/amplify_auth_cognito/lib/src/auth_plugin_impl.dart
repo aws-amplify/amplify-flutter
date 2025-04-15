@@ -35,13 +35,12 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   /// To change the default behavior of credential storage,
   /// provide a [SecureStorageFactory] value. If no value is provided,
   /// storage will be configured with default [AmplifySecureStorageConfig] values.
-  AmplifyAuthCognito({
-    SecureStorageFactory? secureStorageFactory,
-  }) : super(
-          secureStorageFactory:
-              secureStorageFactory ?? AmplifySecureStorage.factoryFrom(),
-          hostedUiPlatformFactory: HostedUiPlatformImpl.new,
-        );
+  AmplifyAuthCognito({SecureStorageFactory? secureStorageFactory})
+    : super(
+        secureStorageFactory:
+            secureStorageFactory ?? AmplifySecureStorage.factoryFrom(),
+        hostedUiPlatformFactory: HostedUiPlatformImpl.new,
+      );
 
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
   /// a Cognito-specific Auth category interface.
@@ -85,10 +84,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       FlutterEndpointInfoStoreManager(),
     );
 
-    await super.configure(
-      config: config,
-      authProviderRepo: authProviderRepo,
-    );
+    await super.configure(config: config, authProviderRepo: authProviderRepo);
   }
 
   @override
@@ -112,10 +108,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       userAttributes: options.userAttributes,
       pluginOptions: CognitoSignUpPluginOptions(
         clientMetadata: pluginOptions.clientMetadata,
-        validationData: {
-          ...pluginOptions.validationData,
-          ...?validationData,
-        },
+        validationData: {...pluginOptions.validationData, ...?validationData},
       ),
     );
     return super.signUp(

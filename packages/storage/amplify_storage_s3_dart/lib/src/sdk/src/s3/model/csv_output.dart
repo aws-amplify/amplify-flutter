@@ -39,7 +39,7 @@ abstract class CsvOutput
   const CsvOutput._();
 
   static const List<_i2.SmithySerializer<CsvOutput>> serializers = [
-    CsvOutputRestXmlSerializer()
+    CsvOutputRestXmlSerializer(),
   ];
 
   /// Indicates whether to use quotation marks around output fields.
@@ -62,36 +62,22 @@ abstract class CsvOutput
   String? get quoteCharacter;
   @override
   List<Object?> get props => [
-        quoteFields,
-        quoteEscapeCharacter,
-        recordDelimiter,
-        fieldDelimiter,
-        quoteCharacter,
-      ];
+    quoteFields,
+    quoteEscapeCharacter,
+    recordDelimiter,
+    fieldDelimiter,
+    quoteCharacter,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CsvOutput')
-      ..add(
-        'quoteFields',
-        quoteFields,
-      )
-      ..add(
-        'quoteEscapeCharacter',
-        quoteEscapeCharacter,
-      )
-      ..add(
-        'recordDelimiter',
-        recordDelimiter,
-      )
-      ..add(
-        'fieldDelimiter',
-        fieldDelimiter,
-      )
-      ..add(
-        'quoteCharacter',
-        quoteCharacter,
-      );
+    final helper =
+        newBuiltValueToStringHelper('CsvOutput')
+          ..add('quoteFields', quoteFields)
+          ..add('quoteEscapeCharacter', quoteEscapeCharacter)
+          ..add('recordDelimiter', recordDelimiter)
+          ..add('fieldDelimiter', fieldDelimiter)
+          ..add('quoteCharacter', quoteCharacter);
     return helper.toString();
   }
 }
@@ -101,18 +87,12 @@ class CsvOutputRestXmlSerializer
   const CsvOutputRestXmlSerializer() : super('CsvOutput');
 
   @override
-  Iterable<Type> get types => const [
-        CsvOutput,
-        _$CsvOutput,
-      ];
+  Iterable<Type> get types => const [CsvOutput, _$CsvOutput];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CsvOutput deserialize(
@@ -131,30 +111,40 @@ class CsvOutputRestXmlSerializer
       }
       switch (key) {
         case 'FieldDelimiter':
-          result.fieldDelimiter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.fieldDelimiter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'QuoteCharacter':
-          result.quoteCharacter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.quoteCharacter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'QuoteEscapeCharacter':
-          result.quoteEscapeCharacter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.quoteEscapeCharacter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'QuoteFields':
-          result.quoteFields = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(QuoteFields),
-          ) as QuoteFields);
+          result.quoteFields =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(QuoteFields),
+                  )
+                  as QuoteFields);
         case 'RecordDelimiter':
-          result.recordDelimiter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.recordDelimiter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -171,54 +161,64 @@ class CsvOutputRestXmlSerializer
       const _i2.XmlElementName(
         'CsvOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final CsvOutput(
       :fieldDelimiter,
       :quoteCharacter,
       :quoteEscapeCharacter,
       :quoteFields,
-      :recordDelimiter
+      :recordDelimiter,
     ) = object;
     if (fieldDelimiter != null) {
       result$
         ..add(const _i2.XmlElementName('FieldDelimiter'))
-        ..add(serializers.serialize(
-          fieldDelimiter,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            fieldDelimiter,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (quoteCharacter != null) {
       result$
         ..add(const _i2.XmlElementName('QuoteCharacter'))
-        ..add(serializers.serialize(
-          quoteCharacter,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            quoteCharacter,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (quoteEscapeCharacter != null) {
       result$
         ..add(const _i2.XmlElementName('QuoteEscapeCharacter'))
-        ..add(serializers.serialize(
-          quoteEscapeCharacter,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            quoteEscapeCharacter,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (quoteFields != null) {
       result$
         ..add(const _i2.XmlElementName('QuoteFields'))
-        ..add(serializers.serialize(
-          quoteFields,
-          specifiedType: const FullType(QuoteFields),
-        ));
+        ..add(
+          serializers.serialize(
+            quoteFields,
+            specifiedType: const FullType(QuoteFields),
+          ),
+        );
     }
     if (recordDelimiter != null) {
       result$
         ..add(const _i2.XmlElementName('RecordDelimiter'))
-        ..add(serializers.serialize(
-          recordDelimiter,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            recordDelimiter,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

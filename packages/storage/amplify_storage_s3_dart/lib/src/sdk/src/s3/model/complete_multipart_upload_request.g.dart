@@ -34,37 +34,46 @@ class _$CompleteMultipartUploadRequest extends CompleteMultipartUploadRequest {
   @override
   final String? sseCustomerKeyMd5;
 
-  factory _$CompleteMultipartUploadRequest(
-          [void Function(CompleteMultipartUploadRequestBuilder)? updates]) =>
-      (new CompleteMultipartUploadRequestBuilder()..update(updates))._build();
+  factory _$CompleteMultipartUploadRequest([
+    void Function(CompleteMultipartUploadRequestBuilder)? updates,
+  ]) => (new CompleteMultipartUploadRequestBuilder()..update(updates))._build();
 
-  _$CompleteMultipartUploadRequest._(
-      {required this.bucket,
-      required this.key,
-      this.multipartUpload,
-      required this.uploadId,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.requestPayer,
-      this.expectedBucketOwner,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5})
-      : super._() {
+  _$CompleteMultipartUploadRequest._({
+    required this.bucket,
+    required this.key,
+    this.multipartUpload,
+    required this.uploadId,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.requestPayer,
+    this.expectedBucketOwner,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'CompleteMultipartUploadRequest', 'bucket');
+      bucket,
+      r'CompleteMultipartUploadRequest',
+      'bucket',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        key, r'CompleteMultipartUploadRequest', 'key');
+      key,
+      r'CompleteMultipartUploadRequest',
+      'key',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        uploadId, r'CompleteMultipartUploadRequest', 'uploadId');
+      uploadId,
+      r'CompleteMultipartUploadRequest',
+      'uploadId',
+    );
   }
 
   @override
   CompleteMultipartUploadRequest rebuild(
-          void Function(CompleteMultipartUploadRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CompleteMultipartUploadRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CompleteMultipartUploadRequestBuilder toBuilder() =>
@@ -112,8 +121,10 @@ class _$CompleteMultipartUploadRequest extends CompleteMultipartUploadRequest {
 
 class CompleteMultipartUploadRequestBuilder
     implements
-        Builder<CompleteMultipartUploadRequest,
-            CompleteMultipartUploadRequestBuilder> {
+        Builder<
+          CompleteMultipartUploadRequest,
+          CompleteMultipartUploadRequestBuilder
+        > {
   _$CompleteMultipartUploadRequest? _$v;
 
   String? _bucket;
@@ -218,15 +229,25 @@ class CompleteMultipartUploadRequestBuilder
   _$CompleteMultipartUploadRequest _build() {
     _$CompleteMultipartUploadRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$CompleteMultipartUploadRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'CompleteMultipartUploadRequest', 'bucket'),
+              bucket,
+              r'CompleteMultipartUploadRequest',
+              'bucket',
+            ),
             key: BuiltValueNullFieldError.checkNotNull(
-                key, r'CompleteMultipartUploadRequest', 'key'),
+              key,
+              r'CompleteMultipartUploadRequest',
+              'key',
+            ),
             multipartUpload: _multipartUpload?.build(),
             uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'CompleteMultipartUploadRequest', 'uploadId'),
+              uploadId,
+              r'CompleteMultipartUploadRequest',
+              'uploadId',
+            ),
             checksumCrc32: checksumCrc32,
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,
@@ -244,7 +265,10 @@ class CompleteMultipartUploadRequestBuilder
         _multipartUpload?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'CompleteMultipartUploadRequest', _$failedField, e.toString());
+          r'CompleteMultipartUploadRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

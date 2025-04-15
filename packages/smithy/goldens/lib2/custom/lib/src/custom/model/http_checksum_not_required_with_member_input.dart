@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.custom.model.http_checksum_not_required_with_member_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,8 +18,10 @@ abstract class HttpChecksumNotRequiredWithMemberInput
         _i1.HttpInput<_i2.Uint8List>,
         _i3.AWSEquatable<HttpChecksumNotRequiredWithMemberInput>
     implements
-        Built<HttpChecksumNotRequiredWithMemberInput,
-            HttpChecksumNotRequiredWithMemberInputBuilder>,
+        Built<
+          HttpChecksumNotRequiredWithMemberInput,
+          HttpChecksumNotRequiredWithMemberInputBuilder
+        >,
         _i1.HasPayload<_i2.Uint8List> {
   factory HttpChecksumNotRequiredWithMemberInput({
     ChecksumAlgorithm? checksumAlgorithm,
@@ -31,9 +33,9 @@ abstract class HttpChecksumNotRequiredWithMemberInput
     );
   }
 
-  factory HttpChecksumNotRequiredWithMemberInput.build(
-      [void Function(HttpChecksumNotRequiredWithMemberInputBuilder)
-          updates]) = _$HttpChecksumNotRequiredWithMemberInput;
+  factory HttpChecksumNotRequiredWithMemberInput.build([
+    void Function(HttpChecksumNotRequiredWithMemberInputBuilder) updates,
+  ]) = _$HttpChecksumNotRequiredWithMemberInput;
 
   const HttpChecksumNotRequiredWithMemberInput._();
 
@@ -41,17 +43,17 @@ abstract class HttpChecksumNotRequiredWithMemberInput
     _i2.Uint8List? payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpChecksumNotRequiredWithMemberInput.build((b) {
-        b.content = payload;
-        if (request.headers['x-amz-request-algorithm'] != null) {
-          b.checksumAlgorithm = ChecksumAlgorithm.values
-              .byValue(request.headers['x-amz-request-algorithm']!);
-        }
-      });
+  }) => HttpChecksumNotRequiredWithMemberInput.build((b) {
+    b.content = payload;
+    if (request.headers['x-amz-request-algorithm'] != null) {
+      b.checksumAlgorithm = ChecksumAlgorithm.values.byValue(
+        request.headers['x-amz-request-algorithm']!,
+      );
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
-    HttpChecksumNotRequiredWithMemberInputRestJson1Serializer()
+    HttpChecksumNotRequiredWithMemberInputRestJson1Serializer(),
   ];
 
   ChecksumAlgorithm? get checksumAlgorithm;
@@ -60,23 +62,14 @@ abstract class HttpChecksumNotRequiredWithMemberInput
   _i2.Uint8List? getPayload() => content;
 
   @override
-  List<Object?> get props => [
-        checksumAlgorithm,
-        content,
-      ];
+  List<Object?> get props => [checksumAlgorithm, content];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpChecksumNotRequiredWithMemberInput')
-          ..add(
-            'checksumAlgorithm',
-            checksumAlgorithm,
-          )
-          ..add(
-            'content',
-            content,
-          );
+          ..add('checksumAlgorithm', checksumAlgorithm)
+          ..add('content', content);
     return helper.toString();
   }
 }
@@ -84,21 +77,18 @@ abstract class HttpChecksumNotRequiredWithMemberInput
 class HttpChecksumNotRequiredWithMemberInputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<_i2.Uint8List> {
   const HttpChecksumNotRequiredWithMemberInputRestJson1Serializer()
-      : super('HttpChecksumNotRequiredWithMemberInput');
+    : super('HttpChecksumNotRequiredWithMemberInput');
 
   @override
   Iterable<Type> get types => const [
-        HttpChecksumNotRequiredWithMemberInput,
-        _$HttpChecksumNotRequiredWithMemberInput,
-      ];
+    HttpChecksumNotRequiredWithMemberInput,
+    _$HttpChecksumNotRequiredWithMemberInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   _i2.Uint8List deserialize(
@@ -107,9 +97,10 @@ class HttpChecksumNotRequiredWithMemberInputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(_i2.Uint8List),
-    ) as _i2.Uint8List);
+          serialized,
+          specifiedType: const FullType(_i2.Uint8List),
+        )
+        as _i2.Uint8List);
   }
 
   @override

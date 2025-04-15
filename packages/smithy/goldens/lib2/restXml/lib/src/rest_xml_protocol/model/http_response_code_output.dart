@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.http_response_code_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class HttpResponseCodeOutput
     return _$HttpResponseCodeOutput._(status: status);
   }
 
-  factory HttpResponseCodeOutput.build(
-          [void Function(HttpResponseCodeOutputBuilder) updates]) =
-      _$HttpResponseCodeOutput;
+  factory HttpResponseCodeOutput.build([
+    void Function(HttpResponseCodeOutputBuilder) updates,
+  ]) = _$HttpResponseCodeOutput;
 
   const HttpResponseCodeOutput._();
 
@@ -31,13 +31,12 @@ abstract class HttpResponseCodeOutput
   factory HttpResponseCodeOutput.fromResponse(
     HttpResponseCodeOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      HttpResponseCodeOutput.build((b) {
-        b.status = response.statusCode;
-      });
+  ) => HttpResponseCodeOutput.build((b) {
+    b.status = response.statusCode;
+  });
 
   static const List<_i2.SmithySerializer<HttpResponseCodeOutputPayload>>
-      serializers = [HttpResponseCodeOutputRestXmlSerializer()];
+  serializers = [HttpResponseCodeOutputRestXmlSerializer()];
 
   int? get status;
   @override
@@ -49,25 +48,23 @@ abstract class HttpResponseCodeOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpResponseCodeOutput')
-      ..add(
-        'status',
-        status,
-      );
+      ..add('status', status);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class HttpResponseCodeOutputPayload
-    with
-        _i1.AWSEquatable<HttpResponseCodeOutputPayload>
+    with _i1.AWSEquatable<HttpResponseCodeOutputPayload>
     implements
-        Built<HttpResponseCodeOutputPayload,
-            HttpResponseCodeOutputPayloadBuilder>,
+        Built<
+          HttpResponseCodeOutputPayload,
+          HttpResponseCodeOutputPayloadBuilder
+        >,
         _i2.EmptyPayload {
-  factory HttpResponseCodeOutputPayload(
-          [void Function(HttpResponseCodeOutputPayloadBuilder) updates]) =
-      _$HttpResponseCodeOutputPayload;
+  factory HttpResponseCodeOutputPayload([
+    void Function(HttpResponseCodeOutputPayloadBuilder) updates,
+  ]) = _$HttpResponseCodeOutputPayload;
 
   const HttpResponseCodeOutputPayload._();
 
@@ -84,23 +81,20 @@ abstract class HttpResponseCodeOutputPayload
 class HttpResponseCodeOutputRestXmlSerializer
     extends _i2.StructuredSmithySerializer<HttpResponseCodeOutputPayload> {
   const HttpResponseCodeOutputRestXmlSerializer()
-      : super('HttpResponseCodeOutput');
+    : super('HttpResponseCodeOutput');
 
   @override
   Iterable<Type> get types => const [
-        HttpResponseCodeOutput,
-        _$HttpResponseCodeOutput,
-        HttpResponseCodeOutputPayload,
-        _$HttpResponseCodeOutputPayload,
-      ];
+    HttpResponseCodeOutput,
+    _$HttpResponseCodeOutput,
+    HttpResponseCodeOutputPayload,
+    _$HttpResponseCodeOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   HttpResponseCodeOutputPayload deserialize(
@@ -118,7 +112,7 @@ class HttpResponseCodeOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i2.XmlElementName('HttpResponseCodeOutput')
+      const _i2.XmlElementName('HttpResponseCodeOutput'),
     ];
 
     return result$;

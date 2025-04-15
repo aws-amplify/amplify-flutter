@@ -9,13 +9,11 @@ import 'package:amplify_core/src/types/storage/base/storage_operation.dart';
 /// A storage download data operation interface.
 /// {@endtemplate}
 abstract class StorageDownloadFileOperation<
-        Request extends StorageDownloadFileRequest,
-        Result extends StorageDownloadFileResult>
+  Request extends StorageDownloadFileRequest,
+  Result extends StorageDownloadFileResult
+>
     extends StorageOperation<Request, Result>
     implements StorageResumableOperation, StorageCancelableOperation {
   /// {@macro amplify_core.storage.download_file_operation}
-  StorageDownloadFileOperation({
-    required super.request,
-    required super.result,
-  });
+  StorageDownloadFileOperation({required super.request, required super.result});
 }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.rest_xml_protocol.model.empty_input_and_empty_output_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,16 +15,18 @@ abstract class EmptyInputAndEmptyOutputInput
         _i1.HttpInput<EmptyInputAndEmptyOutputInput>,
         _i2.AWSEquatable<EmptyInputAndEmptyOutputInput>
     implements
-        Built<EmptyInputAndEmptyOutputInput,
-            EmptyInputAndEmptyOutputInputBuilder>,
+        Built<
+          EmptyInputAndEmptyOutputInput,
+          EmptyInputAndEmptyOutputInputBuilder
+        >,
         _i1.EmptyPayload {
   factory EmptyInputAndEmptyOutputInput() {
     return _$EmptyInputAndEmptyOutputInput._();
   }
 
-  factory EmptyInputAndEmptyOutputInput.build(
-          [void Function(EmptyInputAndEmptyOutputInputBuilder) updates]) =
-      _$EmptyInputAndEmptyOutputInput;
+  factory EmptyInputAndEmptyOutputInput.build([
+    void Function(EmptyInputAndEmptyOutputInputBuilder) updates,
+  ]) = _$EmptyInputAndEmptyOutputInput;
 
   const EmptyInputAndEmptyOutputInput._();
 
@@ -32,11 +34,10 @@ abstract class EmptyInputAndEmptyOutputInput
     EmptyInputAndEmptyOutputInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<EmptyInputAndEmptyOutputInput>>
-      serializers = [EmptyInputAndEmptyOutputInputRestXmlSerializer()];
+  serializers = [EmptyInputAndEmptyOutputInputRestXmlSerializer()];
 
   @override
   EmptyInputAndEmptyOutputInput getPayload() => this;
@@ -54,21 +55,18 @@ abstract class EmptyInputAndEmptyOutputInput
 class EmptyInputAndEmptyOutputInputRestXmlSerializer
     extends _i1.StructuredSmithySerializer<EmptyInputAndEmptyOutputInput> {
   const EmptyInputAndEmptyOutputInputRestXmlSerializer()
-      : super('EmptyInputAndEmptyOutputInput');
+    : super('EmptyInputAndEmptyOutputInput');
 
   @override
   Iterable<Type> get types => const [
-        EmptyInputAndEmptyOutputInput,
-        _$EmptyInputAndEmptyOutputInput,
-      ];
+    EmptyInputAndEmptyOutputInput,
+    _$EmptyInputAndEmptyOutputInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   EmptyInputAndEmptyOutputInput deserialize(
@@ -86,7 +84,7 @@ class EmptyInputAndEmptyOutputInputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('EmptyInputAndEmptyOutputInput')
+      const _i1.XmlElementName('EmptyInputAndEmptyOutputInput'),
     ];
 
     return result$;

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.malformed_union_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,9 +20,9 @@ abstract class MalformedUnionInput
     return _$MalformedUnionInput._(union: union);
   }
 
-  factory MalformedUnionInput.build(
-          [void Function(MalformedUnionInputBuilder) updates]) =
-      _$MalformedUnionInput;
+  factory MalformedUnionInput.build([
+    void Function(MalformedUnionInputBuilder) updates,
+  ]) = _$MalformedUnionInput;
 
   const MalformedUnionInput._();
 
@@ -30,11 +30,10 @@ abstract class MalformedUnionInput
     MalformedUnionInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<MalformedUnionInput>> serializers = [
-    MalformedUnionInputRestJson1Serializer()
+    MalformedUnionInputRestJson1Serializer(),
   ];
 
   SimpleUnion? get union;
@@ -47,10 +46,7 @@ abstract class MalformedUnionInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedUnionInput')
-      ..add(
-        'union',
-        union,
-      );
+      ..add('union', union);
     return helper.toString();
   }
 }
@@ -61,17 +57,14 @@ class MalformedUnionInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        MalformedUnionInput,
-        _$MalformedUnionInput,
-      ];
+    MalformedUnionInput,
+    _$MalformedUnionInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedUnionInput deserialize(
@@ -90,10 +83,12 @@ class MalformedUnionInputRestJson1Serializer
       }
       switch (key) {
         case 'union':
-          result.union = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(SimpleUnion),
-          ) as SimpleUnion);
+          result.union =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(SimpleUnion),
+                  )
+                  as SimpleUnion);
       }
     }
 
@@ -111,10 +106,12 @@ class MalformedUnionInputRestJson1Serializer
     if (union != null) {
       result$
         ..add('union')
-        ..add(serializers.serialize(
-          union,
-          specifiedType: const FullType(SimpleUnion),
-        ));
+        ..add(
+          serializers.serialize(
+            union,
+            specifiedType: const FullType(SimpleUnion),
+          ),
+        );
     }
     return result$;
   }

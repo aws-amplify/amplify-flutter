@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_0_v2.json_rpc_10.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,14 +18,8 @@ abstract class ComplexError
         Built<ComplexError, ComplexErrorBuilder>,
         _i2.SmithyHttpException {
   /// This error is thrown when a request is invalid.
-  factory ComplexError({
-    String? topLevel,
-    ComplexNestedErrorData? nested,
-  }) {
-    return _$ComplexError._(
-      topLevel: topLevel,
-      nested: nested,
-    );
+  factory ComplexError({String? topLevel, ComplexNestedErrorData? nested}) {
+    return _$ComplexError._(topLevel: topLevel, nested: nested);
   }
 
   /// This error is thrown when a request is invalid.
@@ -38,23 +32,22 @@ abstract class ComplexError
   factory ComplexError.fromResponse(
     ComplexError payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<ComplexError>> serializers = [
-    ComplexErrorAwsJson10Serializer()
+    ComplexErrorAwsJson10Serializer(),
   ];
 
   String? get topLevel;
   ComplexNestedErrorData? get nested;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'aws.protocoltests.json10',
-        shape: 'ComplexError',
-      );
+    namespace: 'aws.protocoltests.json10',
+    shape: 'ComplexError',
+  );
 
   @override
   String? get message => null;
@@ -72,22 +65,14 @@ abstract class ComplexError
   Exception? get underlyingException => null;
 
   @override
-  List<Object?> get props => [
-        topLevel,
-        nested,
-      ];
+  List<Object?> get props => [topLevel, nested];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplexError')
-      ..add(
-        'topLevel',
-        topLevel,
-      )
-      ..add(
-        'nested',
-        nested,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ComplexError')
+          ..add('topLevel', topLevel)
+          ..add('nested', nested);
     return helper.toString();
   }
 }
@@ -97,18 +82,12 @@ class ComplexErrorAwsJson10Serializer
   const ComplexErrorAwsJson10Serializer() : super('ComplexError');
 
   @override
-  Iterable<Type> get types => const [
-        ComplexError,
-        _$ComplexError,
-      ];
+  Iterable<Type> get types => const [ComplexError, _$ComplexError];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   ComplexError deserialize(
@@ -127,15 +106,20 @@ class ComplexErrorAwsJson10Serializer
       }
       switch (key) {
         case 'TopLevel':
-          result.topLevel = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.topLevel =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ComplexNestedErrorData),
-          ) as ComplexNestedErrorData));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ComplexNestedErrorData),
+                )
+                as ComplexNestedErrorData),
+          );
       }
     }
 
@@ -153,18 +137,22 @@ class ComplexErrorAwsJson10Serializer
     if (topLevel != null) {
       result$
         ..add('TopLevel')
-        ..add(serializers.serialize(
-          topLevel,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            topLevel,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (nested != null) {
       result$
         ..add('Nested')
-        ..add(serializers.serialize(
-          nested,
-          specifiedType: const FullType(ComplexNestedErrorData),
-        ));
+        ..add(
+          serializers.serialize(
+            nested,
+            specifiedType: const FullType(ComplexNestedErrorData),
+          ),
+        );
     }
     return result$;
   }

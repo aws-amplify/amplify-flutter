@@ -23,7 +23,7 @@ enum AmplifyConfigVersion {
   config,
 
   /// Gen 2 Amplify Outputs
-  outputs;
+  outputs,
 }
 
 /// The login method for the environment.
@@ -87,17 +87,17 @@ class EnvironmentInfo {
 
   /// Returns the [UserAttribute] for the user.
   UserAttribute getLoginAttribute(String username) => switch (loginMethod) {
-        LoginMethod.email => UserAttribute.email(username),
-        LoginMethod.phone => UserAttribute.phone(username),
-        LoginMethod.username => UserAttribute.username(username)
-      };
+    LoginMethod.email => UserAttribute.email(username),
+    LoginMethod.phone => UserAttribute.phone(username),
+    LoginMethod.username => UserAttribute.username(username),
+  };
 
   /// Generates the username based on the login method.
   String generateUsername() => switch (loginMethod) {
-        LoginMethod.username => amp_test.generateUsername(),
-        LoginMethod.email => amp_test.generateEmail(),
-        LoginMethod.phone => amp_test.generateUSPhoneNumber().toE164(),
-      };
+    LoginMethod.username => amp_test.generateUsername(),
+    LoginMethod.email => amp_test.generateEmail(),
+    LoginMethod.phone => amp_test.generateUSPhoneNumber().toE164(),
+  };
 
   /// Returns the attributes that Cognito will create automatically based on the
   /// sign up method.
@@ -108,7 +108,7 @@ class EnvironmentInfo {
       switch (loginMethod) {
         LoginMethod.email => {AuthUserAttributeKey.email: username},
         LoginMethod.phone => {AuthUserAttributeKey.phoneNumber: username},
-        LoginMethod.username => <AuthUserAttributeKey, String>{}
+        LoginMethod.username => <AuthUserAttributeKey, String>{},
       };
 
   /// The name of the environment in the config/outputs file.
@@ -202,10 +202,7 @@ abstract interface class TestEnvironment {
 /// {@endtemplate}
 class AuthTestRunner {
   /// {@macro amplify_auth_integration_test.auth_test_runner}
-  const AuthTestRunner(
-    this._amplifyConfigs,
-    this._amplifyOutputs,
-  );
+  const AuthTestRunner(this._amplifyConfigs, this._amplifyOutputs);
 
   final Map<String, String> _amplifyConfigs;
 
@@ -241,14 +238,18 @@ class AuthTestRunner {
     List<APIAuthProvider> apiAuthProviders = const [],
     AWSHttpClient? baseClient,
   }) async {
-    final config = useAmplifyOutputs
-        ? _amplifyOutputs[environmentName]!
-        : _amplifyConfigs[environmentName]!;
-    final outputs = useAmplifyOutputs
-        ? AmplifyOutputs.fromJson(jsonDecode(config) as Map<String, dynamic>)
-        : AmplifyConfig.fromJson(
-            jsonDecode(config) as Map<String, dynamic>,
-          ).toAmplifyOutputs();
+    final config =
+        useAmplifyOutputs
+            ? _amplifyOutputs[environmentName]!
+            : _amplifyConfigs[environmentName]!;
+    final outputs =
+        useAmplifyOutputs
+            ? AmplifyOutputs.fromJson(
+              jsonDecode(config) as Map<String, dynamic>,
+            )
+            : AmplifyConfig.fromJson(
+              jsonDecode(config) as Map<String, dynamic>,
+            ).toAmplifyOutputs();
     final hasApiPlugin = outputs.data != null;
     final authPlugin = AmplifyAuthTestPlugin(hasApiPlugin: hasApiPlugin);
     await Amplify.addPlugins([
@@ -263,9 +264,7 @@ class AuthTestRunner {
     ]);
     await Amplify.configure(config);
     await Amplify.Auth.signOut();
-    addTearDown(
-      Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close,
-    );
+    addTearDown(Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close);
     addTearDown(Amplify.reset);
     addTearDown(signOutUser);
   }
@@ -307,10 +306,10 @@ Future<void> signOutUser({bool assertComplete = false}) async {
       _logger.debug('Successfully signed out user');
       return;
     case CognitoPartialSignOut(
-        :final hostedUiException,
-        :final globalSignOutException,
-        :final revokeTokenException,
-      ):
+      :final hostedUiException,
+      :final globalSignOutException,
+      :final revokeTokenException,
+    ):
       _logger.error(
         'Error signing out:',
         hostedUiException ?? globalSignOutException ?? revokeTokenException,

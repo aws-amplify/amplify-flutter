@@ -52,11 +52,7 @@ abstract class E2EResult implements Built<E2EResult, E2EResultBuilder> {
   static Serializer<E2EResult> get serializer => _$e2EResultSerializer;
 }
 
-@SerializersFor([
-  E2EMessage,
-  E2EResult,
-  CustomType,
-])
+@SerializersFor([E2EMessage, E2EResult, CustomType])
 final Serializers serializers = _$serializers;
 
 const intStreamElements = [1, 2, 3, 4, 5];
@@ -69,7 +65,8 @@ final customTypeStreamElements = [
 ];
 
 E2EMessage get message => E2EMessage(
-      (b) => b
+  (b) =>
+      b
         ..bigInt = BigInt.from(123)
         ..bool_ = true
         ..builtList.add('abc')
@@ -87,4 +84,4 @@ E2EMessage get message => E2EMessage(
         ..regExp = RegExp(r'^\w{3}$')
         ..string = 'abc'
         ..uri = Uri.parse('https://example.com'),
-    );
+);

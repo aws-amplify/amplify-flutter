@@ -18,7 +18,7 @@ extension type Process._(JSObject it) {
   external String get version;
 
   /// A string identifying the operating system platform for which the Node.js binary was compiled.
-  /// 
+  ///
   /// See: https://nodejs.org/api/process.html#processplatform
   @JS('platform')
   external String get _platform;
@@ -41,7 +41,7 @@ extension type Process._(JSObject it) {
     'x64' => Arch.x64,
     final unknown => throw StateError('Unknown architecture: $unknown'),
   };
-  
+
   @JS('env')
   // Map<String, String?>
   external JSObject get _env;

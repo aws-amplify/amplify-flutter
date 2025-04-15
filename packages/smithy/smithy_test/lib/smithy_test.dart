@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Test utilities for Smithy packages.
-library smithy_test;
+library;
 
 export 'package:smithy/ast.dart'
     show AppliesTo, HttpRequestTestCase, HttpResponseTestCase;

@@ -78,11 +78,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
 ///
 /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-class CompleteMultipartUploadOperation extends _i1.HttpOperation<
-    CompletedMultipartUpload,
-    CompleteMultipartUploadRequest,
-    CompleteMultipartUploadOutputPayload,
-    CompleteMultipartUploadOutput> {
+class CompleteMultipartUploadOperation
+    extends
+        _i1.HttpOperation<
+          CompletedMultipartUpload,
+          CompleteMultipartUploadRequest,
+          CompleteMultipartUploadOutputPayload,
+          CompleteMultipartUploadOutput
+        > {
   /// Completes a multipart upload by assembling previously uploaded parts.
   ///
   /// You first initiate the multipart upload and then upload all parts using the [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html) operation or the [UploadPartCopy](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html) operation. After successfully uploading all relevant parts of an upload, you call this `CompleteMultipartUpload` operation to complete the upload. Upon receiving this request, Amazon S3 concatenates all the parts in ascending order by part number to create a new object. In the CompleteMultipartUpload request, you must provide the parts list and ensure that the parts list is complete. The CompleteMultipartUpload API operation concatenates the parts that you provide in the list. For each part in the list, you must provide the `PartNumber` value and the `ETag` value that are returned after that part was uploaded.
@@ -154,31 +157,36 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          CompletedMultipartUpload,
-          CompleteMultipartUploadRequest,
-          CompleteMultipartUploadOutputPayload,
-          CompleteMultipartUploadOutput>> protocols = [
+    _i1.HttpProtocol<
+      CompletedMultipartUpload,
+      CompleteMultipartUploadRequest,
+      CompleteMultipartUploadOutputPayload,
+      CompleteMultipartUploadOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -186,12 +194,11 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
             const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
-      responseInterceptors: <_i1.HttpResponseInterceptor>[
-            const _i2.CheckErrorOnSuccess()
-          ] +
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[const _i2.CheckErrorOnSuccess()] +
           _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -215,9 +222,10 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
   _i1.HttpRequest buildRequest(CompleteMultipartUploadRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
-        b.path = _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?x-id=CompleteMultipartUpload'
-            : r'/{Key+}?x-id=CompleteMultipartUpload';
+        b.path =
+            _s3ClientConfig.usePathStyle
+                ? r'/{Bucket}/{Key+}?x-id=CompleteMultipartUpload'
+                : r'/{Key+}?x-id=CompleteMultipartUpload';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
         if (input.checksumCrc32 != null) {
           if (input.checksumCrc32!.isNotEmpty) {
@@ -266,10 +274,7 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
                 input.sseCustomerKeyMd5!;
           }
         }
-        b.queryParameters.add(
-          'uploadId',
-          input.uploadId,
-        );
+        b.queryParameters.add('uploadId', input.uploadId);
       });
 
   @override
@@ -279,11 +284,7 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
   CompleteMultipartUploadOutput buildOutput(
     CompleteMultipartUploadOutputPayload payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      CompleteMultipartUploadOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => CompleteMultipartUploadOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -322,11 +323,7 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

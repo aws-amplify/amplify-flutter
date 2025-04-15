@@ -29,58 +29,73 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final expectedContactFields = {
     'email': ModelField(
-        name: 'email',
-        isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      name: 'email',
+      isRequired: true,
+      type: ModelFieldType(ModelFieldTypeEnum.string),
+    ),
     'phone': ModelField(
-        name: 'phone',
-        isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'Phone')),
+      name: 'phone',
+      isRequired: true,
+      type: ModelFieldType(
+        ModelFieldTypeEnum.embedded,
+        ofCustomTypeName: 'Phone',
+      ),
+    ),
     'mailingAddresses': ModelField(
-        name: 'mailingAddresses',
-        isRequired: false,
-        isArray: true,
-        type: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
-            ofCustomTypeName: 'Address')),
+      name: 'mailingAddresses',
+      isRequired: false,
+      isArray: true,
+      type: ModelFieldType(
+        ModelFieldTypeEnum.embeddedCollection,
+        ofCustomTypeName: 'Address',
+      ),
+    ),
   };
 
   final expectedPhoneFields = {
     'country': ModelField(
-        name: 'country',
-        isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      name: 'country',
+      isRequired: true,
+      type: ModelFieldType(ModelFieldTypeEnum.string),
+    ),
     'area': ModelField(
-        name: 'area',
-        isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      name: 'area',
+      isRequired: true,
+      type: ModelFieldType(ModelFieldTypeEnum.string),
+    ),
     'number': ModelField(
-        name: 'number',
-        isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      name: 'number',
+      isRequired: true,
+      type: ModelFieldType(ModelFieldTypeEnum.string),
+    ),
   };
 
   final expectedAddressFields = {
     'line1': ModelField(
-        name: 'line1',
-        isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      name: 'line1',
+      isRequired: true,
+      type: ModelFieldType(ModelFieldTypeEnum.string),
+    ),
     'line2': ModelField(
-        name: 'line2',
-        isRequired: false,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      name: 'line2',
+      isRequired: false,
+      type: ModelFieldType(ModelFieldTypeEnum.string),
+    ),
     'city': ModelField(
-        name: 'city',
-        isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      name: 'city',
+      isRequired: true,
+      type: ModelFieldType(ModelFieldTypeEnum.string),
+    ),
     'state': ModelField(
-        name: 'state',
-        isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      name: 'state',
+      isRequired: true,
+      type: ModelFieldType(ModelFieldTypeEnum.string),
+    ),
     'postalCode': ModelField(
-        name: 'postalCode',
-        isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      name: 'postalCode',
+      isRequired: true,
+      type: ModelFieldType(ModelFieldTypeEnum.string),
+    ),
   };
 
   test('Generated Dart class Contact should provide correct schema', () {

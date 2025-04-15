@@ -96,11 +96,13 @@ class InAppMessageBuilder
   _$InAppMessage _build() {
     _$InAppMessage _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$InAppMessage._(
-              content: _content?.build(),
-              customConfig: _customConfig?.build(),
-              layout: layout);
+            content: _content?.build(),
+            customConfig: _customConfig?.build(),
+            layout: layout,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -110,7 +112,10 @@ class InAppMessageBuilder
         _customConfig?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'InAppMessage', _$failedField, e.toString());
+          r'InAppMessage',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -8,10 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class EventInfo {
   /// {@macro amplify_push_notifications_pinpoint.event_info}
-  EventInfo(
-    this.source,
-    this.properties,
-  );
+  EventInfo(this.source, this.properties);
 
   /// [source] represents the source of the notification prefixed by campaign or journey.
   final String source;

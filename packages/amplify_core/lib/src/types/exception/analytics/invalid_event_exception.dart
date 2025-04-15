@@ -12,9 +12,7 @@ class InvalidEventException extends AnalyticsException {
   const InvalidEventException({
     super.recoverySuggestion,
     super.underlyingException,
-  }) : super(
-          'Invalid event data.',
-        );
+  }) : super('Invalid event data.');
 
   @override
   String get runtimeTypeName => 'InvalidEventException';

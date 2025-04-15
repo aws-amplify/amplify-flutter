@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.http_request_with_greedy_label_in_path_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,23 +16,22 @@ abstract class HttpRequestWithGreedyLabelInPathInput
         _i1.HttpInput<HttpRequestWithGreedyLabelInPathInputPayload>,
         _i2.AWSEquatable<HttpRequestWithGreedyLabelInPathInput>
     implements
-        Built<HttpRequestWithGreedyLabelInPathInput,
-            HttpRequestWithGreedyLabelInPathInputBuilder>,
+        Built<
+          HttpRequestWithGreedyLabelInPathInput,
+          HttpRequestWithGreedyLabelInPathInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithGreedyLabelInPathInputPayload> {
   factory HttpRequestWithGreedyLabelInPathInput({
     required String foo,
     required String baz,
   }) {
-    return _$HttpRequestWithGreedyLabelInPathInput._(
-      foo: foo,
-      baz: baz,
-    );
+    return _$HttpRequestWithGreedyLabelInPathInput._(foo: foo, baz: baz);
   }
 
-  factory HttpRequestWithGreedyLabelInPathInput.build(
-      [void Function(HttpRequestWithGreedyLabelInPathInputBuilder)
-          updates]) = _$HttpRequestWithGreedyLabelInPathInput;
+  factory HttpRequestWithGreedyLabelInPathInput.build([
+    void Function(HttpRequestWithGreedyLabelInPathInputBuilder) updates,
+  ]) = _$HttpRequestWithGreedyLabelInPathInput;
 
   const HttpRequestWithGreedyLabelInPathInput._();
 
@@ -40,21 +39,19 @@ abstract class HttpRequestWithGreedyLabelInPathInput
     HttpRequestWithGreedyLabelInPathInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpRequestWithGreedyLabelInPathInput.build((b) {
-        if (labels['foo'] != null) {
-          b.foo = labels['foo']!;
-        }
-        if (labels['baz'] != null) {
-          b.baz = labels['baz']!;
-        }
-      });
+  }) => HttpRequestWithGreedyLabelInPathInput.build((b) {
+    if (labels['foo'] != null) {
+      b.foo = labels['foo']!;
+    }
+    if (labels['baz'] != null) {
+      b.baz = labels['baz']!;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<HttpRequestWithGreedyLabelInPathInputPayload>>
-      serializers = [
-    HttpRequestWithGreedyLabelInPathInputRestJson1Serializer()
-  ];
+    _i1.SmithySerializer<HttpRequestWithGreedyLabelInPathInputPayload>
+  >
+  serializers = [HttpRequestWithGreedyLabelInPathInputRestJson1Serializer()];
 
   String get foo;
   String get baz;
@@ -66,10 +63,7 @@ abstract class HttpRequestWithGreedyLabelInPathInput
       case 'baz':
         return baz;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -77,38 +71,30 @@ abstract class HttpRequestWithGreedyLabelInPathInput
       HttpRequestWithGreedyLabelInPathInputPayload();
 
   @override
-  List<Object?> get props => [
-        foo,
-        baz,
-      ];
+  List<Object?> get props => [foo, baz];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpRequestWithGreedyLabelInPathInput')
-          ..add(
-            'foo',
-            foo,
-          )
-          ..add(
-            'baz',
-            baz,
-          );
+          ..add('foo', foo)
+          ..add('baz', baz);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class HttpRequestWithGreedyLabelInPathInputPayload
-    with
-        _i2.AWSEquatable<HttpRequestWithGreedyLabelInPathInputPayload>
+    with _i2.AWSEquatable<HttpRequestWithGreedyLabelInPathInputPayload>
     implements
-        Built<HttpRequestWithGreedyLabelInPathInputPayload,
-            HttpRequestWithGreedyLabelInPathInputPayloadBuilder>,
+        Built<
+          HttpRequestWithGreedyLabelInPathInputPayload,
+          HttpRequestWithGreedyLabelInPathInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory HttpRequestWithGreedyLabelInPathInputPayload(
-      [void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)
-          updates]) = _$HttpRequestWithGreedyLabelInPathInputPayload;
+  factory HttpRequestWithGreedyLabelInPathInputPayload([
+    void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder) updates,
+  ]) = _$HttpRequestWithGreedyLabelInPathInputPayload;
 
   const HttpRequestWithGreedyLabelInPathInputPayload._();
 
@@ -118,31 +104,32 @@ abstract class HttpRequestWithGreedyLabelInPathInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'HttpRequestWithGreedyLabelInPathInputPayload');
+      'HttpRequestWithGreedyLabelInPathInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class HttpRequestWithGreedyLabelInPathInputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<HttpRequestWithGreedyLabelInPathInputPayload> {
+class HttpRequestWithGreedyLabelInPathInputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<
+          HttpRequestWithGreedyLabelInPathInputPayload
+        > {
   const HttpRequestWithGreedyLabelInPathInputRestJson1Serializer()
-      : super('HttpRequestWithGreedyLabelInPathInput');
+    : super('HttpRequestWithGreedyLabelInPathInput');
 
   @override
   Iterable<Type> get types => const [
-        HttpRequestWithGreedyLabelInPathInput,
-        _$HttpRequestWithGreedyLabelInPathInput,
-        HttpRequestWithGreedyLabelInPathInputPayload,
-        _$HttpRequestWithGreedyLabelInPathInputPayload,
-      ];
+    HttpRequestWithGreedyLabelInPathInput,
+    _$HttpRequestWithGreedyLabelInPathInput,
+    HttpRequestWithGreedyLabelInPathInputPayload,
+    _$HttpRequestWithGreedyLabelInPathInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   HttpRequestWithGreedyLabelInPathInputPayload deserialize(
@@ -158,6 +145,5 @@ class HttpRequestWithGreedyLabelInPathInputRestJson1Serializer extends _i1
     Serializers serializers,
     HttpRequestWithGreedyLabelInPathInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

@@ -64,10 +64,7 @@ class TestTokenAuthProvider extends TokenAmplifyAuthProvider {
 }
 
 void validateSignedRequest(AWSBaseHttpRequest request) {
-  expect(
-    request.headers[AWSHeaders.platformUserAgent],
-    contains('aws-sigv4'),
-  );
+  expect(request.headers[AWSHeaders.platformUserAgent], contains('aws-sigv4'));
 }
 
 const testApiKeyConfig = DataOutputs(
@@ -75,18 +72,14 @@ const testApiKeyConfig = DataOutputs(
   awsRegion: 'us-east-1',
   defaultAuthorizationType: APIAuthorizationType.apiKey,
   apiKey: 'abc-123',
-  authorizationTypes: [
-    APIAuthorizationType.apiKey,
-  ],
+  authorizationTypes: [APIAuthorizationType.apiKey],
 );
 const testApiKeyConfigCustomDomain = DataOutputs(
   url: 'https://foo.bar.aws.dev/graphql ',
   awsRegion: 'us-east-1',
   defaultAuthorizationType: APIAuthorizationType.apiKey,
   apiKey: 'abc-123',
-  authorizationTypes: [
-    APIAuthorizationType.apiKey,
-  ],
+  authorizationTypes: [APIAuthorizationType.apiKey],
 );
 
 const expectedApiKeyWebSocketConnectionUrl =
@@ -95,11 +88,11 @@ const expectedApiKeyWebSocketConnectionUrlCustomDomain =
     'wss://foo.bar.aws.dev/graphql/realtime?payload=e30%3D';
 
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
-  final testAuthProviderRepo = AmplifyAuthProviderRepository()
-    ..registerAuthProvider(
-      APIAuthorizationType.apiKey.authProviderToken,
-      AppSyncApiKeyAuthProvider(),
-    );
+  final testAuthProviderRepo =
+      AmplifyAuthProviderRepository()..registerAuthProvider(
+        APIAuthorizationType.apiKey.authProviderToken,
+        AppSyncApiKeyAuthProvider(),
+      );
 
   return testAuthProviderRepo;
 }
@@ -170,15 +163,10 @@ WebSocketChannel getMockWebSocketChannel(Uri uri) {
   return MockWebSocketChannel();
 }
 
-WebSocketMessage startAck(String subscriptionID) => WebSocketMessage(
-      messageType: MessageType.startAck,
-      id: subscriptionID,
-    );
+WebSocketMessage startAck(String subscriptionID) =>
+    WebSocketMessage(messageType: MessageType.startAck, id: subscriptionID);
 
-void sendMockConnectionAck(
-  WebSocketBloc bloc,
-  MockWebSocketService service,
-) {
+void sendMockConnectionAck(WebSocketBloc bloc, MockWebSocketService service) {
   bloc.stream.listen((event) {
     final state = event;
     if (state is ConnectingState &&
@@ -223,8 +211,10 @@ class MockWebSocketChannel extends WebSocketChannel {
   // ignore: close_sinks
   final controller = StreamController<dynamic>.broadcast();
 
-  static StreamChannel<List<int>> streamChannel =
-      StreamChannel(const Stream.empty(), NullStreamSink());
+  static StreamChannel<List<int>> streamChannel = StreamChannel(
+    const Stream.empty(),
+    NullStreamSink(),
+  );
 
   @override
   Stream<dynamic> get stream => controller.stream;
@@ -275,13 +265,13 @@ class MockWebSocketService extends AmplifyWebSocketService {
   }
 
   @override
-  Future<void> unsubscribe(
-    String subscriptionId,
-  ) async {
+  Future<void> unsubscribe(String subscriptionId) async {
     await super.unsubscribe(subscriptionId);
 
-    final completeMessage =
-        jsonEncode({'id': subscriptionId, 'type': 'complete'});
+    final completeMessage = jsonEncode({
+      'id': subscriptionId,
+      'type': 'complete',
+    });
     channel.sink.add(completeMessage);
   }
 }
@@ -302,20 +292,14 @@ class MockPollClient {
 
     return MockAWSHttpClient((request, _) async {
       if (sendUnhealthyResponse) {
-        return AWSHttpResponse(
-          statusCode: 400,
-          body: utf8.encode('unhealthy'),
-        );
+        return AWSHttpResponse(statusCode: 400, body: utf8.encode('unhealthy'));
       }
 
       if (induceTimeout && mockPollFailCount++ <= maxFailAttempts) {
         await Future<void>.delayed(const Duration(seconds: 10));
       }
 
-      return AWSHttpResponse(
-        statusCode: 200,
-        body: utf8.encode('healthy'),
-      );
+      return AWSHttpResponse(statusCode: 200, body: utf8.encode('healthy'));
     });
   }
 }
@@ -359,11 +343,9 @@ final deepEquals = const DeepCollectionEquality().equals;
   APIAuthorizationType type, [
   String? apiKey,
 ]) {
-  final repo = AmplifyAuthProviderRepository()
-    ..registerAuthProvider(
-      type.authProviderToken,
-      authProvider,
-    );
+  final repo =
+      AmplifyAuthProviderRepository()
+        ..registerAuthProvider(type.authProviderToken, authProvider);
   final outputs = DataOutputs(
     awsRegion: 'us-east-1',
     url: 'https://example.com/',

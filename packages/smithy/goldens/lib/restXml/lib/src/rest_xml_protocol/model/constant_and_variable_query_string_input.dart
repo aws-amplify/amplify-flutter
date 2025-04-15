@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.rest_xml_protocol.model.constant_and_variable_query_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,23 +16,22 @@ abstract class ConstantAndVariableQueryStringInput
         _i1.HttpInput<ConstantAndVariableQueryStringInputPayload>,
         _i2.AWSEquatable<ConstantAndVariableQueryStringInput>
     implements
-        Built<ConstantAndVariableQueryStringInput,
-            ConstantAndVariableQueryStringInputBuilder>,
+        Built<
+          ConstantAndVariableQueryStringInput,
+          ConstantAndVariableQueryStringInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<ConstantAndVariableQueryStringInputPayload> {
-  factory ConstantAndVariableQueryStringInput({
-    String? baz,
-    String? maybeSet,
-  }) {
+  factory ConstantAndVariableQueryStringInput({String? baz, String? maybeSet}) {
     return _$ConstantAndVariableQueryStringInput._(
       baz: baz,
       maybeSet: maybeSet,
     );
   }
 
-  factory ConstantAndVariableQueryStringInput.build(
-          [void Function(ConstantAndVariableQueryStringInputBuilder) updates]) =
-      _$ConstantAndVariableQueryStringInput;
+  factory ConstantAndVariableQueryStringInput.build([
+    void Function(ConstantAndVariableQueryStringInputBuilder) updates,
+  ]) = _$ConstantAndVariableQueryStringInput;
 
   const ConstantAndVariableQueryStringInput._();
 
@@ -40,19 +39,19 @@ abstract class ConstantAndVariableQueryStringInput
     ConstantAndVariableQueryStringInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      ConstantAndVariableQueryStringInput.build((b) {
-        if (request.queryParameters['baz'] != null) {
-          b.baz = request.queryParameters['baz']!;
-        }
-        if (request.queryParameters['maybeSet'] != null) {
-          b.maybeSet = request.queryParameters['maybeSet']!;
-        }
-      });
+  }) => ConstantAndVariableQueryStringInput.build((b) {
+    if (request.queryParameters['baz'] != null) {
+      b.baz = request.queryParameters['baz']!;
+    }
+    if (request.queryParameters['maybeSet'] != null) {
+      b.maybeSet = request.queryParameters['maybeSet']!;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<ConstantAndVariableQueryStringInputPayload>>
-      serializers = [ConstantAndVariableQueryStringInputRestXmlSerializer()];
+    _i1.SmithySerializer<ConstantAndVariableQueryStringInputPayload>
+  >
+  serializers = [ConstantAndVariableQueryStringInputRestXmlSerializer()];
 
   String? get baz;
   String? get maybeSet;
@@ -61,38 +60,30 @@ abstract class ConstantAndVariableQueryStringInput
       ConstantAndVariableQueryStringInputPayload();
 
   @override
-  List<Object?> get props => [
-        baz,
-        maybeSet,
-      ];
+  List<Object?> get props => [baz, maybeSet];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConstantAndVariableQueryStringInput')
-          ..add(
-            'baz',
-            baz,
-          )
-          ..add(
-            'maybeSet',
-            maybeSet,
-          );
+          ..add('baz', baz)
+          ..add('maybeSet', maybeSet);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class ConstantAndVariableQueryStringInputPayload
-    with
-        _i2.AWSEquatable<ConstantAndVariableQueryStringInputPayload>
+    with _i2.AWSEquatable<ConstantAndVariableQueryStringInputPayload>
     implements
-        Built<ConstantAndVariableQueryStringInputPayload,
-            ConstantAndVariableQueryStringInputPayloadBuilder>,
+        Built<
+          ConstantAndVariableQueryStringInputPayload,
+          ConstantAndVariableQueryStringInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory ConstantAndVariableQueryStringInputPayload(
-      [void Function(ConstantAndVariableQueryStringInputPayloadBuilder)
-          updates]) = _$ConstantAndVariableQueryStringInputPayload;
+  factory ConstantAndVariableQueryStringInputPayload([
+    void Function(ConstantAndVariableQueryStringInputPayloadBuilder) updates,
+  ]) = _$ConstantAndVariableQueryStringInputPayload;
 
   const ConstantAndVariableQueryStringInputPayload._();
 
@@ -102,31 +93,32 @@ abstract class ConstantAndVariableQueryStringInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'ConstantAndVariableQueryStringInputPayload');
+      'ConstantAndVariableQueryStringInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class ConstantAndVariableQueryStringInputRestXmlSerializer extends _i1
-    .StructuredSmithySerializer<ConstantAndVariableQueryStringInputPayload> {
+class ConstantAndVariableQueryStringInputRestXmlSerializer
+    extends
+        _i1.StructuredSmithySerializer<
+          ConstantAndVariableQueryStringInputPayload
+        > {
   const ConstantAndVariableQueryStringInputRestXmlSerializer()
-      : super('ConstantAndVariableQueryStringInput');
+    : super('ConstantAndVariableQueryStringInput');
 
   @override
   Iterable<Type> get types => const [
-        ConstantAndVariableQueryStringInput,
-        _$ConstantAndVariableQueryStringInput,
-        ConstantAndVariableQueryStringInputPayload,
-        _$ConstantAndVariableQueryStringInputPayload,
-      ];
+    ConstantAndVariableQueryStringInput,
+    _$ConstantAndVariableQueryStringInput,
+    ConstantAndVariableQueryStringInputPayload,
+    _$ConstantAndVariableQueryStringInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ConstantAndVariableQueryStringInputPayload deserialize(
@@ -144,7 +136,7 @@ class ConstantAndVariableQueryStringInputRestXmlSerializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('ConstantAndVariableQueryStringInput')
+      const _i1.XmlElementName('ConstantAndVariableQueryStringInput'),
     ];
 
     return result$;

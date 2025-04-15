@@ -14,19 +14,23 @@ class _$PrimitiveIntegerShapeSerializer
   @override
   final Iterable<Type> types = const [
     PrimitiveIntegerShape,
-    _$PrimitiveIntegerShape
+    _$PrimitiveIntegerShape,
   ];
   @override
   final String wireName = 'PrimitiveIntegerShape';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, PrimitiveIntegerShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    PrimitiveIntegerShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
@@ -34,8 +38,10 @@ class _$PrimitiveIntegerShapeSerializer
 
   @override
   PrimitiveIntegerShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new PrimitiveIntegerShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -45,8 +51,12 @@ class _$PrimitiveIntegerShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -61,22 +71,28 @@ class _$PrimitiveIntegerShape extends PrimitiveIntegerShape {
   @override
   final TraitMap traits;
 
-  factory _$PrimitiveIntegerShape(
-          [void Function(PrimitiveIntegerShapeBuilder)? updates]) =>
-      (new PrimitiveIntegerShapeBuilder()..update(updates))._build();
+  factory _$PrimitiveIntegerShape([
+    void Function(PrimitiveIntegerShapeBuilder)? updates,
+  ]) => (new PrimitiveIntegerShapeBuilder()..update(updates))._build();
 
   _$PrimitiveIntegerShape._({required this.shapeId, required this.traits})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'PrimitiveIntegerShape', 'shapeId');
+      shapeId,
+      r'PrimitiveIntegerShape',
+      'shapeId',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        traits, r'PrimitiveIntegerShape', 'traits');
+      traits,
+      r'PrimitiveIntegerShape',
+      'traits',
+    );
   }
 
   @override
   PrimitiveIntegerShape rebuild(
-          void Function(PrimitiveIntegerShapeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PrimitiveIntegerShapeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PrimitiveIntegerShapeBuilder toBuilder() =>
@@ -151,12 +167,20 @@ class PrimitiveIntegerShapeBuilder
   PrimitiveIntegerShape build() => _build();
 
   _$PrimitiveIntegerShape _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PrimitiveIntegerShape._(
-            shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'PrimitiveIntegerShape', 'shapeId'),
-            traits: BuiltValueNullFieldError.checkNotNull(
-                traits, r'PrimitiveIntegerShape', 'traits'));
+          shapeId: BuiltValueNullFieldError.checkNotNull(
+            shapeId,
+            r'PrimitiveIntegerShape',
+            'shapeId',
+          ),
+          traits: BuiltValueNullFieldError.checkNotNull(
+            traits,
+            r'PrimitiveIntegerShape',
+            'traits',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

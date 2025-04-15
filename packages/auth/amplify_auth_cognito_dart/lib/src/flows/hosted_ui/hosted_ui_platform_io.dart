@@ -99,9 +99,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Uri get signInRedirectUri => authOutputs.oauth!.redirectSignInUri
-      .map(
-        Uri.parse,
-      )
+      .map(Uri.parse)
       .firstWhere(
         (uri) =>
             uri.scheme == 'http' &&
@@ -111,9 +109,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Uri get signOutRedirectUri => authOutputs.oauth!.redirectSignOutUri
-      .map(
-        Uri.parse,
-      )
+      .map(Uri.parse)
       .firstWhere(
         (uri) =>
             uri.scheme == 'http' &&
@@ -153,10 +149,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         );
       }
     } on Exception catch (e) {
-      throw UrlLauncherException(
-        couldNotLaunch,
-        underlyingException: e,
-      );
+      throw UrlLauncherException(couldNotLaunch, underlyingException: e);
     }
   }
 
@@ -172,10 +165,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     late Uri selectedUri;
     for (final uri in uris) {
       try {
-        server = await HttpServer.bind(
-          InternetAddress.loopbackIPv4,
-          uri.port,
-        );
+        server = await HttpServer.bind(InternetAddress.loopbackIPv4, uri.port);
         selectedUri = uri;
         break;
       } on Exception {
@@ -211,9 +201,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     AuthProvider? provider,
   }) async {
     final signInUris = authOutputs.oauth!.redirectSignInUri
-        .map(
-          Uri.parse,
-        )
+        .map(Uri.parse)
         .where(
           (uri) =>
               uri.scheme == 'http' &&
@@ -225,11 +213,11 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
     final localServer = await localConnect(signInUris);
     try {
-      final signInUrl = (await getSignInUri(
-        provider: provider,
-        redirectUri: localServer.uri,
-      ))
-          .toString();
+      final signInUrl =
+          (await getSignInUri(
+            provider: provider,
+            redirectUri: localServer.uri,
+          )).toString();
       await launchUrl(signInUrl);
 
       await for (final request in localServer.server) {
@@ -250,27 +238,19 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         if ((!queryParams.containsKey('code') &&
                 !queryParams.containsKey('error')) ||
             !queryParams.containsKey('state')) {
-          await _respond(
-            request,
-            HttpStatus.badRequest,
-            'Missing parameter',
-          );
+          await _respond(request, HttpStatus.badRequest, 'Missing parameter');
           continue;
         }
         dispatcher
             .dispatch(
-              HostedUiEvent.exchange(
-                OAuthParameters.fromJson(queryParams),
-              ),
+              HostedUiEvent.exchange(OAuthParameters.fromJson(queryParams)),
             )
             .ignore();
         await _respond(
           request,
           HttpStatus.ok,
           _htmlForParams(queryParams, signIn: true),
-          headers: {
-            AWSHeaders.contentType: 'text/html',
-          },
+          headers: {AWSHeaders.contentType: 'text/html'},
         );
         break;
       }
@@ -287,9 +267,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     required CognitoSignInWithWebUIPluginOptions options,
   }) async {
     final signOutUris = authOutputs.oauth!.redirectSignOutUri
-        .map(
-          Uri.parse,
-        )
+        .map(Uri.parse)
         .where(
           (uri) =>
               uri.scheme == 'http' &&
@@ -323,9 +301,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
           request,
           HttpStatus.ok,
           _htmlForParams(queryParams, signIn: false),
-          headers: {
-            AWSHeaders.contentType: 'text/html',
-          },
+          headers: {AWSHeaders.contentType: 'text/html'},
         );
         break;
       }

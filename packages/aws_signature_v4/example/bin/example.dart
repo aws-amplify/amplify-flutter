@@ -39,15 +39,14 @@ Future<void> main(List<String> args) async {
 
   final parsedArgs = argParser.parse(args);
 
-  final bucket = parsedArgs[bucketArg] as String? ??
+  final bucket =
+      parsedArgs[bucketArg] as String? ??
       'mybucket-${Random().nextInt(1 << 30)}';
   final region = parsedArgs[regionArg] as String;
   final filename = parsedArgs.rest.singleOrNull;
 
   if (filename == null) {
-    exitWithError(
-      'Usage: dart s3_example.dart --region=... <FILE_TO_UPLOAD>',
-    );
+    exitWithError('Usage: dart s3_example.dart --region=... <FILE_TO_UPLOAD>');
   }
 
   // Create a signer which uses the `default` profile from the shared
@@ -57,21 +56,16 @@ Future<void> main(List<String> args) async {
   );
 
   // Set up S3 values
-  final scope = AWSCredentialScope(
-    region: region,
-    service: AWSService.s3,
-  );
+  final scope = AWSCredentialScope(region: region, service: AWSService.s3);
   final host = '$bucket.s3.$region.amazonaws.com';
   final serviceConfiguration = S3ServiceConfiguration();
 
   // Create the bucket
-  final createBody = utf8.encode(
-    '''
+  final createBody = utf8.encode('''
 <CreateBucketConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
 <LocationConstraint>$region</LocationConstraint>
 </CreateBucketConfiguration>
-''',
-  );
+''');
   final createRequest = AWSHttpRequest.put(
     Uri.https(host, '/'),
     body: createBody,
@@ -105,10 +99,7 @@ Future<void> main(List<String> args) async {
   final uploadRequest = AWSStreamedHttpRequest.put(
     Uri.https(host, path),
     body: file,
-    headers: {
-      AWSHeaders.host: host,
-      AWSHeaders.contentType: 'text/plain',
-    },
+    headers: {AWSHeaders.host: host, AWSHeaders.contentType: 'text/plain'},
   );
 
   stdout.writeln('Uploading file $filename to $path...');
@@ -128,9 +119,7 @@ Future<void> main(List<String> args) async {
   // Create a pre-signed URL for downloading the file
   final urlRequest = AWSHttpRequest.get(
     Uri.https(host, path),
-    headers: {
-      AWSHeaders.host: host,
-    },
+    headers: {AWSHeaders.host: host},
   );
   final signedUrl = await signer.presign(
     urlRequest,

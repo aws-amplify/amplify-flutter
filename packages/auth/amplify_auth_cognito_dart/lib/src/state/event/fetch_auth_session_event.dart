@@ -40,9 +40,8 @@ sealed class FetchAuthSessionEvent
   }) = FetchAuthSessionRefresh;
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_succeeded}
-  const factory FetchAuthSessionEvent.succeeded(
-    CognitoAuthSession session,
-  ) = FetchAuthSessionSucceeded;
+  const factory FetchAuthSessionEvent.succeeded(CognitoAuthSession session) =
+      FetchAuthSessionSucceeded;
 
   @override
   String get runtimeTypeName => 'FetchAuthSessionEvent';
@@ -65,9 +64,7 @@ final class FetchAuthSessionFetch extends FetchAuthSessionEvent {
   List<Object?> get props => [type, options];
 
   @override
-  PreconditionException? checkPrecondition(
-    FetchAuthSessionState currentState,
-  ) {
+  PreconditionException? checkPrecondition(FetchAuthSessionState currentState) {
     if (currentState.type == FetchAuthSessionStateType.refreshing ||
         currentState.type == FetchAuthSessionStateType.fetching) {
       return const AuthPreconditionException(
@@ -96,9 +93,7 @@ final class FetchAuthSessionFederate extends FetchAuthSessionEvent {
   List<Object?> get props => [type, request];
 
   @override
-  PreconditionException? checkPrecondition(
-    FetchAuthSessionState currentState,
-  ) {
+  PreconditionException? checkPrecondition(FetchAuthSessionState currentState) {
     if (currentState.type == FetchAuthSessionStateType.refreshing ||
         currentState.type == FetchAuthSessionStateType.fetching) {
       return const AuthPreconditionException(
@@ -134,16 +129,14 @@ final class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
 
   @override
   List<Object?> get props => [
-        type,
-        refreshAwsCredentials,
-        refreshUserPoolTokens,
-        federationOptions,
-      ];
+    type,
+    refreshAwsCredentials,
+    refreshUserPoolTokens,
+    federationOptions,
+  ];
 
   @override
-  PreconditionException? checkPrecondition(
-    FetchAuthSessionState currentState,
-  ) {
+  PreconditionException? checkPrecondition(FetchAuthSessionState currentState) {
     if (currentState.type == FetchAuthSessionStateType.refreshing) {
       return const AuthPreconditionException(
         'Credentials are already being refreshed.',

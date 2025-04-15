@@ -10,16 +10,16 @@ class _$PayloadWithXmlName extends PayloadWithXmlName {
   @override
   final String? name;
 
-  factory _$PayloadWithXmlName(
-          [void Function(PayloadWithXmlNameBuilder)? updates]) =>
-      (new PayloadWithXmlNameBuilder()..update(updates))._build();
+  factory _$PayloadWithXmlName([
+    void Function(PayloadWithXmlNameBuilder)? updates,
+  ]) => (new PayloadWithXmlNameBuilder()..update(updates))._build();
 
   _$PayloadWithXmlName._({this.name}) : super._();
 
   @override
   PayloadWithXmlName rebuild(
-          void Function(PayloadWithXmlNameBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PayloadWithXmlNameBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PayloadWithXmlNameBuilder toBuilder() =>

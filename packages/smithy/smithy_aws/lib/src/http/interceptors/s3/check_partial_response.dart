@@ -19,15 +19,15 @@ class CheckPartialResponse extends HttpResponseInterceptor {
     }
     return switch (response) {
       AWSHttpResponse _ => AWSHttpResponse(
-          statusCode: 200,
-          headers: response.headers,
-          body: response.bodyBytes,
-        ),
+        statusCode: 200,
+        headers: response.headers,
+        body: response.bodyBytes,
+      ),
       AWSStreamedHttpResponse _ => AWSStreamedHttpResponse(
-          statusCode: 200,
-          headers: response.headers,
-          body: response.body,
-        ),
+        statusCode: 200,
+        headers: response.headers,
+        body: response.body,
+      ),
     };
   }
 }

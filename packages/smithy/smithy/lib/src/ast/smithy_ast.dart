@@ -90,12 +90,13 @@ abstract class SmithyAst implements Built<SmithyAst, SmithyAstBuilder> {
 
   SmithyAst merge(SmithyAst other) {
     return SmithyAst(
-      (b) => b
-        ..version = version
-        ..metadata.addAll(metadata.toMap())
-        ..metadata.addAll(other.metadata.toMap())
-        ..shapes = ShapeMap(shapes)
-        ..shapes!.addAll(other.shapes),
+      (b) =>
+          b
+            ..version = version
+            ..metadata.addAll(metadata.toMap())
+            ..metadata.addAll(other.metadata.toMap())
+            ..shapes = ShapeMap(shapes)
+            ..shapes!.addAll(other.shapes),
     );
   }
 }

@@ -13,9 +13,7 @@ class WithHeader extends HttpRequestInterceptor {
   final bool replace;
 
   @override
-  AWSBaseHttpRequest intercept(
-    AWSBaseHttpRequest request,
-  ) {
+  AWSBaseHttpRequest intercept(AWSBaseHttpRequest request) {
     if (replace) {
       request.headers[key] = value;
     } else {
@@ -36,9 +34,7 @@ class WithNoHeader extends HttpRequestInterceptor {
   int get order => 10;
 
   @override
-  AWSBaseHttpRequest intercept(
-    AWSBaseHttpRequest request,
-  ) {
+  AWSBaseHttpRequest intercept(AWSBaseHttpRequest request) {
     request.headers.remove(key);
     return request;
   }

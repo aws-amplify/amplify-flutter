@@ -22,9 +22,9 @@ abstract class AliasExistsException
   }
 
   /// This exception is thrown when a user tries to confirm the account with an email address or phone number that has already been supplied as an alias for a different user profile. This exception indicates that an account with this email address or phone already exists in a user pool that you've configured to use email address or phone number as a sign-in alias.
-  factory AliasExistsException.build(
-          [void Function(AliasExistsExceptionBuilder) updates]) =
-      _$AliasExistsException;
+  factory AliasExistsException.build([
+    void Function(AliasExistsExceptionBuilder) updates,
+  ]) = _$AliasExistsException;
 
   const AliasExistsException._();
 
@@ -32,13 +32,12 @@ abstract class AliasExistsException
   factory AliasExistsException.fromResponse(
     AliasExistsException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<AliasExistsException>> serializers = [
-    AliasExistsExceptionAwsJson11Serializer()
+    AliasExistsExceptionAwsJson11Serializer(),
   ];
 
   /// The message that Amazon Cognito sends to the user when the value of an alias attribute is already linked to another user profile.
@@ -46,9 +45,9 @@ abstract class AliasExistsException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'AliasExistsException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'AliasExistsException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -69,10 +68,7 @@ abstract class AliasExistsException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AliasExistsException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -80,21 +76,18 @@ abstract class AliasExistsException
 class AliasExistsExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<AliasExistsException> {
   const AliasExistsExceptionAwsJson11Serializer()
-      : super('AliasExistsException');
+    : super('AliasExistsException');
 
   @override
   Iterable<Type> get types => const [
-        AliasExistsException,
-        _$AliasExistsException,
-      ];
+    AliasExistsException,
+    _$AliasExistsException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   AliasExistsException deserialize(
@@ -113,10 +106,12 @@ class AliasExistsExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -134,10 +129,9 @@ class AliasExistsExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

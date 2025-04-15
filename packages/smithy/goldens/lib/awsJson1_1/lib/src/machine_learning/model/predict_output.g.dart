@@ -83,7 +83,10 @@ class PredictOutputBuilder
         _prediction?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PredictOutput', _$failedField, e.toString());
+          r'PredictOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

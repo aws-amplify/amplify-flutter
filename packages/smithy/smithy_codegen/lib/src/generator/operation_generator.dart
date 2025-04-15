@@ -14,11 +14,8 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 class OperationGenerator extends LibraryGenerator<OperationShape>
     with OperationGenerationContext {
-  OperationGenerator(
-    super.shape,
-    CodegenContext context, {
-    super.smithyLibrary,
-  }) : super(context: context);
+  OperationGenerator(super.shape, CodegenContext context, {super.smithyLibrary})
+    : super(context: context);
 
   @override
   String get className => shape.dartName(context);
@@ -33,29 +30,31 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
 
   /// The operation's implementation class.
   Class get _operationClass => Class(
-        (c) => c
+    (c) =>
+        c
           ..docs.addAll([
             if (shape.hasDocs(context)) shape.formattedDocs(context),
           ])
           ..name = className
-          ..extend = paginatedTraits == null
-              ? DartTypes.smithy.httpOperation(
-                  inputPayload.symbol.unboxed,
-                  inputSymbol,
-                  outputPayload.symbol.unboxed,
-                  outputSymbol,
-                )
-              : DartTypes.smithy.paginatedHttpOperation(
-                  inputPayload.symbol.unboxed,
-                  inputSymbol,
-                  outputPayload.symbol.unboxed,
-                  outputSymbol,
-                  paginatedTraits!.inputToken?.symbol.unboxed ??
-                      DartTypes.core.void$,
-                  paginatedTraits!.pageSize?.symbol.unboxed ??
-                      DartTypes.core.void$,
-                  paginatedTraits!.items?.symbol.unboxed ?? outputSymbol,
-                )
+          ..extend =
+              paginatedTraits == null
+                  ? DartTypes.smithy.httpOperation(
+                    inputPayload.symbol.unboxed,
+                    inputSymbol,
+                    outputPayload.symbol.unboxed,
+                    outputSymbol,
+                  )
+                  : DartTypes.smithy.paginatedHttpOperation(
+                    inputPayload.symbol.unboxed,
+                    inputSymbol,
+                    outputPayload.symbol.unboxed,
+                    outputSymbol,
+                    paginatedTraits!.inputToken?.symbol.unboxed ??
+                        DartTypes.core.void$,
+                    paginatedTraits!.pageSize?.symbol.unboxed ??
+                        DartTypes.core.void$,
+                    paginatedTraits!.items?.symbol.unboxed ?? outputSymbol,
+                  )
           ..constructors.add(_constructor)
           ..fields.addAll([
             _protocolsGetter,
@@ -66,21 +65,25 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             ..._httpOverrides.whereType<Method>(),
             ..._paginatedMethods,
           ]),
-      );
+  );
 
   Constructor get _constructor => Constructor(
-        (ctor) => ctor
+    (ctor) =>
+        ctor
           ..docs.addAll([
             if (shape.hasDocs(context)) shape.formattedDocs(context),
           ])
           ..optionalParameters.addAll(shape.constructorParameters(context))
           ..initializers.addAll(
-            shape.constructorParameters(context).where((p) => !p.toThis).map(
+            shape
+                .constructorParameters(context)
+                .where((p) => !p.toThis)
+                .map(
                   (field) =>
                       refer('_${field.name}').assign(refer(field.name)).code,
                 ),
           ),
-      );
+  );
 
   /// The statements of the HTTP request builder.
   Iterable<Code> get _httpRequestBuilder sync* {
@@ -100,7 +103,9 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       yield builder
           .property('path')
           .assign(
-            refer('_s3ClientConfig').property('usePathStyle').conditional(
+            refer('_s3ClientConfig')
+                .property('usePathStyle')
+                .conditional(
                   // `raw` because some AWS paths use the '$' char.
                   literalString(uri, raw: true),
 
@@ -116,7 +121,6 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     } else {
       yield builder
           .property('path')
-
           // `raw` because some AWS paths use the '$' char.
           .assign(literalString(uri, raw: true))
           .statement;
@@ -127,7 +131,9 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       yield builder
           .property('hostPrefix')
           .assign(
-            refer('_s3ClientConfig').property('usePathStyle').conditional(
+            refer('_s3ClientConfig')
+                .property('usePathStyle')
+                .conditional(
                   literal(hostPrefix),
                   literalString('{Bucket}.${hostPrefix ?? ''}'),
                 ),
@@ -190,15 +196,19 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             ]),
           ]).statement;
         } else {
-          yield builder.property('requestInterceptors').property('add').call([
-            DartTypes.smithyAws.withChecksum.newInstance([
-              (memberIsNullable ? inputProperty.nullChecked : inputProperty)
-                  .property('value'),
-            ]),
-          ]).wrapWithBlockIf(
-            inputProperty.notEqualTo(literalNull),
-            memberIsNullable,
-          );
+          yield builder
+              .property('requestInterceptors')
+              .property('add')
+              .call([
+                DartTypes.smithyAws.withChecksum.newInstance([
+                  (memberIsNullable ? inputProperty.nullChecked : inputProperty)
+                      .property('value'),
+                ]),
+              ])
+              .wrapWithBlockIf(
+                inputProperty.notEqualTo(literalNull),
+                memberIsNullable,
+              );
         }
       }
     }
@@ -227,22 +237,23 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         // "Do not send null values, empty strings, or empty lists over the wire in headers"
         .wrapWithBlockIf(
           (isNullable ? valueRef.nullChecked : valueRef).property('isNotEmpty'),
-          const [ShapeType.list, ShapeType.set, ShapeType.string]
-                  .contains(targetShape.getType()) &&
+          const [
+                ShapeType.list,
+                ShapeType.set,
+                ShapeType.string,
+              ].contains(targetShape.getType()) &&
               !targetShape.hasTrait<MediaTypeTrait>() &&
               !targetShape.isEnum,
         )
-        .wrapWithBlockIf(
-          valueRef.notEqualTo(literalNull),
-          isNullable,
-        );
+        .wrapWithBlockIf(valueRef.notEqualTo(literalNull), isNullable);
   }
 
   /// Adds the prefixed headers to the request's headers map.
   Code _httpPrefixedHeaders(HttpPrefixHeaders headers) {
     final mapShape = context.shapeFor(headers.member.target) as MapShape;
-    final mapRef =
-        refer('input').property(headers.member.dartName(ShapeType.structure));
+    final mapRef = refer(
+      'input',
+    ).property(headers.member.dartName(ShapeType.structure));
     final isNullableMap = headers.member.isNullable(context, inputShape);
     final valueTarget = context.shapeFor(mapShape.value.target);
     return Block.of([
@@ -275,8 +286,10 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     final targetShape =
         value is MemberShape ? context.shapeFor(value.target) : value;
     if (targetShape is CollectionShape) {
-      final isNullableMember =
-          targetShape.member.isNullable(context, targetShape);
+      final isNullableMember = targetShape.member.isNullable(
+        context,
+        targetShape,
+      );
       Expression memberRef = refer('value');
       if (isNullableMember) {
         memberRef = memberRef.nullChecked;
@@ -300,10 +313,11 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       targetShape,
       isHeader: false,
     );
-    final addParam = builder
-        .property('queryParameters')
-        .property('add')
-        .call([key, toStringExp]).statement;
+    final addParam =
+        builder.property('queryParameters').property('add').call([
+          key,
+          toStringExp,
+        ]).statement;
     return addParam.wrapWithBlockIf(
       valueRef.notEqualTo(literalNull),
       isNullable,
@@ -315,8 +329,9 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     final targetShape = context.shapeFor(queryParameters.target) as MapShape;
     final valueShape = context.shapeFor(targetShape.value.target);
     final isNullable = queryParameters.isNullable(context, inputShape);
-    final mapRef =
-        refer('input').property(queryParameters.dartName(ShapeType.structure));
+    final mapRef = refer(
+      'input',
+    ).property(queryParameters.dartName(ShapeType.structure));
     var entriesRef = mapRef;
     if (isNullable) {
       entriesRef = entriesRef.nullChecked;
@@ -342,25 +357,28 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     // The `buildRequest` method
     final request = DartTypes.smithy.httpRequest.newInstance([
       Method(
-        (m) => m
-          ..requiredParameters.add(Parameter((p) => p..name = 'b'))
-          ..lambda = false
-          ..body = Block.of(_httpRequestBuilder),
+        (m) =>
+            m
+              ..requiredParameters.add(Parameter((p) => p..name = 'b'))
+              ..lambda = false
+              ..body = Block.of(_httpRequestBuilder),
       ).closure,
     ]);
     yield Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = DartTypes.smithy.httpRequest
-        ..name = 'buildRequest'
-        ..requiredParameters.add(
-          Parameter(
-            (p) => p
-              ..name = 'input'
-              ..type = inputSymbol,
-          ),
-        )
-        ..body = request.code,
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..returns = DartTypes.smithy.httpRequest
+            ..name = 'buildRequest'
+            ..requiredParameters.add(
+              Parameter(
+                (p) =>
+                    p
+                      ..name = 'input'
+                      ..type = inputSymbol,
+              ),
+            )
+            ..body = request.code,
     );
 
     // The `successCode` method
@@ -372,70 +390,79 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
           .ifNullThen(successCode);
     }
     yield Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = DartTypes.core.int
-        ..name = 'successCode'
-        ..lambda = true
-        ..optionalParameters.add(
-          Parameter(
-            (p) => p
-              ..name = 'output'
-              ..type = outputSymbol.boxed,
-          ),
-        )
-        ..body = successCode.code,
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..returns = DartTypes.core.int
+            ..name = 'successCode'
+            ..lambda = true
+            ..optionalParameters.add(
+              Parameter(
+                (p) =>
+                    p
+                      ..name = 'output'
+                      ..type = outputSymbol.boxed,
+              ),
+            )
+            ..body = successCode.code,
     );
 
     // The `buildOutput` method
-    final output = outputPayload.symbol == DartTypes.smithy.unit
-        ? refer('payload')
-        : outputSymbol.newInstanceNamed('fromResponse', [
-            refer('payload'),
-            refer('response'),
-          ]);
+    final output =
+        outputPayload.symbol == DartTypes.smithy.unit
+            ? refer('payload')
+            : outputSymbol.newInstanceNamed('fromResponse', [
+              refer('payload'),
+              refer('response'),
+            ]);
     yield Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = outputSymbol
-        ..name = 'buildOutput'
-        ..requiredParameters.addAll([
-          Parameter(
-            (p) => p
-              ..name = 'payload'
-              ..type = outputPayload.symbol,
-          ),
-          Parameter(
-            (p) => p
-              ..name = 'response'
-              ..type = DartTypes.awsCommon.awsBaseHttpResponse,
-          ),
-        ])
-        ..body = output.code,
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..returns = outputSymbol
+            ..name = 'buildOutput'
+            ..requiredParameters.addAll([
+              Parameter(
+                (p) =>
+                    p
+                      ..name = 'payload'
+                      ..type = outputPayload.symbol,
+              ),
+              Parameter(
+                (p) =>
+                    p
+                      ..name = 'response'
+                      ..type = DartTypes.awsCommon.awsBaseHttpResponse,
+              ),
+            ])
+            ..body = output.code,
     );
 
     // The `errorTypes` getter
     yield Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = DartTypes.core.list(DartTypes.smithy.smithyError)
-        ..type = MethodType.getter
-        ..name = 'errorTypes'
-        ..lambda = true
-        ..body = literalConstList([
-          for (final error in errorSymbols) error.constInstance,
-        ]).code,
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..returns = DartTypes.core.list(DartTypes.smithy.smithyError)
+            ..type = MethodType.getter
+            ..name = 'errorTypes'
+            ..lambda = true
+            ..body =
+                literalConstList([
+                  for (final error in errorSymbols) error.constInstance,
+                ]).code,
     );
 
     // The `runtimeTypeName` getter
     yield Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = DartTypes.core.string
-        ..type = MethodType.getter
-        ..name = 'runtimeTypeName'
-        ..lambda = true
-        ..body = literalString(shape.shapeId.shape).code,
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..returns = DartTypes.core.string
+            ..type = MethodType.getter
+            ..name = 'runtimeTypeName'
+            ..lambda = true
+            ..body = literalString(shape.shapeId.shape).code,
     );
 
     final resolvedService = context.service?.resolvedService;
@@ -443,24 +470,26 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     if (isAwsService) {
       // The standard AWS retryer
       yield Method(
-        (m) => m
-          ..annotations.add(DartTypes.core.override)
-          ..returns = DartTypes.smithyAws.awsRetryer
-          ..name = 'retryer'
-          ..type = MethodType.getter
-          ..body = DartTypes.smithyAws.awsRetryer.newInstance([]).code,
+        (m) =>
+            m
+              ..annotations.add(DartTypes.core.override)
+              ..returns = DartTypes.smithyAws.awsRetryer
+              ..name = 'retryer'
+              ..type = MethodType.getter
+              ..body = DartTypes.smithyAws.awsRetryer.newInstance([]).code,
       );
 
       // S3 requires a special baseUri to consider customizations
       if (resolvedService.sdkId == 'S3') {
         yield Method(
-          (m) => m
-            ..annotations.add(DartTypes.core.override)
-            ..returns = DartTypes.core.uri
-            ..name = 'baseUri'
-            ..type = MethodType.getter
-            ..body = Code.scope(
-              (allocate) => '''
+          (m) =>
+              m
+                ..annotations.add(DartTypes.core.override)
+                ..returns = DartTypes.core.uri
+                ..name = 'baseUri'
+                ..type = MethodType.getter
+                ..body = Code.scope(
+                  (allocate) => '''
   var baseUri = _baseUri ?? endpoint.uri;
   if (_s3ClientConfig.useDualStack) {
     baseUri = baseUri.replace(
@@ -475,18 +504,20 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     );
   }
   return baseUri;''',
-            ),
+                ),
         );
       } else {
         yield Method(
-          (m) => m
-            ..annotations.add(DartTypes.core.override)
-            ..returns = DartTypes.core.uri
-            ..name = 'baseUri'
-            ..type = MethodType.getter
-            ..body = refer('_baseUri')
-                .ifNullThen(refer('endpoint').property('uri'))
-                .code,
+          (m) =>
+              m
+                ..annotations.add(DartTypes.core.override)
+                ..returns = DartTypes.core.uri
+                ..name = 'baseUri'
+                ..type = MethodType.getter
+                ..body =
+                    refer(
+                      '_baseUri',
+                    ).ifNullThen(refer('endpoint').property('uri')).code,
         );
       }
 
@@ -495,84 +526,106 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       final endpointResolver = refer('endpointResolver', endpointResolverLib);
       final sdkId = refer('sdkId', endpointResolverLib);
       yield Field(
-        (m) => m
-          ..late = true
-          ..modifier = FieldModifier.final$
-          ..type = DartTypes.smithyAws.awsEndpoint
-          ..name = '_awsEndpoint'
-          ..assignment = endpointResolver.property('resolve').call([
-            sdkId,
-            refer('_region'),
-          ]).code,
+        (m) =>
+            m
+              ..late = true
+              ..modifier = FieldModifier.final$
+              ..type = DartTypes.smithyAws.awsEndpoint
+              ..name = '_awsEndpoint'
+              ..assignment =
+                  endpointResolver.property('resolve').call([
+                    sdkId,
+                    refer('_region'),
+                  ]).code,
       );
 
       yield Method(
-        (m) => m
-          ..annotations.add(DartTypes.core.override)
-          ..returns = DartTypes.smithy.endpoint
-          ..name = 'endpoint'
-          ..type = MethodType.getter
-          ..body = refer('_awsEndpoint').property('endpoint').code,
+        (m) =>
+            m
+              ..annotations.add(DartTypes.core.override)
+              ..returns = DartTypes.smithy.endpoint
+              ..name = 'endpoint'
+              ..type = MethodType.getter
+              ..body = refer('_awsEndpoint').property('endpoint').code,
       );
 
       // Override `run` to use zone values
       yield Method(
-        (m) => m
-          ..annotations.add(DartTypes.core.override)
-          ..returns = DartTypes.smithy.smithyOperation(outputSymbol)
-          ..name = 'run'
-          ..requiredParameters.add(
-            Parameter(
-              (p) => p
-                ..type = inputSymbol
-                ..name = 'input',
-            ),
-          )
-          ..optionalParameters.addAll([
-            Parameter(
-              (p) => p
-                ..type = DartTypes.awsCommon.awsHttpClient.boxed
-                ..name = 'client'
-                ..named = true,
-            ),
-            Parameter(
-              (p) => p
-                ..type = DartTypes.smithy.shapeId.boxed
-                ..name = 'useProtocol'
-                ..named = true,
-            ),
-          ])
-          ..body = DartTypes.async.runZoned
-              .call([
-                Method(
-                  (m) => m
-                    ..body = refer('super').property('run').call([
-                      refer('input'),
-                    ], {
-                      'client': refer('client'),
-                      'useProtocol': refer('useProtocol'),
-                    }).code,
-                ).closure,
-              ], {
-                'zoneValues': literalMap({
-                  literalNullSafeSpread(): refer('_awsEndpoint')
-                      .property('credentialScope')
-                      .nullSafeProperty('zoneValues'),
-                  literalSpread(): literalMap({
-                    DartTypes.awsCommon.awsHeaders.property('sdkInvocationId'):
-                        DartTypes.awsCommon.uuid(),
-                  }),
-                }),
-              })
-              .returned
-              .statement,
+        (m) =>
+            m
+              ..annotations.add(DartTypes.core.override)
+              ..returns = DartTypes.smithy.smithyOperation(outputSymbol)
+              ..name = 'run'
+              ..requiredParameters.add(
+                Parameter(
+                  (p) =>
+                      p
+                        ..type = inputSymbol
+                        ..name = 'input',
+                ),
+              )
+              ..optionalParameters.addAll([
+                Parameter(
+                  (p) =>
+                      p
+                        ..type = DartTypes.awsCommon.awsHttpClient.boxed
+                        ..name = 'client'
+                        ..named = true,
+                ),
+                Parameter(
+                  (p) =>
+                      p
+                        ..type = DartTypes.smithy.shapeId.boxed
+                        ..name = 'useProtocol'
+                        ..named = true,
+                ),
+              ])
+              ..body =
+                  DartTypes.async.runZoned
+                      .call(
+                        [
+                          Method(
+                            (m) =>
+                                m
+                                  ..body =
+                                      refer('super')
+                                          .property('run')
+                                          .call(
+                                            [refer('input')],
+                                            {
+                                              'client': refer('client'),
+                                              'useProtocol': refer(
+                                                'useProtocol',
+                                              ),
+                                            },
+                                          )
+                                          .code,
+                          ).closure,
+                        ],
+                        {
+                          'zoneValues': literalMap({
+                            literalNullSafeSpread(): refer('_awsEndpoint')
+                                .property('credentialScope')
+                                .nullSafeProperty('zoneValues'),
+                            literalSpread(): literalMap({
+                              DartTypes.awsCommon.awsHeaders.property(
+                                    'sdkInvocationId',
+                                  ):
+                                  DartTypes.awsCommon.uuid(),
+                            }),
+                          }),
+                        },
+                      )
+                      .returned
+                      .statement,
       );
     }
   }
 
   /// The `protocols` override getter.
   Field get _protocolsGetter => Field(
-        (f) => f
+    (f) =>
+        f
           ..annotations.add(DartTypes.core.override)
           ..late = true
           ..modifier = FieldModifier.final$
@@ -585,23 +638,24 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             ),
           )
           ..name = 'protocols'
-          ..assignment = literalList([
-            for (final protocol in context.serviceProtocols)
-              protocol.instantiableProtocolSymbol.newInstance([], {
-                'serializers': protocol.serializers(context),
-                'builderFactories': context.builderFactoriesRef,
-                'requestInterceptors': literalList(
-                  protocol.requestInterceptors(shape, context),
-                  DartTypes.smithy.httpRequestInterceptor,
-                ).operatorAdd(refer('_requestInterceptors')),
-                'responseInterceptors': literalList(
-                  protocol.responseInterceptors(shape, context),
-                  DartTypes.smithy.httpResponseInterceptor,
-                ).operatorAdd(refer('_responseInterceptors')),
-                ...protocol.extraParameters(shape, context),
-              }),
-          ]).code,
-      );
+          ..assignment =
+              literalList([
+                for (final protocol in context.serviceProtocols)
+                  protocol.instantiableProtocolSymbol.newInstance([], {
+                    'serializers': protocol.serializers(context),
+                    'builderFactories': context.builderFactoriesRef,
+                    'requestInterceptors': literalList(
+                      protocol.requestInterceptors(shape, context),
+                      DartTypes.smithy.httpRequestInterceptor,
+                    ).operatorAdd(refer('_requestInterceptors')),
+                    'responseInterceptors': literalList(
+                      protocol.responseInterceptors(shape, context),
+                      DartTypes.smithy.httpResponseInterceptor,
+                    ).operatorAdd(refer('_responseInterceptors')),
+                    ...protocol.extraParameters(shape, context),
+                  }),
+              ]).code,
+  );
 
   Iterable<Method> get _paginatedMethods sync* {
     final paginatedTraits = this.paginatedTraits;
@@ -614,20 +668,23 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     // The `getToken` method.
     final outputToken = paginatedTraits.outputToken;
     yield Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = outputToken?.symbol.boxed ?? DartTypes.core.void$
-        ..name = 'getToken'
-        ..requiredParameters.add(
-          Parameter(
-            (p) => p
-              ..type = outputSymbol
-              ..name = 'output',
-          ),
-        )
-        ..lambda = outputToken != null
-        ..body = outputToken?.buildExpression.call(refer('output')).code ??
-            emptyBody,
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..returns = outputToken?.symbol.boxed ?? DartTypes.core.void$
+            ..name = 'getToken'
+            ..requiredParameters.add(
+              Parameter(
+                (p) =>
+                    p
+                      ..type = outputSymbol
+                      ..name = 'output',
+              ),
+            )
+            ..lambda = outputToken != null
+            ..body =
+                outputToken?.buildExpression.call(refer('output')).code ??
+                emptyBody,
     );
 
     // The `getItems` method.
@@ -635,9 +692,10 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     final items = paginatedTraits.items;
     if (items != null && items.isNullable) {
       final symbol = items.symbol.typeRef.rebuild(
-        (t) => t
-          ..isNullable = false
-          ..types.clear(),
+        (t) =>
+            t
+              ..isNullable = false
+              ..types.clear(),
       );
       defaultValue = symbol.newInstance([]);
     }
@@ -647,19 +705,21 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       itemsBody = itemsBody.ifNullThen(defaultValue);
     }
     yield Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = items?.symbol.unboxed ?? outputSymbol
-        ..name = 'getItems'
-        ..requiredParameters.add(
-          Parameter(
-            (p) => p
-              ..type = outputSymbol
-              ..name = 'output',
-          ),
-        )
-        ..lambda = true
-        ..body = itemsBody.code,
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..returns = items?.symbol.unboxed ?? outputSymbol
+            ..name = 'getItems'
+            ..requiredParameters.add(
+              Parameter(
+                (p) =>
+                    p
+                      ..type = outputSymbol
+                      ..name = 'output',
+              ),
+            )
+            ..lambda = true
+            ..body = itemsBody.code,
     );
 
     // The `rebuildInput` method.
@@ -683,47 +743,56 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       }
     }
     yield Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = inputSymbol
-        ..name = 'rebuildInput'
-        ..requiredParameters.addAll([
-          Parameter(
-            (p) => p
-              ..type = inputSymbol
-              ..name = 'input',
-          ),
-          Parameter(
-            (p) => p
-              ..type = inputToken?.symbol.unboxed ?? DartTypes.core.void$
-              ..name = 'token',
-          ),
-          Parameter(
-            (p) => p
-              ..type = pageSize?.symbol.boxed ?? DartTypes.core.void$
-              ..name = 'pageSize',
-          ),
-        ])
-        ..lambda = true
-        ..body = refer('input').property('rebuild').call([
-          Method(
-            (m) => m
-              ..requiredParameters.add(Parameter((p) => p..name = 'b'))
-              ..body = Block.of([
-                if (inputToken != null && outputToken != null)
-                  inputTokenBuilder!.statement,
-                if (pageSize != null)
-                  pageSize
-                      .buildExpression(refer('b'))
-                      .assign(refer('pageSize'))
-                      .statement
-                      .wrapWithBlockIf(
-                        refer('pageSize').notEqualTo(literalNull),
-                        pageSize.isNullable,
-                      ),
-              ]),
-          ).closure,
-        ]).code,
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..returns = inputSymbol
+            ..name = 'rebuildInput'
+            ..requiredParameters.addAll([
+              Parameter(
+                (p) =>
+                    p
+                      ..type = inputSymbol
+                      ..name = 'input',
+              ),
+              Parameter(
+                (p) =>
+                    p
+                      ..type =
+                          inputToken?.symbol.unboxed ?? DartTypes.core.void$
+                      ..name = 'token',
+              ),
+              Parameter(
+                (p) =>
+                    p
+                      ..type = pageSize?.symbol.boxed ?? DartTypes.core.void$
+                      ..name = 'pageSize',
+              ),
+            ])
+            ..lambda = true
+            ..body =
+                refer('input').property('rebuild').call([
+                  Method(
+                    (m) =>
+                        m
+                          ..requiredParameters.add(
+                            Parameter((p) => p..name = 'b'),
+                          )
+                          ..body = Block.of([
+                            if (inputToken != null && outputToken != null)
+                              inputTokenBuilder!.statement,
+                            if (pageSize != null)
+                              pageSize
+                                  .buildExpression(refer('b'))
+                                  .assign(refer('pageSize'))
+                                  .statement
+                                  .wrapWithBlockIf(
+                                    refer('pageSize').notEqualTo(literalNull),
+                                    pageSize.isNullable,
+                                  ),
+                          ]),
+                  ).closure,
+                ]).code,
     );
   }
 }

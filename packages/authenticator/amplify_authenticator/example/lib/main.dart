@@ -41,8 +41,8 @@ class _MyAppState extends State<MyApp> {
       /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
       secureStorageFactory: AmplifySecureStorage.factoryFrom(
         macOSOptions:
-            // ignore: invalid_use_of_visible_for_testing_member
-            MacOSSecureStorageOptions(useDataProtection: false),
+        // ignore: invalid_use_of_visible_for_testing_member
+        MacOSSecureStorageOptions(useDataProtection: false),
       ),
     );
     try {
@@ -107,9 +107,7 @@ class _MyAppState extends State<MyApp> {
       // Authenticator.builder()
       signUpForm: SignUpForm.custom(
         fields: [
-          SignUpFormField.username(
-            validator: _validateUsername,
-          ),
+          SignUpFormField.username(validator: _validateUsername),
           SignUpFormField.email(required: true),
           SignUpFormField.password(),
           SignUpFormField.passwordConfirmation(),
@@ -136,9 +134,7 @@ class _MyAppState extends State<MyApp> {
         // These lines enable our custom localizations specified in the lib/l10n
         // directory, which will be used later to customize the values displayed
         // in the Authenticator component.
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-        ],
+        localizationsDelegates: const [AppLocalizations.delegate],
         supportedLocales: const [
           Locale('en'), // English
           Locale('es'), // Spanish
@@ -226,15 +222,13 @@ class RouteA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Route A'),
-      ),
+      appBar: AppBar(title: const Text('Route A')),
       body: Center(
         child: Column(
           children: [
             ElevatedButton(
-              onPressed: () =>
-                  Navigator.of(context).pushReplacementNamed('/routeB'),
+              onPressed:
+                  () => Navigator.of(context).pushReplacementNamed('/routeB'),
               child: const Text('Goto Route B'),
             ),
             const SizedBox(height: 20),
@@ -252,15 +246,13 @@ class RouteB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Route B'),
-      ),
+      appBar: AppBar(title: const Text('Route B')),
       body: Center(
         child: Column(
           children: [
             ElevatedButton(
-              onPressed: () =>
-                  Navigator.of(context).pushReplacementNamed('/routeA'),
+              onPressed:
+                  () => Navigator.of(context).pushReplacementNamed('/routeA'),
               child: const Text('Goto Route A'),
             ),
             const SizedBox(height: 20),

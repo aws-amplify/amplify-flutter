@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_json1_1_v2.machine_learning.test.predict_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -22,52 +22,57 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test('MachinelearningPredictEndpoint (request)', () async {
-    await _i2.httpRequestTest(
-      operation: PredictOperation(
-        region: 'us-east-1',
-        baseUri: Uri.parse('https://example.com'),
-        credentialsProvider:
-            const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-          'DUMMY-ACCESS-KEY-ID',
-          'DUMMY-SECRET-ACCESS-KEY',
-        )),
-      ),
-      testCase: const _i2.HttpRequestTestCase(
-        id: 'MachinelearningPredictEndpoint',
-        documentation:
-            'MachineLearning\'s api makes use of generated endpoints that the\ncustomer is then expected to use for the Predict operation. Having\nto alter the endpoint for a specific operation would be cumbersome,\nso an AWS client should be able to do it for them.',
-        protocol: _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
+  _i1.test(
+    'MachinelearningPredictEndpoint (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: PredictOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+          credentialsProvider: const _i3.AWSCredentialsProvider(
+            _i3.AWSCredentials(
+              'DUMMY-ACCESS-KEY-ID',
+              'DUMMY-SECRET-ACCESS-KEY',
+            ),
+          ),
         ),
-        authScheme: null,
-        body:
-            '{"MLModelId": "foo", "Record": {}, "PredictEndpoint": "https://custom.example.com/"}',
-        bodyMediaType: 'application/json',
-        params: {
-          'MLModelId': 'foo',
-          'Record': {},
-          'PredictEndpoint': 'https://custom.example.com/',
-        },
-        vendorParamsShape: null,
-        vendorParams: {},
-        headers: {'Content-Type': 'application/x-amz-json-1.1'},
-        forbidHeaders: [],
-        requireHeaders: [],
-        tags: [],
-        appliesTo: null,
-        method: 'POST',
-        uri: '/',
-        host: 'example.com',
-        resolvedHost: 'custom.example.com',
-        queryParams: [],
-        forbidQueryParams: [],
-        requireQueryParams: [],
-      ),
-      inputSerializers: const [PredictInputAwsJson11Serializer()],
-    );
-  }, skip: 'ML Predict is not supported yet');
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'MachinelearningPredictEndpoint',
+          documentation:
+              'MachineLearning\'s api makes use of generated endpoints that the\ncustomer is then expected to use for the Predict operation. Having\nto alter the endpoint for a specific operation would be cumbersome,\nso an AWS client should be able to do it for them.',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'awsJson1_1',
+          ),
+          authScheme: null,
+          body:
+              '{"MLModelId": "foo", "Record": {}, "PredictEndpoint": "https://custom.example.com/"}',
+          bodyMediaType: 'application/json',
+          params: {
+            'MLModelId': 'foo',
+            'Record': {},
+            'PredictEndpoint': 'https://custom.example.com/',
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/x-amz-json-1.1'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/',
+          host: 'example.com',
+          resolvedHost: 'custom.example.com',
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [PredictInputAwsJson11Serializer()],
+      );
+    },
+    skip: 'ML Predict is not supported yet',
+  );
 }
 
 class PredictInputAwsJson11Serializer
@@ -79,11 +84,8 @@ class PredictInputAwsJson11Serializer
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   PredictInput deserialize(
@@ -102,26 +104,30 @@ class PredictInputAwsJson11Serializer
       }
       switch (key) {
         case 'MLModelId':
-          result.mlModelId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.mlModelId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Record':
-          result.record.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i5.BuiltMap<String, String>));
+          result.record.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i5.BuiltMap<String, String>),
+          );
         case 'PredictEndpoint':
-          result.predictEndpoint = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.predictEndpoint =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -147,11 +153,8 @@ class PredictOutputAwsJson11Serializer
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   PredictOutput deserialize(
@@ -170,10 +173,13 @@ class PredictOutputAwsJson11Serializer
       }
       switch (key) {
         case 'Prediction':
-          result.prediction.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(Prediction),
-          ) as Prediction));
+          result.prediction.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(Prediction),
+                )
+                as Prediction),
+          );
       }
     }
 
@@ -199,11 +205,8 @@ class PredictionAwsJson11Serializer
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   Prediction deserialize(
@@ -222,37 +225,41 @@ class PredictionAwsJson11Serializer
       }
       switch (key) {
         case 'predictedLabel':
-          result.predictedLabel = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.predictedLabel =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'predictedValue':
-          result.predictedValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.predictedValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'predictedScores':
-          result.predictedScores.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltMap,
-              [
-                FullType(String),
-                FullType(double),
-              ],
-            ),
-          ) as _i5.BuiltMap<String, double>));
+          result.predictedScores.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltMap, [
+                    FullType(String),
+                    FullType(double),
+                  ]),
+                )
+                as _i5.BuiltMap<String, double>),
+          );
         case 'details':
-          result.details.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i5.BuiltMap,
-              [
-                FullType(DetailsAttributes),
-                FullType(String),
-              ],
-            ),
-          ) as _i5.BuiltMap<DetailsAttributes, String>));
+          result.details.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i5.BuiltMap, [
+                    FullType(DetailsAttributes),
+                    FullType(String),
+                  ]),
+                )
+                as _i5.BuiltMap<DetailsAttributes, String>),
+          );
       }
     }
 
@@ -272,18 +279,15 @@ class PredictionAwsJson11Serializer
 class InternalServerExceptionAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<InternalServerException> {
   const InternalServerExceptionAwsJson11Serializer()
-      : super('InternalServerException');
+    : super('InternalServerException');
 
   @override
   Iterable<Type> get types => const [InternalServerException];
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   InternalServerException deserialize(
@@ -302,15 +306,19 @@ class InternalServerExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -330,18 +338,15 @@ class InternalServerExceptionAwsJson11Serializer
 class InvalidInputExceptionAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<InvalidInputException> {
   const InvalidInputExceptionAwsJson11Serializer()
-      : super('InvalidInputException');
+    : super('InvalidInputException');
 
   @override
   Iterable<Type> get types => const [InvalidInputException];
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   InvalidInputException deserialize(
@@ -360,15 +365,19 @@ class InvalidInputExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -388,18 +397,15 @@ class InvalidInputExceptionAwsJson11Serializer
 class LimitExceededExceptionAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<LimitExceededException> {
   const LimitExceededExceptionAwsJson11Serializer()
-      : super('LimitExceededException');
+    : super('LimitExceededException');
 
   @override
   Iterable<Type> get types => const [LimitExceededException];
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   LimitExceededException deserialize(
@@ -418,15 +424,19 @@ class LimitExceededExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -446,18 +456,15 @@ class LimitExceededExceptionAwsJson11Serializer
 class PredictorNotMountedExceptionAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<PredictorNotMountedException> {
   const PredictorNotMountedExceptionAwsJson11Serializer()
-      : super('PredictorNotMountedException');
+    : super('PredictorNotMountedException');
 
   @override
   Iterable<Type> get types => const [PredictorNotMountedException];
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   PredictorNotMountedException deserialize(
@@ -476,10 +483,12 @@ class PredictorNotMountedExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -499,18 +508,15 @@ class PredictorNotMountedExceptionAwsJson11Serializer
 class ResourceNotFoundExceptionAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<ResourceNotFoundException> {
   const ResourceNotFoundExceptionAwsJson11Serializer()
-      : super('ResourceNotFoundException');
+    : super('ResourceNotFoundException');
 
   @override
   Iterable<Type> get types => const [ResourceNotFoundException];
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ResourceNotFoundException deserialize(
@@ -529,15 +535,19 @@ class ResourceNotFoundExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 

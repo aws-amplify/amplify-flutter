@@ -12,43 +12,46 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group(
-      'One-to-one unidirectional (parent refers to child with explicit connection field)',
-      () {
-    // schema
-    // type CpkHasOneUnidirectionalParent @model {
-    //   id: ID! @primaryKey(sortKeyFields: ["name"])
-    //   name: String!
-    //   implicitChild: CpkHasOneUnidirectionalChild @hasOne
-    // }
-    //
-    // type CpkHasOneUnidirectionalChild @model {
-    //   id: ID! @primaryKey(sortKeyFields: ["name"])
-    //   name: String!
-    // }
+    'One-to-one unidirectional (parent refers to child with explicit connection field)',
+    () {
+      // schema
+      // type CpkHasOneUnidirectionalParent @model {
+      //   id: ID! @primaryKey(sortKeyFields: ["name"])
+      //   name: String!
+      //   implicitChild: CpkHasOneUnidirectionalChild @hasOne
+      // }
+      //
+      // type CpkHasOneUnidirectionalChild @model {
+      //   id: ID! @primaryKey(sortKeyFields: ["name"])
+      //   name: String!
+      // }
 
-    final enableCloudSync = shouldEnableCloudSync();
-    var associatedModels = [CpkHasOneUnidirectionalChild(name: 'child')];
-    // Currently with @hasOne, parent -> child relationship is created
-    // by assign child.id to the connection field of the parent
-    var rootModels = [
-      CpkHasOneUnidirectionalParent(
-        name: 'HasOne (explicit)',
-        cpkHasOneUnidirectionalParentImplicitChildId: associatedModels.first.id,
-        cpkHasOneUnidirectionalParentImplicitChildName:
-            associatedModels.first.name,
-      )
-    ];
+      final enableCloudSync = shouldEnableCloudSync();
+      var associatedModels = [CpkHasOneUnidirectionalChild(name: 'child')];
+      // Currently with @hasOne, parent -> child relationship is created
+      // by assign child.id to the connection field of the parent
+      var rootModels = [
+        CpkHasOneUnidirectionalParent(
+          name: 'HasOne (explicit)',
+          cpkHasOneUnidirectionalParentImplicitChildId:
+              associatedModels.first.id,
+          cpkHasOneUnidirectionalParentImplicitChildName:
+              associatedModels.first.name,
+        ),
+      ];
 
-    testRootAndAssociatedModelsRelationship(
-      modelProvider: ModelProvider.instance,
-      rootModelType: CpkHasOneUnidirectionalParent.classType,
-      rootModels: rootModels,
-      rootModelQueryIdentifier: CpkHasOneUnidirectionalParent.MODEL_IDENTIFIER,
-      associatedModelType: CpkHasOneUnidirectionalChild.classType,
-      associatedModels: associatedModels,
-      associatedModelQueryIdentifier:
-          CpkHasOneUnidirectionalChild.MODEL_IDENTIFIER,
-      enableCloudSync: enableCloudSync,
-    );
-  });
+      testRootAndAssociatedModelsRelationship(
+        modelProvider: ModelProvider.instance,
+        rootModelType: CpkHasOneUnidirectionalParent.classType,
+        rootModels: rootModels,
+        rootModelQueryIdentifier:
+            CpkHasOneUnidirectionalParent.MODEL_IDENTIFIER,
+        associatedModelType: CpkHasOneUnidirectionalChild.classType,
+        associatedModels: associatedModels,
+        associatedModelQueryIdentifier:
+            CpkHasOneUnidirectionalChild.MODEL_IDENTIFIER,
+        enableCloudSync: enableCloudSync,
+      );
+    },
+  );
 }

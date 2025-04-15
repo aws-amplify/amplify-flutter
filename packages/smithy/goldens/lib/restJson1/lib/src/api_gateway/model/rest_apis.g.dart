@@ -92,7 +92,10 @@ class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
         _items?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'RestApis', _$failedField, e.toString());
+          r'RestApis',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

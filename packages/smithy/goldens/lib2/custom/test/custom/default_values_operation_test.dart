@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library custom_v2.custom.test.default_values_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -15,106 +15,94 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'DefaultValuesRequestSerialization (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: DefaultValuesOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'DefaultValuesRequestSerialization',
-          documentation:
-              'Default values SHOULD be serialized and MUST be when @required',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "requiredDefaultInt": 42,\n    "optionalDefaultInt": 42,\n    "requiredDefaultString": "default",\n    "optionalDefaultString": "default",\n    "requiredDefaultEnum": "A",\n    "optionalDefaultEnum": "A",\n    "requiredDefaultList": [],\n    "optionalDefaultList": [],\n    "requiredDefaultMap": {},\n    "optionalDefaultMap": {},\n    "requiredDefaultBool": true,\n    "optionalDefaultBool": true\n}\n',
-          bodyMediaType: 'application/json',
-          params: {
-            'requiredDefaultInt': null,
-            'requiredDefaultString': null,
-            'requiredDefaultEnum': null,
-            'requiredDefaultList': null,
-            'requiredDefaultMap': null,
-            'requiredDefaultBool': null,
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/default',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [DefaultValuesInputRestJson1Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'DefaultValuesResponseSerialization (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: DefaultValuesOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'DefaultValuesResponseSerialization',
-          documentation:
-              'Default values SHOULD be serialized and MUST be when @required',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "requiredDefaultInt": 42,\n    "requiredDefaultString": "default",\n    "requiredDefaultEnum": "A",\n    "requiredDefaultList": [],\n    "requiredDefaultMap": {},\n    "requiredDefaultBool": true\n}\n',
-          bodyMediaType: 'application/json',
-          params: {
-            'requiredDefaultInt': 42,
-            'optionalDefaultInt': 42,
-            'nullifiedDefaultInt': null,
-            'requiredDefaultString': 'default',
-            'optionalDefaultString': 'default',
-            'nullifiedDefaultString': null,
-            'requiredDefaultEnum': 'A',
-            'optionalDefaultEnum': 'A',
-            'nullifiedDefaultEnum': null,
-            'requiredDefaultList': [],
-            'optionalDefaultList': [],
-            'nullifiedDefaultList': null,
-            'requiredDefaultMap': {},
-            'optionalDefaultMap': {},
-            'nullifiedDefaultMap': null,
-            'requiredDefaultBool': true,
-            'optionalDefaultBool': true,
-            'nullifiedDefaultBool': null,
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [DefaultValuesOutputRestJson1Serializer()],
-      );
-    },
-  );
+  _i1.test('DefaultValuesRequestSerialization (request)', () async {
+    await _i2.httpRequestTest(
+      operation: DefaultValuesOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'DefaultValuesRequestSerialization',
+        documentation:
+            'Default values SHOULD be serialized and MUST be when @required',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body:
+            '{\n    "requiredDefaultInt": 42,\n    "optionalDefaultInt": 42,\n    "requiredDefaultString": "default",\n    "optionalDefaultString": "default",\n    "requiredDefaultEnum": "A",\n    "optionalDefaultEnum": "A",\n    "requiredDefaultList": [],\n    "optionalDefaultList": [],\n    "requiredDefaultMap": {},\n    "optionalDefaultMap": {},\n    "requiredDefaultBool": true,\n    "optionalDefaultBool": true\n}\n',
+        bodyMediaType: 'application/json',
+        params: {
+          'requiredDefaultInt': null,
+          'requiredDefaultString': null,
+          'requiredDefaultEnum': null,
+          'requiredDefaultList': null,
+          'requiredDefaultMap': null,
+          'requiredDefaultBool': null,
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/default',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [DefaultValuesInputRestJson1Serializer()],
+    );
+  });
+  _i1.test('DefaultValuesResponseSerialization (response)', () async {
+    await _i2.httpResponseTest(
+      operation: DefaultValuesOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'DefaultValuesResponseSerialization',
+        documentation:
+            'Default values SHOULD be serialized and MUST be when @required',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body:
+            '{\n    "requiredDefaultInt": 42,\n    "requiredDefaultString": "default",\n    "requiredDefaultEnum": "A",\n    "requiredDefaultList": [],\n    "requiredDefaultMap": {},\n    "requiredDefaultBool": true\n}\n',
+        bodyMediaType: 'application/json',
+        params: {
+          'requiredDefaultInt': 42,
+          'optionalDefaultInt': 42,
+          'nullifiedDefaultInt': null,
+          'requiredDefaultString': 'default',
+          'optionalDefaultString': 'default',
+          'nullifiedDefaultString': null,
+          'requiredDefaultEnum': 'A',
+          'optionalDefaultEnum': 'A',
+          'nullifiedDefaultEnum': null,
+          'requiredDefaultList': [],
+          'optionalDefaultList': [],
+          'nullifiedDefaultList': null,
+          'requiredDefaultMap': {},
+          'optionalDefaultMap': {},
+          'nullifiedDefaultMap': null,
+          'requiredDefaultBool': true,
+          'optionalDefaultBool': true,
+          'nullifiedDefaultBool': null,
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [DefaultValuesOutputRestJson1Serializer()],
+    );
+  });
 }
 
 class DefaultValuesInputRestJson1Serializer
@@ -126,11 +114,8 @@ class DefaultValuesInputRestJson1Serializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   DefaultValuesInput deserialize(
@@ -149,122 +134,152 @@ class DefaultValuesInputRestJson1Serializer
       }
       switch (key) {
         case 'requiredDefaultInt':
-          result.requiredDefaultInt = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.requiredDefaultInt =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'optionalDefaultInt':
-          result.optionalDefaultInt = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.optionalDefaultInt =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'nullifiedDefaultInt':
-          result.nullifiedDefaultInt = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.nullifiedDefaultInt =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'requiredDefaultString':
-          result.requiredDefaultString = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.requiredDefaultString =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'optionalDefaultString':
-          result.optionalDefaultString = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.optionalDefaultString =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'nullifiedDefaultString':
-          result.nullifiedDefaultString = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.nullifiedDefaultString =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'requiredDefaultEnum':
-          result.requiredDefaultEnum = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DefaultEnum),
-          ) as DefaultEnum);
+          result.requiredDefaultEnum =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DefaultEnum),
+                  )
+                  as DefaultEnum);
         case 'optionalDefaultEnum':
-          result.optionalDefaultEnum = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DefaultEnum),
-          ) as DefaultEnum);
+          result.optionalDefaultEnum =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DefaultEnum),
+                  )
+                  as DefaultEnum);
         case 'nullifiedDefaultEnum':
-          result.nullifiedDefaultEnum = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DefaultEnum),
-          ) as DefaultEnum);
+          result.nullifiedDefaultEnum =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DefaultEnum),
+                  )
+                  as DefaultEnum);
         case 'requiredDefaultList':
-          result.requiredDefaultList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.requiredDefaultList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'optionalDefaultList':
-          result.optionalDefaultList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.optionalDefaultList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'nullifiedDefaultList':
-          result.nullifiedDefaultList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.nullifiedDefaultList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'requiredDefaultMap':
-          result.requiredDefaultMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, String>));
+          result.requiredDefaultMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltMap<String, String>),
+          );
         case 'optionalDefaultMap':
-          result.optionalDefaultMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, String>));
+          result.optionalDefaultMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltMap<String, String>),
+          );
         case 'nullifiedDefaultMap':
-          result.nullifiedDefaultMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, String>));
+          result.nullifiedDefaultMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltMap<String, String>),
+          );
         case 'requiredDefaultBool':
-          result.requiredDefaultBool = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.requiredDefaultBool =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'optionalDefaultBool':
-          result.optionalDefaultBool = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.optionalDefaultBool =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'nullifiedDefaultBool':
-          result.nullifiedDefaultBool = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.nullifiedDefaultBool =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 
@@ -290,11 +305,8 @@ class DefaultValuesOutputRestJson1Serializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   DefaultValuesOutput deserialize(
@@ -313,122 +325,152 @@ class DefaultValuesOutputRestJson1Serializer
       }
       switch (key) {
         case 'requiredDefaultInt':
-          result.requiredDefaultInt = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.requiredDefaultInt =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'optionalDefaultInt':
-          result.optionalDefaultInt = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.optionalDefaultInt =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'nullifiedDefaultInt':
-          result.nullifiedDefaultInt = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.nullifiedDefaultInt =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'requiredDefaultString':
-          result.requiredDefaultString = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.requiredDefaultString =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'optionalDefaultString':
-          result.optionalDefaultString = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.optionalDefaultString =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'nullifiedDefaultString':
-          result.nullifiedDefaultString = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.nullifiedDefaultString =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'requiredDefaultEnum':
-          result.requiredDefaultEnum = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DefaultEnum),
-          ) as DefaultEnum);
+          result.requiredDefaultEnum =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DefaultEnum),
+                  )
+                  as DefaultEnum);
         case 'optionalDefaultEnum':
-          result.optionalDefaultEnum = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DefaultEnum),
-          ) as DefaultEnum);
+          result.optionalDefaultEnum =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DefaultEnum),
+                  )
+                  as DefaultEnum);
         case 'nullifiedDefaultEnum':
-          result.nullifiedDefaultEnum = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DefaultEnum),
-          ) as DefaultEnum);
+          result.nullifiedDefaultEnum =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DefaultEnum),
+                  )
+                  as DefaultEnum);
         case 'requiredDefaultList':
-          result.requiredDefaultList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.requiredDefaultList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'optionalDefaultList':
-          result.optionalDefaultList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.optionalDefaultList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'nullifiedDefaultList':
-          result.nullifiedDefaultList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.nullifiedDefaultList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'requiredDefaultMap':
-          result.requiredDefaultMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, String>));
+          result.requiredDefaultMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltMap<String, String>),
+          );
         case 'optionalDefaultMap':
-          result.optionalDefaultMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, String>));
+          result.optionalDefaultMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltMap<String, String>),
+          );
         case 'nullifiedDefaultMap':
-          result.nullifiedDefaultMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, String>));
+          result.nullifiedDefaultMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltMap<String, String>),
+          );
         case 'requiredDefaultBool':
-          result.requiredDefaultBool = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.requiredDefaultBool =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'optionalDefaultBool':
-          result.optionalDefaultBool = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.optionalDefaultBool =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'nullifiedDefaultBool':
-          result.nullifiedDefaultBool = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.nullifiedDefaultBool =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 

@@ -6,11 +6,7 @@ import 'package:test/test.dart';
 
 class DeleteObjectsLength extends CustomMatcher {
   DeleteObjectsLength(Matcher matcher)
-      : super(
-          'DeleteObjectsRequest that is',
-          'delete objects length',
-          matcher,
-        );
+    : super('DeleteObjectsRequest that is', 'delete objects length', matcher);
 
   @override
   Object? featureValueOf(dynamic actual) =>

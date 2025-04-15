@@ -190,51 +190,24 @@ const List<_i1.SmithySerializer> serializers = [
   ...UploadPartCopyOutput.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(
-    _i2.BuiltList,
-    [FullType(CompletedPart)],
-  ): _i2.ListBuilder<CompletedPart>.new,
-  const FullType(
-    _i2.BuiltMap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i2.MapBuilder<String, String>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(ObjectIdentifier)],
-  ): _i2.ListBuilder<ObjectIdentifier>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(DeletedObject)],
-  ): _i2.ListBuilder<DeletedObject>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(Error)],
-  ): _i2.ListBuilder<Error>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(CommonPrefix)],
-  ): _i2.ListBuilder<CommonPrefix>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(MultipartUpload)],
-  ): _i2.ListBuilder<MultipartUpload>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(OptionalObjectAttributes)],
-  ): _i2.ListBuilder<OptionalObjectAttributes>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(ChecksumAlgorithm)],
-  ): _i2.ListBuilder<ChecksumAlgorithm>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(S3Object)],
-  ): _i2.ListBuilder<S3Object>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(Part)],
-  ): _i2.ListBuilder<Part>.new,
+  const FullType(_i2.BuiltList, [FullType(CompletedPart)]):
+      _i2.ListBuilder<CompletedPart>.new,
+  const FullType(_i2.BuiltMap, [FullType(String), FullType(String)]):
+      _i2.MapBuilder<String, String>.new,
+  const FullType(_i2.BuiltList, [FullType(ObjectIdentifier)]):
+      _i2.ListBuilder<ObjectIdentifier>.new,
+  const FullType(_i2.BuiltList, [FullType(DeletedObject)]):
+      _i2.ListBuilder<DeletedObject>.new,
+  const FullType(_i2.BuiltList, [FullType(Error)]): _i2.ListBuilder<Error>.new,
+  const FullType(_i2.BuiltList, [FullType(CommonPrefix)]):
+      _i2.ListBuilder<CommonPrefix>.new,
+  const FullType(_i2.BuiltList, [FullType(MultipartUpload)]):
+      _i2.ListBuilder<MultipartUpload>.new,
+  const FullType(_i2.BuiltList, [FullType(OptionalObjectAttributes)]):
+      _i2.ListBuilder<OptionalObjectAttributes>.new,
+  const FullType(_i2.BuiltList, [FullType(ChecksumAlgorithm)]):
+      _i2.ListBuilder<ChecksumAlgorithm>.new,
+  const FullType(_i2.BuiltList, [FullType(S3Object)]):
+      _i2.ListBuilder<S3Object>.new,
+  const FullType(_i2.BuiltList, [FullType(Part)]): _i2.ListBuilder<Part>.new,
 };

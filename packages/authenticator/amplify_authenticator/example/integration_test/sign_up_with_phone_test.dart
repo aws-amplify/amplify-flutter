@@ -17,9 +17,7 @@ void main() {
   group('sign-up-with-phone', () {
     // Given I'm running the example "ui/components/authenticator/sign-up-with-username"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-phone',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-phone');
     });
 
     // Scenario: Login mechanism set to "phone"
@@ -49,28 +47,30 @@ void main() {
     });
 
     // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
-    testWidgets('"Email" is included from aws_cognito_verification_mechanisms',
-        (tester) async {
-      final signUpPage = SignUpPage(tester: tester);
-      final signInPage = SignInPage(tester: tester);
-      await loadAuthenticator(tester: tester);
+    testWidgets(
+      '"Email" is included from aws_cognito_verification_mechanisms',
+      (tester) async {
+        final signUpPage = SignUpPage(tester: tester);
+        final signInPage = SignInPage(tester: tester);
+        await loadAuthenticator(tester: tester);
 
-      expect(
-        tester.bloc.stream,
-        emitsInOrder([
-          UnauthenticatedState.signIn,
-          UnauthenticatedState.signUp,
-          emitsDone,
-        ]),
-      );
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.signUp,
+            emitsDone,
+          ]),
+        );
 
-      await signInPage.navigateToSignUp();
+        await signInPage.navigateToSignUp();
 
-      // Then I see "Email" as an "email" field
-      signUpPage.expectEmailIsPresent();
+        // Then I see "Email" as an "email" field
+        signUpPage.expectEmailIsPresent();
 
-      await tester.bloc.close();
-    });
+        await tester.bloc.close();
+      },
+    );
 
     // Scenario: Sign up with valid phone number & password
     testWidgets('Sign up a new phone number & password', (tester) async {

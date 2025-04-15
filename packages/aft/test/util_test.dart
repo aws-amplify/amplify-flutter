@@ -75,9 +75,7 @@ Pubspec _dummyPackage(String name, {List<String> deps = const []}) {
   return Pubspec(
     name,
     devDependencies: {},
-    dependencies: {
-      for (final dep in deps) dep: HostedDependency(),
-    },
+    dependencies: {for (final dep in deps) dep: HostedDependency()},
     dependencyOverrides: {},
     version: Version(1, 0, 0),
     publishTo: null,

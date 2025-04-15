@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v2.query_protocol.model.xml_timestamps_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,9 +33,9 @@ abstract class XmlTimestampsOutput
     );
   }
 
-  factory XmlTimestampsOutput.build(
-          [void Function(XmlTimestampsOutputBuilder) updates]) =
-      _$XmlTimestampsOutput;
+  factory XmlTimestampsOutput.build([
+    void Function(XmlTimestampsOutputBuilder) updates,
+  ]) = _$XmlTimestampsOutput;
 
   const XmlTimestampsOutput._();
 
@@ -43,11 +43,10 @@ abstract class XmlTimestampsOutput
   factory XmlTimestampsOutput.fromResponse(
     XmlTimestampsOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<XmlTimestampsOutput>> serializers = [
-    XmlTimestampsOutputAwsQuerySerializer()
+    XmlTimestampsOutputAwsQuerySerializer(),
   ];
 
   DateTime? get normal;
@@ -59,46 +58,26 @@ abstract class XmlTimestampsOutput
   DateTime? get httpDateOnTarget;
   @override
   List<Object?> get props => [
-        normal,
-        dateTime,
-        dateTimeOnTarget,
-        epochSeconds,
-        epochSecondsOnTarget,
-        httpDate,
-        httpDateOnTarget,
-      ];
+    normal,
+    dateTime,
+    dateTimeOnTarget,
+    epochSeconds,
+    epochSecondsOnTarget,
+    httpDate,
+    httpDateOnTarget,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlTimestampsOutput')
-      ..add(
-        'normal',
-        normal,
-      )
-      ..add(
-        'dateTime',
-        dateTime,
-      )
-      ..add(
-        'dateTimeOnTarget',
-        dateTimeOnTarget,
-      )
-      ..add(
-        'epochSeconds',
-        epochSeconds,
-      )
-      ..add(
-        'epochSecondsOnTarget',
-        epochSecondsOnTarget,
-      )
-      ..add(
-        'httpDate',
-        httpDate,
-      )
-      ..add(
-        'httpDateOnTarget',
-        httpDateOnTarget,
-      );
+    final helper =
+        newBuiltValueToStringHelper('XmlTimestampsOutput')
+          ..add('normal', normal)
+          ..add('dateTime', dateTime)
+          ..add('dateTimeOnTarget', dateTimeOnTarget)
+          ..add('epochSeconds', epochSeconds)
+          ..add('epochSecondsOnTarget', epochSecondsOnTarget)
+          ..add('httpDate', httpDate)
+          ..add('httpDateOnTarget', httpDateOnTarget);
     return helper.toString();
   }
 }
@@ -109,17 +88,14 @@ class XmlTimestampsOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [
-        XmlTimestampsOutput,
-        _$XmlTimestampsOutput,
-      ];
+    XmlTimestampsOutput,
+    _$XmlTimestampsOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlTimestampsOutput deserialize(
@@ -146,44 +122,34 @@ class XmlTimestampsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'normal':
-          result.normal = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.normal =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
         case 'dateTime':
           result.dateTime = _i2.TimestampSerializer.dateTime.deserialize(
             serializers,
             value,
           );
         case 'dateTimeOnTarget':
-          result.dateTimeOnTarget =
-              _i2.TimestampSerializer.dateTime.deserialize(
-            serializers,
-            value,
-          );
+          result.dateTimeOnTarget = _i2.TimestampSerializer.dateTime
+              .deserialize(serializers, value);
         case 'epochSeconds':
-          result.epochSeconds =
-              _i2.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.epochSeconds = _i2.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'epochSecondsOnTarget':
-          result.epochSecondsOnTarget =
-              _i2.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.epochSecondsOnTarget = _i2.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'httpDate':
           result.httpDate = _i2.TimestampSerializer.httpDate.deserialize(
             serializers,
             value,
           );
         case 'httpDateOnTarget':
-          result.httpDateOnTarget =
-              _i2.TimestampSerializer.httpDate.deserialize(
-            serializers,
-            value,
-          );
+          result.httpDateOnTarget = _i2.TimestampSerializer.httpDate
+              .deserialize(serializers, value);
       }
     }
 
@@ -200,7 +166,7 @@ class XmlTimestampsOutputAwsQuerySerializer
       const _i2.XmlElementName(
         'XmlTimestampsOutputResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final XmlTimestampsOutput(
       :normal,
@@ -209,63 +175,71 @@ class XmlTimestampsOutputAwsQuerySerializer
       :epochSeconds,
       :epochSecondsOnTarget,
       :httpDate,
-      :httpDateOnTarget
+      :httpDateOnTarget,
     ) = object;
     if (normal != null) {
       result$
         ..add(const _i2.XmlElementName('normal'))
-        ..add(serializers.serialize(
-          normal,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            normal,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     if (dateTime != null) {
       result$
         ..add(const _i2.XmlElementName('dateTime'))
-        ..add(_i2.TimestampSerializer.dateTime.serialize(
-          serializers,
-          dateTime,
-        ));
+        ..add(
+          _i2.TimestampSerializer.dateTime.serialize(serializers, dateTime),
+        );
     }
     if (dateTimeOnTarget != null) {
       result$
         ..add(const _i2.XmlElementName('dateTimeOnTarget'))
-        ..add(_i2.TimestampSerializer.dateTime.serialize(
-          serializers,
-          dateTimeOnTarget,
-        ));
+        ..add(
+          _i2.TimestampSerializer.dateTime.serialize(
+            serializers,
+            dateTimeOnTarget,
+          ),
+        );
     }
     if (epochSeconds != null) {
       result$
         ..add(const _i2.XmlElementName('epochSeconds'))
-        ..add(_i2.TimestampSerializer.epochSeconds.serialize(
-          serializers,
-          epochSeconds,
-        ));
+        ..add(
+          _i2.TimestampSerializer.epochSeconds.serialize(
+            serializers,
+            epochSeconds,
+          ),
+        );
     }
     if (epochSecondsOnTarget != null) {
       result$
         ..add(const _i2.XmlElementName('epochSecondsOnTarget'))
-        ..add(_i2.TimestampSerializer.epochSeconds.serialize(
-          serializers,
-          epochSecondsOnTarget,
-        ));
+        ..add(
+          _i2.TimestampSerializer.epochSeconds.serialize(
+            serializers,
+            epochSecondsOnTarget,
+          ),
+        );
     }
     if (httpDate != null) {
       result$
         ..add(const _i2.XmlElementName('httpDate'))
-        ..add(_i2.TimestampSerializer.httpDate.serialize(
-          serializers,
-          httpDate,
-        ));
+        ..add(
+          _i2.TimestampSerializer.httpDate.serialize(serializers, httpDate),
+        );
     }
     if (httpDateOnTarget != null) {
       result$
         ..add(const _i2.XmlElementName('httpDateOnTarget'))
-        ..add(_i2.TimestampSerializer.httpDate.serialize(
-          serializers,
-          httpDateOnTarget,
-        ));
+        ..add(
+          _i2.TimestampSerializer.httpDate.serialize(
+            serializers,
+            httpDateOnTarget,
+          ),
+        );
     }
     return result$;
   }

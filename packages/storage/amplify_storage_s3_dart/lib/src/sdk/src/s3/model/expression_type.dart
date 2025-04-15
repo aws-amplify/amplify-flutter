@@ -6,19 +6,11 @@ library amplify_storage_s3_dart.s3.model.expression_type; // ignore_for_file: no
 import 'package:smithy/smithy.dart' as _i1;
 
 class ExpressionType extends _i1.SmithyEnum<ExpressionType> {
-  const ExpressionType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ExpressionType._(super.index, super.name, super.value);
 
   const ExpressionType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const sql = ExpressionType._(
-    0,
-    'SQL',
-    'SQL',
-  );
+  static const sql = ExpressionType._(0, 'SQL', 'SQL');
 
   /// All values of [ExpressionType].
   static const values = <ExpressionType>[ExpressionType.sql];
@@ -29,12 +21,9 @@ class ExpressionType extends _i1.SmithyEnum<ExpressionType> {
       values: values,
       sdkUnknown: ExpressionType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

@@ -19,9 +19,7 @@ void main() {
       final request = AWSHttpRequest.post(
         Uri.https('example.com', '/'),
         body: utf8.encode('hello'),
-        headers: const {
-          AWSHeaders.contentLength: '5',
-        },
+        headers: const {AWSHeaders.contentLength: '5'},
       );
       final signedRequest = signer.signSync(
         request,
@@ -33,22 +31,10 @@ void main() {
       final sentHeaders = signedRequest.headers;
 
       test(testOn: 'browser', 'Host, Content-Length unset by signer', () {
-        expect(
-          signedHeaders,
-          contains(AWSHeaders.host),
-        );
-        expect(
-          signedHeaders,
-          contains(AWSHeaders.contentLength),
-        );
-        expect(
-          sentHeaders,
-          isNot(contains(AWSHeaders.host)),
-        );
-        expect(
-          sentHeaders,
-          isNot(contains(AWSHeaders.contentLength)),
-        );
+        expect(signedHeaders, contains(AWSHeaders.host));
+        expect(signedHeaders, contains(AWSHeaders.contentLength));
+        expect(sentHeaders, isNot(contains(AWSHeaders.host)));
+        expect(sentHeaders, isNot(contains(AWSHeaders.contentLength)));
       });
 
       test(testOn: 'browser', 'X-Amz-User-Agent header is included', () {
@@ -56,52 +42,25 @@ void main() {
           sentHeaders,
           containsPair(AWSHeaders.amzUserAgent, contains('aws-sigv4-dart')),
         );
-        expect(
-          sentHeaders,
-          isNot(contains(AWSHeaders.userAgent)),
-        );
-        expect(
-          signedHeaders,
-          contains(AWSHeaders.amzUserAgent),
-        );
-        expect(
-          signedHeaders,
-          isNot(contains(AWSHeaders.userAgent)),
-        );
+        expect(sentHeaders, isNot(contains(AWSHeaders.userAgent)));
+        expect(signedHeaders, contains(AWSHeaders.amzUserAgent));
+        expect(signedHeaders, isNot(contains(AWSHeaders.userAgent)));
       });
 
       test(testOn: 'vm', 'Host, Content-Length, User-Agent set by signer', () {
-        expect(
-          signedHeaders,
-          contains(AWSHeaders.host),
-        );
-        expect(
-          signedHeaders,
-          contains(AWSHeaders.contentLength),
-        );
-        expect(
-          sentHeaders,
-          contains(AWSHeaders.host),
-        );
-        expect(
-          sentHeaders,
-          contains(AWSHeaders.contentLength),
-        );
+        expect(signedHeaders, contains(AWSHeaders.host));
+        expect(signedHeaders, contains(AWSHeaders.contentLength));
+        expect(sentHeaders, contains(AWSHeaders.host));
+        expect(sentHeaders, contains(AWSHeaders.contentLength));
       });
 
       test(testOn: 'vm', 'User-Agent header is included', () {
-        expect(
-          sentHeaders,
-          isNot(contains(AWSHeaders.amzUserAgent)),
-        );
+        expect(sentHeaders, isNot(contains(AWSHeaders.amzUserAgent)));
         expect(
           sentHeaders,
           containsPair(AWSHeaders.userAgent, contains('aws-sigv4-dart')),
         );
-        expect(
-          signedHeaders,
-          isNot(contains(AWSHeaders.amzUserAgent)),
-        );
+        expect(signedHeaders, isNot(contains(AWSHeaders.amzUserAgent)));
         expect(
           signedHeaders,
           isNot(contains(AWSHeaders.userAgent)),

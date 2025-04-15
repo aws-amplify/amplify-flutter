@@ -23,22 +23,34 @@ class _$ProtocolTraits extends ProtocolTraits {
   factory _$ProtocolTraits([void Function(ProtocolTraitsBuilder)? updates]) =>
       (new ProtocolTraitsBuilder()..update(updates))._build();
 
-  _$ProtocolTraits._(
-      {this.wireName,
-      this.namespace,
-      required this.attributeMembers,
-      required this.flattenedMembers,
-      required this.memberNamespaces,
-      required this.memberWireNames})
-      : super._() {
+  _$ProtocolTraits._({
+    this.wireName,
+    this.namespace,
+    required this.attributeMembers,
+    required this.flattenedMembers,
+    required this.memberNamespaces,
+    required this.memberWireNames,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        attributeMembers, r'ProtocolTraits', 'attributeMembers');
+      attributeMembers,
+      r'ProtocolTraits',
+      'attributeMembers',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        flattenedMembers, r'ProtocolTraits', 'flattenedMembers');
+      flattenedMembers,
+      r'ProtocolTraits',
+      'flattenedMembers',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        memberNamespaces, r'ProtocolTraits', 'memberNamespaces');
+      memberNamespaces,
+      r'ProtocolTraits',
+      'memberNamespaces',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        memberWireNames, r'ProtocolTraits', 'memberWireNames');
+      memberWireNames,
+      r'ProtocolTraits',
+      'memberWireNames',
+    );
   }
 
   @override
@@ -116,8 +128,8 @@ class ProtocolTraitsBuilder
       _$this._memberNamespaces ??=
           new MapBuilder<MemberShape, XmlNamespaceTrait>();
   set memberNamespaces(
-          MapBuilder<MemberShape, XmlNamespaceTrait>? memberNamespaces) =>
-      _$this._memberNamespaces = memberNamespaces;
+    MapBuilder<MemberShape, XmlNamespaceTrait>? memberNamespaces,
+  ) => _$this._memberNamespaces = memberNamespaces;
 
   MapBuilder<MemberShape, String>? _memberWireNames;
   MapBuilder<MemberShape, String> get memberWireNames =>
@@ -158,7 +170,8 @@ class ProtocolTraitsBuilder
   _$ProtocolTraits _build() {
     _$ProtocolTraits _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ProtocolTraits._(
             wireName: wireName,
             namespace: namespace,
@@ -180,7 +193,10 @@ class ProtocolTraitsBuilder
         memberWireNames.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ProtocolTraits', _$failedField, e.toString());
+          r'ProtocolTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -275,10 +291,14 @@ class HttpPayloadBuilder implements Builder<HttpPayload, HttpPayloadBuilder> {
   _$HttpPayload _build() {
     _$HttpPayload _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpPayload._(
             symbol: BuiltValueNullFieldError.checkNotNull(
-                symbol, r'HttpPayload', 'symbol'),
+              symbol,
+              r'HttpPayload',
+              'symbol',
+            ),
             member: _member?.build(),
           );
     } catch (_) {
@@ -288,7 +308,10 @@ class HttpPayloadBuilder implements Builder<HttpPayload, HttpPayloadBuilder> {
         _member?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpPayload', _$failedField, e.toString());
+          r'HttpPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -303,15 +326,18 @@ class _$HttpPrefixHeaders extends HttpPrefixHeaders {
   @override
   final MemberShape member;
 
-  factory _$HttpPrefixHeaders(
-          [void Function(HttpPrefixHeadersBuilder)? updates]) =>
-      (new HttpPrefixHeadersBuilder()..update(updates))._build();
+  factory _$HttpPrefixHeaders([
+    void Function(HttpPrefixHeadersBuilder)? updates,
+  ]) => (new HttpPrefixHeadersBuilder()..update(updates))._build();
 
   _$HttpPrefixHeaders._({required this.trait, required this.member})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(trait, r'HttpPrefixHeaders', 'trait');
     BuiltValueNullFieldError.checkNotNull(
-        member, r'HttpPrefixHeaders', 'member');
+      member,
+      r'HttpPrefixHeaders',
+      'member',
+    );
   }
 
   @override
@@ -389,10 +415,14 @@ class HttpPrefixHeadersBuilder
   _$HttpPrefixHeaders _build() {
     _$HttpPrefixHeaders _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpPrefixHeaders._(
             trait: BuiltValueNullFieldError.checkNotNull(
-                trait, r'HttpPrefixHeaders', 'trait'),
+              trait,
+              r'HttpPrefixHeaders',
+              'trait',
+            ),
             member: member.build(),
           );
     } catch (_) {
@@ -402,7 +432,10 @@ class HttpPrefixHeadersBuilder
         member.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpPrefixHeaders', _$failedField, e.toString());
+          r'HttpPrefixHeaders',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -438,20 +471,29 @@ class _$HttpInputTraits extends HttpInputTraits {
   factory _$HttpInputTraits([void Function(HttpInputTraitsBuilder)? updates]) =>
       (new HttpInputTraitsBuilder()..update(updates))._build();
 
-  _$HttpInputTraits._(
-      {required this.httpLabels,
-      this.hostLabel,
-      required this.httpQuery,
-      this.httpQueryParams,
-      required this.httpHeaders,
-      this.httpPrefixHeaders})
-      : super._() {
+  _$HttpInputTraits._({
+    required this.httpLabels,
+    this.hostLabel,
+    required this.httpQuery,
+    this.httpQueryParams,
+    required this.httpHeaders,
+    this.httpPrefixHeaders,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        httpLabels, r'HttpInputTraits', 'httpLabels');
+      httpLabels,
+      r'HttpInputTraits',
+      'httpLabels',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        httpQuery, r'HttpInputTraits', 'httpQuery');
+      httpQuery,
+      r'HttpInputTraits',
+      'httpQuery',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        httpHeaders, r'HttpInputTraits', 'httpHeaders');
+      httpHeaders,
+      r'HttpInputTraits',
+      'httpHeaders',
+    );
   }
 
   @override
@@ -540,8 +582,8 @@ class HttpInputTraitsBuilder
   HttpPrefixHeadersBuilder get httpPrefixHeaders =>
       _$this._httpPrefixHeaders ??= new HttpPrefixHeadersBuilder();
   set httpPrefixHeaders(
-          covariant HttpPrefixHeadersBuilder? httpPrefixHeaders) =>
-      _$this._httpPrefixHeaders = httpPrefixHeaders;
+    covariant HttpPrefixHeadersBuilder? httpPrefixHeaders,
+  ) => _$this._httpPrefixHeaders = httpPrefixHeaders;
 
   HttpInputTraitsBuilder();
 
@@ -576,7 +618,8 @@ class HttpInputTraitsBuilder
   _$HttpInputTraits _build() {
     _$HttpInputTraits _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpInputTraits._(
             httpLabels: httpLabels.build(),
             hostLabel: _hostLabel?.build(),
@@ -602,7 +645,10 @@ class HttpInputTraitsBuilder
         _httpPrefixHeaders?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpInputTraits', _$failedField, e.toString());
+          r'HttpInputTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -619,17 +665,20 @@ class _$HttpOutputTraits extends HttpOutputTraits {
   @override
   final HttpPrefixHeaders? httpPrefixHeaders;
 
-  factory _$HttpOutputTraits(
-          [void Function(HttpOutputTraitsBuilder)? updates]) =>
-      (new HttpOutputTraitsBuilder()..update(updates))._build();
+  factory _$HttpOutputTraits([
+    void Function(HttpOutputTraitsBuilder)? updates,
+  ]) => (new HttpOutputTraitsBuilder()..update(updates))._build();
 
-  _$HttpOutputTraits._(
-      {this.httpResponseCode,
-      required this.httpHeaders,
-      this.httpPrefixHeaders})
-      : super._() {
+  _$HttpOutputTraits._({
+    this.httpResponseCode,
+    required this.httpHeaders,
+    this.httpPrefixHeaders,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        httpHeaders, r'HttpOutputTraits', 'httpHeaders');
+      httpHeaders,
+      r'HttpOutputTraits',
+      'httpHeaders',
+    );
   }
 
   @override
@@ -691,8 +740,8 @@ class HttpOutputTraitsBuilder
   HttpPrefixHeadersBuilder get httpPrefixHeaders =>
       _$this._httpPrefixHeaders ??= new HttpPrefixHeadersBuilder();
   set httpPrefixHeaders(
-          covariant HttpPrefixHeadersBuilder? httpPrefixHeaders) =>
-      _$this._httpPrefixHeaders = httpPrefixHeaders;
+    covariant HttpPrefixHeadersBuilder? httpPrefixHeaders,
+  ) => _$this._httpPrefixHeaders = httpPrefixHeaders;
 
   HttpOutputTraitsBuilder();
 
@@ -724,7 +773,8 @@ class HttpOutputTraitsBuilder
   _$HttpOutputTraits _build() {
     _$HttpOutputTraits _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpOutputTraits._(
             httpResponseCode: _httpResponseCode?.build(),
             httpHeaders: httpHeaders.build(),
@@ -741,7 +791,10 @@ class HttpOutputTraitsBuilder
         _httpPrefixHeaders?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpOutputTraits', _$failedField, e.toString());
+          r'HttpOutputTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -771,22 +824,28 @@ class _$HttpErrorTraits extends HttpErrorTraits {
   factory _$HttpErrorTraits([void Function(HttpErrorTraitsBuilder)? updates]) =>
       (new HttpErrorTraitsBuilder()..update(updates))._build();
 
-  _$HttpErrorTraits._(
-      {required this.shapeId,
-      required this.kind,
-      required this.symbol,
-      this.payloadSymbol,
-      this.retryConfig,
-      this.statusCode,
-      required this.httpHeaders,
-      this.httpPrefixHeaders})
-      : super._() {
+  _$HttpErrorTraits._({
+    required this.shapeId,
+    required this.kind,
+    required this.symbol,
+    this.payloadSymbol,
+    this.retryConfig,
+    this.statusCode,
+    required this.httpHeaders,
+    this.httpPrefixHeaders,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        shapeId, r'HttpErrorTraits', 'shapeId');
+      shapeId,
+      r'HttpErrorTraits',
+      'shapeId',
+    );
     BuiltValueNullFieldError.checkNotNull(kind, r'HttpErrorTraits', 'kind');
     BuiltValueNullFieldError.checkNotNull(symbol, r'HttpErrorTraits', 'symbol');
     BuiltValueNullFieldError.checkNotNull(
-        httpHeaders, r'HttpErrorTraits', 'httpHeaders');
+      httpHeaders,
+      r'HttpErrorTraits',
+      'httpHeaders',
+    );
   }
 
   @override
@@ -883,8 +942,8 @@ class HttpErrorTraitsBuilder
   HttpPrefixHeadersBuilder get httpPrefixHeaders =>
       _$this._httpPrefixHeaders ??= new HttpPrefixHeadersBuilder();
   set httpPrefixHeaders(
-          covariant HttpPrefixHeadersBuilder? httpPrefixHeaders) =>
-      _$this._httpPrefixHeaders = httpPrefixHeaders;
+    covariant HttpPrefixHeadersBuilder? httpPrefixHeaders,
+  ) => _$this._httpPrefixHeaders = httpPrefixHeaders;
 
   HttpErrorTraitsBuilder();
 
@@ -921,14 +980,24 @@ class HttpErrorTraitsBuilder
   _$HttpErrorTraits _build() {
     _$HttpErrorTraits _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpErrorTraits._(
             shapeId: BuiltValueNullFieldError.checkNotNull(
-                shapeId, r'HttpErrorTraits', 'shapeId'),
+              shapeId,
+              r'HttpErrorTraits',
+              'shapeId',
+            ),
             kind: BuiltValueNullFieldError.checkNotNull(
-                kind, r'HttpErrorTraits', 'kind'),
+              kind,
+              r'HttpErrorTraits',
+              'kind',
+            ),
             symbol: BuiltValueNullFieldError.checkNotNull(
-                symbol, r'HttpErrorTraits', 'symbol'),
+              symbol,
+              r'HttpErrorTraits',
+              'symbol',
+            ),
             payloadSymbol: payloadSymbol,
             retryConfig: retryConfig,
             statusCode: statusCode,
@@ -944,7 +1013,10 @@ class HttpErrorTraitsBuilder
         _httpPrefixHeaders?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpErrorTraits', _$failedField, e.toString());
+          r'HttpErrorTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -966,17 +1038,23 @@ class _$PaginationItem extends PaginationItem {
   factory _$PaginationItem([void Function(PaginationItemBuilder)? updates]) =>
       (new PaginationItemBuilder()..update(updates))._build();
 
-  _$PaginationItem._(
-      {required this.member,
-      required this.isNullable,
-      required this.buildExpression,
-      required this.symbol})
-      : super._() {
+  _$PaginationItem._({
+    required this.member,
+    required this.isNullable,
+    required this.buildExpression,
+    required this.symbol,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(member, r'PaginationItem', 'member');
     BuiltValueNullFieldError.checkNotNull(
-        isNullable, r'PaginationItem', 'isNullable');
+      isNullable,
+      r'PaginationItem',
+      'isNullable',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        buildExpression, r'PaginationItem', 'buildExpression');
+      buildExpression,
+      r'PaginationItem',
+      'buildExpression',
+    );
     BuiltValueNullFieldError.checkNotNull(symbol, r'PaginationItem', 'symbol');
   }
 
@@ -1074,15 +1152,25 @@ class PaginationItemBuilder
   _$PaginationItem _build() {
     _$PaginationItem _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PaginationItem._(
             member: member.build(),
             isNullable: BuiltValueNullFieldError.checkNotNull(
-                isNullable, r'PaginationItem', 'isNullable'),
+              isNullable,
+              r'PaginationItem',
+              'isNullable',
+            ),
             buildExpression: BuiltValueNullFieldError.checkNotNull(
-                buildExpression, r'PaginationItem', 'buildExpression'),
+              buildExpression,
+              r'PaginationItem',
+              'buildExpression',
+            ),
             symbol: BuiltValueNullFieldError.checkNotNull(
-                symbol, r'PaginationItem', 'symbol'),
+              symbol,
+              r'PaginationItem',
+              'symbol',
+            ),
           );
     } catch (_) {
       late String _$failedField;
@@ -1091,7 +1179,10 @@ class PaginationItemBuilder
         member.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PaginationItem', _$failedField, e.toString());
+          r'PaginationItem',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -1121,16 +1212,16 @@ class _$PaginatedTraits extends PaginatedTraits {
   factory _$PaginatedTraits([void Function(PaginatedTraitsBuilder)? updates]) =>
       (new PaginatedTraitsBuilder()..update(updates))._build();
 
-  _$PaginatedTraits._(
-      {this.inputTokenPath,
-      this.inputToken,
-      this.outputTokenPath,
-      this.outputToken,
-      this.pageSizePath,
-      this.pageSize,
-      this.itemsPath,
-      this.items})
-      : super._();
+  _$PaginatedTraits._({
+    this.inputTokenPath,
+    this.inputToken,
+    this.outputTokenPath,
+    this.outputToken,
+    this.pageSizePath,
+    this.pageSize,
+    this.itemsPath,
+    this.items,
+  }) : super._();
 
   @override
   PaginatedTraits rebuild(void Function(PaginatedTraitsBuilder) updates) =>
@@ -1263,7 +1354,8 @@ class PaginatedTraitsBuilder
   _$PaginatedTraits _build() {
     _$PaginatedTraits _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PaginatedTraits._(
             inputTokenPath: inputTokenPath,
             inputToken: _inputToken?.build(),
@@ -1290,7 +1382,10 @@ class PaginatedTraitsBuilder
         _items?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PaginatedTraits', _$failedField, e.toString());
+          r'PaginatedTraits',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

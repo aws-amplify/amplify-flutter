@@ -26,9 +26,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-          },
+          attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
         );
 
         await loadAuthenticator(tester: tester);
@@ -50,8 +48,9 @@ void main() {
         final signInPage = SignInPage(tester: tester);
         final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-        final smsResult =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+        final smsResult = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // When I type my "username"
         await signInPage.enterUsername(username);
@@ -130,9 +129,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-          },
+          attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
         );
 
         await loadAuthenticator(tester: tester);
@@ -154,8 +151,9 @@ void main() {
         final signInPage = SignInPage(tester: tester);
         final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-        final smsResult_1 =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+        final smsResult_1 = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // When I type my "username"
         await signInPage.enterUsername(username);
@@ -200,8 +198,9 @@ void main() {
         // Then I will be redirected to the MFA selection page
         await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
 
-        final smsResult_2 =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+        final smsResult_2 = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // When I select "SMS"
         await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);

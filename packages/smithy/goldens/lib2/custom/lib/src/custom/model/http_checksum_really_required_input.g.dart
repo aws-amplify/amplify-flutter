@@ -13,17 +13,18 @@ class _$HttpChecksumReallyRequiredInput
   @override
   final _i2.Uint8List? content;
 
-  factory _$HttpChecksumReallyRequiredInput(
-          [void Function(HttpChecksumReallyRequiredInputBuilder)? updates]) =>
+  factory _$HttpChecksumReallyRequiredInput([
+    void Function(HttpChecksumReallyRequiredInputBuilder)? updates,
+  ]) =>
       (new HttpChecksumReallyRequiredInputBuilder()..update(updates))._build();
 
   _$HttpChecksumReallyRequiredInput._({this.checksumAlgorithm, this.content})
-      : super._();
+    : super._();
 
   @override
   HttpChecksumReallyRequiredInput rebuild(
-          void Function(HttpChecksumReallyRequiredInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpChecksumReallyRequiredInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpChecksumReallyRequiredInputBuilder toBuilder() =>
@@ -49,8 +50,10 @@ class _$HttpChecksumReallyRequiredInput
 
 class HttpChecksumReallyRequiredInputBuilder
     implements
-        Builder<HttpChecksumReallyRequiredInput,
-            HttpChecksumReallyRequiredInputBuilder> {
+        Builder<
+          HttpChecksumReallyRequiredInput,
+          HttpChecksumReallyRequiredInputBuilder
+        > {
   _$HttpChecksumReallyRequiredInput? _$v;
 
   ChecksumAlgorithm? _checksumAlgorithm;
@@ -89,9 +92,12 @@ class HttpChecksumReallyRequiredInputBuilder
   HttpChecksumReallyRequiredInput build() => _build();
 
   _$HttpChecksumReallyRequiredInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$HttpChecksumReallyRequiredInput._(
-            checksumAlgorithm: checksumAlgorithm, content: content);
+          checksumAlgorithm: checksumAlgorithm,
+          content: content,
+        );
     replace(_$result);
     return _$result;
   }

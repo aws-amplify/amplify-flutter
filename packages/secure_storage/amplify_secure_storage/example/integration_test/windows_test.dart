@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('windows')
+library;
 
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';

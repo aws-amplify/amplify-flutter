@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v1.ec2_protocol.model.nested_struct_with_list; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,18 @@ abstract class NestedStructWithList
     implements Built<NestedStructWithList, NestedStructWithListBuilder> {
   factory NestedStructWithList({List<String>? listArg}) {
     return _$NestedStructWithList._(
-        listArg: listArg == null ? null : _i2.BuiltList(listArg));
+      listArg: listArg == null ? null : _i2.BuiltList(listArg),
+    );
   }
 
-  factory NestedStructWithList.build(
-          [void Function(NestedStructWithListBuilder) updates]) =
-      _$NestedStructWithList;
+  factory NestedStructWithList.build([
+    void Function(NestedStructWithListBuilder) updates,
+  ]) = _$NestedStructWithList;
 
   const NestedStructWithList._();
 
   static const List<_i3.SmithySerializer<NestedStructWithList>> serializers = [
-    NestedStructWithListEc2QuerySerializer()
+    NestedStructWithListEc2QuerySerializer(),
   ];
 
   _i2.BuiltList<String>? get listArg;
@@ -36,10 +37,7 @@ abstract class NestedStructWithList
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedStructWithList')
-      ..add(
-        'listArg',
-        listArg,
-      );
+      ..add('listArg', listArg);
     return helper.toString();
   }
 }
@@ -47,21 +45,18 @@ abstract class NestedStructWithList
 class NestedStructWithListEc2QuerySerializer
     extends _i3.StructuredSmithySerializer<NestedStructWithList> {
   const NestedStructWithListEc2QuerySerializer()
-      : super('NestedStructWithList');
+    : super('NestedStructWithList');
 
   @override
   Iterable<Type> get types => const [
-        NestedStructWithList,
-        _$NestedStructWithList,
-      ];
+    NestedStructWithList,
+    _$NestedStructWithList,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   NestedStructWithList deserialize(
@@ -80,16 +75,18 @@ class NestedStructWithListEc2QuerySerializer
       }
       switch (key) {
         case 'ListArg':
-          result.listArg.replace((const _i3.XmlBuiltListSerializer(
-                  indexer: _i3.XmlIndexer.ec2QueryList)
-              .deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i2.BuiltList<String>));
+          result.listArg.replace(
+            (const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.ec2QueryList,
+                ).deserialize(
+                  serializers,
+                  value is String ? const [] : (value as Iterable<Object?>),
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltList<String>),
+          );
       }
     }
 
@@ -106,22 +103,21 @@ class NestedStructWithListEc2QuerySerializer
       const _i3.XmlElementName(
         'NestedStructWithListResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final NestedStructWithList(:listArg) = object;
     if (listArg != null) {
       result$
         ..add(const _i3.XmlElementName('ListArg'))
-        ..add(const _i3.XmlBuiltListSerializer(
-                indexer: _i3.XmlIndexer.ec2QueryList)
-            .serialize(
-          serializers,
-          listArg,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(String)],
+        ..add(
+          const _i3.XmlBuiltListSerializer(
+            indexer: _i3.XmlIndexer.ec2QueryList,
+          ).serialize(
+            serializers,
+            listArg,
+            specifiedType: const FullType(_i2.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     return result$;
   }

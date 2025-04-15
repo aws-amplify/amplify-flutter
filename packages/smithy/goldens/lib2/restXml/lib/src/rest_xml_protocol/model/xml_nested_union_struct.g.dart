@@ -24,25 +24,25 @@ class _$XmlNestedUnionStruct extends XmlNestedUnionStruct {
   @override
   final double? doubleValue;
 
-  factory _$XmlNestedUnionStruct(
-          [void Function(XmlNestedUnionStructBuilder)? updates]) =>
-      (new XmlNestedUnionStructBuilder()..update(updates))._build();
+  factory _$XmlNestedUnionStruct([
+    void Function(XmlNestedUnionStructBuilder)? updates,
+  ]) => (new XmlNestedUnionStructBuilder()..update(updates))._build();
 
-  _$XmlNestedUnionStruct._(
-      {this.stringValue,
-      this.booleanValue,
-      this.byteValue,
-      this.shortValue,
-      this.integerValue,
-      this.longValue,
-      this.floatValue,
-      this.doubleValue})
-      : super._();
+  _$XmlNestedUnionStruct._({
+    this.stringValue,
+    this.booleanValue,
+    this.byteValue,
+    this.shortValue,
+    this.integerValue,
+    this.longValue,
+    this.floatValue,
+    this.doubleValue,
+  }) : super._();
 
   @override
   XmlNestedUnionStruct rebuild(
-          void Function(XmlNestedUnionStructBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlNestedUnionStructBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlNestedUnionStructBuilder toBuilder() =>
@@ -147,16 +147,18 @@ class XmlNestedUnionStructBuilder
   XmlNestedUnionStruct build() => _build();
 
   _$XmlNestedUnionStruct _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$XmlNestedUnionStruct._(
-            stringValue: stringValue,
-            booleanValue: booleanValue,
-            byteValue: byteValue,
-            shortValue: shortValue,
-            integerValue: integerValue,
-            longValue: longValue,
-            floatValue: floatValue,
-            doubleValue: doubleValue);
+          stringValue: stringValue,
+          booleanValue: booleanValue,
+          byteValue: byteValue,
+          shortValue: shortValue,
+          integerValue: integerValue,
+          longValue: longValue,
+          floatValue: floatValue,
+          doubleValue: doubleValue,
+        );
     replace(_$result);
     return _$result;
   }

@@ -6,25 +6,13 @@ library amplify_storage_s3_dart.s3.model.metadata_directive; // ignore_for_file:
 import 'package:smithy/smithy.dart' as _i1;
 
 class MetadataDirective extends _i1.SmithyEnum<MetadataDirective> {
-  const MetadataDirective._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const MetadataDirective._(super.index, super.name, super.value);
 
   const MetadataDirective._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const copy = MetadataDirective._(
-    0,
-    'COPY',
-    'COPY',
-  );
+  static const copy = MetadataDirective._(0, 'COPY', 'COPY');
 
-  static const replace = MetadataDirective._(
-    1,
-    'REPLACE',
-    'REPLACE',
-  );
+  static const replace = MetadataDirective._(1, 'REPLACE', 'REPLACE');
 
   /// All values of [MetadataDirective].
   static const values = <MetadataDirective>[
@@ -38,12 +26,9 @@ class MetadataDirective extends _i1.SmithyEnum<MetadataDirective> {
       values: values,
       sdkUnknown: MetadataDirective._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

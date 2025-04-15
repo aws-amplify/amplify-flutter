@@ -117,8 +117,9 @@ abstract class CopyObjectRequest
     );
   }
 
-  factory CopyObjectRequest.build(
-      [void Function(CopyObjectRequestBuilder) updates]) = _$CopyObjectRequest;
+  factory CopyObjectRequest.build([
+    void Function(CopyObjectRequestBuilder) updates,
+  ]) = _$CopyObjectRequest;
 
   const CopyObjectRequest._();
 
@@ -126,188 +127,196 @@ abstract class CopyObjectRequest
     CopyObjectRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      CopyObjectRequest.build((b) {
-        if (request.headers['x-amz-acl'] != null) {
-          b.acl = ObjectCannedAcl.values.byValue(request.headers['x-amz-acl']!);
-        }
-        if (request.headers['Cache-Control'] != null) {
-          b.cacheControl = request.headers['Cache-Control']!;
-        }
-        if (request.headers['x-amz-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = ChecksumAlgorithm.values
-              .byValue(request.headers['x-amz-checksum-algorithm']!);
-        }
-        if (request.headers['Content-Disposition'] != null) {
-          b.contentDisposition = request.headers['Content-Disposition']!;
-        }
-        if (request.headers['Content-Encoding'] != null) {
-          b.contentEncoding = request.headers['Content-Encoding']!;
-        }
-        if (request.headers['Content-Language'] != null) {
-          b.contentLanguage = request.headers['Content-Language']!;
-        }
-        if (request.headers['Content-Type'] != null) {
-          b.contentType = request.headers['Content-Type']!;
-        }
-        if (request.headers['x-amz-copy-source'] != null) {
-          b.copySource = request.headers['x-amz-copy-source']!;
-        }
-        if (request.headers['x-amz-copy-source-if-match'] != null) {
-          b.copySourceIfMatch = request.headers['x-amz-copy-source-if-match']!;
-        }
-        if (request.headers['x-amz-copy-source-if-modified-since'] != null) {
-          b.copySourceIfModifiedSince = _i1.Timestamp.parse(
+  }) => CopyObjectRequest.build((b) {
+    if (request.headers['x-amz-acl'] != null) {
+      b.acl = ObjectCannedAcl.values.byValue(request.headers['x-amz-acl']!);
+    }
+    if (request.headers['Cache-Control'] != null) {
+      b.cacheControl = request.headers['Cache-Control']!;
+    }
+    if (request.headers['x-amz-checksum-algorithm'] != null) {
+      b.checksumAlgorithm = ChecksumAlgorithm.values.byValue(
+        request.headers['x-amz-checksum-algorithm']!,
+      );
+    }
+    if (request.headers['Content-Disposition'] != null) {
+      b.contentDisposition = request.headers['Content-Disposition']!;
+    }
+    if (request.headers['Content-Encoding'] != null) {
+      b.contentEncoding = request.headers['Content-Encoding']!;
+    }
+    if (request.headers['Content-Language'] != null) {
+      b.contentLanguage = request.headers['Content-Language']!;
+    }
+    if (request.headers['Content-Type'] != null) {
+      b.contentType = request.headers['Content-Type']!;
+    }
+    if (request.headers['x-amz-copy-source'] != null) {
+      b.copySource = request.headers['x-amz-copy-source']!;
+    }
+    if (request.headers['x-amz-copy-source-if-match'] != null) {
+      b.copySourceIfMatch = request.headers['x-amz-copy-source-if-match']!;
+    }
+    if (request.headers['x-amz-copy-source-if-modified-since'] != null) {
+      b.copySourceIfModifiedSince =
+          _i1.Timestamp.parse(
             request.headers['x-amz-copy-source-if-modified-since']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['x-amz-copy-source-if-none-match'] != null) {
-          b.copySourceIfNoneMatch =
-              request.headers['x-amz-copy-source-if-none-match']!;
-        }
-        if (request.headers['x-amz-copy-source-if-unmodified-since'] != null) {
-          b.copySourceIfUnmodifiedSince = _i1.Timestamp.parse(
+    }
+    if (request.headers['x-amz-copy-source-if-none-match'] != null) {
+      b.copySourceIfNoneMatch =
+          request.headers['x-amz-copy-source-if-none-match']!;
+    }
+    if (request.headers['x-amz-copy-source-if-unmodified-since'] != null) {
+      b.copySourceIfUnmodifiedSince =
+          _i1.Timestamp.parse(
             request.headers['x-amz-copy-source-if-unmodified-since']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['Expires'] != null) {
-          b.expires = _i1.Timestamp.parse(
+    }
+    if (request.headers['Expires'] != null) {
+      b.expires =
+          _i1.Timestamp.parse(
             request.headers['Expires']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['x-amz-grant-full-control'] != null) {
-          b.grantFullControl = request.headers['x-amz-grant-full-control']!;
-        }
-        if (request.headers['x-amz-grant-read'] != null) {
-          b.grantRead = request.headers['x-amz-grant-read']!;
-        }
-        if (request.headers['x-amz-grant-read-acp'] != null) {
-          b.grantReadAcp = request.headers['x-amz-grant-read-acp']!;
-        }
-        if (request.headers['x-amz-grant-write-acp'] != null) {
-          b.grantWriteAcp = request.headers['x-amz-grant-write-acp']!;
-        }
-        if (request.headers['x-amz-metadata-directive'] != null) {
-          b.metadataDirective = MetadataDirective.values
-              .byValue(request.headers['x-amz-metadata-directive']!);
-        }
-        if (request.headers['x-amz-tagging-directive'] != null) {
-          b.taggingDirective = TaggingDirective.values
-              .byValue(request.headers['x-amz-tagging-directive']!);
-        }
-        if (request.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = ServerSideEncryption.values
-              .byValue(request.headers['x-amz-server-side-encryption']!);
-        }
-        if (request.headers['x-amz-storage-class'] != null) {
-          b.storageClass = StorageClass.values
-              .byValue(request.headers['x-amz-storage-class']!);
-        }
-        if (request.headers['x-amz-website-redirect-location'] != null) {
-          b.websiteRedirectLocation =
-              request.headers['x-amz-website-redirect-location']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = request
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key'] !=
-            null) {
-          b.sseCustomerKey =
-              request.headers['x-amz-server-side-encryption-customer-key']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 =
-              request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
-            null) {
-          b.ssekmsKeyId =
-              request.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-context'] != null) {
-          b.ssekmsEncryptionContext =
-              request.headers['x-amz-server-side-encryption-context']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
-            null) {
-          b.bucketKeyEnabled = request.headers[
-                  'x-amz-server-side-encryption-bucket-key-enabled']! ==
-              'true';
-        }
-        if (request.headers[
-                'x-amz-copy-source-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.copySourceSseCustomerAlgorithm = request.headers[
-              'x-amz-copy-source-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers[
-                'x-amz-copy-source-server-side-encryption-customer-key'] !=
-            null) {
-          b.copySourceSseCustomerKey = request.headers[
-              'x-amz-copy-source-server-side-encryption-customer-key']!;
-        }
-        if (request.headers[
-                'x-amz-copy-source-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.copySourceSseCustomerKeyMd5 = request.headers[
-              'x-amz-copy-source-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-tagging'] != null) {
-          b.tagging = request.headers['x-amz-tagging']!;
-        }
-        if (request.headers['x-amz-object-lock-mode'] != null) {
-          b.objectLockMode = ObjectLockMode.values
-              .byValue(request.headers['x-amz-object-lock-mode']!);
-        }
-        if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
-          b.objectLockRetainUntilDate = _i1.Timestamp.parse(
+    }
+    if (request.headers['x-amz-grant-full-control'] != null) {
+      b.grantFullControl = request.headers['x-amz-grant-full-control']!;
+    }
+    if (request.headers['x-amz-grant-read'] != null) {
+      b.grantRead = request.headers['x-amz-grant-read']!;
+    }
+    if (request.headers['x-amz-grant-read-acp'] != null) {
+      b.grantReadAcp = request.headers['x-amz-grant-read-acp']!;
+    }
+    if (request.headers['x-amz-grant-write-acp'] != null) {
+      b.grantWriteAcp = request.headers['x-amz-grant-write-acp']!;
+    }
+    if (request.headers['x-amz-metadata-directive'] != null) {
+      b.metadataDirective = MetadataDirective.values.byValue(
+        request.headers['x-amz-metadata-directive']!,
+      );
+    }
+    if (request.headers['x-amz-tagging-directive'] != null) {
+      b.taggingDirective = TaggingDirective.values.byValue(
+        request.headers['x-amz-tagging-directive']!,
+      );
+    }
+    if (request.headers['x-amz-server-side-encryption'] != null) {
+      b.serverSideEncryption = ServerSideEncryption.values.byValue(
+        request.headers['x-amz-server-side-encryption']!,
+      );
+    }
+    if (request.headers['x-amz-storage-class'] != null) {
+      b.storageClass = StorageClass.values.byValue(
+        request.headers['x-amz-storage-class']!,
+      );
+    }
+    if (request.headers['x-amz-website-redirect-location'] != null) {
+      b.websiteRedirectLocation =
+          request.headers['x-amz-website-redirect-location']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          request.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key'] != null) {
+      b.sseCustomerKey =
+          request.headers['x-amz-server-side-encryption-customer-key']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
+        null) {
+      b.ssekmsKeyId =
+          request.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-context'] != null) {
+      b.ssekmsEncryptionContext =
+          request.headers['x-amz-server-side-encryption-context']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
+        null) {
+      b.bucketKeyEnabled =
+          request.headers['x-amz-server-side-encryption-bucket-key-enabled']! ==
+          'true';
+    }
+    if (request
+            .headers['x-amz-copy-source-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.copySourceSseCustomerAlgorithm =
+          request
+              .headers['x-amz-copy-source-server-side-encryption-customer-algorithm']!;
+    }
+    if (request
+            .headers['x-amz-copy-source-server-side-encryption-customer-key'] !=
+        null) {
+      b.copySourceSseCustomerKey =
+          request
+              .headers['x-amz-copy-source-server-side-encryption-customer-key']!;
+    }
+    if (request
+            .headers['x-amz-copy-source-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.copySourceSseCustomerKeyMd5 =
+          request
+              .headers['x-amz-copy-source-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-tagging'] != null) {
+      b.tagging = request.headers['x-amz-tagging']!;
+    }
+    if (request.headers['x-amz-object-lock-mode'] != null) {
+      b.objectLockMode = ObjectLockMode.values.byValue(
+        request.headers['x-amz-object-lock-mode']!,
+      );
+    }
+    if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
+      b.objectLockRetainUntilDate =
+          _i1.Timestamp.parse(
             request.headers['x-amz-object-lock-retain-until-date']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-        if (request.headers['x-amz-object-lock-legal-hold'] != null) {
-          b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values
-              .byValue(request.headers['x-amz-object-lock-legal-hold']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.headers['x-amz-source-expected-bucket-owner'] != null) {
-          b.expectedSourceBucketOwner =
-              request.headers['x-amz-source-expected-bucket-owner']!;
-        }
-        b.metadata.addEntries(request.headers.entries
-            .where((el) => el.key.startsWith('x-amz-meta-'))
-            .map((el) => MapEntry(
-                  el.key.replaceFirst(
-                    'x-amz-meta-',
-                    '',
-                  ),
-                  el.value,
-                )));
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+    }
+    if (request.headers['x-amz-object-lock-legal-hold'] != null) {
+      b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values.byValue(
+        request.headers['x-amz-object-lock-legal-hold']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.headers['x-amz-source-expected-bucket-owner'] != null) {
+      b.expectedSourceBucketOwner =
+          request.headers['x-amz-source-expected-bucket-owner']!;
+    }
+    b.metadata.addEntries(
+      request.headers.entries
+          .where((el) => el.key.startsWith('x-amz-meta-'))
+          .map(
+            (el) => MapEntry(el.key.replaceFirst('x-amz-meta-', ''), el.value),
+          ),
+    );
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<CopyObjectRequestPayload>>
-      serializers = [CopyObjectRequestRestXmlSerializer()];
+  serializers = [CopyObjectRequestRestXmlSerializer()];
 
   /// The canned access control list (ACL) to apply to the object.
   ///
@@ -635,10 +644,7 @@ abstract class CopyObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -646,216 +652,97 @@ abstract class CopyObjectRequest
 
   @override
   List<Object?> get props => [
-        acl,
-        bucket,
-        cacheControl,
-        checksumAlgorithm,
-        contentDisposition,
-        contentEncoding,
-        contentLanguage,
-        contentType,
-        copySource,
-        copySourceIfMatch,
-        copySourceIfModifiedSince,
-        copySourceIfNoneMatch,
-        copySourceIfUnmodifiedSince,
-        expires,
-        grantFullControl,
-        grantRead,
-        grantReadAcp,
-        grantWriteAcp,
-        key,
-        metadata,
-        metadataDirective,
-        taggingDirective,
-        serverSideEncryption,
-        storageClass,
-        websiteRedirectLocation,
-        sseCustomerAlgorithm,
-        sseCustomerKey,
-        sseCustomerKeyMd5,
-        ssekmsKeyId,
-        ssekmsEncryptionContext,
-        bucketKeyEnabled,
-        copySourceSseCustomerAlgorithm,
-        copySourceSseCustomerKey,
-        copySourceSseCustomerKeyMd5,
-        requestPayer,
-        tagging,
-        objectLockMode,
-        objectLockRetainUntilDate,
-        objectLockLegalHoldStatus,
-        expectedBucketOwner,
-        expectedSourceBucketOwner,
-      ];
+    acl,
+    bucket,
+    cacheControl,
+    checksumAlgorithm,
+    contentDisposition,
+    contentEncoding,
+    contentLanguage,
+    contentType,
+    copySource,
+    copySourceIfMatch,
+    copySourceIfModifiedSince,
+    copySourceIfNoneMatch,
+    copySourceIfUnmodifiedSince,
+    expires,
+    grantFullControl,
+    grantRead,
+    grantReadAcp,
+    grantWriteAcp,
+    key,
+    metadata,
+    metadataDirective,
+    taggingDirective,
+    serverSideEncryption,
+    storageClass,
+    websiteRedirectLocation,
+    sseCustomerAlgorithm,
+    sseCustomerKey,
+    sseCustomerKeyMd5,
+    ssekmsKeyId,
+    ssekmsEncryptionContext,
+    bucketKeyEnabled,
+    copySourceSseCustomerAlgorithm,
+    copySourceSseCustomerKey,
+    copySourceSseCustomerKeyMd5,
+    requestPayer,
+    tagging,
+    objectLockMode,
+    objectLockRetainUntilDate,
+    objectLockLegalHoldStatus,
+    expectedBucketOwner,
+    expectedSourceBucketOwner,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CopyObjectRequest')
-      ..add(
-        'acl',
-        acl,
-      )
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'cacheControl',
-        cacheControl,
-      )
-      ..add(
-        'checksumAlgorithm',
-        checksumAlgorithm,
-      )
-      ..add(
-        'contentDisposition',
-        contentDisposition,
-      )
-      ..add(
-        'contentEncoding',
-        contentEncoding,
-      )
-      ..add(
-        'contentLanguage',
-        contentLanguage,
-      )
-      ..add(
-        'contentType',
-        contentType,
-      )
-      ..add(
-        'copySource',
-        copySource,
-      )
-      ..add(
-        'copySourceIfMatch',
-        copySourceIfMatch,
-      )
-      ..add(
-        'copySourceIfModifiedSince',
-        copySourceIfModifiedSince,
-      )
-      ..add(
-        'copySourceIfNoneMatch',
-        copySourceIfNoneMatch,
-      )
-      ..add(
-        'copySourceIfUnmodifiedSince',
-        copySourceIfUnmodifiedSince,
-      )
-      ..add(
-        'expires',
-        expires,
-      )
-      ..add(
-        'grantFullControl',
-        grantFullControl,
-      )
-      ..add(
-        'grantRead',
-        grantRead,
-      )
-      ..add(
-        'grantReadAcp',
-        grantReadAcp,
-      )
-      ..add(
-        'grantWriteAcp',
-        grantWriteAcp,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'metadata',
-        metadata,
-      )
-      ..add(
-        'metadataDirective',
-        metadataDirective,
-      )
-      ..add(
-        'taggingDirective',
-        taggingDirective,
-      )
-      ..add(
-        'serverSideEncryption',
-        serverSideEncryption,
-      )
-      ..add(
-        'storageClass',
-        storageClass,
-      )
-      ..add(
-        'websiteRedirectLocation',
-        websiteRedirectLocation,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'ssekmsKeyId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'ssekmsEncryptionContext',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'bucketKeyEnabled',
-        bucketKeyEnabled,
-      )
-      ..add(
-        'copySourceSseCustomerAlgorithm',
-        copySourceSseCustomerAlgorithm,
-      )
-      ..add(
-        'copySourceSseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'copySourceSseCustomerKeyMd5',
-        copySourceSseCustomerKeyMd5,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'tagging',
-        tagging,
-      )
-      ..add(
-        'objectLockMode',
-        objectLockMode,
-      )
-      ..add(
-        'objectLockRetainUntilDate',
-        objectLockRetainUntilDate,
-      )
-      ..add(
-        'objectLockLegalHoldStatus',
-        objectLockLegalHoldStatus,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      )
-      ..add(
-        'expectedSourceBucketOwner',
-        expectedSourceBucketOwner,
-      );
+    final helper =
+        newBuiltValueToStringHelper('CopyObjectRequest')
+          ..add('acl', acl)
+          ..add('bucket', bucket)
+          ..add('cacheControl', cacheControl)
+          ..add('checksumAlgorithm', checksumAlgorithm)
+          ..add('contentDisposition', contentDisposition)
+          ..add('contentEncoding', contentEncoding)
+          ..add('contentLanguage', contentLanguage)
+          ..add('contentType', contentType)
+          ..add('copySource', copySource)
+          ..add('copySourceIfMatch', copySourceIfMatch)
+          ..add('copySourceIfModifiedSince', copySourceIfModifiedSince)
+          ..add('copySourceIfNoneMatch', copySourceIfNoneMatch)
+          ..add('copySourceIfUnmodifiedSince', copySourceIfUnmodifiedSince)
+          ..add('expires', expires)
+          ..add('grantFullControl', grantFullControl)
+          ..add('grantRead', grantRead)
+          ..add('grantReadAcp', grantReadAcp)
+          ..add('grantWriteAcp', grantWriteAcp)
+          ..add('key', key)
+          ..add('metadata', metadata)
+          ..add('metadataDirective', metadataDirective)
+          ..add('taggingDirective', taggingDirective)
+          ..add('serverSideEncryption', serverSideEncryption)
+          ..add('storageClass', storageClass)
+          ..add('websiteRedirectLocation', websiteRedirectLocation)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKey', '***SENSITIVE***')
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add('ssekmsKeyId', '***SENSITIVE***')
+          ..add('ssekmsEncryptionContext', '***SENSITIVE***')
+          ..add('bucketKeyEnabled', bucketKeyEnabled)
+          ..add(
+            'copySourceSseCustomerAlgorithm',
+            copySourceSseCustomerAlgorithm,
+          )
+          ..add('copySourceSseCustomerKey', '***SENSITIVE***')
+          ..add('copySourceSseCustomerKeyMd5', copySourceSseCustomerKeyMd5)
+          ..add('requestPayer', requestPayer)
+          ..add('tagging', tagging)
+          ..add('objectLockMode', objectLockMode)
+          ..add('objectLockRetainUntilDate', objectLockRetainUntilDate)
+          ..add('objectLockLegalHoldStatus', objectLockLegalHoldStatus)
+          ..add('expectedBucketOwner', expectedBucketOwner)
+          ..add('expectedSourceBucketOwner', expectedSourceBucketOwner);
     return helper.toString();
   }
 }
@@ -866,9 +753,9 @@ abstract class CopyObjectRequestPayload
     implements
         Built<CopyObjectRequestPayload, CopyObjectRequestPayloadBuilder>,
         _i1.EmptyPayload {
-  factory CopyObjectRequestPayload(
-          [void Function(CopyObjectRequestPayloadBuilder) updates]) =
-      _$CopyObjectRequestPayload;
+  factory CopyObjectRequestPayload([
+    void Function(CopyObjectRequestPayloadBuilder) updates,
+  ]) = _$CopyObjectRequestPayload;
 
   const CopyObjectRequestPayload._();
 
@@ -888,19 +775,16 @@ class CopyObjectRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        CopyObjectRequest,
-        _$CopyObjectRequest,
-        CopyObjectRequestPayload,
-        _$CopyObjectRequestPayload,
-      ];
+    CopyObjectRequest,
+    _$CopyObjectRequest,
+    CopyObjectRequestPayload,
+    _$CopyObjectRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CopyObjectRequestPayload deserialize(
@@ -921,7 +805,7 @@ class CopyObjectRequestRestXmlSerializer
       const _i1.XmlElementName(
         'CopyObjectRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

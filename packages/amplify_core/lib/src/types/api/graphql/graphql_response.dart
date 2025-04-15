@@ -5,19 +5,13 @@ import 'package:amplify_core/amplify_core.dart';
 
 /// A GraphQL response from the server. See https://graphql.org/learn/serving-over-http/#response
 class GraphQLResponse<T> {
-  const GraphQLResponse({
-    this.data,
-    required this.errors,
-  });
+  const GraphQLResponse({this.data, required this.errors});
 
   static GraphQLResponse<String?> raw({
     required String? data,
     List<GraphQLResponseError>? errors,
   }) {
-    return GraphQLResponse(
-      data: data,
-      errors: errors ?? const [],
-    );
+    return GraphQLResponse(data: data, errors: errors ?? const []);
   }
 
   /// Response data matching the type of the request.
@@ -33,10 +27,7 @@ class GraphQLResponse<T> {
 
   @override
   String toString() {
-    final obj = {
-      'data': data,
-      'errors': errors,
-    };
+    final obj = {'data': data, 'errors': errors};
     return 'GraphQLResponse<$T>: ${prettyPrintJson(obj)}';
   }
 }

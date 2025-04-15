@@ -88,8 +88,9 @@ abstract class AftConfig
   String componentForPackage(String packageName) {
     return components.values
             .firstWhereOrNull(
-              (component) => component.packages
-                  .any((package) => package.name == packageName),
+              (component) => component.packages.any(
+                (package) => package.name == packageName,
+              ),
             )
             ?.name ??
         packageName;
@@ -295,13 +296,9 @@ class PackageInfo
   /// Whether [package] is a direct or transitive dependency of `this`.
   bool dependsOn(PackageInfo package, Repo repo) {
     var found = false;
-    dfs(
-      repo.getPackageGraph(includeDevDependencies: true),
-      root: this,
-      (pkg) {
-        if (pkg == package) found = true;
-      },
-    );
+    dfs(repo.getPackageGraph(includeDevDependencies: true), root: this, (pkg) {
+      if (pkg == package) found = true;
+    });
     return found;
   }
 
@@ -450,15 +447,11 @@ extension DirectoryX on Directory {
 ///
 /// This parses the version from calling `dart --version`.
 final Version activeDartSdkVersion = () {
-  final ProcessResult(
-    :exitCode,
-    :stdout,
-    :stderr,
-  ) = Process.runSync('dart', ['--version']);
+  final ProcessResult(:exitCode, :stdout, :stderr) = Process.runSync('dart', [
+    '--version',
+  ]);
   if (exitCode != 0) {
-    throw Exception(
-      'Error running `dart --version` ($exitCode): $stderr',
-    );
+    throw Exception('Error running `dart --version` ($exitCode): $stderr');
   }
   // Example output:
   // Dart SDK version: 3.1.0 (stable) (Tue Aug 15 21:33:36 2023 +0000) on "macos_arm64"

@@ -68,9 +68,10 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
   /// The name of the database
   ///
   /// Reference: https://www.w3.org/TR/IndexedDB/#name
-  String get databaseName => config.webOptions.databaseName != null
-      ? config.webOptions.databaseName!
-      : config.defaultNamespace;
+  String get databaseName =>
+      config.webOptions.databaseName != null
+          ? config.webOptions.databaseName!
+          : config.defaultNamespace;
 
   /// The name of the object store
   ///

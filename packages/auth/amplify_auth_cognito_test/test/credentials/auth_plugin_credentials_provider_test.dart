@@ -20,25 +20,26 @@ void main() {
     late CognitoAuthStateMachine stateMachine;
 
     setUp(() async {
-      stateMachine = CognitoAuthStateMachine()
-        ..addBuilder<SecureStorageInterface>((_) => MockSecureStorage())
-        ..dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
+      stateMachine =
+          CognitoAuthStateMachine()
+            ..addBuilder<SecureStorageInterface>((_) => MockSecureStorage())
+            ..dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       provider = AuthPluginCredentialsProviderImpl(stateMachine);
 
       await stateMachine.stream.firstWhere((state) => state is Configured);
 
       stateMachine.addInstance<CognitoIdentityClient>(
         MockCognitoIdentityClient(
-          getCredentialsForIdentity: () async =>
-              GetCredentialsForIdentityResponse(
-            credentials: Credentials(
-              accessKeyId: accessKeyId,
-              secretKey: secretAccessKey,
-              sessionToken: sessionToken,
-              expiration: expiration,
-            ),
-            identityId: identityId,
-          ),
+          getCredentialsForIdentity:
+              () async => GetCredentialsForIdentityResponse(
+                credentials: Credentials(
+                  accessKeyId: accessKeyId,
+                  secretKey: secretAccessKey,
+                  sessionToken: sessionToken,
+                  expiration: expiration,
+                ),
+                identityId: identityId,
+              ),
           getId: () async => GetIdResponse(identityId: identityId),
         ),
       );
@@ -49,12 +50,9 @@ void main() {
     });
 
     test('handles concurrent requests', () async {
-      final allCreds = await Future.wait<AWSCredentials>(
-        [
-          for (var i = 0; i < 10; i++) provider.retrieve(),
-        ],
-        eagerError: false,
-      );
+      final allCreds = await Future.wait<AWSCredentials>([
+        for (var i = 0; i < 10; i++) provider.retrieve(),
+      ], eagerError: false);
 
       final expectedCreds = AWSCredentials(
         accessKeyId,
@@ -69,10 +67,7 @@ void main() {
 
     test('fails when fetching from within state machine', () async {
       expect(
-        runZoned(
-          () => provider.retrieve(),
-          zoneValues: {zInFetch: true},
-        ),
+        runZoned(() => provider.retrieve(), zoneValues: {zInFetch: true}),
         throwsA(isA<Exception>()),
       );
     });

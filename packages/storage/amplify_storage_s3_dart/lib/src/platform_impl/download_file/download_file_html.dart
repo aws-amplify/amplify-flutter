@@ -56,25 +56,25 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   // `options.getProperties` is set to true.
   // Exception thrown from the getProperties will be thrown as download
   // operation.
-  final downloadedItem = (await storageS3Service.getProperties(
-    path: path,
-    options: StorageGetPropertiesOptions(bucket: options.bucket),
-  ))
-      .storageItem;
+  final downloadedItem =
+      (await storageS3Service.getProperties(
+        path: path,
+        options: StorageGetPropertiesOptions(bucket: options.bucket),
+      )).storageItem;
 
   // A download url expires in 15 mins by default, see [S3GetUrlPluginOptions].
   // We are not setting validateObjectExistence to true here as we are not
   // able to directly get the result of underlying HeadObject result.
-  final url = (await storageS3Service.getUrl(
-    path: path,
-    options: StorageGetUrlOptions(
-      pluginOptions: S3GetUrlPluginOptions(
-        useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-      ),
-      bucket: options.bucket,
-    ),
-  ))
-      .url;
+  final url =
+      (await storageS3Service.getUrl(
+        path: path,
+        options: StorageGetUrlOptions(
+          pluginOptions: S3GetUrlPluginOptions(
+            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+          ),
+          bucket: options.bucket,
+        ),
+      )).url;
 
   // Trigger a browser download on the presigned url.
   DomHelper.instance.download(
@@ -85,9 +85,10 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   );
 
   return S3DownloadFileResult(
-    downloadedItem: s3PluginOptions.getProperties
-        ? downloadedItem
-        : S3Item(path: downloadedItem.path),
+    downloadedItem:
+        s3PluginOptions.getProperties
+            ? downloadedItem
+            : S3Item(path: downloadedItem.path),
     localFile: localFile,
   );
 }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.http_payload_traits_with_media_type_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,22 +17,21 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
         _i1.HttpInput<_i2.Uint8List>,
         _i3.AWSEquatable<HttpPayloadTraitsWithMediaTypeInputOutput>
     implements
-        Built<HttpPayloadTraitsWithMediaTypeInputOutput,
-            HttpPayloadTraitsWithMediaTypeInputOutputBuilder>,
+        Built<
+          HttpPayloadTraitsWithMediaTypeInputOutput,
+          HttpPayloadTraitsWithMediaTypeInputOutputBuilder
+        >,
         _i1.HasPayload<_i2.Uint8List> {
   factory HttpPayloadTraitsWithMediaTypeInputOutput({
     String? foo,
     _i2.Uint8List? blob,
   }) {
-    return _$HttpPayloadTraitsWithMediaTypeInputOutput._(
-      foo: foo,
-      blob: blob,
-    );
+    return _$HttpPayloadTraitsWithMediaTypeInputOutput._(foo: foo, blob: blob);
   }
 
-  factory HttpPayloadTraitsWithMediaTypeInputOutput.build(
-      [void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder)
-          updates]) = _$HttpPayloadTraitsWithMediaTypeInputOutput;
+  factory HttpPayloadTraitsWithMediaTypeInputOutput.build([
+    void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder) updates,
+  ]) = _$HttpPayloadTraitsWithMediaTypeInputOutput;
 
   const HttpPayloadTraitsWithMediaTypeInputOutput._();
 
@@ -40,28 +39,26 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
     _i2.Uint8List? payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpPayloadTraitsWithMediaTypeInputOutput.build((b) {
-        b.blob = payload;
-        if (request.headers['X-Foo'] != null) {
-          b.foo = request.headers['X-Foo']!;
-        }
-      });
+  }) => HttpPayloadTraitsWithMediaTypeInputOutput.build((b) {
+    b.blob = payload;
+    if (request.headers['X-Foo'] != null) {
+      b.foo = request.headers['X-Foo']!;
+    }
+  });
 
   /// Constructs a [HttpPayloadTraitsWithMediaTypeInputOutput] from a [payload] and [response].
   factory HttpPayloadTraitsWithMediaTypeInputOutput.fromResponse(
     _i2.Uint8List? payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      HttpPayloadTraitsWithMediaTypeInputOutput.build((b) {
-        b.blob = payload;
-        if (response.headers['X-Foo'] != null) {
-          b.foo = response.headers['X-Foo']!;
-        }
-      });
+  ) => HttpPayloadTraitsWithMediaTypeInputOutput.build((b) {
+    b.blob = payload;
+    if (response.headers['X-Foo'] != null) {
+      b.foo = response.headers['X-Foo']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
-    HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer()
+    HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer(),
   ];
 
   String? get foo;
@@ -70,23 +67,14 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
   _i2.Uint8List? getPayload() => blob;
 
   @override
-  List<Object?> get props => [
-        foo,
-        blob,
-      ];
+  List<Object?> get props => [foo, blob];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpPayloadTraitsWithMediaTypeInputOutput')
-          ..add(
-            'foo',
-            foo,
-          )
-          ..add(
-            'blob',
-            blob,
-          );
+          ..add('foo', foo)
+          ..add('blob', blob);
     return helper.toString();
   }
 }
@@ -94,21 +82,18 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
 class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer
     extends _i1.PrimitiveSmithySerializer<_i2.Uint8List> {
   const HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer()
-      : super('HttpPayloadTraitsWithMediaTypeInputOutput');
+    : super('HttpPayloadTraitsWithMediaTypeInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        HttpPayloadTraitsWithMediaTypeInputOutput,
-        _$HttpPayloadTraitsWithMediaTypeInputOutput,
-      ];
+    HttpPayloadTraitsWithMediaTypeInputOutput,
+    _$HttpPayloadTraitsWithMediaTypeInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   _i2.Uint8List deserialize(
@@ -117,9 +102,10 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(_i2.Uint8List),
-    ) as _i2.Uint8List);
+          serialized,
+          specifiedType: const FullType(_i2.Uint8List),
+        )
+        as _i2.Uint8List);
   }
 
   @override
@@ -129,13 +115,15 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('HttpPayloadTraitsWithMediaTypeInputOutput')
+      const _i1.XmlElementName('HttpPayloadTraitsWithMediaTypeInputOutput'),
     ];
 
-    result$.add(serializers.serialize(
-      object,
-      specifiedType: const FullType(_i2.Uint8List),
-    ));
+    result$.add(
+      serializers.serialize(
+        object,
+        specifiedType: const FullType(_i2.Uint8List),
+      ),
+    );
     return result$;
   }
 }

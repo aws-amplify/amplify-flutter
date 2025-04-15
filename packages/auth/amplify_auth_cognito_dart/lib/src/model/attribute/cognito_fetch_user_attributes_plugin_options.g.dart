@@ -7,17 +7,14 @@ part of 'cognito_fetch_user_attributes_plugin_options.dart';
 // **************************************************************************
 
 CognitoFetchUserAttributesPluginOptions
-    _$CognitoFetchUserAttributesPluginOptionsFromJson(
-            Map<String, dynamic> json) =>
-        $checkedCreate(
-          'CognitoFetchUserAttributesPluginOptions',
-          json,
-          ($checkedConvert) {
-            final val = CognitoFetchUserAttributesPluginOptions();
-            return val;
-          },
-        );
+_$CognitoFetchUserAttributesPluginOptionsFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('CognitoFetchUserAttributesPluginOptions', json, (
+      $checkedConvert,
+    ) {
+      final val = CognitoFetchUserAttributesPluginOptions();
+      return val;
+    });
 
 Map<String, dynamic> _$CognitoFetchUserAttributesPluginOptionsToJson(
-        CognitoFetchUserAttributesPluginOptions instance) =>
-    <String, dynamic>{};
+  CognitoFetchUserAttributesPluginOptions instance,
+) => <String, dynamic>{};

@@ -38,18 +38,15 @@ sealed class CredentialStoreEvent
   ) = CredentialStoreStoreCredentials;
 
   /// {@macro amplify_auth_cognito.clear_credentials}
-  const factory CredentialStoreEvent.clearCredentials([
-    Iterable<String> keys,
-  ]) = CredentialStoreClearCredentials;
+  const factory CredentialStoreEvent.clearCredentials([Iterable<String> keys]) =
+      CredentialStoreClearCredentials;
 
   /// {@macro amplify_auth_cognito.credential_store_succeeded}
   const factory CredentialStoreEvent.succeeded(CredentialStoreData data) =
       CredentialStoreSucceeded;
 
   @override
-  PreconditionException? checkPrecondition(
-    CredentialStoreState currentState,
-  ) =>
+  PreconditionException? checkPrecondition(CredentialStoreState currentState) =>
       null;
 
   @override
@@ -71,9 +68,7 @@ final class CredentialStoreLoadCredentialStore extends CredentialStoreEvent {
   List<Object?> get props => [type];
 
   @override
-  PreconditionException? checkPrecondition(
-    CredentialStoreState currentState,
-  ) {
+  PreconditionException? checkPrecondition(CredentialStoreState currentState) {
     if (currentState.type != CredentialStoreStateType.notConfigured &&
         currentState.type != CredentialStoreStateType.failure) {
       return const AuthPreconditionException(
@@ -101,15 +96,10 @@ final class CredentialStoreStoreCredentials extends CredentialStoreEvent {
       CredentialStoreEventType.storeCredentials;
 
   @override
-  List<Object?> get props => [
-        type,
-        data,
-      ];
+  List<Object?> get props => [type, data];
 
   @override
-  PreconditionException? checkPrecondition(
-    CredentialStoreState currentState,
-  ) {
+  PreconditionException? checkPrecondition(CredentialStoreState currentState) {
     if (currentState.type == CredentialStoreStateType.notConfigured) {
       return const AuthPreconditionException(
         'Credential store is not configured',
@@ -129,9 +119,7 @@ final class CredentialStoreStoreCredentials extends CredentialStoreEvent {
 /// {@endtemplate}
 final class CredentialStoreClearCredentials extends CredentialStoreEvent {
   /// {@macro amplify_auth_cognito.clear_credentials}
-  const CredentialStoreClearCredentials([
-    this.keys = const [],
-  ]) : super._();
+  const CredentialStoreClearCredentials([this.keys = const []]) : super._();
 
   /// When set, only these keys will be cleared from the store. Otherwise,
   /// all keys are cleared.
@@ -145,9 +133,7 @@ final class CredentialStoreClearCredentials extends CredentialStoreEvent {
   List<Object?> get props => [type, keys];
 
   @override
-  PreconditionException? checkPrecondition(
-    CredentialStoreState currentState,
-  ) {
+  PreconditionException? checkPrecondition(CredentialStoreState currentState) {
     if (currentState.type == CredentialStoreStateType.notConfigured) {
       return const AuthPreconditionException(
         'Credential store is not configured',
@@ -176,15 +162,10 @@ final class CredentialStoreSucceeded extends CredentialStoreEvent {
   CredentialStoreEventType get type => CredentialStoreEventType.succeeded;
 
   @override
-  List<Object?> get props => [
-        type,
-        data,
-      ];
+  List<Object?> get props => [type, data];
 
   @override
-  PreconditionException? checkPrecondition(
-    CredentialStoreState currentState,
-  ) {
+  PreconditionException? checkPrecondition(CredentialStoreState currentState) {
     if (currentState.type == CredentialStoreStateType.notConfigured) {
       return const AuthPreconditionException(
         'Credential store is not configured',

@@ -31,9 +31,7 @@ class _ConfirmSignInWidgetState extends State<ConfirmSignInWidget> {
       final res = await Amplify.Auth.confirmSignIn(
         confirmationValue: confirmationCodeController.text.trim(),
       );
-      widget.showResult(
-        'Confirm Sign In Status = ${res.nextStep.signInStep}',
-      );
+      widget.showResult('Confirm Sign In Status = ${res.nextStep.signInStep}');
       widget.changeDisplay(
         res.nextStep.signInStep == AuthSignInStep.done
             ? 'SIGNED_IN'

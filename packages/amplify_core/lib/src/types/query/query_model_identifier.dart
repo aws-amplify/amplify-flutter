@@ -29,9 +29,9 @@ class QueryModelIdentifier<T extends ModelIdentifier> {
   /// );
   /// ```
   QueryByIdentifierOperation eq(T value) => QueryByIdentifierOperation(
-        dummyFieldName,
-        EqualModelIdentifierQueryOperator<T>(value),
-      );
+    dummyFieldName,
+    EqualModelIdentifierQueryOperator<T>(value),
+  );
 
   /// A **not equal to** operation.
   ///
@@ -54,7 +54,7 @@ class QueryModelIdentifier<T extends ModelIdentifier> {
   /// );
   /// ```
   QueryByIdentifierOperation ne(T value) => QueryByIdentifierOperation(
-        dummyFieldName,
-        NotEqualModelIdentifierQueryOperator<T>(value),
-      );
+    dummyFieldName,
+    NotEqualModelIdentifierQueryOperator<T>(value),
+  );
 }

@@ -160,8 +160,9 @@ void main(List<String> arguments) async {
     final categoryName = backendGroup.category.name;
     final outputPath = p.join(repoRoot.path, backendGroup.defaultOutput);
     final amplifyOutputs = File(p.join(outputPath, 'amplify_outputs.dart'));
-    final amplifyConfiguration =
-        File(p.join(outputPath, 'amplifyconfiguration.dart'));
+    final amplifyConfiguration = File(
+      p.join(outputPath, 'amplifyconfiguration.dart'),
+    );
 
     // create the output file if it does not exist
     if (!amplifyOutputs.existsSync()) {
@@ -196,27 +197,20 @@ void main(List<String> arguments) async {
       // Cache the config contents to create environments map
       amplifyEnvironments = {
         ...amplifyEnvironments,
-        ..._cacheConfigContents(
-          backendName,
-          amplifyOutputs,
-        ),
+        ..._cacheConfigContents(backendName, amplifyOutputs),
       };
     }
 
     // Only append environments if there are multiple backends
     if (backendGroup.backends.length > 1) {
-      _appendEnvironments(
-        amplifyEnvironments,
-        backendGroup,
-        amplifyOutputs,
-      );
+      _appendEnvironments(amplifyEnvironments, backendGroup, amplifyOutputs);
     }
 
     // Copy config files to shared paths
-    _copyConfigFile(
-      backendGroup.sharedOutputs,
-      [amplifyOutputs, amplifyConfiguration],
-    );
+    _copyConfigFile(backendGroup.sharedOutputs, [
+      amplifyOutputs,
+      amplifyConfiguration,
+    ]);
 
     // Check if the S3 bucket exists
     var bucketName = _createBucketName(categoryName);
@@ -230,10 +224,7 @@ void main(List<String> arguments) async {
     bucketNames.add(bucketName);
 
     // Upload config files to S3 bucket
-    _uploadConfigFileToS3(
-      bucketName,
-      [amplifyOutputs, amplifyConfiguration],
-    );
+    _uploadConfigFileToS3(bucketName, [amplifyOutputs, amplifyConfiguration]);
 
     print('✅ Deployment for $categoryName Category complete');
   }
@@ -244,30 +235,25 @@ void main(List<String> arguments) async {
 }
 
 Future<Process> _buildProject() async {
-  return Process.start(
-    'npm',
-    [
-      'run',
-      'build',
-    ],
-  );
+  return Process.start('npm', ['run', 'build']);
 }
 
 ArgResults _parseArgs(List<String> args) {
-  final parser = ArgParser()
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'Run command in verbose mode',
-      defaultsTo: false,
-    )
-    ..addOption(
-      'category',
-      abbr: 'c',
-      help: 'Specify the category to deploy.',
-      allowed: Category.values.map((e) => e.name).toList(),
-      defaultsTo: null,
-    );
+  final parser =
+      ArgParser()
+        ..addFlag(
+          'verbose',
+          abbr: 'v',
+          help: 'Run command in verbose mode',
+          defaultsTo: false,
+        )
+        ..addOption(
+          'category',
+          abbr: 'c',
+          help: 'Specify the category to deploy.',
+          allowed: Category.values.map((e) => e.name).toList(),
+          defaultsTo: null,
+        );
 
   return parser.parse(args);
 }
@@ -284,22 +270,18 @@ Future<String> _deployBackend(
   );
 
   // Deploy the backend
-  final process = await Process.start(
-    'npx',
-    [
-      'ampx',
-      'sandbox',
-      '--outputs-format',
-      'dart',
-      '--outputs-out-dir',
-      outputPath,
-      '--identifier',
-      backend.identifier,
-      '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
-      '--once',
-    ],
-    workingDirectory: p.join(repoRoot.path, backend.pathToSource),
-  );
+  final process = await Process.start('npx', [
+    'ampx',
+    'sandbox',
+    '--outputs-format',
+    'dart',
+    '--outputs-out-dir',
+    outputPath,
+    '--identifier',
+    backend.identifier,
+    '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
+    '--once',
+  ], workingDirectory: p.join(repoRoot.path, backend.pathToSource));
 
   if (verbose) {
     process.stderr.transform(const SystemEncoding().decoder).listen((data) {
@@ -329,9 +311,7 @@ Future<String> _deployBackend(
       '❌ Error deploying ${category.name} ${backend.identifier} sandbox',
     );
   } else {
-    print(
-      '👍 ${category.name} ${backend.identifier} sandbox deployed',
-    );
+    print('👍 ${category.name} ${backend.identifier} sandbox deployed');
     return stackID;
   }
 }
@@ -354,9 +334,7 @@ Map<String, String> _cacheConfigContents(
   final exp = RegExp(r"'''(.*?)'''", dotAll: true);
   final configMap = exp.firstMatch(rawConfigContent)?.group(1) ?? '';
 
-  return {
-    backendName: '\'\'\'$configMap\'\'\'',
-  };
+  return {backendName: '\'\'\'$configMap\'\'\''};
 }
 
 /// Append the environments to amplify_outputs.dart
@@ -385,10 +363,7 @@ void _appendEnvironments(
 }
 
 /// Copy a given config file to a list of shared paths
-void _copyConfigFile(
-  List<String> outputPaths,
-  List<File> configFiles,
-) {
+void _copyConfigFile(List<String> outputPaths, List<File> configFiles) {
   if (outputPaths.length <= 1) {
     return;
   }
@@ -484,10 +459,7 @@ void _createS3Bucket(String bucketName) {
 }
 
 /// Upload the amplify_outputs.dart file to the S3 bucket
-void _uploadConfigFileToS3(
-  String bucketName,
-  List<File> configFiles,
-) {
+void _uploadConfigFileToS3(String bucketName, List<File> configFiles) {
   for (final configFile in configFiles) {
     final fileName = configFile.path.split('/').last;
     print('📲 Uploading $fileName to S3 bucket');
@@ -525,26 +497,22 @@ void _generateGen1Config(
   );
 
   // Deploy the backend
-  final process = Process.runSync(
-    'npx',
-    [
-      'ampx',
-      'generate',
-      'outputs',
-      '--format',
-      'dart',
-      '--outputs-version',
-      '0',
-      '--out-dir',
-      outputPath,
-      '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
-      '--stack',
-      stack,
-      '--debug',
-      'true',
-    ],
-    workingDirectory: p.join(repoRoot.path, backend.pathToSource),
-  );
+  final process = Process.runSync('npx', [
+    'ampx',
+    'generate',
+    'outputs',
+    '--format',
+    'dart',
+    '--outputs-version',
+    '0',
+    '--out-dir',
+    outputPath,
+    '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
+    '--stack',
+    stack,
+    '--debug',
+    'true',
+  ], workingDirectory: p.join(repoRoot.path, backend.pathToSource));
 
   if (process.exitCode != 0) {
     throw Exception(

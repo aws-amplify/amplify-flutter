@@ -14,38 +14,47 @@ class _$IOSSecureStorageOptionsSerializer
   @override
   final Iterable<Type> types = const [
     IOSSecureStorageOptions,
-    _$IOSSecureStorageOptions
+    _$IOSSecureStorageOptions,
   ];
   @override
   final String wireName = 'IOSSecureStorageOptions';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, IOSSecureStorageOptions object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    IOSSecureStorageOptions object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.accessGroup;
     if (value != null) {
       result
         ..add('accessGroup')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.accessible;
     if (value != null) {
       result
         ..add('accessible')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(KeychainAttributeAccessible)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(KeychainAttributeAccessible),
+          ),
+        );
     }
     return result;
   }
 
   @override
   IOSSecureStorageOptions deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new IOSSecureStorageOptionsBuilder();
 
     final iterator = serialized.iterator;
@@ -55,13 +64,20 @@ class _$IOSSecureStorageOptionsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'accessGroup':
-          result.accessGroup = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.accessGroup =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'accessible':
-          result.accessible = serializers.deserialize(value,
-                  specifiedType: const FullType(KeychainAttributeAccessible))
-              as KeychainAttributeAccessible?;
+          result.accessible =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(KeychainAttributeAccessible),
+                  )
+                  as KeychainAttributeAccessible?;
           break;
       }
     }
@@ -76,16 +92,16 @@ class _$IOSSecureStorageOptions extends IOSSecureStorageOptions {
   @override
   final KeychainAttributeAccessible? accessible;
 
-  factory _$IOSSecureStorageOptions(
-          [void Function(IOSSecureStorageOptionsBuilder)? updates]) =>
-      (new IOSSecureStorageOptionsBuilder()..update(updates))._build();
+  factory _$IOSSecureStorageOptions([
+    void Function(IOSSecureStorageOptionsBuilder)? updates,
+  ]) => (new IOSSecureStorageOptionsBuilder()..update(updates))._build();
 
   _$IOSSecureStorageOptions._({this.accessGroup, this.accessible}) : super._();
 
   @override
   IOSSecureStorageOptions rebuild(
-          void Function(IOSSecureStorageOptionsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(IOSSecureStorageOptionsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   IOSSecureStorageOptionsBuilder toBuilder() =>
@@ -158,9 +174,12 @@ class IOSSecureStorageOptionsBuilder
   IOSSecureStorageOptions build() => _build();
 
   _$IOSSecureStorageOptions _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$IOSSecureStorageOptions._(
-            accessGroup: accessGroup, accessible: accessible);
+          accessGroup: accessGroup,
+          accessible: accessible,
+        );
     replace(_$result);
     return _$result;
   }

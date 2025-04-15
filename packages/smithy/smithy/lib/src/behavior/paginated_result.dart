@@ -4,10 +4,10 @@
 import 'package:smithy/smithy.dart';
 
 /// Retrieves the next set of result items for a [PaginatedResult].
-typedef NextPaginatedResultFn<Items, PageSize, Token>
-    = SmithyOperation<PaginatedResult<Items, PageSize, Token>> Function([
-  PageSize?,
-]);
+typedef NextPaginatedResultFn<Items, PageSize, Token> =
+    SmithyOperation<PaginatedResult<Items, PageSize, Token>> Function([
+      PageSize?,
+    ]);
 
 /// {@template smithy.behavior.paginated_result}
 /// The result of invoking an operation which paginates its result list.
@@ -46,6 +46,5 @@ class PaginatedResult<Items, PageSize, Token> {
   /// Retrieves the next set of result items.
   SmithyOperation<PaginatedResult<Items, PageSize, Token>> next([
     PageSize? pageSize,
-  ]) =>
-      _next(pageSize);
+  ]) => _next(pageSize);
 }

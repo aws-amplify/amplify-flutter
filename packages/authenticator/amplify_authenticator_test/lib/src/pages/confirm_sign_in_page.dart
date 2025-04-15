@@ -127,19 +127,13 @@ class ConfirmSignInPage extends AuthenticatorPage {
   /// When I enter a new password
   Future<void> enterNewPassword(String password) async {
     await tester.ensureVisible(newPasswordField);
-    await tester.enterText(
-      newPasswordField,
-      password,
-    );
+    await tester.enterText(newPasswordField, password);
   }
 
   /// When I confirm a new password
   Future<void> enterPasswordConfirmation(String password) async {
     await tester.ensureVisible(confirmNewPasswordField);
-    await tester.enterText(
-      confirmNewPasswordField,
-      password,
-    );
+    await tester.enterText(confirmNewPasswordField, password);
   }
 
   /// When I click the "Confirm Sign In" button
@@ -150,9 +144,7 @@ class ConfirmSignInPage extends AuthenticatorPage {
   }
 
   /// When I select a MFA method
-  Future<void> selectMfaMethod({
-    required MfaType mfaMethod,
-  }) async {
+  Future<void> selectMfaMethod({required MfaType mfaMethod}) async {
     expect(selectMfaRadio, findsOneWidget);
 
     // if mfaMethod is email, don't make it uppercase except for the first letter
@@ -171,9 +163,7 @@ class ConfirmSignInPage extends AuthenticatorPage {
   }
 
   // When I select a MFA setup method
-  Future<void> selectMfaSetupMethod({
-    required MfaType mfaMethod,
-  }) async {
+  Future<void> selectMfaSetupMethod({required MfaType mfaMethod}) async {
     expect(selectMfaSetupRadio, findsOneWidget);
 
     final mfaMethodWidget = find.descendant(

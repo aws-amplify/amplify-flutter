@@ -14,28 +14,38 @@ class _$CognitoDeviceSecretsSerializer
   @override
   final Iterable<Type> types = const [
     CognitoDeviceSecrets,
-    _$CognitoDeviceSecrets
+    _$CognitoDeviceSecrets,
   ];
   @override
   final String wireName = 'CognitoDeviceSecrets';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, CognitoDeviceSecrets object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    CognitoDeviceSecrets object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'deviceGroupKey',
-      serializers.serialize(object.deviceGroupKey,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.deviceGroupKey,
+        specifiedType: const FullType(String),
+      ),
       'deviceKey',
-      serializers.serialize(object.deviceKey,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.deviceKey,
+        specifiedType: const FullType(String),
+      ),
       'devicePassword',
-      serializers.serialize(object.devicePassword,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.devicePassword,
+        specifiedType: const FullType(String),
+      ),
       'deviceStatus',
-      serializers.serialize(object.deviceStatus,
-          specifiedType: const FullType(DeviceRememberedStatusType)),
+      serializers.serialize(
+        object.deviceStatus,
+        specifiedType: const FullType(DeviceRememberedStatusType),
+      ),
     ];
 
     return result;
@@ -43,8 +53,10 @@ class _$CognitoDeviceSecretsSerializer
 
   @override
   CognitoDeviceSecrets deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new CognitoDeviceSecretsBuilder();
 
     final iterator = serialized.iterator;
@@ -54,21 +66,36 @@ class _$CognitoDeviceSecretsSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'deviceGroupKey':
-          result.deviceGroupKey = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.deviceGroupKey =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'deviceKey':
-          result.deviceKey = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.deviceKey =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'devicePassword':
-          result.devicePassword = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.devicePassword =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'deviceStatus':
-          result.deviceStatus = serializers.deserialize(value,
-                  specifiedType: const FullType(DeviceRememberedStatusType))!
-              as DeviceRememberedStatusType;
+          result.deviceStatus =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DeviceRememberedStatusType),
+                  )!
+                  as DeviceRememberedStatusType;
           break;
       }
     }
@@ -87,30 +114,42 @@ class _$CognitoDeviceSecrets extends CognitoDeviceSecrets {
   @override
   final DeviceRememberedStatusType deviceStatus;
 
-  factory _$CognitoDeviceSecrets(
-          [void Function(CognitoDeviceSecretsBuilder)? updates]) =>
-      (new CognitoDeviceSecretsBuilder()..update(updates))._build();
+  factory _$CognitoDeviceSecrets([
+    void Function(CognitoDeviceSecretsBuilder)? updates,
+  ]) => (new CognitoDeviceSecretsBuilder()..update(updates))._build();
 
-  _$CognitoDeviceSecrets._(
-      {required this.deviceGroupKey,
-      required this.deviceKey,
-      required this.devicePassword,
-      required this.deviceStatus})
-      : super._() {
+  _$CognitoDeviceSecrets._({
+    required this.deviceGroupKey,
+    required this.deviceKey,
+    required this.devicePassword,
+    required this.deviceStatus,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        deviceGroupKey, r'CognitoDeviceSecrets', 'deviceGroupKey');
+      deviceGroupKey,
+      r'CognitoDeviceSecrets',
+      'deviceGroupKey',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        deviceKey, r'CognitoDeviceSecrets', 'deviceKey');
+      deviceKey,
+      r'CognitoDeviceSecrets',
+      'deviceKey',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        devicePassword, r'CognitoDeviceSecrets', 'devicePassword');
+      devicePassword,
+      r'CognitoDeviceSecrets',
+      'devicePassword',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        deviceStatus, r'CognitoDeviceSecrets', 'deviceStatus');
+      deviceStatus,
+      r'CognitoDeviceSecrets',
+      'deviceStatus',
+    );
   }
 
   @override
   CognitoDeviceSecrets rebuild(
-          void Function(CognitoDeviceSecretsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CognitoDeviceSecretsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CognitoDeviceSecretsBuilder toBuilder() =>
@@ -201,16 +240,29 @@ class CognitoDeviceSecretsBuilder
 
   _$CognitoDeviceSecrets _build() {
     CognitoDeviceSecrets._init(this);
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CognitoDeviceSecrets._(
           deviceGroupKey: BuiltValueNullFieldError.checkNotNull(
-              deviceGroupKey, r'CognitoDeviceSecrets', 'deviceGroupKey'),
+            deviceGroupKey,
+            r'CognitoDeviceSecrets',
+            'deviceGroupKey',
+          ),
           deviceKey: BuiltValueNullFieldError.checkNotNull(
-              deviceKey, r'CognitoDeviceSecrets', 'deviceKey'),
+            deviceKey,
+            r'CognitoDeviceSecrets',
+            'deviceKey',
+          ),
           devicePassword: BuiltValueNullFieldError.checkNotNull(
-              devicePassword, r'CognitoDeviceSecrets', 'devicePassword'),
+            devicePassword,
+            r'CognitoDeviceSecrets',
+            'devicePassword',
+          ),
           deviceStatus: BuiltValueNullFieldError.checkNotNull(
-              deviceStatus, r'CognitoDeviceSecrets', 'deviceStatus'),
+            deviceStatus,
+            r'CognitoDeviceSecrets',
+            'deviceStatus',
+          ),
         );
     replace(_$result);
     return _$result;

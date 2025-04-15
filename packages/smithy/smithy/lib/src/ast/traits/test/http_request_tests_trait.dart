@@ -18,8 +18,10 @@ class HttpRequestTestsTrait
   factory HttpRequestTestsTrait.fromJson(Object? json) =>
       _$HttpRequestTestsTraitFromJson(<String, Object?>{'testCases': json});
 
-  static const id =
-      ShapeId(namespace: 'smithy.test', shape: 'httpRequestTests');
+  static const id = ShapeId(
+    namespace: 'smithy.test',
+    shape: 'httpRequestTests',
+  );
 
   final List<HttpRequestTestCase> testCases;
 

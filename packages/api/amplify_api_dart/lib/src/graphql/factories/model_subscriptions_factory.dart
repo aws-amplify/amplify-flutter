@@ -23,11 +23,11 @@ class ModelSubscriptionsFactory {
     Map<String, String>? headers,
     QueryPredicate? where,
   }) {
-    final variables =
-        GraphQLRequestFactory.instance.buildVariablesForSubscriptionRequest(
-      modelType: modelType,
-      where: where,
-    );
+    final variables = GraphQLRequestFactory.instance
+        .buildVariablesForSubscriptionRequest(
+          modelType: modelType,
+          where: where,
+        );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
       variables: variables,
@@ -46,11 +46,11 @@ class ModelSubscriptionsFactory {
     Map<String, String>? headers,
     QueryPredicate? where,
   }) {
-    final variables =
-        GraphQLRequestFactory.instance.buildVariablesForSubscriptionRequest(
-      modelType: modelType,
-      where: where,
-    );
+    final variables = GraphQLRequestFactory.instance
+        .buildVariablesForSubscriptionRequest(
+          modelType: modelType,
+          where: where,
+        );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
       variables: variables,
@@ -69,11 +69,11 @@ class ModelSubscriptionsFactory {
     Map<String, String>? headers,
     QueryPredicate? where,
   }) {
-    final variables =
-        GraphQLRequestFactory.instance.buildVariablesForSubscriptionRequest(
-      modelType: modelType,
-      where: where,
-    );
+    final variables = GraphQLRequestFactory.instance
+        .buildVariablesForSubscriptionRequest(
+          modelType: modelType,
+          where: where,
+        );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
       variables: variables,

@@ -12,10 +12,7 @@ import 'package:smithy/smithy.dart';
 /// {@endtemplate}
 class AuthenticatorException extends AmplifyException {
   /// {@macro amplify_authenticator.authenticator_exception}
-  factory AuthenticatorException(
-    Object exception, {
-    bool showBanner = true,
-  }) {
+  factory AuthenticatorException(Object exception, {bool showBanner = true}) {
     String message;
     if (exception is String) {
       message = exception;

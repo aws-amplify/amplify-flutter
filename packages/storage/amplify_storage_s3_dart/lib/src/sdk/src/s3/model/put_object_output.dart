@@ -53,8 +53,9 @@ abstract class PutObjectOutput
     );
   }
 
-  factory PutObjectOutput.build(
-      [void Function(PutObjectOutputBuilder) updates]) = _$PutObjectOutput;
+  factory PutObjectOutput.build([
+    void Function(PutObjectOutputBuilder) updates,
+  ]) = _$PutObjectOutput;
 
   const PutObjectOutput._();
 
@@ -62,65 +63,65 @@ abstract class PutObjectOutput
   factory PutObjectOutput.fromResponse(
     PutObjectOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      PutObjectOutput.build((b) {
-        if (response.headers['x-amz-expiration'] != null) {
-          b.expiration = response.headers['x-amz-expiration']!;
-        }
-        if (response.headers['ETag'] != null) {
-          b.eTag = response.headers['ETag']!;
-        }
-        if (response.headers['x-amz-checksum-crc32'] != null) {
-          b.checksumCrc32 = response.headers['x-amz-checksum-crc32']!;
-        }
-        if (response.headers['x-amz-checksum-crc32c'] != null) {
-          b.checksumCrc32C = response.headers['x-amz-checksum-crc32c']!;
-        }
-        if (response.headers['x-amz-checksum-sha1'] != null) {
-          b.checksumSha1 = response.headers['x-amz-checksum-sha1']!;
-        }
-        if (response.headers['x-amz-checksum-sha256'] != null) {
-          b.checksumSha256 = response.headers['x-amz-checksum-sha256']!;
-        }
-        if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = ServerSideEncryption.values
-              .byValue(response.headers['x-amz-server-side-encryption']!);
-        }
-        if (response.headers['x-amz-version-id'] != null) {
-          b.versionId = response.headers['x-amz-version-id']!;
-        }
-        if (response
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = response
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 = response
-              .headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
-            null) {
-          b.ssekmsKeyId =
-              response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-context'] != null) {
-          b.ssekmsEncryptionContext =
-              response.headers['x-amz-server-side-encryption-context']!;
-        }
-        if (response
-                .headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
-            null) {
-          b.bucketKeyEnabled = response.headers[
-                  'x-amz-server-side-encryption-bucket-key-enabled']! ==
-              'true';
-        }
-        if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = RequestCharged.values
-              .byValue(response.headers['x-amz-request-charged']!);
-        }
-      });
+  ) => PutObjectOutput.build((b) {
+    if (response.headers['x-amz-expiration'] != null) {
+      b.expiration = response.headers['x-amz-expiration']!;
+    }
+    if (response.headers['ETag'] != null) {
+      b.eTag = response.headers['ETag']!;
+    }
+    if (response.headers['x-amz-checksum-crc32'] != null) {
+      b.checksumCrc32 = response.headers['x-amz-checksum-crc32']!;
+    }
+    if (response.headers['x-amz-checksum-crc32c'] != null) {
+      b.checksumCrc32C = response.headers['x-amz-checksum-crc32c']!;
+    }
+    if (response.headers['x-amz-checksum-sha1'] != null) {
+      b.checksumSha1 = response.headers['x-amz-checksum-sha1']!;
+    }
+    if (response.headers['x-amz-checksum-sha256'] != null) {
+      b.checksumSha256 = response.headers['x-amz-checksum-sha256']!;
+    }
+    if (response.headers['x-amz-server-side-encryption'] != null) {
+      b.serverSideEncryption = ServerSideEncryption.values.byValue(
+        response.headers['x-amz-server-side-encryption']!,
+      );
+    }
+    if (response.headers['x-amz-version-id'] != null) {
+      b.versionId = response.headers['x-amz-version-id']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          response.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          response.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
+        null) {
+      b.ssekmsKeyId =
+          response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-context'] != null) {
+      b.ssekmsEncryptionContext =
+          response.headers['x-amz-server-side-encryption-context']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
+        null) {
+      b.bucketKeyEnabled =
+          response
+              .headers['x-amz-server-side-encryption-bucket-key-enabled']! ==
+          'true';
+    }
+    if (response.headers['x-amz-request-charged'] != null) {
+      b.requestCharged = RequestCharged.values.byValue(
+        response.headers['x-amz-request-charged']!,
+      );
+    }
+  });
 
   static const List<_i2.SmithySerializer<PutObjectOutputPayload>> serializers =
       [PutObjectOutputRestXmlSerializer()];
@@ -195,81 +196,40 @@ abstract class PutObjectOutput
 
   @override
   List<Object?> get props => [
-        expiration,
-        eTag,
-        checksumCrc32,
-        checksumCrc32C,
-        checksumSha1,
-        checksumSha256,
-        serverSideEncryption,
-        versionId,
-        sseCustomerAlgorithm,
-        sseCustomerKeyMd5,
-        ssekmsKeyId,
-        ssekmsEncryptionContext,
-        bucketKeyEnabled,
-        requestCharged,
-      ];
+    expiration,
+    eTag,
+    checksumCrc32,
+    checksumCrc32C,
+    checksumSha1,
+    checksumSha256,
+    serverSideEncryption,
+    versionId,
+    sseCustomerAlgorithm,
+    sseCustomerKeyMd5,
+    ssekmsKeyId,
+    ssekmsEncryptionContext,
+    bucketKeyEnabled,
+    requestCharged,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectOutput')
-      ..add(
-        'expiration',
-        expiration,
-      )
-      ..add(
-        'eTag',
-        eTag,
-      )
-      ..add(
-        'checksumCrc32',
-        checksumCrc32,
-      )
-      ..add(
-        'checksumCrc32C',
-        checksumCrc32C,
-      )
-      ..add(
-        'checksumSha1',
-        checksumSha1,
-      )
-      ..add(
-        'checksumSha256',
-        checksumSha256,
-      )
-      ..add(
-        'serverSideEncryption',
-        serverSideEncryption,
-      )
-      ..add(
-        'versionId',
-        versionId,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'ssekmsKeyId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'ssekmsEncryptionContext',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'bucketKeyEnabled',
-        bucketKeyEnabled,
-      )
-      ..add(
-        'requestCharged',
-        requestCharged,
-      );
+    final helper =
+        newBuiltValueToStringHelper('PutObjectOutput')
+          ..add('expiration', expiration)
+          ..add('eTag', eTag)
+          ..add('checksumCrc32', checksumCrc32)
+          ..add('checksumCrc32C', checksumCrc32C)
+          ..add('checksumSha1', checksumSha1)
+          ..add('checksumSha256', checksumSha256)
+          ..add('serverSideEncryption', serverSideEncryption)
+          ..add('versionId', versionId)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add('ssekmsKeyId', '***SENSITIVE***')
+          ..add('ssekmsEncryptionContext', '***SENSITIVE***')
+          ..add('bucketKeyEnabled', bucketKeyEnabled)
+          ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }
@@ -280,9 +240,9 @@ abstract class PutObjectOutputPayload
     implements
         Built<PutObjectOutputPayload, PutObjectOutputPayloadBuilder>,
         _i2.EmptyPayload {
-  factory PutObjectOutputPayload(
-          [void Function(PutObjectOutputPayloadBuilder) updates]) =
-      _$PutObjectOutputPayload;
+  factory PutObjectOutputPayload([
+    void Function(PutObjectOutputPayloadBuilder) updates,
+  ]) = _$PutObjectOutputPayload;
 
   const PutObjectOutputPayload._();
 
@@ -302,19 +262,16 @@ class PutObjectOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        PutObjectOutput,
-        _$PutObjectOutput,
-        PutObjectOutputPayload,
-        _$PutObjectOutputPayload,
-      ];
+    PutObjectOutput,
+    _$PutObjectOutput,
+    PutObjectOutputPayload,
+    _$PutObjectOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   PutObjectOutputPayload deserialize(
@@ -335,7 +292,7 @@ class PutObjectOutputRestXmlSerializer
       const _i2.XmlElementName(
         'PutObjectOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

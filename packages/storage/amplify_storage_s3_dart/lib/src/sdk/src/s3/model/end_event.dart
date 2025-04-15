@@ -25,7 +25,7 @@ abstract class EndEvent
   const EndEvent._();
 
   static const List<_i2.SmithySerializer<EndEvent>> serializers = [
-    EndEventRestXmlSerializer()
+    EndEventRestXmlSerializer(),
   ];
 
   @override
@@ -43,18 +43,12 @@ class EndEventRestXmlSerializer
   const EndEventRestXmlSerializer() : super('EndEvent');
 
   @override
-  Iterable<Type> get types => const [
-        EndEvent,
-        _$EndEvent,
-      ];
+  Iterable<Type> get types => const [EndEvent, _$EndEvent];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   EndEvent deserialize(
@@ -75,7 +69,7 @@ class EndEventRestXmlSerializer
       const _i2.XmlElementName(
         'EndEvent',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

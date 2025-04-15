@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.malformed_content_type_with_generic_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,16 +15,18 @@ abstract class MalformedContentTypeWithGenericStringInput
         _i1.HttpInput<String>,
         _i2.AWSEquatable<MalformedContentTypeWithGenericStringInput>
     implements
-        Built<MalformedContentTypeWithGenericStringInput,
-            MalformedContentTypeWithGenericStringInputBuilder>,
+        Built<
+          MalformedContentTypeWithGenericStringInput,
+          MalformedContentTypeWithGenericStringInputBuilder
+        >,
         _i1.HasPayload<String> {
   factory MalformedContentTypeWithGenericStringInput({String? payload}) {
     return _$MalformedContentTypeWithGenericStringInput._(payload: payload);
   }
 
-  factory MalformedContentTypeWithGenericStringInput.build(
-      [void Function(MalformedContentTypeWithGenericStringInputBuilder)
-          updates]) = _$MalformedContentTypeWithGenericStringInput;
+  factory MalformedContentTypeWithGenericStringInput.build([
+    void Function(MalformedContentTypeWithGenericStringInputBuilder) updates,
+  ]) = _$MalformedContentTypeWithGenericStringInput;
 
   const MalformedContentTypeWithGenericStringInput._();
 
@@ -32,13 +34,12 @@ abstract class MalformedContentTypeWithGenericStringInput
     String? payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedContentTypeWithGenericStringInput.build((b) {
-        b.payload = payload;
-      });
+  }) => MalformedContentTypeWithGenericStringInput.build((b) {
+    b.payload = payload;
+  });
 
   static const List<_i1.SmithySerializer<String?>> serializers = [
-    MalformedContentTypeWithGenericStringInputRestJson1Serializer()
+    MalformedContentTypeWithGenericStringInputRestJson1Serializer(),
   ];
 
   String? get payload;
@@ -51,11 +52,8 @@ abstract class MalformedContentTypeWithGenericStringInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MalformedContentTypeWithGenericStringInput')
-      ..add(
-        'payload',
-        payload,
-      );
+      'MalformedContentTypeWithGenericStringInput',
+    )..add('payload', payload);
     return helper.toString();
   }
 }
@@ -63,21 +61,18 @@ abstract class MalformedContentTypeWithGenericStringInput
 class MalformedContentTypeWithGenericStringInputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<String> {
   const MalformedContentTypeWithGenericStringInputRestJson1Serializer()
-      : super('MalformedContentTypeWithGenericStringInput');
+    : super('MalformedContentTypeWithGenericStringInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedContentTypeWithGenericStringInput,
-        _$MalformedContentTypeWithGenericStringInput,
-      ];
+    MalformedContentTypeWithGenericStringInput,
+    _$MalformedContentTypeWithGenericStringInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   String deserialize(
@@ -86,9 +81,10 @@ class MalformedContentTypeWithGenericStringInputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(String),
-    ) as String);
+          serialized,
+          specifiedType: const FullType(String),
+        )
+        as String);
   }
 
   @override

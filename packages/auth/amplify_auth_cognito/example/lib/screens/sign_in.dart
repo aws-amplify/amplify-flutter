@@ -39,9 +39,7 @@ class _SignInWidgetState extends State<SignInWidget> {
         username: usernameController.text.trim(),
         password: passwordController.text.trim(),
       );
-      widget.showResult(
-        'Sign In Status = ${res.nextStep.signInStep}',
-      );
+      widget.showResult('Sign In Status = ${res.nextStep.signInStep}');
       widget.changeDisplay(
         res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN',
       );
@@ -186,16 +184,19 @@ class _SignInWidgetState extends State<SignInWidget> {
                         }
                       });
                     },
-                    items: <AuthProvider>[
-                      AuthProvider.google,
-                      AuthProvider.facebook,
-                      AuthProvider.amazon,
-                    ].map<DropdownMenuItem<AuthProvider>>((AuthProvider value) {
-                      return DropdownMenuItem<AuthProvider>(
-                        value: value,
-                        child: Text(value.toString()),
-                      );
-                    }).toList(),
+                    items:
+                        <AuthProvider>[
+                          AuthProvider.google,
+                          AuthProvider.facebook,
+                          AuthProvider.amazon,
+                        ].map<DropdownMenuItem<AuthProvider>>((
+                          AuthProvider value,
+                        ) {
+                          return DropdownMenuItem<AuthProvider>(
+                            value: value,
+                            child: Text(value.toString()),
+                          );
+                        }).toList(),
                   ),
                 ],
               ),

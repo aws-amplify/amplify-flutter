@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.rest_xml_protocol.model.query_params_as_string_list_map_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,8 +17,10 @@ abstract class QueryParamsAsStringListMapInput
         _i1.HttpInput<QueryParamsAsStringListMapInputPayload>,
         _i2.AWSEquatable<QueryParamsAsStringListMapInput>
     implements
-        Built<QueryParamsAsStringListMapInput,
-            QueryParamsAsStringListMapInputBuilder>,
+        Built<
+          QueryParamsAsStringListMapInput,
+          QueryParamsAsStringListMapInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<QueryParamsAsStringListMapInputPayload> {
   factory QueryParamsAsStringListMapInput({
@@ -31,9 +33,9 @@ abstract class QueryParamsAsStringListMapInput
     );
   }
 
-  factory QueryParamsAsStringListMapInput.build(
-          [void Function(QueryParamsAsStringListMapInputBuilder) updates]) =
-      _$QueryParamsAsStringListMapInput;
+  factory QueryParamsAsStringListMapInput.build([
+    void Function(QueryParamsAsStringListMapInputBuilder) updates,
+  ]) = _$QueryParamsAsStringListMapInput;
 
   const QueryParamsAsStringListMapInput._();
 
@@ -41,16 +43,16 @@ abstract class QueryParamsAsStringListMapInput
     QueryParamsAsStringListMapInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      QueryParamsAsStringListMapInput.build((b) {
-        if (request.queryParameters['corge'] != null) {
-          b.qux = request.queryParameters['corge']!;
-        }
-      });
+  }) => QueryParamsAsStringListMapInput.build((b) {
+    if (request.queryParameters['corge'] != null) {
+      b.qux = request.queryParameters['corge']!;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<QueryParamsAsStringListMapInputPayload>>
-      serializers = [QueryParamsAsStringListMapInputRestXmlSerializer()];
+    _i1.SmithySerializer<QueryParamsAsStringListMapInputPayload>
+  >
+  serializers = [QueryParamsAsStringListMapInputRestXmlSerializer()];
 
   String? get qux;
   _i3.BuiltListMultimap<String, String>? get foo;
@@ -59,38 +61,30 @@ abstract class QueryParamsAsStringListMapInput
       QueryParamsAsStringListMapInputPayload();
 
   @override
-  List<Object?> get props => [
-        qux,
-        foo,
-      ];
+  List<Object?> get props => [qux, foo];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('QueryParamsAsStringListMapInput')
-          ..add(
-            'qux',
-            qux,
-          )
-          ..add(
-            'foo',
-            foo,
-          );
+          ..add('qux', qux)
+          ..add('foo', foo);
     return helper.toString();
   }
 }
 
 @_i4.internal
 abstract class QueryParamsAsStringListMapInputPayload
-    with
-        _i2.AWSEquatable<QueryParamsAsStringListMapInputPayload>
+    with _i2.AWSEquatable<QueryParamsAsStringListMapInputPayload>
     implements
-        Built<QueryParamsAsStringListMapInputPayload,
-            QueryParamsAsStringListMapInputPayloadBuilder>,
+        Built<
+          QueryParamsAsStringListMapInputPayload,
+          QueryParamsAsStringListMapInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory QueryParamsAsStringListMapInputPayload(
-      [void Function(QueryParamsAsStringListMapInputPayloadBuilder)
-          updates]) = _$QueryParamsAsStringListMapInputPayload;
+  factory QueryParamsAsStringListMapInputPayload([
+    void Function(QueryParamsAsStringListMapInputPayloadBuilder) updates,
+  ]) = _$QueryParamsAsStringListMapInputPayload;
 
   const QueryParamsAsStringListMapInputPayload._();
 
@@ -99,32 +93,31 @@ abstract class QueryParamsAsStringListMapInputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QueryParamsAsStringListMapInputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'QueryParamsAsStringListMapInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class QueryParamsAsStringListMapInputRestXmlSerializer extends _i1
-    .StructuredSmithySerializer<QueryParamsAsStringListMapInputPayload> {
+class QueryParamsAsStringListMapInputRestXmlSerializer
+    extends
+        _i1.StructuredSmithySerializer<QueryParamsAsStringListMapInputPayload> {
   const QueryParamsAsStringListMapInputRestXmlSerializer()
-      : super('QueryParamsAsStringListMapInput');
+    : super('QueryParamsAsStringListMapInput');
 
   @override
   Iterable<Type> get types => const [
-        QueryParamsAsStringListMapInput,
-        _$QueryParamsAsStringListMapInput,
-        QueryParamsAsStringListMapInputPayload,
-        _$QueryParamsAsStringListMapInputPayload,
-      ];
+    QueryParamsAsStringListMapInput,
+    _$QueryParamsAsStringListMapInput,
+    QueryParamsAsStringListMapInputPayload,
+    _$QueryParamsAsStringListMapInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   QueryParamsAsStringListMapInputPayload deserialize(
@@ -142,7 +135,7 @@ class QueryParamsAsStringListMapInputRestXmlSerializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('QueryParamsAsStringListMapInput')
+      const _i1.XmlElementName('QueryParamsAsStringListMapInput'),
     ];
 
     return result$;

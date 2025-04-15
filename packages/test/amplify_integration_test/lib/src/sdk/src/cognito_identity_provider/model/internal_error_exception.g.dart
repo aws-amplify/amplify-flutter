@@ -14,17 +14,17 @@ class _$InternalErrorException extends InternalErrorException {
   @override
   final Map<String, String>? headers;
 
-  factory _$InternalErrorException(
-          [void Function(InternalErrorExceptionBuilder)? updates]) =>
-      (new InternalErrorExceptionBuilder()..update(updates))._build();
+  factory _$InternalErrorException([
+    void Function(InternalErrorExceptionBuilder)? updates,
+  ]) => (new InternalErrorExceptionBuilder()..update(updates))._build();
 
   _$InternalErrorException._({this.message, this.statusCode, this.headers})
-      : super._();
+    : super._();
 
   @override
   InternalErrorException rebuild(
-          void Function(InternalErrorExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InternalErrorExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InternalErrorExceptionBuilder toBuilder() =>
@@ -89,9 +89,13 @@ class InternalErrorExceptionBuilder
   InternalErrorException build() => _build();
 
   _$InternalErrorException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InternalErrorException._(
-            message: message, statusCode: statusCode, headers: headers);
+          message: message,
+          statusCode: statusCode,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

@@ -16,9 +16,7 @@ import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-const skipProtocols = [
-  'shared',
-];
+const skipProtocols = ['shared'];
 const awsProtocols = [
   'awsJson1_0',
   'awsJson1_1',
@@ -29,9 +27,7 @@ const awsProtocols = [
   'restXmlWithNamespace',
 ];
 // Skip generating V1 since we use V2-specific traits and test descriptions.
-const skipV1 = [
-  'custom',
-];
+const skipV1 = ['custom'];
 
 /// Command for generating the AWS SDK for a given package and `sdk.yaml` file.
 class GenerateGoldensCommand extends AmplifyCommand {
@@ -88,31 +84,28 @@ class GenerateGoldensCommand extends AmplifyCommand {
   Future<void> updateModels() async {
     const url = 'https://github.com/awslabs/smithy';
     final tmpDir = Directory.systemTemp.createTempSync('smithy');
-    final process = await Process.start(
-      'git',
-      [
-        'clone',
-        url,
-        tmpDir.path,
-      ],
-      mode: ProcessStartMode.inheritStdio,
-    );
+    final process = await Process.start('git', [
+      'clone',
+      url,
+      tmpDir.path,
+    ], mode: ProcessStartMode.inheritStdio);
     if (await process.exitCode != 0) {
       stderr.writeln('Could not clone $url');
       exit(1);
     }
 
-    final versions = await repo.git
-        .tags()
-        .map((tag) {
-          try {
-            return Version.parse(tag.tag);
-          } on Object {
-            return null;
-          }
-        })
-        .whereNotNull()
-        .toList();
+    final versions =
+        await repo.git
+            .tags()
+            .map((tag) {
+              try {
+                return Version.parse(tag.tag);
+              } on Object {
+                return null;
+              }
+            })
+            .whereNotNull()
+            .toList();
     versions.sort();
     final latestVersion = versions.last.toString();
     logger.info('Updating models to Smithy $latestVersion');
@@ -131,9 +124,7 @@ class GenerateGoldensCommand extends AmplifyCommand {
         'model',
         protocol,
       );
-      final dest = _replaceDirectory(
-        p.join(modelsPath, protocol),
-      );
+      final dest = _replaceDirectory(p.join(modelsPath, protocol));
       await _copy(src, dest);
     }
 
@@ -142,10 +133,7 @@ class GenerateGoldensCommand extends AmplifyCommand {
       p.join(modelsPath, 'shared'),
       create: true,
     );
-    const sharedModels = [
-      'aws-config.smithy',
-      'shared-types.smithy',
-    ];
+    const sharedModels = ['aws-config.smithy', 'shared-types.smithy'];
     for (final sharedModel in sharedModels) {
       final sourcePath = p.join(
         tmpDir.path,
@@ -222,8 +210,9 @@ class GenerateGoldensCommand extends AmplifyCommand {
     required SmithyVersion version,
     required String protocolName,
   }) async {
-    stdout
-        .writeln('Generating Dart client for $protocolName (${version.name})');
+    stdout.writeln(
+      'Generating Dart client for $protocolName (${version.name})',
+    );
     final outputPath = p.join(
       goldensRoot,
       version == SmithyVersion.v1 ? 'lib' : 'lib2',
@@ -259,11 +248,12 @@ class GenerateGoldensCommand extends AmplifyCommand {
     final pubspecPath = p.join(outputPath, 'pubspec.yaml');
     final pubspec = Pubspec(packageName);
     final localSmithyPath = Directory(goldensRoot).uri.resolve('..').path;
-    final pubspecYaml = PubspecGenerator(
-      pubspec,
-      dependencies,
-      smithyPath: p.relative(localSmithyPath, from: outputPath),
-    ).generate();
+    final pubspecYaml =
+        PubspecGenerator(
+          pubspec,
+          dependencies,
+          smithyPath: p.relative(localSmithyPath, from: outputPath),
+        ).generate();
     File(pubspecPath).writeAsStringSync(pubspecYaml);
 
     // Create analysis options
@@ -290,10 +280,7 @@ override_platforms:
     // Run `dart pub get`
     final pubGetRes = await Process.run(
       'dart',
-      [
-        'pub',
-        'get',
-      ],
+      ['pub', 'get'],
       workingDirectory: outputPath,
       stdoutEncoding: utf8,
       stderrEncoding: utf8,
@@ -307,16 +294,12 @@ override_platforms:
     }
 
     // Run built_value generator
-    final buildRunnerCmd = await Process.start(
-      'dart',
-      [
-        'run',
-        'build_runner',
-        'build',
-        '--delete-conflicting-outputs',
-      ],
-      workingDirectory: outputPath,
-    );
+    final buildRunnerCmd = await Process.start('dart', [
+      'run',
+      'build_runner',
+      'build',
+      '--delete-conflicting-outputs',
+    ], workingDirectory: outputPath);
     buildRunnerCmd.stdout
         .transform(utf8.decoder)
         .transform(const LineSplitter())
@@ -340,8 +323,9 @@ override_platforms:
     if (update) {
       await updateModels();
     }
-    final glob =
-        Glob(argResults!.rest.length == 1 ? argResults!.rest.single : '*');
+    final glob = Glob(
+      argResults!.rest.length == 1 ? argResults!.rest.single : '*',
+    );
     final futures = <Future<void> Function()>[];
     final entites = glob.listFileSystemSync(
       const LocalFileSystem(),

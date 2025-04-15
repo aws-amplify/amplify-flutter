@@ -69,10 +69,8 @@ final class TotpSetupInitiate extends TotpSetupEvent {
 /// {@endtemplate}
 final class TotpSetupVerify extends TotpSetupEvent {
   /// {@macro amplify_auth_cognito.totp_setup_verify}
-  const TotpSetupVerify({
-    required this.code,
-    this.friendlyDeviceName,
-  }) : super._();
+  const TotpSetupVerify({required this.code, this.friendlyDeviceName})
+    : super._();
 
   /// The MFA code sent to the registered TOTP device.
   final String code;

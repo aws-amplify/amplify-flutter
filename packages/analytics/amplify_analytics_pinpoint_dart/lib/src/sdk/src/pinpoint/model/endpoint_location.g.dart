@@ -20,18 +20,18 @@ class _$EndpointLocation extends EndpointLocation {
   @override
   final String? region;
 
-  factory _$EndpointLocation(
-          [void Function(EndpointLocationBuilder)? updates]) =>
-      (new EndpointLocationBuilder()..update(updates))._build();
+  factory _$EndpointLocation([
+    void Function(EndpointLocationBuilder)? updates,
+  ]) => (new EndpointLocationBuilder()..update(updates))._build();
 
-  _$EndpointLocation._(
-      {this.city,
-      this.country,
-      this.latitude,
-      this.longitude,
-      this.postalCode,
-      this.region})
-      : super._();
+  _$EndpointLocation._({
+    this.city,
+    this.country,
+    this.latitude,
+    this.longitude,
+    this.postalCode,
+    this.region,
+  }) : super._();
 
   @override
   EndpointLocation rebuild(void Function(EndpointLocationBuilder) updates) =>
@@ -126,14 +126,16 @@ class EndpointLocationBuilder
   EndpointLocation build() => _build();
 
   _$EndpointLocation _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EndpointLocation._(
-            city: city,
-            country: country,
-            latitude: latitude,
-            longitude: longitude,
-            postalCode: postalCode,
-            region: region);
+          city: city,
+          country: country,
+          latitude: latitude,
+          longitude: longitude,
+          postalCode: postalCode,
+          region: region,
+        );
     replace(_$result);
     return _$result;
   }
