@@ -15,12 +15,12 @@ class RestXmlTrait extends AWSProtocolTrait {
     List<AlpnProtocol> http = AWSProtocolTrait.defaultHttpProtocols,
     List<AlpnProtocol>? eventStreamHttp,
   }) : super(
-          id,
-          http: http,
-          eventStreamHttp: eventStreamHttp,
-          timestampFormat: TimestampFormat.dateTime,
-          noInlineDocumentSupport: true,
-        );
+         id,
+         http: http,
+         eventStreamHttp: eventStreamHttp,
+         timestampFormat: TimestampFormat.dateTime,
+         noInlineDocumentSupport: true,
+       );
 
   factory RestXmlTrait.fromJson(Object? json) =>
       _$RestXmlTraitFromJson((json as Map).cast<String, Object?>());
@@ -34,22 +34,22 @@ class RestXmlTrait extends AWSProtocolTrait {
 
   @override
   List<ShapeId> get traits => const [
-        CorsTrait.id,
-        EndpointTrait.id,
-        HostLabelTrait.id,
-        HttpTrait.id,
-        HttpErrorTrait.id,
-        HttpHeaderTrait.id,
-        HttpLabelTrait.id,
-        HttpPayloadTrait.id,
-        HttpPrefixHeadersTrait.id,
-        HttpQueryTrait.id,
-        HttpQueryParamsTrait.id,
-        XmlAttributeTrait.id,
-        XmlFlattenedTrait.id,
-        XmlNameTrait.id,
-        XmlNamespaceTrait.id,
-        TimestampFormatTrait.id,
-        MediaTypeTrait.id,
-      ];
+    CorsTrait.id,
+    EndpointTrait.id,
+    HostLabelTrait.id,
+    HttpTrait.id,
+    HttpErrorTrait.id,
+    HttpHeaderTrait.id,
+    HttpLabelTrait.id,
+    HttpPayloadTrait.id,
+    HttpPrefixHeadersTrait.id,
+    HttpQueryTrait.id,
+    HttpQueryParamsTrait.id,
+    XmlAttributeTrait.id,
+    XmlFlattenedTrait.id,
+    XmlNameTrait.id,
+    XmlNamespaceTrait.id,
+    TimestampFormatTrait.id,
+    MediaTypeTrait.id,
+  ];
 }

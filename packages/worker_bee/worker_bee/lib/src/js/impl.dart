@@ -62,9 +62,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
         // Do not specify type so that it is serialized into the array.
         specifiedType: FullType.unspecified,
       ),
-      zoneValues: {
-        #transfer: transfer,
-      },
+      zoneValues: {#transfer: transfer},
     );
     return _WorkerSerializeResult(serialized, transfer);
   }
@@ -73,14 +71,14 @@ mixin WorkerBeeImpl<Request extends Object, Response>
   @optionalTypeArgs
   T _deserialize<T extends Object?>(Object? object) {
     final deserialized = runZoned(
-      () => serializers.deserialize(
-        object,
-        // Do not specify type so that it pulls from the array.
-        specifiedType: FullType.unspecified,
-      ) as T,
-      zoneValues: {
-        #addPendingOperation: addPendingOperation,
-      },
+      () =>
+          serializers.deserialize(
+                object,
+                // Do not specify type so that it pulls from the array.
+                specifiedType: FullType.unspecified,
+              )
+              as T,
+      zoneValues: {#addPendingOperation: addPendingOperation},
     );
     return deserialized;
   }
@@ -97,208 +95,194 @@ mixin WorkerBeeImpl<Request extends Object, Response>
 
   @override
   @nonVirtual
-  Future<void> connect({
-    StreamChannel<LogEntry>? logsChannel,
-  }) async {
-    return runTraced(
-      () async {
-        await super.connect(logsChannel: logsChannel);
-        final channel = StreamChannelController<Object?>(sync: true);
-        self.addEventListener(
-          'message',
-          Zone.current.bindUnaryCallback<void, Event>((Event event) {
-            event as MessageEvent;
-            logger.verbose('Got message: ${event.data}');
-            final serialized = event.data;
-            final message = _deserialize<Request>(serialized);
-            channel.foreign.sink.add(message);
-          }),
-        );
-        channel.foreign.stream.listen(
-          Zone.current.bindUnaryCallback((message) {
-            logger.verbose('Sending message: $message');
-            final serialized = _serialize(message);
-            self.postMessage(serialized.value, serialized.transfer);
-          }),
-        );
-        logger.verbose('Ready');
-        self.postMessage('ready');
-        final result = await run(
-          channel.local.stream.asBroadcastStream().cast(),
-          channel.local.sink.cast(),
-        );
-        logger.verbose('Finished');
-        self.postMessage('done');
+  Future<void> connect({StreamChannel<LogEntry>? logsChannel}) async {
+    return runTraced(() async {
+      await super.connect(logsChannel: logsChannel);
+      final channel = StreamChannelController<Object?>(sync: true);
+      self.addEventListener(
+        'message',
+        Zone.current.bindUnaryCallback<void, Event>((Event event) {
+          event as MessageEvent;
+          logger.verbose('Got message: ${event.data}');
+          final serialized = event.data;
+          final message = _deserialize<Request>(serialized);
+          channel.foreign.sink.add(message);
+        }),
+      );
+      channel.foreign.stream.listen(
+        Zone.current.bindUnaryCallback((message) {
+          logger.verbose('Sending message: $message');
+          final serialized = _serialize(message);
+          self.postMessage(serialized.value, serialized.transfer);
+        }),
+      );
+      logger.verbose('Ready');
+      self.postMessage('ready');
+      final result = await run(
+        channel.local.stream.asBroadcastStream().cast(),
+        channel.local.sink.cast(),
+      );
+      logger.verbose('Finished');
+      self.postMessage('done');
 
-        final serializedResult = _serialize(result);
-        self.postMessage(serializedResult.value, serializedResult.transfer);
+      final serializedResult = _serialize(result);
+      self.postMessage(serializedResult.value, serializedResult.transfer);
 
-        // Allow streams to flush, then close underlying resources.
-        await close();
-      },
-      onError: completeError,
-    );
+      // Allow streams to flush, then close underlying resources.
+      await close();
+    }, onError: completeError);
   }
 
   @override
   @nonVirtual
   Future<void> spawn({String? jsEntrypoint}) async {
-    return runTraced(
-      () async {
-        for (final entrypoint in [
-          if (jsEntrypoint != null) jsEntrypoint,
-          this.jsEntrypoint,
-          ...fallbackUrls,
-        ]) {
-          logger.debug('Spawning worker at $entrypoint');
+    return runTraced(() async {
+      for (final entrypoint in [
+        if (jsEntrypoint != null) jsEntrypoint,
+        this.jsEntrypoint,
+        ...fallbackUrls,
+      ]) {
+        logger.debug('Spawning worker at $entrypoint');
 
-          // Spawn the worker using the specified script.
-          try {
-            _worker = Worker(entrypoint);
-          } on Object {
-            logger.debug('Could not launch worker at $entrypoint');
-            continue;
-          }
-
-          try {
-            /// Captures errors occurring before a `ready` event is received.
-            final errorBeforeReady = Completer<void>();
-
-            // Whether `run` has completed on the web worker.
-            var done = false;
-
-            // Create the controller to handle message passing.
-            _controller = StreamController<Request>(
-              sync: true,
-              onCancel: () {
-                final error = WorkerBeeExceptionImpl(
-                  'Worker quit unexpectedly',
-                );
-                if (ready.isCompleted) {
-                  if (!done) {
-                    completeError(error);
-                  }
-                } else {
-                  errorBeforeReady.completeError(error);
-                }
-              },
-            );
-
-            // Listen for error messages on the worker.
-            //
-            // Some browsers do not currently support the `messageerror` event:
-            // https://developer.mozilla.org/en-US/docs/Web/API/Worker/messageerror_event#browser_compatibility
-            _worker!.addEventListener('messageerror', (Event event) {
-              event as MessageEvent;
-              final error = WorkerBeeExceptionImpl(
-                'Could not serialize message: ${event.data}',
-              );
-              if (ready.isCompleted) {
-                completeError(error);
-              } else {
-                errorBeforeReady.completeError(error);
-              }
-            });
-            _worker!.onError = (Event event) {
-              Object error;
-              if (event is ErrorEvent) {
-                final eventJson = JSON.stringify(event.error);
-                error = WorkerBeeExceptionImpl('${event.message} ($eventJson)');
-              } else {
-                error = WorkerBeeExceptionImpl('An unknown error occurred');
-              }
-              if (ready.isCompleted) {
-                completeError(error);
-              } else {
-                errorBeforeReady.completeError(error);
-              }
-            };
-
-            // Passes outgoing messages to the worker instance.
-            _controller!.stream.listen(
-              Zone.current.bindUnaryCallback((message) {
-                logger.verbose('Sending message: $message');
-                final serialized = _serialize(message);
-                _worker!.postMessage(serialized.value, serialized.transfer);
-              }),
-            );
-
-            // Listen to worker
-            _incomingMessages = StreamController<Response>(sync: true);
-            _worker!.onMessage =
-                Zone.current.bindUnaryCallback((MessageEvent event) {
-              if (event.data is String) {
-                if (event.data == 'ready') {
-                  logger.verbose('Received ready event');
-                  ready.complete();
-                  return;
-                }
-                if (event.data == 'done') {
-                  logger.verbose('Received done event');
-                  done = true;
-                  return;
-                }
-              }
-              final serialized = event.data;
-              final message = _deserialize(serialized);
-              logger.verbose('Got message: $message');
-              if (message is WorkerBeeException) {
-                if (ready.isCompleted) {
-                  _incomingMessages!.addError(message, message.stackTrace);
-                  completeError(message, message.stackTrace);
-                } else {
-                  errorBeforeReady.completeError(message, message.stackTrace);
-                }
-                return;
-              }
-              message as Response?;
-              if (message is Response && !done) {
-                _incomingMessages!.add(message);
-              }
-              if (done) {
-                complete(message);
-              }
-            });
-
-            // Send assignment and logs channel
-            final jsLogsChannel = MessageChannel();
-            _logsChannel = MessagePortChannel<LogEntry>(
-              jsLogsChannel.port1,
-              serializers: serializers,
-            );
-            _logsChannel!.stream.listen(
-              Zone.current.bindUnaryCallback((message) {
-                if (logsController.isClosed) return;
-                logsController.add(message);
-              }),
-            );
-            _worker!.postMessage(name, [jsLogsChannel.port2]);
-
-            await Future.any<void>([
-              ready.future,
-              errorBeforeReady.future,
-            ]);
-
-            stream = _incomingMessages!.stream;
-            sink = _controller!.sink;
-
-            return;
-          } on Object catch (e, st) {
-            logger.debug('Error initializing worker', e, st);
-            continue;
-          }
+        // Spawn the worker using the specified script.
+        try {
+          _worker = Worker(entrypoint);
+        } on Object {
+          logger.debug('Could not launch worker at $entrypoint');
+          continue;
         }
 
-        throw WorkerBeeExceptionImpl('Could not launch web worker.');
-      },
-      onError: completeError,
-    );
+        try {
+          /// Captures errors occurring before a `ready` event is received.
+          final errorBeforeReady = Completer<void>();
+
+          // Whether `run` has completed on the web worker.
+          var done = false;
+
+          // Create the controller to handle message passing.
+          _controller = StreamController<Request>(
+            sync: true,
+            onCancel: () {
+              final error = WorkerBeeExceptionImpl('Worker quit unexpectedly');
+              if (ready.isCompleted) {
+                if (!done) {
+                  completeError(error);
+                }
+              } else {
+                errorBeforeReady.completeError(error);
+              }
+            },
+          );
+
+          // Listen for error messages on the worker.
+          //
+          // Some browsers do not currently support the `messageerror` event:
+          // https://developer.mozilla.org/en-US/docs/Web/API/Worker/messageerror_event#browser_compatibility
+          _worker!.addEventListener('messageerror', (Event event) {
+            event as MessageEvent;
+            final error = WorkerBeeExceptionImpl(
+              'Could not serialize message: ${event.data}',
+            );
+            if (ready.isCompleted) {
+              completeError(error);
+            } else {
+              errorBeforeReady.completeError(error);
+            }
+          });
+          _worker!.onError = (Event event) {
+            Object error;
+            if (event is ErrorEvent) {
+              final eventJson = JSON.stringify(event.error);
+              error = WorkerBeeExceptionImpl('${event.message} ($eventJson)');
+            } else {
+              error = WorkerBeeExceptionImpl('An unknown error occurred');
+            }
+            if (ready.isCompleted) {
+              completeError(error);
+            } else {
+              errorBeforeReady.completeError(error);
+            }
+          };
+
+          // Passes outgoing messages to the worker instance.
+          _controller!.stream.listen(
+            Zone.current.bindUnaryCallback((message) {
+              logger.verbose('Sending message: $message');
+              final serialized = _serialize(message);
+              _worker!.postMessage(serialized.value, serialized.transfer);
+            }),
+          );
+
+          // Listen to worker
+          _incomingMessages = StreamController<Response>(sync: true);
+          _worker!.onMessage = Zone.current.bindUnaryCallback((
+            MessageEvent event,
+          ) {
+            if (event.data is String) {
+              if (event.data == 'ready') {
+                logger.verbose('Received ready event');
+                ready.complete();
+                return;
+              }
+              if (event.data == 'done') {
+                logger.verbose('Received done event');
+                done = true;
+                return;
+              }
+            }
+            final serialized = event.data;
+            final message = _deserialize(serialized);
+            logger.verbose('Got message: $message');
+            if (message is WorkerBeeException) {
+              if (ready.isCompleted) {
+                _incomingMessages!.addError(message, message.stackTrace);
+                completeError(message, message.stackTrace);
+              } else {
+                errorBeforeReady.completeError(message, message.stackTrace);
+              }
+              return;
+            }
+            message as Response?;
+            if (message is Response && !done) {
+              _incomingMessages!.add(message);
+            }
+            if (done) {
+              complete(message);
+            }
+          });
+
+          // Send assignment and logs channel
+          final jsLogsChannel = MessageChannel();
+          _logsChannel = MessagePortChannel<LogEntry>(
+            jsLogsChannel.port1,
+            serializers: serializers,
+          );
+          _logsChannel!.stream.listen(
+            Zone.current.bindUnaryCallback((message) {
+              if (logsController.isClosed) return;
+              logsController.add(message);
+            }),
+          );
+          _worker!.postMessage(name, [jsLogsChannel.port2]);
+
+          await Future.any<void>([ready.future, errorBeforeReady.future]);
+
+          stream = _incomingMessages!.stream;
+          sink = _controller!.sink;
+
+          return;
+        } on Object catch (e, st) {
+          logger.debug('Error initializing worker', e, st);
+          continue;
+        }
+      }
+
+      throw WorkerBeeExceptionImpl('Could not launch web worker.');
+    }, onError: completeError);
   }
 
   @override
-  Future<void> close({
-    bool force = false,
-  }) async {
+  Future<void> close({bool force = false}) async {
     // Close the request/response channels.
     await _incomingMessages?.close();
     await _controller?.close();

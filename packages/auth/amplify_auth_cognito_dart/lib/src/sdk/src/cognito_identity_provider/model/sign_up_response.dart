@@ -39,11 +39,10 @@ abstract class SignUpResponse
   factory SignUpResponse.fromResponse(
     SignUpResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<SignUpResponse>> serializers = [
-    SignUpResponseAwsJson11Serializer()
+    SignUpResponseAwsJson11Serializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -60,27 +59,15 @@ abstract class SignUpResponse
   /// The 128-bit ID of the authenticated user. This isn't the same as `username`.
   String get userSub;
   @override
-  List<Object?> get props => [
-        userConfirmed,
-        codeDeliveryDetails,
-        userSub,
-      ];
+  List<Object?> get props => [userConfirmed, codeDeliveryDetails, userSub];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SignUpResponse')
-      ..add(
-        'userConfirmed',
-        userConfirmed,
-      )
-      ..add(
-        'codeDeliveryDetails',
-        codeDeliveryDetails,
-      )
-      ..add(
-        'userSub',
-        userSub,
-      );
+    final helper =
+        newBuiltValueToStringHelper('SignUpResponse')
+          ..add('userConfirmed', userConfirmed)
+          ..add('codeDeliveryDetails', codeDeliveryDetails)
+          ..add('userSub', userSub);
     return helper.toString();
   }
 }
@@ -90,18 +77,12 @@ class SignUpResponseAwsJson11Serializer
   const SignUpResponseAwsJson11Serializer() : super('SignUpResponse');
 
   @override
-  Iterable<Type> get types => const [
-        SignUpResponse,
-        _$SignUpResponse,
-      ];
+  Iterable<Type> get types => const [SignUpResponse, _$SignUpResponse];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   SignUpResponse deserialize(
@@ -120,20 +101,27 @@ class SignUpResponseAwsJson11Serializer
       }
       switch (key) {
         case 'UserConfirmed':
-          result.userConfirmed = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.userConfirmed =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'CodeDeliveryDetails':
-          result.codeDeliveryDetails.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CodeDeliveryDetailsType),
-          ) as CodeDeliveryDetailsType));
+          result.codeDeliveryDetails.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CodeDeliveryDetailsType),
+                )
+                as CodeDeliveryDetailsType),
+          );
         case 'UserSub':
-          result.userSub = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.userSub =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -151,23 +139,19 @@ class SignUpResponseAwsJson11Serializer
         object;
     result$.addAll([
       'UserConfirmed',
-      serializers.serialize(
-        userConfirmed,
-        specifiedType: const FullType(bool),
-      ),
+      serializers.serialize(userConfirmed, specifiedType: const FullType(bool)),
       'UserSub',
-      serializers.serialize(
-        userSub,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(userSub, specifiedType: const FullType(String)),
     ]);
     if (codeDeliveryDetails != null) {
       result$
         ..add('CodeDeliveryDetails')
-        ..add(serializers.serialize(
-          codeDeliveryDetails,
-          specifiedType: const FullType(CodeDeliveryDetailsType),
-        ));
+        ..add(
+          serializers.serialize(
+            codeDeliveryDetails,
+            specifiedType: const FullType(CodeDeliveryDetailsType),
+          ),
+        );
     }
     return result$;
   }

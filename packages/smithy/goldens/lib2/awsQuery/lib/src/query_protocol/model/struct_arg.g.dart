@@ -93,11 +93,13 @@ class StructArgBuilder implements Builder<StructArg, StructArgBuilder> {
   _$StructArg _build() {
     _$StructArg _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$StructArg._(
-              stringArg: stringArg,
-              otherArg: otherArg,
-              recursiveArg: _recursiveArg?.build());
+            stringArg: stringArg,
+            otherArg: otherArg,
+            recursiveArg: _recursiveArg?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -105,7 +107,10 @@ class StructArgBuilder implements Builder<StructArg, StructArgBuilder> {
         _recursiveArg?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'StructArg', _$failedField, e.toString());
+          r'StructArg',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

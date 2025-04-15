@@ -19,8 +19,15 @@ final class SignUpStateMachine
   SignUpStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
   /// The [SignUpStateMachine] type.
-  static const type = StateMachineToken<SignUpEvent, SignUpState, AuthEvent,
-      AuthState, CognitoAuthStateMachine, SignUpStateMachine>();
+  static const type =
+      StateMachineToken<
+        SignUpEvent,
+        SignUpState,
+        AuthEvent,
+        AuthState,
+        CognitoAuthStateMachine,
+        SignUpStateMachine
+      >();
 
   @override
   SignUpState get initialState => const SignUpState.notStarted();
@@ -77,48 +84,46 @@ final class SignUpStateMachine
     contextData = await contextDataProvider.buildRequestData(
       event.parameters.username,
     );
-    final resp = await _cognito.signUp(
-      SignUpRequest.build(
-        (b) {
-          b
-            ..clientId = _authOutputs.userPoolClientId
-            ..username = event.parameters.username
-            ..password = event.parameters.password
-            ..clientMetadata.addAll(event.clientMetadata)
-            ..userAttributes.addAll(
-              event.userAttributes.entries.map(
-                (attr) => AttributeType(
-                  name: attr.key.key,
-                  value: attr.value,
-                ),
-              ),
-            )
-            ..validationData.addAll(
-              event.validationData.entries.map(
-                (attr) => AttributeType(
-                  name: attr.key,
-                  value: attr.value,
-                ),
-              ),
-            )
-            ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
+    final resp =
+        await _cognito
+            .signUp(
+              SignUpRequest.build((b) {
+                b
+                  ..clientId = _authOutputs.userPoolClientId
+                  ..username = event.parameters.username
+                  ..password = event.parameters.password
+                  ..clientMetadata.addAll(event.clientMetadata)
+                  ..userAttributes.addAll(
+                    event.userAttributes.entries.map(
+                      (attr) =>
+                          AttributeType(name: attr.key.key, value: attr.value),
+                    ),
+                  )
+                  ..validationData.addAll(
+                    event.validationData.entries.map(
+                      (attr) =>
+                          AttributeType(name: attr.key, value: attr.value),
+                    ),
+                  )
+                  ..analyticsMetadata =
+                      get<AnalyticsMetadataType>()?.toBuilder();
 
-          // ignore: invalid_use_of_internal_member
-          final clientSecret = _authOutputs.appClientSecret;
-          if (clientSecret != null) {
-            b.secretHash = computeSecretHash(
-              event.parameters.username,
-              _authOutputs.userPoolClientId!,
-              clientSecret,
-            );
-          }
+                // ignore: invalid_use_of_internal_member
+                final clientSecret = _authOutputs.appClientSecret;
+                if (clientSecret != null) {
+                  b.secretHash = computeSecretHash(
+                    event.parameters.username,
+                    _authOutputs.userPoolClientId!,
+                    clientSecret,
+                  );
+                }
 
-          if (contextData != null) {
-            b.userContextData.replace(contextData);
-          }
-        },
-      ),
-    ).result;
+                if (contextData != null) {
+                  b.userContextData.replace(contextData);
+                }
+              }),
+            )
+            .result;
 
     if (resp.userConfirmed) {
       emit(SignUpState.success(userId: resp.userSub));
@@ -136,33 +141,33 @@ final class SignUpStateMachine
   Future<void> onConfirm(SignUpConfirm event) async {
     UserContextDataType? contextData;
     final contextDataProvider = _contextDataProvider;
-    contextData = await contextDataProvider.buildRequestData(
-      event.username,
-    );
-    await _cognito.confirmSignUp(
-      ConfirmSignUpRequest.build((b) {
-        b
-          ..clientId = _authOutputs.userPoolClientId
-          ..username = event.username
-          ..confirmationCode = event.confirmationCode
-          ..clientMetadata.addAll(event.clientMetadata)
-          ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
+    contextData = await contextDataProvider.buildRequestData(event.username);
+    await _cognito
+        .confirmSignUp(
+          ConfirmSignUpRequest.build((b) {
+            b
+              ..clientId = _authOutputs.userPoolClientId
+              ..username = event.username
+              ..confirmationCode = event.confirmationCode
+              ..clientMetadata.addAll(event.clientMetadata)
+              ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
-        // ignore: invalid_use_of_internal_member
-        final clientSecret = _authOutputs.appClientSecret;
-        if (clientSecret != null) {
-          b.secretHash = computeSecretHash(
-            event.username,
-            _authOutputs.userPoolClientId!,
-            clientSecret,
-          );
-        }
+            // ignore: invalid_use_of_internal_member
+            final clientSecret = _authOutputs.appClientSecret;
+            if (clientSecret != null) {
+              b.secretHash = computeSecretHash(
+                event.username,
+                _authOutputs.userPoolClientId!,
+                clientSecret,
+              );
+            }
 
-        if (contextData != null) {
-          b.userContextData.replace(contextData);
-        }
-      }),
-    ).result;
+            if (contextData != null) {
+              b.userContextData.replace(contextData);
+            }
+          }),
+        )
+        .result;
 
     emit(const SignUpState.success());
   }

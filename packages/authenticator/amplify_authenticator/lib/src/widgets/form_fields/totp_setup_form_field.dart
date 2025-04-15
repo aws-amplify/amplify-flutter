@@ -16,48 +16,39 @@ abstract class TotpSetupFormField<FieldValue extends Object>
   /// {@macro amplify_authenticator.instruction_form_field}
   ///
   /// Either [titleKey] or [title] is required.
-  const TotpSetupFormField._({
-    super.key,
-    required super.field,
-  }) : super._();
+  const TotpSetupFormField._({super.key, required super.field}) : super._();
 
   /// Creates a TOTP QR code component.
-  static TotpSetupFormField totpQrCode({
-    Key? key,
-  }) =>
+  static TotpSetupFormField totpQrCode({Key? key}) =>
       _InstructionTotpQrCodeField(
         key: key ?? keyQrCodeTotpSetupFormField,
         field: TotpSetupField.totpQrCode,
       );
 
   /// Creates a TOTP Copy Key component.
-  static TotpSetupFormField totpCopyKey({
-    Key? key,
-  }) =>
+  static TotpSetupFormField totpCopyKey({Key? key}) =>
       _InstructionTotpCopyKeyField(
         key: key ?? keyCopyKeyTotpSetupFormField,
         field: TotpSetupField.totpCopyKey,
       );
 
   /// Creates a TOTP setup component.
-  static TotpSetupFormField totpSetup({
-    Key? key,
-  }) =>
-      _TotpSetupField(
-        key: key ?? keyTotpSetupFormField,
-        field: TotpSetupField.totpSetup,
-      );
+  static TotpSetupFormField totpSetup({Key? key}) => _TotpSetupField(
+    key: key ?? keyTotpSetupFormField,
+    field: TotpSetupField.totpSetup,
+  );
 }
 
 abstract class _InstructionFormFieldState<FieldValue extends Object>
-    extends AuthenticatorFormFieldState<TotpSetupField, FieldValue,
-        TotpSetupFormField<FieldValue>> {}
+    extends
+        AuthenticatorFormFieldState<
+          TotpSetupField,
+          FieldValue,
+          TotpSetupFormField<FieldValue>
+        > {}
 
 class _TotpSetupField extends TotpSetupFormField<String> {
-  const _TotpSetupField({
-    super.key,
-    required super.field,
-  }) : super._();
+  const _TotpSetupField({super.key, required super.field}) : super._();
 
   @override
   _InstructionTotpSetupFieldState createState() =>
@@ -69,10 +60,7 @@ class _InstructionTotpSetupFieldState
   static const _spacingBox = SizedBox(height: 10);
 
   String resolveInstruction(InstructionsKeyType type) =>
-      stringResolver.instruction.resolve(
-        context,
-        type,
-      );
+      stringResolver.instruction.resolve(context, type);
 
   @override
   Widget buildFormField(BuildContext context) {
@@ -83,26 +71,20 @@ class _InstructionTotpSetupFieldState
           resolveInstruction(InstructionsKeyType.totpStep1Title),
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        Text(
-          resolveInstruction(InstructionsKeyType.totpStep1Body),
-        ),
+        Text(resolveInstruction(InstructionsKeyType.totpStep1Body)),
         _spacingBox,
         Text(
           resolveInstruction(InstructionsKeyType.totpStep2Title),
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        Text(
-          resolveInstruction(InstructionsKeyType.totpStep2Body),
-        ),
+        Text(resolveInstruction(InstructionsKeyType.totpStep2Body)),
         TotpSetupFormField.totpQrCode(),
         TotpSetupFormField.totpCopyKey(),
         Text(
           resolveInstruction(InstructionsKeyType.totpStep3Title),
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        Text(
-          resolveInstruction(InstructionsKeyType.totpStep3Body),
-        ),
+        Text(resolveInstruction(InstructionsKeyType.totpStep3Body)),
         ConfirmSignInFormField.verificationCode(),
       ],
     );
@@ -110,10 +92,8 @@ class _InstructionTotpSetupFieldState
 }
 
 class _InstructionTotpCopyKeyField extends TotpSetupFormField<String> {
-  const _InstructionTotpCopyKeyField({
-    super.key,
-    required super.field,
-  }) : super._();
+  const _InstructionTotpCopyKeyField({super.key, required super.field})
+    : super._();
 
   @override
   _InstructionTotpCopyKeyFieldState createState() =>
@@ -136,9 +116,7 @@ class _InstructionTotpCopyKeyFieldState
         SnackBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
           content: Text(
-            stringResolver.messages.copySucceeded(
-              context,
-            ),
+            stringResolver.messages.copySucceeded(context),
             textAlign: TextAlign.center,
           ),
         ),
@@ -149,9 +127,7 @@ class _InstructionTotpCopyKeyFieldState
         SnackBar(
           backgroundColor: Theme.of(context).colorScheme.onError,
           content: Text(
-            stringResolver.messages.copyFailed(
-              context,
-            ),
+            stringResolver.messages.copyFailed(context),
             textAlign: TextAlign.center,
           ),
         ),
@@ -165,10 +141,7 @@ class _InstructionTotpCopyKeyFieldState
       child: OutlinedButton(
         onPressed: _copyKey,
         child: Text(
-          stringResolver.buttons.resolve(
-            context,
-            ButtonResolverKey.copyKey,
-          ),
+          stringResolver.buttons.resolve(context, ButtonResolverKey.copyKey),
         ),
       ),
     );
@@ -176,10 +149,8 @@ class _InstructionTotpCopyKeyFieldState
 }
 
 class _InstructionTotpQrCodeField extends TotpSetupFormField<String> {
-  const _InstructionTotpQrCodeField({
-    super.key,
-    required super.field,
-  }) : super._();
+  const _InstructionTotpQrCodeField({super.key, required super.field})
+    : super._();
 
   @override
   _InstructionTotpQrCodeFieldState createState() =>

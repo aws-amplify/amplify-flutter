@@ -56,10 +56,7 @@ void main() async {
 
           return GraphQLOperation<T>(
             CancelableOperation<GraphQLResponse<T>>.fromValue(
-              GraphQLResponse<T>(
-                data: null as T?,
-                errors: [],
-              ),
+              GraphQLResponse<T>(data: null as T?, errors: []),
             ),
           );
         };
@@ -118,13 +115,14 @@ void main() async {
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
         NativeGraphQLRequest request = NativeGraphQLRequest(
-            document: document,
-            apiName: apiName,
-            variablesJson: variablesJson,
-            responseType: responseType,
-            decodePath: decodePath,
-            options: options,
-            authMode: authMode);
+          document: document,
+          apiName: apiName,
+          variablesJson: variablesJson,
+          responseType: responseType,
+          decodePath: decodePath,
+          options: options,
+          authMode: authMode,
+        );
         NativeGraphQLResponse response = await nativeAmplifyApi.query(request);
 
         expect(response.payloadJson, payloadJson);
@@ -148,10 +146,7 @@ void main() async {
 
           return GraphQLOperation<T>(
             CancelableOperation<GraphQLResponse<T>>.fromValue(
-              GraphQLResponse<T>(
-                data: data as T?,
-                errors: [],
-              ),
+              GraphQLResponse<T>(data: data as T?, errors: []),
             ),
           );
         };
@@ -173,20 +168,14 @@ void main() async {
 
           return GraphQLOperation<T>(
             CancelableOperation<GraphQLResponse<T>>.fromValue(
-              GraphQLResponse<T>(
-                data: null as T?,
-                errors: [],
-              ),
+              GraphQLResponse<T>(data: null as T?, errors: []),
             ),
           );
         };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
         await nativeAmplifyApi.query(
-          NativeGraphQLRequest(
-            document: '',
-            authMode: authMode,
-          ),
+          NativeGraphQLRequest(document: '', authMode: authMode),
         );
       }
 
@@ -195,7 +184,9 @@ void main() async {
         await _authModeExpectHelepr('awsIAM', APIAuthorizationType.iam);
         await _authModeExpectHelepr('openIDConnect', APIAuthorizationType.oidc);
         await _authModeExpectHelepr(
-            'amazonCognitoUserPools', APIAuthorizationType.userPools);
+          'amazonCognitoUserPools',
+          APIAuthorizationType.userPools,
+        );
         await _authModeExpectHelepr('function', APIAuthorizationType.function);
         await _authModeExpectHelepr('none', APIAuthorizationType.none);
         await _authModeExpectHelepr(null, null);
@@ -229,39 +220,38 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
+        NativeGraphQLRequest request = NativeGraphQLRequest(document: '');
 
         NativeGraphQLResponse response = await nativeAmplifyApi.query(request);
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Should handle unauthorized AmplifyException - SignedOutException',
-          () async {
-        String exceptionMessage = 'API Exception';
-        String payloadJson =
-            '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
+      test(
+        'Should handle unauthorized AmplifyException - SignedOutException',
+        () async {
+          String exceptionMessage = 'API Exception';
+          String payloadJson =
+              '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
 
-        mockAPIPlugin.queryMethod = <T>(GraphQLRequest mockRequest) {
-          throw NetworkException(
-            exceptionMessage,
-            underlyingException: 'SignedOutException',
+          mockAPIPlugin.queryMethod = <T>(GraphQLRequest mockRequest) {
+            throw NetworkException(
+              exceptionMessage,
+              underlyingException: 'SignedOutException',
+            );
+          };
+
+          NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
+
+          NativeGraphQLRequest request = NativeGraphQLRequest(document: '');
+
+          NativeGraphQLResponse response = await nativeAmplifyApi.query(
+            request,
           );
-        };
+          expect(response.payloadJson, payloadJson);
+        },
+      );
 
-        NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
-
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
-
-        NativeGraphQLResponse response = await nativeAmplifyApi.query(request);
-        expect(response.payloadJson, payloadJson);
-      });
-
-      test('Should handle unauthorized AmplifyException - Unauthrorized',
-          () async {
+      test('Should handle unauthorized AmplifyException - Unauthrorized', () async {
         String exceptionMessage =
             'Not Authorized to access onDeletePrivateNote on type Subscription';
         String payloadJson =
@@ -276,9 +266,7 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
+        NativeGraphQLRequest request = NativeGraphQLRequest(document: '');
 
         NativeGraphQLResponse response = await nativeAmplifyApi.query(request);
         expect(response.payloadJson, payloadJson);
@@ -302,10 +290,7 @@ void main() async {
 
           return GraphQLOperation<T>(
             CancelableOperation<GraphQLResponse<T>>.fromValue(
-              GraphQLResponse<T>(
-                data: null as T?,
-                errors: [],
-              ),
+              GraphQLResponse<T>(data: null as T?, errors: []),
             ),
           );
         };
@@ -395,10 +380,7 @@ void main() async {
 
           return GraphQLOperation<T>(
             CancelableOperation<GraphQLResponse<T>>.fromValue(
-              GraphQLResponse<T>(
-                data: data as T?,
-                errors: [],
-              ),
+              GraphQLResponse<T>(data: data as T?, errors: []),
             ),
           );
         };
@@ -422,39 +404,38 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
+        NativeGraphQLRequest request = NativeGraphQLRequest(document: '');
 
         NativeGraphQLResponse response = await nativeAmplifyApi.mutate(request);
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Should handle unauthorized AmplifyException - SignedOutException',
-          () async {
-        String exceptionMessage = 'API Exception';
-        String payloadJson =
-            '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
+      test(
+        'Should handle unauthorized AmplifyException - SignedOutException',
+        () async {
+          String exceptionMessage = 'API Exception';
+          String payloadJson =
+              '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
 
-        mockAPIPlugin.mutateMethod = <T>(GraphQLRequest mockRequest) {
-          throw NetworkException(
-            exceptionMessage,
-            underlyingException: 'SignedOutException',
+          mockAPIPlugin.mutateMethod = <T>(GraphQLRequest mockRequest) {
+            throw NetworkException(
+              exceptionMessage,
+              underlyingException: 'SignedOutException',
+            );
+          };
+
+          NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
+
+          NativeGraphQLRequest request = NativeGraphQLRequest(document: '');
+
+          NativeGraphQLResponse response = await nativeAmplifyApi.mutate(
+            request,
           );
-        };
+          expect(response.payloadJson, payloadJson);
+        },
+      );
 
-        NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
-
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
-
-        NativeGraphQLResponse response = await nativeAmplifyApi.mutate(request);
-        expect(response.payloadJson, payloadJson);
-      });
-
-      test('Should handle unauthorized AmplifyException - Unauthrorized',
-          () async {
+      test('Should handle unauthorized AmplifyException - Unauthrorized', () async {
         String exceptionMessage =
             'Not Authorized to access onDeletePrivateNote on type Subscription';
         String payloadJson =
@@ -469,9 +450,7 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
+        NativeGraphQLRequest request = NativeGraphQLRequest(document: '');
 
         NativeGraphQLResponse response = await nativeAmplifyApi.mutate(request);
         expect(response.payloadJson, payloadJson);
@@ -503,8 +482,8 @@ void main() async {
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
         NativeGraphQLRequest request = NativeGraphQLRequest(document: document);
-        NativeGraphQLSubscriptionResponse response =
-            await nativeAmplifyApi.subscribe(request);
+        NativeGraphQLSubscriptionResponse response = await nativeAmplifyApi
+            .subscribe(request);
 
         expect(response.payloadJson, null);
         expect(response.subscriptionId.length, greaterThan(0));
@@ -554,8 +533,8 @@ void main() async {
           decodePath: decodePath,
           options: options,
         );
-        NativeGraphQLSubscriptionResponse response =
-            await nativeAmplifyApi.subscribe(request);
+        NativeGraphQLSubscriptionResponse response = await nativeAmplifyApi
+            .subscribe(request);
 
         expect(response.payloadJson, null);
         expect(response.subscriptionId.length, greaterThan(0));
@@ -573,8 +552,10 @@ void main() async {
           variablesJson: invalidJson,
         );
 
-        expect(() async => await nativeAmplifyApi.subscribe(request),
-            throwsA(TypeMatcher<FormatException>()));
+        expect(
+          () async => await nativeAmplifyApi.subscribe(request),
+          throwsA(TypeMatcher<FormatException>()),
+        );
       });
 
       test('Should handle API exception', () async {
@@ -589,15 +570,14 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
+        NativeGraphQLRequest request = NativeGraphQLRequest(document: '');
 
         expect(
           () async => await nativeAmplifyApi.subscribe(request),
           throwsA(
             predicate(
-                (e) => e is NetworkException && e.message == 'API Exception'),
+              (e) => e is NetworkException && e.message == 'API Exception',
+            ),
           ),
         );
       });
@@ -616,9 +596,7 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
+        NativeGraphQLRequest request = NativeGraphQLRequest(document: '');
 
         await nativeAmplifyApi.subscribe(request);
 
@@ -660,9 +638,7 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        await nativeAmplifyApi.subscribe(
-          NativeGraphQLRequest(document: ''),
-        );
+        await nativeAmplifyApi.subscribe(NativeGraphQLRequest(document: ''));
 
         binding.defaultBinaryMessenger.setMockDecodedMessageHandler<Object?>(
           channel,
@@ -685,10 +661,7 @@ void main() async {
         expect(responseController, isNotNull);
         expect(
           () => responseController?.add(
-            GraphQLResponse<String>(
-              data: data,
-              errors: [],
-            ),
+            GraphQLResponse<String>(data: data, errors: []),
           ),
           returnsNormally,
         );
@@ -714,9 +687,7 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        await nativeAmplifyApi.subscribe(
-          NativeGraphQLRequest(document: ''),
-        );
+        await nativeAmplifyApi.subscribe(NativeGraphQLRequest(document: ''));
 
         binding.defaultBinaryMessenger.setMockDecodedMessageHandler<Object?>(
           channel,
@@ -768,9 +739,7 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        await nativeAmplifyApi.subscribe(
-          NativeGraphQLRequest(document: ''),
-        );
+        await nativeAmplifyApi.subscribe(NativeGraphQLRequest(document: ''));
 
         binding.defaultBinaryMessenger.setMockDecodedMessageHandler<Object?>(
           channel,
@@ -793,10 +762,7 @@ void main() async {
         expect(responseController, isNotNull);
         expect(
           () => responseController?.add(
-            GraphQLResponse<String>(
-              data: data,
-              errors: [],
-            ),
+            GraphQLResponse<String>(data: data, errors: []),
           ),
           returnsNormally,
         );
@@ -820,9 +786,7 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        await nativeAmplifyApi.subscribe(
-          NativeGraphQLRequest(document: ''),
-        );
+        await nativeAmplifyApi.subscribe(NativeGraphQLRequest(document: ''));
 
         binding.defaultBinaryMessenger.setMockDecodedMessageHandler<Object?>(
           channel,
@@ -863,9 +827,7 @@ void main() async {
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-        await nativeAmplifyApi.subscribe(
-          NativeGraphQLRequest(document: ''),
-        );
+        await nativeAmplifyApi.subscribe(NativeGraphQLRequest(document: ''));
 
         binding.defaultBinaryMessenger.setMockDecodedMessageHandler<Object?>(
           channel,
@@ -886,10 +848,7 @@ void main() async {
         );
 
         expect(responseController, isNotNull);
-        expect(
-          () => responseController?.close(),
-          returnsNormally,
-        );
+        expect(() => responseController?.close(), returnsNormally);
       });
 
       group('Unubscribe', () {
@@ -905,9 +864,7 @@ void main() async {
           NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
           var response = await nativeAmplifyApi.subscribe(
-            NativeGraphQLRequest(
-              document: '',
-            ),
+            NativeGraphQLRequest(document: ''),
           );
 
           await nativeAmplifyApi.unsubscribe(response.subscriptionId);
@@ -937,13 +894,9 @@ class MockAPIPlugin<T> extends APIPluginInterface {
   GraphQLOperation<T> Function<T>(GraphQLRequest<T>)? queryMethod;
   GraphQLOperation<T> Function<T>(GraphQLRequest<T>)? mutateMethod;
   Stream<GraphQLResponse<T>> Function<T>(GraphQLRequest<T>, void Function()?)?
-      subscribeMethod;
+  subscribeMethod;
 
-  MockAPIPlugin({
-    this.queryMethod,
-    this.mutateMethod,
-    this.subscribeMethod,
-  });
+  MockAPIPlugin({this.queryMethod, this.mutateMethod, this.subscribeMethod});
 
   void clear() {
     queryMethod = null;

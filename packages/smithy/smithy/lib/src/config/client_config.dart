@@ -56,11 +56,11 @@ final class _DefaultClientConfig implements ClientConfig {
 
   @override
   ClientConfigBuilder toBuilder() => _DefaultClientConfigBuilder(
-        baseUri: baseUri,
-        httpClient: httpClient,
-        requestInterceptors: requestInterceptors,
-        responseInterceptors: responseInterceptors,
-      );
+    baseUri: baseUri,
+    httpClient: httpClient,
+    requestInterceptors: requestInterceptors,
+    responseInterceptors: responseInterceptors,
+  );
 }
 
 final class _DefaultClientConfigBuilder implements ClientConfigBuilder {
@@ -69,8 +69,8 @@ final class _DefaultClientConfigBuilder implements ClientConfigBuilder {
     this.httpClient,
     List<HttpRequestInterceptor>? requestInterceptors,
     List<HttpResponseInterceptor>? responseInterceptors,
-  })  : requestInterceptors = List.of(requestInterceptors ?? const []),
-        responseInterceptors = List.of(responseInterceptors ?? const []);
+  }) : requestInterceptors = List.of(requestInterceptors ?? const []),
+       responseInterceptors = List.of(responseInterceptors ?? const []);
 
   @override
   Uri? baseUri;
@@ -86,9 +86,9 @@ final class _DefaultClientConfigBuilder implements ClientConfigBuilder {
 
   @override
   ClientConfig build() => _DefaultClientConfig(
-        baseUri: baseUri,
-        httpClient: httpClient,
-        requestInterceptors: List.unmodifiable(requestInterceptors),
-        responseInterceptors: List.unmodifiable(responseInterceptors),
-      );
+    baseUri: baseUri,
+    httpClient: httpClient,
+    requestInterceptors: List.unmodifiable(requestInterceptors),
+    responseInterceptors: List.unmodifiable(responseInterceptors),
+  );
 }

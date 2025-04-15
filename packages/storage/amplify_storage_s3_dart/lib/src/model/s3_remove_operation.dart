@@ -10,8 +10,5 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 class S3RemoveOperation
     extends StorageRemoveOperation<StorageRemoveRequest, S3RemoveResult> {
   /// {@macro storage.amplify_storage_s3.remove_operation}
-  S3RemoveOperation({
-    required super.request,
-    required super.result,
-  });
+  S3RemoveOperation({required super.request, required super.result});
 }

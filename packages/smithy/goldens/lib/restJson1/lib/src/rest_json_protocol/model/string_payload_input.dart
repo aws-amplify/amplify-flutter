@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.string_payload_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,9 +19,9 @@ abstract class StringPayloadInput
     return _$StringPayloadInput._(payload: payload);
   }
 
-  factory StringPayloadInput.build(
-          [void Function(StringPayloadInputBuilder) updates]) =
-      _$StringPayloadInput;
+  factory StringPayloadInput.build([
+    void Function(StringPayloadInputBuilder) updates,
+  ]) = _$StringPayloadInput;
 
   const StringPayloadInput._();
 
@@ -29,22 +29,20 @@ abstract class StringPayloadInput
     String? payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      StringPayloadInput.build((b) {
-        b.payload = payload;
-      });
+  }) => StringPayloadInput.build((b) {
+    b.payload = payload;
+  });
 
   /// Constructs a [StringPayloadInput] from a [payload] and [response].
   factory StringPayloadInput.fromResponse(
     String? payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      StringPayloadInput.build((b) {
-        b.payload = payload;
-      });
+  ) => StringPayloadInput.build((b) {
+    b.payload = payload;
+  });
 
   static const List<_i1.SmithySerializer<String?>> serializers = [
-    StringPayloadInputRestJson1Serializer()
+    StringPayloadInputRestJson1Serializer(),
   ];
 
   String? get payload;
@@ -57,10 +55,7 @@ abstract class StringPayloadInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StringPayloadInput')
-      ..add(
-        'payload',
-        payload,
-      );
+      ..add('payload', payload);
     return helper.toString();
   }
 }
@@ -70,18 +65,12 @@ class StringPayloadInputRestJson1Serializer
   const StringPayloadInputRestJson1Serializer() : super('StringPayloadInput');
 
   @override
-  Iterable<Type> get types => const [
-        StringPayloadInput,
-        _$StringPayloadInput,
-      ];
+  Iterable<Type> get types => const [StringPayloadInput, _$StringPayloadInput];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   String deserialize(
@@ -90,9 +79,10 @@ class StringPayloadInputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(String),
-    ) as String);
+          serialized,
+          specifiedType: const FullType(String),
+        )
+        as String);
   }
 
   @override

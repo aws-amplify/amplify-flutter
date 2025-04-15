@@ -84,8 +84,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
 ///
 /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
-class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
-    CopyObjectRequest, CopyObjectResult, CopyObjectOutput> {
+class CopyObjectOperation
+    extends
+        _i1.HttpOperation<
+          CopyObjectRequestPayload,
+          CopyObjectRequest,
+          CopyObjectResult,
+          CopyObjectOutput
+        > {
   /// Creates a copy of an object that is already stored in Amazon S3.
   ///
   /// You can store individual objects of up to 5 TB in Amazon S3. You create a copy of your object up to 5 GB in size in a single atomic action using this API. However, to copy an object greater than 5 GB, you must use the multipart upload Upload Part - Copy (UploadPartCopy) API. For more information, see [Copy Object Using the REST Multipart Upload API](https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjctsUsingRESTMPUapi.html).
@@ -162,27 +168,35 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<CopyObjectRequestPayload, CopyObjectRequest,
-          CopyObjectResult, CopyObjectOutput>> protocols = [
+    _i1.HttpProtocol<
+      CopyObjectRequestPayload,
+      CopyObjectRequest,
+      CopyObjectResult,
+      CopyObjectOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -190,12 +204,11 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
             const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
-      responseInterceptors: <_i1.HttpResponseInterceptor>[
-            const _i2.CheckErrorOnSuccess()
-          ] +
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[const _i2.CheckErrorOnSuccess()] +
           _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -217,209 +230,206 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
 
   @override
   _i1.HttpRequest buildRequest(CopyObjectRequest input) => _i1.HttpRequest((b) {
-        b.method = 'PUT';
-        b.path = _s3ClientConfig.usePathStyle
+    b.method = 'PUT';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=CopyObject'
             : r'/{Key+}?x-id=CopyObject';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.acl != null) {
-          b.headers['x-amz-acl'] = input.acl!.value;
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.acl != null) {
+      b.headers['x-amz-acl'] = input.acl!.value;
+    }
+    if (input.cacheControl != null) {
+      if (input.cacheControl!.isNotEmpty) {
+        b.headers['Cache-Control'] = input.cacheControl!;
+      }
+    }
+    if (input.checksumAlgorithm != null) {
+      b.headers['x-amz-checksum-algorithm'] = input.checksumAlgorithm!.value;
+    }
+    if (input.contentDisposition != null) {
+      if (input.contentDisposition!.isNotEmpty) {
+        b.headers['Content-Disposition'] = input.contentDisposition!;
+      }
+    }
+    if (input.contentEncoding != null) {
+      if (input.contentEncoding!.isNotEmpty) {
+        b.headers['Content-Encoding'] = input.contentEncoding!;
+      }
+    }
+    if (input.contentLanguage != null) {
+      if (input.contentLanguage!.isNotEmpty) {
+        b.headers['Content-Language'] = input.contentLanguage!;
+      }
+    }
+    if (input.contentType != null) {
+      if (input.contentType!.isNotEmpty) {
+        b.headers['Content-Type'] = input.contentType!;
+      }
+    }
+    if (input.copySource.isNotEmpty) {
+      b.headers['x-amz-copy-source'] = input.copySource;
+    }
+    if (input.copySourceIfMatch != null) {
+      if (input.copySourceIfMatch!.isNotEmpty) {
+        b.headers['x-amz-copy-source-if-match'] = input.copySourceIfMatch!;
+      }
+    }
+    if (input.copySourceIfModifiedSince != null) {
+      b.headers['x-amz-copy-source-if-modified-since'] =
+          _i1.Timestamp(
+            input.copySourceIfModifiedSince!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.copySourceIfNoneMatch != null) {
+      if (input.copySourceIfNoneMatch!.isNotEmpty) {
+        b.headers['x-amz-copy-source-if-none-match'] =
+            input.copySourceIfNoneMatch!;
+      }
+    }
+    if (input.copySourceIfUnmodifiedSince != null) {
+      b.headers['x-amz-copy-source-if-unmodified-since'] =
+          _i1.Timestamp(
+            input.copySourceIfUnmodifiedSince!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.expires != null) {
+      b.headers['Expires'] =
+          _i1.Timestamp(
+            input.expires!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.grantFullControl != null) {
+      if (input.grantFullControl!.isNotEmpty) {
+        b.headers['x-amz-grant-full-control'] = input.grantFullControl!;
+      }
+    }
+    if (input.grantRead != null) {
+      if (input.grantRead!.isNotEmpty) {
+        b.headers['x-amz-grant-read'] = input.grantRead!;
+      }
+    }
+    if (input.grantReadAcp != null) {
+      if (input.grantReadAcp!.isNotEmpty) {
+        b.headers['x-amz-grant-read-acp'] = input.grantReadAcp!;
+      }
+    }
+    if (input.grantWriteAcp != null) {
+      if (input.grantWriteAcp!.isNotEmpty) {
+        b.headers['x-amz-grant-write-acp'] = input.grantWriteAcp!;
+      }
+    }
+    if (input.metadataDirective != null) {
+      b.headers['x-amz-metadata-directive'] = input.metadataDirective!.value;
+    }
+    if (input.taggingDirective != null) {
+      b.headers['x-amz-tagging-directive'] = input.taggingDirective!.value;
+    }
+    if (input.serverSideEncryption != null) {
+      b.headers['x-amz-server-side-encryption'] =
+          input.serverSideEncryption!.value;
+    }
+    if (input.storageClass != null) {
+      b.headers['x-amz-storage-class'] = input.storageClass!.value;
+    }
+    if (input.websiteRedirectLocation != null) {
+      if (input.websiteRedirectLocation!.isNotEmpty) {
+        b.headers['x-amz-website-redirect-location'] =
+            input.websiteRedirectLocation!;
+      }
+    }
+    if (input.sseCustomerAlgorithm != null) {
+      if (input.sseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-algorithm'] =
+            input.sseCustomerAlgorithm!;
+      }
+    }
+    if (input.sseCustomerKey != null) {
+      if (input.sseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key'] =
+            input.sseCustomerKey!;
+      }
+    }
+    if (input.sseCustomerKeyMd5 != null) {
+      if (input.sseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
+            input.sseCustomerKeyMd5!;
+      }
+    }
+    if (input.ssekmsKeyId != null) {
+      if (input.ssekmsKeyId!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-aws-kms-key-id'] =
+            input.ssekmsKeyId!;
+      }
+    }
+    if (input.ssekmsEncryptionContext != null) {
+      if (input.ssekmsEncryptionContext!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-context'] =
+            input.ssekmsEncryptionContext!;
+      }
+    }
+    if (input.bucketKeyEnabled != null) {
+      b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
+          input.bucketKeyEnabled!.toString();
+    }
+    if (input.copySourceSseCustomerAlgorithm != null) {
+      if (input.copySourceSseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-copy-source-server-side-encryption-customer-algorithm'] =
+            input.copySourceSseCustomerAlgorithm!;
+      }
+    }
+    if (input.copySourceSseCustomerKey != null) {
+      if (input.copySourceSseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-copy-source-server-side-encryption-customer-key'] =
+            input.copySourceSseCustomerKey!;
+      }
+    }
+    if (input.copySourceSseCustomerKeyMd5 != null) {
+      if (input.copySourceSseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-copy-source-server-side-encryption-customer-key-MD5'] =
+            input.copySourceSseCustomerKeyMd5!;
+      }
+    }
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.tagging != null) {
+      if (input.tagging!.isNotEmpty) {
+        b.headers['x-amz-tagging'] = input.tagging!;
+      }
+    }
+    if (input.objectLockMode != null) {
+      b.headers['x-amz-object-lock-mode'] = input.objectLockMode!.value;
+    }
+    if (input.objectLockRetainUntilDate != null) {
+      b.headers['x-amz-object-lock-retain-until-date'] =
+          _i1.Timestamp(
+            input.objectLockRetainUntilDate!,
+          ).format(_i1.TimestampFormat.dateTime).toString();
+    }
+    if (input.objectLockLegalHoldStatus != null) {
+      b.headers['x-amz-object-lock-legal-hold'] =
+          input.objectLockLegalHoldStatus!.value;
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.expectedSourceBucketOwner != null) {
+      if (input.expectedSourceBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-source-expected-bucket-owner'] =
+            input.expectedSourceBucketOwner!;
+      }
+    }
+    if (input.metadata != null) {
+      for (var entry in input.metadata!.toMap().entries) {
+        if (entry.value.isNotEmpty) {
+          b.headers['x-amz-meta-${entry.key}'] = entry.value;
         }
-        if (input.cacheControl != null) {
-          if (input.cacheControl!.isNotEmpty) {
-            b.headers['Cache-Control'] = input.cacheControl!;
-          }
-        }
-        if (input.checksumAlgorithm != null) {
-          b.headers['x-amz-checksum-algorithm'] =
-              input.checksumAlgorithm!.value;
-        }
-        if (input.contentDisposition != null) {
-          if (input.contentDisposition!.isNotEmpty) {
-            b.headers['Content-Disposition'] = input.contentDisposition!;
-          }
-        }
-        if (input.contentEncoding != null) {
-          if (input.contentEncoding!.isNotEmpty) {
-            b.headers['Content-Encoding'] = input.contentEncoding!;
-          }
-        }
-        if (input.contentLanguage != null) {
-          if (input.contentLanguage!.isNotEmpty) {
-            b.headers['Content-Language'] = input.contentLanguage!;
-          }
-        }
-        if (input.contentType != null) {
-          if (input.contentType!.isNotEmpty) {
-            b.headers['Content-Type'] = input.contentType!;
-          }
-        }
-        if (input.copySource.isNotEmpty) {
-          b.headers['x-amz-copy-source'] = input.copySource;
-        }
-        if (input.copySourceIfMatch != null) {
-          if (input.copySourceIfMatch!.isNotEmpty) {
-            b.headers['x-amz-copy-source-if-match'] = input.copySourceIfMatch!;
-          }
-        }
-        if (input.copySourceIfModifiedSince != null) {
-          b.headers['x-amz-copy-source-if-modified-since'] =
-              _i1.Timestamp(input.copySourceIfModifiedSince!)
-                  .format(_i1.TimestampFormat.httpDate)
-                  .toString();
-        }
-        if (input.copySourceIfNoneMatch != null) {
-          if (input.copySourceIfNoneMatch!.isNotEmpty) {
-            b.headers['x-amz-copy-source-if-none-match'] =
-                input.copySourceIfNoneMatch!;
-          }
-        }
-        if (input.copySourceIfUnmodifiedSince != null) {
-          b.headers['x-amz-copy-source-if-unmodified-since'] =
-              _i1.Timestamp(input.copySourceIfUnmodifiedSince!)
-                  .format(_i1.TimestampFormat.httpDate)
-                  .toString();
-        }
-        if (input.expires != null) {
-          b.headers['Expires'] = _i1.Timestamp(input.expires!)
-              .format(_i1.TimestampFormat.httpDate)
-              .toString();
-        }
-        if (input.grantFullControl != null) {
-          if (input.grantFullControl!.isNotEmpty) {
-            b.headers['x-amz-grant-full-control'] = input.grantFullControl!;
-          }
-        }
-        if (input.grantRead != null) {
-          if (input.grantRead!.isNotEmpty) {
-            b.headers['x-amz-grant-read'] = input.grantRead!;
-          }
-        }
-        if (input.grantReadAcp != null) {
-          if (input.grantReadAcp!.isNotEmpty) {
-            b.headers['x-amz-grant-read-acp'] = input.grantReadAcp!;
-          }
-        }
-        if (input.grantWriteAcp != null) {
-          if (input.grantWriteAcp!.isNotEmpty) {
-            b.headers['x-amz-grant-write-acp'] = input.grantWriteAcp!;
-          }
-        }
-        if (input.metadataDirective != null) {
-          b.headers['x-amz-metadata-directive'] =
-              input.metadataDirective!.value;
-        }
-        if (input.taggingDirective != null) {
-          b.headers['x-amz-tagging-directive'] = input.taggingDirective!.value;
-        }
-        if (input.serverSideEncryption != null) {
-          b.headers['x-amz-server-side-encryption'] =
-              input.serverSideEncryption!.value;
-        }
-        if (input.storageClass != null) {
-          b.headers['x-amz-storage-class'] = input.storageClass!.value;
-        }
-        if (input.websiteRedirectLocation != null) {
-          if (input.websiteRedirectLocation!.isNotEmpty) {
-            b.headers['x-amz-website-redirect-location'] =
-                input.websiteRedirectLocation!;
-          }
-        }
-        if (input.sseCustomerAlgorithm != null) {
-          if (input.sseCustomerAlgorithm!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-algorithm'] =
-                input.sseCustomerAlgorithm!;
-          }
-        }
-        if (input.sseCustomerKey != null) {
-          if (input.sseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key'] =
-                input.sseCustomerKey!;
-          }
-        }
-        if (input.sseCustomerKeyMd5 != null) {
-          if (input.sseCustomerKeyMd5!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
-                input.sseCustomerKeyMd5!;
-          }
-        }
-        if (input.ssekmsKeyId != null) {
-          if (input.ssekmsKeyId!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-aws-kms-key-id'] =
-                input.ssekmsKeyId!;
-          }
-        }
-        if (input.ssekmsEncryptionContext != null) {
-          if (input.ssekmsEncryptionContext!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-context'] =
-                input.ssekmsEncryptionContext!;
-          }
-        }
-        if (input.bucketKeyEnabled != null) {
-          b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
-              input.bucketKeyEnabled!.toString();
-        }
-        if (input.copySourceSseCustomerAlgorithm != null) {
-          if (input.copySourceSseCustomerAlgorithm!.isNotEmpty) {
-            b.headers[
-                    'x-amz-copy-source-server-side-encryption-customer-algorithm'] =
-                input.copySourceSseCustomerAlgorithm!;
-          }
-        }
-        if (input.copySourceSseCustomerKey != null) {
-          if (input.copySourceSseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-copy-source-server-side-encryption-customer-key'] =
-                input.copySourceSseCustomerKey!;
-          }
-        }
-        if (input.copySourceSseCustomerKeyMd5 != null) {
-          if (input.copySourceSseCustomerKeyMd5!.isNotEmpty) {
-            b.headers[
-                    'x-amz-copy-source-server-side-encryption-customer-key-MD5'] =
-                input.copySourceSseCustomerKeyMd5!;
-          }
-        }
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.tagging != null) {
-          if (input.tagging!.isNotEmpty) {
-            b.headers['x-amz-tagging'] = input.tagging!;
-          }
-        }
-        if (input.objectLockMode != null) {
-          b.headers['x-amz-object-lock-mode'] = input.objectLockMode!.value;
-        }
-        if (input.objectLockRetainUntilDate != null) {
-          b.headers['x-amz-object-lock-retain-until-date'] =
-              _i1.Timestamp(input.objectLockRetainUntilDate!)
-                  .format(_i1.TimestampFormat.dateTime)
-                  .toString();
-        }
-        if (input.objectLockLegalHoldStatus != null) {
-          b.headers['x-amz-object-lock-legal-hold'] =
-              input.objectLockLegalHoldStatus!.value;
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.expectedSourceBucketOwner != null) {
-          if (input.expectedSourceBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-source-expected-bucket-owner'] =
-                input.expectedSourceBucketOwner!;
-          }
-        }
-        if (input.metadata != null) {
-          for (var entry in input.metadata!.toMap().entries) {
-            if (entry.value.isNotEmpty) {
-              b.headers['x-amz-meta-${entry.key}'] = entry.value;
-            }
-          }
-        }
-      });
+      }
+    }
+  });
 
   @override
   int successCode([CopyObjectOutput? output]) => 200;
@@ -428,25 +438,21 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
   CopyObjectOutput buildOutput(
     CopyObjectResult? payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      CopyObjectOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => CopyObjectOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<ObjectNotInActiveTierError, ObjectNotInActiveTierError>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.s3',
-            shape: 'ObjectNotInActiveTierError',
-          ),
-          _i1.ErrorKind.client,
-          ObjectNotInActiveTierError,
-          statusCode: 403,
-          builder: ObjectNotInActiveTierError.fromResponse,
-        )
-      ];
+    _i1.SmithyError<ObjectNotInActiveTierError, ObjectNotInActiveTierError>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.s3',
+        shape: 'ObjectNotInActiveTierError',
+      ),
+      _i1.ErrorKind.client,
+      ObjectNotInActiveTierError,
+      statusCode: 403,
+      builder: ObjectNotInActiveTierError.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'CopyObject';
@@ -482,11 +488,7 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

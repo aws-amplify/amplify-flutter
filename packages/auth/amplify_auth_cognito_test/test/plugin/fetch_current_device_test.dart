@@ -15,8 +15,9 @@ void main() {
   AmplifyLogger().logLevel = LogLevel.verbose;
 
   final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
-  final identityPoolKeys =
-      CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!);
+  final identityPoolKeys = CognitoIdentityPoolKeys(
+    mockConfig.auth!.identityPoolId!,
+  );
   final testAuthRepo = AmplifyAuthProviderRepository();
   final mockDevice = DeviceType(deviceKey: deviceKey);
   final mockDeviceResponse = GetDeviceResponse(device: mockDevice);
@@ -31,8 +32,10 @@ void main() {
         secureStorage,
         userPoolKeys: userPoolKeys,
         identityPoolKeys: identityPoolKeys,
-        deviceKeys:
-            CognitoDeviceKeys(mockConfig.auth!.userPoolClientId!, username),
+        deviceKeys: CognitoDeviceKeys(
+          mockConfig.auth!.userPoolClientId!,
+          username,
+        ),
       );
       plugin = AmplifyAuthCognitoDart(
         secureStorageFactory: (_) => secureStorage,
@@ -54,31 +57,38 @@ void main() {
       });
 
       test(
-          'return the current device where the current device id is equal to the local device id',
-          () async {
-        final secrets = await repo.get(username);
-        final currentDeviceKey = secrets?.deviceKey;
-        expect(currentDeviceKey, isNotNull);
-        final currentDevice = await plugin.fetchCurrentDevice();
-        expect(currentDeviceKey, currentDevice.id);
-      });
+        'return the current device where the current device id is equal to the local device id',
+        () async {
+          final secrets = await repo.get(username);
+          final currentDeviceKey = secrets?.deviceKey;
+          expect(currentDeviceKey, isNotNull);
+          final currentDevice = await plugin.fetchCurrentDevice();
+          expect(currentDeviceKey, currentDevice.id);
+        },
+      );
 
-      test('throw a DeviceNotTrackedException when current device key is null',
-          () async {
-        await plugin.forgetDevice();
-        await expectLater(
-          plugin.fetchCurrentDevice,
-          throwsA(isA<DeviceNotTrackedException>()),
-        );
-      });
+      test(
+        'throw a DeviceNotTrackedException when current device key is null',
+        () async {
+          await plugin.forgetDevice();
+          await expectLater(
+            plugin.fetchCurrentDevice,
+            throwsA(isA<DeviceNotTrackedException>()),
+          );
+        },
+      );
     });
 
     group('should throw', () {
       setUp(() async {
         final mockIdp = MockCognitoIdentityProviderClient(
-          getDevice: () async => throw AWSHttpException(
-            AWSHttpRequest.get(Uri.parse('https://aws.amazon.com/cognito/')),
-          ),
+          getDevice:
+              () async =>
+                  throw AWSHttpException(
+                    AWSHttpRequest.get(
+                      Uri.parse('https://aws.amazon.com/cognito/'),
+                    ),
+                  ),
         );
         plugin.stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
       });

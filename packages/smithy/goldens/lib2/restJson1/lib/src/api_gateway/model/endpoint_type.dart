@@ -1,36 +1,20 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.api_gateway.model.endpoint_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class EndpointType extends _i1.SmithyEnum<EndpointType> {
-  const EndpointType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const EndpointType._(super.index, super.name, super.value);
 
   const EndpointType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const edge = EndpointType._(
-    0,
-    'EDGE',
-    'EDGE',
-  );
+  static const edge = EndpointType._(0, 'EDGE', 'EDGE');
 
-  static const private = EndpointType._(
-    1,
-    'PRIVATE',
-    'PRIVATE',
-  );
+  static const private = EndpointType._(1, 'PRIVATE', 'PRIVATE');
 
-  static const regional = EndpointType._(
-    2,
-    'REGIONAL',
-    'REGIONAL',
-  );
+  static const regional = EndpointType._(2, 'REGIONAL', 'REGIONAL');
 
   /// All values of [EndpointType].
   static const values = <EndpointType>[
@@ -45,12 +29,9 @@ class EndpointType extends _i1.SmithyEnum<EndpointType> {
       values: values,
       sdkUnknown: EndpointType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

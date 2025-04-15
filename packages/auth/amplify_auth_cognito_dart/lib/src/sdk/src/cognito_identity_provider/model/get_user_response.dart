@@ -36,8 +36,9 @@ abstract class GetUserResponse
   }
 
   /// Represents the response from the server from the request to get information about the user.
-  factory GetUserResponse.build(
-      [void Function(GetUserResponseBuilder) updates]) = _$GetUserResponse;
+  factory GetUserResponse.build([
+    void Function(GetUserResponseBuilder) updates,
+  ]) = _$GetUserResponse;
 
   const GetUserResponse._();
 
@@ -45,11 +46,10 @@ abstract class GetUserResponse
   factory GetUserResponse.fromResponse(
     GetUserResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<GetUserResponse>> serializers = [
-    GetUserResponseAwsJson11Serializer()
+    GetUserResponseAwsJson11Serializer(),
   ];
 
   /// The username of the user that you requested.
@@ -70,36 +70,22 @@ abstract class GetUserResponse
   _i2.BuiltList<String>? get userMfaSettingList;
   @override
   List<Object?> get props => [
-        username,
-        userAttributes,
-        mfaOptions,
-        preferredMfaSetting,
-        userMfaSettingList,
-      ];
+    username,
+    userAttributes,
+    mfaOptions,
+    preferredMfaSetting,
+    userMfaSettingList,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUserResponse')
-      ..add(
-        'username',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'userAttributes',
-        userAttributes,
-      )
-      ..add(
-        'mfaOptions',
-        mfaOptions,
-      )
-      ..add(
-        'preferredMfaSetting',
-        preferredMfaSetting,
-      )
-      ..add(
-        'userMfaSettingList',
-        userMfaSettingList,
-      );
+    final helper =
+        newBuiltValueToStringHelper('GetUserResponse')
+          ..add('username', '***SENSITIVE***')
+          ..add('userAttributes', userAttributes)
+          ..add('mfaOptions', mfaOptions)
+          ..add('preferredMfaSetting', preferredMfaSetting)
+          ..add('userMfaSettingList', userMfaSettingList);
     return helper.toString();
   }
 }
@@ -109,18 +95,12 @@ class GetUserResponseAwsJson11Serializer
   const GetUserResponseAwsJson11Serializer() : super('GetUserResponse');
 
   @override
-  Iterable<Type> get types => const [
-        GetUserResponse,
-        _$GetUserResponse,
-      ];
+  Iterable<Type> get types => const [GetUserResponse, _$GetUserResponse];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   GetUserResponse deserialize(
@@ -139,39 +119,49 @@ class GetUserResponseAwsJson11Serializer
       }
       switch (key) {
         case 'Username':
-          result.username = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.username =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'UserAttributes':
-          result.userAttributes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(AttributeType)],
-            ),
-          ) as _i2.BuiltList<AttributeType>));
+          result.userAttributes.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(AttributeType),
+                  ]),
+                )
+                as _i2.BuiltList<AttributeType>),
+          );
         case 'MFAOptions':
-          result.mfaOptions.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(MfaOptionType)],
-            ),
-          ) as _i2.BuiltList<MfaOptionType>));
+          result.mfaOptions.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(MfaOptionType),
+                  ]),
+                )
+                as _i2.BuiltList<MfaOptionType>),
+          );
         case 'PreferredMfaSetting':
-          result.preferredMfaSetting = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.preferredMfaSetting =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'UserMFASettingList':
-          result.userMfaSettingList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i2.BuiltList<String>));
+          result.userMfaSettingList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltList<String>),
+          );
       }
     }
 
@@ -190,52 +180,48 @@ class GetUserResponseAwsJson11Serializer
       :userAttributes,
       :mfaOptions,
       :preferredMfaSetting,
-      :userMfaSettingList
+      :userMfaSettingList,
     ) = object;
     result$.addAll([
       'Username',
-      serializers.serialize(
-        username,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(username, specifiedType: const FullType(String)),
       'UserAttributes',
       serializers.serialize(
         userAttributes,
-        specifiedType: const FullType(
-          _i2.BuiltList,
-          [FullType(AttributeType)],
-        ),
+        specifiedType: const FullType(_i2.BuiltList, [FullType(AttributeType)]),
       ),
     ]);
     if (mfaOptions != null) {
       result$
         ..add('MFAOptions')
-        ..add(serializers.serialize(
-          mfaOptions,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(MfaOptionType)],
+        ..add(
+          serializers.serialize(
+            mfaOptions,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(MfaOptionType),
+            ]),
           ),
-        ));
+        );
     }
     if (preferredMfaSetting != null) {
       result$
         ..add('PreferredMfaSetting')
-        ..add(serializers.serialize(
-          preferredMfaSetting,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            preferredMfaSetting,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (userMfaSettingList != null) {
       result$
         ..add('UserMFASettingList')
-        ..add(serializers.serialize(
-          userMfaSettingList,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(String)],
+        ..add(
+          serializers.serialize(
+            userMfaSettingList,
+            specifiedType: const FullType(_i2.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     return result$;
   }

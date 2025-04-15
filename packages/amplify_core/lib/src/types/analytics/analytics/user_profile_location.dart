@@ -20,11 +20,11 @@ class UserProfileLocation {
   final String? country;
 
   Map<String, Object?> getAllProperties() => {
-        if (latitude != null) 'latitude': latitude,
-        if (longitude != null) 'longitude': longitude,
-        if (postalCode != null) 'postalCode': postalCode,
-        if (city != null) 'city': city,
-        if (region != null) 'region': region,
-        if (country != null) 'country': country,
-      };
+    if (latitude != null) 'latitude': latitude,
+    if (longitude != null) 'longitude': longitude,
+    if (postalCode != null) 'postalCode': postalCode,
+    if (city != null) 'city': city,
+    if (region != null) 'region': region,
+    if (country != null) 'country': country,
+  };
 }

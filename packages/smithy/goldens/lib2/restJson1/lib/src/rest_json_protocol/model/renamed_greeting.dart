@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.renamed_greeting; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,13 +17,14 @@ abstract class RenamedGreeting
     return _$RenamedGreeting._(salutation: salutation);
   }
 
-  factory RenamedGreeting.build(
-      [void Function(RenamedGreetingBuilder) updates]) = _$RenamedGreeting;
+  factory RenamedGreeting.build([
+    void Function(RenamedGreetingBuilder) updates,
+  ]) = _$RenamedGreeting;
 
   const RenamedGreeting._();
 
   static const List<_i2.SmithySerializer<RenamedGreeting>> serializers = [
-    RenamedGreetingRestJson1Serializer()
+    RenamedGreetingRestJson1Serializer(),
   ];
 
   String? get salutation;
@@ -33,10 +34,7 @@ abstract class RenamedGreeting
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RenamedGreeting')
-      ..add(
-        'salutation',
-        salutation,
-      );
+      ..add('salutation', salutation);
     return helper.toString();
   }
 }
@@ -46,18 +44,12 @@ class RenamedGreetingRestJson1Serializer
   const RenamedGreetingRestJson1Serializer() : super('RenamedGreeting');
 
   @override
-  Iterable<Type> get types => const [
-        RenamedGreeting,
-        _$RenamedGreeting,
-      ];
+  Iterable<Type> get types => const [RenamedGreeting, _$RenamedGreeting];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   RenamedGreeting deserialize(
@@ -76,10 +68,12 @@ class RenamedGreetingRestJson1Serializer
       }
       switch (key) {
         case 'salutation':
-          result.salutation = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.salutation =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -97,10 +91,12 @@ class RenamedGreetingRestJson1Serializer
     if (salutation != null) {
       result$
         ..add('salutation')
-        ..add(serializers.serialize(
-          salutation,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            salutation,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

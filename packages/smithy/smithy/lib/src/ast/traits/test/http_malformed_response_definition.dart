@@ -30,9 +30,5 @@ class HttpMalformedResponseDefinition
       _$HttpMalformedResponseDefinitionToJson(this);
 
   @override
-  List<Object?> get props => [
-        body,
-        code,
-        headers,
-      ];
+  List<Object?> get props => [body, code, headers];
 }

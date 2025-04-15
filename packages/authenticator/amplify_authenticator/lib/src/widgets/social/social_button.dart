@@ -14,10 +14,7 @@ import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/material.dart';
 
 class SocialSignInButtons extends StatelessAuthenticatorComponent {
-  const SocialSignInButtons({
-    super.key,
-    required this.providers,
-  });
+  const SocialSignInButtons({super.key, required this.providers});
 
   final List<AuthProvider> providers;
 
@@ -38,18 +35,14 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
             context,
             ButtonResolverKey.signInWith(provider),
           );
-          final style = Theme.of(context)
-                  .outlinedButtonTheme
-                  .style
-                  ?.textStyle
-                  ?.resolve({}) ??
+          final style =
+              Theme.of(
+                context,
+              ).outlinedButtonTheme.style?.textStyle?.resolve({}) ??
               Theme.of(context).textTheme.labelLarge;
           final tp = TextPainter(
             textScaler: MediaQuery.textScalerOf(context),
-            text: TextSpan(
-              text: text,
-              style: style,
-            ),
+            text: TextSpan(text: text, style: style),
             maxLines: 1,
             textDirection: TextDirection.ltr,
           )..layout(maxWidth: constraints.maxWidth);
@@ -86,19 +79,19 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
 
   /// A social sign-in button for Facebook.
   const SocialSignInButton.facebook({Key? key})
-      : this(key: key, provider: AuthProvider.facebook);
+    : this(key: key, provider: AuthProvider.facebook);
 
   /// A social sign-in button for Google.
   const SocialSignInButton.google({Key? key})
-      : this(key: key, provider: AuthProvider.google);
+    : this(key: key, provider: AuthProvider.google);
 
   /// A social sign-in button for Amazon.
   const SocialSignInButton.amazon({Key? key})
-      : this(key: key, provider: AuthProvider.amazon);
+    : this(key: key, provider: AuthProvider.amazon);
 
   /// A social sign-in button for Apple.
   const SocialSignInButton.apple({Key? key})
-      : this(key: key, provider: AuthProvider.apple);
+    : this(key: key, provider: AuthProvider.apple);
 
   /// The Cognito social sign-in provider.
   final AuthProvider provider;
@@ -138,9 +131,9 @@ class _SocialSignInButtonState
   /// The size of the (square) logo, in pixels.
   static const double logoSize = 40;
 
-  static final AmplifyLogger logger = AmplifyLogger.category(Category.auth)
-      .createChild('Authenticator')
-      .createChild('SocialSignInButton');
+  static final AmplifyLogger logger = AmplifyLogger.category(
+    Category.auth,
+  ).createChild('Authenticator').createChild('SocialSignInButton');
 
   Widget get icon {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -164,10 +157,7 @@ class _SocialSignInButtonState
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            SocialIcons.apple,
-            color: isDark ? Colors.white : Colors.black,
-          ),
+          Icon(SocialIcons.apple, color: isDark ? Colors.white : Colors.black),
           const SizedBox(height: 4),
         ],
       );
@@ -182,10 +172,7 @@ class _SocialSignInButtonState
     // Split the space remaining after laying out the logo, its text,
     // and the spacing.
     final textWidth = widget.maxWidth;
-    return max(
-      0,
-      (constraints.maxWidth - logoSize - spacing - textWidth) / 2,
-    );
+    return max(0, (constraints.maxWidth - logoSize - spacing - textWidth) / 2);
   }
 
   // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
@@ -210,21 +197,21 @@ class _SocialSignInButtonState
       constraints: const BoxConstraints(minHeight: 40),
       child: OutlinedButton(
         focusNode: focusNode,
-        style: ButtonStyle(
-          foregroundColor: getButtonForegroundColor(context),
-        ),
-        onPressed: state.isBusy
-            ? null
-            : () => state.signInWithProvider(widget.provider),
+        style: ButtonStyle(foregroundColor: getButtonForegroundColor(context)),
+        onPressed:
+            state.isBusy
+                ? null
+                : () => state.signInWithProvider(widget.provider),
         child: LayoutBuilder(
           builder: (context, constraints) {
             final padding = calculatePadding(constraints);
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: padding),
               child: Row(
-                mainAxisAlignment: padding == 0
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.start,
+                mainAxisAlignment:
+                    padding == 0
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.start,
                 children: [
                   SizedBox.square(
                     dimension: logoSize,
@@ -261,7 +248,7 @@ extension on AuthProvider {
   /// Used to provide additional padding for the logos which don't have
   /// padding built into their vector image.
   EdgeInsets get logoInsets => switch (this) {
-        AuthProvider.google => const EdgeInsets.all(8),
-        _ => EdgeInsets.zero,
-      };
+    AuthProvider.google => const EdgeInsets.all(8),
+    _ => EdgeInsets.zero,
+  };
 }

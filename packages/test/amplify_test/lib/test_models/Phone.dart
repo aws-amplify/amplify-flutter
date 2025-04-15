@@ -32,11 +32,15 @@ class Phone {
       return _country!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -45,17 +49,21 @@ class Phone {
       return _number!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
   const Phone._internal({required country, required number})
-      : _country = country,
-        _number = number;
+    : _country = country,
+      _number = number;
 
   factory Phone({required String country, required String number}) {
     return Phone._internal(country: country, number: number);
@@ -90,41 +98,53 @@ class Phone {
 
   Phone copyWith({String? country, String? number}) {
     return Phone._internal(
-        country: country ?? this.country, number: number ?? this.number);
+      country: country ?? this.country,
+      number: number ?? this.number,
+    );
   }
 
-  Phone copyWithModelFieldValues(
-      {ModelFieldValue<String>? country, ModelFieldValue<String>? number}) {
+  Phone copyWithModelFieldValues({
+    ModelFieldValue<String>? country,
+    ModelFieldValue<String>? number,
+  }) {
     return Phone._internal(
-        country: country == null ? this.country : country.value,
-        number: number == null ? this.number : number.value);
+      country: country == null ? this.country : country.value,
+      number: number == null ? this.number : number.value,
+    );
   }
 
   Phone.fromJson(Map<String, dynamic> json)
-      : _country = json['country'],
-        _number = json['number'];
+    : _country = json['country'],
+      _number = json['number'];
 
   Map<String, dynamic> toJson() => {'country': _country, 'number': _number};
 
   Map<String, Object?> toMap() => {'country': _country, 'number': _number};
 
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Phone";
-    modelSchemaDefinition.pluralName = "Phones";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "Phone";
+      modelSchemaDefinition.pluralName = "Phones";
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.customTypeField(
-            fieldName: 'country',
-            isRequired: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.string)));
+          fieldName: 'country',
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.customTypeField(
-            fieldName: 'number',
-            isRequired: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.string)));
-  });
+          fieldName: 'number',
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
+    },
+  );
 }

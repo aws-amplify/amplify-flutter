@@ -36,12 +36,15 @@ class _PublicViewState extends State<PublicView>
   final _ratingController = TextEditingController();
   final _nameController = TextEditingController();
   final _contentController = TextEditingController();
-  ScrollController _postScrollController =
-      ScrollController(initialScrollOffset: 50.0);
-  ScrollController _blogScrollController =
-      ScrollController(initialScrollOffset: 50.0);
-  ScrollController _commentScrollController =
-      ScrollController(initialScrollOffset: 50.0);
+  ScrollController _postScrollController = ScrollController(
+    initialScrollOffset: 50.0,
+  );
+  ScrollController _blogScrollController = ScrollController(
+    initialScrollOffset: 50.0,
+  );
+  ScrollController _commentScrollController = ScrollController(
+    initialScrollOffset: 50.0,
+  );
 
   @override
   void initState() {
@@ -66,30 +69,31 @@ class _PublicViewState extends State<PublicView>
   Future<void> initPageState() async {
     listenToHub();
 
-    Amplify.DataStore.observeQuery(
-      Blog.classType,
-    ).listen((QuerySnapshot<Blog> snapshot) {
+    Amplify.DataStore.observeQuery(Blog.classType).listen((
+      QuerySnapshot<Blog> snapshot,
+    ) {
       var count = snapshot.items.length;
       var now = DateTime.now().toIso8601String();
       bool status = snapshot.isSynced;
       print(
-          '[Observe Query] Blog snapshot received with $count models, status: $status at $now');
+        '[Observe Query] Blog snapshot received with $count models, status: $status at $now',
+      );
       setState(() {
         _blogs = snapshot.items;
       });
     });
 
-    Amplify.DataStore.observeQuery(
-      Post.classType,
-    ).listen((QuerySnapshot<Post> snapshot) {
+    Amplify.DataStore.observeQuery(Post.classType).listen((
+      QuerySnapshot<Post> snapshot,
+    ) {
       setState(() {
         _posts = snapshot.items;
       });
     });
 
-    Amplify.DataStore.observeQuery(
-      Comment.classType,
-    ).listen((QuerySnapshot<Comment> snapshot) {
+    Amplify.DataStore.observeQuery(Comment.classType).listen((
+      QuerySnapshot<Comment> snapshot,
+    ) {
       setState(() {
         _comments = snapshot.items;
       });
@@ -97,34 +101,46 @@ class _PublicViewState extends State<PublicView>
 
     // setup streams
     postStream = Amplify.DataStore.observe(Post.classType);
-    postStream.listen((event) {
-      _postStreamingData.add('Post: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.title) +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
+    postStream
+        .listen((event) {
+          _postStreamingData.add(
+            'Post: ' +
+                (event.eventType.toString() == EventType.delete.toString()
+                    ? event.item.id
+                    : event.item.title) +
+                ', of type: ' +
+                event.eventType.toString(),
+          );
+        })
+        .onError((error) => print(error));
 
     blogStream = Amplify.DataStore.observe(Blog.classType);
-    blogStream.listen((event) {
-      _blogStreamingData.add('Blog: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.name) +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
+    blogStream
+        .listen((event) {
+          _blogStreamingData.add(
+            'Blog: ' +
+                (event.eventType.toString() == EventType.delete.toString()
+                    ? event.item.id
+                    : event.item.name) +
+                ', of type: ' +
+                event.eventType.toString(),
+          );
+        })
+        .onError((error) => print(error));
 
     commentStream = Amplify.DataStore.observe(Comment.classType);
-    commentStream.listen((event) {
-      _commentStreamingData.add('Comment: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.content) +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
+    commentStream
+        .listen((event) {
+          _commentStreamingData.add(
+            'Comment: ' +
+                (event.eventType.toString() == EventType.delete.toString()
+                    ? event.item.id
+                    : event.item.content) +
+                ', of type: ' +
+                event.eventType.toString(),
+          );
+        })
+        .onError((error) => print(error));
   }
 
   void listenToHub() {
@@ -146,10 +162,11 @@ class _PublicViewState extends State<PublicView>
   savePost(String title, int rating, Blog associatedBlog) async {
     try {
       Post post = Post(
-          title: title,
-          rating: rating,
-          created: TemporalDateTime.now(),
-          blog: associatedBlog);
+        title: title,
+        rating: rating,
+        created: TemporalDateTime.now(),
+        blog: associatedBlog,
+      );
       await Amplify.DataStore.save(post);
     } catch (e) {
       print(e);
@@ -158,9 +175,7 @@ class _PublicViewState extends State<PublicView>
 
   saveBlog(String name) async {
     try {
-      Blog blog = Blog(
-        name: name,
-      );
+      Blog blog = Blog(name: name);
       await Amplify.DataStore.save(blog);
     } catch (e) {
       print(e);
@@ -180,7 +195,8 @@ class _PublicViewState extends State<PublicView>
     try {
       _selectedPostForNewComment = null;
       await Amplify.DataStore.delete(
-          Post(id: id, title: "", rating: 0, created: TemporalDateTime.now()));
+        Post(id: id, title: "", rating: 0, created: TemporalDateTime.now()),
+      );
     } catch (e) {
       print(e);
     }
@@ -259,13 +275,14 @@ class _PublicViewState extends State<PublicView>
 
         // Row for saving comment
         addCommentWidget(
-            _contentController,
-            widget.isAmplifyConfigured,
-            _selectedPostForNewComment,
-            _posts,
-            _selectedPostForNewComment,
-            saveComment,
-            updateSelectedPostForNewComment),
+          _contentController,
+          widget.isAmplifyConfigured,
+          _selectedPostForNewComment,
+          _posts,
+          _selectedPostForNewComment,
+          saveComment,
+          updateSelectedPostForNewComment,
+        ),
 
         Padding(padding: EdgeInsets.all(10.0)),
 
@@ -274,7 +291,10 @@ class _PublicViewState extends State<PublicView>
 
         // Row for query buttons
         displayQueryButtons(
-            widget.isAmplifyConfigured, _queriesToView, updateQueriesToView),
+          widget.isAmplifyConfigured,
+          _queriesToView,
+          updateQueriesToView,
+        ),
 
         Padding(padding: EdgeInsets.all(5.0)),
         Text("Listen to DataStore Hub"),
@@ -301,22 +321,34 @@ class _PublicViewState extends State<PublicView>
         else if (_queriesToView == "Comment")
           getWidgetToDisplayComment(_comments, deleteComment, _posts),
 
-        Text(_queriesToView + " Events",
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                fontSize: 14)),
+        Text(
+          _queriesToView + " Events",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontSize: 14,
+          ),
+        ),
 
         Padding(padding: EdgeInsets.all(5.0)),
         if (_queriesToView == "Post")
           getWidgetToDisplayPostEvents(
-              _postScrollController, _postStreamingData, executeAfterBuild)
+            _postScrollController,
+            _postStreamingData,
+            executeAfterBuild,
+          )
         else if (_queriesToView == "Blog")
           getWidgetToDisplayBlogEvents(
-              _blogScrollController, _blogStreamingData, executeAfterBuild)
+            _blogScrollController,
+            _blogStreamingData,
+            executeAfterBuild,
+          )
         else if (_queriesToView == "Comment")
-          getWidgetToDisplayCommentEvents(_commentScrollController,
-              _commentStreamingData, executeAfterBuild),
+          getWidgetToDisplayCommentEvents(
+            _commentScrollController,
+            _commentStreamingData,
+            executeAfterBuild,
+          ),
       ],
       // replace with any or all query results as needed
     );
@@ -335,19 +367,22 @@ class _PublicViewState extends State<PublicView>
     Future.delayed(const Duration(milliseconds: 500), () {
       if (_postScrollController.hasClients)
         _postScrollController.animateTo(
-            _postScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
+          _postScrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        );
       if (_blogScrollController.hasClients)
         _blogScrollController.animateTo(
-            _blogScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
+          _blogScrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        );
       if (_commentScrollController.hasClients)
         _commentScrollController.animateTo(
-            _commentScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
+          _commentScrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        );
     });
   }
 }

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library authenticator.form;
+library;
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
@@ -63,12 +63,10 @@ import 'package:flutter/material.dart';
 /// - [ConfirmVerifyUserForm]
 class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
   /// {@macro amplify_authenticator.authenticator_form_builder}
-  const AuthenticatorForm({
-    super.key,
-    required this.child,
-  })  : fields = const [],
-        actions = const [],
-        includeDefaultSocialProviders = false;
+  const AuthenticatorForm({super.key, required this.child})
+    : fields = const [],
+      actions = const [],
+      includeDefaultSocialProviders = false;
 
   const AuthenticatorForm._({
     super.key,
@@ -105,7 +103,8 @@ class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
 }
 
 class AuthenticatorFormState<T extends AuthenticatorForm>
-    extends AuthenticatorComponentState<T> with UsernameAttributes<T> {
+    extends AuthenticatorComponentState<T>
+    with UsernameAttributes<T> {
   AuthenticatorFormState();
 
   static AuthenticatorFormState of(BuildContext context) {
@@ -134,10 +133,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   }
 
   /// Additional fields defined at runtime.
-  List<AuthenticatorFormField> runtimeFields(
-    BuildContext context,
-  ) =>
-      const [];
+  List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
 
   /// Additional actions defined at runtime.
   List<Widget> runtimeActions(BuildContext context) => const [];
@@ -173,10 +169,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   Widget build(BuildContext context) {
     final formKey = InheritedAuthenticatorState.of(context).formKey;
     if (widget.child != null) {
-      return Form(
-        key: formKey,
-        child: widget.child!,
-      );
+      return Form(key: formKey, child: widget.child!);
     }
 
     final runtimeActions = this.runtimeActions(context);
@@ -220,30 +213,23 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
 /// {@endtemplate}
 class SignUpForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.sign_up_form}
-  SignUpForm({
-    super.key,
-  })  : _includeDefaultFields = true,
-        super._(
-          fields: [
-            SignUpFormField.username(),
-            SignUpFormField.password(),
-            SignUpFormField.passwordConfirmation(),
-          ],
-          actions: const [
-            SignUpButton(),
-          ],
-        );
+  SignUpForm({super.key})
+    : _includeDefaultFields = true,
+      super._(
+        fields: [
+          SignUpFormField.username(),
+          SignUpFormField.password(),
+          SignUpFormField.passwordConfirmation(),
+        ],
+        actions: const [SignUpButton()],
+      );
 
   /// A custom Sign Up form.
   const SignUpForm.custom({
     super.key,
     required List<SignUpFormField> super.fields,
-  })  : _includeDefaultFields = false,
-        super._(
-          actions: const [
-            SignUpButton(),
-          ],
-        );
+  }) : _includeDefaultFields = false,
+       super._(actions: const [SignUpButton()]);
 
   /// Controls whether the default form fields are included, based on settings in
   /// the Auth plugin configuration.
@@ -288,10 +274,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
     }
 
     // combine fields
-    final fields = [
-      ...widget.fields,
-      ...runtimeFields(context),
-    ];
+    final fields = [...widget.fields, ...runtimeFields(context)];
 
     // sort on priority. mergeSort is used for a stable sort
     mergeSort(
@@ -316,50 +299,51 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
       return const [];
     }
 
-    final runtimeFields = runtimeAttributes
-        .map((attr) {
-          if (attr == CognitoUserAttributeKey.address) {
-            return SignUpFormField.address(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.birthdate) {
-            return SignUpFormField.birthdate(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.email) {
-            if (selectedUsernameType == UsernameType.email) {
-              return null;
-            }
-            return SignUpFormField.email(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.familyName) {
-            return SignUpFormField.familyName(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.middleName) {
-            return SignUpFormField.middleName(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.gender) {
-            return SignUpFormField.gender(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.givenName) {
-            return SignUpFormField.givenName(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.name) {
-            return SignUpFormField.name(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.nickname) {
-            return SignUpFormField.nickname(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.phoneNumber) {
-            if (selectedUsernameType == UsernameType.phoneNumber) {
-              return null;
-            }
-            return SignUpFormField.phoneNumber(required: true);
-          }
-          if (attr == CognitoUserAttributeKey.preferredUsername) {
-            return SignUpFormField.preferredUsername(required: true);
-          }
-        })
-        .whereType<SignUpFormField>()
-        .toList();
+    final runtimeFields =
+        runtimeAttributes
+            .map((attr) {
+              if (attr == CognitoUserAttributeKey.address) {
+                return SignUpFormField.address(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.birthdate) {
+                return SignUpFormField.birthdate(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.email) {
+                if (selectedUsernameType == UsernameType.email) {
+                  return null;
+                }
+                return SignUpFormField.email(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.familyName) {
+                return SignUpFormField.familyName(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.middleName) {
+                return SignUpFormField.middleName(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.gender) {
+                return SignUpFormField.gender(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.givenName) {
+                return SignUpFormField.givenName(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.name) {
+                return SignUpFormField.name(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.nickname) {
+                return SignUpFormField.nickname(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.phoneNumber) {
+                if (selectedUsernameType == UsernameType.phoneNumber) {
+                  return null;
+                }
+                return SignUpFormField.phoneNumber(required: true);
+              }
+              if (attr == CognitoUserAttributeKey.preferredUsername) {
+                return SignUpFormField.preferredUsername(required: true);
+              }
+            })
+            .whereType<SignUpFormField>()
+            .toList();
 
     final hasSmsMfa = authConfig?.mfaMethods?.contains(MfaMethod.sms) ?? false;
     if (hasSmsMfa && selectedUsernameType != UsernameType.phoneNumber) {
@@ -395,31 +379,18 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 /// {@endtemplate}
 class SignInForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.sign_in_form}
-  SignInForm({
-    super.key,
-    super.includeDefaultSocialProviders,
-  }) : super._(
-          fields: [
-            SignInFormField.username(),
-            SignInFormField.password(),
-          ],
-          actions: const [
-            SignInButton(),
-            ForgotPasswordButton(),
-          ],
-        );
+  SignInForm({super.key, super.includeDefaultSocialProviders})
+    : super._(
+        fields: [SignInFormField.username(), SignInFormField.password()],
+        actions: const [SignInButton(), ForgotPasswordButton()],
+      );
 
   /// A custom Sign In form.
   const SignInForm.custom({
     super.key,
     required super.fields,
     super.includeDefaultSocialProviders,
-  }) : super._(
-          actions: const [
-            SignInButton(),
-            ForgotPasswordButton(),
-          ],
-        );
+  }) : super._(actions: const [SignInButton(), ForgotPasswordButton()]);
 
   @override
   AuthenticatorFormState<SignInForm> createState() => _SignInFormState();
@@ -434,11 +405,10 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
       return const [];
     }
 
-    final socialProviders = InheritedConfig.of(context)
-        .amplifyOutputs
-        ?.auth
-        ?.oauth
-        ?.identityProviders;
+    final socialProviders =
+        InheritedConfig.of(
+          context,
+        ).amplifyOutputs?.auth?.oauth?.identityProviders;
 
     if (socialProviders == null || socialProviders.isEmpty) {
       return const [];
@@ -456,18 +426,19 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
 
     return [
       SocialSignInButtons(
-        providers: socialProviders.map((e) {
-          switch (e) {
-            case IdentityProvider.facebook:
-              return AuthProvider.facebook;
-            case IdentityProvider.google:
-              return AuthProvider.google;
-            case IdentityProvider.amazon:
-              return AuthProvider.amazon;
-            case IdentityProvider.apple:
-              return AuthProvider.apple;
-          }
-        }).toList(),
+        providers:
+            socialProviders.map((e) {
+              switch (e) {
+                case IdentityProvider.facebook:
+                  return AuthProvider.facebook;
+                case IdentityProvider.google:
+                  return AuthProvider.google;
+                case IdentityProvider.amazon:
+                  return AuthProvider.amazon;
+                case IdentityProvider.apple:
+                  return AuthProvider.apple;
+              }
+            }).toList(),
       ),
     ];
   }
@@ -481,31 +452,22 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
 /// {@endtemplate}
 class ConfirmSignUpForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_up_form}
-  ConfirmSignUpForm({
-    super.key,
-  })  : resendCodeButton = null,
-        super._(
-          fields: [
-            ConfirmSignUpFormField.username(),
-            ConfirmSignUpFormField.verificationCode(),
-          ],
-          actions: const [
-            ConfirmSignUpButton(),
-            BackToSignInButton(),
-          ],
-        );
+  ConfirmSignUpForm({super.key})
+    : resendCodeButton = null,
+      super._(
+        fields: [
+          ConfirmSignUpFormField.username(),
+          ConfirmSignUpFormField.verificationCode(),
+        ],
+        actions: const [ConfirmSignUpButton(), BackToSignInButton()],
+      );
 
   /// A custom Confirm Sign Up form.
   const ConfirmSignUpForm.custom({
     super.key,
     required super.fields,
     this.resendCodeButton,
-  }) : super._(
-          actions: const [
-            ConfirmSignUpButton(),
-            BackToSignInButton(),
-          ],
-        );
+  }) : super._(actions: const [ConfirmSignUpButton(), BackToSignInButton()]);
 
   /// Widget to show for resending a verification code.
   ///
@@ -524,17 +486,13 @@ class ConfirmSignUpForm extends AuthenticatorForm {
 class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_custom_auth_form}
   ConfirmSignInCustomAuthForm({super.key})
-      : super._(
-          fields: [
-            ConfirmSignInFormField.customChallenge(),
-          ],
-          actions: const [
-            ConfirmSignInCustomButton(),
-            BackToSignInButton(
-              abortSignIn: true,
-            ),
-          ],
-        );
+    : super._(
+        fields: [ConfirmSignInFormField.customChallenge()],
+        actions: const [
+          ConfirmSignInCustomButton(),
+          BackToSignInButton(abortSignIn: true),
+        ],
+      );
 
   @override
   AuthenticatorFormState<ConfirmSignInCustomAuthForm> createState() =>
@@ -549,15 +507,10 @@ class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
 class ConfirmSignInMFAForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_mfa_form}
   ConfirmSignInMFAForm({super.key})
-      : super._(
-          fields: [
-            ConfirmSignInFormField.verificationCode(),
-          ],
-          actions: const [
-            ConfirmSignInMFAButton(),
-            BackToSignInButton(),
-          ],
-        );
+    : super._(
+        fields: [ConfirmSignInFormField.verificationCode()],
+        actions: const [ConfirmSignInMFAButton(), BackToSignInButton()],
+      );
 
   @override
   AuthenticatorFormState<ConfirmSignInMFAForm> createState() =>
@@ -572,29 +525,20 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
 /// {@endtemplate}
 class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_new_password_form}
-  ConfirmSignInNewPasswordForm({
-    super.key,
-  }) : super._(
-          fields: [
-            ConfirmSignInFormField.newPassword(),
-            ConfirmSignInFormField.confirmNewPassword(),
-          ],
-          actions: const [
-            ConfirmSignInNewPasswordButton(),
-            BackToSignInButton(),
-          ],
-        );
+  ConfirmSignInNewPasswordForm({super.key})
+    : super._(
+        fields: [
+          ConfirmSignInFormField.newPassword(),
+          ConfirmSignInFormField.confirmNewPassword(),
+        ],
+        actions: const [ConfirmSignInNewPasswordButton(), BackToSignInButton()],
+      );
 
   /// A custom Confirm Sign In with New Password form.
-  const ConfirmSignInNewPasswordForm.custom({
-    super.key,
-    required super.fields,
-  }) : super._(
-          actions: const [
-            ConfirmSignInNewPasswordButton(),
-            BackToSignInButton(),
-          ],
-        );
+  const ConfirmSignInNewPasswordForm.custom({super.key, required super.fields})
+    : super._(
+        actions: const [ConfirmSignInNewPasswordButton(), BackToSignInButton()],
+      );
 
   @override
   AuthenticatorFormState<ConfirmSignInNewPasswordForm> createState() =>
@@ -608,15 +552,13 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
 class ContinueSignInWithMfaSelectionForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.continue_sign_in_with_mfa_selection_form}
   ContinueSignInWithMfaSelectionForm({super.key})
-      : super._(
-          fields: [
-            ConfirmSignInFormField.mfaSelection(),
-          ],
-          actions: const [
-            ContinueSignInMFASelectionButton(),
-            BackToSignInButton(),
-          ],
-        );
+    : super._(
+        fields: [ConfirmSignInFormField.mfaSelection()],
+        actions: const [
+          ContinueSignInMFASelectionButton(),
+          BackToSignInButton(),
+        ],
+      );
 
   @override
   AuthenticatorFormState<ContinueSignInWithMfaSelectionForm> createState() =>
@@ -629,22 +571,19 @@ class ContinueSignInWithMfaSelectionForm extends AuthenticatorForm {
 /// {@endtemplate}
 class ContinueSignInWithMfaSetupSelectionForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.continue_sign_in_with__mfa_setup_selection_form}
-  ContinueSignInWithMfaSetupSelectionForm({
-    super.key,
-  }) : super._(
-          fields: [
-            ConfirmSignInFormField.mfaSetupSelection(),
-          ],
-          actions: const [
-            ContinueSignInMFASetupSelectionButton(),
-            BackToSignInButton(),
-          ],
-        );
+  ContinueSignInWithMfaSetupSelectionForm({super.key})
+    : super._(
+        fields: [ConfirmSignInFormField.mfaSetupSelection()],
+        actions: const [
+          ContinueSignInMFASetupSelectionButton(),
+          BackToSignInButton(),
+        ],
+      );
 
   @override
   AuthenticatorFormState<ContinueSignInWithMfaSetupSelectionForm>
-      createState() =>
-          AuthenticatorFormState<ContinueSignInWithMfaSetupSelectionForm>();
+  createState() =>
+      AuthenticatorFormState<ContinueSignInWithMfaSetupSelectionForm>();
 }
 
 /// {@category Prebuilt Widgets}
@@ -653,17 +592,11 @@ class ContinueSignInWithMfaSetupSelectionForm extends AuthenticatorForm {
 /// {@endtemplate}
 class ContinueSignInWithTotpSetupForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.continue_sign_in_with_totp_setup_form}
-  ContinueSignInWithTotpSetupForm({
-    super.key,
-  }) : super._(
-          fields: [
-            TotpSetupFormField.totpSetup(),
-          ],
-          actions: const [
-            ConfirmSignInMFAButton(),
-            BackToSignInButton(),
-          ],
-        );
+  ContinueSignInWithTotpSetupForm({super.key})
+    : super._(
+        fields: [TotpSetupFormField.totpSetup()],
+        actions: const [ConfirmSignInMFAButton(), BackToSignInButton()],
+      );
 
   @override
   AuthenticatorFormState<ContinueSignInWithTotpSetupForm> createState() =>
@@ -675,17 +608,14 @@ class ContinueSignInWithTotpSetupForm extends AuthenticatorForm {
 /// A prebuilt form for completing the email mfa setup process.
 /// {@endtemplate}
 class ContinueSignInWithEmailMfaSetupForm extends AuthenticatorForm {
-  ContinueSignInWithEmailMfaSetupForm({
-    super.key,
-  }) : super._(
-          fields: [
-            const EmailSetupFormField.email(),
-          ],
-          actions: const [
-            ContinueSignInWithEmailMfaSetupButton(),
-            BackToSignInButton(),
-          ],
-        );
+  ContinueSignInWithEmailMfaSetupForm({super.key})
+    : super._(
+        fields: [const EmailSetupFormField.email()],
+        actions: const [
+          ContinueSignInWithEmailMfaSetupButton(),
+          BackToSignInButton(),
+        ],
+      );
 
   @override
   AuthenticatorFormState<ContinueSignInWithEmailMfaSetupForm> createState() =>
@@ -698,17 +628,11 @@ class ContinueSignInWithEmailMfaSetupForm extends AuthenticatorForm {
 /// {@endtemplate}
 class ResetPasswordForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.send_code_form}
-  ResetPasswordForm({
-    super.key,
-  }) : super._(
-          fields: [
-            SignInFormField.username(),
-          ],
-          actions: const [
-            ResetPasswordButton(),
-            BackToSignInButton(),
-          ],
-        );
+  ResetPasswordForm({super.key})
+    : super._(
+        fields: [SignInFormField.username()],
+        actions: const [ResetPasswordButton(), BackToSignInButton()],
+      );
 
   @override
   AuthenticatorFormState<ResetPasswordForm> createState() =>
@@ -721,19 +645,15 @@ class ResetPasswordForm extends AuthenticatorForm {
 /// {@endtemplate}
 class ConfirmResetPasswordForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.reset_password_form}
-  const ConfirmResetPasswordForm({
-    super.key,
-  }) : super._(
-          fields: const [
-            ResetPasswordFormField.verificationCode(),
-            ResetPasswordFormField.newPassword(),
-            ResetPasswordFormField.passwordConfirmation(),
-          ],
-          actions: const [
-            ConfirmResetPasswordButton(),
-            BackToSignInButton(),
-          ],
-        );
+  const ConfirmResetPasswordForm({super.key})
+    : super._(
+        fields: const [
+          ResetPasswordFormField.verificationCode(),
+          ResetPasswordFormField.newPassword(),
+          ResetPasswordFormField.passwordConfirmation(),
+        ],
+        actions: const [ConfirmResetPasswordButton(), BackToSignInButton()],
+      );
 
   @override
   AuthenticatorFormState<ConfirmResetPasswordForm> createState() =>
@@ -746,17 +666,11 @@ class ConfirmResetPasswordForm extends AuthenticatorForm {
 /// {@endtemplate}
 class VerifyUserForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.verify_user_form}
-  VerifyUserForm({
-    super.key,
-  }) : super._(
-          fields: [
-            VerifyUserFormField.verifyAttribute(),
-          ],
-          actions: const [
-            VerifyUserButton(),
-            SkipVerifyUserButton(),
-          ],
-        );
+  VerifyUserForm({super.key})
+    : super._(
+        fields: [VerifyUserFormField.verifyAttribute()],
+        actions: const [VerifyUserButton(), SkipVerifyUserButton()],
+      );
 
   @override
   AuthenticatorFormState<VerifyUserForm> createState() =>
@@ -769,17 +683,11 @@ class VerifyUserForm extends AuthenticatorForm {
 /// {@endtemplate}
 class ConfirmVerifyUserForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_verify_user_form}
-  ConfirmVerifyUserForm({
-    super.key,
-  }) : super._(
-          fields: [
-            VerifyUserFormField.confirmVerifyAttribute(),
-          ],
-          actions: const [
-            ConfirmVerifyUserButton(),
-            SkipVerifyUserButton(),
-          ],
-        );
+  ConfirmVerifyUserForm({super.key})
+    : super._(
+        fields: [VerifyUserFormField.confirmVerifyAttribute()],
+        actions: const [ConfirmVerifyUserButton(), SkipVerifyUserButton()],
+      );
 
   @override
   AuthenticatorFormState<ConfirmVerifyUserForm> createState() =>

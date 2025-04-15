@@ -10,9 +10,9 @@ class _$CopyObjectResult extends CopyObjectResult {
   @override
   final String? eTag;
 
-  factory _$CopyObjectResult(
-          [void Function(CopyObjectResultBuilder)? updates]) =>
-      (new CopyObjectResultBuilder()..update(updates))._build();
+  factory _$CopyObjectResult([
+    void Function(CopyObjectResultBuilder)? updates,
+  ]) => (new CopyObjectResultBuilder()..update(updates))._build();
 
   _$CopyObjectResult._({this.eTag}) : super._();
 

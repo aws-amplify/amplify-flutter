@@ -12,23 +12,15 @@ extension GitHelpers on GitDir {
   /// Returns the [CommitRef] for the given [commit].
   Future<CommitRef> commitRef(String commit) async {
     if (_sha1Regex.hasMatch(commit)) {
-      return (
-        commit,
-        await commitFromRevision(commit),
-      );
+      return (commit, await commitFromRevision(commit));
     }
-    return (
-      revParse(commit),
-      commitFromRevision(commit),
-    ).wait;
+    return (revParse(commit), commitFromRevision(commit)).wait;
   }
 
   /// Runs a `git diff` between [baseTree] and [headTree] and returns the list
   /// of filepaths changed between the two commits.
   Future<List<String>> diffTrees(String baseTree, String headTree) async {
-    final diff = await runCommand(
-      ['diff', '--raw', '$baseTree..$headTree'],
-    );
+    final diff = await runCommand(['diff', '--raw', '$baseTree..$headTree']);
     final diffs = LineSplitter.split(diff.stdout as String);
     final changedPaths = <String>[];
     for (final diff in diffs) {
@@ -48,9 +40,7 @@ extension GitHelpers on GitDir {
   /// Lists all commits, in reverse chronological order, between [baseCommit]
   /// and [headCommit].
   Stream<CommitRef> revList(String baseCommit, String headCommit) async* {
-    final revList = await runCommand(
-      ['rev-list', '$baseCommit..$headCommit'],
-    );
+    final revList = await runCommand(['rev-list', '$baseCommit..$headCommit']);
     final commits = LineSplitter.split((revList.stdout as String).trim());
     for (final oid in commits) {
       yield await commitRef(oid);

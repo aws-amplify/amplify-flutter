@@ -11,22 +11,22 @@ class _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput
   @override
   final PayloadWithXmlNamespaceAndPrefix? nested;
 
-  factory _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput(
-          [void Function(
-                  HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)?
-              updates]) =>
+  factory _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput([
+    void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)?
+    updates,
+  ]) =>
       (new HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder()
             ..update(updates))
           ._build();
 
   _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput._({this.nested})
-      : super._();
+    : super._();
 
   @override
   HttpPayloadWithXmlNamespaceAndPrefixInputOutput rebuild(
-          void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder toBuilder() =>
@@ -51,8 +51,10 @@ class _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput
 
 class HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
     implements
-        Builder<HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
-            HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder> {
+        Builder<
+          HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
+          HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
+        > {
   _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput? _$v;
 
   PayloadWithXmlNamespaceAndPrefixBuilder? _nested;
@@ -80,8 +82,9 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
 
   @override
   void update(
-      void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)?
-          updates) {
+    void Function(HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -91,9 +94,11 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
   _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput _build() {
     _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput._(
-              nested: _nested?.build());
+            nested: _nested?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -101,9 +106,10 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpPayloadWithXmlNamespaceAndPrefixInputOutput',
-            _$failedField,
-            e.toString());
+          r'HttpPayloadWithXmlNamespaceAndPrefixInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

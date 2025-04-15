@@ -10,8 +10,12 @@ import 'request_headers_server_vm.dart'
 
 /// Tests that the [AWSHttpClient] correctly sends headers in the request.
 void main() {
-  clientTest('client headers', startServer,
-      (client, httpServerQueue, httpServerChannel, createUri) {
+  clientTest('client headers', startServer, (
+    client,
+    httpServerQueue,
+    httpServerChannel,
+    createUri,
+  ) {
     test('single header', () async {
       final request = AWSHttpRequest.get(
         createUri(''),

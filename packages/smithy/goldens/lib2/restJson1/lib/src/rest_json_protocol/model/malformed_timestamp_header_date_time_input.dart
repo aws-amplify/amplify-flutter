@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.malformed_timestamp_header_date_time_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,19 @@ abstract class MalformedTimestampHeaderDateTimeInput
         _i1.HttpInput<MalformedTimestampHeaderDateTimeInputPayload>,
         _i2.AWSEquatable<MalformedTimestampHeaderDateTimeInput>
     implements
-        Built<MalformedTimestampHeaderDateTimeInput,
-            MalformedTimestampHeaderDateTimeInputBuilder>,
+        Built<
+          MalformedTimestampHeaderDateTimeInput,
+          MalformedTimestampHeaderDateTimeInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<MalformedTimestampHeaderDateTimeInputPayload> {
   factory MalformedTimestampHeaderDateTimeInput({required DateTime timestamp}) {
     return _$MalformedTimestampHeaderDateTimeInput._(timestamp: timestamp);
   }
 
-  factory MalformedTimestampHeaderDateTimeInput.build(
-      [void Function(MalformedTimestampHeaderDateTimeInputBuilder)
-          updates]) = _$MalformedTimestampHeaderDateTimeInput;
+  factory MalformedTimestampHeaderDateTimeInput.build([
+    void Function(MalformedTimestampHeaderDateTimeInputBuilder) updates,
+  ]) = _$MalformedTimestampHeaderDateTimeInput;
 
   const MalformedTimestampHeaderDateTimeInput._();
 
@@ -34,21 +36,20 @@ abstract class MalformedTimestampHeaderDateTimeInput
     MalformedTimestampHeaderDateTimeInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedTimestampHeaderDateTimeInput.build((b) {
-        if (request.headers['timestamp'] != null) {
-          b.timestamp = _i1.Timestamp.parse(
+  }) => MalformedTimestampHeaderDateTimeInput.build((b) {
+    if (request.headers['timestamp'] != null) {
+      b.timestamp =
+          _i1.Timestamp.parse(
             request.headers['timestamp']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-      });
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<MalformedTimestampHeaderDateTimeInputPayload>>
-      serializers = [
-    MalformedTimestampHeaderDateTimeInputRestJson1Serializer()
-  ];
+    _i1.SmithySerializer<MalformedTimestampHeaderDateTimeInputPayload>
+  >
+  serializers = [MalformedTimestampHeaderDateTimeInputRestJson1Serializer()];
 
   DateTime get timestamp;
   @override
@@ -60,27 +61,25 @@ abstract class MalformedTimestampHeaderDateTimeInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedTimestampHeaderDateTimeInput')
-          ..add(
-            'timestamp',
-            timestamp,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'MalformedTimestampHeaderDateTimeInput',
+    )..add('timestamp', timestamp);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class MalformedTimestampHeaderDateTimeInputPayload
-    with
-        _i2.AWSEquatable<MalformedTimestampHeaderDateTimeInputPayload>
+    with _i2.AWSEquatable<MalformedTimestampHeaderDateTimeInputPayload>
     implements
-        Built<MalformedTimestampHeaderDateTimeInputPayload,
-            MalformedTimestampHeaderDateTimeInputPayloadBuilder>,
+        Built<
+          MalformedTimestampHeaderDateTimeInputPayload,
+          MalformedTimestampHeaderDateTimeInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory MalformedTimestampHeaderDateTimeInputPayload(
-      [void Function(MalformedTimestampHeaderDateTimeInputPayloadBuilder)
-          updates]) = _$MalformedTimestampHeaderDateTimeInputPayload;
+  factory MalformedTimestampHeaderDateTimeInputPayload([
+    void Function(MalformedTimestampHeaderDateTimeInputPayloadBuilder) updates,
+  ]) = _$MalformedTimestampHeaderDateTimeInputPayload;
 
   const MalformedTimestampHeaderDateTimeInputPayload._();
 
@@ -90,31 +89,32 @@ abstract class MalformedTimestampHeaderDateTimeInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MalformedTimestampHeaderDateTimeInputPayload');
+      'MalformedTimestampHeaderDateTimeInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class MalformedTimestampHeaderDateTimeInputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<MalformedTimestampHeaderDateTimeInputPayload> {
+class MalformedTimestampHeaderDateTimeInputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<
+          MalformedTimestampHeaderDateTimeInputPayload
+        > {
   const MalformedTimestampHeaderDateTimeInputRestJson1Serializer()
-      : super('MalformedTimestampHeaderDateTimeInput');
+    : super('MalformedTimestampHeaderDateTimeInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedTimestampHeaderDateTimeInput,
-        _$MalformedTimestampHeaderDateTimeInput,
-        MalformedTimestampHeaderDateTimeInputPayload,
-        _$MalformedTimestampHeaderDateTimeInputPayload,
-      ];
+    MalformedTimestampHeaderDateTimeInput,
+    _$MalformedTimestampHeaderDateTimeInput,
+    MalformedTimestampHeaderDateTimeInputPayload,
+    _$MalformedTimestampHeaderDateTimeInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedTimestampHeaderDateTimeInputPayload deserialize(
@@ -130,6 +130,5 @@ class MalformedTimestampHeaderDateTimeInputRestJson1Serializer extends _i1
     Serializers serializers,
     MalformedTimestampHeaderDateTimeInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

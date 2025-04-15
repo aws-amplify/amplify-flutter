@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.s3.operation.get_bucket_location_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,11 +15,14 @@ import 'package:rest_xml_v1/src/s3/model/get_bucket_location_request.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-class GetBucketLocationOperation extends _i1.HttpOperation<
-    GetBucketLocationRequestPayload,
-    GetBucketLocationRequest,
-    BucketLocationConstraint,
-    GetBucketLocationOutput> {
+class GetBucketLocationOperation
+    extends
+        _i1.HttpOperation<
+          GetBucketLocationRequestPayload,
+          GetBucketLocationRequest,
+          BucketLocationConstraint,
+          GetBucketLocationOutput
+        > {
   GetBucketLocationOperation({
     required String region,
     Uri? baseUri,
@@ -28,33 +31,38 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          GetBucketLocationRequestPayload,
-          GetBucketLocationRequest,
-          BucketLocationConstraint,
-          GetBucketLocationOutput>> protocols = [
+    _i1.HttpProtocol<
+      GetBucketLocationRequestPayload,
+      GetBucketLocationRequest,
+      BucketLocationConstraint,
+      GetBucketLocationOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i2.WithSdkInvocationId(),
             const _i2.WithSdkRequest(),
           ] +
@@ -62,7 +70,7 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -86,9 +94,10 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
   _i1.HttpRequest buildRequest(GetBucketLocationRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'GET';
-        b.path = _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}?location'
-            : r'/?location';
+        b.path =
+            _s3ClientConfig.usePathStyle
+                ? r'/{Bucket}?location'
+                : r'/?location';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
       });
 
@@ -99,11 +108,7 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
   GetBucketLocationOutput buildOutput(
     BucketLocationConstraint? payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      GetBucketLocationOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => GetBucketLocationOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -142,11 +147,7 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

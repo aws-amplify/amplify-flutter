@@ -12,17 +12,17 @@ class _$SimpleScalarPropertiesInput extends SimpleScalarPropertiesInput {
   @override
   final double? doubleValue;
 
-  factory _$SimpleScalarPropertiesInput(
-          [void Function(SimpleScalarPropertiesInputBuilder)? updates]) =>
-      (new SimpleScalarPropertiesInputBuilder()..update(updates))._build();
+  factory _$SimpleScalarPropertiesInput([
+    void Function(SimpleScalarPropertiesInputBuilder)? updates,
+  ]) => (new SimpleScalarPropertiesInputBuilder()..update(updates))._build();
 
   _$SimpleScalarPropertiesInput._({this.floatValue, this.doubleValue})
-      : super._();
+    : super._();
 
   @override
   SimpleScalarPropertiesInput rebuild(
-          void Function(SimpleScalarPropertiesInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SimpleScalarPropertiesInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SimpleScalarPropertiesInputBuilder toBuilder() =>
@@ -48,8 +48,10 @@ class _$SimpleScalarPropertiesInput extends SimpleScalarPropertiesInput {
 
 class SimpleScalarPropertiesInputBuilder
     implements
-        Builder<SimpleScalarPropertiesInput,
-            SimpleScalarPropertiesInputBuilder> {
+        Builder<
+          SimpleScalarPropertiesInput,
+          SimpleScalarPropertiesInputBuilder
+        > {
   _$SimpleScalarPropertiesInput? _$v;
 
   double? _floatValue;
@@ -87,9 +89,12 @@ class SimpleScalarPropertiesInputBuilder
   SimpleScalarPropertiesInput build() => _build();
 
   _$SimpleScalarPropertiesInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$SimpleScalarPropertiesInput._(
-            floatValue: floatValue, doubleValue: doubleValue);
+          floatValue: floatValue,
+          doubleValue: doubleValue,
+        );
     replace(_$result);
     return _$result;
   }

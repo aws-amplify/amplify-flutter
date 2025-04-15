@@ -65,14 +65,16 @@ class PubVersionInfo {
 
 extension AmplifyVersion on Version {
   Version get nextPreRelease => Version(
-        major,
-        minor,
-        patch,
-        pre: preRelease.map((el) {
+    major,
+    minor,
+    patch,
+    pre: preRelease
+        .map((el) {
           if (el is! int) return el;
           return el + 1;
-        }).join('.'),
-      );
+        })
+        .join('.'),
+  );
 
   /// The next version according to Amplify rules for incrementing.
   Version nextAmplifyVersion(VersionBumpType type) {

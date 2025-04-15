@@ -54,17 +54,12 @@ void main() {
 
     // Perform DataStore operation (local save)
     final dsTodo = Todo(name: 'test', owner: 'test');
-    await expectLater(
-      Amplify.DataStore.save(dsTodo),
-      completes,
-    );
+    await expectLater(Amplify.DataStore.save(dsTodo), completes);
   }
 
   Future<void> performAuthenticatedActions() async {
     // Retrieve guest data
-    final guestData = await Amplify.Storage.downloadData(
-      path: path,
-    ).result;
+    final guestData = await Amplify.Storage.downloadData(path: path).result;
     expect(utf8.decode(guestData.bytes), data);
 
     // Upload data to Storage
@@ -93,8 +88,11 @@ void main() {
     final expectation = expectLater(
       subscription,
       emitsThrough(
-        isA<SubscriptionEvent<Todo>>()
-            .having((event) => event.item.name, 'name', 'test'),
+        isA<SubscriptionEvent<Todo>>().having(
+          (event) => event.item.name,
+          'name',
+          'test',
+        ),
       ),
     );
     await Amplify.DataStore.save(dsTodo);
@@ -133,8 +131,9 @@ void main() {
     final passwordField = find.byKey(keys.keyPasswordSignUpFormField);
     await tester.ensureVisible(passwordField);
     await tester.enterText(passwordField, password);
-    final confirmPasswordField =
-        find.byKey(keys.keyPasswordConfirmationSignUpFormField);
+    final confirmPasswordField = find.byKey(
+      keys.keyPasswordConfirmationSignUpFormField,
+    );
     await tester.ensureVisible(confirmPasswordField);
     await tester.enterText(confirmPasswordField, password);
 

@@ -10,9 +10,9 @@ class _$CopyObjectOutput extends CopyObjectOutput {
   @override
   final CopyObjectResult? copyObjectResult;
 
-  factory _$CopyObjectOutput(
-          [void Function(CopyObjectOutputBuilder)? updates]) =>
-      (new CopyObjectOutputBuilder()..update(updates))._build();
+  factory _$CopyObjectOutput([
+    void Function(CopyObjectOutputBuilder)? updates,
+  ]) => (new CopyObjectOutputBuilder()..update(updates))._build();
 
   _$CopyObjectOutput._({this.copyObjectResult}) : super._();
 
@@ -78,9 +78,11 @@ class CopyObjectOutputBuilder
   _$CopyObjectOutput _build() {
     _$CopyObjectOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$CopyObjectOutput._(
-              copyObjectResult: _copyObjectResult?.build());
+            copyObjectResult: _copyObjectResult?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -88,7 +90,10 @@ class CopyObjectOutputBuilder
         _copyObjectResult?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'CopyObjectOutput', _$failedField, e.toString());
+          r'CopyObjectOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

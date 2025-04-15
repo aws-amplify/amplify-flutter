@@ -29,23 +29,32 @@ class _$SignUpRequest extends SignUpRequest {
   factory _$SignUpRequest([void Function(SignUpRequestBuilder)? updates]) =>
       (new SignUpRequestBuilder()..update(updates))._build();
 
-  _$SignUpRequest._(
-      {required this.clientId,
-      this.secretHash,
-      required this.username,
-      required this.password,
-      this.userAttributes,
-      this.validationData,
-      this.analyticsMetadata,
-      this.userContextData,
-      this.clientMetadata})
-      : super._() {
+  _$SignUpRequest._({
+    required this.clientId,
+    this.secretHash,
+    required this.username,
+    required this.password,
+    this.userAttributes,
+    this.validationData,
+    this.analyticsMetadata,
+    this.userContextData,
+    this.clientMetadata,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        clientId, r'SignUpRequest', 'clientId');
+      clientId,
+      r'SignUpRequest',
+      'clientId',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        username, r'SignUpRequest', 'username');
+      username,
+      r'SignUpRequest',
+      'username',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        password, r'SignUpRequest', 'password');
+      password,
+      r'SignUpRequest',
+      'password',
+    );
   }
 
   @override
@@ -173,15 +182,25 @@ class SignUpRequestBuilder
   _$SignUpRequest _build() {
     _$SignUpRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$SignUpRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
-                clientId, r'SignUpRequest', 'clientId'),
+              clientId,
+              r'SignUpRequest',
+              'clientId',
+            ),
             secretHash: secretHash,
             username: BuiltValueNullFieldError.checkNotNull(
-                username, r'SignUpRequest', 'username'),
+              username,
+              r'SignUpRequest',
+              'username',
+            ),
             password: BuiltValueNullFieldError.checkNotNull(
-                password, r'SignUpRequest', 'password'),
+              password,
+              r'SignUpRequest',
+              'password',
+            ),
             userAttributes: _userAttributes?.build(),
             validationData: _validationData?.build(),
             analyticsMetadata: _analyticsMetadata?.build(),
@@ -203,7 +222,10 @@ class SignUpRequestBuilder
         _clientMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'SignUpRequest', _$failedField, e.toString());
+          r'SignUpRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

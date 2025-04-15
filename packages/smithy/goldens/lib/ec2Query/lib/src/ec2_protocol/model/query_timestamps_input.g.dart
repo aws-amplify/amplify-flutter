@@ -14,18 +14,20 @@ class _$QueryTimestampsInput extends QueryTimestampsInput {
   @override
   final DateTime? epochTarget;
 
-  factory _$QueryTimestampsInput(
-          [void Function(QueryTimestampsInputBuilder)? updates]) =>
-      (new QueryTimestampsInputBuilder()..update(updates))._build();
+  factory _$QueryTimestampsInput([
+    void Function(QueryTimestampsInputBuilder)? updates,
+  ]) => (new QueryTimestampsInputBuilder()..update(updates))._build();
 
-  _$QueryTimestampsInput._(
-      {this.normalFormat, this.epochMember, this.epochTarget})
-      : super._();
+  _$QueryTimestampsInput._({
+    this.normalFormat,
+    this.epochMember,
+    this.epochTarget,
+  }) : super._();
 
   @override
   QueryTimestampsInput rebuild(
-          void Function(QueryTimestampsInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryTimestampsInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryTimestampsInputBuilder toBuilder() =>
@@ -96,11 +98,13 @@ class QueryTimestampsInputBuilder
   QueryTimestampsInput build() => _build();
 
   _$QueryTimestampsInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$QueryTimestampsInput._(
-            normalFormat: normalFormat,
-            epochMember: epochMember,
-            epochTarget: epochTarget);
+          normalFormat: normalFormat,
+          epochMember: epochMember,
+          epochTarget: epochTarget,
+        );
     replace(_$result);
     return _$result;
   }

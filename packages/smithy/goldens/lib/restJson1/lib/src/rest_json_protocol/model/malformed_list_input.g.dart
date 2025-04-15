@@ -10,16 +10,16 @@ class _$MalformedListInput extends MalformedListInput {
   @override
   final _i3.BuiltList<String>? bodyList;
 
-  factory _$MalformedListInput(
-          [void Function(MalformedListInputBuilder)? updates]) =>
-      (new MalformedListInputBuilder()..update(updates))._build();
+  factory _$MalformedListInput([
+    void Function(MalformedListInputBuilder)? updates,
+  ]) => (new MalformedListInputBuilder()..update(updates))._build();
 
   _$MalformedListInput._({this.bodyList}) : super._();
 
   @override
   MalformedListInput rebuild(
-          void Function(MalformedListInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedListInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedListInputBuilder toBuilder() =>
@@ -87,7 +87,10 @@ class MalformedListInputBuilder
         _bodyList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MalformedListInput', _$failedField, e.toString());
+          r'MalformedListInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

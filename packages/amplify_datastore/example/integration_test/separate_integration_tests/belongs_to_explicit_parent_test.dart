@@ -11,8 +11,7 @@ import 'models/belongs_to/ModelProvider.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('BelongsTo (child refers to parent with explicit connection field)',
-      () {
+  group('BelongsTo (child refers to parent with explicit connection field)', () {
     // schema
     // type BelongsToParent @model {
     //   id: ID!
@@ -31,7 +30,7 @@ void main() {
       BelongsToChildExplicit(
         name: 'belongs to child (explicit)',
         belongsToParent: rootModels.first,
-      )
+      ),
     ];
 
     testRootAndAssociatedModelsRelationship(

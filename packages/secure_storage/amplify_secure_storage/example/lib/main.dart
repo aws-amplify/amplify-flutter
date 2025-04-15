@@ -5,11 +5,7 @@ import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(
-    const MaterialApp(
-      home: MyApp(),
-    ),
-  );
+  runApp(const MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -34,9 +30,9 @@ class _MyAppState extends State<MyApp> {
   String _value = '';
 
   void showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   void showException(Exception e) {
@@ -73,9 +69,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Plugin example app'),
-      ),
+      appBar: AppBar(title: const Text('Plugin example app')),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -83,31 +77,18 @@ class _MyAppState extends State<MyApp> {
             children: [
               TextFormField(
                 initialValue: _key,
-                decoration: const InputDecoration(
-                  label: Text('Key'),
-                ),
+                decoration: const InputDecoration(label: Text('Key')),
                 onChanged: (value) => setState(() => _key = value),
               ),
               TextFormField(
                 initialValue: _key,
-                decoration: const InputDecoration(
-                  label: Text('Value'),
-                ),
+                decoration: const InputDecoration(label: Text('Value')),
                 onChanged: (value) => setState(() => _value = value),
               ),
               const SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: read,
-                child: const Text('Read'),
-              ),
-              ElevatedButton(
-                onPressed: write,
-                child: const Text('Write'),
-              ),
-              ElevatedButton(
-                onPressed: delete,
-                child: const Text('Delete'),
-              ),
+              ElevatedButton(onPressed: read, child: const Text('Read')),
+              ElevatedButton(onPressed: write, child: const Text('Write')),
+              ElevatedButton(onPressed: delete, child: const Text('Delete')),
             ],
           ),
         ),

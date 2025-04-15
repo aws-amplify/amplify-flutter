@@ -26,36 +26,32 @@ abstract class SignInFormField<FieldValue extends Object>
     super.validator,
     bool? required,
     super.autofillHints,
-  }) : super._(
-          requiredOverride: required,
-        );
+  }) : super._(requiredOverride: required);
 
   /// {@macro amplify_authenticator.username_form_field}
   static SignInFormField<UsernameInput> username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
-  }) =>
-      _SignInUsernameField(
-        key: key ?? keyUsernameSignInFormField,
-        validator: validator,
-        autofillHints: autofillHints,
-      );
+  }) => _SignInUsernameField(
+    key: key ?? keyUsernameSignInFormField,
+    validator: validator,
+    autofillHints: autofillHints,
+  );
 
   /// Creates a password FormField for the sign in step.
   static SignInFormField<String> password({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-  }) =>
-      _SignInTextField(
-        key: key ?? keyPasswordSignInFormField,
-        titleKey: InputResolverKey.passwordTitle,
-        hintTextKey: InputResolverKey.passwordHint,
-        field: SignInField.password,
-        validator: validator,
-        autofillHints: autofillHints,
-      );
+  }) => _SignInTextField(
+    key: key ?? keyPasswordSignInFormField,
+    titleKey: InputResolverKey.passwordTitle,
+    hintTextKey: InputResolverKey.passwordHint,
+    field: SignInField.password,
+    validator: validator,
+    autofillHints: autofillHints,
+  );
 
   @override
   int get displayPriority {
@@ -78,8 +74,12 @@ abstract class SignInFormField<FieldValue extends Object>
 }
 
 abstract class _SignInFormFieldState<FieldValue extends Object>
-    extends AuthenticatorFormFieldState<SignInField, FieldValue,
-        SignInFormField<FieldValue>> {
+    extends
+        AuthenticatorFormFieldState<
+          SignInField,
+          FieldValue,
+          SignInFormField<FieldValue>
+        > {
   @override
   bool get obscureText {
     switch (widget.field) {
@@ -115,13 +115,9 @@ abstract class _SignInFormFieldState<FieldValue extends Object>
     if (widget.autofillHints != null) return widget.autofillHints;
     switch (widget.field) {
       case SignInField.username:
-        return const [
-          AutofillHints.username,
-        ];
+        return const [AutofillHints.username];
       case SignInField.password:
-        return const [
-          AutofillHints.password,
-        ];
+        return const [AutofillHints.password];
     }
   }
 }
@@ -186,16 +182,13 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
 }
 
 class _SignInUsernameField extends SignInFormField<UsernameInput> {
-  const _SignInUsernameField({
-    Key? key,
-    super.validator,
-    super.autofillHints,
-  }) : super._(
-          key: key ?? keyUsernameSignInFormField,
-          titleKey: InputResolverKey.usernameTitle,
-          hintTextKey: InputResolverKey.usernameHint,
-          field: SignInField.username,
-        );
+  const _SignInUsernameField({Key? key, super.validator, super.autofillHints})
+    : super._(
+        key: key ?? keyUsernameSignInFormField,
+        titleKey: InputResolverKey.usernameTitle,
+        hintTextKey: InputResolverKey.usernameHint,
+        field: SignInField.username,
+      );
 
   @override
   _SignInUsernameFieldState createState() => _SignInUsernameFieldState();

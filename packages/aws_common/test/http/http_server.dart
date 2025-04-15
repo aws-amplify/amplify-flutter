@@ -17,14 +17,16 @@ Future<void> clientHybridMain(
     StreamChannel<Object?> channel,
     HttpRequest request,
     int port,
-  ) handleH1,
+  )
+  handleH1,
   FutureOr<void> Function(
     StreamChannel<Object?> channel,
     ServerTransportStream request,
     Stream<List<int>> body,
     Map<String, String> headers,
     int port,
-  ) handleH2,
+  )
+  handleH2,
 ) async {
   final queue = StreamQueue(channel.stream);
   final protocol = await queue.next as String;
@@ -32,9 +34,10 @@ Future<void> clientHybridMain(
 
   late int port;
   late Future<void> Function() close;
-  final context = SecurityContext()
-    ..useCertificateChain('test/http/certificates/cert.pem')
-    ..usePrivateKey('test/http/certificates/key.pem', password: 'amazon');
+  final context =
+      SecurityContext()
+        ..useCertificateChain('test/http/certificates/cert.pem')
+        ..usePrivateKey('test/http/certificates/key.pem', password: 'amazon');
   if (protocol == AlpnProtocol.http2.value) {
     final server = await MultiProtocolHttpServer.bind(
       InternetAddress.loopbackIPv4,
@@ -49,9 +52,7 @@ Future<void> clientHybridMain(
         handleH1(channel, request, port);
       },
       (request) async {
-        request.sendHeaders([
-          Header.ascii('Access-Control-Allow-Origin', '*'),
-        ]);
+        request.sendHeaders([Header.ascii('Access-Control-Allow-Origin', '*')]);
         final headers = CaseInsensitiveMap<String>({});
         final gotHeaders = Completer<void>.sync();
         final bodyController = StreamController<List<int>>(sync: true);

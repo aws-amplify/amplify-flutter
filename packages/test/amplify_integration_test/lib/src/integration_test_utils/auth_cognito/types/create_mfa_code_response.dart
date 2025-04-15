@@ -20,10 +20,7 @@ class CreateMFACodeResponse
       username: json['username'] as String,
       code: json['code'] as String,
       userAttributes: userAttributesJson.map((key, value) {
-        return MapEntry(
-          CognitoUserAttributeKey.parse(key),
-          value as String,
-        );
+        return MapEntry(CognitoUserAttributeKey.parse(key), value as String);
       }),
     );
   }
@@ -37,10 +34,10 @@ class CreateMFACodeResponse
 
   @override
   Map<String, Object?> toJson() => {
-        'username': username,
-        'code': code,
-        'userAttributes': userAttributes.map((key, value) {
-          return MapEntry(key.toJson(), value);
-        }),
-      };
+    'username': username,
+    'code': code,
+    'userAttributes': userAttributes.map((key, value) {
+      return MapEntry(key.toJson(), value);
+    }),
+  };
 }

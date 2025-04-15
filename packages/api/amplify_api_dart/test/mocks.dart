@@ -47,16 +47,10 @@ final modelWithCustomTypeVariables = {
       'listOfAWSIPAddressValue': ['1.0.0.1', '1.0.0.2'],
       'enumValue': 'yes',
       'listOfEnumValue': ['yes', 'no'],
-      'customTypeValue': {
-        'foo': 'bar',
-      },
+      'customTypeValue': {'foo': 'bar'},
       'listOfCustomTypeValue': [
-        {
-          'foo': 'bar',
-        },
-        {
-          'foo': 'baz',
-        }
+        {'foo': 'bar'},
+        {'foo': 'baz'},
       ],
     },
     'listOfCustomTypeValue': [
@@ -98,18 +92,12 @@ final modelWithCustomTypeVariables = {
         'listOfAWSIPAddressValue': ['1.0.0.1', '1.0.0.2'],
         'enumValue': 'yes',
         'listOfEnumValue': ['yes', 'no'],
-        'customTypeValue': {
-          'foo': 'bar',
-        },
+        'customTypeValue': {'foo': 'bar'},
         'listOfCustomTypeValue': [
-          {
-            'foo': 'bar',
-          },
-          {
-            'foo': 'baz',
-          }
+          {'foo': 'bar'},
+          {'foo': 'baz'},
         ],
-      }
+      },
     ],
   },
 };
@@ -123,7 +111,7 @@ const expectedQuerySuccessResponseBody = {
           'id': 'TEST_ID',
           'name': 'Test App Blog',
           'createdAt': '2022-06-28T17:36:52.460Z',
-        }
+        },
       ],
     },
   },
@@ -243,7 +231,7 @@ final expectedModelWithCustomTypeSuccessResponseBody = {
             {'foo': 'bar'},
             {'foo': 'baz'},
           ],
-        }
+        },
       ],
       'createdAt': '2024-05-14T22:00:30.605Z',
       'updatedAt': '2024-05-14T22:00:30.605Z',
@@ -282,9 +270,7 @@ const authErrorMessage = 'Not authorized';
 const expectedAuthErrorResponseBody = {
   'data': null,
   'errors': [
-    {
-      'message': authErrorMessage,
-    },
+    {'message': authErrorMessage},
   ],
 };
 

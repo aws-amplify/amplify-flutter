@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_with_namespace_v1.rest_xml_protocol_namespace.model.nested_with_namespace; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,14 +18,14 @@ abstract class NestedWithNamespace
     return _$NestedWithNamespace._(attrField: attrField);
   }
 
-  factory NestedWithNamespace.build(
-          [void Function(NestedWithNamespaceBuilder) updates]) =
-      _$NestedWithNamespace;
+  factory NestedWithNamespace.build([
+    void Function(NestedWithNamespaceBuilder) updates,
+  ]) = _$NestedWithNamespace;
 
   const NestedWithNamespace._();
 
   static const List<_i2.SmithySerializer<NestedWithNamespace>> serializers = [
-    NestedWithNamespaceRestXmlSerializer()
+    NestedWithNamespaceRestXmlSerializer(),
   ];
 
   String? get attrField;
@@ -35,10 +35,7 @@ abstract class NestedWithNamespace
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedWithNamespace')
-      ..add(
-        'attrField',
-        attrField,
-      );
+      ..add('attrField', attrField);
     return helper.toString();
   }
 }
@@ -49,17 +46,14 @@ class NestedWithNamespaceRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        NestedWithNamespace,
-        _$NestedWithNamespace,
-      ];
+    NestedWithNamespace,
+    _$NestedWithNamespace,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   NestedWithNamespace deserialize(
@@ -78,10 +72,12 @@ class NestedWithNamespaceRestXmlSerializer
       }
       switch (key) {
         case 'xsi:someName':
-          result.attrField = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.attrField =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -98,17 +94,20 @@ class NestedWithNamespaceRestXmlSerializer
       const _i2.XmlElementName(
         'NestedWithNamespace',
         _i2.XmlNamespace('https://example.com'),
-      )
+      ),
     ];
     final NestedWithNamespace(:attrField) = object;
     if (attrField != null) {
-      result$.add(_i3.XmlAttribute(
-        _i3.XmlName('xsi:someName'),
-        (serializers.serialize(
-          attrField,
-          specifiedType: const FullType(String),
-        ) as String),
-      ));
+      result$.add(
+        _i3.XmlAttribute(
+          _i3.XmlName('xsi:someName'),
+          (serializers.serialize(
+                attrField,
+                specifiedType: const FullType(String),
+              )
+              as String),
+        ),
+      );
     }
     return result$;
   }

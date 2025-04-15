@@ -31,40 +31,33 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
 
   void _showSuccess(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.green[800],
-        content: Text(message),
-      ),
+      SnackBar(backgroundColor: Colors.green[800], content: Text(message)),
     );
   }
 
   void _showInfo(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.blue[800],
-        content: Text(message),
-      ),
+      SnackBar(backgroundColor: Colors.blue[800], content: Text(message)),
     );
   }
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.red[900],
-        content: Text(message),
-      ),
+      SnackBar(backgroundColor: Colors.red[900], content: Text(message)),
     );
   }
 
   Future<void> _updateAttribute() async {
     try {
       final key = _keyController.text;
-      final isCustom = !CognitoUserAttributeKey.values
-          .map((value) => value.key)
-          .contains(key);
-      final userAttributeKey = isCustom
-          ? CognitoUserAttributeKey.custom(key)
-          : CognitoUserAttributeKey.parse(key);
+      final isCustom =
+          !CognitoUserAttributeKey.values
+              .map((value) => value.key)
+              .contains(key);
+      final userAttributeKey =
+          isCustom
+              ? CognitoUserAttributeKey.custom(key)
+              : CognitoUserAttributeKey.parse(key);
       final res = await Amplify.Auth.updateUserAttribute(
         userAttributeKey: userAttributeKey,
         value: _valueController.text,
@@ -90,9 +83,7 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update Attribute'),
-      ),
+      appBar: AppBar(title: const Text('Update Attribute')),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -101,15 +92,11 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
             TextFormField(
               controller: _keyController,
               enabled: _isNewAttribute,
-              decoration: const InputDecoration(
-                labelText: 'Attribute Name',
-              ),
+              decoration: const InputDecoration(labelText: 'Attribute Name'),
             ),
             TextFormField(
               controller: _valueController,
-              decoration: const InputDecoration(
-                labelText: 'Attribute Value',
-              ),
+              decoration: const InputDecoration(labelText: 'Attribute Value'),
             ),
             const SizedBox(height: 12),
             ElevatedButton(
@@ -117,9 +104,10 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
               child: const Text('Update Attribute'),
             ),
             TextButton(
-              onPressed: () => context.push(
-                '/confirm-user-attribute/${_keyController.text.trim()}',
-              ),
+              onPressed:
+                  () => context.push(
+                    '/confirm-user-attribute/${_keyController.text.trim()}',
+                  ),
               child: const Text('Confirm User Attribute'),
             ),
           ],

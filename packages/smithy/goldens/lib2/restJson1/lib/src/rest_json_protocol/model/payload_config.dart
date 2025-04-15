@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.payload_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,7 +23,7 @@ abstract class PayloadConfig
   const PayloadConfig._();
 
   static const List<_i2.SmithySerializer<PayloadConfig>> serializers = [
-    PayloadConfigRestJson1Serializer()
+    PayloadConfigRestJson1Serializer(),
   ];
 
   int? get data;
@@ -33,10 +33,7 @@ abstract class PayloadConfig
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PayloadConfig')
-      ..add(
-        'data',
-        data,
-      );
+      ..add('data', data);
     return helper.toString();
   }
 }
@@ -46,18 +43,12 @@ class PayloadConfigRestJson1Serializer
   const PayloadConfigRestJson1Serializer() : super('PayloadConfig');
 
   @override
-  Iterable<Type> get types => const [
-        PayloadConfig,
-        _$PayloadConfig,
-      ];
+  Iterable<Type> get types => const [PayloadConfig, _$PayloadConfig];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   PayloadConfig deserialize(
@@ -76,10 +67,12 @@ class PayloadConfigRestJson1Serializer
       }
       switch (key) {
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -97,10 +90,7 @@ class PayloadConfigRestJson1Serializer
     if (data != null) {
       result$
         ..add('data')
-        ..add(serializers.serialize(
-          data,
-          specifiedType: const FullType(int),
-        ));
+        ..add(serializers.serialize(data, specifiedType: const FullType(int)));
     }
     return result$;
   }

@@ -51,9 +51,9 @@ abstract class CreateMultipartUploadOutput
     );
   }
 
-  factory CreateMultipartUploadOutput.build(
-          [void Function(CreateMultipartUploadOutputBuilder) updates]) =
-      _$CreateMultipartUploadOutput;
+  factory CreateMultipartUploadOutput.build([
+    void Function(CreateMultipartUploadOutputBuilder) updates,
+  ]) = _$CreateMultipartUploadOutput;
 
   const CreateMultipartUploadOutput._();
 
@@ -61,63 +61,65 @@ abstract class CreateMultipartUploadOutput
   factory CreateMultipartUploadOutput.fromResponse(
     CreateMultipartUploadOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      CreateMultipartUploadOutput.build((b) {
-        b.bucket = payload.bucket;
-        b.key = payload.key;
-        b.uploadId = payload.uploadId;
-        if (response.headers['x-amz-abort-date'] != null) {
-          b.abortDate = _i2.Timestamp.parse(
+  ) => CreateMultipartUploadOutput.build((b) {
+    b.bucket = payload.bucket;
+    b.key = payload.key;
+    b.uploadId = payload.uploadId;
+    if (response.headers['x-amz-abort-date'] != null) {
+      b.abortDate =
+          _i2.Timestamp.parse(
             response.headers['x-amz-abort-date']!,
             format: _i2.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (response.headers['x-amz-abort-rule-id'] != null) {
-          b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
-        }
-        if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = ServerSideEncryption.values
-              .byValue(response.headers['x-amz-server-side-encryption']!);
-        }
-        if (response
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = response
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 = response
-              .headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
-            null) {
-          b.ssekmsKeyId =
-              response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-context'] != null) {
-          b.ssekmsEncryptionContext =
-              response.headers['x-amz-server-side-encryption-context']!;
-        }
-        if (response
-                .headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
-            null) {
-          b.bucketKeyEnabled = response.headers[
-                  'x-amz-server-side-encryption-bucket-key-enabled']! ==
-              'true';
-        }
-        if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = RequestCharged.values
-              .byValue(response.headers['x-amz-request-charged']!);
-        }
-        if (response.headers['x-amz-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = ChecksumAlgorithm.values
-              .byValue(response.headers['x-amz-checksum-algorithm']!);
-        }
-      });
+    }
+    if (response.headers['x-amz-abort-rule-id'] != null) {
+      b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
+    }
+    if (response.headers['x-amz-server-side-encryption'] != null) {
+      b.serverSideEncryption = ServerSideEncryption.values.byValue(
+        response.headers['x-amz-server-side-encryption']!,
+      );
+    }
+    if (response.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          response.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          response.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
+        null) {
+      b.ssekmsKeyId =
+          response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-context'] != null) {
+      b.ssekmsEncryptionContext =
+          response.headers['x-amz-server-side-encryption-context']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
+        null) {
+      b.bucketKeyEnabled =
+          response
+              .headers['x-amz-server-side-encryption-bucket-key-enabled']! ==
+          'true';
+    }
+    if (response.headers['x-amz-request-charged'] != null) {
+      b.requestCharged = RequestCharged.values.byValue(
+        response.headers['x-amz-request-charged']!,
+      );
+    }
+    if (response.headers['x-amz-checksum-algorithm'] != null) {
+      b.checksumAlgorithm = ChecksumAlgorithm.values.byValue(
+        response.headers['x-amz-checksum-algorithm']!,
+      );
+    }
+  });
 
   static const List<_i2.SmithySerializer<CreateMultipartUploadOutputPayload>>
-      serializers = [CreateMultipartUploadOutputRestXmlSerializer()];
+  serializers = [CreateMultipartUploadOutputRestXmlSerializer()];
 
   /// If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, the response includes this header. The header indicates when the initiated multipart upload becomes eligible for an abort operation. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config) in the _Amazon S3 User Guide_.
   ///
@@ -189,90 +191,53 @@ abstract class CreateMultipartUploadOutput
 
   @override
   List<Object?> get props => [
-        abortDate,
-        abortRuleId,
-        bucket,
-        key,
-        uploadId,
-        serverSideEncryption,
-        sseCustomerAlgorithm,
-        sseCustomerKeyMd5,
-        ssekmsKeyId,
-        ssekmsEncryptionContext,
-        bucketKeyEnabled,
-        requestCharged,
-        checksumAlgorithm,
-      ];
+    abortDate,
+    abortRuleId,
+    bucket,
+    key,
+    uploadId,
+    serverSideEncryption,
+    sseCustomerAlgorithm,
+    sseCustomerKeyMd5,
+    ssekmsKeyId,
+    ssekmsEncryptionContext,
+    bucketKeyEnabled,
+    requestCharged,
+    checksumAlgorithm,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateMultipartUploadOutput')
-      ..add(
-        'abortDate',
-        abortDate,
-      )
-      ..add(
-        'abortRuleId',
-        abortRuleId,
-      )
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'uploadId',
-        uploadId,
-      )
-      ..add(
-        'serverSideEncryption',
-        serverSideEncryption,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'ssekmsKeyId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'ssekmsEncryptionContext',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'bucketKeyEnabled',
-        bucketKeyEnabled,
-      )
-      ..add(
-        'requestCharged',
-        requestCharged,
-      )
-      ..add(
-        'checksumAlgorithm',
-        checksumAlgorithm,
-      );
+    final helper =
+        newBuiltValueToStringHelper('CreateMultipartUploadOutput')
+          ..add('abortDate', abortDate)
+          ..add('abortRuleId', abortRuleId)
+          ..add('bucket', bucket)
+          ..add('key', key)
+          ..add('uploadId', uploadId)
+          ..add('serverSideEncryption', serverSideEncryption)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add('ssekmsKeyId', '***SENSITIVE***')
+          ..add('ssekmsEncryptionContext', '***SENSITIVE***')
+          ..add('bucketKeyEnabled', bucketKeyEnabled)
+          ..add('requestCharged', requestCharged)
+          ..add('checksumAlgorithm', checksumAlgorithm);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class CreateMultipartUploadOutputPayload
-    with
-        _i1.AWSEquatable<CreateMultipartUploadOutputPayload>
+    with _i1.AWSEquatable<CreateMultipartUploadOutputPayload>
     implements
-        Built<CreateMultipartUploadOutputPayload,
-            CreateMultipartUploadOutputPayloadBuilder> {
-  factory CreateMultipartUploadOutputPayload(
-          [void Function(CreateMultipartUploadOutputPayloadBuilder) updates]) =
-      _$CreateMultipartUploadOutputPayload;
+        Built<
+          CreateMultipartUploadOutputPayload,
+          CreateMultipartUploadOutputPayloadBuilder
+        > {
+  factory CreateMultipartUploadOutputPayload([
+    void Function(CreateMultipartUploadOutputPayloadBuilder) updates,
+  ]) = _$CreateMultipartUploadOutputPayload;
 
   const CreateMultipartUploadOutputPayload._();
 
@@ -287,28 +252,15 @@ abstract class CreateMultipartUploadOutputPayload
   /// ID for the initiated multipart upload.
   String? get uploadId;
   @override
-  List<Object?> get props => [
-        bucket,
-        key,
-        uploadId,
-      ];
+  List<Object?> get props => [bucket, key, uploadId];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('CreateMultipartUploadOutputPayload')
-          ..add(
-            'bucket',
-            bucket,
-          )
-          ..add(
-            'key',
-            key,
-          )
-          ..add(
-            'uploadId',
-            uploadId,
-          );
+          ..add('bucket', bucket)
+          ..add('key', key)
+          ..add('uploadId', uploadId);
     return helper.toString();
   }
 }
@@ -316,23 +268,20 @@ abstract class CreateMultipartUploadOutputPayload
 class CreateMultipartUploadOutputRestXmlSerializer
     extends _i2.StructuredSmithySerializer<CreateMultipartUploadOutputPayload> {
   const CreateMultipartUploadOutputRestXmlSerializer()
-      : super('CreateMultipartUploadOutput');
+    : super('CreateMultipartUploadOutput');
 
   @override
   Iterable<Type> get types => const [
-        CreateMultipartUploadOutput,
-        _$CreateMultipartUploadOutput,
-        CreateMultipartUploadOutputPayload,
-        _$CreateMultipartUploadOutputPayload,
-      ];
+    CreateMultipartUploadOutput,
+    _$CreateMultipartUploadOutput,
+    CreateMultipartUploadOutputPayload,
+    _$CreateMultipartUploadOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CreateMultipartUploadOutputPayload deserialize(
@@ -351,20 +300,26 @@ class CreateMultipartUploadOutputRestXmlSerializer
       }
       switch (key) {
         case 'Bucket':
-          result.bucket = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.bucket =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Key':
-          result.key = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.key =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'UploadId':
-          result.uploadId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.uploadId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -381,32 +336,32 @@ class CreateMultipartUploadOutputRestXmlSerializer
       const _i2.XmlElementName(
         'InitiateMultipartUploadResult',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final CreateMultipartUploadOutputPayload(:bucket, :key, :uploadId) = object;
     if (bucket != null) {
       result$
         ..add(const _i2.XmlElementName('Bucket'))
-        ..add(serializers.serialize(
-          bucket,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(bucket, specifiedType: const FullType(String)),
+        );
     }
     if (key != null) {
       result$
         ..add(const _i2.XmlElementName('Key'))
-        ..add(serializers.serialize(
-          key,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(key, specifiedType: const FullType(String)),
+        );
     }
     if (uploadId != null) {
       result$
         ..add(const _i2.XmlElementName('UploadId'))
-        ..add(serializers.serialize(
-          uploadId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            uploadId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

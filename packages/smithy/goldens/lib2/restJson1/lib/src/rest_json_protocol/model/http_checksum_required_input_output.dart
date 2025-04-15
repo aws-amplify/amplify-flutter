@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.http_checksum_required_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,15 +15,17 @@ abstract class HttpChecksumRequiredInputOutput
         _i1.HttpInput<HttpChecksumRequiredInputOutput>,
         _i2.AWSEquatable<HttpChecksumRequiredInputOutput>
     implements
-        Built<HttpChecksumRequiredInputOutput,
-            HttpChecksumRequiredInputOutputBuilder> {
+        Built<
+          HttpChecksumRequiredInputOutput,
+          HttpChecksumRequiredInputOutputBuilder
+        > {
   factory HttpChecksumRequiredInputOutput({String? foo}) {
     return _$HttpChecksumRequiredInputOutput._(foo: foo);
   }
 
-  factory HttpChecksumRequiredInputOutput.build(
-          [void Function(HttpChecksumRequiredInputOutputBuilder) updates]) =
-      _$HttpChecksumRequiredInputOutput;
+  factory HttpChecksumRequiredInputOutput.build([
+    void Function(HttpChecksumRequiredInputOutputBuilder) updates,
+  ]) = _$HttpChecksumRequiredInputOutput;
 
   const HttpChecksumRequiredInputOutput._();
 
@@ -31,18 +33,16 @@ abstract class HttpChecksumRequiredInputOutput
     HttpChecksumRequiredInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [HttpChecksumRequiredInputOutput] from a [payload] and [response].
   factory HttpChecksumRequiredInputOutput.fromResponse(
     HttpChecksumRequiredInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<HttpChecksumRequiredInputOutput>>
-      serializers = [HttpChecksumRequiredInputOutputRestJson1Serializer()];
+  serializers = [HttpChecksumRequiredInputOutputRestJson1Serializer()];
 
   String? get foo;
   @override
@@ -53,12 +53,9 @@ abstract class HttpChecksumRequiredInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpChecksumRequiredInputOutput')
-          ..add(
-            'foo',
-            foo,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'HttpChecksumRequiredInputOutput',
+    )..add('foo', foo);
     return helper.toString();
   }
 }
@@ -66,21 +63,18 @@ abstract class HttpChecksumRequiredInputOutput
 class HttpChecksumRequiredInputOutputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<HttpChecksumRequiredInputOutput> {
   const HttpChecksumRequiredInputOutputRestJson1Serializer()
-      : super('HttpChecksumRequiredInputOutput');
+    : super('HttpChecksumRequiredInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        HttpChecksumRequiredInputOutput,
-        _$HttpChecksumRequiredInputOutput,
-      ];
+    HttpChecksumRequiredInputOutput,
+    _$HttpChecksumRequiredInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   HttpChecksumRequiredInputOutput deserialize(
@@ -99,10 +93,12 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -120,10 +116,9 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer
     if (foo != null) {
       result$
         ..add('foo')
-        ..add(serializers.serialize(
-          foo,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(foo, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

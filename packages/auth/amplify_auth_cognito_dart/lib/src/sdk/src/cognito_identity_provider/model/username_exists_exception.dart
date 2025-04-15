@@ -22,9 +22,9 @@ abstract class UsernameExistsException
   }
 
   /// This exception is thrown when Amazon Cognito encounters a user name that already exists in the user pool.
-  factory UsernameExistsException.build(
-          [void Function(UsernameExistsExceptionBuilder) updates]) =
-      _$UsernameExistsException;
+  factory UsernameExistsException.build([
+    void Function(UsernameExistsExceptionBuilder) updates,
+  ]) = _$UsernameExistsException;
 
   const UsernameExistsException._();
 
@@ -32,10 +32,9 @@ abstract class UsernameExistsException
   factory UsernameExistsException.fromResponse(
     UsernameExistsException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<UsernameExistsException>> serializers =
       [UsernameExistsExceptionAwsJson11Serializer()];
@@ -45,9 +44,9 @@ abstract class UsernameExistsException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'UsernameExistsException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'UsernameExistsException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -68,10 +67,7 @@ abstract class UsernameExistsException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UsernameExistsException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -79,21 +75,18 @@ abstract class UsernameExistsException
 class UsernameExistsExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UsernameExistsException> {
   const UsernameExistsExceptionAwsJson11Serializer()
-      : super('UsernameExistsException');
+    : super('UsernameExistsException');
 
   @override
   Iterable<Type> get types => const [
-        UsernameExistsException,
-        _$UsernameExistsException,
-      ];
+    UsernameExistsException,
+    _$UsernameExistsException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   UsernameExistsException deserialize(
@@ -112,10 +105,12 @@ class UsernameExistsExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -133,10 +128,9 @@ class UsernameExistsExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

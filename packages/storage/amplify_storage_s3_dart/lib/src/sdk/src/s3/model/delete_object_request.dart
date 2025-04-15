@@ -40,9 +40,9 @@ abstract class DeleteObjectRequest
     );
   }
 
-  factory DeleteObjectRequest.build(
-          [void Function(DeleteObjectRequestBuilder) updates]) =
-      _$DeleteObjectRequest;
+  factory DeleteObjectRequest.build([
+    void Function(DeleteObjectRequestBuilder) updates,
+  ]) = _$DeleteObjectRequest;
 
   const DeleteObjectRequest._();
 
@@ -50,36 +50,35 @@ abstract class DeleteObjectRequest
     DeleteObjectRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      DeleteObjectRequest.build((b) {
-        if (request.headers['x-amz-mfa'] != null) {
-          b.mfa = request.headers['x-amz-mfa']!;
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-bypass-governance-retention'] != null) {
-          b.bypassGovernanceRetention =
-              request.headers['x-amz-bypass-governance-retention']! == 'true';
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.queryParameters['versionId'] != null) {
-          b.versionId = request.queryParameters['versionId']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+  }) => DeleteObjectRequest.build((b) {
+    if (request.headers['x-amz-mfa'] != null) {
+      b.mfa = request.headers['x-amz-mfa']!;
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-bypass-governance-retention'] != null) {
+      b.bypassGovernanceRetention =
+          request.headers['x-amz-bypass-governance-retention']! == 'true';
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.queryParameters['versionId'] != null) {
+      b.versionId = request.queryParameters['versionId']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<DeleteObjectRequestPayload>>
-      serializers = [DeleteObjectRequestRestXmlSerializer()];
+  serializers = [DeleteObjectRequestRestXmlSerializer()];
 
   /// The bucket name of the bucket containing the object.
   ///
@@ -125,10 +124,7 @@ abstract class DeleteObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -136,46 +132,26 @@ abstract class DeleteObjectRequest
 
   @override
   List<Object?> get props => [
-        bucket,
-        key,
-        mfa,
-        versionId,
-        requestPayer,
-        bypassGovernanceRetention,
-        expectedBucketOwner,
-      ];
+    bucket,
+    key,
+    mfa,
+    versionId,
+    requestPayer,
+    bypassGovernanceRetention,
+    expectedBucketOwner,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'mfa',
-        mfa,
-      )
-      ..add(
-        'versionId',
-        versionId,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'bypassGovernanceRetention',
-        bypassGovernanceRetention,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      );
+    final helper =
+        newBuiltValueToStringHelper('DeleteObjectRequest')
+          ..add('bucket', bucket)
+          ..add('key', key)
+          ..add('mfa', mfa)
+          ..add('versionId', versionId)
+          ..add('requestPayer', requestPayer)
+          ..add('bypassGovernanceRetention', bypassGovernanceRetention)
+          ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }
@@ -186,9 +162,9 @@ abstract class DeleteObjectRequestPayload
     implements
         Built<DeleteObjectRequestPayload, DeleteObjectRequestPayloadBuilder>,
         _i1.EmptyPayload {
-  factory DeleteObjectRequestPayload(
-          [void Function(DeleteObjectRequestPayloadBuilder) updates]) =
-      _$DeleteObjectRequestPayload;
+  factory DeleteObjectRequestPayload([
+    void Function(DeleteObjectRequestPayloadBuilder) updates,
+  ]) = _$DeleteObjectRequestPayload;
 
   const DeleteObjectRequestPayload._();
 
@@ -208,19 +184,16 @@ class DeleteObjectRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        DeleteObjectRequest,
-        _$DeleteObjectRequest,
-        DeleteObjectRequestPayload,
-        _$DeleteObjectRequestPayload,
-      ];
+    DeleteObjectRequest,
+    _$DeleteObjectRequest,
+    DeleteObjectRequestPayload,
+    _$DeleteObjectRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   DeleteObjectRequestPayload deserialize(
@@ -241,7 +214,7 @@ class DeleteObjectRequestRestXmlSerializer
       const _i1.XmlElementName(
         'DeleteObjectRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

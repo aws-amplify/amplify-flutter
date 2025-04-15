@@ -13,9 +13,7 @@ class ResetPasswordOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.reset_password_options}
-  const ResetPasswordOptions({
-    this.pluginOptions,
-  });
+  const ResetPasswordOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.reset_password_plugin_options}
   final ResetPasswordPluginOptions? pluginOptions;
@@ -27,9 +25,7 @@ class ResetPasswordOptions
   String get runtimeTypeName => 'ResetPasswordOptions';
 
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

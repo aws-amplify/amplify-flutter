@@ -9,29 +9,30 @@ import 'test_data/fake_notification_messges.dart';
 void main() {
   group('PushNotificationMessage.fromJson', () {
     test(
-        'should parse simple standard Message with title, body and default channelId',
-        () {
-      final parsedAndroidMessage = PushNotificationMessage.fromJson(
-        standardAndroidPushMessage.cast(),
-      );
-      expect(parsedAndroidMessage.title, 'TITTLE');
-      expect(parsedAndroidMessage.body, 'BODY');
-      expect(
-        parsedAndroidMessage.fcmOptions?.channelId,
-        'PINPOINT.NOTIFICATION',
-      );
+      'should parse simple standard Message with title, body and default channelId',
+      () {
+        final parsedAndroidMessage = PushNotificationMessage.fromJson(
+          standardAndroidPushMessage.cast(),
+        );
+        expect(parsedAndroidMessage.title, 'TITTLE');
+        expect(parsedAndroidMessage.body, 'BODY');
+        expect(
+          parsedAndroidMessage.fcmOptions?.channelId,
+          'PINPOINT.NOTIFICATION',
+        );
 
-      final parsedSimpleiOSMessage = PushNotificationMessage.fromJson(
-        simpleAlertiOSMessage.cast(),
-      );
-      expect(parsedSimpleiOSMessage.title, 'Hello, world');
+        final parsedSimpleiOSMessage = PushNotificationMessage.fromJson(
+          simpleAlertiOSMessage.cast(),
+        );
+        expect(parsedSimpleiOSMessage.title, 'Hello, world');
 
-      final parsediOSMessage = PushNotificationMessage.fromJson(
-        standardiOSMessage.cast(),
-      );
-      expect(parsediOSMessage.title, 'TITTLE');
-      expect(parsediOSMessage.body, 'BODY');
-    });
+        final parsediOSMessage = PushNotificationMessage.fromJson(
+          standardiOSMessage.cast(),
+        );
+        expect(parsediOSMessage.title, 'TITTLE');
+        expect(parsediOSMessage.body, 'BODY');
+      },
+    );
 
     test('should parse url and deeplink', () {
       final parsedAndroidMessage = PushNotificationMessage.fromJson(

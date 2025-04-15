@@ -11,44 +11,45 @@ import 'package:pub_server/src/server.dart';
 import 'package:shelf/shelf_io.dart' as io;
 
 Future<void> main(List<String> args) async {
-  final argParser = ArgParser()
-    ..addOption(
-      'data-dir',
-      abbr: 'd',
-      help: 'The directory to store the database and uploads in.',
-    )
-    ..addFlag(
-      'launch',
-      help:
-          'Seeds the pub server. Must specify with --local-path or --git-url.',
-      defaultsTo: false,
-    )
-    ..addOption(
-      'local-path',
-      help: 'Seeds the pub server with the given path.',
-    )
-    ..addOption(
-      'git-url',
-      help: 'Seeds the pub server with the given git repository.',
-    )
-    ..addOption(
-      'git-ref',
-      help: 'The git ref to use when launching from a git repository.',
-      defaultsTo: 'main',
-    )
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'Enables verbose logging.',
-      negatable: false,
-      defaultsTo: false,
-    )
-    ..addOption(
-      'port',
-      abbr: 'p',
-      defaultsTo: '0',
-      help: 'The port to serve on.',
-    );
+  final argParser =
+      ArgParser()
+        ..addOption(
+          'data-dir',
+          abbr: 'd',
+          help: 'The directory to store the database and uploads in.',
+        )
+        ..addFlag(
+          'launch',
+          help:
+              'Seeds the pub server. Must specify with --local-path or --git-url.',
+          defaultsTo: false,
+        )
+        ..addOption(
+          'local-path',
+          help: 'Seeds the pub server with the given path.',
+        )
+        ..addOption(
+          'git-url',
+          help: 'Seeds the pub server with the given git repository.',
+        )
+        ..addOption(
+          'git-ref',
+          help: 'The git ref to use when launching from a git repository.',
+          defaultsTo: 'main',
+        )
+        ..addFlag(
+          'verbose',
+          abbr: 'v',
+          help: 'Enables verbose logging.',
+          negatable: false,
+          defaultsTo: false,
+        )
+        ..addOption(
+          'port',
+          abbr: 'p',
+          defaultsTo: '0',
+          help: 'The port to serve on.',
+        );
 
   final argResults = argParser.parse(args);
 
@@ -70,14 +71,13 @@ Future<void> main(List<String> args) async {
     }
   }
 
-  var dataDir = argResults['data-dir'] as String? ??
+  var dataDir =
+      argResults['data-dir'] as String? ??
       const String.fromEnvironment('DATA_DIR');
   if (dataDir.isEmpty) {
     dataDir = Directory.systemTemp.createTempSync('pub-local').path;
   }
-  final server = PubServer.prod(
-    dataDir: dataDir,
-  );
+  final server = PubServer.prod(dataDir: dataDir);
   var port = int.parse(argResults['port'] as String);
   if (port == 0) {
     port = const int.fromEnvironment('PORT', defaultValue: 0);

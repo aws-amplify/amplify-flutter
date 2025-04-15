@@ -19,16 +19,15 @@ PackageDescriptor package(
   Map<String, Object> dependencies = const {},
   Map<String, Object> devDependencies = const {},
   List<d.Descriptor> contents = const [],
-}) =>
-    PackageDescriptor(
-      name,
-      version: version,
-      publishable: publishable,
-      sdkConstraint: sdkConstraint,
-      dependencies: dependencies,
-      devDependencies: devDependencies,
-      contents: contents,
-    );
+}) => PackageDescriptor(
+  name,
+  version: version,
+  publishable: publishable,
+  sdkConstraint: sdkConstraint,
+  dependencies: dependencies,
+  devDependencies: devDependencies,
+  contents: contents,
+);
 
 /// {@template aft.test.package_descriptor}
 /// Describes the desired state of a package.
@@ -87,7 +86,8 @@ final class PackageDescriptor extends d.Descriptor {
 
   /// The contents of the `pubspec.yaml`.
   String get pubspec {
-    final sdkConstraint = this.sdkConstraint ??
+    final sdkConstraint =
+        this.sdkConstraint ??
         VersionConstraint.compatibleWith(Version(3, 0, 0));
 
     final pubspecEditor = YamlEditor('''
@@ -121,20 +121,17 @@ environment:
   }
 
   /// The directory descriptor for the package.
-  d.DirectoryDescriptor get dir => d.dir(
-        name,
-        <d.Descriptor>[
-          ...contents,
-          if (contents.none((d) => d.name == 'pubspec.yaml'))
-            d.file('pubspec.yaml', pubspec),
-          if (contents.none((d) => d.name == 'CHANGELOG.md') && version != null)
-            d.file('CHANGELOG.md', '''
+  d.DirectoryDescriptor get dir => d.dir(name, <d.Descriptor>[
+    ...contents,
+    if (contents.none((d) => d.name == 'pubspec.yaml'))
+      d.file('pubspec.yaml', pubspec),
+    if (contents.none((d) => d.name == 'CHANGELOG.md') && version != null)
+      d.file('CHANGELOG.md', '''
 ## $version
 
 Initial version.
 '''),
-        ],
-      );
+  ]);
 
   @override
   Future<PackageInfo> create([String? parent]) async {

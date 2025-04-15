@@ -6,49 +6,21 @@ library amplify_analytics_pinpoint_dart.pinpoint.model.layout; // ignore_for_fil
 import 'package:smithy/smithy.dart' as _i1;
 
 class Layout extends _i1.SmithyEnum<Layout> {
-  const Layout._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const Layout._(super.index, super.name, super.value);
 
   const Layout._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const bottomBanner = Layout._(
-    0,
-    'BOTTOM_BANNER',
-    'BOTTOM_BANNER',
-  );
+  static const bottomBanner = Layout._(0, 'BOTTOM_BANNER', 'BOTTOM_BANNER');
 
-  static const carousel = Layout._(
-    1,
-    'CAROUSEL',
-    'CAROUSEL',
-  );
+  static const carousel = Layout._(1, 'CAROUSEL', 'CAROUSEL');
 
-  static const middleBanner = Layout._(
-    2,
-    'MIDDLE_BANNER',
-    'MIDDLE_BANNER',
-  );
+  static const middleBanner = Layout._(2, 'MIDDLE_BANNER', 'MIDDLE_BANNER');
 
-  static const mobileFeed = Layout._(
-    3,
-    'MOBILE_FEED',
-    'MOBILE_FEED',
-  );
+  static const mobileFeed = Layout._(3, 'MOBILE_FEED', 'MOBILE_FEED');
 
-  static const overlays = Layout._(
-    4,
-    'OVERLAYS',
-    'OVERLAYS',
-  );
+  static const overlays = Layout._(4, 'OVERLAYS', 'OVERLAYS');
 
-  static const topBanner = Layout._(
-    5,
-    'TOP_BANNER',
-    'TOP_BANNER',
-  );
+  static const topBanner = Layout._(5, 'TOP_BANNER', 'TOP_BANNER');
 
   /// All values of [Layout].
   static const values = <Layout>[
@@ -66,12 +38,9 @@ class Layout extends _i1.SmithyEnum<Layout> {
       values: values,
       sdkUnknown: Layout._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

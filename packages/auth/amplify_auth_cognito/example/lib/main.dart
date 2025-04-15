@@ -37,34 +37,38 @@ class _MyAppState extends State<MyApp> {
       ),
       GoRoute(
         path: '/view-user-attributes',
-        builder: (BuildContext _, GoRouterState __) =>
-            const ViewUserAttributesScreen(),
+        builder:
+            (BuildContext _, GoRouterState __) =>
+                const ViewUserAttributesScreen(),
       ),
       GoRoute(
         path: '/update-user-attribute',
-        builder: (BuildContext _, GoRouterState state) =>
-            UpdateUserAttributeScreen(
-          userAttributeKey: state.extra as CognitoUserAttributeKey?,
-        ),
+        builder:
+            (BuildContext _, GoRouterState state) => UpdateUserAttributeScreen(
+              userAttributeKey: state.extra as CognitoUserAttributeKey?,
+            ),
       ),
       GoRoute(
         path: '/update-user-attributes',
-        builder: (BuildContext _, GoRouterState state) =>
-            const UpdateUserAttributesScreen(),
+        builder:
+            (BuildContext _, GoRouterState state) =>
+                const UpdateUserAttributesScreen(),
       ),
       GoRoute(
         path: '/confirm-user-attribute/email',
-        builder: (BuildContext _, GoRouterState state) =>
-            const ConfirmUserAttributeScreen(
-          userAttributeKey: CognitoUserAttributeKey.email,
-        ),
+        builder:
+            (BuildContext _, GoRouterState state) =>
+                const ConfirmUserAttributeScreen(
+                  userAttributeKey: CognitoUserAttributeKey.email,
+                ),
       ),
       GoRoute(
         path: '/confirm-user-attribute/phone_number',
-        builder: (BuildContext _, GoRouterState state) =>
-            const ConfirmUserAttributeScreen(
-          userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-        ),
+        builder:
+            (BuildContext _, GoRouterState state) =>
+                const ConfirmUserAttributeScreen(
+                  userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                ),
       ),
     ],
   );
@@ -85,8 +89,8 @@ class _MyAppState extends State<MyApp> {
           /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
           secureStorageFactory: AmplifySecureStorage.factoryFrom(
             macOSOptions:
-                // ignore: invalid_use_of_visible_for_testing_member
-                MacOSSecureStorageOptions(useDataProtection: false),
+            // ignore: invalid_use_of_visible_for_testing_member
+            MacOSSecureStorageOptions(useDataProtection: false),
           ),
         ),
       ]);
@@ -161,9 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _fetchAuthSession() async {
     final authSession = await Amplify.Auth.fetchAuthSession();
-    _logger.info(
-      prettyPrintJson(authSession.toJson()),
-    );
+    _logger.info(prettyPrintJson(authSession.toJson()));
   }
 
   Future<void> _requestGreeting() async {
@@ -171,12 +173,10 @@ class _HomeScreenState extends State<HomeScreen> {
       _loading = true;
     });
     try {
-      final response = await Amplify.API
-          .post(
-            '/hello',
-            body: HttpPayload.string(_controller.text),
-          )
-          .response;
+      final response =
+          await Amplify.API
+              .post('/hello', body: HttpPayload.string(_controller.text))
+              .response;
       final decodedBody = response.decodeBody();
       setState(() {
         _greeting = decodedBody;
@@ -195,9 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Amplify Auth Example'),
-      ),
+      appBar: AppBar(title: const Text('Amplify Auth Example')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

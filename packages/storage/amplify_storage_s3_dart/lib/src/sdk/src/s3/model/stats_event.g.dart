@@ -72,10 +72,7 @@ class StatsEventBuilder implements Builder<StatsEvent, StatsEventBuilder> {
   _$StatsEvent _build() {
     _$StatsEvent _$result;
     try {
-      _$result = _$v ??
-          new _$StatsEvent._(
-            details: _details?.build(),
-          );
+      _$result = _$v ?? new _$StatsEvent._(details: _details?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -83,7 +80,10 @@ class StatsEventBuilder implements Builder<StatsEvent, StatsEventBuilder> {
         _details?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'StatsEvent', _$failedField, e.toString());
+          r'StatsEvent',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

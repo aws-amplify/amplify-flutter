@@ -16,24 +16,27 @@ class _$VerifySoftwareTokenRequest extends VerifySoftwareTokenRequest {
   @override
   final String? friendlyDeviceName;
 
-  factory _$VerifySoftwareTokenRequest(
-          [void Function(VerifySoftwareTokenRequestBuilder)? updates]) =>
-      (new VerifySoftwareTokenRequestBuilder()..update(updates))._build();
+  factory _$VerifySoftwareTokenRequest([
+    void Function(VerifySoftwareTokenRequestBuilder)? updates,
+  ]) => (new VerifySoftwareTokenRequestBuilder()..update(updates))._build();
 
-  _$VerifySoftwareTokenRequest._(
-      {this.accessToken,
-      this.session,
-      required this.userCode,
-      this.friendlyDeviceName})
-      : super._() {
+  _$VerifySoftwareTokenRequest._({
+    this.accessToken,
+    this.session,
+    required this.userCode,
+    this.friendlyDeviceName,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        userCode, r'VerifySoftwareTokenRequest', 'userCode');
+      userCode,
+      r'VerifySoftwareTokenRequest',
+      'userCode',
+    );
   }
 
   @override
   VerifySoftwareTokenRequest rebuild(
-          void Function(VerifySoftwareTokenRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(VerifySoftwareTokenRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   VerifySoftwareTokenRequestBuilder toBuilder() =>
@@ -112,12 +115,16 @@ class VerifySoftwareTokenRequestBuilder
   VerifySoftwareTokenRequest build() => _build();
 
   _$VerifySoftwareTokenRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$VerifySoftwareTokenRequest._(
           accessToken: accessToken,
           session: session,
           userCode: BuiltValueNullFieldError.checkNotNull(
-              userCode, r'VerifySoftwareTokenRequest', 'userCode'),
+            userCode,
+            r'VerifySoftwareTokenRequest',
+            'userCode',
+          ),
           friendlyDeviceName: friendlyDeviceName,
         );
     replace(_$result);

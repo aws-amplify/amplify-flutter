@@ -14,18 +14,20 @@ class _$TooManyRequestsException extends TooManyRequestsException {
   @override
   final Map<String, String>? headers;
 
-  factory _$TooManyRequestsException(
-          [void Function(TooManyRequestsExceptionBuilder)? updates]) =>
-      (new TooManyRequestsExceptionBuilder()..update(updates))._build();
+  factory _$TooManyRequestsException([
+    void Function(TooManyRequestsExceptionBuilder)? updates,
+  ]) => (new TooManyRequestsExceptionBuilder()..update(updates))._build();
 
-  _$TooManyRequestsException._(
-      {this.retryAfterSeconds, this.message, this.headers})
-      : super._();
+  _$TooManyRequestsException._({
+    this.retryAfterSeconds,
+    this.message,
+    this.headers,
+  }) : super._();
 
   @override
   TooManyRequestsException rebuild(
-          void Function(TooManyRequestsExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TooManyRequestsExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TooManyRequestsExceptionBuilder toBuilder() =>
@@ -95,11 +97,13 @@ class TooManyRequestsExceptionBuilder
   TooManyRequestsException build() => _build();
 
   _$TooManyRequestsException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$TooManyRequestsException._(
-            retryAfterSeconds: retryAfterSeconds,
-            message: message,
-            headers: headers);
+          retryAfterSeconds: retryAfterSeconds,
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }
@@ -110,16 +114,17 @@ class _$TooManyRequestsExceptionPayload
   @override
   final String? message;
 
-  factory _$TooManyRequestsExceptionPayload(
-          [void Function(TooManyRequestsExceptionPayloadBuilder)? updates]) =>
+  factory _$TooManyRequestsExceptionPayload([
+    void Function(TooManyRequestsExceptionPayloadBuilder)? updates,
+  ]) =>
       (new TooManyRequestsExceptionPayloadBuilder()..update(updates))._build();
 
   _$TooManyRequestsExceptionPayload._({this.message}) : super._();
 
   @override
   TooManyRequestsExceptionPayload rebuild(
-          void Function(TooManyRequestsExceptionPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(TooManyRequestsExceptionPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   TooManyRequestsExceptionPayloadBuilder toBuilder() =>
@@ -142,8 +147,10 @@ class _$TooManyRequestsExceptionPayload
 
 class TooManyRequestsExceptionPayloadBuilder
     implements
-        Builder<TooManyRequestsExceptionPayload,
-            TooManyRequestsExceptionPayloadBuilder> {
+        Builder<
+          TooManyRequestsExceptionPayload,
+          TooManyRequestsExceptionPayloadBuilder
+        > {
   _$TooManyRequestsExceptionPayload? _$v;
 
   String? _message;

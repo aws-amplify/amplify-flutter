@@ -36,7 +36,7 @@ void main(List<String> args) async {
 // Generated with tool/generate_sdk_exceptions.dart. Do not modify by hand.
 
 /// Exception types bridged from generated SDKs to their legacy counterparts.
-library amplify_auth_cognito_dart.sdk.sdk_exception;
+library;
 
 import 'package:amplify_core/amplify_core.dart' as core;
 import 'package:meta/meta.dart';
@@ -120,12 +120,13 @@ final class UnknownServiceException extends CognitoServiceException
   );
   final operationShapes = ast.shapes.values.whereType<OperationShape>();
   // Find error shapes which are attached to an operation we use.
-  final errorShapes =
-      ast.shapes.values.where((s) => s.hasTrait<ErrorTrait>()).where(
-            (e) => operationShapes.any(
-              (o) => o.errors.map((ref) => ref.target).contains(e.shapeId),
-            ),
-          );
+  final errorShapes = ast.shapes.values
+      .where((s) => s.hasTrait<ErrorTrait>())
+      .where(
+        (e) => operationShapes.any(
+          (o) => o.errors.map((ref) => ref.target).contains(e.shapeId),
+        ),
+      );
   final uniqueErrorShapes = LinkedHashSet<Shape>(
     equals: (a, b) => a.shapeId.shape == b.shapeId.shape,
     hashCode: (s) => s.shapeId.shape.hashCode,

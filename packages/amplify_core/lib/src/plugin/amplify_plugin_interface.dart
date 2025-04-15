@@ -16,8 +16,8 @@ abstract /* base */ class AmplifyPluginInterface {
   @protected
   @visibleForTesting
   late final DependencyManager dependencies =
-      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-      DependencyManager.scoped(Amplify.dependencies);
+  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+  DependencyManager.scoped(Amplify.dependencies);
 
   /// Called when the plugin is added to the category.
   @mustCallSuper

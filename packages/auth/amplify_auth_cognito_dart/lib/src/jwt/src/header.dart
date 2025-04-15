@@ -153,18 +153,18 @@ class JsonWebHeader with AWSEquatable<JsonWebHeader>, AWSSerializable {
 
   @override
   List<Object?> get props => [
-        algorithm,
-        jwkSetUri,
-        jwk,
-        keyId,
-        x509CertChain,
-        x509sha1Thumbprint,
-        x509sha256Thumbprint,
-        x509Uri,
-        type,
-        contentType,
-        critical,
-      ];
+    algorithm,
+    jwkSetUri,
+    jwk,
+    keyId,
+    x509CertChain,
+    x509sha1Thumbprint,
+    x509sha256Thumbprint,
+    x509Uri,
+    type,
+    contentType,
+    critical,
+  ];
 
   @override
   Map<String, Object?> toJson() => _$JsonWebHeaderToJson(this);

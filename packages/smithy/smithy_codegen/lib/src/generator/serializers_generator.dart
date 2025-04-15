@@ -17,40 +17,44 @@ class SerializersGenerator extends Generator<Library> {
   @override
   Library generate() {
     return Library(
-      (b) => b
-        ..name = context.serviceSerializersLibrary.libraryName
-        ..body.addAll([
-          _serializers,
-          _builderFactories,
-        ]),
+      (b) =>
+          b
+            ..name = context.serviceSerializersLibrary.libraryName
+            ..body.addAll([_serializers, _builderFactories]),
     );
   }
 
   /// The `serializers` field which aggregates all serializers across the
   /// service's generated shapes.
   Field get _serializers => Field(
-        (f) => f
+    (f) =>
+        f
           ..modifier = FieldModifier.constant
           ..type = DartTypes.core.list(DartTypes.smithy.smithySerializer())
           ..name = 'serializers'
-          ..assignment = literalConstList([
-            for (final type in context.generatedTypes.keys)
-              type.property('serializers').spread,
-          ]).code,
-      );
+          ..assignment =
+              literalConstList([
+                for (final type in context.generatedTypes.keys)
+                  type.property('serializers').spread,
+              ]).code,
+  );
 
   /// The `builderFactories` field which is filled in with all the builder
   /// factories necessary for built collection types throughout the service's
   /// closure.
   Field get _builderFactories => Field(
-        (f) => f
+    (f) =>
+        f
           ..modifier = FieldModifier.final$
-          ..type = DartTypes.core
-              .map(DartTypes.builtValue.fullType, DartTypes.core.function)
+          ..type = DartTypes.core.map(
+            DartTypes.builtValue.fullType,
+            DartTypes.core.function,
+          )
           ..name = 'builderFactories'
-          ..assignment = literalMap({
-            for (final entry in context.builderFactories.entries)
-              entry.key.fullType(): entry.value,
-          }).code,
-      );
+          ..assignment =
+              literalMap({
+                for (final entry in context.builderFactories.entries)
+                  entry.key.fullType(): entry.value,
+              }).code,
+  );
 }

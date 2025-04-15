@@ -70,8 +70,9 @@ void main({
         expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
       });
 
-      testWidgets('should fetch when document string contains tabs',
-          (WidgetTester tester) async {
+      testWidgets('should fetch when document string contains tabs', (
+        WidgetTester tester,
+      ) async {
         const listBlogs = 'listBlogs';
         const items = 'items';
         // tab before id and name
@@ -84,8 +85,9 @@ void main({
         }
       }''';
 
-        final operation = Amplify.API
-            .query<String>(request: GraphQLRequest(document: graphQLDocument));
+        final operation = Amplify.API.query<String>(
+          request: GraphQLRequest(document: graphQLDocument),
+        );
         final res = await operation.response;
         final data = jsonDecode(res.data!) as Map;
         expect(res, hasNoGraphQLErrors);
@@ -94,8 +96,9 @@ void main({
       });
 
       // Queries
-      testWidgets('should GET a blog with Model helper',
-          (WidgetTester tester) async {
+      testWidgets('should GET a blog with Model helper', (
+        WidgetTester tester,
+      ) async {
         const name = 'Integration Test Blog to fetch';
         final blog = await addBlog(name);
         final req = ModelQueries.get(Blog.classType, blog.modelIdentifier);
@@ -105,8 +108,9 @@ void main({
         expect(data, equals(blog));
       });
 
-      testWidgets('should LIST blogs with Model helper',
-          (WidgetTester tester) async {
+      testWidgets('should LIST blogs with Model helper', (
+        WidgetTester tester,
+      ) async {
         await addBlog('Integration Test Blog 1');
         final req = ModelQueries.list<Blog>(Blog.classType);
         final operation = Amplify.API.query(request: req);
@@ -117,27 +121,33 @@ void main({
       });
 
       testWidgets(
-          'get requestForNextResult should produce next page of results from first response',
-          (WidgetTester tester) async {
-        const limit = 1;
-        final firstReq = ModelQueries.list<Blog>(Blog.classType, limit: limit);
-        final firstRes = await Amplify.API.query(request: firstReq).response;
-        final firstData = firstRes.data;
-        expect(firstData?.items.length, limit);
-        expect(firstData?.hasNextResult, true);
-        final secondReq = firstData?.requestForNextResult;
-        final secondRes = await Amplify.API.query(request: secondReq!).response;
-        final secondData = secondRes.data;
-        expect(secondData?.items.length, limit);
-        final firstId = firstData?.items[0]?.id;
-        final secondId = secondData?.items[0]?.id;
-        expect(firstId?.isNotEmpty, isTrue);
-        expect(secondId?.isNotEmpty, isTrue);
-        expect(firstId, isNot(secondId));
-      });
+        'get requestForNextResult should produce next page of results from first response',
+        (WidgetTester tester) async {
+          const limit = 1;
+          final firstReq = ModelQueries.list<Blog>(
+            Blog.classType,
+            limit: limit,
+          );
+          final firstRes = await Amplify.API.query(request: firstReq).response;
+          final firstData = firstRes.data;
+          expect(firstData?.items.length, limit);
+          expect(firstData?.hasNextResult, true);
+          final secondReq = firstData?.requestForNextResult;
+          final secondRes =
+              await Amplify.API.query(request: secondReq!).response;
+          final secondData = secondRes.data;
+          expect(secondData?.items.length, limit);
+          final firstId = firstData?.items[0]?.id;
+          final secondId = secondData?.items[0]?.id;
+          expect(firstId?.isNotEmpty, isTrue);
+          expect(secondId?.isNotEmpty, isTrue);
+          expect(firstId, isNot(secondId));
+        },
+      );
 
-      testWidgets('should LIST blogs with Model helper with query predicate',
-          (WidgetTester tester) async {
+      testWidgets('should LIST blogs with Model helper with query predicate', (
+        WidgetTester tester,
+      ) async {
         final blogName = 'Integration Test Blog ${uuid()}';
         final blog = await addBlog(blogName);
 
@@ -156,36 +166,32 @@ void main({
       });
 
       testWidgets(
-          'should LIST posts with Model and include parents in response',
-          (WidgetTester tester) async {
+        'should LIST posts with Model and include parents in response',
+        (WidgetTester tester) async {
+          final title = 'Lorem Ipsum Test Post: ${uuid()}';
+          const rating = 0;
+          final createdPost = await addPostAndBlog(title, rating);
+
+          final req = ModelQueries.list(
+            Post.classType,
+            where: Post.TITLE.eq(title),
+            limit: _limit,
+          );
+          final res = await Amplify.API.query(request: req).response;
+          final postFromResponse = res.data?.items[0];
+
+          expect(res, hasNoGraphQLErrors);
+          expect(postFromResponse?.blog?.id, isNotNull);
+          expect(postFromResponse?.blog?.id, createdPost.blog?.id);
+        },
+      );
+
+      testWidgets('should LIST posts by parent ID', (
+        WidgetTester tester,
+      ) async {
         final title = 'Lorem Ipsum Test Post: ${uuid()}';
         const rating = 0;
-        final createdPost = await addPostAndBlog(
-          title,
-          rating,
-        );
-
-        final req = ModelQueries.list(
-          Post.classType,
-          where: Post.TITLE.eq(title),
-          limit: _limit,
-        );
-        final res = await Amplify.API.query(request: req).response;
-        final postFromResponse = res.data?.items[0];
-
-        expect(res, hasNoGraphQLErrors);
-        expect(postFromResponse?.blog?.id, isNotNull);
-        expect(postFromResponse?.blog?.id, createdPost.blog?.id);
-      });
-
-      testWidgets('should LIST posts by parent ID',
-          (WidgetTester tester) async {
-        final title = 'Lorem Ipsum Test Post: ${uuid()}';
-        const rating = 0;
-        final createdPost = await addPostAndBlog(
-          title,
-          rating,
-        );
+        final createdPost = await addPostAndBlog(title, rating);
         final blogId = createdPost.blog?.id;
 
         final req = ModelQueries.list(
@@ -202,15 +208,13 @@ void main({
         expect(postFromResponse?.title, title);
       });
 
-      testWidgets('should return model if attribute exists',
-          (WidgetTester tester) async {
+      testWidgets('should return model if attribute exists', (
+        WidgetTester tester,
+      ) async {
         // Use same name to scope the query to the created model.
         final name = 'Lorem Ipsum Test Sample: ${uuid()}';
         final number = Random().nextInt(_max);
-        await addSamplePartial(
-          name,
-          number: number,
-        );
+        await addSamplePartial(name, number: number);
         await addSamplePartial(name);
 
         final existsRequest = ModelQueries.list(
@@ -219,11 +223,8 @@ void main({
           limit: _limit,
         );
 
-        final existsResponse = await Amplify.API
-            .query(
-              request: existsRequest,
-            )
-            .response;
+        final existsResponse =
+            await Amplify.API.query(request: existsRequest).response;
 
         final existsData = existsResponse.data;
         expect(existsData?.items.length, 1);
@@ -236,11 +237,8 @@ void main({
               .and(Sample.NAME.eq(name)),
           limit: _limit,
         );
-        final doesNotExistResponse = await Amplify.API
-            .query(
-              request: doesNotExistRequest,
-            )
-            .response;
+        final doesNotExistResponse =
+            await Amplify.API.query(request: doesNotExistRequest).response;
 
         final doesNotExistData = doesNotExistResponse.data;
         expect(doesNotExistData?.items.length, 1);
@@ -250,10 +248,7 @@ void main({
       testWidgets('should copyWith request', (WidgetTester tester) async {
         final title = 'Lorem Ipsum Test Post: ${uuid()}';
         const rating = 0;
-        final createdPost = await addPostAndBlog(
-          title,
-          rating,
-        );
+        final createdPost = await addPostAndBlog(title, rating);
         final blogId = createdPost.blog?.id;
 
         // Original request with mock id
@@ -281,8 +276,9 @@ void main({
         expect(postFromResponse?.title, title);
       });
 
-      testWidgets('should decode a custom list request',
-          (WidgetTester tester) async {
+      testWidgets('should decode a custom list request', (
+        WidgetTester tester,
+      ) async {
         final name = 'Lorem Ipsum Test Blog: ${uuid()}';
         await addBlog(name);
 
@@ -381,15 +377,17 @@ void main({
             ),
             authorizationMode: APIAuthorizationType.iam,
           );
-          final explicitChildCreateRes = await Amplify.API
-              .mutate(request: createExplicitChildReq)
-              .response;
+          final explicitChildCreateRes =
+              await Amplify.API
+                  .mutate(request: createExplicitChildReq)
+                  .response;
           expect(explicitChildCreateRes, hasNoGraphQLErrors);
           final createdExplicitChild = explicitChildCreateRes.data!;
           cpkExplicitChildCache.add(createdExplicitChild);
-          final implicitChildCreateRes = await Amplify.API
-              .mutate(request: createImplicitChildReq)
-              .response;
+          final implicitChildCreateRes =
+              await Amplify.API
+                  .mutate(request: createImplicitChildReq)
+                  .response;
           expect(implicitChildCreateRes, hasNoGraphQLErrors);
           final createdImplicitChild = implicitChildCreateRes.data!;
           cpkImplicitChildCache.add(createdImplicitChild);
@@ -397,10 +395,10 @@ void main({
           // Fetch the created children and check responses.
           final fetchExplicitChildReq =
               ModelQueries.get<CpkOneToOneBidirectionalChildExplicitCD>(
-            CpkOneToOneBidirectionalChildExplicitCD.classType,
-            createdExplicitChild.modelIdentifier,
-            authorizationMode: APIAuthorizationType.iam,
-          );
+                CpkOneToOneBidirectionalChildExplicitCD.classType,
+                createdExplicitChild.modelIdentifier,
+                authorizationMode: APIAuthorizationType.iam,
+              );
           final fetchExplicitChildRes =
               await Amplify.API.query(request: fetchExplicitChildReq).response;
           final fetchedExplicitChild = fetchExplicitChildRes.data;
@@ -410,16 +408,13 @@ void main({
           final explicitChildJson = fetchedExplicitChild?.toJson();
           final explicitParentJson =
               explicitChildJson?['belongsToParent'] as Map<String, dynamic>;
-          expect(
-            explicitParentJson['customId'],
-            equals(cpkParent.customId),
-          );
+          expect(explicitParentJson['customId'], equals(cpkParent.customId));
           final fetchImplicitChildReq =
               ModelQueries.get<CpkOneToOneBidirectionalChildImplicitCD>(
-            CpkOneToOneBidirectionalChildImplicitCD.classType,
-            createdImplicitChild.modelIdentifier,
-            authorizationMode: APIAuthorizationType.iam,
-          );
+                CpkOneToOneBidirectionalChildImplicitCD.classType,
+                createdImplicitChild.modelIdentifier,
+                authorizationMode: APIAuthorizationType.iam,
+              );
           final fetchImplicitChildRes =
               await Amplify.API.query(request: fetchImplicitChildReq).response;
           final fetchedImplicitChild = fetchImplicitChildRes.data;
@@ -427,10 +422,7 @@ void main({
           final implicitChildJson = fetchedImplicitChild?.toJson();
           final implicitParentJson =
               implicitChildJson?['belongsToParent'] as Map<String, dynamic>;
-          expect(
-            implicitParentJson['customId'],
-            equals(cpkParent.customId),
-          );
+          expect(implicitParentJson['customId'], equals(cpkParent.customId));
         },
       );
     });
@@ -440,8 +432,9 @@ void main({
         await signOutTestUser(testUser);
       });
 
-      testWidgets('should fetch model that allows guest access',
-          (WidgetTester tester) async {
+      testWidgets('should fetch model that allows guest access', (
+        WidgetTester tester,
+      ) async {
         final req = ModelQueries.list<Blog>(
           Blog.classType,
           authorizationMode: APIAuthorizationType.iam,
@@ -452,8 +445,9 @@ void main({
         expect(data?.items.length, greaterThanOrEqualTo(0));
       });
 
-      testWidgets('should get error model that does not allow guest access',
-          (WidgetTester tester) async {
+      testWidgets('should get error model that does not allow guest access', (
+        WidgetTester tester,
+      ) async {
         final req = ModelQueries.list<Comment>(
           Comment.classType,
           authorizationMode: APIAuthorizationType.iam,
@@ -468,15 +462,14 @@ void main({
       });
     });
 
-    group(
-      'subscriptions',
-      () {
-        testWidgets(
-            'should emit event when onCreate subscription made with model helper',
-            (WidgetTester tester) async {
+    group('subscriptions', () {
+      testWidgets(
+        'should emit event when onCreate subscription made with model helper',
+        (WidgetTester tester) async {
           final name = 'Integration Test Blog - subscription create ${uuid()}';
-          final subscriptionRequest =
-              ModelSubscriptions.onCreate(Blog.classType);
+          final subscriptionRequest = ModelSubscriptions.onCreate(
+            Blog.classType,
+          );
 
           final eventResponse = await establishSubscriptionAndMutate<Blog>(
             subscriptionRequest,
@@ -486,18 +479,20 @@ void main({
           final blogFromEvent = eventResponse.data;
 
           expect(blogFromEvent?.name, equals(name));
-        });
+        },
+      );
 
-        testWidgets(
-            'should emit event when onUpdate subscription made with model helper',
-            (WidgetTester tester) async {
+      testWidgets(
+        'should emit event when onUpdate subscription made with model helper',
+        (WidgetTester tester) async {
           const originalName = 'Integration Test Blog - subscription update';
           final updatedName =
               'Integration Test Blog - subscription update, name now ${uuid()}';
           var blogToUpdate = await addBlog(originalName);
 
-          final subscriptionRequest =
-              ModelSubscriptions.onUpdate(Blog.classType);
+          final subscriptionRequest = ModelSubscriptions.onUpdate(
+            Blog.classType,
+          );
           final eventResponse = await establishSubscriptionAndMutate<Blog>(
             subscriptionRequest,
             () async {
@@ -513,16 +508,18 @@ void main({
           final blogFromEvent = eventResponse.data;
 
           expect(blogFromEvent?.name, equals(updatedName));
-        });
+        },
+      );
 
-        testWidgets(
-            'should emit event when onDelete subscription made with model helper',
-            (WidgetTester tester) async {
+      testWidgets(
+        'should emit event when onDelete subscription made with model helper',
+        (WidgetTester tester) async {
           const name = 'Integration Test Blog - subscription delete';
           final blogToDelete = await addBlog(name);
 
-          final subscriptionRequest =
-              ModelSubscriptions.onDelete(Blog.classType);
+          final subscriptionRequest = ModelSubscriptions.onDelete(
+            Blog.classType,
+          );
           final eventResponse = await establishSubscriptionAndMutate<Blog>(
             subscriptionRequest,
             () => deleteBlog(blogToDelete),
@@ -531,29 +528,30 @@ void main({
           final blogFromEvent = eventResponse.data;
 
           expect(blogFromEvent?.name, equals(name));
-        });
+        },
+      );
 
-        testWidgets('should cancel subscription', (WidgetTester tester) async {
-          const name = 'Integration Test Blog - subscription to cancel';
-          final blogToDelete = await addBlog(name);
+      testWidgets('should cancel subscription', (WidgetTester tester) async {
+        const name = 'Integration Test Blog - subscription to cancel';
+        final blogToDelete = await addBlog(name);
 
-          final subReq = ModelSubscriptions.onDelete(Blog.classType);
-          final subscription = await getEstablishedSubscriptionOperation<Blog>(
-            subReq,
-            (_) {
-              fail('Subscription event triggered. Should be canceled.');
-            },
-          );
-          await subscription.cancel();
+        final subReq = ModelSubscriptions.onDelete(Blog.classType);
+        final subscription = await getEstablishedSubscriptionOperation<Blog>(
+          subReq,
+          (_) {
+            fail('Subscription event triggered. Should be canceled.');
+          },
+        );
+        await subscription.cancel();
 
-          // delete the blog, wait for update
-          await deleteBlog(blogToDelete);
-          await Future<dynamic>.delayed(const Duration(seconds: 5));
-        });
+        // delete the blog, wait for update
+        await deleteBlog(blogToDelete);
+        await Future<dynamic>.delayed(const Duration(seconds: 5));
+      });
 
-        testWidgets(
-            'should emit event when onCreate subscription made with model helper for post (model with parent).',
-            (WidgetTester tester) async {
+      testWidgets(
+        'should emit event when onCreate subscription made with model helper for post (model with parent).',
+        (WidgetTester tester) async {
           final title = 'Integration Test post - subscription create ${uuid()}';
           final subscriptionRequest = ModelSubscriptions.onCreate(
             Post.classType,
@@ -562,111 +560,103 @@ void main({
 
           final eventResponse = await establishSubscriptionAndMutate<Post>(
             subscriptionRequest,
-            () => addPostAndBlog(
-              title,
-              0,
-            ),
+            () => addPostAndBlog(title, 0),
             eventFilter: (response) => response.data?.title == title,
           );
           final postFromEvent = eventResponse.data;
 
           expect(postFromEvent?.title, equals(title));
-        });
+        },
+      );
 
-        testWidgets('should support where clause when using Model helpers',
-            (WidgetTester tester) async {
-          final blog1 = await addBlog(
-            'Integration Test Blog - subscription filter ${uuid()}',
-          );
-          final blog2 = await addBlog(
-            'Integration Test Blog - subscription filter ${uuid()}',
-          );
+      testWidgets('should support where clause when using Model helpers', (
+        WidgetTester tester,
+      ) async {
+        final blog1 = await addBlog(
+          'Integration Test Blog - subscription filter ${uuid()}',
+        );
+        final blog2 = await addBlog(
+          'Integration Test Blog - subscription filter ${uuid()}',
+        );
 
-          final postTitle1 =
-              'Integration Test Post - subscription filter ${uuid()}';
-          final postTitle2 =
-              'Integration Test Post - subscription filter ${uuid()}';
+        final postTitle1 =
+            'Integration Test Post - subscription filter ${uuid()}';
+        final postTitle2 =
+            'Integration Test Post - subscription filter ${uuid()}';
 
-          final subscriptionRequest = ModelSubscriptions.onCreate(
-            Post.classType,
-            where: Post.BLOG.eq(blog2.id),
-          );
+        final subscriptionRequest = ModelSubscriptions.onCreate(
+          Post.classType,
+          where: Post.BLOG.eq(blog2.id),
+        );
 
-          final stream = Amplify.API.subscribe(
-            subscriptionRequest,
-            onEstablished: () {
-              addPost(
-                postTitle1,
-                3,
-                blog1,
-              );
-              addPost(
-                postTitle2,
-                3,
-                blog2,
-              );
-            },
-          );
+        final stream = Amplify.API.subscribe(
+          subscriptionRequest,
+          onEstablished: () {
+            addPost(postTitle1, 3, blog1);
+            addPost(postTitle2, 3, blog2);
+          },
+        );
 
-          stream.listen(
-            expectAsync1((event) {
-              final postFromEvent = event.data;
+        stream.listen(
+          expectAsync1((event) {
+            final postFromEvent = event.data;
 
-              expect(postFromEvent?.title, equals(postTitle2));
-            }),
-            onError: (Object e) => fail('Error in subscription stream: $e'),
-          );
-        });
+            expect(postFromEvent?.title, equals(postTitle2));
+          }),
+          onError: (Object e) => fail('Error in subscription stream: $e'),
+        );
+      });
 
-        testWidgets(
-            'stream should emit response with error when subscription fails',
-            (WidgetTester tester) async {
-          // Create a subscription we will ignore to keep the connection open after
-          // canceling a failed subscription.
-          final firstSubscriptionCompleter = Completer<void>();
-          final firstStream = Amplify.API.subscribe(
-            ModelSubscriptions.onCreate(Blog.classType),
-            onEstablished: firstSubscriptionCompleter.complete,
-          );
-          await firstSubscriptionCompleter.future;
+      testWidgets('stream should emit response with error when subscription fails', (
+        WidgetTester tester,
+      ) async {
+        // Create a subscription we will ignore to keep the connection open after
+        // canceling a failed subscription.
+        final firstSubscriptionCompleter = Completer<void>();
+        final firstStream = Amplify.API.subscribe(
+          ModelSubscriptions.onCreate(Blog.classType),
+          onEstablished: firstSubscriptionCompleter.complete,
+        );
+        await firstSubscriptionCompleter.future;
 
-          // Then create a 2nd subscription with an error
-          const document = '''subscription MyInvalidSubscription {
+        // Then create a 2nd subscription with an error
+        const document = '''subscription MyInvalidSubscription {
             onCreateInvalidBlog {
               id
               name
               createdAt
             }
           }''';
-          final invalidSubscriptionRequest =
-              GraphQLRequest<String>(document: document);
-          final streamWithError = Amplify.API.subscribe(
-            invalidSubscriptionRequest,
-            onEstablished: () => fail(
-              'onEstablished should not be called during failed subscription',
-            ),
-          );
-
-          expect(
-            streamWithError,
-            emits(
-              predicate<GraphQLResponse<String>>(
-                (GraphQLResponse<String> response) =>
-                    response.hasErrors && response.data == null,
-                'Has GraphQL Errors',
+        final invalidSubscriptionRequest = GraphQLRequest<String>(
+          document: document,
+        );
+        final streamWithError = Amplify.API.subscribe(
+          invalidSubscriptionRequest,
+          onEstablished:
+              () => fail(
+                'onEstablished should not be called during failed subscription',
               ),
+        );
+
+        expect(
+          streamWithError,
+          emits(
+            predicate<GraphQLResponse<String>>(
+              (GraphQLResponse<String> response) =>
+                  response.hasErrors && response.data == null,
+              'Has GraphQL Errors',
             ),
-          );
-          // Cancel subscription that had an error.
-          await streamWithError.listen(null).cancel();
-          // Give AppSync a few seconds to send an error, which happens when
-          // canceling a failed subscription and throws if not handled correctly.
-          // Needs to be on a canceled error subscription with an open connection.
-          await Future<void>.delayed(const Duration(seconds: 3));
-          // Cancel the first subscription, which will close the WebSocket connection.
-          await firstStream.listen(null).cancel();
-        });
-      },
-    );
+          ),
+        );
+        // Cancel subscription that had an error.
+        await streamWithError.listen(null).cancel();
+        // Give AppSync a few seconds to send an error, which happens when
+        // canceling a failed subscription and throws if not handled correctly.
+        // Needs to be on a canceled error subscription with an open connection.
+        await Future<void>.delayed(const Duration(seconds: 3));
+        // Cancel the first subscription, which will close the WebSocket connection.
+        await firstStream.listen(null).cancel();
+      });
+    });
   });
 }

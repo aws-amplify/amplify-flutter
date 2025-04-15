@@ -33,12 +33,5 @@ class HttpMalformedRequestDefinition
   Map<String, Object?> toJson() => _$HttpMalformedRequestDefinitionToJson(this);
 
   @override
-  List<Object?> get props => [
-        body,
-        headers,
-        host,
-        method,
-        queryParams,
-        uri,
-      ];
+  List<Object?> get props => [body, headers, host, method, queryParams, uri];
 }

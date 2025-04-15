@@ -17,9 +17,7 @@ void main() {
     group('unauthenticated access enabled', () {
       group('no user pool', () {
         setUp(() async {
-          await testRunner.configure(
-            environmentName: 'identity-pool-only',
-          );
+          await testRunner.configure(environmentName: 'identity-pool-only');
         });
 
         asyncTest('allows retrieving credentials', (_) async {
@@ -60,21 +58,18 @@ void main() {
           expect(res.isSignedIn, isTrue);
         });
 
-        asyncTest(
-          'should return user credentials',
-          (_) async {
-            final res =
-                await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-            expect(res.isSignedIn, isTrue);
-            expect(isValidUserSub(res.userSubResult.value), isTrue);
-            expect(isValidIdentityId(res.identityIdResult.value), isTrue);
-            expect(isValidAWSCredentials(res.credentialsResult.value), isTrue);
-            expect(
-              isValidAWSCognitoUserPoolTokens(res.userPoolTokensResult.value),
-              isTrue,
-            );
-          },
-        );
+        asyncTest('should return user credentials', (_) async {
+          final res =
+              await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+          expect(res.isSignedIn, isTrue);
+          expect(isValidUserSub(res.userSubResult.value), isTrue);
+          expect(isValidIdentityId(res.identityIdResult.value), isTrue);
+          expect(isValidAWSCredentials(res.credentialsResult.value), isTrue);
+          expect(
+            isValidAWSCognitoUserPoolTokens(res.userPoolTokensResult.value),
+            isTrue,
+          );
+        });
 
         group('user is signed out', () {
           asyncTest(
@@ -105,9 +100,7 @@ void main() {
 
     group('unauthenticated access disabled', () {
       setUp(() async {
-        await testRunner.configure(
-          environmentName: 'authenticated-users-only',
-        );
+        await testRunner.configure(environmentName: 'authenticated-users-only');
       });
 
       Future<void> retrieveUnauthenticatedCredentials() async {
@@ -162,30 +155,16 @@ void main() {
         final session =
             await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
         expect(session.isSignedIn, isTrue);
-        expect(
-          () => session.credentialsResult.value,
-          returnsNormally,
-        );
-        expect(
-          () => session.identityIdResult.value,
-          returnsNormally,
-        );
-        expect(
-          () => session.userPoolTokensResult.value,
-          returnsNormally,
-        );
-        expect(
-          () => session.userSubResult.value,
-          returnsNormally,
-        );
+        expect(() => session.credentialsResult.value, returnsNormally);
+        expect(() => session.identityIdResult.value, returnsNormally);
+        expect(() => session.userPoolTokensResult.value, returnsNormally);
+        expect(() => session.userSubResult.value, returnsNormally);
       });
     });
 
     group('user pool-only', () {
       setUp(() async {
-        await testRunner.configure(
-          environmentName: 'user-pool-only',
-        );
+        await testRunner.configure(environmentName: 'user-pool-only');
       });
 
       Future<void> retrieveUnauthenticatedCredentials() async {
@@ -248,14 +227,8 @@ void main() {
           () => session.identityIdResult.value,
           throwsA(isA<InvalidAccountTypeException>()),
         );
-        expect(
-          () => session.userPoolTokensResult.value,
-          returnsNormally,
-        );
-        expect(
-          () => session.userSubResult.value,
-          returnsNormally,
-        );
+        expect(() => session.userPoolTokensResult.value, returnsNormally);
+        expect(() => session.userSubResult.value, returnsNormally);
       });
     });
 
@@ -264,9 +237,13 @@ void main() {
         Future<Map<String, Object?>> getCustomAttributes({
           bool forceRefresh = false,
         }) async {
-          final session = await Amplify.Auth.fetchAuthSession(
-            options: FetchAuthSessionOptions(forceRefresh: forceRefresh),
-          ) as CognitoAuthSession;
+          final session =
+              await Amplify.Auth.fetchAuthSession(
+                    options: FetchAuthSessionOptions(
+                      forceRefresh: forceRefresh,
+                    ),
+                  )
+                  as CognitoAuthSession;
           final idToken = session.userPoolTokensResult.value.idToken;
           return idToken.claims.customClaims;
         }
@@ -325,11 +302,11 @@ void main() {
           final password = generatePassword();
           final attributeKey = switch (environment.loginMethod) {
             LoginMethod.phone => AuthUserAttributeKey.phoneNumber,
-            _ => AuthUserAttributeKey.email
+            _ => AuthUserAttributeKey.email,
           };
           final originalAttributeValue = switch (environment.loginMethod) {
             LoginMethod.username => generateEmail(),
-            _ => username
+            _ => username,
           };
 
           await adminCreateUser(
@@ -338,9 +315,7 @@ void main() {
             autoConfirm: true,
             verifyAttributes: true,
             autoFillAttributes: environment.loginMethod.isUsername,
-            attributes: {
-              attributeKey: originalAttributeValue,
-            },
+            attributes: {attributeKey: originalAttributeValue},
           );
 
           final res = await Amplify.Auth.signIn(

@@ -26,7 +26,7 @@ import 'package:async/async.dart';
 class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   /// {@macro amplify_auth_cognito.legacy_ios_credential_provider}
   LegacyCredentialProviderIOS(CognitoAuthStateMachine stateMachine)
-      : _stateMachine = stateMachine;
+    : _stateMachine = stateMachine;
   final CognitoAuthStateMachine _stateMachine;
 
   @override
@@ -57,9 +57,10 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
         );
         if (accessToken != null && refreshToken != null && idToken != null) {
           // TODO(Jordan-Nelson): fetch sign in method from keychain on iOS
-          final signInMethod = authOutputs.oauth != null
-              ? CognitoSignInMethod.hostedUi
-              : CognitoSignInMethod.default$;
+          final signInMethod =
+              authOutputs.oauth != null
+                  ? CognitoSignInMethod.hostedUi
+                  : CognitoSignInMethod.default$;
           userPoolTokens = CognitoUserPoolTokens(
             signInMethod: signInMethod,
             accessToken: JsonWebToken.parse(accessToken),
@@ -74,9 +75,7 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
     AWSCredentials? awsCredentials;
     final identityPoolId = authOutputs.identityPoolId;
     if (identityPoolId != null) {
-      final identityPoolStorage = await _getIdentityPoolStorage(
-        identityPoolId,
-      );
+      final identityPoolStorage = await _getIdentityPoolStorage(identityPoolId);
       const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
       identityId = await identityPoolStorage.read(
         key: identityPoolKeys[LegacyCognitoIdentityPoolKey.identityId],
@@ -123,9 +122,7 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   }
 
   @override
-  Future<void> deleteLegacyCredentials(
-    AuthOutputs authOutputs,
-  ) async {
+  Future<void> deleteLegacyCredentials(AuthOutputs authOutputs) async {
     final userPoolClientId = authOutputs.userPoolClientId;
     if (userPoolClientId != null) {
       final userPoolStorage = await _getUserPoolStorage();
@@ -148,8 +145,9 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
     }
 
     if (authOutputs.identityPoolId != null) {
-      final identityPoolStorage =
-          await _getIdentityPoolStorage(authOutputs.identityPoolId!);
+      final identityPoolStorage = await _getIdentityPoolStorage(
+        authOutputs.identityPoolId!,
+      );
       const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
       await identityPoolStorage.deleteMany([
         identityPoolKeys[LegacyCognitoIdentityPoolKey.identityId],
@@ -175,10 +173,7 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
     );
     final userPoolId = authOutputs.userPoolId;
     if (currentUserId == null || userPoolId == null) return null;
-    final keys = LegacyDeviceSecretKeys(
-      currentUserId,
-      userPoolId,
-    );
+    final keys = LegacyDeviceSecretKeys(currentUserId, userPoolId);
     final deviceKey = await userPoolStorage.read(
       key: keys[LegacyDeviceSecretKey.id],
     );
@@ -246,8 +241,8 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   /// repository name on Android.
   SecureStorageInterface _getSecureStorageInstance(String namespace) {
     return _secureStorageInstances[namespace] ??=
-        // ignore: invalid_use_of_internal_member
-        AmplifySecureStorageDart(
+    // ignore: invalid_use_of_internal_member
+    AmplifySecureStorageDart(
       config: AmplifySecureStorageConfig.byNamespace(namespace: namespace),
     );
   }

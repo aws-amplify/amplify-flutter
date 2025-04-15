@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library amplify_auth_cognito_dart.exception.srp_error;
+library;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';

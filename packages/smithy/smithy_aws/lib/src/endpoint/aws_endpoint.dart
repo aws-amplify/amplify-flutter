@@ -11,10 +11,7 @@ import 'package:smithy_aws/src/endpoint/credential_scope.dart';
 /// {@endtemplate}
 class AWSEndpoint {
   /// {@macro smithy_aws.aws_endpoint}
-  const AWSEndpoint({
-    required this.endpoint,
-    this.credentialScope,
-  });
+  const AWSEndpoint({required this.endpoint, this.credentialScope});
 
   /// The endpoint clients will use to make API calls to e.g.
   /// "{service-id}.{region}.amazonaws.com".

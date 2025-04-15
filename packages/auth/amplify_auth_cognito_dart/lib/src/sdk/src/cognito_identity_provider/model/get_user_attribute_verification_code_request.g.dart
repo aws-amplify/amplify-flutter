@@ -15,28 +15,33 @@ class _$GetUserAttributeVerificationCodeRequest
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$GetUserAttributeVerificationCodeRequest(
-          [void Function(GetUserAttributeVerificationCodeRequestBuilder)?
-              updates]) =>
+  factory _$GetUserAttributeVerificationCodeRequest([
+    void Function(GetUserAttributeVerificationCodeRequestBuilder)? updates,
+  ]) =>
       (new GetUserAttributeVerificationCodeRequestBuilder()..update(updates))
           ._build();
 
-  _$GetUserAttributeVerificationCodeRequest._(
-      {required this.accessToken,
-      required this.attributeName,
-      this.clientMetadata})
-      : super._() {
+  _$GetUserAttributeVerificationCodeRequest._({
+    required this.accessToken,
+    required this.attributeName,
+    this.clientMetadata,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'GetUserAttributeVerificationCodeRequest', 'accessToken');
-    BuiltValueNullFieldError.checkNotNull(attributeName,
-        r'GetUserAttributeVerificationCodeRequest', 'attributeName');
+      accessToken,
+      r'GetUserAttributeVerificationCodeRequest',
+      'accessToken',
+    );
+    BuiltValueNullFieldError.checkNotNull(
+      attributeName,
+      r'GetUserAttributeVerificationCodeRequest',
+      'attributeName',
+    );
   }
 
   @override
   GetUserAttributeVerificationCodeRequest rebuild(
-          void Function(GetUserAttributeVerificationCodeRequestBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetUserAttributeVerificationCodeRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetUserAttributeVerificationCodeRequestBuilder toBuilder() =>
@@ -64,8 +69,10 @@ class _$GetUserAttributeVerificationCodeRequest
 
 class GetUserAttributeVerificationCodeRequestBuilder
     implements
-        Builder<GetUserAttributeVerificationCodeRequest,
-            GetUserAttributeVerificationCodeRequestBuilder> {
+        Builder<
+          GetUserAttributeVerificationCodeRequest,
+          GetUserAttributeVerificationCodeRequestBuilder
+        > {
   _$GetUserAttributeVerificationCodeRequest? _$v;
 
   String? _accessToken;
@@ -104,7 +111,8 @@ class GetUserAttributeVerificationCodeRequestBuilder
 
   @override
   void update(
-      void Function(GetUserAttributeVerificationCodeRequestBuilder)? updates) {
+    void Function(GetUserAttributeVerificationCodeRequestBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -114,12 +122,19 @@ class GetUserAttributeVerificationCodeRequestBuilder
   _$GetUserAttributeVerificationCodeRequest _build() {
     _$GetUserAttributeVerificationCodeRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$GetUserAttributeVerificationCodeRequest._(
-            accessToken: BuiltValueNullFieldError.checkNotNull(accessToken,
-                r'GetUserAttributeVerificationCodeRequest', 'accessToken'),
-            attributeName: BuiltValueNullFieldError.checkNotNull(attributeName,
-                r'GetUserAttributeVerificationCodeRequest', 'attributeName'),
+            accessToken: BuiltValueNullFieldError.checkNotNull(
+              accessToken,
+              r'GetUserAttributeVerificationCodeRequest',
+              'accessToken',
+            ),
+            attributeName: BuiltValueNullFieldError.checkNotNull(
+              attributeName,
+              r'GetUserAttributeVerificationCodeRequest',
+              'attributeName',
+            ),
             clientMetadata: _clientMetadata?.build(),
           );
     } catch (_) {
@@ -129,9 +144,10 @@ class GetUserAttributeVerificationCodeRequestBuilder
         _clientMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GetUserAttributeVerificationCodeRequest',
-            _$failedField,
-            e.toString());
+          r'GetUserAttributeVerificationCodeRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

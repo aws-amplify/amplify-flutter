@@ -50,8 +50,8 @@ class MockOAuthServer {
   MockOAuthServer({
     MockClientHandler? tokenHandler,
     MockClientHandler? authorizeHandler,
-  })  : _tokenHandler = tokenHandler,
-        _authorizeHandler = authorizeHandler;
+  }) : _tokenHandler = tokenHandler,
+       _authorizeHandler = authorizeHandler;
 
   static MockClientHandler _createHandler({
     MockClientHandler? tokenHandler,
@@ -74,11 +74,11 @@ class MockOAuthServer {
   }
 
   MockClient get httpClient => MockClient(
-        _createHandler(
-          tokenHandler: tokenHandler,
-          authorizeHandler: authorizeHandler,
-        ),
-      );
+    _createHandler(
+      tokenHandler: tokenHandler,
+      authorizeHandler: authorizeHandler,
+    ),
+  );
 
   Future<OAuthParameters> authorize(Uri authorizationUri) async {
     final resp = await httpClient.get(authorizationUri);
@@ -93,57 +93,51 @@ class MockOAuthServer {
   late final MockClientHandler tokenHandler =
       _tokenHandler ?? createTokenHandler();
   static MockClientHandler createTokenHandler() => (Request request) async {
-        final query = request.bodyFields;
+    final query = request.bodyFields;
 
-        final code = query[paramCode];
-        if (code == null) {
-          return _missingParameter(paramCode, state: null);
-        }
-        final redirectUri = query[paramRedirectURI];
-        if (redirectUri == null) {
-          return _missingParameter(paramRedirectURI, state: null);
-        }
-        final codeVerifier = query[paramCodeVerifier];
-        if (codeVerifier == null) {
-          return _missingParameter(paramCodeVerifier, state: null);
-        }
+    final code = query[paramCode];
+    if (code == null) {
+      return _missingParameter(paramCode, state: null);
+    }
+    final redirectUri = query[paramRedirectURI];
+    if (redirectUri == null) {
+      return _missingParameter(paramRedirectURI, state: null);
+    }
+    final codeVerifier = query[paramCodeVerifier];
+    if (codeVerifier == null) {
+      return _missingParameter(paramCodeVerifier, state: null);
+    }
 
-        final session = _pendingRequests[code];
-        if (session == null) {
-          return _invalidRequest();
-        }
-        if (session.authCode != code) {
-          return _invalidRequest();
-        }
-        if (session.redirectUri != Uri.tryParse(redirectUri)) {
-          return _invalidRequest();
-        }
+    final session = _pendingRequests[code];
+    if (session == null) {
+      return _invalidRequest();
+    }
+    if (session.authCode != code) {
+      return _invalidRequest();
+    }
+    if (session.redirectUri != Uri.tryParse(redirectUri)) {
+      return _invalidRequest();
+    }
 
-        const exp = Duration(minutes: 5);
-        final jwt = createJwt(
-          type: TokenType.access,
-          expiration: exp,
-        );
-        final refreshToken = uuid();
-        final idToken = createJwt(
-          type: TokenType.id,
-          expiration: exp,
-        );
-        final response = <String, dynamic>{
-          'token_type': 'bearer',
-          'access_token': jwt,
-          'refresh_token': refreshToken,
-          'id_token': idToken,
-          'expires_in': exp.inSeconds,
-          'scope': session.scope,
-        };
+    const exp = Duration(minutes: 5);
+    final jwt = createJwt(type: TokenType.access, expiration: exp);
+    final refreshToken = uuid();
+    final idToken = createJwt(type: TokenType.id, expiration: exp);
+    final response = <String, dynamic>{
+      'token_type': 'bearer',
+      'access_token': jwt,
+      'refresh_token': refreshToken,
+      'id_token': idToken,
+      'expires_in': exp.inSeconds,
+      'scope': session.scope,
+    };
 
-        return Response(
-          jsonEncode(response),
-          200,
-          headers: {'content-type': 'application/json'},
-        );
-      };
+    return Response(
+      jsonEncode(response),
+      200,
+      headers: {'content-type': 'application/json'},
+    );
+  };
 
   final MockClientHandler? _authorizeHandler;
   Future<Response> authorizeHandler(Request request) async {
@@ -192,10 +186,7 @@ class MockOAuthServer {
     _pendingRequests[authCode] = session;
 
     return Response(
-      jsonEncode({
-        paramCode: authCode,
-        paramState: state,
-      }),
+      jsonEncode({paramCode: authCode, paramState: state}),
       200,
       headers: {'content-type': 'application/json'},
     );
@@ -234,9 +225,7 @@ class MockOAuthServer {
 
   static Response _invalidRequest() {
     return Response(
-      jsonEncode({
-        paramError: 'Invalid request',
-      }),
+      jsonEncode({paramError: 'Invalid request'}),
       400,
       headers: {'content-type': 'application/json'},
     );

@@ -9,7 +9,5 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 /// {@endtemplate}
 class S3UploadFileResult extends StorageUploadFileResult<S3Item> {
   /// {@macro storage.amplify_storage_s3.upload_file_result}
-  const S3UploadFileResult({
-    required super.uploadedItem,
-  });
+  const S3UploadFileResult({required super.uploadedItem});
 }

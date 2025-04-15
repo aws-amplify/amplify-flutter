@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library amplify_api.graphql.ws.web_socket_message_stream_transformer;
+library;
 
 import 'dart:async';
 import 'dart:convert';
@@ -21,9 +21,12 @@ class WebSocketMessageStreamTransformer
 
   @override
   Stream<WebSocketMessage> bind(Stream<dynamic> stream) {
-    return stream.cast<String>().map<Map<String, Object?>>((str) {
-      return json.decode(str) as Map<String, Object?>;
-    }).map(WebSocketMessage.fromJson);
+    return stream
+        .cast<String>()
+        .map<Map<String, Object?>>((str) {
+          return json.decode(str) as Map<String, Object?>;
+        })
+        .map(WebSocketMessage.fromJson);
   }
 }
 

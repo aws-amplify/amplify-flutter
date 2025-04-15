@@ -25,45 +25,39 @@ Future<WorkerAssignment> getWorkerAssignment() async {
   // Errors in the preamble should be reported to the parent thread.
   void onError(Object e, StackTrace st) {
     self.postMessage(
-      workerBeeSerializers.serialize(
-        e,
-        specifiedType: FullType.unspecified,
-      ),
+      workerBeeSerializers.serialize(e, specifiedType: FullType.unspecified),
     );
   }
 
-  return runTraced(
-    () async {
-      final assignmentCompleter = Completer<WorkerAssignment>.sync();
-      late void Function(Event) eventListener;
-      self.addEventListener(
-        'message',
-        eventListener = Zone.current.bindUnaryCallback<void, Event>(
-          (Event event) {
-            event as MessageEvent;
-            final message = event.data;
-            final messagePort = event.ports.firstOrNull;
-            if (message is String && messagePort is MessagePort) {
-              self.removeEventListener('message', eventListener);
-              assignmentCompleter.complete(
-                WorkerAssignment(
-                  message,
-                  MessagePortChannel<LogEntry>(messagePort),
-                ),
-              );
-            } else {
-              assignmentCompleter.completeError(
-                StateError(
-                  'Invalid worker assignment: '
-                  '${workerBeeSerializers.serialize(message)}',
-                ),
-              );
-            }
-          },
-        ),
-      );
-      return assignmentCompleter.future;
-    },
-    onError: onError,
-  );
+  return runTraced(() async {
+    final assignmentCompleter = Completer<WorkerAssignment>.sync();
+    late void Function(Event) eventListener;
+    self.addEventListener(
+      'message',
+      eventListener = Zone.current.bindUnaryCallback<void, Event>((
+        Event event,
+      ) {
+        event as MessageEvent;
+        final message = event.data;
+        final messagePort = event.ports.firstOrNull;
+        if (message is String && messagePort is MessagePort) {
+          self.removeEventListener('message', eventListener);
+          assignmentCompleter.complete(
+            WorkerAssignment(
+              message,
+              MessagePortChannel<LogEntry>(messagePort),
+            ),
+          );
+        } else {
+          assignmentCompleter.completeError(
+            StateError(
+              'Invalid worker assignment: '
+              '${workerBeeSerializers.serialize(message)}',
+            ),
+          );
+        }
+      }),
+    );
+    return assignmentCompleter.future;
+  }, onError: onError);
 }

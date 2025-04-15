@@ -31,19 +31,19 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Uri get signInRedirectUri => Uri.parse(
-        authOutputs.oauth!.redirectSignInUri.firstWhere(
-          (uri) => uri.startsWith(_baseUrl),
-          orElse: () => _noSuitableRedirect(signIn: true),
-        ),
-      );
+    authOutputs.oauth!.redirectSignInUri.firstWhere(
+      (uri) => uri.startsWith(_baseUrl),
+      orElse: () => _noSuitableRedirect(signIn: true),
+    ),
+  );
 
   @override
   Uri get signOutRedirectUri => Uri.parse(
-        authOutputs.oauth!.redirectSignOutUri.firstWhere(
-          (uri) => uri.startsWith(_baseUrl),
-          orElse: () => _noSuitableRedirect(signIn: false),
-        ),
-      );
+    authOutputs.oauth!.redirectSignOutUri.firstWhere(
+      (uri) => uri.startsWith(_baseUrl),
+      orElse: () => _noSuitableRedirect(signIn: false),
+    ),
+  );
 
   /// Launches the given URL.
   Future<void> launchUrl(String url) async {

@@ -11,10 +11,9 @@ import 'package:aws_common/src/config/config_file/resolved_file.dart';
 /// {@macro aws_common.config_file.file_loader}
 class AWSFileLoaderImpl extends AWSFileLoader {
   /// {@macro aws_common.config_file.file_loader}
-  const AWSFileLoaderImpl({
-    AWSPathProvider? pathProvider,
-  })  : _pathProvider = pathProvider ?? const AWSPathProvider(),
-        super.protected();
+  const AWSFileLoaderImpl({AWSPathProvider? pathProvider})
+    : _pathProvider = pathProvider ?? const AWSPathProvider(),
+      super.protected();
 
   /// The path provider for locating configuration files.
   final AWSPathProvider _pathProvider;
@@ -38,10 +37,6 @@ class AWSFileLoaderImpl extends AWSFileLoader {
       AWSFileLoader.logger.warn('File does not exist: $resolvedFilepath');
       return _empty(type);
     }
-    return ResolvedFile(
-      type,
-      await file.readAsString(),
-      resolvedFilepath,
-    );
+    return ResolvedFile(type, await file.readAsString(), resolvedFilepath);
   }
 }

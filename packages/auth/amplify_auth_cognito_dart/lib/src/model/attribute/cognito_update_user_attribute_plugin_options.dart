@@ -19,8 +19,7 @@ class CognitoUpdateUserAttributePluginOptions
   /// {@macro amplify_auth_cognito.model.cognito_update_user_attribute_plugin_options}
   factory CognitoUpdateUserAttributePluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoUpdateUserAttributePluginOptionsFromJson(json);
+  ) => _$CognitoUpdateUserAttributePluginOptionsFromJson(json);
 
   /// {@template amplify_auth_cognito.model.cognito_update_user_attribute_plugin_options.client_metadata}
   /// A map of custom key-value pairs that you can provide as input for certain

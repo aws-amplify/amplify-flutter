@@ -48,9 +48,7 @@ class _MyAppState extends State<MyApp> {
     );
 
     await Amplify.addPlugins([
-      AmplifyAuthCognito(
-        secureStorageFactory: storageFactory,
-      ),
+      AmplifyAuthCognito(secureStorageFactory: storageFactory),
       AmplifyAnalyticsPinpoint(
         // ignore: invalid_use_of_visible_for_testing_member
         secureStorageFactory: storageFactory,
@@ -134,11 +132,12 @@ class _MyAppState extends State<MyApp> {
         region: 'California',
         country: 'USA',
       ),
-      customProperties: CustomProperties()
-        ..addStringProperty('${_userId}_endpoint_stringKey', 'stringValue')
-        ..addIntProperty('${_userId}_endpoint_intKey', 10)
-        ..addDoubleProperty('${_userId}_endpoint_doubleKey', 10)
-        ..addBoolProperty('${_userId}_endpoint_boolKey', false),
+      customProperties:
+          CustomProperties()
+            ..addStringProperty('${_userId}_endpoint_stringKey', 'stringValue')
+            ..addIntProperty('${_userId}_endpoint_intKey', 10)
+            ..addDoubleProperty('${_userId}_endpoint_doubleKey', 10)
+            ..addBoolProperty('${_userId}_endpoint_boolKey', false),
       userAttributes: {
         '${_userId}_user_stringKey': ['stringValue', 'anotherStringValue'],
       },
@@ -154,9 +153,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Amplify Analytics example app'),
-        ),
+        appBar: AppBar(title: const Text('Amplify Analytics example app')),
         body: ListView(
           padding: const EdgeInsets.all(10),
           children: <Widget>[
@@ -177,8 +174,9 @@ class _MyAppState extends State<MyApp> {
                     child: const Text('configure Amplify'),
                   ),
                   Center(
-                    child:
-                        Text('Is Amplify Configured?: $_amplifyConfigured\n'),
+                    child: Text(
+                      'Is Amplify Configured?: $_amplifyConfigured\n',
+                    ),
                   ),
                 ],
               ),
@@ -201,8 +199,9 @@ class _MyAppState extends State<MyApp> {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   TextField(
-                    decoration:
-                        const InputDecoration(hintText: 'Enter event id'),
+                    decoration: const InputDecoration(
+                      hintText: 'Enter event id',
+                    ),
                     onChanged: (text) {
                       _uniqueId = text;
                     },
@@ -227,8 +226,9 @@ class _MyAppState extends State<MyApp> {
                     endIndent: 0,
                   ),
                   TextField(
-                    decoration:
-                        const InputDecoration(hintText: 'Enter global prop id'),
+                    decoration: const InputDecoration(
+                      hintText: 'Enter global prop id',
+                    ),
                     onChanged: (text) {
                       _globalProp = text;
                     },
@@ -244,9 +244,10 @@ class _MyAppState extends State<MyApp> {
                     child: const Text('Unregister Global Prop'),
                   ),
                   ElevatedButton(
-                    onPressed: _amplifyConfigured
-                        ? _unregisterAllGlobalProperties
-                        : null,
+                    onPressed:
+                        _amplifyConfigured
+                            ? _unregisterAllGlobalProperties
+                            : null,
                     child: const Text('Unregister All Global Prop'),
                   ),
                   const Divider(
@@ -257,8 +258,9 @@ class _MyAppState extends State<MyApp> {
                     endIndent: 0,
                   ),
                   TextField(
-                    decoration:
-                        const InputDecoration(hintText: 'Enter user id'),
+                    decoration: const InputDecoration(
+                      hintText: 'Enter user id',
+                    ),
                     onChanged: (text) {
                       _userId = text;
                     },

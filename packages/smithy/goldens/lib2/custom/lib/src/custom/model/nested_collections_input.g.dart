@@ -9,18 +9,18 @@ part of 'nested_collections_input.dart';
 class _$NestedCollectionsInput extends NestedCollectionsInput {
   @override
   final _i3.BuiltListMultimap<String, _i3.BuiltListMultimap<String, String>?>?
-      mapOfListOfMapOfLists;
+  mapOfListOfMapOfLists;
 
-  factory _$NestedCollectionsInput(
-          [void Function(NestedCollectionsInputBuilder)? updates]) =>
-      (new NestedCollectionsInputBuilder()..update(updates))._build();
+  factory _$NestedCollectionsInput([
+    void Function(NestedCollectionsInputBuilder)? updates,
+  ]) => (new NestedCollectionsInputBuilder()..update(updates))._build();
 
   _$NestedCollectionsInput._({this.mapOfListOfMapOfLists}) : super._();
 
   @override
   NestedCollectionsInput rebuild(
-          void Function(NestedCollectionsInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NestedCollectionsInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NestedCollectionsInputBuilder toBuilder() =>
@@ -47,16 +47,18 @@ class NestedCollectionsInputBuilder
   _$NestedCollectionsInput? _$v;
 
   _i3.ListMultimapBuilder<String, _i3.BuiltListMultimap<String, String>?>?
-      _mapOfListOfMapOfLists;
+  _mapOfListOfMapOfLists;
   _i3.ListMultimapBuilder<String, _i3.BuiltListMultimap<String, String>?>
-      get mapOfListOfMapOfLists =>
-          _$this._mapOfListOfMapOfLists ??= new _i3.ListMultimapBuilder<String,
-              _i3.BuiltListMultimap<String, String>?>();
+  get mapOfListOfMapOfLists =>
+      _$this._mapOfListOfMapOfLists ??=
+          new _i3.ListMultimapBuilder<
+            String,
+            _i3.BuiltListMultimap<String, String>?
+          >();
   set mapOfListOfMapOfLists(
-          _i3.ListMultimapBuilder<String,
-                  _i3.BuiltListMultimap<String, String>?>?
-              mapOfListOfMapOfLists) =>
-      _$this._mapOfListOfMapOfLists = mapOfListOfMapOfLists;
+    _i3.ListMultimapBuilder<String, _i3.BuiltListMultimap<String, String>?>?
+    mapOfListOfMapOfLists,
+  ) => _$this._mapOfListOfMapOfLists = mapOfListOfMapOfLists;
 
   NestedCollectionsInputBuilder();
 
@@ -86,9 +88,11 @@ class NestedCollectionsInputBuilder
   _$NestedCollectionsInput _build() {
     _$NestedCollectionsInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$NestedCollectionsInput._(
-              mapOfListOfMapOfLists: _mapOfListOfMapOfLists?.build());
+            mapOfListOfMapOfLists: _mapOfListOfMapOfLists?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -96,7 +100,10 @@ class NestedCollectionsInputBuilder
         _mapOfListOfMapOfLists?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'NestedCollectionsInput', _$failedField, e.toString());
+          r'NestedCollectionsInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

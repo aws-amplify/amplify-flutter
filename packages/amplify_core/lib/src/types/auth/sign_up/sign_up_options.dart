@@ -43,9 +43,9 @@ class SignUpOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'userAttributes': userAttributes,
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+    'userAttributes': userAttributes,
+    'pluginOptions': pluginOptions?.toJson(),
+  };
 }
 
 /// @nodoc

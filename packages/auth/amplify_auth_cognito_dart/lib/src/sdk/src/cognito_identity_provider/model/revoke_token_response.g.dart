@@ -7,16 +7,16 @@ part of 'revoke_token_response.dart';
 // **************************************************************************
 
 class _$RevokeTokenResponse extends RevokeTokenResponse {
-  factory _$RevokeTokenResponse(
-          [void Function(RevokeTokenResponseBuilder)? updates]) =>
-      (new RevokeTokenResponseBuilder()..update(updates))._build();
+  factory _$RevokeTokenResponse([
+    void Function(RevokeTokenResponseBuilder)? updates,
+  ]) => (new RevokeTokenResponseBuilder()..update(updates))._build();
 
   _$RevokeTokenResponse._() : super._();
 
   @override
   RevokeTokenResponse rebuild(
-          void Function(RevokeTokenResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RevokeTokenResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RevokeTokenResponseBuilder toBuilder() =>

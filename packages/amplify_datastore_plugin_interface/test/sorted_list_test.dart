@@ -23,18 +23,22 @@ void main() {
         expect(sortedList.toList(), orderedEquals(expectedItems));
       });
 
-      test('inserts a new item at the end of the list if compare is omitted',
-          () {
-        List<int> items = [1, 2, 3, 7, 10];
-        SortedList<int> sortedList = SortedList.fromPresortedList(items: items);
-        sortedList.addSorted(3);
-        sortedList.addSorted(8);
-        sortedList.addSorted(0);
-        sortedList.addSorted(11);
+      test(
+        'inserts a new item at the end of the list if compare is omitted',
+        () {
+          List<int> items = [1, 2, 3, 7, 10];
+          SortedList<int> sortedList = SortedList.fromPresortedList(
+            items: items,
+          );
+          sortedList.addSorted(3);
+          sortedList.addSorted(8);
+          sortedList.addSorted(0);
+          sortedList.addSorted(11);
 
-        var expectedItems = [1, 2, 3, 7, 10, 3, 8, 0, 11];
-        expect(sortedList.toList(), orderedEquals(expectedItems));
-      });
+          var expectedItems = [1, 2, 3, 7, 10, 3, 8, 0, 11];
+          expect(sortedList.toList(), orderedEquals(expectedItems));
+        },
+      );
     });
 
     group('updateAt()', () {
@@ -51,16 +55,19 @@ void main() {
         expect(sortedList.toList(), orderedEquals(expectedItems));
       });
       test(
-          'updates the item without change the list order if compare is omitted',
-          () {
-        List<int> items = [1, 2, 3, 7, 10];
-        SortedList<int> sortedList = SortedList.fromPresortedList(items: items);
-        sortedList.updateAtSorted(1, 5);
-        sortedList.updateAtSorted(4, 1);
+        'updates the item without change the list order if compare is omitted',
+        () {
+          List<int> items = [1, 2, 3, 7, 10];
+          SortedList<int> sortedList = SortedList.fromPresortedList(
+            items: items,
+          );
+          sortedList.updateAtSorted(1, 5);
+          sortedList.updateAtSorted(4, 1);
 
-        var expectedItems = [1, 5, 3, 7, 1];
-        expect(sortedList.toList(), orderedEquals(expectedItems));
-      });
+          var expectedItems = [1, 5, 3, 7, 1];
+          expect(sortedList.toList(), orderedEquals(expectedItems));
+        },
+      );
     });
 
     group('copy()', () {

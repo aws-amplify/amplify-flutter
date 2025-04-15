@@ -43,9 +43,10 @@ abstract class AmplifyCommand extends Command<void>
 
   @override
   void handleLogEntry(LogEntry logEntry) {
-    final message = verbose
-        ? '${logEntry.loggerName} | ${logEntry.message}'
-        : logEntry.message;
+    final message =
+        verbose
+            ? '${logEntry.loggerName} | ${logEntry.message}'
+            : logEntry.message;
     switch (logEntry.level) {
       case LogLevel.verbose:
       case LogLevel.debug:
@@ -121,10 +122,7 @@ abstract class AmplifyCommand extends Command<void>
   late final Repo repo;
 
   /// Runs `git` with the given [args] from the repo's root directory.
-  Future<void> runGit(
-    List<String> args, {
-    bool echoOutput = false,
-  }) =>
+  Future<void> runGit(List<String> args, {bool echoOutput = false}) =>
       git.runGit(
         args,
         processWorkingDir: rootDir.path,

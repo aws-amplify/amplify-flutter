@@ -21,9 +21,7 @@ void main() {
 
     // Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa.feature"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-phone',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-phone');
 
       phoneNumber = generateUSPhoneNumber();
       password = generatePassword();
@@ -33,15 +31,14 @@ void main() {
         autoConfirm: true,
         enableMfa: true,
         verifyAttributes: true,
-        attributes: {
-          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-        },
+        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
       );
     });
 
     // Scenario: Sign in using a valid phone number and SMS MFA
-    testWidgets('Sign in using a valid phone number and SMS MFA',
-        (tester) async {
+    testWidgets('Sign in using a valid phone number and SMS MFA', (
+      tester,
+    ) async {
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -157,10 +154,7 @@ void main() {
 
       expect(
         tester.bloc.stream,
-        emitsInOrder([
-          UnauthenticatedState.signIn,
-          emitsDone,
-        ]),
+        emitsInOrder([UnauthenticatedState.signIn, emitsDone]),
       );
 
       final signInPage = SignInPage(tester: tester);

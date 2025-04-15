@@ -69,8 +69,9 @@ abstract class GetObjectRequest
     );
   }
 
-  factory GetObjectRequest.build(
-      [void Function(GetObjectRequestBuilder) updates]) = _$GetObjectRequest;
+  factory GetObjectRequest.build([
+    void Function(GetObjectRequestBuilder) updates,
+  ]) = _$GetObjectRequest;
 
   const GetObjectRequest._();
 
@@ -78,96 +79,96 @@ abstract class GetObjectRequest
     GetObjectRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      GetObjectRequest.build((b) {
-        if (request.headers['If-Match'] != null) {
-          b.ifMatch = request.headers['If-Match']!;
-        }
-        if (request.headers['If-Modified-Since'] != null) {
-          b.ifModifiedSince = _i1.Timestamp.parse(
+  }) => GetObjectRequest.build((b) {
+    if (request.headers['If-Match'] != null) {
+      b.ifMatch = request.headers['If-Match']!;
+    }
+    if (request.headers['If-Modified-Since'] != null) {
+      b.ifModifiedSince =
+          _i1.Timestamp.parse(
             request.headers['If-Modified-Since']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['If-None-Match'] != null) {
-          b.ifNoneMatch = request.headers['If-None-Match']!;
-        }
-        if (request.headers['If-Unmodified-Since'] != null) {
-          b.ifUnmodifiedSince = _i1.Timestamp.parse(
+    }
+    if (request.headers['If-None-Match'] != null) {
+      b.ifNoneMatch = request.headers['If-None-Match']!;
+    }
+    if (request.headers['If-Unmodified-Since'] != null) {
+      b.ifUnmodifiedSince =
+          _i1.Timestamp.parse(
             request.headers['If-Unmodified-Since']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['Range'] != null) {
-          b.range = request.headers['Range']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = request
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key'] !=
-            null) {
-          b.sseCustomerKey =
-              request.headers['x-amz-server-side-encryption-customer-key']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 =
-              request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.headers['x-amz-checksum-mode'] != null) {
-          b.checksumMode = ChecksumMode.values
-              .byValue(request.headers['x-amz-checksum-mode']!);
-        }
-        if (request.queryParameters['response-cache-control'] != null) {
-          b.responseCacheControl =
-              request.queryParameters['response-cache-control']!;
-        }
-        if (request.queryParameters['response-content-disposition'] != null) {
-          b.responseContentDisposition =
-              request.queryParameters['response-content-disposition']!;
-        }
-        if (request.queryParameters['response-content-encoding'] != null) {
-          b.responseContentEncoding =
-              request.queryParameters['response-content-encoding']!;
-        }
-        if (request.queryParameters['response-content-language'] != null) {
-          b.responseContentLanguage =
-              request.queryParameters['response-content-language']!;
-        }
-        if (request.queryParameters['response-content-type'] != null) {
-          b.responseContentType =
-              request.queryParameters['response-content-type']!;
-        }
-        if (request.queryParameters['response-expires'] != null) {
-          b.responseExpires = _i1.Timestamp.parse(
+    }
+    if (request.headers['Range'] != null) {
+      b.range = request.headers['Range']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          request.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key'] != null) {
+      b.sseCustomerKey =
+          request.headers['x-amz-server-side-encryption-customer-key']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.headers['x-amz-checksum-mode'] != null) {
+      b.checksumMode = ChecksumMode.values.byValue(
+        request.headers['x-amz-checksum-mode']!,
+      );
+    }
+    if (request.queryParameters['response-cache-control'] != null) {
+      b.responseCacheControl =
+          request.queryParameters['response-cache-control']!;
+    }
+    if (request.queryParameters['response-content-disposition'] != null) {
+      b.responseContentDisposition =
+          request.queryParameters['response-content-disposition']!;
+    }
+    if (request.queryParameters['response-content-encoding'] != null) {
+      b.responseContentEncoding =
+          request.queryParameters['response-content-encoding']!;
+    }
+    if (request.queryParameters['response-content-language'] != null) {
+      b.responseContentLanguage =
+          request.queryParameters['response-content-language']!;
+    }
+    if (request.queryParameters['response-content-type'] != null) {
+      b.responseContentType = request.queryParameters['response-content-type']!;
+    }
+    if (request.queryParameters['response-expires'] != null) {
+      b.responseExpires =
+          _i1.Timestamp.parse(
             request.queryParameters['response-expires']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.queryParameters['versionId'] != null) {
-          b.versionId = request.queryParameters['versionId']!;
-        }
-        if (request.queryParameters['partNumber'] != null) {
-          b.partNumber = int.parse(request.queryParameters['partNumber']!);
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+    }
+    if (request.queryParameters['versionId'] != null) {
+      b.versionId = request.queryParameters['versionId']!;
+    }
+    if (request.queryParameters['partNumber'] != null) {
+      b.partNumber = int.parse(request.queryParameters['partNumber']!);
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<GetObjectRequestPayload>> serializers =
       [GetObjectRequestRestXmlSerializer()];
@@ -322,10 +323,7 @@ abstract class GetObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -333,116 +331,54 @@ abstract class GetObjectRequest
 
   @override
   List<Object?> get props => [
-        bucket,
-        ifMatch,
-        ifModifiedSince,
-        ifNoneMatch,
-        ifUnmodifiedSince,
-        key,
-        range,
-        responseCacheControl,
-        responseContentDisposition,
-        responseContentEncoding,
-        responseContentLanguage,
-        responseContentType,
-        responseExpires,
-        versionId,
-        sseCustomerAlgorithm,
-        sseCustomerKey,
-        sseCustomerKeyMd5,
-        requestPayer,
-        partNumber,
-        expectedBucketOwner,
-        checksumMode,
-      ];
+    bucket,
+    ifMatch,
+    ifModifiedSince,
+    ifNoneMatch,
+    ifUnmodifiedSince,
+    key,
+    range,
+    responseCacheControl,
+    responseContentDisposition,
+    responseContentEncoding,
+    responseContentLanguage,
+    responseContentType,
+    responseExpires,
+    versionId,
+    sseCustomerAlgorithm,
+    sseCustomerKey,
+    sseCustomerKeyMd5,
+    requestPayer,
+    partNumber,
+    expectedBucketOwner,
+    checksumMode,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'ifMatch',
-        ifMatch,
-      )
-      ..add(
-        'ifModifiedSince',
-        ifModifiedSince,
-      )
-      ..add(
-        'ifNoneMatch',
-        ifNoneMatch,
-      )
-      ..add(
-        'ifUnmodifiedSince',
-        ifUnmodifiedSince,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'range',
-        range,
-      )
-      ..add(
-        'responseCacheControl',
-        responseCacheControl,
-      )
-      ..add(
-        'responseContentDisposition',
-        responseContentDisposition,
-      )
-      ..add(
-        'responseContentEncoding',
-        responseContentEncoding,
-      )
-      ..add(
-        'responseContentLanguage',
-        responseContentLanguage,
-      )
-      ..add(
-        'responseContentType',
-        responseContentType,
-      )
-      ..add(
-        'responseExpires',
-        responseExpires,
-      )
-      ..add(
-        'versionId',
-        versionId,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'partNumber',
-        partNumber,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      )
-      ..add(
-        'checksumMode',
-        checksumMode,
-      );
+    final helper =
+        newBuiltValueToStringHelper('GetObjectRequest')
+          ..add('bucket', bucket)
+          ..add('ifMatch', ifMatch)
+          ..add('ifModifiedSince', ifModifiedSince)
+          ..add('ifNoneMatch', ifNoneMatch)
+          ..add('ifUnmodifiedSince', ifUnmodifiedSince)
+          ..add('key', key)
+          ..add('range', range)
+          ..add('responseCacheControl', responseCacheControl)
+          ..add('responseContentDisposition', responseContentDisposition)
+          ..add('responseContentEncoding', responseContentEncoding)
+          ..add('responseContentLanguage', responseContentLanguage)
+          ..add('responseContentType', responseContentType)
+          ..add('responseExpires', responseExpires)
+          ..add('versionId', versionId)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKey', '***SENSITIVE***')
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add('requestPayer', requestPayer)
+          ..add('partNumber', partNumber)
+          ..add('expectedBucketOwner', expectedBucketOwner)
+          ..add('checksumMode', checksumMode);
     return helper.toString();
   }
 }
@@ -453,9 +389,9 @@ abstract class GetObjectRequestPayload
     implements
         Built<GetObjectRequestPayload, GetObjectRequestPayloadBuilder>,
         _i1.EmptyPayload {
-  factory GetObjectRequestPayload(
-          [void Function(GetObjectRequestPayloadBuilder) updates]) =
-      _$GetObjectRequestPayload;
+  factory GetObjectRequestPayload([
+    void Function(GetObjectRequestPayloadBuilder) updates,
+  ]) = _$GetObjectRequestPayload;
 
   const GetObjectRequestPayload._();
 
@@ -475,19 +411,16 @@ class GetObjectRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        GetObjectRequest,
-        _$GetObjectRequest,
-        GetObjectRequestPayload,
-        _$GetObjectRequestPayload,
-      ];
+    GetObjectRequest,
+    _$GetObjectRequest,
+    GetObjectRequestPayload,
+    _$GetObjectRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   GetObjectRequestPayload deserialize(
@@ -508,7 +441,7 @@ class GetObjectRequestRestXmlSerializer
       const _i1.XmlElementName(
         'GetObjectRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

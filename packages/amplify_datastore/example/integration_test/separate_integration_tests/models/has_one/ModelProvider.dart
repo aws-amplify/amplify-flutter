@@ -35,8 +35,8 @@ class ModelProvider implements ModelProviderInterface {
       case "ModelWithAppsyncScalarTypes":
       default:
         throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+          "Failed to find model in model provider for model name: " + modelName,
+        );
     }
   }
 }

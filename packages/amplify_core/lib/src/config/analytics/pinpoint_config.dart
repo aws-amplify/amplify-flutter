@@ -68,10 +68,7 @@ class PinpointPluginConfig
 
 @zAmplifySerializable
 class PinpointAnalytics with AWSEquatable<PinpointAnalytics>, AWSSerializable {
-  const PinpointAnalytics({
-    required this.appId,
-    required this.region,
-  });
+  const PinpointAnalytics({required this.appId, required this.region});
 
   factory PinpointAnalytics.fromJson(Map<String, Object?> json) =>
       _$PinpointAnalyticsFromJson(json);
@@ -82,10 +79,7 @@ class PinpointAnalytics with AWSEquatable<PinpointAnalytics>, AWSSerializable {
   @override
   List<Object?> get props => [appId, region];
 
-  PinpointAnalytics copyWith({
-    String? appId,
-    String? region,
-  }) {
+  PinpointAnalytics copyWith({String? appId, String? region}) {
     return PinpointAnalytics(
       appId: appId ?? this.appId,
       region: region ?? this.region,
@@ -98,9 +92,7 @@ class PinpointAnalytics with AWSEquatable<PinpointAnalytics>, AWSSerializable {
 
 @zAmplifySerializable
 class PinpointTargeting with AWSEquatable<PinpointTargeting>, AWSSerializable {
-  const PinpointTargeting({
-    required this.region,
-  });
+  const PinpointTargeting({required this.region});
 
   factory PinpointTargeting.fromJson(Map<String, Object?> json) =>
       _$PinpointTargetingFromJson(json);
@@ -110,9 +102,7 @@ class PinpointTargeting with AWSEquatable<PinpointTargeting>, AWSSerializable {
   @override
   List<Object?> get props => [region];
 
-  PinpointTargeting copyWith({
-    String? region,
-  }) {
+  PinpointTargeting copyWith({String? region}) {
     return PinpointTargeting(region: region ?? this.region);
   }
 

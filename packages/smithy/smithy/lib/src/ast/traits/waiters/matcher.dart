@@ -13,23 +13,11 @@ enum PathComparator {
   anyStringEquals,
 }
 
-enum MatcherType {
-  success,
-  error,
-  inputOutput,
-  output,
-}
+enum MatcherType { success, error, inputOutput, output }
 
-@JsonSerializable(
-  includeIfNull: false,
-)
+@JsonSerializable(includeIfNull: false)
 class Matcher with AWSSerializable, AWSEquatable<Matcher> {
-  const Matcher({
-    this.success,
-    this.errorType,
-    this.output,
-    this.inputOutput,
-  });
+  const Matcher({this.success, this.errorType, this.output, this.inputOutput});
 
   factory Matcher.fromJson(Map<String, Object?> json) =>
       _$MatcherFromJson(json);
@@ -62,9 +50,7 @@ class Matcher with AWSSerializable, AWSEquatable<Matcher> {
   Map<String, Object?> toJson() => _$MatcherToJson(this);
 }
 
-@JsonSerializable(
-  includeIfNull: false,
-)
+@JsonSerializable(includeIfNull: false)
 class PathMatcher {
   const PathMatcher({
     required this.path,

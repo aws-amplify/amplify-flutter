@@ -13,9 +13,7 @@ part 'cognito_user_pools_trait.g.dart';
 class CognitoUserPoolsTrait
     with AWSSerializable
     implements Trait<CognitoUserPoolsTrait> {
-  const CognitoUserPoolsTrait({
-    this.providerArns = const [],
-  });
+  const CognitoUserPoolsTrait({this.providerArns = const []});
 
   factory CognitoUserPoolsTrait.fromJson(Object? json) =>
       _$CognitoUserPoolsTraitFromJson((json as Map).cast<String, Object?>());

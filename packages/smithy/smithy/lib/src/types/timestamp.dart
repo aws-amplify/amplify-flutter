@@ -29,9 +29,10 @@ class Timestamp {
     TimestampFormat format = TimestampFormat.unknown,
   }) {
     if (format == TimestampFormat.unknown) {
-      format = timestamp is String
-          ? TimestampFormat.dateTime
-          : TimestampFormat.epochSeconds;
+      format =
+          timestamp is String
+              ? TimestampFormat.dateTime
+              : TimestampFormat.epochSeconds;
     }
     switch (format) {
       case TimestampFormat.dateTime:
@@ -53,10 +54,7 @@ class Timestamp {
             timestamp is String ? double.parse(timestamp) : timestamp as num;
         final millisecs = (secs * 1000).truncate();
         return Timestamp(
-          DateTime.fromMillisecondsSinceEpoch(
-            millisecs,
-            isUtc: true,
-          ),
+          DateTime.fromMillisecondsSinceEpoch(millisecs, isUtc: true),
         );
       default:
         break;

@@ -18,9 +18,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'test_runner.dart';
 
-AmplifyAuthCognito get cognitoPlugin => Amplify.Auth.getPlugin(
-      AmplifyAuthCognito.pluginKey,
-    );
+AmplifyAuthCognito get cognitoPlugin =>
+    Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
 
 void main() {
   testRunner.setupTests();
@@ -30,9 +29,10 @@ void main() {
     // `federateWithIdentityPool` with `AuthProvider.custom` allows testing
     // the critical code paths related to federated sign-in, even though on
     // the surface it resembles an ordinary call to fetchAuthSession.
-    final userPoolConfig = AmplifyConfig.fromJson(
-      jsonDecode(amplifyconfig) as Map<String, Object?>,
-    ).auth!.awsPlugin!.cognitoUserPool!.default$!;
+    final userPoolConfig =
+        AmplifyConfig.fromJson(
+          jsonDecode(amplifyconfig) as Map<String, Object?>,
+        ).auth!.awsPlugin!.cognitoUserPool!.default$!;
     final provider = AuthProvider.custom(
       'cognito-idp.${userPoolConfig.region}.amazonaws.com/${userPoolConfig.poolId}',
     );
@@ -45,9 +45,10 @@ void main() {
       await cognitoPlugin.stateMachine.acceptAndComplete<SignInSuccess>(
         SignInEvent.initiate(
           parameters: SignInParameters(
-            (b) => b
-              ..username = username
-              ..password = password,
+            (b) =>
+                b
+                  ..username = username
+                  ..password = password,
           ),
         ),
       );
@@ -211,15 +212,12 @@ void main() {
       await federateToIdentityPool();
 
       final session = await cognitoPlugin.fetchAuthSession();
-      expect(
-        session.isSignedIn,
-        isTrue,
-        reason: 'API requirement',
-      );
+      expect(session.isSignedIn, isTrue, reason: 'API requirement');
       await expectLater(
         cognitoPlugin.getCurrentUser(),
         throwsA(isA<InvalidStateException>()),
-        reason: 'API requirement. getCurrentUser should throw '
+        reason:
+            'API requirement. getCurrentUser should throw '
             'even though isSignedIn=true',
       );
     });

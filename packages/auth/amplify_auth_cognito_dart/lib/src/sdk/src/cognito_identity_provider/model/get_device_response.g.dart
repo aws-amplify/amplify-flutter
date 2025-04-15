@@ -10,13 +10,16 @@ class _$GetDeviceResponse extends GetDeviceResponse {
   @override
   final DeviceType device;
 
-  factory _$GetDeviceResponse(
-          [void Function(GetDeviceResponseBuilder)? updates]) =>
-      (new GetDeviceResponseBuilder()..update(updates))._build();
+  factory _$GetDeviceResponse([
+    void Function(GetDeviceResponseBuilder)? updates,
+  ]) => (new GetDeviceResponseBuilder()..update(updates))._build();
 
   _$GetDeviceResponse._({required this.device}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        device, r'GetDeviceResponse', 'device');
+      device,
+      r'GetDeviceResponse',
+      'device',
+    );
   }
 
   @override
@@ -78,10 +81,7 @@ class GetDeviceResponseBuilder
   _$GetDeviceResponse _build() {
     _$GetDeviceResponse _$result;
     try {
-      _$result = _$v ??
-          new _$GetDeviceResponse._(
-            device: device.build(),
-          );
+      _$result = _$v ?? new _$GetDeviceResponse._(device: device.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -89,7 +89,10 @@ class GetDeviceResponseBuilder
         device.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GetDeviceResponse', _$failedField, e.toString());
+          r'GetDeviceResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -17,58 +17,31 @@ final logger = AWSLogger().createChild('Version Bump');
 
 const tests = {
   'single_package_chore': [
-    Change(
-      title: 'chore: test',
-      packages: ['amplify_auth_cognito'],
-    ),
+    Change(title: 'chore: test', packages: ['amplify_auth_cognito']),
   ],
   'single_package_fix': [
-    Change(
-      title: 'fix: test',
-      packages: ['amplify_auth_cognito'],
-    ),
+    Change(title: 'fix: test', packages: ['amplify_auth_cognito']),
   ],
   'single_package_feat': [
-    Change(
-      title: 'feat: test',
-      packages: ['amplify_auth_cognito'],
-    ),
+    Change(title: 'feat: test', packages: ['amplify_auth_cognito']),
   ],
   'single_package_breaking': [
-    Change(
-      title: 'feat!: test',
-      packages: ['amplify_auth_cognito'],
-    ),
+    Change(title: 'feat!: test', packages: ['amplify_auth_cognito']),
   ],
   'single_dart_package_chore': [
-    Change(
-      title: 'chore: test',
-      packages: ['amplify_auth_cognito_dart'],
-    ),
+    Change(title: 'chore: test', packages: ['amplify_auth_cognito_dart']),
   ],
   'single_dart_package_fix': [
-    Change(
-      title: 'fix: test',
-      packages: ['amplify_auth_cognito_dart'],
-    ),
+    Change(title: 'fix: test', packages: ['amplify_auth_cognito_dart']),
   ],
   'single_dart_package_feat': [
-    Change(
-      title: 'feat: test',
-      packages: ['amplify_auth_cognito_dart'],
-    ),
+    Change(title: 'feat: test', packages: ['amplify_auth_cognito_dart']),
   ],
   'single_dart_package_breaking': [
-    Change(
-      title: 'feat!: test',
-      packages: ['amplify_auth_cognito_dart'],
-    ),
+    Change(title: 'feat!: test', packages: ['amplify_auth_cognito_dart']),
   ],
   'aws_common_fix': [
-    Change(
-      title: 'fix: test',
-      packages: ['aws_common'],
-    ),
+    Change(title: 'fix: test', packages: ['aws_common']),
   ],
   'multi_package_update': [
     Change(
@@ -79,10 +52,7 @@ const tests = {
       title: 'fix: test auth fix',
       packages: ['amplify_auth_cognito', 'amplify_auth_cognito_dart'],
     ),
-    Change(
-      title: 'feat: test common feat',
-      packages: ['aws_common'],
-    ),
+    Change(title: 'feat: test common feat', packages: ['aws_common']),
     Change(
       title: 'fix: test db common fix',
       packages: ['amplify_db_common', 'amplify_db_common_dart'],
@@ -102,10 +72,7 @@ const tests = {
       title: 'fix: test auth fix',
       packages: ['amplify_auth_cognito', 'amplify_auth_cognito_dart'],
     ),
-    Change(
-      title: 'feat!: test breaking common feat',
-      packages: ['aws_common'],
-    ),
+    Change(title: 'feat!: test breaking common feat', packages: ['aws_common']),
     Change(
       title: 'fix: test db common fix',
       packages: ['amplify_db_common', 'amplify_db_common_dart'],
@@ -177,9 +144,7 @@ void main() {
           ]);
 
           if (!generateSnapshots) {
-            final process = await repo.git.runCommand(
-              ['diff', '--unified=0'],
-            );
+            final process = await repo.git.runCommand(['diff', '--unified=0']);
             final actual = processDiff(process.stdout as String);
             final expected = await diffFile.readAsString();
             expect(actual, expected);
@@ -191,10 +156,7 @@ void main() {
 }
 
 class Change {
-  const Change({
-    required this.title,
-    required this.packages,
-  });
+  const Change({required this.title, required this.packages});
 
   final String title;
   final List<String> packages;
@@ -205,11 +167,7 @@ class Change {
       File(p.join(newDir.path, 'file.txt')).createSync();
     }
     await runGit(repo, ['add', '.']);
-    await runGit(repo, [
-      'commit',
-      '-m',
-      '$title\n',
-    ]);
+    await runGit(repo, ['commit', '-m', '$title\n']);
     return runGit(repo, ['rev-parse', 'HEAD']);
   }
 }
@@ -221,10 +179,7 @@ Future<String> runGit(Repo repo, List<String> args) async {
   return stdout.trim();
 }
 
-Future<void> copyDirectory(
-  Directory source,
-  Directory destination,
-) async {
+Future<void> copyDirectory(Directory source, Directory destination) async {
   for (final e in source.listSync(recursive: true)) {
     if (!File(e.path).existsSync()) {
       continue;

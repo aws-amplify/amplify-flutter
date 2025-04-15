@@ -43,8 +43,10 @@ class ModelQueriesFactory {
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
   }) {
-    final filter = GraphQLRequestFactory.instance
-        .queryPredicateToGraphQLFilter(where, modelType);
+    final filter = GraphQLRequestFactory.instance.queryPredicateToGraphQLFilter(
+      where,
+      modelType,
+    );
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForListRequest(limit: limit, filter: filter);
 

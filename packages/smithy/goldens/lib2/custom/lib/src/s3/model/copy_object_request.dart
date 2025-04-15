@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.s3.model.copy_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,8 +31,9 @@ abstract class CopyObjectRequest
     );
   }
 
-  factory CopyObjectRequest.build(
-      [void Function(CopyObjectRequestBuilder) updates]) = _$CopyObjectRequest;
+  factory CopyObjectRequest.build([
+    void Function(CopyObjectRequestBuilder) updates,
+  ]) = _$CopyObjectRequest;
 
   const CopyObjectRequest._();
 
@@ -40,21 +41,20 @@ abstract class CopyObjectRequest
     CopyObjectRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      CopyObjectRequest.build((b) {
-        if (request.headers['x-amz-copy-source'] != null) {
-          b.copySource = request.headers['x-amz-copy-source']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+  }) => CopyObjectRequest.build((b) {
+    if (request.headers['x-amz-copy-source'] != null) {
+      b.copySource = request.headers['x-amz-copy-source']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<CopyObjectRequestPayload>>
-      serializers = [CopyObjectRequestRestXmlSerializer()];
+  serializers = [CopyObjectRequestRestXmlSerializer()];
 
   String get bucket;
   String get copySource;
@@ -67,37 +67,22 @@ abstract class CopyObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   CopyObjectRequestPayload getPayload() => CopyObjectRequestPayload();
 
   @override
-  List<Object?> get props => [
-        bucket,
-        copySource,
-        key,
-      ];
+  List<Object?> get props => [bucket, copySource, key];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CopyObjectRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'copySource',
-        copySource,
-      )
-      ..add(
-        'key',
-        key,
-      );
+    final helper =
+        newBuiltValueToStringHelper('CopyObjectRequest')
+          ..add('bucket', bucket)
+          ..add('copySource', copySource)
+          ..add('key', key);
     return helper.toString();
   }
 }
@@ -108,9 +93,9 @@ abstract class CopyObjectRequestPayload
     implements
         Built<CopyObjectRequestPayload, CopyObjectRequestPayloadBuilder>,
         _i1.EmptyPayload {
-  factory CopyObjectRequestPayload(
-          [void Function(CopyObjectRequestPayloadBuilder) updates]) =
-      _$CopyObjectRequestPayload;
+  factory CopyObjectRequestPayload([
+    void Function(CopyObjectRequestPayloadBuilder) updates,
+  ]) = _$CopyObjectRequestPayload;
 
   const CopyObjectRequestPayload._();
 
@@ -130,19 +115,16 @@ class CopyObjectRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        CopyObjectRequest,
-        _$CopyObjectRequest,
-        CopyObjectRequestPayload,
-        _$CopyObjectRequestPayload,
-      ];
+    CopyObjectRequest,
+    _$CopyObjectRequest,
+    CopyObjectRequestPayload,
+    _$CopyObjectRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CopyObjectRequestPayload deserialize(
@@ -163,7 +145,7 @@ class CopyObjectRequestRestXmlSerializer
       const _i1.XmlElementName(
         'CopyObjectRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

@@ -20,8 +20,8 @@ class AuthUser with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
 
   @override
   Map<String, Object?> toJson() => {
-        'userId': userId,
-        'username': username,
-        'signInDetails': signInDetails.toJson(),
-      };
+    'userId': userId,
+    'username': username,
+    'signInDetails': signInDetails.toJson(),
+  };
 }

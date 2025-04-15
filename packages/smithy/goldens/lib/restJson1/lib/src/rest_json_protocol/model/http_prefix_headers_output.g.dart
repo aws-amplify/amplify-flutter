@@ -12,16 +12,16 @@ class _$HttpPrefixHeadersOutput extends HttpPrefixHeadersOutput {
   @override
   final _i3.BuiltMap<String, String>? fooMap;
 
-  factory _$HttpPrefixHeadersOutput(
-          [void Function(HttpPrefixHeadersOutputBuilder)? updates]) =>
-      (new HttpPrefixHeadersOutputBuilder()..update(updates))._build();
+  factory _$HttpPrefixHeadersOutput([
+    void Function(HttpPrefixHeadersOutputBuilder)? updates,
+  ]) => (new HttpPrefixHeadersOutputBuilder()..update(updates))._build();
 
   _$HttpPrefixHeadersOutput._({this.foo, this.fooMap}) : super._();
 
   @override
   HttpPrefixHeadersOutput rebuild(
-          void Function(HttpPrefixHeadersOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPrefixHeadersOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPrefixHeadersOutputBuilder toBuilder() =>
@@ -88,7 +88,8 @@ class HttpPrefixHeadersOutputBuilder
   _$HttpPrefixHeadersOutput _build() {
     _$HttpPrefixHeadersOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpPrefixHeadersOutput._(foo: foo, fooMap: _fooMap?.build());
     } catch (_) {
       late String _$failedField;
@@ -97,7 +98,10 @@ class HttpPrefixHeadersOutputBuilder
         _fooMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpPrefixHeadersOutput', _$failedField, e.toString());
+          r'HttpPrefixHeadersOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -107,16 +111,16 @@ class HttpPrefixHeadersOutputBuilder
 }
 
 class _$HttpPrefixHeadersOutputPayload extends HttpPrefixHeadersOutputPayload {
-  factory _$HttpPrefixHeadersOutputPayload(
-          [void Function(HttpPrefixHeadersOutputPayloadBuilder)? updates]) =>
-      (new HttpPrefixHeadersOutputPayloadBuilder()..update(updates))._build();
+  factory _$HttpPrefixHeadersOutputPayload([
+    void Function(HttpPrefixHeadersOutputPayloadBuilder)? updates,
+  ]) => (new HttpPrefixHeadersOutputPayloadBuilder()..update(updates))._build();
 
   _$HttpPrefixHeadersOutputPayload._() : super._();
 
   @override
   HttpPrefixHeadersOutputPayload rebuild(
-          void Function(HttpPrefixHeadersOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPrefixHeadersOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPrefixHeadersOutputPayloadBuilder toBuilder() =>
@@ -136,8 +140,10 @@ class _$HttpPrefixHeadersOutputPayload extends HttpPrefixHeadersOutputPayload {
 
 class HttpPrefixHeadersOutputPayloadBuilder
     implements
-        Builder<HttpPrefixHeadersOutputPayload,
-            HttpPrefixHeadersOutputPayloadBuilder> {
+        Builder<
+          HttpPrefixHeadersOutputPayload,
+          HttpPrefixHeadersOutputPayloadBuilder
+        > {
   _$HttpPrefixHeadersOutputPayload? _$v;
 
   HttpPrefixHeadersOutputPayloadBuilder();
