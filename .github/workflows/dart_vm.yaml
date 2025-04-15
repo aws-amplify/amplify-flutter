@@ -53,7 +53,7 @@ jobs:
       # TODO(dnys1): Create mapping of Flutter->Dart versions so we can just use Dart
       # vended by Flutter.
       - name: Setup Flutter
-        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa # 2.10.0
+        uses: subosito/flutter-action@cc97e1648fff6ca5cc647fa67f47e70f7895510b # 2.11.0
         with:
           cache: true
           channel: stable
