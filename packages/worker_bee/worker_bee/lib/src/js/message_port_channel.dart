@@ -21,8 +21,8 @@ class MessagePortChannel<T>
     this.messagePort, {
     Serializers? serializers,
     FullType specifiedType = FullType.unspecified,
-  })  : _serializers = serializers ?? workerBeeSerializers,
-        _specifiedType = specifiedType;
+  }) : _serializers = serializers ?? workerBeeSerializers,
+       _specifiedType = specifiedType;
 
   /// The message port to communicate over.
   final MessagePort messagePort;
@@ -68,13 +68,8 @@ class MessagePortChannel<T>
   void add(T event) {
     final transfer = <Object>[];
     final serialized = runZoned(
-      () => _serializers.serialize(
-        event,
-        specifiedType: _specifiedType,
-      ),
-      zoneValues: {
-        #transfer: transfer,
-      },
+      () => _serializers.serialize(event, specifiedType: _specifiedType),
+      zoneValues: {#transfer: transfer},
     );
     messagePort.postMessage(serialized, transfer);
   }

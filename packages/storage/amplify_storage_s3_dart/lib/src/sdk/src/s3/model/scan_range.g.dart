@@ -78,11 +78,7 @@ class ScanRangeBuilder implements Builder<ScanRange, ScanRangeBuilder> {
   ScanRange build() => _build();
 
   _$ScanRange _build() {
-    final _$result = _$v ??
-        new _$ScanRange._(
-          start: start,
-          end: end,
-        );
+    final _$result = _$v ?? new _$ScanRange._(start: start, end: end);
     replace(_$result);
     return _$result;
   }

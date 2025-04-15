@@ -34,10 +34,7 @@ void main() {
       const maxAttempts = 5;
       await runZoned(
         () => op.run(const Unit(), client: httpClient).result,
-        zoneValues: {
-          #retryable: true,
-          AWSConfigValue.maxAttempts: maxAttempts,
-        },
+        zoneValues: {#retryable: true, AWSConfigValue.maxAttempts: maxAttempts},
       );
       expect(headers, hasLength(2));
       expect(
@@ -69,10 +66,7 @@ void main() {
     final op = DummyHttpOperation(retryer);
     await runZoned(
       () => op.run(const Unit(), client: httpClient).result,
-      zoneValues: {
-        #retryable: true,
-        AWSHeaders.sdkInvocationId: uuid(),
-      },
+      zoneValues: {#retryable: true, AWSHeaders.sdkInvocationId: uuid()},
     );
     expect(headers, hasLength(2));
     expect(headers[0], contains(AWSHeaders.sdkInvocationId));

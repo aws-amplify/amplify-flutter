@@ -31,15 +31,13 @@ import 'package:meta/meta.dart';
 class StorageDataPayload extends StreamView<List<int>> {
   /// An empty [StorageDataPayload].
   const StorageDataPayload.empty({this.contentType})
-      : size = 0,
-        super(const Stream.empty());
+    : size = 0,
+      super(const Stream.empty());
 
   /// A byte buffer [StorageDataPayload].
-  StorageDataPayload.bytes(
-    List<int> body, {
-    this.contentType,
-  })  : size = body.length,
-        super(Stream.value(body));
+  StorageDataPayload.bytes(List<int> body, {this.contentType})
+    : size = body.length,
+      super(Stream.value(body));
 
   /// A [StorageDataPayload].
   ///
@@ -68,7 +66,8 @@ class StorageDataPayload extends StreamView<List<int>> {
     return StorageDataPayload.bytes(
       // ignore: invalid_use_of_internal_member
       encoding.encode(HttpPayload.encodeFormValues(body, encoding: encoding)),
-      contentType: contentType ??
+      contentType:
+          contentType ??
           'application/x-www-form-urlencoded; charset=${encoding.name}',
     );
   }
@@ -88,10 +87,8 @@ class StorageDataPayload extends StreamView<List<int>> {
   }
 
   /// A streaming [StorageDataPayload].
-  const StorageDataPayload.streaming(
-    super.body, {
-    this.contentType,
-  }) : size = -1;
+  const StorageDataPayload.streaming(super.body, {this.contentType})
+    : size = -1;
 
   /// A data url [StorageDataPayload].
   factory StorageDataPayload.dataUrl(String dataUrl) {

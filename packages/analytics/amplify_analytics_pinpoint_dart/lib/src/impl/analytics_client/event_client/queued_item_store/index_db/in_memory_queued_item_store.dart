@@ -19,10 +19,7 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
 
   @override
   void addItem(String string) {
-    _database[_nextId] = QueuedItem(
-      id: _nextId,
-      value: string,
-    );
+    _database[_nextId] = QueuedItem(id: _nextId, value: string);
     _nextId++;
   }
 

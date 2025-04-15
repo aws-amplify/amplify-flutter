@@ -40,7 +40,8 @@ class VersionBumpCommand extends AmplifyCommand
       )
       ..addFlag(
         'skip-build-version',
-        help: 'Skips running build version in packages that depend on '
+        help:
+            'Skips running build version in packages that depend on '
             'build_version. Intended for use in tests.',
         negatable: false,
       );
@@ -82,9 +83,7 @@ class VersionBumpCommand extends AmplifyCommand
       changesForPackage: _changesForPackage,
       forcedBumpType: forcedBumpType,
     );
-    return repo.writeChanges(
-      packages: repo.publishablePackages(),
-    );
+    return repo.writeChanges(packages: repo.publishablePackages());
   }
 
   @override
@@ -107,11 +106,7 @@ class VersionBumpCommand extends AmplifyCommand
         if (!needsBuildRunner) {
           continue;
         }
-        await runBuildRunner(
-          package,
-          logger: logger,
-          verbose: verbose,
-        );
+        await runBuildRunner(package, logger: logger, verbose: verbose);
       }
     }
 
@@ -137,8 +132,9 @@ class VersionBumpCommand extends AmplifyCommand
           ..add(component.name);
       }
     }
-    final changelog =
-        LineSplitter.split(render(mergedChangelog)).skip(2).join('\n');
+    final changelog = LineSplitter.split(
+      render(mergedChangelog),
+    ).skip(2).join('\n');
     final commitMsg = '''
 chore(version): Bump version
 

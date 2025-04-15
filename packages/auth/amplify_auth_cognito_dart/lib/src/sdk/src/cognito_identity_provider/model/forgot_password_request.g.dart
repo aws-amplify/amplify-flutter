@@ -20,28 +20,34 @@ class _$ForgotPasswordRequest extends ForgotPasswordRequest {
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$ForgotPasswordRequest(
-          [void Function(ForgotPasswordRequestBuilder)? updates]) =>
-      (new ForgotPasswordRequestBuilder()..update(updates))._build();
+  factory _$ForgotPasswordRequest([
+    void Function(ForgotPasswordRequestBuilder)? updates,
+  ]) => (new ForgotPasswordRequestBuilder()..update(updates))._build();
 
-  _$ForgotPasswordRequest._(
-      {required this.clientId,
-      this.secretHash,
-      this.userContextData,
-      required this.username,
-      this.analyticsMetadata,
-      this.clientMetadata})
-      : super._() {
+  _$ForgotPasswordRequest._({
+    required this.clientId,
+    this.secretHash,
+    this.userContextData,
+    required this.username,
+    this.analyticsMetadata,
+    this.clientMetadata,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        clientId, r'ForgotPasswordRequest', 'clientId');
+      clientId,
+      r'ForgotPasswordRequest',
+      'clientId',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        username, r'ForgotPasswordRequest', 'username');
+      username,
+      r'ForgotPasswordRequest',
+      'username',
+    );
   }
 
   @override
   ForgotPasswordRequest rebuild(
-          void Function(ForgotPasswordRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ForgotPasswordRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ForgotPasswordRequestBuilder toBuilder() =>
@@ -140,14 +146,21 @@ class ForgotPasswordRequestBuilder
   _$ForgotPasswordRequest _build() {
     _$ForgotPasswordRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ForgotPasswordRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
-                clientId, r'ForgotPasswordRequest', 'clientId'),
+              clientId,
+              r'ForgotPasswordRequest',
+              'clientId',
+            ),
             secretHash: secretHash,
             userContextData: _userContextData?.build(),
             username: BuiltValueNullFieldError.checkNotNull(
-                username, r'ForgotPasswordRequest', 'username'),
+              username,
+              r'ForgotPasswordRequest',
+              'username',
+            ),
             analyticsMetadata: _analyticsMetadata?.build(),
             clientMetadata: _clientMetadata?.build(),
           );
@@ -163,7 +176,10 @@ class ForgotPasswordRequestBuilder
         _clientMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ForgotPasswordRequest', _$failedField, e.toString());
+          r'ForgotPasswordRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

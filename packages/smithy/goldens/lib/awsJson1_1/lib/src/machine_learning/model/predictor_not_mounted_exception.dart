@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v1.machine_learning.model.predictor_not_mounted_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -11,19 +11,20 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'predictor_not_mounted_exception.g.dart';
 
 abstract class PredictorNotMountedException
-    with
-        _i1.AWSEquatable<PredictorNotMountedException>
+    with _i1.AWSEquatable<PredictorNotMountedException>
     implements
-        Built<PredictorNotMountedException,
-            PredictorNotMountedExceptionBuilder>,
+        Built<
+          PredictorNotMountedException,
+          PredictorNotMountedExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   factory PredictorNotMountedException({String? message}) {
     return _$PredictorNotMountedException._(message: message);
   }
 
-  factory PredictorNotMountedException.build(
-          [void Function(PredictorNotMountedExceptionBuilder) updates]) =
-      _$PredictorNotMountedException;
+  factory PredictorNotMountedException.build([
+    void Function(PredictorNotMountedExceptionBuilder) updates,
+  ]) = _$PredictorNotMountedException;
 
   const PredictorNotMountedException._();
 
@@ -31,21 +32,20 @@ abstract class PredictorNotMountedException
   factory PredictorNotMountedException.fromResponse(
     PredictorNotMountedException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<PredictorNotMountedException>>
-      serializers = [PredictorNotMountedExceptionAwsJson11Serializer()];
+  serializers = [PredictorNotMountedExceptionAwsJson11Serializer()];
 
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.machinelearning',
-        shape: 'PredictorNotMountedException',
-      );
+    namespace: 'com.amazonaws.machinelearning',
+    shape: 'PredictorNotMountedException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -66,10 +66,7 @@ abstract class PredictorNotMountedException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PredictorNotMountedException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -77,21 +74,18 @@ abstract class PredictorNotMountedException
 class PredictorNotMountedExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<PredictorNotMountedException> {
   const PredictorNotMountedExceptionAwsJson11Serializer()
-      : super('PredictorNotMountedException');
+    : super('PredictorNotMountedException');
 
   @override
   Iterable<Type> get types => const [
-        PredictorNotMountedException,
-        _$PredictorNotMountedException,
-      ];
+    PredictorNotMountedException,
+    _$PredictorNotMountedException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   PredictorNotMountedException deserialize(
@@ -110,10 +104,12 @@ class PredictorNotMountedExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -131,10 +127,9 @@ class PredictorNotMountedExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-@OnPlatform(<String, Object>{
-  'browser': Skip('Failing on web'),
-})
+@OnPlatform(<String, Object>{'browser': Skip('Failing on web')})
+library;
 
 import 'package:amplify_core/src/types/datastore/datastore_types.dart';
 import 'package:test/test.dart';
@@ -35,14 +34,17 @@ void main() {
     expect(enumFromString<TestEnum>('maybe', TestEnum.values), TestEnum.maybe);
   });
 
-  test('parsers.enumFromString generates null for non existing enum values',
-      () {
-    expect(enumFromString<TestEnum>('RANDOM', TestEnum.values), null);
-  });
+  test(
+    'parsers.enumFromString generates null for non existing enum values',
+    () {
+      expect(enumFromString<TestEnum>('RANDOM', TestEnum.values), null);
+    },
+  );
 
   test(
-      'parsers.enumFromString generates null for empty string representing enum',
-      () {
-    expect(enumFromString<TestEnum>('', TestEnum.values), null);
-  });
+    'parsers.enumFromString generates null for empty string representing enum',
+    () {
+      expect(enumFromString<TestEnum>('', TestEnum.values), null);
+    },
+  );
 }

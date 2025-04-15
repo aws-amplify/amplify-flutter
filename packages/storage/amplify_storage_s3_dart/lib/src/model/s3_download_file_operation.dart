@@ -7,8 +7,12 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 /// {@template storage.amplify_storage_s3.download_file_operation}
 /// An operation created by calling the Storage S3 plugin `downloadFile` API.
 /// {@endtemplate}
-class S3DownloadFileOperation extends StorageDownloadFileOperation<
-    StorageDownloadFileRequest, S3DownloadFileResult> {
+class S3DownloadFileOperation
+    extends
+        StorageDownloadFileOperation<
+          StorageDownloadFileRequest,
+          S3DownloadFileResult
+        > {
   /// {@macro storage.amplify_storage_s3.download_file_operation}
   S3DownloadFileOperation({
     required super.request,
@@ -16,9 +20,9 @@ class S3DownloadFileOperation extends StorageDownloadFileOperation<
     required Future<void> Function() resume,
     required Future<void> Function() pause,
     required Future<void> Function() cancel,
-  })  : _resume = resume,
-        _pause = pause,
-        _cancel = cancel;
+  }) : _resume = resume,
+       _pause = pause,
+       _cancel = cancel;
 
   final Future<void> Function() _resume;
   final Future<void> Function() _pause;

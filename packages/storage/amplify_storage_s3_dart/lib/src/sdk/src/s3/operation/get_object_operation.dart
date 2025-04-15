@@ -85,8 +85,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 /// *   [ListBuckets](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html)
 ///
 /// *   [GetObjectAcl](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html)
-class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
-    GetObjectRequest, _i2.Stream<List<int>>, GetObjectOutput> {
+class GetObjectOperation
+    extends
+        _i1.HttpOperation<
+          GetObjectRequestPayload,
+          GetObjectRequest,
+          _i2.Stream<List<int>>,
+          GetObjectOutput
+        > {
   /// Retrieves an object from Amazon S3.
   ///
   /// In the `GetObject` request, specify the full key name for the object.
@@ -164,27 +170,35 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
         const _i4.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<GetObjectRequestPayload, GetObjectRequest,
-          _i2.Stream<List<int>>, GetObjectOutput>> protocols = [
+    _i1.HttpProtocol<
+      GetObjectRequestPayload,
+      GetObjectRequest,
+      _i2.Stream<List<int>>,
+      GetObjectOutput
+    >
+  >
+  protocols = [
     _i3.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i3.WithSigV4(
               region: _region,
               service: _i5.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i4.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -192,12 +206,11 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
             const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
-      responseInterceptors: <_i1.HttpResponseInterceptor>[
-            const _i3.CheckPartialResponse()
-          ] +
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[const _i3.CheckPartialResponse()] +
           _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -219,118 +232,113 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
 
   @override
   _i1.HttpRequest buildRequest(GetObjectRequest input) => _i1.HttpRequest((b) {
-        b.method = 'GET';
-        b.path = _s3ClientConfig.usePathStyle
+    b.method = 'GET';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=GetObject'
             : r'/{Key+}?x-id=GetObject';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.ifMatch != null) {
-          if (input.ifMatch!.isNotEmpty) {
-            b.headers['If-Match'] = input.ifMatch!;
-          }
-        }
-        if (input.ifModifiedSince != null) {
-          b.headers['If-Modified-Since'] = _i1.Timestamp(input.ifModifiedSince!)
-              .format(_i1.TimestampFormat.httpDate)
-              .toString();
-        }
-        if (input.ifNoneMatch != null) {
-          if (input.ifNoneMatch!.isNotEmpty) {
-            b.headers['If-None-Match'] = input.ifNoneMatch!;
-          }
-        }
-        if (input.ifUnmodifiedSince != null) {
-          b.headers['If-Unmodified-Since'] =
-              _i1.Timestamp(input.ifUnmodifiedSince!)
-                  .format(_i1.TimestampFormat.httpDate)
-                  .toString();
-        }
-        if (input.range != null) {
-          if (input.range!.isNotEmpty) {
-            b.headers['Range'] = input.range!;
-          }
-        }
-        if (input.sseCustomerAlgorithm != null) {
-          if (input.sseCustomerAlgorithm!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-algorithm'] =
-                input.sseCustomerAlgorithm!;
-          }
-        }
-        if (input.sseCustomerKey != null) {
-          if (input.sseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key'] =
-                input.sseCustomerKey!;
-          }
-        }
-        if (input.sseCustomerKeyMd5 != null) {
-          if (input.sseCustomerKeyMd5!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
-                input.sseCustomerKeyMd5!;
-          }
-        }
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.checksumMode != null) {
-          b.headers['x-amz-checksum-mode'] = input.checksumMode!.value;
-        }
-        if (input.responseCacheControl != null) {
-          b.queryParameters.add(
-            'response-cache-control',
-            input.responseCacheControl!,
-          );
-        }
-        if (input.responseContentDisposition != null) {
-          b.queryParameters.add(
-            'response-content-disposition',
-            input.responseContentDisposition!,
-          );
-        }
-        if (input.responseContentEncoding != null) {
-          b.queryParameters.add(
-            'response-content-encoding',
-            input.responseContentEncoding!,
-          );
-        }
-        if (input.responseContentLanguage != null) {
-          b.queryParameters.add(
-            'response-content-language',
-            input.responseContentLanguage!,
-          );
-        }
-        if (input.responseContentType != null) {
-          b.queryParameters.add(
-            'response-content-type',
-            input.responseContentType!,
-          );
-        }
-        if (input.responseExpires != null) {
-          b.queryParameters.add(
-            'response-expires',
-            _i1.Timestamp(input.responseExpires!)
-                .format(_i1.TimestampFormat.httpDate)
-                .toString(),
-          );
-        }
-        if (input.versionId != null) {
-          b.queryParameters.add(
-            'versionId',
-            input.versionId!,
-          );
-        }
-        if (input.partNumber != null) {
-          b.queryParameters.add(
-            'partNumber',
-            input.partNumber!.toString(),
-          );
-        }
-      });
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.ifMatch != null) {
+      if (input.ifMatch!.isNotEmpty) {
+        b.headers['If-Match'] = input.ifMatch!;
+      }
+    }
+    if (input.ifModifiedSince != null) {
+      b.headers['If-Modified-Since'] =
+          _i1.Timestamp(
+            input.ifModifiedSince!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.ifNoneMatch != null) {
+      if (input.ifNoneMatch!.isNotEmpty) {
+        b.headers['If-None-Match'] = input.ifNoneMatch!;
+      }
+    }
+    if (input.ifUnmodifiedSince != null) {
+      b.headers['If-Unmodified-Since'] =
+          _i1.Timestamp(
+            input.ifUnmodifiedSince!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.range != null) {
+      if (input.range!.isNotEmpty) {
+        b.headers['Range'] = input.range!;
+      }
+    }
+    if (input.sseCustomerAlgorithm != null) {
+      if (input.sseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-algorithm'] =
+            input.sseCustomerAlgorithm!;
+      }
+    }
+    if (input.sseCustomerKey != null) {
+      if (input.sseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key'] =
+            input.sseCustomerKey!;
+      }
+    }
+    if (input.sseCustomerKeyMd5 != null) {
+      if (input.sseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
+            input.sseCustomerKeyMd5!;
+      }
+    }
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.checksumMode != null) {
+      b.headers['x-amz-checksum-mode'] = input.checksumMode!.value;
+    }
+    if (input.responseCacheControl != null) {
+      b.queryParameters.add(
+        'response-cache-control',
+        input.responseCacheControl!,
+      );
+    }
+    if (input.responseContentDisposition != null) {
+      b.queryParameters.add(
+        'response-content-disposition',
+        input.responseContentDisposition!,
+      );
+    }
+    if (input.responseContentEncoding != null) {
+      b.queryParameters.add(
+        'response-content-encoding',
+        input.responseContentEncoding!,
+      );
+    }
+    if (input.responseContentLanguage != null) {
+      b.queryParameters.add(
+        'response-content-language',
+        input.responseContentLanguage!,
+      );
+    }
+    if (input.responseContentType != null) {
+      b.queryParameters.add(
+        'response-content-type',
+        input.responseContentType!,
+      );
+    }
+    if (input.responseExpires != null) {
+      b.queryParameters.add(
+        'response-expires',
+        _i1.Timestamp(
+          input.responseExpires!,
+        ).format(_i1.TimestampFormat.httpDate).toString(),
+      );
+    }
+    if (input.versionId != null) {
+      b.queryParameters.add('versionId', input.versionId!);
+    }
+    if (input.partNumber != null) {
+      b.queryParameters.add('partNumber', input.partNumber!.toString());
+    }
+  });
 
   @override
   int successCode([GetObjectOutput? output]) => 200;
@@ -339,35 +347,25 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
   GetObjectOutput buildOutput(
     _i2.Stream<List<int>> payload,
     _i5.AWSBaseHttpResponse response,
-  ) =>
-      GetObjectOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => GetObjectOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<InvalidObjectState, InvalidObjectState>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.s3',
-            shape: 'InvalidObjectState',
-          ),
-          _i1.ErrorKind.client,
-          InvalidObjectState,
-          statusCode: 403,
-          builder: InvalidObjectState.fromResponse,
-        ),
-        _i1.SmithyError<NoSuchKey, NoSuchKey>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.s3',
-            shape: 'NoSuchKey',
-          ),
-          _i1.ErrorKind.client,
-          NoSuchKey,
-          statusCode: 404,
-          builder: NoSuchKey.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<InvalidObjectState, InvalidObjectState>(
+      _i1.ShapeId(namespace: 'com.amazonaws.s3', shape: 'InvalidObjectState'),
+      _i1.ErrorKind.client,
+      InvalidObjectState,
+      statusCode: 403,
+      builder: InvalidObjectState.fromResponse,
+    ),
+    _i1.SmithyError<NoSuchKey, NoSuchKey>(
+      _i1.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NoSuchKey'),
+      _i1.ErrorKind.client,
+      NoSuchKey,
+      statusCode: 404,
+      builder: NoSuchKey.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'GetObject';
@@ -403,11 +401,7 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},

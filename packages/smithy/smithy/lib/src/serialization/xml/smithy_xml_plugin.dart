@@ -78,10 +78,7 @@ class SmithyXmlPlugin implements SerializerPlugin {
       if (key is XmlElementName) {
         if (key.namespace != null) {
           attributes.add(
-            XmlAttribute(
-              key.namespace!.xmlName,
-              key.namespace!.uri,
-            ),
+            XmlAttribute(key.namespace!.xmlName, key.namespace!.uri),
           );
         }
         key = XmlName(key.name);
@@ -104,8 +101,8 @@ class SmithyXmlPlugin implements SerializerPlugin {
           value == null
               ? const []
               : value is List<XmlNode>
-                  ? value
-                  : [_toNode(value)],
+              ? value
+              : [_toNode(value)],
         ),
       );
     }
@@ -113,9 +110,9 @@ class SmithyXmlPlugin implements SerializerPlugin {
   }
 
   Map<String, String> _toAttributeMap(List<XmlAttribute> attributes) => {
-        for (final attr in attributes)
-          if (!attr.isNamespace) attr.name.qualified: attr.value,
-      };
+    for (final attr in attributes)
+      if (!attr.isNamespace) attr.name.qualified: attr.value,
+  };
 
   void _nest(
     XmlBuilder builder,
@@ -141,10 +138,7 @@ class SmithyXmlPlugin implements SerializerPlugin {
         builder.element(
           elementName,
           namespaces: namespaces,
-          attributes: _toAttributeMap([
-            ...attributes,
-            ...value.attributes,
-          ]),
+          attributes: _toAttributeMap([...attributes, ...value.attributes]),
           nest: value.children,
         );
       } else {

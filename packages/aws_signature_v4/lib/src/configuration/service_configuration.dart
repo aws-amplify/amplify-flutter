@@ -31,10 +31,10 @@ abstract class ServiceConfiguration {
     bool? omitSessionToken,
     bool? doubleEncodePathSegments,
     bool? signBody,
-  })  : normalizePath = normalizePath ?? true,
-        omitSessionToken = omitSessionToken ?? false,
-        doubleEncodePathSegments = doubleEncodePathSegments ?? true,
-        signBody = signBody ?? true;
+  }) : normalizePath = normalizePath ?? true,
+       omitSessionToken = omitSessionToken ?? false,
+       doubleEncodePathSegments = doubleEncodePathSegments ?? true,
+       signBody = signBody ?? true;
 
   /// Whether to normalize paths in the canonical request.
   ///

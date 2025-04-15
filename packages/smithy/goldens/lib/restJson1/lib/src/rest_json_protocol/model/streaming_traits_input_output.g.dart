@@ -12,16 +12,16 @@ class _$StreamingTraitsInputOutput extends StreamingTraitsInputOutput {
   @override
   final _i2.Stream<List<int>>? blob;
 
-  factory _$StreamingTraitsInputOutput(
-          [void Function(StreamingTraitsInputOutputBuilder)? updates]) =>
-      (new StreamingTraitsInputOutputBuilder()..update(updates))._build();
+  factory _$StreamingTraitsInputOutput([
+    void Function(StreamingTraitsInputOutputBuilder)? updates,
+  ]) => (new StreamingTraitsInputOutputBuilder()..update(updates))._build();
 
   _$StreamingTraitsInputOutput._({this.foo, this.blob}) : super._();
 
   @override
   StreamingTraitsInputOutput rebuild(
-          void Function(StreamingTraitsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(StreamingTraitsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   StreamingTraitsInputOutputBuilder toBuilder() =>

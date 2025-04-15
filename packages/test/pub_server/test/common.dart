@@ -20,9 +20,7 @@ Future<void> runProcess(
     runInShell: true,
     stdoutEncoding: utf8,
     stderrEncoding: utf8,
-    environment: {
-      'PUB_HOSTED_URL': pubServerUri.toString(),
-    },
+    environment: {'PUB_HOSTED_URL': pubServerUri.toString()},
   );
   if (process.exitCode != 0) {
     throw Exception(
@@ -42,11 +40,7 @@ Future<void> createPackage(
 }) async {
   await runProcess(
     'dart',
-    [
-      'create',
-      '--no-pub',
-      name,
-    ],
+    ['create', '--no-pub', name],
     workingDirectory: workingDirectory,
     pubServerUri: pubServerUri,
   );
@@ -59,9 +53,7 @@ Future<void> createPackage(
   }
   editor.update(
     ['dependencies'],
-    {
-      for (final dependency in dependencies) dependency: 'any',
-    },
+    {for (final dependency in dependencies) dependency: 'any'},
   );
   await pubspecFile.writeAsString(editor.toString());
 

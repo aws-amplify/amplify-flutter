@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.malformed_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,12 +24,13 @@ abstract class MalformedStringInput
         _i1.HasPayload<MalformedStringInputPayload> {
   factory MalformedStringInput({Object? blob}) {
     return _$MalformedStringInput._(
-        blob: blob == null ? null : _i3.JsonObject(blob));
+      blob: blob == null ? null : _i3.JsonObject(blob),
+    );
   }
 
-  factory MalformedStringInput.build(
-          [void Function(MalformedStringInputBuilder) updates]) =
-      _$MalformedStringInput;
+  factory MalformedStringInput.build([
+    void Function(MalformedStringInputBuilder) updates,
+  ]) = _$MalformedStringInput;
 
   const MalformedStringInput._();
 
@@ -37,16 +38,20 @@ abstract class MalformedStringInput
     MalformedStringInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedStringInput.build((b) {
-        if (request.headers['amz-media-typed-header'] != null) {
-          b.blob = _i3.JsonObject(_i4.jsonDecode(_i4.utf8.decode(
-              _i4.base64Decode(request.headers['amz-media-typed-header']!))));
-        }
-      });
+  }) => MalformedStringInput.build((b) {
+    if (request.headers['amz-media-typed-header'] != null) {
+      b.blob = _i3.JsonObject(
+        _i4.jsonDecode(
+          _i4.utf8.decode(
+            _i4.base64Decode(request.headers['amz-media-typed-header']!),
+          ),
+        ),
+      );
+    }
+  });
 
   static const List<_i1.SmithySerializer<MalformedStringInputPayload>>
-      serializers = [MalformedStringInputRestJson1Serializer()];
+  serializers = [MalformedStringInputRestJson1Serializer()];
 
   _i3.JsonObject? get blob;
   @override
@@ -58,10 +63,7 @@ abstract class MalformedStringInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedStringInput')
-      ..add(
-        'blob',
-        blob,
-      );
+      ..add('blob', blob);
     return helper.toString();
   }
 }
@@ -72,9 +74,9 @@ abstract class MalformedStringInputPayload
     implements
         Built<MalformedStringInputPayload, MalformedStringInputPayloadBuilder>,
         _i1.EmptyPayload {
-  factory MalformedStringInputPayload(
-          [void Function(MalformedStringInputPayloadBuilder) updates]) =
-      _$MalformedStringInputPayload;
+  factory MalformedStringInputPayload([
+    void Function(MalformedStringInputPayloadBuilder) updates,
+  ]) = _$MalformedStringInputPayload;
 
   const MalformedStringInputPayload._();
 
@@ -91,23 +93,20 @@ abstract class MalformedStringInputPayload
 class MalformedStringInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<MalformedStringInputPayload> {
   const MalformedStringInputRestJson1Serializer()
-      : super('MalformedStringInput');
+    : super('MalformedStringInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedStringInput,
-        _$MalformedStringInput,
-        MalformedStringInputPayload,
-        _$MalformedStringInputPayload,
-      ];
+    MalformedStringInput,
+    _$MalformedStringInput,
+    MalformedStringInputPayload,
+    _$MalformedStringInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedStringInputPayload deserialize(
@@ -123,6 +122,5 @@ class MalformedStringInputRestJson1Serializer
     Serializers serializers,
     MalformedStringInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

@@ -27,7 +27,6 @@ linter:
     - prefer_int_literals                              # To improve code readability.
     - prefer_null_aware_method_calls                   # To improve code readability.
     - prefer_single_quotes                             # To encourage consistent styling.
-    - require_trailing_commas                          # To improve code readability.
     - secure_pubspec_urls                              # To improve security posture.
     - sized_box_shrink_expand                          # To improve code readability.
     - sort_constructors_first                          # To provide a consistent style for classes.

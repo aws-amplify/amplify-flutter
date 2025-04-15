@@ -10,19 +10,22 @@ class _$ConstantQueryStringInput extends ConstantQueryStringInput {
   @override
   final String hello;
 
-  factory _$ConstantQueryStringInput(
-          [void Function(ConstantQueryStringInputBuilder)? updates]) =>
-      (new ConstantQueryStringInputBuilder()..update(updates))._build();
+  factory _$ConstantQueryStringInput([
+    void Function(ConstantQueryStringInputBuilder)? updates,
+  ]) => (new ConstantQueryStringInputBuilder()..update(updates))._build();
 
   _$ConstantQueryStringInput._({required this.hello}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        hello, r'ConstantQueryStringInput', 'hello');
+      hello,
+      r'ConstantQueryStringInput',
+      'hello',
+    );
   }
 
   @override
   ConstantQueryStringInput rebuild(
-          void Function(ConstantQueryStringInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConstantQueryStringInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConstantQueryStringInputBuilder toBuilder() =>
@@ -78,10 +81,15 @@ class ConstantQueryStringInputBuilder
   ConstantQueryStringInput build() => _build();
 
   _$ConstantQueryStringInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ConstantQueryStringInput._(
-            hello: BuiltValueNullFieldError.checkNotNull(
-                hello, r'ConstantQueryStringInput', 'hello'));
+          hello: BuiltValueNullFieldError.checkNotNull(
+            hello,
+            r'ConstantQueryStringInput',
+            'hello',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -89,16 +97,17 @@ class ConstantQueryStringInputBuilder
 
 class _$ConstantQueryStringInputPayload
     extends ConstantQueryStringInputPayload {
-  factory _$ConstantQueryStringInputPayload(
-          [void Function(ConstantQueryStringInputPayloadBuilder)? updates]) =>
+  factory _$ConstantQueryStringInputPayload([
+    void Function(ConstantQueryStringInputPayloadBuilder)? updates,
+  ]) =>
       (new ConstantQueryStringInputPayloadBuilder()..update(updates))._build();
 
   _$ConstantQueryStringInputPayload._() : super._();
 
   @override
   ConstantQueryStringInputPayload rebuild(
-          void Function(ConstantQueryStringInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConstantQueryStringInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConstantQueryStringInputPayloadBuilder toBuilder() =>
@@ -118,8 +127,10 @@ class _$ConstantQueryStringInputPayload
 
 class ConstantQueryStringInputPayloadBuilder
     implements
-        Builder<ConstantQueryStringInputPayload,
-            ConstantQueryStringInputPayloadBuilder> {
+        Builder<
+          ConstantQueryStringInputPayload,
+          ConstantQueryStringInputPayloadBuilder
+        > {
   _$ConstantQueryStringInputPayload? _$v;
 
   ConstantQueryStringInputPayloadBuilder();

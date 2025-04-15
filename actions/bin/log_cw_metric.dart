@@ -94,9 +94,7 @@ Future<void> logMetric() async {
     'pub_server',
   ];
 
-  final category = categories.firstWhereOrNull(
-    workingDirectory.contains,
-  );
+  final category = categories.firstWhereOrNull(workingDirectory.contains);
 
   if (category == null) {
     throw Exception(
@@ -112,16 +110,24 @@ Future<void> logMetric() async {
       'framework input of $framework must be one of: dart, flutter',
     );
   }
-  final flutterDartChannel =
-      core.getInput('flutter-dart-channel', defaultValue: defaultValue);
+  final flutterDartChannel = core.getInput(
+    'flutter-dart-channel',
+    defaultValue: defaultValue,
+  );
   final dartVersion = core.getInput('dart-version', defaultValue: defaultValue);
-  final flutterVersion =
-      core.getInput('flutter-version', defaultValue: defaultValue);
-  final dartCompiler =
-      core.getInput('dart-compiler', defaultValue: defaultValue);
+  final flutterVersion = core.getInput(
+    'flutter-version',
+    defaultValue: defaultValue,
+  );
+  final dartCompiler = core.getInput(
+    'dart-compiler',
+    defaultValue: defaultValue,
+  );
   final platform = core.getInput('platform', defaultValue: defaultValue);
-  final platformVersion =
-      core.getInput('platform-version', defaultValue: defaultValue);
+  final platformVersion = core.getInput(
+    'platform-version',
+    defaultValue: defaultValue,
+  );
 
   final value = isFailed ? '1' : '0';
 
@@ -140,8 +146,9 @@ Future<void> logMetric() async {
     //if (failingStep.isNotEmpty) 'failing-step': failingStep,
   };
 
-  final dimensionString =
-      dimensions.entries.map((e) => '${e.key}=${e.value}').join(',');
+  final dimensionString = dimensions.entries
+      .map((e) => '${e.key}=${e.value}')
+      .join(',');
 
   final cloudArgs = <String>[
     'cloudwatch',
@@ -156,9 +163,7 @@ Future<void> logMetric() async {
     dimensionString,
   ];
 
-  await processManager.run(
-    <String>['aws', ...cloudArgs],
-  );
+  await processManager.run(<String>['aws', ...cloudArgs]);
 
   core.info('Sent cloudwatch metric with args: $cloudArgs');
 }
@@ -193,9 +198,11 @@ Future<String> getFailingStep(
     final jobsList = GithubJobsList.fromJson(response);
     final matchingJob = jobsList.jobs.firstWhere(
       (job) => job.name.toLowerCase().contains(jobIdentifier),
-      orElse: () => throw Exception(
-        'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}.  Note that the "jobIdentifier" used to find the proper job uses the job id and not the job name, setting the "name" field in the workflow yaml will break this logic.  See comments for more context.',
-      ),
+      orElse:
+          () =>
+              throw Exception(
+                'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}.  Note that the "jobIdentifier" used to find the proper job uses the job id and not the job name, setting the "name" field in the workflow yaml will break this logic.  See comments for more context.',
+              ),
     );
     final steps = matchingJob.steps;
 

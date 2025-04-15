@@ -22,7 +22,8 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
     String? payloadWireName;
     final payloadMember = this.payloadMember;
     if (payloadMember != null) {
-      payloadWireName = payloadMember.getTrait<XmlNameTrait>()?.value ??
+      payloadWireName =
+          payloadMember.getTrait<XmlNameTrait>()?.value ??
           shape.getTrait<XmlNameTrait>()?.value;
     }
     return payloadWireName ??
@@ -51,8 +52,8 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
 
   @override
   Reference get payloadBuilderSymbol => payloadSymbol.unboxed.typeRef.rebuild(
-        (t) => t.symbol = '${t.symbol}Builder',
-      );
+    (t) => t.symbol = '${t.symbol}Builder',
+  );
 
   @override
   List<MemberShape> get payloadMembers {
@@ -67,9 +68,9 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
 
   @override
   Map<MemberShape, Reference> get memberSymbols => {
-        for (final member in payloadMembers)
-          member: context.symbolFor(member.target, payloadShape),
-      };
+    for (final member in payloadMembers)
+      member: context.symbolFor(member.target, payloadShape),
+  };
 
   @override
   late final Map<MemberShape, String> wireNames = () {
@@ -97,13 +98,15 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       payloadShape.getTrait<XmlNamespaceTrait>() ??
       context.service?.getTrait<XmlNamespaceTrait>();
 
-  late final List<MemberShape> attributeMembers = payloadMembers
-      .where((member) => member.hasTrait<XmlAttributeTrait>())
-      .toList();
+  late final List<MemberShape> attributeMembers =
+      payloadMembers
+          .where((member) => member.hasTrait<XmlAttributeTrait>())
+          .toList();
 
-  late final List<MemberShape> flattenedMembers = payloadMembers
-      .where((member) => member.hasTrait<XmlFlattenedTrait>())
-      .toList();
+  late final List<MemberShape> flattenedMembers =
+      payloadMembers
+          .where((member) => member.hasTrait<XmlFlattenedTrait>())
+          .toList();
 
   /// The custom BuiltX constructor for XML payloads.
   Expression _builtXmlConstructor(
@@ -181,22 +184,14 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
     if (targetType == ShapeType.list ||
         targetType == ShapeType.set ||
         targetType == ShapeType.map) {
-      return _builtXmlConstructor(
-        member,
-        targetShape,
-        isSerialize: true,
-      ).property('serialize').call([
-        refer('serializers'),
-        memberRef,
-      ], {
-        'specifiedType': memberSymbol.fullType(),
-      });
+      return _builtXmlConstructor(member, targetShape, isSerialize: true)
+          .property('serialize')
+          .call(
+            [refer('serializers'), memberRef],
+            {'specifiedType': memberSymbol.fullType()},
+          );
     }
-    return super.serializerFor(
-      member,
-      memberRef,
-      memberSymbol: memberSymbol,
-    );
+    return super.serializerFor(member, memberRef, memberSymbol: memberSymbol);
   }
 
   @override
@@ -219,15 +214,12 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
             : payloadWireName;
     builder.addExpression(
       declareFinal(resultVar.symbol!).assign(
-        literalList(
-          [
-            DartTypes.smithy.xmlElementName.constInstance([
-              literalString(payloadResponseName),
-              if (namespace != null) namespace.constructedInstance,
-            ]),
-          ],
-          DartTypes.core.object.boxed,
-        ),
+        literalList([
+          DartTypes.smithy.xmlElementName.constInstance([
+            literalString(payloadResponseName),
+            if (namespace != null) namespace.constructedInstance,
+          ]),
+        ], DartTypes.core.object.boxed),
       ),
     );
 
@@ -249,22 +241,17 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
                 DartTypes.xml.xmlName.newInstance([
                   literalString(serializeMemberWireName(member)),
                 ]),
-                serializerFor(
-                  member,
-                  memberRef,
-                ).asA(DartTypes.core.string),
+                serializerFor(member, memberRef).asA(DartTypes.core.string),
               ]),
             ])
             .statement
-            .wrapWithBlockIf(
-              memberRef.notEqualTo(literalNull),
-              isNullable,
-            ),
+            .wrapWithBlockIf(memberRef.notEqualTo(literalNull), isNullable),
       );
     }
 
-    final serializableMembers =
-        serializedMembers.where((member) => !attributeMembers.contains(member));
+    final serializableMembers = serializedMembers.where(
+      (member) => !attributeMembers.contains(member),
+    );
 
     if (serializableMembers.isEmpty && !isStructuredSerializer) {
       // serializing a primitive
@@ -299,10 +286,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
             .cascade(isFlattened ? 'addAll' : 'add')
             .call([serializer])
             .statement
-            .wrapWithBlockIf(
-              memberRef.notEqualTo(literalNull),
-              isNullable,
-            ),
+            .wrapWithBlockIf(memberRef.notEqualTo(literalNull), isNullable),
       );
     }
 
@@ -325,17 +309,20 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         targetType == ShapeType.map) {
       final iterableType = DartTypes.core.iterable(DartTypes.core.object.boxed);
       final deserialized = _builtXmlConstructor(
-        member,
-        targetShape,
-        isSerialize: false,
-      ).property('deserialize').call([
-        refer('serializers'),
-        value
-            .isA(DartTypes.core.string)
-            .conditional(literalConstList([]), value.asA(iterableType)),
-      ], {
-        'specifiedType': memberSymbol.fullType(),
-      });
+            member,
+            targetShape,
+            isSerialize: false,
+          )
+          .property('deserialize')
+          .call(
+            [
+              refer('serializers'),
+              value
+                  .isA(DartTypes.core.string)
+                  .conditional(literalConstList([]), value.asA(iterableType)),
+            ],
+            {'specifiedType': memberSymbol.fullType()},
+          );
       if (targetShape is ListShape || targetShape is SetShape) {
         return deserialized.asA(memberSymbol);
       }
@@ -365,7 +352,8 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       ''',
     );
     final unwrapErrors = shape.isError && protocol is Ec2QueryTrait;
-    final unwrapError = shape.isError &&
+    final unwrapError =
+        shape.isError &&
         ((protocol is RestXmlTrait &&
                 !(protocol as RestXmlTrait).noErrorWrapping) ||
             protocol is Ec2QueryTrait ||
@@ -442,8 +430,9 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         // it to the builder (there will only be one).
         if (targetShape is MapShape) {
           nestedMethod = 'addAll';
-          postProcess = (Expression exp) =>
-              exp.property('toMap').call([]).property('cast').call([]);
+          postProcess =
+              (Expression exp) =>
+                  exp.property('toMap').call([]).property('cast').call([]);
         }
       }
       final value = refer('value');
@@ -456,13 +445,14 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
               .property(member.dartName(ShapeType.structure))
               .property(nestedMethod)
               .call([
-            postProcess(
-              deserializerFor(
-                targetMember,
-                memberSymbol: memberSymbol.unboxed,
-              ),
-            ),
-          ]).statement
+                postProcess(
+                  deserializerFor(
+                    targetMember,
+                    memberSymbol: memberSymbol.unboxed,
+                  ),
+                ),
+              ])
+              .statement
         else
           refer('result')
               .property(member.dartName(ShapeType.structure))

@@ -42,10 +42,7 @@ FormFieldValidator<String> usernameValidator({
 }) {
   return (String? input) {
     if (input == null || input.isEmpty) {
-      return inputResolver.resolve(
-        context,
-        InputResolverKey.usernameEmpty,
-      );
+      return inputResolver.resolve(context, InputResolverKey.usernameEmpty);
     }
     input = input.trim();
     if (!usernameRegex.hasMatch(input)) {
@@ -65,35 +62,34 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
 }) {
   final passwordPolicies = amplifyOutputs?.auth?.passwordPolicy;
   return (BuildContext context) => (String? password) {
-        if (password == null || password.isEmpty) {
-          return inputResolver.resolve(
-            context,
-            InputResolverKey.passwordEmpty,
-          );
-        }
-        password = password.trim();
-        if (passwordPolicies == null) {
-          return null;
-        }
+    if (password == null || password.isEmpty) {
+      return inputResolver.resolve(context, InputResolverKey.passwordEmpty);
+    }
+    password = password.trim();
+    if (passwordPolicies == null) {
+      return null;
+    }
 
-        final minLength = passwordPolicies.minLength;
-        final meetsMinLengthRequirement =
-            minLength == null || password.length >= minLength;
+    final minLength = passwordPolicies.minLength;
+    final meetsMinLengthRequirement =
+        minLength == null || password.length >= minLength;
 
-        final unmetCharacterReqs =
-            _getUnmetCharacterRequirements(password, passwordPolicies);
+    final unmetCharacterReqs = _getUnmetCharacterRequirements(
+      password,
+      passwordPolicies,
+    );
 
-        final error = inputResolver.resolve(
-          context,
-          InputResolverKey.passwordRequirementsUnmet(
-            UnmetPasswordRequirements(
-              minLength: meetsMinLengthRequirement ? null : minLength,
-              characterRequirements: unmetCharacterReqs,
-            ),
-          ),
-        );
-        return error.isEmpty ? null : error;
-      };
+    final error = inputResolver.resolve(
+      context,
+      InputResolverKey.passwordRequirementsUnmet(
+        UnmetPasswordRequirements(
+          minLength: meetsMinLengthRequirement ? null : minLength,
+          characterRequirements: unmetCharacterReqs,
+        ),
+      ),
+    );
+    return error.isEmpty ? null : error;
+  };
 }
 
 List<CharacterRequirements> _getUnmetCharacterRequirements(
@@ -149,10 +145,7 @@ FormFieldValidator<String> validatePhoneNumber({
       if (isOptional) {
         return null;
       }
-      return inputResolver.resolve(
-        context,
-        InputResolverKey.phoneNumberEmpty,
-      );
+      return inputResolver.resolve(context, InputResolverKey.phoneNumberEmpty);
     }
     phoneNumber = phoneNumber.trim();
     if (!phoneNumberRegex.hasMatch(phoneNumber)) {
@@ -172,10 +165,7 @@ FormFieldValidator<String> validateEmail({
       if (isOptional) {
         return null;
       }
-      return inputResolver.resolve(
-        context,
-        InputResolverKey.emailEmpty,
-      );
+      return inputResolver.resolve(context, InputResolverKey.emailEmpty);
     }
     email = email.trim();
     if (!emailRegex.hasMatch(email)) {

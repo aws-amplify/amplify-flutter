@@ -10,8 +10,5 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 class S3GetUrlOperation
     extends StorageGetUrlOperation<StorageGetUrlRequest, S3GetUrlResult> {
   /// {@macro storage.amplify_storage_s3.get_url_operation}
-  S3GetUrlOperation({
-    required super.request,
-    required super.result,
-  });
+  S3GetUrlOperation({required super.request, required super.result});
 }

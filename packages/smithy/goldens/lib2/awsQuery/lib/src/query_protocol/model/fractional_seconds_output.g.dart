@@ -10,16 +10,16 @@ class _$FractionalSecondsOutput extends FractionalSecondsOutput {
   @override
   final DateTime? datetime;
 
-  factory _$FractionalSecondsOutput(
-          [void Function(FractionalSecondsOutputBuilder)? updates]) =>
-      (new FractionalSecondsOutputBuilder()..update(updates))._build();
+  factory _$FractionalSecondsOutput([
+    void Function(FractionalSecondsOutputBuilder)? updates,
+  ]) => (new FractionalSecondsOutputBuilder()..update(updates))._build();
 
   _$FractionalSecondsOutput._({this.datetime}) : super._();
 
   @override
   FractionalSecondsOutput rebuild(
-          void Function(FractionalSecondsOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(FractionalSecondsOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   FractionalSecondsOutputBuilder toBuilder() =>

@@ -19,19 +19,22 @@ part 'serializers.g.dart';
   MacOSEnvironment,
   GitHubPackageConfig,
 ])
-final Serializers aftSerializers = (_$aftSerializers.toBuilder()
-      ..addPlugin(StandardJsonPlugin())
-      ..add(const VersionConstraintSerializer())
-      ..add(const JsonSerializer<PackageInfo>(fromJson: PackageInfo.fromJson))
-      ..add(const JsonSerializer<AftComponent>(fromJson: AftComponent.fromJson))
-      ..add(const JsonSerializer<AftScript>(fromJson: AftScript.fromJson)))
-    .build();
+final Serializers aftSerializers =
+    (_$aftSerializers.toBuilder()
+          ..addPlugin(StandardJsonPlugin())
+          ..add(const VersionConstraintSerializer())
+          ..add(
+            const JsonSerializer<PackageInfo>(fromJson: PackageInfo.fromJson),
+          )
+          ..add(
+            const JsonSerializer<AftComponent>(fromJson: AftComponent.fromJson),
+          )
+          ..add(const JsonSerializer<AftScript>(fromJson: AftScript.fromJson)))
+        .build();
 
 final class JsonSerializer<T extends AWSSerializable>
     implements PrimitiveSerializer<T> {
-  const JsonSerializer({
-    required this.fromJson,
-  });
+  const JsonSerializer({required this.fromJson});
 
   final T Function(Map<String, Object?>) fromJson;
   static final StandardJsonPlugin _jsonPlugin = StandardJsonPlugin();

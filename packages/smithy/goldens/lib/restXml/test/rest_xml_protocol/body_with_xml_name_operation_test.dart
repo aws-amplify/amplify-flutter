@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.body_with_xml_name_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -13,105 +13,90 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'BodyWithXmlName (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: BodyWithXmlNameOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'BodyWithXmlName',
-          documentation:
-              'Serializes a payload using a wrapper name based on the xmlName',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '<Ahoy><nested><name>Phreddy</name></nested></Ahoy>',
-          bodyMediaType: 'application/xml',
-          params: {
-            'nested': {'name': 'Phreddy'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: ['Content-Length'],
-          tags: [],
-          appliesTo: null,
-          method: 'PUT',
-          uri: '/BodyWithXmlName',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          BodyWithXmlNameInputOutputRestXmlSerializer(),
-          PayloadWithXmlNameRestXmlSerializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'BodyWithXmlName (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: BodyWithXmlNameOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'BodyWithXmlName',
-          documentation:
-              'Serializes a payload using a wrapper name based on the xmlName',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '<Ahoy><nested><name>Phreddy</name></nested></Ahoy>',
-          bodyMediaType: 'application/xml',
-          params: {
-            'nested': {'name': 'Phreddy'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          BodyWithXmlNameInputOutputRestXmlSerializer(),
-          PayloadWithXmlNameRestXmlSerializer(),
-        ],
-      );
-    },
-  );
+  _i1.test('BodyWithXmlName (request)', () async {
+    await _i2.httpRequestTest(
+      operation: BodyWithXmlNameOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'BodyWithXmlName',
+        documentation:
+            'Serializes a payload using a wrapper name based on the xmlName',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '<Ahoy><nested><name>Phreddy</name></nested></Ahoy>',
+        bodyMediaType: 'application/xml',
+        params: {
+          'nested': {'name': 'Phreddy'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: ['Content-Length'],
+        tags: [],
+        appliesTo: null,
+        method: 'PUT',
+        uri: '/BodyWithXmlName',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        BodyWithXmlNameInputOutputRestXmlSerializer(),
+        PayloadWithXmlNameRestXmlSerializer(),
+      ],
+    );
+  });
+  _i1.test('BodyWithXmlName (response)', () async {
+    await _i2.httpResponseTest(
+      operation: BodyWithXmlNameOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'BodyWithXmlName',
+        documentation:
+            'Serializes a payload using a wrapper name based on the xmlName',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '<Ahoy><nested><name>Phreddy</name></nested></Ahoy>',
+        bodyMediaType: 'application/xml',
+        params: {
+          'nested': {'name': 'Phreddy'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        BodyWithXmlNameInputOutputRestXmlSerializer(),
+        PayloadWithXmlNameRestXmlSerializer(),
+      ],
+    );
+  });
 }
 
 class BodyWithXmlNameInputOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<BodyWithXmlNameInputOutput> {
   const BodyWithXmlNameInputOutputRestXmlSerializer()
-      : super('BodyWithXmlNameInputOutput');
+    : super('BodyWithXmlNameInputOutput');
 
   @override
   Iterable<Type> get types => const [BodyWithXmlNameInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   BodyWithXmlNameInputOutput deserialize(
@@ -130,10 +115,13 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(PayloadWithXmlName),
-          ) as PayloadWithXmlName));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(PayloadWithXmlName),
+                )
+                as PayloadWithXmlName),
+          );
       }
     }
 
@@ -159,11 +147,8 @@ class PayloadWithXmlNameRestXmlSerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   PayloadWithXmlName deserialize(
@@ -182,10 +167,12 @@ class PayloadWithXmlNameRestXmlSerializer
       }
       switch (key) {
         case 'name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

@@ -33,9 +33,10 @@ void main() {
       });
 
       testWidgets('String StoragePath', (_) async {
-        final result = await Amplify.Storage.getUrl(
-          path: StoragePath.fromString(path),
-        ).result;
+        final result =
+            await Amplify.Storage.getUrl(
+              path: StoragePath.fromString(path),
+            ).result;
         expect(result.url.path, '/$path');
         final actualData = await readData(result.url);
         expect(actualData, data);
@@ -50,9 +51,10 @@ void main() {
           data: S3DataPayload.bytes(data),
           path: StoragePath.fromString(path),
         ).result;
-        final result = await Amplify.Storage.getUrl(
-          path: StoragePath.fromString(path),
-        ).result;
+        final result =
+            await Amplify.Storage.getUrl(
+              path: StoragePath.fromString(path),
+            ).result;
         final actualData = await readData(result.url);
         expect(actualData, data);
       });
@@ -68,11 +70,12 @@ void main() {
           path: StoragePath.fromString(expectedResolvedPath),
         ).result;
 
-        final result = await Amplify.Storage.getUrl(
-          path: StoragePath.fromIdentityId(
-            (identityId) => 'private/$identityId/$name',
-          ),
-        ).result;
+        final result =
+            await Amplify.Storage.getUrl(
+              path: StoragePath.fromIdentityId(
+                (identityId) => 'private/$identityId/$name',
+              ),
+            ).result;
         expect(result.url.path, '/$expectedResolvedPath');
         final actualData = await readData(result.url);
         expect(actualData, data);
@@ -81,27 +84,29 @@ void main() {
       group('unauthorized path', () {
         testWidgets('validateObjectExistence true', (_) async {
           await expectLater(
-            () => Amplify.Storage.getUrl(
-              path: const StoragePath.fromString('unauthorized/path'),
-              options: const StorageGetUrlOptions(
-                pluginOptions: S3GetUrlPluginOptions(
-                  validateObjectExistence: true,
-                ),
-              ),
-            ).result,
+            () =>
+                Amplify.Storage.getUrl(
+                  path: const StoragePath.fromString('unauthorized/path'),
+                  options: const StorageGetUrlOptions(
+                    pluginOptions: S3GetUrlPluginOptions(
+                      validateObjectExistence: true,
+                    ),
+                  ),
+                ).result,
             throwsA(isA<StorageAccessDeniedException>()),
           );
         });
 
         testWidgets('validateObjectExistence false', (_) async {
-          final result = await Amplify.Storage.getUrl(
-            path: const StoragePath.fromString('unauthorized/path'),
-            options: const StorageGetUrlOptions(
-              pluginOptions: S3GetUrlPluginOptions(
-                validateObjectExistence: false,
-              ),
-            ),
-          ).result;
+          final result =
+              await Amplify.Storage.getUrl(
+                path: const StoragePath.fromString('unauthorized/path'),
+                options: const StorageGetUrlOptions(
+                  pluginOptions: S3GetUrlPluginOptions(
+                    validateObjectExistence: false,
+                  ),
+                ),
+              ).result;
           await expectLater(
             () => readData(result.url),
             throwsA(isA<ClientException>()),
@@ -112,14 +117,13 @@ void main() {
       group('with options', () {
         testWidgets('expiresIn', (_) async {
           const duration = Duration(seconds: 10);
-          final result = await Amplify.Storage.getUrl(
-            path: StoragePath.fromString(path),
-            options: const StorageGetUrlOptions(
-              pluginOptions: S3GetUrlPluginOptions(
-                expiresIn: duration,
-              ),
-            ),
-          ).result;
+          final result =
+              await Amplify.Storage.getUrl(
+                path: StoragePath.fromString(path),
+                options: const StorageGetUrlOptions(
+                  pluginOptions: S3GetUrlPluginOptions(expiresIn: duration),
+                ),
+              ).result;
           expect(result.url.path, '/$path');
           final actualData = await readData(result.url);
           expect(actualData, data);
@@ -132,14 +136,17 @@ void main() {
 
         testWidgets('validateObjectExistence true', (_) async {
           await expectLater(
-            () => Amplify.Storage.getUrl(
-              path: const StoragePath.fromString('public/non-existent-path'),
-              options: const StorageGetUrlOptions(
-                pluginOptions: S3GetUrlPluginOptions(
-                  validateObjectExistence: true,
-                ),
-              ),
-            ).result,
+            () =>
+                Amplify.Storage.getUrl(
+                  path: const StoragePath.fromString(
+                    'public/non-existent-path',
+                  ),
+                  options: const StorageGetUrlOptions(
+                    pluginOptions: S3GetUrlPluginOptions(
+                      validateObjectExistence: true,
+                    ),
+                  ),
+                ).result,
             throwsA(isA<StorageNotFoundException>()),
           );
         });
@@ -159,14 +166,15 @@ void main() {
         });
 
         testWidgets('useAccelerateEndpoint', (_) async {
-          final result = await Amplify.Storage.getUrl(
-            path: StoragePath.fromString(path),
-            options: const StorageGetUrlOptions(
-              pluginOptions: S3GetUrlPluginOptions(
-                useAccelerateEndpoint: true,
-              ),
-            ),
-          ).result;
+          final result =
+              await Amplify.Storage.getUrl(
+                path: StoragePath.fromString(path),
+                options: const StorageGetUrlOptions(
+                  pluginOptions: S3GetUrlPluginOptions(
+                    useAccelerateEndpoint: true,
+                  ),
+                ),
+              ).result;
           expect(result.url.path, '/$path');
           final actualData = await readData(result.url);
           expect(actualData, data);
@@ -191,38 +199,32 @@ void main() {
           await Amplify.Storage.uploadData(
             data: StorageDataPayload.bytes(data),
             path: storagePathMain,
-            options: StorageUploadDataOptions(
-              bucket: mainBucket,
-            ),
+            options: StorageUploadDataOptions(bucket: mainBucket),
           ).result;
           await Amplify.Storage.uploadData(
             data: StorageDataPayload.bytes(data),
             path: storagePathSecondary,
-            options: StorageUploadDataOptions(
-              bucket: secondaryBucket,
-            ),
+            options: StorageUploadDataOptions(bucket: secondaryBucket),
           ).result;
         });
 
         testWidgets('can get url from main bucket', (_) async {
-          final result = await Amplify.Storage.getUrl(
-            path: storagePathMain,
-            options: StorageGetUrlOptions(
-              bucket: mainBucket,
-            ),
-          ).result;
+          final result =
+              await Amplify.Storage.getUrl(
+                path: storagePathMain,
+                options: StorageGetUrlOptions(bucket: mainBucket),
+              ).result;
           expect(result.url.path, '/$pathMain');
           final actualData = await readData(result.url);
           expect(actualData, data);
         });
 
         testWidgets('can get url from secondary bucket', (_) async {
-          final result = await Amplify.Storage.getUrl(
-            path: storagePathSecondary,
-            options: StorageGetUrlOptions(
-              bucket: secondaryBucket,
-            ),
-          ).result;
+          final result =
+              await Amplify.Storage.getUrl(
+                path: storagePathSecondary,
+                options: StorageGetUrlOptions(bucket: secondaryBucket),
+              ).result;
           expect(result.url.path, '/$pathSecondary');
           final actualData = await readData(result.url);
           expect(actualData, data);
@@ -239,35 +241,31 @@ void main() {
           path: StoragePath.fromString(path),
         ).result;
       });
-      testWidgets(
-        'standard getUrl works',
-        (_) async {
-          final result = await Amplify.Storage.getUrl(
-            path: StoragePath.fromString(path),
-          ).result;
-          expect(result.url.path, contains('/$path'));
-          final actualData = await readData(result.url);
-          expect(actualData, data);
-        },
-      );
-
-      testWidgets(
-        'useAccelerateEndpoint throws',
-        (_) async {
-          await expectLater(
-            () => Amplify.Storage.getUrl(
+      testWidgets('standard getUrl works', (_) async {
+        final result =
+            await Amplify.Storage.getUrl(
               path: StoragePath.fromString(path),
-              options: const StorageGetUrlOptions(
-                pluginOptions: S3GetUrlPluginOptions(
-                  useAccelerateEndpoint: true,
+            ).result;
+        expect(result.url.path, contains('/$path'));
+        final actualData = await readData(result.url);
+        expect(actualData, data);
+      });
+
+      testWidgets('useAccelerateEndpoint throws', (_) async {
+        await expectLater(
+          () =>
+              Amplify.Storage.getUrl(
+                path: StoragePath.fromString(path),
+                options: const StorageGetUrlOptions(
+                  pluginOptions: S3GetUrlPluginOptions(
+                    useAccelerateEndpoint: true,
+                  ),
                 ),
-              ),
-            ).result,
-            // useAccelerateEndpoint is not supported with a bucket name with dots
-            throwsA(isA<ConfigurationError>()),
-          );
-        },
-      );
+              ).result,
+          // useAccelerateEndpoint is not supported with a bucket name with dots
+          throwsA(isA<ConfigurationError>()),
+        );
+      });
     });
   });
 }

@@ -1,36 +1,20 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.custom.model.default_enum; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class DefaultEnum extends _i1.SmithyEnum<DefaultEnum> {
-  const DefaultEnum._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const DefaultEnum._(super.index, super.name, super.value);
 
   const DefaultEnum._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const a = DefaultEnum._(
-    0,
-    'A',
-    'A',
-  );
+  static const a = DefaultEnum._(0, 'A', 'A');
 
-  static const b = DefaultEnum._(
-    1,
-    'B',
-    'B',
-  );
+  static const b = DefaultEnum._(1, 'B', 'B');
 
-  static const c = DefaultEnum._(
-    2,
-    'C',
-    'C',
-  );
+  static const c = DefaultEnum._(2, 'C', 'C');
 
   /// All values of [DefaultEnum].
   static const values = <DefaultEnum>[
@@ -45,12 +29,9 @@ class DefaultEnum extends _i1.SmithyEnum<DefaultEnum> {
       values: values,
       sdkUnknown: DefaultEnum._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

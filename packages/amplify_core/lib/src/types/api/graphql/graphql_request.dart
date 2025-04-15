@@ -61,16 +61,15 @@ class GraphQLRequest<T> with AWSSerializable<Map<String, Object?>> {
 
   @override
   Map<String, Object?> toJson() => {
-        'id': id,
-        'document': document,
-        'variables': variables,
-        'headers': headers,
-        'cancelToken': id,
-        if (apiName != null) 'apiName': apiName,
-        if (authorizationMode != null)
-          'authorizationMode': authorizationMode!.name,
-        if (decodePath != null) 'decodePath': decodePath,
-      };
+    'id': id,
+    'document': document,
+    'variables': variables,
+    'headers': headers,
+    'cancelToken': id,
+    if (apiName != null) 'apiName': apiName,
+    if (authorizationMode != null) 'authorizationMode': authorizationMode!.name,
+    if (decodePath != null) 'decodePath': decodePath,
+  };
 
   /// Creates a copy of this request with the given fields replaced with the new values.
   /// If no new value is given, the old value is used.

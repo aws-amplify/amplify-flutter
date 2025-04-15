@@ -37,13 +37,13 @@ class LogEntry with AWSEquatable<LogEntry>, AWSDebuggable {
 
   @override
   List<Object?> get props => [
-        level,
-        message,
-        loggerName,
-        time,
-        error,
-        stackTrace,
-      ];
+    level,
+    message,
+    loggerName,
+    time,
+    error,
+    stackTrace,
+  ];
 
   /// Creates a copy of `this` with the given values.
   LogEntry copyWith({

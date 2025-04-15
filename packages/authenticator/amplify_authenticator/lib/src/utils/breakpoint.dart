@@ -26,7 +26,8 @@ enum Breakpoint {
   static Breakpoint of(BuildContext context) {
     final size = MediaQuery.of(context).size;
     // Determind if phone is in portrait or landscape mode
-    final isMobile = size.width < maxMobileWidth ||
+    final isMobile =
+        size.width < maxMobileWidth ||
         (size.width < maxMobileHeight && size.height < maxMobileWidth);
 
     if (isMobile) {

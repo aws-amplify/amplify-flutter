@@ -8,9 +8,7 @@ import 'package:amplify_core/src/types/storage/get_url_operation.dart';
 /// {@endtemplate}
 class StorageGetUrlResult {
   /// {@macro amplify_core.storage.get_url_result}
-  const StorageGetUrlResult({
-    required this.url,
-  });
+  const StorageGetUrlResult({required this.url});
 
   /// The result [Uri] of the [StorageGetUrlOperation].
   final Uri url;

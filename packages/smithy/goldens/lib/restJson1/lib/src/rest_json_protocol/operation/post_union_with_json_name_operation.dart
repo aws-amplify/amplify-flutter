@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.operation.post_union_with_json_name_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,43 +14,50 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This operation defines a union that uses jsonName on some members.
-class PostUnionWithJsonNameOperation extends _i1.HttpOperation<
-    PostUnionWithJsonNameInput,
-    PostUnionWithJsonNameInput,
-    PostUnionWithJsonNameOutput,
-    PostUnionWithJsonNameOutput> {
+class PostUnionWithJsonNameOperation
+    extends
+        _i1.HttpOperation<
+          PostUnionWithJsonNameInput,
+          PostUnionWithJsonNameInput,
+          PostUnionWithJsonNameOutput,
+          PostUnionWithJsonNameOutput
+        > {
   /// This operation defines a union that uses jsonName on some members.
   PostUnionWithJsonNameOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          PostUnionWithJsonNameInput,
-          PostUnionWithJsonNameInput,
-          PostUnionWithJsonNameOutput,
-          PostUnionWithJsonNameOutput>> protocols = [
+    _i1.HttpProtocol<
+      PostUnionWithJsonNameInput,
+      PostUnionWithJsonNameInput,
+      PostUnionWithJsonNameOutput,
+      PostUnionWithJsonNameOutput
+    >
+  >
+  protocols = [
     _i2.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i2.WithSdkInvocationId(),
             const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -80,11 +87,7 @@ class PostUnionWithJsonNameOperation extends _i1.HttpOperation<
   PostUnionWithJsonNameOutput buildOutput(
     PostUnionWithJsonNameOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      PostUnionWithJsonNameOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => PostUnionWithJsonNameOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -108,11 +111,7 @@ class PostUnionWithJsonNameOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

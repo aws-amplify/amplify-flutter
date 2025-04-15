@@ -38,7 +38,8 @@ class Blog extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -51,11 +52,15 @@ class Blog extends amplify_core.Model {
       return _name!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -79,35 +84,37 @@ class Blog extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const Blog._internal(
-      {required this.id,
-      required name,
-      createdAt,
-      file,
-      files,
-      posts,
-      updatedAt})
-      : _name = name,
-        _createdAt = createdAt,
-        _file = file,
-        _files = files,
-        _posts = posts,
-        _updatedAt = updatedAt;
+  const Blog._internal({
+    required this.id,
+    required name,
+    createdAt,
+    file,
+    files,
+    posts,
+    updatedAt,
+  }) : _name = name,
+       _createdAt = createdAt,
+       _file = file,
+       _files = files,
+       _posts = posts,
+       _updatedAt = updatedAt;
 
-  factory Blog(
-      {String? id,
-      required String name,
-      amplify_core.TemporalDateTime? createdAt,
-      S3Object? file,
-      List<S3Object>? files,
-      List<Post>? posts}) {
+  factory Blog({
+    String? id,
+    required String name,
+    amplify_core.TemporalDateTime? createdAt,
+    S3Object? file,
+    List<S3Object>? files,
+    List<Post>? posts,
+  }) {
     return Blog._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        createdAt: createdAt,
-        file: file,
-        files: files != null ? List<S3Object>.unmodifiable(files) : files,
-        posts: posts != null ? List<Post>.unmodifiable(posts) : posts);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      createdAt: createdAt,
+      file: file,
+      files: files != null ? List<S3Object>.unmodifiable(files) : files,
+      posts: posts != null ? List<Post>.unmodifiable(posts) : posts,
+    );
   }
 
   bool equals(Object other) {
@@ -136,167 +143,211 @@ class Blog extends amplify_core.Model {
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
+    buffer.write(
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
     buffer.write("file=" + (_file != null ? _file!.toString() : "null") + ", ");
     buffer.write(
-        "files=" + (_files != null ? _files!.toString() : "null") + ", ");
+      "files=" + (_files != null ? _files!.toString() : "null") + ", ",
+    );
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Blog copyWith(
-      {String? name,
-      amplify_core.TemporalDateTime? createdAt,
-      S3Object? file,
-      List<S3Object>? files,
-      List<Post>? posts}) {
+  Blog copyWith({
+    String? name,
+    amplify_core.TemporalDateTime? createdAt,
+    S3Object? file,
+    List<S3Object>? files,
+    List<Post>? posts,
+  }) {
     return Blog._internal(
-        id: id,
-        name: name ?? this.name,
-        createdAt: createdAt ?? this.createdAt,
-        file: file ?? this.file,
-        files: files ?? this.files,
-        posts: posts ?? this.posts);
+      id: id,
+      name: name ?? this.name,
+      createdAt: createdAt ?? this.createdAt,
+      file: file ?? this.file,
+      files: files ?? this.files,
+      posts: posts ?? this.posts,
+    );
   }
 
-  Blog copyWithModelFieldValues(
-      {ModelFieldValue<String>? name,
-      ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
-      ModelFieldValue<S3Object?>? file,
-      ModelFieldValue<List<S3Object>?>? files,
-      ModelFieldValue<List<Post>?>? posts}) {
+  Blog copyWithModelFieldValues({
+    ModelFieldValue<String>? name,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<S3Object?>? file,
+    ModelFieldValue<List<S3Object>?>? files,
+    ModelFieldValue<List<Post>?>? posts,
+  }) {
     return Blog._internal(
-        id: id,
-        name: name == null ? this.name : name.value,
-        createdAt: createdAt == null ? this.createdAt : createdAt.value,
-        file: file == null ? this.file : file.value,
-        files: files == null ? this.files : files.value,
-        posts: posts == null ? this.posts : posts.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      file: file == null ? this.file : file.value,
+      files: files == null ? this.files : files.value,
+      posts: posts == null ? this.posts : posts.value,
+    );
   }
 
   Blog.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _file = json['file'] != null
-            ? S3Object.fromJson(new Map<String, dynamic>.from(json['file']))
-            : null,
-        _files = json['files'] is List
-            ? (json['files'] as List)
-                .where((e) => e != null)
-                .map((e) => S3Object.fromJson(new Map<String, dynamic>.from(e)))
-                .toList()
-            : null,
-        _posts = json['posts'] is Map
-            ? (json['posts']['items'] is List
-                ? (json['posts']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['posts'] is List
-                ? (json['posts'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => Post.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _name = json['name'],
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _file =
+          json['file'] != null
+              ? S3Object.fromJson(new Map<String, dynamic>.from(json['file']))
+              : null,
+      _files =
+          json['files'] is List
+              ? (json['files'] as List)
+                  .where((e) => e != null)
+                  .map(
+                    (e) => S3Object.fromJson(new Map<String, dynamic>.from(e)),
+                  )
+                  .toList()
+              : null,
+      _posts =
+          json['posts'] is Map
+              ? (json['posts']['items'] is List
+                  ? (json['posts']['items'] as List)
+                      .where((e) => e != null)
+                      .map(
+                        (e) => Post.fromJson(new Map<String, dynamic>.from(e)),
+                      )
+                      .toList()
+                  : null)
+              : (json['posts'] is List
+                  ? (json['posts'] as List)
+                      .where((e) => e?['serializedData'] != null)
+                      .map(
+                        (e) => Post.fromJson(
+                          new Map<String, dynamic>.from(e?['serializedData']),
+                        ),
+                      )
+                      .toList()
+                  : null),
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'createdAt': _createdAt?.format(),
-        'file': _file?.toJson(),
-        'files': _files?.map((S3Object? e) => e?.toJson()).toList(),
-        'posts': _posts?.map((Post? e) => e?.toJson()).toList(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'createdAt': _createdAt?.format(),
+    'file': _file?.toJson(),
+    'files': _files?.map((S3Object? e) => e?.toJson()).toList(),
+    'posts': _posts?.map((Post? e) => e?.toJson()).toList(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'createdAt': _createdAt,
-        'file': _file,
-        'files': _files,
-        'posts': _posts,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'createdAt': _createdAt,
+    'file': _file,
+    'files': _files,
+    'posts': _posts,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<BlogModelIdentifier>
-      MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<BlogModelIdentifier>();
+  MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<BlogModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
   static final FILE = amplify_core.QueryField(fieldName: "file");
   static final FILES = amplify_core.QueryField(fieldName: "files");
   static final POSTS = amplify_core.QueryField(
-      fieldName: "posts",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Post'));
+    fieldName: "posts",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'Post',
+    ),
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Blog";
-    modelSchemaDefinition.pluralName = "Blogs";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "Blog";
+      modelSchemaDefinition.pluralName = "Blogs";
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(fields: const ["id"], name: null),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Blog.NAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Blog.NAME,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Blog.CREATEDAT,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.dateTime)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: Blog.CREATEDAT,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
-        fieldName: 'file',
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.embedded(
+          fieldName: 'file',
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'S3Object')));
+            ofCustomTypeName: 'S3Object',
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
-        fieldName: 'files',
-        isRequired: false,
-        isArray: true,
-        ofType: amplify_core.ModelFieldType(
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.embedded(
+          fieldName: 'files',
+          isRequired: false,
+          isArray: true,
+          ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.embeddedCollection,
-            ofCustomTypeName: 'S3Object')));
+            ofCustomTypeName: 'S3Object',
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Blog.POSTS,
-        isRequired: false,
-        ofModelName: 'Post',
-        associatedKey: Post.BLOG));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasMany(
+          key: Blog.POSTS,
+          isRequired: false,
+          ofModelName: 'Post',
+          associatedKey: Post.BLOG,
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _BlogModelType extends amplify_core.ModelType<Blog> {
@@ -327,10 +378,10 @@ class BlogModelIdentifier implements amplify_core.ModelIdentifier<Blog> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

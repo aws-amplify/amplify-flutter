@@ -28,8 +28,9 @@ void main() {
     final name = 'download-file-with-identity-id-${uuid()}';
     final metadataFilePath = 'public/download-file-get-properties-${uuid()}';
     final metadata = {'description': 'foo'};
-    final secondaryBucket =
-        StorageBucket.fromOutputs('Storage Integ Test secondary bucket');
+    final secondaryBucket = StorageBucket.fromOutputs(
+      'Storage Integ Test secondary bucket',
+    );
     setUpAll(() async {
       directory = kIsWeb ? '/' : (await getTemporaryDirectory()).path;
     });
@@ -71,31 +72,26 @@ void main() {
         await Amplify.Storage.uploadData(
           data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(metadataFilePath),
-          options: StorageUploadDataOptions(
-            metadata: metadata,
-          ),
+          options: StorageUploadDataOptions(metadata: metadata),
         ).result;
 
-        addTearDownPaths(
-          [
-            StoragePath.fromString(publicPath),
-            StoragePath.fromString(metadataFilePath),
-            StoragePath.fromString(identityPath),
-          ],
-        );
+        addTearDownPaths([
+          StoragePath.fromString(publicPath),
+          StoragePath.fromString(metadataFilePath),
+          StoragePath.fromString(identityPath),
+        ]);
       });
 
       group('multibucket', () {
         testWidgets('to file', (_) async {
           final downloadFilePath = '$directory/downloaded-file.txt';
 
-          final result = await Amplify.Storage.downloadFile(
-            path: StoragePath.fromString(publicPath),
-            localFile: AWSFile.fromPath(downloadFilePath),
-            options: StorageDownloadFileOptions(
-              bucket: secondaryBucket,
-            ),
-          ).result;
+          final result =
+              await Amplify.Storage.downloadFile(
+                path: StoragePath.fromString(publicPath),
+                localFile: AWSFile.fromPath(downloadFilePath),
+                options: StorageDownloadFileOptions(bucket: secondaryBucket),
+              ).result;
 
           // Web browsers do not grant access to read arbitrary files
           if (!kIsWeb) {
@@ -108,15 +104,14 @@ void main() {
         });
         testWidgets('from identity ID', (_) async {
           final downloadFilePath = '$directory/downloaded-file.txt';
-          final result = await Amplify.Storage.downloadFile(
-            path: StoragePath.fromIdentityId(
-              (identityId) => 'private/$identityId/$name',
-            ),
-            localFile: AWSFile.fromPath(downloadFilePath),
-            options: StorageDownloadFileOptions(
-              bucket: secondaryBucket,
-            ),
-          ).result;
+          final result =
+              await Amplify.Storage.downloadFile(
+                path: StoragePath.fromIdentityId(
+                  (identityId) => 'private/$identityId/$name',
+                ),
+                localFile: AWSFile.fromPath(downloadFilePath),
+                options: StorageDownloadFileOptions(bucket: secondaryBucket),
+              ).result;
 
           if (!kIsWeb) {
             final downloadedFile = await readFile(path: downloadFilePath);
@@ -131,10 +126,11 @@ void main() {
         testWidgets('to file', (_) async {
           final downloadFilePath = '$directory/downloaded-file.txt';
 
-          final result = await Amplify.Storage.downloadFile(
-            path: StoragePath.fromString(publicPath),
-            localFile: AWSFile.fromPath(downloadFilePath),
-          ).result;
+          final result =
+              await Amplify.Storage.downloadFile(
+                path: StoragePath.fromString(publicPath),
+                localFile: AWSFile.fromPath(downloadFilePath),
+              ).result;
 
           // Web browsers do not grant access to read arbitrary files
           if (!kIsWeb) {
@@ -149,12 +145,13 @@ void main() {
 
       testWidgets('from identity ID', (_) async {
         final downloadFilePath = '$directory/downloaded-file.txt';
-        final result = await Amplify.Storage.downloadFile(
-          path: StoragePath.fromIdentityId(
-            (identityId) => 'private/$identityId/$name',
-          ),
-          localFile: AWSFile.fromPath(downloadFilePath),
-        ).result;
+        final result =
+            await Amplify.Storage.downloadFile(
+              path: StoragePath.fromIdentityId(
+                (identityId) => 'private/$identityId/$name',
+              ),
+              localFile: AWSFile.fromPath(downloadFilePath),
+            ).result;
 
         if (!kIsWeb) {
           final downloadedFile = await readFile(path: downloadFilePath);
@@ -168,15 +165,16 @@ void main() {
         testWidgets('useAccelerateEndpoint', (_) async {
           final downloadFilePath = '$directory/downloaded-file.txt';
 
-          final result = await Amplify.Storage.downloadFile(
-            path: StoragePath.fromString(publicPath),
-            options: const StorageDownloadFileOptions(
-              pluginOptions: S3DownloadFilePluginOptions(
-                useAccelerateEndpoint: true,
-              ),
-            ),
-            localFile: AWSFile.fromPath(downloadFilePath),
-          ).result;
+          final result =
+              await Amplify.Storage.downloadFile(
+                path: StoragePath.fromString(publicPath),
+                options: const StorageDownloadFileOptions(
+                  pluginOptions: S3DownloadFilePluginOptions(
+                    useAccelerateEndpoint: true,
+                  ),
+                ),
+                localFile: AWSFile.fromPath(downloadFilePath),
+              ).result;
 
           if (!kIsWeb) {
             final downloadedFile = await readFile(path: downloadFilePath);
@@ -188,15 +186,16 @@ void main() {
 
         testWidgets('getProperties', (_) async {
           final downloadFilePath = '$directory/downloaded-file.txt';
-          final downloadResult = await Amplify.Storage.downloadFile(
-            path: StoragePath.fromString(metadataFilePath),
-            options: const StorageDownloadFileOptions(
-              pluginOptions: S3DownloadFilePluginOptions(
-                getProperties: true,
-              ),
-            ),
-            localFile: AWSFile.fromPath(downloadFilePath),
-          ).result;
+          final downloadResult =
+              await Amplify.Storage.downloadFile(
+                path: StoragePath.fromString(metadataFilePath),
+                options: const StorageDownloadFileOptions(
+                  pluginOptions: S3DownloadFilePluginOptions(
+                    getProperties: true,
+                  ),
+                ),
+                localFile: AWSFile.fromPath(downloadFilePath),
+              ).result;
 
           if (!kIsWeb) {
             final downloadedFile = await readFile(path: downloadFilePath);
@@ -210,10 +209,11 @@ void main() {
           final downloadFilePath = '$directory/downloaded-file.txt';
 
           await expectLater(
-            () => Amplify.Storage.downloadFile(
-              path: const StoragePath.fromString('unauthorized/path'),
-              localFile: AWSFile.fromPath(downloadFilePath),
-            ).result,
+            () =>
+                Amplify.Storage.downloadFile(
+                  path: const StoragePath.fromString('unauthorized/path'),
+                  localFile: AWSFile.fromPath(downloadFilePath),
+                ).result,
             throwsA(isA<StorageAccessDeniedException>()),
           );
         });
@@ -322,38 +322,34 @@ void main() {
           path: StoragePath.fromString(publicPath),
         ).result;
       });
-      testWidgets(
-        'standard download works',
-        (_) async {
-          final downloadFilePath = '$directory/downloaded-file.txt';
-          final result = await Amplify.Storage.downloadFile(
-            path: StoragePath.fromString(publicPath),
-            localFile: AWSFile.fromPath(downloadFilePath),
-          ).result;
-          expect(result.localFile.path, downloadFilePath);
-          expect(result.downloadedItem.path, publicPath);
-        },
-      );
-
-      testWidgets(
-        'useAccelerateEndpoint throws',
-        (_) async {
-          final downloadFilePath = '$directory/downloaded-file.txt';
-          await expectLater(
-            () => Amplify.Storage.downloadFile(
+      testWidgets('standard download works', (_) async {
+        final downloadFilePath = '$directory/downloaded-file.txt';
+        final result =
+            await Amplify.Storage.downloadFile(
               path: StoragePath.fromString(publicPath),
-              options: const StorageDownloadFileOptions(
-                pluginOptions: S3DownloadFilePluginOptions(
-                  useAccelerateEndpoint: true,
-                ),
-              ),
               localFile: AWSFile.fromPath(downloadFilePath),
-            ).result,
-            // useAccelerateEndpoint is not supported with a bucket name with dots
-            throwsA(isA<ConfigurationError>()),
-          );
-        },
-      );
+            ).result;
+        expect(result.localFile.path, downloadFilePath);
+        expect(result.downloadedItem.path, publicPath);
+      });
+
+      testWidgets('useAccelerateEndpoint throws', (_) async {
+        final downloadFilePath = '$directory/downloaded-file.txt';
+        await expectLater(
+          () =>
+              Amplify.Storage.downloadFile(
+                path: StoragePath.fromString(publicPath),
+                options: const StorageDownloadFileOptions(
+                  pluginOptions: S3DownloadFilePluginOptions(
+                    useAccelerateEndpoint: true,
+                  ),
+                ),
+                localFile: AWSFile.fromPath(downloadFilePath),
+              ).result,
+          // useAccelerateEndpoint is not supported with a bucket name with dots
+          throwsA(isA<ConfigurationError>()),
+        );
+      });
     });
   });
 }

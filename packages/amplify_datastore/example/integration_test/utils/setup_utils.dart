@@ -11,8 +11,10 @@ import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 
-const ENABLE_CLOUD_SYNC =
-    bool.fromEnvironment('ENABLE_CLOUD_SYNC', defaultValue: false);
+const ENABLE_CLOUD_SYNC = bool.fromEnvironment(
+  'ENABLE_CLOUD_SYNC',
+  defaultValue: false,
+);
 const DATASTORE_READY_EVENT_TIMEOUT = const Duration(minutes: 10);
 const DELAY_TO_CLEAR_DATASTORE = const Duration(seconds: 2);
 const DELAY_FOR_OBSERVE = const Duration(milliseconds: 100);
@@ -71,10 +73,9 @@ Future<void> waitForObserve() async {
   final blog = Blog(name: 'TEST BLOG - Used to wait for observe to start');
 
   // set up observe subscription and set isObserveSetUp to true when the first update event comes in
-  Amplify.DataStore.observe(Blog.classType)
-      .where((event) => event.item.id == blog.id)
-      .first
-      .then((event) {
+  Amplify.DataStore.observe(
+    Blog.classType,
+  ).where((event) => event.item.id == blog.id).first.then((event) {
     isObserveSetUp = true;
   });
 
@@ -97,11 +98,13 @@ class DataStoreStarter {
   late StreamSubscription<DataStoreHubEvent> hubSubscription;
 
   Future<void> startDataStore() {
-    hubSubscription =
-        Amplify.Hub.listen(HubChannel.DataStore, (DataStoreHubEvent event) {
+    hubSubscription = Amplify.Hub.listen(HubChannel.DataStore, (
+      DataStoreHubEvent event,
+    ) {
       if (event.eventName == 'ready') {
         print(
-            '🎉🎉🎉DataStore is ready to start running test suites with API sync enabled.🎉🎉🎉');
+          '🎉🎉🎉DataStore is ready to start running test suites with API sync enabled.🎉🎉🎉',
+        );
         hubSubscription.cancel();
         _completer.complete();
       }

@@ -28,9 +28,9 @@ abstract class ListDevicesResponse
   }
 
   /// Represents the response to list devices.
-  factory ListDevicesResponse.build(
-          [void Function(ListDevicesResponseBuilder) updates]) =
-      _$ListDevicesResponse;
+  factory ListDevicesResponse.build([
+    void Function(ListDevicesResponseBuilder) updates,
+  ]) = _$ListDevicesResponse;
 
   const ListDevicesResponse._();
 
@@ -38,11 +38,10 @@ abstract class ListDevicesResponse
   factory ListDevicesResponse.fromResponse(
     ListDevicesResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<ListDevicesResponse>> serializers = [
-    ListDevicesResponseAwsJson11Serializer()
+    ListDevicesResponseAwsJson11Serializer(),
   ];
 
   /// The devices returned in the list devices response.
@@ -51,22 +50,14 @@ abstract class ListDevicesResponse
   /// The identifier that Amazon Cognito returned with the previous request to this operation. When you include a pagination token in your request, Amazon Cognito returns the next set of items in the list. By use of this token, you can paginate through the full list of items.
   String? get paginationToken;
   @override
-  List<Object?> get props => [
-        devices,
-        paginationToken,
-      ];
+  List<Object?> get props => [devices, paginationToken];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListDevicesResponse')
-      ..add(
-        'devices',
-        devices,
-      )
-      ..add(
-        'paginationToken',
-        paginationToken,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ListDevicesResponse')
+          ..add('devices', devices)
+          ..add('paginationToken', paginationToken);
     return helper.toString();
   }
 }
@@ -77,17 +68,14 @@ class ListDevicesResponseAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [
-        ListDevicesResponse,
-        _$ListDevicesResponse,
-      ];
+    ListDevicesResponse,
+    _$ListDevicesResponse,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ListDevicesResponse deserialize(
@@ -106,18 +94,22 @@ class ListDevicesResponseAwsJson11Serializer
       }
       switch (key) {
         case 'Devices':
-          result.devices.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(DeviceType)],
-            ),
-          ) as _i2.BuiltList<DeviceType>));
+          result.devices.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(DeviceType),
+                  ]),
+                )
+                as _i2.BuiltList<DeviceType>),
+          );
         case 'PaginationToken':
-          result.paginationToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.paginationToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -135,21 +127,24 @@ class ListDevicesResponseAwsJson11Serializer
     if (devices != null) {
       result$
         ..add('Devices')
-        ..add(serializers.serialize(
-          devices,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(DeviceType)],
+        ..add(
+          serializers.serialize(
+            devices,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(DeviceType),
+            ]),
           ),
-        ));
+        );
     }
     if (paginationToken != null) {
       result$
         ..add('PaginationToken')
-        ..add(serializers.serialize(
-          paginationToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            paginationToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

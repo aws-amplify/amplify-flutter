@@ -18,7 +18,7 @@ class _$InvalidGreeting extends InvalidGreeting {
       (new InvalidGreetingBuilder()..update(updates))._build();
 
   _$InvalidGreeting._({this.message, this.statusCode, this.headers})
-      : super._();
+    : super._();
 
   @override
   InvalidGreeting rebuild(void Function(InvalidGreetingBuilder) updates) =>
@@ -87,9 +87,13 @@ class InvalidGreetingBuilder
   InvalidGreeting build() => _build();
 
   _$InvalidGreeting _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InvalidGreeting._(
-            message: message, statusCode: statusCode, headers: headers);
+          message: message,
+          statusCode: statusCode,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

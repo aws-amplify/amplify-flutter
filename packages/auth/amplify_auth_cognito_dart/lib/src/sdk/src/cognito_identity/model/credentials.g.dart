@@ -19,9 +19,12 @@ class _$Credentials extends Credentials {
   factory _$Credentials([void Function(CredentialsBuilder)? updates]) =>
       (new CredentialsBuilder()..update(updates))._build();
 
-  _$Credentials._(
-      {this.accessKeyId, this.secretKey, this.sessionToken, this.expiration})
-      : super._();
+  _$Credentials._({
+    this.accessKeyId,
+    this.secretKey,
+    this.sessionToken,
+    this.expiration,
+  }) : super._();
 
   @override
   Credentials rebuild(void Function(CredentialsBuilder) updates) =>
@@ -100,7 +103,8 @@ class CredentialsBuilder implements Builder<Credentials, CredentialsBuilder> {
   Credentials build() => _build();
 
   _$Credentials _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$Credentials._(
           accessKeyId: accessKeyId,
           secretKey: secretKey,

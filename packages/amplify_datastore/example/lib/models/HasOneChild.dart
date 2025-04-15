@@ -34,7 +34,8 @@ class HasOneChild extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -55,13 +56,15 @@ class HasOneChild extends amplify_core.Model {
   }
 
   const HasOneChild._internal({required this.id, name, createdAt, updatedAt})
-      : _name = name,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+    : _name = name,
+      _createdAt = createdAt,
+      _updatedAt = updatedAt;
 
   factory HasOneChild({String? id, String? name}) {
     return HasOneChild._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id, name: name);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+    );
   }
 
   bool equals(Object other) {
@@ -84,11 +87,12 @@ class HasOneChild extends amplify_core.Model {
     buffer.write("HasOneChild {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -100,67 +104,82 @@ class HasOneChild extends amplify_core.Model {
 
   HasOneChild copyWithModelFieldValues({ModelFieldValue<String?>? name}) {
     return HasOneChild._internal(
-        id: id, name: name == null ? this.name : name.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+    );
   }
 
   HasOneChild.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _name = json['name'],
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<HasOneChildModelIdentifier>
-      MODEL_IDENTIFIER =
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<HasOneChildModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasOneChild";
-    modelSchemaDefinition.pluralName = "HasOneChildren";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "HasOneChild";
+      modelSchemaDefinition.pluralName = "HasOneChildren";
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: HasOneChild.NAME,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: HasOneChild.NAME,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _HasOneChildModelType extends amplify_core.ModelType<HasOneChild> {
@@ -192,10 +211,10 @@ class HasOneChildModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

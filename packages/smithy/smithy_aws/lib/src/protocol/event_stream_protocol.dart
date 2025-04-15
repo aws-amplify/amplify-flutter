@@ -11,7 +11,7 @@ class EventStreamProtocol<InputPayload, Input, OutputPayload, Output>
   EventStreamProtocol(this._baseProtocol);
 
   final AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>
-      _baseProtocol;
+  _baseProtocol;
 
   @override
   String get contentType => _baseProtocol.contentType;
@@ -19,9 +19,10 @@ class EventStreamProtocol<InputPayload, Input, OutputPayload, Output>
   @override
   Future<OutputPayload> deserialize(Stream<List<int>> response) async {
     return serializers.deserialize(
-      response,
-      specifiedType: FullType(OutputPayload),
-    ) as OutputPayload;
+          response,
+          specifiedType: FullType(OutputPayload),
+        )
+        as OutputPayload;
   }
 
   @override

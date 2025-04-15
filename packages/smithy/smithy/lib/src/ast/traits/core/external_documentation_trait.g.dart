@@ -7,16 +7,16 @@ part of 'external_documentation_trait.dart';
 // **************************************************************************
 
 ExternalDocumentationTrait _$ExternalDocumentationTraitFromJson(
-        Map<String, dynamic> json) =>
-    ExternalDocumentationTrait(
-      (json['urls'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, Uri.parse(e as String)),
-          ) ??
-          const {},
-    );
+  Map<String, dynamic> json,
+) => ExternalDocumentationTrait(
+  (json['urls'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, Uri.parse(e as String)),
+      ) ??
+      const {},
+);
 
 Map<String, dynamic> _$ExternalDocumentationTraitToJson(
-        ExternalDocumentationTrait instance) =>
-    <String, dynamic>{
-      'urls': instance.urls.map((k, e) => MapEntry(k, e.toString())),
-    };
+  ExternalDocumentationTrait instance,
+) => <String, dynamic>{
+  'urls': instance.urls.map((k, e) => MapEntry(k, e.toString())),
+};

@@ -8,9 +8,7 @@ part 'pinpoint_targeting.g.dart';
 @zAwsSerializable
 class CognitoPinpointTargetingConfig
     with AWSEquatable<CognitoPinpointTargetingConfig>, AWSSerializable {
-  const CognitoPinpointTargetingConfig({
-    required this.region,
-  });
+  const CognitoPinpointTargetingConfig({required this.region});
 
   factory CognitoPinpointTargetingConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoPinpointTargetingConfigFromJson(json);
@@ -20,9 +18,7 @@ class CognitoPinpointTargetingConfig
   @override
   List<Object?> get props => [region];
 
-  CognitoPinpointTargetingConfig copyWith({
-    String? region,
-  }) {
+  CognitoPinpointTargetingConfig copyWith({String? region}) {
     return CognitoPinpointTargetingConfig(region: region ?? this.region);
   }
 

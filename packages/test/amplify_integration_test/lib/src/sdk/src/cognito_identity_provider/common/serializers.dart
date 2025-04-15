@@ -52,12 +52,8 @@ const List<_i1.SmithySerializer> serializers = [
   ...UserPoolAddOnNotEnabledException.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(
-    _i2.BuiltList,
-    [FullType(AuthEventType)],
-  ): _i2.ListBuilder<AuthEventType>.new,
-  const FullType(
-    _i2.BuiltList,
-    [FullType(ChallengeResponseType)],
-  ): _i2.ListBuilder<ChallengeResponseType>.new,
+  const FullType(_i2.BuiltList, [FullType(AuthEventType)]):
+      _i2.ListBuilder<AuthEventType>.new,
+  const FullType(_i2.BuiltList, [FullType(ChallengeResponseType)]):
+      _i2.ListBuilder<ChallengeResponseType>.new,
 };

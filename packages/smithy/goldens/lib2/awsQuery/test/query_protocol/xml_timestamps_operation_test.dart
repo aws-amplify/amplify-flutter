@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_query_v2.query_protocol.test.xml_timestamps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -12,242 +12,200 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryXmlTimestamps (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlTimestampsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlTimestamps',
-          documentation: 'Tests how normal timestamps are serialized',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <normal>2014-04-29T18:30:38Z</normal>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'normal': 1398796238},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'QueryXmlTimestampsWithDateTimeFormat (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlTimestampsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlTimestampsWithDateTimeFormat',
-          documentation:
-              'Ensures that the timestampFormat of date-time works like normal timestamps',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <dateTime>2014-04-29T18:30:38Z</dateTime>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'dateTime': 1398796238},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'QueryXmlTimestampsWithDateTimeOnTargetFormat (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlTimestampsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlTimestampsWithDateTimeOnTargetFormat',
-          documentation:
-              'Ensures that the timestampFormat of date-time on the target shape works like normal timestamps',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <dateTimeOnTarget>2014-04-29T18:30:38Z</dateTimeOnTarget>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'dateTimeOnTarget': 1398796238},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'QueryXmlTimestampsWithEpochSecondsFormat (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlTimestampsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlTimestampsWithEpochSecondsFormat',
-          documentation:
-              'Ensures that the timestampFormat of epoch-seconds works',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <epochSeconds>1398796238</epochSeconds>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'epochSeconds': 1398796238},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'QueryXmlTimestampsWithEpochSecondsOnTargetFormat (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlTimestampsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlTimestampsWithEpochSecondsOnTargetFormat',
-          documentation:
-              'Ensures that the timestampFormat of epoch-seconds on the target shape works',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <epochSecondsOnTarget>1398796238</epochSecondsOnTarget>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'epochSecondsOnTarget': 1398796238},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'QueryXmlTimestampsWithHttpDateFormat (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlTimestampsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlTimestampsWithHttpDateFormat',
-          documentation: 'Ensures that the timestampFormat of http-date works',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <httpDate>Tue, 29 Apr 2014 18:30:38 GMT</httpDate>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'httpDate': 1398796238},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'QueryXmlTimestampsWithHttpDateOnTargetFormat (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlTimestampsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlTimestampsWithHttpDateOnTargetFormat',
-          documentation:
-              'Ensures that the timestampFormat of http-date on the target shape works',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <httpDateOnTarget>Tue, 29 Apr 2014 18:30:38 GMT</httpDateOnTarget>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'httpDateOnTarget': 1398796238},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
-      );
-    },
-  );
+  _i1.test('QueryXmlTimestamps (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlTimestampsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlTimestamps',
+        documentation: 'Tests how normal timestamps are serialized',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <normal>2014-04-29T18:30:38Z</normal>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'normal': 1398796238},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
+    );
+  });
+  _i1.test('QueryXmlTimestampsWithDateTimeFormat (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlTimestampsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlTimestampsWithDateTimeFormat',
+        documentation:
+            'Ensures that the timestampFormat of date-time works like normal timestamps',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <dateTime>2014-04-29T18:30:38Z</dateTime>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'dateTime': 1398796238},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
+    );
+  });
+  _i1.test('QueryXmlTimestampsWithDateTimeOnTargetFormat (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlTimestampsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlTimestampsWithDateTimeOnTargetFormat',
+        documentation:
+            'Ensures that the timestampFormat of date-time on the target shape works like normal timestamps',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <dateTimeOnTarget>2014-04-29T18:30:38Z</dateTimeOnTarget>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'dateTimeOnTarget': 1398796238},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
+    );
+  });
+  _i1.test('QueryXmlTimestampsWithEpochSecondsFormat (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlTimestampsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlTimestampsWithEpochSecondsFormat',
+        documentation:
+            'Ensures that the timestampFormat of epoch-seconds works',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <epochSeconds>1398796238</epochSeconds>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'epochSeconds': 1398796238},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
+    );
+  });
+  _i1.test('QueryXmlTimestampsWithEpochSecondsOnTargetFormat (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlTimestampsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlTimestampsWithEpochSecondsOnTargetFormat',
+        documentation:
+            'Ensures that the timestampFormat of epoch-seconds on the target shape works',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <epochSecondsOnTarget>1398796238</epochSecondsOnTarget>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'epochSecondsOnTarget': 1398796238},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
+    );
+  });
+  _i1.test('QueryXmlTimestampsWithHttpDateFormat (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlTimestampsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlTimestampsWithHttpDateFormat',
+        documentation: 'Ensures that the timestampFormat of http-date works',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <httpDate>Tue, 29 Apr 2014 18:30:38 GMT</httpDate>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'httpDate': 1398796238},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
+    );
+  });
+  _i1.test('QueryXmlTimestampsWithHttpDateOnTargetFormat (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlTimestampsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlTimestampsWithHttpDateOnTargetFormat',
+        documentation:
+            'Ensures that the timestampFormat of http-date on the target shape works',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlTimestampsResponse xmlns="https://example.com/">\n    <XmlTimestampsResult>\n        <httpDateOnTarget>Tue, 29 Apr 2014 18:30:38 GMT</httpDateOnTarget>\n    </XmlTimestampsResult>\n</XmlTimestampsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'httpDateOnTarget': 1398796238},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlTimestampsOutputAwsQuerySerializer()],
+    );
+  });
 }
 
 class XmlTimestampsOutputAwsQuerySerializer
@@ -259,11 +217,8 @@ class XmlTimestampsOutputAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlTimestampsOutput deserialize(
@@ -292,34 +247,22 @@ class XmlTimestampsOutputAwsQuerySerializer
             value,
           );
         case 'dateTimeOnTarget':
-          result.dateTimeOnTarget =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.dateTimeOnTarget = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'epochSeconds':
-          result.epochSeconds =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.epochSeconds = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'epochSecondsOnTarget':
-          result.epochSecondsOnTarget =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.epochSecondsOnTarget = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'httpDate':
           result.httpDate = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'httpDateOnTarget':
-          result.httpDateOnTarget =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.httpDateOnTarget = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
       }
     }
 

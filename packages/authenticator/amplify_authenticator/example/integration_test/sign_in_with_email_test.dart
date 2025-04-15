@@ -18,9 +18,7 @@ void main() {
   group('sign-in-with-email', () {
     // Given I'm running the example "ui/components/authenticator/sign-in-with-email.feature"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-email',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-email');
     });
 
     // Scenario: Sign in with unknown credentials
@@ -30,10 +28,7 @@ void main() {
 
       expect(
         tester.bloc.stream,
-        emitsInOrder([
-          UnauthenticatedState.signIn,
-          emitsDone,
-        ]),
+        emitsInOrder([UnauthenticatedState.signIn, emitsDone]),
       );
 
       final signInPage = SignInPage(tester: tester);
@@ -120,9 +115,7 @@ void main() {
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: {
-          AuthUserAttributeKey.email: username,
-        },
+        attributes: {AuthUserAttributeKey.email: username},
       );
 
       await loadAuthenticator(tester: tester);
@@ -155,8 +148,9 @@ void main() {
     });
 
     // Scenario: Sign in with confirmed credentials then sign out
-    testWidgets('Sign in with confirmed credentials then sign out',
-        (tester) async {
+    testWidgets('Sign in with confirmed credentials then sign out', (
+      tester,
+    ) async {
       final username = generateEmail();
       final password = generatePassword();
       await adminCreateUser(
@@ -164,9 +158,7 @@ void main() {
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: {
-          AuthUserAttributeKey.email: username,
-        },
+        attributes: {AuthUserAttributeKey.email: username},
       );
 
       await loadAuthenticator(tester: tester);
@@ -206,16 +198,15 @@ void main() {
     });
 
     // Scenario: Sign in with force change password credentials
-    testWidgets('Sign in with force change password credentials',
-        (tester) async {
+    testWidgets('Sign in with force change password credentials', (
+      tester,
+    ) async {
       final username = generateEmail();
       final password = generatePassword();
       await adminCreateUser(
         username,
         password,
-        attributes: {
-          AuthUserAttributeKey.email: username,
-        },
+        attributes: {AuthUserAttributeKey.email: username},
       );
 
       await loadAuthenticator(tester: tester);

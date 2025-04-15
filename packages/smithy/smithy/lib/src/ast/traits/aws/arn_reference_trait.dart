@@ -12,11 +12,7 @@ part 'arn_reference_trait.g.dart';
 class ArnReferenceTrait
     with AWSSerializable
     implements Trait<ArnReferenceTrait> {
-  const ArnReferenceTrait({
-    this.type,
-    this.service,
-    this.resource,
-  });
+  const ArnReferenceTrait({this.type, this.service, this.resource});
 
   factory ArnReferenceTrait.fromJson(Object? json) =>
       _$ArnReferenceTraitFromJson((json as Map).cast<String, Object?>());
@@ -31,11 +27,7 @@ class ArnReferenceTrait
   bool get isSynthetic => false;
 
   @override
-  List<Object?> get props => [
-        type,
-        service,
-        resource,
-      ];
+  List<Object?> get props => [type, service, resource];
 
   @override
   ShapeId get shapeId => id;

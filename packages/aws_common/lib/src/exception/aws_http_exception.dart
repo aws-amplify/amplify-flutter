@@ -15,11 +15,7 @@ class AWSHttpException implements Exception {
     if (underlyingException is AWSHttpException) {
       return underlyingException;
     }
-    return AWSHttpException._(
-      request.method,
-      request.uri,
-      underlyingException,
-    );
+    return AWSHttpException._(request.method, request.uri, underlyingException);
   }
 
   const AWSHttpException._(this.method, this.uri, this.underlyingException);
@@ -34,6 +30,7 @@ class AWSHttpException implements Exception {
   final Object? underlyingException;
 
   @override
-  String toString() => '${method.value} $uri failed'
+  String toString() =>
+      '${method.value} $uri failed'
       '${underlyingException == null ? '' : ': $underlyingException'}';
 }

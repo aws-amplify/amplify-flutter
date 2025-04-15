@@ -21,9 +21,7 @@ class HostedUiClient implements Closeable {
     unawaited(client.listen());
 
     _logger.debug('Configuring...');
-    await client.sendRequest('configure', {
-      'config': amplifyConfig,
-    });
+    await client.sendRequest('configure', {'config': amplifyConfig});
     _logger.debug('Successfully configured');
     return HostedUiClient._(client);
   }

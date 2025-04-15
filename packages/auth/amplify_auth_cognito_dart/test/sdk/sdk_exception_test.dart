@@ -48,16 +48,8 @@ void main() {
           // UserLambdaValidationException from the SDK should be mapped to
           // UserLambdaValidationException from Amplify
           isA<UserLambdaValidationException>()
-              .having(
-                (e) => e.lambdaName,
-                'lambdaName',
-                lambdaName,
-              )
-              .having(
-                (e) => e.message,
-                'message',
-                lambdaMessage,
-              ),
+              .having((e) => e.lambdaName, 'lambdaName', lambdaName)
+              .having((e) => e.message, 'message', lambdaMessage),
         );
       });
 
@@ -67,16 +59,8 @@ void main() {
         expect(
           transformed,
           isA<LambdaException>()
-              .having(
-                (e) => e.lambdaName,
-                'lambdaName',
-                lambdaName,
-              )
-              .having(
-                (e) => e.message,
-                'message',
-                lambdaMessage,
-              ),
+              .having((e) => e.lambdaName, 'lambdaName', lambdaName)
+              .having((e) => e.message, 'message', lambdaMessage),
         );
       });
 
@@ -93,10 +77,7 @@ void main() {
       final networkException = AWSHttpException(
         AWSHttpRequest.get(Uri.parse('https://example.com')),
       );
-      expect(
-        transformSdkException(networkException),
-        isA<NetworkException>(),
-      );
+      expect(transformSdkException(networkException), isA<NetworkException>());
     });
   });
 }
@@ -113,10 +94,8 @@ class UnhandledException implements SmithyException {
   RetryConfig? get retryConfig => null;
 
   @override
-  ShapeId? get shapeId => const ShapeId(
-        shape: 'UnhandledException',
-        namespace: '',
-      );
+  ShapeId? get shapeId =>
+      const ShapeId(shape: 'UnhandledException', namespace: '');
 
   @override
   Exception? get underlyingException => null;

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.s3.model.no_such_bucket; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,21 +29,18 @@ abstract class NoSuchBucket
   factory NoSuchBucket.fromResponse(
     NoSuchBucket payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<NoSuchBucket>> serializers = [
-    NoSuchBucketRestXmlSerializer()
+    NoSuchBucketRestXmlSerializer(),
   ];
 
   @override
-  _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.s3',
-        shape: 'NoSuchBucket',
-      );
+  _i2.ShapeId get shapeId =>
+      const _i2.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NoSuchBucket');
 
   @override
   String? get message => null;
@@ -75,18 +72,12 @@ class NoSuchBucketRestXmlSerializer
   const NoSuchBucketRestXmlSerializer() : super('NoSuchBucket');
 
   @override
-  Iterable<Type> get types => const [
-        NoSuchBucket,
-        _$NoSuchBucket,
-      ];
+  Iterable<Type> get types => const [NoSuchBucket, _$NoSuchBucket];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   NoSuchBucket deserialize(
@@ -107,7 +98,7 @@ class NoSuchBucketRestXmlSerializer
       const _i2.XmlElementName(
         'NoSuchBucket',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

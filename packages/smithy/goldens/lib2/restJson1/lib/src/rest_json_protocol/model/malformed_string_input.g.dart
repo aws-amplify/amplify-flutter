@@ -10,16 +10,16 @@ class _$MalformedStringInput extends MalformedStringInput {
   @override
   final _i3.JsonObject? blob;
 
-  factory _$MalformedStringInput(
-          [void Function(MalformedStringInputBuilder)? updates]) =>
-      (new MalformedStringInputBuilder()..update(updates))._build();
+  factory _$MalformedStringInput([
+    void Function(MalformedStringInputBuilder)? updates,
+  ]) => (new MalformedStringInputBuilder()..update(updates))._build();
 
   _$MalformedStringInput._({this.blob}) : super._();
 
   @override
   MalformedStringInput rebuild(
-          void Function(MalformedStringInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedStringInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedStringInputBuilder toBuilder() =>
@@ -81,16 +81,16 @@ class MalformedStringInputBuilder
 }
 
 class _$MalformedStringInputPayload extends MalformedStringInputPayload {
-  factory _$MalformedStringInputPayload(
-          [void Function(MalformedStringInputPayloadBuilder)? updates]) =>
-      (new MalformedStringInputPayloadBuilder()..update(updates))._build();
+  factory _$MalformedStringInputPayload([
+    void Function(MalformedStringInputPayloadBuilder)? updates,
+  ]) => (new MalformedStringInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedStringInputPayload._() : super._();
 
   @override
   MalformedStringInputPayload rebuild(
-          void Function(MalformedStringInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedStringInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedStringInputPayloadBuilder toBuilder() =>
@@ -110,8 +110,10 @@ class _$MalformedStringInputPayload extends MalformedStringInputPayload {
 
 class MalformedStringInputPayloadBuilder
     implements
-        Builder<MalformedStringInputPayload,
-            MalformedStringInputPayloadBuilder> {
+        Builder<
+          MalformedStringInputPayload,
+          MalformedStringInputPayloadBuilder
+        > {
   _$MalformedStringInputPayload? _$v;
 
   MalformedStringInputPayloadBuilder();

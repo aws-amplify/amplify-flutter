@@ -22,9 +22,9 @@ abstract class LimitExceededException
   }
 
   /// Thrown when the total number of user pools has exceeded a preset limit.
-  factory LimitExceededException.build(
-          [void Function(LimitExceededExceptionBuilder) updates]) =
-      _$LimitExceededException;
+  factory LimitExceededException.build([
+    void Function(LimitExceededExceptionBuilder) updates,
+  ]) = _$LimitExceededException;
 
   const LimitExceededException._();
 
@@ -32,10 +32,9 @@ abstract class LimitExceededException
   factory LimitExceededException.fromResponse(
     LimitExceededException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<LimitExceededException>> serializers =
       [LimitExceededExceptionAwsJson11Serializer()];
@@ -45,9 +44,9 @@ abstract class LimitExceededException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentity',
-        shape: 'LimitExceededException',
-      );
+    namespace: 'com.amazonaws.cognitoidentity',
+    shape: 'LimitExceededException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -68,10 +67,7 @@ abstract class LimitExceededException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('LimitExceededException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -79,21 +75,18 @@ abstract class LimitExceededException
 class LimitExceededExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<LimitExceededException> {
   const LimitExceededExceptionAwsJson11Serializer()
-      : super('LimitExceededException');
+    : super('LimitExceededException');
 
   @override
   Iterable<Type> get types => const [
-        LimitExceededException,
-        _$LimitExceededException,
-      ];
+    LimitExceededException,
+    _$LimitExceededException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   LimitExceededException deserialize(
@@ -112,10 +105,12 @@ class LimitExceededExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -133,10 +128,9 @@ class LimitExceededExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.rest_xml_protocol.model.host_label_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,11 +26,10 @@ abstract class HostLabelInput
     HostLabelInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<HostLabelInput>> serializers = [
-    HostLabelInputRestXmlSerializer()
+    HostLabelInputRestXmlSerializer(),
   ];
 
   String get label;
@@ -40,10 +39,7 @@ abstract class HostLabelInput
       case 'label':
         return label;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -55,10 +51,7 @@ abstract class HostLabelInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HostLabelInput')
-      ..add(
-        'label',
-        label,
-      );
+      ..add('label', label);
     return helper.toString();
   }
 }
@@ -68,18 +61,12 @@ class HostLabelInputRestXmlSerializer
   const HostLabelInputRestXmlSerializer() : super('HostLabelInput');
 
   @override
-  Iterable<Type> get types => const [
-        HostLabelInput,
-        _$HostLabelInput,
-      ];
+  Iterable<Type> get types => const [HostLabelInput, _$HostLabelInput];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   HostLabelInput deserialize(
@@ -98,10 +85,12 @@ class HostLabelInputRestXmlSerializer
       }
       switch (key) {
         case 'label':
-          result.label = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.label =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -118,10 +107,9 @@ class HostLabelInputRestXmlSerializer
     final HostLabelInput(:label) = object;
     result$
       ..add(const _i1.XmlElementName('label'))
-      ..add(serializers.serialize(
-        label,
-        specifiedType: const FullType(String),
-      ));
+      ..add(
+        serializers.serialize(label, specifiedType: const FullType(String)),
+      );
     return result$;
   }
 }

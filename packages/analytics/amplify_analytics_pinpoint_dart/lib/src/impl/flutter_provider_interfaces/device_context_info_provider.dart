@@ -63,9 +63,9 @@ class DeviceContextInfo {
     this.platformVersion,
   });
 
-  static final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.analytics)
-          .createChild('DeviceContextInfoProvider');
+  static final AmplifyLogger _logger = AmplifyLogger.category(
+    Category.analytics,
+  ).createChild('DeviceContextInfoProvider');
 
   static const int _maxFieldLength = 50;
 

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v2.query_protocol.operation.xml_enums_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,29 +13,32 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This example serializes enums as top level properties, in lists, sets, and maps.
-class XmlEnumsOperation extends _i1
-    .HttpOperation<_i1.Unit, _i1.Unit, XmlEnumsOutput, XmlEnumsOutput> {
+class XmlEnumsOperation
+    extends
+        _i1.HttpOperation<_i1.Unit, _i1.Unit, XmlEnumsOutput, XmlEnumsOutput> {
   /// This example serializes enums as top level properties, in lists, sets, and maps.
   XmlEnumsOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-          _i1.HttpProtocol<_i1.Unit, _i1.Unit, XmlEnumsOutput, XmlEnumsOutput>>
-      protocols = [
+    _i1.HttpProtocol<_i1.Unit, _i1.Unit, XmlEnumsOutput, XmlEnumsOutput>
+  >
+  protocols = [
     _i2.AwsQueryProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i2.WithSdkInvocationId(),
             const _i2.WithSdkRequest(),
           ] +
@@ -44,7 +47,7 @@ class XmlEnumsOperation extends _i1
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       action: 'XmlEnums',
       version: '2020-01-08',
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -62,9 +65,9 @@ class XmlEnumsOperation extends _i1
 
   @override
   _i1.HttpRequest buildRequest(_i1.Unit input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/';
-      });
+    b.method = 'POST';
+    b.path = r'/';
+  });
 
   @override
   int successCode([XmlEnumsOutput? output]) => 200;
@@ -73,11 +76,7 @@ class XmlEnumsOperation extends _i1
   XmlEnumsOutput buildOutput(
     XmlEnumsOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      XmlEnumsOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => XmlEnumsOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -101,11 +100,7 @@ class XmlEnumsOperation extends _i1
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

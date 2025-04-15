@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.api_gateway.model.bad_request_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,9 +19,9 @@ abstract class BadRequestException
     return _$BadRequestException._(message: message);
   }
 
-  factory BadRequestException.build(
-          [void Function(BadRequestExceptionBuilder) updates]) =
-      _$BadRequestException;
+  factory BadRequestException.build([
+    void Function(BadRequestExceptionBuilder) updates,
+  ]) = _$BadRequestException;
 
   const BadRequestException._();
 
@@ -29,22 +29,21 @@ abstract class BadRequestException
   factory BadRequestException.fromResponse(
     BadRequestException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<BadRequestException>> serializers = [
-    BadRequestExceptionRestJson1Serializer()
+    BadRequestExceptionRestJson1Serializer(),
   ];
 
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.apigateway',
-        shape: 'BadRequestException',
-      );
+    namespace: 'com.amazonaws.apigateway',
+    shape: 'BadRequestException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -65,10 +64,7 @@ abstract class BadRequestException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('BadRequestException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -79,17 +75,14 @@ class BadRequestExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        BadRequestException,
-        _$BadRequestException,
-      ];
+    BadRequestException,
+    _$BadRequestException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   BadRequestException deserialize(
@@ -108,10 +101,12 @@ class BadRequestExceptionRestJson1Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -129,10 +124,9 @@ class BadRequestExceptionRestJson1Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

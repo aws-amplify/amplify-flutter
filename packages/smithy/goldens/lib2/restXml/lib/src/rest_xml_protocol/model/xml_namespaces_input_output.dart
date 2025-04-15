@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.xml_namespaces_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class XmlNamespacesInputOutput
     return _$XmlNamespacesInputOutput._(nested: nested);
   }
 
-  factory XmlNamespacesInputOutput.build(
-          [void Function(XmlNamespacesInputOutputBuilder) updates]) =
-      _$XmlNamespacesInputOutput;
+  factory XmlNamespacesInputOutput.build([
+    void Function(XmlNamespacesInputOutputBuilder) updates,
+  ]) = _$XmlNamespacesInputOutput;
 
   const XmlNamespacesInputOutput._();
 
@@ -31,18 +31,16 @@ abstract class XmlNamespacesInputOutput
     XmlNamespacesInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [XmlNamespacesInputOutput] from a [payload] and [response].
   factory XmlNamespacesInputOutput.fromResponse(
     XmlNamespacesInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<XmlNamespacesInputOutput>>
-      serializers = [XmlNamespacesInputOutputRestXmlSerializer()];
+  serializers = [XmlNamespacesInputOutputRestXmlSerializer()];
 
   XmlNamespaceNested? get nested;
   @override
@@ -54,10 +52,7 @@ abstract class XmlNamespacesInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlNamespacesInputOutput')
-      ..add(
-        'nested',
-        nested,
-      );
+      ..add('nested', nested);
     return helper.toString();
   }
 }
@@ -65,21 +60,18 @@ abstract class XmlNamespacesInputOutput
 class XmlNamespacesInputOutputRestXmlSerializer
     extends _i1.StructuredSmithySerializer<XmlNamespacesInputOutput> {
   const XmlNamespacesInputOutputRestXmlSerializer()
-      : super('XmlNamespacesInputOutput');
+    : super('XmlNamespacesInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        XmlNamespacesInputOutput,
-        _$XmlNamespacesInputOutput,
-      ];
+    XmlNamespacesInputOutput,
+    _$XmlNamespacesInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlNamespacesInputOutput deserialize(
@@ -98,10 +90,13 @@ class XmlNamespacesInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(XmlNamespaceNested),
-          ) as XmlNamespaceNested));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(XmlNamespaceNested),
+                )
+                as XmlNamespaceNested),
+          );
       }
     }
 
@@ -118,16 +113,18 @@ class XmlNamespacesInputOutputRestXmlSerializer
       const _i1.XmlElementName(
         'XmlNamespacesInputOutput',
         _i1.XmlNamespace('http://foo.com'),
-      )
+      ),
     ];
     final XmlNamespacesInputOutput(:nested) = object;
     if (nested != null) {
       result$
         ..add(const _i1.XmlElementName('nested'))
-        ..add(serializers.serialize(
-          nested,
-          specifiedType: const FullType(XmlNamespaceNested),
-        ));
+        ..add(
+          serializers.serialize(
+            nested,
+            specifiedType: const FullType(XmlNamespaceNested),
+          ),
+        );
     }
     return result$;
   }

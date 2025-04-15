@@ -21,13 +21,13 @@ class _$DeviceType extends DeviceType {
   factory _$DeviceType([void Function(DeviceTypeBuilder)? updates]) =>
       (new DeviceTypeBuilder()..update(updates))._build();
 
-  _$DeviceType._(
-      {this.deviceKey,
-      this.deviceAttributes,
-      this.deviceCreateDate,
-      this.deviceLastModifiedDate,
-      this.deviceLastAuthenticatedDate})
-      : super._();
+  _$DeviceType._({
+    this.deviceKey,
+    this.deviceAttributes,
+    this.deviceCreateDate,
+    this.deviceLastModifiedDate,
+    this.deviceLastAuthenticatedDate,
+  }) : super._();
 
   @override
   DeviceType rebuild(void Function(DeviceTypeBuilder) updates) =>
@@ -121,7 +121,8 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   _$DeviceType _build() {
     _$DeviceType _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$DeviceType._(
             deviceKey: deviceKey,
             deviceAttributes: _deviceAttributes?.build(),
@@ -136,7 +137,10 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
         _deviceAttributes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'DeviceType', _$failedField, e.toString());
+          r'DeviceType',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

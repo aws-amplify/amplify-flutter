@@ -19,20 +19,20 @@ void main() {
       storage: StorageOutputs(bucketName: '123', awsRegion: 'west-2'),
     );
     // ignore: invalid_use_of_internal_member
-    final testAuthProviderRepo = AmplifyAuthProviderRepository()
-      ..registerAuthProvider(
-        APIAuthorizationType.userPools.authProviderToken,
-        TestTokenIdentityProvider(),
-      )
-      ..registerAuthProvider(
-        APIAuthorizationType.iam.authProviderToken,
-        TestIamAuthProvider(),
-      );
+    final testAuthProviderRepo =
+        AmplifyAuthProviderRepository()
+          ..registerAuthProvider(
+            APIAuthorizationType.userPools.authProviderToken,
+            TestTokenIdentityProvider(),
+          )
+          ..registerAuthProvider(
+            APIAuthorizationType.iam.authProviderToken,
+            TestIamAuthProvider(),
+          );
     test(
-        'configure() should override AppPathProvider with the Flutter provider',
-        () {
-      runZoned(
-        () async {
+      'configure() should override AppPathProvider with the Flutter provider',
+      () {
+        runZoned(() async {
           final s3Plugin = AmplifyStorageS3();
           await s3Plugin.configure(
             config: testConfig,
@@ -41,11 +41,8 @@ void main() {
           final pathProvider =
               s3Plugin.dependencies.getOrCreate<AppPathProvider>();
           expect(pathProvider, isA<S3AppPathProvider>());
-        },
-        zoneValues: {
-          zIsTest: true,
-        },
-      );
-    });
+        }, zoneValues: {zIsTest: true});
+      },
+    );
   });
 }

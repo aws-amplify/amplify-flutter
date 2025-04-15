@@ -32,7 +32,7 @@ void main() {
       HasOneParent(
         name: 'HasOne (implicit)',
         hasOneParentImplicitChildId: associatedModels.first.id,
-      )
+      ),
     ];
 
     testRootAndAssociatedModelsRelationship(

@@ -9,17 +9,15 @@ part of 'analytics_config.dart';
 // **************************************************************************
 
 AnalyticsConfig _$AnalyticsConfigFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'AnalyticsConfig',
-      json,
-      ($checkedConvert) {
-        final val = AnalyticsConfig(
-          plugins: $checkedConvert(
-              'plugins', (v) => AmplifyPluginRegistry.pluginConfigsFromJson(v)),
-        );
-        return val;
-      },
-    );
+    $checkedCreate('AnalyticsConfig', json, ($checkedConvert) {
+      final val = AnalyticsConfig(
+        plugins: $checkedConvert(
+          'plugins',
+          (v) => AmplifyPluginRegistry.pluginConfigsFromJson(v),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$AnalyticsConfigToJson(AnalyticsConfig instance) =>
     <String, dynamic>{

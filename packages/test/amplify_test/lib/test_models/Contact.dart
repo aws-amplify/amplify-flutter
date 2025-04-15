@@ -34,11 +34,15 @@ class Contact {
       return _email!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -47,11 +51,15 @@ class Contact {
       return _phone!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -60,20 +68,23 @@ class Contact {
   }
 
   const Contact._internal({required email, required phone, mailingAddresses})
-      : _email = email,
-        _phone = phone,
-        _mailingAddresses = mailingAddresses;
+    : _email = email,
+      _phone = phone,
+      _mailingAddresses = mailingAddresses;
 
-  factory Contact(
-      {required String email,
-      required Phone phone,
-      List<Address>? mailingAddresses}) {
+  factory Contact({
+    required String email,
+    required Phone phone,
+    List<Address>? mailingAddresses,
+  }) {
     return Contact._internal(
-        email: email,
-        phone: phone,
-        mailingAddresses: mailingAddresses != null
-            ? List<Address>.unmodifiable(mailingAddresses)
-            : mailingAddresses);
+      email: email,
+      phone: phone,
+      mailingAddresses:
+          mailingAddresses != null
+              ? List<Address>.unmodifiable(mailingAddresses)
+              : mailingAddresses,
+    );
   }
 
   bool equals(Object other) {
@@ -86,8 +97,10 @@ class Contact {
     return other is Contact &&
         _email == other._email &&
         _phone == other._phone &&
-        DeepCollectionEquality()
-            .equals(_mailingAddresses, other._mailingAddresses);
+        DeepCollectionEquality().equals(
+          _mailingAddresses,
+          other._mailingAddresses,
+        );
   }
 
   @override
@@ -100,81 +113,110 @@ class Contact {
     buffer.write("Contact {");
     buffer.write("email=" + "$_email" + ", ");
     buffer.write(
-        "phone=" + (_phone != null ? _phone!.toString() : "null") + ", ");
-    buffer.write("mailingAddresses=" +
-        (_mailingAddresses != null ? _mailingAddresses!.toString() : "null"));
+      "phone=" + (_phone != null ? _phone!.toString() : "null") + ", ",
+    );
+    buffer.write(
+      "mailingAddresses=" +
+          (_mailingAddresses != null ? _mailingAddresses!.toString() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Contact copyWith(
-      {String? email, Phone? phone, List<Address>? mailingAddresses}) {
+  Contact copyWith({
+    String? email,
+    Phone? phone,
+    List<Address>? mailingAddresses,
+  }) {
     return Contact._internal(
-        email: email ?? this.email,
-        phone: phone ?? this.phone,
-        mailingAddresses: mailingAddresses ?? this.mailingAddresses);
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      mailingAddresses: mailingAddresses ?? this.mailingAddresses,
+    );
   }
 
-  Contact copyWithModelFieldValues(
-      {ModelFieldValue<String>? email,
-      ModelFieldValue<Phone>? phone,
-      ModelFieldValue<List<Address>?>? mailingAddresses}) {
+  Contact copyWithModelFieldValues({
+    ModelFieldValue<String>? email,
+    ModelFieldValue<Phone>? phone,
+    ModelFieldValue<List<Address>?>? mailingAddresses,
+  }) {
     return Contact._internal(
-        email: email == null ? this.email : email.value,
-        phone: phone == null ? this.phone : phone.value,
-        mailingAddresses: mailingAddresses == null
-            ? this.mailingAddresses
-            : mailingAddresses.value);
+      email: email == null ? this.email : email.value,
+      phone: phone == null ? this.phone : phone.value,
+      mailingAddresses:
+          mailingAddresses == null
+              ? this.mailingAddresses
+              : mailingAddresses.value,
+    );
   }
 
   Contact.fromJson(Map<String, dynamic> json)
-      : _email = json['email'],
-        _phone = json['phone'] != null
-            ? Phone.fromJson(new Map<String, dynamic>.from(json['phone']))
-            : null,
-        _mailingAddresses = json['mailingAddresses'] is List
-            ? (json['mailingAddresses'] as List)
-                .where((e) => e != null)
-                .map((e) => Address.fromJson(new Map<String, dynamic>.from(e)))
-                .toList()
-            : null;
+    : _email = json['email'],
+      _phone =
+          json['phone'] != null
+              ? Phone.fromJson(new Map<String, dynamic>.from(json['phone']))
+              : null,
+      _mailingAddresses =
+          json['mailingAddresses'] is List
+              ? (json['mailingAddresses'] as List)
+                  .where((e) => e != null)
+                  .map(
+                    (e) => Address.fromJson(new Map<String, dynamic>.from(e)),
+                  )
+                  .toList()
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'email': _email,
-        'phone': _phone?.toJson(),
-        'mailingAddresses':
-            _mailingAddresses?.map((Address? e) => e?.toJson()).toList()
-      };
+    'email': _email,
+    'phone': _phone?.toJson(),
+    'mailingAddresses':
+        _mailingAddresses?.map((Address? e) => e?.toJson()).toList(),
+  };
 
-  Map<String, Object?> toMap() =>
-      {'email': _email, 'phone': _phone, 'mailingAddresses': _mailingAddresses};
+  Map<String, Object?> toMap() => {
+    'email': _email,
+    'phone': _phone,
+    'mailingAddresses': _mailingAddresses,
+  };
 
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Contact";
-    modelSchemaDefinition.pluralName = "Contacts";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "Contact";
+      modelSchemaDefinition.pluralName = "Contacts";
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.customTypeField(
-            fieldName: 'email',
-            isRequired: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.string)));
+          fieldName: 'email',
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
-        fieldName: 'phone',
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.embedded(
+          fieldName: 'phone',
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'Phone')));
+            ofCustomTypeName: 'Phone',
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
-        fieldName: 'mailingAddresses',
-        isRequired: false,
-        isArray: true,
-        ofType: amplify_core.ModelFieldType(
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.embedded(
+          fieldName: 'mailingAddresses',
+          isRequired: false,
+          isArray: true,
+          ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.embeddedCollection,
-            ofCustomTypeName: 'Address')));
-  });
+            ofCustomTypeName: 'Address',
+          ),
+        ),
+      );
+    },
+  );
 }

@@ -25,7 +25,8 @@ class CodegenConfig {
   @CliOption(
     abbr: 'o',
     defaultsTo: '.',
-    help: 'The directory to store generated files. '
+    help:
+        'The directory to store generated files. '
         'Defaults to the current directory.',
   )
   final String output;
@@ -41,7 +42,8 @@ class CodegenConfig {
 
   @CliOption(
     abbr: 'p',
-    help: 'The name of the generated package. '
+    help:
+        'The name of the generated package. '
         'Defaults to the service name.',
   )
   final String? packageName;
@@ -60,9 +62,7 @@ class CodegenConfig {
   )
   final bool client;
 
-  @CliOption(
-    help: 'The path to the smithy package',
-  )
+  @CliOption(help: 'The path to the smithy package')
   final String? smithyPath;
 }
 

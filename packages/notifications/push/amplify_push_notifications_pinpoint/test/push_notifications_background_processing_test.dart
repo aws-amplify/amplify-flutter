@@ -28,27 +28,28 @@ void main() {
     );
   });
   group('amplifyBackgroundProcessing', () {
-    test('should fail when the config stored in secure storage is not found',
-        () {
-      final mockStorage = MockAmplifySecureStorage();
-      when(() => mockStorage.read(key: any(named: 'key'))).thenAnswer(
-        (_) async => null,
-      );
+    test(
+      'should fail when the config stored in secure storage is not found',
+      () {
+        final mockStorage = MockAmplifySecureStorage();
+        when(
+          () => mockStorage.read(key: any(named: 'key')),
+        ).thenAnswer((_) async => null);
 
-      expect(
-        () async => amplifyBackgroundProcessing(
-          amplifySecureStorage: mockStorage,
-        ),
-        throwsA(isA<PushNotificationException>()),
-      );
-    });
+        expect(
+          () async =>
+              amplifyBackgroundProcessing(amplifySecureStorage: mockStorage),
+          throwsA(isA<PushNotificationException>()),
+        );
+      },
+    );
 
     test('should configure Amplify plugins', () async {
       log.clear();
       final mockStorage = MockAmplifySecureStorage();
-      when(() => mockStorage.read(key: any(named: 'key'))).thenAnswer(
-        (_) async => amplifyconfig,
-      );
+      when(
+        () => mockStorage.read(key: any(named: 'key')),
+      ).thenAnswer((_) async => amplifyconfig);
 
       final mockAmplify = MockAmplifyClass();
 

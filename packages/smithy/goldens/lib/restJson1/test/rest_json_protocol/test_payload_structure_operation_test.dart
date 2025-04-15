@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.test_payload_structure_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -13,152 +13,131 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonHttpWithEmptyStructurePayload (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: TestPayloadStructureOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonHttpWithEmptyStructurePayload',
-          documentation: 'Serializes a payload targeting an empty structure',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: ['Content-Length'],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/payload',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          TestPayloadStructureInputOutputRestJson1Serializer(),
-          PayloadConfigRestJson1Serializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'RestJsonTestPayloadStructure (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: TestPayloadStructureOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonTestPayloadStructure',
-          documentation: 'Serializes a payload targeting a structure',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{"data": 25\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'payloadConfig': {'data': 25}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: ['Content-Length'],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/payload',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          TestPayloadStructureInputOutputRestJson1Serializer(),
-          PayloadConfigRestJson1Serializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'RestJsonHttpWithHeadersButNoPayload (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: TestPayloadStructureOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonHttpWithHeadersButNoPayload',
-          documentation:
-              'Serializes an request with header members but no payload',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{}',
-          bodyMediaType: 'application/json',
-          params: {'testId': 't-12345'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Amz-Test-Id': 't-12345',
-          },
-          forbidHeaders: [],
-          requireHeaders: ['Content-Length'],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/payload',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          TestPayloadStructureInputOutputRestJson1Serializer(),
-          PayloadConfigRestJson1Serializer(),
-        ],
-      );
-    },
-  );
+  _i1.test('RestJsonHttpWithEmptyStructurePayload (request)', () async {
+    await _i2.httpRequestTest(
+      operation: TestPayloadStructureOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonHttpWithEmptyStructurePayload',
+        documentation: 'Serializes a payload targeting an empty structure',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: ['Content-Length'],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/payload',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        TestPayloadStructureInputOutputRestJson1Serializer(),
+        PayloadConfigRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('RestJsonTestPayloadStructure (request)', () async {
+    await _i2.httpRequestTest(
+      operation: TestPayloadStructureOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonTestPayloadStructure',
+        documentation: 'Serializes a payload targeting a structure',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{"data": 25\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'payloadConfig': {'data': 25},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: ['Content-Length'],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/payload',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        TestPayloadStructureInputOutputRestJson1Serializer(),
+        PayloadConfigRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('RestJsonHttpWithHeadersButNoPayload (request)', () async {
+    await _i2.httpRequestTest(
+      operation: TestPayloadStructureOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonHttpWithHeadersButNoPayload',
+        documentation:
+            'Serializes an request with header members but no payload',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{}',
+        bodyMediaType: 'application/json',
+        params: {'testId': 't-12345'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Amz-Test-Id': 't-12345',
+        },
+        forbidHeaders: [],
+        requireHeaders: ['Content-Length'],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/payload',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        TestPayloadStructureInputOutputRestJson1Serializer(),
+        PayloadConfigRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
 class TestPayloadStructureInputOutputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<TestPayloadStructureInputOutput> {
   const TestPayloadStructureInputOutputRestJson1Serializer()
-      : super('TestPayloadStructureInputOutput');
+    : super('TestPayloadStructureInputOutput');
 
   @override
   Iterable<Type> get types => const [TestPayloadStructureInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   TestPayloadStructureInputOutput deserialize(
@@ -177,15 +156,20 @@ class TestPayloadStructureInputOutputRestJson1Serializer
       }
       switch (key) {
         case 'testId':
-          result.testId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.testId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'payloadConfig':
-          result.payloadConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(PayloadConfig),
-          ) as PayloadConfig));
+          result.payloadConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(PayloadConfig),
+                )
+                as PayloadConfig),
+          );
       }
     }
 
@@ -211,11 +195,8 @@ class PayloadConfigRestJson1Serializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   PayloadConfig deserialize(
@@ -234,10 +215,12 @@ class PayloadConfigRestJson1Serializer
       }
       switch (key) {
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 

@@ -27,15 +27,15 @@ class AmplifyDataStore extends DataStorePluginInterface
     required ModelProviderInterface modelProvider,
     DataStorePluginOptions options = const DataStorePluginOptions(),
   }) : super(
-          modelProvider: modelProvider,
-          errorHandler: options.errorHandler,
-          conflictHandler: options.conflictHandler,
-          syncExpressions: options.syncExpressions,
-          syncInterval: options.syncInterval,
-          syncMaxRecords: options.syncMaxRecords,
-          syncPageSize: options.syncPageSize,
-          authModeStrategy: options.authModeStrategy,
-        );
+         modelProvider: modelProvider,
+         errorHandler: options.errorHandler,
+         conflictHandler: options.conflictHandler,
+         syncExpressions: options.syncExpressions,
+         syncInterval: options.syncInterval,
+         syncMaxRecords: options.syncMaxRecords,
+         syncPageSize: options.syncPageSize,
+         authModeStrategy: options.authModeStrategy,
+       );
 
   /// Internal use constructor
   @protected
@@ -169,9 +169,11 @@ class AmplifyDataStore extends DataStorePluginInterface
   }) async {
     ModelProviderInterface provider = modelProvider ?? this.modelProvider!;
     if (provider.modelSchemas.isEmpty) {
-      throw DataStoreException('No modelProvider or modelSchemas found',
-          recoverySuggestion:
-              'Pass in a modelProvider instance while instantiating DataStorePlugin');
+      throw DataStoreException(
+        'No modelProvider or modelSchemas found',
+        recoverySuggestion:
+            'Pass in a modelProvider instance while instantiating DataStorePlugin',
+      );
     }
     streamWrapper.registerModelsForHub(provider);
     return _instance.configureDataStore(
@@ -187,12 +189,18 @@ class AmplifyDataStore extends DataStorePluginInterface
   }
 
   @override
-  Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate? where,
-      QueryPagination? pagination,
-      List<QuerySortBy>? sortBy}) async {
-    return _instance.query(modelType,
-        where: where, pagination: pagination, sortBy: sortBy);
+  Future<List<T>> query<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+    QueryPagination? pagination,
+    List<QuerySortBy>? sortBy,
+  }) async {
+    return _instance.query(
+      modelType,
+      where: where,
+      pagination: pagination,
+      sortBy: sortBy,
+    );
   }
 
   @override
@@ -206,8 +214,10 @@ class AmplifyDataStore extends DataStorePluginInterface
   }
 
   @override
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate? where}) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+  }) {
     return _instance.observe(modelType, where: where);
   }
 
@@ -298,10 +308,10 @@ class NativeAmplifyApi
 
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>
-      _authProviders;
+  _authProviders;
 
   final Map<String, StreamSubscription<GraphQLResponse<String>>>
-      _subscriptionsCache = {};
+  _subscriptionsCache = {};
 
   @override
   String get runtimeTypeName => 'NativeAmplifyApi';
@@ -348,21 +358,25 @@ class NativeAmplifyApi
 
   @override
   Future<NativeGraphQLSubscriptionResponse> subscribe(
-      NativeGraphQLRequest request) async {
+    NativeGraphQLRequest request,
+  ) async {
     final flutterRequest = nativeRequestToGraphQLRequest(request);
     // Turn off then default reconnection behavior to allow native side to trigger reconnect
     // ignore: invalid_use_of_internal_member
     WebSocketOptions.autoReconnect = false;
-    final operation = Amplify.API.subscribe(flutterRequest,
-        onEstablished: () => sendNativeStartAckEvent(flutterRequest.id));
+    final operation = Amplify.API.subscribe(
+      flutterRequest,
+      onEstablished: () => sendNativeStartAckEvent(flutterRequest.id),
+    );
 
     final subscription = operation.listen(
-        (GraphQLResponse<String> event) =>
-            sendSubscriptionEvent(flutterRequest.id, event),
-        onError: (Object error) {
-          sendSubscriptionStreamErrorEvent(flutterRequest.id, error);
-        },
-        onDone: () => sendNativeCompleteEvent(flutterRequest.id));
+      (GraphQLResponse<String> event) =>
+          sendSubscriptionEvent(flutterRequest.id, event),
+      onError: (Object error) {
+        sendSubscriptionStreamErrorEvent(flutterRequest.id, error);
+      },
+      onDone: () => sendNativeCompleteEvent(flutterRequest.id),
+    );
 
     _subscriptionsCache[flutterRequest.id] = subscription;
 

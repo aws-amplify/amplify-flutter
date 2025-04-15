@@ -25,20 +25,13 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 abstract class WebSocketService implements Closeable {
   /// Used to initialize a [WebSocketChannel] connection and return transformed
   /// messages as [WebSocketEvent]
-  Stream<WebSocketEvent> init(
-    WebSocketState state,
-  );
+  Stream<WebSocketEvent> init(WebSocketState state);
 
   /// Subscribe a [GraphQLRequest] inside the provided [SubscriptionBloc] to a open [WebSocketChannel]
-  Future<void> register(
-    ConnectedState state,
-    GraphQLRequest<Object?> request,
-  );
+  Future<void> register(ConnectedState state, GraphQLRequest<Object?> request);
 
   /// Unsubscribe a [GraphQLRequest] inside the provided [SubscriptionBloc]
-  Future<void> unsubscribe(
-    String subscriptionId,
-  );
+  Future<void> unsubscribe(String subscriptionId);
 }
 
 /// {@template amplify_api.web_socket_service}
@@ -55,9 +48,7 @@ class AmplifyWebSocketService
   WebSocketSink? sink;
 
   @override
-  Stream<WebSocketEvent> init(
-    WebSocketState state,
-  ) {
+  Stream<WebSocketEvent> init(WebSocketState state) {
     final sc = StreamCompleter<WebSocketEvent>();
     _init(state, sc).catchError(sc.setError);
 
@@ -124,20 +115,13 @@ class AmplifyWebSocketService
     GraphQLRequest<Object?> request,
   ) async {
     // send registration msg
-    await _sendSubscriptionRegistrationMessage(
-      state,
-      request,
-    );
+    await _sendSubscriptionRegistrationMessage(state, request);
   }
 
   @override
-  Future<void> unsubscribe(
-    String subscriptionId,
-  ) async {
+  Future<void> unsubscribe(String subscriptionId) async {
     logger.debug('Attempting to cancel Operation $subscriptionId');
-    _send(
-      WebSocketStopMessage(id: subscriptionId),
-    );
+    _send(WebSocketStopMessage(id: subscriptionId));
   }
 
   void _send(WebSocketMessage message) {
@@ -152,20 +136,18 @@ class AmplifyWebSocketService
   ) async {
     final subscriptionRegistrationMessage =
         await generateSubscriptionRegistrationMessage(
-      state.config,
-      id: request.id,
-      authRepo: state.authProviderRepo,
-      request: request,
-    );
+          state.config,
+          id: request.id,
+          authRepo: state.authProviderRepo,
+          request: request,
+        );
     _send(subscriptionRegistrationMessage);
   }
 
-  /// Transforms an event of <String> from AppSync and converts it into a
+  /// Transforms an event of String from AppSync and converts it into a
   ///  [WebSocketEvent] which gets consumed in [WebSocketBloc]
   @visibleForTesting
-  Stream<WebSocketEvent> transformStream(
-    Stream<dynamic> stream,
-  ) {
+  Stream<WebSocketEvent> transformStream(Stream<dynamic> stream) {
     return stream
         .transform(const WebSocketMessageStreamTransformer())
         .map(_onData)
@@ -173,9 +155,7 @@ class AmplifyWebSocketService
         .asBroadcastStream();
   }
 
-  WebSocketEvent? _onData(
-    WebSocketMessage message,
-  ) {
+  WebSocketEvent? _onData(WebSocketMessage message) {
     logger.verbose(prettyPrintJson(message));
     switch (message.messageType) {
       case MessageType.connectionAck:
@@ -190,10 +170,7 @@ class AmplifyWebSocketService
 
         // Only handle general messages, not subscription-specific ones
         if (message.id != null) {
-          return SubscriptionErrorEvent(
-            message.id!,
-            wsError,
-          );
+          return SubscriptionErrorEvent(message.id!, wsError);
         }
 
         final exception = ApiOperationException(

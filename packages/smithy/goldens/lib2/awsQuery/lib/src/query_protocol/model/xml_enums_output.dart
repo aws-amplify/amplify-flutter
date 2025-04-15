@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v2.query_protocol.model.xml_enums_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,11 +42,10 @@ abstract class XmlEnumsOutput
   factory XmlEnumsOutput.fromResponse(
     XmlEnumsOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<XmlEnumsOutput>> serializers = [
-    XmlEnumsOutputAwsQuerySerializer()
+    XmlEnumsOutputAwsQuerySerializer(),
   ];
 
   FooEnum? get fooEnum1;
@@ -57,41 +56,24 @@ abstract class XmlEnumsOutput
   _i2.BuiltMap<String, FooEnum>? get fooEnumMap;
   @override
   List<Object?> get props => [
-        fooEnum1,
-        fooEnum2,
-        fooEnum3,
-        fooEnumList,
-        fooEnumSet,
-        fooEnumMap,
-      ];
+    fooEnum1,
+    fooEnum2,
+    fooEnum3,
+    fooEnumList,
+    fooEnumSet,
+    fooEnumMap,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlEnumsOutput')
-      ..add(
-        'fooEnum1',
-        fooEnum1,
-      )
-      ..add(
-        'fooEnum2',
-        fooEnum2,
-      )
-      ..add(
-        'fooEnum3',
-        fooEnum3,
-      )
-      ..add(
-        'fooEnumList',
-        fooEnumList,
-      )
-      ..add(
-        'fooEnumSet',
-        fooEnumSet,
-      )
-      ..add(
-        'fooEnumMap',
-        fooEnumMap,
-      );
+    final helper =
+        newBuiltValueToStringHelper('XmlEnumsOutput')
+          ..add('fooEnum1', fooEnum1)
+          ..add('fooEnum2', fooEnum2)
+          ..add('fooEnum3', fooEnum3)
+          ..add('fooEnumList', fooEnumList)
+          ..add('fooEnumSet', fooEnumSet)
+          ..add('fooEnumMap', fooEnumMap);
     return helper.toString();
   }
 }
@@ -101,18 +83,12 @@ class XmlEnumsOutputAwsQuerySerializer
   const XmlEnumsOutputAwsQuerySerializer() : super('XmlEnumsOutput');
 
   @override
-  Iterable<Type> get types => const [
-        XmlEnumsOutput,
-        _$XmlEnumsOutput,
-      ];
+  Iterable<Type> get types => const [XmlEnumsOutput, _$XmlEnumsOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlEnumsOutput deserialize(
@@ -139,56 +115,65 @@ class XmlEnumsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'fooEnum1':
-          result.fooEnum1 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(FooEnum),
-          ) as FooEnum);
+          result.fooEnum1 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(FooEnum),
+                  )
+                  as FooEnum);
         case 'fooEnum2':
-          result.fooEnum2 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(FooEnum),
-          ) as FooEnum);
+          result.fooEnum2 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(FooEnum),
+                  )
+                  as FooEnum);
         case 'fooEnum3':
-          result.fooEnum3 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(FooEnum),
-          ) as FooEnum);
+          result.fooEnum3 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(FooEnum),
+                  )
+                  as FooEnum);
         case 'fooEnumList':
-          result.fooEnumList.replace((const _i3.XmlBuiltListSerializer(
-                  indexer: _i3.XmlIndexer.awsQueryList)
-              .deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(FooEnum)],
-            ),
-          ) as _i2.BuiltList<FooEnum>));
+          result.fooEnumList.replace(
+            (const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList,
+                ).deserialize(
+                  serializers,
+                  value is String ? const [] : (value as Iterable<Object?>),
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(FooEnum),
+                  ]),
+                )
+                as _i2.BuiltList<FooEnum>),
+          );
         case 'fooEnumSet':
-          result.fooEnumSet.replace((const _i3.XmlBuiltSetSerializer(
-                  indexer: _i3.XmlIndexer.awsQueryList)
-              .deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltSet,
-              [FullType(FooEnum)],
-            ),
-          ) as _i2.BuiltSet<FooEnum>));
+          result.fooEnumSet.replace(
+            (const _i3.XmlBuiltSetSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList,
+                ).deserialize(
+                  serializers,
+                  value is String ? const [] : (value as Iterable<Object?>),
+                  specifiedType: const FullType(_i2.BuiltSet, [
+                    FullType(FooEnum),
+                  ]),
+                )
+                as _i2.BuiltSet<FooEnum>),
+          );
         case 'fooEnumMap':
-          result.fooEnumMap.replace(const _i3.XmlBuiltMapSerializer(
-                  indexer: _i3.XmlIndexer.awsQueryMap)
-              .deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
+          result.fooEnumMap.replace(
+            const _i3.XmlBuiltMapSerializer(
+              indexer: _i3.XmlIndexer.awsQueryMap,
+            ).deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i2.BuiltMap, [
                 FullType(String),
                 FullType(FooEnum),
-              ],
+              ]),
             ),
-          ));
+          );
       }
     }
 
@@ -205,7 +190,7 @@ class XmlEnumsOutputAwsQuerySerializer
       const _i3.XmlElementName(
         'XmlEnumsOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final XmlEnumsOutput(
       :fooEnum1,
@@ -213,76 +198,79 @@ class XmlEnumsOutputAwsQuerySerializer
       :fooEnum3,
       :fooEnumList,
       :fooEnumSet,
-      :fooEnumMap
+      :fooEnumMap,
     ) = object;
     if (fooEnum1 != null) {
       result$
         ..add(const _i3.XmlElementName('fooEnum1'))
-        ..add(serializers.serialize(
-          fooEnum1,
-          specifiedType: const FullType(FooEnum),
-        ));
+        ..add(
+          serializers.serialize(
+            fooEnum1,
+            specifiedType: const FullType(FooEnum),
+          ),
+        );
     }
     if (fooEnum2 != null) {
       result$
         ..add(const _i3.XmlElementName('fooEnum2'))
-        ..add(serializers.serialize(
-          fooEnum2,
-          specifiedType: const FullType(FooEnum),
-        ));
+        ..add(
+          serializers.serialize(
+            fooEnum2,
+            specifiedType: const FullType(FooEnum),
+          ),
+        );
     }
     if (fooEnum3 != null) {
       result$
         ..add(const _i3.XmlElementName('fooEnum3'))
-        ..add(serializers.serialize(
-          fooEnum3,
-          specifiedType: const FullType(FooEnum),
-        ));
+        ..add(
+          serializers.serialize(
+            fooEnum3,
+            specifiedType: const FullType(FooEnum),
+          ),
+        );
     }
     if (fooEnumList != null) {
       result$
         ..add(const _i3.XmlElementName('fooEnumList'))
-        ..add(const _i3.XmlBuiltListSerializer(
-                indexer: _i3.XmlIndexer.awsQueryList)
-            .serialize(
-          serializers,
-          fooEnumList,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(FooEnum)],
+        ..add(
+          const _i3.XmlBuiltListSerializer(
+            indexer: _i3.XmlIndexer.awsQueryList,
+          ).serialize(
+            serializers,
+            fooEnumList,
+            specifiedType: const FullType(_i2.BuiltList, [FullType(FooEnum)]),
           ),
-        ));
+        );
     }
     if (fooEnumSet != null) {
       result$
         ..add(const _i3.XmlElementName('fooEnumSet'))
-        ..add(const _i3.XmlBuiltSetSerializer(
-                indexer: _i3.XmlIndexer.awsQueryList)
-            .serialize(
-          serializers,
-          fooEnumSet,
-          specifiedType: const FullType(
-            _i2.BuiltSet,
-            [FullType(FooEnum)],
+        ..add(
+          const _i3.XmlBuiltSetSerializer(
+            indexer: _i3.XmlIndexer.awsQueryList,
+          ).serialize(
+            serializers,
+            fooEnumSet,
+            specifiedType: const FullType(_i2.BuiltSet, [FullType(FooEnum)]),
           ),
-        ));
+        );
     }
     if (fooEnumMap != null) {
       result$
         ..add(const _i3.XmlElementName('fooEnumMap'))
         ..add(
-            const _i3.XmlBuiltMapSerializer(indexer: _i3.XmlIndexer.awsQueryMap)
-                .serialize(
-          serializers,
-          fooEnumMap,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+          const _i3.XmlBuiltMapSerializer(
+            indexer: _i3.XmlIndexer.awsQueryMap,
+          ).serialize(
+            serializers,
+            fooEnumMap,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(FooEnum),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

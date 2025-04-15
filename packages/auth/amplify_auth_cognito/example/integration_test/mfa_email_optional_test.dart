@@ -23,9 +23,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: true,
-          attributes: {
-            AuthUserAttributeKey.email: username,
-          },
+          attributes: {AuthUserAttributeKey.email: username},
         );
 
         final signInRes = await Amplify.Auth.signIn(
@@ -37,9 +35,7 @@ void main() {
           because: 'MFA is optional',
         ).equals(AuthSignInStep.done);
 
-        await cognitoPlugin.updateMfaPreference(
-          email: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(email: MfaPreference.preferred);
 
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
@@ -51,16 +47,15 @@ void main() {
         Future<void> signInWithEmail() async {
           await signOutUser(assertComplete: true);
 
-          final otpResult = await getOtpCode(
-            env.getLoginAttribute(username),
-          );
+          final otpResult = await getOtpCode(env.getLoginAttribute(username));
 
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
           );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithOtpCode);
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(signInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')

@@ -41,6 +41,5 @@ abstract class FunctionAuthProvider extends APIAuthProvider {
 }
 
 /// Refreshes the token for a given type or all registered types if none is passed.
-typedef APIAuthProviderRefresher = Future<void> Function([
-  APIAuthorizationType?,
-]);
+typedef APIAuthProviderRefresher =
+    Future<void> Function([APIAuthorizationType?]);

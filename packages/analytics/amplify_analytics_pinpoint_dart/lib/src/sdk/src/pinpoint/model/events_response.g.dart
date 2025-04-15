@@ -84,7 +84,10 @@ class EventsResponseBuilder
         _results?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'EventsResponse', _$failedField, e.toString());
+          r'EventsResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

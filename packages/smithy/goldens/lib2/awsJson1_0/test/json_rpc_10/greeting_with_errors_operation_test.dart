@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_json1_0_v2.json_rpc_10.test.greeting_with_errors_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -17,178 +17,159 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'AwsJson10ComplexError (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          ComplexError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10ComplexError',
-          documentation: 'Parses a complex error with no message member',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "__type": "aws.protocoltests.json10#ComplexError",\n    "TopLevel": "Top level",\n    "Nested": {\n        "Foo": "bar"\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'TopLevel': 'Top level',
-            'Nested': {'Foo': 'bar'},
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.0'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 400,
-        ),
-        errorSerializers: const [
-          ComplexErrorAwsJson10Serializer(),
-          ComplexNestedErrorDataAwsJson10Serializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson10EmptyComplexError (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          ComplexError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10EmptyComplexError',
-          documentation: 'Parses a complex error with an empty body',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body: '{\n    "__type": "aws.protocoltests.json10#ComplexError"\n}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.0'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 400,
-        ),
-        errorSerializers: const [
-          ComplexErrorAwsJson10Serializer(),
-          ComplexNestedErrorDataAwsJson10Serializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson10FooErrorUsingXAmznErrorType (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          FooError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10FooErrorUsingXAmznErrorType',
-          documentation:
-              'Serializes the X-Amzn-ErrorType header. For an example service, see Amazon EKS.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body: null,
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'X-Amzn-Errortype': 'FooError'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 500,
-        ),
-        errorSerializers: const [FooErrorAwsJson10Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson10FooErrorUsingXAmznErrorTypeWithUri (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          FooError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10FooErrorUsingXAmznErrorTypeWithUri',
-          documentation:
-              'Some X-Amzn-Errortype headers contain URLs. Clients need to split the URL on \':\' and take only the first half of the string. For example, \'ValidationException:http://internal.amazon.com/example/com.amazon.example.validate/\'\nis to be interpreted as \'ValidationException\'.\n\nFor an example service see Amazon Polly.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body: null,
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'X-Amzn-Errortype':
-                'FooError:http://internal.amazon.com/example/com.amazon.example.validate/'
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 500,
-        ),
-        errorSerializers: const [FooErrorAwsJson10Serializer()],
-      );
-    },
-  );
+  _i1.test('AwsJson10ComplexError (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      ComplexError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10ComplexError',
+        documentation: 'Parses a complex error with no message member',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body:
+            '{\n    "__type": "aws.protocoltests.json10#ComplexError",\n    "TopLevel": "Top level",\n    "Nested": {\n        "Foo": "bar"\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'TopLevel': 'Top level',
+          'Nested': {'Foo': 'bar'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.0'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 400,
+      ),
+      errorSerializers: const [
+        ComplexErrorAwsJson10Serializer(),
+        ComplexNestedErrorDataAwsJson10Serializer(),
+      ],
+    );
+  });
+  _i1.test('AwsJson10EmptyComplexError (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      ComplexError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10EmptyComplexError',
+        documentation: 'Parses a complex error with an empty body',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body: '{\n    "__type": "aws.protocoltests.json10#ComplexError"\n}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.0'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 400,
+      ),
+      errorSerializers: const [
+        ComplexErrorAwsJson10Serializer(),
+        ComplexNestedErrorDataAwsJson10Serializer(),
+      ],
+    );
+  });
+  _i1.test('AwsJson10FooErrorUsingXAmznErrorType (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      FooError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10FooErrorUsingXAmznErrorType',
+        documentation:
+            'Serializes the X-Amzn-ErrorType header. For an example service, see Amazon EKS.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body: null,
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'X-Amzn-Errortype': 'FooError'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 500,
+      ),
+      errorSerializers: const [FooErrorAwsJson10Serializer()],
+    );
+  });
+  _i1.test('AwsJson10FooErrorUsingXAmznErrorTypeWithUri (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      FooError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10FooErrorUsingXAmznErrorTypeWithUri',
+        documentation:
+            'Some X-Amzn-Errortype headers contain URLs. Clients need to split the URL on \':\' and take only the first half of the string. For example, \'ValidationException:http://internal.amazon.com/example/com.amazon.example.validate/\'\nis to be interpreted as \'ValidationException\'.\n\nFor an example service see Amazon Polly.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body: null,
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'X-Amzn-Errortype':
+              'FooError:http://internal.amazon.com/example/com.amazon.example.validate/',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 500,
+      ),
+      errorSerializers: const [FooErrorAwsJson10Serializer()],
+    );
+  });
   _i1.test(
     'AwsJson10FooErrorUsingXAmznErrorTypeWithUriAndNamespace (error)',
     () async {
       await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          FooError>(
+        GreetingWithErrorsInput,
+        GreetingWithErrorsInput,
+        GreetingWithErrorsOutput,
+        GreetingWithErrorsOutput,
+        FooError
+      >(
         operation: GreetingWithErrorsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
@@ -209,7 +190,7 @@ void main() {
           vendorParams: {},
           headers: {
             'X-Amzn-Errortype':
-                'aws.protocoltests.json10#FooError:http://internal.amazon.com/example/com.amazon.example.validate/'
+                'aws.protocoltests.json10#FooError:http://internal.amazon.com/example/com.amazon.example.validate/',
           },
           forbidHeaders: [],
           requireHeaders: [],
@@ -221,290 +202,252 @@ void main() {
       );
     },
   );
-  _i1.test(
-    'AwsJson10FooErrorUsingCode (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          FooError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10FooErrorUsingCode',
-          documentation:
-              'This example uses the \'code\' property in the output rather than X-Amzn-Errortype. Some services do this though it\'s preferable to send the X-Amzn-Errortype. Client implementations must first check for the X-Amzn-Errortype and then check for a top-level \'code\' property.\n\nFor example service see Amazon S3 Glacier.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body: '{\n    "code": "FooError"\n}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.0'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 500,
-        ),
-        errorSerializers: const [FooErrorAwsJson10Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson10FooErrorUsingCodeAndNamespace (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          FooError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10FooErrorUsingCodeAndNamespace',
-          documentation:
-              'Some services serialize errors using code, and it might contain a namespace. Clients should just take the last part of the string after \'#\'.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body: '{\n    "code": "aws.protocoltests.json10#FooError"\n}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.0'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 500,
-        ),
-        errorSerializers: const [FooErrorAwsJson10Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson10FooErrorUsingCodeUriAndNamespace (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          FooError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10FooErrorUsingCodeUriAndNamespace',
-          documentation:
-              'Some services serialize errors using code, and it might contain a namespace. It also might contain a URI. Clients should just take the last part of the string after \'#\' and before ":". This is a pathalogical case that might not occur in any deployed AWS service.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "code": "aws.protocoltests.json10#FooError:http://internal.amazon.com/example/com.amazon.example.validate/"\n}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.0'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 500,
-        ),
-        errorSerializers: const [FooErrorAwsJson10Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson10FooErrorWithDunderType (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          FooError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10FooErrorWithDunderType',
-          documentation: 'Some services serialize errors using __type.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body: '{\n    "__type": "FooError"\n}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.0'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 500,
-        ),
-        errorSerializers: const [FooErrorAwsJson10Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson10FooErrorWithDunderTypeAndNamespace (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          FooError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10FooErrorWithDunderTypeAndNamespace',
-          documentation:
-              'Some services serialize errors using __type, and it might contain a namespace. Clients should just take the last part of the string after \'#\'.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body: '{\n    "__type": "aws.protocoltests.json10#FooError"\n}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.0'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 500,
-        ),
-        errorSerializers: const [FooErrorAwsJson10Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson10FooErrorWithDunderTypeUriAndNamespace (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          FooError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10FooErrorWithDunderTypeUriAndNamespace',
-          documentation:
-              'Some services serialize errors using __type, and it might contain a namespace. It also might contain a URI. Clients should just take the last part of the string after \'#\' and before ":". This is a pathalogical case that might not occur in any deployed AWS service.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "__type": "aws.protocoltests.json10#FooError:http://internal.amazon.com/example/com.amazon.example.validate/"\n}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.0'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 500,
-        ),
-        errorSerializers: const [FooErrorAwsJson10Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson10InvalidGreetingError (error)',
-    () async {
-      await _i2.httpErrorResponseTest<
-          GreetingWithErrorsInput,
-          GreetingWithErrorsInput,
-          GreetingWithErrorsOutput,
-          GreetingWithErrorsOutput,
-          InvalidGreeting>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson10InvalidGreetingError',
-          documentation: 'Parses simple JSON errors',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_0',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "__type": "aws.protocoltests.json10#InvalidGreeting",\n    "Message": "Hi"\n}',
-          bodyMediaType: 'application/json',
-          params: {'Message': 'Hi'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.0'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 400,
-        ),
-        errorSerializers: const [InvalidGreetingAwsJson10Serializer()],
-      );
-    },
-  );
+  _i1.test('AwsJson10FooErrorUsingCode (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      FooError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10FooErrorUsingCode',
+        documentation:
+            'This example uses the \'code\' property in the output rather than X-Amzn-Errortype. Some services do this though it\'s preferable to send the X-Amzn-Errortype. Client implementations must first check for the X-Amzn-Errortype and then check for a top-level \'code\' property.\n\nFor example service see Amazon S3 Glacier.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body: '{\n    "code": "FooError"\n}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.0'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 500,
+      ),
+      errorSerializers: const [FooErrorAwsJson10Serializer()],
+    );
+  });
+  _i1.test('AwsJson10FooErrorUsingCodeAndNamespace (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      FooError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10FooErrorUsingCodeAndNamespace',
+        documentation:
+            'Some services serialize errors using code, and it might contain a namespace. Clients should just take the last part of the string after \'#\'.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body: '{\n    "code": "aws.protocoltests.json10#FooError"\n}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.0'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 500,
+      ),
+      errorSerializers: const [FooErrorAwsJson10Serializer()],
+    );
+  });
+  _i1.test('AwsJson10FooErrorUsingCodeUriAndNamespace (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      FooError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10FooErrorUsingCodeUriAndNamespace',
+        documentation:
+            'Some services serialize errors using code, and it might contain a namespace. It also might contain a URI. Clients should just take the last part of the string after \'#\' and before ":". This is a pathalogical case that might not occur in any deployed AWS service.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body:
+            '{\n    "code": "aws.protocoltests.json10#FooError:http://internal.amazon.com/example/com.amazon.example.validate/"\n}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.0'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 500,
+      ),
+      errorSerializers: const [FooErrorAwsJson10Serializer()],
+    );
+  });
+  _i1.test('AwsJson10FooErrorWithDunderType (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      FooError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10FooErrorWithDunderType',
+        documentation: 'Some services serialize errors using __type.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body: '{\n    "__type": "FooError"\n}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.0'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 500,
+      ),
+      errorSerializers: const [FooErrorAwsJson10Serializer()],
+    );
+  });
+  _i1.test('AwsJson10FooErrorWithDunderTypeAndNamespace (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      FooError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10FooErrorWithDunderTypeAndNamespace',
+        documentation:
+            'Some services serialize errors using __type, and it might contain a namespace. Clients should just take the last part of the string after \'#\'.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body: '{\n    "__type": "aws.protocoltests.json10#FooError"\n}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.0'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 500,
+      ),
+      errorSerializers: const [FooErrorAwsJson10Serializer()],
+    );
+  });
+  _i1.test('AwsJson10FooErrorWithDunderTypeUriAndNamespace (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      FooError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10FooErrorWithDunderTypeUriAndNamespace',
+        documentation:
+            'Some services serialize errors using __type, and it might contain a namespace. It also might contain a URI. Clients should just take the last part of the string after \'#\' and before ":". This is a pathalogical case that might not occur in any deployed AWS service.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body:
+            '{\n    "__type": "aws.protocoltests.json10#FooError:http://internal.amazon.com/example/com.amazon.example.validate/"\n}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.0'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 500,
+      ),
+      errorSerializers: const [FooErrorAwsJson10Serializer()],
+    );
+  });
+  _i1.test('AwsJson10InvalidGreetingError (error)', () async {
+    await _i2.httpErrorResponseTest<
+      GreetingWithErrorsInput,
+      GreetingWithErrorsInput,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      InvalidGreeting
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson10InvalidGreetingError',
+        documentation: 'Parses simple JSON errors',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+        authScheme: null,
+        body:
+            '{\n    "__type": "aws.protocoltests.json10#InvalidGreeting",\n    "Message": "Hi"\n}',
+        bodyMediaType: 'application/json',
+        params: {'Message': 'Hi'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.0'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 400,
+      ),
+      errorSerializers: const [InvalidGreetingAwsJson10Serializer()],
+    );
+  });
 }
 
 class GreetingWithErrorsInputAwsJson10Serializer
     extends _i3.StructuredSmithySerializer<GreetingWithErrorsInput> {
   const GreetingWithErrorsInputAwsJson10Serializer()
-      : super('GreetingWithErrorsInput');
+    : super('GreetingWithErrorsInput');
 
   @override
   Iterable<Type> get types => const [GreetingWithErrorsInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   GreetingWithErrorsInput deserialize(
@@ -523,10 +466,12 @@ class GreetingWithErrorsInputAwsJson10Serializer
       }
       switch (key) {
         case 'greeting':
-          result.greeting = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.greeting =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -546,18 +491,15 @@ class GreetingWithErrorsInputAwsJson10Serializer
 class GreetingWithErrorsOutputAwsJson10Serializer
     extends _i3.StructuredSmithySerializer<GreetingWithErrorsOutput> {
   const GreetingWithErrorsOutputAwsJson10Serializer()
-      : super('GreetingWithErrorsOutput');
+    : super('GreetingWithErrorsOutput');
 
   @override
   Iterable<Type> get types => const [GreetingWithErrorsOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   GreetingWithErrorsOutput deserialize(
@@ -576,10 +518,12 @@ class GreetingWithErrorsOutputAwsJson10Serializer
       }
       switch (key) {
         case 'greeting':
-          result.greeting = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.greeting =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -605,11 +549,8 @@ class ComplexErrorAwsJson10Serializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   ComplexError deserialize(
@@ -628,15 +569,20 @@ class ComplexErrorAwsJson10Serializer
       }
       switch (key) {
         case 'TopLevel':
-          result.topLevel = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.topLevel =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ComplexNestedErrorData),
-          ) as ComplexNestedErrorData));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ComplexNestedErrorData),
+                )
+                as ComplexNestedErrorData),
+          );
       }
     }
 
@@ -656,18 +602,15 @@ class ComplexErrorAwsJson10Serializer
 class ComplexNestedErrorDataAwsJson10Serializer
     extends _i3.StructuredSmithySerializer<ComplexNestedErrorData> {
   const ComplexNestedErrorDataAwsJson10Serializer()
-      : super('ComplexNestedErrorData');
+    : super('ComplexNestedErrorData');
 
   @override
   Iterable<Type> get types => const [ComplexNestedErrorData];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   ComplexNestedErrorData deserialize(
@@ -686,10 +629,12 @@ class ComplexNestedErrorDataAwsJson10Serializer
       }
       switch (key) {
         case 'Foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -715,11 +660,8 @@ class FooErrorAwsJson10Serializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   FooError deserialize(
@@ -749,11 +691,8 @@ class InvalidGreetingAwsJson10Serializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   InvalidGreeting deserialize(
@@ -772,10 +711,12 @@ class InvalidGreetingAwsJson10Serializer
       }
       switch (key) {
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

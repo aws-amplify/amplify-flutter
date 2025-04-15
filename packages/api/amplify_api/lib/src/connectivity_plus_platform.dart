@@ -15,11 +15,12 @@ class ConnectivityPlusPlatform extends ConnectivityPlatform {
 
   @override
   Stream<ConnectivityStatus> get onConnectivityChanged => Connectivity()
-          .onConnectivityChanged
-          .map((List<ConnectivityResult> connectivityResults) {
+      .onConnectivityChanged
+      .map((List<ConnectivityResult> connectivityResults) {
         // Check if any of the results indicate a connection
-        final isConnected = connectivityResults
-            .any((result) => result != ConnectivityResult.none);
+        final isConnected = connectivityResults.any(
+          (result) => result != ConnectivityResult.none,
+        );
 
         return isConnected
             ? ConnectivityStatus.connected

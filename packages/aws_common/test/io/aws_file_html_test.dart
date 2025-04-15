@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('browser')
+library;
 
 import 'dart:async';
 import 'dart:convert';
@@ -23,11 +24,10 @@ void main() {
     final testBytesUtf16 = testStringContent.codeUnits;
     final testBlob = html.Blob([testBytes], testContentType);
     final testFile = html.File(
-        [testBlob],
-        'test_file.txt',
-        {
-          'type': testBlob.type,
-        });
+      [testBlob],
+      'test_file.txt',
+      {'type': testBlob.type},
+    );
     final testFilePath = html.Url.createObjectUrl(testFile);
 
     group('getChunkedStreamReader() API', () {
@@ -99,40 +99,37 @@ void main() {
       });
 
       test('should resolve contentType from underlying html File', () async {
-        final awsFile = AWSFilePlatform.fromFile(
-          testFile,
-        );
+        final awsFile = AWSFilePlatform.fromFile(testFile);
 
         expect(await awsFile.contentType, testFile.type);
       });
 
       test('should resolve contentType from underlying html Blob', () async {
-        final awsFile = AWSFilePlatform.fromBlob(
-          testBlob,
-        );
+        final awsFile = AWSFilePlatform.fromBlob(testBlob);
 
         expect(await awsFile.contentType, testBlob.type);
       });
 
       test(
-          'should resolve contentType from the blob that is resolved from the path',
-          () async {
-        final awsFile = AWSFilePlatform.fromPath(
-          testFilePath,
-        );
+        'should resolve contentType from the blob that is resolved from the path',
+        () async {
+          final awsFile = AWSFilePlatform.fromPath(testFilePath);
 
-        expect(await awsFile.contentType, testFile.type);
-      });
+          expect(await awsFile.contentType, testFile.type);
+        },
+      );
 
-      test('should return null as contentType if contentType is unresolvable',
-          () async {
-        final awsFile = AWSFile.fromStream(
-          Stream.value(testBytes),
-          size: testBytes.length,
-        );
+      test(
+        'should return null as contentType if contentType is unresolvable',
+        () async {
+          final awsFile = AWSFile.fromStream(
+            Stream.value(testBytes),
+            size: testBytes.length,
+          );
 
-        expect(await awsFile.contentType, isNull);
-      });
+          expect(await awsFile.contentType, isNull);
+        },
+      );
     });
 
     group('openRead() API', () {
@@ -218,7 +215,7 @@ void main() {
 
 /// Collects an asynchronous sequence of byte lists into a single list of bytes.
 ///
-/// Similar to collectBytes from package:async, but works for any List<int>,
+/// Similar to collectBytes from package:async, but works for any List of int,
 /// where as collectBytes from package:async only supports [Uint8List].
 Future<List<int>> collectBytes(Stream<List<int>> source) {
   final bytes = <int>[];

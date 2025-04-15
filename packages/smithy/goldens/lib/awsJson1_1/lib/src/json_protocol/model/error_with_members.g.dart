@@ -26,21 +26,21 @@ class _$ErrorWithMembers extends ErrorWithMembers {
   @override
   final Map<String, String>? headers;
 
-  factory _$ErrorWithMembers(
-          [void Function(ErrorWithMembersBuilder)? updates]) =>
-      (new ErrorWithMembersBuilder()..update(updates))._build();
+  factory _$ErrorWithMembers([
+    void Function(ErrorWithMembersBuilder)? updates,
+  ]) => (new ErrorWithMembersBuilder()..update(updates))._build();
 
-  _$ErrorWithMembers._(
-      {this.code,
-      this.complexData,
-      this.integerField,
-      this.listField,
-      this.mapField,
-      this.message,
-      this.stringField,
-      this.statusCode,
-      this.headers})
-      : super._();
+  _$ErrorWithMembers._({
+    this.code,
+    this.complexData,
+    this.integerField,
+    this.listField,
+    this.mapField,
+    this.message,
+    this.stringField,
+    this.statusCode,
+    this.headers,
+  }) : super._();
 
   @override
   ErrorWithMembers rebuild(void Function(ErrorWithMembersBuilder) updates) =>
@@ -160,17 +160,19 @@ class ErrorWithMembersBuilder
   _$ErrorWithMembers _build() {
     _$ErrorWithMembers _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ErrorWithMembers._(
-              code: code,
-              complexData: _complexData?.build(),
-              integerField: integerField,
-              listField: _listField?.build(),
-              mapField: _mapField?.build(),
-              message: message,
-              stringField: stringField,
-              statusCode: statusCode,
-              headers: headers);
+            code: code,
+            complexData: _complexData?.build(),
+            integerField: integerField,
+            listField: _listField?.build(),
+            mapField: _mapField?.build(),
+            message: message,
+            stringField: stringField,
+            statusCode: statusCode,
+            headers: headers,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -183,7 +185,10 @@ class ErrorWithMembersBuilder
         _mapField?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ErrorWithMembers', _$failedField, e.toString());
+          r'ErrorWithMembers',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

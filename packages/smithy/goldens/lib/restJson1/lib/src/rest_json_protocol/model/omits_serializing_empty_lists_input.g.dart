@@ -23,24 +23,25 @@ class _$OmitsSerializingEmptyListsInput
   @override
   final _i3.BuiltList<int>? queryIntegerEnumList;
 
-  factory _$OmitsSerializingEmptyListsInput(
-          [void Function(OmitsSerializingEmptyListsInputBuilder)? updates]) =>
+  factory _$OmitsSerializingEmptyListsInput([
+    void Function(OmitsSerializingEmptyListsInputBuilder)? updates,
+  ]) =>
       (new OmitsSerializingEmptyListsInputBuilder()..update(updates))._build();
 
-  _$OmitsSerializingEmptyListsInput._(
-      {this.queryStringList,
-      this.queryIntegerList,
-      this.queryDoubleList,
-      this.queryBooleanList,
-      this.queryTimestampList,
-      this.queryEnumList,
-      this.queryIntegerEnumList})
-      : super._();
+  _$OmitsSerializingEmptyListsInput._({
+    this.queryStringList,
+    this.queryIntegerList,
+    this.queryDoubleList,
+    this.queryBooleanList,
+    this.queryTimestampList,
+    this.queryEnumList,
+    this.queryIntegerEnumList,
+  }) : super._();
 
   @override
   OmitsSerializingEmptyListsInput rebuild(
-          void Function(OmitsSerializingEmptyListsInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OmitsSerializingEmptyListsInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OmitsSerializingEmptyListsInputBuilder toBuilder() =>
@@ -76,8 +77,10 @@ class _$OmitsSerializingEmptyListsInput
 
 class OmitsSerializingEmptyListsInputBuilder
     implements
-        Builder<OmitsSerializingEmptyListsInput,
-            OmitsSerializingEmptyListsInputBuilder> {
+        Builder<
+          OmitsSerializingEmptyListsInput,
+          OmitsSerializingEmptyListsInputBuilder
+        > {
   _$OmitsSerializingEmptyListsInput? _$v;
 
   _i3.ListBuilder<String>? _queryStringList;
@@ -156,15 +159,17 @@ class OmitsSerializingEmptyListsInputBuilder
   _$OmitsSerializingEmptyListsInput _build() {
     _$OmitsSerializingEmptyListsInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$OmitsSerializingEmptyListsInput._(
-              queryStringList: _queryStringList?.build(),
-              queryIntegerList: _queryIntegerList?.build(),
-              queryDoubleList: _queryDoubleList?.build(),
-              queryBooleanList: _queryBooleanList?.build(),
-              queryTimestampList: _queryTimestampList?.build(),
-              queryEnumList: _queryEnumList?.build(),
-              queryIntegerEnumList: _queryIntegerEnumList?.build());
+            queryStringList: _queryStringList?.build(),
+            queryIntegerList: _queryIntegerList?.build(),
+            queryDoubleList: _queryDoubleList?.build(),
+            queryBooleanList: _queryBooleanList?.build(),
+            queryTimestampList: _queryTimestampList?.build(),
+            queryEnumList: _queryEnumList?.build(),
+            queryIntegerEnumList: _queryIntegerEnumList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -184,7 +189,10 @@ class OmitsSerializingEmptyListsInputBuilder
         _queryIntegerEnumList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'OmitsSerializingEmptyListsInput', _$failedField, e.toString());
+          r'OmitsSerializingEmptyListsInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -195,9 +203,9 @@ class OmitsSerializingEmptyListsInputBuilder
 
 class _$OmitsSerializingEmptyListsInputPayload
     extends OmitsSerializingEmptyListsInputPayload {
-  factory _$OmitsSerializingEmptyListsInputPayload(
-          [void Function(OmitsSerializingEmptyListsInputPayloadBuilder)?
-              updates]) =>
+  factory _$OmitsSerializingEmptyListsInputPayload([
+    void Function(OmitsSerializingEmptyListsInputPayloadBuilder)? updates,
+  ]) =>
       (new OmitsSerializingEmptyListsInputPayloadBuilder()..update(updates))
           ._build();
 
@@ -205,9 +213,8 @@ class _$OmitsSerializingEmptyListsInputPayload
 
   @override
   OmitsSerializingEmptyListsInputPayload rebuild(
-          void Function(OmitsSerializingEmptyListsInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OmitsSerializingEmptyListsInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OmitsSerializingEmptyListsInputPayloadBuilder toBuilder() =>
@@ -227,8 +234,10 @@ class _$OmitsSerializingEmptyListsInputPayload
 
 class OmitsSerializingEmptyListsInputPayloadBuilder
     implements
-        Builder<OmitsSerializingEmptyListsInputPayload,
-            OmitsSerializingEmptyListsInputPayloadBuilder> {
+        Builder<
+          OmitsSerializingEmptyListsInputPayload,
+          OmitsSerializingEmptyListsInputPayloadBuilder
+        > {
   _$OmitsSerializingEmptyListsInputPayload? _$v;
 
   OmitsSerializingEmptyListsInputPayloadBuilder();
@@ -241,7 +250,8 @@ class OmitsSerializingEmptyListsInputPayloadBuilder
 
   @override
   void update(
-      void Function(OmitsSerializingEmptyListsInputPayloadBuilder)? updates) {
+    void Function(OmitsSerializingEmptyListsInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

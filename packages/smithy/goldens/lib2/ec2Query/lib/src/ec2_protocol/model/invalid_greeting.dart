@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v2.ec2_protocol.model.invalid_greeting; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,8 +22,9 @@ abstract class InvalidGreeting
   }
 
   /// This error is thrown when an invalid greeting value is provided.
-  factory InvalidGreeting.build(
-      [void Function(InvalidGreetingBuilder) updates]) = _$InvalidGreeting;
+  factory InvalidGreeting.build([
+    void Function(InvalidGreetingBuilder) updates,
+  ]) = _$InvalidGreeting;
 
   const InvalidGreeting._();
 
@@ -31,23 +32,22 @@ abstract class InvalidGreeting
   factory InvalidGreeting.fromResponse(
     InvalidGreeting payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.statusCode = response.statusCode;
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.statusCode = response.statusCode;
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<InvalidGreeting>> serializers = [
-    InvalidGreetingEc2QuerySerializer()
+    InvalidGreetingEc2QuerySerializer(),
   ];
 
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'aws.protocoltests.ec2',
-        shape: 'InvalidGreeting',
-      );
+    namespace: 'aws.protocoltests.ec2',
+    shape: 'InvalidGreeting',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -67,10 +67,7 @@ abstract class InvalidGreeting
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InvalidGreeting')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -80,18 +77,12 @@ class InvalidGreetingEc2QuerySerializer
   const InvalidGreetingEc2QuerySerializer() : super('InvalidGreeting');
 
   @override
-  Iterable<Type> get types => const [
-        InvalidGreeting,
-        _$InvalidGreeting,
-      ];
+  Iterable<Type> get types => const [InvalidGreeting, _$InvalidGreeting];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   InvalidGreeting deserialize(
@@ -126,10 +117,12 @@ class InvalidGreetingEc2QuerySerializer
       }
       switch (key) {
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -146,16 +139,15 @@ class InvalidGreetingEc2QuerySerializer
       const _i2.XmlElementName(
         'InvalidGreetingResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final InvalidGreeting(:message) = object;
     if (message != null) {
       result$
         ..add(const _i2.XmlElementName('Message'))
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

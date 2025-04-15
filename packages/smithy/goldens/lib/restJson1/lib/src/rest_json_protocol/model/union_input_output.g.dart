@@ -10,9 +10,9 @@ class _$UnionInputOutput extends UnionInputOutput {
   @override
   final MyUnion? contents;
 
-  factory _$UnionInputOutput(
-          [void Function(UnionInputOutputBuilder)? updates]) =>
-      (new UnionInputOutputBuilder()..update(updates))._build();
+  factory _$UnionInputOutput([
+    void Function(UnionInputOutputBuilder)? updates,
+  ]) => (new UnionInputOutputBuilder()..update(updates))._build();
 
   _$UnionInputOutput._({this.contents}) : super._();
 

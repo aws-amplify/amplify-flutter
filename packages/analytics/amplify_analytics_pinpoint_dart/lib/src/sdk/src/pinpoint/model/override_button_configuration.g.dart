@@ -12,20 +12,23 @@ class _$OverrideButtonConfiguration extends OverrideButtonConfiguration {
   @override
   final String? link;
 
-  factory _$OverrideButtonConfiguration(
-          [void Function(OverrideButtonConfigurationBuilder)? updates]) =>
-      (new OverrideButtonConfigurationBuilder()..update(updates))._build();
+  factory _$OverrideButtonConfiguration([
+    void Function(OverrideButtonConfigurationBuilder)? updates,
+  ]) => (new OverrideButtonConfigurationBuilder()..update(updates))._build();
 
   _$OverrideButtonConfiguration._({required this.buttonAction, this.link})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        buttonAction, r'OverrideButtonConfiguration', 'buttonAction');
+      buttonAction,
+      r'OverrideButtonConfiguration',
+      'buttonAction',
+    );
   }
 
   @override
   OverrideButtonConfiguration rebuild(
-          void Function(OverrideButtonConfigurationBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OverrideButtonConfigurationBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OverrideButtonConfigurationBuilder toBuilder() =>
@@ -51,8 +54,10 @@ class _$OverrideButtonConfiguration extends OverrideButtonConfiguration {
 
 class OverrideButtonConfigurationBuilder
     implements
-        Builder<OverrideButtonConfiguration,
-            OverrideButtonConfigurationBuilder> {
+        Builder<
+          OverrideButtonConfiguration,
+          OverrideButtonConfigurationBuilder
+        > {
   _$OverrideButtonConfiguration? _$v;
 
   ButtonAction? _buttonAction;
@@ -91,11 +96,16 @@ class OverrideButtonConfigurationBuilder
   OverrideButtonConfiguration build() => _build();
 
   _$OverrideButtonConfiguration _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$OverrideButtonConfiguration._(
-            buttonAction: BuiltValueNullFieldError.checkNotNull(
-                buttonAction, r'OverrideButtonConfiguration', 'buttonAction'),
-            link: link);
+          buttonAction: BuiltValueNullFieldError.checkNotNull(
+            buttonAction,
+            r'OverrideButtonConfiguration',
+            'buttonAction',
+          ),
+          link: link,
+        );
     replace(_$result);
     return _$result;
   }

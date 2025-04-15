@@ -47,15 +47,16 @@ abstract class ListObjectsV2Request
       startAfter: startAfter,
       requestPayer: requestPayer,
       expectedBucketOwner: expectedBucketOwner,
-      optionalObjectAttributes: optionalObjectAttributes == null
-          ? null
-          : _i3.BuiltList(optionalObjectAttributes),
+      optionalObjectAttributes:
+          optionalObjectAttributes == null
+              ? null
+              : _i3.BuiltList(optionalObjectAttributes),
     );
   }
 
-  factory ListObjectsV2Request.build(
-          [void Function(ListObjectsV2RequestBuilder) updates]) =
-      _$ListObjectsV2Request;
+  factory ListObjectsV2Request.build([
+    void Function(ListObjectsV2RequestBuilder) updates,
+  ]) = _$ListObjectsV2Request;
 
   const ListObjectsV2Request._();
 
@@ -63,50 +64,52 @@ abstract class ListObjectsV2Request
     ListObjectsV2RequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      ListObjectsV2Request.build((b) {
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.headers['x-amz-optional-object-attributes'] != null) {
-          b.optionalObjectAttributes.addAll(_i1
-              .parseHeader(request.headers['x-amz-optional-object-attributes']!)
-              .map((el) => OptionalObjectAttributes.values.byValue(el.trim())));
-        }
-        if (request.queryParameters['delimiter'] != null) {
-          b.delimiter = request.queryParameters['delimiter']!;
-        }
-        if (request.queryParameters['encoding-type'] != null) {
-          b.encodingType = EncodingType.values
-              .byValue(request.queryParameters['encoding-type']!);
-        }
-        if (request.queryParameters['max-keys'] != null) {
-          b.maxKeys = int.parse(request.queryParameters['max-keys']!);
-        }
-        if (request.queryParameters['prefix'] != null) {
-          b.prefix = request.queryParameters['prefix']!;
-        }
-        if (request.queryParameters['continuation-token'] != null) {
-          b.continuationToken = request.queryParameters['continuation-token']!;
-        }
-        if (request.queryParameters['fetch-owner'] != null) {
-          b.fetchOwner = request.queryParameters['fetch-owner']! == 'true';
-        }
-        if (request.queryParameters['start-after'] != null) {
-          b.startAfter = request.queryParameters['start-after']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-      });
+  }) => ListObjectsV2Request.build((b) {
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.headers['x-amz-optional-object-attributes'] != null) {
+      b.optionalObjectAttributes.addAll(
+        _i1
+            .parseHeader(request.headers['x-amz-optional-object-attributes']!)
+            .map((el) => OptionalObjectAttributes.values.byValue(el.trim())),
+      );
+    }
+    if (request.queryParameters['delimiter'] != null) {
+      b.delimiter = request.queryParameters['delimiter']!;
+    }
+    if (request.queryParameters['encoding-type'] != null) {
+      b.encodingType = EncodingType.values.byValue(
+        request.queryParameters['encoding-type']!,
+      );
+    }
+    if (request.queryParameters['max-keys'] != null) {
+      b.maxKeys = int.parse(request.queryParameters['max-keys']!);
+    }
+    if (request.queryParameters['prefix'] != null) {
+      b.prefix = request.queryParameters['prefix']!;
+    }
+    if (request.queryParameters['continuation-token'] != null) {
+      b.continuationToken = request.queryParameters['continuation-token']!;
+    }
+    if (request.queryParameters['fetch-owner'] != null) {
+      b.fetchOwner = request.queryParameters['fetch-owner']! == 'true';
+    }
+    if (request.queryParameters['start-after'] != null) {
+      b.startAfter = request.queryParameters['start-after']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<ListObjectsV2RequestPayload>>
-      serializers = [ListObjectsV2RequestRestXmlSerializer()];
+  serializers = [ListObjectsV2RequestRestXmlSerializer()];
 
   /// **Directory buckets** \- When you use this operation with a directory bucket, you must use virtual-hosted-style requests in the format `_Bucket_name_.s3express-_az_id_._region_.amazonaws.com`. Path-style requests are not supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must follow the format `_bucket\_base\_name_--_az-id_--x-s3` (for example, `_DOC-EXAMPLE-BUCKET_--_usw2-az2_--x-s3`). For information about bucket naming restrictions, see [Directory bucket naming rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html) in the _Amazon S3 User Guide_.
   ///
@@ -166,10 +169,7 @@ abstract class ListObjectsV2Request
       case 'Bucket':
         return bucket;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -177,66 +177,34 @@ abstract class ListObjectsV2Request
 
   @override
   List<Object?> get props => [
-        bucket,
-        delimiter,
-        encodingType,
-        maxKeys,
-        prefix,
-        continuationToken,
-        fetchOwner,
-        startAfter,
-        requestPayer,
-        expectedBucketOwner,
-        optionalObjectAttributes,
-      ];
+    bucket,
+    delimiter,
+    encodingType,
+    maxKeys,
+    prefix,
+    continuationToken,
+    fetchOwner,
+    startAfter,
+    requestPayer,
+    expectedBucketOwner,
+    optionalObjectAttributes,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsV2Request')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'delimiter',
-        delimiter,
-      )
-      ..add(
-        'encodingType',
-        encodingType,
-      )
-      ..add(
-        'maxKeys',
-        maxKeys,
-      )
-      ..add(
-        'prefix',
-        prefix,
-      )
-      ..add(
-        'continuationToken',
-        continuationToken,
-      )
-      ..add(
-        'fetchOwner',
-        fetchOwner,
-      )
-      ..add(
-        'startAfter',
-        startAfter,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      )
-      ..add(
-        'optionalObjectAttributes',
-        optionalObjectAttributes,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ListObjectsV2Request')
+          ..add('bucket', bucket)
+          ..add('delimiter', delimiter)
+          ..add('encodingType', encodingType)
+          ..add('maxKeys', maxKeys)
+          ..add('prefix', prefix)
+          ..add('continuationToken', continuationToken)
+          ..add('fetchOwner', fetchOwner)
+          ..add('startAfter', startAfter)
+          ..add('requestPayer', requestPayer)
+          ..add('expectedBucketOwner', expectedBucketOwner)
+          ..add('optionalObjectAttributes', optionalObjectAttributes);
     return helper.toString();
   }
 }
@@ -247,9 +215,9 @@ abstract class ListObjectsV2RequestPayload
     implements
         Built<ListObjectsV2RequestPayload, ListObjectsV2RequestPayloadBuilder>,
         _i1.EmptyPayload {
-  factory ListObjectsV2RequestPayload(
-          [void Function(ListObjectsV2RequestPayloadBuilder) updates]) =
-      _$ListObjectsV2RequestPayload;
+  factory ListObjectsV2RequestPayload([
+    void Function(ListObjectsV2RequestPayloadBuilder) updates,
+  ]) = _$ListObjectsV2RequestPayload;
 
   const ListObjectsV2RequestPayload._();
 
@@ -269,19 +237,16 @@ class ListObjectsV2RequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        ListObjectsV2Request,
-        _$ListObjectsV2Request,
-        ListObjectsV2RequestPayload,
-        _$ListObjectsV2RequestPayload,
-      ];
+    ListObjectsV2Request,
+    _$ListObjectsV2Request,
+    ListObjectsV2RequestPayload,
+    _$ListObjectsV2RequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ListObjectsV2RequestPayload deserialize(
@@ -302,7 +267,7 @@ class ListObjectsV2RequestRestXmlSerializer
       const _i1.XmlElementName(
         'ListObjectsV2Request',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

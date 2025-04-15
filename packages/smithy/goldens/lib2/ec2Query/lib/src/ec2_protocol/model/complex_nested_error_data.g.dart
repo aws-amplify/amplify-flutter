@@ -10,16 +10,16 @@ class _$ComplexNestedErrorData extends ComplexNestedErrorData {
   @override
   final String? foo;
 
-  factory _$ComplexNestedErrorData(
-          [void Function(ComplexNestedErrorDataBuilder)? updates]) =>
-      (new ComplexNestedErrorDataBuilder()..update(updates))._build();
+  factory _$ComplexNestedErrorData([
+    void Function(ComplexNestedErrorDataBuilder)? updates,
+  ]) => (new ComplexNestedErrorDataBuilder()..update(updates))._build();
 
   _$ComplexNestedErrorData._({this.foo}) : super._();
 
   @override
   ComplexNestedErrorData rebuild(
-          void Function(ComplexNestedErrorDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ComplexNestedErrorDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ComplexNestedErrorDataBuilder toBuilder() =>

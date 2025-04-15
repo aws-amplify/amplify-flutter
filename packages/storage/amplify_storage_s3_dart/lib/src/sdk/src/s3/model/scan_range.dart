@@ -16,14 +16,8 @@ abstract class ScanRange
     with _i1.AWSEquatable<ScanRange>
     implements Built<ScanRange, ScanRangeBuilder> {
   /// Specifies the byte range of the object to get the records from. A record is processed when its first byte is contained by the range. This parameter is optional, but when specified, it must not be empty. See RFC 2616, Section 14.35.1 about how to specify the start and end of the range.
-  factory ScanRange({
-    _i2.Int64? start,
-    _i2.Int64? end,
-  }) {
-    return _$ScanRange._(
-      start: start,
-      end: end,
-    );
+  factory ScanRange({_i2.Int64? start, _i2.Int64? end}) {
+    return _$ScanRange._(start: start, end: end);
   }
 
   /// Specifies the byte range of the object to get the records from. A record is processed when its first byte is contained by the range. This parameter is optional, but when specified, it must not be empty. See RFC 2616, Section 14.35.1 about how to specify the start and end of the range.
@@ -33,7 +27,7 @@ abstract class ScanRange
   const ScanRange._();
 
   static const List<_i3.SmithySerializer<ScanRange>> serializers = [
-    ScanRangeRestXmlSerializer()
+    ScanRangeRestXmlSerializer(),
   ];
 
   /// Specifies the start of the byte range. This parameter is optional. Valid values: non-negative integers. The default value is 0. If only `start` is supplied, it means scan from that point to the end of the file. For example, `50` means scan from byte 50 until the end of the file.
@@ -42,22 +36,14 @@ abstract class ScanRange
   /// Specifies the end of the byte range. This parameter is optional. Valid values: non-negative integers. The default value is one less than the size of the object being queried. If only the End parameter is supplied, it is interpreted to mean scan the last N bytes of the file. For example, `50` means scan the last 50 bytes.
   _i2.Int64? get end;
   @override
-  List<Object?> get props => [
-        start,
-        end,
-      ];
+  List<Object?> get props => [start, end];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScanRange')
-      ..add(
-        'start',
-        start,
-      )
-      ..add(
-        'end',
-        end,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ScanRange')
+          ..add('start', start)
+          ..add('end', end);
     return helper.toString();
   }
 }
@@ -67,18 +53,12 @@ class ScanRangeRestXmlSerializer
   const ScanRangeRestXmlSerializer() : super('ScanRange');
 
   @override
-  Iterable<Type> get types => const [
-        ScanRange,
-        _$ScanRange,
-      ];
+  Iterable<Type> get types => const [ScanRange, _$ScanRange];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ScanRange deserialize(
@@ -97,15 +77,19 @@ class ScanRangeRestXmlSerializer
       }
       switch (key) {
         case 'End':
-          result.end = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.end =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
         case 'Start':
-          result.start = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.start =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
       }
     }
 
@@ -122,24 +106,25 @@ class ScanRangeRestXmlSerializer
       const _i3.XmlElementName(
         'ScanRange',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final ScanRange(:end, :start) = object;
     if (end != null) {
       result$
         ..add(const _i3.XmlElementName('End'))
-        ..add(serializers.serialize(
-          end,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(end, specifiedType: const FullType(_i2.Int64)),
+        );
     }
     if (start != null) {
       result$
         ..add(const _i3.XmlElementName('Start'))
-        ..add(serializers.serialize(
-          start,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            start,
+            specifiedType: const FullType(_i2.Int64),
+          ),
+        );
     }
     return result$;
   }

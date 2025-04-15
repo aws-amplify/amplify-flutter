@@ -8,33 +8,35 @@ import 'package:args/command_runner.dart';
 
 /// Runs the `aft` command using the given [args].
 Future<void> run(List<String> args) async {
-  final runner = CommandRunner<void>('aft', 'Amplify Flutter repo tools')
-    ..argParser.addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'Prints verbose logs',
-      defaultsTo: false,
-    )
-    ..argParser.addOption(
-      'directory',
-      help: 'Directory to run commands from. Defaults to current directory.',
-      hide: true,
-    )
-    ..addCommand(GenerateCommand())
-    ..addCommand(ListPackagesCommand())
-    ..addCommand(ConstraintsCommand())
-    ..addCommand(LinkCommand())
-    ..addCommand(CleanCommand())
-    ..addCommand(PublishCommand())
-    ..addCommand(BootstrapCommand())
-    ..addCommand(VersionBumpCommand())
-    ..addCommand(ExecCommand())
-    ..addCommand(CreateCommand())
-    ..addCommand(SaveRepoStateCommand())
-    ..addCommand(RunCommand())
-    ..addCommand(DocsCommand())
-    ..addCommand(ServeCommand())
-    ..addCommand(ReviewCommand());
+  final runner =
+      CommandRunner<void>('aft', 'Amplify Flutter repo tools')
+        ..argParser.addFlag(
+          'verbose',
+          abbr: 'v',
+          help: 'Prints verbose logs',
+          defaultsTo: false,
+        )
+        ..argParser.addOption(
+          'directory',
+          help:
+              'Directory to run commands from. Defaults to current directory.',
+          hide: true,
+        )
+        ..addCommand(GenerateCommand())
+        ..addCommand(ListPackagesCommand())
+        ..addCommand(ConstraintsCommand())
+        ..addCommand(LinkCommand())
+        ..addCommand(CleanCommand())
+        ..addCommand(PublishCommand())
+        ..addCommand(BootstrapCommand())
+        ..addCommand(VersionBumpCommand())
+        ..addCommand(ExecCommand())
+        ..addCommand(CreateCommand())
+        ..addCommand(SaveRepoStateCommand())
+        ..addCommand(RunCommand())
+        ..addCommand(DocsCommand())
+        ..addCommand(ServeCommand())
+        ..addCommand(ReviewCommand());
 
   try {
     final argResults = runner.argParser.parse(args);

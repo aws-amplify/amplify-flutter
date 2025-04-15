@@ -12,16 +12,16 @@ class _$EndpointConfiguration extends EndpointConfiguration {
   @override
   final _i2.BuiltList<String>? vpcEndpointIds;
 
-  factory _$EndpointConfiguration(
-          [void Function(EndpointConfigurationBuilder)? updates]) =>
-      (new EndpointConfigurationBuilder()..update(updates))._build();
+  factory _$EndpointConfiguration([
+    void Function(EndpointConfigurationBuilder)? updates,
+  ]) => (new EndpointConfigurationBuilder()..update(updates))._build();
 
   _$EndpointConfiguration._({this.types, this.vpcEndpointIds}) : super._();
 
   @override
   EndpointConfiguration rebuild(
-          void Function(EndpointConfigurationBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EndpointConfigurationBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EndpointConfigurationBuilder toBuilder() =>
@@ -89,9 +89,12 @@ class EndpointConfigurationBuilder
   _$EndpointConfiguration _build() {
     _$EndpointConfiguration _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$EndpointConfiguration._(
-              types: _types?.build(), vpcEndpointIds: _vpcEndpointIds?.build());
+            types: _types?.build(),
+            vpcEndpointIds: _vpcEndpointIds?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -101,7 +104,10 @@ class EndpointConfigurationBuilder
         _vpcEndpointIds?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'EndpointConfiguration', _$failedField, e.toString());
+          r'EndpointConfiguration',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

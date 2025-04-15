@@ -82,52 +82,55 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String? expectedBucketOwner;
 
-  factory _$PutObjectRequest(
-          [void Function(PutObjectRequestBuilder)? updates]) =>
-      (new PutObjectRequestBuilder()..update(updates))._build();
+  factory _$PutObjectRequest([
+    void Function(PutObjectRequestBuilder)? updates,
+  ]) => (new PutObjectRequestBuilder()..update(updates))._build();
 
-  _$PutObjectRequest._(
-      {this.acl,
-      required this.body,
-      required this.bucket,
-      this.cacheControl,
-      this.contentDisposition,
-      this.contentEncoding,
-      this.contentLanguage,
-      this.contentLength,
-      this.contentMd5,
-      this.contentType,
-      this.checksumAlgorithm,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.expires,
-      this.grantFullControl,
-      this.grantRead,
-      this.grantReadAcp,
-      this.grantWriteAcp,
-      required this.key,
-      this.metadata,
-      this.serverSideEncryption,
-      this.storageClass,
-      this.websiteRedirectLocation,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5,
-      this.ssekmsKeyId,
-      this.ssekmsEncryptionContext,
-      this.bucketKeyEnabled,
-      this.requestPayer,
-      this.tagging,
-      this.objectLockMode,
-      this.objectLockRetainUntilDate,
-      this.objectLockLegalHoldStatus,
-      this.expectedBucketOwner})
-      : super._() {
+  _$PutObjectRequest._({
+    this.acl,
+    required this.body,
+    required this.bucket,
+    this.cacheControl,
+    this.contentDisposition,
+    this.contentEncoding,
+    this.contentLanguage,
+    this.contentLength,
+    this.contentMd5,
+    this.contentType,
+    this.checksumAlgorithm,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.expires,
+    this.grantFullControl,
+    this.grantRead,
+    this.grantReadAcp,
+    this.grantWriteAcp,
+    required this.key,
+    this.metadata,
+    this.serverSideEncryption,
+    this.storageClass,
+    this.websiteRedirectLocation,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+    this.ssekmsKeyId,
+    this.ssekmsEncryptionContext,
+    this.bucketKeyEnabled,
+    this.requestPayer,
+    this.tagging,
+    this.objectLockMode,
+    this.objectLockRetainUntilDate,
+    this.objectLockLegalHoldStatus,
+    this.expectedBucketOwner,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(body, r'PutObjectRequest', 'body');
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'PutObjectRequest', 'bucket');
+      bucket,
+      r'PutObjectRequest',
+      'bucket',
+    );
     BuiltValueNullFieldError.checkNotNull(key, r'PutObjectRequest', 'key');
   }
 
@@ -399,8 +402,8 @@ class PutObjectRequestBuilder
   ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
-      _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
+    ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+  ) => _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
@@ -473,13 +476,20 @@ class PutObjectRequestBuilder
   _$PutObjectRequest _build() {
     _$PutObjectRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PutObjectRequest._(
             acl: acl,
             body: BuiltValueNullFieldError.checkNotNull(
-                body, r'PutObjectRequest', 'body'),
+              body,
+              r'PutObjectRequest',
+              'body',
+            ),
             bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'PutObjectRequest', 'bucket'),
+              bucket,
+              r'PutObjectRequest',
+              'bucket',
+            ),
             cacheControl: cacheControl,
             contentDisposition: contentDisposition,
             contentEncoding: contentEncoding,
@@ -498,7 +508,10 @@ class PutObjectRequestBuilder
             grantReadAcp: grantReadAcp,
             grantWriteAcp: grantWriteAcp,
             key: BuiltValueNullFieldError.checkNotNull(
-                key, r'PutObjectRequest', 'key'),
+              key,
+              r'PutObjectRequest',
+              'key',
+            ),
             metadata: _metadata?.build(),
             serverSideEncryption: serverSideEncryption,
             storageClass: storageClass,
@@ -523,7 +536,10 @@ class PutObjectRequestBuilder
         _metadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PutObjectRequest', _$failedField, e.toString());
+          r'PutObjectRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

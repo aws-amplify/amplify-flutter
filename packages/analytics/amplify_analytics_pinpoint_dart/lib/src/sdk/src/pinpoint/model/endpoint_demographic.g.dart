@@ -24,25 +24,25 @@ class _$EndpointDemographic extends EndpointDemographic {
   @override
   final String? timezone;
 
-  factory _$EndpointDemographic(
-          [void Function(EndpointDemographicBuilder)? updates]) =>
-      (new EndpointDemographicBuilder()..update(updates))._build();
+  factory _$EndpointDemographic([
+    void Function(EndpointDemographicBuilder)? updates,
+  ]) => (new EndpointDemographicBuilder()..update(updates))._build();
 
-  _$EndpointDemographic._(
-      {this.appVersion,
-      this.locale,
-      this.make,
-      this.model,
-      this.modelVersion,
-      this.platform,
-      this.platformVersion,
-      this.timezone})
-      : super._();
+  _$EndpointDemographic._({
+    this.appVersion,
+    this.locale,
+    this.make,
+    this.model,
+    this.modelVersion,
+    this.platform,
+    this.platformVersion,
+    this.timezone,
+  }) : super._();
 
   @override
   EndpointDemographic rebuild(
-          void Function(EndpointDemographicBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EndpointDemographicBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EndpointDemographicBuilder toBuilder() =>
@@ -148,16 +148,18 @@ class EndpointDemographicBuilder
   EndpointDemographic build() => _build();
 
   _$EndpointDemographic _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EndpointDemographic._(
-            appVersion: appVersion,
-            locale: locale,
-            make: make,
-            model: model,
-            modelVersion: modelVersion,
-            platform: platform,
-            platformVersion: platformVersion,
-            timezone: timezone);
+          appVersion: appVersion,
+          locale: locale,
+          make: make,
+          model: model,
+          modelVersion: modelVersion,
+          platform: platform,
+          platformVersion: platformVersion,
+          timezone: timezone,
+        );
     replace(_$result);
     return _$result;
   }

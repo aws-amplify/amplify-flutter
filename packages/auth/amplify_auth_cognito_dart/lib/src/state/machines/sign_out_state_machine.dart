@@ -19,8 +19,15 @@ final class SignOutStateMachine
   SignOutStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
   /// The [SignOutStateMachine] type.
-  static const type = StateMachineToken<SignOutEvent, SignOutState, AuthEvent,
-      AuthState, CognitoAuthStateMachine, SignOutStateMachine>();
+  static const type =
+      StateMachineToken<
+        SignOutEvent,
+        SignOutState,
+        AuthEvent,
+        AuthState,
+        CognitoAuthStateMachine,
+        SignOutStateMachine
+      >();
 
   @override
   SignOutState get initialState => const SignOutState.idle();
@@ -109,9 +116,7 @@ final class SignOutStateMachine
       try {
         await _cognitoIdp
             .globalSignOut(
-              GlobalSignOutRequest(
-                accessToken: tokens.accessToken.raw,
-              ),
+              GlobalSignOutRequest(accessToken: tokens.accessToken.raw),
             )
             .result;
       } on Exception catch (e) {
@@ -150,9 +155,7 @@ final class SignOutStateMachine
     }
 
     // Credentials are cleared for all partial sign out cases.
-    await dispatchAndComplete(
-      const CredentialStoreEvent.clearCredentials(),
-    );
+    await dispatchAndComplete(const CredentialStoreEvent.clearCredentials());
 
     if (globalSignOutException != null || revokeTokenException != null) {
       return emit(

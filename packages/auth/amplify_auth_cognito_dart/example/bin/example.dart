@@ -14,13 +14,13 @@ import 'package:qr/qr.dart';
 Future<void> main(List<String> args) async {
   AWSLogger().logLevel = LogLevel.debug;
 
-  final argParser = ArgParser()
-    ..addOption(
-      'environment',
-      abbr: 'e',
-      help: 'The Amplify environment to configure',
-      defaultsTo: 'main',
-    );
+  final argParser =
+      ArgParser()..addOption(
+        'environment',
+        abbr: 'e',
+        help: 'The Amplify environment to configure',
+        defaultsTo: 'main',
+      );
 
   final argResults = argParser.parse(args);
   final environmentName = argResults['environment'] as String;
@@ -48,10 +48,7 @@ Future<void> main(List<String> args) async {
     final password = prompt('Enter your password: ');
     stdout.writeln('Logging in...');
     try {
-      var res = await signIn(
-        username: username,
-        password: password,
-      );
+      var res = await signIn(username: username, password: password);
       while (!res.isSignedIn) {
         res = await _processSignInResult(
           res,
@@ -135,8 +132,9 @@ Future<SignInResult> _processSignInResult(
   switch (signInStep) {
     case AuthSignInStep.continueSignInWithMfaSelection:
       while (true) {
-        final smsOrTotp =
-            prompt('Which MFA method would you prefer (SMS/TOTP)? ');
+        final smsOrTotp = prompt(
+          'Which MFA method would you prefer (SMS/TOTP)? ',
+        );
         if (MfaType.values
             .map((t) => t.name)
             .contains(smsOrTotp.toLowerCase())) {
@@ -144,8 +142,9 @@ Future<SignInResult> _processSignInResult(
         }
       }
     case AuthSignInStep.continueSignInWithTotpSetup:
-      final setupUri =
-          nextStep.totpSetupDetails!.getSetupUri(appName: 'AuthExample');
+      final setupUri = nextStep.totpSetupDetails!.getSetupUri(
+        appName: 'AuthExample',
+      );
       final qrCode = QrCode.fromData(
         data: setupUri.toString(),
         errorCorrectLevel: QrErrorCorrectLevel.L,
@@ -158,12 +157,12 @@ Future<SignInResult> _processSignInResult(
       final mfaCode = prompt('Enter an MFA code to confirm registration: ');
       return confirmSignIn(mfaCode);
     case AuthSignInStep.confirmSignInWithTotpMfaCode:
-      final mfaCode = prompt(
-        switch (nextStep.codeDeliveryDetails?.destination) {
-          final deviceName? => 'Enter an MFA code (sent to "$deviceName"): ',
-          _ => 'Enter an MFA code (sent to registered authenticator app): ',
-        },
-      );
+      final mfaCode = prompt(switch (nextStep
+          .codeDeliveryDetails
+          ?.destination) {
+        final deviceName? => 'Enter an MFA code (sent to "$deviceName"): ',
+        _ => 'Enter an MFA code (sent to registered authenticator app): ',
+      });
       return confirmSignIn(mfaCode);
     case AuthSignInStep.confirmSignInWithSmsMfaCode:
     case AuthSignInStep.confirmSignInWithCustomChallenge:
@@ -178,10 +177,7 @@ Future<SignInResult> _processSignInResult(
         userAttributes[missingAttribute] = attributeValue;
       }
       final newPassword = prompt('Enter your new password: ');
-      return confirmSignIn(
-        newPassword,
-        userAttributes: userAttributes,
-      );
+      return confirmSignIn(newPassword, userAttributes: userAttributes);
     case AuthSignInStep.resetPassword:
       final result = await resetPassword(username: username);
       stdout

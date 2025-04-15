@@ -38,11 +38,10 @@ abstract class GetIdInput
     GetIdInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<GetIdInput>> serializers = [
-    GetIdInputAwsJson11Serializer()
+    GetIdInputAwsJson11Serializer(),
   ];
 
   /// A standard AWS account ID (9+ digits).
@@ -69,27 +68,15 @@ abstract class GetIdInput
   GetIdInput getPayload() => this;
 
   @override
-  List<Object?> get props => [
-        accountId,
-        identityPoolId,
-        logins,
-      ];
+  List<Object?> get props => [accountId, identityPoolId, logins];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetIdInput')
-      ..add(
-        'accountId',
-        accountId,
-      )
-      ..add(
-        'identityPoolId',
-        identityPoolId,
-      )
-      ..add(
-        'logins',
-        logins,
-      );
+    final helper =
+        newBuiltValueToStringHelper('GetIdInput')
+          ..add('accountId', accountId)
+          ..add('identityPoolId', identityPoolId)
+          ..add('logins', logins);
     return helper.toString();
   }
 }
@@ -99,18 +86,12 @@ class GetIdInputAwsJson11Serializer
   const GetIdInputAwsJson11Serializer() : super('GetIdInput');
 
   @override
-  Iterable<Type> get types => const [
-        GetIdInput,
-        _$GetIdInput,
-      ];
+  Iterable<Type> get types => const [GetIdInput, _$GetIdInput];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   GetIdInput deserialize(
@@ -129,26 +110,30 @@ class GetIdInputAwsJson11Serializer
       }
       switch (key) {
         case 'AccountId':
-          result.accountId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accountId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'IdentityPoolId':
-          result.identityPoolId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.identityPoolId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Logins':
-          result.logins.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.logins.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
       }
     }
 
@@ -173,24 +158,25 @@ class GetIdInputAwsJson11Serializer
     if (accountId != null) {
       result$
         ..add('AccountId')
-        ..add(serializers.serialize(
-          accountId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            accountId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (logins != null) {
       result$
         ..add('Logins')
-        ..add(serializers.serialize(
-          logins,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            logins,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

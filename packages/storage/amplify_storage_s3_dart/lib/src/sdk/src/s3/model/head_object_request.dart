@@ -57,8 +57,9 @@ abstract class HeadObjectRequest
     );
   }
 
-  factory HeadObjectRequest.build(
-      [void Function(HeadObjectRequestBuilder) updates]) = _$HeadObjectRequest;
+  factory HeadObjectRequest.build([
+    void Function(HeadObjectRequestBuilder) updates,
+  ]) = _$HeadObjectRequest;
 
   const HeadObjectRequest._();
 
@@ -66,73 +67,73 @@ abstract class HeadObjectRequest
     HeadObjectRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HeadObjectRequest.build((b) {
-        if (request.headers['If-Match'] != null) {
-          b.ifMatch = request.headers['If-Match']!;
-        }
-        if (request.headers['If-Modified-Since'] != null) {
-          b.ifModifiedSince = _i1.Timestamp.parse(
+  }) => HeadObjectRequest.build((b) {
+    if (request.headers['If-Match'] != null) {
+      b.ifMatch = request.headers['If-Match']!;
+    }
+    if (request.headers['If-Modified-Since'] != null) {
+      b.ifModifiedSince =
+          _i1.Timestamp.parse(
             request.headers['If-Modified-Since']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['If-None-Match'] != null) {
-          b.ifNoneMatch = request.headers['If-None-Match']!;
-        }
-        if (request.headers['If-Unmodified-Since'] != null) {
-          b.ifUnmodifiedSince = _i1.Timestamp.parse(
+    }
+    if (request.headers['If-None-Match'] != null) {
+      b.ifNoneMatch = request.headers['If-None-Match']!;
+    }
+    if (request.headers['If-Unmodified-Since'] != null) {
+      b.ifUnmodifiedSince =
+          _i1.Timestamp.parse(
             request.headers['If-Unmodified-Since']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['Range'] != null) {
-          b.range = request.headers['Range']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = request
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key'] !=
-            null) {
-          b.sseCustomerKey =
-              request.headers['x-amz-server-side-encryption-customer-key']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 =
-              request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.headers['x-amz-checksum-mode'] != null) {
-          b.checksumMode = ChecksumMode.values
-              .byValue(request.headers['x-amz-checksum-mode']!);
-        }
-        if (request.queryParameters['versionId'] != null) {
-          b.versionId = request.queryParameters['versionId']!;
-        }
-        if (request.queryParameters['partNumber'] != null) {
-          b.partNumber = int.parse(request.queryParameters['partNumber']!);
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+    }
+    if (request.headers['Range'] != null) {
+      b.range = request.headers['Range']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          request.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key'] != null) {
+      b.sseCustomerKey =
+          request.headers['x-amz-server-side-encryption-customer-key']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.headers['x-amz-checksum-mode'] != null) {
+      b.checksumMode = ChecksumMode.values.byValue(
+        request.headers['x-amz-checksum-mode']!,
+      );
+    }
+    if (request.queryParameters['versionId'] != null) {
+      b.versionId = request.queryParameters['versionId']!;
+    }
+    if (request.queryParameters['partNumber'] != null) {
+      b.partNumber = int.parse(request.queryParameters['partNumber']!);
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<HeadObjectRequestPayload>>
-      serializers = [HeadObjectRequestRestXmlSerializer()];
+  serializers = [HeadObjectRequestRestXmlSerializer()];
 
   /// The name of the bucket that contains the object.
   ///
@@ -250,10 +251,7 @@ abstract class HeadObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -261,86 +259,42 @@ abstract class HeadObjectRequest
 
   @override
   List<Object?> get props => [
-        bucket,
-        ifMatch,
-        ifModifiedSince,
-        ifNoneMatch,
-        ifUnmodifiedSince,
-        key,
-        range,
-        versionId,
-        sseCustomerAlgorithm,
-        sseCustomerKey,
-        sseCustomerKeyMd5,
-        requestPayer,
-        partNumber,
-        expectedBucketOwner,
-        checksumMode,
-      ];
+    bucket,
+    ifMatch,
+    ifModifiedSince,
+    ifNoneMatch,
+    ifUnmodifiedSince,
+    key,
+    range,
+    versionId,
+    sseCustomerAlgorithm,
+    sseCustomerKey,
+    sseCustomerKeyMd5,
+    requestPayer,
+    partNumber,
+    expectedBucketOwner,
+    checksumMode,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HeadObjectRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'ifMatch',
-        ifMatch,
-      )
-      ..add(
-        'ifModifiedSince',
-        ifModifiedSince,
-      )
-      ..add(
-        'ifNoneMatch',
-        ifNoneMatch,
-      )
-      ..add(
-        'ifUnmodifiedSince',
-        ifUnmodifiedSince,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'range',
-        range,
-      )
-      ..add(
-        'versionId',
-        versionId,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'partNumber',
-        partNumber,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      )
-      ..add(
-        'checksumMode',
-        checksumMode,
-      );
+    final helper =
+        newBuiltValueToStringHelper('HeadObjectRequest')
+          ..add('bucket', bucket)
+          ..add('ifMatch', ifMatch)
+          ..add('ifModifiedSince', ifModifiedSince)
+          ..add('ifNoneMatch', ifNoneMatch)
+          ..add('ifUnmodifiedSince', ifUnmodifiedSince)
+          ..add('key', key)
+          ..add('range', range)
+          ..add('versionId', versionId)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKey', '***SENSITIVE***')
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add('requestPayer', requestPayer)
+          ..add('partNumber', partNumber)
+          ..add('expectedBucketOwner', expectedBucketOwner)
+          ..add('checksumMode', checksumMode);
     return helper.toString();
   }
 }
@@ -351,9 +305,9 @@ abstract class HeadObjectRequestPayload
     implements
         Built<HeadObjectRequestPayload, HeadObjectRequestPayloadBuilder>,
         _i1.EmptyPayload {
-  factory HeadObjectRequestPayload(
-          [void Function(HeadObjectRequestPayloadBuilder) updates]) =
-      _$HeadObjectRequestPayload;
+  factory HeadObjectRequestPayload([
+    void Function(HeadObjectRequestPayloadBuilder) updates,
+  ]) = _$HeadObjectRequestPayload;
 
   const HeadObjectRequestPayload._();
 
@@ -373,19 +327,16 @@ class HeadObjectRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        HeadObjectRequest,
-        _$HeadObjectRequest,
-        HeadObjectRequestPayload,
-        _$HeadObjectRequestPayload,
-      ];
+    HeadObjectRequest,
+    _$HeadObjectRequest,
+    HeadObjectRequestPayload,
+    _$HeadObjectRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   HeadObjectRequestPayload deserialize(
@@ -406,7 +357,7 @@ class HeadObjectRequestRestXmlSerializer
       const _i1.XmlElementName(
         'HeadObjectRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

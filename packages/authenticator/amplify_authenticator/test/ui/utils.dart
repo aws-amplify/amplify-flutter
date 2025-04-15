@@ -73,10 +73,7 @@ void testMatrix2<D1 extends Enum, D2 extends Enum>(
   void Function(D1, D2) cb,
 ) {
   testMatrix1<D1>(values1, (a) {
-    testMatrix1<D2>(
-      values2,
-      (b) => cb(a, b),
-    );
+    testMatrix1<D2>(values2, (b) => cb(a, b));
   });
 }
 
@@ -89,18 +86,14 @@ void testMatrix3<D1 extends Enum, D2 extends Enum, D3 extends Enum>(
   void Function(D1, D2, D3) cb,
 ) {
   testMatrix1<D1>(values1, (a) {
-    testMatrix2<D2, D3>(
-      values2,
-      values3,
-      (b, c) => cb(a, b, c),
-    );
+    testMatrix2<D2, D3>(values2, values3, (b, c) => cb(a, b, c));
   });
 }
 
 /// Runs a 4-dimensional test matrix, using the three Enum values as the matrix
 /// dimensions.
-void testMatrix4<D1 extends Enum, D2 extends Enum, D3 extends Enum,
-    D4 extends Enum>(
+void
+testMatrix4<D1 extends Enum, D2 extends Enum, D3 extends Enum, D4 extends Enum>(
   List<D1> values1,
   List<D2> values2,
   List<D3> values3,
@@ -119,8 +112,13 @@ void testMatrix4<D1 extends Enum, D2 extends Enum, D3 extends Enum,
 
 /// Runs a 5-dimensional test matrix, using the three Enum values as the matrix
 /// dimensions.
-void testMatrix5<D1 extends Enum, D2 extends Enum, D3 extends Enum,
-    D4 extends Enum, D5 extends Enum>(
+void testMatrix5<
+  D1 extends Enum,
+  D2 extends Enum,
+  D3 extends Enum,
+  D4 extends Enum,
+  D5 extends Enum
+>(
   List<D1> values1,
   List<D2> values2,
   List<D3> values3,

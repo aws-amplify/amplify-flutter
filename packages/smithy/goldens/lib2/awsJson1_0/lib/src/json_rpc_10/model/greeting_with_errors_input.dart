@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_0_v2.json_rpc_10.model.greeting_with_errors_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,9 +19,9 @@ abstract class GreetingWithErrorsInput
     return _$GreetingWithErrorsInput._(greeting: greeting);
   }
 
-  factory GreetingWithErrorsInput.build(
-          [void Function(GreetingWithErrorsInputBuilder) updates]) =
-      _$GreetingWithErrorsInput;
+  factory GreetingWithErrorsInput.build([
+    void Function(GreetingWithErrorsInputBuilder) updates,
+  ]) = _$GreetingWithErrorsInput;
 
   const GreetingWithErrorsInput._();
 
@@ -29,8 +29,7 @@ abstract class GreetingWithErrorsInput
     GreetingWithErrorsInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<GreetingWithErrorsInput>> serializers =
       [GreetingWithErrorsInputAwsJson10Serializer()];
@@ -45,10 +44,7 @@ abstract class GreetingWithErrorsInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingWithErrorsInput')
-      ..add(
-        'greeting',
-        greeting,
-      );
+      ..add('greeting', greeting);
     return helper.toString();
   }
 }
@@ -56,21 +52,18 @@ abstract class GreetingWithErrorsInput
 class GreetingWithErrorsInputAwsJson10Serializer
     extends _i1.StructuredSmithySerializer<GreetingWithErrorsInput> {
   const GreetingWithErrorsInputAwsJson10Serializer()
-      : super('GreetingWithErrorsInput');
+    : super('GreetingWithErrorsInput');
 
   @override
   Iterable<Type> get types => const [
-        GreetingWithErrorsInput,
-        _$GreetingWithErrorsInput,
-      ];
+    GreetingWithErrorsInput,
+    _$GreetingWithErrorsInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   GreetingWithErrorsInput deserialize(
@@ -89,10 +82,12 @@ class GreetingWithErrorsInputAwsJson10Serializer
       }
       switch (key) {
         case 'greeting':
-          result.greeting = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.greeting =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -110,10 +105,12 @@ class GreetingWithErrorsInputAwsJson10Serializer
     if (greeting != null) {
       result$
         ..add('greeting')
-        ..add(serializers.serialize(
-          greeting,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            greeting,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

@@ -22,7 +22,7 @@ import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
   /// {@macro amplify_auth_cognito.legacy_credential_provider_impl}
   LegacyCredentialProviderImpl(CognitoAuthStateMachine stateMachine)
-      : _stateMachine = stateMachine;
+    : _stateMachine = stateMachine;
   final CognitoAuthStateMachine _stateMachine;
 
   late final LegacyCredentialProvider? _instance = () {
@@ -41,19 +41,13 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
     AuthOutputs authOutputs,
   ) async {
     if (_instance == null) return null;
-    return _instance.fetchLegacyCredentials(
-      authOutputs,
-    );
+    return _instance.fetchLegacyCredentials(authOutputs);
   }
 
   @override
-  Future<void> deleteLegacyCredentials(
-    AuthOutputs authOutputs,
-  ) async {
+  Future<void> deleteLegacyCredentials(AuthOutputs authOutputs) async {
     if (_instance == null) return;
-    return _instance.deleteLegacyCredentials(
-      authOutputs,
-    );
+    return _instance.deleteLegacyCredentials(authOutputs);
   }
 
   @override
@@ -62,10 +56,7 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
     AuthOutputs authOutputs,
   ) async {
     if (_instance == null) return null;
-    return _instance.fetchLegacyDeviceSecrets(
-      username,
-      authOutputs,
-    );
+    return _instance.fetchLegacyDeviceSecrets(username, authOutputs);
   }
 
   @override
@@ -74,9 +65,6 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
     AuthOutputs authOutputs,
   ) async {
     if (_instance == null) return;
-    return _instance.deleteLegacyDeviceSecrets(
-      username,
-      authOutputs,
-    );
+    return _instance.deleteLegacyDeviceSecrets(username, authOutputs);
   }
 }

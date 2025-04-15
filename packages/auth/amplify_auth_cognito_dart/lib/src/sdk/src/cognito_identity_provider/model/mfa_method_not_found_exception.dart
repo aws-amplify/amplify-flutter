@@ -22,9 +22,9 @@ abstract class MfaMethodNotFoundException
   }
 
   /// This exception is thrown when Amazon Cognito can't find a multi-factor authentication (MFA) method.
-  factory MfaMethodNotFoundException.build(
-          [void Function(MfaMethodNotFoundExceptionBuilder) updates]) =
-      _$MfaMethodNotFoundException;
+  factory MfaMethodNotFoundException.build([
+    void Function(MfaMethodNotFoundExceptionBuilder) updates,
+  ]) = _$MfaMethodNotFoundException;
 
   const MfaMethodNotFoundException._();
 
@@ -32,22 +32,21 @@ abstract class MfaMethodNotFoundException
   factory MfaMethodNotFoundException.fromResponse(
     MfaMethodNotFoundException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<MfaMethodNotFoundException>>
-      serializers = [MfaMethodNotFoundExceptionAwsJson11Serializer()];
+  serializers = [MfaMethodNotFoundExceptionAwsJson11Serializer()];
 
   /// The message returned when Amazon Cognito throws an MFA method not found exception.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'MFAMethodNotFoundException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'MFAMethodNotFoundException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -68,10 +67,7 @@ abstract class MfaMethodNotFoundException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MfaMethodNotFoundException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -79,21 +75,18 @@ abstract class MfaMethodNotFoundException
 class MfaMethodNotFoundExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<MfaMethodNotFoundException> {
   const MfaMethodNotFoundExceptionAwsJson11Serializer()
-      : super('MfaMethodNotFoundException');
+    : super('MfaMethodNotFoundException');
 
   @override
   Iterable<Type> get types => const [
-        MfaMethodNotFoundException,
-        _$MfaMethodNotFoundException,
-      ];
+    MfaMethodNotFoundException,
+    _$MfaMethodNotFoundException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   MfaMethodNotFoundException deserialize(
@@ -112,10 +105,12 @@ class MfaMethodNotFoundExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -133,10 +128,9 @@ class MfaMethodNotFoundExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

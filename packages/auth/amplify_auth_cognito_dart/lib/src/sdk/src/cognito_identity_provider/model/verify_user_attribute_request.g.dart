@@ -14,27 +14,36 @@ class _$VerifyUserAttributeRequest extends VerifyUserAttributeRequest {
   @override
   final String code;
 
-  factory _$VerifyUserAttributeRequest(
-          [void Function(VerifyUserAttributeRequestBuilder)? updates]) =>
-      (new VerifyUserAttributeRequestBuilder()..update(updates))._build();
+  factory _$VerifyUserAttributeRequest([
+    void Function(VerifyUserAttributeRequestBuilder)? updates,
+  ]) => (new VerifyUserAttributeRequestBuilder()..update(updates))._build();
 
-  _$VerifyUserAttributeRequest._(
-      {required this.accessToken,
-      required this.attributeName,
-      required this.code})
-      : super._() {
+  _$VerifyUserAttributeRequest._({
+    required this.accessToken,
+    required this.attributeName,
+    required this.code,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'VerifyUserAttributeRequest', 'accessToken');
+      accessToken,
+      r'VerifyUserAttributeRequest',
+      'accessToken',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        attributeName, r'VerifyUserAttributeRequest', 'attributeName');
+      attributeName,
+      r'VerifyUserAttributeRequest',
+      'attributeName',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        code, r'VerifyUserAttributeRequest', 'code');
+      code,
+      r'VerifyUserAttributeRequest',
+      'code',
+    );
   }
 
   @override
   VerifyUserAttributeRequest rebuild(
-          void Function(VerifyUserAttributeRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(VerifyUserAttributeRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   VerifyUserAttributeRequestBuilder toBuilder() =>
@@ -106,14 +115,24 @@ class VerifyUserAttributeRequestBuilder
   VerifyUserAttributeRequest build() => _build();
 
   _$VerifyUserAttributeRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$VerifyUserAttributeRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
-              accessToken, r'VerifyUserAttributeRequest', 'accessToken'),
+            accessToken,
+            r'VerifyUserAttributeRequest',
+            'accessToken',
+          ),
           attributeName: BuiltValueNullFieldError.checkNotNull(
-              attributeName, r'VerifyUserAttributeRequest', 'attributeName'),
+            attributeName,
+            r'VerifyUserAttributeRequest',
+            'attributeName',
+          ),
           code: BuiltValueNullFieldError.checkNotNull(
-              code, r'VerifyUserAttributeRequest', 'code'),
+            code,
+            r'VerifyUserAttributeRequest',
+            'code',
+          ),
         );
     replace(_$result);
     return _$result;

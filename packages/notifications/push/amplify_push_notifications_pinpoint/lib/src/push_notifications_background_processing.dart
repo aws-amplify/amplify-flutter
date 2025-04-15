@@ -50,7 +50,5 @@ Future<void> amplifyBackgroundProcessing({
   }
 
   // Signal that this method finished running so queued up native to dart events if any can be flushed.
-  await backgroundChannel.invokeMethod(
-    'amplifyBackgroundProcessorFinished',
-  );
+  await backgroundChannel.invokeMethod('amplifyBackgroundProcessorFinished');
 }

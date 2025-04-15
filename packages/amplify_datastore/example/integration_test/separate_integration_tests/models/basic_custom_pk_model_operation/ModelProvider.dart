@@ -17,9 +17,7 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "f80fece878bf91a76f44577fe599b120";
   @override
-  List<ModelSchema> modelSchemas = [
-    CpkInventory.schema,
-  ];
+  List<ModelSchema> modelSchemas = [CpkInventory.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [];
@@ -32,8 +30,8 @@ class ModelProvider implements ModelProviderInterface {
         return CpkInventory.classType;
       default:
         throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+          "Failed to find model in model provider for model name: " + modelName,
+        );
     }
   }
 }

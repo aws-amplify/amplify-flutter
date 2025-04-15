@@ -59,18 +59,20 @@ class AWSHttpClientImpl extends AWSHttpClient {
       // - https://developer.chrome.com/articles/fetch-streaming-requests/#doesnt-work-on-http1x
       // - https://developer.chrome.com/articles/fetch-streaming-requests/#incompatibility-outside-of-your-control
       var requestBytesRead = 0;
-      final stream = request.body.tap(
-        (chunk) {
-          requestBytesRead += chunk.length;
-          requestProgressController.add(requestBytesRead);
-        },
-        onDone: () {
-          if (!cancelTrigger.isCompleted) {
-            logger.verbose('Request sent');
-          }
-          requestProgressController.close();
-        },
-      ).takeUntil(cancelTrigger.future);
+      final stream = request.body
+          .tap(
+            (chunk) {
+              requestBytesRead += chunk.length;
+              requestProgressController.add(requestBytesRead);
+            },
+            onDone: () {
+              if (!cancelTrigger.isCompleted) {
+                logger.verbose('Request sent');
+              }
+              requestProgressController.close();
+            },
+          )
+          .takeUntil(cancelTrigger.future);
       final body = Uint8List.fromList(await collectBytes(stream));
 
       if (completer.isCanceled) return;
@@ -111,9 +113,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
           cancelOnError: true,
         ),
       );
-      unawaited(
-        streamView.forward(bodyController, cancelOnError: true),
-      );
+      unawaited(streamView.forward(bodyController, cancelOnError: true));
       final streamedResponse = AWSStreamedHttpResponse(
         statusCode: resp.status,
         headers: resp.headers,
@@ -130,10 +130,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       );
       completer.complete(streamedResponse);
     } on Object catch (e, st) {
-      completer.completeError(
-        AWSHttpException(request, e),
-        st,
-      );
+      completer.completeError(AWSHttpException(request, e), st);
     }
   }
 
@@ -178,9 +175,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       completer: completer,
       cancelTrigger: cancelTrigger,
     ).catchError(
-      (Object e, st) => completer.completeError(
-        AWSHttpException(request, e),
-      ),
+      (Object e, st) => completer.completeError(AWSHttpException(request, e)),
     );
     _openConnections.add(WeakReference(operation));
     return operation;

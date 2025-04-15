@@ -68,15 +68,14 @@ void main() {
           autoConfirm: true,
           verifyAttributes: true,
           enableMfa: enableMfa,
-          attributes: {
-            if (emailAlias) AuthUserAttributeKey.email: username!,
-          },
+          attributes: {if (emailAlias) AuthUserAttributeKey.email: username!},
         );
         if (emailAlias) {
           expect(
             cognitoUsername,
             isNot(username),
-            reason: 'When using an alias, Cognito should assign a UUID '
+            reason:
+                'When using an alias, Cognito should assign a UUID '
                 'as the username',
           );
         }
@@ -116,9 +115,7 @@ void main() {
       group('Opt-In', () {
         group(environmentName, () {
           setUp(() async {
-            await testRunner.configure(
-              environmentName: environmentName,
-            );
+            await testRunner.configure(environmentName: environmentName);
 
             await signIn();
           });
@@ -170,64 +167,57 @@ void main() {
       });
     }
 
-    group(
-      'Opt-In (MFA)',
-      () {
-        setUp(() async {
-          await testRunner.configure(
-            environmentName: 'device-tracking-opt-in',
-          );
+    group('Opt-In (MFA)', () {
+      setUp(() async {
+        await testRunner.configure(environmentName: 'device-tracking-opt-in');
 
-          await signIn(enableMfa: true);
-        });
+        await signIn(enableMfa: true);
+      });
 
-        asyncTest('cannot bypass MFA when device is not remembered', (_) async {
-          await signOutUser();
+      asyncTest('cannot bypass MFA when device is not remembered', (_) async {
+        await signOutUser();
 
-          final res = await Amplify.Auth.signIn(
-            username: username!,
-            password: password,
-          );
-          expect(
-            res.nextStep.signInStep,
-            AuthSignInStep.confirmSignInWithSmsMfaCode,
-            reason: 'Subsequent sign-in attempts should require MFA',
-          );
-        });
+        final res = await Amplify.Auth.signIn(
+          username: username!,
+          password: password,
+        );
+        expect(
+          res.nextStep.signInStep,
+          AuthSignInStep.confirmSignInWithSmsMfaCode,
+          reason: 'Subsequent sign-in attempts should require MFA',
+        );
+      });
 
-        asyncTest('can bypass MFA when device is remembered', (_) async {
-          await Amplify.Auth.rememberDevice();
-          await signOutUser();
+      asyncTest('can bypass MFA when device is remembered', (_) async {
+        await Amplify.Auth.rememberDevice();
+        await signOutUser();
 
-          final res = await Amplify.Auth.signIn(
-            username: username!,
-            password: password,
-          );
-          expect(
-            res.isSignedIn,
-            isTrue,
-            reason: 'Subsequent sign-in attempts should not require MFA',
-          );
-        });
+        final res = await Amplify.Auth.signIn(
+          username: username!,
+          password: password,
+        );
+        expect(
+          res.isSignedIn,
+          isTrue,
+          reason: 'Subsequent sign-in attempts should not require MFA',
+        );
+      });
 
-        asyncTest('can login when device is removed in Cognito', (_) async {
-          final deviceKey = await getDeviceKey();
-          expect(deviceKey, isNotNull);
-          await signOutUser();
-          await deleteDevice(cognitoUsername, deviceKey!);
-          await expectLater(signIn(enableMfa: true), completes);
-          final newDeviceKey = await getDeviceKey();
-          expect(newDeviceKey, isNotNull);
-          expect(newDeviceKey, isNot(deviceKey));
-        });
-      },
-    );
+      asyncTest('can login when device is removed in Cognito', (_) async {
+        final deviceKey = await getDeviceKey();
+        expect(deviceKey, isNotNull);
+        await signOutUser();
+        await deleteDevice(cognitoUsername, deviceKey!);
+        await expectLater(signIn(enableMfa: true), completes);
+        final newDeviceKey = await getDeviceKey();
+        expect(newDeviceKey, isNotNull);
+        expect(newDeviceKey, isNot(deviceKey));
+      });
+    });
 
     group('Always', () {
       setUp(() async {
-        await testRunner.configure(
-          environmentName: 'device-tracking-always',
-        );
+        await testRunner.configure(environmentName: 'device-tracking-always');
 
         await signIn();
       });
@@ -248,36 +238,39 @@ void main() {
       });
 
       asyncTest(
-          'The device from fetchCurrentDevice isnt equal to another device.',
-          (_) async {
-        final previousDeviceKey = await getDeviceKey();
-        await signOutUser();
-        await deleteDevice(cognitoUsername, previousDeviceKey!);
-        await signIn();
-        final newCurrentTestDevice = await Amplify.Auth.fetchCurrentDevice();
-        expect(newCurrentTestDevice.id, isNot(previousDeviceKey));
-      });
+        'The device from fetchCurrentDevice isnt equal to another device.',
+        (_) async {
+          final previousDeviceKey = await getDeviceKey();
+          await signOutUser();
+          await deleteDevice(cognitoUsername, previousDeviceKey!);
+          await signIn();
+          final newCurrentTestDevice = await Amplify.Auth.fetchCurrentDevice();
+          expect(newCurrentTestDevice.id, isNot(previousDeviceKey));
+        },
+      );
 
       asyncTest(
-          'fetchCurrentDevice throws a DeviceNotTrackedException when device is forgotten.',
-          (_) async {
-        expect(await getDeviceState(), DeviceState.remembered);
-        await Amplify.Auth.forgetDevice();
-        await expectLater(
-          Amplify.Auth.fetchCurrentDevice,
-          throwsA(isA<DeviceNotTrackedException>()),
-        );
-      });
+        'fetchCurrentDevice throws a DeviceNotTrackedException when device is forgotten.',
+        (_) async {
+          expect(await getDeviceState(), DeviceState.remembered);
+          await Amplify.Auth.forgetDevice();
+          await expectLater(
+            Amplify.Auth.fetchCurrentDevice,
+            throwsA(isA<DeviceNotTrackedException>()),
+          );
+        },
+      );
 
       asyncTest(
-          'fetchCurrentDevice throws a SignedOutException when device signs out.',
-          (_) async {
-        await signOutUser();
-        await expectLater(
-          Amplify.Auth.fetchCurrentDevice,
-          throwsA(isA<SignedOutException>()),
-        );
-      });
+        'fetchCurrentDevice throws a SignedOutException when device signs out.',
+        (_) async {
+          await signOutUser();
+          await expectLater(
+            Amplify.Auth.fetchCurrentDevice,
+            throwsA(isA<SignedOutException>()),
+          );
+        },
+      );
 
       asyncTest('forgetDevice stops tracking', (_) async {
         expect(await getDeviceState(), DeviceState.remembered);
@@ -311,9 +304,7 @@ void main() {
 
     group('Always (MFA)', () {
       setUp(() async {
-        await testRunner.configure(
-          environmentName: 'device-tracking-always',
-        );
+        await testRunner.configure(environmentName: 'device-tracking-always');
 
         await signIn(enableMfa: true);
       });
@@ -431,10 +422,7 @@ void main() {
         expect(deviceKey, isNotNull);
         await signOutUser();
         await deleteDevice(cognitoUsername, deviceKey!);
-        await expectLater(
-          signIn(emailAlias: true, enableMfa: true),
-          completes,
-        );
+        await expectLater(signIn(emailAlias: true, enableMfa: true), completes);
         final newDeviceKey = await getDeviceKey();
         expect(newDeviceKey, isNotNull);
         expect(newDeviceKey, isNot(deviceKey));

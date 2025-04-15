@@ -42,11 +42,7 @@ class MockAuthPlugin extends AmplifyAuthCognitoStub {
     required String password,
     SignUpOptions? options,
   }) {
-    return authService.signUp(
-      username,
-      password,
-      attributes,
-    );
+    return authService.signUp(username, password, attributes);
   }
 }
 
@@ -55,40 +51,39 @@ void main() {
 
   group('Sign Up View', () {
     group('form validation', () {
-      testWidgets(
-        'displays message when submitted without any data',
-        (tester) async {
-          await tester.pumpWidget(
-            const MockAuthenticatorApp(initialStep: AuthenticatorStep.signUp),
-          );
-          await tester.pumpAndSettle();
+      testWidgets('displays message when submitted without any data', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          const MockAuthenticatorApp(initialStep: AuthenticatorStep.signUp),
+        );
+        await tester.pumpAndSettle();
 
-          final signUpPage = SignUpPage(tester: tester);
+        final signUpPage = SignUpPage(tester: tester);
 
-          await signUpPage.submitSignUp();
+        await signUpPage.submitSignUp();
 
-          final usernameFieldError = find.descendant(
-            of: signUpPage.usernameField,
-            matching: find.text('Email field must not be blank.'),
-          );
+        final usernameFieldError = find.descendant(
+          of: signUpPage.usernameField,
+          matching: find.text('Email field must not be blank.'),
+        );
 
-          expect(usernameFieldError, findsOneWidget);
+        expect(usernameFieldError, findsOneWidget);
 
-          final passwordFieldError = find.descendant(
-            of: signUpPage.passwordField,
-            matching: find.text('Password field must not be blank.'),
-          );
+        final passwordFieldError = find.descendant(
+          of: signUpPage.passwordField,
+          matching: find.text('Password field must not be blank.'),
+        );
 
-          expect(passwordFieldError, findsOneWidget);
+        expect(passwordFieldError, findsOneWidget);
 
-          final passwordConfirmationFieldError = find.descendant(
-            of: signUpPage.confirmPasswordField,
-            matching: find.text('Confirm Password field must not be blank.'),
-          );
+        final passwordConfirmationFieldError = find.descendant(
+          of: signUpPage.confirmPasswordField,
+          matching: find.text('Confirm Password field must not be blank.'),
+        );
 
-          expect(passwordConfirmationFieldError, findsOneWidget);
-        },
-      );
+        expect(passwordConfirmationFieldError, findsOneWidget);
+      });
 
       testWidgets(
         'displays message when submitted with invalid email address',
@@ -115,159 +110,141 @@ void main() {
         },
       );
 
-      testWidgets(
-        'displays message when submitted with invalid birth date',
-        (tester) async {
-          await tester.pumpWidget(
-            MockAuthenticatorApp(
-              initialStep: AuthenticatorStep.signUp,
-              signUpForm: SignUpForm.custom(
-                fields: [
-                  SignUpFormField.username(),
-                  SignUpFormField.birthdate(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) return null;
-                      final age = DateTime.now().difference(
-                        DateTime.parse(value),
-                      );
-                      if (age < const Duration(days: 365 * 18)) {
-                        return 'You must be 18 years or older.';
-                      }
-                      return null;
-                    },
-                  ),
-                  SignUpFormField.password(),
-                  SignUpFormField.passwordConfirmation(),
-                ],
-              ),
-            ),
-          );
-          await tester.pumpAndSettle();
-
-          final signUpPage = SignUpPage(tester: tester);
-
-          await signUpPage.enterUsername('user123');
-          await signUpPage.enterBirthDate('01/01/2020');
-          await signUpPage.enterPassword('Password123');
-          await signUpPage.enterPasswordConfirmation('Password123');
-
-          await signUpPage.submitSignUp();
-
-          final usernameFieldError = find.descendant(
-            of: signUpPage.birthdateField,
-            matching: find.text('You must be 18 years or older.'),
-          );
-
-          expect(usernameFieldError, findsOneWidget);
-        },
-      );
-
-      testWidgets(
-        'displays message when password does not meet requirements',
-        (tester) async {
-          await tester.pumpWidget(
-            const MockAuthenticatorApp(
-              initialStep: AuthenticatorStep.signUp,
-              config: passwordReqConfig,
-            ),
-          );
-          await tester.pumpAndSettle();
-
-          final signUpPage = SignUpPage(tester: tester);
-
-          await signUpPage.enterUsername('user@example.com');
-          await signUpPage.enterPassword('1234');
-
-          await signUpPage.submitSignUp();
-
-          final passwordFieldErrorLine1 = find.descendant(
-            of: signUpPage.passwordField,
-            matching: find.textContaining(
-              'Password must include',
-            ),
-          );
-
-          final passwordFieldErrorLine2 = find.descendant(
-            of: signUpPage.passwordField,
-            matching: find.textContaining(
-              '* at least 16 characters',
-            ),
-          );
-
-          final passwordFieldErrorLine3 = find.descendant(
-            of: signUpPage.passwordField,
-            matching: find.textContaining(
-              '* at least 1 uppercase character',
-            ),
-          );
-
-          final passwordFieldErrorLine4 = find.descendant(
-            of: signUpPage.passwordField,
-            matching: find.textContaining(
-              '* at least 1 symbol character',
-            ),
-          );
-
-          expect(passwordFieldErrorLine1, findsOneWidget);
-          expect(passwordFieldErrorLine2, findsOneWidget);
-          expect(passwordFieldErrorLine3, findsOneWidget);
-          expect(passwordFieldErrorLine4, findsOneWidget);
-        },
-      );
-
-      testWidgets(
-        'trims the username field before validation',
-        (tester) async {
-          await tester.pumpWidget(
-            const MockAuthenticatorApp(
-              initialStep: AuthenticatorStep.signUp,
-            ),
-          );
-          await tester.pumpAndSettle();
-
-          final signInPage = SignUpPage(tester: tester);
-
-          await signInPage.enterUsername('user@example.com ');
-          await signInPage.enterPassword('Password123');
-
-          await signInPage.submitSignUp();
-
-          final usernameFieldError = find.descendant(
-            of: signInPage.usernameField,
-            matching: find.text('Invalid email format.'),
-          );
-
-          expect(usernameFieldError, findsNothing);
-        },
-      );
-
-      testWidgets(
-        'ensures email passed to the API is trimmed',
-        (tester) async {
-          final mockAuthService = MockAuthService();
-          final mockAuthPlugin = MockAuthPlugin(mockAuthService);
-          final app = MockAuthenticatorApp(
-            authPlugin: mockAuthPlugin,
+      testWidgets('displays message when submitted with invalid birth date', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          MockAuthenticatorApp(
             initialStep: AuthenticatorStep.signUp,
-          );
+            signUpForm: SignUpForm.custom(
+              fields: [
+                SignUpFormField.username(),
+                SignUpFormField.birthdate(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return null;
+                    final age = DateTime.now().difference(
+                      DateTime.parse(value),
+                    );
+                    if (age < const Duration(days: 365 * 18)) {
+                      return 'You must be 18 years or older.';
+                    }
+                    return null;
+                  },
+                ),
+                SignUpFormField.password(),
+                SignUpFormField.passwordConfirmation(),
+              ],
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
 
-          await tester.pumpWidget(app);
-          await tester.pumpAndSettle();
+        final signUpPage = SignUpPage(tester: tester);
 
-          final signUpPage = SignUpPage(tester: tester);
+        await signUpPage.enterUsername('user123');
+        await signUpPage.enterBirthDate('01/01/2020');
+        await signUpPage.enterPassword('Password123');
+        await signUpPage.enterPasswordConfirmation('Password123');
 
-          // Enter email with trailing space
-          await signUpPage.enterUsername('user@example.com ');
-          await signUpPage.enterPassword('Password123!@#%^');
-          await signUpPage.enterPasswordConfirmation('Password123!@#%^');
+        await signUpPage.submitSignUp();
 
-          await signUpPage.submitSignUp();
-          await tester.pumpAndSettle();
+        final usernameFieldError = find.descendant(
+          of: signUpPage.birthdateField,
+          matching: find.text('You must be 18 years or older.'),
+        );
 
-          // Verify the email was trimmed before being passed to signUp
-          expect(mockAuthService.capturedUsername, 'user@example.com');
-        },
-      );
+        expect(usernameFieldError, findsOneWidget);
+      });
+
+      testWidgets('displays message when password does not meet requirements', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          const MockAuthenticatorApp(
+            initialStep: AuthenticatorStep.signUp,
+            config: passwordReqConfig,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final signUpPage = SignUpPage(tester: tester);
+
+        await signUpPage.enterUsername('user@example.com');
+        await signUpPage.enterPassword('1234');
+
+        await signUpPage.submitSignUp();
+
+        final passwordFieldErrorLine1 = find.descendant(
+          of: signUpPage.passwordField,
+          matching: find.textContaining('Password must include'),
+        );
+
+        final passwordFieldErrorLine2 = find.descendant(
+          of: signUpPage.passwordField,
+          matching: find.textContaining('* at least 16 characters'),
+        );
+
+        final passwordFieldErrorLine3 = find.descendant(
+          of: signUpPage.passwordField,
+          matching: find.textContaining('* at least 1 uppercase character'),
+        );
+
+        final passwordFieldErrorLine4 = find.descendant(
+          of: signUpPage.passwordField,
+          matching: find.textContaining('* at least 1 symbol character'),
+        );
+
+        expect(passwordFieldErrorLine1, findsOneWidget);
+        expect(passwordFieldErrorLine2, findsOneWidget);
+        expect(passwordFieldErrorLine3, findsOneWidget);
+        expect(passwordFieldErrorLine4, findsOneWidget);
+      });
+
+      testWidgets('trims the username field before validation', (tester) async {
+        await tester.pumpWidget(
+          const MockAuthenticatorApp(initialStep: AuthenticatorStep.signUp),
+        );
+        await tester.pumpAndSettle();
+
+        final signInPage = SignUpPage(tester: tester);
+
+        await signInPage.enterUsername('user@example.com ');
+        await signInPage.enterPassword('Password123');
+
+        await signInPage.submitSignUp();
+
+        final usernameFieldError = find.descendant(
+          of: signInPage.usernameField,
+          matching: find.text('Invalid email format.'),
+        );
+
+        expect(usernameFieldError, findsNothing);
+      });
+
+      testWidgets('ensures email passed to the API is trimmed', (tester) async {
+        final mockAuthService = MockAuthService();
+        final mockAuthPlugin = MockAuthPlugin(mockAuthService);
+        final app = MockAuthenticatorApp(
+          authPlugin: mockAuthPlugin,
+          initialStep: AuthenticatorStep.signUp,
+        );
+
+        await tester.pumpWidget(app);
+        await tester.pumpAndSettle();
+
+        final signUpPage = SignUpPage(tester: tester);
+
+        // Enter email with trailing space
+        await signUpPage.enterUsername('user@example.com ');
+        await signUpPage.enterPassword('Password123!@#%^');
+        await signUpPage.enterPasswordConfirmation('Password123!@#%^');
+
+        await signUpPage.submitSignUp();
+        await tester.pumpAndSettle();
+
+        // Verify the email was trimmed before being passed to signUp
+        expect(mockAuthService.capturedUsername, 'user@example.com');
+      });
     });
   });
 }
