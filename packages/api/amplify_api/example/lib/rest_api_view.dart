@@ -61,9 +61,7 @@ class _RestApiViewState extends State<RestApiView> {
 
   void onGetPressed() async {
     try {
-      final restOperation = Amplify.API.get(
-        _apiPathController.text,
-      );
+      final restOperation = Amplify.API.get(_apiPathController.text);
 
       _lastRestOperation = restOperation;
       final response = await restOperation.response;
@@ -78,9 +76,7 @@ class _RestApiViewState extends State<RestApiView> {
 
   void onDeletePressed() async {
     try {
-      final restOperation = Amplify.API.delete(
-        _apiPathController.text,
-      );
+      final restOperation = Amplify.API.delete(_apiPathController.text);
       _lastRestOperation = restOperation;
       final response = await restOperation.response;
 
@@ -103,9 +99,7 @@ class _RestApiViewState extends State<RestApiView> {
 
   void onHeadPressed() async {
     try {
-      final restOperation = Amplify.API.head(
-        _apiPathController.text,
-      );
+      final restOperation = Amplify.API.head(_apiPathController.text);
 
       _lastRestOperation = restOperation;
       await restOperation.response;
@@ -146,30 +140,12 @@ class _RestApiViewState extends State<RestApiView> {
             labelText: 'apiPath',
           ),
         ),
-        ElevatedButton(
-          onPressed: onPostPressed,
-          child: const Text('Post'),
-        ),
-        ElevatedButton(
-          onPressed: onPutPressed,
-          child: const Text('Put'),
-        ),
-        ElevatedButton(
-          onPressed: onGetPressed,
-          child: const Text('Get'),
-        ),
-        ElevatedButton(
-          onPressed: onCancelPressed,
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
-          onPressed: onDeletePressed,
-          child: const Text('Delete'),
-        ),
-        ElevatedButton(
-          onPressed: onHeadPressed,
-          child: const Text('Head'),
-        ),
+        ElevatedButton(onPressed: onPostPressed, child: const Text('Post')),
+        ElevatedButton(onPressed: onPutPressed, child: const Text('Put')),
+        ElevatedButton(onPressed: onGetPressed, child: const Text('Get')),
+        ElevatedButton(onPressed: onCancelPressed, child: const Text('Cancel')),
+        ElevatedButton(onPressed: onDeletePressed, child: const Text('Delete')),
+        ElevatedButton(onPressed: onHeadPressed, child: const Text('Head')),
         ElevatedButton(onPressed: onPatchPressed, child: const Text('Patch')),
       ],
     );

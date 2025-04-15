@@ -36,10 +36,7 @@ void main() {
             attributes: environment.getDefaultAttributes(username),
           );
 
-          await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
+          await Amplify.Auth.signIn(username: username, password: password);
         });
 
         asyncTest('can reset password', (_) async {
@@ -72,10 +69,7 @@ void main() {
             completes,
           );
 
-          await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
+          await Amplify.Auth.signIn(username: username, password: password);
         });
       });
     }

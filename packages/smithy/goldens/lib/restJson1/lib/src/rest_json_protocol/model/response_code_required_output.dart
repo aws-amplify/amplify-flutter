@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.response_code_required_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class ResponseCodeRequiredOutput
     return _$ResponseCodeRequiredOutput._(responseCode: responseCode);
   }
 
-  factory ResponseCodeRequiredOutput.build(
-          [void Function(ResponseCodeRequiredOutputBuilder) updates]) =
-      _$ResponseCodeRequiredOutput;
+  factory ResponseCodeRequiredOutput.build([
+    void Function(ResponseCodeRequiredOutputBuilder) updates,
+  ]) = _$ResponseCodeRequiredOutput;
 
   const ResponseCodeRequiredOutput._();
 
@@ -31,13 +31,12 @@ abstract class ResponseCodeRequiredOutput
   factory ResponseCodeRequiredOutput.fromResponse(
     ResponseCodeRequiredOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      ResponseCodeRequiredOutput.build((b) {
-        b.responseCode = response.statusCode;
-      });
+  ) => ResponseCodeRequiredOutput.build((b) {
+    b.responseCode = response.statusCode;
+  });
 
   static const List<_i2.SmithySerializer<ResponseCodeRequiredOutputPayload>>
-      serializers = [ResponseCodeRequiredOutputRestJson1Serializer()];
+  serializers = [ResponseCodeRequiredOutputRestJson1Serializer()];
 
   int get responseCode;
   @override
@@ -50,25 +49,23 @@ abstract class ResponseCodeRequiredOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResponseCodeRequiredOutput')
-      ..add(
-        'responseCode',
-        responseCode,
-      );
+      ..add('responseCode', responseCode);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class ResponseCodeRequiredOutputPayload
-    with
-        _i1.AWSEquatable<ResponseCodeRequiredOutputPayload>
+    with _i1.AWSEquatable<ResponseCodeRequiredOutputPayload>
     implements
-        Built<ResponseCodeRequiredOutputPayload,
-            ResponseCodeRequiredOutputPayloadBuilder>,
+        Built<
+          ResponseCodeRequiredOutputPayload,
+          ResponseCodeRequiredOutputPayloadBuilder
+        >,
         _i2.EmptyPayload {
-  factory ResponseCodeRequiredOutputPayload(
-          [void Function(ResponseCodeRequiredOutputPayloadBuilder) updates]) =
-      _$ResponseCodeRequiredOutputPayload;
+  factory ResponseCodeRequiredOutputPayload([
+    void Function(ResponseCodeRequiredOutputPayloadBuilder) updates,
+  ]) = _$ResponseCodeRequiredOutputPayload;
 
   const ResponseCodeRequiredOutputPayload._();
 
@@ -77,8 +74,9 @@ abstract class ResponseCodeRequiredOutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ResponseCodeRequiredOutputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'ResponseCodeRequiredOutputPayload',
+    );
     return helper.toString();
   }
 }
@@ -86,23 +84,20 @@ abstract class ResponseCodeRequiredOutputPayload
 class ResponseCodeRequiredOutputRestJson1Serializer
     extends _i2.StructuredSmithySerializer<ResponseCodeRequiredOutputPayload> {
   const ResponseCodeRequiredOutputRestJson1Serializer()
-      : super('ResponseCodeRequiredOutput');
+    : super('ResponseCodeRequiredOutput');
 
   @override
   Iterable<Type> get types => const [
-        ResponseCodeRequiredOutput,
-        _$ResponseCodeRequiredOutput,
-        ResponseCodeRequiredOutputPayload,
-        _$ResponseCodeRequiredOutputPayload,
-      ];
+    ResponseCodeRequiredOutput,
+    _$ResponseCodeRequiredOutput,
+    ResponseCodeRequiredOutputPayload,
+    _$ResponseCodeRequiredOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   ResponseCodeRequiredOutputPayload deserialize(
@@ -118,6 +113,5 @@ class ResponseCodeRequiredOutputRestJson1Serializer
     Serializers serializers,
     ResponseCodeRequiredOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

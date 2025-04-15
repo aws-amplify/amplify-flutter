@@ -84,11 +84,7 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
   _$Delete _build() {
     _$Delete _$result;
     try {
-      _$result = _$v ??
-          new _$Delete._(
-            objects: objects.build(),
-            quiet: quiet,
-          );
+      _$result = _$v ?? new _$Delete._(objects: objects.build(), quiet: quiet);
     } catch (_) {
       late String _$failedField;
       try {
@@ -96,7 +92,10 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
         objects.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'Delete', _$failedField, e.toString());
+          r'Delete',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

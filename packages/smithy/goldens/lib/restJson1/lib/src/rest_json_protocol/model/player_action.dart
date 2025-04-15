@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.player_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -12,13 +12,11 @@ sealed class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
 
   const factory PlayerAction.quit() = PlayerActionQuit$;
 
-  const factory PlayerAction.sdkUnknown(
-    String name,
-    Object value,
-  ) = PlayerActionSdkUnknown$;
+  const factory PlayerAction.sdkUnknown(String name, Object value) =
+      PlayerActionSdkUnknown$;
 
   static const List<_i1.SmithySerializer<PlayerAction>> serializers = [
-    PlayerActionRestJson1Serializer()
+    PlayerActionRestJson1Serializer(),
   ];
 
   /// Quit the game.
@@ -31,10 +29,7 @@ sealed class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
   String toString() {
     final helper = newBuiltValueToStringHelper(r'PlayerAction');
     if (quit != null) {
-      helper.add(
-        r'quit',
-        quit,
-      );
+      helper.add(r'quit', quit);
     }
     return helper.toString();
   }
@@ -51,10 +46,7 @@ final class PlayerActionQuit$ extends PlayerAction {
 }
 
 final class PlayerActionSdkUnknown$ extends PlayerAction {
-  const PlayerActionSdkUnknown$(
-    this.name,
-    this.value,
-  ) : super._();
+  const PlayerActionSdkUnknown$(this.name, this.value) : super._();
 
   @override
   final String name;
@@ -68,18 +60,12 @@ class PlayerActionRestJson1Serializer
   const PlayerActionRestJson1Serializer() : super('PlayerAction');
 
   @override
-  Iterable<Type> get types => const [
-        PlayerAction,
-        PlayerActionQuit$,
-      ];
+  Iterable<Type> get types => const [PlayerAction, PlayerActionQuit$];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   PlayerAction deserialize(
@@ -92,10 +78,7 @@ class PlayerActionRestJson1Serializer
       case 'quit':
         return const PlayerActionQuit$();
     }
-    return PlayerAction.sdkUnknown(
-      key,
-      value,
-    );
+    return PlayerAction.sdkUnknown(key, value);
   }
 
   @override
@@ -108,9 +91,9 @@ class PlayerActionRestJson1Serializer
       object.name,
       switch (object) {
         PlayerActionQuit$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(_i1.Unit),
-          ),
+          value,
+          specifiedType: const FullType(_i1.Unit),
+        ),
         PlayerActionSdkUnknown$(:final value) => value,
       },
     ];

@@ -11,58 +11,55 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticatorScreen extends StatelessAuthenticatorComponent {
-  const AuthenticatorScreen({
-    super.key,
-    required this.step,
-  });
+  const AuthenticatorScreen({super.key, required this.step});
 
   const AuthenticatorScreen.signUp({Key? key})
-      : this(key: key, step: AuthenticatorStep.signUp);
+    : this(key: key, step: AuthenticatorStep.signUp);
 
   const AuthenticatorScreen.signIn({Key? key})
-      : this(key: key, step: AuthenticatorStep.signIn);
+    : this(key: key, step: AuthenticatorStep.signIn);
 
   const AuthenticatorScreen.confirmSignUp({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmSignUp);
+    : this(key: key, step: AuthenticatorStep.confirmSignUp);
 
   const AuthenticatorScreen.confirmSignInMfa({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmSignInMfa);
+    : this(key: key, step: AuthenticatorStep.confirmSignInMfa);
 
   const AuthenticatorScreen.confirmSignInNewPassword({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmSignInNewPassword);
+    : this(key: key, step: AuthenticatorStep.confirmSignInNewPassword);
 
   const AuthenticatorScreen.continueSignInWithMfaSelection({Key? key})
-      : this(key: key, step: AuthenticatorStep.continueSignInWithMfaSelection);
+    : this(key: key, step: AuthenticatorStep.continueSignInWithMfaSelection);
 
   const AuthenticatorScreen.continueSignInWithTotpSetup({Key? key})
-      : this(key: key, step: AuthenticatorStep.continueSignInWithTotpSetup);
+    : this(key: key, step: AuthenticatorStep.continueSignInWithTotpSetup);
 
   const AuthenticatorScreen.confirmSignInWithTotpMfaCode({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmSignInWithTotpMfaCode);
+    : this(key: key, step: AuthenticatorStep.confirmSignInWithTotpMfaCode);
 
   const AuthenticatorScreen.confirmSignInWithOtpCode({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmSignInWithOtpCode);
+    : this(key: key, step: AuthenticatorStep.confirmSignInWithOtpCode);
 
   const AuthenticatorScreen.continueSignInWithEmailMfaSetup({Key? key})
-      : this(key: key, step: AuthenticatorStep.continueSignInWithEmailMfaSetup);
+    : this(key: key, step: AuthenticatorStep.continueSignInWithEmailMfaSetup);
 
   const AuthenticatorScreen.continueSignInWithMfaSetupSelection({Key? key})
-      : this(
-          key: key,
-          step: AuthenticatorStep.continueSignInWithMfaSetupSelection,
-        );
+    : this(
+        key: key,
+        step: AuthenticatorStep.continueSignInWithMfaSetupSelection,
+      );
 
   const AuthenticatorScreen.resetPassword({Key? key})
-      : this(key: key, step: AuthenticatorStep.resetPassword);
+    : this(key: key, step: AuthenticatorStep.resetPassword);
 
   const AuthenticatorScreen.confirmResetPassword({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmResetPassword);
+    : this(key: key, step: AuthenticatorStep.confirmResetPassword);
 
   const AuthenticatorScreen.verifyUser({Key? key})
-      : this(key: key, step: AuthenticatorStep.verifyUser);
+    : this(key: key, step: AuthenticatorStep.verifyUser);
 
   const AuthenticatorScreen.confirmVerifyUser({Key? key})
-      : this(key: key, step: AuthenticatorStep.confirmVerifyUser);
+    : this(key: key, step: AuthenticatorStep.confirmVerifyUser);
 
   final AuthenticatorStep step;
 
@@ -158,9 +155,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 }
 
 class _FormWrapperView extends StatelessAuthenticatorComponent {
-  const _FormWrapperView({
-    required this.step,
-  });
+  const _FormWrapperView({required this.step});
 
   final AuthenticatorStep step;
 
@@ -186,9 +181,7 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
               titleResolver.resolve(context, step),
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const SizedBox(
-              height: AuthenticatorContainerConstants.gap,
-            ),
+            const SizedBox(height: AuthenticatorContainerConstants.gap),
             form,
           ],
         );

@@ -12,16 +12,16 @@ class _$AliasExistsException extends AliasExistsException {
   @override
   final Map<String, String>? headers;
 
-  factory _$AliasExistsException(
-          [void Function(AliasExistsExceptionBuilder)? updates]) =>
-      (new AliasExistsExceptionBuilder()..update(updates))._build();
+  factory _$AliasExistsException([
+    void Function(AliasExistsExceptionBuilder)? updates,
+  ]) => (new AliasExistsExceptionBuilder()..update(updates))._build();
 
   _$AliasExistsException._({this.message, this.headers}) : super._();
 
   @override
   AliasExistsException rebuild(
-          void Function(AliasExistsExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AliasExistsExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AliasExistsExceptionBuilder toBuilder() =>
@@ -81,11 +81,8 @@ class AliasExistsExceptionBuilder
   AliasExistsException build() => _build();
 
   _$AliasExistsException _build() {
-    final _$result = _$v ??
-        new _$AliasExistsException._(
-          message: message,
-          headers: headers,
-        );
+    final _$result =
+        _$v ?? new _$AliasExistsException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.rest_xml_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,11 +124,11 @@ class RestXmlProtocolClient {
     Uri? baseUri,
     List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -150,10 +150,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The following example serializes a body that uses an XML name, changing the wrapper name.
@@ -166,10 +163,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example uses fixed query string params and variable query string params. The fixed query string parameters and variable parameters must both be serialized (implementations may need to merge them together).
@@ -182,10 +176,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example uses a constant query string parameters and a label. This simply tests that labels and query string parameters are compatible. The fixed query string parameter named "hello" should in no way conflict with the label, `{hello}`.
@@ -198,23 +189,18 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
-  _i2.SmithyOperation<DatetimeOffsetsOutput> datetimeOffsets(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<DatetimeOffsetsOutput> datetimeOffsets({
+    _i1.AWSHttpClient? client,
+  }) {
     return DatetimeOffsetsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has an empty input and empty output structure that reuses the same shape. While this should be rare, code generators must support this.
@@ -227,10 +213,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> endpointOperation({_i1.AWSHttpClient? client}) {
@@ -239,10 +222,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> endpointWithHostLabelHeaderOperation(
@@ -254,10 +234,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> endpointWithHostLabelOperation(
@@ -269,10 +246,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Flattened maps
@@ -285,15 +259,12 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Flattened maps with @xmlName
   _i2.SmithyOperation<FlattenedXmlMapWithXmlNameInputOutput>
-      flattenedXmlMapWithXmlName(
+  flattenedXmlMapWithXmlName(
     FlattenedXmlMapWithXmlNameInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -302,51 +273,41 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Flattened maps with @xmlNamespace and @xmlName
   _i2.SmithyOperation<FlattenedXmlMapWithXmlNamespaceOutput>
-      flattenedXmlMapWithXmlNamespace({_i1.AWSHttpClient? client}) {
+  flattenedXmlMapWithXmlNamespace({_i1.AWSHttpClient? client}) {
     return FlattenedXmlMapWithXmlNamespaceOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
-  _i2.SmithyOperation<FractionalSecondsOutput> fractionalSeconds(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<FractionalSecondsOutput> fractionalSeconds({
+    _i1.AWSHttpClient? client,
+  }) {
     return FractionalSecondsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A BadRequest error. Implementations must be able to successfully take a response and properly (de)serialize successful and error responses based on the the presence of the
-  _i2.SmithyOperation<GreetingWithErrorsOutput> greetingWithErrors(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<GreetingWithErrorsOutput> greetingWithErrors({
+    _i1.AWSHttpClient? client,
+  }) {
     return GreetingWithErrorsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This examples serializes a blob shape in the payload. In this example, no XML document is synthesized because the payload is not a structure or a union type.
@@ -359,15 +320,12 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples uses a `@mediaType` trait on the payload to force a custom content-type to be serialized.
   _i2.SmithyOperation<HttpPayloadTraitsWithMediaTypeInputOutput>
-      httpPayloadTraitsWithMediaType(
+  httpPayloadTraitsWithMediaType(
     HttpPayloadTraitsWithMediaTypeInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -376,15 +334,12 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The following example serializes a payload that uses an XML name on the member, changing the wrapper name.
   _i2.SmithyOperation<HttpPayloadWithMemberXmlNameInputOutput>
-      httpPayloadWithMemberXmlName(
+  httpPayloadWithMemberXmlName(
     HttpPayloadWithMemberXmlNameInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -393,15 +348,12 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples serializes a structure in the payload. Note that serializing a structure changes the wrapper element name to match the targeted structure.
   _i2.SmithyOperation<HttpPayloadWithStructureInputOutput>
-      httpPayloadWithStructure(
+  httpPayloadWithStructure(
     HttpPayloadWithStructureInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -410,10 +362,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The following example serializes a payload that uses an XML name, changing the wrapper name.
@@ -426,15 +375,12 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The following example serializes a payload that uses an XML namespace.
   _i2.SmithyOperation<HttpPayloadWithXmlNamespaceInputOutput>
-      httpPayloadWithXmlNamespace(
+  httpPayloadWithXmlNamespace(
     HttpPayloadWithXmlNamespaceInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -443,15 +389,12 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The following example serializes a payload that uses an XML namespace.
   _i2.SmithyOperation<HttpPayloadWithXmlNamespaceAndPrefixInputOutput>
-      httpPayloadWithXmlNamespaceAndPrefix(
+  httpPayloadWithXmlNamespaceAndPrefix(
     HttpPayloadWithXmlNamespaceAndPrefixInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -460,10 +403,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples adds headers to the input of a request and response by prefix.///
@@ -479,10 +419,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> httpRequestWithFloatLabels(
@@ -494,10 +431,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> httpRequestWithGreedyLabelInPath(
@@ -509,10 +443,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how requests are serialized when there's no input payload but there are HTTP labels.
@@ -525,10 +456,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how requests serialize different timestamp formats in the URI path.
@@ -541,37 +469,29 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
-  _i2.SmithyOperation<HttpResponseCodeOutput> httpResponseCode(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<HttpResponseCodeOutput> httpResponseCode({
+    _i1.AWSHttpClient? client,
+  }) {
     return HttpResponseCodeOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This example ensures that query string bound request parameters are serialized in the body of responses if the structure is used in both the request and response.
   _i2.SmithyOperation<IgnoreQueryParamsInResponseOutput>
-      ignoreQueryParamsInResponse({_i1.AWSHttpClient? client}) {
+  ignoreQueryParamsInResponse({_i1.AWSHttpClient? client}) {
     return IgnoreQueryParamsInResponseOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there is no input or output payload but there are HTTP header bindings.
@@ -584,10 +504,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<NestedXmlMapsInputOutput> nestedXmlMaps(
@@ -599,10 +516,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input or output. While this should be rare, code generators must support this.
@@ -612,24 +526,19 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input and the output is empty. While this should be rare, code generators must support this.
-  _i2.SmithyOperation<NoInputAndOutputOutput> noInputAndOutput(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<NoInputAndOutputOutput> noInputAndOutput({
+    _i1.AWSHttpClient? client,
+  }) {
     return NoInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// Null and empty headers are not sent over the wire.
@@ -642,10 +551,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Null and empty headers are not sent over the wire.
@@ -658,10 +564,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Omits null, but serializes empty string value.
@@ -674,10 +577,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> putWithContentEncoding(
@@ -689,10 +589,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Automatically adds idempotency tokens.
@@ -705,10 +602,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> queryParamsAsStringListMap(
@@ -720,10 +614,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> queryPrecedence(
@@ -735,10 +626,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Recursive shapes
@@ -751,10 +639,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<SimpleScalarPropertiesInputOutput> simpleScalarProperties(
@@ -766,10 +651,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how timestamp request and response headers are serialized.
@@ -782,10 +664,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example serializes an XML attributes on synthesized document.
@@ -798,10 +677,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example serializes an XML attributes on a document targeted by httpPayload.
@@ -814,10 +690,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Blobs are base64 encoded
@@ -830,10 +703,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Blobs are base64 encoded
@@ -846,10 +716,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<XmlListsInputOutput> xmlEmptyLists(
@@ -861,10 +728,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<XmlMapsInputOutput> xmlEmptyMaps(
@@ -876,10 +740,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<XmlEmptyStringsInputOutput> xmlEmptyStrings(
@@ -891,10 +752,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example serializes enums as top level properties, in lists, sets, and maps.
@@ -907,10 +765,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example serializes enums as top level properties, in lists, sets, and maps.
@@ -923,10 +778,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This test case serializes XML lists for the following cases for both input and output: 1. Normal XML lists. 2. Normal XML sets. 3. XML lists of lists. 4. XML lists with @xmlName on its members 5. Flattened XML lists. 6. Flattened XML lists with @xmlName. 7. Flattened XML lists with @xmlNamespace. 8. Lists of structures. 9. Flattened XML list of structures
@@ -939,10 +791,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests basic map serialization.
@@ -955,10 +804,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<XmlMapsXmlNameInputOutput> xmlMapsXmlName(
@@ -970,10 +816,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<XmlNamespacesInputOutput> xmlNamespaces(
@@ -985,10 +828,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This tests how timestamps are serialized, including using the default format of date-time and various @timestampFormat trait values.
@@ -1001,10 +841,7 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<XmlUnionsInputOutput> xmlUnions(
@@ -1016,9 +853,6 @@ class RestXmlProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 }

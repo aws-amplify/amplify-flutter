@@ -18,11 +18,11 @@ class RestJson1Trait extends AWSProtocolTrait {
     List<AlpnProtocol> http = AWSProtocolTrait.defaultHttpProtocols,
     List<AlpnProtocol>? eventStreamHttp,
   }) : super(
-          id,
-          http: http,
-          eventStreamHttp: eventStreamHttp,
-          timestampFormat: TimestampFormat.epochSeconds,
-        );
+         id,
+         http: http,
+         eventStreamHttp: eventStreamHttp,
+         timestampFormat: TimestampFormat.epochSeconds,
+       );
 
   factory RestJson1Trait.fromJson(Object? json) =>
       _$RestJson1TraitFromJson((json as Map).cast<String, Object?>());
@@ -34,19 +34,19 @@ class RestJson1Trait extends AWSProtocolTrait {
 
   @override
   List<ShapeId> get traits => const [
-        CorsTrait.id,
-        EndpointTrait.id,
-        HostLabelTrait.id,
-        HttpTrait.id,
-        HttpErrorTrait.id,
-        HttpHeaderTrait.id,
-        HttpLabelTrait.id,
-        HttpPayloadTrait.id,
-        HttpPrefixHeadersTrait.id,
-        HttpQueryTrait.id,
-        HttpQueryParamsTrait.id,
-        JsonNameTrait.id,
-        TimestampFormatTrait.id,
-        MediaTypeTrait.id,
-      ];
+    CorsTrait.id,
+    EndpointTrait.id,
+    HostLabelTrait.id,
+    HttpTrait.id,
+    HttpErrorTrait.id,
+    HttpHeaderTrait.id,
+    HttpLabelTrait.id,
+    HttpPayloadTrait.id,
+    HttpPrefixHeadersTrait.id,
+    HttpQueryTrait.id,
+    HttpQueryParamsTrait.id,
+    JsonNameTrait.id,
+    TimestampFormatTrait.id,
+    MediaTypeTrait.id,
+  ];
 }

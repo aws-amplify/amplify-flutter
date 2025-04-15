@@ -68,11 +68,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   [GetBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html)
 ///
 /// *   [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)
-class SelectObjectContentOperation extends _i1.HttpOperation<
-    SelectObjectContentRequestPayload,
-    SelectObjectContentRequest,
-    SelectObjectContentEventStream,
-    SelectObjectContentOutput> {
+class SelectObjectContentOperation
+    extends
+        _i1.HttpOperation<
+          SelectObjectContentRequestPayload,
+          SelectObjectContentRequest,
+          SelectObjectContentEventStream,
+          SelectObjectContentOutput
+        > {
   /// This operation is not supported by directory buckets.
   ///
   /// This action filters the contents of an Amazon S3 object based on a simple structured query language (SQL) statement. In the request, along with the SQL expression, you must also specify a data serialization format (JSON, CSV, or Apache Parquet) of the object. Amazon S3 uses this format to parse object data into records, and returns only records that match the specified SQL expression. You must also specify the data serialization format for the response.
@@ -134,31 +137,36 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          SelectObjectContentRequestPayload,
-          SelectObjectContentRequest,
-          SelectObjectContentEventStream,
-          SelectObjectContentOutput>> protocols = [
+    _i1.HttpProtocol<
+      SelectObjectContentRequestPayload,
+      SelectObjectContentRequest,
+      SelectObjectContentEventStream,
+      SelectObjectContentOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -169,7 +177,7 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -190,38 +198,39 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(SelectObjectContentRequest input) =>
-      _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = _s3ClientConfig.usePathStyle
+  _i1.HttpRequest buildRequest(
+    SelectObjectContentRequest input,
+  ) => _i1.HttpRequest((b) {
+    b.method = 'POST';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?select&select-type=2&x-id=SelectObjectContent'
             : r'/{Key+}?select&select-type=2&x-id=SelectObjectContent';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.sseCustomerAlgorithm != null) {
-          if (input.sseCustomerAlgorithm!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-algorithm'] =
-                input.sseCustomerAlgorithm!;
-          }
-        }
-        if (input.sseCustomerKey != null) {
-          if (input.sseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key'] =
-                input.sseCustomerKey!;
-          }
-        }
-        if (input.sseCustomerKeyMd5 != null) {
-          if (input.sseCustomerKeyMd5!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
-                input.sseCustomerKeyMd5!;
-          }
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-      });
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.sseCustomerAlgorithm != null) {
+      if (input.sseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-algorithm'] =
+            input.sseCustomerAlgorithm!;
+      }
+    }
+    if (input.sseCustomerKey != null) {
+      if (input.sseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key'] =
+            input.sseCustomerKey!;
+      }
+    }
+    if (input.sseCustomerKeyMd5 != null) {
+      if (input.sseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
+            input.sseCustomerKeyMd5!;
+      }
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+  });
 
   @override
   int successCode([SelectObjectContentOutput? output]) => 200;
@@ -230,11 +239,7 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
   SelectObjectContentOutput buildOutput(
     SelectObjectContentEventStream? payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      SelectObjectContentOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => SelectObjectContentOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -273,11 +278,7 @@ class SelectObjectContentOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

@@ -104,8 +104,9 @@ abstract class GetObjectOutput
     );
   }
 
-  factory GetObjectOutput.build(
-      [void Function(GetObjectOutputBuilder) updates]) = _$GetObjectOutput;
+  factory GetObjectOutput.build([
+    void Function(GetObjectOutputBuilder) updates,
+  ]) = _$GetObjectOutput;
 
   const GetObjectOutput._();
 
@@ -113,152 +114,156 @@ abstract class GetObjectOutput
   factory GetObjectOutput.fromResponse(
     _i3.Stream<List<int>> payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      GetObjectOutput.build((b) {
-        b.body = payload;
-        if (response.headers['x-amz-delete-marker'] != null) {
-          b.deleteMarker = response.headers['x-amz-delete-marker']! == 'true';
-        }
-        if (response.headers['accept-ranges'] != null) {
-          b.acceptRanges = response.headers['accept-ranges']!;
-        }
-        if (response.headers['x-amz-expiration'] != null) {
-          b.expiration = response.headers['x-amz-expiration']!;
-        }
-        if (response.headers['x-amz-restore'] != null) {
-          b.restore = response.headers['x-amz-restore']!;
-        }
-        if (response.headers['Last-Modified'] != null) {
-          b.lastModified = _i2.Timestamp.parse(
+  ) => GetObjectOutput.build((b) {
+    b.body = payload;
+    if (response.headers['x-amz-delete-marker'] != null) {
+      b.deleteMarker = response.headers['x-amz-delete-marker']! == 'true';
+    }
+    if (response.headers['accept-ranges'] != null) {
+      b.acceptRanges = response.headers['accept-ranges']!;
+    }
+    if (response.headers['x-amz-expiration'] != null) {
+      b.expiration = response.headers['x-amz-expiration']!;
+    }
+    if (response.headers['x-amz-restore'] != null) {
+      b.restore = response.headers['x-amz-restore']!;
+    }
+    if (response.headers['Last-Modified'] != null) {
+      b.lastModified =
+          _i2.Timestamp.parse(
             response.headers['Last-Modified']!,
             format: _i2.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (response.headers['Content-Length'] != null) {
-          b.contentLength =
-              _i4.Int64.parseInt(response.headers['Content-Length']!);
-        }
-        if (response.headers['ETag'] != null) {
-          b.eTag = response.headers['ETag']!;
-        }
-        if (response.headers['x-amz-checksum-crc32'] != null) {
-          b.checksumCrc32 = response.headers['x-amz-checksum-crc32']!;
-        }
-        if (response.headers['x-amz-checksum-crc32c'] != null) {
-          b.checksumCrc32C = response.headers['x-amz-checksum-crc32c']!;
-        }
-        if (response.headers['x-amz-checksum-sha1'] != null) {
-          b.checksumSha1 = response.headers['x-amz-checksum-sha1']!;
-        }
-        if (response.headers['x-amz-checksum-sha256'] != null) {
-          b.checksumSha256 = response.headers['x-amz-checksum-sha256']!;
-        }
-        if (response.headers['x-amz-missing-meta'] != null) {
-          b.missingMeta = int.parse(response.headers['x-amz-missing-meta']!);
-        }
-        if (response.headers['x-amz-version-id'] != null) {
-          b.versionId = response.headers['x-amz-version-id']!;
-        }
-        if (response.headers['Cache-Control'] != null) {
-          b.cacheControl = response.headers['Cache-Control']!;
-        }
-        if (response.headers['Content-Disposition'] != null) {
-          b.contentDisposition = response.headers['Content-Disposition']!;
-        }
-        if (response.headers['Content-Encoding'] != null) {
-          b.contentEncoding = response.headers['Content-Encoding']!;
-        }
-        if (response.headers['Content-Language'] != null) {
-          b.contentLanguage = response.headers['Content-Language']!;
-        }
-        if (response.headers['Content-Range'] != null) {
-          b.contentRange = response.headers['Content-Range']!;
-        }
-        if (response.headers['Content-Type'] != null) {
-          b.contentType = response.headers['Content-Type']!;
-        }
-        if (response.headers['Expires'] != null) {
-          b.expires = _i2.Timestamp.parse(
+    }
+    if (response.headers['Content-Length'] != null) {
+      b.contentLength = _i4.Int64.parseInt(response.headers['Content-Length']!);
+    }
+    if (response.headers['ETag'] != null) {
+      b.eTag = response.headers['ETag']!;
+    }
+    if (response.headers['x-amz-checksum-crc32'] != null) {
+      b.checksumCrc32 = response.headers['x-amz-checksum-crc32']!;
+    }
+    if (response.headers['x-amz-checksum-crc32c'] != null) {
+      b.checksumCrc32C = response.headers['x-amz-checksum-crc32c']!;
+    }
+    if (response.headers['x-amz-checksum-sha1'] != null) {
+      b.checksumSha1 = response.headers['x-amz-checksum-sha1']!;
+    }
+    if (response.headers['x-amz-checksum-sha256'] != null) {
+      b.checksumSha256 = response.headers['x-amz-checksum-sha256']!;
+    }
+    if (response.headers['x-amz-missing-meta'] != null) {
+      b.missingMeta = int.parse(response.headers['x-amz-missing-meta']!);
+    }
+    if (response.headers['x-amz-version-id'] != null) {
+      b.versionId = response.headers['x-amz-version-id']!;
+    }
+    if (response.headers['Cache-Control'] != null) {
+      b.cacheControl = response.headers['Cache-Control']!;
+    }
+    if (response.headers['Content-Disposition'] != null) {
+      b.contentDisposition = response.headers['Content-Disposition']!;
+    }
+    if (response.headers['Content-Encoding'] != null) {
+      b.contentEncoding = response.headers['Content-Encoding']!;
+    }
+    if (response.headers['Content-Language'] != null) {
+      b.contentLanguage = response.headers['Content-Language']!;
+    }
+    if (response.headers['Content-Range'] != null) {
+      b.contentRange = response.headers['Content-Range']!;
+    }
+    if (response.headers['Content-Type'] != null) {
+      b.contentType = response.headers['Content-Type']!;
+    }
+    if (response.headers['Expires'] != null) {
+      b.expires =
+          _i2.Timestamp.parse(
             response.headers['Expires']!,
             format: _i2.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (response.headers['x-amz-website-redirect-location'] != null) {
-          b.websiteRedirectLocation =
-              response.headers['x-amz-website-redirect-location']!;
-        }
-        if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = ServerSideEncryption.values
-              .byValue(response.headers['x-amz-server-side-encryption']!);
-        }
-        if (response
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = response
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 = response
-              .headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
-            null) {
-          b.ssekmsKeyId =
-              response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
-        }
-        if (response
-                .headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
-            null) {
-          b.bucketKeyEnabled = response.headers[
-                  'x-amz-server-side-encryption-bucket-key-enabled']! ==
-              'true';
-        }
-        if (response.headers['x-amz-storage-class'] != null) {
-          b.storageClass = StorageClass.values
-              .byValue(response.headers['x-amz-storage-class']!);
-        }
-        if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = RequestCharged.values
-              .byValue(response.headers['x-amz-request-charged']!);
-        }
-        if (response.headers['x-amz-replication-status'] != null) {
-          b.replicationStatus = ReplicationStatus.values
-              .byValue(response.headers['x-amz-replication-status']!);
-        }
-        if (response.headers['x-amz-mp-parts-count'] != null) {
-          b.partsCount = int.parse(response.headers['x-amz-mp-parts-count']!);
-        }
-        if (response.headers['x-amz-tagging-count'] != null) {
-          b.tagCount = int.parse(response.headers['x-amz-tagging-count']!);
-        }
-        if (response.headers['x-amz-object-lock-mode'] != null) {
-          b.objectLockMode = ObjectLockMode.values
-              .byValue(response.headers['x-amz-object-lock-mode']!);
-        }
-        if (response.headers['x-amz-object-lock-retain-until-date'] != null) {
-          b.objectLockRetainUntilDate = _i2.Timestamp.parse(
+    }
+    if (response.headers['x-amz-website-redirect-location'] != null) {
+      b.websiteRedirectLocation =
+          response.headers['x-amz-website-redirect-location']!;
+    }
+    if (response.headers['x-amz-server-side-encryption'] != null) {
+      b.serverSideEncryption = ServerSideEncryption.values.byValue(
+        response.headers['x-amz-server-side-encryption']!,
+      );
+    }
+    if (response.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          response.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          response.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
+        null) {
+      b.ssekmsKeyId =
+          response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
+        null) {
+      b.bucketKeyEnabled =
+          response
+              .headers['x-amz-server-side-encryption-bucket-key-enabled']! ==
+          'true';
+    }
+    if (response.headers['x-amz-storage-class'] != null) {
+      b.storageClass = StorageClass.values.byValue(
+        response.headers['x-amz-storage-class']!,
+      );
+    }
+    if (response.headers['x-amz-request-charged'] != null) {
+      b.requestCharged = RequestCharged.values.byValue(
+        response.headers['x-amz-request-charged']!,
+      );
+    }
+    if (response.headers['x-amz-replication-status'] != null) {
+      b.replicationStatus = ReplicationStatus.values.byValue(
+        response.headers['x-amz-replication-status']!,
+      );
+    }
+    if (response.headers['x-amz-mp-parts-count'] != null) {
+      b.partsCount = int.parse(response.headers['x-amz-mp-parts-count']!);
+    }
+    if (response.headers['x-amz-tagging-count'] != null) {
+      b.tagCount = int.parse(response.headers['x-amz-tagging-count']!);
+    }
+    if (response.headers['x-amz-object-lock-mode'] != null) {
+      b.objectLockMode = ObjectLockMode.values.byValue(
+        response.headers['x-amz-object-lock-mode']!,
+      );
+    }
+    if (response.headers['x-amz-object-lock-retain-until-date'] != null) {
+      b.objectLockRetainUntilDate =
+          _i2.Timestamp.parse(
             response.headers['x-amz-object-lock-retain-until-date']!,
             format: _i2.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-        if (response.headers['x-amz-object-lock-legal-hold'] != null) {
-          b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values
-              .byValue(response.headers['x-amz-object-lock-legal-hold']!);
-        }
-        b.metadata.addEntries(response.headers.entries
-            .where((el) => el.key.startsWith('x-amz-meta-'))
-            .map((el) => MapEntry(
-                  el.key.replaceFirst(
-                    'x-amz-meta-',
-                    '',
-                  ),
-                  el.value,
-                )));
-      });
+    }
+    if (response.headers['x-amz-object-lock-legal-hold'] != null) {
+      b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values.byValue(
+        response.headers['x-amz-object-lock-legal-hold']!,
+      );
+    }
+    b.metadata.addEntries(
+      response.headers.entries
+          .where((el) => el.key.startsWith('x-amz-meta-'))
+          .map(
+            (el) => MapEntry(el.key.replaceFirst('x-amz-meta-', ''), el.value),
+          ),
+    );
+  });
 
   static const List<_i2.SmithySerializer<_i3.Stream<List<int>>>> serializers = [
-    GetObjectOutputRestXmlSerializer()
+    GetObjectOutputRestXmlSerializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -420,191 +425,84 @@ abstract class GetObjectOutput
 
   @override
   List<Object?> get props => [
-        body,
-        deleteMarker,
-        acceptRanges,
-        expiration,
-        restore,
-        lastModified,
-        contentLength,
-        eTag,
-        checksumCrc32,
-        checksumCrc32C,
-        checksumSha1,
-        checksumSha256,
-        missingMeta,
-        versionId,
-        cacheControl,
-        contentDisposition,
-        contentEncoding,
-        contentLanguage,
-        contentRange,
-        contentType,
-        expires,
-        websiteRedirectLocation,
-        serverSideEncryption,
-        metadata,
-        sseCustomerAlgorithm,
-        sseCustomerKeyMd5,
-        ssekmsKeyId,
-        bucketKeyEnabled,
-        storageClass,
-        requestCharged,
-        replicationStatus,
-        partsCount,
-        tagCount,
-        objectLockMode,
-        objectLockRetainUntilDate,
-        objectLockLegalHoldStatus,
-      ];
+    body,
+    deleteMarker,
+    acceptRanges,
+    expiration,
+    restore,
+    lastModified,
+    contentLength,
+    eTag,
+    checksumCrc32,
+    checksumCrc32C,
+    checksumSha1,
+    checksumSha256,
+    missingMeta,
+    versionId,
+    cacheControl,
+    contentDisposition,
+    contentEncoding,
+    contentLanguage,
+    contentRange,
+    contentType,
+    expires,
+    websiteRedirectLocation,
+    serverSideEncryption,
+    metadata,
+    sseCustomerAlgorithm,
+    sseCustomerKeyMd5,
+    ssekmsKeyId,
+    bucketKeyEnabled,
+    storageClass,
+    requestCharged,
+    replicationStatus,
+    partsCount,
+    tagCount,
+    objectLockMode,
+    objectLockRetainUntilDate,
+    objectLockLegalHoldStatus,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectOutput')
-      ..add(
-        'body',
-        body,
-      )
-      ..add(
-        'deleteMarker',
-        deleteMarker,
-      )
-      ..add(
-        'acceptRanges',
-        acceptRanges,
-      )
-      ..add(
-        'expiration',
-        expiration,
-      )
-      ..add(
-        'restore',
-        restore,
-      )
-      ..add(
-        'lastModified',
-        lastModified,
-      )
-      ..add(
-        'contentLength',
-        contentLength,
-      )
-      ..add(
-        'eTag',
-        eTag,
-      )
-      ..add(
-        'checksumCrc32',
-        checksumCrc32,
-      )
-      ..add(
-        'checksumCrc32C',
-        checksumCrc32C,
-      )
-      ..add(
-        'checksumSha1',
-        checksumSha1,
-      )
-      ..add(
-        'checksumSha256',
-        checksumSha256,
-      )
-      ..add(
-        'missingMeta',
-        missingMeta,
-      )
-      ..add(
-        'versionId',
-        versionId,
-      )
-      ..add(
-        'cacheControl',
-        cacheControl,
-      )
-      ..add(
-        'contentDisposition',
-        contentDisposition,
-      )
-      ..add(
-        'contentEncoding',
-        contentEncoding,
-      )
-      ..add(
-        'contentLanguage',
-        contentLanguage,
-      )
-      ..add(
-        'contentRange',
-        contentRange,
-      )
-      ..add(
-        'contentType',
-        contentType,
-      )
-      ..add(
-        'expires',
-        expires,
-      )
-      ..add(
-        'websiteRedirectLocation',
-        websiteRedirectLocation,
-      )
-      ..add(
-        'serverSideEncryption',
-        serverSideEncryption,
-      )
-      ..add(
-        'metadata',
-        metadata,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'ssekmsKeyId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'bucketKeyEnabled',
-        bucketKeyEnabled,
-      )
-      ..add(
-        'storageClass',
-        storageClass,
-      )
-      ..add(
-        'requestCharged',
-        requestCharged,
-      )
-      ..add(
-        'replicationStatus',
-        replicationStatus,
-      )
-      ..add(
-        'partsCount',
-        partsCount,
-      )
-      ..add(
-        'tagCount',
-        tagCount,
-      )
-      ..add(
-        'objectLockMode',
-        objectLockMode,
-      )
-      ..add(
-        'objectLockRetainUntilDate',
-        objectLockRetainUntilDate,
-      )
-      ..add(
-        'objectLockLegalHoldStatus',
-        objectLockLegalHoldStatus,
-      );
+    final helper =
+        newBuiltValueToStringHelper('GetObjectOutput')
+          ..add('body', body)
+          ..add('deleteMarker', deleteMarker)
+          ..add('acceptRanges', acceptRanges)
+          ..add('expiration', expiration)
+          ..add('restore', restore)
+          ..add('lastModified', lastModified)
+          ..add('contentLength', contentLength)
+          ..add('eTag', eTag)
+          ..add('checksumCrc32', checksumCrc32)
+          ..add('checksumCrc32C', checksumCrc32C)
+          ..add('checksumSha1', checksumSha1)
+          ..add('checksumSha256', checksumSha256)
+          ..add('missingMeta', missingMeta)
+          ..add('versionId', versionId)
+          ..add('cacheControl', cacheControl)
+          ..add('contentDisposition', contentDisposition)
+          ..add('contentEncoding', contentEncoding)
+          ..add('contentLanguage', contentLanguage)
+          ..add('contentRange', contentRange)
+          ..add('contentType', contentType)
+          ..add('expires', expires)
+          ..add('websiteRedirectLocation', websiteRedirectLocation)
+          ..add('serverSideEncryption', serverSideEncryption)
+          ..add('metadata', metadata)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add('ssekmsKeyId', '***SENSITIVE***')
+          ..add('bucketKeyEnabled', bucketKeyEnabled)
+          ..add('storageClass', storageClass)
+          ..add('requestCharged', requestCharged)
+          ..add('replicationStatus', replicationStatus)
+          ..add('partsCount', partsCount)
+          ..add('tagCount', tagCount)
+          ..add('objectLockMode', objectLockMode)
+          ..add('objectLockRetainUntilDate', objectLockRetainUntilDate)
+          ..add('objectLockLegalHoldStatus', objectLockLegalHoldStatus);
     return helper.toString();
   }
 }
@@ -614,18 +512,12 @@ class GetObjectOutputRestXmlSerializer
   const GetObjectOutputRestXmlSerializer() : super('GetObjectOutput');
 
   @override
-  Iterable<Type> get types => const [
-        GetObjectOutput,
-        _$GetObjectOutput,
-      ];
+  Iterable<Type> get types => const [GetObjectOutput, _$GetObjectOutput];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   _i3.Stream<List<int>> deserialize(
@@ -634,17 +526,12 @@ class GetObjectOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(
-        _i3.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
-    ) as _i3.Stream<List<int>>);
+          serialized,
+          specifiedType: const FullType(_i3.Stream, [
+            FullType(List, [FullType(int)]),
+          ]),
+        )
+        as _i3.Stream<List<int>>);
   }
 
   @override
@@ -657,21 +544,17 @@ class GetObjectOutputRestXmlSerializer
       const _i2.XmlElementName(
         'GetObjectOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
-    result$.add(serializers.serialize(
-      object,
-      specifiedType: const FullType(
-        _i3.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
+    result$.add(
+      serializers.serialize(
+        object,
+        specifiedType: const FullType(_i3.Stream, [
+          FullType(List, [FullType(int)]),
+        ]),
       ),
-    ));
+    );
     return result$;
   }
 }

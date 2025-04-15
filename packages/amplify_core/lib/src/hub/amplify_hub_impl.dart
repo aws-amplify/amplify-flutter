@@ -20,28 +20,34 @@ class AmplifyHubImpl extends AmplifyHub {
 
   static final AmplifyLogger _logger = AmplifyLogger.category(Category.hub);
 
-  final Map<HubChannel<Object?, HubEvent<Object?>>,
-      StreamGroup<HubEvent<Object?>>> _availableStreams = {};
-  final Map<HubChannel<Object?, HubEvent<Object?>>,
-      List<StreamSubscription<Object?>>> _subscriptions = {};
+  final Map<
+    HubChannel<Object?, HubEvent<Object?>>,
+    StreamGroup<HubEvent<Object?>>
+  >
+  _availableStreams = {};
+  final Map<
+    HubChannel<Object?, HubEvent<Object?>>,
+    List<StreamSubscription<Object?>>
+  >
+  _subscriptions = {};
 
   @override
   Map<HubChannel<Object?, HubEvent<Object?>>, Stream<HubEvent<Object?>>>
-      get availableStreams => UnmodifiableMapView({
-            for (final channel in HubChannel.values)
-              channel: _initChannel(channel).stream,
-          });
+  get availableStreams => UnmodifiableMapView({
+    for (final channel in HubChannel.values)
+      channel: _initChannel(channel).stream,
+  });
 
-  StreamGroup<HubEvent<Object?>>
-      _initChannel<HubEventPayload, E extends HubEvent<HubEventPayload>>(
-    HubChannel<HubEventPayload, E> channel,
-  ) {
+  StreamGroup<HubEvent<Object?>> _initChannel<
+    HubEventPayload,
+    E extends HubEvent<HubEventPayload>
+  >(HubChannel<HubEventPayload, E> channel) {
     return _availableStreams[channel] ??= StreamGroup<E>.broadcast();
   }
 
   @override
   StreamSubscription<E>
-      listen<HubEventPayload, E extends HubEvent<HubEventPayload>>(
+  listen<HubEventPayload, E extends HubEvent<HubEventPayload>>(
     HubChannel<HubEventPayload, E> channel,
     HubEventListener<E> listener, {
     Function? onError,
@@ -49,7 +55,8 @@ class AmplifyHubImpl extends AmplifyHub {
     final stream = _initChannel(channel).stream.cast<E>();
     final subscription = stream.listen(
       listener,
-      onError: onError ??
+      onError:
+          onError ??
           (Object? e, StackTrace st) {
             _logger.error('Error in channel $channel', e, st);
           },

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.malformed_map_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,11 +16,13 @@ abstract class MalformedMapInput
     implements Built<MalformedMapInput, MalformedMapInputBuilder> {
   factory MalformedMapInput({Map<String, String>? bodyMap}) {
     return _$MalformedMapInput._(
-        bodyMap: bodyMap == null ? null : _i3.BuiltMap(bodyMap));
+      bodyMap: bodyMap == null ? null : _i3.BuiltMap(bodyMap),
+    );
   }
 
-  factory MalformedMapInput.build(
-      [void Function(MalformedMapInputBuilder) updates]) = _$MalformedMapInput;
+  factory MalformedMapInput.build([
+    void Function(MalformedMapInputBuilder) updates,
+  ]) = _$MalformedMapInput;
 
   const MalformedMapInput._();
 
@@ -28,11 +30,10 @@ abstract class MalformedMapInput
     MalformedMapInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<MalformedMapInput>> serializers = [
-    MalformedMapInputRestJson1Serializer()
+    MalformedMapInputRestJson1Serializer(),
   ];
 
   _i3.BuiltMap<String, String>? get bodyMap;
@@ -45,10 +46,7 @@ abstract class MalformedMapInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedMapInput')
-      ..add(
-        'bodyMap',
-        bodyMap,
-      );
+      ..add('bodyMap', bodyMap);
     return helper.toString();
   }
 }
@@ -58,18 +56,12 @@ class MalformedMapInputRestJson1Serializer
   const MalformedMapInputRestJson1Serializer() : super('MalformedMapInput');
 
   @override
-  Iterable<Type> get types => const [
-        MalformedMapInput,
-        _$MalformedMapInput,
-      ];
+  Iterable<Type> get types => const [MalformedMapInput, _$MalformedMapInput];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedMapInput deserialize(
@@ -88,16 +80,16 @@ class MalformedMapInputRestJson1Serializer
       }
       switch (key) {
         case 'bodyMap':
-          result.bodyMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.bodyMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
       }
     }
 
@@ -115,16 +107,15 @@ class MalformedMapInputRestJson1Serializer
     if (bodyMap != null) {
       result$
         ..add('bodyMap')
-        ..add(serializers.serialize(
-          bodyMap,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            bodyMap,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

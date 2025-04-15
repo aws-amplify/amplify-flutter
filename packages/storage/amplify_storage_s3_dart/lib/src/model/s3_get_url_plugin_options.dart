@@ -17,10 +17,10 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
     bool validateObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
-          expiresIn: expiresIn,
-          validateObjectExistence: validateObjectExistence,
-          useAccelerateEndpoint: useAccelerateEndpoint,
-        );
+         expiresIn: expiresIn,
+         validateObjectExistence: validateObjectExistence,
+         useAccelerateEndpoint: useAccelerateEndpoint,
+       );
 
   const S3GetUrlPluginOptions._({
     this.expiresIn = const Duration(minutes: 15),
@@ -44,10 +44,10 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
 
   @override
   List<Object?> get props => [
-        expiresIn,
-        validateObjectExistence,
-        useAccelerateEndpoint,
-      ];
+    expiresIn,
+    validateObjectExistence,
+    useAccelerateEndpoint,
+  ];
 
   @override
   String get runtimeTypeName => 'S3GetUrlPluginOptions';

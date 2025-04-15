@@ -17,14 +17,10 @@ void asyncTest(
   FutureOr<void> Function(FutureGroup<void> expectations) body, {
   bool? skip,
 }) {
-  testWidgets(
-    description,
-    (_) async {
-      final expectations = FutureGroup<void>();
-      await body(expectations);
-      expectations.close();
-      await expectations.future;
-    },
-    skip: skip,
-  );
+  testWidgets(description, (_) async {
+    final expectations = FutureGroup<void>();
+    await body(expectations);
+    expectations.close();
+    await expectations.future;
+  }, skip: skip);
 }

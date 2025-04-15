@@ -34,7 +34,8 @@ class lowerCase extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -47,11 +48,15 @@ class lowerCase extends amplify_core.Model {
       return _name!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -63,15 +68,20 @@ class lowerCase extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const lowerCase._internal(
-      {required this.id, required name, createdAt, updatedAt})
-      : _name = name,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const lowerCase._internal({
+    required this.id,
+    required name,
+    createdAt,
+    updatedAt,
+  }) : _name = name,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
   factory lowerCase({String? id, required String name}) {
     return lowerCase._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id, name: name);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+    );
   }
 
   bool equals(Object other) {
@@ -94,11 +104,14 @@ class lowerCase extends amplify_core.Model {
     buffer.write("lowerCase {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -110,61 +123,69 @@ class lowerCase extends amplify_core.Model {
 
   lowerCase copyWithModelFieldValues({ModelFieldValue<String>? name}) {
     return lowerCase._internal(
-        id: id, name: name == null ? this.name : name.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+    );
   }
 
   lowerCase.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _name = json['name'],
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<lowerCaseModelIdentifier>
-      MODEL_IDENTIFIER =
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<lowerCaseModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "lowerCase";
-    modelSchemaDefinition.pluralName = "lowerCases";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "lowerCase";
+      modelSchemaDefinition.pluralName = "lowerCases";
 
-    modelSchemaDefinition.authRules = [
-      amplify_core.AuthRule(
+      modelSchemaDefinition.authRules = [
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PUBLIC,
           provider: amplify_core.AuthRuleProvider.APIKEY,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PUBLIC,
           provider: amplify_core.AuthRuleProvider.IAM,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
           provider: amplify_core.AuthRuleProvider.IAM,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
           provider: amplify_core.AuthRuleProvider.USERPOOLS,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
@@ -173,38 +194,50 @@ class lowerCase extends amplify_core.Model {
             amplify_core.ModelOperation.READ,
             amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.UPDATE,
-            amplify_core.ModelOperation.DELETE
-          ])
-    ];
+            amplify_core.ModelOperation.DELETE,
+          ],
+        ),
+      ];
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id"], name: null)
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(fields: const ["id"], name: null),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: lowerCase.NAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: lowerCase.NAME,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _lowerCaseModelType extends amplify_core.ModelType<lowerCase> {
@@ -236,10 +269,10 @@ class lowerCaseModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

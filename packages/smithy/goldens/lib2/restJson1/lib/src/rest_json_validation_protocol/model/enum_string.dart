@@ -1,42 +1,22 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_validation_protocol.model.enum_string; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class EnumString extends _i1.SmithyEnum<EnumString> {
-  const EnumString._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const EnumString._(super.index, super.name, super.value);
 
   const EnumString._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const abc = EnumString._(
-    0,
-    'ABC',
-    'abc',
-  );
+  static const abc = EnumString._(0, 'ABC', 'abc');
 
-  static const def = EnumString._(
-    1,
-    'DEF',
-    'def',
-  );
+  static const def = EnumString._(1, 'DEF', 'def');
 
-  static const ghi = EnumString._(
-    2,
-    'GHI',
-    'ghi',
-  );
+  static const ghi = EnumString._(2, 'GHI', 'ghi');
 
-  static const jkl = EnumString._(
-    3,
-    'JKL',
-    'jkl',
-  );
+  static const jkl = EnumString._(3, 'JKL', 'jkl');
 
   /// All values of [EnumString].
   static const values = <EnumString>[
@@ -52,12 +32,9 @@ class EnumString extends _i1.SmithyEnum<EnumString> {
       values: values,
       sdkUnknown: EnumString._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

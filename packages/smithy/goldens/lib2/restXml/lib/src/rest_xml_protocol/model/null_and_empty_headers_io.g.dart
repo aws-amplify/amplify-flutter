@@ -14,16 +14,16 @@ class _$NullAndEmptyHeadersIo extends NullAndEmptyHeadersIo {
   @override
   final _i3.BuiltList<String>? c;
 
-  factory _$NullAndEmptyHeadersIo(
-          [void Function(NullAndEmptyHeadersIoBuilder)? updates]) =>
-      (new NullAndEmptyHeadersIoBuilder()..update(updates))._build();
+  factory _$NullAndEmptyHeadersIo([
+    void Function(NullAndEmptyHeadersIoBuilder)? updates,
+  ]) => (new NullAndEmptyHeadersIoBuilder()..update(updates))._build();
 
   _$NullAndEmptyHeadersIo._({this.a, this.b, this.c}) : super._();
 
   @override
   NullAndEmptyHeadersIo rebuild(
-          void Function(NullAndEmptyHeadersIoBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NullAndEmptyHeadersIoBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NullAndEmptyHeadersIoBuilder toBuilder() =>
@@ -104,7 +104,10 @@ class NullAndEmptyHeadersIoBuilder
         _c?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'NullAndEmptyHeadersIo', _$failedField, e.toString());
+          r'NullAndEmptyHeadersIo',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -114,16 +117,16 @@ class NullAndEmptyHeadersIoBuilder
 }
 
 class _$NullAndEmptyHeadersIoPayload extends NullAndEmptyHeadersIoPayload {
-  factory _$NullAndEmptyHeadersIoPayload(
-          [void Function(NullAndEmptyHeadersIoPayloadBuilder)? updates]) =>
-      (new NullAndEmptyHeadersIoPayloadBuilder()..update(updates))._build();
+  factory _$NullAndEmptyHeadersIoPayload([
+    void Function(NullAndEmptyHeadersIoPayloadBuilder)? updates,
+  ]) => (new NullAndEmptyHeadersIoPayloadBuilder()..update(updates))._build();
 
   _$NullAndEmptyHeadersIoPayload._() : super._();
 
   @override
   NullAndEmptyHeadersIoPayload rebuild(
-          void Function(NullAndEmptyHeadersIoPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NullAndEmptyHeadersIoPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NullAndEmptyHeadersIoPayloadBuilder toBuilder() =>
@@ -143,8 +146,10 @@ class _$NullAndEmptyHeadersIoPayload extends NullAndEmptyHeadersIoPayload {
 
 class NullAndEmptyHeadersIoPayloadBuilder
     implements
-        Builder<NullAndEmptyHeadersIoPayload,
-            NullAndEmptyHeadersIoPayloadBuilder> {
+        Builder<
+          NullAndEmptyHeadersIoPayload,
+          NullAndEmptyHeadersIoPayloadBuilder
+        > {
   _$NullAndEmptyHeadersIoPayload? _$v;
 
   NullAndEmptyHeadersIoPayloadBuilder();

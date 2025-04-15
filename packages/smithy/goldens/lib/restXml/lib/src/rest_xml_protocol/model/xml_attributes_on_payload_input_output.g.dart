@@ -11,8 +11,9 @@ class _$XmlAttributesOnPayloadInputOutput
   @override
   final XmlAttributesInputOutput? payload;
 
-  factory _$XmlAttributesOnPayloadInputOutput(
-          [void Function(XmlAttributesOnPayloadInputOutputBuilder)? updates]) =>
+  factory _$XmlAttributesOnPayloadInputOutput([
+    void Function(XmlAttributesOnPayloadInputOutputBuilder)? updates,
+  ]) =>
       (new XmlAttributesOnPayloadInputOutputBuilder()..update(updates))
           ._build();
 
@@ -20,8 +21,8 @@ class _$XmlAttributesOnPayloadInputOutput
 
   @override
   XmlAttributesOnPayloadInputOutput rebuild(
-          void Function(XmlAttributesOnPayloadInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlAttributesOnPayloadInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlAttributesOnPayloadInputOutputBuilder toBuilder() =>
@@ -45,8 +46,10 @@ class _$XmlAttributesOnPayloadInputOutput
 
 class XmlAttributesOnPayloadInputOutputBuilder
     implements
-        Builder<XmlAttributesOnPayloadInputOutput,
-            XmlAttributesOnPayloadInputOutputBuilder> {
+        Builder<
+          XmlAttributesOnPayloadInputOutput,
+          XmlAttributesOnPayloadInputOutputBuilder
+        > {
   _$XmlAttributesOnPayloadInputOutput? _$v;
 
   XmlAttributesInputOutputBuilder? _payload;
@@ -74,7 +77,8 @@ class XmlAttributesOnPayloadInputOutputBuilder
 
   @override
   void update(
-      void Function(XmlAttributesOnPayloadInputOutputBuilder)? updates) {
+    void Function(XmlAttributesOnPayloadInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -84,7 +88,8 @@ class XmlAttributesOnPayloadInputOutputBuilder
   _$XmlAttributesOnPayloadInputOutput _build() {
     _$XmlAttributesOnPayloadInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$XmlAttributesOnPayloadInputOutput._(payload: _payload?.build());
     } catch (_) {
       late String _$failedField;
@@ -93,7 +98,10 @@ class XmlAttributesOnPayloadInputOutputBuilder
         _payload?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlAttributesOnPayloadInputOutput', _$failedField, e.toString());
+          r'XmlAttributesOnPayloadInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

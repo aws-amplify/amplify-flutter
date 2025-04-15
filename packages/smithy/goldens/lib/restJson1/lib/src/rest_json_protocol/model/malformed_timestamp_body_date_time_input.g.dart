@@ -11,22 +11,25 @@ class _$MalformedTimestampBodyDateTimeInput
   @override
   final DateTime timestamp;
 
-  factory _$MalformedTimestampBodyDateTimeInput(
-          [void Function(MalformedTimestampBodyDateTimeInputBuilder)?
-              updates]) =>
+  factory _$MalformedTimestampBodyDateTimeInput([
+    void Function(MalformedTimestampBodyDateTimeInputBuilder)? updates,
+  ]) =>
       (new MalformedTimestampBodyDateTimeInputBuilder()..update(updates))
           ._build();
 
   _$MalformedTimestampBodyDateTimeInput._({required this.timestamp})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        timestamp, r'MalformedTimestampBodyDateTimeInput', 'timestamp');
+      timestamp,
+      r'MalformedTimestampBodyDateTimeInput',
+      'timestamp',
+    );
   }
 
   @override
   MalformedTimestampBodyDateTimeInput rebuild(
-          void Function(MalformedTimestampBodyDateTimeInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedTimestampBodyDateTimeInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedTimestampBodyDateTimeInputBuilder toBuilder() =>
@@ -50,8 +53,10 @@ class _$MalformedTimestampBodyDateTimeInput
 
 class MalformedTimestampBodyDateTimeInputBuilder
     implements
-        Builder<MalformedTimestampBodyDateTimeInput,
-            MalformedTimestampBodyDateTimeInputBuilder> {
+        Builder<
+          MalformedTimestampBodyDateTimeInput,
+          MalformedTimestampBodyDateTimeInputBuilder
+        > {
   _$MalformedTimestampBodyDateTimeInput? _$v;
 
   DateTime? _timestamp;
@@ -77,7 +82,8 @@ class MalformedTimestampBodyDateTimeInputBuilder
 
   @override
   void update(
-      void Function(MalformedTimestampBodyDateTimeInputBuilder)? updates) {
+    void Function(MalformedTimestampBodyDateTimeInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -85,10 +91,15 @@ class MalformedTimestampBodyDateTimeInputBuilder
   MalformedTimestampBodyDateTimeInput build() => _build();
 
   _$MalformedTimestampBodyDateTimeInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MalformedTimestampBodyDateTimeInput._(
-            timestamp: BuiltValueNullFieldError.checkNotNull(timestamp,
-                r'MalformedTimestampBodyDateTimeInput', 'timestamp'));
+          timestamp: BuiltValueNullFieldError.checkNotNull(
+            timestamp,
+            r'MalformedTimestampBodyDateTimeInput',
+            'timestamp',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

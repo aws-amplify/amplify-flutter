@@ -17,15 +17,21 @@ class _$SignUpResponse extends SignUpResponse {
   factory _$SignUpResponse([void Function(SignUpResponseBuilder)? updates]) =>
       (new SignUpResponseBuilder()..update(updates))._build();
 
-  _$SignUpResponse._(
-      {required this.userConfirmed,
-      this.codeDeliveryDetails,
-      required this.userSub})
-      : super._() {
+  _$SignUpResponse._({
+    required this.userConfirmed,
+    this.codeDeliveryDetails,
+    required this.userSub,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        userConfirmed, r'SignUpResponse', 'userConfirmed');
+      userConfirmed,
+      r'SignUpResponse',
+      'userConfirmed',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        userSub, r'SignUpResponse', 'userSub');
+      userSub,
+      r'SignUpResponse',
+      'userSub',
+    );
   }
 
   @override
@@ -69,8 +75,8 @@ class SignUpResponseBuilder
   CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
       _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
-          CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
-      _$this._codeDeliveryDetails = codeDeliveryDetails;
+    CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
+  ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   String? _userSub;
   String? get userSub => _$this._userSub;
@@ -108,13 +114,20 @@ class SignUpResponseBuilder
   _$SignUpResponse _build() {
     _$SignUpResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$SignUpResponse._(
             userConfirmed: BuiltValueNullFieldError.checkNotNull(
-                userConfirmed, r'SignUpResponse', 'userConfirmed'),
+              userConfirmed,
+              r'SignUpResponse',
+              'userConfirmed',
+            ),
             codeDeliveryDetails: _codeDeliveryDetails?.build(),
             userSub: BuiltValueNullFieldError.checkNotNull(
-                userSub, r'SignUpResponse', 'userSub'),
+              userSub,
+              r'SignUpResponse',
+              'userSub',
+            ),
           );
     } catch (_) {
       late String _$failedField;
@@ -123,7 +136,10 @@ class SignUpResponseBuilder
         _codeDeliveryDetails?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'SignUpResponse', _$failedField, e.toString());
+          r'SignUpResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

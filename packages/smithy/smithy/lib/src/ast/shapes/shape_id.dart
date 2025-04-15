@@ -8,22 +8,18 @@ import 'package:json_annotation/json_annotation.dart';
 const coreNamespace = 'smithy.api';
 
 class ShapeId with AWSEquatable<ShapeId>, AWSSerializable {
-  const ShapeId({
-    required this.namespace,
-    required this.shape,
-    this.member,
-  });
+  const ShapeId({required this.namespace, required this.shape, this.member});
 
   const ShapeId.core(this.shape, [this.member]) : namespace = coreNamespace;
 
   factory ShapeId.parse(String shapeId) => ShapeId(
-        namespace: shapeId.split('#').first,
-        shape: shapeId.substring(
-          shapeId.indexOf('#') + 1,
-          shapeId.contains(r'$') ? shapeId.indexOf(r'$') : shapeId.length,
-        ),
-        member: shapeId.contains(r'$') ? shapeId.split(r'$').last : null,
-      );
+    namespace: shapeId.split('#').first,
+    shape: shapeId.substring(
+      shapeId.indexOf('#') + 1,
+      shapeId.contains(r'$') ? shapeId.indexOf(r'$') : shapeId.length,
+    ),
+    member: shapeId.contains(r'$') ? shapeId.split(r'$').last : null,
+  );
 
   static const empty = ShapeId(namespace: '', shape: '');
   static final serializer = ShapeIdSerializer();
@@ -43,9 +39,10 @@ class ShapeId with AWSEquatable<ShapeId>, AWSSerializable {
     return ShapeId(
       namespace: namespace ?? this.namespace,
       shape: shape ?? this.shape,
-      member: member is String
-          ? member
-          : member == const Object()
+      member:
+          member is String
+              ? member
+              : member == const Object()
               ? this.member
               : null,
     );

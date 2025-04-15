@@ -46,10 +46,12 @@ class TraitMapSerializer extends StructuredSerializer<TraitMap> {
     final traitMap = TraitMap({});
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final shapeId = serializers.deserializeWith(
-        ShapeId.serializer,
-        iterator.current as String,
-      ) as ShapeId;
+      final shapeId =
+          serializers.deserializeWith(
+                ShapeId.serializer,
+                iterator.current as String,
+              )
+              as ShapeId;
       iterator.moveNext();
       final value = iterator.current;
       traitMap[shapeId] = Trait.fromJson(shapeId, value);

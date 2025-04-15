@@ -220,15 +220,13 @@ extension CognitoIdToken on JsonWebToken {
   ///
   /// [Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-the-id-token.html)
   Map<CognitoUserAttributeKey, Object> get customAttributes => Map.fromEntries(
-        claims.customClaims.entries
-            .where(
-              (entry) => CognitoUserAttributeKey.hasCustomPrefix(entry.key),
-            )
-            .map(
-              (entry) => MapEntry(
-                CognitoUserAttributeKey.custom(entry.key),
-                entry.value ?? '',
-              ),
-            ),
-      );
+    claims.customClaims.entries
+        .where((entry) => CognitoUserAttributeKey.hasCustomPrefix(entry.key))
+        .map(
+          (entry) => MapEntry(
+            CognitoUserAttributeKey.custom(entry.key),
+            entry.value ?? '',
+          ),
+        ),
+  );
 }

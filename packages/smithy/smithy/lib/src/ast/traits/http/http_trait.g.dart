@@ -7,13 +7,13 @@ part of 'http_trait.dart';
 // **************************************************************************
 
 HttpTrait _$HttpTraitFromJson(Map<String, dynamic> json) => HttpTrait(
-      method: json['method'] as String,
-      uri: json['uri'] as String,
-      code: (json['code'] as num?)?.toInt() ?? 200,
-    );
+  method: json['method'] as String,
+  uri: json['uri'] as String,
+  code: (json['code'] as num?)?.toInt() ?? 200,
+);
 
 Map<String, dynamic> _$HttpTraitToJson(HttpTrait instance) => <String, dynamic>{
-      'method': instance.method,
-      'uri': instance.uri,
-      'code': instance.code,
-    };
+  'method': instance.method,
+  'uri': instance.uri,
+  'code': instance.code,
+};

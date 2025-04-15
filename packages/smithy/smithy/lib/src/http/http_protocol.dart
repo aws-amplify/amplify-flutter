@@ -21,9 +21,7 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
   String get contentType;
 
   /// Protocol headers
-  Map<String, String> get headers => {
-        AWSHeaders.contentType: contentType,
-      };
+  Map<String, String> get headers => {AWSHeaders.contentType: contentType};
 
   Serializers get serializers;
 
@@ -58,37 +56,39 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
       List<int> _ => Stream.value(payload),
       Stream<List<int>> _ => payload,
       _ => Stream.fromFuture(
-          Future.value(
-            wireSerializer.serialize(
-              payload,
-              // Even though we're serializing the payload, specify the
-              // [Input] type since the semantics of serializing [Input]
-              // vs [InputPayload] vary. For example, some traits
-              // may only apply to the payload when serializing it as part
-              // of an [Input] struct vs. when directly serialized.
-              //
-              // We further pass the [InputPayloas] so that our built_value plugins
-              // have both types which is helpful when making determinations
-              // about how to, for example, process a List<Object?> which
-              // could represent either a Map or a List.
-              specifiedType: FullType(Input, [FullType(InputPayload)]),
-            ),
+        Future.value(
+          wireSerializer.serialize(
+            payload,
+            // Even though we're serializing the payload, specify the
+            // [Input] type since the semantics of serializing [Input]
+            // vs [InputPayload] vary. For example, some traits
+            // may only apply to the payload when serializing it as part
+            // of an [Input] struct vs. when directly serialized.
+            //
+            // We further pass the [InputPayloas] so that our built_value plugins
+            // have both types which is helpful when making determinations
+            // about how to, for example, process a List<Object?> which
+            // could represent either a Map or a List.
+            specifiedType: FullType(Input, [FullType(InputPayload)]),
           ),
         ),
+      ),
     };
   }
 
   /// Deserializes an HTTP [response] body to an [OutputPayload].
   Future<OutputPayload> deserialize(Stream<List<int>> response) async {
     return switch (OutputPayload) {
-      const (Stream<List<int>>) => response,
-      const (List<int>) || const (Uint8List) => await collectBytes(response),
-      const (String) => await utf8.decodeStream(response),
-      _ => await wireSerializer.deserialize(
-          await collectBytes(response),
-          specifiedType: FullType(OutputPayload),
-        ),
-    } as OutputPayload;
+          const (Stream<List<int>>) => response,
+          const (List<int>) ||
+          const (Uint8List) => await collectBytes(response),
+          const (String) => await utf8.decodeStream(response),
+          _ => await wireSerializer.deserialize(
+            await collectBytes(response),
+            specifiedType: FullType(OutputPayload),
+          ),
+        }
+        as OutputPayload;
   }
 }
 
@@ -115,7 +115,6 @@ String sanitizeHeader(String headerValue, {bool isTimestampList = false}) {
   if ((headerValue.contains(',') ||
           headerValue.contains('\'') ||
           headerValue.contains('"')) &&
-
       // Timestamp lists do not get escaped for some reason.
       !isTimestampList) {
     return '"${headerValue.replaceAll('"', r'\"')}"';

@@ -28,8 +28,8 @@ class UnknownSmithyHttpException extends SmithyHttpException {
     required this.statusCode,
     required this.body,
     Map<String, String>? headers,
-  })  : headers = headers ?? const {},
-        super._();
+  }) : headers = headers ?? const {},
+       super._();
 
   @override
   final int statusCode;

@@ -29,10 +29,7 @@ class S3UploadFilePluginOptions extends StorageUploadFilePluginOptions {
   final bool useAccelerateEndpoint;
 
   @override
-  List<Object?> get props => [
-        getProperties,
-        useAccelerateEndpoint,
-      ];
+  List<Object?> get props => [getProperties, useAccelerateEndpoint];
 
   @override
   String get runtimeTypeName => 'S3UploadFilePluginOptions';

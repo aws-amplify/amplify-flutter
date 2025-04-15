@@ -36,9 +36,8 @@ sealed class FetchAuthSessionState
   const factory FetchAuthSessionState.refreshing() = FetchAuthSessionRefreshing;
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_success}
-  const factory FetchAuthSessionState.success(
-    CognitoAuthSession session,
-  ) = FetchAuthSessionSuccess;
+  const factory FetchAuthSessionState.success(CognitoAuthSession session) =
+      FetchAuthSessionSuccess;
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_failure}
   const factory FetchAuthSessionState.failure(

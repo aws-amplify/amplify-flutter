@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-Future<List<int>> readFile({
-  required String path,
-}) async {
+Future<List<int>> readFile({required String path}) async {
   throw UnimplementedError();
 }

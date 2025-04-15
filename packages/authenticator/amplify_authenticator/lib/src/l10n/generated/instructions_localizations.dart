@@ -62,7 +62,7 @@ import 'package:intl/intl.dart' as intl;
 /// property.
 abstract class AuthenticatorInstructionsLocalizations {
   AuthenticatorInstructionsLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale);
+    : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
@@ -74,7 +74,7 @@ abstract class AuthenticatorInstructionsLocalizations {
   }
 
   static const LocalizationsDelegate<AuthenticatorInstructionsLocalizations>
-      delegate = _AuthenticatorInstructionsLocalizationsDelegate();
+  delegate = _AuthenticatorInstructionsLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -88,16 +88,14 @@ abstract class AuthenticatorInstructionsLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
   /// The title for the first step of TOTP setup
   ///
@@ -155,19 +153,20 @@ class _AuthenticatorInstructionsLocalizationsDelegate
 }
 
 Future<AuthenticatorInstructionsLocalizations>
-    lookupAuthenticatorInstructionsLocalizations(Locale locale) {
+lookupAuthenticatorInstructionsLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
       return instructions_localizations_en.loadLibrary().then(
-            (dynamic _) => instructions_localizations_en
-                .AuthenticatorInstructionsLocalizationsEn(),
-          );
+        (dynamic _) =>
+            instructions_localizations_en.AuthenticatorInstructionsLocalizationsEn(),
+      );
   }
 
   throw FlutterError(
-      'AuthenticatorInstructionsLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AuthenticatorInstructionsLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

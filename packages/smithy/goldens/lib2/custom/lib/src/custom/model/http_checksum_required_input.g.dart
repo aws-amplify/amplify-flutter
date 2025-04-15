@@ -10,16 +10,16 @@ class _$HttpChecksumRequiredInput extends HttpChecksumRequiredInput {
   @override
   final _i2.Uint8List? content;
 
-  factory _$HttpChecksumRequiredInput(
-          [void Function(HttpChecksumRequiredInputBuilder)? updates]) =>
-      (new HttpChecksumRequiredInputBuilder()..update(updates))._build();
+  factory _$HttpChecksumRequiredInput([
+    void Function(HttpChecksumRequiredInputBuilder)? updates,
+  ]) => (new HttpChecksumRequiredInputBuilder()..update(updates))._build();
 
   _$HttpChecksumRequiredInput._({this.content}) : super._();
 
   @override
   HttpChecksumRequiredInput rebuild(
-          void Function(HttpChecksumRequiredInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpChecksumRequiredInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpChecksumRequiredInputBuilder toBuilder() =>

@@ -27,7 +27,7 @@ abstract class ProgressEvent
   const ProgressEvent._();
 
   static const List<_i2.SmithySerializer<ProgressEvent>> serializers = [
-    ProgressEventRestXmlSerializer()
+    ProgressEventRestXmlSerializer(),
   ];
 
   /// The Progress event details.
@@ -38,10 +38,7 @@ abstract class ProgressEvent
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ProgressEvent')
-      ..add(
-        'details',
-        details,
-      );
+      ..add('details', details);
     return helper.toString();
   }
 }
@@ -51,18 +48,12 @@ class ProgressEventRestXmlSerializer
   const ProgressEventRestXmlSerializer() : super('ProgressEvent');
 
   @override
-  Iterable<Type> get types => const [
-        ProgressEvent,
-        _$ProgressEvent,
-      ];
+  Iterable<Type> get types => const [ProgressEvent, _$ProgressEvent];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ProgressEvent deserialize(
@@ -81,10 +72,13 @@ class ProgressEventRestXmlSerializer
       }
       switch (key) {
         case 'Details':
-          result.details.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(Progress),
-          ) as Progress));
+          result.details.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(Progress),
+                )
+                as Progress),
+          );
       }
     }
 
@@ -101,16 +95,18 @@ class ProgressEventRestXmlSerializer
       const _i2.XmlElementName(
         'ProgressEvent',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final ProgressEvent(:details) = object;
     if (details != null) {
       result$
         ..add(const _i2.XmlElementName('Details'))
-        ..add(serializers.serialize(
-          details,
-          specifiedType: const FullType(Progress),
-        ));
+        ..add(
+          serializers.serialize(
+            details,
+            specifiedType: const FullType(Progress),
+          ),
+        );
     }
     return result$;
   }

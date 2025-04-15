@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_validation_protocol.model.enum_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,13 +15,11 @@ sealed class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
 
   const factory EnumUnion.second(EnumString second) = EnumUnionSecond$;
 
-  const factory EnumUnion.sdkUnknown(
-    String name,
-    Object value,
-  ) = EnumUnionSdkUnknown$;
+  const factory EnumUnion.sdkUnknown(String name, Object value) =
+      EnumUnionSdkUnknown$;
 
   static const List<_i1.SmithySerializer<EnumUnion>> serializers = [
-    EnumUnionRestJson1Serializer()
+    EnumUnionRestJson1Serializer(),
   ];
 
   EnumString? get first => null;
@@ -35,16 +33,10 @@ sealed class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
   String toString() {
     final helper = newBuiltValueToStringHelper(r'EnumUnion');
     if (first != null) {
-      helper.add(
-        r'first',
-        first,
-      );
+      helper.add(r'first', first);
     }
     if (second != null) {
-      helper.add(
-        r'second',
-        second,
-      );
+      helper.add(r'second', second);
     }
     return helper.toString();
   }
@@ -71,10 +63,7 @@ final class EnumUnionSecond$ extends EnumUnion {
 }
 
 final class EnumUnionSdkUnknown$ extends EnumUnion {
-  const EnumUnionSdkUnknown$(
-    this.name,
-    this.value,
-  ) : super._();
+  const EnumUnionSdkUnknown$(this.name, this.value) : super._();
 
   @override
   final String name;
@@ -89,18 +78,15 @@ class EnumUnionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        EnumUnion,
-        EnumUnionFirst$,
-        EnumUnionSecond$,
-      ];
+    EnumUnion,
+    EnumUnionFirst$,
+    EnumUnionSecond$,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   EnumUnion deserialize(
@@ -111,20 +97,23 @@ class EnumUnionRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'first':
-        return EnumUnionFirst$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(EnumString),
-        ) as EnumString));
+        return EnumUnionFirst$(
+          (serializers.deserialize(
+                value,
+                specifiedType: const FullType(EnumString),
+              )
+              as EnumString),
+        );
       case 'second':
-        return EnumUnionSecond$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(EnumString),
-        ) as EnumString));
+        return EnumUnionSecond$(
+          (serializers.deserialize(
+                value,
+                specifiedType: const FullType(EnumString),
+              )
+              as EnumString),
+        );
     }
-    return EnumUnion.sdkUnknown(
-      key,
-      value,
-    );
+    return EnumUnion.sdkUnknown(key, value);
   }
 
   @override
@@ -137,13 +126,13 @@ class EnumUnionRestJson1Serializer
       object.name,
       switch (object) {
         EnumUnionFirst$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(EnumString),
-          ),
+          value,
+          specifiedType: const FullType(EnumString),
+        ),
         EnumUnionSecond$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(EnumString),
-          ),
+          value,
+          specifiedType: const FullType(EnumString),
+        ),
         EnumUnionSdkUnknown$(:final value) => value,
       },
     ];

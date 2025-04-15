@@ -8,6 +8,8 @@ class ClientEndpointDiscoveryIdTrait extends AnnotationTrait {
 
   const ClientEndpointDiscoveryIdTrait.fromJson(Object? json) : super(id);
 
-  static const id =
-      ShapeId(namespace: 'aws.api', shape: 'clientEndpointDiscoveryId');
+  static const id = ShapeId(
+    namespace: 'aws.api',
+    shape: 'clientEndpointDiscoveryId',
+  );
 }

@@ -13,20 +13,21 @@ class _$HttpChecksumRequiredWithMemberInput
   @override
   final _i2.Uint8List? content;
 
-  factory _$HttpChecksumRequiredWithMemberInput(
-          [void Function(HttpChecksumRequiredWithMemberInputBuilder)?
-              updates]) =>
+  factory _$HttpChecksumRequiredWithMemberInput([
+    void Function(HttpChecksumRequiredWithMemberInputBuilder)? updates,
+  ]) =>
       (new HttpChecksumRequiredWithMemberInputBuilder()..update(updates))
           ._build();
 
-  _$HttpChecksumRequiredWithMemberInput._(
-      {this.checksumAlgorithm, this.content})
-      : super._();
+  _$HttpChecksumRequiredWithMemberInput._({
+    this.checksumAlgorithm,
+    this.content,
+  }) : super._();
 
   @override
   HttpChecksumRequiredWithMemberInput rebuild(
-          void Function(HttpChecksumRequiredWithMemberInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpChecksumRequiredWithMemberInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpChecksumRequiredWithMemberInputBuilder toBuilder() =>
@@ -52,8 +53,10 @@ class _$HttpChecksumRequiredWithMemberInput
 
 class HttpChecksumRequiredWithMemberInputBuilder
     implements
-        Builder<HttpChecksumRequiredWithMemberInput,
-            HttpChecksumRequiredWithMemberInputBuilder> {
+        Builder<
+          HttpChecksumRequiredWithMemberInput,
+          HttpChecksumRequiredWithMemberInputBuilder
+        > {
   _$HttpChecksumRequiredWithMemberInput? _$v;
 
   ChecksumAlgorithm? _checksumAlgorithm;
@@ -85,7 +88,8 @@ class HttpChecksumRequiredWithMemberInputBuilder
 
   @override
   void update(
-      void Function(HttpChecksumRequiredWithMemberInputBuilder)? updates) {
+    void Function(HttpChecksumRequiredWithMemberInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -93,9 +97,12 @@ class HttpChecksumRequiredWithMemberInputBuilder
   HttpChecksumRequiredWithMemberInput build() => _build();
 
   _$HttpChecksumRequiredWithMemberInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$HttpChecksumRequiredWithMemberInput._(
-            checksumAlgorithm: checksumAlgorithm, content: content);
+          checksumAlgorithm: checksumAlgorithm,
+          content: content,
+        );
     replace(_$result);
     return _$result;
   }

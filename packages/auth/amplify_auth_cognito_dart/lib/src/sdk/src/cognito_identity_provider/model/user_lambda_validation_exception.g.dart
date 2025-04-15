@@ -12,16 +12,16 @@ class _$UserLambdaValidationException extends UserLambdaValidationException {
   @override
   final Map<String, String>? headers;
 
-  factory _$UserLambdaValidationException(
-          [void Function(UserLambdaValidationExceptionBuilder)? updates]) =>
-      (new UserLambdaValidationExceptionBuilder()..update(updates))._build();
+  factory _$UserLambdaValidationException([
+    void Function(UserLambdaValidationExceptionBuilder)? updates,
+  ]) => (new UserLambdaValidationExceptionBuilder()..update(updates))._build();
 
   _$UserLambdaValidationException._({this.message, this.headers}) : super._();
 
   @override
   UserLambdaValidationException rebuild(
-          void Function(UserLambdaValidationExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UserLambdaValidationExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UserLambdaValidationExceptionBuilder toBuilder() =>
@@ -44,8 +44,10 @@ class _$UserLambdaValidationException extends UserLambdaValidationException {
 
 class UserLambdaValidationExceptionBuilder
     implements
-        Builder<UserLambdaValidationException,
-            UserLambdaValidationExceptionBuilder> {
+        Builder<
+          UserLambdaValidationException,
+          UserLambdaValidationExceptionBuilder
+        > {
   _$UserLambdaValidationException? _$v;
 
   String? _message;
@@ -83,7 +85,8 @@ class UserLambdaValidationExceptionBuilder
   UserLambdaValidationException build() => _build();
 
   _$UserLambdaValidationException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$UserLambdaValidationException._(
           message: message,
           headers: headers,

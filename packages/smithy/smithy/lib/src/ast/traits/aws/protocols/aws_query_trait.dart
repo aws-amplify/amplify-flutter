@@ -8,11 +8,7 @@ part 'aws_query_trait.g.dart';
 
 @JsonSerializable()
 class AwsQueryTrait extends AWSProtocolTrait {
-  const AwsQueryTrait()
-      : super(
-          id,
-          timestampFormat: TimestampFormat.dateTime,
-        );
+  const AwsQueryTrait() : super(id, timestampFormat: TimestampFormat.dateTime);
 
   factory AwsQueryTrait.fromJson(Object? json) =>
       _$AwsQueryTraitFromJson((json as Map).cast<String, Object?>());
@@ -24,17 +20,17 @@ class AwsQueryTrait extends AWSProtocolTrait {
 
   @override
   List<ShapeId> get traits => const [
-        CorsTrait.id,
-        EndpointTrait.id,
-        HostLabelTrait.id,
-        XmlAttributeTrait.id,
-        XmlFlattenedTrait.id,
-        XmlNameTrait.id,
-        XmlNamespaceTrait.id,
-        TimestampFormatTrait.id,
-        AwsQueryErrorTrait.id,
-        AwsQueryCompatibleTrait.id,
-      ];
+    CorsTrait.id,
+    EndpointTrait.id,
+    HostLabelTrait.id,
+    XmlAttributeTrait.id,
+    XmlFlattenedTrait.id,
+    XmlNameTrait.id,
+    XmlNamespaceTrait.id,
+    TimestampFormatTrait.id,
+    AwsQueryErrorTrait.id,
+    AwsQueryCompatibleTrait.id,
+  ];
 }
 
 @JsonSerializable()

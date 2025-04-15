@@ -88,8 +88,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
 ///
 /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
-    UploadPartRequest, UploadPartOutputPayload, UploadPartOutput> {
+class UploadPartOperation
+    extends
+        _i1.HttpOperation<
+          _i2.Stream<List<int>>,
+          UploadPartRequest,
+          UploadPartOutputPayload,
+          UploadPartOutput
+        > {
   /// Uploads a part in a multipart upload.
   ///
   /// In this operation, you provide new data as a part of an object in your request. However, you have an option to specify your existing Amazon S3 object as a data source for the part you are uploading. To upload a part from an existing object, you use the [UploadPartCopy](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html) operation.
@@ -172,27 +178,35 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
         const _i4.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.Stream<List<int>>, UploadPartRequest,
-          UploadPartOutputPayload, UploadPartOutput>> protocols = [
+    _i1.HttpProtocol<
+      _i2.Stream<List<int>>,
+      UploadPartRequest,
+      UploadPartOutputPayload,
+      UploadPartOutput
+    >
+  >
+  protocols = [
     _i3.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i3.WithSigV4(
               region: _region,
               service: _i5.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i4.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -203,7 +217,7 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -225,85 +239,80 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
 
   @override
   _i1.HttpRequest buildRequest(UploadPartRequest input) => _i1.HttpRequest((b) {
-        b.method = 'PUT';
-        b.path = _s3ClientConfig.usePathStyle
+    b.method = 'PUT';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=UploadPart'
             : r'/{Key+}?x-id=UploadPart';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.contentLength != null) {
-          b.headers['Content-Length'] = input.contentLength!.toString();
-        }
-        if (input.contentMd5 != null) {
-          if (input.contentMd5!.isNotEmpty) {
-            b.headers['Content-MD5'] = input.contentMd5!;
-          }
-        }
-        if (input.checksumAlgorithm != null) {
-          b.headers['x-amz-sdk-checksum-algorithm'] =
-              input.checksumAlgorithm!.value;
-        }
-        if (input.checksumCrc32 != null) {
-          if (input.checksumCrc32!.isNotEmpty) {
-            b.headers['x-amz-checksum-crc32'] = input.checksumCrc32!;
-          }
-        }
-        if (input.checksumCrc32C != null) {
-          if (input.checksumCrc32C!.isNotEmpty) {
-            b.headers['x-amz-checksum-crc32c'] = input.checksumCrc32C!;
-          }
-        }
-        if (input.checksumSha1 != null) {
-          if (input.checksumSha1!.isNotEmpty) {
-            b.headers['x-amz-checksum-sha1'] = input.checksumSha1!;
-          }
-        }
-        if (input.checksumSha256 != null) {
-          if (input.checksumSha256!.isNotEmpty) {
-            b.headers['x-amz-checksum-sha256'] = input.checksumSha256!;
-          }
-        }
-        if (input.sseCustomerAlgorithm != null) {
-          if (input.sseCustomerAlgorithm!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-algorithm'] =
-                input.sseCustomerAlgorithm!;
-          }
-        }
-        if (input.sseCustomerKey != null) {
-          if (input.sseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key'] =
-                input.sseCustomerKey!;
-          }
-        }
-        if (input.sseCustomerKeyMd5 != null) {
-          if (input.sseCustomerKeyMd5!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
-                input.sseCustomerKeyMd5!;
-          }
-        }
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.partNumber != null) {
-          b.queryParameters.add(
-            'partNumber',
-            input.partNumber!.toString(),
-          );
-        }
-        b.queryParameters.add(
-          'uploadId',
-          input.uploadId,
-        );
-        if (input.checksumAlgorithm != null) {
-          b.requestInterceptors
-              .add(_i3.WithChecksum(input.checksumAlgorithm!.value));
-        }
-      });
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.contentLength != null) {
+      b.headers['Content-Length'] = input.contentLength!.toString();
+    }
+    if (input.contentMd5 != null) {
+      if (input.contentMd5!.isNotEmpty) {
+        b.headers['Content-MD5'] = input.contentMd5!;
+      }
+    }
+    if (input.checksumAlgorithm != null) {
+      b.headers['x-amz-sdk-checksum-algorithm'] =
+          input.checksumAlgorithm!.value;
+    }
+    if (input.checksumCrc32 != null) {
+      if (input.checksumCrc32!.isNotEmpty) {
+        b.headers['x-amz-checksum-crc32'] = input.checksumCrc32!;
+      }
+    }
+    if (input.checksumCrc32C != null) {
+      if (input.checksumCrc32C!.isNotEmpty) {
+        b.headers['x-amz-checksum-crc32c'] = input.checksumCrc32C!;
+      }
+    }
+    if (input.checksumSha1 != null) {
+      if (input.checksumSha1!.isNotEmpty) {
+        b.headers['x-amz-checksum-sha1'] = input.checksumSha1!;
+      }
+    }
+    if (input.checksumSha256 != null) {
+      if (input.checksumSha256!.isNotEmpty) {
+        b.headers['x-amz-checksum-sha256'] = input.checksumSha256!;
+      }
+    }
+    if (input.sseCustomerAlgorithm != null) {
+      if (input.sseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-algorithm'] =
+            input.sseCustomerAlgorithm!;
+      }
+    }
+    if (input.sseCustomerKey != null) {
+      if (input.sseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key'] =
+            input.sseCustomerKey!;
+      }
+    }
+    if (input.sseCustomerKeyMd5 != null) {
+      if (input.sseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
+            input.sseCustomerKeyMd5!;
+      }
+    }
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.partNumber != null) {
+      b.queryParameters.add('partNumber', input.partNumber!.toString());
+    }
+    b.queryParameters.add('uploadId', input.uploadId);
+    if (input.checksumAlgorithm != null) {
+      b.requestInterceptors.add(
+        _i3.WithChecksum(input.checksumAlgorithm!.value),
+      );
+    }
+  });
 
   @override
   int successCode([UploadPartOutput? output]) => 200;
@@ -312,11 +321,7 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
   UploadPartOutput buildOutput(
     UploadPartOutputPayload payload,
     _i5.AWSBaseHttpResponse response,
-  ) =>
-      UploadPartOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => UploadPartOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -355,11 +360,7 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},

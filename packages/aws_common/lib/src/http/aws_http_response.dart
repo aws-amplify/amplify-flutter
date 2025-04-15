@@ -22,9 +22,7 @@ sealed class AWSBaseHttpResponse
   AWSBaseHttpResponse._({
     required this.statusCode,
     Map<String, String>? headers,
-  }) : headers = UnmodifiableMapView(
-          CaseInsensitiveMap(headers ?? const {}),
-        );
+  }) : headers = UnmodifiableMapView(CaseInsensitiveMap(headers ?? const {}));
 
   /// The response's status code.
   final int statusCode;
@@ -46,12 +44,9 @@ sealed class AWSBaseHttpResponse
 @immutable
 class AWSHttpResponse extends AWSBaseHttpResponse {
   /// {@macro aws_common.aws_http_response}
-  AWSHttpResponse({
-    required super.statusCode,
-    super.headers,
-    List<int>? body,
-  })  : bodyBytes = body ?? const [],
-        super._();
+  AWSHttpResponse({required super.statusCode, super.headers, List<int>? body})
+    : bodyBytes = body ?? const [],
+      super._();
 
   @override
   Stream<List<int>> get body =>
@@ -79,8 +74,8 @@ class AWSStreamedHttpResponse extends AWSBaseHttpResponse {
     required super.statusCode,
     super.headers,
     required Stream<List<int>> body,
-  })  : _body = body,
-        super._();
+  }) : _body = body,
+       super._();
 
   /// Handles splitting [_body] into multiple single-subscription streams.
   StreamSplitter<List<int>>? _splitter;

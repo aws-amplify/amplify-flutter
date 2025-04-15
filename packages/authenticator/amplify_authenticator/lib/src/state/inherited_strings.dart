@@ -39,8 +39,9 @@ class InheritedStrings extends InheritedWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<AuthStringResolver>('resolver', resolver));
+    properties.add(
+      DiagnosticsProperty<AuthStringResolver>('resolver', resolver),
+    );
   }
 }
 

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.http_payload_traits_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,22 +17,18 @@ abstract class HttpPayloadTraitsInputOutput
         _i1.HttpInput<_i2.Uint8List>,
         _i3.AWSEquatable<HttpPayloadTraitsInputOutput>
     implements
-        Built<HttpPayloadTraitsInputOutput,
-            HttpPayloadTraitsInputOutputBuilder>,
+        Built<
+          HttpPayloadTraitsInputOutput,
+          HttpPayloadTraitsInputOutputBuilder
+        >,
         _i1.HasPayload<_i2.Uint8List> {
-  factory HttpPayloadTraitsInputOutput({
-    String? foo,
-    _i2.Uint8List? blob,
-  }) {
-    return _$HttpPayloadTraitsInputOutput._(
-      foo: foo,
-      blob: blob,
-    );
+  factory HttpPayloadTraitsInputOutput({String? foo, _i2.Uint8List? blob}) {
+    return _$HttpPayloadTraitsInputOutput._(foo: foo, blob: blob);
   }
 
-  factory HttpPayloadTraitsInputOutput.build(
-          [void Function(HttpPayloadTraitsInputOutputBuilder) updates]) =
-      _$HttpPayloadTraitsInputOutput;
+  factory HttpPayloadTraitsInputOutput.build([
+    void Function(HttpPayloadTraitsInputOutputBuilder) updates,
+  ]) = _$HttpPayloadTraitsInputOutput;
 
   const HttpPayloadTraitsInputOutput._();
 
@@ -40,28 +36,26 @@ abstract class HttpPayloadTraitsInputOutput
     _i2.Uint8List? payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpPayloadTraitsInputOutput.build((b) {
-        b.blob = payload;
-        if (request.headers['X-Foo'] != null) {
-          b.foo = request.headers['X-Foo']!;
-        }
-      });
+  }) => HttpPayloadTraitsInputOutput.build((b) {
+    b.blob = payload;
+    if (request.headers['X-Foo'] != null) {
+      b.foo = request.headers['X-Foo']!;
+    }
+  });
 
   /// Constructs a [HttpPayloadTraitsInputOutput] from a [payload] and [response].
   factory HttpPayloadTraitsInputOutput.fromResponse(
     _i2.Uint8List? payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      HttpPayloadTraitsInputOutput.build((b) {
-        b.blob = payload;
-        if (response.headers['X-Foo'] != null) {
-          b.foo = response.headers['X-Foo']!;
-        }
-      });
+  ) => HttpPayloadTraitsInputOutput.build((b) {
+    b.blob = payload;
+    if (response.headers['X-Foo'] != null) {
+      b.foo = response.headers['X-Foo']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
-    HttpPayloadTraitsInputOutputRestJson1Serializer()
+    HttpPayloadTraitsInputOutputRestJson1Serializer(),
   ];
 
   String? get foo;
@@ -70,22 +64,14 @@ abstract class HttpPayloadTraitsInputOutput
   _i2.Uint8List? getPayload() => blob;
 
   @override
-  List<Object?> get props => [
-        foo,
-        blob,
-      ];
+  List<Object?> get props => [foo, blob];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HttpPayloadTraitsInputOutput')
-      ..add(
-        'foo',
-        foo,
-      )
-      ..add(
-        'blob',
-        blob,
-      );
+    final helper =
+        newBuiltValueToStringHelper('HttpPayloadTraitsInputOutput')
+          ..add('foo', foo)
+          ..add('blob', blob);
     return helper.toString();
   }
 }
@@ -93,21 +79,18 @@ abstract class HttpPayloadTraitsInputOutput
 class HttpPayloadTraitsInputOutputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<_i2.Uint8List> {
   const HttpPayloadTraitsInputOutputRestJson1Serializer()
-      : super('HttpPayloadTraitsInputOutput');
+    : super('HttpPayloadTraitsInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        HttpPayloadTraitsInputOutput,
-        _$HttpPayloadTraitsInputOutput,
-      ];
+    HttpPayloadTraitsInputOutput,
+    _$HttpPayloadTraitsInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   _i2.Uint8List deserialize(
@@ -116,9 +99,10 @@ class HttpPayloadTraitsInputOutputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(_i2.Uint8List),
-    ) as _i2.Uint8List);
+          serialized,
+          specifiedType: const FullType(_i2.Uint8List),
+        )
+        as _i2.Uint8List);
   }
 
   @override

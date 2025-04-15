@@ -63,7 +63,7 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     PostWithAuthRules.schema,
     Product.schema,
     StringListTypeModel.schema,
-    Warehouse.schema
+    Warehouse.schema,
   ];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [
@@ -71,7 +71,7 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     Contact.schema,
     FileMeta.schema,
     Phone.schema,
-    S3Object.schema
+    S3Object.schema,
   ];
   static final ModelProvider _instance = ModelProvider();
 
@@ -99,8 +99,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Warehouse.classType;
       default:
         throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+          "Failed to find model in model provider for model name: " + modelName,
+        );
     }
   }
 }

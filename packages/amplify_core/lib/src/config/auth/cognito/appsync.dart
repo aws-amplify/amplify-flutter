@@ -27,12 +27,12 @@ class CognitoAppSyncConfig
 
   @override
   List<Object?> get props => [
-        apiUrl,
-        region,
-        authMode,
-        apiKey,
-        clientDatabasePrefix,
-      ];
+    apiUrl,
+    region,
+    authMode,
+    apiKey,
+    clientDatabasePrefix,
+  ];
 
   CognitoAppSyncConfig copyWith({
     String? apiUrl,

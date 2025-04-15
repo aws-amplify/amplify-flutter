@@ -27,23 +27,23 @@ void main() {
   }
 
   test('when sorting by Id ascending', () async {
-    expect([Post.ID.ascending().serializeAsMap()],
-        await getJsonFromFile('sort_by_id_ascending.json'));
+    expect([
+      Post.ID.ascending().serializeAsMap(),
+    ], await getJsonFromFile('sort_by_id_ascending.json'));
   });
 
   test('bad model id field naming backwards compatibility', () async {
     QuerySortBy testPredicateWithBadIdFiledNaming =
         QueryField(fieldName: 'blog.id').ascending();
-    expect(
-      [testPredicateWithBadIdFiledNaming.serializeAsMap()],
-      await getJsonFromFile('sort_by_id_ascending.json'),
-    );
+    expect([
+      testPredicateWithBadIdFiledNaming.serializeAsMap(),
+    ], await getJsonFromFile('sort_by_id_ascending.json'));
   });
 
   test('when sorting by Id ascending and then rating descending', () async {
     expect([
       Post.ID.ascending().serializeAsMap(),
-      Post.RATING.descending().serializeAsMap()
+      Post.RATING.descending().serializeAsMap(),
     ], await getJsonFromFile('multiple_sorting.json'));
   });
 

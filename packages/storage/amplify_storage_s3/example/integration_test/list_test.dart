@@ -26,33 +26,34 @@ void main() {
       '$uniquePrefix/subdir4#file8.txt',
     ];
     group('standard config', () {
-      final mainBucket =
-          StorageBucket.fromOutputs('Storage Integ Test main bucket');
+      final mainBucket = StorageBucket.fromOutputs(
+        'Storage Integ Test main bucket',
+      );
       final secondaryBucket = StorageBucket.fromOutputs(
         'Storage Integ Test secondary bucket',
       );
       setUpAll(() async {
         await configure(amplifyEnvironments['main']!);
-        for (var pathIndex = 0;
-            pathIndex < uploadedPaths.length ~/ 2;
-            pathIndex++) {
+        for (
+          var pathIndex = 0;
+          pathIndex < uploadedPaths.length ~/ 2;
+          pathIndex++
+        ) {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(uploadedPaths[pathIndex]),
             data: StorageDataPayload.bytes('test content'.codeUnits),
-            options: StorageUploadDataOptions(
-              bucket: mainBucket,
-            ),
+            options: StorageUploadDataOptions(bucket: mainBucket),
           ).result;
         }
-        for (var pathIndex = uploadedPaths.length ~/ 2;
-            pathIndex < uploadedPaths.length;
-            pathIndex++) {
+        for (
+          var pathIndex = uploadedPaths.length ~/ 2;
+          pathIndex < uploadedPaths.length;
+          pathIndex++
+        ) {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(uploadedPaths[pathIndex]),
             data: StorageDataPayload.bytes('test content'.codeUnits),
-            options: StorageUploadDataOptions(
-              bucket: secondaryBucket,
-            ),
+            options: StorageUploadDataOptions(bucket: secondaryBucket),
           ).result;
         }
         for (final path in uploadedPaths) {
@@ -63,39 +64,46 @@ void main() {
       group('list() without options', () {
         testWidgets('should list all files with unique prefix', (_) async {
           // this will use the main bucket by default when no optional bucket is specified
-          final listResultMainBucket = await Amplify.Storage.list(
-            path: StoragePath.fromString(uniquePrefix),
-          ).result;
-          final listResultSecondaryBucket = await Amplify.Storage.list(
-            path: StoragePath.fromString(uniquePrefix),
-            options: StorageListOptions(
-              bucket: secondaryBucket,
-            ),
-          ).result;
-          for (var pathIndex = 0;
-              pathIndex < uploadedPaths.length ~/ 2;
-              pathIndex++) {
+          final listResultMainBucket =
+              await Amplify.Storage.list(
+                path: StoragePath.fromString(uniquePrefix),
+              ).result;
+          final listResultSecondaryBucket =
+              await Amplify.Storage.list(
+                path: StoragePath.fromString(uniquePrefix),
+                options: StorageListOptions(bucket: secondaryBucket),
+              ).result;
+          for (
+            var pathIndex = 0;
+            pathIndex < uploadedPaths.length ~/ 2;
+            pathIndex++
+          ) {
             expect(
-              listResultMainBucket.items
-                  .any((item) => item.path == uploadedPaths[pathIndex]),
+              listResultMainBucket.items.any(
+                (item) => item.path == uploadedPaths[pathIndex],
+              ),
               isTrue,
             );
           }
-          for (var pathIndex = uploadedPaths.length ~/ 2;
-              pathIndex < uploadedPaths.length;
-              pathIndex++) {
+          for (
+            var pathIndex = uploadedPaths.length ~/ 2;
+            pathIndex < uploadedPaths.length;
+            pathIndex++
+          ) {
             expect(
-              listResultSecondaryBucket.items
-                  .any((item) => item.path == uploadedPaths[pathIndex]),
+              listResultSecondaryBucket.items.any(
+                (item) => item.path == uploadedPaths[pathIndex],
+              ),
               isTrue,
             );
           }
         });
 
         testWidgets('should list files within a subdirectory', (_) async {
-          final listResult = await Amplify.Storage.list(
-            path: StoragePath.fromString('$uniquePrefix/subdir/'),
-          ).result;
+          final listResult =
+              await Amplify.Storage.list(
+                path: StoragePath.fromString('$uniquePrefix/subdir/'),
+              ).result;
 
           expect(listResult.items.length, 1);
           expect(listResult.items.first.path, contains('file3.txt'));
@@ -103,9 +111,10 @@ void main() {
 
         testWidgets('unauthorized path', (_) async {
           await expectLater(
-            () => Amplify.Storage.list(
-              path: const StoragePath.fromString('unauthorized/path'),
-            ).result,
+            () =>
+                Amplify.Storage.list(
+                  path: const StoragePath.fromString('unauthorized/path'),
+                ).result,
             throwsA(isA<StorageAccessDeniedException>()),
           );
         });
@@ -114,14 +123,16 @@ void main() {
       group('list() with options', () {
         group('excluding sub paths', () {
           testWidgets('default delimiter', (_) async {
-            final listResult = await Amplify.Storage.list(
-              path: StoragePath.fromString('$uniquePrefix/'),
-              options: const StorageListOptions(
-                pluginOptions: S3ListPluginOptions(
-                  excludeSubPaths: true,
-                ),
-              ),
-            ).result as S3ListResult;
+            final listResult =
+                await Amplify.Storage.list(
+                      path: StoragePath.fromString('$uniquePrefix/'),
+                      options: const StorageListOptions(
+                        pluginOptions: S3ListPluginOptions(
+                          excludeSubPaths: true,
+                        ),
+                      ),
+                    ).result
+                    as S3ListResult;
 
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
@@ -132,26 +143,30 @@ void main() {
           });
 
           testWidgets('custom delimiter', (_) async {
-            final listResult = await Amplify.Storage.list(
-              path: StoragePath.fromString('$uniquePrefix/'),
-              options: const StorageListOptions(
-                pluginOptions: S3ListPluginOptions(
-                  excludeSubPaths: true,
-                  delimiter: '#',
-                ),
-              ),
-            ).result as S3ListResult;
+            final listResult =
+                await Amplify.Storage.list(
+                      path: StoragePath.fromString('$uniquePrefix/'),
+                      options: const StorageListOptions(
+                        pluginOptions: S3ListPluginOptions(
+                          excludeSubPaths: true,
+                          delimiter: '#',
+                        ),
+                      ),
+                    ).result
+                    as S3ListResult;
 
-            final listResultSecondaryBucket = await Amplify.Storage.list(
-              path: StoragePath.fromString('$uniquePrefix/'),
-              options: StorageListOptions(
-                pluginOptions: const S3ListPluginOptions(
-                  excludeSubPaths: true,
-                  delimiter: '#',
-                ),
-                bucket: secondaryBucket,
-              ),
-            ).result as S3ListResult;
+            final listResultSecondaryBucket =
+                await Amplify.Storage.list(
+                      path: StoragePath.fromString('$uniquePrefix/'),
+                      options: StorageListOptions(
+                        pluginOptions: const S3ListPluginOptions(
+                          excludeSubPaths: true,
+                          delimiter: '#',
+                        ),
+                        bucket: secondaryBucket,
+                      ),
+                    ).result
+                    as S3ListResult;
 
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
@@ -179,23 +194,23 @@ void main() {
         });
 
         testWidgets('should respect pageSize limitation', (_) async {
-          final listResult = await Amplify.Storage.list(
-            path: StoragePath.fromString(uniquePrefix),
-            options: const StorageListOptions(
-              pageSize: 2,
-            ),
-          ).result;
+          final listResult =
+              await Amplify.Storage.list(
+                path: StoragePath.fromString(uniquePrefix),
+                options: const StorageListOptions(pageSize: 2),
+              ).result;
 
           expect(listResult.items.length, 2);
           expect(listResult.items.first.path, contains('file1.txt'));
 
-          final listResultSecondaryBucket = await Amplify.Storage.list(
-            path: StoragePath.fromString(uniquePrefix),
-            options: StorageListOptions(
-              pageSize: 2,
-              bucket: secondaryBucket,
-            ),
-          ).result;
+          final listResultSecondaryBucket =
+              await Amplify.Storage.list(
+                path: StoragePath.fromString(uniquePrefix),
+                options: StorageListOptions(
+                  pageSize: 2,
+                  bucket: secondaryBucket,
+                ),
+              ).result;
 
           expect(listResultSecondaryBucket.items.length, 2);
           expect(
@@ -205,47 +220,49 @@ void main() {
         });
 
         testWidgets('should list files with pagination', (_) async {
-          var listResult = await Amplify.Storage.list(
-            path: StoragePath.fromString(uniquePrefix),
-            options: const StorageListOptions(
-              pageSize: 1,
-            ),
-          ).result;
+          var listResult =
+              await Amplify.Storage.list(
+                path: StoragePath.fromString(uniquePrefix),
+                options: const StorageListOptions(pageSize: 1),
+              ).result;
 
           expect(listResult.items.length, 1);
 
           expect(listResult.nextToken, isNotNull);
 
-          listResult = await Amplify.Storage.list(
-            path: StoragePath.fromString(uniquePrefix),
-            options: StorageListOptions(
-              pageSize: 1,
-              nextToken: listResult.nextToken,
-            ),
-          ).result;
+          listResult =
+              await Amplify.Storage.list(
+                path: StoragePath.fromString(uniquePrefix),
+                options: StorageListOptions(
+                  pageSize: 1,
+                  nextToken: listResult.nextToken,
+                ),
+              ).result;
 
           expect(listResult.items.length, 1);
           expect(listResult.items.first.path, contains('file2.txt'));
         });
 
         testWidgets('listAll', (_) async {
-          final listResult = await Amplify.Storage.list(
-            path: StoragePath.fromString(uniquePrefix),
-            options: const StorageListOptions(
-              pluginOptions: S3ListPluginOptions.listAll(),
-            ),
-          ).result;
+          final listResult =
+              await Amplify.Storage.list(
+                path: StoragePath.fromString(uniquePrefix),
+                options: const StorageListOptions(
+                  pluginOptions: S3ListPluginOptions.listAll(),
+                ),
+              ).result;
 
           expect(listResult.items.length, uploadedPaths.length ~/ 2);
           expect(listResult.nextToken, isNull);
 
-          final listResultSecondaryBucket = await Amplify.Storage.list(
-            path: StoragePath.fromString(uniquePrefix),
-            options: StorageListOptions(
-              pluginOptions: const S3ListPluginOptions.listAll(),
-              bucket: secondaryBucket,
-            ),
-          ).result;
+          final listResultSecondaryBucket =
+              await Amplify.Storage.list(
+                path: StoragePath.fromString(uniquePrefix),
+                options: StorageListOptions(
+                  pluginOptions: const S3ListPluginOptions.listAll(),
+                  bucket: secondaryBucket,
+                ),
+              ).result;
 
           expect(
             listResultSecondaryBucket.items.length,
@@ -271,9 +288,10 @@ void main() {
         }
       });
       testWidgets('list works', (_) async {
-        final listResult = await Amplify.Storage.list(
-          path: StoragePath.fromString(uniquePrefix),
-        ).result;
+        final listResult =
+            await Amplify.Storage.list(
+              path: StoragePath.fromString(uniquePrefix),
+            ).result;
         for (final uploadedPath in uploadedPaths) {
           expect(
             listResult.items.any((item) => item.path == uploadedPath),

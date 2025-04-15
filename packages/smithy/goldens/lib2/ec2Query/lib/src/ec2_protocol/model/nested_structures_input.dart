@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v2.ec2_protocol.model.nested_structures_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,9 +20,9 @@ abstract class NestedStructuresInput
     return _$NestedStructuresInput._(nested: nested);
   }
 
-  factory NestedStructuresInput.build(
-          [void Function(NestedStructuresInputBuilder) updates]) =
-      _$NestedStructuresInput;
+  factory NestedStructuresInput.build([
+    void Function(NestedStructuresInputBuilder) updates,
+  ]) = _$NestedStructuresInput;
 
   const NestedStructuresInput._();
 
@@ -30,11 +30,10 @@ abstract class NestedStructuresInput
     NestedStructuresInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<NestedStructuresInput>> serializers = [
-    NestedStructuresInputEc2QuerySerializer()
+    NestedStructuresInputEc2QuerySerializer(),
   ];
 
   StructArg? get nested;
@@ -47,10 +46,7 @@ abstract class NestedStructuresInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedStructuresInput')
-      ..add(
-        'nested',
-        nested,
-      );
+      ..add('nested', nested);
     return helper.toString();
   }
 }
@@ -58,21 +54,18 @@ abstract class NestedStructuresInput
 class NestedStructuresInputEc2QuerySerializer
     extends _i1.StructuredSmithySerializer<NestedStructuresInput> {
   const NestedStructuresInputEc2QuerySerializer()
-      : super('NestedStructuresInput');
+    : super('NestedStructuresInput');
 
   @override
   Iterable<Type> get types => const [
-        NestedStructuresInput,
-        _$NestedStructuresInput,
-      ];
+    NestedStructuresInput,
+    _$NestedStructuresInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   NestedStructuresInput deserialize(
@@ -91,10 +84,13 @@ class NestedStructuresInputEc2QuerySerializer
       }
       switch (key) {
         case 'Nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(StructArg),
-          ) as StructArg));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(StructArg),
+                )
+                as StructArg),
+          );
       }
     }
 
@@ -111,16 +107,18 @@ class NestedStructuresInputEc2QuerySerializer
       const _i1.XmlElementName(
         'NestedStructuresInputResponse',
         _i1.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final NestedStructuresInput(:nested) = object;
     if (nested != null) {
       result$
         ..add(const _i1.XmlElementName('Nested'))
-        ..add(serializers.serialize(
-          nested,
-          specifiedType: const FullType(StructArg),
-        ));
+        ..add(
+          serializers.serialize(
+            nested,
+            specifiedType: const FullType(StructArg),
+          ),
+        );
     }
     return result$;
   }

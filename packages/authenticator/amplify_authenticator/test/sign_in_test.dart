@@ -10,35 +10,34 @@ void main() {
 
   /// Tests an end to end "happy path" flow for sign in with email, with the
   /// auth library stubbed.
-  testWidgets(
-    'Signs in an existing user with an email & password',
-    (tester) async {
-      final testUser = MockCognitoUser(
-        username: 'test-user@example.com',
-        email: 'test-user@example.com',
-        password: 'test-user@example.com',
-      );
+  testWidgets('Signs in an existing user with an email & password', (
+    tester,
+  ) async {
+    final testUser = MockCognitoUser(
+      username: 'test-user@example.com',
+      email: 'test-user@example.com',
+      password: 'test-user@example.com',
+    );
 
-      await tester.pumpWidget(
-        MockAuthenticatorApp(
-          authPlugin: AmplifyAuthCognitoStub(users: [testUser]),
-        ),
-      );
-      await tester.pumpAndSettle();
+    await tester.pumpWidget(
+      MockAuthenticatorApp(
+        authPlugin: AmplifyAuthCognitoStub(users: [testUser]),
+      ),
+    );
+    await tester.pumpAndSettle();
 
-      final signInPage = SignInPage(tester: tester);
+    final signInPage = SignInPage(tester: tester);
 
-      // When I type my "email"
-      await signInPage.enterUsername(testUser.email!);
+    // When I type my "email"
+    await signInPage.enterUsername(testUser.email!);
 
-      // And I type my password
-      await signInPage.enterPassword(testUser.password);
+    // And I type my password
+    await signInPage.enterPassword(testUser.password);
 
-      // And I click the "Sign In" button
-      await binding.runAsync(signInPage.submitSignIn);
+    // And I click the "Sign In" button
+    await binding.runAsync(signInPage.submitSignIn);
 
-      // Then I see "Sign out"
-      await binding.runAsync(signInPage.expectAuthenticated);
-    },
-  );
+    // Then I see "Sign out"
+    await binding.runAsync(signInPage.expectAuthenticated);
+  });
 }

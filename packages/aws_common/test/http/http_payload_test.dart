@@ -15,30 +15,21 @@ void main() {
     test('string', () {
       expect(
         HttpPayload.string('Hello'),
-        emitsInOrder([
-          'Hello'.codeUnits,
-          emitsDone,
-        ]),
+        emitsInOrder(['Hello'.codeUnits, emitsDone]),
       );
     });
 
     test('bytes', () {
       expect(
         HttpPayload.bytes('Hello'.codeUnits),
-        emitsInOrder([
-          'Hello'.codeUnits,
-          emitsDone,
-        ]),
+        emitsInOrder(['Hello'.codeUnits, emitsDone]),
       );
     });
 
     test('formFields', () {
       expect(
         HttpPayload.formFields({'key1': 'value1', 'key2': 'value2'}),
-        emitsInOrder([
-          'key1=value1&key2=value2'.codeUnits,
-          emitsDone,
-        ]),
+        emitsInOrder(['key1=value1&key2=value2'.codeUnits, emitsDone]),
       );
     });
 
@@ -118,9 +109,10 @@ void main() {
         expect(payload.contentType, 'text/html');
         expect(
           payload,
-          emitsInOrder(
-            [utf8.encode('<script>alert(\'hi\');</script>'), emitsDone],
-          ),
+          emitsInOrder([
+            utf8.encode('<script>alert(\'hi\');</script>'),
+            emitsDone,
+          ]),
         );
       });
 

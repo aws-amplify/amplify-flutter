@@ -14,9 +14,7 @@ class SendUserAttributeVerificationCodeOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.send_attribute_verification_code_options}
-  const SendUserAttributeVerificationCodeOptions({
-    this.pluginOptions,
-  });
+  const SendUserAttributeVerificationCodeOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.send_user_attribute_verification_code_plugin_options}
   final SendUserAttributeVerificationCodePluginOptions? pluginOptions;
@@ -28,9 +26,7 @@ class SendUserAttributeVerificationCodeOptions
   String get runtimeTypeName => 'SendUserAttributeVerificationCodeOptions';
 
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

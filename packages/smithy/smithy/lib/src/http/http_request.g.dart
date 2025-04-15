@@ -25,24 +25,33 @@ class _$HttpRequest extends HttpRequest {
   factory _$HttpRequest([void Function(HttpRequestBuilder)? updates]) =>
       (new HttpRequestBuilder()..update(updates))._build();
 
-  _$HttpRequest._(
-      {this.hostPrefix,
-      required this.method,
-      required this.path,
-      required this.headers,
-      required this.queryParameters,
-      required this.requestInterceptors,
-      required this.responseInterceptors})
-      : super._() {
+  _$HttpRequest._({
+    this.hostPrefix,
+    required this.method,
+    required this.path,
+    required this.headers,
+    required this.queryParameters,
+    required this.requestInterceptors,
+    required this.responseInterceptors,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(method, r'HttpRequest', 'method');
     BuiltValueNullFieldError.checkNotNull(path, r'HttpRequest', 'path');
     BuiltValueNullFieldError.checkNotNull(headers, r'HttpRequest', 'headers');
     BuiltValueNullFieldError.checkNotNull(
-        queryParameters, r'HttpRequest', 'queryParameters');
+      queryParameters,
+      r'HttpRequest',
+      'queryParameters',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        requestInterceptors, r'HttpRequest', 'requestInterceptors');
+      requestInterceptors,
+      r'HttpRequest',
+      'requestInterceptors',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        responseInterceptors, r'HttpRequest', 'responseInterceptors');
+      responseInterceptors,
+      r'HttpRequest',
+      'responseInterceptors',
+    );
   }
 
   @override
@@ -123,16 +132,16 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   ListBuilder<HttpRequestInterceptor> get requestInterceptors =>
       _$this._requestInterceptors ??= new ListBuilder<HttpRequestInterceptor>();
   set requestInterceptors(
-          ListBuilder<HttpRequestInterceptor>? requestInterceptors) =>
-      _$this._requestInterceptors = requestInterceptors;
+    ListBuilder<HttpRequestInterceptor>? requestInterceptors,
+  ) => _$this._requestInterceptors = requestInterceptors;
 
   ListBuilder<HttpResponseInterceptor>? _responseInterceptors;
   ListBuilder<HttpResponseInterceptor> get responseInterceptors =>
       _$this._responseInterceptors ??=
           new ListBuilder<HttpResponseInterceptor>();
   set responseInterceptors(
-          ListBuilder<HttpResponseInterceptor>? responseInterceptors) =>
-      _$this._responseInterceptors = responseInterceptors;
+    ListBuilder<HttpResponseInterceptor>? responseInterceptors,
+  ) => _$this._responseInterceptors = responseInterceptors;
 
   HttpRequestBuilder();
 
@@ -168,17 +177,25 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   _$HttpRequest _build() {
     _$HttpRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpRequest._(
-              hostPrefix: hostPrefix,
-              method: BuiltValueNullFieldError.checkNotNull(
-                  method, r'HttpRequest', 'method'),
-              path: BuiltValueNullFieldError.checkNotNull(
-                  path, r'HttpRequest', 'path'),
-              headers: headers.build(),
-              queryParameters: queryParameters.build(),
-              requestInterceptors: requestInterceptors.build(),
-              responseInterceptors: responseInterceptors.build());
+            hostPrefix: hostPrefix,
+            method: BuiltValueNullFieldError.checkNotNull(
+              method,
+              r'HttpRequest',
+              'method',
+            ),
+            path: BuiltValueNullFieldError.checkNotNull(
+              path,
+              r'HttpRequest',
+              'path',
+            ),
+            headers: headers.build(),
+            queryParameters: queryParameters.build(),
+            requestInterceptors: requestInterceptors.build(),
+            responseInterceptors: responseInterceptors.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -192,7 +209,10 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
         responseInterceptors.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpRequest', _$failedField, e.toString());
+          r'HttpRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -236,8 +256,7 @@ class _$HttpResponse extends HttpResponse {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'HttpResponse')
-          ..add('headers', headers))
-        .toString();
+      ..add('headers', headers)).toString();
   }
 }
 
@@ -286,7 +305,10 @@ class HttpResponseBuilder
         headers.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpResponse', _$failedField, e.toString());
+          r'HttpResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -301,17 +323,17 @@ class _$HttpRequestContext extends HttpRequestContext {
   @override
   final String? awsSigningRegion;
 
-  factory _$HttpRequestContext(
-          [void Function(HttpRequestContextBuilder)? updates]) =>
-      (new HttpRequestContextBuilder()..update(updates))._build();
+  factory _$HttpRequestContext([
+    void Function(HttpRequestContextBuilder)? updates,
+  ]) => (new HttpRequestContextBuilder()..update(updates))._build();
 
   _$HttpRequestContext._({this.awsSigningService, this.awsSigningRegion})
-      : super._();
+    : super._();
 
   @override
   HttpRequestContext rebuild(
-          void Function(HttpRequestContextBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpRequestContextBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpRequestContextBuilder toBuilder() =>
@@ -384,10 +406,12 @@ class HttpRequestContextBuilder
   HttpRequestContext build() => _build();
 
   _$HttpRequestContext _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$HttpRequestContext._(
-            awsSigningService: awsSigningService,
-            awsSigningRegion: awsSigningRegion);
+          awsSigningService: awsSigningService,
+          awsSigningRegion: awsSigningRegion,
+        );
     replace(_$result);
     return _$result;
   }

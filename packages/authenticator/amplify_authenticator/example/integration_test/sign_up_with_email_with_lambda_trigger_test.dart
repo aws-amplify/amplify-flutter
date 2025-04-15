@@ -27,76 +27,74 @@ void main() {
       });
 
       // Scenario: Login mechanism set to "email"
-      testWidgets(
-        'Login mechanism set to "email"',
-        (WidgetTester tester) async {
-          await loadAuthenticator(tester: tester);
+      testWidgets('Login mechanism set to "email"', (
+        WidgetTester tester,
+      ) async {
+        await loadAuthenticator(tester: tester);
 
-          expect(
-            tester.bloc.stream,
-            emitsInOrder([
-              UnauthenticatedState.signIn,
-              UnauthenticatedState.signUp,
-              emitsDone,
-            ]),
-          );
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.signUp,
+            emitsDone,
+          ]),
+        );
 
-          await SignInPage(tester: tester).navigateToSignUp();
-          final po = SignUpPage(tester: tester);
+        await SignInPage(tester: tester).navigateToSignUp();
+        final po = SignUpPage(tester: tester);
 
-          // Then I see "Email" as an input field
-          po.expectUsername(label: 'Email', isPresent: true);
+        // Then I see "Email" as an input field
+        po.expectUsername(label: 'Email', isPresent: true);
 
-          // And I don't see "Username" as an input field
-          po.expectUsername(label: 'Username', isPresent: false);
+        // And I don't see "Username" as an input field
+        po.expectUsername(label: 'Username', isPresent: false);
 
-          // And I don't see "Phone Number" as an input field
-          po.expectUsername(label: 'Phone Number', isPresent: false);
+        // And I don't see "Phone Number" as an input field
+        po.expectUsername(label: 'Phone Number', isPresent: false);
 
-          await tester.bloc.close();
-        },
-      );
+        await tester.bloc.close();
+      });
 
       // Scenario: Sign up with a new email & password with confirmed info
-      testWidgets(
-        'Sign up with a new email & password with confirmed info',
-        (WidgetTester tester) async {
-          await loadAuthenticator(tester: tester);
+      testWidgets('Sign up with a new email & password with confirmed info', (
+        WidgetTester tester,
+      ) async {
+        await loadAuthenticator(tester: tester);
 
-          expect(
-            tester.bloc.stream,
-            emitsInOrder([
-              UnauthenticatedState.signIn,
-              UnauthenticatedState.signUp,
-              isA<AuthenticatedState>(),
-              emitsDone,
-            ]),
-          );
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.signUp,
+            isA<AuthenticatedState>(),
+            emitsDone,
+          ]),
+        );
 
-          await SignInPage(tester: tester).navigateToSignUp();
-          final po = SignUpPage(tester: tester);
+        await SignInPage(tester: tester).navigateToSignUp();
+        final po = SignUpPage(tester: tester);
 
-          final username = generateEmail();
-          final password = generatePassword();
+        final username = generateEmail();
+        final password = generatePassword();
 
-          // When I type a new "email"
-          await po.enterUsername(username);
+        // When I type a new "email"
+        await po.enterUsername(username);
 
-          // And I type my password
-          await po.enterPassword(password);
+        // And I type my password
+        await po.enterPassword(password);
 
-          // And I confirm my password
-          await po.enterPasswordConfirmation(password);
+        // And I confirm my password
+        await po.enterPasswordConfirmation(password);
 
-          // And I click the "Create Account" button
-          await po.submitSignUp();
+        // And I click the "Create Account" button
+        await po.submitSignUp();
 
-          // Then I see "Sign out"
-          await po.expectAuthenticated();
+        // Then I see "Sign out"
+        await po.expectAuthenticated();
 
-          await tester.bloc.close();
-        },
-      );
+        await tester.bloc.close();
+      });
     },
   );
 }

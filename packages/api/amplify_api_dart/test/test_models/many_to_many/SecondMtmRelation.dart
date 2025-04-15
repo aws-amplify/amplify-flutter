@@ -35,7 +35,8 @@ class SecondMtmRelation extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -48,11 +49,15 @@ class SecondMtmRelation extends amplify_core.Model {
       return _manyToManyPrimary!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -61,11 +66,15 @@ class SecondMtmRelation extends amplify_core.Model {
       return _manyToManySecondary!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -77,25 +86,27 @@ class SecondMtmRelation extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const SecondMtmRelation._internal(
-      {required this.id,
-      required manyToManyPrimary,
-      required manyToManySecondary,
-      createdAt,
-      updatedAt})
-      : _manyToManyPrimary = manyToManyPrimary,
-        _manyToManySecondary = manyToManySecondary,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const SecondMtmRelation._internal({
+    required this.id,
+    required manyToManyPrimary,
+    required manyToManySecondary,
+    createdAt,
+    updatedAt,
+  }) : _manyToManyPrimary = manyToManyPrimary,
+       _manyToManySecondary = manyToManySecondary,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory SecondMtmRelation(
-      {String? id,
-      required ManyToManyPrimary manyToManyPrimary,
-      required ManyToManySecondary manyToManySecondary}) {
+  factory SecondMtmRelation({
+    String? id,
+    required ManyToManyPrimary manyToManyPrimary,
+    required ManyToManySecondary manyToManySecondary,
+  }) {
     return SecondMtmRelation._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        manyToManyPrimary: manyToManyPrimary,
-        manyToManySecondary: manyToManySecondary);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      manyToManyPrimary: manyToManyPrimary,
+      manyToManySecondary: manyToManySecondary,
+    );
   }
 
   bool equals(Object other) {
@@ -120,142 +131,191 @@ class SecondMtmRelation extends amplify_core.Model {
 
     buffer.write("SecondMtmRelation {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("manyToManyPrimary=" +
-        (_manyToManyPrimary != null ? _manyToManyPrimary!.toString() : "null") +
-        ", ");
-    buffer.write("manyToManySecondary=" +
-        (_manyToManySecondary != null
-            ? _manyToManySecondary!.toString()
-            : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+      "manyToManyPrimary=" +
+          (_manyToManyPrimary != null
+              ? _manyToManyPrimary!.toString()
+              : "null") +
+          ", ",
+    );
+    buffer.write(
+      "manyToManySecondary=" +
+          (_manyToManySecondary != null
+              ? _manyToManySecondary!.toString()
+              : "null") +
+          ", ",
+    );
+    buffer.write(
+      "createdAt=" +
+          (_createdAt != null ? _createdAt!.format() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  SecondMtmRelation copyWith(
-      {ManyToManyPrimary? manyToManyPrimary,
-      ManyToManySecondary? manyToManySecondary}) {
+  SecondMtmRelation copyWith({
+    ManyToManyPrimary? manyToManyPrimary,
+    ManyToManySecondary? manyToManySecondary,
+  }) {
     return SecondMtmRelation._internal(
-        id: id,
-        manyToManyPrimary: manyToManyPrimary ?? this.manyToManyPrimary,
-        manyToManySecondary: manyToManySecondary ?? this.manyToManySecondary);
+      id: id,
+      manyToManyPrimary: manyToManyPrimary ?? this.manyToManyPrimary,
+      manyToManySecondary: manyToManySecondary ?? this.manyToManySecondary,
+    );
   }
 
-  SecondMtmRelation copyWithModelFieldValues(
-      {ModelFieldValue<ManyToManyPrimary>? manyToManyPrimary,
-      ModelFieldValue<ManyToManySecondary>? manyToManySecondary}) {
+  SecondMtmRelation copyWithModelFieldValues({
+    ModelFieldValue<ManyToManyPrimary>? manyToManyPrimary,
+    ModelFieldValue<ManyToManySecondary>? manyToManySecondary,
+  }) {
     return SecondMtmRelation._internal(
-        id: id,
-        manyToManyPrimary: manyToManyPrimary == null
-            ? this.manyToManyPrimary
-            : manyToManyPrimary.value,
-        manyToManySecondary: manyToManySecondary == null
-            ? this.manyToManySecondary
-            : manyToManySecondary.value);
+      id: id,
+      manyToManyPrimary:
+          manyToManyPrimary == null
+              ? this.manyToManyPrimary
+              : manyToManyPrimary.value,
+      manyToManySecondary:
+          manyToManySecondary == null
+              ? this.manyToManySecondary
+              : manyToManySecondary.value,
+    );
   }
 
   SecondMtmRelation.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _manyToManyPrimary = json['manyToManyPrimary'] != null
-            ? json['manyToManyPrimary']['serializedData'] != null
-                ? ManyToManyPrimary.fromJson(new Map<String, dynamic>.from(
-                    json['manyToManyPrimary']['serializedData']))
-                : ManyToManyPrimary.fromJson(
-                    new Map<String, dynamic>.from(json['manyToManyPrimary']))
-            : null,
-        _manyToManySecondary = json['manyToManySecondary'] != null
-            ? json['manyToManySecondary']['serializedData'] != null
-                ? ManyToManySecondary.fromJson(new Map<String, dynamic>.from(
-                    json['manyToManySecondary']['serializedData']))
-                : ManyToManySecondary.fromJson(
-                    new Map<String, dynamic>.from(json['manyToManySecondary']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _manyToManyPrimary =
+          json['manyToManyPrimary'] != null
+              ? json['manyToManyPrimary']['serializedData'] != null
+                  ? ManyToManyPrimary.fromJson(
+                    new Map<String, dynamic>.from(
+                      json['manyToManyPrimary']['serializedData'],
+                    ),
+                  )
+                  : ManyToManyPrimary.fromJson(
+                    new Map<String, dynamic>.from(json['manyToManyPrimary']),
+                  )
+              : null,
+      _manyToManySecondary =
+          json['manyToManySecondary'] != null
+              ? json['manyToManySecondary']['serializedData'] != null
+                  ? ManyToManySecondary.fromJson(
+                    new Map<String, dynamic>.from(
+                      json['manyToManySecondary']['serializedData'],
+                    ),
+                  )
+                  : ManyToManySecondary.fromJson(
+                    new Map<String, dynamic>.from(json['manyToManySecondary']),
+                  )
+              : null,
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'manyToManyPrimary': _manyToManyPrimary?.toJson(),
-        'manyToManySecondary': _manyToManySecondary?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'manyToManyPrimary': _manyToManyPrimary?.toJson(),
+    'manyToManySecondary': _manyToManySecondary?.toJson(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'manyToManyPrimary': _manyToManyPrimary,
-        'manyToManySecondary': _manyToManySecondary,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'manyToManyPrimary': _manyToManyPrimary,
+    'manyToManySecondary': _manyToManySecondary,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<SecondMtmRelationModelIdentifier> MODEL_IDENTIFIER =
+  static final amplify_core.QueryModelIdentifier<
+    SecondMtmRelationModelIdentifier
+  >
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<SecondMtmRelationModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final MANYTOMANYPRIMARY = amplify_core.QueryField(
-      fieldName: "manyToManyPrimary",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'ManyToManyPrimary'));
+    fieldName: "manyToManyPrimary",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'ManyToManyPrimary',
+    ),
+  );
   static final MANYTOMANYSECONDARY = amplify_core.QueryField(
-      fieldName: "manyToManySecondary",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'ManyToManySecondary'));
+    fieldName: "manyToManySecondary",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'ManyToManySecondary',
+    ),
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "SecondMtmRelation";
-    modelSchemaDefinition.pluralName = "SecondMtmRelations";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "SecondMtmRelation";
+      modelSchemaDefinition.pluralName = "SecondMtmRelations";
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(
-          fields: const ["manyToManyPrimaryId"], name: "byManyToManyPrimary"),
-      amplify_core.ModelIndex(
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(
+          fields: const ["manyToManyPrimaryId"],
+          name: "byManyToManyPrimary",
+        ),
+        amplify_core.ModelIndex(
           fields: const ["manyToManySecondaryId"],
-          name: "byManyToManySecondary")
-    ];
+          name: "byManyToManySecondary",
+        ),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: SecondMtmRelation.MANYTOMANYPRIMARY,
-        isRequired: true,
-        targetNames: ['manyToManyPrimaryId'],
-        ofModelName: 'ManyToManyPrimary'));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.belongsTo(
+          key: SecondMtmRelation.MANYTOMANYPRIMARY,
+          isRequired: true,
+          targetNames: ['manyToManyPrimaryId'],
+          ofModelName: 'ManyToManyPrimary',
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: SecondMtmRelation.MANYTOMANYSECONDARY,
-        isRequired: true,
-        targetNames: ['manyToManySecondaryId'],
-        ofModelName: 'ManyToManySecondary'));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.belongsTo(
+          key: SecondMtmRelation.MANYTOMANYSECONDARY,
+          isRequired: true,
+          targetNames: ['manyToManySecondaryId'],
+          ofModelName: 'ManyToManySecondary',
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _SecondMtmRelationModelType
@@ -288,10 +348,10 @@ class SecondMtmRelationModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

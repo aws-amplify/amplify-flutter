@@ -50,10 +50,10 @@ final class DefaultCredentialsProviderChain
 
   @override
   List<AWSCredentialsProvider> get chain => const [
-        EnvironmentCredentialsProvider(),
-        ProfileCredentialsProvider(),
-        // TODO(dnys1): EC2 IMDS + ECS
-      ];
+    EnvironmentCredentialsProvider(),
+    ProfileCredentialsProvider(),
+    // TODO(dnys1): EC2 IMDS + ECS
+  ];
 
   @override
   String get runtimeTypeName => 'DefaultCredentialsProviderChain';

@@ -14,13 +14,13 @@ import 'package:path/path.dart' as p;
 external FileSystem get fs;
 
 /// `node:fs` constants.
-/// 
+///
 /// See: https://nodejs.org/api/fs.html#fsconstants
 abstract final class FileSystemAccess {
   /// Flag indicating that the file is visible to the calling process.
   static const int F_OK = 0;
 
-  /// Flag indicating that the file can be executed by the calling process. 
+  /// Flag indicating that the file can be executed by the calling process.
   static const int X_OK = 1 << 0;
 
   /// Flag indicating that the file can be written by the calling process.
@@ -47,7 +47,7 @@ extension type FileSystem._(JSObject it) {
   external void appendFileSync(String path, String data);
 
   /// Whether the current user has permissions to access [path].
-  /// 
+  ///
   /// Use [mode] to select which access level to check.
   bool canAccess(String path, {int mode = FileSystemAccess.F_OK}) {
     try {
@@ -90,7 +90,5 @@ extension type FileSystem._(JSObject it) {
 @JS()
 @anonymous
 extension type _RmdirOptions._(JSObject it) {
-  external factory _RmdirOptions({
-    bool? recursive,
-  });
+  external factory _RmdirOptions({bool? recursive});
 }

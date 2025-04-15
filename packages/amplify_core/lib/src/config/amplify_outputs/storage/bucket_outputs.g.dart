@@ -22,7 +22,7 @@ BucketOutputs _$BucketOutputsFromJson(Map<String, dynamic> json) =>
       },
       fieldKeyMap: const {
         'bucketName': 'bucket_name',
-        'awsRegion': 'aws_region'
+        'awsRegion': 'aws_region',
       },
     );
 

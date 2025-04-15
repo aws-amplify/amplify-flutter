@@ -19,10 +19,7 @@ void main() {
       final message = SrpInitMessage();
       worker.add(message);
 
-      expect(
-        worker.stream,
-        emits(isA<SrpInitResult>()),
-      );
+      expect(worker.stream, emits(isA<SrpInitResult>()));
     });
   });
 }

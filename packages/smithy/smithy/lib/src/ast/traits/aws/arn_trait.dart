@@ -39,12 +39,7 @@ class ArnTrait with AWSSerializable implements Trait<ArnTrait> {
   bool get isSynthetic => false;
 
   @override
-  List<Object?> get props => [
-        noRegion,
-        noAccount,
-        absolute,
-        template,
-      ];
+  List<Object?> get props => [noRegion, noAccount, absolute, template];
 
   @override
   ShapeId get shapeId => id;

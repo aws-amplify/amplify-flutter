@@ -59,26 +59,26 @@ sealed class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
   /// machine may have moved to a failure state as the result of an expected,
   /// recoverable exception.)
   bool _inChallengeState(SignInState currentState) => switch (currentState) {
-        SignInChallenge _ => true,
+    SignInChallenge _ => true,
 
-        // If the state machine was in a respond to challenge state when
-        // the exception was raised, further attempts to confirm sign in should
-        // be allowed.
-        //
-        // Recoverable exceptions are expected at this stage, such as
-        // CodeMismatchException and InvalidPasswordException. These exceptions
-        // prompt the user to retry if they've provided an invalid code or weak
-        // password, for example. It is not feasible to determine which exception
-        // types are non-recoverable, though. For all others, it is better to
-        // allow confirm sign in attempts and have Cognito continue to throw the
-        // exception.
-        SignInFailure(:final previousState) => _inChallengeState(previousState),
+    // If the state machine was in a respond to challenge state when
+    // the exception was raised, further attempts to confirm sign in should
+    // be allowed.
+    //
+    // Recoverable exceptions are expected at this stage, such as
+    // CodeMismatchException and InvalidPasswordException. These exceptions
+    // prompt the user to retry if they've provided an invalid code or weak
+    // password, for example. It is not feasible to determine which exception
+    // types are non-recoverable, though. For all others, it is better to
+    // allow confirm sign in attempts and have Cognito continue to throw the
+    // exception.
+    SignInFailure(:final previousState) => _inChallengeState(previousState),
 
-        // If the state machine did not reach a challenge state before the
-        // exception was thrown, then any attempts to confirm sign in should
-        // not be allowed and the entire flow must be restarted by the user.
-        _ => false,
-      };
+    // If the state machine did not reach a challenge state before the
+    // exception was thrown, then any attempts to confirm sign in should
+    // not be allowed and the entire flow must be restarted by the user.
+    _ => false,
+  };
 
   @override
   String get runtimeTypeName => 'SignInEvent';
@@ -93,8 +93,8 @@ final class SignInInitiate extends SignInEvent {
     this.authFlowType,
     required this.parameters,
     Map<String, String>? clientMetadata,
-  })  : clientMetadata = clientMetadata ?? const {},
-        super._();
+  }) : clientMetadata = clientMetadata ?? const {},
+       super._();
 
   /// Runtime override of the Authentication flow.
   final AuthenticationFlowType? authFlowType;
@@ -128,9 +128,9 @@ final class SignInRespondToChallenge extends SignInEvent {
     Map<String, String>? clientMetadata,
     Map<CognitoUserAttributeKey, String>? userAttributes,
     this.friendlyDeviceName,
-  })  : clientMetadata = clientMetadata ?? const {},
-        userAttributes = userAttributes ?? const {},
-        super._();
+  }) : clientMetadata = clientMetadata ?? const {},
+       userAttributes = userAttributes ?? const {},
+       super._();
 
   /// The answer to the challenge.
   final String answer;
@@ -150,12 +150,12 @@ final class SignInRespondToChallenge extends SignInEvent {
 
   @override
   List<Object?> get props => [
-        type,
-        answer,
-        clientMetadata,
-        userAttributes,
-        friendlyDeviceName,
-      ];
+    type,
+    answer,
+    clientMetadata,
+    userAttributes,
+    friendlyDeviceName,
+  ];
 
   @override
   PreconditionException? checkPrecondition(SignInState currentState) {

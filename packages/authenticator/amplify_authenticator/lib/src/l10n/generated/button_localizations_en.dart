@@ -59,36 +59,30 @@ class AuthenticatorButtonLocalizationsEn
 
   @override
   String backTo(String previousStep) {
-    final temp0 = intl.Intl.selectLogic(
-      previousStep,
-      {
-        'signUp': 'Sign Up',
-        'signIn': 'Sign In',
-        'confirmSignUp': 'Confirm Sign-up',
-        'confirmSignInMfa': 'Confirm Sign-in',
-        'confirmSignInNewPassword': 'Confirm Sign-in',
-        'sendCode': 'Send Code',
-        'resetPassword': 'Reset Password',
-        'verifyUser': 'Verify User',
-        'confirmVerifyUser': 'Confirm Verify User',
-        'other': 'ERROR',
-      },
-    );
+    final temp0 = intl.Intl.selectLogic(previousStep, {
+      'signUp': 'Sign Up',
+      'signIn': 'Sign In',
+      'confirmSignUp': 'Confirm Sign-up',
+      'confirmSignInMfa': 'Confirm Sign-in',
+      'confirmSignInNewPassword': 'Confirm Sign-in',
+      'sendCode': 'Send Code',
+      'resetPassword': 'Reset Password',
+      'verifyUser': 'Verify User',
+      'confirmVerifyUser': 'Confirm Verify User',
+      'other': 'ERROR',
+    });
     return 'Back to $temp0';
   }
 
   @override
   String signInWith(String provider) {
-    final temp0 = intl.Intl.selectLogic(
-      provider,
-      {
-        'google': 'Google',
-        'facebook': 'Facebook',
-        'amazon': 'Amazon',
-        'apple': 'Apple',
-        'other': 'ERROR',
-      },
-    );
+    final temp0 = intl.Intl.selectLogic(provider, {
+      'google': 'Google',
+      'facebook': 'Facebook',
+      'amazon': 'Amazon',
+      'apple': 'Apple',
+      'other': 'ERROR',
+    });
     return 'Sign In with $temp0';
   }
 }

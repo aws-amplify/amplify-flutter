@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v1.s3.test.delete_object_tagging_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -26,198 +26,173 @@ import 'package:smithy_test/smithy_test.dart' as _i1;
 import 'package:test/test.dart' as _i2;
 
 void main() {
-  final vendorSerializers = (_i1.testSerializers.toBuilder()
-        ..addAll(const [
-          AwsConfigSerializer(),
-          ScopedConfigSerializer(),
-          EnvironmentConfigSerializer(),
-          FileConfigSettingsSerializer(),
-          S3ConfigSerializer(),
-          ClientConfigSerializer(),
-          RetryConfigSerializer(),
-          OperationConfigSerializer(),
-          ...RetryMode.serializers,
-          ...S3AddressingStyle.serializers,
-        ]))
-      .build();
+  final vendorSerializers =
+      (_i1.testSerializers.toBuilder()..addAll(const [
+            AwsConfigSerializer(),
+            ScopedConfigSerializer(),
+            EnvironmentConfigSerializer(),
+            FileConfigSettingsSerializer(),
+            S3ConfigSerializer(),
+            ClientConfigSerializer(),
+            RetryConfigSerializer(),
+            OperationConfigSerializer(),
+            ...RetryMode.serializers,
+            ...S3AddressingStyle.serializers,
+          ]))
+          .build();
 
-  _i2.test(
-    'S3EscapeObjectKeyInUriLabel (request)',
-    () async {
-      final config = (vendorSerializers.deserialize(
-        {
+  _i2.test('S3EscapeObjectKeyInUriLabel (request)', () async {
+    final config =
+        (vendorSerializers.deserialize({
+              'scopedConfig': {
+                'client': {'region': 'us-west-2'},
+              },
+            }, specifiedType: const FullType(AwsConfig))
+            as AwsConfig);
+    final s3ClientConfig = _i3.S3ClientConfig(
+      useAcceleration:
+          config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
+          config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
+          false,
+      useDualStack:
+          config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
+          config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
+          false,
+      usePathStyle:
+          (config.scopedConfig?.operation?.s3?.addressingStyle ??
+              config.scopedConfig?.client?.s3?.addressingStyle) ==
+          S3AddressingStyle.path,
+      signerConfiguration: _i4.S3ServiceConfiguration(
+        signPayload: false,
+        chunked: false,
+      ),
+    );
+    await _i1.httpRequestTest(
+      operation: DeleteObjectTaggingOperation(
+        region: config.scopedConfig?.client?.region ?? 'us-east-1',
+        baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i1.HttpRequestTestCase(
+        id: 'S3EscapeObjectKeyInUriLabel',
+        documentation:
+            '    S3 clients should escape special characters in Object Keys\n    when the Object Key is used as a URI label binding.\n',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'Bucket': 'mybucket', 'Key': 'my key.txt'},
+        vendorParamsShape: _i5.ShapeId(
+          namespace: 'aws.protocoltests.config',
+          shape: 'AwsConfig',
+        ),
+        vendorParams: {
           'scopedConfig': {
-            'client': {'region': 'us-west-2'}
-          }
+            'client': {'region': 'us-west-2'},
+          },
         },
-        specifiedType: const FullType(AwsConfig),
-      ) as AwsConfig);
-      final s3ClientConfig = _i3.S3ClientConfig(
-        useAcceleration:
-            config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
-                config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
-                false,
-        useDualStack:
-            config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
-                config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
-                false,
-        usePathStyle: (config.scopedConfig?.operation?.s3?.addressingStyle ??
-                config.scopedConfig?.client?.s3?.addressingStyle) ==
-            S3AddressingStyle.path,
-        signerConfiguration: _i4.S3ServiceConfiguration(
-          signPayload: false,
-          chunked: false,
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'DELETE',
+        uri: '/my%20key.txt',
+        host: 's3.us-west-2.amazonaws.com',
+        resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
+        queryParams: ['tagging'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [DeleteObjectTaggingRequestRestXmlSerializer()],
+    );
+  });
+  _i2.test('S3EscapePathObjectKeyInUriLabel (request)', () async {
+    final config =
+        (vendorSerializers.deserialize({
+              'scopedConfig': {
+                'client': {'region': 'us-west-2'},
+              },
+            }, specifiedType: const FullType(AwsConfig))
+            as AwsConfig);
+    final s3ClientConfig = _i3.S3ClientConfig(
+      useAcceleration:
+          config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
+          config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
+          false,
+      useDualStack:
+          config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
+          config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
+          false,
+      usePathStyle:
+          (config.scopedConfig?.operation?.s3?.addressingStyle ??
+              config.scopedConfig?.client?.s3?.addressingStyle) ==
+          S3AddressingStyle.path,
+      signerConfiguration: _i4.S3ServiceConfiguration(
+        signPayload: false,
+        chunked: false,
+      ),
+    );
+    await _i1.httpRequestTest(
+      operation: DeleteObjectTaggingOperation(
+        region: config.scopedConfig?.client?.region ?? 'us-east-1',
+        baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-      );
-      await _i1.httpRequestTest(
-        operation: DeleteObjectTaggingOperation(
-          region: config.scopedConfig?.client?.region ?? 'us-east-1',
-          baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
+      ),
+      testCase: const _i1.HttpRequestTestCase(
+        id: 'S3EscapePathObjectKeyInUriLabel',
+        documentation:
+            '    S3 clients should preserve an Object Key representing a path\n    when the Object Key is used as a URI label binding, but still\n    escape special characters.\n',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'Bucket': 'mybucket', 'Key': 'foo/bar/my key.txt'},
+        vendorParamsShape: _i5.ShapeId(
+          namespace: 'aws.protocoltests.config',
+          shape: 'AwsConfig',
         ),
-        testCase: const _i1.HttpRequestTestCase(
-          id: 'S3EscapeObjectKeyInUriLabel',
-          documentation:
-              '    S3 clients should escape special characters in Object Keys\n    when the Object Key is used as a URI label binding.\n',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'Bucket': 'mybucket',
-            'Key': 'my key.txt',
-          },
-          vendorParamsShape: _i5.ShapeId(
-            namespace: 'aws.protocoltests.config',
-            shape: 'AwsConfig',
-          ),
-          vendorParams: {
-            'scopedConfig': {
-              'client': {'region': 'us-west-2'}
-            }
-          },
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'DELETE',
-          uri: '/my%20key.txt',
-          host: 's3.us-west-2.amazonaws.com',
-          resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
-          queryParams: ['tagging'],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [DeleteObjectTaggingRequestRestXmlSerializer()],
-      );
-    },
-  );
-  _i2.test(
-    'S3EscapePathObjectKeyInUriLabel (request)',
-    () async {
-      final config = (vendorSerializers.deserialize(
-        {
+        vendorParams: {
           'scopedConfig': {
-            'client': {'region': 'us-west-2'}
-          }
+            'client': {'region': 'us-west-2'},
+          },
         },
-        specifiedType: const FullType(AwsConfig),
-      ) as AwsConfig);
-      final s3ClientConfig = _i3.S3ClientConfig(
-        useAcceleration:
-            config.scopedConfig?.operation?.s3?.useAccelerateEndpoint ??
-                config.scopedConfig?.client?.s3?.useAccelerateEndpoint ??
-                false,
-        useDualStack:
-            config.scopedConfig?.operation?.s3?.useDualstackEndpoint ??
-                config.scopedConfig?.client?.s3?.useDualstackEndpoint ??
-                false,
-        usePathStyle: (config.scopedConfig?.operation?.s3?.addressingStyle ??
-                config.scopedConfig?.client?.s3?.addressingStyle) ==
-            S3AddressingStyle.path,
-        signerConfiguration: _i4.S3ServiceConfiguration(
-          signPayload: false,
-          chunked: false,
-        ),
-      );
-      await _i1.httpRequestTest(
-        operation: DeleteObjectTaggingOperation(
-          region: config.scopedConfig?.client?.region ?? 'us-east-1',
-          baseUri: Uri.parse('https://s3.us-west-2.amazonaws.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i1.HttpRequestTestCase(
-          id: 'S3EscapePathObjectKeyInUriLabel',
-          documentation:
-              '    S3 clients should preserve an Object Key representing a path\n    when the Object Key is used as a URI label binding, but still\n    escape special characters.\n',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'Bucket': 'mybucket',
-            'Key': 'foo/bar/my key.txt',
-          },
-          vendorParamsShape: _i5.ShapeId(
-            namespace: 'aws.protocoltests.config',
-            shape: 'AwsConfig',
-          ),
-          vendorParams: {
-            'scopedConfig': {
-              'client': {'region': 'us-west-2'}
-            }
-          },
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'DELETE',
-          uri: '/foo/bar/my%20key.txt',
-          host: 's3.us-west-2.amazonaws.com',
-          resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
-          queryParams: ['tagging'],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [DeleteObjectTaggingRequestRestXmlSerializer()],
-      );
-    },
-  );
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'DELETE',
+        uri: '/foo/bar/my%20key.txt',
+        host: 's3.us-west-2.amazonaws.com',
+        resolvedHost: 'mybucket.s3.us-west-2.amazonaws.com',
+        queryParams: ['tagging'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [DeleteObjectTaggingRequestRestXmlSerializer()],
+    );
+  });
 }
 
 class DeleteObjectTaggingRequestRestXmlSerializer
     extends _i5.StructuredSmithySerializer<DeleteObjectTaggingRequest> {
   const DeleteObjectTaggingRequestRestXmlSerializer()
-      : super('DeleteObjectTaggingRequest');
+    : super('DeleteObjectTaggingRequest');
 
   @override
   Iterable<Type> get types => const [DeleteObjectTaggingRequest];
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   DeleteObjectTaggingRequest deserialize(
@@ -236,25 +211,33 @@ class DeleteObjectTaggingRequestRestXmlSerializer
       }
       switch (key) {
         case 'Bucket':
-          result.bucket = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.bucket =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Key':
-          result.key = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.key =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'VersionId':
-          result.versionId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.versionId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ExpectedBucketOwner':
-          result.expectedBucketOwner = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.expectedBucketOwner =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -274,18 +257,15 @@ class DeleteObjectTaggingRequestRestXmlSerializer
 class DeleteObjectTaggingOutputRestXmlSerializer
     extends _i5.StructuredSmithySerializer<DeleteObjectTaggingOutput> {
   const DeleteObjectTaggingOutputRestXmlSerializer()
-      : super('DeleteObjectTaggingOutput');
+    : super('DeleteObjectTaggingOutput');
 
   @override
   Iterable<Type> get types => const [DeleteObjectTaggingOutput];
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   DeleteObjectTaggingOutput deserialize(
@@ -304,10 +284,12 @@ class DeleteObjectTaggingOutputRestXmlSerializer
       }
       switch (key) {
         case 'VersionId':
-          result.versionId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.versionId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -332,11 +314,8 @@ class AwsConfigSerializer extends _i5.StructuredSmithySerializer<AwsConfig> {
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
 
   @override
   AwsConfig deserialize(
@@ -355,15 +334,20 @@ class AwsConfigSerializer extends _i5.StructuredSmithySerializer<AwsConfig> {
       }
       switch (key) {
         case 'clockTime':
-          result.clockTime = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.clockTime =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
         case 'scopedConfig':
-          result.scopedConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ScopedConfig),
-          ) as ScopedConfig));
+          result.scopedConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ScopedConfig),
+                )
+                as ScopedConfig),
+          );
       }
     }
 
@@ -389,11 +373,8 @@ class ScopedConfigSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
 
   @override
   ScopedConfig deserialize(
@@ -412,42 +393,51 @@ class ScopedConfigSerializer
       }
       switch (key) {
         case 'environment':
-          result.environment.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(EnvironmentConfig),
-          ) as EnvironmentConfig));
+          result.environment.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(EnvironmentConfig),
+                )
+                as EnvironmentConfig),
+          );
         case 'configFile':
-          result.configFile.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i6.BuiltMap,
-              [
-                FullType(String),
-                FullType(FileConfigSettings),
-              ],
-            ),
-          ) as _i6.BuiltMap<String, FileConfigSettings>));
+          result.configFile.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i6.BuiltMap, [
+                    FullType(String),
+                    FullType(FileConfigSettings),
+                  ]),
+                )
+                as _i6.BuiltMap<String, FileConfigSettings>),
+          );
         case 'credentialsFile':
-          result.credentialsFile.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i6.BuiltMap,
-              [
-                FullType(String),
-                FullType(FileConfigSettings),
-              ],
-            ),
-          ) as _i6.BuiltMap<String, FileConfigSettings>));
+          result.credentialsFile.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i6.BuiltMap, [
+                    FullType(String),
+                    FullType(FileConfigSettings),
+                  ]),
+                )
+                as _i6.BuiltMap<String, FileConfigSettings>),
+          );
         case 'client':
-          result.client.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ClientConfig),
-          ) as ClientConfig));
+          result.client.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ClientConfig),
+                )
+                as ClientConfig),
+          );
         case 'operation':
-          result.operation.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(OperationConfig),
-          ) as OperationConfig));
+          result.operation.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(OperationConfig),
+                )
+                as OperationConfig),
+          );
       }
     }
 
@@ -473,11 +463,8 @@ class EnvironmentConfigSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
 
   @override
   EnvironmentConfig deserialize(
@@ -496,35 +483,47 @@ class EnvironmentConfigSerializer
       }
       switch (key) {
         case 'AWS_ACCESS_KEY_ID':
-          result.awsAccessKeyId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsAccessKeyId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_SECRET_ACCESS_KEY':
-          result.awsSecretAccessKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSecretAccessKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_DEFAULT_REGION':
-          result.awsDefaultRegion = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsDefaultRegion =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_RETRY_MODE':
-          result.awsRetryMode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.awsRetryMode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 'AWS_SESSION_TOKEN':
-          result.awsSessionToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSessionToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AWS_PROFILE':
-          result.awsProfile = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsProfile =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -550,11 +549,8 @@ class FileConfigSettingsSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
 
   @override
   FileConfigSettings deserialize(
@@ -573,40 +569,55 @@ class FileConfigSettingsSerializer
       }
       switch (key) {
         case 'aws_access_key_id':
-          result.awsAccessKeyId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsAccessKeyId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_secret_access_key':
-          result.awsSecretAccessKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSecretAccessKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_session_token':
-          result.awsSessionToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSessionToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'region':
-          result.region = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.region =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 's3':
-          result.s3.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3Config),
-          ) as S3Config));
+          result.s3.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(S3Config),
+                )
+                as S3Config),
+          );
         case 'retry_mode':
-          result.retryMode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.retryMode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 'max_attempts':
-          result.maxAttempts = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxAttempts =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -631,11 +642,8 @@ class S3ConfigSerializer extends _i5.StructuredSmithySerializer<S3Config> {
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
 
   @override
   S3Config deserialize(
@@ -654,20 +662,26 @@ class S3ConfigSerializer extends _i5.StructuredSmithySerializer<S3Config> {
       }
       switch (key) {
         case 'addressing_style':
-          result.addressingStyle = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3AddressingStyle),
-          ) as S3AddressingStyle);
+          result.addressingStyle =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(S3AddressingStyle),
+                  )
+                  as S3AddressingStyle);
         case 'use_accelerate_endpoint':
-          result.useAccelerateEndpoint = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.useAccelerateEndpoint =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'use_dualstack_endpoint':
-          result.useDualstackEndpoint = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.useDualstackEndpoint =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 
@@ -693,11 +707,8 @@ class ClientConfigSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
 
   @override
   ClientConfig deserialize(
@@ -716,40 +727,56 @@ class ClientConfigSerializer
       }
       switch (key) {
         case 'aws_access_key_id':
-          result.awsAccessKeyId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsAccessKeyId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_secret_access_key':
-          result.awsSecretAccessKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSecretAccessKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_session_token':
-          result.awsSessionToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSessionToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'region':
-          result.region = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.region =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 's3':
-          result.s3.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3Config),
-          ) as S3Config));
+          result.s3.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(S3Config),
+                )
+                as S3Config),
+          );
         case 'retry_config':
-          result.retryConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryConfig),
-          ) as RetryConfig));
+          result.retryConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(RetryConfig),
+                )
+                as RetryConfig),
+          );
         case 'aws_profile':
-          result.awsProfile = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsProfile =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -775,11 +802,8 @@ class RetryConfigSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
 
   @override
   RetryConfig deserialize(
@@ -798,15 +822,19 @@ class RetryConfigSerializer
       }
       switch (key) {
         case 'mode':
-          result.mode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.mode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 'max_attempts':
-          result.maxAttempts = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxAttempts =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -832,11 +860,8 @@ class OperationConfigSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'smithy.dart',
-          shape: 'genericProtocol',
-        )
-      ];
+    _i5.ShapeId(namespace: 'smithy.dart', shape: 'genericProtocol'),
+  ];
 
   @override
   OperationConfig deserialize(
@@ -855,10 +880,13 @@ class OperationConfigSerializer
       }
       switch (key) {
         case 's3':
-          result.s3.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3Config),
-          ) as S3Config));
+          result.s3.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(S3Config),
+                )
+                as S3Config),
+          );
       }
     }
 

@@ -22,29 +22,30 @@ class RestXmlProtocol<InputPayload, Input, OutputPayload, Output>
     Map<FullType, Function> builderFactories = const {},
     this.noErrorWrapping = false,
   }) : super(
-          _coreSerializers,
-          serializers: serializers,
-          builderFactories: builderFactories,
-          requestInterceptors: requestInterceptors,
-          responseInterceptors: responseInterceptors,
-        );
+         _coreSerializers,
+         serializers: serializers,
+         builderFactories: builderFactories,
+         requestInterceptors: requestInterceptors,
+         responseInterceptors: responseInterceptors,
+       );
 
-  static final _coreSerializers = (Serializers().toBuilder()
-        ..addPlugin(const SmithyXmlPlugin())
-        ..addAll(const [
-          BigIntSerializer.asString,
-          XmlNumSerializer(),
-          Int64Serializer.asString,
-          TimestampSerializer.dateTime,
-          UnitSerializer(),
-          XmlBoolSerializer(),
-          XmlBuiltListSerializer(),
-          XmlBuiltMapSerializer(),
-          XmlBuiltSetSerializer(),
-          XmlStringSerializer(),
-          StreamSerializer<List<int>>(),
-        ]))
-      .build();
+  static final _coreSerializers =
+      (Serializers().toBuilder()
+            ..addPlugin(const SmithyXmlPlugin())
+            ..addAll(const [
+              BigIntSerializer.asString,
+              XmlNumSerializer(),
+              Int64Serializer.asString,
+              TimestampSerializer.dateTime,
+              UnitSerializer(),
+              XmlBoolSerializer(),
+              XmlBuiltListSerializer(),
+              XmlBuiltMapSerializer(),
+              XmlBuiltSetSerializer(),
+              XmlStringSerializer(),
+              StreamSerializer<List<int>>(),
+            ]))
+          .build();
 
   @override
   ShapeId get protocolId => RestXmlTrait.id;

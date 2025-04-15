@@ -22,17 +22,23 @@ void main() {
   }
 
   test('when providing custom page and limit', () async {
-    expect(QueryPagination(page: 3, limit: 200).serializeAsMap(),
-        await getJsonFromFile('custom_page_and_limit.json'));
+    expect(
+      QueryPagination(page: 3, limit: 200).serializeAsMap(),
+      await getJsonFromFile('custom_page_and_limit.json'),
+    );
   });
 
   test('when only need first page', () async {
-    expect(QueryPagination.firstPage().serializeAsMap(),
-        await getJsonFromFile('first_page.json'));
+    expect(
+      QueryPagination.firstPage().serializeAsMap(),
+      await getJsonFromFile('first_page.json'),
+    );
   });
 
   test('when only need first result', () async {
-    expect(QueryPagination.firstResult().serializeAsMap(),
-        await getJsonFromFile('first_result.json'));
+    expect(
+      QueryPagination.firstResult().serializeAsMap(),
+      await getJsonFromFile('first_result.json'),
+    );
   });
 }

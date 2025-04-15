@@ -17,8 +17,8 @@ class EndpointInfoStoreManager {
   EndpointInfoStoreManager({
     required SecureStorageInterface store,
     LegacyNativeDataProvider? legacyNativeDataProvider,
-  })  : _store = store,
-        _legacyNativeDataProvider = legacyNativeDataProvider;
+  }) : _store = store,
+       _legacyNativeDataProvider = legacyNativeDataProvider;
 
   final SecureStorageInterface _store;
   final LegacyNativeDataProvider? _legacyNativeDataProvider;
@@ -26,9 +26,9 @@ class EndpointInfoStoreManager {
   late final String _pinpointAppId;
   late final EndpointStore _endpointStore;
 
-  static final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.analytics)
-          .createChild('EndpointInfoStoreManager');
+  static final AmplifyLogger _logger = AmplifyLogger.category(
+    Category.analytics,
+  ).createChild('EndpointInfoStoreManager');
 
   var _isInit = false;
 
@@ -53,15 +53,14 @@ class EndpointInfoStoreManager {
 
   /// Retrieve the stored pinpoint endpoint id.
   Future<String> _retrieveEndpointId() async {
-    final storeVersion = await _store.read(
-      key: EndpointStoreKey.version.name,
-    );
+    final storeVersion = await _store.read(key: EndpointStoreKey.version.name);
 
     // Migration: null -> v1.
     if (storeVersion == null) {
       if (_legacyNativeDataProvider != null) {
-        final legacyEndpointId =
-            await _legacyNativeDataProvider.getEndpointId(_pinpointAppId);
+        final legacyEndpointId = await _legacyNativeDataProvider.getEndpointId(
+          _pinpointAppId,
+        );
         if (legacyEndpointId != null) {
           await _endpointStore.write(
             key: EndpointStoreKey.endpointId.name,

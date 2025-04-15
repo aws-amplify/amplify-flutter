@@ -11,15 +11,12 @@ part 'cognito_verify_totp_setup_plugin_options.g.dart';
 @zAmplifySerializable
 class CognitoVerifyTotpSetupPluginOptions extends VerifyTotpSetupPluginOptions {
   /// {@macro amplify_auth_cognito.model.cognito_verify_totp_setup_plugin_options}
-  const CognitoVerifyTotpSetupPluginOptions({
-    this.friendlyDeviceName,
-  });
+  const CognitoVerifyTotpSetupPluginOptions({this.friendlyDeviceName});
 
   /// {@macro amplify_auth_cognito.model.cognito_verify_totp_setup_plugin_options}
   factory CognitoVerifyTotpSetupPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoVerifyTotpSetupPluginOptionsFromJson(json);
+  ) => _$CognitoVerifyTotpSetupPluginOptionsFromJson(json);
 
   /// A unique name to help identify the registered TOTP device.
   final String? friendlyDeviceName;

@@ -14,13 +14,12 @@ import 'package:meta/meta.dart';
 class FlutterLifeCycle extends ProcessLifeCycle {
   /// {@macro amplify_api.flutter_life_cycle}
   FlutterLifeCycle() {
-    AppLifecycleListener(
-      onStateChange: _onStateChange,
-    );
+    AppLifecycleListener(onStateChange: _onStateChange);
   }
 
-  final _stateController =
-      StreamController<ProcessStatus>.broadcast(sync: true);
+  final _stateController = StreamController<ProcessStatus>.broadcast(
+    sync: true,
+  );
 
   @override
   Stream<ProcessStatus> get onStateChanged => _stateController.stream;

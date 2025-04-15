@@ -19,7 +19,8 @@ abstract class EventsResponse
   /// Provides information about endpoints and the events that they're associated with.
   factory EventsResponse({Map<String, ItemResponse>? results}) {
     return _$EventsResponse._(
-        results: results == null ? null : _i2.BuiltMap(results));
+      results: results == null ? null : _i2.BuiltMap(results),
+    );
   }
 
   /// Provides information about endpoints and the events that they're associated with.
@@ -29,7 +30,7 @@ abstract class EventsResponse
   const EventsResponse._();
 
   static const List<_i3.SmithySerializer<EventsResponse>> serializers = [
-    EventsResponseRestJson1Serializer()
+    EventsResponseRestJson1Serializer(),
   ];
 
   /// A map that contains a multipart response for each endpoint. For each item in this object, the endpoint ID is the key and the item response is the value. If no item response exists, the value can also be one of the following: 202, the request was processed successfully; or 400, the payload wasn't valid or required fields were missing.
@@ -39,10 +40,7 @@ abstract class EventsResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EventsResponse')
-      ..add(
-        'results',
-        results,
-      );
+      ..add('results', results);
     return helper.toString();
   }
 }
@@ -52,17 +50,11 @@ class EventsResponseRestJson1Serializer
   const EventsResponseRestJson1Serializer() : super('EventsResponse');
 
   @override
-  Iterable<Type> get types => const [
-        EventsResponse,
-        _$EventsResponse,
-      ];
+  Iterable<Type> get types => const [EventsResponse, _$EventsResponse];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EventsResponse deserialize(
     Serializers serializers,
@@ -80,16 +72,16 @@ class EventsResponseRestJson1Serializer
       }
       switch (key) {
         case 'Results':
-          result.results.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType(ItemResponse),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, ItemResponse>));
+          result.results.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType(ItemResponse),
+                  ]),
+                )
+                as _i2.BuiltMap<String, ItemResponse>),
+          );
       }
     }
 
@@ -107,16 +99,15 @@ class EventsResponseRestJson1Serializer
     if (results != null) {
       result$
         ..add('Results')
-        ..add(serializers.serialize(
-          results,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            results,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(ItemResponse),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

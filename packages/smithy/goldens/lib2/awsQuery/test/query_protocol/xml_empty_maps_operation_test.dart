@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_query_v2.query_protocol.test.xml_empty_maps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -14,78 +14,66 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryXmlEmptyMaps (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlEmptyMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlEmptyMaps',
-          documentation: 'Deserializes Empty XML maps',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlEmptyMapsResponse xmlns="https://example.com/">\n    <XmlEmptyMapsResult>\n        <myMap>\n        </myMap>\n    </XmlEmptyMapsResult>\n</XmlEmptyMapsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'myMap': {}},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [
-          XmlMapsOutputAwsQuerySerializer(),
-          GreetingStructAwsQuerySerializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'QueryXmlEmptySelfClosedMaps (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlEmptyMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlEmptySelfClosedMaps',
-          documentation: 'Deserializes Self-Closed XML maps',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlEmptyMapsResponse xmlns="https://example.com/">\n    <XmlEmptyMapsResult>\n        <myMap/>\n    </XmlEmptyMapsResult>\n</XmlEmptyMapsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'myMap': {}},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [
-          XmlMapsOutputAwsQuerySerializer(),
-          GreetingStructAwsQuerySerializer(),
-        ],
-      );
-    },
-  );
+  _i1.test('QueryXmlEmptyMaps (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlEmptyMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlEmptyMaps',
+        documentation: 'Deserializes Empty XML maps',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlEmptyMapsResponse xmlns="https://example.com/">\n    <XmlEmptyMapsResult>\n        <myMap>\n        </myMap>\n    </XmlEmptyMapsResult>\n</XmlEmptyMapsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'myMap': {}},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [
+        XmlMapsOutputAwsQuerySerializer(),
+        GreetingStructAwsQuerySerializer(),
+      ],
+    );
+  });
+  _i1.test('QueryXmlEmptySelfClosedMaps (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlEmptyMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlEmptySelfClosedMaps',
+        documentation: 'Deserializes Self-Closed XML maps',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlEmptyMapsResponse xmlns="https://example.com/">\n    <XmlEmptyMapsResult>\n        <myMap/>\n    </XmlEmptyMapsResult>\n</XmlEmptyMapsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'myMap': {}},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [
+        XmlMapsOutputAwsQuerySerializer(),
+        GreetingStructAwsQuerySerializer(),
+      ],
+    );
+  });
 }
 
 class XmlMapsOutputAwsQuerySerializer
@@ -97,11 +85,8 @@ class XmlMapsOutputAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlMapsOutput deserialize(
@@ -120,16 +105,16 @@ class XmlMapsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(GreetingStruct),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, GreetingStruct>));
+          result.myMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(GreetingStruct),
+                  ]),
+                )
+                as _i4.BuiltMap<String, GreetingStruct>),
+          );
       }
     }
 
@@ -155,11 +140,8 @@ class GreetingStructAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   GreetingStruct deserialize(
@@ -178,10 +160,12 @@ class GreetingStructAwsQuerySerializer
       }
       switch (key) {
         case 'hi':
-          result.hi = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.hi =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

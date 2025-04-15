@@ -55,8 +55,9 @@ void main() {
         final signInPage = SignInPage(tester: tester);
         final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-        final smsResult =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+        final smsResult = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // When I type my "username"
         await signInPage.enterUsername(username);
@@ -150,8 +151,9 @@ void main() {
         final signInPage = SignInPage(tester: tester);
         final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-        final smsResult_1 =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+        final smsResult_1 = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // When I type my "username"
         await signInPage.enterUsername(username);
@@ -184,8 +186,9 @@ void main() {
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();
 
-        final smsResult_2 =
-            await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
+        final smsResult_2 = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // Then I see the sign in page
         signInPage.expectEmail();

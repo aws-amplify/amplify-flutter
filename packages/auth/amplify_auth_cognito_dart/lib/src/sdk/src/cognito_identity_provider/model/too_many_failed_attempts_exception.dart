@@ -12,11 +12,12 @@ part 'too_many_failed_attempts_exception.g.dart';
 
 /// This exception is thrown when the user has made too many failed attempts for a given action, such as sign-in.
 abstract class TooManyFailedAttemptsException
-    with
-        _i1.AWSEquatable<TooManyFailedAttemptsException>
+    with _i1.AWSEquatable<TooManyFailedAttemptsException>
     implements
-        Built<TooManyFailedAttemptsException,
-            TooManyFailedAttemptsExceptionBuilder>,
+        Built<
+          TooManyFailedAttemptsException,
+          TooManyFailedAttemptsExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   /// This exception is thrown when the user has made too many failed attempts for a given action, such as sign-in.
   factory TooManyFailedAttemptsException({String? message}) {
@@ -24,9 +25,9 @@ abstract class TooManyFailedAttemptsException
   }
 
   /// This exception is thrown when the user has made too many failed attempts for a given action, such as sign-in.
-  factory TooManyFailedAttemptsException.build(
-          [void Function(TooManyFailedAttemptsExceptionBuilder) updates]) =
-      _$TooManyFailedAttemptsException;
+  factory TooManyFailedAttemptsException.build([
+    void Function(TooManyFailedAttemptsExceptionBuilder) updates,
+  ]) = _$TooManyFailedAttemptsException;
 
   const TooManyFailedAttemptsException._();
 
@@ -34,22 +35,21 @@ abstract class TooManyFailedAttemptsException
   factory TooManyFailedAttemptsException.fromResponse(
     TooManyFailedAttemptsException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<TooManyFailedAttemptsException>>
-      serializers = [TooManyFailedAttemptsExceptionAwsJson11Serializer()];
+  serializers = [TooManyFailedAttemptsExceptionAwsJson11Serializer()];
 
   /// The message returned when Amazon Cognito returns a `TooManyFailedAttempts` exception.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'TooManyFailedAttemptsException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'TooManyFailedAttemptsException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -70,10 +70,7 @@ abstract class TooManyFailedAttemptsException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TooManyFailedAttemptsException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -81,21 +78,18 @@ abstract class TooManyFailedAttemptsException
 class TooManyFailedAttemptsExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<TooManyFailedAttemptsException> {
   const TooManyFailedAttemptsExceptionAwsJson11Serializer()
-      : super('TooManyFailedAttemptsException');
+    : super('TooManyFailedAttemptsException');
 
   @override
   Iterable<Type> get types => const [
-        TooManyFailedAttemptsException,
-        _$TooManyFailedAttemptsException,
-      ];
+    TooManyFailedAttemptsException,
+    _$TooManyFailedAttemptsException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   TooManyFailedAttemptsException deserialize(
@@ -114,10 +108,12 @@ class TooManyFailedAttemptsExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -135,10 +131,9 @@ class TooManyFailedAttemptsExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

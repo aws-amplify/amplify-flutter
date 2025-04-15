@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Amplify Auth Cognito for Dart
-library amplify_auth_cognito_dart;
+library;
 
 export 'package:amplify_core/src/types/auth/auth_types.dart';
 

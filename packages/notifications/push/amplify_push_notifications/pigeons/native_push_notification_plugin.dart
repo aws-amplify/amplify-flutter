@@ -18,7 +18,7 @@
     objcSourceOut: 'ios/Classes/PushNotificationsNativePlugin.m',
   ),
 )
-library push_notifications_plugin;
+library;
 
 import 'package:pigeon/pigeon.dart';
 
@@ -35,9 +35,7 @@ class PermissionsOptions {
 }
 
 class GetPermissionStatusResult {
-  GetPermissionStatusResult({
-    required this.status,
-  });
+  GetPermissionStatusResult({required this.status});
 
   final PermissionStatus status;
 }

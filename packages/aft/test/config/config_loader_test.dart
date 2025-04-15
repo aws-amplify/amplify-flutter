@@ -17,14 +17,12 @@ name: my_repo
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.7.0
 
 dependencies:
-  json_serializable: ^6.0.0
+  json_serializable: ^6.9.4
 ''';
-      await d.dir('repo', [
-        d.file('pubspec.yaml', rootPubspec),
-      ]).create();
+      await d.dir('repo', [d.file('pubspec.yaml', rootPubspec)]).create();
 
       final rootDirectory = p.normalize(d.path('repo'));
       final workingDirectory = rootDirectory;
@@ -40,8 +38,10 @@ dependencies:
           (config) => p.normalize(config.workingDirectory.toFilePath()),
           'workingDirectory',
         ).equals(workingDirectory)
-        ..has((config) => config.dependencies.toMap(), 'dependencies')
-            .containsKey('json_serializable');
+        ..has(
+          (config) => config.dependencies.toMap(),
+          'dependencies',
+        ).containsKey('json_serializable');
     });
 
     test('merges root config with child config', () async {
@@ -50,10 +50,10 @@ name: my_repo
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.7.0
 
 dependencies:
-  json_serializable: ^6.0.0
+  json_serializable: ^6.9.4
 
 aft:
   scripts:
@@ -68,11 +68,11 @@ name: my_pkg
 version: 0.1.0
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.7.0
 
 dependencies:
   built_value: ^8.0.0
-  json_serializable: ^6.0.0
+  json_serializable: ^6.9.4
 
 aft:
   scripts:
@@ -85,16 +85,12 @@ aft:
       await d.dir('repo', [
         d.file('pubspec.yaml', rootPubspec),
         d.dir('packages', [
-          d.dir('my_pkg', [
-            d.file('pubspec.yaml', packagePubspec),
-          ]),
+          d.dir('my_pkg', [d.file('pubspec.yaml', packagePubspec)]),
         ]),
       ]).create();
 
       final rootDirectory = p.normalize(d.path('repo'));
-      final workingDirectory = p.normalize(
-        d.path('repo/packages/my_pkg'),
-      );
+      final workingDirectory = p.normalize(d.path('repo/packages/my_pkg'));
       final configLoader = AftConfigLoader(
         workingDirectory: Directory(workingDirectory),
       );
@@ -108,14 +104,16 @@ aft:
           'workingDirectory',
         ).equals(workingDirectory)
         ..has((config) => config.dependencies.toMap(), 'dependencies').which(
-          (it) => it
-            ..containsKey('json_serializable')
-            ..not((it) => it..containsKey('built_value')),
+          (it) =>
+              it
+                ..containsKey('json_serializable')
+                ..not((it) => it..containsKey('built_value')),
         )
         ..has((config) => config.scripts.toMap(), 'scripts').which(
-          (it) => it
-            ..containsKey('license')
-            ..containsKey('format'),
+          (it) =>
+              it
+                ..containsKey('license')
+                ..containsKey('format'),
         );
     });
   });

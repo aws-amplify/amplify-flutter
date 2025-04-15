@@ -31,14 +31,9 @@ class GraphQLCreateExamples extends StatelessWidget {
     final blog = Blog(name: 'Example Blog - ${uuid()}');
     setBlog(blog);
 
-    final req = ModelMutations.create(
-      blog,
-      authorizationMode: authMode,
-    );
+    final req = ModelMutations.create(blog, authorizationMode: authMode);
 
-    final operation = Amplify.API.mutate(
-      request: req,
-    );
+    final operation = Amplify.API.mutate(request: req);
 
     final response = await operation.response;
     setResults(handleResponse(response));
@@ -49,14 +44,9 @@ class GraphQLCreateExamples extends StatelessWidget {
   Future<void> createPost() async {
     final post = Post(title: 'Example Post - ${uuid()}', rating: 3, blog: blog);
     setPost(post);
-    final req = ModelMutations.create(
-      post,
-      authorizationMode: authMode,
-    );
+    final req = ModelMutations.create(post, authorizationMode: authMode);
 
-    final operation = Amplify.API.mutate(
-      request: req,
-    );
+    final operation = Amplify.API.mutate(request: req);
 
     final response = await operation.response;
     setResults(handleResponse(response));
@@ -66,14 +56,9 @@ class GraphQLCreateExamples extends StatelessWidget {
   // Attached to the last created blog and post
   Future<void> createComment() async {
     final comment = Comment(content: 'Example Comment - ${uuid()}', post: post);
-    final req = ModelMutations.create(
-      comment,
-      authorizationMode: authMode,
-    );
+    final req = ModelMutations.create(comment, authorizationMode: authMode);
 
-    final operation = Amplify.API.mutate(
-      request: req,
-    );
+    final operation = Amplify.API.mutate(request: req);
 
     final response = await operation.response;
     setResults(handleResponse(response));
@@ -84,10 +69,7 @@ class GraphQLCreateExamples extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
-          'Create',
-          textAlign: TextAlign.left,
-        ),
+        const Text('Create', textAlign: TextAlign.left),
         Wrap(
           alignment: WrapAlignment.spaceBetween,
           spacing: 12,

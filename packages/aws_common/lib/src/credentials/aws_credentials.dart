@@ -41,11 +41,11 @@ class AWSCredentials
 
   @override
   List<Object?> get props => [
-        accessKeyId,
-        secretAccessKey,
-        sessionToken,
-        expiration?.toUtc(),
-      ];
+    accessKeyId,
+    secretAccessKey,
+    sessionToken,
+    expiration?.toUtc(),
+  ];
 
   @override
   Map<String, Object?> toJson() => _$AWSCredentialsToJson(this);

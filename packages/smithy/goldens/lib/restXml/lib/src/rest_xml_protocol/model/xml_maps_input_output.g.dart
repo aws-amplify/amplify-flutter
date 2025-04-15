@@ -10,16 +10,16 @@ class _$XmlMapsInputOutput extends XmlMapsInputOutput {
   @override
   final _i3.BuiltMap<String, GreetingStruct>? myMap;
 
-  factory _$XmlMapsInputOutput(
-          [void Function(XmlMapsInputOutputBuilder)? updates]) =>
-      (new XmlMapsInputOutputBuilder()..update(updates))._build();
+  factory _$XmlMapsInputOutput([
+    void Function(XmlMapsInputOutputBuilder)? updates,
+  ]) => (new XmlMapsInputOutputBuilder()..update(updates))._build();
 
   _$XmlMapsInputOutput._({this.myMap}) : super._();
 
   @override
   XmlMapsInputOutput rebuild(
-          void Function(XmlMapsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlMapsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlMapsInputOutputBuilder toBuilder() =>
@@ -86,7 +86,10 @@ class XmlMapsInputOutputBuilder
         _myMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlMapsInputOutput', _$failedField, e.toString());
+          r'XmlMapsInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

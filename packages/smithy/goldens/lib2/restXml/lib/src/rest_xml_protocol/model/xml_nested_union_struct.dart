@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.xml_nested_union_struct; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,14 +36,14 @@ abstract class XmlNestedUnionStruct
     );
   }
 
-  factory XmlNestedUnionStruct.build(
-          [void Function(XmlNestedUnionStructBuilder) updates]) =
-      _$XmlNestedUnionStruct;
+  factory XmlNestedUnionStruct.build([
+    void Function(XmlNestedUnionStructBuilder) updates,
+  ]) = _$XmlNestedUnionStruct;
 
   const XmlNestedUnionStruct._();
 
   static const List<_i3.SmithySerializer<XmlNestedUnionStruct>> serializers = [
-    XmlNestedUnionStructRestXmlSerializer()
+    XmlNestedUnionStructRestXmlSerializer(),
   ];
 
   String? get stringValue;
@@ -56,51 +56,28 @@ abstract class XmlNestedUnionStruct
   double? get doubleValue;
   @override
   List<Object?> get props => [
-        stringValue,
-        booleanValue,
-        byteValue,
-        shortValue,
-        integerValue,
-        longValue,
-        floatValue,
-        doubleValue,
-      ];
+    stringValue,
+    booleanValue,
+    byteValue,
+    shortValue,
+    integerValue,
+    longValue,
+    floatValue,
+    doubleValue,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlNestedUnionStruct')
-      ..add(
-        'stringValue',
-        stringValue,
-      )
-      ..add(
-        'booleanValue',
-        booleanValue,
-      )
-      ..add(
-        'byteValue',
-        byteValue,
-      )
-      ..add(
-        'shortValue',
-        shortValue,
-      )
-      ..add(
-        'integerValue',
-        integerValue,
-      )
-      ..add(
-        'longValue',
-        longValue,
-      )
-      ..add(
-        'floatValue',
-        floatValue,
-      )
-      ..add(
-        'doubleValue',
-        doubleValue,
-      );
+    final helper =
+        newBuiltValueToStringHelper('XmlNestedUnionStruct')
+          ..add('stringValue', stringValue)
+          ..add('booleanValue', booleanValue)
+          ..add('byteValue', byteValue)
+          ..add('shortValue', shortValue)
+          ..add('integerValue', integerValue)
+          ..add('longValue', longValue)
+          ..add('floatValue', floatValue)
+          ..add('doubleValue', doubleValue);
     return helper.toString();
   }
 }
@@ -111,17 +88,14 @@ class XmlNestedUnionStructRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        XmlNestedUnionStruct,
-        _$XmlNestedUnionStruct,
-      ];
+    XmlNestedUnionStruct,
+    _$XmlNestedUnionStruct,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlNestedUnionStruct deserialize(
@@ -140,45 +114,61 @@ class XmlNestedUnionStructRestXmlSerializer
       }
       switch (key) {
         case 'booleanValue':
-          result.booleanValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.booleanValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'byteValue':
-          result.byteValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.byteValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'doubleValue':
-          result.doubleValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.doubleValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'floatValue':
-          result.floatValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.floatValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'integerValue':
-          result.integerValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.integerValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'longValue':
-          result.longValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.longValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
         case 'shortValue':
-          result.shortValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.shortValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'stringValue':
-          result.stringValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.stringValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -200,71 +190,81 @@ class XmlNestedUnionStructRestXmlSerializer
       :integerValue,
       :longValue,
       :shortValue,
-      :stringValue
+      :stringValue,
     ) = object;
     if (booleanValue != null) {
       result$
         ..add(const _i3.XmlElementName('booleanValue'))
-        ..add(serializers.serialize(
-          booleanValue,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(
+            booleanValue,
+            specifiedType: const FullType(bool),
+          ),
+        );
     }
     if (byteValue != null) {
       result$
         ..add(const _i3.XmlElementName('byteValue'))
-        ..add(serializers.serialize(
-          byteValue,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(byteValue, specifiedType: const FullType(int)),
+        );
     }
     if (doubleValue != null) {
       result$
         ..add(const _i3.XmlElementName('doubleValue'))
-        ..add(serializers.serialize(
-          doubleValue,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            doubleValue,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     if (floatValue != null) {
       result$
         ..add(const _i3.XmlElementName('floatValue'))
-        ..add(serializers.serialize(
-          floatValue,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            floatValue,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     if (integerValue != null) {
       result$
         ..add(const _i3.XmlElementName('integerValue'))
-        ..add(serializers.serialize(
-          integerValue,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(
+            integerValue,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     if (longValue != null) {
       result$
         ..add(const _i3.XmlElementName('longValue'))
-        ..add(serializers.serialize(
-          longValue,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            longValue,
+            specifiedType: const FullType(_i2.Int64),
+          ),
+        );
     }
     if (shortValue != null) {
       result$
         ..add(const _i3.XmlElementName('shortValue'))
-        ..add(serializers.serialize(
-          shortValue,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(shortValue, specifiedType: const FullType(int)),
+        );
     }
     if (stringValue != null) {
       result$
         ..add(const _i3.XmlElementName('stringValue'))
-        ..add(serializers.serialize(
-          stringValue,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            stringValue,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

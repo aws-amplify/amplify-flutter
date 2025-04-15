@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_0_v1.json_rpc_10.model.json_unions_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,8 +18,9 @@ abstract class JsonUnionsOutput
     return _$JsonUnionsOutput._(contents: contents);
   }
 
-  factory JsonUnionsOutput.build(
-      [void Function(JsonUnionsOutputBuilder) updates]) = _$JsonUnionsOutput;
+  factory JsonUnionsOutput.build([
+    void Function(JsonUnionsOutputBuilder) updates,
+  ]) = _$JsonUnionsOutput;
 
   const JsonUnionsOutput._();
 
@@ -27,11 +28,10 @@ abstract class JsonUnionsOutput
   factory JsonUnionsOutput.fromResponse(
     JsonUnionsOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<JsonUnionsOutput>> serializers = [
-    JsonUnionsOutputAwsJson10Serializer()
+    JsonUnionsOutputAwsJson10Serializer(),
   ];
 
   /// A union with a representative set of types for members.
@@ -42,10 +42,7 @@ abstract class JsonUnionsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonUnionsOutput')
-      ..add(
-        'contents',
-        contents,
-      );
+      ..add('contents', contents);
     return helper.toString();
   }
 }
@@ -55,18 +52,12 @@ class JsonUnionsOutputAwsJson10Serializer
   const JsonUnionsOutputAwsJson10Serializer() : super('JsonUnionsOutput');
 
   @override
-  Iterable<Type> get types => const [
-        JsonUnionsOutput,
-        _$JsonUnionsOutput,
-      ];
+  Iterable<Type> get types => const [JsonUnionsOutput, _$JsonUnionsOutput];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   JsonUnionsOutput deserialize(
@@ -85,10 +76,12 @@ class JsonUnionsOutputAwsJson10Serializer
       }
       switch (key) {
         case 'contents':
-          result.contents = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(MyUnion),
-          ) as MyUnion);
+          result.contents =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(MyUnion),
+                  )
+                  as MyUnion);
       }
     }
 
@@ -106,10 +99,12 @@ class JsonUnionsOutputAwsJson10Serializer
     if (contents != null) {
       result$
         ..add('contents')
-        ..add(serializers.serialize(
-          contents,
-          specifiedType: const FullType(MyUnion),
-        ));
+        ..add(
+          serializers.serialize(
+            contents,
+            specifiedType: const FullType(MyUnion),
+          ),
+        );
     }
     return result$;
   }

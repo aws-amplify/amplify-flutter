@@ -10,9 +10,7 @@ import 'package:smithy/src/operation.dart';
 
 SmithyOperation<T> mockSmithyOperation<T>(FutureOr<T> Function() fn) =>
     SmithyOperation(
-      CancelableOperation.fromFuture(
-        Future.value(fn()),
-      ),
+      CancelableOperation.fromFuture(Future.value(fn())),
       operationName: '',
       requestProgress: const Stream.empty(),
       responseProgress: const Stream.empty(),
@@ -39,14 +37,15 @@ class MockCognitoIdentityProviderClient
     Future<GetDeviceResponse> Function()? getDevice,
     Future<GetUserResponse> Function()? getUser,
     Future<GetUserAttributeVerificationCodeResponse> Function()?
-        getUserAttributeVerificationCode,
+    getUserAttributeVerificationCode,
     Future<GlobalSignOutResponse> Function()? globalSignOut,
     Future<InitiateAuthResponse> Function(InitiateAuthRequest)? initiateAuth,
     Future<ListDevicesResponse> Function()? listDevices,
     Future<ResendConfirmationCodeResponse> Function()? resendConfirmationCode,
     Future<RespondToAuthChallengeResponse> Function(
       RespondToAuthChallengeRequest,
-    )? respondToAuthChallenge,
+    )?
+    respondToAuthChallenge,
     Future<RevokeTokenResponse> Function()? revokeToken,
     Future<SignUpResponse> Function()? signUp,
     Future<UpdateDeviceStatusResponse> Function()? updateDeviceStatus,
@@ -54,36 +53,36 @@ class MockCognitoIdentityProviderClient
     Future<VerifySoftwareTokenResponse> Function()? verifySoftwareToken,
     Future<VerifyUserAttributeResponse> Function()? verifyUserAttribute,
     Future<SetUserMfaPreferenceResponse> Function()? setUserMfaPreference,
-  })  : _associateSoftwareToken = associateSoftwareToken,
-        _changePassword = changePassword,
-        _confirmDevice = confirmDevice,
-        _confirmForgotPassword = confirmForgotPassword,
-        _confirmSignUp = confirmSignUp,
-        _deleteUser = deleteUser,
-        _forgetDevice = forgetDevice,
-        _forgotPassword = forgotPassword,
-        _getDevice = getDevice,
-        _getUser = getUser,
-        _getUserAttributeVerificationCode = getUserAttributeVerificationCode,
-        _globalSignOut = globalSignOut,
-        _initiateAuth = initiateAuth,
-        _listDevices = listDevices,
-        _resendConfirmationCode = resendConfirmationCode,
-        _respondToAuthChallenge = respondToAuthChallenge,
-        _revokeToken = revokeToken,
-        _signUp = signUp,
-        _updateDeviceStatus = updateDeviceStatus,
-        _updateUserAttributes = updateUserAttributes,
-        _verifySoftwareToken = verifySoftwareToken,
-        _verifyUserAttribute = verifyUserAttribute,
-        _setUserMfaPreference = setUserMfaPreference;
+  }) : _associateSoftwareToken = associateSoftwareToken,
+       _changePassword = changePassword,
+       _confirmDevice = confirmDevice,
+       _confirmForgotPassword = confirmForgotPassword,
+       _confirmSignUp = confirmSignUp,
+       _deleteUser = deleteUser,
+       _forgetDevice = forgetDevice,
+       _forgotPassword = forgotPassword,
+       _getDevice = getDevice,
+       _getUser = getUser,
+       _getUserAttributeVerificationCode = getUserAttributeVerificationCode,
+       _globalSignOut = globalSignOut,
+       _initiateAuth = initiateAuth,
+       _listDevices = listDevices,
+       _resendConfirmationCode = resendConfirmationCode,
+       _respondToAuthChallenge = respondToAuthChallenge,
+       _revokeToken = revokeToken,
+       _signUp = signUp,
+       _updateDeviceStatus = updateDeviceStatus,
+       _updateUserAttributes = updateUserAttributes,
+       _verifySoftwareToken = verifySoftwareToken,
+       _verifyUserAttribute = verifyUserAttribute,
+       _setUserMfaPreference = setUserMfaPreference;
 
   final Future<AssociateSoftwareTokenResponse> Function()?
-      _associateSoftwareToken;
+  _associateSoftwareToken;
   final Future<ChangePasswordResponse> Function()? _changePassword;
   final Future<ConfirmDeviceResponse> Function()? _confirmDevice;
   final Future<ConfirmForgotPasswordResponse> Function()?
-      _confirmForgotPassword;
+  _confirmForgotPassword;
   final Future<ConfirmSignUpResponse> Function()? _confirmSignUp;
   final Future<void> Function()? _deleteUser;
   final Future<void> Function()? _forgetDevice;
@@ -91,16 +90,17 @@ class MockCognitoIdentityProviderClient
   final Future<GetDeviceResponse> Function()? _getDevice;
   final Future<GetUserResponse> Function()? _getUser;
   final Future<GetUserAttributeVerificationCodeResponse> Function()?
-      _getUserAttributeVerificationCode;
+  _getUserAttributeVerificationCode;
   final Future<GlobalSignOutResponse> Function()? _globalSignOut;
   final Future<InitiateAuthResponse> Function(InitiateAuthRequest)?
-      _initiateAuth;
+  _initiateAuth;
   final Future<ListDevicesResponse> Function()? _listDevices;
   final Future<ResendConfirmationCodeResponse> Function()?
-      _resendConfirmationCode;
+  _resendConfirmationCode;
   final Future<RespondToAuthChallengeResponse> Function(
     RespondToAuthChallengeRequest,
-  )? _respondToAuthChallenge;
+  )?
+  _respondToAuthChallenge;
   final Future<RevokeTokenResponse> Function()? _revokeToken;
   final Future<SignUpResponse> Function()? _signUp;
   final Future<UpdateDeviceStatusResponse> Function()? _updateDeviceStatus;
@@ -114,203 +114,180 @@ class MockCognitoIdentityProviderClient
     AssociateSoftwareTokenRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_associateSoftwareToken);
+  }) => _mockIfProvided(_associateSoftwareToken);
 
   @override
   SmithyOperation<ChangePasswordResponse> changePassword(
     ChangePasswordRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_changePassword);
+  }) => _mockIfProvided(_changePassword);
 
   @override
   SmithyOperation<ConfirmDeviceResponse> confirmDevice(
     ConfirmDeviceRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_confirmDevice);
+  }) => _mockIfProvided(_confirmDevice);
 
   @override
   SmithyOperation<ConfirmForgotPasswordResponse> confirmForgotPassword(
     ConfirmForgotPasswordRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_confirmForgotPassword);
+  }) => _mockIfProvided(_confirmForgotPassword);
 
   @override
   SmithyOperation<ConfirmSignUpResponse> confirmSignUp(
     ConfirmSignUpRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_confirmSignUp);
+  }) => _mockIfProvided(_confirmSignUp);
 
   @override
   SmithyOperation<void> deleteUser(
     DeleteUserRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_deleteUser);
+  }) => _mockIfProvided(_deleteUser);
 
   @override
   SmithyOperation<void> forgetDevice(
     ForgetDeviceRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_forgetDevice);
+  }) => _mockIfProvided(_forgetDevice);
 
   @override
   SmithyOperation<ForgotPasswordResponse> forgotPassword(
     ForgotPasswordRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_forgotPassword);
+  }) => _mockIfProvided(_forgotPassword);
 
   @override
   SmithyOperation<GetDeviceResponse> getDevice(
     GetDeviceRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_getDevice);
+  }) => _mockIfProvided(_getDevice);
 
   @override
   SmithyOperation<GetUserResponse> getUser(
     GetUserRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_getUser);
+  }) => _mockIfProvided(_getUser);
 
   @override
   SmithyOperation<GetUserAttributeVerificationCodeResponse>
-      getUserAttributeVerificationCode(
+  getUserAttributeVerificationCode(
     GetUserAttributeVerificationCodeRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-          _mockIfProvided(_getUserAttributeVerificationCode);
+  }) => _mockIfProvided(_getUserAttributeVerificationCode);
 
   @override
   SmithyOperation<GlobalSignOutResponse> globalSignOut(
     GlobalSignOutRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_globalSignOut);
+  }) => _mockIfProvided(_globalSignOut);
 
   @override
   SmithyOperation<InitiateAuthResponse> initiateAuth(
     InitiateAuthRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(
-        _initiateAuth == null ? null : () => _initiateAuth(input),
-      );
+  }) => _mockIfProvided(
+    _initiateAuth == null ? null : () => _initiateAuth(input),
+  );
 
   @override
   SmithyOperation<ListDevicesResponse> listDevices(
     ListDevicesRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_listDevices);
+  }) => _mockIfProvided(_listDevices);
 
   @override
   SmithyOperation<ResendConfirmationCodeResponse> resendConfirmationCode(
     ResendConfirmationCodeRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_resendConfirmationCode);
+  }) => _mockIfProvided(_resendConfirmationCode);
 
   @override
   SmithyOperation<RespondToAuthChallengeResponse> respondToAuthChallenge(
     RespondToAuthChallengeRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(
-        _respondToAuthChallenge == null
-            ? null
-            : () => _respondToAuthChallenge(input),
-      );
+  }) => _mockIfProvided(
+    _respondToAuthChallenge == null
+        ? null
+        : () => _respondToAuthChallenge(input),
+  );
 
   @override
   SmithyOperation<RevokeTokenResponse> revokeToken(
     RevokeTokenRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_revokeToken);
+  }) => _mockIfProvided(_revokeToken);
 
   @override
   SmithyOperation<SignUpResponse> signUp(
     SignUpRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_signUp);
+  }) => _mockIfProvided(_signUp);
 
   @override
   SmithyOperation<UpdateDeviceStatusResponse> updateDeviceStatus(
     UpdateDeviceStatusRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_updateDeviceStatus);
+  }) => _mockIfProvided(_updateDeviceStatus);
 
   @override
   SmithyOperation<UpdateUserAttributesResponse> updateUserAttributes(
     UpdateUserAttributesRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_updateUserAttributes);
+  }) => _mockIfProvided(_updateUserAttributes);
 
   @override
   SmithyOperation<VerifySoftwareTokenResponse> verifySoftwareToken(
     VerifySoftwareTokenRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_verifySoftwareToken);
+  }) => _mockIfProvided(_verifySoftwareToken);
 
   @override
   SmithyOperation<VerifyUserAttributeResponse> verifyUserAttribute(
     VerifyUserAttributeRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_verifyUserAttribute);
+  }) => _mockIfProvided(_verifyUserAttribute);
 
   @override
   SmithyOperation<SetUserMfaPreferenceResponse> setUserMfaPreference(
     SetUserMfaPreferenceRequest input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_setUserMfaPreference);
+  }) => _mockIfProvided(_setUserMfaPreference);
 }
 
 class MockCognitoIdentityClient implements CognitoIdentityClient {
   MockCognitoIdentityClient({
     Future<GetCredentialsForIdentityResponse> Function()?
-        getCredentialsForIdentity,
+    getCredentialsForIdentity,
     Future<GetIdResponse> Function()? getId,
-  })  : _getCredentialsForIdentity = getCredentialsForIdentity,
-        _getId = getId;
+  }) : _getCredentialsForIdentity = getCredentialsForIdentity,
+       _getId = getId;
 
   final Future<GetCredentialsForIdentityResponse> Function()?
-      _getCredentialsForIdentity;
+  _getCredentialsForIdentity;
   final Future<GetIdResponse> Function()? _getId;
 
   @override
@@ -318,14 +295,12 @@ class MockCognitoIdentityClient implements CognitoIdentityClient {
     GetCredentialsForIdentityInput input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_getCredentialsForIdentity);
+  }) => _mockIfProvided(_getCredentialsForIdentity);
 
   @override
   SmithyOperation<GetIdResponse> getId(
     GetIdInput input, {
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
-  }) =>
-      _mockIfProvided(_getId);
+  }) => _mockIfProvided(_getId);
 }

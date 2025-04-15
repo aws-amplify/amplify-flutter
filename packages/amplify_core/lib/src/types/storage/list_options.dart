@@ -39,11 +39,11 @@ class StorageListOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'pageSize': pageSize,
-        'nextToken': nextToken,
-        'bucket': bucket?.toJson(),
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+    'pageSize': pageSize,
+    'nextToken': nextToken,
+    'bucket': bucket?.toJson(),
+    'pluginOptions': pluginOptions?.toJson(),
+  };
 }
 
 /// {@template amplify_core.storage.list_plugin_options}

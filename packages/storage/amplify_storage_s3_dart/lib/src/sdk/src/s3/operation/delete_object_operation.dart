@@ -54,11 +54,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// The following action is related to `DeleteObject`:
 ///
 /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
-class DeleteObjectOperation extends _i1.HttpOperation<
-    DeleteObjectRequestPayload,
-    DeleteObjectRequest,
-    DeleteObjectOutputPayload,
-    DeleteObjectOutput> {
+class DeleteObjectOperation
+    extends
+        _i1.HttpOperation<
+          DeleteObjectRequestPayload,
+          DeleteObjectRequest,
+          DeleteObjectOutputPayload,
+          DeleteObjectOutput
+        > {
   /// Removes an object from a bucket. The behavior depends on the bucket's versioning state:
   ///
   /// *   If versioning is enabled, the operation removes the null version (if there is one) of an object and inserts a delete marker, which becomes the latest version of the object. If there isn't a null version, Amazon S3 does not remove any objects but will still respond that the command was successful.
@@ -107,27 +110,35 @@ class DeleteObjectOperation extends _i1.HttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<DeleteObjectRequestPayload, DeleteObjectRequest,
-          DeleteObjectOutputPayload, DeleteObjectOutput>> protocols = [
+    _i1.HttpProtocol<
+      DeleteObjectRequestPayload,
+      DeleteObjectRequest,
+      DeleteObjectOutputPayload,
+      DeleteObjectOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -138,7 +149,7 @@ class DeleteObjectOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -159,38 +170,36 @@ class DeleteObjectOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(DeleteObjectRequest input) =>
-      _i1.HttpRequest((b) {
-        b.method = 'DELETE';
-        b.path = _s3ClientConfig.usePathStyle
+  _i1.HttpRequest buildRequest(DeleteObjectRequest input) => _i1.HttpRequest((
+    b,
+  ) {
+    b.method = 'DELETE';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=DeleteObject'
             : r'/{Key+}?x-id=DeleteObject';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.mfa != null) {
-          if (input.mfa!.isNotEmpty) {
-            b.headers['x-amz-mfa'] = input.mfa!;
-          }
-        }
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.bypassGovernanceRetention != null) {
-          b.headers['x-amz-bypass-governance-retention'] =
-              input.bypassGovernanceRetention!.toString();
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.versionId != null) {
-          b.queryParameters.add(
-            'versionId',
-            input.versionId!,
-          );
-        }
-      });
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.mfa != null) {
+      if (input.mfa!.isNotEmpty) {
+        b.headers['x-amz-mfa'] = input.mfa!;
+      }
+    }
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.bypassGovernanceRetention != null) {
+      b.headers['x-amz-bypass-governance-retention'] =
+          input.bypassGovernanceRetention!.toString();
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.versionId != null) {
+      b.queryParameters.add('versionId', input.versionId!);
+    }
+  });
 
   @override
   int successCode([DeleteObjectOutput? output]) => 204;
@@ -199,11 +208,7 @@ class DeleteObjectOperation extends _i1.HttpOperation<
   DeleteObjectOutput buildOutput(
     DeleteObjectOutputPayload payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      DeleteObjectOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => DeleteObjectOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -242,11 +247,7 @@ class DeleteObjectOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
