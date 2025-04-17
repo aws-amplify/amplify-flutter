@@ -9,33 +9,33 @@ environment:
 dependencies:
   args: ^2.3.0
   async: ^2.10.0
-  aws_common: ">=0.4.2+5 <0.5.0"
+  aws_common: ^0.7.6
   built_collection: ^5.0.0
   built_value: ^8.6.0
   checked_yaml: ^2.0.0
-  cli_util: ^0.3.5
+  cli_util: ^0.4.2
   code_builder: ^4.10.1
   collection: ^1.16.0
   file: ">=6.0.0 <8.0.0"
-  git: any # override
+  git: 2.3.1 # override
   glob: ^2.1.0
   graphs: ^2.1.0
   io: ^1.0.4
   json_annotation: ">=4.9.0 <4.10.0"
-  markdown: ^5.0.0
-  mason: ^0.1.0-dev.40
-  mason_logger: ^0.2.5
+  markdown: ^7.3.0
+  mason: ^0.1.0
+  mason_logger: ^0.3.3
   meta: ^1.16.0
   mustache_template: ^2.0.0
   path: any
-  pub_api_client: ^2.4.0
+  pub_api_client: ^3.1.1
   pub_semver: ^2.1.1
   pub_server:
     path: ../test/pub_server
   pubspec_parse: ^1.2.0
   shelf: ^1.4.0
   shelf_static: ^1.1.1
-  smithy: ">=0.4.0+8 <0.5.0"
+  smithy: ^0.7.4
   smithy_codegen:
     path: ../smithy/smithy_codegen
   stream_transform: ^2.0.0
@@ -64,7 +64,7 @@ dependency_overrides:
     path: ../smithy/smithy_codegen
 
 dev_dependencies:
-  amplify_lints: ^3.1.0
+  amplify_lints: ^3.1.1
   build_runner: ^2.4.9
   built_value_generator: ^8.9.5
   checks: ^0.3.0
