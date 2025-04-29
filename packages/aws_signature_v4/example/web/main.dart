@@ -5,7 +5,6 @@
 
 import 'dart:async';
 import 'dart:js_interop';
-import 'dart:typed_data';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
@@ -68,7 +67,7 @@ Future<void> upload(BucketUpload bucketUpload) async {
   final fileBlob = file.slice();
   final reader = FileReader()..readAsArrayBuffer(fileBlob);
   await reader.onLoadEnd.first;
-  final fileBytes = reader.result as Uint8List?;
+  final fileBytes = (reader.result as JSUint8Array?)?.toDart;
   if (fileBytes == null) {
     throw Exception('Cannot read bytes from Blob.');
   }
@@ -154,10 +153,10 @@ extension on HTMLButtonElement {
   void setBusy(bool busy) {
     if (busy) {
       setAttribute('aria-busy', 'true');
-      text = 'Uploading...';
+      textContent = 'Uploading...';
     } else {
       removeAttribute('aria-busy');
-      text = 'Upload';
+      textContent = 'Upload';
     }
   }
 }
