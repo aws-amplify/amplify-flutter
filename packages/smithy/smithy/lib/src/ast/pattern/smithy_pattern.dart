@@ -6,11 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:smithy/ast.dart';
 
 class SmithyPattern with AWSEquatable<SmithyPattern> {
-  SmithyPattern(
-    this.pattern,
-    this.segments, {
-    bool allowsGreedyLabels = true,
-  }) {
+  SmithyPattern(this.pattern, this.segments, {bool allowsGreedyLabels = true}) {
     _checkForDuplicateLabels();
     if (allowsGreedyLabels) {
       _checkForLabelsAfterGreedyLabels();
@@ -71,10 +67,9 @@ class SmithyPattern with AWSEquatable<SmithyPattern> {
 
   /// Get a label by case-insensitive name.
   Segment? getLabel(String name) => segments.firstWhereOrNull(
-        (segment) =>
-            segment.isLabel &&
-            segment.content.toLowerCase() == name.toLowerCase(),
-      );
+    (segment) =>
+        segment.isLabel && segment.content.toLowerCase() == name.toLowerCase(),
+  );
 
   @override
   String toString() => pattern;

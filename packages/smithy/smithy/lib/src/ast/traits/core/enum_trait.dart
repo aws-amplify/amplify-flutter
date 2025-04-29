@@ -13,9 +13,7 @@ class EnumTrait with AWSSerializable implements Trait<EnumTrait> {
   const EnumTrait(this.definitions);
 
   factory EnumTrait.fromJson(Object? json) =>
-      _$EnumTraitFromJson(<String, Object?>{
-        'definitions': json as List,
-      });
+      _$EnumTraitFromJson(<String, Object?>{'definitions': json as List});
 
   static const id = ShapeId.core('enum');
 

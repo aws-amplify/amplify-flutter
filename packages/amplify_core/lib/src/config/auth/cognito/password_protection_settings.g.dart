@@ -9,46 +9,38 @@ part of 'password_protection_settings.dart';
 // **************************************************************************
 
 PasswordProtectionSettings _$PasswordProtectionSettingsFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      'PasswordProtectionSettings',
-      json,
-      ($checkedConvert) {
-        final val = PasswordProtectionSettings(
-          passwordPolicyMinLength: $checkedConvert('passwordPolicyMinLength',
-              (v) => const _PasswordPolicyMinLengthConverter().fromJson(v)),
-          passwordPolicyCharacters: $checkedConvert(
-              'passwordPolicyCharacters',
-              (v) =>
-                  (v as List<dynamic>?)
-                      ?.map((e) =>
-                          $enumDecode(_$PasswordPolicyCharactersEnumMap, e))
-                      .toList() ??
-                  const []),
-        );
-        return val;
-      },
-    );
+  Map<String, dynamic> json,
+) => $checkedCreate('PasswordProtectionSettings', json, ($checkedConvert) {
+  final val = PasswordProtectionSettings(
+    passwordPolicyMinLength: $checkedConvert(
+      'passwordPolicyMinLength',
+      (v) => const _PasswordPolicyMinLengthConverter().fromJson(v),
+    ),
+    passwordPolicyCharacters: $checkedConvert(
+      'passwordPolicyCharacters',
+      (v) =>
+          (v as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$PasswordPolicyCharactersEnumMap, e))
+              .toList() ??
+          const [],
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$PasswordProtectionSettingsToJson(
-    PasswordProtectionSettings instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'passwordPolicyMinLength',
-      const _PasswordPolicyMinLengthConverter()
-          .toJson(instance.passwordPolicyMinLength));
-  val['passwordPolicyCharacters'] = instance.passwordPolicyCharacters
-      .map((e) => _$PasswordPolicyCharactersEnumMap[e]!)
-      .toList();
-  return val;
-}
+  PasswordProtectionSettings instance,
+) => <String, dynamic>{
+  if (const _PasswordPolicyMinLengthConverter().toJson(
+        instance.passwordPolicyMinLength,
+      )
+      case final value?)
+    'passwordPolicyMinLength': value,
+  'passwordPolicyCharacters':
+      instance.passwordPolicyCharacters
+          .map((e) => _$PasswordPolicyCharactersEnumMap[e]!)
+          .toList(),
+};
 
 const _$PasswordPolicyCharactersEnumMap = {
   PasswordPolicyCharacters.requiresLowercase: 'REQUIRES_LOWERCASE',

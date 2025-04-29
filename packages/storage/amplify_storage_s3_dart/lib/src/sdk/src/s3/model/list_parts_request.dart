@@ -46,8 +46,9 @@ abstract class ListPartsRequest
     );
   }
 
-  factory ListPartsRequest.build(
-      [void Function(ListPartsRequestBuilder) updates]) = _$ListPartsRequest;
+  factory ListPartsRequest.build([
+    void Function(ListPartsRequestBuilder) updates,
+  ]) = _$ListPartsRequest;
 
   const ListPartsRequest._();
 
@@ -55,48 +56,45 @@ abstract class ListPartsRequest
     ListPartsRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      ListPartsRequest.build((b) {
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = request
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key'] !=
-            null) {
-          b.sseCustomerKey =
-              request.headers['x-amz-server-side-encryption-customer-key']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 =
-              request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.queryParameters['max-parts'] != null) {
-          b.maxParts = int.parse(request.queryParameters['max-parts']!);
-        }
-        if (request.queryParameters['part-number-marker'] != null) {
-          b.partNumberMarker = request.queryParameters['part-number-marker']!;
-        }
-        if (request.queryParameters['uploadId'] != null) {
-          b.uploadId = request.queryParameters['uploadId']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+  }) => ListPartsRequest.build((b) {
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          request.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key'] != null) {
+      b.sseCustomerKey =
+          request.headers['x-amz-server-side-encryption-customer-key']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.queryParameters['max-parts'] != null) {
+      b.maxParts = int.parse(request.queryParameters['max-parts']!);
+    }
+    if (request.queryParameters['part-number-marker'] != null) {
+      b.partNumberMarker = request.queryParameters['part-number-marker']!;
+    }
+    if (request.queryParameters['uploadId'] != null) {
+      b.uploadId = request.queryParameters['uploadId']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<ListPartsRequestPayload>> serializers =
       [ListPartsRequestRestXmlSerializer()];
@@ -154,10 +152,7 @@ abstract class ListPartsRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -165,61 +160,32 @@ abstract class ListPartsRequest
 
   @override
   List<Object?> get props => [
-        bucket,
-        key,
-        maxParts,
-        partNumberMarker,
-        uploadId,
-        requestPayer,
-        expectedBucketOwner,
-        sseCustomerAlgorithm,
-        sseCustomerKey,
-        sseCustomerKeyMd5,
-      ];
+    bucket,
+    key,
+    maxParts,
+    partNumberMarker,
+    uploadId,
+    requestPayer,
+    expectedBucketOwner,
+    sseCustomerAlgorithm,
+    sseCustomerKey,
+    sseCustomerKeyMd5,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPartsRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'maxParts',
-        maxParts,
-      )
-      ..add(
-        'partNumberMarker',
-        partNumberMarker,
-      )
-      ..add(
-        'uploadId',
-        uploadId,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ListPartsRequest')
+          ..add('bucket', bucket)
+          ..add('key', key)
+          ..add('maxParts', maxParts)
+          ..add('partNumberMarker', partNumberMarker)
+          ..add('uploadId', uploadId)
+          ..add('requestPayer', requestPayer)
+          ..add('expectedBucketOwner', expectedBucketOwner)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKey', '***SENSITIVE***')
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5);
     return helper.toString();
   }
 }
@@ -230,9 +196,9 @@ abstract class ListPartsRequestPayload
     implements
         Built<ListPartsRequestPayload, ListPartsRequestPayloadBuilder>,
         _i1.EmptyPayload {
-  factory ListPartsRequestPayload(
-          [void Function(ListPartsRequestPayloadBuilder) updates]) =
-      _$ListPartsRequestPayload;
+  factory ListPartsRequestPayload([
+    void Function(ListPartsRequestPayloadBuilder) updates,
+  ]) = _$ListPartsRequestPayload;
 
   const ListPartsRequestPayload._();
 
@@ -252,19 +218,16 @@ class ListPartsRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        ListPartsRequest,
-        _$ListPartsRequest,
-        ListPartsRequestPayload,
-        _$ListPartsRequestPayload,
-      ];
+    ListPartsRequest,
+    _$ListPartsRequest,
+    ListPartsRequestPayload,
+    _$ListPartsRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ListPartsRequestPayload deserialize(
@@ -285,7 +248,7 @@ class ListPartsRequestRestXmlSerializer
       const _i1.XmlElementName(
         'ListPartsRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

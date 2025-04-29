@@ -19,8 +19,9 @@ void main() {
       // clear data before each test
       await clearDataStore();
     });
-    testWidgets('should return all data by default',
-        (WidgetTester tester) async {
+    testWidgets('should return all data by default', (
+      WidgetTester tester,
+    ) async {
       Blog testBlog1 = Blog(name: 'blog one');
       Blog testBlog2 = Blog(name: 'blog two');
       Blog testBlog3 = Blog(name: 'blog three');
@@ -34,22 +35,26 @@ void main() {
       expect(blogs.contains(testBlog3), isTrue);
     });
 
-    testWidgets('should return no data when the query has no results',
-        (WidgetTester tester) async {
+    testWidgets('should return no data when the query has no results', (
+      WidgetTester tester,
+    ) async {
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs, isEmpty);
     });
 
-    testWidgets('should return the correct record when queried by id',
-        (WidgetTester tester) async {
+    testWidgets('should return the correct record when queried by id', (
+      WidgetTester tester,
+    ) async {
       Blog testBlog1 = Blog(name: 'blog one');
       Blog testBlog2 = Blog(name: 'blog two');
       Blog testBlog3 = Blog(name: 'blog three');
       await Amplify.DataStore.save(testBlog1);
       await Amplify.DataStore.save(testBlog2);
       await Amplify.DataStore.save(testBlog3);
-      var blogs = await Amplify.DataStore.query(Blog.classType,
-          where: Blog.ID.eq(testBlog1.id));
+      var blogs = await Amplify.DataStore.query(
+        Blog.classType,
+        where: Blog.ID.eq(testBlog1.id),
+      );
       expect(blogs.length, 1);
       var blog = blogs[0];
       expect(blog, testBlog1);
@@ -80,8 +85,9 @@ void main() {
       skip: Platform.isAndroid,
     );
 
-    testWidgets('should return the ID of nested objects',
-        (WidgetTester tester) async {
+    testWidgets('should return the ID of nested objects', (
+      WidgetTester tester,
+    ) async {
       Blog testBlog = Blog(name: 'test blog');
       await Amplify.DataStore.save(testBlog);
       Post testPost = Post(

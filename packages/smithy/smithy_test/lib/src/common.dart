@@ -9,7 +9,10 @@ import 'package:test/test.dart';
 SmithyAst createAst(List<Shape> shapes) {
   return SmithyAst(
     (b) =>
-        b..shapes = ShapeMap({for (final shape in shapes) shape.shapeId: shape}),
+        b
+          ..shapes = ShapeMap({
+            for (final shape in shapes) shape.shapeId: shape,
+          }),
   );
 }
 

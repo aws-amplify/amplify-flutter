@@ -31,14 +31,10 @@ void main() {
       endpointStoreA = EndpointStore(appIdA, store);
       endpointStoreB = EndpointStore(appIdB, store);
 
-      storeManagerA = EndpointInfoStoreManager(
-        store: store,
-      );
+      storeManagerA = EndpointInfoStoreManager(store: store);
       await storeManagerA.init(pinpointAppId: appIdA);
 
-      storeManagerB = EndpointInfoStoreManager(
-        store: store,
-      );
+      storeManagerB = EndpointInfoStoreManager(store: store);
       await storeManagerB.init(pinpointAppId: appIdB);
     });
 
@@ -54,36 +50,46 @@ void main() {
       expect(endpointIdA != endpointIdB, true);
 
       // Verify storage location
-      final storedEndpointIdA =
-          await endpointStoreA.read(key: EndpointStoreKey.endpointId.name);
+      final storedEndpointIdA = await endpointStoreA.read(
+        key: EndpointStoreKey.endpointId.name,
+      );
       expect(storedEndpointIdA, endpointIdA);
 
-      final storedEndpointIdB =
-          await endpointStoreB.read(key: EndpointStoreKey.endpointId.name);
+      final storedEndpointIdB = await endpointStoreB.read(
+        key: EndpointStoreKey.endpointId.name,
+      );
       expect(storedEndpointIdB, endpointIdB);
     });
 
-    test('stores different endpoint global fields per pinpoint app id',
-        () async {
-      final endpointFields = storeManagerA.endpointFields;
+    test(
+      'stores different endpoint global fields per pinpoint app id',
+      () async {
+        final endpointFields = storeManagerA.endpointFields;
 
-      await endpointFields.addAttribute(stringProperty, stringValue);
-      await endpointFields.addMetric(doubleProperty, doubleValue);
+        await endpointFields.addAttribute(stringProperty, stringValue);
+        await endpointFields.addMetric(doubleProperty, doubleValue);
 
-      final attributesA =
-          await EndpointGlobalFieldsManager.getStoredAttributes(endpointStoreA);
-      final metricsA =
-          await EndpointGlobalFieldsManager.getStoredMetrics(endpointStoreA);
+        final attributesA =
+            await EndpointGlobalFieldsManager.getStoredAttributes(
+              endpointStoreA,
+            );
+        final metricsA = await EndpointGlobalFieldsManager.getStoredMetrics(
+          endpointStoreA,
+        );
 
-      expect(attributesA[stringProperty], stringValue);
-      expect(metricsA[doubleProperty], doubleValue);
+        expect(attributesA[stringProperty], stringValue);
+        expect(metricsA[doubleProperty], doubleValue);
 
-      final attributesB =
-          await EndpointGlobalFieldsManager.getStoredAttributes(endpointStoreB);
-      final metricsB =
-          await EndpointGlobalFieldsManager.getStoredMetrics(endpointStoreB);
-      expect(attributesB, isEmpty);
-      expect(metricsB, isEmpty);
-    });
+        final attributesB =
+            await EndpointGlobalFieldsManager.getStoredAttributes(
+              endpointStoreB,
+            );
+        final metricsB = await EndpointGlobalFieldsManager.getStoredMetrics(
+          endpointStoreB,
+        );
+        expect(attributesB, isEmpty);
+        expect(metricsB, isEmpty);
+      },
+    );
   });
 }

@@ -19,7 +19,8 @@ void main(List<String> args) {
 
   if (!metricNameRegex.hasMatch(metricNameTrimmed)) {
     print(
-        'Metric name can only contain alphanumeric characters, space character, -, and _.');
+      'Metric name can only contain alphanumeric characters, space character, -, and _.',
+    );
     exit(1);
   }
   if (!valueRegex.hasMatch(valueTrimmed)) {
@@ -28,7 +29,8 @@ void main(List<String> args) {
   }
   if (!dimensionsRegex.hasMatch(dimensionsTrimmed)) {
     print(
-        'Dimensions must be empty or be in format string=string,string=string,...');
+      'Dimensions must be empty or be in format string=string,string=string,...',
+    );
     exit(1);
   }
 

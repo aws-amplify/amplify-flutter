@@ -35,10 +35,10 @@ class StorageUploadDataOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'metadata': metadata,
-        'pluginOptions': pluginOptions?.toJson(),
-        'bucket': bucket?.toJson(),
-      };
+    'metadata': metadata,
+    'pluginOptions': pluginOptions?.toJson(),
+    'bucket': bucket?.toJson(),
+  };
 }
 
 /// {@template amplify_core.storage.upload_data_plugin_options}

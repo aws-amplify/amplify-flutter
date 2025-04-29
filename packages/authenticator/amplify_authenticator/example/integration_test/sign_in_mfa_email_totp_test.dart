@@ -25,9 +25,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.email: username,
-          },
+          attributes: {AuthUserAttributeKey.email: username},
         );
 
         await loadAuthenticator(tester: tester);
@@ -127,9 +125,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.email: username,
-          },
+          attributes: {AuthUserAttributeKey.email: username},
         );
 
         await loadAuthenticator(tester: tester);

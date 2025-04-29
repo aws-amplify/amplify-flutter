@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_json1_1_v1.json_protocol.test.json_unions_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -14,821 +14,665 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'AwsJson11SerializeStringUnionValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
+  _i1.test('AwsJson11SerializeStringUnionValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11SerializeStringUnionValue',
-          documentation: 'Serializes a string union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "stringValue": "foo"\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'stringValue': 'foo'}
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11SerializeStringUnionValue',
+        documentation: 'Serializes a string union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "stringValue": "foo"\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'stringValue': 'foo'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11SerializeBooleanUnionValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11SerializeBooleanUnionValue',
+        documentation: 'Serializes a boolean union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "booleanValue": true\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'booleanValue': true},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11SerializeNumberUnionValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11SerializeNumberUnionValue',
+        documentation: 'Serializes a number union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "numberValue": 1\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'numberValue': 1},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11SerializeBlobUnionValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11SerializeBlobUnionValue',
+        documentation: 'Serializes a blob union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "blobValue": "Zm9v"\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'blobValue': 'foo'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11SerializeTimestampUnionValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11SerializeTimestampUnionValue',
+        documentation: 'Serializes a timestamp union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "contents": {\n        "timestampValue": 1398796238\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'timestampValue': 1398796238},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11SerializeEnumUnionValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11SerializeEnumUnionValue',
+        documentation: 'Serializes an enum union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "enumValue": "Foo"\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'enumValue': 'Foo'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11SerializeListUnionValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11SerializeListUnionValue',
+        documentation: 'Serializes a list union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "contents": {\n        "listValue": ["foo", "bar"]\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {
+            'listValue': ['foo', 'bar'],
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11SerializeMapUnionValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11SerializeMapUnionValue',
+        documentation: 'Serializes a map union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "contents": {\n        "mapValue": {\n            "foo": "bar",\n            "spam": "eggs"\n        }\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {
+            'mapValue': {'foo': 'bar', 'spam': 'eggs'},
           },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11SerializeStructureUnionValue (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11SerializeBooleanUnionValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11SerializeBooleanUnionValue',
-          documentation: 'Serializes a boolean union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "booleanValue": true\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'booleanValue': true}
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11SerializeStructureUnionValue',
+        documentation: 'Serializes a structure union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "contents": {\n        "structureValue": {\n            "hi": "hello"\n        }\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {
+            'structureValue': {'hi': 'hello'},
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DeserializeStringUnionValue (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DeserializeStringUnionValue',
+        documentation: 'Deserializes a string union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "stringValue": "foo"\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'stringValue': 'foo'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DeserializeBooleanUnionValue (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DeserializeBooleanUnionValue',
+        documentation: 'Deserializes a boolean union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "booleanValue": true\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'booleanValue': true},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DeserializeNumberUnionValue (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DeserializeNumberUnionValue',
+        documentation: 'Deserializes a number union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "numberValue": 1\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'numberValue': 1},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DeserializeBlobUnionValue (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DeserializeBlobUnionValue',
+        documentation: 'Deserializes a blob union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "blobValue": "Zm9v"\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'blobValue': 'foo'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DeserializeTimestampUnionValue (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DeserializeTimestampUnionValue',
+        documentation: 'Deserializes a timestamp union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "contents": {\n        "timestampValue": 1398796238\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'timestampValue': 1398796238},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DeserializeEnumUnionValue (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DeserializeEnumUnionValue',
+        documentation: 'Deserializes an enum union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{\n    "contents": {\n        "enumValue": "Foo"\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {'enumValue': 'Foo'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DeserializeListUnionValue (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DeserializeListUnionValue',
+        documentation: 'Deserializes a list union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "contents": {\n        "listValue": ["foo", "bar"]\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {
+            'listValue': ['foo', 'bar'],
           },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DeserializeMapUnionValue (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11SerializeNumberUnionValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11SerializeNumberUnionValue',
-          documentation: 'Serializes a number union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "numberValue": 1\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'numberValue': 1}
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DeserializeMapUnionValue',
+        documentation: 'Deserializes a map union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "contents": {\n        "mapValue": {\n            "foo": "bar",\n            "spam": "eggs"\n        }\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {
+            'mapValue': {'foo': 'bar', 'spam': 'eggs'},
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonUnions',
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DeserializeStructureUnionValue (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonUnionsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
+        ),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DeserializeStructureUnionValue',
+        documentation: 'Deserializes a structure union value',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '{\n    "contents": {\n        "structureValue": {\n            "hi": "hello"\n        }\n    }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'contents': {
+            'structureValue': {'hi': 'hello'},
           },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11SerializeBlobUnionValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11SerializeBlobUnionValue',
-          documentation: 'Serializes a blob union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "blobValue": "Zm9v"\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'blobValue': 'foo'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonUnions',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11SerializeTimestampUnionValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11SerializeTimestampUnionValue',
-          documentation: 'Serializes a timestamp union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "contents": {\n        "timestampValue": 1398796238\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'timestampValue': 1398796238}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonUnions',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11SerializeEnumUnionValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11SerializeEnumUnionValue',
-          documentation: 'Serializes an enum union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "enumValue": "Foo"\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'enumValue': 'Foo'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonUnions',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11SerializeListUnionValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11SerializeListUnionValue',
-          documentation: 'Serializes a list union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "contents": {\n        "listValue": ["foo", "bar"]\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {
-              'listValue': [
-                'foo',
-                'bar',
-              ]
-            }
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonUnions',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11SerializeMapUnionValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11SerializeMapUnionValue',
-          documentation: 'Serializes a map union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "contents": {\n        "mapValue": {\n            "foo": "bar",\n            "spam": "eggs"\n        }\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {
-              'mapValue': {
-                'foo': 'bar',
-                'spam': 'eggs',
-              }
-            }
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonUnions',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11SerializeStructureUnionValue (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11SerializeStructureUnionValue',
-          documentation: 'Serializes a structure union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "contents": {\n        "structureValue": {\n            "hi": "hello"\n        }\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {
-              'structureValue': {'hi': 'hello'}
-            }
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.JsonUnions',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DeserializeStringUnionValue (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DeserializeStringUnionValue',
-          documentation: 'Deserializes a string union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "stringValue": "foo"\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'stringValue': 'foo'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DeserializeBooleanUnionValue (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DeserializeBooleanUnionValue',
-          documentation: 'Deserializes a boolean union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "booleanValue": true\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'booleanValue': true}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DeserializeNumberUnionValue (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DeserializeNumberUnionValue',
-          documentation: 'Deserializes a number union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "numberValue": 1\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'numberValue': 1}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DeserializeBlobUnionValue (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DeserializeBlobUnionValue',
-          documentation: 'Deserializes a blob union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "blobValue": "Zm9v"\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'blobValue': 'foo'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DeserializeTimestampUnionValue (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DeserializeTimestampUnionValue',
-          documentation: 'Deserializes a timestamp union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "contents": {\n        "timestampValue": 1398796238\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'timestampValue': 1398796238}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DeserializeEnumUnionValue (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DeserializeEnumUnionValue',
-          documentation: 'Deserializes an enum union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{\n    "contents": {\n        "enumValue": "Foo"\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {'enumValue': 'Foo'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DeserializeListUnionValue (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DeserializeListUnionValue',
-          documentation: 'Deserializes a list union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "contents": {\n        "listValue": ["foo", "bar"]\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {
-              'listValue': [
-                'foo',
-                'bar',
-              ]
-            }
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DeserializeMapUnionValue (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DeserializeMapUnionValue',
-          documentation: 'Deserializes a map union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "contents": {\n        "mapValue": {\n            "foo": "bar",\n            "spam": "eggs"\n        }\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {
-              'mapValue': {
-                'foo': 'bar',
-                'spam': 'eggs',
-              }
-            }
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DeserializeStructureUnionValue (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonUnionsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DeserializeStructureUnionValue',
-          documentation: 'Deserializes a structure union value',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '{\n    "contents": {\n        "structureValue": {\n            "hi": "hello"\n        }\n    }\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'contents': {
-              'structureValue': {'hi': 'hello'}
-            }
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
-      );
-    },
-  );
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [UnionInputOutputAwsJson11Serializer()],
+    );
+  });
 }
 
 class UnionInputOutputAwsJson11Serializer
@@ -840,11 +684,8 @@ class UnionInputOutputAwsJson11Serializer
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   UnionInputOutput deserialize(
@@ -863,10 +704,12 @@ class UnionInputOutputAwsJson11Serializer
       }
       switch (key) {
         case 'contents':
-          result.contents = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(MyUnion),
-          ) as MyUnion);
+          result.contents =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(MyUnion),
+                  )
+                  as MyUnion);
       }
     }
 

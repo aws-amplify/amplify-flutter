@@ -11,9 +11,7 @@ import 'app_component.dart';
 class UserAttributeComponent extends StatefulComponent {
   UserAttributeComponent({required this.onBack, required this.onConfirm});
 
-  final void Function(
-    AuthState authState,
-  ) onConfirm;
+  final void Function(AuthState authState) onConfirm;
 
   final void Function() onBack;
   String? _errorText;
@@ -39,7 +37,8 @@ class UserAttributeComponent extends StatefulComponent {
           labelText: attr.userAttributeKey.toString(),
           onChanged: (value) {
             _modifiedAttributes[attr.userAttributeKey
-                .toCognitoUserAttributeKey()] = value ?? '';
+                    .toCognitoUserAttributeKey()] =
+                value ?? '';
           },
         ),
       );
@@ -58,9 +57,7 @@ class UserAttributeComponent extends StatefulComponent {
           value: _modifiedAttributes.entries.first.value,
           options: const UpdateUserAttributeOptions(
             pluginOptions: CognitoUpdateUserAttributePluginOptions(
-              clientMetadata: {
-                'method': 'updateUserAttribute',
-              },
+              clientMetadata: {'method': 'updateUserAttribute'},
             ),
           ),
         );
@@ -85,9 +82,7 @@ class UserAttributeComponent extends StatefulComponent {
           attributes: List.from(_modifiedAttributes.entries),
           options: const UpdateUserAttributesOptions(
             pluginOptions: CognitoUpdateUserAttributesPluginOptions(
-              clientMetadata: {
-                'method': 'updateUserAttributes',
-              },
+              clientMetadata: {'method': 'updateUserAttributes'},
             ),
           ),
         );
@@ -115,13 +110,7 @@ class UserAttributeComponent extends StatefulComponent {
       children: [
         if (_errorText != null) TextComponent(_errorText!),
         ButtonComponent(innerHtml: 'Back', onClick: onBack),
-        FormComponent(
-          children: [
-            ColumnComponent(
-              children: _attributeFields,
-            ),
-          ],
-        ),
+        FormComponent(children: [ColumnComponent(children: _attributeFields)]),
         ButtonComponent(innerHtml: 'Submit', onClick: _save),
       ],
     );

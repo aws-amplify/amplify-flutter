@@ -17,67 +17,65 @@ void main() {
   group('confirm-sign-up', () {
     // Given I'm running the example "ui/components/authenticator/confirm-sign-up"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-email',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-email');
     });
 
     // Scenario: Confirm a new username & password with an invalid code
-    testWidgets(
-      'Confirm a new username & password with an invalid code',
-      (tester) async {
-        final signUpPage = SignUpPage(tester: tester);
-        final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
-        final signInPage = SignInPage(tester: tester);
+    testWidgets('Confirm a new username & password with an invalid code', (
+      tester,
+    ) async {
+      final signUpPage = SignUpPage(tester: tester);
+      final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
 
-        await loadAuthenticator(tester: tester);
+      await loadAuthenticator(tester: tester);
 
-        expect(
-          tester.bloc.stream,
-          emitsInOrder([
-            UnauthenticatedState.signIn,
-            UnauthenticatedState.signUp,
-            UnauthenticatedState.confirmSignUp,
-            emitsDone,
-          ]),
-        );
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          UnauthenticatedState.confirmSignUp,
+          emitsDone,
+        ]),
+      );
 
-        final username = generateEmail();
-        final password = generatePassword();
+      final username = generateEmail();
+      final password = generatePassword();
 
-        await signInPage.navigateToSignUp();
+      await signInPage.navigateToSignUp();
 
-        // When I type a new "email"
-        await signUpPage.enterUsername(username);
+      // When I type a new "email"
+      await signUpPage.enterUsername(username);
 
-        // And I type my password
-        await signUpPage.enterPassword(password);
+      // And I type my password
+      await signUpPage.enterPassword(password);
 
-        // And I confirm my password
-        await signUpPage.enterPasswordConfirmation(password);
+      // And I confirm my password
+      await signUpPage.enterPasswordConfirmation(password);
 
-        // And I click the "Create Account" button
-        await signUpPage.submitSignUp();
+      // And I click the "Create Account" button
+      await signUpPage.submitSignUp();
 
-        // And I see "Confirmation Code"
-        confirmSignUpPage.expectConfirmationCodeIsPresent();
+      // And I see "Confirmation Code"
+      confirmSignUpPage.expectConfirmationCodeIsPresent();
 
-        // And I type an invalid confirmation code
-        await confirmSignUpPage.enterCode('123456');
+      // And I type an invalid confirmation code
+      await confirmSignUpPage.enterCode('123456');
 
-        // And I click the "Confirm" button
-        await confirmSignUpPage.submitConfirmSignUp();
+      // And I click the "Confirm" button
+      await confirmSignUpPage.submitConfirmSignUp();
 
-        // Then I see "Username/client id combination not found."
-        confirmSignUpPage.expectInvalidVerificationCode();
+      // Then I see "Username/client id combination not found."
+      confirmSignUpPage.expectInvalidVerificationCode();
 
-        await tester.bloc.close();
-      },
-    );
+      await tester.bloc.close();
+    });
 
     // Scenario: Confirm a new username & password with a valid code
-    testWidgets('Confirm a new username & password with a valid code',
-        (tester) async {
+    testWidgets('Confirm a new username & password with a valid code', (
+      tester,
+    ) async {
       final signUpPage = SignUpPage(tester: tester);
       final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
       final signInPage = SignInPage(tester: tester);

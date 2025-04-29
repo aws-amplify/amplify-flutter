@@ -14,8 +14,9 @@ import 'package:test/test.dart';
 
 import '../util.dart';
 
-const mockConnectionAck =
-    ConnectionAckMessageEvent(ConnectionAckMessagePayload(300000));
+const mockConnectionAck = ConnectionAckMessageEvent(
+  ConnectionAckMessagePayload(300000),
+);
 
 void main() {
   late WebSocketBloc? bloc;
@@ -43,13 +44,12 @@ void main() {
   final mockDataString = jsonEncode({
     'id': subscriptionRequest.id,
     'type': 'data',
-    'payload': {
-      'data': mockSubscriptionData,
-    },
+    'payload': {'data': mockSubscriptionData},
   });
 
-  const subscriptionOptions =
-      GraphQLSubscriptionOptions(pollInterval: Duration(seconds: 1));
+  const subscriptionOptions = GraphQLSubscriptionOptions(
+    pollInterval: Duration(seconds: 1),
+  );
 
   WebSocketBloc getWebSocketBloc({bool noConnectivity = false}) {
     if (!noConnectivity) {
@@ -65,9 +65,10 @@ void main() {
       wsService: service!,
       subscriptionOptions: subscriptionOptions,
       pollClientOverride: mockPollClient.client,
-      connectivity: noConnectivity
-          ? const ConnectivityPlatform()
-          : const MockConnectivity(),
+      connectivity:
+          noConnectivity
+              ? const ConnectivityPlatform()
+              : const MockConnectivity(),
       processLifeCycle: const MockProcessLifeCycle(),
     );
 
@@ -90,97 +91,82 @@ void main() {
       });
 
       test('should init a connection & call onEstablishCallback', () async {
-        final subscribeEvent =
-            SubscribeEvent(subscriptionRequest, expectAsync0(() {}));
-
-        getWebSocketBloc().subscribe(
-          subscribeEvent,
+        final subscribeEvent = SubscribeEvent(
+          subscriptionRequest,
+          expectAsync0(() {}),
         );
+
+        getWebSocketBloc().subscribe(subscribeEvent);
       });
 
       test('subscribe() should return a subscription stream', () async {
         final dataCompleter = Completer<String>();
-        final subscribeEvent = SubscribeEvent(
-          subscriptionRequest,
-          () {
-            service!.channel.sink.add(mockDataString);
-          },
-        );
+        final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
+          service!.channel.sink.add(mockDataString);
+        });
 
         final bloc = getWebSocketBloc();
         bloc
-            .subscribe(
-          subscribeEvent,
-        )
+            .subscribe(subscribeEvent)
             .listen(
-          expectAsync1((event) {
-            expect(event.data, json.encode(mockSubscriptionData));
-            dataCompleter.complete(event.data);
-          }),
-        );
+              expectAsync1((event) {
+                expect(event.data, json.encode(mockSubscriptionData));
+                dataCompleter.complete(event.data);
+              }),
+            );
 
         await dataCompleter.future;
       });
 
       test(
-          'should return a subscription stream with default connectivity (empty stream)',
-          () async {
-        final dataCompleter = Completer<String>();
-        final subscribeEvent = SubscribeEvent(
-          subscriptionRequest,
-          () {
+        'should return a subscription stream with default connectivity (empty stream)',
+        () async {
+          final dataCompleter = Completer<String>();
+          final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
             service!.channel.sink.add(mockDataString);
-          },
-        );
+          });
 
-        final bloc = getWebSocketBloc(noConnectivity: true);
-        bloc
-            .subscribe(
-          subscribeEvent,
-        )
-            .listen(
-          expectAsync1((event) {
-            expect(event.data, json.encode(mockSubscriptionData));
-            dataCompleter.complete(event.data);
-          }),
-        );
-        await dataCompleter.future;
-      });
+          final bloc = getWebSocketBloc(noConnectivity: true);
+          bloc
+              .subscribe(subscribeEvent)
+              .listen(
+                expectAsync1((event) {
+                  expect(event.data, json.encode(mockSubscriptionData));
+                  dataCompleter.complete(event.data);
+                }),
+              );
+          await dataCompleter.future;
+        },
+      );
     });
 
     test('should reconnect when data turns on/off', () async {
       var dataCompleter = Completer<String>();
-      final subscribeEvent = SubscribeEvent(
-        subscriptionRequest,
-        () {
-          service!.channel.sink.add(mockDataString);
-        },
-      );
+      final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
+        service!.channel.sink.add(mockDataString);
+      });
 
       final bloc = getWebSocketBloc();
 
       expect(
         bloc.stream,
-        emitsInOrder(
-          [
-            isA<DisconnectedState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-            isA<ReconnectingState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-          ],
-        ),
+        emitsInOrder([
+          isA<DisconnectedState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+          isA<ReconnectingState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+        ]),
       );
 
-      bloc.subscribe(subscribeEvent).listen(
-            expectAsync1(
-              (event) {
-                expect(event.data, json.encode(mockSubscriptionData));
-                dataCompleter.complete(event.data);
-              },
-              count: 2,
-            ),
+      bloc
+          .subscribe(subscribeEvent)
+          .listen(
+            expectAsync1((event) {
+              expect(event.data, json.encode(mockSubscriptionData));
+              dataCompleter.complete(event.data);
+            }, count: 2),
           );
 
       await dataCompleter.future;
@@ -207,23 +193,19 @@ void main() {
 
       expect(
         bloc.stream,
-        emitsInOrder(
-          [
-            isA<DisconnectedState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-            isA<ReconnectingState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-          ],
-        ),
+        emitsInOrder([
+          isA<DisconnectedState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+          isA<ReconnectingState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+        ]),
         reason:
             'Bloc should debounce multiple reconnection triggers while reconnecting.',
       );
 
-      bloc.subscribe(
-        subscribeEvent,
-      );
+      bloc.subscribe(subscribeEvent);
 
       await blocReady.future;
 
@@ -247,10 +229,7 @@ void main() {
         blocReady.complete,
       );
 
-      final bloc = getWebSocketBloc()
-        ..subscribe(
-          subscribeEvent,
-        );
+      final bloc = getWebSocketBloc()..subscribe(subscribeEvent);
 
       await blocReady.future;
 
@@ -280,27 +259,22 @@ void main() {
     });
 
     test('should reconnect after 13 seconds during retry/back off', () async {
-      final subscribeEvent = SubscribeEvent(
-        subscriptionRequest,
-        () {
-          service!.channel.sink.add(mockDataString);
-        },
-      );
+      final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
+        service!.channel.sink.add(mockDataString);
+      });
 
       final bloc = getWebSocketBloc()..subscribe(subscribeEvent);
 
       expect(
         bloc.stream,
-        emitsInOrder(
-          [
-            isA<DisconnectedState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-            isA<ReconnectingState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-          ],
-        ),
+        emitsInOrder([
+          isA<DisconnectedState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+          isA<ReconnectingState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+        ]),
       );
 
       mockPollClient.induceTimeout = true;
@@ -312,37 +286,31 @@ void main() {
 
     test('should reconnect when process resumes', () async {
       var dataCompleter = Completer<String>();
-      final subscribeEvent = SubscribeEvent(
-        subscriptionRequest,
-        () {
-          service!.channel.sink.add(mockDataString);
-        },
-      );
+      final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
+        service!.channel.sink.add(mockDataString);
+      });
 
       final bloc = getWebSocketBloc();
 
       expect(
         bloc.stream,
-        emitsInOrder(
-          [
-            isA<DisconnectedState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-            isA<ReconnectingState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-          ],
-        ),
+        emitsInOrder([
+          isA<DisconnectedState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+          isA<ReconnectingState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+        ]),
       );
 
-      bloc.subscribe(subscribeEvent).listen(
-            expectAsync1(
-              (event) {
-                expect(event.data, json.encode(mockSubscriptionData));
-                dataCompleter.complete(event.data);
-              },
-              count: 2,
-            ),
+      bloc
+          .subscribe(subscribeEvent)
+          .listen(
+            expectAsync1((event) {
+              expect(event.data, json.encode(mockSubscriptionData));
+              dataCompleter.complete(event.data);
+            }, count: 2),
           );
 
       await dataCompleter.future;
@@ -369,23 +337,19 @@ void main() {
 
       expect(
         bloc.stream,
-        emitsInOrder(
-          [
-            isA<DisconnectedState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-            isA<ReconnectingState>(),
-            isA<ConnectingState>(),
-            isA<ConnectedState>(),
-          ],
-        ),
+        emitsInOrder([
+          isA<DisconnectedState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+          isA<ReconnectingState>(),
+          isA<ConnectingState>(),
+          isA<ConnectedState>(),
+        ]),
         reason:
             'Bloc should debounce multiple reconnection triggers while resuming.',
       );
 
-      bloc.subscribe(
-        subscribeEvent,
-      );
+      bloc.subscribe(subscribeEvent);
 
       await blocReady.future;
 
@@ -409,10 +373,7 @@ void main() {
         blocReady.complete,
       );
 
-      final bloc = getWebSocketBloc()
-        ..subscribe(
-          subscribeEvent,
-        );
+      final bloc = getWebSocketBloc()..subscribe(subscribeEvent);
 
       await blocReady.future;
 
@@ -454,108 +415,84 @@ void main() {
     });
 
     test(
-        'subscribe() ignores a WebSocket message that comes while the bloc is disconnected',
-        () async {
-      final establishCompleter = Completer<void>();
-      final subscribeEvent = SubscribeEvent(
-        subscriptionRequest,
-        establishCompleter.complete,
-      );
+      'subscribe() ignores a WebSocket message that comes while the bloc is disconnected',
+      () async {
+        final establishCompleter = Completer<void>();
+        final subscribeEvent = SubscribeEvent(
+          subscriptionRequest,
+          establishCompleter.complete,
+        );
 
-      final bloc = getWebSocketBloc();
-      bloc
-          .subscribe(
-            subscribeEvent,
-          )
-          .listen(null);
-      await establishCompleter.future;
+        final bloc = getWebSocketBloc();
+        bloc.subscribe(subscribeEvent).listen(null);
+        await establishCompleter.future;
 
-      bloc.add(const ShutdownEvent());
-      await bloc.done.future;
+        bloc.add(const ShutdownEvent());
+        await bloc.done.future;
 
-      service!.channel.sink.add(mockDataString);
-      await expectLater(service!.channel.sink.done, completes);
-    });
+        service!.channel.sink.add(mockDataString);
+        await expectLater(service!.channel.sink.done, completes);
+      },
+    );
 
     group('should close when', () {
       tearDown(() async {
         bloc = null;
         service = null; // service gets closed in  bloc
       });
-      test(
-        'triggering FailureState on Exception during init',
-        () async {
-          final subscribeEvent = SubscribeEvent(
-            subscriptionRequest,
-            () {
-              service!.channel.sink.add(mockDataString);
-            },
-          );
+      test('triggering FailureState on Exception during init', () async {
+        final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
+          service!.channel.sink.add(mockDataString);
+        });
 
-          final badService = MockWebSocketService(badInit: true);
-          mockNetworkStreamController = StreamController<ConnectivityStatus>();
-          mockProcessLifeCycleController = StreamController<ProcessStatus>();
-          final bloc = WebSocketBloc(
-            config: testApiKeyConfig,
-            authProviderRepo: getTestAuthProviderRepo(),
-            wsService: badService,
-            subscriptionOptions: subscriptionOptions,
-            pollClientOverride: mockPollClient.client,
-            connectivity: const MockConnectivity(),
-            processLifeCycle: const MockProcessLifeCycle(),
-          );
+        final badService = MockWebSocketService(badInit: true);
+        mockNetworkStreamController = StreamController<ConnectivityStatus>();
+        mockProcessLifeCycleController = StreamController<ProcessStatus>();
+        final bloc = WebSocketBloc(
+          config: testApiKeyConfig,
+          authProviderRepo: getTestAuthProviderRepo(),
+          wsService: badService,
+          subscriptionOptions: subscriptionOptions,
+          pollClientOverride: mockPollClient.client,
+          connectivity: const MockConnectivity(),
+          processLifeCycle: const MockProcessLifeCycle(),
+        );
 
-          expect(
-            bloc.stream,
-            emitsInOrder(
-              [
-                isA<DisconnectedState>(),
-                isA<ConnectingState>(),
-                isA<FailureState>(),
-                isA<PendingDisconnect>(),
-                isA<DisconnectedState>(),
-              ],
-            ),
-          );
+        expect(
+          bloc.stream,
+          emitsInOrder([
+            isA<DisconnectedState>(),
+            isA<ConnectingState>(),
+            isA<FailureState>(),
+            isA<PendingDisconnect>(),
+            isA<DisconnectedState>(),
+          ]),
+        );
 
-          bloc.subscribe(
-            subscribeEvent,
-          );
-          // TODO(equartey): Fix this test on web
-        },
-        skip: zIsWeb,
-      );
+        bloc.subscribe(subscribeEvent);
+        // TODO(equartey): Fix this test on web
+      }, skip: zIsWeb);
 
       test('Exception from service and should return error to user', () async {
-        final subscribeEvent = SubscribeEvent(
-          subscriptionRequest,
-          () {
-            service!.channel.sink.addError(Exception('unknown exception'));
-          },
-        );
+        final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
+          service!.channel.sink.addError(Exception('unknown exception'));
+        });
         final bloc = getWebSocketBloc();
 
         expect(
           bloc.stream,
-          emitsInOrder(
-            [
-              isA<DisconnectedState>(),
-              isA<ConnectingState>(),
-              isA<ConnectedState>(),
-              isA<FailureState>(),
-              isA<PendingDisconnect>(),
-              isA<DisconnectedState>(),
-            ],
-          ),
+          emitsInOrder([
+            isA<DisconnectedState>(),
+            isA<ConnectingState>(),
+            isA<ConnectedState>(),
+            isA<FailureState>(),
+            isA<PendingDisconnect>(),
+            isA<DisconnectedState>(),
+          ]),
         );
 
-        final subscription = bloc.subscribe(
-          subscribeEvent,
-        );
-        expect(
-          subscription,
-          emitsError(isA<ApiException>()),
-        );
+        final subscription = bloc.subscribe(subscribeEvent);
+        expect(subscription, emitsError(isA<ApiException>()));
       });
 
       test('an exception when poll responds unhealthy', () async {
@@ -568,46 +505,38 @@ void main() {
 
         expect(
           bloc.stream,
-          emitsInOrder(
-            [
-              isA<DisconnectedState>(),
-              isA<ConnectingState>(),
-              isA<ConnectedState>(),
-              isA<ReconnectingState>(),
-              isA<FailureState>(),
-              isA<PendingDisconnect>(),
-              isA<DisconnectedState>(),
-            ],
-          ),
+          emitsInOrder([
+            isA<DisconnectedState>(),
+            isA<ConnectingState>(),
+            isA<ConnectedState>(),
+            isA<ReconnectingState>(),
+            isA<FailureState>(),
+            isA<PendingDisconnect>(),
+            isA<DisconnectedState>(),
+          ]),
         );
 
-        bloc.subscribe(subscribeEvent).listen(
-          null,
-          onError: expectAsync1((event) {
-            expect(
-              event,
-              isA<ApiException>(),
+        bloc
+            .subscribe(subscribeEvent)
+            .listen(
+              null,
+              onError: expectAsync1((event) {
+                expect(event, isA<ApiException>());
+              }),
             );
-          }),
-        );
 
         await blocReady.future;
         mockPollClient.sendUnhealthyResponse = true;
       });
 
       test('cancel() sends a stop message', () async {
-        final subscribeEvent = SubscribeEvent(
-          subscriptionRequest,
-          () {
-            service!.channel.sink.add(mockDataString);
-          },
-        );
+        final subscribeEvent = SubscribeEvent(subscriptionRequest, () {
+          service!.channel.sink.add(mockDataString);
+        });
 
         final dataCompleter = Completer<String>();
         final bloc = getWebSocketBloc();
-        final subscription = bloc.subscribe(
-          subscribeEvent,
-        );
+        final subscription = bloc.subscribe(subscribeEvent);
 
         final streamSub = subscription.listen(
           (event) => dataCompleter.complete(event.data),
@@ -617,20 +546,18 @@ void main() {
 
         expect(
           service!.channel.stream,
-          emitsInOrder(
-            [
-              isA<String>().having(
-                (event) => json.decode(event),
-                'web socket stop message',
-                containsPair('type', 'stop'),
-              ),
-              isA<String>().having(
-                (event) => json.decode(event),
-                'web socket complete message',
-                containsPair('type', 'complete'),
-              ),
-            ],
-          ),
+          emitsInOrder([
+            isA<String>().having(
+              (event) => json.decode(event),
+              'web socket stop message',
+              containsPair('type', 'stop'),
+            ),
+            isA<String>().having(
+              (event) => json.decode(event),
+              'web socket complete message',
+              containsPair('type', 'complete'),
+            ),
+          ]),
         );
         // bloc should disconnect due to no active subscriptions
         expect(bloc.stream, emitsThrough(isA<DisconnectedState>()));
@@ -650,30 +577,27 @@ void main() {
 
         expect(
           bloc.stream,
-          emitsInOrder(
-            [
-              isA<DisconnectedState>(),
-              isA<ConnectingState>(),
-              isA<ConnectedState>(),
-              isA<FailureState>(),
-              isA<PendingDisconnect>(),
-              isA<DisconnectedState>(),
-            ],
-          ),
+          emitsInOrder([
+            isA<DisconnectedState>(),
+            isA<ConnectingState>(),
+            isA<ConnectedState>(),
+            isA<FailureState>(),
+            isA<PendingDisconnect>(),
+            isA<DisconnectedState>(),
+          ]),
         );
 
         // ignore: invalid_use_of_internal_member
         WebSocketOptions.autoReconnect = false;
 
-        bloc.subscribe(subscribeEvent).listen(
-          null,
-          onError: expectAsync1((event) {
-            expect(
-              event,
-              isA<ApiException>(),
+        bloc
+            .subscribe(subscribeEvent)
+            .listen(
+              null,
+              onError: expectAsync1((event) {
+                expect(event, isA<ApiException>());
+              }),
             );
-          }),
-        );
 
         await blocReady.future;
 

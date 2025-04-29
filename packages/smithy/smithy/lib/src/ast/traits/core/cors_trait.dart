@@ -34,11 +34,11 @@ class CorsTrait with AWSSerializable implements Trait<CorsTrait> {
 
   @override
   List<Object?> get props => [
-        origin,
-        maxAge,
-        additionalAllowedHeaders,
-        additionalExposedHeaders,
-      ];
+    origin,
+    maxAge,
+    additionalAllowedHeaders,
+    additionalExposedHeaders,
+  ];
 
   @override
   ShapeId get shapeId => id;

@@ -26,10 +26,7 @@ void main() {
       ];
 
       for (final t in tests) {
-        expect(
-          BigInt.parse(t.hex, radix: 16),
-          equals(BigInt.from(t.val)),
-        );
+        expect(BigInt.parse(t.hex, radix: 16), equals(BigInt.from(t.val)));
       }
     });
 

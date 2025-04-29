@@ -14,18 +14,20 @@ class _$DeleteObjectOutput extends DeleteObjectOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$DeleteObjectOutput(
-          [void Function(DeleteObjectOutputBuilder)? updates]) =>
-      (new DeleteObjectOutputBuilder()..update(updates))._build();
+  factory _$DeleteObjectOutput([
+    void Function(DeleteObjectOutputBuilder)? updates,
+  ]) => (new DeleteObjectOutputBuilder()..update(updates))._build();
 
-  _$DeleteObjectOutput._(
-      {this.deleteMarker, this.versionId, this.requestCharged})
-      : super._();
+  _$DeleteObjectOutput._({
+    this.deleteMarker,
+    this.versionId,
+    this.requestCharged,
+  }) : super._();
 
   @override
   DeleteObjectOutput rebuild(
-          void Function(DeleteObjectOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectOutputBuilder toBuilder() =>
@@ -96,7 +98,8 @@ class DeleteObjectOutputBuilder
   DeleteObjectOutput build() => _build();
 
   _$DeleteObjectOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$DeleteObjectOutput._(
           deleteMarker: deleteMarker,
           versionId: versionId,
@@ -108,16 +111,16 @@ class DeleteObjectOutputBuilder
 }
 
 class _$DeleteObjectOutputPayload extends DeleteObjectOutputPayload {
-  factory _$DeleteObjectOutputPayload(
-          [void Function(DeleteObjectOutputPayloadBuilder)? updates]) =>
-      (new DeleteObjectOutputPayloadBuilder()..update(updates))._build();
+  factory _$DeleteObjectOutputPayload([
+    void Function(DeleteObjectOutputPayloadBuilder)? updates,
+  ]) => (new DeleteObjectOutputPayloadBuilder()..update(updates))._build();
 
   _$DeleteObjectOutputPayload._() : super._();
 
   @override
   DeleteObjectOutputPayload rebuild(
-          void Function(DeleteObjectOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteObjectOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectOutputPayloadBuilder toBuilder() =>

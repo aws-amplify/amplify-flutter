@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.rest_xml_protocol.model.xml_maps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,12 +17,13 @@ abstract class XmlMapsInputOutput
     implements Built<XmlMapsInputOutput, XmlMapsInputOutputBuilder> {
   factory XmlMapsInputOutput({Map<String, GreetingStruct>? myMap}) {
     return _$XmlMapsInputOutput._(
-        myMap: myMap == null ? null : _i3.BuiltMap(myMap));
+      myMap: myMap == null ? null : _i3.BuiltMap(myMap),
+    );
   }
 
-  factory XmlMapsInputOutput.build(
-          [void Function(XmlMapsInputOutputBuilder) updates]) =
-      _$XmlMapsInputOutput;
+  factory XmlMapsInputOutput.build([
+    void Function(XmlMapsInputOutputBuilder) updates,
+  ]) = _$XmlMapsInputOutput;
 
   const XmlMapsInputOutput._();
 
@@ -30,18 +31,16 @@ abstract class XmlMapsInputOutput
     XmlMapsInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [XmlMapsInputOutput] from a [payload] and [response].
   factory XmlMapsInputOutput.fromResponse(
     XmlMapsInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<XmlMapsInputOutput>> serializers = [
-    XmlMapsInputOutputRestXmlSerializer()
+    XmlMapsInputOutputRestXmlSerializer(),
   ];
 
   _i3.BuiltMap<String, GreetingStruct>? get myMap;
@@ -54,10 +53,7 @@ abstract class XmlMapsInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlMapsInputOutput')
-      ..add(
-        'myMap',
-        myMap,
-      );
+      ..add('myMap', myMap);
     return helper.toString();
   }
 }
@@ -67,18 +63,12 @@ class XmlMapsInputOutputRestXmlSerializer
   const XmlMapsInputOutputRestXmlSerializer() : super('XmlMapsInputOutput');
 
   @override
-  Iterable<Type> get types => const [
-        XmlMapsInputOutput,
-        _$XmlMapsInputOutput,
-      ];
+  Iterable<Type> get types => const [XmlMapsInputOutput, _$XmlMapsInputOutput];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlMapsInputOutput deserialize(
@@ -97,17 +87,16 @@ class XmlMapsInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.replace(const _i1.XmlBuiltMapSerializer().deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
+          result.myMap.replace(
+            const _i1.XmlBuiltMapSerializer().deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i3.BuiltMap, [
                 FullType(String),
                 FullType(GreetingStruct),
-              ],
+              ]),
             ),
-          ));
+          );
       }
     }
 
@@ -125,17 +114,16 @@ class XmlMapsInputOutputRestXmlSerializer
     if (myMap != null) {
       result$
         ..add(const _i1.XmlElementName('myMap'))
-        ..add(const _i1.XmlBuiltMapSerializer().serialize(
-          serializers,
-          myMap,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          const _i1.XmlBuiltMapSerializer().serialize(
+            serializers,
+            myMap,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(GreetingStruct),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

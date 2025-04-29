@@ -13,16 +13,12 @@ void main() {
     group('', () {
       testWidgets(
         '',
-        (_) => testWorker(
-          jsEntrypoint: 'packages/e2e/workers.js',
-        ),
+        (_) => testWorker(jsEntrypoint: 'packages/e2e/workers.js'),
       );
 
       testWidgets(
         '(m, O4)',
-        (_) => testWorker(
-          jsEntrypoint: 'packages/e2e/workers.min.js',
-        ),
+        (_) => testWorker(jsEntrypoint: 'packages/e2e/workers.min.js'),
         skip: !kIsWeb,
       );
     });
@@ -30,16 +26,12 @@ void main() {
     group('| no result', () {
       testWidgets(
         '',
-        (_) => testWorkerNoResult(
-          jsEntrypoint: 'packages/e2e/workers.js',
-        ),
+        (_) => testWorkerNoResult(jsEntrypoint: 'packages/e2e/workers.js'),
       );
 
       testWidgets(
         '(m, O4)',
-        (_) => testWorkerNoResult(
-          jsEntrypoint: 'packages/e2e/workers.min.js',
-        ),
+        (_) => testWorkerNoResult(jsEntrypoint: 'packages/e2e/workers.min.js'),
         skip: !kIsWeb,
       );
     });
@@ -47,16 +39,13 @@ void main() {
     group('| void result', () {
       testWidgets(
         '',
-        (_) => testWorkerVoidResult(
-          jsEntrypoint: 'packages/e2e/workers.js',
-        ),
+        (_) => testWorkerVoidResult(jsEntrypoint: 'packages/e2e/workers.js'),
       );
 
       testWidgets(
         '(m, O4)',
-        (_) => testWorkerVoidResult(
-          jsEntrypoint: 'packages/e2e/workers.min.js',
-        ),
+        (_) =>
+            testWorkerVoidResult(jsEntrypoint: 'packages/e2e/workers.min.js'),
         skip: !kIsWeb,
       );
     });
@@ -64,16 +53,13 @@ void main() {
     group('| null result', () {
       testWidgets(
         '',
-        (_) => testWorkerNullResult(
-          jsEntrypoint: 'packages/e2e/workers.js',
-        ),
+        (_) => testWorkerNullResult(jsEntrypoint: 'packages/e2e/workers.js'),
       );
 
       testWidgets(
         '(m, O4)',
-        (_) => testWorkerNullResult(
-          jsEntrypoint: 'packages/e2e/workers.min.js',
-        ),
+        (_) =>
+            testWorkerNullResult(jsEntrypoint: 'packages/e2e/workers.min.js'),
         skip: !kIsWeb,
       );
     });
@@ -81,16 +67,12 @@ void main() {
     group('| throws', () {
       testWidgets(
         '',
-        (_) => testWorkerThrows(
-          jsEntrypoint: 'packages/e2e/workers.js',
-        ),
+        (_) => testWorkerThrows(jsEntrypoint: 'packages/e2e/workers.js'),
       );
 
       testWidgets(
         '(m, O4)',
-        (_) => testWorkerThrows(
-          jsEntrypoint: 'packages/e2e/workers.min.js',
-        ),
+        (_) => testWorkerThrows(jsEntrypoint: 'packages/e2e/workers.min.js'),
         skip: !kIsWeb,
       );
     });

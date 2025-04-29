@@ -20,9 +20,7 @@ class WithChecksum extends HttpRequestInterceptor {
   const WithChecksum();
 
   @override
-  Future<AWSBaseHttpRequest> intercept(
-    AWSBaseHttpRequest request,
-  ) async {
+  Future<AWSBaseHttpRequest> intercept(AWSBaseHttpRequest request) async {
     if (request.headers.containsKey(_header)) {
       return request;
     }

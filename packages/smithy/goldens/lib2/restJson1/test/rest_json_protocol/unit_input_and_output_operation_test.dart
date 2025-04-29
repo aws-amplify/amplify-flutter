@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.unit_input_and_output_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -10,76 +10,64 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonUnitInputAndOutput (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: UnitInputAndOutputOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonUnitInputAndOutput',
-          documentation:
-              'A unit type input serializes no payload. When clients do not\nneed to serialize any data in the payload, they should omit\na payload altogether.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/UnitInputAndOutput',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [],
-      );
-    },
-  );
-  _i1.test(
-    'RestJsonUnitInputAndOutputNoOutput (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: UnitInputAndOutputOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'RestJsonUnitInputAndOutputNoOutput',
-          documentation:
-              'When an operation defines Unit output, the service will respond\nwith an empty payload, and may optionally include the content-type\nheader.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [],
-      );
-    },
-  );
+  _i1.test('RestJsonUnitInputAndOutput (request)', () async {
+    await _i2.httpRequestTest(
+      operation: UnitInputAndOutputOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonUnitInputAndOutput',
+        documentation:
+            'A unit type input serializes no payload. When clients do not\nneed to serialize any data in the payload, they should omit\na payload altogether.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/UnitInputAndOutput',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [],
+    );
+  });
+  _i1.test('RestJsonUnitInputAndOutputNoOutput (response)', () async {
+    await _i2.httpResponseTest(
+      operation: UnitInputAndOutputOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'RestJsonUnitInputAndOutputNoOutput',
+        documentation:
+            'When an operation defines Unit output, the service will respond\nwith an empty payload, and may optionally include the content-type\nheader.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [],
+    );
+  });
 }

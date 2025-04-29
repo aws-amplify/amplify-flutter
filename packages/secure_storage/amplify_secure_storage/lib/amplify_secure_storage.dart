@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library amplify_secure_storage;
+library;
 
 export 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 

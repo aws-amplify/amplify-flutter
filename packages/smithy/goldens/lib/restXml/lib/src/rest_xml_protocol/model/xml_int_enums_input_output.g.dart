@@ -20,23 +20,23 @@ class _$XmlIntEnumsInputOutput extends XmlIntEnumsInputOutput {
   @override
   final _i3.BuiltMap<String, int>? intEnumMap;
 
-  factory _$XmlIntEnumsInputOutput(
-          [void Function(XmlIntEnumsInputOutputBuilder)? updates]) =>
-      (new XmlIntEnumsInputOutputBuilder()..update(updates))._build();
+  factory _$XmlIntEnumsInputOutput([
+    void Function(XmlIntEnumsInputOutputBuilder)? updates,
+  ]) => (new XmlIntEnumsInputOutputBuilder()..update(updates))._build();
 
-  _$XmlIntEnumsInputOutput._(
-      {this.intEnum1,
-      this.intEnum2,
-      this.intEnum3,
-      this.intEnumList,
-      this.intEnumSet,
-      this.intEnumMap})
-      : super._();
+  _$XmlIntEnumsInputOutput._({
+    this.intEnum1,
+    this.intEnum2,
+    this.intEnum3,
+    this.intEnumList,
+    this.intEnumSet,
+    this.intEnumMap,
+  }) : super._();
 
   @override
   XmlIntEnumsInputOutput rebuild(
-          void Function(XmlIntEnumsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(XmlIntEnumsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   XmlIntEnumsInputOutputBuilder toBuilder() =>
@@ -135,14 +135,16 @@ class XmlIntEnumsInputOutputBuilder
   _$XmlIntEnumsInputOutput _build() {
     _$XmlIntEnumsInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$XmlIntEnumsInputOutput._(
-              intEnum1: intEnum1,
-              intEnum2: intEnum2,
-              intEnum3: intEnum3,
-              intEnumList: _intEnumList?.build(),
-              intEnumSet: _intEnumSet?.build(),
-              intEnumMap: _intEnumMap?.build());
+            intEnum1: intEnum1,
+            intEnum2: intEnum2,
+            intEnum3: intEnum3,
+            intEnumList: _intEnumList?.build(),
+            intEnumSet: _intEnumSet?.build(),
+            intEnumMap: _intEnumMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -154,7 +156,10 @@ class XmlIntEnumsInputOutputBuilder
         _intEnumMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'XmlIntEnumsInputOutput', _$failedField, e.toString());
+          r'XmlIntEnumsInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

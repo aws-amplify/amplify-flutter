@@ -18,7 +18,7 @@ class _$CustomCodeError extends CustomCodeError {
       (new CustomCodeErrorBuilder()..update(updates))._build();
 
   _$CustomCodeError._({this.message, this.statusCode, this.headers})
-      : super._();
+    : super._();
 
   @override
   CustomCodeError rebuild(void Function(CustomCodeErrorBuilder) updates) =>
@@ -87,9 +87,13 @@ class CustomCodeErrorBuilder
   CustomCodeError build() => _build();
 
   _$CustomCodeError _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CustomCodeError._(
-            message: message, statusCode: statusCode, headers: headers);
+          message: message,
+          statusCode: statusCode,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

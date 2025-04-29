@@ -16,30 +16,42 @@ class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
   @override
   final JsonWebToken idToken;
 
-  factory _$CognitoUserPoolTokens(
-          [void Function(CognitoUserPoolTokensBuilder)? updates]) =>
-      (new CognitoUserPoolTokensBuilder()..update(updates))._build();
+  factory _$CognitoUserPoolTokens([
+    void Function(CognitoUserPoolTokensBuilder)? updates,
+  ]) => (new CognitoUserPoolTokensBuilder()..update(updates))._build();
 
-  _$CognitoUserPoolTokens._(
-      {required this.signInMethod,
-      required this.accessToken,
-      required this.refreshToken,
-      required this.idToken})
-      : super._() {
+  _$CognitoUserPoolTokens._({
+    required this.signInMethod,
+    required this.accessToken,
+    required this.refreshToken,
+    required this.idToken,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        signInMethod, r'CognitoUserPoolTokens', 'signInMethod');
+      signInMethod,
+      r'CognitoUserPoolTokens',
+      'signInMethod',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'CognitoUserPoolTokens', 'accessToken');
+      accessToken,
+      r'CognitoUserPoolTokens',
+      'accessToken',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        refreshToken, r'CognitoUserPoolTokens', 'refreshToken');
+      refreshToken,
+      r'CognitoUserPoolTokens',
+      'refreshToken',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        idToken, r'CognitoUserPoolTokens', 'idToken');
+      idToken,
+      r'CognitoUserPoolTokens',
+      'idToken',
+    );
   }
 
   @override
   CognitoUserPoolTokens rebuild(
-          void Function(CognitoUserPoolTokensBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CognitoUserPoolTokensBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CognitoUserPoolTokensBuilder toBuilder() =>
@@ -119,16 +131,29 @@ class CognitoUserPoolTokensBuilder
 
   _$CognitoUserPoolTokens _build() {
     CognitoUserPoolTokens._finalize(this);
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CognitoUserPoolTokens._(
           signInMethod: BuiltValueNullFieldError.checkNotNull(
-              signInMethod, r'CognitoUserPoolTokens', 'signInMethod'),
+            signInMethod,
+            r'CognitoUserPoolTokens',
+            'signInMethod',
+          ),
           accessToken: BuiltValueNullFieldError.checkNotNull(
-              accessToken, r'CognitoUserPoolTokens', 'accessToken'),
+            accessToken,
+            r'CognitoUserPoolTokens',
+            'accessToken',
+          ),
           refreshToken: BuiltValueNullFieldError.checkNotNull(
-              refreshToken, r'CognitoUserPoolTokens', 'refreshToken'),
+            refreshToken,
+            r'CognitoUserPoolTokens',
+            'refreshToken',
+          ),
           idToken: BuiltValueNullFieldError.checkNotNull(
-              idToken, r'CognitoUserPoolTokens', 'idToken'),
+            idToken,
+            r'CognitoUserPoolTokens',
+            'idToken',
+          ),
         );
     replace(_$result);
     return _$result;
@@ -142,35 +167,36 @@ class CognitoUserPoolTokensBuilder
 // **************************************************************************
 
 CognitoUserPoolTokens _$CognitoUserPoolTokensFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      'CognitoUserPoolTokens',
-      json,
-      ($checkedConvert) {
-        final val = CognitoUserPoolTokens(
-          signInMethod: $checkedConvert(
-              'signInMethod',
-              (v) => v == null
-                  ? CognitoSignInMethod.default$
-                  : const _CognitoSignInMethodSerializer()
-                      .fromJson(v as String)),
-          accessToken: $checkedConvert('accessToken',
-              (v) => const _JsonWebTokenSerializer().fromJson(v as String)),
-          refreshToken: $checkedConvert('refreshToken', (v) => v as String),
-          idToken: $checkedConvert('idToken',
-              (v) => const _JsonWebTokenSerializer().fromJson(v as String)),
-        );
-        return val;
-      },
-    );
+  Map<String, dynamic> json,
+) => $checkedCreate('CognitoUserPoolTokens', json, ($checkedConvert) {
+  final val = CognitoUserPoolTokens(
+    signInMethod: $checkedConvert(
+      'signInMethod',
+      (v) =>
+          v == null
+              ? CognitoSignInMethod.default$
+              : const _CognitoSignInMethodSerializer().fromJson(v as String),
+    ),
+    accessToken: $checkedConvert(
+      'accessToken',
+      (v) => const _JsonWebTokenSerializer().fromJson(v as String),
+    ),
+    refreshToken: $checkedConvert('refreshToken', (v) => v as String),
+    idToken: $checkedConvert(
+      'idToken',
+      (v) => const _JsonWebTokenSerializer().fromJson(v as String),
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$CognitoUserPoolTokensToJson(
-        CognitoUserPoolTokens instance) =>
-    <String, dynamic>{
-      'signInMethod':
-          const _CognitoSignInMethodSerializer().toJson(instance.signInMethod),
-      'accessToken':
-          const _JsonWebTokenSerializer().toJson(instance.accessToken),
-      'refreshToken': instance.refreshToken,
-      'idToken': const _JsonWebTokenSerializer().toJson(instance.idToken),
-    };
+  CognitoUserPoolTokens instance,
+) => <String, dynamic>{
+  'signInMethod': const _CognitoSignInMethodSerializer().toJson(
+    instance.signInMethod,
+  ),
+  'accessToken': const _JsonWebTokenSerializer().toJson(instance.accessToken),
+  'refreshToken': instance.refreshToken,
+  'idToken': const _JsonWebTokenSerializer().toJson(instance.idToken),
+};

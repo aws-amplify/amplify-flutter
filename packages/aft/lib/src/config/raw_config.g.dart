@@ -25,23 +25,33 @@ class _$EnvironmentSerializer implements StructuredSerializer<Environment> {
   final String wireName = 'Environment';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Environment object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Environment object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'sdk',
-      serializers.serialize(object.sdk,
-          specifiedType: const FullType(VersionConstraint)),
+      serializers.serialize(
+        object.sdk,
+        specifiedType: const FullType(VersionConstraint),
+      ),
       'flutter',
-      serializers.serialize(object.flutter,
-          specifiedType: const FullType(VersionConstraint)),
+      serializers.serialize(
+        object.flutter,
+        specifiedType: const FullType(VersionConstraint),
+      ),
     ];
 
     return result;
   }
 
   @override
-  Environment deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Environment deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new EnvironmentBuilder();
 
     final iterator = serialized.iterator;
@@ -51,14 +61,20 @@ class _$EnvironmentSerializer implements StructuredSerializer<Environment> {
       final Object? value = iterator.current;
       switch (key) {
         case 'sdk':
-          result.sdk = serializers.deserialize(value,
-                  specifiedType: const FullType(VersionConstraint))!
-              as VersionConstraint;
+          result.sdk =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(VersionConstraint),
+                  )!
+                  as VersionConstraint;
           break;
         case 'flutter':
-          result.flutter = serializers.deserialize(value,
-                  specifiedType: const FullType(VersionConstraint))!
-              as VersionConstraint;
+          result.flutter =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(VersionConstraint),
+                  )!
+                  as VersionConstraint;
           break;
       }
     }
@@ -72,25 +88,33 @@ class _$PlatformEnvironmentSerializer
   @override
   final Iterable<Type> types = const [
     PlatformEnvironment,
-    _$PlatformEnvironment
+    _$PlatformEnvironment,
   ];
   @override
   final String wireName = 'PlatformEnvironment';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, PlatformEnvironment object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    PlatformEnvironment object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'android',
-      serializers.serialize(object.android,
-          specifiedType: const FullType(AndroidEnvironment)),
+      serializers.serialize(
+        object.android,
+        specifiedType: const FullType(AndroidEnvironment),
+      ),
       'ios',
-      serializers.serialize(object.ios,
-          specifiedType: const FullType(IosEnvironment)),
+      serializers.serialize(
+        object.ios,
+        specifiedType: const FullType(IosEnvironment),
+      ),
       'macOS',
-      serializers.serialize(object.macOS,
-          specifiedType: const FullType(MacOSEnvironment)),
+      serializers.serialize(
+        object.macOS,
+        specifiedType: const FullType(MacOSEnvironment),
+      ),
     ];
 
     return result;
@@ -98,8 +122,10 @@ class _$PlatformEnvironmentSerializer
 
   @override
   PlatformEnvironment deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new PlatformEnvironmentBuilder();
 
     final iterator = serialized.iterator;
@@ -109,19 +135,31 @@ class _$PlatformEnvironmentSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'android':
-          result.android.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(AndroidEnvironment))!
-              as AndroidEnvironment);
+          result.android.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(AndroidEnvironment),
+                )!
+                as AndroidEnvironment,
+          );
           break;
         case 'ios':
-          result.ios.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(IosEnvironment))!
-              as IosEnvironment);
+          result.ios.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(IosEnvironment),
+                )!
+                as IosEnvironment,
+          );
           break;
         case 'macOS':
-          result.macOS.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(MacOSEnvironment))!
-              as MacOSEnvironment);
+          result.macOS.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(MacOSEnvironment),
+                )!
+                as MacOSEnvironment,
+          );
           break;
       }
     }
@@ -139,12 +177,16 @@ class _$AndroidEnvironmentSerializer
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, AndroidEnvironment object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    AndroidEnvironment object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'minSdkVersion',
-      serializers.serialize(object.minSdkVersion,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.minSdkVersion,
+        specifiedType: const FullType(String),
+      ),
     ];
 
     return result;
@@ -152,8 +194,10 @@ class _$AndroidEnvironmentSerializer
 
   @override
   AndroidEnvironment deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new AndroidEnvironmentBuilder();
 
     final iterator = serialized.iterator;
@@ -163,8 +207,12 @@ class _$AndroidEnvironmentSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'minSdkVersion':
-          result.minSdkVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.minSdkVersion =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
       }
     }
@@ -181,12 +229,17 @@ class _$IosEnvironmentSerializer
   final String wireName = 'IosEnvironment';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, IosEnvironment object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    IosEnvironment object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'minOSVersion',
-      serializers.serialize(object.minOSVersion,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.minOSVersion,
+        specifiedType: const FullType(String),
+      ),
     ];
 
     return result;
@@ -194,8 +247,10 @@ class _$IosEnvironmentSerializer
 
   @override
   IosEnvironment deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new IosEnvironmentBuilder();
 
     final iterator = serialized.iterator;
@@ -205,8 +260,12 @@ class _$IosEnvironmentSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'minOSVersion':
-          result.minOSVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.minOSVersion =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
       }
     }
@@ -223,12 +282,17 @@ class _$MacOSEnvironmentSerializer
   final String wireName = 'MacOSEnvironment';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, MacOSEnvironment object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    MacOSEnvironment object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'minOSVersion',
-      serializers.serialize(object.minOSVersion,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.minOSVersion,
+        specifiedType: const FullType(String),
+      ),
     ];
 
     return result;
@@ -236,8 +300,10 @@ class _$MacOSEnvironmentSerializer
 
   @override
   MacOSEnvironment deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new MacOSEnvironmentBuilder();
 
     final iterator = serialized.iterator;
@@ -247,8 +313,12 @@ class _$MacOSEnvironmentSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'minOSVersion':
-          result.minOSVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.minOSVersion =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
       }
     }
@@ -262,15 +332,17 @@ class _$GitHubPackageConfigSerializer
   @override
   final Iterable<Type> types = const [
     GitHubPackageConfig,
-    _$GitHubPackageConfig
+    _$GitHubPackageConfig,
   ];
   @override
   final String wireName = 'GitHubPackageConfig';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GitHubPackageConfig object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    GitHubPackageConfig object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'custom',
       serializers.serialize(object.custom, specifiedType: const FullType(bool)),
@@ -281,8 +353,10 @@ class _$GitHubPackageConfigSerializer
 
   @override
   GitHubPackageConfig deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new GitHubPackageConfigBuilder();
 
     final iterator = serialized.iterator;
@@ -292,8 +366,12 @@ class _$GitHubPackageConfigSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'custom':
-          result.custom = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
+          result.custom =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )!
+                  as bool;
           break;
       }
     }
@@ -378,12 +456,20 @@ class EnvironmentBuilder implements Builder<Environment, EnvironmentBuilder> {
 
   _$Environment _build() {
     Environment._finalize(this);
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$Environment._(
-            sdk: BuiltValueNullFieldError.checkNotNull(
-                sdk, r'Environment', 'sdk'),
-            flutter: BuiltValueNullFieldError.checkNotNull(
-                flutter, r'Environment', 'flutter'));
+          sdk: BuiltValueNullFieldError.checkNotNull(
+            sdk,
+            r'Environment',
+            'sdk',
+          ),
+          flutter: BuiltValueNullFieldError.checkNotNull(
+            flutter,
+            r'Environment',
+            'flutter',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -397,24 +483,32 @@ class _$PlatformEnvironment extends PlatformEnvironment {
   @override
   final MacOSEnvironment macOS;
 
-  factory _$PlatformEnvironment(
-          [void Function(PlatformEnvironmentBuilder)? updates]) =>
-      (new PlatformEnvironmentBuilder()..update(updates))._build();
+  factory _$PlatformEnvironment([
+    void Function(PlatformEnvironmentBuilder)? updates,
+  ]) => (new PlatformEnvironmentBuilder()..update(updates))._build();
 
-  _$PlatformEnvironment._(
-      {required this.android, required this.ios, required this.macOS})
-      : super._() {
+  _$PlatformEnvironment._({
+    required this.android,
+    required this.ios,
+    required this.macOS,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        android, r'PlatformEnvironment', 'android');
+      android,
+      r'PlatformEnvironment',
+      'android',
+    );
     BuiltValueNullFieldError.checkNotNull(ios, r'PlatformEnvironment', 'ios');
     BuiltValueNullFieldError.checkNotNull(
-        macOS, r'PlatformEnvironment', 'macOS');
+      macOS,
+      r'PlatformEnvironment',
+      'macOS',
+    );
   }
 
   @override
   PlatformEnvironment rebuild(
-          void Function(PlatformEnvironmentBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PlatformEnvironmentBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PlatformEnvironmentBuilder toBuilder() =>
@@ -497,9 +591,13 @@ class PlatformEnvironmentBuilder
   _$PlatformEnvironment _build() {
     _$PlatformEnvironment _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$PlatformEnvironment._(
-              android: android.build(), ios: ios.build(), macOS: macOS.build());
+            android: android.build(),
+            ios: ios.build(),
+            macOS: macOS.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -511,7 +609,10 @@ class PlatformEnvironmentBuilder
         macOS.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'PlatformEnvironment', _$failedField, e.toString());
+          r'PlatformEnvironment',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -524,19 +625,22 @@ class _$AndroidEnvironment extends AndroidEnvironment {
   @override
   final String minSdkVersion;
 
-  factory _$AndroidEnvironment(
-          [void Function(AndroidEnvironmentBuilder)? updates]) =>
-      (new AndroidEnvironmentBuilder()..update(updates))._build();
+  factory _$AndroidEnvironment([
+    void Function(AndroidEnvironmentBuilder)? updates,
+  ]) => (new AndroidEnvironmentBuilder()..update(updates))._build();
 
   _$AndroidEnvironment._({required this.minSdkVersion}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        minSdkVersion, r'AndroidEnvironment', 'minSdkVersion');
+      minSdkVersion,
+      r'AndroidEnvironment',
+      'minSdkVersion',
+    );
   }
 
   @override
   AndroidEnvironment rebuild(
-          void Function(AndroidEnvironmentBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AndroidEnvironmentBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AndroidEnvironmentBuilder toBuilder() =>
@@ -592,10 +696,15 @@ class AndroidEnvironmentBuilder
   AndroidEnvironment build() => _build();
 
   _$AndroidEnvironment _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$AndroidEnvironment._(
-            minSdkVersion: BuiltValueNullFieldError.checkNotNull(
-                minSdkVersion, r'AndroidEnvironment', 'minSdkVersion'));
+          minSdkVersion: BuiltValueNullFieldError.checkNotNull(
+            minSdkVersion,
+            r'AndroidEnvironment',
+            'minSdkVersion',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -610,7 +719,10 @@ class _$IosEnvironment extends IosEnvironment {
 
   _$IosEnvironment._({required this.minOSVersion}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        minOSVersion, r'IosEnvironment', 'minOSVersion');
+      minOSVersion,
+      r'IosEnvironment',
+      'minOSVersion',
+    );
   }
 
   @override
@@ -670,10 +782,15 @@ class IosEnvironmentBuilder
   IosEnvironment build() => _build();
 
   _$IosEnvironment _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$IosEnvironment._(
-            minOSVersion: BuiltValueNullFieldError.checkNotNull(
-                minOSVersion, r'IosEnvironment', 'minOSVersion'));
+          minOSVersion: BuiltValueNullFieldError.checkNotNull(
+            minOSVersion,
+            r'IosEnvironment',
+            'minOSVersion',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -683,13 +800,16 @@ class _$MacOSEnvironment extends MacOSEnvironment {
   @override
   final String minOSVersion;
 
-  factory _$MacOSEnvironment(
-          [void Function(MacOSEnvironmentBuilder)? updates]) =>
-      (new MacOSEnvironmentBuilder()..update(updates))._build();
+  factory _$MacOSEnvironment([
+    void Function(MacOSEnvironmentBuilder)? updates,
+  ]) => (new MacOSEnvironmentBuilder()..update(updates))._build();
 
   _$MacOSEnvironment._({required this.minOSVersion}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        minOSVersion, r'MacOSEnvironment', 'minOSVersion');
+      minOSVersion,
+      r'MacOSEnvironment',
+      'minOSVersion',
+    );
   }
 
   @override
@@ -749,10 +869,15 @@ class MacOSEnvironmentBuilder
   MacOSEnvironment build() => _build();
 
   _$MacOSEnvironment _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MacOSEnvironment._(
-            minOSVersion: BuiltValueNullFieldError.checkNotNull(
-                minOSVersion, r'MacOSEnvironment', 'minOSVersion'));
+          minOSVersion: BuiltValueNullFieldError.checkNotNull(
+            minOSVersion,
+            r'MacOSEnvironment',
+            'minOSVersion',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -762,19 +887,22 @@ class _$GitHubPackageConfig extends GitHubPackageConfig {
   @override
   final bool custom;
 
-  factory _$GitHubPackageConfig(
-          [void Function(GitHubPackageConfigBuilder)? updates]) =>
-      (new GitHubPackageConfigBuilder()..update(updates))._build();
+  factory _$GitHubPackageConfig([
+    void Function(GitHubPackageConfigBuilder)? updates,
+  ]) => (new GitHubPackageConfigBuilder()..update(updates))._build();
 
   _$GitHubPackageConfig._({required this.custom}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        custom, r'GitHubPackageConfig', 'custom');
+      custom,
+      r'GitHubPackageConfig',
+      'custom',
+    );
   }
 
   @override
   GitHubPackageConfig rebuild(
-          void Function(GitHubPackageConfigBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GitHubPackageConfigBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GitHubPackageConfigBuilder toBuilder() =>
@@ -831,10 +959,15 @@ class GitHubPackageConfigBuilder
   GitHubPackageConfig build() => _build();
 
   _$GitHubPackageConfig _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$GitHubPackageConfig._(
-            custom: BuiltValueNullFieldError.checkNotNull(
-                custom, r'GitHubPackageConfig', 'custom'));
+          custom: BuiltValueNullFieldError.checkNotNull(
+            custom,
+            r'GitHubPackageConfig',
+            'custom',
+          ),
+        );
     replace(_$result);
     return _$result;
   }
@@ -846,79 +979,93 @@ class GitHubPackageConfigBuilder
 // JsonSerializableGenerator
 // **************************************************************************
 
-RawPubspecConfig _$RawPubspecConfigFromJson(Map json) => $checkedCreate(
-      'RawPubspecConfig',
-      json,
-      ($checkedConvert) {
-        final val = RawPubspecConfig(
-          dependencies: $checkedConvert('dependencies',
-              (v) => v == null ? const {} : parseDeps(v as Map?)),
-          environment: $checkedConvert('environment',
-              (v) => Environment.fromJson(Map<String, Object?>.from(v as Map))),
-          aft: $checkedConvert(
-              'aft',
-              (v) => v == null
+RawPubspecConfig _$RawPubspecConfigFromJson(Map json) =>
+    $checkedCreate('RawPubspecConfig', json, ($checkedConvert) {
+      final val = RawPubspecConfig(
+        dependencies: $checkedConvert(
+          'dependencies',
+          (v) => v == null ? const {} : parseDeps(v as Map?),
+        ),
+        environment: $checkedConvert(
+          'environment',
+          (v) => Environment.fromJson(Map<String, Object?>.from(v as Map)),
+        ),
+        aft: $checkedConvert(
+          'aft',
+          (v) =>
+              v == null
                   ? null
-                  : RawAftConfig.fromJson(Map<String, Object?>.from(v as Map))),
-        );
-        return val;
-      },
-    );
+                  : RawAftConfig.fromJson(Map<String, Object?>.from(v as Map)),
+        ),
+      );
+      return val;
+    });
 
 RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
-      'RawAftConfig',
+  'RawAftConfig',
+  json,
+  ($checkedConvert) {
+    $checkKeys(
       json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const [
-            'platforms',
-            'ignore',
-            'components',
-            'scripts',
-            'github'
-          ],
-        );
-        final val = RawAftConfig(
-          platforms: $checkedConvert(
-              'platforms',
-              (v) => v == null
-                  ? null
-                  : PlatformEnvironment.fromJson(
-                      Map<String, Object?>.from(v as Map))),
-          ignore: $checkedConvert(
-              'ignore',
-              (v) =>
-                  (v as List<dynamic>?)?.map((e) => e as String).toList() ??
-                  const []),
-          components: $checkedConvert(
-              'components',
-              (v) =>
-                  (v as List<dynamic>?)
-                      ?.map((e) => RawAftComponent.fromJson(
-                          Map<String, Object?>.from(e as Map)))
-                      .toList() ??
-                  const []),
-          scripts: $checkedConvert(
-              'scripts',
-              (v) =>
-                  (v as Map?)?.map(
-                    (k, e) => MapEntry(
-                        k as String,
-                        AftScript.fromJson(
-                            Map<String, Object?>.from(e as Map))),
-                  ) ??
-                  const {}),
-          github: $checkedConvert(
-              'github',
-              (v) => v == null
-                  ? null
-                  : GitHubPackageConfig.fromJson(
-                      Map<String, Object?>.from(v as Map))),
-        );
-        return val;
-      },
+      allowedKeys: const [
+        'platforms',
+        'ignore',
+        'components',
+        'scripts',
+        'github',
+      ],
     );
+    final val = RawAftConfig(
+      platforms: $checkedConvert(
+        'platforms',
+        (v) =>
+            v == null
+                ? null
+                : PlatformEnvironment.fromJson(
+                  Map<String, Object?>.from(v as Map),
+                ),
+      ),
+      ignore: $checkedConvert(
+        'ignore',
+        (v) =>
+            (v as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
+      ),
+      components: $checkedConvert(
+        'components',
+        (v) =>
+            (v as List<dynamic>?)
+                ?.map(
+                  (e) => RawAftComponent.fromJson(
+                    Map<String, Object?>.from(e as Map),
+                  ),
+                )
+                .toList() ??
+            const [],
+      ),
+      scripts: $checkedConvert(
+        'scripts',
+        (v) =>
+            (v as Map?)?.map(
+              (k, e) => MapEntry(
+                k as String,
+                AftScript.fromJson(Map<String, Object?>.from(e as Map)),
+              ),
+            ) ??
+            const {},
+      ),
+      github: $checkedConvert(
+        'github',
+        (v) =>
+            v == null
+                ? null
+                : GitHubPackageConfig.fromJson(
+                  Map<String, Object?>.from(v as Map),
+                ),
+      ),
+    );
+    return val;
+  },
+);
 
 Map<String, dynamic> _$RawAftConfigToJson(RawAftConfig instance) =>
     <String, dynamic>{
@@ -929,28 +1076,28 @@ Map<String, dynamic> _$RawAftConfigToJson(RawAftConfig instance) =>
       'github': instance.github?.toJson(),
     };
 
-RawAftComponent _$RawAftComponentFromJson(Map json) => $checkedCreate(
-      'RawAftComponent',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const ['name', 'summary', 'packages', 'propagate'],
-        );
-        final val = RawAftComponent(
-          name: $checkedConvert('name', (v) => v as String),
-          summary: $checkedConvert('summary', (v) => v as String?),
-          packages: $checkedConvert('packages',
-              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
-          propagate: $checkedConvert(
-              'propagate',
-              (v) =>
-                  $enumDecodeNullable(_$VersionPropagationEnumMap, v) ??
-                  VersionPropagation.minor),
-        );
-        return val;
-      },
-    );
+RawAftComponent _$RawAftComponentFromJson(Map json) =>
+    $checkedCreate('RawAftComponent', json, ($checkedConvert) {
+      $checkKeys(
+        json,
+        allowedKeys: const ['name', 'summary', 'packages', 'propagate'],
+      );
+      final val = RawAftComponent(
+        name: $checkedConvert('name', (v) => v as String),
+        summary: $checkedConvert('summary', (v) => v as String?),
+        packages: $checkedConvert(
+          'packages',
+          (v) => (v as List<dynamic>).map((e) => e as String).toList(),
+        ),
+        propagate: $checkedConvert(
+          'propagate',
+          (v) =>
+              $enumDecodeNullable(_$VersionPropagationEnumMap, v) ??
+              VersionPropagation.minor,
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$RawAftComponentToJson(RawAftComponent instance) =>
     <String, dynamic>{
@@ -967,67 +1114,60 @@ const _$VersionPropagationEnumMap = {
   VersionPropagation.none: 'none',
 };
 
-SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
-      'SdkConfig',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const ['ref', 'apis', 'plugins'],
-        );
-        final val = SdkConfig(
-          ref: $checkedConvert('ref', (v) => v as String? ?? 'main'),
-          apis: $checkedConvert(
-              'apis',
-              (v) => (v as Map).map(
-                    (k, e) => MapEntry(
-                        k as String,
-                        (e as List<dynamic>?)
-                            ?.map((e) => e as String)
-                            .toList()),
-                  )),
-          plugins: $checkedConvert(
-              'plugins',
-              (v) =>
-                  (v as List<dynamic>?)?.map((e) => e as String).toList() ??
-                  const []),
-        );
-        return val;
-      },
-    );
+SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate('SdkConfig', json, (
+  $checkedConvert,
+) {
+  $checkKeys(json, allowedKeys: const ['ref', 'apis', 'plugins']);
+  final val = SdkConfig(
+    ref: $checkedConvert('ref', (v) => v as String? ?? 'main'),
+    apis: $checkedConvert(
+      'apis',
+      (v) => (v as Map).map(
+        (k, e) => MapEntry(
+          k as String,
+          (e as List<dynamic>?)?.map((e) => e as String).toList(),
+        ),
+      ),
+    ),
+    plugins: $checkedConvert(
+      'plugins',
+      (v) =>
+          (v as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$SdkConfigToJson(SdkConfig instance) => <String, dynamic>{
-      'ref': instance.ref,
-      'apis': instance.apis,
-      'plugins': instance.plugins,
-    };
+  'ref': instance.ref,
+  'apis': instance.apis,
+  'plugins': instance.plugins,
+};
 
-AftScript _$AftScriptFromJson(Map json) => $checkedCreate(
-      'AftScript',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const ['run', 'description', 'from', 'fail-fast'],
-        );
-        final val = AftScript(
-          run: $checkedConvert('run', (v) => v as String),
-          description: $checkedConvert('description', (v) => v as String?),
-          from: $checkedConvert(
-              'from',
-              (v) => v == null
+AftScript _$AftScriptFromJson(Map json) =>
+    $checkedCreate('AftScript', json, ($checkedConvert) {
+      $checkKeys(
+        json,
+        allowedKeys: const ['run', 'description', 'from', 'fail-fast'],
+      );
+      final val = AftScript(
+        run: $checkedConvert('run', (v) => v as String),
+        description: $checkedConvert('description', (v) => v as String?),
+        from: $checkedConvert(
+          'from',
+          (v) =>
+              v == null
                   ? const PackageSelector.development()
-                  : const PackageSelectorConverter().fromJson(v)),
-          failFast: $checkedConvert('fail-fast', (v) => v as bool? ?? false),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'failFast': 'fail-fast'},
-    );
+                  : const PackageSelectorConverter().fromJson(v),
+        ),
+        failFast: $checkedConvert('fail-fast', (v) => v as bool? ?? false),
+      );
+      return val;
+    }, fieldKeyMap: const {'failFast': 'fail-fast'});
 
 Map<String, dynamic> _$AftScriptToJson(AftScript instance) => <String, dynamic>{
-      'run': instance.run,
-      'description': instance.description,
-      'from': const PackageSelectorConverter().toJson(instance.from),
-      'fail-fast': instance.failFast,
-    };
+  'run': instance.run,
+  'description': instance.description,
+  'from': const PackageSelectorConverter().toJson(instance.from),
+  'fail-fast': instance.failFast,
+};

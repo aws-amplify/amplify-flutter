@@ -20,8 +20,9 @@ abstract class PutEventsResponse
     return _$PutEventsResponse._(eventsResponse: eventsResponse);
   }
 
-  factory PutEventsResponse.build(
-      [void Function(PutEventsResponseBuilder) updates]) = _$PutEventsResponse;
+  factory PutEventsResponse.build([
+    void Function(PutEventsResponseBuilder) updates,
+  ]) = _$PutEventsResponse;
 
   const PutEventsResponse._();
 
@@ -29,13 +30,12 @@ abstract class PutEventsResponse
   factory PutEventsResponse.fromResponse(
     EventsResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      PutEventsResponse.build((b) {
-        b.eventsResponse.replace(payload);
-      });
+  ) => PutEventsResponse.build((b) {
+    b.eventsResponse.replace(payload);
+  });
 
   static const List<_i2.SmithySerializer<EventsResponse>> serializers = [
-    PutEventsResponseRestJson1Serializer()
+    PutEventsResponseRestJson1Serializer(),
   ];
 
   /// Provides information about endpoints and the events that they're associated with.
@@ -47,10 +47,7 @@ abstract class PutEventsResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutEventsResponse')
-      ..add(
-        'eventsResponse',
-        eventsResponse,
-      );
+      ..add('eventsResponse', eventsResponse);
     return helper.toString();
   }
 }
@@ -60,17 +57,11 @@ class PutEventsResponseRestJson1Serializer
   const PutEventsResponseRestJson1Serializer() : super('PutEventsResponse');
 
   @override
-  Iterable<Type> get types => const [
-        PutEventsResponse,
-        _$PutEventsResponse,
-      ];
+  Iterable<Type> get types => const [PutEventsResponse, _$PutEventsResponse];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
   @override
   EventsResponse deserialize(
     Serializers serializers,
@@ -78,9 +69,10 @@ class PutEventsResponseRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(EventsResponse),
-    ) as EventsResponse);
+          serialized,
+          specifiedType: const FullType(EventsResponse),
+        )
+        as EventsResponse);
   }
 
   @override

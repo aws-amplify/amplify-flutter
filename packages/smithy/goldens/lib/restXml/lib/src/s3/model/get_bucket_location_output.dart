@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.s3.model.get_bucket_location_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,14 +16,15 @@ abstract class GetBucketLocationOutput
     implements
         Built<GetBucketLocationOutput, GetBucketLocationOutputBuilder>,
         _i2.HasPayload<BucketLocationConstraint> {
-  factory GetBucketLocationOutput(
-      {BucketLocationConstraint? locationConstraint}) {
+  factory GetBucketLocationOutput({
+    BucketLocationConstraint? locationConstraint,
+  }) {
     return _$GetBucketLocationOutput._(locationConstraint: locationConstraint);
   }
 
-  factory GetBucketLocationOutput.build(
-          [void Function(GetBucketLocationOutputBuilder) updates]) =
-      _$GetBucketLocationOutput;
+  factory GetBucketLocationOutput.build([
+    void Function(GetBucketLocationOutputBuilder) updates,
+  ]) = _$GetBucketLocationOutput;
 
   const GetBucketLocationOutput._();
 
@@ -31,13 +32,12 @@ abstract class GetBucketLocationOutput
   factory GetBucketLocationOutput.fromResponse(
     BucketLocationConstraint? payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      GetBucketLocationOutput.build((b) {
-        b.locationConstraint = payload;
-      });
+  ) => GetBucketLocationOutput.build((b) {
+    b.locationConstraint = payload;
+  });
 
   static const List<_i2.SmithySerializer<BucketLocationConstraint?>>
-      serializers = [GetBucketLocationOutputRestXmlSerializer()];
+  serializers = [GetBucketLocationOutputRestXmlSerializer()];
 
   BucketLocationConstraint? get locationConstraint;
   @override
@@ -49,10 +49,7 @@ abstract class GetBucketLocationOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBucketLocationOutput')
-      ..add(
-        'locationConstraint',
-        locationConstraint,
-      );
+      ..add('locationConstraint', locationConstraint);
     return helper.toString();
   }
 }
@@ -60,21 +57,18 @@ abstract class GetBucketLocationOutput
 class GetBucketLocationOutputRestXmlSerializer
     extends _i2.PrimitiveSmithySerializer<BucketLocationConstraint> {
   const GetBucketLocationOutputRestXmlSerializer()
-      : super('GetBucketLocationOutput');
+    : super('GetBucketLocationOutput');
 
   @override
   Iterable<Type> get types => const [
-        GetBucketLocationOutput,
-        _$GetBucketLocationOutput,
-      ];
+    GetBucketLocationOutput,
+    _$GetBucketLocationOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   BucketLocationConstraint deserialize(
@@ -83,9 +77,10 @@ class GetBucketLocationOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(BucketLocationConstraint),
-    ) as BucketLocationConstraint);
+          serialized,
+          specifiedType: const FullType(BucketLocationConstraint),
+        )
+        as BucketLocationConstraint);
   }
 
   @override
@@ -98,13 +93,15 @@ class GetBucketLocationOutputRestXmlSerializer
       const _i2.XmlElementName(
         'LocationConstraint',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
-    result$.add(serializers.serialize(
-      object,
-      specifiedType: const FullType(BucketLocationConstraint),
-    ));
+    result$.add(
+      serializers.serialize(
+        object,
+        specifiedType: const FullType(BucketLocationConstraint),
+      ),
+    );
     return result$;
   }
 }

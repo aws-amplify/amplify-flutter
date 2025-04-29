@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.timestamp_format_headers_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -12,125 +12,110 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'TimestampFormatHeaders (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: TimestampFormatHeadersOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'TimestampFormatHeaders',
-          documentation: 'Tests how timestamp request headers are serialized',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'memberEpochSeconds': 1576540098,
-            'memberHttpDate': 1576540098,
-            'memberDateTime': 1576540098,
-            'defaultFormat': 1576540098,
-            'targetEpochSeconds': 1576540098,
-            'targetHttpDate': 1576540098,
-            'targetDateTime': 1576540098,
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'X-memberEpochSeconds': '1576540098',
-            'X-memberHttpDate': 'Mon, 16 Dec 2019 23:48:18 GMT',
-            'X-memberDateTime': '2019-12-16T23:48:18Z',
-            'X-defaultFormat': 'Mon, 16 Dec 2019 23:48:18 GMT',
-            'X-targetEpochSeconds': '1576540098',
-            'X-targetHttpDate': 'Mon, 16 Dec 2019 23:48:18 GMT',
-            'X-targetDateTime': '2019-12-16T23:48:18Z',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/TimestampFormatHeaders',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [TimestampFormatHeadersIoRestXmlSerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'TimestampFormatHeaders (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: TimestampFormatHeadersOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'TimestampFormatHeaders',
-          documentation: 'Tests how timestamp response headers are serialized',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'memberEpochSeconds': 1576540098,
-            'memberHttpDate': 1576540098,
-            'memberDateTime': 1576540098,
-            'defaultFormat': 1576540098,
-            'targetEpochSeconds': 1576540098,
-            'targetHttpDate': 1576540098,
-            'targetDateTime': 1576540098,
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'X-memberEpochSeconds': '1576540098',
-            'X-memberHttpDate': 'Mon, 16 Dec 2019 23:48:18 GMT',
-            'X-memberDateTime': '2019-12-16T23:48:18Z',
-            'X-defaultFormat': 'Mon, 16 Dec 2019 23:48:18 GMT',
-            'X-targetEpochSeconds': '1576540098',
-            'X-targetHttpDate': 'Mon, 16 Dec 2019 23:48:18 GMT',
-            'X-targetDateTime': '2019-12-16T23:48:18Z',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [TimestampFormatHeadersIoRestXmlSerializer()],
-      );
-    },
-  );
+  _i1.test('TimestampFormatHeaders (request)', () async {
+    await _i2.httpRequestTest(
+      operation: TimestampFormatHeadersOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'TimestampFormatHeaders',
+        documentation: 'Tests how timestamp request headers are serialized',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {
+          'memberEpochSeconds': 1576540098,
+          'memberHttpDate': 1576540098,
+          'memberDateTime': 1576540098,
+          'defaultFormat': 1576540098,
+          'targetEpochSeconds': 1576540098,
+          'targetHttpDate': 1576540098,
+          'targetDateTime': 1576540098,
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'X-memberEpochSeconds': '1576540098',
+          'X-memberHttpDate': 'Mon, 16 Dec 2019 23:48:18 GMT',
+          'X-memberDateTime': '2019-12-16T23:48:18Z',
+          'X-defaultFormat': 'Mon, 16 Dec 2019 23:48:18 GMT',
+          'X-targetEpochSeconds': '1576540098',
+          'X-targetHttpDate': 'Mon, 16 Dec 2019 23:48:18 GMT',
+          'X-targetDateTime': '2019-12-16T23:48:18Z',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/TimestampFormatHeaders',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [TimestampFormatHeadersIoRestXmlSerializer()],
+    );
+  });
+  _i1.test('TimestampFormatHeaders (response)', () async {
+    await _i2.httpResponseTest(
+      operation: TimestampFormatHeadersOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'TimestampFormatHeaders',
+        documentation: 'Tests how timestamp response headers are serialized',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {
+          'memberEpochSeconds': 1576540098,
+          'memberHttpDate': 1576540098,
+          'memberDateTime': 1576540098,
+          'defaultFormat': 1576540098,
+          'targetEpochSeconds': 1576540098,
+          'targetHttpDate': 1576540098,
+          'targetDateTime': 1576540098,
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'X-memberEpochSeconds': '1576540098',
+          'X-memberHttpDate': 'Mon, 16 Dec 2019 23:48:18 GMT',
+          'X-memberDateTime': '2019-12-16T23:48:18Z',
+          'X-defaultFormat': 'Mon, 16 Dec 2019 23:48:18 GMT',
+          'X-targetEpochSeconds': '1576540098',
+          'X-targetHttpDate': 'Mon, 16 Dec 2019 23:48:18 GMT',
+          'X-targetDateTime': '2019-12-16T23:48:18Z',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [TimestampFormatHeadersIoRestXmlSerializer()],
+    );
+  });
 }
 
 class TimestampFormatHeadersIoRestXmlSerializer
     extends _i3.StructuredSmithySerializer<TimestampFormatHeadersIo> {
   const TimestampFormatHeadersIoRestXmlSerializer()
-      : super('TimestampFormatHeadersIo');
+    : super('TimestampFormatHeadersIo');
 
   @override
   Iterable<Type> get types => const [TimestampFormatHeadersIo];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   TimestampFormatHeadersIo deserialize(
@@ -149,47 +134,26 @@ class TimestampFormatHeadersIoRestXmlSerializer
       }
       switch (key) {
         case 'memberEpochSeconds':
-          result.memberEpochSeconds =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.memberEpochSeconds = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'memberHttpDate':
-          result.memberHttpDate =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.memberHttpDate = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'memberDateTime':
-          result.memberDateTime =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.memberDateTime = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'defaultFormat':
-          result.defaultFormat =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.defaultFormat = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'targetEpochSeconds':
-          result.targetEpochSeconds =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.targetEpochSeconds = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'targetHttpDate':
-          result.targetHttpDate =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.targetHttpDate = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'targetDateTime':
-          result.targetDateTime =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.targetDateTime = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
       }
     }
 

@@ -10,16 +10,13 @@ part 'examples_trait.g.dart';
 @ShapeIdConverter()
 @JsonSerializable()
 class ExamplesTrait with AWSSerializable implements Trait<ExamplesTrait> {
-  const ExamplesTrait({
-    required this.examples,
-  });
+  const ExamplesTrait({required this.examples});
 
-  factory ExamplesTrait.fromJson(Object? json) => _$ExamplesTraitFromJson(
-        switch (json) {
-          {'examples': _} => json.cast(),
-          _ => {'examples': json},
-        },
-      );
+  factory ExamplesTrait.fromJson(Object? json) =>
+      _$ExamplesTraitFromJson(switch (json) {
+        {'examples': _} => json.cast(),
+        _ => {'examples': json},
+      });
 
   static const id = ShapeId.core('examples');
 
@@ -61,13 +58,7 @@ class Example with AWSEquatable<Example>, AWSSerializable {
   final ErrorExample? error;
 
   @override
-  List<Object?> get props => [
-        title,
-        documentation,
-        input,
-        output,
-        error,
-      ];
+  List<Object?> get props => [title, documentation, input, output, error];
 
   @override
   Map<String, Object?> toJson() => _$ExampleToJson(this);
@@ -76,10 +67,7 @@ class Example with AWSEquatable<Example>, AWSSerializable {
 @ShapeIdConverter()
 @JsonSerializable()
 class ErrorExample with AWSEquatable<ErrorExample>, AWSSerializable {
-  const ErrorExample({
-    required this.shapeId,
-    this.content = const {},
-  });
+  const ErrorExample({required this.shapeId, this.content = const {}});
 
   factory ErrorExample.fromJson(Map<String, Object?> json) =>
       _$ErrorExampleFromJson(json);
@@ -88,10 +76,7 @@ class ErrorExample with AWSEquatable<ErrorExample>, AWSSerializable {
   final Map<String, Object?> content;
 
   @override
-  List<Object?> get props => [
-        shapeId,
-        content,
-      ];
+  List<Object?> get props => [shapeId, content];
 
   @override
   Map<String, Object?> toJson() => _$ErrorExampleToJson(this);

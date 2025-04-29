@@ -5,9 +5,7 @@ import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 class MockDispatcher with Dispatcher<AuthEvent, AuthState> {
-  const MockDispatcher({
-    this.onDispatch,
-  });
+  const MockDispatcher({this.onDispatch});
 
   final EventCompleter<AuthEvent, AuthState>? Function(AuthEvent)? onDispatch;
 

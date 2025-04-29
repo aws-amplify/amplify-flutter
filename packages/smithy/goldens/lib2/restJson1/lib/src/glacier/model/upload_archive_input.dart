@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.glacier.model.upload_archive_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,9 +36,9 @@ abstract class UploadArchiveInput
     );
   }
 
-  factory UploadArchiveInput.build(
-          [void Function(UploadArchiveInputBuilder) updates]) =
-      _$UploadArchiveInput;
+  factory UploadArchiveInput.build([
+    void Function(UploadArchiveInputBuilder) updates,
+  ]) = _$UploadArchiveInput;
 
   const UploadArchiveInput._();
 
@@ -46,25 +46,24 @@ abstract class UploadArchiveInput
     _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      UploadArchiveInput.build((b) {
-        b.body = payload;
-        if (request.headers['x-amz-archive-description'] != null) {
-          b.archiveDescription = request.headers['x-amz-archive-description']!;
-        }
-        if (request.headers['x-amz-sha256-tree-hash'] != null) {
-          b.checksum = request.headers['x-amz-sha256-tree-hash']!;
-        }
-        if (labels['vaultName'] != null) {
-          b.vaultName = labels['vaultName']!;
-        }
-        if (labels['accountId'] != null) {
-          b.accountId = labels['accountId']!;
-        }
-      });
+  }) => UploadArchiveInput.build((b) {
+    b.body = payload;
+    if (request.headers['x-amz-archive-description'] != null) {
+      b.archiveDescription = request.headers['x-amz-archive-description']!;
+    }
+    if (request.headers['x-amz-sha256-tree-hash'] != null) {
+      b.checksum = request.headers['x-amz-sha256-tree-hash']!;
+    }
+    if (labels['vaultName'] != null) {
+      b.vaultName = labels['vaultName']!;
+    }
+    if (labels['accountId'] != null) {
+      b.accountId = labels['accountId']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
-    UploadArchiveInputRestJson1Serializer()
+    UploadArchiveInputRestJson1Serializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -85,10 +84,7 @@ abstract class UploadArchiveInput
       case 'accountId':
         return accountId;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -96,36 +92,22 @@ abstract class UploadArchiveInput
 
   @override
   List<Object?> get props => [
-        vaultName,
-        accountId,
-        archiveDescription,
-        checksum,
-        body,
-      ];
+    vaultName,
+    accountId,
+    archiveDescription,
+    checksum,
+    body,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadArchiveInput')
-      ..add(
-        'vaultName',
-        vaultName,
-      )
-      ..add(
-        'accountId',
-        accountId,
-      )
-      ..add(
-        'archiveDescription',
-        archiveDescription,
-      )
-      ..add(
-        'checksum',
-        checksum,
-      )
-      ..add(
-        'body',
-        body,
-      );
+    final helper =
+        newBuiltValueToStringHelper('UploadArchiveInput')
+          ..add('vaultName', vaultName)
+          ..add('accountId', accountId)
+          ..add('archiveDescription', archiveDescription)
+          ..add('checksum', checksum)
+          ..add('body', body);
     return helper.toString();
   }
 }
@@ -135,18 +117,12 @@ class UploadArchiveInputRestJson1Serializer
   const UploadArchiveInputRestJson1Serializer() : super('UploadArchiveInput');
 
   @override
-  Iterable<Type> get types => const [
-        UploadArchiveInput,
-        _$UploadArchiveInput,
-      ];
+  Iterable<Type> get types => const [UploadArchiveInput, _$UploadArchiveInput];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   _i2.Stream<List<int>> deserialize(
@@ -155,17 +131,12 @@ class UploadArchiveInputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
-    ) as _i2.Stream<List<int>>);
+          serialized,
+          specifiedType: const FullType(_i2.Stream, [
+            FullType(List, [FullType(int)]),
+          ]),
+        )
+        as _i2.Stream<List<int>>);
   }
 
   @override
@@ -176,15 +147,9 @@ class UploadArchiveInputRestJson1Serializer
   }) {
     return serializers.serialize(
       object,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
+      specifiedType: const FullType(_i2.Stream, [
+        FullType(List, [FullType(int)]),
+      ]),
     )!;
   }
 }

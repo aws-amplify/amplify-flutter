@@ -6,8 +6,8 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/ap
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.6.0
-  flutter: ">=3.27.0"
+  sdk: ^3.7.0
+  flutter: ">=3.29.0"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:
@@ -25,7 +25,7 @@ dependencies:
   connectivity_plus: ^6.0.1
   flutter:
     sdk: flutter
-  meta: ^1.7.0
+  meta: ^1.16.0
   plugin_platform_interface: ^2.0.0
 
 dev_dependencies:

@@ -22,9 +22,9 @@ abstract class UpdateDeviceStatusResponse
   }
 
   /// The response to the request to update the device status.
-  factory UpdateDeviceStatusResponse.build(
-          [void Function(UpdateDeviceStatusResponseBuilder) updates]) =
-      _$UpdateDeviceStatusResponse;
+  factory UpdateDeviceStatusResponse.build([
+    void Function(UpdateDeviceStatusResponseBuilder) updates,
+  ]) = _$UpdateDeviceStatusResponse;
 
   const UpdateDeviceStatusResponse._();
 
@@ -32,11 +32,10 @@ abstract class UpdateDeviceStatusResponse
   factory UpdateDeviceStatusResponse.fromResponse(
     UpdateDeviceStatusResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<UpdateDeviceStatusResponse>>
-      serializers = [UpdateDeviceStatusResponseAwsJson11Serializer()];
+  serializers = [UpdateDeviceStatusResponseAwsJson11Serializer()];
 
   @override
   List<Object?> get props => [];
@@ -51,21 +50,18 @@ abstract class UpdateDeviceStatusResponse
 class UpdateDeviceStatusResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UpdateDeviceStatusResponse> {
   const UpdateDeviceStatusResponseAwsJson11Serializer()
-      : super('UpdateDeviceStatusResponse');
+    : super('UpdateDeviceStatusResponse');
 
   @override
   Iterable<Type> get types => const [
-        UpdateDeviceStatusResponse,
-        _$UpdateDeviceStatusResponse,
-      ];
+    UpdateDeviceStatusResponse,
+    _$UpdateDeviceStatusResponse,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   UpdateDeviceStatusResponse deserialize(
@@ -81,6 +77,5 @@ class UpdateDeviceStatusResponseAwsJson11Serializer
     Serializers serializers,
     UpdateDeviceStatusResponse object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

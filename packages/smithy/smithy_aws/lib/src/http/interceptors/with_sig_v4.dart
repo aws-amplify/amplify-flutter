@@ -44,10 +44,7 @@ class WithSigV4 extends HttpRequestInterceptor {
     );
     return signer.sign(
       request,
-      credentialScope: AWSCredentialScope(
-        region: region,
-        service: service,
-      ),
+      credentialScope: AWSCredentialScope(region: region, service: service),
       serviceConfiguration: serviceConfiguration,
     );
   }

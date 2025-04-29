@@ -13,17 +13,17 @@ part 'client_discovered_endpoint_trait.g.dart';
 class ClientDiscoveredEndpointTrait
     with AWSSerializable
     implements Trait<ClientDiscoveredEndpointTrait> {
-  const ClientDiscoveredEndpointTrait({
-    required this.required,
-  });
+  const ClientDiscoveredEndpointTrait({required this.required});
 
   factory ClientDiscoveredEndpointTrait.fromJson(Object? json) =>
       _$ClientDiscoveredEndpointTraitFromJson(
         (json as Map).cast<String, Object?>(),
       );
 
-  static const id =
-      ShapeId(namespace: 'aws.api', shape: 'clientDiscoveredEndpoint');
+  static const id = ShapeId(
+    namespace: 'aws.api',
+    shape: 'clientDiscoveredEndpoint',
+  );
 
   final bool required;
 

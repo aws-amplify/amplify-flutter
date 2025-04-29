@@ -10,9 +10,9 @@ class _$MalformedMapInput extends MalformedMapInput {
   @override
   final _i3.BuiltMap<String, String>? bodyMap;
 
-  factory _$MalformedMapInput(
-          [void Function(MalformedMapInputBuilder)? updates]) =>
-      (new MalformedMapInputBuilder()..update(updates))._build();
+  factory _$MalformedMapInput([
+    void Function(MalformedMapInputBuilder)? updates,
+  ]) => (new MalformedMapInputBuilder()..update(updates))._build();
 
   _$MalformedMapInput._({this.bodyMap}) : super._();
 
@@ -85,7 +85,10 @@ class MalformedMapInputBuilder
         _bodyMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MalformedMapInput', _$failedField, e.toString());
+          r'MalformedMapInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

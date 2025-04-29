@@ -7,14 +7,10 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class IntelligentTieringAccessTier
     extends _i1.SmithyEnum<IntelligentTieringAccessTier> {
-  const IntelligentTieringAccessTier._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const IntelligentTieringAccessTier._(super.index, super.name, super.value);
 
   const IntelligentTieringAccessTier._sdkUnknown(super.value)
-      : super.sdkUnknown();
+    : super.sdkUnknown();
 
   static const archiveAccess = IntelligentTieringAccessTier._(
     0,
@@ -35,18 +31,15 @@ class IntelligentTieringAccessTier
   ];
 
   static const List<_i1.SmithySerializer<IntelligentTieringAccessTier>>
-      serializers = [
+  serializers = [
     _i1.SmithyEnumSerializer(
       'IntelligentTieringAccessTier',
       values: values,
       sdkUnknown: IntelligentTieringAccessTier._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

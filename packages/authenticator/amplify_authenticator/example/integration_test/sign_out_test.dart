@@ -15,9 +15,7 @@ void main() {
 
   group('sign out', () {
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-username',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-username');
     });
 
     // Scenario: Sign out with Auth.signOut()

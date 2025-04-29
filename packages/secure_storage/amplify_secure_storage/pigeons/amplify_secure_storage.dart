@@ -16,7 +16,6 @@ import 'package:pigeon/pigeon.dart';
     copyrightHeader: 'pigeons/copyright.txt',
   ),
 )
-
 /// A pigeon for interacting with the native AmplifySecureStorage implementation
 /// on Android.
 @HostApi()

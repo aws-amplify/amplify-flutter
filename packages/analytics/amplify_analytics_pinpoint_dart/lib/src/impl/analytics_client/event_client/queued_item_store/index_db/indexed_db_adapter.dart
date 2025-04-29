@@ -85,9 +85,7 @@ class IndexedDbAdapter implements QueuedItemStore {
       final value = elem as Object;
       final id = getProperty<int>(value, 'id');
       final string = getProperty<String>(value, 'value');
-      readValues.add(
-        QueuedItem(id: id, value: string),
-      );
+      readValues.add(QueuedItem(id: id, value: string));
     }
     return readValues;
   }
@@ -101,9 +99,9 @@ class IndexedDbAdapter implements QueuedItemStore {
     await _databaseOpenEvent;
     final store = _getObjectStore();
 
-    final ranges = idsToDelete.splitBetween((a, b) => b != a + 1).map(
-          (range) => IDBKeyRange.bound(range.first, range.last),
-        );
+    final ranges = idsToDelete
+        .splitBetween((a, b) => b != a + 1)
+        .map((range) => IDBKeyRange.bound(range.first, range.last));
     await Future.wait<void>(
       ranges.map((range) => store.deleteByKeyRange(range).future),
     );

@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-@OnPlatform(<String, Object>{
-  'browser': Skip('Failing on web'),
-})
+@OnPlatform(<String, Object>{'browser': Skip('Failing on web')})
+library;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';

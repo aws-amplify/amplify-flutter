@@ -42,7 +42,8 @@ final class _PubspecMatcher extends Matcher {
     final pubspecMap = switch (item) {
       String _ => loadYaml(item) as YamlMap,
       Map<Object?, Object?> _ => item,
-      _ => throw ArgumentError(
+      _ =>
+        throw ArgumentError(
           'Invalid pubspec. Expected String or Map, got ${item.runtimeType}',
         ),
     };

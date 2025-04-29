@@ -7,16 +7,16 @@ part of 'set_user_mfa_preference_response.dart';
 // **************************************************************************
 
 class _$SetUserMfaPreferenceResponse extends SetUserMfaPreferenceResponse {
-  factory _$SetUserMfaPreferenceResponse(
-          [void Function(SetUserMfaPreferenceResponseBuilder)? updates]) =>
-      (new SetUserMfaPreferenceResponseBuilder()..update(updates))._build();
+  factory _$SetUserMfaPreferenceResponse([
+    void Function(SetUserMfaPreferenceResponseBuilder)? updates,
+  ]) => (new SetUserMfaPreferenceResponseBuilder()..update(updates))._build();
 
   _$SetUserMfaPreferenceResponse._() : super._();
 
   @override
   SetUserMfaPreferenceResponse rebuild(
-          void Function(SetUserMfaPreferenceResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SetUserMfaPreferenceResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SetUserMfaPreferenceResponseBuilder toBuilder() =>
@@ -36,8 +36,10 @@ class _$SetUserMfaPreferenceResponse extends SetUserMfaPreferenceResponse {
 
 class SetUserMfaPreferenceResponseBuilder
     implements
-        Builder<SetUserMfaPreferenceResponse,
-            SetUserMfaPreferenceResponseBuilder> {
+        Builder<
+          SetUserMfaPreferenceResponse,
+          SetUserMfaPreferenceResponseBuilder
+        > {
   _$SetUserMfaPreferenceResponse? _$v;
 
   SetUserMfaPreferenceResponseBuilder();

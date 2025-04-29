@@ -38,7 +38,7 @@ class MtmModelProvider implements amplify_core.ModelProviderInterface {
     FirstMtmRelation.schema,
     ManyToManyPrimary.schema,
     ManyToManySecondary.schema,
-    SecondMtmRelation.schema
+    SecondMtmRelation.schema,
   ];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
@@ -58,8 +58,8 @@ class MtmModelProvider implements amplify_core.ModelProviderInterface {
         return SecondMtmRelation.classType;
       default:
         throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+          "Failed to find model in model provider for model name: " + modelName,
+        );
     }
   }
 }

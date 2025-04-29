@@ -47,8 +47,9 @@ abstract class UploadPartOutput
     );
   }
 
-  factory UploadPartOutput.build(
-      [void Function(UploadPartOutputBuilder) updates]) = _$UploadPartOutput;
+  factory UploadPartOutput.build([
+    void Function(UploadPartOutputBuilder) updates,
+  ]) = _$UploadPartOutput;
 
   const UploadPartOutput._();
 
@@ -56,55 +57,55 @@ abstract class UploadPartOutput
   factory UploadPartOutput.fromResponse(
     UploadPartOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      UploadPartOutput.build((b) {
-        if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = ServerSideEncryption.values
-              .byValue(response.headers['x-amz-server-side-encryption']!);
-        }
-        if (response.headers['ETag'] != null) {
-          b.eTag = response.headers['ETag']!;
-        }
-        if (response.headers['x-amz-checksum-crc32'] != null) {
-          b.checksumCrc32 = response.headers['x-amz-checksum-crc32']!;
-        }
-        if (response.headers['x-amz-checksum-crc32c'] != null) {
-          b.checksumCrc32C = response.headers['x-amz-checksum-crc32c']!;
-        }
-        if (response.headers['x-amz-checksum-sha1'] != null) {
-          b.checksumSha1 = response.headers['x-amz-checksum-sha1']!;
-        }
-        if (response.headers['x-amz-checksum-sha256'] != null) {
-          b.checksumSha256 = response.headers['x-amz-checksum-sha256']!;
-        }
-        if (response
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = response
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 = response
-              .headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
-            null) {
-          b.ssekmsKeyId =
-              response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
-        }
-        if (response
-                .headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
-            null) {
-          b.bucketKeyEnabled = response.headers[
-                  'x-amz-server-side-encryption-bucket-key-enabled']! ==
-              'true';
-        }
-        if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = RequestCharged.values
-              .byValue(response.headers['x-amz-request-charged']!);
-        }
-      });
+  ) => UploadPartOutput.build((b) {
+    if (response.headers['x-amz-server-side-encryption'] != null) {
+      b.serverSideEncryption = ServerSideEncryption.values.byValue(
+        response.headers['x-amz-server-side-encryption']!,
+      );
+    }
+    if (response.headers['ETag'] != null) {
+      b.eTag = response.headers['ETag']!;
+    }
+    if (response.headers['x-amz-checksum-crc32'] != null) {
+      b.checksumCrc32 = response.headers['x-amz-checksum-crc32']!;
+    }
+    if (response.headers['x-amz-checksum-crc32c'] != null) {
+      b.checksumCrc32C = response.headers['x-amz-checksum-crc32c']!;
+    }
+    if (response.headers['x-amz-checksum-sha1'] != null) {
+      b.checksumSha1 = response.headers['x-amz-checksum-sha1']!;
+    }
+    if (response.headers['x-amz-checksum-sha256'] != null) {
+      b.checksumSha256 = response.headers['x-amz-checksum-sha256']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          response.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          response.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-aws-kms-key-id'] !=
+        null) {
+      b.ssekmsKeyId =
+          response.headers['x-amz-server-side-encryption-aws-kms-key-id']!;
+    }
+    if (response.headers['x-amz-server-side-encryption-bucket-key-enabled'] !=
+        null) {
+      b.bucketKeyEnabled =
+          response
+              .headers['x-amz-server-side-encryption-bucket-key-enabled']! ==
+          'true';
+    }
+    if (response.headers['x-amz-request-charged'] != null) {
+      b.requestCharged = RequestCharged.values.byValue(
+        response.headers['x-amz-request-charged']!,
+      );
+    }
+  });
 
   static const List<_i2.SmithySerializer<UploadPartOutputPayload>> serializers =
       [UploadPartOutputRestXmlSerializer()];
@@ -158,66 +159,34 @@ abstract class UploadPartOutput
 
   @override
   List<Object?> get props => [
-        serverSideEncryption,
-        eTag,
-        checksumCrc32,
-        checksumCrc32C,
-        checksumSha1,
-        checksumSha256,
-        sseCustomerAlgorithm,
-        sseCustomerKeyMd5,
-        ssekmsKeyId,
-        bucketKeyEnabled,
-        requestCharged,
-      ];
+    serverSideEncryption,
+    eTag,
+    checksumCrc32,
+    checksumCrc32C,
+    checksumSha1,
+    checksumSha256,
+    sseCustomerAlgorithm,
+    sseCustomerKeyMd5,
+    ssekmsKeyId,
+    bucketKeyEnabled,
+    requestCharged,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadPartOutput')
-      ..add(
-        'serverSideEncryption',
-        serverSideEncryption,
-      )
-      ..add(
-        'eTag',
-        eTag,
-      )
-      ..add(
-        'checksumCrc32',
-        checksumCrc32,
-      )
-      ..add(
-        'checksumCrc32C',
-        checksumCrc32C,
-      )
-      ..add(
-        'checksumSha1',
-        checksumSha1,
-      )
-      ..add(
-        'checksumSha256',
-        checksumSha256,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'ssekmsKeyId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'bucketKeyEnabled',
-        bucketKeyEnabled,
-      )
-      ..add(
-        'requestCharged',
-        requestCharged,
-      );
+    final helper =
+        newBuiltValueToStringHelper('UploadPartOutput')
+          ..add('serverSideEncryption', serverSideEncryption)
+          ..add('eTag', eTag)
+          ..add('checksumCrc32', checksumCrc32)
+          ..add('checksumCrc32C', checksumCrc32C)
+          ..add('checksumSha1', checksumSha1)
+          ..add('checksumSha256', checksumSha256)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add('ssekmsKeyId', '***SENSITIVE***')
+          ..add('bucketKeyEnabled', bucketKeyEnabled)
+          ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }
@@ -228,9 +197,9 @@ abstract class UploadPartOutputPayload
     implements
         Built<UploadPartOutputPayload, UploadPartOutputPayloadBuilder>,
         _i2.EmptyPayload {
-  factory UploadPartOutputPayload(
-          [void Function(UploadPartOutputPayloadBuilder) updates]) =
-      _$UploadPartOutputPayload;
+  factory UploadPartOutputPayload([
+    void Function(UploadPartOutputPayloadBuilder) updates,
+  ]) = _$UploadPartOutputPayload;
 
   const UploadPartOutputPayload._();
 
@@ -250,19 +219,16 @@ class UploadPartOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        UploadPartOutput,
-        _$UploadPartOutput,
-        UploadPartOutputPayload,
-        _$UploadPartOutputPayload,
-      ];
+    UploadPartOutput,
+    _$UploadPartOutput,
+    UploadPartOutputPayload,
+    _$UploadPartOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   UploadPartOutputPayload deserialize(
@@ -283,7 +249,7 @@ class UploadPartOutputRestXmlSerializer
       const _i2.XmlElementName(
         'UploadPartOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

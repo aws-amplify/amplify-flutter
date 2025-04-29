@@ -13,7 +13,4 @@ DeprecatedTrait _$DeprecatedTraitFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$DeprecatedTraitToJson(DeprecatedTrait instance) =>
-    <String, dynamic>{
-      'since': instance.since,
-      'message': instance.message,
-    };
+    <String, dynamic>{'since': instance.since, 'message': instance.message};

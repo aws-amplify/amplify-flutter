@@ -7,12 +7,11 @@ import 'package:amplify_core/src/types/storage/base/storage_operation.dart';
 /// {@template amplify_core.storage.list_operation}
 /// Presents a storage list operation.
 /// {@endtemplate}
-class StorageListOperation<Request extends StorageListRequest,
-        Result extends StorageListResult>
+class StorageListOperation<
+  Request extends StorageListRequest,
+  Result extends StorageListResult
+>
     extends StorageOperation<Request, Result> {
   /// {@macro amplify_core.storage.list_operation}
-  StorageListOperation({
-    required super.request,
-    required super.result,
-  });
+  StorageListOperation({required super.request, required super.result});
 }

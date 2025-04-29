@@ -51,10 +51,7 @@ class SignerRequestParser {
     return Map.fromEntries(
       requestUriParts[1].split('&').map((q) {
         final parts = q.split('=');
-        return MapEntry(
-          parts[0],
-          Uri.decodeQueryComponent(parts[1]),
-        );
+        return MapEntry(parts[0], Uri.decodeQueryComponent(parts[1]));
       }),
     );
   }
@@ -175,10 +172,7 @@ class SignerRequestParser {
         requestParts.sublist(1, requestPartsLength - 1).join(encodedSpace),
         requestParts.last,
       ].join(space);
-      request = [
-        requestLine,
-        ...requestLines.sublist(1),
-      ].join(newline);
+      request = [requestLine, ...requestLines.sublist(1)].join(newline);
     }
     return request;
   }

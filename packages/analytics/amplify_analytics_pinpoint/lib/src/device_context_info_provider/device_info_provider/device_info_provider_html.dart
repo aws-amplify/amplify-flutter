@@ -22,8 +22,6 @@ Future<DeviceInfo> getDeviceInfo() async {
       platformVersion: webInfo.platform,
     );
   } on PlatformException {
-    return const DeviceInfo(
-      platform: DevicePlatform.unknown,
-    );
+    return const DeviceInfo(platform: DevicePlatform.unknown);
   }
 }

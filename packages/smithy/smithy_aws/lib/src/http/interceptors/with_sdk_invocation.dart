@@ -18,7 +18,7 @@ class WithSdkInvocationId extends HttpRequestInterceptor {
     if (!request.headers.containsKey(AWSHeaders.sdkInvocationId)) {
       request.headers[AWSHeaders.sdkInvocationId] =
           Zone.current[AWSHeaders.sdkInvocationId] as String? ??
-              uuid(secure: true);
+          uuid(secure: true);
     }
     return request;
   }

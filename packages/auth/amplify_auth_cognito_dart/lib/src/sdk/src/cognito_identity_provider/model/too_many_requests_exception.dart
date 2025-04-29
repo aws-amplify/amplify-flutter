@@ -22,9 +22,9 @@ abstract class TooManyRequestsException
   }
 
   /// This exception is thrown when the user has made too many requests for a given operation.
-  factory TooManyRequestsException.build(
-          [void Function(TooManyRequestsExceptionBuilder) updates]) =
-      _$TooManyRequestsException;
+  factory TooManyRequestsException.build([
+    void Function(TooManyRequestsExceptionBuilder) updates,
+  ]) = _$TooManyRequestsException;
 
   const TooManyRequestsException._();
 
@@ -32,22 +32,21 @@ abstract class TooManyRequestsException
   factory TooManyRequestsException.fromResponse(
     TooManyRequestsException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<TooManyRequestsException>>
-      serializers = [TooManyRequestsExceptionAwsJson11Serializer()];
+  serializers = [TooManyRequestsExceptionAwsJson11Serializer()];
 
   /// The message returned when the Amazon Cognito service returns a too many requests exception.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'TooManyRequestsException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'TooManyRequestsException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -68,10 +67,7 @@ abstract class TooManyRequestsException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TooManyRequestsException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -79,21 +75,18 @@ abstract class TooManyRequestsException
 class TooManyRequestsExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<TooManyRequestsException> {
   const TooManyRequestsExceptionAwsJson11Serializer()
-      : super('TooManyRequestsException');
+    : super('TooManyRequestsException');
 
   @override
   Iterable<Type> get types => const [
-        TooManyRequestsException,
-        _$TooManyRequestsException,
-      ];
+    TooManyRequestsException,
+    _$TooManyRequestsException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   TooManyRequestsException deserialize(
@@ -112,10 +105,12 @@ class TooManyRequestsExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -133,10 +128,9 @@ class TooManyRequestsExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

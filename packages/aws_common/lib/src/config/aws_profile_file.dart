@@ -43,9 +43,7 @@ abstract class AWSProfileFile
     with AWSSerializable<Map<String, Object?>>
     implements Built<AWSProfileFile, AWSProfileFileBuilder> {
   /// {@macro aws_common.config.aws_profile_file}
-  factory AWSProfileFile({
-    required Map<String, AWSProfile> profiles,
-  }) {
+  factory AWSProfileFile({required Map<String, AWSProfile> profiles}) {
     return _$AWSProfileFile._(profiles: BuiltMap(profiles));
   }
 
@@ -54,9 +52,8 @@ abstract class AWSProfileFile
       _serializers.deserializeWith(serializer, json) as AWSProfileFile;
 
   /// {@macro aws_common.config.aws_profile_file}
-  factory AWSProfileFile.build([
-    void Function(AWSProfileFileBuilder) updates,
-  ]) = _$AWSProfileFile;
+  factory AWSProfileFile.build([void Function(AWSProfileFileBuilder) updates]) =
+      _$AWSProfileFile;
 
   const AWSProfileFile._();
 
@@ -98,9 +95,8 @@ abstract class AWSProfile
       _serializers.deserializeWith(serializer, json) as AWSProfile;
 
   /// {@macro aws_common.config.aws_profile}
-  factory AWSProfile.build([
-    void Function(AWSProfileBuilder) updates,
-  ]) = _$AWSProfile;
+  factory AWSProfile.build([void Function(AWSProfileBuilder) updates]) =
+      _$AWSProfile;
 
   const AWSProfile._();
 
@@ -129,11 +125,7 @@ abstract class AWSProfile
       );
       final sessionToken = properties['aws_session_token']?.value;
       return AWSCredentialsProvider(
-        AWSCredentials(
-          accessKeyId,
-          secretAccessKey!,
-          sessionToken,
-        ),
+        AWSCredentials(accessKeyId, secretAccessKey!, sessionToken),
       );
     }
     return null;
@@ -171,9 +163,8 @@ abstract class AWSProperty
       _serializers.deserializeWith(serializer, json) as AWSProperty;
 
   /// {@macro aws_common.config.aws_property}
-  factory AWSProperty.build([
-    void Function(AWSPropertyBuilder) updates,
-  ]) = _$AWSProperty;
+  factory AWSProperty.build([void Function(AWSPropertyBuilder) updates]) =
+      _$AWSProperty;
 
   const AWSProperty._();
 
@@ -196,11 +187,6 @@ abstract class AWSProperty
   static Serializer<AWSProperty> get serializer => _$aWSPropertySerializer;
 }
 
-@SerializersFor([
-  AWSProfileFileType,
-  AWSProfileFile,
-  AWSProfile,
-  AWSProperty,
-])
+@SerializersFor([AWSProfileFileType, AWSProfileFile, AWSProfile, AWSProperty])
 final Serializers _serializers =
     (_$_serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

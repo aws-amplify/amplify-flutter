@@ -4,9 +4,8 @@
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 /// A factory constructor for a [SecureStorageInterface] instance.
-typedef SecureStorageFactory = SecureStorageInterface Function(
-  AmplifySecureStorageScope amplifyScope,
-);
+typedef SecureStorageFactory =
+    SecureStorageInterface Function(AmplifySecureStorageScope amplifyScope);
 
 /// Storage scope for config of [SecureStorageInterface] within Amplify.
 enum AmplifySecureStorageScope {

@@ -11,8 +11,9 @@ class _$HttpPrefixHeadersInResponseOutput
   @override
   final _i3.BuiltMap<String, String>? prefixHeaders;
 
-  factory _$HttpPrefixHeadersInResponseOutput(
-          [void Function(HttpPrefixHeadersInResponseOutputBuilder)? updates]) =>
+  factory _$HttpPrefixHeadersInResponseOutput([
+    void Function(HttpPrefixHeadersInResponseOutputBuilder)? updates,
+  ]) =>
       (new HttpPrefixHeadersInResponseOutputBuilder()..update(updates))
           ._build();
 
@@ -20,8 +21,8 @@ class _$HttpPrefixHeadersInResponseOutput
 
   @override
   HttpPrefixHeadersInResponseOutput rebuild(
-          void Function(HttpPrefixHeadersInResponseOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPrefixHeadersInResponseOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPrefixHeadersInResponseOutputBuilder toBuilder() =>
@@ -45,8 +46,10 @@ class _$HttpPrefixHeadersInResponseOutput
 
 class HttpPrefixHeadersInResponseOutputBuilder
     implements
-        Builder<HttpPrefixHeadersInResponseOutput,
-            HttpPrefixHeadersInResponseOutputBuilder> {
+        Builder<
+          HttpPrefixHeadersInResponseOutput,
+          HttpPrefixHeadersInResponseOutputBuilder
+        > {
   _$HttpPrefixHeadersInResponseOutput? _$v;
 
   _i3.MapBuilder<String, String>? _prefixHeaders;
@@ -74,7 +77,8 @@ class HttpPrefixHeadersInResponseOutputBuilder
 
   @override
   void update(
-      void Function(HttpPrefixHeadersInResponseOutputBuilder)? updates) {
+    void Function(HttpPrefixHeadersInResponseOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -84,9 +88,11 @@ class HttpPrefixHeadersInResponseOutputBuilder
   _$HttpPrefixHeadersInResponseOutput _build() {
     _$HttpPrefixHeadersInResponseOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpPrefixHeadersInResponseOutput._(
-              prefixHeaders: _prefixHeaders?.build());
+            prefixHeaders: _prefixHeaders?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -94,7 +100,10 @@ class HttpPrefixHeadersInResponseOutputBuilder
         _prefixHeaders?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpPrefixHeadersInResponseOutput', _$failedField, e.toString());
+          r'HttpPrefixHeadersInResponseOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -105,9 +114,9 @@ class HttpPrefixHeadersInResponseOutputBuilder
 
 class _$HttpPrefixHeadersInResponseOutputPayload
     extends HttpPrefixHeadersInResponseOutputPayload {
-  factory _$HttpPrefixHeadersInResponseOutputPayload(
-          [void Function(HttpPrefixHeadersInResponseOutputPayloadBuilder)?
-              updates]) =>
+  factory _$HttpPrefixHeadersInResponseOutputPayload([
+    void Function(HttpPrefixHeadersInResponseOutputPayloadBuilder)? updates,
+  ]) =>
       (new HttpPrefixHeadersInResponseOutputPayloadBuilder()..update(updates))
           ._build();
 
@@ -115,9 +124,8 @@ class _$HttpPrefixHeadersInResponseOutputPayload
 
   @override
   HttpPrefixHeadersInResponseOutputPayload rebuild(
-          void Function(HttpPrefixHeadersInResponseOutputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPrefixHeadersInResponseOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPrefixHeadersInResponseOutputPayloadBuilder toBuilder() =>
@@ -137,8 +145,10 @@ class _$HttpPrefixHeadersInResponseOutputPayload
 
 class HttpPrefixHeadersInResponseOutputPayloadBuilder
     implements
-        Builder<HttpPrefixHeadersInResponseOutputPayload,
-            HttpPrefixHeadersInResponseOutputPayloadBuilder> {
+        Builder<
+          HttpPrefixHeadersInResponseOutputPayload,
+          HttpPrefixHeadersInResponseOutputPayloadBuilder
+        > {
   _$HttpPrefixHeadersInResponseOutputPayload? _$v;
 
   HttpPrefixHeadersInResponseOutputPayloadBuilder();
@@ -151,7 +161,8 @@ class HttpPrefixHeadersInResponseOutputPayloadBuilder
 
   @override
   void update(
-      void Function(HttpPrefixHeadersInResponseOutputPayloadBuilder)? updates) {
+    void Function(HttpPrefixHeadersInResponseOutputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

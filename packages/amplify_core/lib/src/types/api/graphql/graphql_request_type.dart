@@ -11,5 +11,5 @@ enum GraphQLRequestOperation {
   delete,
   onCreate,
   onUpdate,
-  onDelete
+  onDelete,
 }

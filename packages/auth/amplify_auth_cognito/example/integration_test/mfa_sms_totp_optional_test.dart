@@ -35,8 +35,9 @@ void main() {
           signInRes.nextStep.signInStep,
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.fetchMfaPreference())
-            .equals(const UserMfaPreference());
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+        ).equals(const UserMfaPreference());
 
         await setUpTotp();
 
@@ -55,14 +56,19 @@ void main() {
           );
           check(
             signInRes.nextStep.signInStep,
-            because: 'Once TOTP MFA is preferred, it is performed '
+            because:
+                'Once TOTP MFA is preferred, it is performed '
                 'on every sign-in attempt.',
           ).equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
           check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.totp)
-            ..has((d) => d.destination, 'destination')
-                .equals(friendlyDeviceName);
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.totp)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).equals(friendlyDeviceName);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await generateTotpCode(),
@@ -81,9 +87,7 @@ void main() {
         check(
           because: 'Disabling TOTP should mark it as not preferred',
           await cognitoPlugin.fetchMfaPreference(),
-        ).equals(
-          const UserMfaPreference(enabled: {}, preferred: null),
-        );
+        ).equals(const UserMfaPreference(enabled: {}, preferred: null));
       });
 
       asyncTest('can select TOTP MFA', (_) async {
@@ -97,9 +101,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.phoneNumber: phoneNumber,
-          },
+          attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber},
         );
 
         final signInRes = await Amplify.Auth.signIn(
@@ -111,8 +113,9 @@ void main() {
           because: 'MFA is optional',
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.fetchMfaPreference())
-            .equals(const UserMfaPreference());
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+        ).equals(const UserMfaPreference());
 
         await setUpTotp();
 
@@ -141,22 +144,28 @@ void main() {
             username: username,
             password: password,
           );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.continueSignInWithMfaSelection);
-          check(signInRes.nextStep.allowedMfaTypes)
-              .isNotNull()
-              .deepEquals({MfaType.sms, MfaType.totp});
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.continueSignInWithMfaSelection);
+          check(
+            signInRes.nextStep.allowedMfaTypes,
+          ).isNotNull().deepEquals({MfaType.sms, MfaType.totp});
 
           final selectRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: 'TOTP',
           );
-          check(selectRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
+          check(
+            selectRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
           check(selectRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.totp)
-            ..has((d) => d.destination, 'destination')
-                .equals(friendlyDeviceName);
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.totp)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).equals(friendlyDeviceName);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await generateTotpCode(),
@@ -173,9 +182,7 @@ void main() {
 
         // Verify we can set TOTP as preferred and forego selection.
 
-        await cognitoPlugin.updateMfaPreference(
-          totp: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(totp: MfaPreference.preferred);
         check(
           await cognitoPlugin.fetchMfaPreference(),
           because: 'TOTP should be marked preferred',
@@ -193,13 +200,18 @@ void main() {
             username: username,
             password: password,
           );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
           check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.totp)
-            ..has((d) => d.destination, 'destination')
-                .equals(friendlyDeviceName);
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.totp)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).equals(friendlyDeviceName);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await generateTotpCode(),
@@ -209,9 +221,7 @@ void main() {
 
         // Verify we can switch to SMS as preferred.
 
-        await cognitoPlugin.updateMfaPreference(
-          sms: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(sms: MfaPreference.preferred);
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
@@ -227,14 +237,18 @@ void main() {
             username: username,
             password: password,
           );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
           check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.sms)
-            ..has((d) => d.destination, 'destination')
-                .isNotNull()
-                .startsWith('+');
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.sms)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).isNotNull().startsWith('+');
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await mfaCode.code,
@@ -283,9 +297,7 @@ void main() {
         check(
           because: 'Disabling MFA should mark it as not preferred',
           await cognitoPlugin.fetchMfaPreference(),
-        ).equals(
-          const UserMfaPreference(enabled: {}, preferred: null),
-        );
+        ).equals(const UserMfaPreference(enabled: {}, preferred: null));
       });
 
       asyncTest('can select SMS MFA', (_) async {
@@ -299,9 +311,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.phoneNumber: phoneNumber,
-          },
+          attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber},
         );
 
         final signInRes = await Amplify.Auth.signIn(
@@ -313,8 +323,9 @@ void main() {
           because: 'MFA is optional',
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.fetchMfaPreference())
-            .equals(const UserMfaPreference());
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+        ).equals(const UserMfaPreference());
 
         await setUpTotp();
 
@@ -342,24 +353,29 @@ void main() {
           username: username,
           password: password,
         );
-        check(resignInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.continueSignInWithMfaSelection);
-        check(resignInRes.nextStep.allowedMfaTypes)
-            .isNotNull()
-            .deepEquals({MfaType.sms, MfaType.totp});
+        check(
+          resignInRes.nextStep.signInStep,
+        ).equals(AuthSignInStep.continueSignInWithMfaSelection);
+        check(
+          resignInRes.nextStep.allowedMfaTypes,
+        ).isNotNull().deepEquals({MfaType.sms, MfaType.totp});
 
         final mfaCode = await getOtpCode(UserAttribute.phone(phoneNumber));
         final selectRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: 'SMS',
         );
-        check(selectRes.nextStep.signInStep)
-            .equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+        check(
+          selectRes.nextStep.signInStep,
+        ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
         check(selectRes.nextStep.codeDeliveryDetails).isNotNull()
-          ..has((d) => d.deliveryMedium, 'deliveryMedium')
-              .equals(DeliveryMedium.sms)
-          ..has((d) => d.destination, 'destination')
-              .isNotNull()
-              .startsWith('+');
+          ..has(
+            (d) => d.deliveryMedium,
+            'deliveryMedium',
+          ).equals(DeliveryMedium.sms)
+          ..has(
+            (d) => d.destination,
+            'destination',
+          ).isNotNull().startsWith('+');
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await mfaCode.code,
@@ -375,9 +391,7 @@ void main() {
 
         // Verify we can set SMS as preferred and forego selection.
 
-        await cognitoPlugin.updateMfaPreference(
-          sms: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(sms: MfaPreference.preferred);
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms, MfaType.totp},
@@ -393,14 +407,18 @@ void main() {
             username: username,
             password: password,
           );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
           check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.sms)
-            ..has((d) => d.destination, 'destination')
-                .isNotNull()
-                .startsWith('+');
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.sms)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).isNotNull().startsWith('+');
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await mfaCode.code,
@@ -410,9 +428,7 @@ void main() {
 
         // Verify we can switch to TOTP as preferred.
 
-        await cognitoPlugin.updateMfaPreference(
-          totp: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(totp: MfaPreference.preferred);
         check(
           await cognitoPlugin.fetchMfaPreference(),
           because: 'TOTP should be marked preferred',
@@ -430,13 +446,18 @@ void main() {
             username: username,
             password: password,
           );
-          check(signInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
           check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.totp)
-            ..has((d) => d.destination, 'destination')
-                .equals(friendlyDeviceName);
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.totp)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).equals(friendlyDeviceName);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await generateTotpCode(),
@@ -485,9 +506,7 @@ void main() {
         check(
           because: 'Disabling MFA should mark it as not preferred',
           await cognitoPlugin.fetchMfaPreference(),
-        ).equals(
-          const UserMfaPreference(enabled: {}, preferred: null),
-        );
+        ).equals(const UserMfaPreference(enabled: {}, preferred: null));
       });
     });
   });

@@ -16,15 +16,16 @@ abstract class ForgotPasswordResponse
     with _i1.AWSEquatable<ForgotPasswordResponse>
     implements Built<ForgotPasswordResponse, ForgotPasswordResponseBuilder> {
   /// The response from Amazon Cognito to a request to reset a password.
-  factory ForgotPasswordResponse(
-      {CodeDeliveryDetailsType? codeDeliveryDetails}) {
+  factory ForgotPasswordResponse({
+    CodeDeliveryDetailsType? codeDeliveryDetails,
+  }) {
     return _$ForgotPasswordResponse._(codeDeliveryDetails: codeDeliveryDetails);
   }
 
   /// The response from Amazon Cognito to a request to reset a password.
-  factory ForgotPasswordResponse.build(
-          [void Function(ForgotPasswordResponseBuilder) updates]) =
-      _$ForgotPasswordResponse;
+  factory ForgotPasswordResponse.build([
+    void Function(ForgotPasswordResponseBuilder) updates,
+  ]) = _$ForgotPasswordResponse;
 
   const ForgotPasswordResponse._();
 
@@ -32,8 +33,7 @@ abstract class ForgotPasswordResponse
   factory ForgotPasswordResponse.fromResponse(
     ForgotPasswordResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<ForgotPasswordResponse>> serializers =
       [ForgotPasswordResponseAwsJson11Serializer()];
@@ -46,10 +46,7 @@ abstract class ForgotPasswordResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForgotPasswordResponse')
-      ..add(
-        'codeDeliveryDetails',
-        codeDeliveryDetails,
-      );
+      ..add('codeDeliveryDetails', codeDeliveryDetails);
     return helper.toString();
   }
 }
@@ -57,21 +54,18 @@ abstract class ForgotPasswordResponse
 class ForgotPasswordResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ForgotPasswordResponse> {
   const ForgotPasswordResponseAwsJson11Serializer()
-      : super('ForgotPasswordResponse');
+    : super('ForgotPasswordResponse');
 
   @override
   Iterable<Type> get types => const [
-        ForgotPasswordResponse,
-        _$ForgotPasswordResponse,
-      ];
+    ForgotPasswordResponse,
+    _$ForgotPasswordResponse,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ForgotPasswordResponse deserialize(
@@ -90,10 +84,13 @@ class ForgotPasswordResponseAwsJson11Serializer
       }
       switch (key) {
         case 'CodeDeliveryDetails':
-          result.codeDeliveryDetails.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CodeDeliveryDetailsType),
-          ) as CodeDeliveryDetailsType));
+          result.codeDeliveryDetails.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CodeDeliveryDetailsType),
+                )
+                as CodeDeliveryDetailsType),
+          );
       }
     }
 
@@ -111,10 +108,12 @@ class ForgotPasswordResponseAwsJson11Serializer
     if (codeDeliveryDetails != null) {
       result$
         ..add('CodeDeliveryDetails')
-        ..add(serializers.serialize(
-          codeDeliveryDetails,
-          specifiedType: const FullType(CodeDeliveryDetailsType),
-        ));
+        ..add(
+          serializers.serialize(
+            codeDeliveryDetails,
+            specifiedType: const FullType(CodeDeliveryDetailsType),
+          ),
+        );
     }
     return result$;
   }

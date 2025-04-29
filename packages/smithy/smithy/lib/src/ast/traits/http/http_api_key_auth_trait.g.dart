@@ -14,14 +14,11 @@ HttpApiKeyAuthTrait _$HttpApiKeyAuthTraitFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$HttpApiKeyAuthTraitToJson(
-        HttpApiKeyAuthTrait instance) =>
-    <String, dynamic>{
-      'scheme': instance.scheme,
-      'name': instance.name,
-      'in': _$LocationEnumMap[instance.location]!,
-    };
-
-const _$LocationEnumMap = {
-  Location.header: 'header',
-  Location.query: 'query',
+  HttpApiKeyAuthTrait instance,
+) => <String, dynamic>{
+  'scheme': instance.scheme,
+  'name': instance.name,
+  'in': _$LocationEnumMap[instance.location]!,
 };
+
+const _$LocationEnumMap = {Location.header: 'header', Location.query: 'query'};

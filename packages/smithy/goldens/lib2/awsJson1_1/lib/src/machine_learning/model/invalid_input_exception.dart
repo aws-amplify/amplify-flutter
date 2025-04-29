@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v2.machine_learning.model.invalid_input_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,19 +15,13 @@ abstract class InvalidInputException
     implements
         Built<InvalidInputException, InvalidInputExceptionBuilder>,
         _i2.SmithyHttpException {
-  factory InvalidInputException({
-    String? message,
-    int? code,
-  }) {
-    return _$InvalidInputException._(
-      message: message,
-      code: code,
-    );
+  factory InvalidInputException({String? message, int? code}) {
+    return _$InvalidInputException._(message: message, code: code);
   }
 
-  factory InvalidInputException.build(
-          [void Function(InvalidInputExceptionBuilder) updates]) =
-      _$InvalidInputException;
+  factory InvalidInputException.build([
+    void Function(InvalidInputExceptionBuilder) updates,
+  ]) = _$InvalidInputException;
 
   const InvalidInputException._();
 
@@ -35,13 +29,12 @@ abstract class InvalidInputException
   factory InvalidInputException.fromResponse(
     InvalidInputException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<InvalidInputException>> serializers = [
-    InvalidInputExceptionAwsJson11Serializer()
+    InvalidInputExceptionAwsJson11Serializer(),
   ];
 
   @override
@@ -49,9 +42,9 @@ abstract class InvalidInputException
   int? get code;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.machinelearning',
-        shape: 'InvalidInputException',
-      );
+    namespace: 'com.amazonaws.machinelearning',
+    shape: 'InvalidInputException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -67,22 +60,14 @@ abstract class InvalidInputException
   Exception? get underlyingException => null;
 
   @override
-  List<Object?> get props => [
-        message,
-        code,
-      ];
+  List<Object?> get props => [message, code];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidInputException')
-      ..add(
-        'message',
-        message,
-      )
-      ..add(
-        'code',
-        code,
-      );
+    final helper =
+        newBuiltValueToStringHelper('InvalidInputException')
+          ..add('message', message)
+          ..add('code', code);
     return helper.toString();
   }
 }
@@ -90,21 +75,18 @@ abstract class InvalidInputException
 class InvalidInputExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<InvalidInputException> {
   const InvalidInputExceptionAwsJson11Serializer()
-      : super('InvalidInputException');
+    : super('InvalidInputException');
 
   @override
   Iterable<Type> get types => const [
-        InvalidInputException,
-        _$InvalidInputException,
-      ];
+    InvalidInputException,
+    _$InvalidInputException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   InvalidInputException deserialize(
@@ -123,15 +105,19 @@ class InvalidInputExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'code':
-          result.code = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.code =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -149,18 +135,14 @@ class InvalidInputExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     if (code != null) {
       result$
         ..add('code')
-        ..add(serializers.serialize(
-          code,
-          specifiedType: const FullType(int),
-        ));
+        ..add(serializers.serialize(code, specifiedType: const FullType(int)));
     }
     return result$;
   }

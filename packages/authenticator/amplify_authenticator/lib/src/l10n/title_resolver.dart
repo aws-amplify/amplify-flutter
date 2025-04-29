@@ -27,44 +27,51 @@ class TitleResolver extends Resolver<AuthenticatorStep> {
 
   /// The title for the confirm sign in (new passwrod) Widget.
   String confirmSignInNewPassword(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .confirmSignInNewPassword;
+    return AuthenticatorLocalizations.titlesOf(
+      context,
+    ).confirmSignInNewPassword;
   }
 
   /// The title for the continue sign in (mfa selection) Widget.
   String continueSignInWithMfaSelection(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .continueSignInWithMfaSelection;
+    return AuthenticatorLocalizations.titlesOf(
+      context,
+    ).continueSignInWithMfaSelection;
   }
 
   /// The title for the continue sign in (totp setup) Widget.
   String continueSignInWithTotpSetup(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .continueSignInWithTotpSetup;
+    return AuthenticatorLocalizations.titlesOf(
+      context,
+    ).continueSignInWithTotpSetup;
   }
 
   /// The title for the confirm sign in (totp MFA code) Widget.
   String confirmSignInWithTotpMfaCode(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .confirmSignInWithTotpMfaCode;
+    return AuthenticatorLocalizations.titlesOf(
+      context,
+    ).confirmSignInWithTotpMfaCode;
   }
 
   /// The title for the confirm sign in (email MFA code) Widget.
   String confirmSignInWithOtpCode(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .confirmSignInWithOtpCode;
+    return AuthenticatorLocalizations.titlesOf(
+      context,
+    ).confirmSignInWithOtpCode;
   }
 
   /// The title for the continue sign in (email MFA setup) Widget.
   String continueSignInWithEmailMfaSetup(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .continueSignInWithEmailMfaSetup;
+    return AuthenticatorLocalizations.titlesOf(
+      context,
+    ).continueSignInWithEmailMfaSetup;
   }
 
   /// The title for the continue sign in (mfa setup selection) Widget.
   String continueSignInWithMfaSetupSelection(BuildContext context) {
-    return AuthenticatorLocalizations.titlesOf(context)
-        .continueSignInWithMfaSetupSelection;
+    return AuthenticatorLocalizations.titlesOf(
+      context,
+    ).continueSignInWithMfaSetupSelection;
   }
 
   /// The title for the reset password Widget.

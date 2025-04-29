@@ -28,27 +28,27 @@ class _$JsonListsInputOutput extends JsonListsInputOutput {
   @override
   final _i3.BuiltList<StructureListMember>? structureList;
 
-  factory _$JsonListsInputOutput(
-          [void Function(JsonListsInputOutputBuilder)? updates]) =>
-      (new JsonListsInputOutputBuilder()..update(updates))._build();
+  factory _$JsonListsInputOutput([
+    void Function(JsonListsInputOutputBuilder)? updates,
+  ]) => (new JsonListsInputOutputBuilder()..update(updates))._build();
 
-  _$JsonListsInputOutput._(
-      {this.stringList,
-      this.sparseStringList,
-      this.stringSet,
-      this.integerList,
-      this.booleanList,
-      this.timestampList,
-      this.enumList,
-      this.intEnumList,
-      this.nestedStringList,
-      this.structureList})
-      : super._();
+  _$JsonListsInputOutput._({
+    this.stringList,
+    this.sparseStringList,
+    this.stringSet,
+    this.integerList,
+    this.booleanList,
+    this.timestampList,
+    this.enumList,
+    this.intEnumList,
+    this.nestedStringList,
+    this.structureList,
+  }) : super._();
 
   @override
   JsonListsInputOutput rebuild(
-          void Function(JsonListsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(JsonListsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   JsonListsInputOutputBuilder toBuilder() =>
@@ -144,8 +144,8 @@ class JsonListsInputOutputBuilder
   _i3.ListBuilder<_i3.BuiltList<String>> get nestedStringList =>
       _$this._nestedStringList ??= new _i3.ListBuilder<_i3.BuiltList<String>>();
   set nestedStringList(
-          _i3.ListBuilder<_i3.BuiltList<String>>? nestedStringList) =>
-      _$this._nestedStringList = nestedStringList;
+    _i3.ListBuilder<_i3.BuiltList<String>>? nestedStringList,
+  ) => _$this._nestedStringList = nestedStringList;
 
   _i3.ListBuilder<StructureListMember>? _structureList;
   _i3.ListBuilder<StructureListMember> get structureList =>
@@ -190,18 +190,20 @@ class JsonListsInputOutputBuilder
   _$JsonListsInputOutput _build() {
     _$JsonListsInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$JsonListsInputOutput._(
-              stringList: _stringList?.build(),
-              sparseStringList: _sparseStringList?.build(),
-              stringSet: _stringSet?.build(),
-              integerList: _integerList?.build(),
-              booleanList: _booleanList?.build(),
-              timestampList: _timestampList?.build(),
-              enumList: _enumList?.build(),
-              intEnumList: _intEnumList?.build(),
-              nestedStringList: _nestedStringList?.build(),
-              structureList: _structureList?.build());
+            stringList: _stringList?.build(),
+            sparseStringList: _sparseStringList?.build(),
+            stringSet: _stringSet?.build(),
+            integerList: _integerList?.build(),
+            booleanList: _booleanList?.build(),
+            timestampList: _timestampList?.build(),
+            enumList: _enumList?.build(),
+            intEnumList: _intEnumList?.build(),
+            nestedStringList: _nestedStringList?.build(),
+            structureList: _structureList?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -227,7 +229,10 @@ class JsonListsInputOutputBuilder
         _structureList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'JsonListsInputOutput', _$failedField, e.toString());
+          r'JsonListsInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

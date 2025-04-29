@@ -19,8 +19,7 @@ class CognitoSignInWithWebUIPluginOptions extends SignInWithWebUIPluginOptions {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_plugin_options}
   factory CognitoSignInWithWebUIPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoSignInWithWebUIPluginOptionsFromJson(json);
+  ) => _$CognitoSignInWithWebUIPluginOptionsFromJson(json);
 
   /// {@template amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.private_session}
   /// iOS-only: Starts the webUI signin in a private browser session, if supported by the current browser.

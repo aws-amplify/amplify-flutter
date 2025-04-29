@@ -15,7 +15,7 @@
     swiftOut: 'darwin/classes/pigeons/messages.g.swift',
   ),
 )
-library native_auth_plugin;
+library;
 
 import 'package:pigeon/pigeon.dart';
 
@@ -79,10 +79,7 @@ abstract class NativeAuthBridge {
 
   /// Clears the legacy device secrets.
   @async
-  void deleteLegacyDeviceSecrets(
-    String username,
-    String userPoolId,
-  );
+  void deleteLegacyDeviceSecrets(String username, String userPoolId);
 }
 
 class NativeUserContextData {

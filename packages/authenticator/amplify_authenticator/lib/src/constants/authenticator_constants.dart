@@ -19,16 +19,14 @@ class AuthenticatorContainerConstants {
 
   static const gap = 24.0;
 
-  static const BorderRadius borderRadius =
-      BorderRadius.all(Radius.circular(10));
+  static const BorderRadius borderRadius = BorderRadius.all(
+    Radius.circular(10),
+  );
 
   static const BoxShadow boxShadow = BoxShadow(
     color: Color.fromRGBO(0, 0, 0, 0.15),
     spreadRadius: 1,
-    offset: Offset(
-      1,
-      1,
-    ),
+    offset: Offset(1, 1),
   );
 }
 

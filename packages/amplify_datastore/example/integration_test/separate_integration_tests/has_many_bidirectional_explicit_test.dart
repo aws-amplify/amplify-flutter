@@ -29,7 +29,7 @@ void main() {
     // }
     final enableCloudSync = shouldEnableCloudSync();
     var rootModels = [
-      HasManyParentBiDirectionalExplicit(name: 'has many parent (explicit)')
+      HasManyParentBiDirectionalExplicit(name: 'has many parent (explicit)'),
     ];
     var associatedModels = List.generate(
       5,
@@ -38,12 +38,14 @@ void main() {
         hasManyParent: rootModels.first,
       ),
     );
-    var associatedModelQueryPredicates = associatedModels
-        .map(
-          (associatedModel) =>
-              HasManyChildBiDirectionalExplicit.NAME.eq(associatedModel.name),
-        )
-        .toList();
+    var associatedModelQueryPredicates =
+        associatedModels
+            .map(
+              (associatedModel) => HasManyChildBiDirectionalExplicit.NAME.eq(
+                associatedModel.name,
+              ),
+            )
+            .toList();
 
     testRootAndAssociatedModelsRelationship(
       modelProvider: ModelProvider.instance,

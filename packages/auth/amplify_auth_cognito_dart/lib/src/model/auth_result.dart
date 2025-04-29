@@ -7,8 +7,8 @@ import 'package:amplify_core/amplify_core.dart';
 typedef AuthResult<T extends Object?> = AWSResult<T, AuthException>;
 
 /// A successful result to an Auth operation.
-typedef AuthSuccessResult<T extends Object?>
-    = AWSSuccessResult<T, AuthException>;
+typedef AuthSuccessResult<T extends Object?> =
+    AWSSuccessResult<T, AuthException>;
 
 /// A failed result to an Auth operation.
 typedef AuthErrorResult<T extends Object?> = AWSErrorResult<T, AuthException>;

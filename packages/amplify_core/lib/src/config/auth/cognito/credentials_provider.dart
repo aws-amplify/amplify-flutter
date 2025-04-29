@@ -8,9 +8,7 @@ part 'credentials_provider.g.dart';
 typedef CognitoIdentityPoolConfig = CognitoIdentityCredentialsProvider;
 
 class CredentialsProviders extends AWSConfigMap {
-  const CredentialsProviders(
-    super.providers,
-  );
+  const CredentialsProviders(super.providers);
 
   factory CredentialsProviders.fromJson(Map<String, Object?> json) {
     final providers = json.map((key, value) {
@@ -38,9 +36,10 @@ class CredentialsProviders extends AWSConfigMap {
   CredentialsProviders copy() => CredentialsProviders(configs);
 
   @override
-  CognitoIdentityCredentialsProvider? get default$ => (this['CognitoIdentity']
-          as AWSConfigMap<CognitoIdentityCredentialsProvider>?)
-      ?.default$;
+  CognitoIdentityCredentialsProvider? get default$ =>
+      (this['CognitoIdentity']
+              as AWSConfigMap<CognitoIdentityCredentialsProvider>?)
+          ?.default$;
 }
 
 @zAwsSerializable
@@ -53,8 +52,7 @@ class CognitoIdentityCredentialsProvider
 
   factory CognitoIdentityCredentialsProvider.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoIdentityCredentialsProviderFromJson(json);
+  ) => _$CognitoIdentityCredentialsProviderFromJson(json);
   static const configKey = 'CognitoIdentity';
 
   final String poolId;

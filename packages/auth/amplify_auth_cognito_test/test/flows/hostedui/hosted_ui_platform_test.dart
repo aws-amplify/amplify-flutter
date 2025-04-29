@@ -34,11 +34,14 @@ void main() {
     setUp(() {
       server = MockOAuthServer();
       secureStorage = MockSecureStorage();
-      dependencyManager = DependencyManager()
-        ..addInstance(mockConfig.auth!)
-        ..addInstance<SecureStorageInterface>(secureStorage)
-        ..addInstance<http.Client>(server.httpClient)
-        ..addInstance<Dispatcher<AuthEvent, AuthState>>(const MockDispatcher());
+      dependencyManager =
+          DependencyManager()
+            ..addInstance(mockConfig.auth!)
+            ..addInstance<SecureStorageInterface>(secureStorage)
+            ..addInstance<http.Client>(server.httpClient)
+            ..addInstance<Dispatcher<AuthEvent, AuthState>>(
+              const MockDispatcher(),
+            );
 
       platform = HostedUiPlatform(dependencyManager);
     });
@@ -54,10 +57,7 @@ void main() {
       setUp(() {
         secureStorage
           ..write(key: keys[HostedUiKey.state], value: state)
-          ..write(
-            key: keys[HostedUiKey.codeVerifier],
-            value: codeVerifier,
-          );
+          ..write(key: keys[HostedUiKey.codeVerifier], value: codeVerifier);
       });
 
       tearDown(() {
@@ -69,16 +69,15 @@ void main() {
       test('missing state throws', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
-            redirectUri:
-                Uri.parse(mockConfig.auth!.oauth!.redirectSignInUri.first),
+            redirectUri: Uri.parse(
+              mockConfig.auth!.oauth!.redirectSignInUri.first,
+            ),
           ),
         );
 
         expect(
           () => platform.exchange(
-            OAuthParameters(
-              (b) => b..code = parameters.code,
-            ),
+            OAuthParameters((b) => b..code = parameters.code),
           ),
           throwsInvalidStateException,
         );
@@ -87,17 +86,19 @@ void main() {
       test('mismatched state throws', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
-            redirectUri:
-                Uri.parse(mockConfig.auth!.oauth!.redirectSignInUri.first),
+            redirectUri: Uri.parse(
+              mockConfig.auth!.oauth!.redirectSignInUri.first,
+            ),
           ),
         );
 
         expect(
           platform.exchange(
             OAuthParameters(
-              (b) => b
-                ..code = parameters.code
-                ..state = '12345',
+              (b) =>
+                  b
+                    ..code = parameters.code
+                    ..state = '12345',
             ),
           ),
           throwsInvalidStateException,
@@ -107,15 +108,13 @@ void main() {
       test('succeeds', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
-            redirectUri:
-                Uri.parse(mockConfig.auth!.oauth!.redirectSignInUri.first),
+            redirectUri: Uri.parse(
+              mockConfig.auth!.oauth!.redirectSignInUri.first,
+            ),
           ),
         );
 
-        expect(
-          platform.exchange(parameters),
-          completes,
-        );
+        expect(platform.exchange(parameters), completes);
       });
     });
 
@@ -124,14 +123,13 @@ void main() {
 
       setUp(() async {
         dependencyManager.addInstance<HostedUiPlatform>(
-          CancelingHostedUiPlatform(
-            cancelSignIn: expectAsync0(() async {}),
-          ),
+          CancelingHostedUiPlatform(cancelSignIn: expectAsync0(() async {})),
         );
-        plugin = AmplifyAuthCognitoDart()
-          ..stateMachine = CognitoAuthStateMachine(
-            dependencyManager: dependencyManager,
-          );
+        plugin =
+            AmplifyAuthCognitoDart()
+              ..stateMachine = CognitoAuthStateMachine(
+                dependencyManager: dependencyManager,
+              );
         await plugin.stateMachine.acceptAndComplete(
           ConfigurationEvent.configure(mockConfig),
         );
@@ -141,13 +139,12 @@ void main() {
 
       test('can cancel flow', () async {
         final expectation = expectLater(
-          plugin.signInWithWebUI(
-            provider: AuthProvider.cognito,
-          ),
+          plugin.signInWithWebUI(provider: AuthProvider.cognito),
           throwsA(isA<UserCancelledException>()),
         );
-        final hostedUiMachine =
-            plugin.stateMachine.expect(HostedUiStateMachine.type);
+        final hostedUiMachine = plugin.stateMachine.expect(
+          HostedUiStateMachine.type,
+        );
         expect(
           hostedUiMachine.stream,
           emitsInOrder([
@@ -170,9 +167,8 @@ void main() {
 }
 
 final class CancelingHostedUiPlatform extends Fake implements HostedUiPlatform {
-  CancelingHostedUiPlatform({
-    required Future<void> Function() cancelSignIn,
-  }) : _cancelSignIn = cancelSignIn;
+  CancelingHostedUiPlatform({required Future<void> Function() cancelSignIn})
+    : _cancelSignIn = cancelSignIn;
 
   final Future<void> Function() _cancelSignIn;
 

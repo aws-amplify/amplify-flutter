@@ -15,7 +15,7 @@ Future<void> _run(SendPorts ports) async {
     channel.stream.asBroadcastStream().cast(),
     channel.sink.cast(),
   );
-// ignore: invalid_use_of_protected_member
+  // ignore: invalid_use_of_protected_member
   worker.logger.verbose('Finished');
   unawaited(worker.close());
   Isolate.exit(ports.donePort);

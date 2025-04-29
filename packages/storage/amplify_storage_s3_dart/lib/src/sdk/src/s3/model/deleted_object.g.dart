@@ -19,9 +19,12 @@ class _$DeletedObject extends DeletedObject {
   factory _$DeletedObject([void Function(DeletedObjectBuilder)? updates]) =>
       (new DeletedObjectBuilder()..update(updates))._build();
 
-  _$DeletedObject._(
-      {this.key, this.versionId, this.deleteMarker, this.deleteMarkerVersionId})
-      : super._();
+  _$DeletedObject._({
+    this.key,
+    this.versionId,
+    this.deleteMarker,
+    this.deleteMarkerVersionId,
+  }) : super._();
 
   @override
   DeletedObject rebuild(void Function(DeletedObjectBuilder) updates) =>
@@ -102,7 +105,8 @@ class DeletedObjectBuilder
   DeletedObject build() => _build();
 
   _$DeletedObject _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$DeletedObject._(
           key: key,
           versionId: versionId,

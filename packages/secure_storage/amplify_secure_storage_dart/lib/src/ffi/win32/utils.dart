@@ -20,9 +20,7 @@ extension Uint8ListBlobConversionX on Uint8List {
 
 /// Returns a [SecureStorageException] from the Win32 error code
 SecureStorageException getExceptionFromErrorCode(int errorCode) {
-  final underlying = WindowsException(
-    HRESULT_FROM_WIN32(errorCode),
-  );
+  final underlying = WindowsException(HRESULT_FROM_WIN32(errorCode));
   return UnknownException(
     'An unknown exception occurred.',
     recoverySuggestion: SecureStorageException.missingRecovery,

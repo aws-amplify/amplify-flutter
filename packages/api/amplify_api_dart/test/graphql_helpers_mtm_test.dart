@@ -12,9 +12,7 @@ import 'test_models/many_to_many/MtmModelProvider.dart';
 final _deepEquals = const DeepCollectionEquality().equals;
 
 class MockAmplifyAPI extends AmplifyAPIDart {
-  MockAmplifyAPI({
-    super.options,
-  });
+  MockAmplifyAPI({super.options});
 }
 
 void main() {
@@ -22,7 +20,7 @@ void main() {
     setUpAll(() async {
       await Amplify.reset();
       await Amplify.addPlugin(
-// needed to fetch the schema from within the helper
+        // needed to fetch the schema from within the helper
         MockAmplifyAPI(
           options: APIPluginOptions(modelProvider: MtmModelProvider.instance),
         ),
@@ -34,156 +32,160 @@ void main() {
     const manyToManySecondarySelectionSet =
         'manyToManySecondary { id name createdAt updatedAt } manyToManySecondaryId';
 
-    const mtmRelationSelectionSet = 'id createdAt updatedAt '
+    const mtmRelationSelectionSet =
+        'id createdAt updatedAt '
         '$manyToManyPrimarySelectionSet '
         '$manyToManySecondarySelectionSet';
 
     test(
-        'ModelMutations.get() on firstMtmRelationModel should get both relationships',
-        () {
-      final id = UUID.getUUID();
-      final firstMtmRelation = FirstMtmRelation(
-        id: id,
-        manyToManyPrimary: ManyToManyPrimary(name: 'a'),
-        manyToManySecondary: ManyToManySecondary(name: 'b'),
-      );
-      const expectedDoc = r'query getFirstMtmRelation($id: ID!) { '
-          r'getFirstMtmRelation(id: $id) { '
-          '$mtmRelationSelectionSet } }';
+      'ModelMutations.get() on firstMtmRelationModel should get both relationships',
+      () {
+        final id = UUID.getUUID();
+        final firstMtmRelation = FirstMtmRelation(
+          id: id,
+          manyToManyPrimary: ManyToManyPrimary(name: 'a'),
+          manyToManySecondary: ManyToManySecondary(name: 'b'),
+        );
+        const expectedDoc =
+            r'query getFirstMtmRelation($id: ID!) { '
+            r'getFirstMtmRelation(id: $id) { '
+            '$mtmRelationSelectionSet } }';
 
-      final req = ModelQueries.get<FirstMtmRelation>(
-        FirstMtmRelation.classType,
-        firstMtmRelation.modelIdentifier,
-      );
+        final req = ModelQueries.get<FirstMtmRelation>(
+          FirstMtmRelation.classType,
+          firstMtmRelation.modelIdentifier,
+        );
 
-      expect(req.document, expectedDoc);
-      expect(_deepEquals(req.variables, {'id': id}), isTrue);
-      expect(req.modelType, FirstMtmRelation.classType);
-      expect(req.decodePath, 'getFirstMtmRelation');
-    });
-
-    test(
-        'ModelMutations.create() on mtmRelationModel should have both relationships',
-        () {
-      //ignore: missing_whitespace_between_adjacent_strings
-      const expectedDoc = 'mutation createFirstMtmRelation('
-          r'$input: CreateFirstMtmRelationInput!, '
-          r'$condition:  ModelFirstMtmRelationConditionInput) { '
-          r'createFirstMtmRelation(input: $input, condition: $condition) '
-          '{ $mtmRelationSelectionSet } }';
-      final expectedVars = {
-        'input': {
-          'id': 'firstMtmRelationId',
-          'manyToManyPrimaryId': 'mtmPrimaryId',
-          'manyToManySecondaryId': 'mtmSecondaryId',
-        },
-      };
-
-      final primary = ManyToManyPrimary(
-        id: 'mtmPrimaryId',
-        name: 'first',
-      );
-      final secondary =
-          ManyToManySecondary(id: 'mtmSecondaryId', name: 'second');
-
-      final relation = FirstMtmRelation(
-        id: 'firstMtmRelationId',
-        manyToManyPrimary: primary,
-        manyToManySecondary: secondary,
-      );
-      final req = ModelMutations.create<FirstMtmRelation>(relation);
-
-      expect(req.document, expectedDoc);
-      expect(_deepEquals(req.variables, expectedVars), isTrue);
-      expect(req.modelType, FirstMtmRelation.classType);
-      expect(req.decodePath, 'createFirstMtmRelation');
-    });
+        expect(req.document, expectedDoc);
+        expect(_deepEquals(req.variables, {'id': id}), isTrue);
+        expect(req.modelType, FirstMtmRelation.classType);
+        expect(req.decodePath, 'getFirstMtmRelation');
+      },
+    );
 
     test(
-        'ModelMutations.update() on mtmRelationModel should have both relationships',
-        () {
-      //ignore: missing_whitespace_between_adjacent_strings
-      const expectedDoc = 'mutation updateFirstMtmRelation('
-          r'$input: UpdateFirstMtmRelationInput!, '
-          r'$condition:  ModelFirstMtmRelationConditionInput) { '
-          r'updateFirstMtmRelation(input: $input, condition: $condition) '
-          '{ $mtmRelationSelectionSet } }';
-      final expectedVars = {
-        'input': {
-          'id': 'firstMtmRelationId',
-          'manyToManyPrimaryId': 'mtmPrimaryId',
-          'manyToManySecondaryId': 'mtmSecondaryId',
-        },
-        'condition': null,
-      };
+      'ModelMutations.create() on mtmRelationModel should have both relationships',
+      () {
+        const expectedDoc =
+            // ignore: missing_whitespace_between_adjacent_strings
+            'mutation createFirstMtmRelation('
+            r'$input: CreateFirstMtmRelationInput!, '
+            r'$condition:  ModelFirstMtmRelationConditionInput) { '
+            r'createFirstMtmRelation(input: $input, condition: $condition) '
+            '{ $mtmRelationSelectionSet } }';
+        final expectedVars = {
+          'input': {
+            'id': 'firstMtmRelationId',
+            'manyToManyPrimaryId': 'mtmPrimaryId',
+            'manyToManySecondaryId': 'mtmSecondaryId',
+          },
+        };
 
-      final primary = ManyToManyPrimary(
-        id: 'mtmPrimaryId',
-        name: 'first',
-      );
-      final secondary =
-          ManyToManySecondary(id: 'mtmSecondaryId', name: 'second');
+        final primary = ManyToManyPrimary(id: 'mtmPrimaryId', name: 'first');
+        final secondary = ManyToManySecondary(
+          id: 'mtmSecondaryId',
+          name: 'second',
+        );
 
-      final relation = FirstMtmRelation(
-        id: 'firstMtmRelationId',
-        manyToManyPrimary: primary,
-        manyToManySecondary: secondary,
-      );
-      final req = ModelMutations.update<FirstMtmRelation>(relation);
+        final relation = FirstMtmRelation(
+          id: 'firstMtmRelationId',
+          manyToManyPrimary: primary,
+          manyToManySecondary: secondary,
+        );
+        final req = ModelMutations.create<FirstMtmRelation>(relation);
 
-      expect(req.document, expectedDoc);
-      expect(_deepEquals(req.variables, expectedVars), isTrue);
-      expect(req.modelType, FirstMtmRelation.classType);
-      expect(req.decodePath, 'updateFirstMtmRelation');
-    });
+        expect(req.document, expectedDoc);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(req.modelType, FirstMtmRelation.classType);
+        expect(req.decodePath, 'createFirstMtmRelation');
+      },
+    );
 
-    test('Multiple belongsTo children of FirstMtmRelation properly decoded',
-        () {
-      final req = ModelQueries.list<FirstMtmRelation>(
-        FirstMtmRelation.classType,
-        limit: 2,
-      );
+    test(
+      'ModelMutations.update() on mtmRelationModel should have both relationships',
+      () {
+        const expectedDoc =
+            // ignore: missing_whitespace_between_adjacent_strings
+            'mutation updateFirstMtmRelation('
+            r'$input: UpdateFirstMtmRelationInput!, '
+            r'$condition:  ModelFirstMtmRelationConditionInput) { '
+            r'updateFirstMtmRelation(input: $input, condition: $condition) '
+            '{ $mtmRelationSelectionSet } }';
+        final expectedVars = {
+          'input': {
+            'id': 'firstMtmRelationId',
+            'manyToManyPrimaryId': 'mtmPrimaryId',
+            'manyToManySecondaryId': 'mtmSecondaryId',
+          },
+          'condition': null,
+        };
 
-      const data = {
-        'listFirstMtmRelations': {
-          'items': [
-            {
-              'id': 'id-first-mtm-relation',
-              'manyToManyPrimary': {
-                'id': 'id-mtm-primary',
-                'name': 'mtm primary',
+        final primary = ManyToManyPrimary(id: 'mtmPrimaryId', name: 'first');
+        final secondary = ManyToManySecondary(
+          id: 'mtmSecondaryId',
+          name: 'second',
+        );
+
+        final relation = FirstMtmRelation(
+          id: 'firstMtmRelationId',
+          manyToManyPrimary: primary,
+          manyToManySecondary: secondary,
+        );
+        final req = ModelMutations.update<FirstMtmRelation>(relation);
+
+        expect(req.document, expectedDoc);
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(req.modelType, FirstMtmRelation.classType);
+        expect(req.decodePath, 'updateFirstMtmRelation');
+      },
+    );
+
+    test(
+      'Multiple belongsTo children of FirstMtmRelation properly decoded',
+      () {
+        final req = ModelQueries.list<FirstMtmRelation>(
+          FirstMtmRelation.classType,
+          limit: 2,
+        );
+
+        const data = {
+          'listFirstMtmRelations': {
+            'items': [
+              {
+                'id': 'id-first-mtm-relation',
+                'manyToManyPrimary': {
+                  'id': 'id-mtm-primary',
+                  'name': 'mtm primary',
+                },
+                'manyToManySecondary': {
+                  'id': 'id-mtm-secondary',
+                  'name': 'mtm secondary',
+                },
               },
-              'manyToManySecondary': {
-                'id': 'id-mtm-secondary',
-                'name': 'mtm secondary',
-              },
-            }
-          ],
-        },
-      };
+            ],
+          },
+        };
 
-      final response = GraphQLResponseDecoder.instance
-          .decode<PaginatedResult<FirstMtmRelation>>(
-        request: req,
-        response: {
-          'data': data,
-          'errors': null,
-        },
-      );
+        final response = GraphQLResponseDecoder.instance
+            .decode<PaginatedResult<FirstMtmRelation>>(
+              request: req,
+              response: {'data': data, 'errors': null},
+            );
 
-      expect(response.data, isA<PaginatedResult<FirstMtmRelation>>());
-      expect(response.data?.items, isA<List<FirstMtmRelation?>>());
-      expect(response.data?.items.length, 1);
+        expect(response.data, isA<PaginatedResult<FirstMtmRelation>>());
+        expect(response.data?.items, isA<List<FirstMtmRelation?>>());
+        expect(response.data?.items.length, 1);
 
-      final mtmPrimary =
-          (response.data!.items[0] as FirstMtmRelation).manyToManyPrimary;
-      expect(mtmPrimary.id, 'id-mtm-primary');
-      expect(mtmPrimary.name, 'mtm primary');
+        final mtmPrimary =
+            (response.data!.items[0] as FirstMtmRelation).manyToManyPrimary;
+        expect(mtmPrimary.id, 'id-mtm-primary');
+        expect(mtmPrimary.name, 'mtm primary');
 
-      final mtmSecondary =
-          (response.data!.items[0] as FirstMtmRelation).manyToManySecondary;
-      expect(mtmSecondary.id, 'id-mtm-secondary');
-      expect(mtmSecondary.name, 'mtm secondary');
-    });
+        final mtmSecondary =
+            (response.data!.items[0] as FirstMtmRelation).manyToManySecondary;
+        expect(mtmSecondary.id, 'id-mtm-secondary');
+        expect(mtmSecondary.name, 'mtm secondary');
+      },
+    );
   });
 }

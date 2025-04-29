@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.test_body_structure_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,8 +17,10 @@ abstract class TestBodyStructureInputOutput
         _i1.HttpInput<TestBodyStructureInputOutputPayload>,
         _i2.AWSEquatable<TestBodyStructureInputOutput>
     implements
-        Built<TestBodyStructureInputOutput,
-            TestBodyStructureInputOutputBuilder>,
+        Built<
+          TestBodyStructureInputOutput,
+          TestBodyStructureInputOutputBuilder
+        >,
         _i1.HasPayload<TestBodyStructureInputOutputPayload> {
   factory TestBodyStructureInputOutput({
     String? testId,
@@ -30,9 +32,9 @@ abstract class TestBodyStructureInputOutput
     );
   }
 
-  factory TestBodyStructureInputOutput.build(
-          [void Function(TestBodyStructureInputOutputBuilder) updates]) =
-      _$TestBodyStructureInputOutput;
+  factory TestBodyStructureInputOutput.build([
+    void Function(TestBodyStructureInputOutputBuilder) updates,
+  ]) = _$TestBodyStructureInputOutput;
 
   const TestBodyStructureInputOutput._();
 
@@ -40,32 +42,30 @@ abstract class TestBodyStructureInputOutput
     TestBodyStructureInputOutputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      TestBodyStructureInputOutput.build((b) {
-        if (payload.testConfig != null) {
-          b.testConfig.replace(payload.testConfig!);
-        }
-        if (request.headers['x-amz-test-id'] != null) {
-          b.testId = request.headers['x-amz-test-id']!;
-        }
-      });
+  }) => TestBodyStructureInputOutput.build((b) {
+    if (payload.testConfig != null) {
+      b.testConfig.replace(payload.testConfig!);
+    }
+    if (request.headers['x-amz-test-id'] != null) {
+      b.testId = request.headers['x-amz-test-id']!;
+    }
+  });
 
   /// Constructs a [TestBodyStructureInputOutput] from a [payload] and [response].
   factory TestBodyStructureInputOutput.fromResponse(
     TestBodyStructureInputOutputPayload payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      TestBodyStructureInputOutput.build((b) {
-        if (payload.testConfig != null) {
-          b.testConfig.replace(payload.testConfig!);
-        }
-        if (response.headers['x-amz-test-id'] != null) {
-          b.testId = response.headers['x-amz-test-id']!;
-        }
-      });
+  ) => TestBodyStructureInputOutput.build((b) {
+    if (payload.testConfig != null) {
+      b.testConfig.replace(payload.testConfig!);
+    }
+    if (response.headers['x-amz-test-id'] != null) {
+      b.testId = response.headers['x-amz-test-id']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<TestBodyStructureInputOutputPayload>>
-      serializers = [TestBodyStructureInputOutputRestJson1Serializer()];
+  serializers = [TestBodyStructureInputOutputRestJson1Serializer()];
 
   String? get testId;
   TestConfig? get testConfig;
@@ -78,36 +78,29 @@ abstract class TestBodyStructureInputOutput
       });
 
   @override
-  List<Object?> get props => [
-        testId,
-        testConfig,
-      ];
+  List<Object?> get props => [testId, testConfig];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestBodyStructureInputOutput')
-      ..add(
-        'testId',
-        testId,
-      )
-      ..add(
-        'testConfig',
-        testConfig,
-      );
+    final helper =
+        newBuiltValueToStringHelper('TestBodyStructureInputOutput')
+          ..add('testId', testId)
+          ..add('testConfig', testConfig);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class TestBodyStructureInputOutputPayload
-    with
-        _i2.AWSEquatable<TestBodyStructureInputOutputPayload>
+    with _i2.AWSEquatable<TestBodyStructureInputOutputPayload>
     implements
-        Built<TestBodyStructureInputOutputPayload,
-            TestBodyStructureInputOutputPayloadBuilder> {
-  factory TestBodyStructureInputOutputPayload(
-          [void Function(TestBodyStructureInputOutputPayloadBuilder) updates]) =
-      _$TestBodyStructureInputOutputPayload;
+        Built<
+          TestBodyStructureInputOutputPayload,
+          TestBodyStructureInputOutputPayloadBuilder
+        > {
+  factory TestBodyStructureInputOutputPayload([
+    void Function(TestBodyStructureInputOutputPayloadBuilder) updates,
+  ]) = _$TestBodyStructureInputOutputPayload;
 
   const TestBodyStructureInputOutputPayload._();
 
@@ -117,36 +110,31 @@ abstract class TestBodyStructureInputOutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TestBodyStructureInputOutputPayload')
-          ..add(
-            'testConfig',
-            testConfig,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'TestBodyStructureInputOutputPayload',
+    )..add('testConfig', testConfig);
     return helper.toString();
   }
 }
 
-class TestBodyStructureInputOutputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<TestBodyStructureInputOutputPayload> {
+class TestBodyStructureInputOutputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<TestBodyStructureInputOutputPayload> {
   const TestBodyStructureInputOutputRestJson1Serializer()
-      : super('TestBodyStructureInputOutput');
+    : super('TestBodyStructureInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        TestBodyStructureInputOutput,
-        _$TestBodyStructureInputOutput,
-        TestBodyStructureInputOutputPayload,
-        _$TestBodyStructureInputOutputPayload,
-      ];
+    TestBodyStructureInputOutput,
+    _$TestBodyStructureInputOutput,
+    TestBodyStructureInputOutputPayload,
+    _$TestBodyStructureInputOutputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   TestBodyStructureInputOutputPayload deserialize(
@@ -165,10 +153,13 @@ class TestBodyStructureInputOutputRestJson1Serializer extends _i1
       }
       switch (key) {
         case 'testConfig':
-          result.testConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(TestConfig),
-          ) as TestConfig));
+          result.testConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(TestConfig),
+                )
+                as TestConfig),
+          );
       }
     }
 
@@ -186,10 +177,12 @@ class TestBodyStructureInputOutputRestJson1Serializer extends _i1
     if (testConfig != null) {
       result$
         ..add('testConfig')
-        ..add(serializers.serialize(
-          testConfig,
-          specifiedType: const FullType(TestConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            testConfig,
+            specifiedType: const FullType(TestConfig),
+          ),
+        );
     }
     return result$;
   }

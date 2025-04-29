@@ -10,10 +10,7 @@ part 'range_trait.g.dart';
 @ShapeIdConverter()
 @JsonSerializable()
 class RangeTrait implements Trait<RangeTrait> {
-  const RangeTrait({
-    this.min,
-    this.max,
-  });
+  const RangeTrait({this.min, this.max});
 
   factory RangeTrait.fromJson(Object? json) =>
       _$RangeTraitFromJson((json as Map).cast<String, Object?>());

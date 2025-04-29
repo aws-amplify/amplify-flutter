@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.omits_null_serializes_empty_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,8 +16,10 @@ abstract class OmitsNullSerializesEmptyStringInput
         _i1.HttpInput<OmitsNullSerializesEmptyStringInputPayload>,
         _i2.AWSEquatable<OmitsNullSerializesEmptyStringInput>
     implements
-        Built<OmitsNullSerializesEmptyStringInput,
-            OmitsNullSerializesEmptyStringInputBuilder>,
+        Built<
+          OmitsNullSerializesEmptyStringInput,
+          OmitsNullSerializesEmptyStringInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<OmitsNullSerializesEmptyStringInputPayload> {
   factory OmitsNullSerializesEmptyStringInput({
@@ -30,9 +32,9 @@ abstract class OmitsNullSerializesEmptyStringInput
     );
   }
 
-  factory OmitsNullSerializesEmptyStringInput.build(
-          [void Function(OmitsNullSerializesEmptyStringInputBuilder) updates]) =
-      _$OmitsNullSerializesEmptyStringInput;
+  factory OmitsNullSerializesEmptyStringInput.build([
+    void Function(OmitsNullSerializesEmptyStringInputBuilder) updates,
+  ]) = _$OmitsNullSerializesEmptyStringInput;
 
   const OmitsNullSerializesEmptyStringInput._();
 
@@ -40,19 +42,19 @@ abstract class OmitsNullSerializesEmptyStringInput
     OmitsNullSerializesEmptyStringInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      OmitsNullSerializesEmptyStringInput.build((b) {
-        if (request.queryParameters['Null'] != null) {
-          b.nullValue = request.queryParameters['Null']!;
-        }
-        if (request.queryParameters['Empty'] != null) {
-          b.emptyString = request.queryParameters['Empty']!;
-        }
-      });
+  }) => OmitsNullSerializesEmptyStringInput.build((b) {
+    if (request.queryParameters['Null'] != null) {
+      b.nullValue = request.queryParameters['Null']!;
+    }
+    if (request.queryParameters['Empty'] != null) {
+      b.emptyString = request.queryParameters['Empty']!;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<OmitsNullSerializesEmptyStringInputPayload>>
-      serializers = [OmitsNullSerializesEmptyStringInputRestJson1Serializer()];
+    _i1.SmithySerializer<OmitsNullSerializesEmptyStringInputPayload>
+  >
+  serializers = [OmitsNullSerializesEmptyStringInputRestJson1Serializer()];
 
   String? get nullValue;
   String? get emptyString;
@@ -61,38 +63,30 @@ abstract class OmitsNullSerializesEmptyStringInput
       OmitsNullSerializesEmptyStringInputPayload();
 
   @override
-  List<Object?> get props => [
-        nullValue,
-        emptyString,
-      ];
+  List<Object?> get props => [nullValue, emptyString];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('OmitsNullSerializesEmptyStringInput')
-          ..add(
-            'nullValue',
-            nullValue,
-          )
-          ..add(
-            'emptyString',
-            emptyString,
-          );
+          ..add('nullValue', nullValue)
+          ..add('emptyString', emptyString);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class OmitsNullSerializesEmptyStringInputPayload
-    with
-        _i2.AWSEquatable<OmitsNullSerializesEmptyStringInputPayload>
+    with _i2.AWSEquatable<OmitsNullSerializesEmptyStringInputPayload>
     implements
-        Built<OmitsNullSerializesEmptyStringInputPayload,
-            OmitsNullSerializesEmptyStringInputPayloadBuilder>,
+        Built<
+          OmitsNullSerializesEmptyStringInputPayload,
+          OmitsNullSerializesEmptyStringInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory OmitsNullSerializesEmptyStringInputPayload(
-      [void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)
-          updates]) = _$OmitsNullSerializesEmptyStringInputPayload;
+  factory OmitsNullSerializesEmptyStringInputPayload([
+    void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder) updates,
+  ]) = _$OmitsNullSerializesEmptyStringInputPayload;
 
   const OmitsNullSerializesEmptyStringInputPayload._();
 
@@ -102,31 +96,32 @@ abstract class OmitsNullSerializesEmptyStringInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'OmitsNullSerializesEmptyStringInputPayload');
+      'OmitsNullSerializesEmptyStringInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class OmitsNullSerializesEmptyStringInputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<OmitsNullSerializesEmptyStringInputPayload> {
+class OmitsNullSerializesEmptyStringInputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<
+          OmitsNullSerializesEmptyStringInputPayload
+        > {
   const OmitsNullSerializesEmptyStringInputRestJson1Serializer()
-      : super('OmitsNullSerializesEmptyStringInput');
+    : super('OmitsNullSerializesEmptyStringInput');
 
   @override
   Iterable<Type> get types => const [
-        OmitsNullSerializesEmptyStringInput,
-        _$OmitsNullSerializesEmptyStringInput,
-        OmitsNullSerializesEmptyStringInputPayload,
-        _$OmitsNullSerializesEmptyStringInputPayload,
-      ];
+    OmitsNullSerializesEmptyStringInput,
+    _$OmitsNullSerializesEmptyStringInput,
+    OmitsNullSerializesEmptyStringInputPayload,
+    _$OmitsNullSerializesEmptyStringInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   OmitsNullSerializesEmptyStringInputPayload deserialize(
@@ -142,6 +137,5 @@ class OmitsNullSerializesEmptyStringInputRestJson1Serializer extends _i1
     Serializers serializers,
     OmitsNullSerializesEmptyStringInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

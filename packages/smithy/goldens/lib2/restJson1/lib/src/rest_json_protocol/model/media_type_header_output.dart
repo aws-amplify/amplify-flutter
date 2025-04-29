@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.media_type_header_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,12 +22,13 @@ abstract class MediaTypeHeaderOutput
         _i2.HasPayload<MediaTypeHeaderOutputPayload> {
   factory MediaTypeHeaderOutput({Object? json}) {
     return _$MediaTypeHeaderOutput._(
-        json: json == null ? null : _i3.JsonObject(json));
+      json: json == null ? null : _i3.JsonObject(json),
+    );
   }
 
-  factory MediaTypeHeaderOutput.build(
-          [void Function(MediaTypeHeaderOutputBuilder) updates]) =
-      _$MediaTypeHeaderOutput;
+  factory MediaTypeHeaderOutput.build([
+    void Function(MediaTypeHeaderOutputBuilder) updates,
+  ]) = _$MediaTypeHeaderOutput;
 
   const MediaTypeHeaderOutput._();
 
@@ -35,16 +36,18 @@ abstract class MediaTypeHeaderOutput
   factory MediaTypeHeaderOutput.fromResponse(
     MediaTypeHeaderOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      MediaTypeHeaderOutput.build((b) {
-        if (response.headers['X-Json'] != null) {
-          b.json = _i3.JsonObject(_i4.jsonDecode(
-              _i4.utf8.decode(_i4.base64Decode(response.headers['X-Json']!))));
-        }
-      });
+  ) => MediaTypeHeaderOutput.build((b) {
+    if (response.headers['X-Json'] != null) {
+      b.json = _i3.JsonObject(
+        _i4.jsonDecode(
+          _i4.utf8.decode(_i4.base64Decode(response.headers['X-Json']!)),
+        ),
+      );
+    }
+  });
 
   static const List<_i2.SmithySerializer<MediaTypeHeaderOutputPayload>>
-      serializers = [MediaTypeHeaderOutputRestJson1Serializer()];
+  serializers = [MediaTypeHeaderOutputRestJson1Serializer()];
 
   _i3.JsonObject? get json;
   @override
@@ -56,25 +59,23 @@ abstract class MediaTypeHeaderOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MediaTypeHeaderOutput')
-      ..add(
-        'json',
-        json,
-      );
+      ..add('json', json);
     return helper.toString();
   }
 }
 
 @_i5.internal
 abstract class MediaTypeHeaderOutputPayload
-    with
-        _i1.AWSEquatable<MediaTypeHeaderOutputPayload>
+    with _i1.AWSEquatable<MediaTypeHeaderOutputPayload>
     implements
-        Built<MediaTypeHeaderOutputPayload,
-            MediaTypeHeaderOutputPayloadBuilder>,
+        Built<
+          MediaTypeHeaderOutputPayload,
+          MediaTypeHeaderOutputPayloadBuilder
+        >,
         _i2.EmptyPayload {
-  factory MediaTypeHeaderOutputPayload(
-          [void Function(MediaTypeHeaderOutputPayloadBuilder) updates]) =
-      _$MediaTypeHeaderOutputPayload;
+  factory MediaTypeHeaderOutputPayload([
+    void Function(MediaTypeHeaderOutputPayloadBuilder) updates,
+  ]) = _$MediaTypeHeaderOutputPayload;
 
   const MediaTypeHeaderOutputPayload._();
 
@@ -91,23 +92,20 @@ abstract class MediaTypeHeaderOutputPayload
 class MediaTypeHeaderOutputRestJson1Serializer
     extends _i2.StructuredSmithySerializer<MediaTypeHeaderOutputPayload> {
   const MediaTypeHeaderOutputRestJson1Serializer()
-      : super('MediaTypeHeaderOutput');
+    : super('MediaTypeHeaderOutput');
 
   @override
   Iterable<Type> get types => const [
-        MediaTypeHeaderOutput,
-        _$MediaTypeHeaderOutput,
-        MediaTypeHeaderOutputPayload,
-        _$MediaTypeHeaderOutputPayload,
-      ];
+    MediaTypeHeaderOutput,
+    _$MediaTypeHeaderOutput,
+    MediaTypeHeaderOutputPayload,
+    _$MediaTypeHeaderOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MediaTypeHeaderOutputPayload deserialize(
@@ -123,6 +121,5 @@ class MediaTypeHeaderOutputRestJson1Serializer
     Serializers serializers,
     MediaTypeHeaderOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

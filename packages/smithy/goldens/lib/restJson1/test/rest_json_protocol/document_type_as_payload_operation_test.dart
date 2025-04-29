@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.document_type_as_payload_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -13,178 +13,151 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'DocumentTypeAsPayloadInput (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: DocumentTypeAsPayloadOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'DocumentTypeAsPayloadInput',
-          documentation:
-              'Serializes a document as the target of the httpPayload trait.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{\n    "foo": "bar"\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'documentValue': {'foo': 'bar'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'PUT',
-          uri: '/DocumentTypeAsPayload',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          DocumentTypeAsPayloadInputOutputRestJson1Serializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'DocumentTypeAsPayloadInputString (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: DocumentTypeAsPayloadOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'DocumentTypeAsPayloadInputString',
-          documentation:
-              'Serializes a document as the target of the httpPayload trait using a string.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '"hello"',
-          bodyMediaType: 'application/json',
-          params: {'documentValue': 'hello'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'PUT',
-          uri: '/DocumentTypeAsPayload',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          DocumentTypeAsPayloadInputOutputRestJson1Serializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'DocumentTypeAsPayloadOutput (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: DocumentTypeAsPayloadOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'DocumentTypeAsPayloadOutput',
-          documentation:
-              'Serializes a document as the target of the httpPayload trait.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{\n    "foo": "bar"\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'documentValue': {'foo': 'bar'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          DocumentTypeAsPayloadInputOutputRestJson1Serializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'DocumentTypeAsPayloadOutputString (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: DocumentTypeAsPayloadOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'DocumentTypeAsPayloadOutputString',
-          documentation: 'Serializes a document as a payload string.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '"hello"',
-          bodyMediaType: 'application/json',
-          params: {'documentValue': 'hello'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          DocumentTypeAsPayloadInputOutputRestJson1Serializer()
-        ],
-      );
-    },
-  );
+  _i1.test('DocumentTypeAsPayloadInput (request)', () async {
+    await _i2.httpRequestTest(
+      operation: DocumentTypeAsPayloadOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'DocumentTypeAsPayloadInput',
+        documentation:
+            'Serializes a document as the target of the httpPayload trait.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{\n    "foo": "bar"\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'documentValue': {'foo': 'bar'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'PUT',
+        uri: '/DocumentTypeAsPayload',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        DocumentTypeAsPayloadInputOutputRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('DocumentTypeAsPayloadInputString (request)', () async {
+    await _i2.httpRequestTest(
+      operation: DocumentTypeAsPayloadOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'DocumentTypeAsPayloadInputString',
+        documentation:
+            'Serializes a document as the target of the httpPayload trait using a string.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '"hello"',
+        bodyMediaType: 'application/json',
+        params: {'documentValue': 'hello'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'PUT',
+        uri: '/DocumentTypeAsPayload',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        DocumentTypeAsPayloadInputOutputRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('DocumentTypeAsPayloadOutput (response)', () async {
+    await _i2.httpResponseTest(
+      operation: DocumentTypeAsPayloadOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'DocumentTypeAsPayloadOutput',
+        documentation:
+            'Serializes a document as the target of the httpPayload trait.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{\n    "foo": "bar"\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'documentValue': {'foo': 'bar'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        DocumentTypeAsPayloadInputOutputRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('DocumentTypeAsPayloadOutputString (response)', () async {
+    await _i2.httpResponseTest(
+      operation: DocumentTypeAsPayloadOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'DocumentTypeAsPayloadOutputString',
+        documentation: 'Serializes a document as a payload string.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '"hello"',
+        bodyMediaType: 'application/json',
+        params: {'documentValue': 'hello'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        DocumentTypeAsPayloadInputOutputRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
 class DocumentTypeAsPayloadInputOutputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<DocumentTypeAsPayloadInputOutput> {
   const DocumentTypeAsPayloadInputOutputRestJson1Serializer()
-      : super('DocumentTypeAsPayloadInputOutput');
+    : super('DocumentTypeAsPayloadInputOutput');
 
   @override
   Iterable<Type> get types => const [DocumentTypeAsPayloadInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   DocumentTypeAsPayloadInputOutput deserialize(
@@ -203,10 +176,12 @@ class DocumentTypeAsPayloadInputOutputRestJson1Serializer
       }
       switch (key) {
         case 'documentValue':
-          result.documentValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i4.JsonObject),
-          ) as _i4.JsonObject);
+          result.documentValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.JsonObject),
+                  )
+                  as _i4.JsonObject);
       }
     }
 

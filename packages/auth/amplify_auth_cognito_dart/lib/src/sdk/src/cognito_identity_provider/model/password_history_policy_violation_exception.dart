@@ -12,11 +12,12 @@ part 'password_history_policy_violation_exception.g.dart';
 
 /// The message returned when a user's new password matches a previous password and doesn't comply with the password-history policy.
 abstract class PasswordHistoryPolicyViolationException
-    with
-        _i1.AWSEquatable<PasswordHistoryPolicyViolationException>
+    with _i1.AWSEquatable<PasswordHistoryPolicyViolationException>
     implements
-        Built<PasswordHistoryPolicyViolationException,
-            PasswordHistoryPolicyViolationExceptionBuilder>,
+        Built<
+          PasswordHistoryPolicyViolationException,
+          PasswordHistoryPolicyViolationExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   /// The message returned when a user's new password matches a previous password and doesn't comply with the password-history policy.
   factory PasswordHistoryPolicyViolationException({String? message}) {
@@ -24,9 +25,9 @@ abstract class PasswordHistoryPolicyViolationException
   }
 
   /// The message returned when a user's new password matches a previous password and doesn't comply with the password-history policy.
-  factory PasswordHistoryPolicyViolationException.build(
-      [void Function(PasswordHistoryPolicyViolationExceptionBuilder)
-          updates]) = _$PasswordHistoryPolicyViolationException;
+  factory PasswordHistoryPolicyViolationException.build([
+    void Function(PasswordHistoryPolicyViolationExceptionBuilder) updates,
+  ]) = _$PasswordHistoryPolicyViolationException;
 
   const PasswordHistoryPolicyViolationException._();
 
@@ -34,24 +35,22 @@ abstract class PasswordHistoryPolicyViolationException
   factory PasswordHistoryPolicyViolationException.fromResponse(
     PasswordHistoryPolicyViolationException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<
-          _i2.SmithySerializer<PasswordHistoryPolicyViolationException>>
-      serializers = [
-    PasswordHistoryPolicyViolationExceptionAwsJson11Serializer()
-  ];
+    _i2.SmithySerializer<PasswordHistoryPolicyViolationException>
+  >
+  serializers = [PasswordHistoryPolicyViolationExceptionAwsJson11Serializer()];
 
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'PasswordHistoryPolicyViolationException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'PasswordHistoryPolicyViolationException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -71,34 +70,31 @@ abstract class PasswordHistoryPolicyViolationException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PasswordHistoryPolicyViolationException')
-          ..add(
-            'message',
-            message,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'PasswordHistoryPolicyViolationException',
+    )..add('message', message);
     return helper.toString();
   }
 }
 
-class PasswordHistoryPolicyViolationExceptionAwsJson11Serializer extends _i2
-    .StructuredSmithySerializer<PasswordHistoryPolicyViolationException> {
+class PasswordHistoryPolicyViolationExceptionAwsJson11Serializer
+    extends
+        _i2.StructuredSmithySerializer<
+          PasswordHistoryPolicyViolationException
+        > {
   const PasswordHistoryPolicyViolationExceptionAwsJson11Serializer()
-      : super('PasswordHistoryPolicyViolationException');
+    : super('PasswordHistoryPolicyViolationException');
 
   @override
   Iterable<Type> get types => const [
-        PasswordHistoryPolicyViolationException,
-        _$PasswordHistoryPolicyViolationException,
-      ];
+    PasswordHistoryPolicyViolationException,
+    _$PasswordHistoryPolicyViolationException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   PasswordHistoryPolicyViolationException deserialize(
@@ -117,10 +113,12 @@ class PasswordHistoryPolicyViolationExceptionAwsJson11Serializer extends _i2
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -138,10 +136,9 @@ class PasswordHistoryPolicyViolationExceptionAwsJson11Serializer extends _i2
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

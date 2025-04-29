@@ -9,16 +9,13 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class ModelIndex with AWSEquatable<ModelIndex>, AWSSerializable {
   /// {@macro model_index}
-  const ModelIndex({
-    required this.fields,
-    this.name,
-  });
+  const ModelIndex({required this.fields, this.name});
 
   /// Create an instance of [ModelIndex] from a json object
   factory ModelIndex.fromJson(Map<String, Object?> map) => ModelIndex(
-        fields: (map['fields'] as List<Object?>).cast(),
-        name: map['name'] as String?,
-      );
+    fields: (map['fields'] as List<Object?>).cast(),
+    name: map['name'] as String?,
+  );
 
   /// Index name that is defined by the name parameter of `@index` directive in
   /// a model schema. This will always be null when the index is representing
@@ -35,18 +32,12 @@ class ModelIndex with AWSEquatable<ModelIndex>, AWSSerializable {
   List<Object?> get props => [name, fields];
 
   /// Make a copy of an existing [ModelIndex] instance.
-  ModelIndex copyWith({
-    List<String>? fields,
-    String? name,
-  }) =>
+  ModelIndex copyWith({List<String>? fields, String? name}) =>
       ModelIndex(fields: fields ?? this.fields, name: name ?? this.name);
 
   /// Generate a json object that represents [ModelIndex]
   @override
-  Map<String, Object?> toJson() => {
-        'name': name,
-        'fields': fields,
-      };
+  Map<String, Object?> toJson() => {'name': name, 'fields': fields};
 
   @override
   String toString() => 'ModelIndex(name: $name, fields: $fields)';

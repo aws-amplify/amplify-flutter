@@ -10,9 +10,9 @@ class _$EnumPayloadInput extends EnumPayloadInput {
   @override
   final StringEnum? payload;
 
-  factory _$EnumPayloadInput(
-          [void Function(EnumPayloadInputBuilder)? updates]) =>
-      (new EnumPayloadInputBuilder()..update(updates))._build();
+  factory _$EnumPayloadInput([
+    void Function(EnumPayloadInputBuilder)? updates,
+  ]) => (new EnumPayloadInputBuilder()..update(updates))._build();
 
   _$EnumPayloadInput._({this.payload}) : super._();
 

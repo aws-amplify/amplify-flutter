@@ -12,6 +12,7 @@ class CancellationException implements Exception {
   final String? operationId;
 
   @override
-  String toString() => 'The operation was cancelled'
+  String toString() =>
+      'The operation was cancelled'
       '${operationId == null ? '' : ' ($operationId)'}';
 }

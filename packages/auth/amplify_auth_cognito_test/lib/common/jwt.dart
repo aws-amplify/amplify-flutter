@@ -11,17 +11,13 @@ JsonWebToken createJwt({
   required Duration expiration,
 }) {
   return JsonWebToken(
-    header: const JsonWebHeader(
-      algorithm: Algorithm.rsaSha256,
-    ),
-    claims: JsonWebClaims.fromJson(
-      {
-        'sub': userSub,
-        if (type == TokenType.access) 'username': username,
-        if (type == TokenType.id) 'cognito:username': username,
-        'exp': (DateTime.now().add(expiration)).millisecondsSinceEpoch ~/ 1000,
-      },
-    ),
+    header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),
+    claims: JsonWebClaims.fromJson({
+      'sub': userSub,
+      if (type == TokenType.access) 'username': username,
+      if (type == TokenType.id) 'cognito:username': username,
+      'exp': (DateTime.now().add(expiration)).millisecondsSinceEpoch ~/ 1000,
+    }),
     signature: const [],
   );
 }

@@ -51,11 +51,11 @@ class HttpChecksumTrait
 
   @override
   List<Object?> get props => [
-        requestChecksumRequired,
-        requestAlgorithmMember,
-        requestValidationModeMember,
-        responseAlgorithms,
-      ];
+    requestChecksumRequired,
+    requestAlgorithmMember,
+    requestValidationModeMember,
+    responseAlgorithms,
+  ];
 
   @override
   ShapeId get shapeId => id;

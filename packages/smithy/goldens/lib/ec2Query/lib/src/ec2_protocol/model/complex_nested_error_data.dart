@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v1.ec2_protocol.model.complex_nested_error_data; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,9 +17,9 @@ abstract class ComplexNestedErrorData
     return _$ComplexNestedErrorData._(foo: foo);
   }
 
-  factory ComplexNestedErrorData.build(
-          [void Function(ComplexNestedErrorDataBuilder) updates]) =
-      _$ComplexNestedErrorData;
+  factory ComplexNestedErrorData.build([
+    void Function(ComplexNestedErrorDataBuilder) updates,
+  ]) = _$ComplexNestedErrorData;
 
   const ComplexNestedErrorData._();
 
@@ -33,10 +33,7 @@ abstract class ComplexNestedErrorData
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexNestedErrorData')
-      ..add(
-        'foo',
-        foo,
-      );
+      ..add('foo', foo);
     return helper.toString();
   }
 }
@@ -44,21 +41,18 @@ abstract class ComplexNestedErrorData
 class ComplexNestedErrorDataEc2QuerySerializer
     extends _i2.StructuredSmithySerializer<ComplexNestedErrorData> {
   const ComplexNestedErrorDataEc2QuerySerializer()
-      : super('ComplexNestedErrorData');
+    : super('ComplexNestedErrorData');
 
   @override
   Iterable<Type> get types => const [
-        ComplexNestedErrorData,
-        _$ComplexNestedErrorData,
-      ];
+    ComplexNestedErrorData,
+    _$ComplexNestedErrorData,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   ComplexNestedErrorData deserialize(
@@ -77,10 +71,12 @@ class ComplexNestedErrorDataEc2QuerySerializer
       }
       switch (key) {
         case 'Foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -97,16 +93,15 @@ class ComplexNestedErrorDataEc2QuerySerializer
       const _i2.XmlElementName(
         'ComplexNestedErrorDataResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final ComplexNestedErrorData(:foo) = object;
     if (foo != null) {
       result$
         ..add(const _i2.XmlElementName('Foo'))
-        ..add(serializers.serialize(
-          foo,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(foo, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

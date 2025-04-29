@@ -1,10 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-part of sample_app;
+part of '../../main.dart';
 
-Widget addBlogWidget(TextEditingController controller, bool isAmplifyConfigured,
-    Function saveFn) {
+Widget addBlogWidget(
+  TextEditingController controller,
+  bool isAmplifyConfigured,
+  Function saveFn,
+) {
   return Row(
     children: [
       divider,
@@ -31,14 +34,15 @@ Widget addBlogWidget(TextEditingController controller, bool isAmplifyConfigured,
   );
 }
 
-Widget addPostWidget(
-    {required TextEditingController titleController,
-    required TextEditingController ratingController,
-    required bool isAmplifyConfigured,
-    required List<Blog> allBlogs,
-    required Function saveFn,
-    required Function updateSelectedBlogForNewPost,
-    Blog? selectedBlog}) {
+Widget addPostWidget({
+  required TextEditingController titleController,
+  required TextEditingController ratingController,
+  required bool isAmplifyConfigured,
+  required List<Blog> allBlogs,
+  required Function saveFn,
+  required Function updateSelectedBlogForNewPost,
+  Blog? selectedBlog,
+}) {
   return Row(
     children: [
       divider,
@@ -56,27 +60,29 @@ Widget addPostWidget(
           keyboardType: TextInputType.number,
           controller: ratingController,
           inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly
+            FilteringTextInputFormatter.digitsOnly,
           ],
         ),
       ),
       divider,
       DropdownButton<Blog>(
-          value: selectedBlog,
-          hint: Text("Blog"),
-          items: allBlogs
-              .map((e) => DropdownMenuItem(
-                    child: Text(e.name),
-                    value: e,
-                  ))
-              .toList(), //_dropdownMenuItems,
-          onChanged: (value) => updateSelectedBlogForNewPost(value)),
+        value: selectedBlog,
+        hint: Text("Blog"),
+        items:
+            allBlogs
+                .map((e) => DropdownMenuItem(child: Text(e.name), value: e))
+                .toList(), //_dropdownMenuItems,
+        onChanged: (value) => updateSelectedBlogForNewPost(value),
+      ),
       divider,
       ElevatedButton(
         onPressed: () async {
           if (isAmplifyConfigured) {
-            await saveFn(titleController.text, int.parse(ratingController.text),
-                selectedBlog);
+            await saveFn(
+              titleController.text,
+              int.parse(ratingController.text),
+              selectedBlog,
+            );
             titleController.clear();
             ratingController.clear();
             return;
@@ -91,13 +97,14 @@ Widget addPostWidget(
 }
 
 Widget addCommentWidget(
-    TextEditingController controller,
-    bool isAmplifyConfigured,
-    Post? defaultPost,
-    List<Post> allPosts,
-    Post? selectedPostForNewComment,
-    Function saveFn,
-    Function updateSelectedPostForNewComment) {
+  TextEditingController controller,
+  bool isAmplifyConfigured,
+  Post? defaultPost,
+  List<Post> allPosts,
+  Post? selectedPostForNewComment,
+  Function saveFn,
+  Function updateSelectedPostForNewComment,
+) {
   return Row(
     children: [
       divider,
@@ -109,17 +116,16 @@ Widget addCommentWidget(
       ),
       divider,
       DropdownButton<Post>(
-          value: defaultPost,
-          hint: Text("Post"),
-          items: allPosts
-              .map((e) => DropdownMenuItem(
-                    child: Text(e.title),
-                    value: e,
-                  ))
-              .toList(), //_dropdownMenuItems,
-          onChanged: (value) {
-            updateSelectedPostForNewComment(value);
-          }),
+        value: defaultPost,
+        hint: Text("Post"),
+        items:
+            allPosts
+                .map((e) => DropdownMenuItem(child: Text(e.title), value: e))
+                .toList(), //_dropdownMenuItems,
+        onChanged: (value) {
+          updateSelectedPostForNewComment(value);
+        },
+      ),
       divider,
       ElevatedButton(
         onPressed: () async {

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.constant_query_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,9 +23,9 @@ abstract class ConstantQueryStringInput
     return _$ConstantQueryStringInput._(hello: hello);
   }
 
-  factory ConstantQueryStringInput.build(
-          [void Function(ConstantQueryStringInputBuilder) updates]) =
-      _$ConstantQueryStringInput;
+  factory ConstantQueryStringInput.build([
+    void Function(ConstantQueryStringInputBuilder) updates,
+  ]) = _$ConstantQueryStringInput;
 
   const ConstantQueryStringInput._();
 
@@ -33,15 +33,14 @@ abstract class ConstantQueryStringInput
     ConstantQueryStringInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      ConstantQueryStringInput.build((b) {
-        if (labels['hello'] != null) {
-          b.hello = labels['hello']!;
-        }
-      });
+  }) => ConstantQueryStringInput.build((b) {
+    if (labels['hello'] != null) {
+      b.hello = labels['hello']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<ConstantQueryStringInputPayload>>
-      serializers = [ConstantQueryStringInputRestJson1Serializer()];
+  serializers = [ConstantQueryStringInputRestJson1Serializer()];
 
   String get hello;
   @override
@@ -50,10 +49,7 @@ abstract class ConstantQueryStringInput
       case 'hello':
         return hello;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -66,25 +62,23 @@ abstract class ConstantQueryStringInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConstantQueryStringInput')
-      ..add(
-        'hello',
-        hello,
-      );
+      ..add('hello', hello);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class ConstantQueryStringInputPayload
-    with
-        _i2.AWSEquatable<ConstantQueryStringInputPayload>
+    with _i2.AWSEquatable<ConstantQueryStringInputPayload>
     implements
-        Built<ConstantQueryStringInputPayload,
-            ConstantQueryStringInputPayloadBuilder>,
+        Built<
+          ConstantQueryStringInputPayload,
+          ConstantQueryStringInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory ConstantQueryStringInputPayload(
-          [void Function(ConstantQueryStringInputPayloadBuilder) updates]) =
-      _$ConstantQueryStringInputPayload;
+  factory ConstantQueryStringInputPayload([
+    void Function(ConstantQueryStringInputPayloadBuilder) updates,
+  ]) = _$ConstantQueryStringInputPayload;
 
   const ConstantQueryStringInputPayload._();
 
@@ -93,8 +87,9 @@ abstract class ConstantQueryStringInputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ConstantQueryStringInputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'ConstantQueryStringInputPayload',
+    );
     return helper.toString();
   }
 }
@@ -102,23 +97,20 @@ abstract class ConstantQueryStringInputPayload
 class ConstantQueryStringInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<ConstantQueryStringInputPayload> {
   const ConstantQueryStringInputRestJson1Serializer()
-      : super('ConstantQueryStringInput');
+    : super('ConstantQueryStringInput');
 
   @override
   Iterable<Type> get types => const [
-        ConstantQueryStringInput,
-        _$ConstantQueryStringInput,
-        ConstantQueryStringInputPayload,
-        _$ConstantQueryStringInputPayload,
-      ];
+    ConstantQueryStringInput,
+    _$ConstantQueryStringInput,
+    ConstantQueryStringInputPayload,
+    _$ConstantQueryStringInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   ConstantQueryStringInputPayload deserialize(
@@ -134,6 +126,5 @@ class ConstantQueryStringInputRestJson1Serializer
     Serializers serializers,
     ConstantQueryStringInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

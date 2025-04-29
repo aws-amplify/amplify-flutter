@@ -15,9 +15,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'test_runner.dart';
 
-AmplifyAuthCognito get cognitoPlugin => Amplify.Auth.getPlugin(
-      AmplifyAuthCognito.pluginKey,
-    );
+AmplifyAuthCognito get cognitoPlugin =>
+    Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
 
 void main() {
   testRunner.setupTests();
@@ -53,8 +52,8 @@ void main() {
           // ignore: invalid_use_of_internal_member
           final config = await Amplify.asyncConfig;
           final authConfig = config.auth!;
-          client = AWSHttpClient()
-            ..supportedProtocols = SupportedProtocols.http1;
+          client =
+              AWSHttpClient()..supportedProtocols = SupportedProtocols.http1;
           cognitoClient = cognito_idp.CognitoIdentityProviderClient(
             region: authConfig.awsRegion,
           );
@@ -85,15 +84,14 @@ void main() {
           expect(finalAuthSession.isSignedIn, isFalse);
         });
 
-        asyncTest(
-          'should not throw even if there is no user to sign out',
-          (_) async {
-            final authSession = await Amplify.Auth.fetchAuthSession();
-            expect(authSession.isSignedIn, isFalse);
-            final signOutResult = await Amplify.Auth.signOut();
-            expect(signOutResult, isA<CognitoCompleteSignOut>());
-          },
-        );
+        asyncTest('should not throw even if there is no user to sign out', (
+          _,
+        ) async {
+          final authSession = await Amplify.Auth.fetchAuthSession();
+          expect(authSession.isSignedIn, isFalse);
+          final signOutResult = await Amplify.Auth.signOut();
+          expect(signOutResult, isA<CognitoCompleteSignOut>());
+        });
 
         asyncTest('global signout invalidates previous sessions', (_) async {
           await cognitoPlugin.signIn(username: username, password: password);
@@ -148,46 +146,54 @@ void main() {
             because: 'Sign out should succeed even if user is deleted',
             cognitoPlugin.signOut(),
           ).completes(
-            (it) => it
-              ..has((res) => res.signedOutLocally, 'signedOutLocally').isTrue(),
+            (it) =>
+                it
+                  ..has(
+                    (res) => res.signedOutLocally,
+                    'signedOutLocally',
+                  ).isTrue(),
           );
         });
 
-        asyncTest('can call sign out after admin delete and session expiration',
-            (_) async {
-          final username = environment.generateUsername();
-          final password = generatePassword();
+        asyncTest(
+          'can call sign out after admin delete and session expiration',
+          (_) async {
+            final username = environment.generateUsername();
+            final password = generatePassword();
 
-          await adminCreateUser(
-            username,
-            password,
-            autoConfirm: true,
-            verifyAttributes: true,
-            autoFillAttributes: environment.loginMethod.isUsername,
-          );
+            await adminCreateUser(
+              username,
+              password,
+              autoConfirm: true,
+              verifyAttributes: true,
+              autoFillAttributes: environment.loginMethod.isUsername,
+            );
 
-          final res = await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
-          check(res.isSignedIn).isTrue();
+            final res = await Amplify.Auth.signIn(
+              username: username,
+              password: password,
+            );
+            check(res.isSignedIn).isTrue();
 
-          await adminDeleteUser(username);
+            await adminDeleteUser(username);
 
-          cognitoPlugin.stateMachine
-              .expect(FetchAuthSessionStateMachine.type)
-              .invalidate();
+            cognitoPlugin.stateMachine
+                .expect(FetchAuthSessionStateMachine.type)
+                .invalidate();
 
-          await check(
-            because: 'Sign out should succeed even if user is deleted and '
-                'credentials are expired',
-            cognitoPlugin.signOut(),
-          ).completes(
-            (it) => it
-                .has((res) => res.signedOutLocally, 'signedOutLocally')
-                .isTrue(),
-          );
-        });
+            await check(
+              because:
+                  'Sign out should succeed even if user is deleted and '
+                  'credentials are expired',
+              cognitoPlugin.signOut(),
+            ).completes(
+              (it) =>
+                  it
+                      .has((res) => res.signedOutLocally, 'signedOutLocally')
+                      .isTrue(),
+            );
+          },
+        );
       });
     }
   });

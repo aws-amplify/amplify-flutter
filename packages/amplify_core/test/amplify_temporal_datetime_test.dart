@@ -2,9 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // TODO(dnys1): Get passing on Web
-@OnPlatform(<String, Object>{
-  'browser': Skip('Failing on web'),
-})
+@OnPlatform(<String, Object>{'browser': Skip('Failing on web')})
+library;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
@@ -90,44 +89,51 @@ void main() {
     expect(time.format(), '1995-05-03T03:30:00.000000000+03:25:55');
   });
 
-  test('AWSDateTime from string YYYY-MM-DDThh:mm:ss+hh:mm:ss success',
-      () async {
-    final time = TemporalDateTime.fromString('1995-05-03T03:30:25+03:25:55');
-    const duration = Duration(hours: 3, minutes: 25, seconds: 55);
+  test(
+    'AWSDateTime from string YYYY-MM-DDThh:mm:ss+hh:mm:ss success',
+    () async {
+      final time = TemporalDateTime.fromString('1995-05-03T03:30:25+03:25:55');
+      const duration = Duration(hours: 3, minutes: 25, seconds: 55);
 
-    expect(time.getOffset(), duration);
-    expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30, 25));
-    expect(time.format(), '1995-05-03T03:30:25.000000000+03:25:55');
-  });
-
-  test('AWSDateTime from string YYYY-MM-DDThh:mm:ss.sss+hh:mm:ss success',
-      () async {
-    final time =
-        TemporalDateTime.fromString('1995-05-03T03:30:25.999999999+03:25:55');
-    const duration = Duration(hours: 3, minutes: 25, seconds: 55);
-
-    expect(time.getOffset(), duration);
-    expect(
-      time.getDateTimeInUtc(),
-      DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 999),
-    );
-    expect(time.format(), '1995-05-03T03:30:25.999999999+03:25:55');
-  });
+      expect(time.getOffset(), duration);
+      expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30, 25));
+      expect(time.format(), '1995-05-03T03:30:25.000000000+03:25:55');
+    },
+  );
 
   test(
-      'AWSDateTime from string YYYY-MM-DDThh:mm:ss.sss+hh:mm:ss success with 5 digit nanosecond',
-      () async {
-    final time =
-        TemporalDateTime.fromString('1995-05-03T03:30:25.99999+03:25:55');
-    const duration = Duration(hours: 3, minutes: 25, seconds: 55);
+    'AWSDateTime from string YYYY-MM-DDThh:mm:ss.sss+hh:mm:ss success',
+    () async {
+      final time = TemporalDateTime.fromString(
+        '1995-05-03T03:30:25.999999999+03:25:55',
+      );
+      const duration = Duration(hours: 3, minutes: 25, seconds: 55);
 
-    expect(time.getOffset(), duration);
-    expect(
-      time.getDateTimeInUtc(),
-      DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 990),
-    );
-    expect(time.format(), '1995-05-03T03:30:25.999990000+03:25:55');
-  });
+      expect(time.getOffset(), duration);
+      expect(
+        time.getDateTimeInUtc(),
+        DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 999),
+      );
+      expect(time.format(), '1995-05-03T03:30:25.999999999+03:25:55');
+    },
+  );
+
+  test(
+    'AWSDateTime from string YYYY-MM-DDThh:mm:ss.sss+hh:mm:ss success with 5 digit nanosecond',
+    () async {
+      final time = TemporalDateTime.fromString(
+        '1995-05-03T03:30:25.99999+03:25:55',
+      );
+      const duration = Duration(hours: 3, minutes: 25, seconds: 55);
+
+      expect(time.getOffset(), duration);
+      expect(
+        time.getDateTimeInUtc(),
+        DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 990),
+      );
+      expect(time.format(), '1995-05-03T03:30:25.999990000+03:25:55');
+    },
+  );
 
   test('AWSDateTime from offset with single digit duration', () async {
     var dateTime = DateTime.parse('2021-11-09T18:53:12.183540Z');

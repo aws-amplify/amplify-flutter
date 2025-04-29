@@ -22,20 +22,22 @@ final class ConfigurationStateMachine
     extends AuthStateMachine<ConfigurationEvent, ConfigurationState> {
   /// {@macro amplify_auth_cognito.configuration_state_machine}
   ConfigurationStateMachine(CognitoAuthStateMachine manager)
-      : super(manager, type);
+    : super(manager, type);
 
   @override
   ConfigurationState get initialState =>
       const ConfigurationState.notConfigured();
 
   /// The [ConfigurationStateMachine] type.
-  static const type = StateMachineToken<
-      ConfigurationEvent,
-      ConfigurationState,
-      AuthEvent,
-      AuthState,
-      CognitoAuthStateMachine,
-      ConfigurationStateMachine>();
+  static const type =
+      StateMachineToken<
+        ConfigurationEvent,
+        ConfigurationState,
+        AuthEvent,
+        AuthState,
+        CognitoAuthStateMachine,
+        ConfigurationStateMachine
+      >();
 
   @override
   String get runtimeTypeName => 'ConfigurationStateMachine';

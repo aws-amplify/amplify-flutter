@@ -17,9 +17,7 @@ class SubscriptionBloc<T>
     with AWSDebuggable, AmplifyLoggerMixin
     implements Closeable {
   /// {@macro amplify_api.subscription_bloc}
-  SubscriptionBloc(
-    WsSubscriptionState<T> initialState,
-  ) {
+  SubscriptionBloc(WsSubscriptionState<T> initialState) {
     _currentState = initialState;
     final blocStream = _wsEventStream.asyncExpand(_eventTransformer);
     _subscription = blocStream.listen(_emit);
@@ -55,9 +53,7 @@ class SubscriptionBloc<T>
 
   /// Response controller.
   late final StreamController<GraphQLResponse<T>> _responseController =
-      StreamController<GraphQLResponse<T>>.broadcast(
-    onCancel: _cancel,
-  );
+      StreamController<GraphQLResponse<T>>.broadcast(onCancel: _cancel);
 
   /// Outputs graphql responses into a stream.
   late final Stream<GraphQLResponse<T>> responseStream =

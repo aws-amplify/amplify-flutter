@@ -31,10 +31,7 @@ class S3PluginConfig
     with AWSEquatable<S3PluginConfig>, AWSSerializable
     implements AmplifyPluginConfig {
   /// {@macro amplify_core.s3_plugin_config}
-  const S3PluginConfig({
-    required this.bucket,
-    required this.region,
-  });
+  const S3PluginConfig({required this.bucket, required this.region});
 
   factory S3PluginConfig.fromJson(Map<String, Object?> json) =>
       _$S3PluginConfigFromJson(json);
@@ -49,15 +46,9 @@ class S3PluginConfig
   final String region;
 
   @override
-  List<Object?> get props => [
-        bucket,
-        region,
-      ];
+  List<Object?> get props => [bucket, region];
 
-  S3PluginConfig copyWith({
-    String? bucket,
-    String? region,
-  }) {
+  S3PluginConfig copyWith({String? bucket, String? region}) {
     return S3PluginConfig(
       bucket: bucket ?? this.bucket,
       region: region ?? this.region,

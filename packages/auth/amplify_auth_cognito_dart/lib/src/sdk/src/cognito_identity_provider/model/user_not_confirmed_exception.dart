@@ -22,9 +22,9 @@ abstract class UserNotConfirmedException
   }
 
   /// This exception is thrown when a user isn't confirmed successfully.
-  factory UserNotConfirmedException.build(
-          [void Function(UserNotConfirmedExceptionBuilder) updates]) =
-      _$UserNotConfirmedException;
+  factory UserNotConfirmedException.build([
+    void Function(UserNotConfirmedExceptionBuilder) updates,
+  ]) = _$UserNotConfirmedException;
 
   const UserNotConfirmedException._();
 
@@ -32,22 +32,21 @@ abstract class UserNotConfirmedException
   factory UserNotConfirmedException.fromResponse(
     UserNotConfirmedException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<UserNotConfirmedException>>
-      serializers = [UserNotConfirmedExceptionAwsJson11Serializer()];
+  serializers = [UserNotConfirmedExceptionAwsJson11Serializer()];
 
   /// The message returned when a user isn't confirmed successfully.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'UserNotConfirmedException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'UserNotConfirmedException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -68,10 +67,7 @@ abstract class UserNotConfirmedException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UserNotConfirmedException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -79,21 +75,18 @@ abstract class UserNotConfirmedException
 class UserNotConfirmedExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UserNotConfirmedException> {
   const UserNotConfirmedExceptionAwsJson11Serializer()
-      : super('UserNotConfirmedException');
+    : super('UserNotConfirmedException');
 
   @override
   Iterable<Type> get types => const [
-        UserNotConfirmedException,
-        _$UserNotConfirmedException,
-      ];
+    UserNotConfirmedException,
+    _$UserNotConfirmedException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   UserNotConfirmedException deserialize(
@@ -112,10 +105,12 @@ class UserNotConfirmedExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -133,10 +128,9 @@ class UserNotConfirmedExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.union_with_json_name; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,13 +16,11 @@ sealed class UnionWithJsonName extends _i1.SmithyUnion<UnionWithJsonName> {
 
   const factory UnionWithJsonName.baz(String baz) = UnionWithJsonNameBaz$;
 
-  const factory UnionWithJsonName.sdkUnknown(
-    String name,
-    Object value,
-  ) = UnionWithJsonNameSdkUnknown$;
+  const factory UnionWithJsonName.sdkUnknown(String name, Object value) =
+      UnionWithJsonNameSdkUnknown$;
 
   static const List<_i1.SmithySerializer<UnionWithJsonName>> serializers = [
-    UnionWithJsonNameRestJson1Serializer()
+    UnionWithJsonNameRestJson1Serializer(),
   ];
 
   String? get foo => null;
@@ -38,22 +36,13 @@ sealed class UnionWithJsonName extends _i1.SmithyUnion<UnionWithJsonName> {
   String toString() {
     final helper = newBuiltValueToStringHelper(r'UnionWithJsonName');
     if (foo != null) {
-      helper.add(
-        r'foo',
-        foo,
-      );
+      helper.add(r'foo', foo);
     }
     if (bar != null) {
-      helper.add(
-        r'bar',
-        bar,
-      );
+      helper.add(r'bar', bar);
     }
     if (baz != null) {
-      helper.add(
-        r'baz',
-        baz,
-      );
+      helper.add(r'baz', baz);
     }
     return helper.toString();
   }
@@ -90,10 +79,7 @@ final class UnionWithJsonNameBaz$ extends UnionWithJsonName {
 }
 
 final class UnionWithJsonNameSdkUnknown$ extends UnionWithJsonName {
-  const UnionWithJsonNameSdkUnknown$(
-    this.name,
-    this.value,
-  ) : super._();
+  const UnionWithJsonNameSdkUnknown$(this.name, this.value) : super._();
 
   @override
   final String name;
@@ -108,19 +94,16 @@ class UnionWithJsonNameRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        UnionWithJsonName,
-        UnionWithJsonNameFoo$,
-        UnionWithJsonNameBar$,
-        UnionWithJsonNameBaz$,
-      ];
+    UnionWithJsonName,
+    UnionWithJsonNameFoo$,
+    UnionWithJsonNameBar$,
+    UnionWithJsonNameBaz$,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   UnionWithJsonName deserialize(
@@ -131,25 +114,22 @@ class UnionWithJsonNameRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'FOO':
-        return UnionWithJsonNameFoo$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
+        return UnionWithJsonNameFoo$(
+          (serializers.deserialize(value, specifiedType: const FullType(String))
+              as String),
+        );
       case 'bar':
-        return UnionWithJsonNameBar$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
+        return UnionWithJsonNameBar$(
+          (serializers.deserialize(value, specifiedType: const FullType(String))
+              as String),
+        );
       case '_baz':
-        return UnionWithJsonNameBaz$((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
+        return UnionWithJsonNameBaz$(
+          (serializers.deserialize(value, specifiedType: const FullType(String))
+              as String),
+        );
     }
-    return UnionWithJsonName.sdkUnknown(
-      key,
-      value,
-    );
+    return UnionWithJsonName.sdkUnknown(key, value);
   }
 
   @override
@@ -158,25 +138,22 @@ class UnionWithJsonNameRestJson1Serializer
     UnionWithJsonName object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    const renames = {
-      'foo': 'FOO',
-      'baz': '_baz',
-    };
+    const renames = {'foo': 'FOO', 'baz': '_baz'};
     return [
       renames[object.name] ?? object.name,
       switch (object) {
         UnionWithJsonNameFoo$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(String),
-          ),
+          value,
+          specifiedType: const FullType(String),
+        ),
         UnionWithJsonNameBar$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(String),
-          ),
+          value,
+          specifiedType: const FullType(String),
+        ),
         UnionWithJsonNameBaz$(:final value) => serializers.serialize(
-            value,
-            specifiedType: const FullType(String),
-          ),
+          value,
+          specifiedType: const FullType(String),
+        ),
         UnionWithJsonNameSdkUnknown$(:final value) => value,
       },
     ];

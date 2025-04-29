@@ -38,16 +38,12 @@ enum AuthState {
 
 /// global state for the application
 class AppState {
-  AppState({
-    this.authState = AuthState.loading,
-  });
+  AppState({this.authState = AuthState.loading});
 
   final AuthState authState;
 
   AppState copyWith({AuthState? authState}) {
-    return AppState(
-      authState: authState ?? this.authState,
-    );
+    return AppState(authState: authState ?? this.authState);
   }
 }
 
@@ -70,13 +66,11 @@ class AppComponent extends StatefulComponent {
           // ignore: invalid_use_of_internal_member
           Amplify.asyncConfig.then((_) {
             if (!appState.authState.isAuthenticatedRoute) {
-              setState(
-                (() {
-                  appState = appState.copyWith(
-                    authState: AuthState.authenticated,
-                  );
-                }),
-              );
+              setState((() {
+                appState = appState.copyWith(
+                  authState: AuthState.authenticated,
+                );
+              }));
             }
           });
         }
@@ -92,16 +86,12 @@ class AppComponent extends StatefulComponent {
       }
 
       setState(() {
-        appState = appState.copyWith(
-          authState: startingAuthState,
-        );
+        appState = appState.copyWith(authState: startingAuthState);
       });
     } on AmplifyException catch (e) {
       setState(() {
         _error = e.message;
-        appState = appState.copyWith(
-          authState: AuthState.error,
-        );
+        appState = appState.copyWith(authState: AuthState.error);
       });
     }
   }
@@ -117,9 +107,7 @@ class AppComponent extends StatefulComponent {
       switch (res.nextStep.signInStep) {
         case AuthSignInStep.confirmSignInWithSmsMfaCode:
           setState(() {
-            appState = appState.copyWith(
-              authState: AuthState.confirmSignin,
-            );
+            appState = appState.copyWith(authState: AuthState.confirmSignin);
           });
           return;
         case AuthSignInStep.confirmSignInWithNewPassword:
@@ -133,20 +121,14 @@ class AppComponent extends StatefulComponent {
           break;
       }
     }
-    setState(
-      (() {
-        appState = appState.copyWith(
-          authState: AuthState.authenticated,
-        );
-      }),
-    );
+    setState((() {
+      appState = appState.copyWith(authState: AuthState.authenticated);
+    }));
   }
 
   Future<void> _fetchUnAuthCredentials() async {
     final session = await fetchAuthSession();
-    safePrint(
-      'sessionToken : ${session.credentialsResult.value.sessionToken}',
-    );
+    safePrint('sessionToken : ${session.credentialsResult.value.sessionToken}');
   }
 
   @override
@@ -162,39 +144,31 @@ class AppComponent extends StatefulComponent {
             case AuthState.authenticated:
               return UserComponent(
                 navigateTo: (AuthState screen) {
-                  setState(
-                    (() {
-                      appState = appState.copyWith(
-                        authState: screen,
-                      );
-                    }),
-                  );
+                  setState((() {
+                    appState = appState.copyWith(authState: screen);
+                  }));
                 },
               );
             case AuthState.login:
               return ColumnComponent(
                 children: [
-                  LoginFormComponent(
-                    onSuccess: _processSignInResult,
-                  ),
+                  LoginFormComponent(onSuccess: _processSignInResult),
                   ButtonComponent(
                     innerHtml: 'Forgot Password?',
                     onClick: () {
-                      setState(
-                        (() {
-                          appState = appState.copyWith(
-                            authState: AuthState.forgotPassword,
-                          );
-                        }),
-                      );
+                      setState((() {
+                        appState = appState.copyWith(
+                          authState: AuthState.forgotPassword,
+                        );
+                      }));
                     },
                   ),
                   if (config.auth!.oauth != null)
                     ButtonComponent(
                       id: 'hostedUiLogin',
                       innerHtml: 'Login with Hosted UI',
-                      onClick: () =>
-                          hostedSignIn(provider: AuthProvider.cognito),
+                      onClick:
+                          () => hostedSignIn(provider: AuthProvider.cognito),
                     ),
                   ButtonComponent(
                     innerHtml: 'Fetch Guess Token',
@@ -207,25 +181,21 @@ class AppComponent extends StatefulComponent {
                 children: [
                   ForgotPasswordFormComponent(
                     onSuccess: () {
-                      setState(
-                        (() {
-                          appState = appState.copyWith(
-                            authState: AuthState.confirmNewPassword,
-                          );
-                        }),
-                      );
+                      setState((() {
+                        appState = appState.copyWith(
+                          authState: AuthState.confirmNewPassword,
+                        );
+                      }));
                     },
                   ),
                   ButtonComponent(
                     innerHtml: 'Back to Login',
                     onClick: () {
-                      setState(
-                        (() {
-                          appState = appState.copyWith(
-                            authState: AuthState.login,
-                          );
-                        }),
-                      );
+                      setState((() {
+                        appState = appState.copyWith(
+                          authState: AuthState.login,
+                        );
+                      }));
                     },
                   ),
                 ],
@@ -235,25 +205,21 @@ class AppComponent extends StatefulComponent {
                 children: [
                   ConfirmNewPasswordFormComponent(
                     onSuccess: () {
-                      setState(
-                        (() {
-                          appState = appState.copyWith(
-                            authState: AuthState.login,
-                          );
-                        }),
-                      );
+                      setState((() {
+                        appState = appState.copyWith(
+                          authState: AuthState.login,
+                        );
+                      }));
                     },
                   ),
                   ButtonComponent(
                     innerHtml: 'Back to Login',
                     onClick: () {
-                      setState(
-                        (() {
-                          appState = appState.copyWith(
-                            authState: AuthState.login,
-                          );
-                        }),
-                      );
+                      setState((() {
+                        appState = appState.copyWith(
+                          authState: AuthState.login,
+                        );
+                      }));
                     },
                   ),
                 ],
@@ -263,46 +229,32 @@ class AppComponent extends StatefulComponent {
             case AuthState.manageAttributes:
               return UserAttributeComponent(
                 onBack: () {
-                  setState(
-                    (() {
-                      appState = appState.copyWith(
-                        authState: AuthState.authenticated,
-                      );
-                    }),
-                  );
+                  setState((() {
+                    appState = appState.copyWith(
+                      authState: AuthState.authenticated,
+                    );
+                  }));
                 },
                 onConfirm: (appAuthState) {
-                  setState(
-                    (() {
-                      appState = appState.copyWith(
-                        authState: appAuthState,
-                      );
-                    }),
-                  );
+                  setState((() {
+                    appState = appState.copyWith(authState: appAuthState);
+                  }));
                 },
               );
             case AuthState.confirmPhone:
               return ConfirmPhoneComponent(
                 onNavigate: (appAuthState) {
-                  setState(
-                    (() {
-                      appState = appState.copyWith(
-                        authState: appAuthState,
-                      );
-                    }),
-                  );
+                  setState((() {
+                    appState = appState.copyWith(authState: appAuthState);
+                  }));
                 },
               );
             case AuthState.confirmEmail:
               return ConfirmEmailComponent(
                 onNavigate: (appAuthState) {
-                  setState(
-                    (() {
-                      appState = appState.copyWith(
-                        authState: appAuthState,
-                      );
-                    }),
-                  );
+                  setState((() {
+                    appState = appState.copyWith(authState: appAuthState);
+                  }));
                 },
               );
             case AuthState.changePassword:

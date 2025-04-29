@@ -20,18 +20,19 @@ abstract class CompletedMultipartUpload
   /// The container for the completed multipart upload details.
   factory CompletedMultipartUpload({List<CompletedPart>? parts}) {
     return _$CompletedMultipartUpload._(
-        parts: parts == null ? null : _i2.BuiltList(parts));
+      parts: parts == null ? null : _i2.BuiltList(parts),
+    );
   }
 
   /// The container for the completed multipart upload details.
-  factory CompletedMultipartUpload.build(
-          [void Function(CompletedMultipartUploadBuilder) updates]) =
-      _$CompletedMultipartUpload;
+  factory CompletedMultipartUpload.build([
+    void Function(CompletedMultipartUploadBuilder) updates,
+  ]) = _$CompletedMultipartUpload;
 
   const CompletedMultipartUpload._();
 
   static const List<_i3.SmithySerializer<CompletedMultipartUpload>>
-      serializers = [CompletedMultipartUploadRestXmlSerializer()];
+  serializers = [CompletedMultipartUploadRestXmlSerializer()];
 
   /// Array of CompletedPart data types.
   ///
@@ -43,10 +44,7 @@ abstract class CompletedMultipartUpload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CompletedMultipartUpload')
-      ..add(
-        'parts',
-        parts,
-      );
+      ..add('parts', parts);
     return helper.toString();
   }
 }
@@ -54,21 +52,18 @@ abstract class CompletedMultipartUpload
 class CompletedMultipartUploadRestXmlSerializer
     extends _i3.StructuredSmithySerializer<CompletedMultipartUpload> {
   const CompletedMultipartUploadRestXmlSerializer()
-      : super('CompletedMultipartUpload');
+    : super('CompletedMultipartUpload');
 
   @override
   Iterable<Type> get types => const [
-        CompletedMultipartUpload,
-        _$CompletedMultipartUpload,
-      ];
+    CompletedMultipartUpload,
+    _$CompletedMultipartUpload,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CompletedMultipartUpload deserialize(
@@ -87,10 +82,13 @@ class CompletedMultipartUploadRestXmlSerializer
       }
       switch (key) {
         case 'Part':
-          result.parts.add((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CompletedPart),
-          ) as CompletedPart));
+          result.parts.add(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CompletedPart),
+                )
+                as CompletedPart),
+          );
       }
     }
 
@@ -107,19 +105,19 @@ class CompletedMultipartUploadRestXmlSerializer
       const _i3.XmlElementName(
         'CompletedMultipartUpload',
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final CompletedMultipartUpload(:parts) = object;
     if (parts != null) {
       result$.addAll(
-          const _i3.XmlBuiltListSerializer(memberName: 'Part').serialize(
-        serializers,
-        parts,
-        specifiedType: const FullType(
-          _i2.BuiltList,
-          [FullType(CompletedPart)],
+        const _i3.XmlBuiltListSerializer(memberName: 'Part').serialize(
+          serializers,
+          parts,
+          specifiedType: const FullType(_i2.BuiltList, [
+            FullType(CompletedPart),
+          ]),
         ),
-      ));
+      );
     }
     return result$;
   }

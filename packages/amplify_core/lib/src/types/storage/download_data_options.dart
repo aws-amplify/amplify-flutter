@@ -12,10 +12,7 @@ class StorageDownloadDataOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.download_data_options}
-  const StorageDownloadDataOptions({
-    this.pluginOptions,
-    this.bucket,
-  });
+  const StorageDownloadDataOptions({this.pluginOptions, this.bucket});
 
   /// {@macro amplify_core.storage.download_data_plugin_options}
   final StorageDownloadDataPluginOptions? pluginOptions;
@@ -31,9 +28,9 @@ class StorageDownloadDataOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-        'bucket': bucket?.toJson(),
-      };
+    'pluginOptions': pluginOptions?.toJson(),
+    'bucket': bucket?.toJson(),
+  };
 }
 
 /// {@template amplify_core.storage.download_data_plugin_options}
