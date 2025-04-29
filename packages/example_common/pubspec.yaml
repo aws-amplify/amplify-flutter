@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   meta: ^1.16.0
+  web: ^1.1.1
 
 dev_dependencies:
   amplify_lints: ">=2.0.2 <2.1.0"

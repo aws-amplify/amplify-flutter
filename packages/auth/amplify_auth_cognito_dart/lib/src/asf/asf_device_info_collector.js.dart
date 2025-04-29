@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// TODO(dnys1): Migrate to `js_interop`.
 library;
 
 import 'dart:convert';
+import 'dart:js_interop';
 
 import 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.dart';
 import 'package:amplify_auth_cognito_dart/src/asf/package_info.dart';
@@ -12,8 +12,6 @@ import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 // ignore: implementation_imports
 import 'package:aws_common/src/js/common.dart';
-//ignore: deprecated_member_use
-import 'package:js/js.dart';
 import 'package:path/path.dart';
 
 /// {@template amplify_auth_cognito_dart.asf.asf_device_info_js}
