@@ -9,6 +9,7 @@ import 'dart:typed_data';
 
 import 'package:aws_common/src/js/readable_stream.dart';
 import 'package:test/test.dart';
+import 'package:web/web.dart';
 
 void main() {
   ReadableStream createReadableStream() {

@@ -2,14 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:js_interop';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_common/src/js/abort.dart';
 import 'package:aws_common/src/js/fetch.dart';
+import 'package:aws_common/src/js/readable_stream.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
+import 'package:web/web.dart';
 
 /// {@macro aws_common.http.http_client_impl}
 class AWSHttpClientImpl extends AWSHttpClient {
@@ -46,12 +48,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
     final RequestRedirect redirect;
     if (request.followRedirects) {
       if (request.maxRedirects == 0) {
-        redirect = RequestRedirect.error;
+        redirect = RequestRedirectValues.error.jsValue!;
       } else {
-        redirect = RequestRedirect.follow;
+        redirect = RequestRedirectValues.follow.jsValue!;
       }
     } else {
-      redirect = RequestRedirect.manual;
+      redirect = RequestRedirectValues.manual.jsValue!;
     }
     try {
       // ReadableStream bodies are only supported in fetch on HTTPS calls to
@@ -73,21 +75,32 @@ class AWSHttpClientImpl extends AWSHttpClient {
             },
           )
           .takeUntil(cancelTrigger.future);
-      final body = Uint8List.fromList(await collectBytes(stream));
+      JSAny body;
+
+      if (request.scheme == 'http' ||
+          supportedProtocols.supports(AlpnProtocol.http1_1)) {
+        body = Uint8List.fromList(await collectBytes(stream)).toJS;
+      } else {
+        body = stream.asReadableStream();
+      }
 
       if (completer.isCanceled) return;
-      final resp = await fetch(
-        request.uri.toString(),
-        RequestInit(
-          method: request.method,
-          headers: request.headers,
-          body: body,
-          signal: abortController.signal,
-          redirect: redirect,
-        ),
-      );
 
-      final streamView = resp.body;
+      final resp =
+          await window
+              .fetch(
+                request.uri.toString().toJS,
+                RequestInit(
+                  method: request.method.name,
+                  headers: request.headers.jsify() as HeadersInit,
+                  body: body,
+                  signal: abortController.signal,
+                  redirect: redirect,
+                ),
+              )
+              .toDart;
+
+      final streamView = resp.body!;
       final bodyController = StreamController<List<int>>(
         sync: true,
         // In downstream operations, we may only have access to the body stream
@@ -107,16 +120,19 @@ class AWSHttpClientImpl extends AWSHttpClient {
         }
         responseProgressController.close();
       };
+
       unawaited(
         streamView.progress.forward(
           responseProgressController,
           cancelOnError: true,
         ),
       );
-      unawaited(streamView.forward(bodyController, cancelOnError: true));
+      unawaited(
+        streamView.stream.forward(bodyController, cancelOnError: true),
+      );
       final streamedResponse = AWSStreamedHttpResponse(
         statusCode: resp.status,
-        headers: resp.headers,
+        headers: resp.headers.dartify() as Map<String, String>,
         body: bodyController.stream.tap(
           null,
           onDone: () {
