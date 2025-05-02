@@ -2,11 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:js_interop';
 
 // ignore: implementation_imports
 import 'package:aws_common/src/js/common.dart';
 import 'package:built_value/serializer.dart';
-import 'package:collection/collection.dart';
+import 'package:web/web.dart';
 import 'package:worker_bee/src/js/message_port_channel.dart';
 import 'package:worker_bee/src/preamble.dart';
 import 'package:worker_bee/src/serializers/serializers.dart';
@@ -31,33 +32,36 @@ Future<WorkerAssignment> getWorkerAssignment() async {
 
   return runTraced(() async {
     final assignmentCompleter = Completer<WorkerAssignment>.sync();
-    late void Function(Event) eventListener;
-    self.addEventListener(
-      'message',
-      eventListener = Zone.current.bindUnaryCallback<void, Event>((
-        Event event,
-      ) {
-        event as MessageEvent;
-        final message = event.data;
-        final messagePort = event.ports.firstOrNull;
-        if (message is String && messagePort is MessagePort) {
-          self.removeEventListener('message', eventListener);
-          assignmentCompleter.complete(
-            WorkerAssignment(
-              message,
-              MessagePortChannel<LogEntry>(messagePort),
-            ),
-          );
-        } else {
-          assignmentCompleter.completeError(
-            StateError(
-              'Invalid worker assignment: '
-              '${workerBeeSerializers.serialize(message)}',
-            ),
-          );
-        }
-      }),
-    );
+    late final Function onMessageCallback;
+
+    void onMessage(Event event) {
+      event as MessageEvent;
+      final jsMessage = event.data;
+      String? message;
+      if (jsMessage.isA<JSString>()) {
+        jsMessage as JSString;
+        message = jsMessage.toDart;
+      }
+
+      final messagePort = event.ports.toDart.firstOrNull;
+      if (message is String && messagePort is MessagePort) {
+        self.removeEventListener('message', onMessageCallback.toJS);
+        assignmentCompleter.complete(
+          WorkerAssignment(message, MessagePortChannel<LogEntry>(messagePort)),
+        );
+      } else {
+        assignmentCompleter.completeError(
+          StateError(
+            'Invalid worker assignment: '
+            '${workerBeeSerializers.serialize(message)}',
+          ),
+        );
+      }
+    }
+
+    onMessageCallback = Zone.current.bindUnaryCallback<void, Event>(onMessage);
+
+    self.addEventListener('message', onMessageCallback.toJS);
     return assignmentCompleter.future;
   }, onError: onError);
 }
