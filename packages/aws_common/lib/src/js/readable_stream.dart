@@ -52,11 +52,7 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
     /// stream source. If this process is asynchronous, it can return a promise
     /// to signal success or failure. The reason parameter contains a
     /// `DOMString` describing why the stream was cancelled.
-    FutureOr<void> Function([
-      String? reason,
-      ReadableStreamController? controller,
-    ])?
-    cancel,
+    FutureOr<void> Function()? cancel,
 
     /// This property controls what type of readable stream is being dealt with.
     ReadableStreamType type = ReadableStreamType.default$,
@@ -86,22 +82,11 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
               return pull(controller).toJS;
             }
             : pull;
-    final cancelFn =
-        cancel == null
-            ? undefined
-            : cancel
-                is Future<void> Function([
-                  String? reason,
-                  ReadableStreamController? controller,
-                ])
-            ? ([String? reason, ReadableStreamController? controller]) {
-              return cancel(reason, controller).toJS;
-            }
-            : cancel;
+
     return UnderlyingSource.__(
       start: startFn?.toExternalReference,
       pull: pullFn?.toExternalReference,
-      cancel: cancelFn?.toJS,
+      cancel: cancel?.toJS,
       type: type.jsValue?.toJS,
       autoAllocateChunkSize: autoAllocateChunkSize?.toJS ?? undefined,
     );
