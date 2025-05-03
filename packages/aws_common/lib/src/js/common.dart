@@ -68,5 +68,5 @@ extension type GlobalScope._(JSObject _) implements EventTarget, JSObject {
 @staticInterop
 abstract class JSON {
   /// Stringifies a JSON-like object.
-  external static String stringify(Object? object);
+  external static String stringify(JSAny? object);
 }

@@ -94,7 +94,7 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
                   String? reason,
                   ReadableStreamController? controller,
                 ])
-            ? (String? reason, ReadableStreamController? controller) {
+            ? ([String? reason, ReadableStreamController? controller]) {
               return cancel(reason, controller).toJS;
             }
             : cancel;
@@ -139,7 +139,7 @@ extension type ReadableStreamController._(JSObject _) implements JSObject {
   external void close();
 
   /// Enqueues a given chunk in the associated stream.
-  external void enqueue(Uint8List chunk);
+  external void enqueue(JSUint8Array chunk);
 }
 
 /// Used to expand [ReadableStream] and treat `ReadableStream.stream` as a
@@ -199,7 +199,7 @@ extension type ReadableStreamChunk._(JSObject _) implements JSObject {
   /// The chunk of data.
   ///
   /// Always `null` when [done] is `true`.
-  external Uint8List? get value;
+  external JSUint8Array? get value;
 
   /// Whether the stream is done producing values.
   external bool get done;
@@ -241,10 +241,11 @@ final class ReadableStreamView extends StreamView<List<int>> {
       var bytesRead = 0;
       while (true) {
         final chunk = await reader.read();
-        final value = chunk.value;
-        if (chunk.done || value == null) {
+        final jsValue = chunk.value;
+        if (chunk.done || jsValue == null) {
           break;
         }
+        final value = jsValue.toDart;
         bytesRead += value.length;
         sink.add(value);
         progressSink.add(bytesRead);
@@ -277,7 +278,7 @@ extension StreamToReadableStream on Stream<List<int>> {
           }
           try {
             final chunk = await queue.next;
-            controller.enqueue(Uint8List.fromList(chunk));
+            controller.enqueue(Uint8List.fromList(chunk).toJS);
           } on Object catch (e, st) {
             await queue.cancel();
             // Allow error to propagate before closing.
