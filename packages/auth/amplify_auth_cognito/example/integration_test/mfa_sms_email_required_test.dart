@@ -89,6 +89,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
+          enableMfa: true,
           attributes: {
             AuthUserAttributeKey.phoneNumber: phoneNumber,
             AuthUserAttributeKey.email: username,
