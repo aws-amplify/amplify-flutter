@@ -89,7 +89,6 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          enableMfa: true,
           attributes: {
             AuthUserAttributeKey.phoneNumber: phoneNumber,
             AuthUserAttributeKey.email: username,
@@ -100,10 +99,17 @@ void main() {
           username: username,
           password: password,
         );
+        // as of May 2025, cognito has stopped defaulting to sms mfa and now asks for mfa type selection in the normal flow
         check(
           signInRes.nextStep.signInStep,
-          because: 'MFA is required so Cognito automatically enables SMS MFA',
-        ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+          because: 'MFA is required so Cognito automatically enables SMS MFA', // change
+        ).equals(AuthSignInStep.continueSignInWithMfaSelection);
+
+        final selectMfaRes = await Amplify.Auth.confirmSignIn(
+          confirmationValue: 'SMS_MFA'
+        );
+        
+        check(selectMfaRes.nextStep.signInStep).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await mfaCode.code,
