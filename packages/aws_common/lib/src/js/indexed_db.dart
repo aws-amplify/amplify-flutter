@@ -18,16 +18,16 @@ extension PropsIDBVersionChangeEvent on IDBVersionChangeEvent {
   IDBOpenDBRequest get target => getProperty('target'.toJS);
 }
 
-
 /// {@macro amplify_secure_storage_dart.idb_request}
 extension PropsIDBRequest on IDBRequest {
   /// Returns a [Future] which completes with the [result] of this request.
   Future<JSAny?> get future {
     final completer = Completer<JSAny?>.sync();
 
-    void onSuccess(_) => completer.complete(result);
+    void onSuccess(Event _) => completer.complete(result);
 
-    void onError(_) => completer.completeError('Could not complete IDBRequest'.toJS);
+    void onError(Event _) =>
+        completer.completeError('Could not complete IDBRequest'.toJS);
 
     onsuccess = onSuccess.toJS;
     onerror = onError.toJS;
