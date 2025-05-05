@@ -26,13 +26,11 @@ extension PropsIDBRequest on IDBRequest {
     final completer = Completer<JSAny?>.sync();
 
     void onSuccess(_) => completer.complete(result);
-    final Function onSuccessCallback = onSuccess;
 
     void onError(_) => completer.completeError('Could not complete IDBRequest'.toJS);
-    final Function onErrorCallback = onError;
 
-    onsuccess = onSuccessCallback.toJS;
-    onerror = onErrorCallback.toJS;
+    onsuccess = onSuccess.toJS;
+    onerror = onError.toJS;
     return completer.future;
   }
 }

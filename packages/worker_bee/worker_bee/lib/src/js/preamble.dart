@@ -32,7 +32,7 @@ Future<WorkerAssignment> getWorkerAssignment() async {
 
   return runTraced(() async {
     final assignmentCompleter = Completer<WorkerAssignment>.sync();
-    late final Function onMessageCallback;
+    late final JSExportedDartFunction jsOnMessageCallback;
 
     void onMessage(Event event) {
       event as MessageEvent;
@@ -45,7 +45,7 @@ Future<WorkerAssignment> getWorkerAssignment() async {
 
       final messagePort = event.ports.toDart.firstOrNull;
       if (message is String && messagePort is MessagePort) {
-        self.removeEventListener('message', onMessageCallback.toJS);
+        self.removeEventListener('message', jsOnMessageCallback);
         assignmentCompleter.complete(
           WorkerAssignment(message, MessagePortChannel<LogEntry>(messagePort)),
         );
@@ -59,9 +59,10 @@ Future<WorkerAssignment> getWorkerAssignment() async {
       }
     }
 
-    onMessageCallback = Zone.current.bindUnaryCallback<void, Event>(onMessage);
+    final onMessageCallback = Zone.current.bindUnaryCallback<void, Event>(onMessage);
+    jsOnMessageCallback = onMessageCallback.toJS;
 
-    self.addEventListener('message', onMessageCallback.toJS);
+    self.addEventListener('message', jsOnMessageCallback);
     return assignmentCompleter.future;
   }, onError: onError);
 }

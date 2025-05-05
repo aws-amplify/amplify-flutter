@@ -105,10 +105,8 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
       }
     }
 
-    final Function onUpgradeNeededCallback = onUpgradeNeeded;
-
     final openRequest = indexedDB!.open(databaseName, 1)
-      ..onupgradeneeded = onUpgradeNeededCallback.toJS;
+      ..onupgradeneeded = onUpgradeNeeded.toJS;
 
     try {
       final result = await openRequest.future;
