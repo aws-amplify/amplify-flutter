@@ -107,7 +107,7 @@ void main() {
         ).equals(AuthSignInStep.continueSignInWithMfaSelection);
 
         final selectMfaRes = await Amplify.Auth.confirmSignIn(
-          confirmationValue: 'SMS_MFA',
+          confirmationValue: 'SMS',
         );
 
         check(
