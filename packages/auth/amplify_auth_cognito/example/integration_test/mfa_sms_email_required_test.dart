@@ -260,6 +260,13 @@ void main() {
         {
           await signOutUser(assertComplete: true);
 
+          await cognitoPlugin.updateMfaPreference(sms: MfaPreference.preferred);
+          check(await cognitoPlugin.fetchMfaPreference()).equals(
+            const UserMfaPreference(
+              enabled: {MfaType.sms, MfaType.email},
+              preferred: MfaType.sms,
+            ),
+          );
           final mfaCode = await getOtpCode(UserAttribute.phone(phoneNumber));
           final signInRes = await Amplify.Auth.signIn(
             username: username,
