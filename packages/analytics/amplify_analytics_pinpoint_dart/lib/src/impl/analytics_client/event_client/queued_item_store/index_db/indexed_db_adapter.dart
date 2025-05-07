@@ -51,10 +51,8 @@ class IndexedDbAdapter implements QueuedItemStore {
       }
     }
 
-    final Function onUpgradeNeededCallback = onUpgradeNeeded;
-
     final openRequest = db.open(databaseName, 1)
-      ..onupgradeneeded = onUpgradeNeededCallback.toJS;
+      ..onupgradeneeded = onUpgradeNeeded.toJS;
 
     final result = await openRequest.future;
     if (result.isA<IDBDatabase>()) {
