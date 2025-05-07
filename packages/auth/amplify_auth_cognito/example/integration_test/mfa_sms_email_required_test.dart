@@ -225,9 +225,19 @@ void main() {
           username: username,
           password: password,
         );
+
         check(
           signInRes.nextStep.signInStep,
-          because: 'MFA is required so Cognito automatically enables SMS MFA',
+          because:
+              'MFA is required so Cognito automatically enables SMS MFA', // change
+        ).equals(AuthSignInStep.continueSignInWithMfaSelection);
+
+        final selectMfaRes = await Amplify.Auth.confirmSignIn(
+          confirmationValue: 'SMS',
+        );
+
+        check(
+          selectMfaRes.nextStep.signInStep,
         ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
