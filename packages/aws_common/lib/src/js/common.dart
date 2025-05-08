@@ -56,11 +56,8 @@ extension type GlobalScope._(JSObject _) implements EventTarget, JSObject {
   ///
   /// When called on a [Window], this sends a message to the parent window
   /// object.
-  void postMessage(Object? o, [List<Object>? transfer]) => callMethod(
-    'postMessage'.toJS,
-    o.jsify(),
-    transfer?.map((item) => item.jsify()).toList().toJS,
-  );
+  void postMessage(JSAny? o, [JSArray<JSAny>? transfer]) =>
+      callMethod('postMessage'.toJS, o, transfer);
 }
 
 /// Browser-based JSON utilities.

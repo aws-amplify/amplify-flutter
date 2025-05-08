@@ -8,6 +8,7 @@ import 'dart:js_interop';
 import 'package:aws_common/src/js/common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:web/web.dart';
+import 'package:worker_bee/src/js/js_extensions.dart';
 import 'package:worker_bee/src/js/message_port_channel.dart';
 import 'package:worker_bee/src/preamble.dart';
 import 'package:worker_bee/src/serializers/serializers.dart';
@@ -26,7 +27,9 @@ Future<WorkerAssignment> getWorkerAssignment() async {
   // Errors in the preamble should be reported to the parent thread.
   void onError(Object e, StackTrace st) {
     self.postMessage(
-      workerBeeSerializers.serialize(e, specifiedType: FullType.unspecified),
+      workerBeeSerializers
+          .serialize(e, specifiedType: FullType.unspecified)
+          ?.toJSBoxOrCast,
     );
   }
 
@@ -34,32 +37,30 @@ Future<WorkerAssignment> getWorkerAssignment() async {
     final assignmentCompleter = Completer<WorkerAssignment>.sync();
     late final JSExportedDartFunction jsOnMessageCallback;
 
-    void onMessage(Event event) {
-      event as MessageEvent;
-      final jsMessage = event.data;
-      String? message;
-      if (jsMessage.isA<JSString>()) {
-        jsMessage as JSString;
-        message = jsMessage.toDart;
-      }
+    void onMessage(MessageEvent event) {
+      final eventData = event.data;
 
       final messagePort = event.ports.toDart.firstOrNull;
-      if (message is String && messagePort is MessagePort) {
+      if (eventData.isA<JSString>() && messagePort is MessagePort) {
+        eventData as JSString;
+        final state = eventData.toDart;
+
         self.removeEventListener('message', jsOnMessageCallback);
         assignmentCompleter.complete(
-          WorkerAssignment(message, MessagePortChannel<LogEntry>(messagePort)),
+          WorkerAssignment(state, MessagePortChannel<LogEntry>(messagePort)),
         );
       } else {
         assignmentCompleter.completeError(
           StateError(
             'Invalid worker assignment: '
-            '${workerBeeSerializers.serialize(message)}',
+            '${workerBeeSerializers.serialize(eventData)}',
           ),
         );
       }
     }
 
-    final onMessageCallback = Zone.current.bindUnaryCallback<void, Event>(onMessage);
+    final onMessageCallback = Zone.current
+        .bindUnaryCallback<void, MessageEvent>(onMessage);
     jsOnMessageCallback = onMessageCallback.toJS;
 
     self.addEventListener('message', jsOnMessageCallback);

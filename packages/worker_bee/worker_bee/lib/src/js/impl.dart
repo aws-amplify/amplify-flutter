@@ -11,6 +11,7 @@ import 'package:meta/meta.dart';
 import 'package:web/web.dart';
 import 'package:worker_bee/src/common.dart';
 import 'package:worker_bee/src/exception/worker_bee_exception.dart';
+import 'package:worker_bee/src/js/js_extensions.dart';
 import 'package:worker_bee/src/js/message_port_channel.dart';
 import 'package:worker_bee/src/preamble.dart';
 import 'package:worker_bee/worker_bee.dart';
@@ -90,7 +91,10 @@ mixin WorkerBeeImpl<Request extends Object, Response>
     if (isWebWorker) {
       final serialized = _serialize(error);
       error = serialized.value!;
-      self.postMessage(serialized.value, serialized.transfer);
+      self.postMessage(
+        serialized.value?.toJSBoxOrCast,
+        serialized.transfer.toJSBoxOrCast,
+      );
     }
     super.completeError(error, stackTrace);
   }
@@ -118,20 +122,26 @@ mixin WorkerBeeImpl<Request extends Object, Response>
         Zone.current.bindUnaryCallback((message) {
           logger.verbose('Sending message: $message');
           final serialized = _serialize(message);
-          self.postMessage(serialized.value, serialized.transfer);
+          self.postMessage(
+            serialized.value?.toJSBoxOrCast,
+            serialized.transfer.toJSBoxOrCast,
+          );
         }),
       );
       logger.verbose('Ready');
-      self.postMessage('ready');
+      self.postMessage('ready'.toJS);
       final result = await run(
         channel.local.stream.asBroadcastStream().cast(),
         channel.local.sink.cast(),
       );
       logger.verbose('Finished');
-      self.postMessage('done');
+      self.postMessage('done'.toJS);
 
       final serializedResult = _serialize(result);
-      self.postMessage(serializedResult.value, serializedResult.transfer);
+      self.postMessage(
+        serializedResult.value?.toJSBoxOrCast,
+        serializedResult.transfer.toJSBoxOrCast,
+      );
 
       // Allow streams to flush, then close underlying resources.
       await close();
@@ -219,35 +229,33 @@ mixin WorkerBeeImpl<Request extends Object, Response>
             Zone.current.bindUnaryCallback((message) {
               logger.verbose('Sending message: $message');
               final serialized = _serialize(message);
+
               _worker!.postMessage(
-                serialized.value?.toJSBox,
-                serialized.transfer.map((item) => item.toJSBox).toList().toJS,
+                serialized.value?.toJSBoxOrCast,
+                serialized.transfer.toJSBoxOrCast,
               );
             }),
           );
 
           void onMessage(MessageEvent event) {
-            final jsEventData = event.data;
-            String? eventData;
-            if (jsEventData?.isA<JSString>() ?? false) {
-              jsEventData as JSString;
-              eventData = jsEventData.toDart;
-            }
+            final eventData = event.data;
 
-            if (eventData is String) {
-              if (eventData == 'ready') {
+            if (eventData.isA<JSString>()) {
+              eventData as JSString;
+              final state = eventData.toDart;
+              
+              if (state == 'ready') {
                 logger.verbose('Received ready event');
                 ready.complete();
                 return;
               }
-              if (eventData == 'done') {
+              if (state == 'done') {
                 logger.verbose('Received done event');
                 done = true;
                 return;
               }
             }
-            final serialized = event.data;
-            final message = _deserialize(serialized);
+            final message = _deserialize(eventData);
             logger.verbose('Got message: $message');
             if (message is WorkerBeeException) {
               if (ready.isCompleted) {
@@ -283,7 +291,8 @@ mixin WorkerBeeImpl<Request extends Object, Response>
               logsController.add(message);
             }),
           );
-          _worker!.postMessage(name.toJS, jsLogsChannel.port2);
+
+          _worker!.postMessage(name.toJS, [jsLogsChannel.port2].toJS);
 
           await Future.any<void>([ready.future, errorBeforeReady.future]);
 
