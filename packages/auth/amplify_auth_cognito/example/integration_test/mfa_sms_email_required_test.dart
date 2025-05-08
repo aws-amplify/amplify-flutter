@@ -254,14 +254,15 @@ void main() {
             preferred: MfaType.sms,
           ),
         );
+        await signOutUser(assertComplete: true);
 
         // Verify we can set SMS as preferred and forego selection.
 
         {
-          //await signOutUser(assertComplete: true);
+          
           check(await cognitoPlugin.fetchMfaPreference()).equals(
             const UserMfaPreference(
-              enabled: {MfaType.sms, MfaType.email},
+              enabled: {MfaType.sms},
               preferred: MfaType.sms,
             ),
           );
