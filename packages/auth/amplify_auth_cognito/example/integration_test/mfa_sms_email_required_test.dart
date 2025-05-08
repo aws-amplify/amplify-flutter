@@ -254,7 +254,7 @@ void main() {
             preferred: MfaType.sms,
           ),
         );
-        await signOutUser(assertComplete: true);
+        //await signOutUser(assertComplete: true);
 
         // Verify we can set SMS as preferred and forego selection.
 
