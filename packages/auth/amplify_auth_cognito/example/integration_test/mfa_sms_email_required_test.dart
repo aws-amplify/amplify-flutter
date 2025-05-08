@@ -275,6 +275,7 @@ void main() {
             ),
           );
           final mfaCode = await getOtpCode(UserAttribute.phone(phoneNumber));
+          await signOutUser();
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
