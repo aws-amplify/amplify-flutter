@@ -100,7 +100,6 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
       if (!(objectStoreNames?.contains(storeName) ?? false)) {
         database?.createObjectStore(
           storeName,
-          IDBObjectStoreParameters(keyPath: 'id'.toJS, autoIncrement: true),
         );
       }
     }
