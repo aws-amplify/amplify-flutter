@@ -23,7 +23,7 @@ void main() {
       final path = 'public/upload-file-from-html-file-$fileId';
       const content = 'upload data';
       final data = content.codeUnits;
-      final file = await createHtmlFile(path: fileId, content: content);
+      final file = await createHtmlFile(path: path, content: content);
       addTearDownPath(StoragePath.fromString(path));
       final result =
           await Amplify.Storage.uploadFile(
