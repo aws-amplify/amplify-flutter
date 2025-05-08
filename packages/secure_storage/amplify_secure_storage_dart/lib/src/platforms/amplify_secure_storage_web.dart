@@ -98,9 +98,7 @@ class _IndexedDBStorage extends AmplifySecureStorageInterface {
       final database = event.target?.getProperty<IDBDatabase>('result'.toJS);
       final objectStoreNames = database?.objectStoreNames;
       if (!(objectStoreNames?.contains(storeName) ?? false)) {
-        database?.createObjectStore(
-          storeName,
-        );
+        database?.createObjectStore(storeName);
       }
     }
 

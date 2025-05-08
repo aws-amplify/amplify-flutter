@@ -243,7 +243,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
             if (eventData.isA<JSString>()) {
               eventData as JSString;
               final state = eventData.toDart;
-              
+
               if (state == 'ready') {
                 logger.verbose('Received ready event');
                 ready.complete();

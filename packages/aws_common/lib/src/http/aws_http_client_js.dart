@@ -127,9 +127,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
           cancelOnError: true,
         ),
       );
-      unawaited(
-        streamView.stream.forward(bodyController, cancelOnError: true),
-      );
+      unawaited(streamView.stream.forward(bodyController, cancelOnError: true));
       final streamedResponse = AWSStreamedHttpResponse(
         statusCode: resp.status,
         headers: resp.headers.dartify() as Map<String, String>,
