@@ -280,11 +280,16 @@ void main() {
             username: username,
             password: password,
           );
+
+            // as of May 2025, cognito has stopped defaulting to sms mfa and now asks for mfa type selection in the normal flow
+          final selectMfaRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: 'SMS',
+          );
           check(
-            signInRes.nextStep.signInStep,
-            because: 'Preference is SMS MFA now',
+            selectMfaRes.nextStep.signInStep,
           ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
-          check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
+
+          check(selectMfaRes.nextStep.codeDeliveryDetails).isNotNull()
             ..has(
               (d) => d.deliveryMedium,
               'deliveryMedium',
