@@ -74,7 +74,9 @@ class IndexedDbAdapter implements QueuedItemStore {
   @override
   Future<void> addItem(String string) async {
     await _databaseOpenEvent;
-    await _getObjectStore().add(string.toJS).future;
+    final item = JSObject()..setProperty('value'.toJS, string.toJS);
+
+    await _getObjectStore().add(item).future;
   }
 
   @override
