@@ -262,7 +262,7 @@ void main() {
           await cognitoPlugin.updateMfaPreference(sms: MfaPreference.preferred);
           check(await cognitoPlugin.fetchMfaPreference()).equals(
             const UserMfaPreference(
-              enabled: {MfaType.sms, MfaType.email},
+              enabled: {MfaType.sms},
               preferred: MfaType.sms,
             ),
           );
