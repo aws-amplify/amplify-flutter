@@ -20,7 +20,11 @@ extension type HttpClient._(JSObject it) {
     String requestUrl, {
     Map<String, String> headers = const {},
   }) async {
-    final jsHeaders = headers.jsify() as HeadersInit;
+    final jsHeaders = Headers();
+      for(final entry in request.headers.entries) {
+        requestHeaders.append(entry.key, entry.value);
+      }
+
     final response = await _getJson(requestUrl, jsHeaders).toDart;
     final result = response as TypedResponse<JSObject>;
     if (result.statusCode != 200) {

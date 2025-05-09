@@ -3,6 +3,7 @@
 
 import 'dart:async';
 import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
@@ -75,16 +76,24 @@ class AWSHttpClientImpl extends AWSHttpClient {
             },
           )
           .takeUntil(cancelTrigger.future);
-      JSAny body;
-
-      if (request.scheme == 'http' ||
-          supportedProtocols.supports(AlpnProtocol.http1_1)) {
-        body = Uint8List.fromList(await collectBytes(stream)).toJS;
-      } else {
-        body = stream.asReadableStream();
+      JSAny? body;
+      // `fetch` does not allow bodies for these methods.
+      if (request.method != AWSHttpMethod.get &&
+          request.method != AWSHttpMethod.head) {
+        if (request.scheme == 'http' ||
+            supportedProtocols.supports(AlpnProtocol.http1_1)) {
+          body = Uint8List.fromList(await collectBytes(stream)).toJS;
+        } else {
+          body = stream.asReadableStream();
+        }
       }
 
       if (completer.isCanceled) return;
+
+      final requestHeaders = Headers();
+      for(final entry in request.headers.entries) {
+        requestHeaders.append(entry.key, entry.value);
+      }
 
       final resp =
           await window
@@ -92,7 +101,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
                 request.uri.toString().toJS,
                 RequestInit(
                   method: request.method.name,
-                  headers: request.headers.jsify() as HeadersInit,
+                  headers: requestHeaders,
                   body: body,
                   signal: abortController.signal,
                   redirect: redirect,
@@ -128,9 +137,16 @@ class AWSHttpClientImpl extends AWSHttpClient {
         ),
       );
       unawaited(streamView.stream.forward(bodyController, cancelOnError: true));
+
+      final responseHeaders = <String, String>{};
+      void headerBuilder(JSString value, JSString key, JSAny object) {
+        responseHeaders[key.toDart] = value.toDart;
+      }
+      resp.headers.callMethod('forEach'.toJS, headerBuilder.toJS);
+
       final streamedResponse = AWSStreamedHttpResponse(
         statusCode: resp.status,
-        headers: resp.headers.dartify() as Map<String, String>,
+        headers: responseHeaders,
         body: bodyController.stream.tap(
           null,
           onDone: () {
