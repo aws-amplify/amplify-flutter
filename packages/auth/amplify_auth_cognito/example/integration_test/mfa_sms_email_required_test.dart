@@ -276,10 +276,7 @@ void main() {
           );
           final mfaCode = await getOtpCode(UserAttribute.phone(phoneNumber));
           await signOutUser();
-          await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
+          await Amplify.Auth.signIn(username: username, password: password);
 
           // as of May 2025, cognito has stopped defaulting to sms mfa and now asks for mfa type selection in the normal flow
           final selectMfaRes = await Amplify.Auth.confirmSignIn(
