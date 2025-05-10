@@ -91,7 +91,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       if (completer.isCanceled) return;
 
       final requestHeaders = Headers();
-      for(final entry in request.headers.entries) {
+      for (final entry in request.headers.entries) {
         requestHeaders.append(entry.key, entry.value);
       }
 
@@ -142,6 +142,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       void headerBuilder(JSString value, JSString key, JSAny object) {
         responseHeaders[key.toDart] = value.toDart;
       }
+
       resp.headers.callMethod('forEach'.toJS, headerBuilder.toJS);
 
       final streamedResponse = AWSStreamedHttpResponse(
