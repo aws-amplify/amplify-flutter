@@ -1,13 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-//ignore: deprecated_member_use
-import 'dart:html';
-
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:cognito_example/common.dart';
 import 'package:example_common/example_common.dart';
+import 'package:web/web.dart';
 
 import 'app_component.dart';
 

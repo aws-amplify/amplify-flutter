@@ -1,8 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-//ignore: deprecated_member_use
-import 'dart:html';
+import 'package:web/web.dart';
 
 final RegExp _edgeRegex = RegExp(r'Edg/[\d\.]+');
 final RegExp _operaRegex = RegExp(r'OPR/[\d\.]+');

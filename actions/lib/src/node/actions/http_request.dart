@@ -3,6 +3,8 @@
 
 import 'dart:js_interop';
 
+import 'package:web/web.dart';
+
 @JS()
 extension type HttpClient._(JSObject it) {
   external HttpClient([
@@ -18,7 +20,11 @@ extension type HttpClient._(JSObject it) {
     String requestUrl, {
     Map<String, String> headers = const {},
   }) async {
-    final jsHeaders = headers.jsify() as JSObject;
+    final jsHeaders = Headers();
+      for(final entry in headers.entries) {
+        jsHeaders.append(entry.key, entry.value);
+      }
+
     final response = await _getJson(requestUrl, jsHeaders).toDart;
     final result = response as TypedResponse<JSObject>;
     if (result.statusCode != 200) {

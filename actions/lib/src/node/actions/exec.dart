@@ -3,8 +3,6 @@
 
 import 'dart:convert';
 import 'dart:js_interop';
-//ignore: deprecated_member_use
-import 'dart:js_util';
 
 @JS()
 external Exec get exec;
@@ -46,9 +44,14 @@ extension type Exec._(JSObject it) {
       ignoreReturnCode: !failOnNonZeroExit,
     );
     try {
-      final exitCode = await promiseToFuture<int>(
-        _exec(commandLine, args.map((arg) => arg.toJS).toList().toJS, options),
-      );
+      final jsExitCode =
+          await _exec(
+            commandLine,
+            args.map((arg) => arg.toJS).toList().toJS,
+            options,
+          ).toDart;
+          
+      final exitCode = (jsExitCode as JSNumber).toDartInt;
       return ExecResult(
         exitCode: exitCode,
         stdout: stdout.toString(),
