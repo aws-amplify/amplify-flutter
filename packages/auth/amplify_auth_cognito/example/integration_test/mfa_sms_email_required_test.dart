@@ -254,7 +254,6 @@ void main() {
             preferred: MfaType.sms,
           ),
         );
-        //await signOutUser(assertComplete: true);
 
         // Verify we can set SMS as preferred and forego selection.
 
@@ -268,15 +267,8 @@ void main() {
           );
           final mfaCode = await getOtpCode(UserAttribute.phone(phoneNumber));
           await signOutUser();
-          await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          ); // NOW: this is going to auth state that expects an otp code, but the test originally was working with this state as expecting an mfa code....
+          await Amplify.Auth.signIn(username: username, password: password);
 
-          // as of May 2025, cognito has stopped defaulting to sms mfa and now asks for mfa type selection in the normal flow
-          //final selectMfaRes = await Amplify.Auth.confirmSignIn(
-          //  confirmationValue: 'SMS',
-          //);
           check(
             selectMfaRes.nextStep.signInStep,
           ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
