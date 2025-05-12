@@ -274,9 +274,9 @@ void main() {
           ); // NOW: this is going to auth state that expects an otp code, but the test originally was working with this state as expecting an mfa code....
 
           // as of May 2025, cognito has stopped defaulting to sms mfa and now asks for mfa type selection in the normal flow
-          final selectMfaRes = await Amplify.Auth.confirmSignIn(
-            confirmationValue: 'SMS',
-          );
+          //final selectMfaRes = await Amplify.Auth.confirmSignIn(
+          //  confirmationValue: 'SMS',
+          //);
           check(
             selectMfaRes.nextStep.signInStep,
           ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
