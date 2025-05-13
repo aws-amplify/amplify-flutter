@@ -228,8 +228,7 @@ void main() {
 
         check(
           signInRes.nextStep.signInStep,
-          because:
-              'MFA is required so Cognito automatically enables SMS MFA', // change
+          because: 'MFA is required so Cognito prompts MFA type selection',
         ).equals(AuthSignInStep.continueSignInWithMfaSelection);
 
         final selectMfaRes = await Amplify.Auth.confirmSignIn(
@@ -247,7 +246,8 @@ void main() {
 
         check(
           await cognitoPlugin.fetchMfaPreference(),
-          because: 'MFA is required so Cognito automatically enables SMS MFA',
+          because:
+              'SMS MFA has been selected so Cognito fetches SMS as preferred',
         ).equals(
           const UserMfaPreference(
             enabled: {MfaType.sms},
