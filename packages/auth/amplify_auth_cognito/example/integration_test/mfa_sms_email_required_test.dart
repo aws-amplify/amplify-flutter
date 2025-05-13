@@ -62,6 +62,7 @@ void main() {
           username: username,
           password: password,
         );
+
         check(
           resignInRes.nextStep.signInStep,
         ).equals(AuthSignInStep.confirmSignInWithOtpCode);
@@ -99,11 +100,10 @@ void main() {
           username: username,
           password: password,
         );
-        
+
         check(
           signInRes.nextStep.signInStep,
-          because:
-              'MFA is required so Cognito will ask for MFA type',
+          because: 'MFA is required so Cognito will ask for MFA type',
         ).equals(AuthSignInStep.continueSignInWithMfaSelection);
 
         final selectMfaRes = await Amplify.Auth.confirmSignIn(
