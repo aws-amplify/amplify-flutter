@@ -100,7 +100,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
               .fetch(
                 request.uri.toString().toJS,
                 RequestInit(
-                  method: request.method.name,
+                  method: request.method.value,
                   headers: requestHeaders,
                   body: body,
                   signal: abortController.signal,
