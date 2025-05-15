@@ -2,11 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-//ignore: deprecated_member_use
-import 'dart:html';
+import 'dart:js_interop';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:http/browser_client.dart';
+import 'package:http/http.dart' as http;
+import 'package:web/web.dart';
 
 // Dart io.File openRead chunk size
 const _readStreamChunkSize = 64 * 1024;
@@ -174,9 +176,9 @@ class AWSFilePlatform extends AWSFile {
       throw const InvalidFileException();
     }
 
-    late HttpRequest request;
+    late http.Response response;
     try {
-      request = await HttpRequest.request(path, responseType: 'blob');
+      response = await BrowserClient().get(Uri.parse(path));
     } on ProgressEvent catch (e) {
       if (e.type == 'error') {
         throw const InvalidFileException(
@@ -188,15 +190,8 @@ class AWSFilePlatform extends AWSFile {
       rethrow;
     }
 
-    final retrievedBlob = request.response as Blob?;
-
-    if (retrievedBlob == null) {
-      throw const InvalidFileException(
-        message: 'The retrieved blob cannot be null.',
-        recoverySuggestion:
-            'Ensure the file `path` in Web is a valid source to retrieve content blob.',
-      );
-    }
+    final blobParts = response.bodyBytes.map((item) => item.toJS).toList().toJS;
+    final retrievedBlob = Blob(blobParts);
 
     _size = retrievedBlob.size;
 
@@ -221,9 +216,22 @@ class AWSFilePlatform extends AWSFile {
               ? blob.size
               : currentPosition + _readStreamChunkSize;
       final blobToRead = blob.slice(currentPosition, readRange);
-      fileReader.readAsArrayBuffer(blobToRead);
-      await fileReader.onLoad.first;
-      yield fileReader.result as List<int>;
+
+      final loaded = Completer<void>();
+      void onLoadEnd() {
+        loaded.complete();
+      }
+
+      fileReader
+        ..onloadend = onLoadEnd.toJS
+        ..readAsArrayBuffer(blobToRead);
+
+      await loaded.future;
+      final jsResult = fileReader.result;
+      jsResult as JSArray<JSNumber>;
+
+      final result = jsResult.toDart.map((item) => item.toDartInt).toList();
+      yield result;
       currentPosition += _readStreamChunkSize;
     }
   }
