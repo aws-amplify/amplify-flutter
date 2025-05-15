@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v1.json_protocol.operation.kitchen_sink_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,8 +15,9 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-class KitchenSinkOperation extends _i1
-    .HttpOperation<KitchenSink, KitchenSink, KitchenSink, KitchenSink> {
+class KitchenSinkOperation
+    extends
+        _i1.HttpOperation<KitchenSink, KitchenSink, KitchenSink, KitchenSink> {
   KitchenSinkOperation({
     required String region,
     Uri? baseUri,
@@ -24,20 +25,22 @@ class KitchenSinkOperation extends _i1
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-          _i1.HttpProtocol<KitchenSink, KitchenSink, KitchenSink, KitchenSink>>
-      protocols = [
+    _i1.HttpProtocol<KitchenSink, KitchenSink, KitchenSink, KitchenSink>
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithHeader(
@@ -49,14 +52,14 @@ class KitchenSinkOperation extends _i1
               service: _i4.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i3.WithSdkInvocationId(),
             const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -76,9 +79,9 @@ class KitchenSinkOperation extends _i1
 
   @override
   _i1.HttpRequest buildRequest(KitchenSink input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/';
-      });
+    b.method = 'POST';
+    b.path = r'/';
+  });
 
   @override
   int successCode([KitchenSink? output]) => 200;
@@ -87,33 +90,29 @@ class KitchenSinkOperation extends _i1
   KitchenSink buildOutput(
     KitchenSink payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      KitchenSink.fromResponse(
-        payload,
-        response,
-      );
+  ) => KitchenSink.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<ErrorWithMembers, ErrorWithMembers>(
-          _i1.ShapeId(
-            namespace: 'aws.protocoltests.json',
-            shape: 'ErrorWithMembers',
-          ),
-          _i1.ErrorKind.client,
-          ErrorWithMembers,
-          builder: ErrorWithMembers.fromResponse,
-        ),
-        _i1.SmithyError<ErrorWithoutMembers, ErrorWithoutMembers>(
-          _i1.ShapeId(
-            namespace: 'aws.protocoltests.json',
-            shape: 'ErrorWithoutMembers',
-          ),
-          _i1.ErrorKind.server,
-          ErrorWithoutMembers,
-          builder: ErrorWithoutMembers.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<ErrorWithMembers, ErrorWithMembers>(
+      _i1.ShapeId(
+        namespace: 'aws.protocoltests.json',
+        shape: 'ErrorWithMembers',
+      ),
+      _i1.ErrorKind.client,
+      ErrorWithMembers,
+      builder: ErrorWithMembers.fromResponse,
+    ),
+    _i1.SmithyError<ErrorWithoutMembers, ErrorWithoutMembers>(
+      _i1.ShapeId(
+        namespace: 'aws.protocoltests.json',
+        shape: 'ErrorWithoutMembers',
+      ),
+      _i1.ErrorKind.server,
+      ErrorWithoutMembers,
+      builder: ErrorWithoutMembers.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'KitchenSinkOperation';
@@ -134,11 +133,7 @@ class KitchenSinkOperation extends _i1
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

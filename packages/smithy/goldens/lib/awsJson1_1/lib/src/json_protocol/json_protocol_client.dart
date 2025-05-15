@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v1.json_protocol.json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,12 @@ class JsonProtocolClient {
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -75,10 +75,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i3.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i3.Unit(), client: client ?? _client);
   }
 
   _i3.SmithyOperation<void> emptyOperation({
@@ -91,10 +88,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i3.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i3.Unit(), client: client ?? _client);
   }
 
   _i3.SmithyOperation<void> endpointOperation({
@@ -107,10 +101,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i3.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i3.Unit(), client: client ?? _client);
   }
 
   _i3.SmithyOperation<void> endpointWithHostLabelOperation(
@@ -124,10 +115,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i3.SmithyOperation<FractionalSecondsOutput> fractionalSeconds({
@@ -140,10 +128,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i3.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i3.Unit(), client: client ?? _client);
   }
 
   /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A ComplexError error. Implementations must be able to successfully take a response and properly deserialize successful and error responses.
@@ -157,10 +142,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i3.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i3.Unit(), client: client ?? _client);
   }
 
   _i3.SmithyOperation<void> hostWithPathOperation({
@@ -173,10 +155,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i3.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i3.Unit(), client: client ?? _client);
   }
 
   /// This example serializes enums as top level properties, in lists, sets, and maps.
@@ -191,10 +170,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example serializes intEnums as top level properties, in lists, sets, and maps.
@@ -209,10 +185,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This operation uses unions for inputs and outputs.
@@ -227,10 +200,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i3.SmithyOperation<KitchenSink> kitchenSinkOperation(
@@ -244,10 +214,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i3.SmithyOperation<NullOperationInputOutput> nullOperation(
@@ -261,14 +228,11 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i3.SmithyOperation<OperationWithOptionalInputOutputOutput>
-      operationWithOptionalInputOutput(
+  operationWithOptionalInputOutput(
     OperationWithOptionalInputOutputInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -279,15 +243,12 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example serializes an inline document as part of the payload.
   _i3.SmithyOperation<PutAndGetInlineDocumentsInputOutput>
-      putAndGetInlineDocuments(
+  putAndGetInlineDocuments(
     PutAndGetInlineDocumentsInputOutput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -298,10 +259,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i3.SmithyOperation<void> putWithContentEncoding(
@@ -315,10 +273,7 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i3.SmithyOperation<SimpleScalarPropertiesInputOutput> simpleScalarProperties(
@@ -332,9 +287,6 @@ class JsonProtocolClient {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 }

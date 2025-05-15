@@ -16,13 +16,7 @@ void main() {
       expect(pattern, equals(pattern));
       expect(uri.segments.length, equals(3));
       expect(uri.queryLiterals.length, equals(2));
-      expect(
-        uri.queryLiterals,
-        equals({
-          'bam': 'boo',
-          'heck': '',
-        }),
-      );
+      expect(uri.queryLiterals, equals({'bam': 'boo', 'heck': ''}));
       expect(uri.labels, contains(segment));
       expect(uri.getLabel('bar'), equals(segment));
     });

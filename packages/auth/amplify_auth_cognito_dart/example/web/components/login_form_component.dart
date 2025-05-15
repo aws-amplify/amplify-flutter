@@ -31,10 +31,7 @@ class LoginFormComponent extends StatefulComponent {
     }
 
     try {
-      final res = await signIn(
-        username: username,
-        password: password,
-      );
+      final res = await signIn(username: username, password: password);
       onSuccess(res);
     } on AmplifyException catch (e) {
       setState(() {

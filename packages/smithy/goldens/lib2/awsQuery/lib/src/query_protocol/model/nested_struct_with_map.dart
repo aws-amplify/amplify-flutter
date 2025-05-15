@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v2.query_protocol.model.nested_struct_with_map; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,18 @@ abstract class NestedStructWithMap
     implements Built<NestedStructWithMap, NestedStructWithMapBuilder> {
   factory NestedStructWithMap({Map<String, String>? mapArg}) {
     return _$NestedStructWithMap._(
-        mapArg: mapArg == null ? null : _i2.BuiltMap(mapArg));
+      mapArg: mapArg == null ? null : _i2.BuiltMap(mapArg),
+    );
   }
 
-  factory NestedStructWithMap.build(
-          [void Function(NestedStructWithMapBuilder) updates]) =
-      _$NestedStructWithMap;
+  factory NestedStructWithMap.build([
+    void Function(NestedStructWithMapBuilder) updates,
+  ]) = _$NestedStructWithMap;
 
   const NestedStructWithMap._();
 
   static const List<_i3.SmithySerializer<NestedStructWithMap>> serializers = [
-    NestedStructWithMapAwsQuerySerializer()
+    NestedStructWithMapAwsQuerySerializer(),
   ];
 
   _i2.BuiltMap<String, String>? get mapArg;
@@ -36,10 +37,7 @@ abstract class NestedStructWithMap
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedStructWithMap')
-      ..add(
-        'mapArg',
-        mapArg,
-      );
+      ..add('mapArg', mapArg);
     return helper.toString();
   }
 }
@@ -50,17 +48,14 @@ class NestedStructWithMapAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [
-        NestedStructWithMap,
-        _$NestedStructWithMap,
-      ];
+    NestedStructWithMap,
+    _$NestedStructWithMap,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   NestedStructWithMap deserialize(
@@ -87,19 +82,18 @@ class NestedStructWithMapAwsQuerySerializer
       }
       switch (key) {
         case 'MapArg':
-          result.mapArg.replace(const _i3.XmlBuiltMapSerializer(
-                  indexer: _i3.XmlIndexer.awsQueryMap)
-              .deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
+          result.mapArg.replace(
+            const _i3.XmlBuiltMapSerializer(
+              indexer: _i3.XmlIndexer.awsQueryMap,
+            ).deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i2.BuiltMap, [
                 FullType(String),
                 FullType(String),
-              ],
+              ]),
             ),
-          ));
+          );
       }
     }
 
@@ -116,25 +110,24 @@ class NestedStructWithMapAwsQuerySerializer
       const _i3.XmlElementName(
         'NestedStructWithMapResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final NestedStructWithMap(:mapArg) = object;
     if (mapArg != null) {
       result$
         ..add(const _i3.XmlElementName('MapArg'))
         ..add(
-            const _i3.XmlBuiltMapSerializer(indexer: _i3.XmlIndexer.awsQueryMap)
-                .serialize(
-          serializers,
-          mapArg,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+          const _i3.XmlBuiltMapSerializer(
+            indexer: _i3.XmlIndexer.awsQueryMap,
+          ).serialize(
+            serializers,
+            mapArg,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

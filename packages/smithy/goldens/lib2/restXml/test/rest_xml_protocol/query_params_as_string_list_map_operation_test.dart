@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.query_params_as_string_list_map_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -13,75 +13,59 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestXmlQueryParamsStringListMap (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: QueryParamsAsStringListMapOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestXmlQueryParamsStringListMap',
-          documentation: 'Serialize query params from map of list strings',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'qux': 'named',
-            'foo': {
-              'baz': [
-                'bar',
-                'qux',
-              ]
-            },
+  _i1.test('RestXmlQueryParamsStringListMap (request)', () async {
+    await _i2.httpRequestTest(
+      operation: QueryParamsAsStringListMapOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestXmlQueryParamsStringListMap',
+        documentation: 'Serialize query params from map of list strings',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {
+          'qux': 'named',
+          'foo': {
+            'baz': ['bar', 'qux'],
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          method: 'POST',
-          uri: '/StringListMap',
-          host: null,
-          resolvedHost: null,
-          queryParams: [
-            'corge=named',
-            'baz=bar',
-            'baz=qux',
-          ],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          QueryParamsAsStringListMapInputRestXmlSerializer()
-        ],
-      );
-    },
-  );
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        method: 'POST',
+        uri: '/StringListMap',
+        host: null,
+        resolvedHost: null,
+        queryParams: ['corge=named', 'baz=bar', 'baz=qux'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        QueryParamsAsStringListMapInputRestXmlSerializer(),
+      ],
+    );
+  });
 }
 
 class QueryParamsAsStringListMapInputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<QueryParamsAsStringListMapInput> {
   const QueryParamsAsStringListMapInputRestXmlSerializer()
-      : super('QueryParamsAsStringListMapInput');
+    : super('QueryParamsAsStringListMapInput');
 
   @override
   Iterable<Type> get types => const [QueryParamsAsStringListMapInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   QueryParamsAsStringListMapInput deserialize(
@@ -100,21 +84,23 @@ class QueryParamsAsStringListMapInputRestXmlSerializer
       }
       switch (key) {
         case 'qux':
-          result.qux = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.qux =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'foo':
-          result.foo.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltListMultimap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i4.BuiltListMultimap<String, String>));
+          result.foo.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltListMultimap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltListMultimap<String, String>),
+          );
       }
     }
 

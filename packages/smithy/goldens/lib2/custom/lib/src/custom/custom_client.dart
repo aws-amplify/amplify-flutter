@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.custom.custom_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,11 +28,11 @@ class CustomClient {
     Uri? baseUri,
     List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -53,10 +53,7 @@ class CustomClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> httpChecksumNotRequiredWithMember(
@@ -68,10 +65,7 @@ class CustomClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Tests the behavior of @httpChecksum combined with @httpChecksumRequired as described \[here\](https://awslabs.github.io/smithy/2.0/aws/aws-core.html#behavior-with-httpchecksumrequired).
@@ -84,10 +78,7 @@ class CustomClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Tests the behavior of @httpChecksum combined with @httpChecksumRequired as described \[here\](https://awslabs.github.io/smithy/2.0/aws/aws-core.html#behavior-with-httpchecksumrequired).
@@ -100,10 +91,7 @@ class CustomClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> httpChecksumRequired(
@@ -115,10 +103,7 @@ class CustomClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> httpChecksumRequiredWithMember(
@@ -130,10 +115,7 @@ class CustomClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> nestedCollections(
@@ -145,9 +127,6 @@ class CustomClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 }

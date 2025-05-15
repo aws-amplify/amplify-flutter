@@ -14,9 +14,7 @@ class StoragePathFromIdentityId implements StoragePath {
 
   @internal
   @override
-  String resolvePath({
-    String? identityId,
-  }) {
+  String resolvePath({String? identityId}) {
     // identityId has to be optional in order for this to be a valid override.
     // This API is internal, and is only invoked with non-null values
     assert(identityId != null, 'identityId must be defined.');

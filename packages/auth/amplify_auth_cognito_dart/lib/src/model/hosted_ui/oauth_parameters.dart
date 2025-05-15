@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library amplify_auth_cognito.hostedui.oauth_parameters;
+library;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
@@ -272,9 +272,6 @@ abstract class OAuthParameters
 }
 
 /// Serializers for OAuth flow parameters.
-@SerializersFor([
-  OAuthErrorCode,
-  OAuthParameters,
-])
+@SerializersFor([OAuthErrorCode, OAuthParameters])
 final Serializers oauthSerializers =
     (_$oauthSerializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

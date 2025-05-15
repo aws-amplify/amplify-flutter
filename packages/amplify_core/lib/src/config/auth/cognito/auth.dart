@@ -38,15 +38,15 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
 
   @override
   List<Object?> get props => [
-        oAuth,
-        socialProviders,
-        usernameAttributes,
-        signupAttributes,
-        passwordProtectionSettings,
-        mfaConfiguration,
-        mfaTypes,
-        verificationMechanisms,
-      ];
+    oAuth,
+    socialProviders,
+    usernameAttributes,
+    signupAttributes,
+    passwordProtectionSettings,
+    mfaConfiguration,
+    mfaTypes,
+    verificationMechanisms,
+  ];
 
   CognitoAuthConfig copyWith({
     CognitoOAuthConfig? oAuth,
@@ -60,15 +60,18 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
   }) {
     return CognitoAuthConfig(
       oAuth: oAuth ?? this.oAuth,
-      socialProviders: socialProviders ??
+      socialProviders:
+          socialProviders ??
           (this.socialProviders == null
               ? null
               : List.of(this.socialProviders!)),
-      usernameAttributes: usernameAttributes ??
+      usernameAttributes:
+          usernameAttributes ??
           (this.usernameAttributes == null
               ? null
               : List.of(this.usernameAttributes!)),
-      signupAttributes: signupAttributes ??
+      signupAttributes:
+          signupAttributes ??
           (this.signupAttributes == null
               ? null
               : List.of(this.signupAttributes!)),
@@ -77,7 +80,8 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
       mfaConfiguration: mfaConfiguration ?? this.mfaConfiguration,
       mfaTypes:
           mfaTypes ?? (this.mfaTypes == null ? null : List.of(this.mfaTypes!)),
-      verificationMechanisms: verificationMechanisms ??
+      verificationMechanisms:
+          verificationMechanisms ??
           (this.verificationMechanisms == null
               ? null
               : List.of(this.verificationMechanisms!)),

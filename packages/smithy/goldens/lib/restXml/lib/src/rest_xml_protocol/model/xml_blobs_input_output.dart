@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.rest_xml_protocol.model.xml_blobs_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class XmlBlobsInputOutput
     return _$XmlBlobsInputOutput._(data: data);
   }
 
-  factory XmlBlobsInputOutput.build(
-          [void Function(XmlBlobsInputOutputBuilder) updates]) =
-      _$XmlBlobsInputOutput;
+  factory XmlBlobsInputOutput.build([
+    void Function(XmlBlobsInputOutputBuilder) updates,
+  ]) = _$XmlBlobsInputOutput;
 
   const XmlBlobsInputOutput._();
 
@@ -31,18 +31,16 @@ abstract class XmlBlobsInputOutput
     XmlBlobsInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [XmlBlobsInputOutput] from a [payload] and [response].
   factory XmlBlobsInputOutput.fromResponse(
     XmlBlobsInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<XmlBlobsInputOutput>> serializers = [
-    XmlBlobsInputOutputRestXmlSerializer()
+    XmlBlobsInputOutputRestXmlSerializer(),
   ];
 
   _i3.Uint8List? get data;
@@ -55,10 +53,7 @@ abstract class XmlBlobsInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlBlobsInputOutput')
-      ..add(
-        'data',
-        data,
-      );
+      ..add('data', data);
     return helper.toString();
   }
 }
@@ -69,17 +64,14 @@ class XmlBlobsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        XmlBlobsInputOutput,
-        _$XmlBlobsInputOutput,
-      ];
+    XmlBlobsInputOutput,
+    _$XmlBlobsInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlBlobsInputOutput deserialize(
@@ -98,10 +90,12 @@ class XmlBlobsInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i3.Uint8List),
-          ) as _i3.Uint8List);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i3.Uint8List),
+                  )
+                  as _i3.Uint8List);
       }
     }
 
@@ -119,10 +113,12 @@ class XmlBlobsInputOutputRestXmlSerializer
     if (data != null) {
       result$
         ..add(const _i1.XmlElementName('data'))
-        ..add(serializers.serialize(
-          data,
-          specifiedType: const FullType(_i3.Uint8List),
-        ));
+        ..add(
+          serializers.serialize(
+            data,
+            specifiedType: const FullType(_i3.Uint8List),
+          ),
+        );
     }
     return result$;
   }

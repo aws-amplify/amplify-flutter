@@ -10,8 +10,12 @@ import 'package:actions/src/node/process_manager.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
-final androidAvdHome =
-    p.join(process.getEnv('HOME')!, '.config', '.android', 'avd');
+final androidAvdHome = p.join(
+  process.getEnv('HOME')!,
+  '.config',
+  '.android',
+  'avd',
+);
 
 final class AvdManager {
   AvdManager({
@@ -66,35 +70,38 @@ final class AvdManager {
   }
 
   Future<void> _createEmulator() => core.withGroup('Create emulator', () async {
-        final targetImage = 'system-images;android-$apiLevel;$target;$abi';
-        await _avdmanager(
-          ['--clear-cache', 'create', 'avd', '-n', name, '-k', targetImage],
-          stdinCmd: 'echo n',
-        );
-      });
+    final targetImage = 'system-images;android-$apiLevel;$target;$abi';
+    await _avdmanager([
+      '--clear-cache',
+      'create',
+      'avd',
+      '-n',
+      name,
+      '-k',
+      targetImage,
+    ], stdinCmd: 'echo n');
+  });
 
-  Future<Process> _startEmulator() => core.withGroup(
-        'Start emulator',
-        () async {
-          final startAvdArgs = <String>[
-            '-avd', name, // Name of the AVD
-            '-no-window',
-            '-noaudio',
-            '-no-boot-anim',
-            '-restart-when-stalled',
-            '-accel', 'on', // Fail if HW accel is unavailable
-            '-no-snapshot',
-            '-wipe-data',
-            '-verbose',
-          ];
-          final emulator = await processManager.start(
-            [_emulator.exe, ...startAvdArgs],
-            mode: ProcessStartMode.inheritStdio,
-          );
-          core.info('Emulator started with args: $startAvdArgs');
-          return emulator;
-        },
-      );
+  Future<Process> _startEmulator() =>
+      core.withGroup('Start emulator', () async {
+        final startAvdArgs = <String>[
+          '-avd', name, // Name of the AVD
+          '-no-window',
+          '-noaudio',
+          '-no-boot-anim',
+          '-restart-when-stalled',
+          '-accel', 'on', // Fail if HW accel is unavailable
+          '-no-snapshot',
+          '-wipe-data',
+          '-verbose',
+        ];
+        final emulator = await processManager.start([
+          _emulator.exe,
+          ...startAvdArgs,
+        ], mode: ProcessStartMode.inheritStdio);
+        core.info('Emulator started with args: $startAvdArgs');
+        return emulator;
+      });
 
   Future<void> _enableKvm() async {
     if (process.platform != OS.linux) {
@@ -147,11 +154,10 @@ final class AvdManager {
           core.info(e.toString());
           final devices = await _adb(['devices', '-l']);
           if (devices.exitCode != 0) {
-            throw ProcessException(
-              'adb',
-              ['devices', '-l'],
-              devices.stderr as String,
-            );
+            throw ProcessException('adb', [
+              'devices',
+              '-l',
+            ], devices.stderr as String);
           }
         },
         () async {

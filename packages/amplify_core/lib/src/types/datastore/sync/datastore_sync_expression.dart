@@ -9,7 +9,7 @@ import 'package:amplify_core/amplify_core.dart';
 class DataStoreSyncExpression {
   /// Default constructor
   DataStoreSyncExpression(this._modelType, this._queryPredicateResolver)
-      : id = uuid();
+    : id = uuid();
 
   /// A unique id for this sync expression
   final String id;

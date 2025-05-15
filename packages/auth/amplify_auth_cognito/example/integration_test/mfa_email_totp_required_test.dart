@@ -59,8 +59,9 @@ void main() {
           username: username,
           password: password,
         );
-        check(resignInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.confirmSignInWithOtpCode);
+        check(
+          resignInRes.nextStep.signInStep,
+        ).equals(AuthSignInStep.confirmSignInWithOtpCode);
         check(resignInRes.nextStep.codeDeliveryDetails)
             .isNotNull()
             .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -84,9 +85,7 @@ void main() {
           password,
           autoConfirm: true,
           verifyAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.email: username,
-          },
+          attributes: {AuthUserAttributeKey.email: username},
         );
 
         {
@@ -137,20 +136,25 @@ void main() {
             resignInRes.nextStep.signInStep,
             because: 'Both EMAIL + TOTP are activated with no preference',
           ).equals(AuthSignInStep.continueSignInWithMfaSelection);
-          check(resignInRes.nextStep.allowedMfaTypes)
-              .isNotNull()
-              .deepEquals({MfaType.email, MfaType.totp});
+          check(
+            resignInRes.nextStep.allowedMfaTypes,
+          ).isNotNull().deepEquals({MfaType.email, MfaType.totp});
 
           final selectRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: 'TOTP',
           );
-          check(selectRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
+          check(
+            selectRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
           check(selectRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.totp)
-            ..has((d) => d.destination, 'destination')
-                .equals(friendlyDeviceName);
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.totp)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).equals(friendlyDeviceName);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await generateTotpCode(),
@@ -167,9 +171,7 @@ void main() {
 
         // Verify we can set TOTP as preferred and forego selection.
 
-        await cognitoPlugin.updateMfaPreference(
-          totp: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(totp: MfaPreference.preferred);
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.email, MfaType.totp},
@@ -189,10 +191,14 @@ void main() {
             because: 'Preference is TOTP MFA now',
           ).equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
           check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.totp)
-            ..has((d) => d.destination, 'destination')
-                .equals(friendlyDeviceName);
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.totp)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).equals(friendlyDeviceName);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await generateTotpCode(),
@@ -202,9 +208,7 @@ void main() {
 
         // Verify we can switch to EMAIL as preferred.
 
-        await cognitoPlugin.updateMfaPreference(
-          email: MfaPreference.preferred,
-        );
+        await cognitoPlugin.updateMfaPreference(email: MfaPreference.preferred);
         check(await cognitoPlugin.fetchMfaPreference()).equals(
           const UserMfaPreference(
             enabled: {MfaType.email, MfaType.totp},
@@ -268,7 +272,8 @@ void main() {
         // Verify that we can disable MFA
         {
           await check(
-            because: 'Interestingly, Cognito does not throw and allows '
+            because:
+                'Interestingly, Cognito does not throw and allows '
                 'MFA to be disabled even when required.',
             cognitoPlugin.updateMfaPreference(
               email: MfaPreference.disabled,
@@ -279,12 +284,7 @@ void main() {
           check(
             because: 'Disabling MFA should mark it as not preferred',
             await cognitoPlugin.fetchMfaPreference(),
-          ).equals(
-            const UserMfaPreference(
-              enabled: {},
-              preferred: null,
-            ),
-          );
+          ).equals(const UserMfaPreference(enabled: {}, preferred: null));
         }
       });
     });

@@ -9,10 +9,7 @@ part 'length_trait.g.dart';
 @ShapeIdConverter()
 @JsonSerializable()
 class LengthTrait implements Trait<LengthTrait> {
-  const LengthTrait({
-    this.min,
-    this.max,
-  });
+  const LengthTrait({this.min, this.max});
 
   factory LengthTrait.fromJson(Object? json) =>
       _$LengthTraitFromJson((json as Map).cast<String, Object?>());

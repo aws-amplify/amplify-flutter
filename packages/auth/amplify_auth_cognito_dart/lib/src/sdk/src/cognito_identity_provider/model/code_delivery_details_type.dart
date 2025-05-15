@@ -29,9 +29,9 @@ abstract class CodeDeliveryDetailsType
   }
 
   /// The delivery details for an email or SMS message that Amazon Cognito sent for authentication or verification.
-  factory CodeDeliveryDetailsType.build(
-          [void Function(CodeDeliveryDetailsTypeBuilder) updates]) =
-      _$CodeDeliveryDetailsType;
+  factory CodeDeliveryDetailsType.build([
+    void Function(CodeDeliveryDetailsTypeBuilder) updates,
+  ]) = _$CodeDeliveryDetailsType;
 
   const CodeDeliveryDetailsType._();
 
@@ -47,27 +47,15 @@ abstract class CodeDeliveryDetailsType
   /// The name of the attribute that Amazon Cognito verifies with the code.
   String? get attributeName;
   @override
-  List<Object?> get props => [
-        destination,
-        deliveryMedium,
-        attributeName,
-      ];
+  List<Object?> get props => [destination, deliveryMedium, attributeName];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CodeDeliveryDetailsType')
-      ..add(
-        'destination',
-        destination,
-      )
-      ..add(
-        'deliveryMedium',
-        deliveryMedium,
-      )
-      ..add(
-        'attributeName',
-        attributeName,
-      );
+    final helper =
+        newBuiltValueToStringHelper('CodeDeliveryDetailsType')
+          ..add('destination', destination)
+          ..add('deliveryMedium', deliveryMedium)
+          ..add('attributeName', attributeName);
     return helper.toString();
   }
 }
@@ -75,21 +63,18 @@ abstract class CodeDeliveryDetailsType
 class CodeDeliveryDetailsTypeAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<CodeDeliveryDetailsType> {
   const CodeDeliveryDetailsTypeAwsJson11Serializer()
-      : super('CodeDeliveryDetailsType');
+    : super('CodeDeliveryDetailsType');
 
   @override
   Iterable<Type> get types => const [
-        CodeDeliveryDetailsType,
-        _$CodeDeliveryDetailsType,
-      ];
+    CodeDeliveryDetailsType,
+    _$CodeDeliveryDetailsType,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   CodeDeliveryDetailsType deserialize(
@@ -108,20 +93,26 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
       }
       switch (key) {
         case 'Destination':
-          result.destination = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.destination =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'DeliveryMedium':
-          result.deliveryMedium = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DeliveryMediumType),
-          ) as DeliveryMediumType);
+          result.deliveryMedium =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DeliveryMediumType),
+                  )
+                  as DeliveryMediumType);
         case 'AttributeName':
-          result.attributeName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.attributeName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -138,31 +129,37 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
     final CodeDeliveryDetailsType(
       :destination,
       :deliveryMedium,
-      :attributeName
+      :attributeName,
     ) = object;
     if (destination != null) {
       result$
         ..add('Destination')
-        ..add(serializers.serialize(
-          destination,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            destination,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (deliveryMedium != null) {
       result$
         ..add('DeliveryMedium')
-        ..add(serializers.serialize(
-          deliveryMedium,
-          specifiedType: const FullType(DeliveryMediumType),
-        ));
+        ..add(
+          serializers.serialize(
+            deliveryMedium,
+            specifiedType: const FullType(DeliveryMediumType),
+          ),
+        );
     }
     if (attributeName != null) {
       result$
         ..add('AttributeName')
-        ..add(serializers.serialize(
-          attributeName,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            attributeName,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

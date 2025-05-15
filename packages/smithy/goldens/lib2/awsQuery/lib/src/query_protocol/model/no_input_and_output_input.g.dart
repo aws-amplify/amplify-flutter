@@ -7,16 +7,16 @@ part of 'no_input_and_output_input.dart';
 // **************************************************************************
 
 class _$NoInputAndOutputInput extends NoInputAndOutputInput {
-  factory _$NoInputAndOutputInput(
-          [void Function(NoInputAndOutputInputBuilder)? updates]) =>
-      (new NoInputAndOutputInputBuilder()..update(updates))._build();
+  factory _$NoInputAndOutputInput([
+    void Function(NoInputAndOutputInputBuilder)? updates,
+  ]) => (new NoInputAndOutputInputBuilder()..update(updates))._build();
 
   _$NoInputAndOutputInput._() : super._();
 
   @override
   NoInputAndOutputInput rebuild(
-          void Function(NoInputAndOutputInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NoInputAndOutputInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NoInputAndOutputInputBuilder toBuilder() =>

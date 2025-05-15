@@ -9,11 +9,8 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:yaml/yaml.dart';
 
-typedef MismatchedDependency = ({
-  PackageInfo package,
-  String dependencyName,
-  String message,
-});
+typedef MismatchedDependency =
+    ({PackageInfo package, String dependencyName, String message});
 
 sealed class ConstraintsChecker {
   ConstraintsChecker(this.action);
@@ -43,13 +40,11 @@ sealed class ConstraintsChecker {
   }) {
     switch (action) {
       case ConstraintsAction.check:
-        mismatchedDependencies.add(
-          (
-            package: package,
-            dependencyName: dependencyPath.last,
-            message: errorMessage,
-          ),
-        );
+        mismatchedDependencies.add((
+          package: package,
+          dependencyName: dependencyPath.last,
+          message: errorMessage,
+        ));
         return false;
       case ConstraintsAction.apply:
       case ConstraintsAction.update:
@@ -87,9 +82,9 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
     // more precise constraints.
     final (currentConstraint, satisfiesGlobalConstraint) = switch (dependency) {
       HostedDependency(:final version) => (
-          version,
-          version == globalConstraint,
-        ),
+        version,
+        version == globalConstraint,
+      ),
       _ => (null, false),
     };
     if (satisfiesGlobalConstraint) {
@@ -99,7 +94,8 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
       package: package,
       dependencyPath: [dependencyType.key, dependencyName],
       expectedConstraint: HostedDependency(version: globalConstraint),
-      errorMessage: 'Expected $globalConstraint\n'
+      errorMessage:
+          'Expected $globalConstraint\n'
           'Found $currentConstraint',
     );
   }
@@ -126,7 +122,8 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
         package: package,
         dependencyPath: ['environment', 'sdk'],
         expectedConstraint: HostedDependency(version: globalSdkConstraint),
-        errorMessage: 'Expected $globalSdkConstraint\n'
+        errorMessage:
+            'Expected $globalSdkConstraint\n'
             'Found $localSdkConstraint',
       );
     }
@@ -145,7 +142,8 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
           expectedConstraint: HostedDependency(
             version: globalFlutterConstraint,
           ),
-          errorMessage: 'Expected $globalFlutterConstraint\n'
+          errorMessage:
+              'Expected $globalFlutterConstraint\n'
               'Found $localFlutterConstraint',
         );
       }
@@ -166,14 +164,12 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
       String dependencyName,
       Dependency dependency,
       DependencyType dependencyType,
-    ) action,
+    )
+    action,
   ) {
     var result = true;
     for (final (dependencies, dependencyType) in [
-      (
-        package.pubspecInfo.pubspec.dependencies,
-        DependencyType.dependency,
-      ),
+      (package.pubspecInfo.pubspec.dependencies, DependencyType.dependency),
       (
         package.pubspecInfo.pubspec.devDependencies,
         DependencyType.devDependency,
@@ -185,13 +181,9 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
     ]) {
       for (final MapEntry(key: dependencyName, value: dependency)
           in dependencies.entries) {
-        result = result &&
-            action(
-              package,
-              dependencyName,
-              dependency,
-              dependencyType,
-            );
+        result =
+            result &&
+            action(package, dependencyName, dependency, dependencyType);
       }
     }
     return result;
@@ -200,8 +192,10 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
   @override
   bool checkConstraints(PackageInfo package) {
     final satisfiesEnvironmentConstraints = _checkEnvironment(package);
-    final satisfiesDependencyConstraints =
-        _forEachDependency(package, _checkDependency);
+    final satisfiesDependencyConstraints = _forEachDependency(
+      package,
+      _checkDependency,
+    );
     return satisfiesEnvironmentConstraints && satisfiesDependencyConstraints;
   }
 }
@@ -236,17 +230,12 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
     )) {
       /// Publishable packages listed in the `dependencies` block must have a hosted constraint.
       case (
-              dependencyIsPublished: true,
-              packageIsPublished: _,
-              type: DependencyType.dependency,
-            ) ||
-
-            /// Publishable packages must list other publishable packages with a hosted constraint.
-            (
-              dependencyIsPublished: true,
-              packageIsPublished: true,
-              type: _,
-            ):
+            dependencyIsPublished: true,
+            packageIsPublished: _,
+            type: DependencyType.dependency,
+          ) ||
+          /// Publishable packages must list other publishable packages with a hosted constraint.
+          (dependencyIsPublished: true, packageIsPublished: true, type: _):
         switch (constraint) {
           case HostedDependency(:final version):
             allConstraints.recordConstraint(
@@ -259,9 +248,10 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
               package: package,
               dependencyPath: [dependencyType.key, dependency.name],
               expectedConstraint: HostedDependency(
-                version: package.isPublishable
-                    ? dependency.currentConstraint
-                    : VersionConstraint.any,
+                version:
+                    package.isPublishable
+                        ? dependency.currentConstraint
+                        : VersionConstraint.any,
               ),
               errorMessage:
                   'Invalid constraint type: ${constraint.runtimeType}. '
@@ -272,11 +262,10 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
 
       /// Published packages must list unpublished packages with a path constraint.
       case (
-          packageIsPublished: true,
-          dependencyIsPublished: false,
-          type:
-              DependencyType.devDependency || DependencyType.dependencyOverride,
-        ):
+        packageIsPublished: true,
+        dependencyIsPublished: false,
+        type: DependencyType.devDependency || DependencyType.dependencyOverride,
+      ):
         switch (constraint) {
           case PathDependency _:
             return;
@@ -287,7 +276,8 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
               expectedConstraint: PathDependency(
                 p.relative(dependency.path, from: package.path),
               ),
-              errorMessage: 'Invalid constraint on unpublished package. '
+              errorMessage:
+                  'Invalid constraint on unpublished package. '
                   'A path dependency is required when listing any unpublished '
                   'package in the `dev_dependencies` block of a published package.',
             );
@@ -296,10 +286,10 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
       /// A published package cannot take a dependency on an unpublished package
       /// anywhere but the `dev_dependencies` block.
       case (
-          packageIsPublished: true,
-          dependencyIsPublished: false,
-          type: DependencyType.dependency,
-        ):
+        packageIsPublished: true,
+        dependencyIsPublished: false,
+        type: DependencyType.dependency,
+      ):
         throw AssertionError(
           'Non-publishable package (${dependency.name}) found in '
           'the `dependencies` block of ${package.name}.',
@@ -307,21 +297,16 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
 
       /// Unpublished packages can depend on other unpublished packages in
       /// any way they like without it affecting the pub validator.
-      case (
-          packageIsPublished: false,
-          dependencyIsPublished: false,
-          type: _,
-        ):
+      case (packageIsPublished: false, dependencyIsPublished: false, type: _):
         return;
 
       /// Unpublished packages' `dev_dependencies` and `dependency_overrides`
       /// blocks are not checked by the pub validator.
       case (
-          dependencyIsPublished: true,
-          packageIsPublished: false,
-          type:
-              DependencyType.devDependency || DependencyType.dependencyOverride,
-        ):
+        dependencyIsPublished: true,
+        packageIsPublished: false,
+        type: DependencyType.devDependency || DependencyType.dependencyOverride,
+      ):
         return;
     }
   }
@@ -333,44 +318,35 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
     }
     final allConstraints = _DependencyConstraintMap();
     final rootPackage = package;
-    dfs(
-      repoGraph,
-      root: rootPackage,
-      (package) {
-        final dependencies = {
-          ...package.pubspecInfo.pubspec.dependencies.map(
-            (key, value) => MapEntry(
-              key,
-              (DependencyType.dependency, value),
-            ),
-          ),
-          ...package.pubspecInfo.pubspec.devDependencies.map(
-            (key, value) => MapEntry(
-              key,
-              (DependencyType.devDependency, value),
-            ),
-          ),
-        };
-        for (final MapEntry(
-              key: dependencyName,
-              value: (dependencyType, constraint)
-            ) in dependencies.entries) {
-          final dependency = repoGraph.keys.singleWhereOrNull(
-            (pkg) => pkg.name == dependencyName,
-          );
-          if (dependency == null) {
-            continue;
-          }
-          _checkConstraint(
-            package,
-            dependency,
-            dependencyType,
-            constraint,
-            allConstraints,
-          );
+    dfs(repoGraph, root: rootPackage, (package) {
+      final dependencies = {
+        ...package.pubspecInfo.pubspec.dependencies.map(
+          (key, value) => MapEntry(key, (DependencyType.dependency, value)),
+        ),
+        ...package.pubspecInfo.pubspec.devDependencies.map(
+          (key, value) => MapEntry(key, (DependencyType.devDependency, value)),
+        ),
+      };
+      for (final MapEntry(
+            key: dependencyName,
+            value: (dependencyType, constraint),
+          )
+          in dependencies.entries) {
+        final dependency = repoGraph.keys.singleWhereOrNull(
+          (pkg) => pkg.name == dependencyName,
+        );
+        if (dependency == null) {
+          continue;
         }
-      },
-    );
+        _checkConstraint(
+          package,
+          dependency,
+          dependencyType,
+          constraint,
+          allConstraints,
+        );
+      }
+    });
     for (final MapEntry(key: repoDependency, value: constraints)
         in allConstraints.entries) {
       final intersection = _intersection(constraints.values);
@@ -390,9 +366,10 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
               repoDependency.name,
             ],
             expectedConstraint: HostedDependency(
-              version: package.isPublishable
-                  ? repoDependency.currentConstraint
-                  : VersionConstraint.any,
+              version:
+                  package.isPublishable
+                      ? repoDependency.currentConstraint
+                      : VersionConstraint.any,
             ),
             errorMessage:
                 'Constraint for dependency causes an empty intersection '
@@ -424,8 +401,8 @@ final class _DependencyConstraintMap
 
   @override
   Map<String, Object?> toJson() => map((repoDependency, constraints) {
-        return MapEntry(repoDependency.name, constraints.toJson());
-      });
+    return MapEntry(repoDependency.name, constraints.toJson());
+  });
 }
 
 final class _ConstraintMap extends DelegatingMap<PackageInfo, VersionConstraint>
@@ -437,32 +414,32 @@ final class _ConstraintMap extends DelegatingMap<PackageInfo, VersionConstraint>
 
   @override
   Map<String, Object?> toJson() => map((package, constraint) {
-        return MapEntry(package.name, constraint.toString());
-      });
+    return MapEntry(package.name, constraint.toString());
+  });
 }
 
 extension on PackageInfo {
   /// The current constraint for `this` to use in publishable packages'
   /// `dependencies` block.
   VersionRange get currentConstraint => VersionRange(
-        min: Version(version.major, version.minor, 0),
-        includeMin: true,
-        max: version.nextMinor,
-      );
+    min: Version(version.major, version.minor, 0),
+    includeMin: true,
+    max: version.nextMinor,
+  );
 }
 
 extension DependencyToYaml on Dependency {
   YamlNode toYaml() => switch (this) {
-        HostedDependency(:final version) => YamlScalar.wrap(version.toString()),
-        PathDependency(:final path) => YamlMap.wrap({'path': path}),
-        SdkDependency(:final sdk) => YamlMap.wrap({'sdk': sdk}),
-        GitDependency(:final url, :final ref, :final path) => YamlMap.wrap({
-            'git': {
-              'url': url.toString(),
-              if (ref != null) 'ref': ref,
-              if (path != null) 'path': path,
-            },
-          }),
-        _ => throw StateError('Invalid dependency: $this'),
-      };
+    HostedDependency(:final version) => YamlScalar.wrap(version.toString()),
+    PathDependency(:final path) => YamlMap.wrap({'path': path}),
+    SdkDependency(:final sdk) => YamlMap.wrap({'sdk': sdk}),
+    GitDependency(:final url, :final ref, :final path) => YamlMap.wrap({
+      'git': {
+        'url': url.toString(),
+        if (ref != null) 'ref': ref,
+        if (path != null) 'path': path,
+      },
+    }),
+    _ => throw StateError('Invalid dependency: $this'),
+  };
 }

@@ -26,33 +26,31 @@ void main() {
       expect(blogs.contains(testBlog), isTrue);
     });
 
-    testWidgets(
-      'should update an existing model',
-      (WidgetTester tester) async {
-        // create blog
-        var testBlog = Blog(name: 'test blog');
-        await Amplify.DataStore.save(testBlog);
-        var blogs = await Amplify.DataStore.query(Blog.classType);
+    testWidgets('should update an existing model', (WidgetTester tester) async {
+      // create blog
+      var testBlog = Blog(name: 'test blog');
+      await Amplify.DataStore.save(testBlog);
+      var blogs = await Amplify.DataStore.query(Blog.classType);
 
-        // verify blog was created
-        expect(blogs.length, 1);
-        expect(blogs.contains(testBlog), isTrue);
+      // verify blog was created
+      expect(blogs.length, 1);
+      expect(blogs.contains(testBlog), isTrue);
 
-        // update blog
-        const updatedBlogName = 'updated name';
-        var updatedBlog = testBlog.copyWith(name: updatedBlogName);
-        await Amplify.DataStore.save(updatedBlog);
-        var updatedBlogs = await Amplify.DataStore.query(Blog.classType);
+      // update blog
+      const updatedBlogName = 'updated name';
+      var updatedBlog = testBlog.copyWith(name: updatedBlogName);
+      await Amplify.DataStore.save(updatedBlog);
+      var updatedBlogs = await Amplify.DataStore.query(Blog.classType);
 
-        // verify blog was updated
-        expect(updatedBlogs.length, 1);
-        expect(updatedBlogs.contains(updatedBlog), isTrue);
-        expect(updatedBlogs[0].name, updatedBlogName);
-      },
-    );
+      // verify blog was updated
+      expect(updatedBlogs.length, 1);
+      expect(updatedBlogs.contains(updatedBlog), isTrue);
+      expect(updatedBlogs[0].name, updatedBlogName);
+    });
 
-    testWidgets('predicate should prevent save to non matching model',
-        (WidgetTester tester) async {
+    testWidgets('predicate should prevent save to non matching model', (
+      WidgetTester tester,
+    ) async {
       // Note that predicate for save can only be applied to updates (not initial save)
       const originalBlogName = 'non matching blog';
       Blog testBlog = Blog(name: originalBlogName);
@@ -61,16 +59,25 @@ void main() {
       var updatedBlog = testBlog.copyWith(name: 'changed name');
 
       expect(
-          () => Amplify.DataStore.save(updatedBlog,
-              where: Blog.NAME.contains("Predicate")),
-          throwsA(predicate((e) =>
-              e is DataStoreException &&
-              e.message.contains(
-                  "condition did not match existing model instance"))));
+        () => Amplify.DataStore.save(
+          updatedBlog,
+          where: Blog.NAME.contains("Predicate"),
+        ),
+        throwsA(
+          predicate(
+            (e) =>
+                e is DataStoreException &&
+                e.message.contains(
+                  "condition did not match existing model instance",
+                ),
+          ),
+        ),
+      );
     });
 
-    testWidgets('predicate should not prevent save for matching model',
-        (WidgetTester tester) async {
+    testWidgets('predicate should not prevent save for matching model', (
+      WidgetTester tester,
+    ) async {
       // Note that predicate for save can only be applied to updates (not initial save)
       const originalBlogName = 'original blog';
       Blog testBlog = Blog(name: originalBlogName);
@@ -78,8 +85,10 @@ void main() {
 
       const matchingBlogName = 'matching blog name';
       var updatedBlog = testBlog.copyWith(name: matchingBlogName);
-      await Amplify.DataStore.save(updatedBlog,
-          where: Blog.NAME.contains("original"));
+      await Amplify.DataStore.save(
+        updatedBlog,
+        where: Blog.NAME.contains("original"),
+      );
 
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, 1);

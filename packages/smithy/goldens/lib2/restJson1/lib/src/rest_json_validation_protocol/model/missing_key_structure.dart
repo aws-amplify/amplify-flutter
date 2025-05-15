@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_validation_protocol.model.missing_key_structure; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,14 +17,14 @@ abstract class MissingKeyStructure
     return _$MissingKeyStructure._(hi: hi);
   }
 
-  factory MissingKeyStructure.build(
-          [void Function(MissingKeyStructureBuilder) updates]) =
-      _$MissingKeyStructure;
+  factory MissingKeyStructure.build([
+    void Function(MissingKeyStructureBuilder) updates,
+  ]) = _$MissingKeyStructure;
 
   const MissingKeyStructure._();
 
   static const List<_i2.SmithySerializer<MissingKeyStructure>> serializers = [
-    MissingKeyStructureRestJson1Serializer()
+    MissingKeyStructureRestJson1Serializer(),
   ];
 
   String get hi;
@@ -34,10 +34,7 @@ abstract class MissingKeyStructure
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MissingKeyStructure')
-      ..add(
-        'hi',
-        hi,
-      );
+      ..add('hi', hi);
     return helper.toString();
   }
 }
@@ -48,17 +45,14 @@ class MissingKeyStructureRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        MissingKeyStructure,
-        _$MissingKeyStructure,
-      ];
+    MissingKeyStructure,
+    _$MissingKeyStructure,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MissingKeyStructure deserialize(
@@ -77,10 +71,12 @@ class MissingKeyStructureRestJson1Serializer
       }
       switch (key) {
         case 'hi':
-          result.hi = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.hi =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -97,10 +93,7 @@ class MissingKeyStructureRestJson1Serializer
     final MissingKeyStructure(:hi) = object;
     result$.addAll([
       'hi',
-      serializers.serialize(
-        hi,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(hi, specifiedType: const FullType(String)),
     ]);
     return result$;
   }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library custom_v2.s3.test.copy_object_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -17,98 +17,83 @@ import 'package:smithy_test/smithy_test.dart' as _i3;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'CopyObjectSuccess (response)',
-    () async {
-      const s3ClientConfig = _i2.S3ClientConfig();
-      await _i3.httpResponseTest(
-        operation: CopyObjectOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
+  _i1.test('CopyObjectSuccess (response)', () async {
+    const s3ClientConfig = _i2.S3ClientConfig();
+    await _i3.httpResponseTest(
+      operation: CopyObjectOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        testCase: const _i3.HttpResponseTestCase(
-          id: 'CopyObjectSuccess',
-          documentation:
-              '    S3 clients should properly decode a successful response.\n',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<?xml version="1.0" encoding="UTF-8"?><CopyObjectResult><ETag>123</ETag></CopyObjectResult>',
-          bodyMediaType: null,
-          params: {
-            'CopyObjectResult': {'ETag': '123'}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
+      ),
+      testCase: const _i3.HttpResponseTestCase(
+        id: 'CopyObjectSuccess',
+        documentation:
+            '    S3 clients should properly decode a successful response.\n',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<?xml version="1.0" encoding="UTF-8"?><CopyObjectResult><ETag>123</ETag></CopyObjectResult>',
+        bodyMediaType: null,
+        params: {
+          'CopyObjectResult': {'ETag': '123'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        CopyObjectOutputRestXmlSerializer(),
+        CopyObjectResultRestXmlSerializer(),
+      ],
+    );
+  });
+  _i1.test('CopyObjectErrorOnSuccess (error)', () async {
+    const s3ClientConfig = _i2.S3ClientConfig();
+    await _i3.httpErrorResponseTest<
+      CopyObjectRequestPayload,
+      CopyObjectRequest,
+      CopyObjectResult?,
+      CopyObjectOutput,
+      CopyObjectError
+    >(
+      operation: CopyObjectOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        s3ClientConfig: s3ClientConfig,
+        credentialsProvider: const _i4.AWSCredentialsProvider(
+          _i4.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        outputSerializers: const [
-          CopyObjectOutputRestXmlSerializer(),
-          CopyObjectResultRestXmlSerializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'CopyObjectErrorOnSuccess (error)',
-    () async {
-      const s3ClientConfig = _i2.S3ClientConfig();
-      await _i3.httpErrorResponseTest<
-          CopyObjectRequestPayload,
-          CopyObjectRequest,
-          CopyObjectResult?,
-          CopyObjectOutput,
-          CopyObjectError>(
-        operation: CopyObjectOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          s3ClientConfig: s3ClientConfig,
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i3.HttpResponseTestCase(
-          id: 'CopyObjectErrorOnSuccess',
-          documentation:
-              '    S3 clients should properly decode an error response on a 200 status code.\n',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<?xml version="1.0" encoding="UTF-8"?><Error><Code>CopyObjectError</Code></Error>',
-          bodyMediaType: null,
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        errorSerializers: const [CopyObjectErrorRestXmlSerializer()],
-      );
-    },
-  );
+      ),
+      testCase: const _i3.HttpResponseTestCase(
+        id: 'CopyObjectErrorOnSuccess',
+        documentation:
+            '    S3 clients should properly decode an error response on a 200 status code.\n',
+        protocol: _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<?xml version="1.0" encoding="UTF-8"?><Error><Code>CopyObjectError</Code></Error>',
+        bodyMediaType: null,
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      errorSerializers: const [CopyObjectErrorRestXmlSerializer()],
+    );
+  });
 }
 
 class CopyObjectRequestRestXmlSerializer
@@ -120,11 +105,8 @@ class CopyObjectRequestRestXmlSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CopyObjectRequest deserialize(
@@ -143,20 +125,26 @@ class CopyObjectRequestRestXmlSerializer
       }
       switch (key) {
         case 'Bucket':
-          result.bucket = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.bucket =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'CopySource':
-          result.copySource = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.copySource =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Key':
-          result.key = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.key =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -182,11 +170,8 @@ class CopyObjectOutputRestXmlSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CopyObjectOutput deserialize(
@@ -205,10 +190,13 @@ class CopyObjectOutputRestXmlSerializer
       }
       switch (key) {
         case 'CopyObjectResult':
-          result.copyObjectResult.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CopyObjectResult),
-          ) as CopyObjectResult));
+          result.copyObjectResult.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CopyObjectResult),
+                )
+                as CopyObjectResult),
+          );
       }
     }
 
@@ -234,11 +222,8 @@ class CopyObjectResultRestXmlSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CopyObjectResult deserialize(
@@ -257,10 +242,12 @@ class CopyObjectResultRestXmlSerializer
       }
       switch (key) {
         case 'ETag':
-          result.eTag = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.eTag =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -286,11 +273,8 @@ class CopyObjectErrorRestXmlSerializer
 
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i5.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CopyObjectError deserialize(

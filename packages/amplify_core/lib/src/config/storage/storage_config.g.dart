@@ -9,17 +9,15 @@ part of 'storage_config.dart';
 // **************************************************************************
 
 StorageConfig _$StorageConfigFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'StorageConfig',
-      json,
-      ($checkedConvert) {
-        final val = StorageConfig(
-          plugins: $checkedConvert(
-              'plugins', (v) => AmplifyPluginRegistry.pluginConfigsFromJson(v)),
-        );
-        return val;
-      },
-    );
+    $checkedCreate('StorageConfig', json, ($checkedConvert) {
+      final val = StorageConfig(
+        plugins: $checkedConvert(
+          'plugins',
+          (v) => AmplifyPluginRegistry.pluginConfigsFromJson(v),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$StorageConfigToJson(StorageConfig instance) =>
     <String, dynamic>{

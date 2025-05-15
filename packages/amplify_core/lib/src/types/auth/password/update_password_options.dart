@@ -13,9 +13,7 @@ class UpdatePasswordOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.update_password_options}
-  const UpdatePasswordOptions({
-    this.pluginOptions,
-  });
+  const UpdatePasswordOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.update_password_plugin_options}
   final UpdatePasswordPluginOptions? pluginOptions;
@@ -27,9 +25,7 @@ class UpdatePasswordOptions
   String get runtimeTypeName => 'UpdatePasswordOptions';
 
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

@@ -32,24 +32,24 @@ class _$EndpointBatchItem extends EndpointBatchItem {
   @override
   final EndpointUser? user;
 
-  factory _$EndpointBatchItem(
-          [void Function(EndpointBatchItemBuilder)? updates]) =>
-      (new EndpointBatchItemBuilder()..update(updates))._build();
+  factory _$EndpointBatchItem([
+    void Function(EndpointBatchItemBuilder)? updates,
+  ]) => (new EndpointBatchItemBuilder()..update(updates))._build();
 
-  _$EndpointBatchItem._(
-      {this.address,
-      this.attributes,
-      this.channelType,
-      this.demographic,
-      this.effectiveDate,
-      this.endpointStatus,
-      this.id,
-      this.location,
-      this.metrics,
-      this.optOut,
-      this.requestId,
-      this.user})
-      : super._();
+  _$EndpointBatchItem._({
+    this.address,
+    this.attributes,
+    this.channelType,
+    this.demographic,
+    this.effectiveDate,
+    this.endpointStatus,
+    this.id,
+    this.location,
+    this.metrics,
+    this.optOut,
+    this.requestId,
+    this.user,
+  }) : super._();
 
   @override
   EndpointBatchItem rebuild(void Function(EndpointBatchItemBuilder) updates) =>
@@ -199,20 +199,22 @@ class EndpointBatchItemBuilder
   _$EndpointBatchItem _build() {
     _$EndpointBatchItem _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$EndpointBatchItem._(
-              address: address,
-              attributes: _attributes?.build(),
-              channelType: channelType,
-              demographic: _demographic?.build(),
-              effectiveDate: effectiveDate,
-              endpointStatus: endpointStatus,
-              id: id,
-              location: _location?.build(),
-              metrics: _metrics?.build(),
-              optOut: optOut,
-              requestId: requestId,
-              user: _user?.build());
+            address: address,
+            attributes: _attributes?.build(),
+            channelType: channelType,
+            demographic: _demographic?.build(),
+            effectiveDate: effectiveDate,
+            endpointStatus: endpointStatus,
+            id: id,
+            location: _location?.build(),
+            metrics: _metrics?.build(),
+            optOut: optOut,
+            requestId: requestId,
+            user: _user?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -231,7 +233,10 @@ class EndpointBatchItemBuilder
         _user?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'EndpointBatchItem', _$failedField, e.toString());
+          r'EndpointBatchItem',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

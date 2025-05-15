@@ -10,8 +10,5 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 class S3ListOperation
     extends StorageListOperation<StorageListRequest, S3ListResult> {
   /// {@macro storage.amplify_storage_s3.list_operation}
-  S3ListOperation({
-    required super.request,
-    required super.result,
-  });
+  S3ListOperation({required super.request, required super.result});
 }

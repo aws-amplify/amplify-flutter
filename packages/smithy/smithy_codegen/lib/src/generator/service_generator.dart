@@ -11,13 +11,8 @@ import 'package:smithy_codegen/src/generator/generator.dart';
 /// models, serializers, and the service client -- basically everything except
 /// the generated payload types which are meant to be an internal abstraction.
 class ServiceGenerator extends LibraryGenerator<ServiceShape> {
-  ServiceGenerator(
-    super.shape,
-    CodegenContext context, {
-    super.smithyLibrary,
-  }) : super(
-          context: context,
-        );
+  ServiceGenerator(super.shape, CodegenContext context, {super.smithyLibrary})
+    : super(context: context);
 
   @override
   Library generate() {

@@ -7,16 +7,15 @@ part of 'cognito_user_pools_trait.dart';
 // **************************************************************************
 
 CognitoUserPoolsTrait _$CognitoUserPoolsTraitFromJson(
-        Map<String, dynamic> json) =>
-    CognitoUserPoolsTrait(
-      providerArns: (json['providerArns'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-    );
+  Map<String, dynamic> json,
+) => CognitoUserPoolsTrait(
+  providerArns:
+      (json['providerArns'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+);
 
 Map<String, dynamic> _$CognitoUserPoolsTraitToJson(
-        CognitoUserPoolsTrait instance) =>
-    <String, dynamic>{
-      'providerArns': instance.providerArns,
-    };
+  CognitoUserPoolsTrait instance,
+) => <String, dynamic>{'providerArns': instance.providerArns};

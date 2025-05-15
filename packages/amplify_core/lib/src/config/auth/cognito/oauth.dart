@@ -110,19 +110,19 @@ class CognitoOAuthConfig
 
   @override
   List<Object?> get props => [
-        webDomain,
-        appClientId,
-        appClientSecret,
-        signInRedirectUri,
-        signInUri,
-        signInUriQueryParameters,
-        signOutRedirectUri,
-        signOutUri,
-        signOutUriQueryParameters,
-        tokenUri,
-        tokenUriQueryParameters,
-        scopes,
-      ];
+    webDomain,
+    appClientId,
+    appClientSecret,
+    signInRedirectUri,
+    signInUri,
+    signInUriQueryParameters,
+    signOutRedirectUri,
+    signOutUri,
+    signOutUriQueryParameters,
+    tokenUri,
+    tokenUriQueryParameters,
+    scopes,
+  ];
 
   CognitoOAuthConfig copyWith({
     String? webDomain,
@@ -144,18 +144,21 @@ class CognitoOAuthConfig
       appClientSecret: appClientSecret ?? this.appClientSecret,
       signInRedirectUri: signInRedirectUri ?? this.signInRedirectUri,
       signInUri: signInUri ?? this.signInUri,
-      signInUriQueryParameters: signInUriQueryParameters ??
+      signInUriQueryParameters:
+          signInUriQueryParameters ??
           (this.signInUriQueryParameters == null
               ? null
               : Map.of(this.signInUriQueryParameters!)),
       signOutRedirectUri: signOutRedirectUri ?? this.signOutRedirectUri,
       signOutUri: signOutUri ?? this.signOutUri,
-      signOutUriQueryParameters: signOutUriQueryParameters ??
+      signOutUriQueryParameters:
+          signOutUriQueryParameters ??
           (this.signOutUriQueryParameters == null
               ? null
               : Map.of(this.signOutUriQueryParameters!)),
       tokenUri: tokenUri ?? this.tokenUri,
-      tokenUriQueryParameters: tokenUriQueryParameters ??
+      tokenUriQueryParameters:
+          tokenUriQueryParameters ??
           (this.tokenUriQueryParameters == null
               ? null
               : Map.of(this.tokenUriQueryParameters!)),

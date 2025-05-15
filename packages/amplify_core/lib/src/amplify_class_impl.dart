@@ -33,10 +33,7 @@ class AmplifyClassImpl extends AmplifyClass {
           authProviderRepo: authProviderRepo,
         );
       case Category.api:
-        return API.addPlugin(
-          plugin.cast(),
-          authProviderRepo: authProviderRepo,
-        );
+        return API.addPlugin(plugin.cast(), authProviderRepo: authProviderRepo);
       case Category.dataStore:
         return DataStore.addPlugin(
           plugin.cast(),

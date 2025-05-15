@@ -32,10 +32,7 @@ abstract class SmithyUnion<U extends SmithyUnion<U>>
 /// `built_value`.
 class SmithyUnionSerializer<U extends SmithyUnion<U>>
     implements StructuredSerializer<U?> {
-  const SmithyUnionSerializer(
-    this.wireName,
-    this.ctor,
-  );
+  const SmithyUnionSerializer(this.wireName, this.ctor);
 
   final JsonConstructor<U?> ctor;
 
@@ -48,9 +45,7 @@ class SmithyUnionSerializer<U extends SmithyUnion<U>>
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return ctor({
-      serialized.first as String: serialized.elementAt(1),
-    });
+    return ctor({serialized.first as String: serialized.elementAt(1)});
   }
 
   @override

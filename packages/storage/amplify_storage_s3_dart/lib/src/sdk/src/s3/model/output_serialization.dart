@@ -17,25 +17,19 @@ abstract class OutputSerialization
     with _i1.AWSEquatable<OutputSerialization>
     implements Built<OutputSerialization, OutputSerializationBuilder> {
   /// Describes how results of the Select job are serialized.
-  factory OutputSerialization({
-    CsvOutput? csv,
-    JsonOutput? json,
-  }) {
-    return _$OutputSerialization._(
-      csv: csv,
-      json: json,
-    );
+  factory OutputSerialization({CsvOutput? csv, JsonOutput? json}) {
+    return _$OutputSerialization._(csv: csv, json: json);
   }
 
   /// Describes how results of the Select job are serialized.
-  factory OutputSerialization.build(
-          [void Function(OutputSerializationBuilder) updates]) =
-      _$OutputSerialization;
+  factory OutputSerialization.build([
+    void Function(OutputSerializationBuilder) updates,
+  ]) = _$OutputSerialization;
 
   const OutputSerialization._();
 
   static const List<_i2.SmithySerializer<OutputSerialization>> serializers = [
-    OutputSerializationRestXmlSerializer()
+    OutputSerializationRestXmlSerializer(),
   ];
 
   /// Describes the serialization of CSV-encoded Select results.
@@ -44,22 +38,14 @@ abstract class OutputSerialization
   /// Specifies JSON as request's output serialization format.
   JsonOutput? get json;
   @override
-  List<Object?> get props => [
-        csv,
-        json,
-      ];
+  List<Object?> get props => [csv, json];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OutputSerialization')
-      ..add(
-        'csv',
-        csv,
-      )
-      ..add(
-        'json',
-        json,
-      );
+    final helper =
+        newBuiltValueToStringHelper('OutputSerialization')
+          ..add('csv', csv)
+          ..add('json', json);
     return helper.toString();
   }
 }
@@ -70,17 +56,14 @@ class OutputSerializationRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        OutputSerialization,
-        _$OutputSerialization,
-      ];
+    OutputSerialization,
+    _$OutputSerialization,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   OutputSerialization deserialize(
@@ -99,15 +82,21 @@ class OutputSerializationRestXmlSerializer
       }
       switch (key) {
         case 'CSV':
-          result.csv.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CsvOutput),
-          ) as CsvOutput));
+          result.csv.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CsvOutput),
+                )
+                as CsvOutput),
+          );
         case 'JSON':
-          result.json.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(JsonOutput),
-          ) as JsonOutput));
+          result.json.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(JsonOutput),
+                )
+                as JsonOutput),
+          );
       }
     }
 
@@ -124,24 +113,25 @@ class OutputSerializationRestXmlSerializer
       const _i2.XmlElementName(
         'OutputSerialization',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final OutputSerialization(:csv, :json) = object;
     if (csv != null) {
       result$
         ..add(const _i2.XmlElementName('CSV'))
-        ..add(serializers.serialize(
-          csv,
-          specifiedType: const FullType(CsvOutput),
-        ));
+        ..add(
+          serializers.serialize(csv, specifiedType: const FullType(CsvOutput)),
+        );
     }
     if (json != null) {
       result$
         ..add(const _i2.XmlElementName('JSON'))
-        ..add(serializers.serialize(
-          json,
-          specifiedType: const FullType(JsonOutput),
-        ));
+        ..add(
+          serializers.serialize(
+            json,
+            specifiedType: const FullType(JsonOutput),
+          ),
+        );
     }
     return result$;
   }

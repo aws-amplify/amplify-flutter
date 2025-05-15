@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Multi-platform workers for Dart (Web, VM).
-library worker_bee;
+library;
 
 import 'dart:async';
 
@@ -74,9 +74,7 @@ abstract class WorkerBeeBase<Request extends Object, Response>
     extends WorkerBeeCommon<Request, Response>
     with WorkerBeeImpl<Request, Response> {
   /// {@macro worker_bee.worker_bee_base}
-  WorkerBeeBase({
-    super.serializers,
-  });
+  WorkerBeeBase({super.serializers});
 }
 
 /// Helper for casting [StreamSink]s.

@@ -49,8 +49,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return PrivateTodo.classType;
       default:
         throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+          "Failed to find model in model provider for model name: " + modelName,
+        );
     }
   }
 }

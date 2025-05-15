@@ -66,9 +66,9 @@ enum APIAuthorizationType<T extends AmplifyAuthProvider> {
 /// Helper methods for [APIAuthorizationType].
 extension APIAuthorizationTypeX on APIAuthorizationType {
   /// Returns the [APIAuthorizationType] value for [value].
-  static APIAuthorizationType? from(String? value) =>
-      APIAuthorizationType.values
-          .firstWhereOrNull((el) => el.rawValue == value);
+  static APIAuthorizationType? from(String? value) => APIAuthorizationType
+      .values
+      .firstWhereOrNull((el) => el.rawValue == value);
 
   /// Returns the underlying [String] backing `this`.
   String get rawValue => _$APIAuthorizationTypeEnumMap[this]!;

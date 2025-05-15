@@ -23,10 +23,10 @@ class XmlBuiltListSerializer
 
   @override
   Iterable<Type> get types => [
-        BuiltList,
-        BuiltList<dynamic>().runtimeType,
-        BuiltList<Object?>().runtimeType,
-      ];
+    BuiltList,
+    BuiltList<dynamic>().runtimeType,
+    BuiltList<Object?>().runtimeType,
+  ];
 
   @override
   String get wireName => 'list';
@@ -41,9 +41,10 @@ class XmlBuiltListSerializer
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
     if (!isUnderspecified) serializers.expectBuilder(specifiedType);
 
-    final elementType = specifiedType.parameters.isEmpty
-        ? FullType.unspecified
-        : specifiedType.parameters[0];
+    final elementType =
+        specifiedType.parameters.isEmpty
+            ? FullType.unspecified
+            : specifiedType.parameters[0];
 
     return builtList.expandIndexed((index, Object? item) {
       var value = serializers.serialize(item, specifiedType: elementType);
@@ -52,10 +53,7 @@ class XmlBuiltListSerializer
         value = value.children;
       }
       final elementName = indexer.elementName(memberName, index);
-      return [
-        XmlElementName(elementName, memberNamespace),
-        value,
-      ];
+      return [XmlElementName(elementName, memberNamespace), value];
     });
   }
 
@@ -68,13 +66,15 @@ class XmlBuiltListSerializer
     final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
 
-    final elementType = specifiedType.parameters.isEmpty
-        ? FullType.unspecified
-        : specifiedType.parameters[0];
+    final elementType =
+        specifiedType.parameters.isEmpty
+            ? FullType.unspecified
+            : specifiedType.parameters[0];
 
-    final result = isUnderspecified
-        ? ListBuilder<Object>()
-        : serializers.newBuilder(specifiedType) as ListBuilder;
+    final result =
+        isUnderspecified
+            ? ListBuilder<Object>()
+            : serializers.newBuilder(specifiedType) as ListBuilder;
 
     // ignore: cascade_invocations
     result.replace(

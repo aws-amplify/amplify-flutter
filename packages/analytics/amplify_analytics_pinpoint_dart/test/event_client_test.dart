@@ -55,12 +55,13 @@ void main() {
       pinpointClient = MockPinpointClient();
 
       final mockStore = MockSecureStorage();
-      EndpointStore(pinpointAppId, mockStore).write(
-        key: EndpointStoreKey.endpointId.name,
-        value: mockEndpointId,
+      EndpointStore(
+        pinpointAppId,
+        mockStore,
+      ).write(key: EndpointStoreKey.endpointId.name, value: mockEndpointId);
+      final mockEndpointInfoStoreManager = EndpointInfoStoreManager(
+        store: mockStore,
       );
-      final mockEndpointInfoStoreManager =
-          EndpointInfoStoreManager(store: mockStore);
       await mockEndpointInfoStoreManager.init(pinpointAppId: pinpointAppId);
 
       endpointClient = EndpointClient(
@@ -84,9 +85,7 @@ void main() {
 
       when(() => pinpointClient.putEvents(any<PutEventsRequest>())).thenReturn(
         mockSmithyOperation(
-          () => PutEventsResponse(
-            eventsResponse: EventsResponse(),
-          ),
+          () => PutEventsResponse(eventsResponse: EventsResponse()),
         ),
       );
     });
@@ -131,26 +130,28 @@ void main() {
       expect(metrics[intProperty], intValue);
     });
 
-    test('flushEvents flushes all stored events and clears eventStorage',
-        () async {
-      const storeCount = 10;
+    test(
+      'flushEvents flushes all stored events and clears eventStorage',
+      () async {
+        const storeCount = 10;
 
-      for (var i = 0; i < storeCount; i++) {
-        await eventClient.recordEvent(
-          eventType: eventType,
-          session: session,
-          properties: analyticsProperties,
-        );
-      }
+        for (var i = 0; i < storeCount; i++) {
+          await eventClient.recordEvent(
+            eventType: eventType,
+            session: session,
+            properties: analyticsProperties,
+          );
+        }
 
-      var storedItems = eventStore.getCount(storeCount * 2);
-      expect(storedItems.length, storeCount);
+        var storedItems = eventStore.getCount(storeCount * 2);
+        expect(storedItems.length, storeCount);
 
-      await eventClient.flushEvents();
+        await eventClient.flushEvents();
 
-      storedItems = eventStore.getCount(storeCount * 2);
-      expect(storedItems.length, 0);
-    });
+        storedItems = eventStore.getCount(storeCount * 2);
+        expect(storedItems.length, 0);
+      },
+    );
 
     test('flushEvents creates a proper PutEventsRequest', () async {
       await eventClient.recordEvent(
@@ -161,8 +162,9 @@ void main() {
 
       await eventClient.flushEvents();
 
-      final captured = verify(() => pinpointClient.putEvents(captureAny()))
-          .captured[0] as PutEventsRequest;
+      final captured =
+          verify(() => pinpointClient.putEvents(captureAny())).captured[0]
+              as PutEventsRequest;
 
       expect(captured.applicationId, pinpointAppId);
 
@@ -202,135 +204,129 @@ void main() {
       expect(metrics[intProperty], intValue);
     });
 
-    test('properties added by registerGlobalProperties are sent with events',
-        () async {
-      eventClient.registerGlobalProperties(analyticsProperties);
+    test(
+      'properties added by registerGlobalProperties are sent with events',
+      () async {
+        eventClient.registerGlobalProperties(analyticsProperties);
 
-      await eventClient.recordEvent(
-        eventType: eventType,
-        session: session,
-      );
+        await eventClient.recordEvent(eventType: eventType, session: session);
 
-      await eventClient.flushEvents();
+        await eventClient.flushEvents();
 
-      final captured = verify(() => pinpointClient.putEvents(captureAny()))
-          .captured[0] as PutEventsRequest;
+        final captured =
+            verify(() => pinpointClient.putEvents(captureAny())).captured[0]
+                as PutEventsRequest;
 
-      final batchItem = captured.eventsRequest.batchItem;
+        final batchItem = captured.eventsRequest.batchItem;
 
-      expect(batchItem[mockEndpointId], isNotNull);
-      final eventsBatch = batchItem[mockEndpointId]!;
+        expect(batchItem[mockEndpointId], isNotNull);
+        final eventsBatch = batchItem[mockEndpointId]!;
 
-      // Event
-      expect(eventsBatch.events.length, 1);
-      expect(eventsBatch.events['0'], isNotNull);
-      final event = eventsBatch.events['0']!;
+        // Event
+        expect(eventsBatch.events.length, 1);
+        expect(eventsBatch.events['0'], isNotNull);
+        final event = eventsBatch.events['0']!;
 
-      // Attributes
-      expect(event.attributes, isNotNull);
-      final attributes = event.attributes!;
+        // Attributes
+        expect(event.attributes, isNotNull);
+        final attributes = event.attributes!;
 
-      expect(attributes[stringProperty], stringValue);
-      expect(attributes[boolProperty], boolValue.toString());
+        expect(attributes[stringProperty], stringValue);
+        expect(attributes[boolProperty], boolValue.toString());
 
-      // Metrics
-      expect(event.metrics, isNotNull);
-      final metrics = event.metrics!;
+        // Metrics
+        expect(event.metrics, isNotNull);
+        final metrics = event.metrics!;
 
-      expect(metrics[doubleProperty], doubleValue);
-      expect(metrics[intProperty], intValue);
-    });
+        expect(metrics[doubleProperty], doubleValue);
+        expect(metrics[intProperty], intValue);
+      },
+    );
 
     test(
-        'properties removed by unregisterGlobalProperties are not sent with events',
-        () async {
-      eventClient.unregisterGlobalProperties([
-        stringProperty,
-        doubleProperty,
-        boolProperty,
-        intProperty,
-      ]);
+      'properties removed by unregisterGlobalProperties are not sent with events',
+      () async {
+        eventClient.unregisterGlobalProperties([
+          stringProperty,
+          doubleProperty,
+          boolProperty,
+          intProperty,
+        ]);
 
-      await eventClient.recordEvent(
-        eventType: eventType,
-        session: session,
-      );
+        await eventClient.recordEvent(eventType: eventType, session: session);
 
-      await eventClient.flushEvents();
+        await eventClient.flushEvents();
 
-      final captured = verify(() => pinpointClient.putEvents(captureAny()))
-          .captured[0] as PutEventsRequest;
+        final captured =
+            verify(() => pinpointClient.putEvents(captureAny())).captured[0]
+                as PutEventsRequest;
 
-      final batchItem = captured.eventsRequest.batchItem;
+        final batchItem = captured.eventsRequest.batchItem;
 
-      expect(batchItem[mockEndpointId], isNotNull);
-      final eventsBatch = batchItem[mockEndpointId]!;
+        expect(batchItem[mockEndpointId], isNotNull);
+        final eventsBatch = batchItem[mockEndpointId]!;
 
-      // Event
-      expect(eventsBatch.events.length, 1);
-      expect(eventsBatch.events['0'], isNotNull);
-      final event = eventsBatch.events['0']!;
+        // Event
+        expect(eventsBatch.events.length, 1);
+        expect(eventsBatch.events['0'], isNotNull);
+        final event = eventsBatch.events['0']!;
 
-      expect(event.attributes, isEmpty);
-      expect(event.metrics, isEmpty);
-    });
+        expect(event.attributes, isEmpty);
+        expect(event.metrics, isEmpty);
+      },
+    );
 
     test(
-        'flushEvents does not delete events that fail with retryable exception',
-        () async {
-      await eventClient.recordEvent(
-        eventType: successEventType,
-      );
-      await eventClient.recordEvent(
-        eventType: retryableFailEventType,
-      );
+      'flushEvents does not delete events that fail with retryable exception',
+      () async {
+        await eventClient.recordEvent(eventType: successEventType);
+        await eventClient.recordEvent(eventType: retryableFailEventType);
 
-      when(() => pinpointClient.putEvents(any<PutEventsRequest>())).thenReturn(
-        mockSmithyOperation(
-          () => PutEventsResponse(
-            eventsResponse: EventsResponse(
-              results: {
-                mockEndpointId: ItemResponse(
-                  endpointItemResponse: EndpointItemResponse(
-                    message: 'message',
-                    statusCode: 200,
-                  ),
-                  eventsItemResponse: {
-                    '0': EventItemResponse(
-                      message: 'Accepted',
+        when(
+          () => pinpointClient.putEvents(any<PutEventsRequest>()),
+        ).thenReturn(
+          mockSmithyOperation(
+            () => PutEventsResponse(
+              eventsResponse: EventsResponse(
+                results: {
+                  mockEndpointId: ItemResponse(
+                    endpointItemResponse: EndpointItemResponse(
+                      message: 'message',
                       statusCode: 200,
                     ),
-                    // TODO(kylechen): retryable exceptions should only be status code >=500 <600
-                    '1': EventItemResponse(
-                      message: 'Retryable Exception',
-                      statusCode: 500,
-                    ),
-                  },
-                ),
-              },
+                    eventsItemResponse: {
+                      '0': EventItemResponse(
+                        message: 'Accepted',
+                        statusCode: 200,
+                      ),
+                      // TODO(kylechen): retryable exceptions should only be status code >=500 <600
+                      '1': EventItemResponse(
+                        message: 'Retryable Exception',
+                        statusCode: 500,
+                      ),
+                    },
+                  ),
+                },
+              ),
             ),
           ),
-        ),
-      );
+        );
 
-      await eventClient.flushEvents();
+        await eventClient.flushEvents();
 
-      final items = eventStore.getCount(100);
-      expect(items.length, 1);
+        final items = eventStore.getCount(100);
+        expect(items.length, 1);
 
-      final storedEvent = StoredEvent(items.elementAt(0), jsonSerializers);
-      final event = storedEvent.event;
+        final storedEvent = StoredEvent(items.elementAt(0), jsonSerializers);
+        final event = storedEvent.event;
 
-      expect(event.eventType, retryableFailEventType);
-    });
+        expect(event.eventType, retryableFailEventType);
+      },
+    );
 
     test('flushEvents deletes events with non retryable exception', () async {
-      await eventClient.recordEvent(
-        eventType: successEventType,
-      );
-      await eventClient.recordEvent(
-        eventType: failEventType,
-      );
+      await eventClient.recordEvent(eventType: successEventType);
+      await eventClient.recordEvent(eventType: failEventType);
 
       when(() => pinpointClient.putEvents(any<PutEventsRequest>())).thenReturn(
         mockSmithyOperation(
@@ -367,78 +363,72 @@ void main() {
     });
 
     test(
-        'flushEvents does not delete events if pinpointClient throws retryable exception',
-        () async {
-      await eventClient.recordEvent(
-        eventType: failEventType,
-      );
+      'flushEvents does not delete events if pinpointClient throws retryable exception',
+      () async {
+        await eventClient.recordEvent(eventType: failEventType);
 
-      final mockOperation = MockSmithyOperation<PutEventsResponse>();
+        final mockOperation = MockSmithyOperation<PutEventsResponse>();
 
-      when(
-        () => mockOperation.result,
-      ).thenThrow(const SmithyHttpException(statusCode: 500, body: ''));
+        when(
+          () => mockOperation.result,
+        ).thenThrow(const SmithyHttpException(statusCode: 500, body: ''));
 
-      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
-          .thenReturn(mockOperation);
+        when(
+          () => pinpointClient.putEvents(any<PutEventsRequest>()),
+        ).thenReturn(mockOperation);
 
-      await eventClient.flushEvents();
+        await eventClient.flushEvents();
 
-      final items = eventStore.getCount(100);
-      expect(items.length, 1);
-    });
-
-    test(
-        'flushEvents deletes events if pinpointClient throws non retryable exception',
-        () async {
-      await eventClient.recordEvent(
-        eventType: failEventType,
-      );
-
-      final mockOperation = MockSmithyOperation<PutEventsResponse>();
-
-      when(
-        () => mockOperation.result,
-      ).thenThrow(PayloadTooLargeException());
-
-      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
-          .thenReturn(mockOperation);
-
-      var items = eventStore.getCount(100);
-      expect(items.length, 1);
-
-      await eventClient.flushEvents();
-
-      items = eventStore.getCount(100);
-      expect(items.length, 0);
-    });
+        final items = eventStore.getCount(100);
+        expect(items.length, 1);
+      },
+    );
 
     test(
-        'flushEvents does not delete events if pinpointClient fails from AWSHttpException',
-        () async {
-      await eventClient.recordEvent(
-        eventType: failEventType,
-      );
+      'flushEvents deletes events if pinpointClient throws non retryable exception',
+      () async {
+        await eventClient.recordEvent(eventType: failEventType);
 
-      final mockOperation = MockSmithyOperation<PutEventsResponse>();
+        final mockOperation = MockSmithyOperation<PutEventsResponse>();
 
-      when(
-        () => mockOperation.result,
-      ).thenThrow(MockAWSHttpException());
+        when(() => mockOperation.result).thenThrow(PayloadTooLargeException());
 
-      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
-          .thenReturn(mockOperation);
+        when(
+          () => pinpointClient.putEvents(any<PutEventsRequest>()),
+        ).thenReturn(mockOperation);
 
-      await eventClient.flushEvents();
+        var items = eventStore.getCount(100);
+        expect(items.length, 1);
 
-      final items = eventStore.getCount(100);
-      expect(items.length, 1);
-    });
+        await eventClient.flushEvents();
+
+        items = eventStore.getCount(100);
+        expect(items.length, 0);
+      },
+    );
+
+    test(
+      'flushEvents does not delete events if pinpointClient fails from AWSHttpException',
+      () async {
+        await eventClient.recordEvent(eventType: failEventType);
+
+        final mockOperation = MockSmithyOperation<PutEventsResponse>();
+
+        when(() => mockOperation.result).thenThrow(MockAWSHttpException());
+
+        when(
+          () => pinpointClient.putEvents(any<PutEventsRequest>()),
+        ).thenReturn(mockOperation);
+
+        await eventClient.flushEvents();
+
+        final items = eventStore.getCount(100);
+        expect(items.length, 1);
+      },
+    );
 
     test('flushEvents deletes events that fail 3 times', () async {
-      await eventClient.recordEvent(
-        eventType: failEventType,
-      );
+      await eventClient.recordEvent(eventType: failEventType);
 
       final mockOperation = MockSmithyOperation<PutEventsResponse>();
 
@@ -446,8 +436,9 @@ void main() {
         () => mockOperation.result,
       ).thenThrow(const SmithyHttpException(statusCode: 500, body: ''));
 
-      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
-          .thenReturn(mockOperation);
+      when(
+        () => pinpointClient.putEvents(any<PutEventsRequest>()),
+      ).thenReturn(mockOperation);
 
       await eventClient.flushEvents();
       await eventClient.flushEvents();
@@ -462,46 +453,40 @@ void main() {
     });
 
     test(
-        'flushEvents does not delete events that fail >3 times if they are AWSHttpException',
-        () async {
-      await eventClient.recordEvent(
-        eventType: failEventType,
-      );
+      'flushEvents does not delete events that fail >3 times if they are AWSHttpException',
+      () async {
+        await eventClient.recordEvent(eventType: failEventType);
 
-      final mockOperation = MockSmithyOperation<PutEventsResponse>();
+        final mockOperation = MockSmithyOperation<PutEventsResponse>();
 
-      when(
-        () => mockOperation.result,
-      ).thenThrow(MockAWSHttpException());
+        when(() => mockOperation.result).thenThrow(MockAWSHttpException());
 
-      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
-          .thenReturn(mockOperation);
+        when(
+          () => pinpointClient.putEvents(any<PutEventsRequest>()),
+        ).thenReturn(mockOperation);
 
-      await eventClient.flushEvents();
-      await eventClient.flushEvents();
-      await eventClient.flushEvents();
-      await eventClient.flushEvents();
-      await eventClient.flushEvents();
+        await eventClient.flushEvents();
+        await eventClient.flushEvents();
+        await eventClient.flushEvents();
+        await eventClient.flushEvents();
+        await eventClient.flushEvents();
 
-      final items = eventStore.getCount(100);
-      expect(items.length, 1);
-    });
+        final items = eventStore.getCount(100);
+        expect(items.length, 1);
+      },
+    );
 
-    test('flushEvents throws PinpointException from unrecognized exceptions',
-        () async {
-      await eventClient.recordEvent(
-        eventType: failEventType,
-      );
+    test(
+      'flushEvents throws PinpointException from unrecognized exceptions',
+      () async {
+        await eventClient.recordEvent(eventType: failEventType);
 
-      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
-          .thenThrow(Exception());
+        when(
+          () => pinpointClient.putEvents(any<PutEventsRequest>()),
+        ).thenThrow(Exception());
 
-      expect(
-        eventClient.flushEvents(),
-        throwsA(
-          isA<AnalyticsException>(),
-        ),
-      );
-    });
+        expect(eventClient.flushEvents(), throwsA(isA<AnalyticsException>()));
+      },
+    );
   });
 }

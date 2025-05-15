@@ -64,9 +64,9 @@ abstract class UploadPartCopyRequest
     );
   }
 
-  factory UploadPartCopyRequest.build(
-          [void Function(UploadPartCopyRequestBuilder) updates]) =
-      _$UploadPartCopyRequest;
+  factory UploadPartCopyRequest.build([
+    void Function(UploadPartCopyRequestBuilder) updates,
+  ]) = _$UploadPartCopyRequest;
 
   const UploadPartCopyRequest._();
 
@@ -74,95 +74,97 @@ abstract class UploadPartCopyRequest
     UploadPartCopyRequestPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      UploadPartCopyRequest.build((b) {
-        if (request.headers['x-amz-copy-source'] != null) {
-          b.copySource = request.headers['x-amz-copy-source']!;
-        }
-        if (request.headers['x-amz-copy-source-if-match'] != null) {
-          b.copySourceIfMatch = request.headers['x-amz-copy-source-if-match']!;
-        }
-        if (request.headers['x-amz-copy-source-if-modified-since'] != null) {
-          b.copySourceIfModifiedSince = _i1.Timestamp.parse(
+  }) => UploadPartCopyRequest.build((b) {
+    if (request.headers['x-amz-copy-source'] != null) {
+      b.copySource = request.headers['x-amz-copy-source']!;
+    }
+    if (request.headers['x-amz-copy-source-if-match'] != null) {
+      b.copySourceIfMatch = request.headers['x-amz-copy-source-if-match']!;
+    }
+    if (request.headers['x-amz-copy-source-if-modified-since'] != null) {
+      b.copySourceIfModifiedSince =
+          _i1.Timestamp.parse(
             request.headers['x-amz-copy-source-if-modified-since']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['x-amz-copy-source-if-none-match'] != null) {
-          b.copySourceIfNoneMatch =
-              request.headers['x-amz-copy-source-if-none-match']!;
-        }
-        if (request.headers['x-amz-copy-source-if-unmodified-since'] != null) {
-          b.copySourceIfUnmodifiedSince = _i1.Timestamp.parse(
+    }
+    if (request.headers['x-amz-copy-source-if-none-match'] != null) {
+      b.copySourceIfNoneMatch =
+          request.headers['x-amz-copy-source-if-none-match']!;
+    }
+    if (request.headers['x-amz-copy-source-if-unmodified-since'] != null) {
+      b.copySourceIfUnmodifiedSince =
+          _i1.Timestamp.parse(
             request.headers['x-amz-copy-source-if-unmodified-since']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['x-amz-copy-source-range'] != null) {
-          b.copySourceRange = request.headers['x-amz-copy-source-range']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = request
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key'] !=
-            null) {
-          b.sseCustomerKey =
-              request.headers['x-amz-server-side-encryption-customer-key']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 =
-              request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.headers[
-                'x-amz-copy-source-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.copySourceSseCustomerAlgorithm = request.headers[
-              'x-amz-copy-source-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers[
-                'x-amz-copy-source-server-side-encryption-customer-key'] !=
-            null) {
-          b.copySourceSseCustomerKey = request.headers[
-              'x-amz-copy-source-server-side-encryption-customer-key']!;
-        }
-        if (request.headers[
-                'x-amz-copy-source-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.copySourceSseCustomerKeyMd5 = request.headers[
-              'x-amz-copy-source-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.headers['x-amz-source-expected-bucket-owner'] != null) {
-          b.expectedSourceBucketOwner =
-              request.headers['x-amz-source-expected-bucket-owner']!;
-        }
-        if (request.queryParameters['partNumber'] != null) {
-          b.partNumber = int.parse(request.queryParameters['partNumber']!);
-        }
-        if (request.queryParameters['uploadId'] != null) {
-          b.uploadId = request.queryParameters['uploadId']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+    }
+    if (request.headers['x-amz-copy-source-range'] != null) {
+      b.copySourceRange = request.headers['x-amz-copy-source-range']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          request.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key'] != null) {
+      b.sseCustomerKey =
+          request.headers['x-amz-server-side-encryption-customer-key']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request
+            .headers['x-amz-copy-source-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.copySourceSseCustomerAlgorithm =
+          request
+              .headers['x-amz-copy-source-server-side-encryption-customer-algorithm']!;
+    }
+    if (request
+            .headers['x-amz-copy-source-server-side-encryption-customer-key'] !=
+        null) {
+      b.copySourceSseCustomerKey =
+          request
+              .headers['x-amz-copy-source-server-side-encryption-customer-key']!;
+    }
+    if (request
+            .headers['x-amz-copy-source-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.copySourceSseCustomerKeyMd5 =
+          request
+              .headers['x-amz-copy-source-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.headers['x-amz-source-expected-bucket-owner'] != null) {
+      b.expectedSourceBucketOwner =
+          request.headers['x-amz-source-expected-bucket-owner']!;
+    }
+    if (request.queryParameters['partNumber'] != null) {
+      b.partNumber = int.parse(request.queryParameters['partNumber']!);
+    }
+    if (request.queryParameters['uploadId'] != null) {
+      b.uploadId = request.queryParameters['uploadId']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<UploadPartCopyRequestPayload>>
-      serializers = [UploadPartCopyRequestRestXmlSerializer()];
+  serializers = [UploadPartCopyRequestRestXmlSerializer()];
 
   /// The bucket name.
   ///
@@ -300,10 +302,7 @@ abstract class UploadPartCopyRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -311,121 +310,69 @@ abstract class UploadPartCopyRequest
 
   @override
   List<Object?> get props => [
-        bucket,
-        copySource,
-        copySourceIfMatch,
-        copySourceIfModifiedSince,
-        copySourceIfNoneMatch,
-        copySourceIfUnmodifiedSince,
-        copySourceRange,
-        key,
-        partNumber,
-        uploadId,
-        sseCustomerAlgorithm,
-        sseCustomerKey,
-        sseCustomerKeyMd5,
-        copySourceSseCustomerAlgorithm,
-        copySourceSseCustomerKey,
-        copySourceSseCustomerKeyMd5,
-        requestPayer,
-        expectedBucketOwner,
-        expectedSourceBucketOwner,
-      ];
+    bucket,
+    copySource,
+    copySourceIfMatch,
+    copySourceIfModifiedSince,
+    copySourceIfNoneMatch,
+    copySourceIfUnmodifiedSince,
+    copySourceRange,
+    key,
+    partNumber,
+    uploadId,
+    sseCustomerAlgorithm,
+    sseCustomerKey,
+    sseCustomerKeyMd5,
+    copySourceSseCustomerAlgorithm,
+    copySourceSseCustomerKey,
+    copySourceSseCustomerKeyMd5,
+    requestPayer,
+    expectedBucketOwner,
+    expectedSourceBucketOwner,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadPartCopyRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'copySource',
-        copySource,
-      )
-      ..add(
-        'copySourceIfMatch',
-        copySourceIfMatch,
-      )
-      ..add(
-        'copySourceIfModifiedSince',
-        copySourceIfModifiedSince,
-      )
-      ..add(
-        'copySourceIfNoneMatch',
-        copySourceIfNoneMatch,
-      )
-      ..add(
-        'copySourceIfUnmodifiedSince',
-        copySourceIfUnmodifiedSince,
-      )
-      ..add(
-        'copySourceRange',
-        copySourceRange,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'partNumber',
-        partNumber,
-      )
-      ..add(
-        'uploadId',
-        uploadId,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'copySourceSseCustomerAlgorithm',
-        copySourceSseCustomerAlgorithm,
-      )
-      ..add(
-        'copySourceSseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'copySourceSseCustomerKeyMd5',
-        copySourceSseCustomerKeyMd5,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      )
-      ..add(
-        'expectedSourceBucketOwner',
-        expectedSourceBucketOwner,
-      );
+    final helper =
+        newBuiltValueToStringHelper('UploadPartCopyRequest')
+          ..add('bucket', bucket)
+          ..add('copySource', copySource)
+          ..add('copySourceIfMatch', copySourceIfMatch)
+          ..add('copySourceIfModifiedSince', copySourceIfModifiedSince)
+          ..add('copySourceIfNoneMatch', copySourceIfNoneMatch)
+          ..add('copySourceIfUnmodifiedSince', copySourceIfUnmodifiedSince)
+          ..add('copySourceRange', copySourceRange)
+          ..add('key', key)
+          ..add('partNumber', partNumber)
+          ..add('uploadId', uploadId)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKey', '***SENSITIVE***')
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add(
+            'copySourceSseCustomerAlgorithm',
+            copySourceSseCustomerAlgorithm,
+          )
+          ..add('copySourceSseCustomerKey', '***SENSITIVE***')
+          ..add('copySourceSseCustomerKeyMd5', copySourceSseCustomerKeyMd5)
+          ..add('requestPayer', requestPayer)
+          ..add('expectedBucketOwner', expectedBucketOwner)
+          ..add('expectedSourceBucketOwner', expectedSourceBucketOwner);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class UploadPartCopyRequestPayload
-    with
-        _i2.AWSEquatable<UploadPartCopyRequestPayload>
+    with _i2.AWSEquatable<UploadPartCopyRequestPayload>
     implements
-        Built<UploadPartCopyRequestPayload,
-            UploadPartCopyRequestPayloadBuilder>,
+        Built<
+          UploadPartCopyRequestPayload,
+          UploadPartCopyRequestPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory UploadPartCopyRequestPayload(
-          [void Function(UploadPartCopyRequestPayloadBuilder) updates]) =
-      _$UploadPartCopyRequestPayload;
+  factory UploadPartCopyRequestPayload([
+    void Function(UploadPartCopyRequestPayloadBuilder) updates,
+  ]) = _$UploadPartCopyRequestPayload;
 
   const UploadPartCopyRequestPayload._();
 
@@ -442,23 +389,20 @@ abstract class UploadPartCopyRequestPayload
 class UploadPartCopyRequestRestXmlSerializer
     extends _i1.StructuredSmithySerializer<UploadPartCopyRequestPayload> {
   const UploadPartCopyRequestRestXmlSerializer()
-      : super('UploadPartCopyRequest');
+    : super('UploadPartCopyRequest');
 
   @override
   Iterable<Type> get types => const [
-        UploadPartCopyRequest,
-        _$UploadPartCopyRequest,
-        UploadPartCopyRequestPayload,
-        _$UploadPartCopyRequestPayload,
-      ];
+    UploadPartCopyRequest,
+    _$UploadPartCopyRequest,
+    UploadPartCopyRequestPayload,
+    _$UploadPartCopyRequestPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   UploadPartCopyRequestPayload deserialize(
@@ -479,7 +423,7 @@ class UploadPartCopyRequestRestXmlSerializer
       const _i1.XmlElementName(
         'UploadPartCopyRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

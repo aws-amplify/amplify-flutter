@@ -50,31 +50,38 @@ class GraphQLRequestFactory {
   }) {
     // Schema has been validated & schema.fields is non-nullable.
     // Get a list of field names to include in the request body.
-    final fields = schema.fields!.entries
-        .where(
-      (entry) => entry.value.association == null,
-    ) // ignore related model fields
-        .map((entry) {
-      if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded ||
-          entry.value.type.fieldType == ModelFieldTypeEnum.embeddedCollection) {
-        final embeddedSchema =
-            getModelSchemaByModelName(entry.value.type.ofCustomTypeName!, null);
-        final embeddedSelectionSet = _getSelectionSetFromModelSchema(
-          embeddedSchema,
-          GraphQLRequestOperation.get,
-        );
-        return '${entry.key} { $embeddedSelectionSet }';
-      }
-      return entry.key;
-    }).toList(); // e.g. ["id", "name", "createdAt"]
+    final fields =
+        schema.fields!.entries
+            .where(
+              (entry) => entry.value.association == null,
+            ) // ignore related model fields
+            .map((entry) {
+              if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded ||
+                  entry.value.type.fieldType ==
+                      ModelFieldTypeEnum.embeddedCollection) {
+                final embeddedSchema = getModelSchemaByModelName(
+                  entry.value.type.ofCustomTypeName!,
+                  null,
+                );
+                final embeddedSelectionSet = _getSelectionSetFromModelSchema(
+                  embeddedSchema,
+                  GraphQLRequestOperation.get,
+                );
+                return '${entry.key} { $embeddedSelectionSet }';
+              }
+              return entry.key;
+            })
+            .toList(); // e.g. ["id", "name", "createdAt"]
 
     // If belongsTo, also add selection set of parent.
     final allBelongsTo = getBelongsToFieldsFromModelSchema(schema);
     for (final belongsTo in allBelongsTo) {
       final belongsToModelName = belongsTo.type.ofModelName;
       if (belongsToModelName != null && !ignoreParents) {
-        final parentSchema =
-            getModelSchemaByModelName(belongsToModelName, null);
+        final parentSchema = getModelSchemaByModelName(
+          belongsToModelName,
+          null,
+        );
         final parentSelectionSet = _getSelectionSetFromModelSchema(
           parentSchema,
           GraphQLRequestOperation.get,
@@ -94,13 +101,16 @@ class GraphQLRequestFactory {
     }
 
     // Get owner fields if present in auth rules
-    final ownerFields = (schema.authRules ?? [])
-        .map((authRule) => authRule.ownerField)
-        .whereNotNull()
-        .toList();
+    final ownerFields =
+        (schema.authRules ?? [])
+            .map((authRule) => authRule.ownerField)
+            .whereNotNull()
+            .toList();
 
-    final fieldSelection =
-        [...fields, ...ownerFields].join(' '); // e.g. "id name createdAt"
+    final fieldSelection = [
+      ...fields,
+      ...ownerFields,
+    ].join(' '); // e.g. "id name createdAt"
 
     if (operation == GraphQLRequestOperation.list) {
       return '$items { $fieldSelection } nextToken';
@@ -128,8 +138,9 @@ class GraphQLRequestFactory {
     switch (operation) {
       case GraphQLRequestOperation.get:
         final indexes = schema.indexes;
-        final modelIndex =
-            indexes?.firstWhereOrNull((index) => index.name == null);
+        final modelIndex = indexes?.firstWhereOrNull(
+          (index) => index.name == null,
+        );
         if (modelIndex != null) {
           // custom index(es), e.g.
           // upperOutput: no change (empty string)
@@ -196,8 +207,10 @@ class GraphQLRequestFactory {
     int depth = 0,
   }) {
     // retrieve schema from ModelType and validate required properties
-    final schema =
-        getModelSchemaByModelName(modelType.modelName(), requestOperation);
+    final schema = getModelSchemaByModelName(
+      modelType.modelName(),
+      requestOperation,
+    );
 
     // e.g. "Blog" or "Blogs"
     final name = _capitalize(_getName(schema, requestOperation));
@@ -249,10 +262,7 @@ class GraphQLRequestFactory {
     required Map<String, dynamic> input,
     Map<String, dynamic>? condition,
   }) {
-    return <String, dynamic>{
-      'input': input,
-      'condition': condition,
-    };
+    return <String, dynamic>{'input': input, 'condition': condition};
   }
 
   Map<String, dynamic> buildVariablesForSubscriptionRequest({
@@ -262,11 +272,11 @@ class GraphQLRequestFactory {
     if (where == null) {
       return {};
     }
-    final filter = GraphQLRequestFactory.instance
-        .queryPredicateToGraphQLFilter(where, modelType);
-    return <String, dynamic>{
-      'filter': filter,
-    };
+    final filter = GraphQLRequestFactory.instance.queryPredicateToGraphQLFilter(
+      where,
+      modelType,
+    );
+    return <String, dynamic>{'filter': filter};
   }
 
   /// Translates a `QueryPredicate` to a map representing a GraphQL filter
@@ -331,12 +341,13 @@ class GraphQLRequestFactory {
 
       // and, or
       return <String, List<Map<String, dynamic>>>{
-        typeExpression: queryPredicate.predicates
-            .map(
-              (predicate) =>
-                  queryPredicateToGraphQLFilter(predicate, modelType)!,
-            )
-            .toList(),
+        typeExpression:
+            queryPredicate.predicates
+                .map(
+                  (predicate) =>
+                      queryPredicateToGraphQLFilter(predicate, modelType)!,
+                )
+                .toList(),
       };
     }
 
@@ -356,8 +367,10 @@ class GraphQLRequestFactory {
     Model model, {
     required GraphQLRequestOperation operation,
   }) {
-    final schema =
-        getModelSchemaByModelName(model.getInstanceType().modelName(), null);
+    final schema = getModelSchemaByModelName(
+      model.getInstanceType().modelName(),
+      null,
+    );
     final modelJson = model.toJson();
 
     // Get the primary key field name from parent schema(s) so it can be taken from
@@ -387,8 +400,9 @@ class GraphQLRequestFactory {
       for (final belongsToKey in belongsToKeys) {
         final parentIdFieldName =
             primaryKeyIndex?.fields[i] ?? _defaultIdFieldName;
-        final belongsToValue = (modelJson[belongsToModelName]
-            as Map?)?[parentIdFieldName] as String?;
+        final belongsToValue =
+            (modelJson[belongsToModelName] as Map?)?[parentIdFieldName]
+                as String?;
 
         // Assign the parent ID(s) if the model has a parent.
         if (belongsToValue != null) {
@@ -399,25 +413,27 @@ class GraphQLRequestFactory {
       modelJson.remove(belongsToModelName);
     }
 
-    final ownerFieldNames = (schema.authRules ?? [])
-        .map((authRule) => authRule.ownerField)
-        .whereNotNull()
-        .toSet();
+    final ownerFieldNames =
+        (schema.authRules ?? [])
+            .map((authRule) => authRule.ownerField)
+            .whereNotNull()
+            .toSet();
     // Remove some fields from input.
-    final fieldsToRemove = schema.fields!.entries
-        .where(
-          (entry) =>
-              // relational fields
-              entry.value.association != null ||
-              // read-only
-              entry.value.isReadOnly ||
-              // null values for owner fields on create operations
-              (operation == GraphQLRequestOperation.create &&
-                  ownerFieldNames.contains(entry.value.name) &&
-                  modelJson[entry.value.name] == null),
-        )
-        .map((entry) => entry.key)
-        .toSet();
+    final fieldsToRemove =
+        schema.fields!.entries
+            .where(
+              (entry) =>
+                  // relational fields
+                  entry.value.association != null ||
+                  // read-only
+                  entry.value.isReadOnly ||
+                  // null values for owner fields on create operations
+                  (operation == GraphQLRequestOperation.create &&
+                      ownerFieldNames.contains(entry.value.name) &&
+                      modelJson[entry.value.name] == null),
+            )
+            .map((entry) => entry.key)
+            .toSet();
     modelJson.removeWhere((key, dynamic value) => fieldsToRemove.contains(key));
 
     return modelJson;

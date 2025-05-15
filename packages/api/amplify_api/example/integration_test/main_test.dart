@@ -56,22 +56,10 @@ void main() async {
       await Amplify.reset();
     });
 
-    graph_api_key_test.main(
-      useExistingTestUser: true,
-      testUser: testUser,
-    );
-    graph_iam_test.main(
-      useExistingTestUser: true,
-      testUser: testUser,
-    );
-    graph_user_pools_test.main(
-      useExistingTestUser: true,
-      testUser: testUser,
-    );
+    graph_api_key_test.main(useExistingTestUser: true, testUser: testUser);
+    graph_iam_test.main(useExistingTestUser: true, testUser: testUser);
+    graph_user_pools_test.main(useExistingTestUser: true, testUser: testUser);
 
-    rest_test.main(
-      useExistingTestUser: true,
-      testUser: testUser,
-    );
+    rest_test.main(useExistingTestUser: true, testUser: testUser);
   });
 }

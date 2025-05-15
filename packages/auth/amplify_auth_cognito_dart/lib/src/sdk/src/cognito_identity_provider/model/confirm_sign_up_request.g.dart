@@ -24,34 +24,46 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$ConfirmSignUpRequest(
-          [void Function(ConfirmSignUpRequestBuilder)? updates]) =>
-      (new ConfirmSignUpRequestBuilder()..update(updates))._build();
+  factory _$ConfirmSignUpRequest([
+    void Function(ConfirmSignUpRequestBuilder)? updates,
+  ]) => (new ConfirmSignUpRequestBuilder()..update(updates))._build();
 
-  _$ConfirmSignUpRequest._(
-      {required this.clientId,
-      this.secretHash,
-      required this.username,
-      required this.confirmationCode,
-      required this.forceAliasCreation,
-      this.analyticsMetadata,
-      this.userContextData,
-      this.clientMetadata})
-      : super._() {
+  _$ConfirmSignUpRequest._({
+    required this.clientId,
+    this.secretHash,
+    required this.username,
+    required this.confirmationCode,
+    required this.forceAliasCreation,
+    this.analyticsMetadata,
+    this.userContextData,
+    this.clientMetadata,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        clientId, r'ConfirmSignUpRequest', 'clientId');
+      clientId,
+      r'ConfirmSignUpRequest',
+      'clientId',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        username, r'ConfirmSignUpRequest', 'username');
+      username,
+      r'ConfirmSignUpRequest',
+      'username',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        confirmationCode, r'ConfirmSignUpRequest', 'confirmationCode');
+      confirmationCode,
+      r'ConfirmSignUpRequest',
+      'confirmationCode',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        forceAliasCreation, r'ConfirmSignUpRequest', 'forceAliasCreation');
+      forceAliasCreation,
+      r'ConfirmSignUpRequest',
+      'forceAliasCreation',
+    );
   }
 
   @override
   ConfirmSignUpRequest rebuild(
-          void Function(ConfirmSignUpRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConfirmSignUpRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConfirmSignUpRequestBuilder toBuilder() =>
@@ -168,19 +180,30 @@ class ConfirmSignUpRequestBuilder
   _$ConfirmSignUpRequest _build() {
     _$ConfirmSignUpRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ConfirmSignUpRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
-                clientId, r'ConfirmSignUpRequest', 'clientId'),
+              clientId,
+              r'ConfirmSignUpRequest',
+              'clientId',
+            ),
             secretHash: secretHash,
             username: BuiltValueNullFieldError.checkNotNull(
-                username, r'ConfirmSignUpRequest', 'username'),
+              username,
+              r'ConfirmSignUpRequest',
+              'username',
+            ),
             confirmationCode: BuiltValueNullFieldError.checkNotNull(
-                confirmationCode, r'ConfirmSignUpRequest', 'confirmationCode'),
+              confirmationCode,
+              r'ConfirmSignUpRequest',
+              'confirmationCode',
+            ),
             forceAliasCreation: BuiltValueNullFieldError.checkNotNull(
-                forceAliasCreation,
-                r'ConfirmSignUpRequest',
-                'forceAliasCreation'),
+              forceAliasCreation,
+              r'ConfirmSignUpRequest',
+              'forceAliasCreation',
+            ),
             analyticsMetadata: _analyticsMetadata?.build(),
             userContextData: _userContextData?.build(),
             clientMetadata: _clientMetadata?.build(),
@@ -196,7 +219,10 @@ class ConfirmSignUpRequestBuilder
         _clientMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ConfirmSignUpRequest', _$failedField, e.toString());
+          r'ConfirmSignUpRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

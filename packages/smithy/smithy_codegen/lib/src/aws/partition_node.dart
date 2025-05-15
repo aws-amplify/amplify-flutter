@@ -7,10 +7,7 @@ import 'package:smithy_aws/smithy_aws.dart';
 
 part 'partition_node.g.dart';
 
-const _fromJson = JsonSerializable(
-  createToJson: false,
-  anyMap: true,
-);
+const _fromJson = JsonSerializable(createToJson: false, anyMap: true);
 
 /// {@template smithy_codegen.partition_node}
 /// Node for a single partition found in endpoints.json.
@@ -85,14 +82,14 @@ class PartitionNode with AWSEquatable<PartitionNode> {
 
   @override
   List<Object?> get props => [
-        defaults,
-        dnsSuffix,
-        partition,
-        partitionName,
-        regionRegex,
-        regions,
-        services,
-      ];
+    defaults,
+    dnsSuffix,
+    partition,
+    partitionName,
+    regionRegex,
+    regions,
+    services,
+  ];
 }
 
 @_fromJson
@@ -135,11 +132,11 @@ class PartitionNodeDefaults with AWSEquatable<PartitionNodeDefaults> {
 
   @override
   List<Object?> get props => [
-        credentialScope,
-        hostname,
-        protocols,
-        signatureVersions,
-      ];
+    credentialScope,
+    hostname,
+    protocols,
+    signatureVersions,
+  ];
 }
 
 @_fromJson
@@ -157,8 +154,7 @@ class PartitionNodeServiceConfiguration
 
   factory PartitionNodeServiceConfiguration.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$PartitionNodeServiceConfigurationFromJson(json);
+  ) => _$PartitionNodeServiceConfigurationFromJson(json);
 
   /// Default values to merge into each endpoint of the service.
   final EndpointDefinition defaults;
@@ -183,12 +179,12 @@ class PartitionNodeServiceConfiguration
 
   @override
   List<Object?> get props => [
-        defaults,
-        endpoints,
-        protocols,
-        partitionEndpoint,
-        isRegionalized,
-        deprecated,
-        variants,
-      ];
+    defaults,
+    endpoints,
+    protocols,
+    partitionEndpoint,
+    isRegionalized,
+    deprecated,
+    variants,
+  ];
 }

@@ -37,9 +37,7 @@ abstract class AmplifySecureStorageConfig
   }
 
   /// Configuration options for overriding the default namespace.
-  factory AmplifySecureStorageConfig.byNamespace({
-    required String namespace,
-  }) {
+  factory AmplifySecureStorageConfig.byNamespace({required String namespace}) {
     return _$AmplifySecureStorageConfig._(
       namespace: namespace,
       webOptions: WebSecureStorageOptions(),

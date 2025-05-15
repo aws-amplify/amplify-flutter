@@ -59,21 +59,21 @@ class S3DownloadTask {
     void Function(List<int>)? onData,
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
-  })  : _downloadCompleter = Completer<S3Item>(),
-        _s3Client = s3Client,
-        _defaultS3ClientConfig = defaultS3ClientConfig,
-        _pathResolver = pathResolver,
-        _bucket = bucket,
-        _path = path,
-        _preStart = preStart,
-        _onProgress = onProgress,
-        _onData = onData,
-        _onDone = onDone,
-        _onError = onError,
-        _downloadedBytesSize = 0,
-        _s3PluginOptions =
-            options.pluginOptions as S3DownloadDataPluginOptions? ??
-                const S3DownloadDataPluginOptions();
+  }) : _downloadCompleter = Completer<S3Item>(),
+       _s3Client = s3Client,
+       _defaultS3ClientConfig = defaultS3ClientConfig,
+       _pathResolver = pathResolver,
+       _bucket = bucket,
+       _path = path,
+       _preStart = preStart,
+       _onProgress = onProgress,
+       _onData = onData,
+       _onDone = onDone,
+       _onError = onError,
+       _downloadedBytesSize = 0,
+       _s3PluginOptions =
+           options.pluginOptions as S3DownloadDataPluginOptions? ??
+           const S3DownloadDataPluginOptions();
 
   // the Completer to complete the final `result` Future.
   final Completer<S3Item> _downloadCompleter;
@@ -160,8 +160,10 @@ class S3DownloadTask {
 
       _totalBytes = remoteSize;
       _listenToBytesSteam(getObjectOutput.body);
-      _downloadedS3Item =
-          S3Item.fromGetObjectOutput(getObjectOutput, path: _resolvedPath);
+      _downloadedS3Item = S3Item.fromGetObjectOutput(
+        getObjectOutput,
+        path: _resolvedPath,
+      );
     } on Exception catch (error, stackTrace) {
       await _completeDownloadWithError(error, stackTrace);
     }
@@ -274,44 +276,45 @@ class S3DownloadTask {
       return;
     }
 
-    _bytesSubscription = bytesStream.listen((bytes) {
-      _downloadedBytesSize += bytes.length;
-      _onData?.call(bytes);
-      _emitTransferProgress();
-    })
-      ..onDone(() async {
-        if (_downloadedBytesSize == _totalBytes) {
-          _state = StorageTransferState.success;
-          try {
-            await _onDone?.call();
+    _bytesSubscription =
+        bytesStream.listen((bytes) {
+            _downloadedBytesSize += bytes.length;
+            _onData?.call(bytes);
             _emitTransferProgress();
-            _downloadCompleter.complete(
-              // On VM, download operation gets object metadata directly
-              // from the underlying `GetObject` call.
-              // On Web, download operation is done by browser download from
-              // object presigned URL, where object metadata needs to be
-              // retrieve via a separate `HeadObject` call.
-              // To unify the behavior on `downloadOptions.getProperties`
-              // we hide the metadata from the result on VM if this parameter
-              // is set to `false`.
-              _s3PluginOptions.getProperties
-                  ? _downloadedS3Item
-                  : S3Item(path: _downloadedS3Item.path),
-            );
-          } on Exception catch (error, stackTrace) {
-            await _completeDownloadWithError(error, stackTrace);
-          }
-        } else {
-          await _completeDownloadWithError(
-            const UnknownException(
-              'The download operation was completed, but only a portion of the data was downloaded.',
-              recoverySuggestion:
-                  AmplifyExceptionMessages.missingExceptionMessage,
-            ),
-          );
-        }
-      })
-      ..onError(_completeDownloadWithError);
+          })
+          ..onDone(() async {
+            if (_downloadedBytesSize == _totalBytes) {
+              _state = StorageTransferState.success;
+              try {
+                await _onDone?.call();
+                _emitTransferProgress();
+                _downloadCompleter.complete(
+                  // On VM, download operation gets object metadata directly
+                  // from the underlying `GetObject` call.
+                  // On Web, download operation is done by browser download from
+                  // object presigned URL, where object metadata needs to be
+                  // retrieve via a separate `HeadObject` call.
+                  // To unify the behavior on `downloadOptions.getProperties`
+                  // we hide the metadata from the result on VM if this parameter
+                  // is set to `false`.
+                  _s3PluginOptions.getProperties
+                      ? _downloadedS3Item
+                      : S3Item(path: _downloadedS3Item.path),
+                );
+              } on Exception catch (error, stackTrace) {
+                await _completeDownloadWithError(error, stackTrace);
+              }
+            } else {
+              await _completeDownloadWithError(
+                const UnknownException(
+                  'The download operation was completed, but only a portion of the data was downloaded.',
+                  recoverySuggestion:
+                      AmplifyExceptionMessages.missingExceptionMessage,
+                ),
+              );
+            }
+          })
+          ..onError(_completeDownloadWithError);
 
     // After setting up the body stream listener, we consider the task is fully
     // started, and can be paused etc.

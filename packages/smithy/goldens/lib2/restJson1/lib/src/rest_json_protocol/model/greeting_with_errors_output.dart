@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.greeting_with_errors_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class GreetingWithErrorsOutput
     return _$GreetingWithErrorsOutput._(greeting: greeting);
   }
 
-  factory GreetingWithErrorsOutput.build(
-          [void Function(GreetingWithErrorsOutputBuilder) updates]) =
-      _$GreetingWithErrorsOutput;
+  factory GreetingWithErrorsOutput.build([
+    void Function(GreetingWithErrorsOutputBuilder) updates,
+  ]) = _$GreetingWithErrorsOutput;
 
   const GreetingWithErrorsOutput._();
 
@@ -31,15 +31,14 @@ abstract class GreetingWithErrorsOutput
   factory GreetingWithErrorsOutput.fromResponse(
     GreetingWithErrorsOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      GreetingWithErrorsOutput.build((b) {
-        if (response.headers['X-Greeting'] != null) {
-          b.greeting = response.headers['X-Greeting']!;
-        }
-      });
+  ) => GreetingWithErrorsOutput.build((b) {
+    if (response.headers['X-Greeting'] != null) {
+      b.greeting = response.headers['X-Greeting']!;
+    }
+  });
 
   static const List<_i2.SmithySerializer<GreetingWithErrorsOutputPayload>>
-      serializers = [GreetingWithErrorsOutputRestJson1Serializer()];
+  serializers = [GreetingWithErrorsOutputRestJson1Serializer()];
 
   String? get greeting;
   @override
@@ -52,25 +51,23 @@ abstract class GreetingWithErrorsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingWithErrorsOutput')
-      ..add(
-        'greeting',
-        greeting,
-      );
+      ..add('greeting', greeting);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class GreetingWithErrorsOutputPayload
-    with
-        _i1.AWSEquatable<GreetingWithErrorsOutputPayload>
+    with _i1.AWSEquatable<GreetingWithErrorsOutputPayload>
     implements
-        Built<GreetingWithErrorsOutputPayload,
-            GreetingWithErrorsOutputPayloadBuilder>,
+        Built<
+          GreetingWithErrorsOutputPayload,
+          GreetingWithErrorsOutputPayloadBuilder
+        >,
         _i2.EmptyPayload {
-  factory GreetingWithErrorsOutputPayload(
-          [void Function(GreetingWithErrorsOutputPayloadBuilder) updates]) =
-      _$GreetingWithErrorsOutputPayload;
+  factory GreetingWithErrorsOutputPayload([
+    void Function(GreetingWithErrorsOutputPayloadBuilder) updates,
+  ]) = _$GreetingWithErrorsOutputPayload;
 
   const GreetingWithErrorsOutputPayload._();
 
@@ -79,8 +76,9 @@ abstract class GreetingWithErrorsOutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GreetingWithErrorsOutputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'GreetingWithErrorsOutputPayload',
+    );
     return helper.toString();
   }
 }
@@ -88,23 +86,20 @@ abstract class GreetingWithErrorsOutputPayload
 class GreetingWithErrorsOutputRestJson1Serializer
     extends _i2.StructuredSmithySerializer<GreetingWithErrorsOutputPayload> {
   const GreetingWithErrorsOutputRestJson1Serializer()
-      : super('GreetingWithErrorsOutput');
+    : super('GreetingWithErrorsOutput');
 
   @override
   Iterable<Type> get types => const [
-        GreetingWithErrorsOutput,
-        _$GreetingWithErrorsOutput,
-        GreetingWithErrorsOutputPayload,
-        _$GreetingWithErrorsOutputPayload,
-      ];
+    GreetingWithErrorsOutput,
+    _$GreetingWithErrorsOutput,
+    GreetingWithErrorsOutputPayload,
+    _$GreetingWithErrorsOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   GreetingWithErrorsOutputPayload deserialize(
@@ -120,6 +115,5 @@ class GreetingWithErrorsOutputRestJson1Serializer
     Serializers serializers,
     GreetingWithErrorsOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

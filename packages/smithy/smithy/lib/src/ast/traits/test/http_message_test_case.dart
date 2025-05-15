@@ -117,19 +117,19 @@ abstract class HttpMessageTestCase<T extends HttpMessageTestCase<T>>
 
   @override
   List<Object?> get props => [
-        id,
-        documentation,
-        protocol,
-        authScheme,
-        body,
-        bodyMediaType,
-        params,
-        vendorParamsShape,
-        vendorParams,
-        headers,
-        forbidHeaders,
-        requireHeaders,
-        tags,
-        appliesTo,
-      ];
+    id,
+    documentation,
+    protocol,
+    authScheme,
+    body,
+    bodyMediaType,
+    params,
+    vendorParamsShape,
+    vendorParams,
+    headers,
+    forbidHeaders,
+    requireHeaders,
+    tags,
+    appliesTo,
+  ];
 }

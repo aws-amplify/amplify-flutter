@@ -10,16 +10,16 @@ class _$NestedStructuresInput extends NestedStructuresInput {
   @override
   final StructArg? nested;
 
-  factory _$NestedStructuresInput(
-          [void Function(NestedStructuresInputBuilder)? updates]) =>
-      (new NestedStructuresInputBuilder()..update(updates))._build();
+  factory _$NestedStructuresInput([
+    void Function(NestedStructuresInputBuilder)? updates,
+  ]) => (new NestedStructuresInputBuilder()..update(updates))._build();
 
   _$NestedStructuresInput._({this.nested}) : super._();
 
   @override
   NestedStructuresInput rebuild(
-          void Function(NestedStructuresInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NestedStructuresInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NestedStructuresInputBuilder toBuilder() =>
@@ -84,7 +84,10 @@ class NestedStructuresInputBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'NestedStructuresInput', _$failedField, e.toString());
+          r'NestedStructuresInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

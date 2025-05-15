@@ -52,16 +52,15 @@ abstract class WebSocketState {
   ConnectingState connecting({
     NetworkState? networkState,
     IntendedState? intendedState,
-  }) =>
-      ConnectingState(
-        config,
-        authProviderRepo,
-        networkState ?? this.networkState,
-        intendedState ?? this.intendedState,
-        service,
-        subscriptionBlocs,
-        options,
-      );
+  }) => ConnectingState(
+    config,
+    authProviderRepo,
+    networkState ?? this.networkState,
+    intendedState ?? this.intendedState,
+    service,
+    subscriptionBlocs,
+    options,
+  );
 
   /// Move state to [ReconnectingState]
   ReconnectingState reconnecting({
@@ -81,38 +80,38 @@ abstract class WebSocketState {
 
   /// Move state to [DisconnectedState]
   DisconnectedState disconnect() => DisconnectedState(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
-        options,
-      );
+    config,
+    authProviderRepo,
+    networkState,
+    intendedState,
+    service,
+    subscriptionBlocs,
+    options,
+  );
 
   /// Move state to [FailureState]
   FailureState failed(Object e, StackTrace st) => FailureState(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
-        options,
-        e,
-        st,
-      );
+    config,
+    authProviderRepo,
+    networkState,
+    intendedState,
+    service,
+    subscriptionBlocs,
+    options,
+    e,
+    st,
+  );
 
   /// Move state to [PendingDisconnect]
   PendingDisconnect shutdown() => PendingDisconnect(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
-        options,
-      );
+    config,
+    authProviderRepo,
+    networkState,
+    intendedState,
+    service,
+    subscriptionBlocs,
+    options,
+  );
 }
 
 /// State for when a new connection is pending
@@ -231,10 +230,7 @@ class ConnectedState extends WebSocketState {
 
   /// Move state to [FailureState]
   @override
-  FailureState failed(
-    Object e,
-    StackTrace st,
-  ) {
+  FailureState failed(Object e, StackTrace st) {
     _cancelTimers();
 
     return super.failed(e, st);

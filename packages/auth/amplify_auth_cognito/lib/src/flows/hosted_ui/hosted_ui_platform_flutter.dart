@@ -58,7 +58,9 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
     if (!_isMobile) {
       return super.signInRedirectUri;
     }
-    return authOutputs.oauth!.redirectSignInUri.map(Uri.parse).firstWhere(
+    return authOutputs.oauth!.redirectSignInUri
+        .map(Uri.parse)
+        .firstWhere(
           (uri) => uri.scheme != 'https' && uri.scheme != 'http',
           orElse: () => _noSuitableRedirect(signIn: true),
         );
@@ -69,7 +71,9 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
     if (!_isMobile) {
       return super.signOutRedirectUri;
     }
-    return authOutputs.oauth!.redirectSignOutUri.map(Uri.parse).firstWhere(
+    return authOutputs.oauth!.redirectSignOutUri
+        .map(Uri.parse)
+        .firstWhere(
           (uri) => uri.scheme != 'https' && uri.scheme != 'http',
           orElse: () => _noSuitableRedirect(signIn: false),
         );

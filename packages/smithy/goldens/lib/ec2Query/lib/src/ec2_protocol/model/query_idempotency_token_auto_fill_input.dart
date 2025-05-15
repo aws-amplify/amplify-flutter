@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v1.ec2_protocol.model.query_idempotency_token_auto_fill_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,15 +15,17 @@ abstract class QueryIdempotencyTokenAutoFillInput
         _i1.HttpInput<QueryIdempotencyTokenAutoFillInput>,
         _i2.AWSEquatable<QueryIdempotencyTokenAutoFillInput>
     implements
-        Built<QueryIdempotencyTokenAutoFillInput,
-            QueryIdempotencyTokenAutoFillInputBuilder> {
+        Built<
+          QueryIdempotencyTokenAutoFillInput,
+          QueryIdempotencyTokenAutoFillInputBuilder
+        > {
   factory QueryIdempotencyTokenAutoFillInput({String? token}) {
     return _$QueryIdempotencyTokenAutoFillInput._(token: token);
   }
 
-  factory QueryIdempotencyTokenAutoFillInput.build(
-          [void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates]) =
-      _$QueryIdempotencyTokenAutoFillInput;
+  factory QueryIdempotencyTokenAutoFillInput.build([
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates,
+  ]) = _$QueryIdempotencyTokenAutoFillInput;
 
   const QueryIdempotencyTokenAutoFillInput._();
 
@@ -31,17 +33,17 @@ abstract class QueryIdempotencyTokenAutoFillInput
     QueryIdempotencyTokenAutoFillInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<QueryIdempotencyTokenAutoFillInput>>
-      serializers = [QueryIdempotencyTokenAutoFillInputEc2QuerySerializer()];
+  serializers = [QueryIdempotencyTokenAutoFillInputEc2QuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryIdempotencyTokenAutoFillInputBuilder b) {
-    b.token = const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
+    b.token =
+        const bool.hasEnvironment('SMITHY_TEST')
+            ? '00000000-0000-4000-8000-000000000000'
+            : _i2.uuid(secure: true);
   }
 
   String? get token;
@@ -53,12 +55,9 @@ abstract class QueryIdempotencyTokenAutoFillInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QueryIdempotencyTokenAutoFillInput')
-          ..add(
-            'token',
-            token,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'QueryIdempotencyTokenAutoFillInput',
+    )..add('token', token);
     return helper.toString();
   }
 }
@@ -66,21 +65,18 @@ abstract class QueryIdempotencyTokenAutoFillInput
 class QueryIdempotencyTokenAutoFillInputEc2QuerySerializer
     extends _i1.StructuredSmithySerializer<QueryIdempotencyTokenAutoFillInput> {
   const QueryIdempotencyTokenAutoFillInputEc2QuerySerializer()
-      : super('QueryIdempotencyTokenAutoFillInput');
+    : super('QueryIdempotencyTokenAutoFillInput');
 
   @override
   Iterable<Type> get types => const [
-        QueryIdempotencyTokenAutoFillInput,
-        _$QueryIdempotencyTokenAutoFillInput,
-      ];
+    QueryIdempotencyTokenAutoFillInput,
+    _$QueryIdempotencyTokenAutoFillInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   QueryIdempotencyTokenAutoFillInput deserialize(
@@ -99,10 +95,12 @@ class QueryIdempotencyTokenAutoFillInputEc2QuerySerializer
       }
       switch (key) {
         case 'token':
-          result.token = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.token =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -119,16 +117,15 @@ class QueryIdempotencyTokenAutoFillInputEc2QuerySerializer
       const _i1.XmlElementName(
         'QueryIdempotencyTokenAutoFillInputResponse',
         _i1.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final QueryIdempotencyTokenAutoFillInput(:token) = object;
     if (token != null) {
       result$
         ..add(const _i1.XmlElementName('Token'))
-        ..add(serializers.serialize(
-          token,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(token, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

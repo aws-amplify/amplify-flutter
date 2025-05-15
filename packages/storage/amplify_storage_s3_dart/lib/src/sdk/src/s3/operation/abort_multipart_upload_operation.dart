@@ -43,11 +43,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
 ///
 /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-class AbortMultipartUploadOperation extends _i1.HttpOperation<
-    AbortMultipartUploadRequestPayload,
-    AbortMultipartUploadRequest,
-    AbortMultipartUploadOutputPayload,
-    AbortMultipartUploadOutput> {
+class AbortMultipartUploadOperation
+    extends
+        _i1.HttpOperation<
+          AbortMultipartUploadRequestPayload,
+          AbortMultipartUploadRequest,
+          AbortMultipartUploadOutputPayload,
+          AbortMultipartUploadOutput
+        > {
   /// This operation aborts a multipart upload. After a multipart upload is aborted, no additional parts can be uploaded using that upload ID. The storage consumed by any previously uploaded parts will be freed. However, if any part uploads are currently in progress, those part uploads might or might not succeed. As a result, it might be necessary to abort a given multipart upload multiple times in order to completely free all storage consumed by all parts.
   ///
   /// To verify that all parts have been removed and prevent getting charged for the part storage, you should call the [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html) API operation and ensure that the parts list is empty.
@@ -84,30 +87,35 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          AbortMultipartUploadRequestPayload,
-          AbortMultipartUploadRequest,
-          AbortMultipartUploadOutputPayload,
-          AbortMultipartUploadOutput>> protocols = [
+    _i1.HttpProtocol<
+      AbortMultipartUploadRequestPayload,
+      AbortMultipartUploadRequest,
+      AbortMultipartUploadOutputPayload,
+      AbortMultipartUploadOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -118,7 +126,7 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -142,9 +150,10 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
   _i1.HttpRequest buildRequest(AbortMultipartUploadRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'DELETE';
-        b.path = _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?x-id=AbortMultipartUpload'
-            : r'/{Key+}?x-id=AbortMultipartUpload';
+        b.path =
+            _s3ClientConfig.usePathStyle
+                ? r'/{Bucket}/{Key+}?x-id=AbortMultipartUpload'
+                : r'/{Key+}?x-id=AbortMultipartUpload';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
         if (input.requestPayer != null) {
           b.headers['x-amz-request-payer'] = input.requestPayer!.value;
@@ -155,10 +164,7 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
-        b.queryParameters.add(
-          'uploadId',
-          input.uploadId,
-        );
+        b.queryParameters.add('uploadId', input.uploadId);
       });
 
   @override
@@ -168,25 +174,18 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
   AbortMultipartUploadOutput buildOutput(
     AbortMultipartUploadOutputPayload payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      AbortMultipartUploadOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => AbortMultipartUploadOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<NoSuchUpload, NoSuchUpload>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.s3',
-            shape: 'NoSuchUpload',
-          ),
-          _i1.ErrorKind.client,
-          NoSuchUpload,
-          statusCode: 404,
-          builder: NoSuchUpload.fromResponse,
-        )
-      ];
+    _i1.SmithyError<NoSuchUpload, NoSuchUpload>(
+      _i1.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NoSuchUpload'),
+      _i1.ErrorKind.client,
+      NoSuchUpload,
+      statusCode: 404,
+      builder: NoSuchUpload.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'AbortMultipartUpload';
@@ -222,11 +221,7 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

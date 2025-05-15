@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.post_union_with_json_name_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,9 +19,9 @@ abstract class PostUnionWithJsonNameOutput
     return _$PostUnionWithJsonNameOutput._(value: value);
   }
 
-  factory PostUnionWithJsonNameOutput.build(
-          [void Function(PostUnionWithJsonNameOutputBuilder) updates]) =
-      _$PostUnionWithJsonNameOutput;
+  factory PostUnionWithJsonNameOutput.build([
+    void Function(PostUnionWithJsonNameOutputBuilder) updates,
+  ]) = _$PostUnionWithJsonNameOutput;
 
   const PostUnionWithJsonNameOutput._();
 
@@ -29,11 +29,10 @@ abstract class PostUnionWithJsonNameOutput
   factory PostUnionWithJsonNameOutput.fromResponse(
     PostUnionWithJsonNameOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<PostUnionWithJsonNameOutput>>
-      serializers = [PostUnionWithJsonNameOutputRestJson1Serializer()];
+  serializers = [PostUnionWithJsonNameOutputRestJson1Serializer()];
 
   UnionWithJsonName get value;
   @override
@@ -42,10 +41,7 @@ abstract class PostUnionWithJsonNameOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameOutput')
-      ..add(
-        'value',
-        value,
-      );
+      ..add('value', value);
     return helper.toString();
   }
 }
@@ -53,21 +49,18 @@ abstract class PostUnionWithJsonNameOutput
 class PostUnionWithJsonNameOutputRestJson1Serializer
     extends _i2.StructuredSmithySerializer<PostUnionWithJsonNameOutput> {
   const PostUnionWithJsonNameOutputRestJson1Serializer()
-      : super('PostUnionWithJsonNameOutput');
+    : super('PostUnionWithJsonNameOutput');
 
   @override
   Iterable<Type> get types => const [
-        PostUnionWithJsonNameOutput,
-        _$PostUnionWithJsonNameOutput,
-      ];
+    PostUnionWithJsonNameOutput,
+    _$PostUnionWithJsonNameOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   PostUnionWithJsonNameOutput deserialize(
@@ -86,10 +79,12 @@ class PostUnionWithJsonNameOutputRestJson1Serializer
       }
       switch (key) {
         case 'value':
-          result.value = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(UnionWithJsonName),
-          ) as UnionWithJsonName);
+          result.value =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(UnionWithJsonName),
+                  )
+                  as UnionWithJsonName);
       }
     }
 

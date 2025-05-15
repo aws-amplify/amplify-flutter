@@ -96,9 +96,7 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   @protected
   @visibleForOverriding
   @mustCallSuper
-  Future<AWSBaseHttpRequest> transformRequest(
-    AWSBaseHttpRequest request,
-  );
+  Future<AWSBaseHttpRequest> transformRequest(AWSBaseHttpRequest request);
 
   /// Transforms a [response] before returning from [send].
   ///
@@ -107,8 +105,7 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   @visibleForOverriding
   Future<AWSBaseHttpResponse> transformResponse(
     AWSBaseHttpResponse response,
-  ) async =>
-      response;
+  ) async => response;
 
   Future<AWSHttpOperation<AWSBaseHttpResponse>?> _send(
     AWSBaseHttpRequest request,
@@ -125,15 +122,9 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
       return null;
     }
     final operation = baseClient?.send(request) ?? super.send(request);
-    unawaited(
-      operation.requestProgress.forward(requestProgressController),
-    );
-    unawaited(
-      operation.responseProgress.forward(responseProgressController),
-    );
-    completer.completeOperation(
-      operation.operation.then(transformResponse),
-    );
+    unawaited(operation.requestProgress.forward(requestProgressController));
+    unawaited(operation.responseProgress.forward(responseProgressController));
+    completer.completeOperation(operation.operation.then(transformResponse));
     return operation;
   }
 
@@ -146,10 +137,12 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
     AWSBaseHttpRequest request, {
     FutureOr<void> Function()? onCancel,
   }) {
-    final requestProgressController =
-        StreamController<int>.broadcast(sync: true);
-    final responseProgressController =
-        StreamController<int>.broadcast(sync: true);
+    final requestProgressController = StreamController<int>.broadcast(
+      sync: true,
+    );
+    final responseProgressController = StreamController<int>.broadcast(
+      sync: true,
+    );
 
     final completer = CancelableCompleter<AWSBaseHttpResponse>(
       onCancel: () {

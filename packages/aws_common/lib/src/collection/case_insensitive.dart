@@ -12,12 +12,12 @@ import 'package:collection/collection.dart';
 class CaseInsensitiveMap<V> extends DelegatingMap<String, V> {
   /// {@macro aws_common.case_insensitive_map}
   CaseInsensitiveMap(Map<String, V> base)
-      : super(
-          LinkedHashMap(
-            equals: equalsIgnoreAsciiCase,
-            hashCode: hashIgnoreAsciiCase,
-          )..addAll(base),
-        );
+    : super(
+        LinkedHashMap(
+          equals: equalsIgnoreAsciiCase,
+          hashCode: hashIgnoreAsciiCase,
+        )..addAll(base),
+      );
 }
 
 /// {@template aws_common.case_insensitive_set}
@@ -27,10 +27,10 @@ class CaseInsensitiveMap<V> extends DelegatingMap<String, V> {
 class CaseInsensitiveSet extends DelegatingSet<String> {
   /// {@macro aws_common.case_insensitive_set}
   CaseInsensitiveSet(Iterable<String> base)
-      : super(
-          LinkedHashSet(
-            equals: equalsIgnoreAsciiCase,
-            hashCode: hashIgnoreAsciiCase,
-          )..addAll(base),
-        );
+    : super(
+        LinkedHashSet(
+          equals: equalsIgnoreAsciiCase,
+          hashCode: hashIgnoreAsciiCase,
+        )..addAll(base),
+      );
 }

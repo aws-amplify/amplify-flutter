@@ -356,29 +356,29 @@ class JsonWebKey with AWSEquatable<JsonWebKey>, AWSSerializable {
 
   @override
   List<Object?> get props => [
-        keyType,
-        publicKeyUse,
-        keyOperations,
-        algorithm,
-        keyId,
-        x509Url,
-        x509CertChain,
-        x509Sha1Thumbprint,
-        x509Sha256Thumbprint,
-        ellipticCurve,
-        x,
-        y,
-        n,
-        e,
-        k,
-        d,
-        p,
-        q,
-        dp,
-        dq,
-        qi,
-        otherPrimes,
-      ];
+    keyType,
+    publicKeyUse,
+    keyOperations,
+    algorithm,
+    keyId,
+    x509Url,
+    x509CertChain,
+    x509Sha1Thumbprint,
+    x509Sha256Thumbprint,
+    ellipticCurve,
+    x,
+    y,
+    n,
+    e,
+    k,
+    d,
+    p,
+    q,
+    dp,
+    dq,
+    qi,
+    otherPrimes,
+  ];
 
   @override
   Map<String, Object?> toJson() {
@@ -417,11 +417,7 @@ class JsonWebKey with AWSEquatable<JsonWebKey>, AWSSerializable {
 @jwtSerializable
 class OtherPrime with AWSEquatable<OtherPrime>, AWSSerializable {
   /// {@macro amplify_auth_cognito.other_prime}
-  const OtherPrime({
-    required this.r,
-    required this.d,
-    required this.t,
-  });
+  const OtherPrime({required this.r, required this.d, required this.t});
 
   /// {@macro amplify_auth_cognito.other_prime}
   factory OtherPrime.fromJson(Map<String, Object?> json) =>

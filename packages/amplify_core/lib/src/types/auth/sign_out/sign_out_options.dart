@@ -13,10 +13,7 @@ class SignOutOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.sign_out_options}
-  const SignOutOptions({
-    this.globalSignOut = false,
-    this.pluginOptions,
-  });
+  const SignOutOptions({this.globalSignOut = false, this.pluginOptions});
 
   /// Sign the current user out from all devices
   ///
@@ -35,9 +32,9 @@ class SignOutOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'globalSignOut': globalSignOut,
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+    'globalSignOut': globalSignOut,
+    'pluginOptions': pluginOptions?.toJson(),
+  };
 }
 
 /// @nodoc

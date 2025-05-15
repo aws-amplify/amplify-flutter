@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.xml_enums_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -14,55 +14,40 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryXmlEnums (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlEnumsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlEnums',
-          documentation: 'Serializes simple scalar properties',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlEnumsResponse xmlns="https://example.com/">\n    <XmlEnumsResult>\n        <fooEnum1>Foo</fooEnum1>\n        <fooEnum2>0</fooEnum2>\n        <fooEnum3>1</fooEnum3>\n        <fooEnumList>\n            <member>Foo</member>\n            <member>0</member>\n        </fooEnumList>\n        <fooEnumSet>\n            <member>Foo</member>\n            <member>0</member>\n        </fooEnumSet>\n        <fooEnumMap>\n            <entry>\n                <key>hi</key>\n                <value>Foo</value>\n            </entry>\n            <entry>\n                <key>zero</key>\n                <value>0</value>\n            </entry>\n        </fooEnumMap>\n    </XmlEnumsResult>\n</XmlEnumsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'fooEnum1': 'Foo',
-            'fooEnum2': '0',
-            'fooEnum3': '1',
-            'fooEnumList': [
-              'Foo',
-              '0',
-            ],
-            'fooEnumSet': [
-              'Foo',
-              '0',
-            ],
-            'fooEnumMap': {
-              'hi': 'Foo',
-              'zero': '0',
-            },
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [XmlEnumsOutputAwsQuerySerializer()],
-      );
-    },
-  );
+  _i1.test('QueryXmlEnums (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlEnumsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlEnums',
+        documentation: 'Serializes simple scalar properties',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlEnumsResponse xmlns="https://example.com/">\n    <XmlEnumsResult>\n        <fooEnum1>Foo</fooEnum1>\n        <fooEnum2>0</fooEnum2>\n        <fooEnum3>1</fooEnum3>\n        <fooEnumList>\n            <member>Foo</member>\n            <member>0</member>\n        </fooEnumList>\n        <fooEnumSet>\n            <member>Foo</member>\n            <member>0</member>\n        </fooEnumSet>\n        <fooEnumMap>\n            <entry>\n                <key>hi</key>\n                <value>Foo</value>\n            </entry>\n            <entry>\n                <key>zero</key>\n                <value>0</value>\n            </entry>\n        </fooEnumMap>\n    </XmlEnumsResult>\n</XmlEnumsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {
+          'fooEnum1': 'Foo',
+          'fooEnum2': '0',
+          'fooEnum3': '1',
+          'fooEnumList': ['Foo', '0'],
+          'fooEnumSet': ['Foo', '0'],
+          'fooEnumMap': {'hi': 'Foo', 'zero': '0'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [XmlEnumsOutputAwsQuerySerializer()],
+    );
+  });
 }
 
 class XmlEnumsOutputAwsQuerySerializer
@@ -74,11 +59,8 @@ class XmlEnumsOutputAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlEnumsOutput deserialize(
@@ -97,47 +79,57 @@ class XmlEnumsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'fooEnum1':
-          result.fooEnum1 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(FooEnum),
-          ) as FooEnum);
+          result.fooEnum1 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(FooEnum),
+                  )
+                  as FooEnum);
         case 'fooEnum2':
-          result.fooEnum2 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(FooEnum),
-          ) as FooEnum);
+          result.fooEnum2 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(FooEnum),
+                  )
+                  as FooEnum);
         case 'fooEnum3':
-          result.fooEnum3 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(FooEnum),
-          ) as FooEnum);
+          result.fooEnum3 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(FooEnum),
+                  )
+                  as FooEnum);
         case 'fooEnumList':
-          result.fooEnumList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(FooEnum)],
-            ),
-          ) as _i4.BuiltList<FooEnum>));
+          result.fooEnumList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(FooEnum),
+                  ]),
+                )
+                as _i4.BuiltList<FooEnum>),
+          );
         case 'fooEnumSet':
-          result.fooEnumSet.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltSet,
-              [FullType(FooEnum)],
-            ),
-          ) as _i4.BuiltSet<FooEnum>));
+          result.fooEnumSet.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltSet, [
+                    FullType(FooEnum),
+                  ]),
+                )
+                as _i4.BuiltSet<FooEnum>),
+          );
         case 'fooEnumMap':
-          result.fooEnumMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(FooEnum),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, FooEnum>));
+          result.fooEnumMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(FooEnum),
+                  ]),
+                )
+                as _i4.BuiltMap<String, FooEnum>),
+          );
       }
     }
 

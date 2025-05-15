@@ -14,8 +14,8 @@ class CognitoSignUpPluginOptions extends SignUpPluginOptions {
   const CognitoSignUpPluginOptions({
     Map<String, String>? clientMetadata,
     Map<String, String>? validationData,
-  })  : validationData = validationData ?? const {},
-        clientMetadata = clientMetadata ?? const {};
+  }) : validationData = validationData ?? const {},
+       clientMetadata = clientMetadata ?? const {};
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_up_plugin_options}
   factory CognitoSignUpPluginOptions.fromJson(Map<String, Object?> json) =>

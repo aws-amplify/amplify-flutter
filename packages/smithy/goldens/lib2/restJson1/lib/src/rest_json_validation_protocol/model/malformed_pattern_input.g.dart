@@ -18,18 +18,22 @@ class _$MalformedPatternInput extends MalformedPatternInput {
   @override
   final PatternUnion? union;
 
-  factory _$MalformedPatternInput(
-          [void Function(MalformedPatternInputBuilder)? updates]) =>
-      (new MalformedPatternInputBuilder()..update(updates))._build();
+  factory _$MalformedPatternInput([
+    void Function(MalformedPatternInputBuilder)? updates,
+  ]) => (new MalformedPatternInputBuilder()..update(updates))._build();
 
-  _$MalformedPatternInput._(
-      {this.string, this.evilString, this.list, this.map, this.union})
-      : super._();
+  _$MalformedPatternInput._({
+    this.string,
+    this.evilString,
+    this.list,
+    this.map,
+    this.union,
+  }) : super._();
 
   @override
   MalformedPatternInput rebuild(
-          void Function(MalformedPatternInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedPatternInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedPatternInputBuilder toBuilder() =>
@@ -117,13 +121,15 @@ class MalformedPatternInputBuilder
   _$MalformedPatternInput _build() {
     _$MalformedPatternInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$MalformedPatternInput._(
-              string: string,
-              evilString: evilString,
-              list: _list?.build(),
-              map: _map?.build(),
-              union: union);
+            string: string,
+            evilString: evilString,
+            list: _list?.build(),
+            map: _map?.build(),
+            union: union,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -133,7 +139,10 @@ class MalformedPatternInputBuilder
         _map?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MalformedPatternInput', _$failedField, e.toString());
+          r'MalformedPatternInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

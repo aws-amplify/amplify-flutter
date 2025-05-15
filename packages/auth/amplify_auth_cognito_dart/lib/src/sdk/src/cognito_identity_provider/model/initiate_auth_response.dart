@@ -27,17 +27,18 @@ abstract class InitiateAuthResponse
     return _$InitiateAuthResponse._(
       challengeName: challengeName,
       session: session,
-      challengeParameters: challengeParameters == null
-          ? null
-          : _i2.BuiltMap(challengeParameters),
+      challengeParameters:
+          challengeParameters == null
+              ? null
+              : _i2.BuiltMap(challengeParameters),
       authenticationResult: authenticationResult,
     );
   }
 
   /// Initiates the authentication response.
-  factory InitiateAuthResponse.build(
-          [void Function(InitiateAuthResponseBuilder) updates]) =
-      _$InitiateAuthResponse;
+  factory InitiateAuthResponse.build([
+    void Function(InitiateAuthResponseBuilder) updates,
+  ]) = _$InitiateAuthResponse;
 
   const InitiateAuthResponse._();
 
@@ -45,11 +46,10 @@ abstract class InitiateAuthResponse
   factory InitiateAuthResponse.fromResponse(
     InitiateAuthResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<InitiateAuthResponse>> serializers = [
-    InitiateAuthResponseAwsJson11Serializer()
+    InitiateAuthResponseAwsJson11Serializer(),
   ];
 
   /// The name of the challenge that you're responding to with this call. This name is returned in the `InitiateAuth` response if you must pass another challenge.
@@ -93,31 +93,20 @@ abstract class InitiateAuthResponse
   AuthenticationResultType? get authenticationResult;
   @override
   List<Object?> get props => [
-        challengeName,
-        session,
-        challengeParameters,
-        authenticationResult,
-      ];
+    challengeName,
+    session,
+    challengeParameters,
+    authenticationResult,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InitiateAuthResponse')
-      ..add(
-        'challengeName',
-        challengeName,
-      )
-      ..add(
-        'session',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'challengeParameters',
-        challengeParameters,
-      )
-      ..add(
-        'authenticationResult',
-        authenticationResult,
-      );
+    final helper =
+        newBuiltValueToStringHelper('InitiateAuthResponse')
+          ..add('challengeName', challengeName)
+          ..add('session', '***SENSITIVE***')
+          ..add('challengeParameters', challengeParameters)
+          ..add('authenticationResult', authenticationResult);
     return helper.toString();
   }
 }
@@ -125,21 +114,18 @@ abstract class InitiateAuthResponse
 class InitiateAuthResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<InitiateAuthResponse> {
   const InitiateAuthResponseAwsJson11Serializer()
-      : super('InitiateAuthResponse');
+    : super('InitiateAuthResponse');
 
   @override
   Iterable<Type> get types => const [
-        InitiateAuthResponse,
-        _$InitiateAuthResponse,
-      ];
+    InitiateAuthResponse,
+    _$InitiateAuthResponse,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   InitiateAuthResponse deserialize(
@@ -158,31 +144,38 @@ class InitiateAuthResponseAwsJson11Serializer
       }
       switch (key) {
         case 'ChallengeName':
-          result.challengeName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(ChallengeNameType),
-          ) as ChallengeNameType);
+          result.challengeName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(ChallengeNameType),
+                  )
+                  as ChallengeNameType);
         case 'Session':
-          result.session = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.session =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChallengeParameters':
-          result.challengeParameters.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
-                FullType(String),
-                FullType.nullable(String),
-              ],
-            ),
-          ) as _i2.BuiltMap<String, String?>));
+          result.challengeParameters.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltMap, [
+                    FullType(String),
+                    FullType.nullable(String),
+                  ]),
+                )
+                as _i2.BuiltMap<String, String?>),
+          );
         case 'AuthenticationResult':
-          result.authenticationResult.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(AuthenticationResultType),
-          ) as AuthenticationResultType));
+          result.authenticationResult.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(AuthenticationResultType),
+                )
+                as AuthenticationResultType),
+          );
       }
     }
 
@@ -200,45 +193,47 @@ class InitiateAuthResponseAwsJson11Serializer
       :challengeName,
       :session,
       :challengeParameters,
-      :authenticationResult
+      :authenticationResult,
     ) = object;
     if (challengeName != null) {
       result$
         ..add('ChallengeName')
-        ..add(serializers.serialize(
-          challengeName,
-          specifiedType: const FullType(ChallengeNameType),
-        ));
+        ..add(
+          serializers.serialize(
+            challengeName,
+            specifiedType: const FullType(ChallengeNameType),
+          ),
+        );
     }
     if (session != null) {
       result$
         ..add('Session')
-        ..add(serializers.serialize(
-          session,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(session, specifiedType: const FullType(String)),
+        );
     }
     if (challengeParameters != null) {
       result$
         ..add('ChallengeParameters')
-        ..add(serializers.serialize(
-          challengeParameters,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            challengeParameters,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType.nullable(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (authenticationResult != null) {
       result$
         ..add('AuthenticationResult')
-        ..add(serializers.serialize(
-          authenticationResult,
-          specifiedType: const FullType(AuthenticationResultType),
-        ));
+        ..add(
+          serializers.serialize(
+            authenticationResult,
+            specifiedType: const FullType(AuthenticationResultType),
+          ),
+        );
     }
     return result$;
   }

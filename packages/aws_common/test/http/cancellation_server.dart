@@ -66,17 +66,14 @@ Future<void> _handleH2(
 ) async {
   final path = Uri.parse(headers[':path']!).pathSegments.singleOrNull ?? '';
   if (path.isEmpty) {
-    return request.sendHeaders(
-      [Header.ascii(':status', '200')],
-      endStream: true,
-    );
+    return request.sendHeaders([
+      Header.ascii(':status', '200'),
+    ], endStream: true);
   }
   if (path == 'headers') {
     return;
   }
-  request.sendHeaders([
-    Header.ascii(':status', '200'),
-  ]);
+  request.sendHeaders([Header.ascii(':status', '200')]);
   if (path == 'body') {
     var done = false;
     request.onTerminated = (_) {

@@ -11,16 +11,17 @@ class _$MalformedAcceptWithPayloadOutput
   @override
   final _i3.Uint8List? payload;
 
-  factory _$MalformedAcceptWithPayloadOutput(
-          [void Function(MalformedAcceptWithPayloadOutputBuilder)? updates]) =>
+  factory _$MalformedAcceptWithPayloadOutput([
+    void Function(MalformedAcceptWithPayloadOutputBuilder)? updates,
+  ]) =>
       (new MalformedAcceptWithPayloadOutputBuilder()..update(updates))._build();
 
   _$MalformedAcceptWithPayloadOutput._({this.payload}) : super._();
 
   @override
   MalformedAcceptWithPayloadOutput rebuild(
-          void Function(MalformedAcceptWithPayloadOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedAcceptWithPayloadOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedAcceptWithPayloadOutputBuilder toBuilder() =>
@@ -44,8 +45,10 @@ class _$MalformedAcceptWithPayloadOutput
 
 class MalformedAcceptWithPayloadOutputBuilder
     implements
-        Builder<MalformedAcceptWithPayloadOutput,
-            MalformedAcceptWithPayloadOutputBuilder> {
+        Builder<
+          MalformedAcceptWithPayloadOutput,
+          MalformedAcceptWithPayloadOutputBuilder
+        > {
   _$MalformedAcceptWithPayloadOutput? _$v;
 
   _i3.Uint8List? _payload;

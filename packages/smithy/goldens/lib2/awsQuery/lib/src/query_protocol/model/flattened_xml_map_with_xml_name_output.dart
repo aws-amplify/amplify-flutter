@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v2.query_protocol.model.flattened_xml_map_with_xml_name_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -12,19 +12,21 @@ import 'package:smithy/smithy.dart' as _i3;
 part 'flattened_xml_map_with_xml_name_output.g.dart';
 
 abstract class FlattenedXmlMapWithXmlNameOutput
-    with
-        _i1.AWSEquatable<FlattenedXmlMapWithXmlNameOutput>
+    with _i1.AWSEquatable<FlattenedXmlMapWithXmlNameOutput>
     implements
-        Built<FlattenedXmlMapWithXmlNameOutput,
-            FlattenedXmlMapWithXmlNameOutputBuilder> {
+        Built<
+          FlattenedXmlMapWithXmlNameOutput,
+          FlattenedXmlMapWithXmlNameOutputBuilder
+        > {
   factory FlattenedXmlMapWithXmlNameOutput({Map<String, String>? myMap}) {
     return _$FlattenedXmlMapWithXmlNameOutput._(
-        myMap: myMap == null ? null : _i2.BuiltMap(myMap));
+      myMap: myMap == null ? null : _i2.BuiltMap(myMap),
+    );
   }
 
-  factory FlattenedXmlMapWithXmlNameOutput.build(
-          [void Function(FlattenedXmlMapWithXmlNameOutputBuilder) updates]) =
-      _$FlattenedXmlMapWithXmlNameOutput;
+  factory FlattenedXmlMapWithXmlNameOutput.build([
+    void Function(FlattenedXmlMapWithXmlNameOutputBuilder) updates,
+  ]) = _$FlattenedXmlMapWithXmlNameOutput;
 
   const FlattenedXmlMapWithXmlNameOutput._();
 
@@ -32,11 +34,10 @@ abstract class FlattenedXmlMapWithXmlNameOutput
   factory FlattenedXmlMapWithXmlNameOutput.fromResponse(
     FlattenedXmlMapWithXmlNameOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<FlattenedXmlMapWithXmlNameOutput>>
-      serializers = [FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer()];
+  serializers = [FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer()];
 
   _i2.BuiltMap<String, String>? get myMap;
   @override
@@ -44,12 +45,9 @@ abstract class FlattenedXmlMapWithXmlNameOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNameOutput')
-          ..add(
-            'myMap',
-            myMap,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'FlattenedXmlMapWithXmlNameOutput',
+    )..add('myMap', myMap);
     return helper.toString();
   }
 }
@@ -57,21 +55,18 @@ abstract class FlattenedXmlMapWithXmlNameOutput
 class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<FlattenedXmlMapWithXmlNameOutput> {
   const FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer()
-      : super('FlattenedXmlMapWithXmlNameOutput');
+    : super('FlattenedXmlMapWithXmlNameOutput');
 
   @override
   Iterable<Type> get types => const [
-        FlattenedXmlMapWithXmlNameOutput,
-        _$FlattenedXmlMapWithXmlNameOutput,
-      ];
+    FlattenedXmlMapWithXmlNameOutput,
+    _$FlattenedXmlMapWithXmlNameOutput,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   FlattenedXmlMapWithXmlNameOutput deserialize(
@@ -98,25 +93,24 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
       }
       switch (key) {
         case 'KVP':
-          result.myMap.addAll(const _i3.XmlBuiltMapSerializer(
-            keyName: 'K',
-            valueName: 'V',
-            flattenedKey: 'KVP',
-            indexer: _i3.XmlIndexer.awsQueryMap,
-          )
-              .deserialize(
-                serializers,
-                value is String ? const [] : (value as Iterable<Object?>),
-                specifiedType: const FullType(
-                  _i2.BuiltMap,
-                  [
+          result.myMap.addAll(
+            const _i3.XmlBuiltMapSerializer(
+                  keyName: 'K',
+                  valueName: 'V',
+                  flattenedKey: 'KVP',
+                  indexer: _i3.XmlIndexer.awsQueryMap,
+                )
+                .deserialize(
+                  serializers,
+                  value is String ? const [] : (value as Iterable<Object?>),
+                  specifiedType: const FullType(_i2.BuiltMap, [
                     FullType(String),
                     FullType(String),
-                  ],
-                ),
-              )
-              .toMap()
-              .cast());
+                  ]),
+                )
+                .toMap()
+                .cast(),
+          );
       }
     }
 
@@ -133,26 +127,25 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
       const _i3.XmlElementName(
         'FlattenedXmlMapWithXmlNameOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final FlattenedXmlMapWithXmlNameOutput(:myMap) = object;
     if (myMap != null) {
-      result$.addAll(const _i3.XmlBuiltMapSerializer(
-        keyName: 'K',
-        valueName: 'V',
-        flattenedKey: 'KVP',
-        indexer: _i3.XmlIndexer.awsQueryMap,
-      ).serialize(
-        serializers,
-        myMap,
-        specifiedType: const FullType(
-          _i2.BuiltMap,
-          [
+      result$.addAll(
+        const _i3.XmlBuiltMapSerializer(
+          keyName: 'K',
+          valueName: 'V',
+          flattenedKey: 'KVP',
+          indexer: _i3.XmlIndexer.awsQueryMap,
+        ).serialize(
+          serializers,
+          myMap,
+          specifiedType: const FullType(_i2.BuiltMap, [
             FullType(String),
             FullType(String),
-          ],
+          ]),
         ),
-      ));
+      );
     }
     return result$;
   }

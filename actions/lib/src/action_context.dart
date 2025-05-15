@@ -43,8 +43,8 @@ final class ActionContext implements RunContext, PostRunContext {
 
   @override
   Map<String, String> get stateValues => Map.fromEntries(
-        process.env.entries.where((e) => e.key.startsWith('STATE_')).cast(),
-      );
+    process.env.entries.where((e) => e.key.startsWith('STATE_')).cast(),
+  );
 
   @override
   String? getState(String name) {

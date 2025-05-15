@@ -14,11 +14,8 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 class UnionGenerator extends LibraryGenerator<UnionShape>
     with UnionGenerationContext, NamedMembersGenerationContext {
-  UnionGenerator(
-    super.shape,
-    CodegenContext context, {
-    super.smithyLibrary,
-  }) : super(context: context);
+  UnionGenerator(super.shape, CodegenContext context, {super.smithyLibrary})
+    : super(context: context);
 
   late final _serializers = [
     for (final protocol in context.serviceProtocols)
@@ -30,64 +27,55 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
     // Tracks the generated type.
     context.generatedTypes[symbol] ??= {};
 
-    builder.body.addAll([
-      _unionClass,
-      ..._variantClasses,
-      ..._serializers,
-    ]);
+    builder.body.addAll([_unionClass, ..._variantClasses, ..._serializers]);
 
     return builder.build();
   }
 
   Class get _unionClass => Class(
-        (c) => c
+    (c) =>
+        c
           ..docs.addAll([
             if (shape.hasDocs(context)) shape.formattedDocs(context),
           ])
           ..sealed = true
           ..name = className
           ..extend = DartTypes.smithy.smithyUnion(symbol)
-          ..constructors.addAll([
-            _privateConstructor,
-            ..._factoryConstructors,
-          ])
-          ..methods.addAll([
-            ..._variantGetters,
-            _valueGetter,
-            _toString,
-          ])
-          ..fields.addAll([
-            _serializersField,
-          ]),
-      );
+          ..constructors.addAll([_privateConstructor, ..._factoryConstructors])
+          ..methods.addAll([..._variantGetters, _valueGetter, _toString])
+          ..fields.addAll([_serializersField]),
+  );
 
   /// Prevents initialization of the class, except via [_factoryConstructors].
   Constructor get _privateConstructor => Constructor(
-        (c) => c
+    (c) =>
+        c
           ..constant = true
           ..name = '_',
-      );
+  );
 
   /// The getter fields for members.
   Iterable<Method> get _variantGetters sync* {
     for (final member in members) {
       yield Method(
-        (m) => m
-          ..docs.addAll([
-            if (member.hasDocs(context)) member.formattedDocs(context),
-          ])
-          ..returns = memberSymbols[member]!.boxed
-          ..type = MethodType.getter
-          ..name = variantName(member)
-          ..lambda = true
-          ..body = literalNull.code,
+        (m) =>
+            m
+              ..docs.addAll([
+                if (member.hasDocs(context)) member.formattedDocs(context),
+              ])
+              ..returns = memberSymbols[member]!.boxed
+              ..type = MethodType.getter
+              ..name = variantName(member)
+              ..lambda = true
+              ..body = literalNull.code,
       );
     }
   }
 
   /// The `value` override.
   Method get _valueGetter => Method(
-        (m) => m
+    (m) =>
+        m
           ..annotations.add(DartTypes.core.override)
           ..returns = DartTypes.core.object
           ..type = MethodType.getter
@@ -104,7 +92,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             })!.code,
             refer(')').nullChecked.code,
           ]),
-      );
+  );
 
   /// Factory constructors for each member.
   Iterable<Constructor> get _factoryConstructors sync* {
@@ -128,23 +116,27 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             c.optionalParameters.addAll(
               structGenerator.members.map(structGenerator.memberParameter),
             );
-            final memberNames = structGenerator.members
-                .map((member) => member.dartName(ShapeType.structure));
-            final constructorInvocation =
-                structGenerator.symbol.newInstance([], {
-              for (final member in memberNames) member: refer(member),
-            });
+            final memberNames = structGenerator.members.map(
+              (member) => member.dartName(ShapeType.structure),
+            );
+            final constructorInvocation = structGenerator.symbol.newInstance(
+              [],
+              {for (final member in memberNames) member: refer(member)},
+            );
             c
               ..lambda = true
-              ..body = refer(variantClassName(member))
-                  .newInstance([constructorInvocation]).code;
+              ..body =
+                  refer(
+                    variantClassName(member),
+                  ).newInstance([constructorInvocation]).code;
           case _:
             if (member.target != Shape.unit) {
               c.requiredParameters.add(
                 Parameter(
-                  (p) => p
-                    ..type = transformedSymbol.unboxed
-                    ..name = variantName(member),
+                  (p) =>
+                      p
+                        ..type = transformedSymbol.unboxed
+                        ..name = variantName(member),
                 ),
               );
             }
@@ -154,39 +146,45 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
     }
 
     yield Constructor(
-      (c) => c
-        ..constant = true
-        ..factory = true
-        ..name = sdkUnknown
-        ..requiredParameters.addAll([
-          Parameter(
-            (p) => p
-              ..type = DartTypes.core.string
-              ..name = 'name',
-          ),
-          Parameter(
-            (p) => p
-              ..type = unknownMemberSymbol
-              ..name = 'value',
-          ),
-        ])
-        ..redirect = refer(variantClassName(unknownMember)),
+      (c) =>
+          c
+            ..constant = true
+            ..factory = true
+            ..name = sdkUnknown
+            ..requiredParameters.addAll([
+              Parameter(
+                (p) =>
+                    p
+                      ..type = DartTypes.core.string
+                      ..name = 'name',
+              ),
+              Parameter(
+                (p) =>
+                    p
+                      ..type = unknownMemberSymbol
+                      ..name = 'value',
+              ),
+            ])
+            ..redirect = refer(variantClassName(unknownMember)),
     );
   }
 
   /// All the serializers for the union.
   Field get _serializersField => Field(
-        (f) => f
+    (f) =>
+        f
           ..static = true
           ..modifier = FieldModifier.constant
-          ..type =
-              DartTypes.core.list(DartTypes.smithy.smithySerializer(symbol))
+          ..type = DartTypes.core.list(
+            DartTypes.smithy.smithySerializer(symbol),
+          )
           ..name = 'serializers'
-          ..assignment = literalConstList([
-            for (final serializer in _serializers)
-              refer(serializer.name).constInstance([]),
-          ]).code,
-      );
+          ..assignment =
+              literalConstList([
+                for (final serializer in _serializers)
+                  refer(serializer.name).constInstance([]),
+              ]).code,
+  );
 
   /// Factory constructors for each member.
   Iterable<Class> get _variantClasses sync* {
@@ -196,50 +194,53 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
       final requiresTransformation = memberSymbol != transformedSymbol;
       final variantName = this.variantName(member);
       final ctor = Constructor(
-        (ctor) => ctor
-          ..constant = !requiresTransformation
-          ..requiredParameters.addAll([
-            if (requiresTransformation)
-              Parameter(
-                (p) => p
-                  ..type = transformedSymbol
-                  ..name = variantName,
-              )
-            else if (member.target != Shape.unit)
-              Parameter(
-                (p) => p
-                  ..toThis = true
-                  ..name = variantName,
-              ),
-          ])
-          ..initializers.addAll([
-            if (requiresTransformation)
-              refer('this').property('_').call([
-                member.transformFromFriendly(
-                  name: variantName,
-                  isNullable: false,
-                ),
-              ]).code
-            else
-              refer('super').property('_').call([]).code,
-          ]),
+        (ctor) =>
+            ctor
+              ..constant = !requiresTransformation
+              ..requiredParameters.addAll([
+                if (requiresTransformation)
+                  Parameter(
+                    (p) =>
+                        p
+                          ..type = transformedSymbol
+                          ..name = variantName,
+                  )
+                else if (member.target != Shape.unit)
+                  Parameter(
+                    (p) =>
+                        p
+                          ..toThis = true
+                          ..name = variantName,
+                  ),
+              ])
+              ..initializers.addAll([
+                if (requiresTransformation)
+                  refer('this').property('_').call([
+                    member.transformFromFriendly(
+                      name: variantName,
+                      isNullable: false,
+                    ),
+                  ]).code
+                else
+                  refer('super').property('_').call([]).code,
+              ]),
       );
       Constructor? privateConstructor;
       if (requiresTransformation) {
         privateConstructor = Constructor(
-          (ctor) => ctor
-            ..constant = true
-            ..name = '_'
-            ..requiredParameters.add(
-              Parameter(
-                (p) => p
-                  ..toThis = true
-                  ..name = variantName,
-              ),
-            )
-            ..initializers.add(
-              refer('super').property('_').call([]).code,
-            ),
+          (ctor) =>
+              ctor
+                ..constant = true
+                ..name = '_'
+                ..requiredParameters.add(
+                  Parameter(
+                    (p) =>
+                        p
+                          ..toThis = true
+                          ..name = variantName,
+                  ),
+                )
+                ..initializers.add(refer('super').property('_').call([]).code),
         );
       }
       yield Class((c) {
@@ -254,32 +255,35 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
           ..fields.addAll([
             if (member.target != Shape.unit)
               Field(
-                (f) => f
-                  ..modifier = FieldModifier.final$
-                  ..annotations.add(DartTypes.core.override)
-                  ..name = variantName
-                  ..type = memberSymbol,
+                (f) =>
+                    f
+                      ..modifier = FieldModifier.final$
+                      ..annotations.add(DartTypes.core.override)
+                      ..name = variantName
+                      ..type = memberSymbol,
               ),
           ])
           ..methods.addAll([
             Method(
-              (m) => m
-                ..annotations.add(DartTypes.core.override)
-                ..returns = DartTypes.core.string
-                ..name = 'name'
-                ..type = MethodType.getter
-                ..lambda = true
-                ..body = literalString(member.memberName).code,
+              (m) =>
+                  m
+                    ..annotations.add(DartTypes.core.override)
+                    ..returns = DartTypes.core.string
+                    ..name = 'name'
+                    ..type = MethodType.getter
+                    ..lambda = true
+                    ..body = literalString(member.memberName).code,
             ),
             if (member.target == Shape.unit)
               Method(
-                (m) => m
-                  ..annotations.add(DartTypes.core.override)
-                  ..returns = memberSymbol
-                  ..name = variantName
-                  ..type = MethodType.getter
-                  ..lambda = true
-                  ..body = DartTypes.smithy.unit.constInstance([]).code,
+                (m) =>
+                    m
+                      ..annotations.add(DartTypes.core.override)
+                      ..returns = memberSymbol
+                      ..name = variantName
+                      ..type = MethodType.getter
+                      ..lambda = true
+                      ..body = DartTypes.smithy.unit.constInstance([]).code,
               ),
           ]);
       });
@@ -287,45 +291,51 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
 
     // Unknown constructor
     final ctor = Constructor(
-      (ctor) => ctor
-        ..constant = true
-        ..requiredParameters.addAll([
-          Parameter(
-            (p) => p
-              ..toThis = true
-              ..name = 'name',
-          ),
-          Parameter(
-            (p) => p
-              ..toThis = true
-              ..name = 'value',
-          ),
-        ])
-        ..initializers.add(refer('super').property('_').call([]).code),
+      (ctor) =>
+          ctor
+            ..constant = true
+            ..requiredParameters.addAll([
+              Parameter(
+                (p) =>
+                    p
+                      ..toThis = true
+                      ..name = 'name',
+              ),
+              Parameter(
+                (p) =>
+                    p
+                      ..toThis = true
+                      ..name = 'value',
+              ),
+            ])
+            ..initializers.add(refer('super').property('_').call([]).code),
     );
     final value = Field(
-      (f) => f
-        ..modifier = FieldModifier.final$
-        ..annotations.add(DartTypes.core.override)
-        ..name = 'value'
-        ..type = unknownMemberSymbol,
+      (f) =>
+          f
+            ..modifier = FieldModifier.final$
+            ..annotations.add(DartTypes.core.override)
+            ..name = 'value'
+            ..type = unknownMemberSymbol,
     );
     yield Class(
-      (c) => c
-        ..name = variantClassName(unknownMember)
-        ..modifier = ClassModifier.final$
-        ..extend = symbol
-        ..constructors.add(ctor)
-        ..fields.addAll([
-          Field(
-            (f) => f
-              ..modifier = FieldModifier.final$
-              ..annotations.add(DartTypes.core.override)
-              ..name = 'name'
-              ..type = DartTypes.core.string,
-          ),
-          value,
-        ]),
+      (c) =>
+          c
+            ..name = variantClassName(unknownMember)
+            ..modifier = ClassModifier.final$
+            ..extend = symbol
+            ..constructors.add(ctor)
+            ..fields.addAll([
+              Field(
+                (f) =>
+                    f
+                      ..modifier = FieldModifier.final$
+                      ..annotations.add(DartTypes.core.override)
+                      ..name = 'name'
+                      ..type = DartTypes.core.string,
+              ),
+              value,
+            ]),
     );
   }
 
@@ -334,8 +344,9 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
     final helper = refer('helper');
     builder.addExpression(
       declareFinal('helper').assign(
-        DartTypes.builtValue.newBuiltValueToStringHelper
-            .call([literalString(className, raw: true)]),
+        DartTypes.builtValue.newBuiltValueToStringHelper.call([
+          literalString(className, raw: true),
+        ]),
       ),
     );
     // Add a check for every member instead of doing helper.add(name, value)
@@ -343,7 +354,8 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
     // to consider when logging.
     for (final member in members) {
       final dartName = member.dartName(ShapeType.union);
-      final isSensitive = shape.hasTrait<SensitiveTrait>() ||
+      final isSensitive =
+          shape.hasTrait<SensitiveTrait>() ||
           member.hasTrait<SensitiveTrait>() ||
           context.shapeFor(member.target).hasTrait<SensitiveTrait>();
       final stringValue =
@@ -351,21 +363,19 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
       builder.statements.add(
         helper
             .property('add')
-            .call([
-              literalString(dartName, raw: true),
-              stringValue,
-            ])
+            .call([literalString(dartName, raw: true), stringValue])
             .statement
             .wrapWithBlockIf(refer(dartName).notEqualTo(literalNull), true),
       );
     }
     builder.addExpression(helper.property('toString').call([]).returned);
     return Method(
-      (m) => m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = DartTypes.core.string
-        ..name = 'toString'
-        ..body = builder.build(),
+      (m) =>
+          m
+            ..annotations.add(DartTypes.core.override)
+            ..returns = DartTypes.core.string
+            ..name = 'toString'
+            ..body = builder.build(),
     );
   }
 }

@@ -7,16 +7,16 @@ part of 'confirm_sign_up_response.dart';
 // **************************************************************************
 
 class _$ConfirmSignUpResponse extends ConfirmSignUpResponse {
-  factory _$ConfirmSignUpResponse(
-          [void Function(ConfirmSignUpResponseBuilder)? updates]) =>
-      (new ConfirmSignUpResponseBuilder()..update(updates))._build();
+  factory _$ConfirmSignUpResponse([
+    void Function(ConfirmSignUpResponseBuilder)? updates,
+  ]) => (new ConfirmSignUpResponseBuilder()..update(updates))._build();
 
   _$ConfirmSignUpResponse._() : super._();
 
   @override
   ConfirmSignUpResponse rebuild(
-          void Function(ConfirmSignUpResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConfirmSignUpResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConfirmSignUpResponseBuilder toBuilder() =>

@@ -36,10 +36,7 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
   ///
   /// Throws a [ChangelogParseException] if there are issues processing the
   /// changelog.
-  factory Changelog.parse(
-    String changelogMd, {
-    AWSLogger? logger,
-  }) {
+  factory Changelog.parse(String changelogMd, {AWSLogger? logger}) {
     final parser = Document();
     final lines = LineSplitter.split(changelogMd).toList();
     final ast = parser.parseLines(lines);
@@ -74,8 +71,9 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
   }) {
     version ??= nextVersion;
     commits = commits.where((commit) => commit.includeInChangelog);
-    final commitsByType =
-        commits.groupListsBy<CommitTypeGroup>((element) => element.group);
+    final commitsByType = commits.groupListsBy<CommitTypeGroup>(
+      (element) => element.group,
+    );
 
     final versionText =
         version == nextVersion ? nextVersionTag : version.toString();
@@ -87,8 +85,9 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
       // bug fixes/improvements.
       nodes.add(Element.text('li', 'Minor bug fixes and improvements\n'));
     } else {
-      final sortedCommitTypes =
-          commitsByType.entries.sortedBy<num>((entry) => entry.key.index);
+      final sortedCommitTypes = commitsByType.entries.sortedBy<num>(
+        (entry) => entry.key.index,
+      );
       for (final typedCommits in sortedCommitTypes) {
         nodes.add(Element.text('h3', typedCommits.key.header));
 
@@ -97,15 +96,15 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
         final commits = typedCommits.value
             .sortedBy((commit) => commit.summary)
             .map((commit) {
-          final taggedPr = commit.taggedPr;
-          if (taggedPr == null) {
-            return commit.summary;
-          }
-          return commit.summary.replaceFirst(
-            '(#$taggedPr)',
-            '([#$taggedPr]($baseUrl/pull/$taggedPr))',
-          );
-        });
+              final taggedPr = commit.taggedPr;
+              if (taggedPr == null) {
+                return commit.summary;
+              }
+              return commit.summary.replaceFirst(
+                '(#$taggedPr)',
+                '([#$taggedPr]($baseUrl/pull/$taggedPr))',
+              );
+            });
 
         final list = Element('ul', [
           for (final commit in commits) Element.text('li', commit),
@@ -124,10 +123,7 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
     required Iterable<CommitMessage> commits,
     Version? version,
   }) {
-    final nodes = makeVersionEntry(
-      commits: commits,
-      version: version,
-    );
+    final nodes = makeVersionEntry(commits: commits, version: version);
     // Replace the text in changelogMd so that the latest version matches
     // `version`, if given, else `NEXT`.
     String keepText;
@@ -156,11 +152,7 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
 }
 
 class ChangelogUpdate {
-  const ChangelogUpdate(
-    this.keepText, {
-    required this.commits,
-    this.newText,
-  });
+  const ChangelogUpdate(this.keepText, {required this.commits, this.newText});
 
   final String keepText;
   final Iterable<CommitMessage> commits;

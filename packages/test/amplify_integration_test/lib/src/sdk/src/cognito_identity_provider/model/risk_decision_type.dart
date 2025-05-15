@@ -6,11 +6,7 @@ library amplify_integration_test.cognito_identity_provider.model.risk_decision_t
 import 'package:smithy/smithy.dart' as _i1;
 
 class RiskDecisionType extends _i1.SmithyEnum<RiskDecisionType> {
-  const RiskDecisionType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const RiskDecisionType._(super.index, super.name, super.value);
 
   const RiskDecisionType._sdkUnknown(super.value) : super.sdkUnknown();
 
@@ -20,17 +16,9 @@ class RiskDecisionType extends _i1.SmithyEnum<RiskDecisionType> {
     'AccountTakeover',
   );
 
-  static const block = RiskDecisionType._(
-    1,
-    'Block',
-    'Block',
-  );
+  static const block = RiskDecisionType._(1, 'Block', 'Block');
 
-  static const noRisk = RiskDecisionType._(
-    2,
-    'NoRisk',
-    'NoRisk',
-  );
+  static const noRisk = RiskDecisionType._(2, 'NoRisk', 'NoRisk');
 
   /// All values of [RiskDecisionType].
   static const values = <RiskDecisionType>[
@@ -45,12 +33,9 @@ class RiskDecisionType extends _i1.SmithyEnum<RiskDecisionType> {
       values: values,
       sdkUnknown: RiskDecisionType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

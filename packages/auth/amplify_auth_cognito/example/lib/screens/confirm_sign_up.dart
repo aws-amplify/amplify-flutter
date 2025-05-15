@@ -32,9 +32,7 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
         username: usernameController.text.trim(),
         confirmationCode: confirmationCodeController.text.trim(),
       );
-      widget.showResult(
-        'Confirm Sign Up Status = ${res.nextStep.signUpStep}',
-      );
+      widget.showResult('Confirm Sign Up Status = ${res.nextStep.signUpStep}');
       widget.changeDisplay(
         res.nextStep.signUpStep != AuthSignUpStep.done
             ? 'SHOW_CONFIRM'

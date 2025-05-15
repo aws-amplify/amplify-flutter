@@ -12,11 +12,12 @@ part 'confirm_forgot_password_response.g.dart';
 
 /// The response from the server that results from a user's request to retrieve a forgotten password.
 abstract class ConfirmForgotPasswordResponse
-    with
-        _i1.AWSEquatable<ConfirmForgotPasswordResponse>
+    with _i1.AWSEquatable<ConfirmForgotPasswordResponse>
     implements
-        Built<ConfirmForgotPasswordResponse,
-            ConfirmForgotPasswordResponseBuilder>,
+        Built<
+          ConfirmForgotPasswordResponse,
+          ConfirmForgotPasswordResponseBuilder
+        >,
         _i2.EmptyPayload {
   /// The response from the server that results from a user's request to retrieve a forgotten password.
   factory ConfirmForgotPasswordResponse() {
@@ -24,9 +25,9 @@ abstract class ConfirmForgotPasswordResponse
   }
 
   /// The response from the server that results from a user's request to retrieve a forgotten password.
-  factory ConfirmForgotPasswordResponse.build(
-          [void Function(ConfirmForgotPasswordResponseBuilder) updates]) =
-      _$ConfirmForgotPasswordResponse;
+  factory ConfirmForgotPasswordResponse.build([
+    void Function(ConfirmForgotPasswordResponseBuilder) updates,
+  ]) = _$ConfirmForgotPasswordResponse;
 
   const ConfirmForgotPasswordResponse._();
 
@@ -34,11 +35,10 @@ abstract class ConfirmForgotPasswordResponse
   factory ConfirmForgotPasswordResponse.fromResponse(
     ConfirmForgotPasswordResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<ConfirmForgotPasswordResponse>>
-      serializers = [ConfirmForgotPasswordResponseAwsJson11Serializer()];
+  serializers = [ConfirmForgotPasswordResponseAwsJson11Serializer()];
 
   @override
   List<Object?> get props => [];
@@ -53,21 +53,18 @@ abstract class ConfirmForgotPasswordResponse
 class ConfirmForgotPasswordResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ConfirmForgotPasswordResponse> {
   const ConfirmForgotPasswordResponseAwsJson11Serializer()
-      : super('ConfirmForgotPasswordResponse');
+    : super('ConfirmForgotPasswordResponse');
 
   @override
   Iterable<Type> get types => const [
-        ConfirmForgotPasswordResponse,
-        _$ConfirmForgotPasswordResponse,
-      ];
+    ConfirmForgotPasswordResponse,
+    _$ConfirmForgotPasswordResponse,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   ConfirmForgotPasswordResponse deserialize(
@@ -83,6 +80,5 @@ class ConfirmForgotPasswordResponseAwsJson11Serializer
     Serializers serializers,
     ConfirmForgotPasswordResponse object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

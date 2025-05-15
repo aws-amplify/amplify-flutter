@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v2.query_protocol.model.xml_maps_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,11 +28,10 @@ abstract class XmlMapsOutput
   factory XmlMapsOutput.fromResponse(
     XmlMapsOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<XmlMapsOutput>> serializers = [
-    XmlMapsOutputAwsQuerySerializer()
+    XmlMapsOutputAwsQuerySerializer(),
   ];
 
   _i2.BuiltMap<String, GreetingStruct>? get myMap;
@@ -42,10 +41,7 @@ abstract class XmlMapsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlMapsOutput')
-      ..add(
-        'myMap',
-        myMap,
-      );
+      ..add('myMap', myMap);
     return helper.toString();
   }
 }
@@ -55,18 +51,12 @@ class XmlMapsOutputAwsQuerySerializer
   const XmlMapsOutputAwsQuerySerializer() : super('XmlMapsOutput');
 
   @override
-  Iterable<Type> get types => const [
-        XmlMapsOutput,
-        _$XmlMapsOutput,
-      ];
+  Iterable<Type> get types => const [XmlMapsOutput, _$XmlMapsOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlMapsOutput deserialize(
@@ -93,19 +83,18 @@ class XmlMapsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.replace(const _i3.XmlBuiltMapSerializer(
-                  indexer: _i3.XmlIndexer.awsQueryMap)
-              .deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
+          result.myMap.replace(
+            const _i3.XmlBuiltMapSerializer(
+              indexer: _i3.XmlIndexer.awsQueryMap,
+            ).deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i2.BuiltMap, [
                 FullType(String),
                 FullType(GreetingStruct),
-              ],
+              ]),
             ),
-          ));
+          );
       }
     }
 
@@ -122,25 +111,24 @@ class XmlMapsOutputAwsQuerySerializer
       const _i3.XmlElementName(
         'XmlMapsOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final XmlMapsOutput(:myMap) = object;
     if (myMap != null) {
       result$
         ..add(const _i3.XmlElementName('myMap'))
         ..add(
-            const _i3.XmlBuiltMapSerializer(indexer: _i3.XmlIndexer.awsQueryMap)
-                .serialize(
-          serializers,
-          myMap,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+          const _i3.XmlBuiltMapSerializer(
+            indexer: _i3.XmlIndexer.awsQueryMap,
+          ).serialize(
+            serializers,
+            myMap,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(GreetingStruct),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

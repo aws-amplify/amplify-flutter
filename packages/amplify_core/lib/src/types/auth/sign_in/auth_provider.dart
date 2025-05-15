@@ -22,7 +22,7 @@ class AuthProvider
   /// configuring the provider, while [issuer] must match the `iss` value of
   /// the provider's ID token.
   const AuthProvider.oidc(this.name, String issuer)
-      : _identityPoolProvider = issuer;
+    : _identityPoolProvider = issuer;
 
   /// Auth provider that uses Security Assertion Markup Language (SAML).
   ///
@@ -37,7 +37,7 @@ class AuthProvider
   /// For a guide on how to configure a SAML provider in your identity pool,
   /// see [here](https://docs.aws.amazon.com/cognito/latest/developerguide/saml-identity-provider.html).
   const AuthProvider.saml(this.name, [String? providerArn])
-      : _identityPoolProvider = providerArn;
+    : _identityPoolProvider = providerArn;
 
   /// Custom auth provider that is not in this list, the associated string
   /// value will be the identifier used by Cognito.
@@ -45,8 +45,8 @@ class AuthProvider
   /// The [developerProvidedName] should match whatever has been configured in
   /// your user pool and/or identity pool.
   const AuthProvider.custom(String developerProvidedName)
-      : name = developerProvidedName,
-        _identityPoolProvider = null;
+    : name = developerProvidedName,
+      _identityPoolProvider = null;
 
   const AuthProvider._(this.name, [this._identityPoolProvider]);
 
@@ -60,14 +60,7 @@ class AuthProvider
   static const cognito = AuthProvider._('cognito');
   static const twitter = AuthProvider._('twitter');
 
-  static const values = [
-    google,
-    facebook,
-    amazon,
-    apple,
-    cognito,
-    twitter,
-  ];
+  static const values = [google, facebook, amazon, apple, cognito, twitter];
 
   /// The value of the `identity_provider` URI parameter.
   ///
@@ -115,9 +108,9 @@ class AuthProvider
 
   @override
   Map<String, Object?> toJson() => {
-        'name': name,
-        'identityPoolProvider': _identityPoolProvider,
-      };
+    'name': name,
+    'identityPoolProvider': _identityPoolProvider,
+  };
 
   @override
   String toString() => 'AuthProvider.$name';

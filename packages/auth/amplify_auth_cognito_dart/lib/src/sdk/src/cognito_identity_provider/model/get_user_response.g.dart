@@ -21,17 +21,23 @@ class _$GetUserResponse extends GetUserResponse {
   factory _$GetUserResponse([void Function(GetUserResponseBuilder)? updates]) =>
       (new GetUserResponseBuilder()..update(updates))._build();
 
-  _$GetUserResponse._(
-      {required this.username,
-      required this.userAttributes,
-      this.mfaOptions,
-      this.preferredMfaSetting,
-      this.userMfaSettingList})
-      : super._() {
+  _$GetUserResponse._({
+    required this.username,
+    required this.userAttributes,
+    this.mfaOptions,
+    this.preferredMfaSetting,
+    this.userMfaSettingList,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        username, r'GetUserResponse', 'username');
+      username,
+      r'GetUserResponse',
+      'username',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        userAttributes, r'GetUserResponse', 'userAttributes');
+      userAttributes,
+      r'GetUserResponse',
+      'userAttributes',
+    );
   }
 
   @override
@@ -129,10 +135,14 @@ class GetUserResponseBuilder
   _$GetUserResponse _build() {
     _$GetUserResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$GetUserResponse._(
             username: BuiltValueNullFieldError.checkNotNull(
-                username, r'GetUserResponse', 'username'),
+              username,
+              r'GetUserResponse',
+              'username',
+            ),
             userAttributes: userAttributes.build(),
             mfaOptions: _mfaOptions?.build(),
             preferredMfaSetting: preferredMfaSetting,
@@ -150,7 +160,10 @@ class GetUserResponseBuilder
         _userMfaSettingList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GetUserResponse', _$failedField, e.toString());
+          r'GetUserResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

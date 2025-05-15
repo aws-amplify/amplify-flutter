@@ -7,11 +7,11 @@ part of 'enum_trait.dart';
 // **************************************************************************
 
 EnumTrait _$EnumTraitFromJson(Map<String, dynamic> json) => EnumTrait(
-      (json['definitions'] as List<dynamic>)
-          .map((e) => EnumDefinition.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  (json['definitions'] as List<dynamic>)
+      .map((e) => EnumDefinition.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$EnumTraitToJson(EnumTrait instance) => <String, dynamic>{
-      'definitions': instance.definitions,
-    };
+  'definitions': instance.definitions,
+};

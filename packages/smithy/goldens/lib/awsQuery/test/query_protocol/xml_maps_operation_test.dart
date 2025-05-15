@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.xml_maps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -14,47 +14,41 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryXmlMaps (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlMaps',
-          documentation: 'Tests for XML map serialization',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlMapsResponse xmlns="https://example.com/">\n    <XmlMapsResult>\n        <myMap>\n            <entry>\n                <key>foo</key>\n                <value>\n                    <hi>there</hi>\n                </value>\n            </entry>\n            <entry>\n                <key>baz</key>\n                <value>\n                    <hi>bye</hi>\n                </value>\n            </entry>\n        </myMap>\n    </XmlMapsResult>\n</XmlMapsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'myMap': {
-              'foo': {'hi': 'there'},
-              'baz': {'hi': 'bye'},
-            }
+  _i1.test('QueryXmlMaps (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlMaps',
+        documentation: 'Tests for XML map serialization',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlMapsResponse xmlns="https://example.com/">\n    <XmlMapsResult>\n        <myMap>\n            <entry>\n                <key>foo</key>\n                <value>\n                    <hi>there</hi>\n                </value>\n            </entry>\n            <entry>\n                <key>baz</key>\n                <value>\n                    <hi>bye</hi>\n                </value>\n            </entry>\n        </myMap>\n    </XmlMapsResult>\n</XmlMapsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {
+          'myMap': {
+            'foo': {'hi': 'there'},
+            'baz': {'hi': 'bye'},
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          XmlMapsOutputAwsQuerySerializer(),
-          GreetingStructAwsQuerySerializer(),
-        ],
-      );
-    },
-  );
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        XmlMapsOutputAwsQuerySerializer(),
+        GreetingStructAwsQuerySerializer(),
+      ],
+    );
+  });
 }
 
 class XmlMapsOutputAwsQuerySerializer
@@ -66,11 +60,8 @@ class XmlMapsOutputAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlMapsOutput deserialize(
@@ -89,16 +80,16 @@ class XmlMapsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(GreetingStruct),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, GreetingStruct>));
+          result.myMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(GreetingStruct),
+                  ]),
+                )
+                as _i4.BuiltMap<String, GreetingStruct>),
+          );
       }
     }
 
@@ -124,11 +115,8 @@ class GreetingStructAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   GreetingStruct deserialize(
@@ -147,10 +135,12 @@ class GreetingStructAwsQuerySerializer
       }
       switch (key) {
         case 'hi':
-          result.hi = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.hi =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

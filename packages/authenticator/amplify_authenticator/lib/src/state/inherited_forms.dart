@@ -34,7 +34,7 @@ class InheritedForms extends InheritedWidget {
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
   final ContinueSignInWithMfaSelectionForm continueSignInWithMfaSelectionForm;
   final ContinueSignInWithMfaSetupSelectionForm
-      continueSignInWithMfaSetupSelectionForm;
+  continueSignInWithMfaSetupSelectionForm;
   final ContinueSignInWithTotpSetupForm continueSignInWithTotpSetupForm;
   final ContinueSignInWithEmailMfaSetupForm continueSignInWithEmailMfaSetupForm;
   final ConfirmSignInMFAForm confirmSignInWithTotpMfaCodeForm;

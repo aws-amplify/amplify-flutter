@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v1.ec2_protocol.model.no_input_and_output_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,9 +19,9 @@ abstract class NoInputAndOutputOutput
     return _$NoInputAndOutputOutput._();
   }
 
-  factory NoInputAndOutputOutput.build(
-          [void Function(NoInputAndOutputOutputBuilder) updates]) =
-      _$NoInputAndOutputOutput;
+  factory NoInputAndOutputOutput.build([
+    void Function(NoInputAndOutputOutputBuilder) updates,
+  ]) = _$NoInputAndOutputOutput;
 
   const NoInputAndOutputOutput._();
 
@@ -29,8 +29,7 @@ abstract class NoInputAndOutputOutput
   factory NoInputAndOutputOutput.fromResponse(
     NoInputAndOutputOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<NoInputAndOutputOutput>> serializers =
       [NoInputAndOutputOutputEc2QuerySerializer()];
@@ -48,21 +47,18 @@ abstract class NoInputAndOutputOutput
 class NoInputAndOutputOutputEc2QuerySerializer
     extends _i2.StructuredSmithySerializer<NoInputAndOutputOutput> {
   const NoInputAndOutputOutputEc2QuerySerializer()
-      : super('NoInputAndOutputOutput');
+    : super('NoInputAndOutputOutput');
 
   @override
   Iterable<Type> get types => const [
-        NoInputAndOutputOutput,
-        _$NoInputAndOutputOutput,
-      ];
+    NoInputAndOutputOutput,
+    _$NoInputAndOutputOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   NoInputAndOutputOutput deserialize(
@@ -83,7 +79,7 @@ class NoInputAndOutputOutputEc2QuerySerializer
       const _i2.XmlElementName(
         'NoInputAndOutputOutputResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
 
     return result$;

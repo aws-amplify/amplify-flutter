@@ -8,9 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class StorageCopyResult<Item extends StorageItem> {
   /// {@macro amplify_core.storage.copy_result}
-  const StorageCopyResult({
-    required this.copiedItem,
-  });
+  const StorageCopyResult({required this.copiedItem});
 
   /// The result object of the [StorageCopyOperation].
   final Item copiedItem;

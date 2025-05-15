@@ -65,10 +65,14 @@ void main() {
             because: 'TOTP MFA is performed on every sign-in attempt.',
           ).equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
           check(signInRes.nextStep.codeDeliveryDetails).isNotNull()
-            ..has((d) => d.deliveryMedium, 'deliveryMedium')
-                .equals(DeliveryMedium.totp)
-            ..has((d) => d.destination, 'destination')
-                .equals(friendlyDeviceName);
+            ..has(
+              (d) => d.deliveryMedium,
+              'deliveryMedium',
+            ).equals(DeliveryMedium.totp)
+            ..has(
+              (d) => d.destination,
+              'destination',
+            ).equals(friendlyDeviceName);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await generateTotpCode(sharedSecret),

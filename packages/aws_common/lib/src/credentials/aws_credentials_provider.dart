@@ -32,7 +32,7 @@ class InvalidCredentialsException implements Exception {
   /// Exception thrown when AWS credentials could not be loaded by an
   /// [AWSCredentialsProvider].
   const InvalidCredentialsException.couldNotLoad([String? message])
-      : this(message ?? 'Could not load credentials');
+    : this(message ?? 'Could not load credentials');
 
   /// Further information about the exception, if any.
   final String? message;

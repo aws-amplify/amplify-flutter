@@ -14,7 +14,7 @@ enum NetworkState {
   disconnected,
 
   /// {@macro amplify_common.hub.api_network_state_failed}
-  failed;
+  failed,
 }
 
 /// {@template amplify_common.hub.api_intended_state}
@@ -25,7 +25,7 @@ enum IntendedState {
   connected,
 
   /// {@macro amplify_common.hub.api_intended_state_disconnected}
-  disconnected;
+  disconnected,
 }
 
 /// {@template amplify_common.hub.api_subscription_status}
@@ -46,7 +46,7 @@ enum SubscriptionStatus {
   pendingDisconnected,
 
   /// {@macro amplify_common.hub.api_subscription_status_failed}
-  failed;
+  failed,
 }
 
 class SubscriptionDetails extends ApiHubEventPayload
@@ -67,9 +67,9 @@ class SubscriptionDetails extends ApiHubEventPayload
 
   @override
   Map<String, String> toJson() => {
-        'networkState': networkState.name,
-        'intendedState': intendedState.name,
-      };
+    'networkState': networkState.name,
+    'intendedState': intendedState.name,
+  };
 
   @override
   String get runtimeTypeName => 'SubscriptionDetails';
@@ -86,57 +86,57 @@ class SubscriptionHubEvent extends ApiHubEvent
   /// Emitted when a GraphQL subscription is connected.
   /// {@endtemplate}
   SubscriptionHubEvent.connected()
-      : this._(
-          const SubscriptionDetails(
-            NetworkState.connected,
-            IntendedState.connected,
-          ),
-        );
+    : this._(
+        const SubscriptionDetails(
+          NetworkState.connected,
+          IntendedState.connected,
+        ),
+      );
 
   /// {@template amplify_common.hub.api_subscription_connected}
   /// Emitted when a GraphQL subscription is connecting/reconnecting.
   /// {@endtemplate}
   SubscriptionHubEvent.connecting()
-      : this._(
-          const SubscriptionDetails(
-            NetworkState.disconnected,
-            IntendedState.connected,
-          ),
-        );
+    : this._(
+        const SubscriptionDetails(
+          NetworkState.disconnected,
+          IntendedState.connected,
+        ),
+      );
 
   /// {@template amplify_common.hub.api_subscription_disconnected}
   /// Emitted when a GraphQL subscription connection has disconnected.
   /// {@endtemplate}
   SubscriptionHubEvent.disconnected()
-      : this._(
-          const SubscriptionDetails(
-            NetworkState.disconnected,
-            IntendedState.disconnected,
-          ),
-        );
+    : this._(
+        const SubscriptionDetails(
+          NetworkState.disconnected,
+          IntendedState.disconnected,
+        ),
+      );
 
   /// {@template amplify_common.hub.api_subscription_pending_disconnect}
   /// Emitted when a GraphQL subscription connection is pending disconnect,
   /// but should exist.
   /// {@endtemplate}
   SubscriptionHubEvent.pendingDisconnect()
-      : this._(
-          const SubscriptionDetails(
-            NetworkState.connected,
-            IntendedState.disconnected,
-          ),
-        );
+    : this._(
+        const SubscriptionDetails(
+          NetworkState.connected,
+          IntendedState.disconnected,
+        ),
+      );
 
   /// {@template amplify_common.hub.api_subscription_failed}
   /// Emitted when a GraphQL subscription connection has failed.
   /// {@endtemplate}
   SubscriptionHubEvent.failed()
-      : this._(
-          const SubscriptionDetails(
-            NetworkState.failed,
-            IntendedState.disconnected,
-          ),
-        );
+    : this._(
+        const SubscriptionDetails(
+          NetworkState.failed,
+          IntendedState.disconnected,
+        ),
+      );
   final SubscriptionDetails details;
 
   static const String _name = 'SubscriptionHubEvent';
@@ -178,7 +178,7 @@ class SubscriptionHubEvent extends ApiHubEvent
 
   @override
   Map<String, Object?> toJson() => <String, dynamic>{
-        'status': status.name,
-        'details': details.toJson(),
-      };
+    'status': status.name,
+    'details': details.toJson(),
+  };
 }

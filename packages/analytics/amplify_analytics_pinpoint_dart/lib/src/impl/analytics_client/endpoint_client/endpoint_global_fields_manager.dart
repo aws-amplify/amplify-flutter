@@ -19,9 +19,7 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class EndpointGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
-  EndpointGlobalFieldsManager._(
-    this._endpointInfoStore,
-  );
+  EndpointGlobalFieldsManager._(this._endpointInfoStore);
 
   /// Create and initialize an [EndpointGlobalFieldsManager].
   static Future<EndpointGlobalFieldsManager> create(
@@ -47,9 +45,9 @@ class EndpointGlobalFieldsManager {
   late final Map<String, double> _globalMetrics;
 
   // Internal variables
-  static final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.analytics)
-          .createChild('EndpointGlobalFieldsManager');
+  static final AmplifyLogger _logger = AmplifyLogger.category(
+    Category.analytics,
+  ).createChild('EndpointGlobalFieldsManager');
 
   /// Get GlobalAttributes managed by this instance.
   UnmodifiableMapView<String, String> get globalAttributes =>

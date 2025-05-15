@@ -85,22 +85,20 @@ abstract class ASFContextData
 
   @override
   Map<String, String> toJson() => {
-        if (deviceName != null) 'DeviceName': deviceName!,
-        if (thirdPartyDeviceId != null)
-          'ThirdPartyDeviceId': thirdPartyDeviceId!,
-        if (deviceFingerprint != null) 'DeviceFingerprint': deviceFingerprint!,
-        if (clientTimezone != null) 'ClientTimezone': clientTimezone!,
-        if (applicationName != null) 'ApplicationName': applicationName!,
-        if (applicationVersion != null)
-          'ApplicationVersion': applicationVersion!,
-        if (deviceLanguage != null) 'DeviceLanguage': deviceLanguage!,
-        if (deviceOsReleaseVersion != null)
-          'DeviceOsReleaseVersion': deviceOsReleaseVersion!,
-        if (screenHeightPixels != null)
-          'ScreenHeightPixels': screenHeightPixels!.toString(),
-        if (screenWidthPixels != null)
-          'ScreenWidthPixels': screenWidthPixels!.toString(),
-      };
+    if (deviceName != null) 'DeviceName': deviceName!,
+    if (thirdPartyDeviceId != null) 'ThirdPartyDeviceId': thirdPartyDeviceId!,
+    if (deviceFingerprint != null) 'DeviceFingerprint': deviceFingerprint!,
+    if (clientTimezone != null) 'ClientTimezone': clientTimezone!,
+    if (applicationName != null) 'ApplicationName': applicationName!,
+    if (applicationVersion != null) 'ApplicationVersion': applicationVersion!,
+    if (deviceLanguage != null) 'DeviceLanguage': deviceLanguage!,
+    if (deviceOsReleaseVersion != null)
+      'DeviceOsReleaseVersion': deviceOsReleaseVersion!,
+    if (screenHeightPixels != null)
+      'ScreenHeightPixels': screenHeightPixels!.toString(),
+    if (screenWidthPixels != null)
+      'ScreenWidthPixels': screenWidthPixels!.toString(),
+  };
 
   /// The [ASFContextData] serializer.
   static Serializer<ASFContextData> get serializer =>

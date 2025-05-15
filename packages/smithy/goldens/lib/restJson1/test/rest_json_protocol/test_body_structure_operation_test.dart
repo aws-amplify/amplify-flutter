@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.test_body_structure_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -13,107 +13,92 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonTestBodyStructure (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: TestBodyStructureOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonTestBodyStructure',
-          documentation: 'Serializes a structure',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{"testConfig":\n    {"timeout": 10}\n}',
-          bodyMediaType: 'application/json',
-          params: {
-            'testConfig': {'timeout': 10}
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: ['Content-Length'],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/body',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          TestBodyStructureInputOutputRestJson1Serializer(),
-          TestConfigRestJson1Serializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'RestJsonHttpWithEmptyBody (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: TestBodyStructureOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonHttpWithEmptyBody',
-          documentation: 'Serializes an empty structure in the body',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{}',
-          bodyMediaType: 'application/json',
-          params: {},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: ['Content-Length'],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/body',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          TestBodyStructureInputOutputRestJson1Serializer(),
-          TestConfigRestJson1Serializer(),
-        ],
-      );
-    },
-  );
+  _i1.test('RestJsonTestBodyStructure (request)', () async {
+    await _i2.httpRequestTest(
+      operation: TestBodyStructureOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonTestBodyStructure',
+        documentation: 'Serializes a structure',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{"testConfig":\n    {"timeout": 10}\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'testConfig': {'timeout': 10},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: ['Content-Length'],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/body',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        TestBodyStructureInputOutputRestJson1Serializer(),
+        TestConfigRestJson1Serializer(),
+      ],
+    );
+  });
+  _i1.test('RestJsonHttpWithEmptyBody (request)', () async {
+    await _i2.httpRequestTest(
+      operation: TestBodyStructureOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonHttpWithEmptyBody',
+        documentation: 'Serializes an empty structure in the body',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{}',
+        bodyMediaType: 'application/json',
+        params: {},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: ['Content-Length'],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/body',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        TestBodyStructureInputOutputRestJson1Serializer(),
+        TestConfigRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
 class TestBodyStructureInputOutputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<TestBodyStructureInputOutput> {
   const TestBodyStructureInputOutputRestJson1Serializer()
-      : super('TestBodyStructureInputOutput');
+    : super('TestBodyStructureInputOutput');
 
   @override
   Iterable<Type> get types => const [TestBodyStructureInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   TestBodyStructureInputOutput deserialize(
@@ -132,15 +117,20 @@ class TestBodyStructureInputOutputRestJson1Serializer
       }
       switch (key) {
         case 'testId':
-          result.testId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.testId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'testConfig':
-          result.testConfig.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(TestConfig),
-          ) as TestConfig));
+          result.testConfig.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(TestConfig),
+                )
+                as TestConfig),
+          );
       }
     }
 
@@ -166,11 +156,8 @@ class TestConfigRestJson1Serializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   TestConfig deserialize(
@@ -189,10 +176,12 @@ class TestConfigRestJson1Serializer
       }
       switch (key) {
         case 'timeout':
-          result.timeout = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.timeout =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 

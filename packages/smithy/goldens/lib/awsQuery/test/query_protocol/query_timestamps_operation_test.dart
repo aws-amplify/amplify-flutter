@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.query_timestamps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -12,66 +12,57 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryTimestampsInput (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: QueryTimestampsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'QueryTimestampsInput',
-          documentation: 'Serializes timestamps',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              'Action=QueryTimestamps&Version=2020-01-08&normalFormat=2015-01-25T08%3A00%3A00Z&epochMember=1422172800&epochTarget=1422172800',
-          bodyMediaType: 'application/x-www-form-urlencoded',
-          params: {
-            'normalFormat': 1422172800,
-            'epochMember': 1422172800,
-            'epochTarget': 1422172800,
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          forbidHeaders: [],
-          requireHeaders: ['Content-Length'],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [QueryTimestampsInputAwsQuerySerializer()],
-      );
-    },
-  );
+  _i1.test('QueryTimestampsInput (request)', () async {
+    await _i2.httpRequestTest(
+      operation: QueryTimestampsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'QueryTimestampsInput',
+        documentation: 'Serializes timestamps',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            'Action=QueryTimestamps&Version=2020-01-08&normalFormat=2015-01-25T08%3A00%3A00Z&epochMember=1422172800&epochTarget=1422172800',
+        bodyMediaType: 'application/x-www-form-urlencoded',
+        params: {
+          'normalFormat': 1422172800,
+          'epochMember': 1422172800,
+          'epochTarget': 1422172800,
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        forbidHeaders: [],
+        requireHeaders: ['Content-Length'],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [QueryTimestampsInputAwsQuerySerializer()],
+    );
+  });
 }
 
 class QueryTimestampsInputAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<QueryTimestampsInput> {
   const QueryTimestampsInputAwsQuerySerializer()
-      : super('QueryTimestampsInput');
+    : super('QueryTimestampsInput');
 
   @override
   Iterable<Type> get types => const [QueryTimestampsInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   QueryTimestampsInput deserialize(
@@ -90,11 +81,8 @@ class QueryTimestampsInputAwsQuerySerializer
       }
       switch (key) {
         case 'normalFormat':
-          result.normalFormat =
-              _i3.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
+          result.normalFormat = _i3.TimestampSerializer.epochSeconds
+              .deserialize(serializers, value);
         case 'epochMember':
           result.epochMember = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,

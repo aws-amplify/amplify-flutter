@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_validation_protocol.rest_json_validation_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,11 +39,11 @@ class RestJsonValidationProtocolClient {
     Uri? baseUri,
     List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -64,10 +64,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedLength(
@@ -79,10 +76,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedLengthOverride(
@@ -94,10 +88,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedLengthQueryString(
@@ -109,10 +100,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedPattern(
@@ -124,10 +112,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedPatternOverride(
@@ -139,10 +124,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedRange(
@@ -154,10 +136,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedRangeOverride(
@@ -169,10 +148,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedRequired(
@@ -184,10 +160,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedUniqueItems(
@@ -199,10 +172,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> recursiveStructures(
@@ -214,10 +184,7 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> sensitiveValidation(
@@ -229,9 +196,6 @@ class RestJsonValidationProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 }

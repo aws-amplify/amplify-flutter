@@ -5,10 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AmplifyProgressIndicator extends StatelessWidget {
-  const AmplifyProgressIndicator({
-    super.key,
-    this.primary = true,
-  });
+  const AmplifyProgressIndicator({super.key, this.primary = true});
 
   final bool primary;
 

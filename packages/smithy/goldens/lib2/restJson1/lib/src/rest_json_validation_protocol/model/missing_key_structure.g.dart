@@ -10,9 +10,9 @@ class _$MissingKeyStructure extends MissingKeyStructure {
   @override
   final String hi;
 
-  factory _$MissingKeyStructure(
-          [void Function(MissingKeyStructureBuilder)? updates]) =>
-      (new MissingKeyStructureBuilder()..update(updates))._build();
+  factory _$MissingKeyStructure([
+    void Function(MissingKeyStructureBuilder)? updates,
+  ]) => (new MissingKeyStructureBuilder()..update(updates))._build();
 
   _$MissingKeyStructure._({required this.hi}) : super._() {
     BuiltValueNullFieldError.checkNotNull(hi, r'MissingKeyStructure', 'hi');
@@ -20,8 +20,8 @@ class _$MissingKeyStructure extends MissingKeyStructure {
 
   @override
   MissingKeyStructure rebuild(
-          void Function(MissingKeyStructureBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MissingKeyStructureBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MissingKeyStructureBuilder toBuilder() =>
@@ -76,10 +76,15 @@ class MissingKeyStructureBuilder
   MissingKeyStructure build() => _build();
 
   _$MissingKeyStructure _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MissingKeyStructure._(
-            hi: BuiltValueNullFieldError.checkNotNull(
-                hi, r'MissingKeyStructure', 'hi'));
+          hi: BuiltValueNullFieldError.checkNotNull(
+            hi,
+            r'MissingKeyStructure',
+            'hi',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

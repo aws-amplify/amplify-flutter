@@ -13,9 +13,7 @@ abstract interface class LegacyCredentialProvider {
   const LegacyCredentialProvider();
 
   /// Fetches legacy credentials if they are present.
-  Future<CredentialStoreData?> fetchLegacyCredentials(
-    AuthOutputs authOutputs,
-  );
+  Future<CredentialStoreData?> fetchLegacyCredentials(AuthOutputs authOutputs);
 
   /// Fetches legacy device secrets if they are present.
   Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets(
@@ -24,9 +22,7 @@ abstract interface class LegacyCredentialProvider {
   );
 
   /// Deletes legacy credentials if they are present.
-  Future<void> deleteLegacyCredentials(
-    AuthOutputs authOutputs,
-  );
+  Future<void> deleteLegacyCredentials(AuthOutputs authOutputs);
 
   /// Deletes legacy device secrets if they are present.
   Future<void> deleteLegacyDeviceSecrets(

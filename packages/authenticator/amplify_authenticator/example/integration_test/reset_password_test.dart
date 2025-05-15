@@ -16,9 +16,7 @@ void main() {
   group('reset-password', () {
     // "ui/components/authenticator/reset-password.feature"
     setUp(() async {
-      await testRunner.configure(
-        environmentName: 'sign-in-with-username',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-username');
     });
 
     // Scenario: Reset Password with valid username

@@ -10,16 +10,16 @@ class _$DatetimeOffsetsOutput extends DatetimeOffsetsOutput {
   @override
   final DateTime? datetime;
 
-  factory _$DatetimeOffsetsOutput(
-          [void Function(DatetimeOffsetsOutputBuilder)? updates]) =>
-      (new DatetimeOffsetsOutputBuilder()..update(updates))._build();
+  factory _$DatetimeOffsetsOutput([
+    void Function(DatetimeOffsetsOutputBuilder)? updates,
+  ]) => (new DatetimeOffsetsOutputBuilder()..update(updates))._build();
 
   _$DatetimeOffsetsOutput._({this.datetime}) : super._();
 
   @override
   DatetimeOffsetsOutput rebuild(
-          void Function(DatetimeOffsetsOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DatetimeOffsetsOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DatetimeOffsetsOutputBuilder toBuilder() =>

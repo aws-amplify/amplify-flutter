@@ -34,14 +34,14 @@ abstract class InputSerialization
   }
 
   /// Describes the serialization format of the object.
-  factory InputSerialization.build(
-          [void Function(InputSerializationBuilder) updates]) =
-      _$InputSerialization;
+  factory InputSerialization.build([
+    void Function(InputSerializationBuilder) updates,
+  ]) = _$InputSerialization;
 
   const InputSerialization._();
 
   static const List<_i2.SmithySerializer<InputSerialization>> serializers = [
-    InputSerializationRestXmlSerializer()
+    InputSerializationRestXmlSerializer(),
   ];
 
   /// Describes the serialization of a CSV-encoded object.
@@ -56,32 +56,16 @@ abstract class InputSerialization
   /// Specifies Parquet as object's input serialization format.
   ParquetInput? get parquet;
   @override
-  List<Object?> get props => [
-        csv,
-        compressionType,
-        json,
-        parquet,
-      ];
+  List<Object?> get props => [csv, compressionType, json, parquet];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InputSerialization')
-      ..add(
-        'csv',
-        csv,
-      )
-      ..add(
-        'compressionType',
-        compressionType,
-      )
-      ..add(
-        'json',
-        json,
-      )
-      ..add(
-        'parquet',
-        parquet,
-      );
+    final helper =
+        newBuiltValueToStringHelper('InputSerialization')
+          ..add('csv', csv)
+          ..add('compressionType', compressionType)
+          ..add('json', json)
+          ..add('parquet', parquet);
     return helper.toString();
   }
 }
@@ -91,18 +75,12 @@ class InputSerializationRestXmlSerializer
   const InputSerializationRestXmlSerializer() : super('InputSerialization');
 
   @override
-  Iterable<Type> get types => const [
-        InputSerialization,
-        _$InputSerialization,
-      ];
+  Iterable<Type> get types => const [InputSerialization, _$InputSerialization];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   InputSerialization deserialize(
@@ -121,25 +99,36 @@ class InputSerializationRestXmlSerializer
       }
       switch (key) {
         case 'CompressionType':
-          result.compressionType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(CompressionType),
-          ) as CompressionType);
+          result.compressionType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(CompressionType),
+                  )
+                  as CompressionType);
         case 'CSV':
-          result.csv.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CsvInput),
-          ) as CsvInput));
+          result.csv.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CsvInput),
+                )
+                as CsvInput),
+          );
         case 'JSON':
-          result.json.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(JsonInput),
-          ) as JsonInput));
+          result.json.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(JsonInput),
+                )
+                as JsonInput),
+          );
         case 'Parquet':
-          result.parquet.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ParquetInput),
-          ) as ParquetInput));
+          result.parquet.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ParquetInput),
+                )
+                as ParquetInput),
+          );
       }
     }
 
@@ -156,40 +145,42 @@ class InputSerializationRestXmlSerializer
       const _i2.XmlElementName(
         'InputSerialization',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final InputSerialization(:compressionType, :csv, :json, :parquet) = object;
     if (compressionType != null) {
       result$
         ..add(const _i2.XmlElementName('CompressionType'))
-        ..add(serializers.serialize(
-          compressionType,
-          specifiedType: const FullType(CompressionType),
-        ));
+        ..add(
+          serializers.serialize(
+            compressionType,
+            specifiedType: const FullType(CompressionType),
+          ),
+        );
     }
     if (csv != null) {
       result$
         ..add(const _i2.XmlElementName('CSV'))
-        ..add(serializers.serialize(
-          csv,
-          specifiedType: const FullType(CsvInput),
-        ));
+        ..add(
+          serializers.serialize(csv, specifiedType: const FullType(CsvInput)),
+        );
     }
     if (json != null) {
       result$
         ..add(const _i2.XmlElementName('JSON'))
-        ..add(serializers.serialize(
-          json,
-          specifiedType: const FullType(JsonInput),
-        ));
+        ..add(
+          serializers.serialize(json, specifiedType: const FullType(JsonInput)),
+        );
     }
     if (parquet != null) {
       result$
         ..add(const _i2.XmlElementName('Parquet'))
-        ..add(serializers.serialize(
-          parquet,
-          specifiedType: const FullType(ParquetInput),
-        ));
+        ..add(
+          serializers.serialize(
+            parquet,
+            specifiedType: const FullType(ParquetInput),
+          ),
+        );
     }
     return result$;
   }

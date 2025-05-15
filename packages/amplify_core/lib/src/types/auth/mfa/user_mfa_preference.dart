@@ -13,10 +13,7 @@ final class UserMfaPreference
         AWSEquatable<UserMfaPreference>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.user_mfa_preference}
-  const UserMfaPreference({
-    this.enabled = const {},
-    this.preferred,
-  });
+  const UserMfaPreference({this.enabled = const {}, this.preferred});
 
   /// The enabled MFA methods for the user.
   final Set<MfaType> enabled;
@@ -35,7 +32,7 @@ final class UserMfaPreference
 
   @override
   Map<String, Object?> toJson() => {
-        'enabled': enabled.map((type) => type.name.toUpperCase()).toList(),
-        'preferred': preferred?.name.toUpperCase(),
-      };
+    'enabled': enabled.map((type) => type.name.toUpperCase()).toList(),
+    'preferred': preferred?.name.toUpperCase(),
+  };
 }

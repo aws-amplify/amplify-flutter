@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library amplify_interface;
+library;
 
 import 'dart:async';
 
@@ -25,9 +25,9 @@ String _recoverySuggestionPluginNotAdded(String pluginName) =>
     'Add $pluginName plugin to Amplify and call configure before calling $pluginName related APIs';
 
 PluginError _pluginNotAddedException(String pluginName) => PluginError(
-      _errorMsgPluginNotAdded(pluginName),
-      recoverySuggestion: _recoverySuggestionPluginNotAdded(pluginName),
-    );
+  _errorMsgPluginNotAdded(pluginName),
+  recoverySuggestion: _recoverySuggestionPluginNotAdded(pluginName),
+);
 
 /// Amplify category types.
 enum Category {
@@ -53,14 +53,14 @@ enum Category {
   pushNotifications;
 
   String get name => switch (this) {
-        Category.analytics => 'Analytics',
-        Category.api => 'API',
-        Category.auth => 'Auth',
-        Category.dataStore => 'DataStore',
-        Category.hub => 'Hub',
-        Category.storage => 'Storage',
-        Category.pushNotifications => 'PushNotifications',
-      };
+    Category.analytics => 'Analytics',
+    Category.api => 'API',
+    Category.auth => 'Auth',
+    Category.dataStore => 'DataStore',
+    Category.hub => 'Hub',
+    Category.storage => 'Storage',
+    Category.pushNotifications => 'PushNotifications',
+  };
 }
 
 /// Base functionality for Amplify categories.
@@ -93,9 +93,7 @@ abstract class AmplifyCategory<P extends AmplifyPluginInterface> {
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     try {
-      await plugin.addPlugin(
-        authProviderRepo: authProviderRepo,
-      );
+      await plugin.addPlugin(authProviderRepo: authProviderRepo);
       _plugins.add(plugin);
     } on AmplifyAlreadyConfiguredException {
       _plugins.add(plugin);

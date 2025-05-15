@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.http_payload_with_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,16 +16,18 @@ abstract class HttpPayloadWithXmlNameInputOutput
         _i1.HttpInput<PayloadWithXmlName>,
         _i2.AWSEquatable<HttpPayloadWithXmlNameInputOutput>
     implements
-        Built<HttpPayloadWithXmlNameInputOutput,
-            HttpPayloadWithXmlNameInputOutputBuilder>,
+        Built<
+          HttpPayloadWithXmlNameInputOutput,
+          HttpPayloadWithXmlNameInputOutputBuilder
+        >,
         _i1.HasPayload<PayloadWithXmlName> {
   factory HttpPayloadWithXmlNameInputOutput({PayloadWithXmlName? nested}) {
     return _$HttpPayloadWithXmlNameInputOutput._(nested: nested);
   }
 
-  factory HttpPayloadWithXmlNameInputOutput.build(
-          [void Function(HttpPayloadWithXmlNameInputOutputBuilder) updates]) =
-      _$HttpPayloadWithXmlNameInputOutput;
+  factory HttpPayloadWithXmlNameInputOutput.build([
+    void Function(HttpPayloadWithXmlNameInputOutputBuilder) updates,
+  ]) = _$HttpPayloadWithXmlNameInputOutput;
 
   const HttpPayloadWithXmlNameInputOutput._();
 
@@ -33,26 +35,24 @@ abstract class HttpPayloadWithXmlNameInputOutput
     PayloadWithXmlName? payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpPayloadWithXmlNameInputOutput.build((b) {
-        if (payload != null) {
-          b.nested.replace(payload);
-        }
-      });
+  }) => HttpPayloadWithXmlNameInputOutput.build((b) {
+    if (payload != null) {
+      b.nested.replace(payload);
+    }
+  });
 
   /// Constructs a [HttpPayloadWithXmlNameInputOutput] from a [payload] and [response].
   factory HttpPayloadWithXmlNameInputOutput.fromResponse(
     PayloadWithXmlName? payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      HttpPayloadWithXmlNameInputOutput.build((b) {
-        if (payload != null) {
-          b.nested.replace(payload);
-        }
-      });
+  ) => HttpPayloadWithXmlNameInputOutput.build((b) {
+    if (payload != null) {
+      b.nested.replace(payload);
+    }
+  });
 
   static const List<_i1.SmithySerializer<PayloadWithXmlName?>> serializers = [
-    HttpPayloadWithXmlNameInputOutputRestXmlSerializer()
+    HttpPayloadWithXmlNameInputOutputRestXmlSerializer(),
   ];
 
   PayloadWithXmlName? get nested;
@@ -64,12 +64,9 @@ abstract class HttpPayloadWithXmlNameInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpPayloadWithXmlNameInputOutput')
-          ..add(
-            'nested',
-            nested,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'HttpPayloadWithXmlNameInputOutput',
+    )..add('nested', nested);
     return helper.toString();
   }
 }
@@ -77,21 +74,18 @@ abstract class HttpPayloadWithXmlNameInputOutput
 class HttpPayloadWithXmlNameInputOutputRestXmlSerializer
     extends _i1.StructuredSmithySerializer<PayloadWithXmlName> {
   const HttpPayloadWithXmlNameInputOutputRestXmlSerializer()
-      : super('HttpPayloadWithXmlNameInputOutput');
+    : super('HttpPayloadWithXmlNameInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        HttpPayloadWithXmlNameInputOutput,
-        _$HttpPayloadWithXmlNameInputOutput,
-      ];
+    HttpPayloadWithXmlNameInputOutput,
+    _$HttpPayloadWithXmlNameInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   PayloadWithXmlName deserialize(
@@ -110,10 +104,12 @@ class HttpPayloadWithXmlNameInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -131,10 +127,9 @@ class HttpPayloadWithXmlNameInputOutputRestXmlSerializer
     if (name != null) {
       result$
         ..add(const _i1.XmlElementName('name'))
-        ..add(serializers.serialize(
-          name,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(name, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

@@ -27,23 +27,25 @@ void main() {
       worker.logs.listen(safePrint);
       await worker.spawn();
       final message = SrpPasswordVerifierMessage(
-        (b) => b
-          ..initResult = initResult
-          ..clientId = mockConfig.auth!.userPoolClientId
-          ..poolId = 'us-east-1_$poolName'
-          ..parameters = SignInParameters(
-            (p) => p
-              ..username = srpUsername
-              ..password = srpPassword,
-          )
-          ..challengeParameters = BuiltMap({
-            CognitoConstants.challengeParamUsername: srpUsername,
-            CognitoConstants.challengeParamUserIdForSrp: srpUsername,
-            CognitoConstants.challengeParamSecretBlock: secretBlock,
-            CognitoConstants.challengeParamSalt: salt,
-            CognitoConstants.challengeParamSrpB: publicB,
-          })
-          ..timestamp = DateTime.utc(2017, 6, 15, 7),
+        (b) =>
+            b
+              ..initResult = initResult
+              ..clientId = mockConfig.auth!.userPoolClientId
+              ..poolId = 'us-east-1_$poolName'
+              ..parameters = SignInParameters(
+                (p) =>
+                    p
+                      ..username = srpUsername
+                      ..password = srpPassword,
+              )
+              ..challengeParameters = BuiltMap({
+                CognitoConstants.challengeParamUsername: srpUsername,
+                CognitoConstants.challengeParamUserIdForSrp: srpUsername,
+                CognitoConstants.challengeParamSecretBlock: secretBlock,
+                CognitoConstants.challengeParamSalt: salt,
+                CognitoConstants.challengeParamSrpB: publicB,
+              })
+              ..timestamp = DateTime.utc(2017, 6, 15, 7),
       );
       worker.add(message);
 
@@ -53,8 +55,9 @@ void main() {
         worker.stream,
         emits(
           isA<RespondToAuthChallengeRequest>().having(
-            (req) => req.challengeResponses?[
-                CognitoConstants.challengeParamPasswordSignature],
+            (req) =>
+                req.challengeResponses?[CognitoConstants
+                    .challengeParamPasswordSignature],
             'signature',
             expectedSignature,
           ),
@@ -68,29 +71,25 @@ void main() {
       worker.logs.listen(safePrint);
       await worker.spawn();
       final message = SrpPasswordVerifierMessage(
-        (b) => b
-          ..initResult = initResult
-          ..clientId = mockConfig.auth!.userPoolClientId
-          ..poolId = 'us-east-1_$poolName'
-          ..parameters = SignInParameters(
-            (p) => p
-              ..username = srpUsername
-              ..password = srpPassword,
-          )
-          // No challenge parameters
-          ..challengeParameters = BuiltMap(<String, String>{})
-          ..timestamp = DateTime.utc(2017, 6, 15, 7),
+        (b) =>
+            b
+              ..initResult = initResult
+              ..clientId = mockConfig.auth!.userPoolClientId
+              ..poolId = 'us-east-1_$poolName'
+              ..parameters = SignInParameters(
+                (p) =>
+                    p
+                      ..username = srpUsername
+                      ..password = srpPassword,
+              )
+              // No challenge parameters
+              ..challengeParameters = BuiltMap(<String, String>{})
+              ..timestamp = DateTime.utc(2017, 6, 15, 7),
       );
       worker.add(message);
 
-      expect(
-        worker.result,
-        completion(isA<ErrorResult>()),
-      );
-      await expectLater(
-        worker.stream,
-        emitsError(isA<WorkerBeeException>()),
-      );
+      expect(worker.result, completion(isA<ErrorResult>()));
+      await expectLater(worker.stream, emitsError(isA<WorkerBeeException>()));
       unawaited(worker.close());
     });
   });

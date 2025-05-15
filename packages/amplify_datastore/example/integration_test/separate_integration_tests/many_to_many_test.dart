@@ -33,13 +33,13 @@ void main() {
     ];
     var tags = [
       Tag(label: 'many to many tag 1'),
-      Tag(label: 'many to maby tag 2')
+      Tag(label: 'many to maby tag 2'),
     ];
     var postTags = [
       PostTags(post: posts[0], tag: tags[0]),
       PostTags(post: posts[0], tag: tags[0]),
       PostTags(post: posts[1], tag: tags[1]),
-      PostTags(post: posts[1], tag: tags[1])
+      PostTags(post: posts[1], tag: tags[1]),
     ];
     late Future<List<SubscriptionEvent<Post>>> postModelEventsGetter;
     late Future<List<SubscriptionEvent<Tag>>> tagModelEventsGetter;
@@ -47,8 +47,9 @@ void main() {
 
     setUpAll(() async {
       await configureDataStore(
-          enableCloudSync: enableCloudSync,
-          modelProvider: ModelProvider.instance);
+        enableCloudSync: enableCloudSync,
+        modelProvider: ModelProvider.instance,
+      );
 
       postModelEventsGetter = createObservedEventsGetter(
         Post.classType,
@@ -139,11 +140,14 @@ void main() {
     testWidgets('observe postTags', (WidgetTester tester) async {
       var events = await postTagsModelEventsGetter;
       expectObservedEventsToMatchModels(
-          events: events, referenceModels: postTags);
+        events: events,
+        referenceModels: postTags,
+      );
     });
 
-    testWidgets('delete post (cascade delete associated postTag)',
-        (WidgetTester tester) async {
+    testWidgets('delete post (cascade delete associated postTag)', (
+      WidgetTester tester,
+    ) async {
       var deletedPost = posts[0];
       var deletedPostTags = postTags.getRange(0, 2).toList();
 
@@ -168,8 +172,9 @@ void main() {
       expect(queriedPostTags, isNot(containsAll(deletedPostTags)));
     });
 
-    testWidgets('delete tag (cascade delete associated postTag)',
-        (WidgetTester tester) async {
+    testWidgets('delete tag (cascade delete associated postTag)', (
+      WidgetTester tester,
+    ) async {
       var deletedTag = tags[1];
       var deletedPostTags = postTags.getRange(2, postTags.length).toList();
 

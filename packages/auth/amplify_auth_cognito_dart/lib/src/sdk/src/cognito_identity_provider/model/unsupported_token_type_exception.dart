@@ -12,11 +12,12 @@ part 'unsupported_token_type_exception.g.dart';
 
 /// Exception that is thrown when an unsupported token is passed to an operation.
 abstract class UnsupportedTokenTypeException
-    with
-        _i1.AWSEquatable<UnsupportedTokenTypeException>
+    with _i1.AWSEquatable<UnsupportedTokenTypeException>
     implements
-        Built<UnsupportedTokenTypeException,
-            UnsupportedTokenTypeExceptionBuilder>,
+        Built<
+          UnsupportedTokenTypeException,
+          UnsupportedTokenTypeExceptionBuilder
+        >,
         _i2.SmithyHttpException {
   /// Exception that is thrown when an unsupported token is passed to an operation.
   factory UnsupportedTokenTypeException({String? message}) {
@@ -24,9 +25,9 @@ abstract class UnsupportedTokenTypeException
   }
 
   /// Exception that is thrown when an unsupported token is passed to an operation.
-  factory UnsupportedTokenTypeException.build(
-          [void Function(UnsupportedTokenTypeExceptionBuilder) updates]) =
-      _$UnsupportedTokenTypeException;
+  factory UnsupportedTokenTypeException.build([
+    void Function(UnsupportedTokenTypeExceptionBuilder) updates,
+  ]) = _$UnsupportedTokenTypeException;
 
   const UnsupportedTokenTypeException._();
 
@@ -34,21 +35,20 @@ abstract class UnsupportedTokenTypeException
   factory UnsupportedTokenTypeException.fromResponse(
     UnsupportedTokenTypeException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<UnsupportedTokenTypeException>>
-      serializers = [UnsupportedTokenTypeExceptionAwsJson11Serializer()];
+  serializers = [UnsupportedTokenTypeExceptionAwsJson11Serializer()];
 
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.cognitoidentityprovider',
-        shape: 'UnsupportedTokenTypeException',
-      );
+    namespace: 'com.amazonaws.cognitoidentityprovider',
+    shape: 'UnsupportedTokenTypeException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -69,10 +69,7 @@ abstract class UnsupportedTokenTypeException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnsupportedTokenTypeException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -80,21 +77,18 @@ abstract class UnsupportedTokenTypeException
 class UnsupportedTokenTypeExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UnsupportedTokenTypeException> {
   const UnsupportedTokenTypeExceptionAwsJson11Serializer()
-      : super('UnsupportedTokenTypeException');
+    : super('UnsupportedTokenTypeException');
 
   @override
   Iterable<Type> get types => const [
-        UnsupportedTokenTypeException,
-        _$UnsupportedTokenTypeException,
-      ];
+    UnsupportedTokenTypeException,
+    _$UnsupportedTokenTypeException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   UnsupportedTokenTypeException deserialize(
@@ -113,10 +107,12 @@ class UnsupportedTokenTypeExceptionAwsJson11Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -134,10 +130,9 @@ class UnsupportedTokenTypeExceptionAwsJson11Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

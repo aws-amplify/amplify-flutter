@@ -66,14 +66,15 @@ class AWSHttpClientImpl extends AWSHttpClient {
     _inner ??= HttpClient();
     _setBadCertificateCallback(_inner!, onBadCertificate);
     if (completer.isCanceled) return;
-    final ioRequest = (await _inner!.openUrl(request.method.value, request.uri))
-      ..followRedirects = request.followRedirects
-      ..maxRedirects = request.maxRedirects
-      // TODO(dnys1-HuiSF): follow up on the cause issue
-      //  https://github.com/flutter/flutter/issues/41573
-      //  disable this option for now to ensure stability of Storage integration
-      //  test suite.
-      ..persistentConnection = false;
+    final ioRequest =
+        (await _inner!.openUrl(request.method.value, request.uri))
+          ..followRedirects = request.followRedirects
+          ..maxRedirects = request.maxRedirects
+          // TODO(dnys1-HuiSF): follow up on the cause issue
+          //  https://github.com/flutter/flutter/issues/41573
+          //  disable this option for now to ensure stability of Storage integration
+          //  test suite.
+          ..persistentConnection = false;
     if (request.hasContentLength) {
       ioRequest.contentLength = request.contentLength as int;
     } else {
@@ -90,21 +91,23 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
     var requestBytesRead = 0;
     request.headers.forEach(ioRequest.headers.set);
-    final response = await request.body
-        .tap(
-          (chunk) {
-            requestBytesRead += chunk.length;
-            requestProgress.add(requestBytesRead);
-          },
-          onDone: () {
-            if (!cancelTrigger.isCompleted) {
-              logger.verbose('Request sent');
-            }
-            requestProgress.close();
-          },
-        )
-        .takeUntil(cancelTrigger.future)
-        .pipe(ioRequest) as HttpClientResponse;
+    final response =
+        await request.body
+                .tap(
+                  (chunk) {
+                    requestBytesRead += chunk.length;
+                    requestProgress.add(requestBytesRead);
+                  },
+                  onDone: () {
+                    if (!cancelTrigger.isCompleted) {
+                      logger.verbose('Request sent');
+                    }
+                    requestProgress.close();
+                  },
+                )
+                .takeUntil(cancelTrigger.future)
+                .pipe(ioRequest)
+            as HttpClientResponse;
 
     if (completer.isCanceled) return;
 
@@ -132,9 +135,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
         socket.destroy();
       });
     };
-    unawaited(
-      response.forward(bodyController, cancelOnError: true),
-    );
+    unawaited(response.forward(bodyController, cancelOnError: true));
 
     logger.verbose('Received headers');
     final headers = <String, String>{};
@@ -197,28 +198,27 @@ class AWSHttpClientImpl extends AWSHttpClient {
     List<_RedirectInfo> redirects,
     AWSHttpMethod method,
     Uri uri,
-  ) =>
-      [
-        Header(':method'.codeUnits, utf8.encode(method.value)),
+  ) => [
+    Header(':method'.codeUnits, utf8.encode(method.value)),
+    Header(
+      ':path'.codeUnits,
+      utf8.encode('${uri.path}${uri.hasQuery ? '?${uri.query}' : ''}'),
+    ),
+    Header(':scheme'.codeUnits, utf8.encode(uri.scheme)),
+    Header(
+      ':authority'.codeUnits,
+      utf8.encode('${uri.host}${uri.hasPort ? ':${uri.port}' : ''}'),
+    ),
+    for (final entry in request.headers.entries)
+      if (redirects.isEmpty ||
+          _shouldCopyHeaderOnRedirect(entry.key, request.uri, uri))
         Header(
-          ':path'.codeUnits,
-          utf8.encode('${uri.path}${uri.hasQuery ? '?${uri.query}' : ''}'),
+          // Lower-case headers due to:
+          // https://github.com/dart-lang/http2/issues/49
+          utf8.encode(entry.key.toLowerCase()),
+          utf8.encode(entry.value),
         ),
-        Header(':scheme'.codeUnits, utf8.encode(uri.scheme)),
-        Header(
-          ':authority'.codeUnits,
-          utf8.encode('${uri.host}${uri.hasPort ? ':${uri.port}' : ''}'),
-        ),
-        for (final entry in request.headers.entries)
-          if (redirects.isEmpty ||
-              _shouldCopyHeaderOnRedirect(entry.key, request.uri, uri))
-            Header(
-              // Lower-case headers due to:
-              // https://github.com/dart-lang/http2/issues/49
-              utf8.encode(entry.key.toLowerCase()),
-              utf8.encode(entry.value),
-            ),
-      ];
+  ];
 
   /// Sends an HTTP/2 request using `package:http2`.
   Future<void> _sendH2({
@@ -267,14 +267,15 @@ class AWSHttpClientImpl extends AWSHttpClient {
         );
         return null;
       }
-      final transport = _http2Connections[uri.authority] ??=
-          ClientTransportConnection.viaSocket(socket)
-            ..onActiveStateChanged = (isActive) {
-              if (!isActive) {
-                _logger.verbose('Closing transport: ${uri.authority}');
-                _http2Connections.remove(uri.authority)?.finish();
-              }
-            };
+      final transport =
+          _http2Connections[uri.authority] ??=
+              ClientTransportConnection.viaSocket(socket)
+                ..onActiveStateChanged = (isActive) {
+                  if (!isActive) {
+                    _logger.verbose('Closing transport: ${uri.authority}');
+                    _http2Connections.remove(uri.authority)?.finish();
+                  }
+                };
       final stream = transport.makeRequest(
         _requiredH2Headers(request, redirects, method, uri),
       );

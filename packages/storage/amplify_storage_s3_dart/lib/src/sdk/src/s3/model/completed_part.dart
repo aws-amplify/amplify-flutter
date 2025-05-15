@@ -40,7 +40,7 @@ abstract class CompletedPart
   const CompletedPart._();
 
   static const List<_i2.SmithySerializer<CompletedPart>> serializers = [
-    CompletedPartRestXmlSerializer()
+    CompletedPartRestXmlSerializer(),
   ];
 
   /// Entity tag returned when the part was uploaded.
@@ -66,41 +66,24 @@ abstract class CompletedPart
   int? get partNumber;
   @override
   List<Object?> get props => [
-        eTag,
-        checksumCrc32,
-        checksumCrc32C,
-        checksumSha1,
-        checksumSha256,
-        partNumber,
-      ];
+    eTag,
+    checksumCrc32,
+    checksumCrc32C,
+    checksumSha1,
+    checksumSha256,
+    partNumber,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CompletedPart')
-      ..add(
-        'eTag',
-        eTag,
-      )
-      ..add(
-        'checksumCrc32',
-        checksumCrc32,
-      )
-      ..add(
-        'checksumCrc32C',
-        checksumCrc32C,
-      )
-      ..add(
-        'checksumSha1',
-        checksumSha1,
-      )
-      ..add(
-        'checksumSha256',
-        checksumSha256,
-      )
-      ..add(
-        'partNumber',
-        partNumber,
-      );
+    final helper =
+        newBuiltValueToStringHelper('CompletedPart')
+          ..add('eTag', eTag)
+          ..add('checksumCrc32', checksumCrc32)
+          ..add('checksumCrc32C', checksumCrc32C)
+          ..add('checksumSha1', checksumSha1)
+          ..add('checksumSha256', checksumSha256)
+          ..add('partNumber', partNumber);
     return helper.toString();
   }
 }
@@ -110,18 +93,12 @@ class CompletedPartRestXmlSerializer
   const CompletedPartRestXmlSerializer() : super('CompletedPart');
 
   @override
-  Iterable<Type> get types => const [
-        CompletedPart,
-        _$CompletedPart,
-      ];
+  Iterable<Type> get types => const [CompletedPart, _$CompletedPart];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CompletedPart deserialize(
@@ -140,35 +117,47 @@ class CompletedPartRestXmlSerializer
       }
       switch (key) {
         case 'ChecksumCRC32':
-          result.checksumCrc32 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksumCrc32 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChecksumCRC32C':
-          result.checksumCrc32C = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksumCrc32C =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChecksumSHA1':
-          result.checksumSha1 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksumSha1 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ChecksumSHA256':
-          result.checksumSha256 = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.checksumSha256 =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ETag':
-          result.eTag = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.eTag =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'PartNumber':
-          result.partNumber = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.partNumber =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -185,7 +174,7 @@ class CompletedPartRestXmlSerializer
       const _i2.XmlElementName(
         'CompletedPart',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final CompletedPart(
       :checksumCrc32,
@@ -193,55 +182,61 @@ class CompletedPartRestXmlSerializer
       :checksumSha1,
       :checksumSha256,
       :eTag,
-      :partNumber
+      :partNumber,
     ) = object;
     if (checksumCrc32 != null) {
       result$
         ..add(const _i2.XmlElementName('ChecksumCRC32'))
-        ..add(serializers.serialize(
-          checksumCrc32,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            checksumCrc32,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (checksumCrc32C != null) {
       result$
         ..add(const _i2.XmlElementName('ChecksumCRC32C'))
-        ..add(serializers.serialize(
-          checksumCrc32C,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            checksumCrc32C,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (checksumSha1 != null) {
       result$
         ..add(const _i2.XmlElementName('ChecksumSHA1'))
-        ..add(serializers.serialize(
-          checksumSha1,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            checksumSha1,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (checksumSha256 != null) {
       result$
         ..add(const _i2.XmlElementName('ChecksumSHA256'))
-        ..add(serializers.serialize(
-          checksumSha256,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            checksumSha256,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (eTag != null) {
       result$
         ..add(const _i2.XmlElementName('ETag'))
-        ..add(serializers.serialize(
-          eTag,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(eTag, specifiedType: const FullType(String)),
+        );
     }
     if (partNumber != null) {
       result$
         ..add(const _i2.XmlElementName('PartNumber'))
-        ..add(serializers.serialize(
-          partNumber,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(partNumber, specifiedType: const FullType(int)),
+        );
     }
     return result$;
   }

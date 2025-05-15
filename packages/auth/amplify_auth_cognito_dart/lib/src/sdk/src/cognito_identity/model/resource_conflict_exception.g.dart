@@ -12,16 +12,16 @@ class _$ResourceConflictException extends ResourceConflictException {
   @override
   final Map<String, String>? headers;
 
-  factory _$ResourceConflictException(
-          [void Function(ResourceConflictExceptionBuilder)? updates]) =>
-      (new ResourceConflictExceptionBuilder()..update(updates))._build();
+  factory _$ResourceConflictException([
+    void Function(ResourceConflictExceptionBuilder)? updates,
+  ]) => (new ResourceConflictExceptionBuilder()..update(updates))._build();
 
   _$ResourceConflictException._({this.message, this.headers}) : super._();
 
   @override
   ResourceConflictException rebuild(
-          void Function(ResourceConflictExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ResourceConflictExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResourceConflictExceptionBuilder toBuilder() =>
@@ -82,11 +82,9 @@ class ResourceConflictExceptionBuilder
   ResourceConflictException build() => _build();
 
   _$ResourceConflictException _build() {
-    final _$result = _$v ??
-        new _$ResourceConflictException._(
-          message: message,
-          headers: headers,
-        );
+    final _$result =
+        _$v ??
+        new _$ResourceConflictException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.json_blobs_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -14,93 +14,78 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonJsonBlobs (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: JsonBlobsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonJsonBlobs',
-          documentation: 'Blobs are base64 encoded',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{\n    "data": "dmFsdWU="\n}',
-          bodyMediaType: 'application/json',
-          params: {'data': 'value'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/JsonBlobs',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [JsonBlobsInputOutputRestJson1Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'RestJsonJsonBlobs (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: JsonBlobsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'RestJsonJsonBlobs',
-          documentation: 'Blobs are base64 encoded',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '{\n    "data": "dmFsdWU="\n}',
-          bodyMediaType: 'application/json',
-          params: {'data': 'value'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [JsonBlobsInputOutputRestJson1Serializer()],
-      );
-    },
-  );
+  _i1.test('RestJsonJsonBlobs (request)', () async {
+    await _i2.httpRequestTest(
+      operation: JsonBlobsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonJsonBlobs',
+        documentation: 'Blobs are base64 encoded',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{\n    "data": "dmFsdWU="\n}',
+        bodyMediaType: 'application/json',
+        params: {'data': 'value'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/JsonBlobs',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [JsonBlobsInputOutputRestJson1Serializer()],
+    );
+  });
+  _i1.test('RestJsonJsonBlobs (response)', () async {
+    await _i2.httpResponseTest(
+      operation: JsonBlobsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'RestJsonJsonBlobs',
+        documentation: 'Blobs are base64 encoded',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '{\n    "data": "dmFsdWU="\n}',
+        bodyMediaType: 'application/json',
+        params: {'data': 'value'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [JsonBlobsInputOutputRestJson1Serializer()],
+    );
+  });
 }
 
 class JsonBlobsInputOutputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<JsonBlobsInputOutput> {
   const JsonBlobsInputOutputRestJson1Serializer()
-      : super('JsonBlobsInputOutput');
+    : super('JsonBlobsInputOutput');
 
   @override
   Iterable<Type> get types => const [JsonBlobsInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   JsonBlobsInputOutput deserialize(
@@ -119,10 +104,12 @@ class JsonBlobsInputOutputRestJson1Serializer
       }
       switch (key) {
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i4.Uint8List),
-          ) as _i4.Uint8List);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.Uint8List),
+                  )
+                  as _i4.Uint8List);
       }
     }
 

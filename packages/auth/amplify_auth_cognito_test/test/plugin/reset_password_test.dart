@@ -17,8 +17,9 @@ import 'package:test/test.dart';
 // https://github.com/aws-amplify/amplify-android/tree/main/aws-auth-cognito/src/test/resources/feature-test/testsuites/resetPassword
 void main() {
   final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
-  final identityPoolKeys =
-      CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!);
+  final identityPoolKeys = CognitoIdentityPoolKeys(
+    mockConfig.auth!.identityPoolId!,
+  );
 
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;
@@ -51,8 +52,11 @@ void main() {
         );
 
         final mockIdp = MockCognitoIdentityProviderClient(
-          forgotPassword: () async =>
-              throw const AuthNotAuthorizedException('Cognito error message'),
+          forgotPassword:
+              () async =>
+                  throw const AuthNotAuthorizedException(
+                    'Cognito error message',
+                  ),
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
@@ -81,13 +85,14 @@ void main() {
         );
 
         final mockIdp = MockCognitoIdentityProviderClient(
-          forgotPassword: () async => ForgotPasswordResponse(
-            codeDeliveryDetails: CodeDeliveryDetailsType(
-              destination: 'dummy destination',
-              deliveryMedium: DeliveryMediumType.email,
-              attributeName: 'email',
-            ),
-          ),
+          forgotPassword:
+              () async => ForgotPasswordResponse(
+                codeDeliveryDetails: CodeDeliveryDetailsType(
+                  destination: 'dummy destination',
+                  deliveryMedium: DeliveryMediumType.email,
+                  attributeName: 'email',
+                ),
+              ),
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
@@ -114,13 +119,14 @@ void main() {
         );
 
         final mockIdp = MockCognitoIdentityProviderClient(
-          forgotPassword: () async => ForgotPasswordResponse(
-            codeDeliveryDetails: CodeDeliveryDetailsType(
-              destination: 'dummy destination',
-              deliveryMedium: DeliveryMediumType.email,
-              attributeName: 'email',
-            ),
-          ),
+          forgotPassword:
+              () async => ForgotPasswordResponse(
+                codeDeliveryDetails: CodeDeliveryDetailsType(
+                  destination: 'dummy destination',
+                  deliveryMedium: DeliveryMediumType.email,
+                  attributeName: 'email',
+                ),
+              ),
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 

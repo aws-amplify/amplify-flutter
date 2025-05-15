@@ -10,8 +10,10 @@ import 'package:meta/meta.dart';
 /// Base class for discrete events of a state machine.
 /// {@endtemplate}
 @immutable
-abstract base class StateMachineEvent<EventType extends Object,
-        StateType extends Object>
+abstract base class StateMachineEvent<
+  EventType extends Object,
+  StateType extends Object
+>
     with AWSEquatable<StateMachineEvent<EventType, StateType>>, AWSDebuggable {
   /// {@macro amplify_core.event}
   const StateMachineEvent();
@@ -24,19 +26,20 @@ abstract base class StateMachineEvent<EventType extends Object,
   /// Returns a [PreconditionException] if the check fails, otherwise `null`.
   PreconditionException? checkPrecondition(
     covariant StateMachineState<StateType> currentState,
-  ) =>
-      null;
+  ) => null;
 }
 
 /// {@template amplify_core.event_completer}
 /// A [Completer] for [Event]s in a state machine, used to signal processing
 /// of a particular event which otherwise would be fired and forgotten.
 /// {@endtemplate}
-final class EventCompleter<Event extends StateMachineEvent,
-    State extends StateMachineState> {
+final class EventCompleter<
+  Event extends StateMachineEvent,
+  State extends StateMachineState
+> {
   /// {@macro amplify_core.event_completer}
   EventCompleter(this.event, [StackTrace? stackTrace])
-      : stackTrace = stackTrace ?? StackTrace.current;
+    : stackTrace = stackTrace ?? StackTrace.current;
 
   /// The event to dispatch.
   final Event event;

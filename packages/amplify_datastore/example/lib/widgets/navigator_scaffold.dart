@@ -4,10 +4,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 class NavigatorScaffold extends StatefulWidget {
-  const NavigatorScaffold({
-    super.key,
-    this.isAmplifyConfigured = false,
-  });
+  const NavigatorScaffold({super.key, this.isAmplifyConfigured = false});
   final bool isAmplifyConfigured;
 
   @override
@@ -49,17 +46,16 @@ class _NavigatorScaffoldState extends State<NavigatorScaffold>
         },
         child: Text('Sign Out'),
       ),
-      body: widget.isAmplifyConfigured
-          ? TabBarView(
-              controller: _tabController,
-              children: [
-                PublicView(isAmplifyConfigured: widget.isAmplifyConfigured),
-                AuthView(isAmplifyConfigured: widget.isAmplifyConfigured),
-              ],
-            )
-          : Center(
-              child: CircularProgressIndicator.adaptive(),
-            ),
+      body:
+          widget.isAmplifyConfigured
+              ? TabBarView(
+                controller: _tabController,
+                children: [
+                  PublicView(isAmplifyConfigured: widget.isAmplifyConfigured),
+                  AuthView(isAmplifyConfigured: widget.isAmplifyConfigured),
+                ],
+              )
+              : Center(child: CircularProgressIndicator.adaptive()),
     );
   }
 }

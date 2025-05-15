@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_0_v2.json_rpc_10.model.endpoint_with_host_label_operation_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,15 +15,17 @@ abstract class EndpointWithHostLabelOperationInput
         _i1.HttpInput<EndpointWithHostLabelOperationInput>,
         _i2.AWSEquatable<EndpointWithHostLabelOperationInput>
     implements
-        Built<EndpointWithHostLabelOperationInput,
-            EndpointWithHostLabelOperationInputBuilder> {
+        Built<
+          EndpointWithHostLabelOperationInput,
+          EndpointWithHostLabelOperationInputBuilder
+        > {
   factory EndpointWithHostLabelOperationInput({required String label}) {
     return _$EndpointWithHostLabelOperationInput._(label: label);
   }
 
-  factory EndpointWithHostLabelOperationInput.build(
-          [void Function(EndpointWithHostLabelOperationInputBuilder) updates]) =
-      _$EndpointWithHostLabelOperationInput;
+  factory EndpointWithHostLabelOperationInput.build([
+    void Function(EndpointWithHostLabelOperationInputBuilder) updates,
+  ]) = _$EndpointWithHostLabelOperationInput;
 
   const EndpointWithHostLabelOperationInput._();
 
@@ -31,11 +33,10 @@ abstract class EndpointWithHostLabelOperationInput
     EndpointWithHostLabelOperationInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<EndpointWithHostLabelOperationInput>>
-      serializers = [EndpointWithHostLabelOperationInputAwsJson10Serializer()];
+  serializers = [EndpointWithHostLabelOperationInputAwsJson10Serializer()];
 
   String get label;
   @override
@@ -44,10 +45,7 @@ abstract class EndpointWithHostLabelOperationInput
       case 'label':
         return label;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -58,34 +56,29 @@ abstract class EndpointWithHostLabelOperationInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EndpointWithHostLabelOperationInput')
-          ..add(
-            'label',
-            label,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'EndpointWithHostLabelOperationInput',
+    )..add('label', label);
     return helper.toString();
   }
 }
 
-class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i1
-    .StructuredSmithySerializer<EndpointWithHostLabelOperationInput> {
+class EndpointWithHostLabelOperationInputAwsJson10Serializer
+    extends
+        _i1.StructuredSmithySerializer<EndpointWithHostLabelOperationInput> {
   const EndpointWithHostLabelOperationInputAwsJson10Serializer()
-      : super('EndpointWithHostLabelOperationInput');
+    : super('EndpointWithHostLabelOperationInput');
 
   @override
   Iterable<Type> get types => const [
-        EndpointWithHostLabelOperationInput,
-        _$EndpointWithHostLabelOperationInput,
-      ];
+    EndpointWithHostLabelOperationInput,
+    _$EndpointWithHostLabelOperationInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_0',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0'),
+  ];
 
   @override
   EndpointWithHostLabelOperationInput deserialize(
@@ -104,10 +97,12 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i1
       }
       switch (key) {
         case 'label':
-          result.label = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.label =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -124,10 +119,7 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i1
     final EndpointWithHostLabelOperationInput(:label) = object;
     result$.addAll([
       'label',
-      serializers.serialize(
-        label,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(label, specifiedType: const FullType(String)),
     ]);
     return result$;
   }

@@ -12,16 +12,16 @@ class _$NewDeviceMetadataType extends NewDeviceMetadataType {
   @override
   final String? deviceGroupKey;
 
-  factory _$NewDeviceMetadataType(
-          [void Function(NewDeviceMetadataTypeBuilder)? updates]) =>
-      (new NewDeviceMetadataTypeBuilder()..update(updates))._build();
+  factory _$NewDeviceMetadataType([
+    void Function(NewDeviceMetadataTypeBuilder)? updates,
+  ]) => (new NewDeviceMetadataTypeBuilder()..update(updates))._build();
 
   _$NewDeviceMetadataType._({this.deviceKey, this.deviceGroupKey}) : super._();
 
   @override
   NewDeviceMetadataType rebuild(
-          void Function(NewDeviceMetadataTypeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NewDeviceMetadataTypeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NewDeviceMetadataTypeBuilder toBuilder() =>
@@ -85,7 +85,8 @@ class NewDeviceMetadataTypeBuilder
   NewDeviceMetadataType build() => _build();
 
   _$NewDeviceMetadataType _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$NewDeviceMetadataType._(
           deviceKey: deviceKey,
           deviceGroupKey: deviceGroupKey,

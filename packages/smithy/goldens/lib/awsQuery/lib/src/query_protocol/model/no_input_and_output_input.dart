@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v1.query_protocol.model.no_input_and_output_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class NoInputAndOutputInput
     return _$NoInputAndOutputInput._();
   }
 
-  factory NoInputAndOutputInput.build(
-          [void Function(NoInputAndOutputInputBuilder) updates]) =
-      _$NoInputAndOutputInput;
+  factory NoInputAndOutputInput.build([
+    void Function(NoInputAndOutputInputBuilder) updates,
+  ]) = _$NoInputAndOutputInput;
 
   const NoInputAndOutputInput._();
 
@@ -31,11 +31,10 @@ abstract class NoInputAndOutputInput
     NoInputAndOutputInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<NoInputAndOutputInput>> serializers = [
-    NoInputAndOutputInputAwsQuerySerializer()
+    NoInputAndOutputInputAwsQuerySerializer(),
   ];
 
   @override
@@ -54,21 +53,18 @@ abstract class NoInputAndOutputInput
 class NoInputAndOutputInputAwsQuerySerializer
     extends _i1.StructuredSmithySerializer<NoInputAndOutputInput> {
   const NoInputAndOutputInputAwsQuerySerializer()
-      : super('NoInputAndOutputInput');
+    : super('NoInputAndOutputInput');
 
   @override
   Iterable<Type> get types => const [
-        NoInputAndOutputInput,
-        _$NoInputAndOutputInput,
-      ];
+    NoInputAndOutputInput,
+    _$NoInputAndOutputInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   NoInputAndOutputInput deserialize(
@@ -89,7 +85,7 @@ class NoInputAndOutputInputAwsQuerySerializer
       const _i1.XmlElementName(
         'NoInputAndOutputInputResponse',
         _i1.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
 
     return result$;

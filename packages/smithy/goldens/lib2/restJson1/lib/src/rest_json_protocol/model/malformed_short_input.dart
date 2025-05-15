@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.malformed_short_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,9 +32,9 @@ abstract class MalformedShortInput
     );
   }
 
-  factory MalformedShortInput.build(
-          [void Function(MalformedShortInputBuilder) updates]) =
-      _$MalformedShortInput;
+  factory MalformedShortInput.build([
+    void Function(MalformedShortInputBuilder) updates,
+  ]) = _$MalformedShortInput;
 
   const MalformedShortInput._();
 
@@ -42,22 +42,21 @@ abstract class MalformedShortInput
     MalformedShortInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedShortInput.build((b) {
-        b.shortInBody = payload.shortInBody;
-        if (request.headers['shortInHeader'] != null) {
-          b.shortInHeader = int.parse(request.headers['shortInHeader']!);
-        }
-        if (request.queryParameters['shortInQuery'] != null) {
-          b.shortInQuery = int.parse(request.queryParameters['shortInQuery']!);
-        }
-        if (labels['shortInPath'] != null) {
-          b.shortInPath = int.parse(labels['shortInPath']!);
-        }
-      });
+  }) => MalformedShortInput.build((b) {
+    b.shortInBody = payload.shortInBody;
+    if (request.headers['shortInHeader'] != null) {
+      b.shortInHeader = int.parse(request.headers['shortInHeader']!);
+    }
+    if (request.queryParameters['shortInQuery'] != null) {
+      b.shortInQuery = int.parse(request.queryParameters['shortInQuery']!);
+    }
+    if (labels['shortInPath'] != null) {
+      b.shortInPath = int.parse(labels['shortInPath']!);
+    }
+  });
 
   static const List<_i1.SmithySerializer<MalformedShortInputPayload>>
-      serializers = [MalformedShortInputRestJson1Serializer()];
+  serializers = [MalformedShortInputRestJson1Serializer()];
 
   int? get shortInBody;
   int get shortInPath;
@@ -69,44 +68,30 @@ abstract class MalformedShortInput
       case 'shortInPath':
         return shortInPath.toString();
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   MalformedShortInputPayload getPayload() => MalformedShortInputPayload((b) {
-        b.shortInBody = shortInBody;
-      });
+    b.shortInBody = shortInBody;
+  });
 
   @override
   List<Object?> get props => [
-        shortInBody,
-        shortInPath,
-        shortInQuery,
-        shortInHeader,
-      ];
+    shortInBody,
+    shortInPath,
+    shortInQuery,
+    shortInHeader,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedShortInput')
-      ..add(
-        'shortInBody',
-        shortInBody,
-      )
-      ..add(
-        'shortInPath',
-        shortInPath,
-      )
-      ..add(
-        'shortInQuery',
-        shortInQuery,
-      )
-      ..add(
-        'shortInHeader',
-        shortInHeader,
-      );
+    final helper =
+        newBuiltValueToStringHelper('MalformedShortInput')
+          ..add('shortInBody', shortInBody)
+          ..add('shortInPath', shortInPath)
+          ..add('shortInQuery', shortInQuery)
+          ..add('shortInHeader', shortInHeader);
     return helper.toString();
   }
 }
@@ -116,9 +101,9 @@ abstract class MalformedShortInputPayload
     with _i2.AWSEquatable<MalformedShortInputPayload>
     implements
         Built<MalformedShortInputPayload, MalformedShortInputPayloadBuilder> {
-  factory MalformedShortInputPayload(
-          [void Function(MalformedShortInputPayloadBuilder) updates]) =
-      _$MalformedShortInputPayload;
+  factory MalformedShortInputPayload([
+    void Function(MalformedShortInputPayloadBuilder) updates,
+  ]) = _$MalformedShortInputPayload;
 
   const MalformedShortInputPayload._();
 
@@ -129,10 +114,7 @@ abstract class MalformedShortInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedShortInputPayload')
-      ..add(
-        'shortInBody',
-        shortInBody,
-      );
+      ..add('shortInBody', shortInBody);
     return helper.toString();
   }
 }
@@ -143,19 +125,16 @@ class MalformedShortInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        MalformedShortInput,
-        _$MalformedShortInput,
-        MalformedShortInputPayload,
-        _$MalformedShortInputPayload,
-      ];
+    MalformedShortInput,
+    _$MalformedShortInput,
+    MalformedShortInputPayload,
+    _$MalformedShortInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedShortInputPayload deserialize(
@@ -174,10 +153,12 @@ class MalformedShortInputRestJson1Serializer
       }
       switch (key) {
         case 'shortInBody':
-          result.shortInBody = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.shortInBody =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -195,10 +176,12 @@ class MalformedShortInputRestJson1Serializer
     if (shortInBody != null) {
       result$
         ..add('shortInBody')
-        ..add(serializers.serialize(
-          shortInBody,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(
+            shortInBody,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     return result$;
   }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_json1_1_v2.json_protocol.model.retry_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,14 +16,8 @@ abstract class RetryConfig
     with _i1.AWSEquatable<RetryConfig>
     implements Built<RetryConfig, RetryConfigBuilder> {
   /// Configuration specific to retries.
-  factory RetryConfig({
-    RetryMode? mode,
-    int? maxAttempts,
-  }) {
-    return _$RetryConfig._(
-      mode: mode,
-      maxAttempts: maxAttempts,
-    );
+  factory RetryConfig({RetryMode? mode, int? maxAttempts}) {
+    return _$RetryConfig._(mode: mode, maxAttempts: maxAttempts);
   }
 
   /// Configuration specific to retries.
@@ -33,29 +27,21 @@ abstract class RetryConfig
   const RetryConfig._();
 
   static const List<_i2.SmithySerializer<RetryConfig>> serializers = [
-    RetryConfigAwsJson11Serializer()
+    RetryConfigAwsJson11Serializer(),
   ];
 
   /// Controls the strategy used for retries.
   RetryMode? get mode;
   int? get maxAttempts;
   @override
-  List<Object?> get props => [
-        mode,
-        maxAttempts,
-      ];
+  List<Object?> get props => [mode, maxAttempts];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RetryConfig')
-      ..add(
-        'mode',
-        mode,
-      )
-      ..add(
-        'maxAttempts',
-        maxAttempts,
-      );
+    final helper =
+        newBuiltValueToStringHelper('RetryConfig')
+          ..add('mode', mode)
+          ..add('maxAttempts', maxAttempts);
     return helper.toString();
   }
 }
@@ -65,18 +51,12 @@ class RetryConfigAwsJson11Serializer
   const RetryConfigAwsJson11Serializer() : super('RetryConfig');
 
   @override
-  Iterable<Type> get types => const [
-        RetryConfig,
-        _$RetryConfig,
-      ];
+  Iterable<Type> get types => const [RetryConfig, _$RetryConfig];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   RetryConfig deserialize(
@@ -95,15 +75,19 @@ class RetryConfigAwsJson11Serializer
       }
       switch (key) {
         case 'mode':
-          result.mode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.mode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 'max_attempts':
-          result.maxAttempts = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxAttempts =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -121,18 +105,19 @@ class RetryConfigAwsJson11Serializer
     if (mode != null) {
       result$
         ..add('mode')
-        ..add(serializers.serialize(
-          mode,
-          specifiedType: const FullType(RetryMode),
-        ));
+        ..add(
+          serializers.serialize(mode, specifiedType: const FullType(RetryMode)),
+        );
     }
     if (maxAttempts != null) {
       result$
         ..add('max_attempts')
-        ..add(serializers.serialize(
-          maxAttempts,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(
+            maxAttempts,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     return result$;
   }

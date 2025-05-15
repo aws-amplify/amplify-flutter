@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.glacier.model.file_config_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,14 +38,14 @@ abstract class FileConfigSettings
   }
 
   /// Config settings that can be set in the AWS config / credentials file as part of a profile.
-  factory FileConfigSettings.build(
-          [void Function(FileConfigSettingsBuilder) updates]) =
-      _$FileConfigSettings;
+  factory FileConfigSettings.build([
+    void Function(FileConfigSettingsBuilder) updates,
+  ]) = _$FileConfigSettings;
 
   const FileConfigSettings._();
 
   static const List<_i2.SmithySerializer<FileConfigSettings>> serializers = [
-    FileConfigSettingsRestJson1Serializer()
+    FileConfigSettingsRestJson1Serializer(),
   ];
 
   String? get awsAccessKeyId;
@@ -61,46 +61,26 @@ abstract class FileConfigSettings
   int? get maxAttempts;
   @override
   List<Object?> get props => [
-        awsAccessKeyId,
-        awsSecretAccessKey,
-        awsSessionToken,
-        region,
-        s3,
-        retryMode,
-        maxAttempts,
-      ];
+    awsAccessKeyId,
+    awsSecretAccessKey,
+    awsSessionToken,
+    region,
+    s3,
+    retryMode,
+    maxAttempts,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FileConfigSettings')
-      ..add(
-        'awsAccessKeyId',
-        awsAccessKeyId,
-      )
-      ..add(
-        'awsSecretAccessKey',
-        awsSecretAccessKey,
-      )
-      ..add(
-        'awsSessionToken',
-        awsSessionToken,
-      )
-      ..add(
-        'region',
-        region,
-      )
-      ..add(
-        's3',
-        s3,
-      )
-      ..add(
-        'retryMode',
-        retryMode,
-      )
-      ..add(
-        'maxAttempts',
-        maxAttempts,
-      );
+    final helper =
+        newBuiltValueToStringHelper('FileConfigSettings')
+          ..add('awsAccessKeyId', awsAccessKeyId)
+          ..add('awsSecretAccessKey', awsSecretAccessKey)
+          ..add('awsSessionToken', awsSessionToken)
+          ..add('region', region)
+          ..add('s3', s3)
+          ..add('retryMode', retryMode)
+          ..add('maxAttempts', maxAttempts);
     return helper.toString();
   }
 }
@@ -110,18 +90,12 @@ class FileConfigSettingsRestJson1Serializer
   const FileConfigSettingsRestJson1Serializer() : super('FileConfigSettings');
 
   @override
-  Iterable<Type> get types => const [
-        FileConfigSettings,
-        _$FileConfigSettings,
-      ];
+  Iterable<Type> get types => const [FileConfigSettings, _$FileConfigSettings];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   FileConfigSettings deserialize(
@@ -140,40 +114,55 @@ class FileConfigSettingsRestJson1Serializer
       }
       switch (key) {
         case 'aws_access_key_id':
-          result.awsAccessKeyId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsAccessKeyId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_secret_access_key':
-          result.awsSecretAccessKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSecretAccessKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'aws_session_token':
-          result.awsSessionToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.awsSessionToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'max_attempts':
-          result.maxAttempts = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxAttempts =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'region':
-          result.region = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.region =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'retry_mode':
-          result.retryMode = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RetryMode),
-          ) as RetryMode);
+          result.retryMode =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RetryMode),
+                  )
+                  as RetryMode);
         case 's3':
-          result.s3.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3Config),
-          ) as S3Config));
+          result.s3.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(S3Config),
+                )
+                as S3Config),
+          );
       }
     }
 
@@ -194,63 +183,71 @@ class FileConfigSettingsRestJson1Serializer
       :maxAttempts,
       :region,
       :retryMode,
-      :s3
+      :s3,
     ) = object;
     if (awsAccessKeyId != null) {
       result$
         ..add('aws_access_key_id')
-        ..add(serializers.serialize(
-          awsAccessKeyId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsAccessKeyId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (awsSecretAccessKey != null) {
       result$
         ..add('aws_secret_access_key')
-        ..add(serializers.serialize(
-          awsSecretAccessKey,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsSecretAccessKey,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (awsSessionToken != null) {
       result$
         ..add('aws_session_token')
-        ..add(serializers.serialize(
-          awsSessionToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            awsSessionToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (maxAttempts != null) {
       result$
         ..add('max_attempts')
-        ..add(serializers.serialize(
-          maxAttempts,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(
+            maxAttempts,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     if (region != null) {
       result$
         ..add('region')
-        ..add(serializers.serialize(
-          region,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(region, specifiedType: const FullType(String)),
+        );
     }
     if (retryMode != null) {
       result$
         ..add('retry_mode')
-        ..add(serializers.serialize(
-          retryMode,
-          specifiedType: const FullType(RetryMode),
-        ));
+        ..add(
+          serializers.serialize(
+            retryMode,
+            specifiedType: const FullType(RetryMode),
+          ),
+        );
     }
     if (s3 != null) {
       result$
         ..add('s3')
-        ..add(serializers.serialize(
-          s3,
-          specifiedType: const FullType(S3Config),
-        ));
+        ..add(
+          serializers.serialize(s3, specifiedType: const FullType(S3Config)),
+        );
     }
     return result$;
   }

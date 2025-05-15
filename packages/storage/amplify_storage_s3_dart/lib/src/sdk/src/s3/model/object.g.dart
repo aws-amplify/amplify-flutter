@@ -27,16 +27,16 @@ class _$S3Object extends S3Object {
   factory _$S3Object([void Function(S3ObjectBuilder)? updates]) =>
       (new S3ObjectBuilder()..update(updates))._build();
 
-  _$S3Object._(
-      {this.key,
-      this.lastModified,
-      this.eTag,
-      this.checksumAlgorithm,
-      this.size,
-      this.storageClass,
-      this.owner,
-      this.restoreStatus})
-      : super._();
+  _$S3Object._({
+    this.key,
+    this.lastModified,
+    this.eTag,
+    this.checksumAlgorithm,
+    this.size,
+    this.storageClass,
+    this.owner,
+    this.restoreStatus,
+  }) : super._();
 
   @override
   S3Object rebuild(void Function(S3ObjectBuilder) updates) =>
@@ -95,8 +95,8 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   _i3.ListBuilder<ChecksumAlgorithm> get checksumAlgorithm =>
       _$this._checksumAlgorithm ??= new _i3.ListBuilder<ChecksumAlgorithm>();
   set checksumAlgorithm(
-          _i3.ListBuilder<ChecksumAlgorithm>? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
+    _i3.ListBuilder<ChecksumAlgorithm>? checksumAlgorithm,
+  ) => _$this._checksumAlgorithm = checksumAlgorithm;
 
   _i2.Int64? _size;
   _i2.Int64? get size => _$this._size;
@@ -152,7 +152,8 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   _$S3Object _build() {
     _$S3Object _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$S3Object._(
             key: key,
             lastModified: lastModified,
@@ -175,7 +176,10 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
         _restoreStatus?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'S3Object', _$failedField, e.toString());
+          r'S3Object',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

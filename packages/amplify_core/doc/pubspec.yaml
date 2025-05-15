@@ -7,8 +7,8 @@ issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 publish_to: none
 
 environment:
-  sdk: ^3.6.0
-  flutter: ">=3.27.0"
+  sdk: ^3.7.0
+  flutter: ">=3.29.0"
 
 dependencies:
   amplify_analytics_pinpoint: any
@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  amplify_lints: ^2.0.0
+  amplify_lints: ^3.1.0
   build_runner: ^2.4.9
   code_excerpter:
     git:

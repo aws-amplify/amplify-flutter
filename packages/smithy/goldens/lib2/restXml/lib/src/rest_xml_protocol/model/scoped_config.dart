@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.scoped_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,7 +44,7 @@ abstract class ScopedConfig
   const ScopedConfig._();
 
   static const List<_i3.SmithySerializer<ScopedConfig>> serializers = [
-    ScopedConfigRestXmlSerializer()
+    ScopedConfigRestXmlSerializer(),
   ];
 
   /// Config settings that can be set as environment variables.
@@ -63,36 +63,22 @@ abstract class ScopedConfig
   OperationConfig? get operation;
   @override
   List<Object?> get props => [
-        environment,
-        configFile,
-        credentialsFile,
-        client,
-        operation,
-      ];
+    environment,
+    configFile,
+    credentialsFile,
+    client,
+    operation,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScopedConfig')
-      ..add(
-        'environment',
-        environment,
-      )
-      ..add(
-        'configFile',
-        configFile,
-      )
-      ..add(
-        'credentialsFile',
-        credentialsFile,
-      )
-      ..add(
-        'client',
-        client,
-      )
-      ..add(
-        'operation',
-        operation,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ScopedConfig')
+          ..add('environment', environment)
+          ..add('configFile', configFile)
+          ..add('credentialsFile', credentialsFile)
+          ..add('client', client)
+          ..add('operation', operation);
     return helper.toString();
   }
 }
@@ -102,18 +88,12 @@ class ScopedConfigRestXmlSerializer
   const ScopedConfigRestXmlSerializer() : super('ScopedConfig');
 
   @override
-  Iterable<Type> get types => const [
-        ScopedConfig,
-        _$ScopedConfig,
-      ];
+  Iterable<Type> get types => const [ScopedConfig, _$ScopedConfig];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ScopedConfig deserialize(
@@ -132,46 +112,51 @@ class ScopedConfigRestXmlSerializer
       }
       switch (key) {
         case 'client':
-          result.client.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ClientConfig),
-          ) as ClientConfig));
+          result.client.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ClientConfig),
+                )
+                as ClientConfig),
+          );
         case 'configFile':
-          result.configFile
-              .replace(const _i3.XmlBuiltMapSerializer().deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
+          result.configFile.replace(
+            const _i3.XmlBuiltMapSerializer().deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i2.BuiltMap, [
                 FullType(String),
                 FullType(FileConfigSettings),
-              ],
+              ]),
             ),
-          ));
+          );
         case 'credentialsFile':
-          result.credentialsFile
-              .replace(const _i3.XmlBuiltMapSerializer().deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
+          result.credentialsFile.replace(
+            const _i3.XmlBuiltMapSerializer().deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i2.BuiltMap, [
                 FullType(String),
                 FullType(FileConfigSettings),
-              ],
+              ]),
             ),
-          ));
+          );
         case 'environment':
-          result.environment.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(EnvironmentConfig),
-          ) as EnvironmentConfig));
+          result.environment.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(EnvironmentConfig),
+                )
+                as EnvironmentConfig),
+          );
         case 'operation':
-          result.operation.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(OperationConfig),
-          ) as OperationConfig));
+          result.operation.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(OperationConfig),
+                )
+                as OperationConfig),
+          );
       }
     }
 
@@ -190,61 +175,65 @@ class ScopedConfigRestXmlSerializer
       :configFile,
       :credentialsFile,
       :environment,
-      :operation
+      :operation,
     ) = object;
     if (client != null) {
       result$
         ..add(const _i3.XmlElementName('client'))
-        ..add(serializers.serialize(
-          client,
-          specifiedType: const FullType(ClientConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            client,
+            specifiedType: const FullType(ClientConfig),
+          ),
+        );
     }
     if (configFile != null) {
       result$
         ..add(const _i3.XmlElementName('configFile'))
-        ..add(const _i3.XmlBuiltMapSerializer().serialize(
-          serializers,
-          configFile,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          const _i3.XmlBuiltMapSerializer().serialize(
+            serializers,
+            configFile,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(FileConfigSettings),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (credentialsFile != null) {
       result$
         ..add(const _i3.XmlElementName('credentialsFile'))
-        ..add(const _i3.XmlBuiltMapSerializer().serialize(
-          serializers,
-          credentialsFile,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          const _i3.XmlBuiltMapSerializer().serialize(
+            serializers,
+            credentialsFile,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(FileConfigSettings),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (environment != null) {
       result$
         ..add(const _i3.XmlElementName('environment'))
-        ..add(serializers.serialize(
-          environment,
-          specifiedType: const FullType(EnvironmentConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            environment,
+            specifiedType: const FullType(EnvironmentConfig),
+          ),
+        );
     }
     if (operation != null) {
       result$
         ..add(const _i3.XmlElementName('operation'))
-        ..add(serializers.serialize(
-          operation,
-          specifiedType: const FullType(OperationConfig),
-        ));
+        ..add(
+          serializers.serialize(
+            operation,
+            specifiedType: const FullType(OperationConfig),
+          ),
+        );
     }
     return result$;
   }

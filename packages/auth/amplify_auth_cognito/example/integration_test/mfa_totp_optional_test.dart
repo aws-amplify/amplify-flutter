@@ -36,9 +36,7 @@ void main() {
 
       await setUpTotp(deviceName: friendlyDeviceName);
 
-      await cognitoPlugin.updateMfaPreference(
-        totp: MfaPreference.preferred,
-      );
+      await cognitoPlugin.updateMfaPreference(totp: MfaPreference.preferred);
       check(await cognitoPlugin.fetchMfaPreference()).equals(
         const UserMfaPreference(
           enabled: {MfaType.totp},
@@ -54,12 +52,15 @@ void main() {
         );
         check(
           resignInRes.nextStep.signInStep,
-          because: 'Once TOTP MFA is enabled, it is performed '
+          because:
+              'Once TOTP MFA is enabled, it is performed '
               'on every sign-in attempt.',
         ).equals(AuthSignInStep.confirmSignInWithTotpMfaCode);
         check(resignInRes.nextStep.codeDeliveryDetails).isNotNull()
-          ..has((d) => d.deliveryMedium, 'deliveryMedium')
-              .equals(DeliveryMedium.totp)
+          ..has(
+            (d) => d.deliveryMedium,
+            'deliveryMedium',
+          ).equals(DeliveryMedium.totp)
           ..has((d) => d.destination, 'destination').equals(friendlyDeviceName);
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
@@ -79,17 +80,12 @@ void main() {
       check(
         because: 'Disabling TOTP should mark it as not preferred',
         await cognitoPlugin.fetchMfaPreference(),
-      ).equals(
-        const UserMfaPreference(enabled: {}, preferred: null),
-      );
+      ).equals(const UserMfaPreference(enabled: {}, preferred: null));
     }
 
     testRunner.withEnvironment(mfaOptionalTotp, (env) {
       group('can sign in with TOTP MFA', () {
-        asyncTest(
-          'w/ no device name',
-          (_) => runTest(),
-        );
+        asyncTest('w/ no device name', (_) => runTest());
         asyncTest(
           'w/ device name',
           (_) => runTest(friendlyDeviceName: friendlyDeviceName),
@@ -131,12 +127,7 @@ void main() {
           check(
             await cognitoPlugin.fetchMfaPreference(),
             because: 'TOTP should not be enabled',
-          ).equals(
-            const UserMfaPreference(
-              enabled: {},
-              preferred: null,
-            ),
-          );
+          ).equals(const UserMfaPreference(enabled: {}, preferred: null));
 
           try {
             await Amplify.Auth.verifyTotpSetup(

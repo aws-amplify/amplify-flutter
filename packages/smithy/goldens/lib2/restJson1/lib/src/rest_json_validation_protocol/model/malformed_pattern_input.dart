@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_pattern_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,9 +33,9 @@ abstract class MalformedPatternInput
     );
   }
 
-  factory MalformedPatternInput.build(
-          [void Function(MalformedPatternInputBuilder) updates]) =
-      _$MalformedPatternInput;
+  factory MalformedPatternInput.build([
+    void Function(MalformedPatternInputBuilder) updates,
+  ]) = _$MalformedPatternInput;
 
   const MalformedPatternInput._();
 
@@ -43,11 +43,10 @@ abstract class MalformedPatternInput
     MalformedPatternInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<MalformedPatternInput>> serializers = [
-    MalformedPatternInputRestJson1Serializer()
+    MalformedPatternInputRestJson1Serializer(),
   ];
 
   String? get string;
@@ -59,37 +58,17 @@ abstract class MalformedPatternInput
   MalformedPatternInput getPayload() => this;
 
   @override
-  List<Object?> get props => [
-        string,
-        evilString,
-        list,
-        map,
-        union,
-      ];
+  List<Object?> get props => [string, evilString, list, map, union];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedPatternInput')
-      ..add(
-        'string',
-        string,
-      )
-      ..add(
-        'evilString',
-        evilString,
-      )
-      ..add(
-        'list',
-        list,
-      )
-      ..add(
-        'map',
-        map,
-      )
-      ..add(
-        'union',
-        union,
-      );
+    final helper =
+        newBuiltValueToStringHelper('MalformedPatternInput')
+          ..add('string', string)
+          ..add('evilString', evilString)
+          ..add('list', list)
+          ..add('map', map)
+          ..add('union', union);
     return helper.toString();
   }
 }
@@ -97,21 +76,18 @@ abstract class MalformedPatternInput
 class MalformedPatternInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<MalformedPatternInput> {
   const MalformedPatternInputRestJson1Serializer()
-      : super('MalformedPatternInput');
+    : super('MalformedPatternInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedPatternInput,
-        _$MalformedPatternInput,
-      ];
+    MalformedPatternInput,
+    _$MalformedPatternInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedPatternInput deserialize(
@@ -130,39 +106,47 @@ class MalformedPatternInputRestJson1Serializer
       }
       switch (key) {
         case 'evilString':
-          result.evilString = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.evilString =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'list':
-          result.list.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i3.BuiltList<String>));
+          result.list.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltList<String>),
+          );
         case 'map':
-          result.map.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.map.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
         case 'string':
-          result.string = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.string =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'union':
-          result.union = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(PatternUnion),
-          ) as PatternUnion);
+          result.union =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(PatternUnion),
+                  )
+                  as PatternUnion);
       }
     }
 
@@ -181,51 +165,52 @@ class MalformedPatternInputRestJson1Serializer
     if (evilString != null) {
       result$
         ..add('evilString')
-        ..add(serializers.serialize(
-          evilString,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            evilString,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (list != null) {
       result$
         ..add('list')
-        ..add(serializers.serialize(
-          list,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
+        ..add(
+          serializers.serialize(
+            list,
+            specifiedType: const FullType(_i3.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     if (map != null) {
       result$
         ..add('map')
-        ..add(serializers.serialize(
-          map,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            map,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (string != null) {
       result$
         ..add('string')
-        ..add(serializers.serialize(
-          string,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(string, specifiedType: const FullType(String)),
+        );
     }
     if (union != null) {
       result$
         ..add('union')
-        ..add(serializers.serialize(
-          union,
-          specifiedType: const FullType(PatternUnion),
-        ));
+        ..add(
+          serializers.serialize(
+            union,
+            specifiedType: const FullType(PatternUnion),
+          ),
+        );
     }
     return result$;
   }

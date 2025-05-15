@@ -35,11 +35,15 @@ class Address {
       return _line1!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -52,11 +56,15 @@ class Address {
       return _city!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -65,11 +73,15 @@ class Address {
       return _state!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -78,38 +90,44 @@ class Address {
       return _postalCode!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
-  const Address._internal(
-      {required line1,
-      line2,
-      required city,
-      required state,
-      required postalCode})
-      : _line1 = line1,
-        _line2 = line2,
-        _city = city,
-        _state = state,
-        _postalCode = postalCode;
+  const Address._internal({
+    required line1,
+    line2,
+    required city,
+    required state,
+    required postalCode,
+  }) : _line1 = line1,
+       _line2 = line2,
+       _city = city,
+       _state = state,
+       _postalCode = postalCode;
 
-  factory Address(
-      {required String line1,
-      String? line2,
-      required String city,
-      required String state,
-      required String postalCode}) {
+  factory Address({
+    required String line1,
+    String? line2,
+    required String city,
+    required String state,
+    required String postalCode,
+  }) {
     return Address._internal(
-        line1: line1,
-        line2: line2,
-        city: city,
-        state: state,
-        postalCode: postalCode);
+      line1: line1,
+      line2: line2,
+      city: city,
+      state: state,
+      postalCode: postalCode,
+    );
   }
 
   bool equals(Object other) {
@@ -145,95 +163,115 @@ class Address {
     return buffer.toString();
   }
 
-  Address copyWith(
-      {String? line1,
-      String? line2,
-      String? city,
-      String? state,
-      String? postalCode}) {
+  Address copyWith({
+    String? line1,
+    String? line2,
+    String? city,
+    String? state,
+    String? postalCode,
+  }) {
     return Address._internal(
-        line1: line1 ?? this.line1,
-        line2: line2 ?? this.line2,
-        city: city ?? this.city,
-        state: state ?? this.state,
-        postalCode: postalCode ?? this.postalCode);
+      line1: line1 ?? this.line1,
+      line2: line2 ?? this.line2,
+      city: city ?? this.city,
+      state: state ?? this.state,
+      postalCode: postalCode ?? this.postalCode,
+    );
   }
 
-  Address copyWithModelFieldValues(
-      {ModelFieldValue<String>? line1,
-      ModelFieldValue<String?>? line2,
-      ModelFieldValue<String>? city,
-      ModelFieldValue<String>? state,
-      ModelFieldValue<String>? postalCode}) {
+  Address copyWithModelFieldValues({
+    ModelFieldValue<String>? line1,
+    ModelFieldValue<String?>? line2,
+    ModelFieldValue<String>? city,
+    ModelFieldValue<String>? state,
+    ModelFieldValue<String>? postalCode,
+  }) {
     return Address._internal(
-        line1: line1 == null ? this.line1 : line1.value,
-        line2: line2 == null ? this.line2 : line2.value,
-        city: city == null ? this.city : city.value,
-        state: state == null ? this.state : state.value,
-        postalCode: postalCode == null ? this.postalCode : postalCode.value);
+      line1: line1 == null ? this.line1 : line1.value,
+      line2: line2 == null ? this.line2 : line2.value,
+      city: city == null ? this.city : city.value,
+      state: state == null ? this.state : state.value,
+      postalCode: postalCode == null ? this.postalCode : postalCode.value,
+    );
   }
 
   Address.fromJson(Map<String, dynamic> json)
-      : _line1 = json['line1'],
-        _line2 = json['line2'],
-        _city = json['city'],
-        _state = json['state'],
-        _postalCode = json['postalCode'];
+    : _line1 = json['line1'],
+      _line2 = json['line2'],
+      _city = json['city'],
+      _state = json['state'],
+      _postalCode = json['postalCode'];
 
   Map<String, dynamic> toJson() => {
-        'line1': _line1,
-        'line2': _line2,
-        'city': _city,
-        'state': _state,
-        'postalCode': _postalCode
-      };
+    'line1': _line1,
+    'line2': _line2,
+    'city': _city,
+    'state': _state,
+    'postalCode': _postalCode,
+  };
 
   Map<String, Object?> toMap() => {
-        'line1': _line1,
-        'line2': _line2,
-        'city': _city,
-        'state': _state,
-        'postalCode': _postalCode
-      };
+    'line1': _line1,
+    'line2': _line2,
+    'city': _city,
+    'state': _state,
+    'postalCode': _postalCode,
+  };
 
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Address";
-    modelSchemaDefinition.pluralName = "Addresses";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "Address";
+      modelSchemaDefinition.pluralName = "Addresses";
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.customTypeField(
-            fieldName: 'line1',
-            isRequired: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.string)));
+          fieldName: 'line1',
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.customTypeField(
-            fieldName: 'line2',
-            isRequired: false,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.string)));
+          fieldName: 'line2',
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.customTypeField(
-            fieldName: 'city',
-            isRequired: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.string)));
+          fieldName: 'city',
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.customTypeField(
-            fieldName: 'state',
-            isRequired: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.string)));
+          fieldName: 'state',
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.customTypeField(
-            fieldName: 'postalCode',
-            isRequired: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.string)));
-  });
+          fieldName: 'postalCode',
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
+    },
+  );
 }

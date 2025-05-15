@@ -10,7 +10,8 @@ import 'package:aws_common/aws_common.dart';
 /// in-flight HTTP requests sent with an [AWSHttpClient].
 /// {@endtemplate}
 class AWSHttpOperation<ResponseType extends AWSBaseHttpResponse>
-    extends AWSOperation<ResponseType> with AWSProgressOperation<ResponseType> {
+    extends AWSOperation<ResponseType>
+    with AWSProgressOperation<ResponseType> {
   /// Creates an [AWSHttpOperation] from a [CancelableOperation].
   AWSHttpOperation(
     super.operation, {

@@ -8,9 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class StorageGetPropertiesResult<Item extends StorageItem> {
   /// {@macro amplify_core.storage.get_properties_result}
-  const StorageGetPropertiesResult({
-    required this.storageItem,
-  });
+  const StorageGetPropertiesResult({required this.storageItem});
 
   /// The result object containing the properties retrieved from the
   /// [StorageGetPropertiesOperation].

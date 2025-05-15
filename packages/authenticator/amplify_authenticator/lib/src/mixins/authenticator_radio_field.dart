@@ -6,8 +6,11 @@ import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dar
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
-mixin AuthenticatorRadioField<FieldType extends Enum, FieldValue extends Object,
-        T extends AuthenticatorFormField<FieldType, FieldValue>>
+mixin AuthenticatorRadioField<
+  FieldType extends Enum,
+  FieldValue extends Object,
+  T extends AuthenticatorFormField<FieldType, FieldValue>
+>
     on AuthenticatorFormFieldState<FieldType, FieldValue, T>
     implements SelectableConfig<InputResolverKey, FieldValue> {
   @override
@@ -27,12 +30,7 @@ mixin AuthenticatorRadioField<FieldType extends Enum, FieldValue extends Object,
             key: Key('${selection.value}${widget.titleKey}'),
             horizontalTitleGap: 0,
             contentPadding: EdgeInsets.zero,
-            title: Text(
-              inputResolver.resolve(
-                context,
-                selection.label,
-              ),
-            ),
+            title: Text(inputResolver.resolve(context, selection.label)),
             leading: Radio<FieldValue>(
               value: selection.value,
               groupValue: selectionValue,

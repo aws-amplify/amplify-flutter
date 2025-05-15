@@ -19,8 +19,9 @@ import 'package:amplify_push_notifications_pinpoint/src/pinpoint_event_type_sour
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/widgets.dart';
 
-final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
-    .createChild('AmplifyPushNotification');
+final AmplifyLogger _logger = AmplifyLogger.category(
+  Category.pushNotifications,
+).createChild('AmplifyPushNotification');
 
 /// {@template amplify_push_notifications_pinpoint.pinpoint_provider}
 /// AWS Pinpoint provider that implements [ServiceProviderClient].
@@ -69,8 +70,9 @@ class PinpointProvider implements ServiceProviderClient {
   }) async {
     try {
       if (!_isInitialized) {
-        final authProvider = authProviderRepo
-            .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
+        final authProvider = authProviderRepo.getAuthProvider(
+          APIAuthorizationType.iam.authProviderToken,
+        );
 
         if (authProvider == null) {
           throw ConfigurationError(
@@ -86,7 +88,8 @@ class PinpointProvider implements ServiceProviderClient {
           AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
         );
 
-        _analyticsClient = analyticsClient ??
+        _analyticsClient =
+            analyticsClient ??
             AnalyticsClient(
               endpointStorage: endpointStorage,
               deviceContextInfoProvider:
@@ -136,10 +139,7 @@ class PinpointProvider implements ServiceProviderClient {
       }
 
       // setUser does not have any underlying network calls, hence not running it _withUserAgent
-      await _analyticsClient.endpointClient.setUser(
-        userId,
-        userProfile,
-      );
+      await _analyticsClient.endpointClient.setUser(userId, userProfile);
       await _withUserAgent(
         () async => _analyticsClient.endpointClient.updateEndpoint(),
       );
@@ -160,9 +160,7 @@ class PinpointProvider implements ServiceProviderClient {
   }) async {
     try {
       if (!_isInitialized) {
-        _logger.error(
-          'Pinpoint provider not configured.',
-        );
+        _logger.error('Pinpoint provider not configured.');
         return;
       }
       if (notification.data.isEmpty) {
@@ -188,9 +186,7 @@ class PinpointProvider implements ServiceProviderClient {
   @override
   Future<void> registerDevice(String deviceToken) async {
     if (!_isInitialized) {
-      _logger.error(
-        'Pinpoint provider not configured.',
-      );
+      _logger.error('Pinpoint provider not configured.');
       return;
     }
     _analyticsClient.endpointClient.address = deviceToken;

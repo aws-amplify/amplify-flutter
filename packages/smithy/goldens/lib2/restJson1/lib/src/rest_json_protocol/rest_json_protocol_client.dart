@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.rest_json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -202,11 +202,11 @@ class RestJsonProtocolClient {
     Uri? baseUri,
     List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -228,10 +228,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example uses fixed query string params and variable query string params. The fixed query string parameters and variable parameters must both be serialized (implementations may need to merge them together).
@@ -244,10 +241,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example uses a constant query string parameters and a label. This simply tests that labels and query string parameters are compatible. The fixed query string parameter named "hello" should in no way conflict with the label, `{hello}`.
@@ -260,23 +254,18 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
-  _i2.SmithyOperation<DatetimeOffsetsOutput> datetimeOffsets(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<DatetimeOffsetsOutput> datetimeOffsets({
+    _i1.AWSHttpClient? client,
+  }) {
     return DatetimeOffsetsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This example serializes a document as part of the payload.
@@ -289,10 +278,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example serializes a document as the entire HTTP payload.
@@ -305,10 +291,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has an empty input and empty output structure that reuses the same shape. While this should be rare, code generators must support this.
@@ -321,10 +304,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> endpointOperation({_i1.AWSHttpClient? client}) {
@@ -333,10 +313,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> endpointWithHostLabelOperation(
@@ -348,37 +325,30 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
-  _i2.SmithyOperation<FractionalSecondsOutput> fractionalSeconds(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<FractionalSecondsOutput> fractionalSeconds({
+    _i1.AWSHttpClient? client,
+  }) {
     return FractionalSecondsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This operation has four possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A BadRequest error. 4. A FooError. Implementations must be able to successfully take a response and properly (de)serialize successful and error responses based on the the presence of the
-  _i2.SmithyOperation<GreetingWithErrorsOutput> greetingWithErrors(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<GreetingWithErrorsOutput> greetingWithErrors({
+    _i1.AWSHttpClient? client,
+  }) {
     return GreetingWithErrorsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> hostWithPathOperation({_i1.AWSHttpClient? client}) {
@@ -387,10 +357,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This example tests httpChecksumRequired trait
@@ -403,10 +370,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<EnumPayloadInput> httpEnumPayload(
@@ -418,10 +382,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples serializes a blob shape in the payload. In this example, no JSON document is synthesized because the payload is not a structure or a union type.
@@ -434,15 +395,12 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples uses a `@mediaType` trait on the payload to force a custom content-type to be serialized.
   _i2.SmithyOperation<HttpPayloadTraitsWithMediaTypeInputOutput>
-      httpPayloadTraitsWithMediaType(
+  httpPayloadTraitsWithMediaType(
     HttpPayloadTraitsWithMediaTypeInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -451,15 +409,12 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples serializes a structure in the payload. Note that serializing a structure changes the wrapper element name to match the targeted structure.
   _i2.SmithyOperation<HttpPayloadWithStructureInputOutput>
-      httpPayloadWithStructure(
+  httpPayloadWithStructure(
     HttpPayloadWithStructureInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -468,10 +423,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples adds headers to the input of a request and response by prefix.///
@@ -487,15 +439,12 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Clients that perform this test extract all headers from the response.
   _i2.SmithyOperation<HttpPrefixHeadersInResponseOutput>
-      httpPrefixHeadersInResponse(
+  httpPrefixHeadersInResponse(
     HttpPrefixHeadersInResponseInput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -504,10 +453,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> httpRequestWithFloatLabels(
@@ -519,10 +465,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> httpRequestWithGreedyLabelInPath(
@@ -534,10 +477,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how requests are serialized when there's no input payload but there are HTTP labels.
@@ -550,10 +490,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how requests serialize different timestamp formats in the URI path.
@@ -566,10 +503,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> httpRequestWithRegexLiteral(
@@ -581,23 +515,18 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
-  _i2.SmithyOperation<HttpResponseCodeOutput> httpResponseCode(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<HttpResponseCodeOutput> httpResponseCode({
+    _i1.AWSHttpClient? client,
+  }) {
     return HttpResponseCodeOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<StringPayloadInput> httpStringPayload(
@@ -609,24 +538,18 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example ensures that query string bound request parameters are serialized in the body of responses if the structure is used in both the request and response.
   _i2.SmithyOperation<IgnoreQueryParamsInResponseOutput>
-      ignoreQueryParamsInResponse({_i1.AWSHttpClient? client}) {
+  ignoreQueryParamsInResponse({_i1.AWSHttpClient? client}) {
     return IgnoreQueryParamsInResponseOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there is no input or output payload but there are HTTP header bindings.
@@ -639,10 +562,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Blobs are base64 encoded
@@ -655,10 +575,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example serializes enums as top level properties, in lists, sets, and maps.
@@ -671,10 +588,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example serializes intEnums as top level properties, in lists, sets, and maps.
@@ -687,10 +601,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This test case serializes JSON lists for the following cases for both input and output: 1. Normal JSON lists. 2. Normal JSON sets. 3. JSON lists of lists. 4. Lists of structures.
@@ -703,10 +614,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests basic map serialization.
@@ -719,10 +627,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This tests how timestamps are serialized, including using the default format of date-time and various @timestampFormat trait values.
@@ -735,10 +640,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This operation uses unions for inputs and outputs.
@@ -751,49 +653,38 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
-  _i2.SmithyOperation<GreetingStruct> malformedAcceptWithBody(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<GreetingStruct> malformedAcceptWithBody({
+    _i1.AWSHttpClient? client,
+  }) {
     return MalformedAcceptWithBodyOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<MalformedAcceptWithGenericStringOutput>
-      malformedAcceptWithGenericString({_i1.AWSHttpClient? client}) {
+  malformedAcceptWithGenericString({_i1.AWSHttpClient? client}) {
     return MalformedAcceptWithGenericStringOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<MalformedAcceptWithPayloadOutput>
-      malformedAcceptWithPayload({_i1.AWSHttpClient? client}) {
+  malformedAcceptWithPayload({_i1.AWSHttpClient? client}) {
     return MalformedAcceptWithPayloadOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedBlob(
@@ -805,10 +696,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedBoolean(
@@ -820,10 +708,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedByte(
@@ -835,10 +720,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedContentTypeWithBody(
@@ -850,10 +732,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedContentTypeWithGenericString(
@@ -865,10 +744,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedContentTypeWithPayload(
@@ -880,23 +756,18 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
-  _i2.SmithyOperation<void> malformedContentTypeWithoutBody(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<void> malformedContentTypeWithoutBody({
+    _i1.AWSHttpClient? client,
+  }) {
     return MalformedContentTypeWithoutBodyOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedContentTypeWithoutBodyEmptyInput(
@@ -908,10 +779,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedDouble(
@@ -923,10 +791,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedFloat(
@@ -938,10 +803,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedInteger(
@@ -953,10 +815,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedList(
@@ -968,10 +827,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedLong(
@@ -983,10 +839,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedMap(
@@ -998,10 +851,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedRequestBody(
@@ -1013,10 +863,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedShort(
@@ -1028,10 +875,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedString(
@@ -1043,10 +887,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampBodyDateTime(
@@ -1058,10 +899,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampBodyDefault(
@@ -1073,10 +911,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampBodyHttpDate(
@@ -1088,10 +923,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampHeaderDateTime(
@@ -1103,10 +935,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampHeaderDefault(
@@ -1118,10 +947,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampHeaderEpoch(
@@ -1133,10 +959,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampPathDefault(
@@ -1148,10 +971,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampPathEpoch(
@@ -1163,10 +983,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampPathHttpDate(
@@ -1178,10 +995,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampQueryDefault(
@@ -1193,10 +1007,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampQueryEpoch(
@@ -1208,10 +1019,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedTimestampQueryHttpDate(
@@ -1223,10 +1031,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> malformedUnion(
@@ -1238,10 +1043,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example ensures that mediaType strings are base64 encoded in headers.
@@ -1254,10 +1056,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input or output. While this should be rare, code generators must support this.
@@ -1267,24 +1066,19 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input and the output is empty. While this should be rare, code generators must support this.
-  _i2.SmithyOperation<NoInputAndOutputOutput> noInputAndOutput(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<NoInputAndOutputOutput> noInputAndOutput({
+    _i1.AWSHttpClient? client,
+  }) {
     return NoInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// Null and empty headers are not sent over the wire.
@@ -1297,10 +1091,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Null and empty headers are not sent over the wire.
@@ -1313,10 +1104,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Omits null, but serializes empty string value.
@@ -1329,10 +1117,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Omits serializing empty lists. Because empty strings are serilized as \`Foo=\`, empty lists cannot also be serialized as \`Foo=\` and instead must be omitted.
@@ -1345,10 +1130,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This operation defines a union with a Unit member.
@@ -1361,10 +1143,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This operation defines a union that uses jsonName on some members.
@@ -1377,10 +1156,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> putWithContentEncoding(
@@ -1392,10 +1168,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Automatically adds idempotency tokens.
@@ -1408,10 +1181,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> queryParamsAsStringListMap(
@@ -1423,10 +1193,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> queryPrecedence(
@@ -1438,10 +1205,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Recursive shapes
@@ -1454,14 +1218,11 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<ResponseCodeHttpFallbackInputOutput>
-      responseCodeHttpFallback(
+  responseCodeHttpFallback(
     ResponseCodeHttpFallbackInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -1470,23 +1231,18 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
-  _i2.SmithyOperation<ResponseCodeRequiredOutput> responseCodeRequired(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<ResponseCodeRequiredOutput> responseCodeRequired({
+    _i1.AWSHttpClient? client,
+  }) {
     return ResponseCodeRequiredOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<SimpleScalarPropertiesInputOutput> simpleScalarProperties(
@@ -1498,10 +1254,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples serializes a streaming blob shape in the request body. In this example, no JSON document is synthesized because the payload is not a structure or a union type.
@@ -1514,10 +1267,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples serializes a streaming blob shape with a required content length in the request body. In this example, no JSON document is synthesized because the payload is not a structure or a union type.
@@ -1530,15 +1280,12 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This examples serializes a streaming media-typed blob shape in the request body. This examples uses a `@mediaType` trait on the payload to force a custom content-type to be serialized.
   _i2.SmithyOperation<StreamingTraitsWithMediaTypeInputOutput>
-      streamingTraitsWithMediaType(
+  streamingTraitsWithMediaType(
     StreamingTraitsWithMediaTypeInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
@@ -1547,10 +1294,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example operation serializes a structure in the HTTP body. It should ensure Content-Type: application/json is used in all requests and that an "empty" body is an empty JSON document ({}).
@@ -1563,10 +1307,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example operation serializes a request without an HTTP body. These tests are to ensure we do not attach a body or related headers (Content-Length, Content-Type) to operations that semantically cannot produce an HTTP body.
@@ -1579,10 +1320,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example operation serializes a payload targeting a blob. The Blob shape is not structured content and we cannot make assumptions about what data will be sent. This test ensures only a generic "Content-Type: application/octet-stream" header is used, and that we are not treating an empty body as an empty JSON document.
@@ -1595,10 +1333,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example operation serializes a payload targeting a structure. This enforces the same requirements as TestBodyStructure but with the body specified by the @httpPayload trait.
@@ -1611,10 +1346,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This example tests how timestamp request and response headers are serialized.
@@ -1627,10 +1359,7 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This test is similar to NoInputAndNoOutput, but uses explicit Unit types.
@@ -1640,9 +1369,6 @@ class RestJsonProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 }

@@ -102,10 +102,10 @@ final class SignOutPartialFailure extends SignOutState {
 
   @override
   List<Object?> get props => [
-        hostedUiException,
-        globalSignOutException,
-        revokeTokenException,
-      ];
+    hostedUiException,
+    globalSignOutException,
+    revokeTokenException,
+  ];
 
   @override
   SignOutStateType get type => SignOutStateType.partialFailure;

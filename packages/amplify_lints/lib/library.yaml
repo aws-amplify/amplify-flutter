@@ -56,7 +56,6 @@ linter:
     - prefer_null_aware_method_calls                   # To improve code readability.
     - prefer_single_quotes                             # To encourage consistent styling.
     - public_member_api_docs                           # To provide users with ample context and explanation.
-    - require_trailing_commas                          # To improve code readability.
     - sort_constructors_first                          # To provide a consistent style for classes.
     - sort_unnamed_constructors_first                  # To provide organization and quick exploration.
     - sort_pub_dependencies                            # To simplify searching a large list.

@@ -23,9 +23,8 @@ import 'package:meta/meta.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 
 /// A factory constructor for a [HostedUiPlatform] instance.
-typedef HostedUiPlatformFactory = HostedUiPlatform Function(
-  DependencyManager dependencyManager,
-);
+typedef HostedUiPlatformFactory =
+    HostedUiPlatform Function(DependencyManager dependencyManager);
 
 /// {@template amplify_auth_cognito.hosted_ui_platform}
 /// Platform-specific behavior for the Hosted UI flow.
@@ -103,19 +102,13 @@ abstract class HostedUiPlatform implements Closeable {
   @protected
   @visibleForTesting
   @nonVirtual
-  Future<Uri> getSignInUri({
-    Uri? redirectUri,
-    AuthProvider? provider,
-  }) async {
+  Future<Uri> getSignInUri({Uri? redirectUri, AuthProvider? provider}) async {
     final state = generateState();
     final codeVerifier = createCodeVerifier();
 
     await Future.wait<void>(
       [
-        _secureStorage.write(
-          key: _keys[HostedUiKey.state],
-          value: state,
-        ),
+        _secureStorage.write(key: _keys[HostedUiKey.state], value: state),
         _secureStorage.write(
           key: _keys[HostedUiKey.codeVerifier],
           value: codeVerifier,
@@ -124,7 +117,8 @@ abstract class HostedUiPlatform implements Closeable {
     );
 
     _authCodeGrant = createGrant(
-      authOutputs.oauth!, authOutputs.userPoolClientId!,
+      authOutputs.oauth!,
+      authOutputs.userPoolClientId!,
       // ignore: invalid_use_of_internal_member
       appClientSecret: authOutputs.appClientSecret,
       codeVerifier: codeVerifier,
@@ -138,9 +132,7 @@ abstract class HostedUiPlatform implements Closeable {
     );
 
     return uri.replace(
-      queryParameters: <String, String>{
-        ...uri.queryParameters,
-      },
+      queryParameters: <String, String>{...uri.queryParameters},
     );
   }
 
@@ -149,8 +141,9 @@ abstract class HostedUiPlatform implements Closeable {
   @visibleForTesting
   @nonVirtual
   Uri getSignOutUri({Uri? redirectUri}) {
-    final signOutUri = HostedUiConfig(authOutputs.oauth!)
-        .signOutUri(authOutputs.userPoolClientId!);
+    final signOutUri = HostedUiConfig(
+      authOutputs.oauth!,
+    ).signOutUri(authOutputs.userPoolClientId!);
 
     return signOutUri.replace(
       queryParameters: <String, String>{
@@ -296,9 +289,7 @@ abstract class HostedUiPlatform implements Closeable {
   Future<void> cancelSignIn() async {}
 
   /// Sign out the current user.
-  Future<void> signOut({
-    required CognitoSignInWithWebUIPluginOptions options,
-  });
+  Future<void> signOut({required CognitoSignInWithWebUIPluginOptions options});
 
   @override
   FutureOr<void> close() {}

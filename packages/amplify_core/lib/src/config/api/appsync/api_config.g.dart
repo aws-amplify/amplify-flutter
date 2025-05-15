@@ -9,41 +9,32 @@ part of 'api_config.dart';
 // **************************************************************************
 
 AWSApiConfig _$AWSApiConfigFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'AWSApiConfig',
-      json,
-      ($checkedConvert) {
-        final val = AWSApiConfig(
-          endpointType: $checkedConvert(
-              'endpointType', (v) => $enumDecode(_$EndpointTypeEnumMap, v)),
-          endpoint: $checkedConvert('endpoint', (v) => v as String),
-          region: $checkedConvert('region', (v) => v as String),
-          authorizationType: $checkedConvert('authorizationType',
-              (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v)),
-          apiKey: $checkedConvert('apiKey', (v) => v as String?),
-        );
-        return val;
-      },
-    );
+    $checkedCreate('AWSApiConfig', json, ($checkedConvert) {
+      final val = AWSApiConfig(
+        endpointType: $checkedConvert(
+          'endpointType',
+          (v) => $enumDecode(_$EndpointTypeEnumMap, v),
+        ),
+        endpoint: $checkedConvert('endpoint', (v) => v as String),
+        region: $checkedConvert('region', (v) => v as String),
+        authorizationType: $checkedConvert(
+          'authorizationType',
+          (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v),
+        ),
+        apiKey: $checkedConvert('apiKey', (v) => v as String?),
+      );
+      return val;
+    });
 
-Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) {
-  final val = <String, dynamic>{
-    'endpointType': _$EndpointTypeEnumMap[instance.endpointType]!,
-    'endpoint': instance.endpoint,
-    'region': instance.region,
-    'authorizationType':
-        _$APIAuthorizationTypeEnumMap[instance.authorizationType]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('apiKey', instance.apiKey);
-  return val;
-}
+Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) =>
+    <String, dynamic>{
+      'endpointType': _$EndpointTypeEnumMap[instance.endpointType]!,
+      'endpoint': instance.endpoint,
+      'region': instance.region,
+      'authorizationType':
+          _$APIAuthorizationTypeEnumMap[instance.authorizationType]!,
+      if (instance.apiKey case final value?) 'apiKey': value,
+    };
 
 const _$EndpointTypeEnumMap = {
   EndpointType.rest: 'REST',

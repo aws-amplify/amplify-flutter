@@ -26,7 +26,7 @@ abstract class AmplifyHub implements Closeable {
 
   /// The available streams for listening.
   Map<HubChannel<Object?, HubEvent<Object?>>, Stream<HubEvent<Object?>>>
-      get availableStreams;
+  get availableStreams;
 
   /// Listens to the Hub [channel] for events produced from all plugins in the
   /// channel's categories.
@@ -35,7 +35,7 @@ abstract class AmplifyHub implements Closeable {
   /// [Stream.listen]. It must be of type `void Function(Object error)` or
   /// `void Function(Object error, StackTrace)`.
   StreamSubscription<E>
-      listen<HubEventPayload, E extends HubEvent<HubEventPayload>>(
+  listen<HubEventPayload, E extends HubEvent<HubEventPayload>>(
     HubChannel<HubEventPayload, E> channel,
     HubEventListener<E> listener, {
     Function? onError,

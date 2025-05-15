@@ -16,18 +16,21 @@ class _$InputSerialization extends InputSerialization {
   @override
   final ParquetInput? parquet;
 
-  factory _$InputSerialization(
-          [void Function(InputSerializationBuilder)? updates]) =>
-      (new InputSerializationBuilder()..update(updates))._build();
+  factory _$InputSerialization([
+    void Function(InputSerializationBuilder)? updates,
+  ]) => (new InputSerializationBuilder()..update(updates))._build();
 
-  _$InputSerialization._(
-      {this.csv, this.compressionType, this.json, this.parquet})
-      : super._();
+  _$InputSerialization._({
+    this.csv,
+    this.compressionType,
+    this.json,
+    this.parquet,
+  }) : super._();
 
   @override
   InputSerialization rebuild(
-          void Function(InputSerializationBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InputSerializationBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InputSerializationBuilder toBuilder() =>
@@ -108,7 +111,8 @@ class InputSerializationBuilder
   _$InputSerialization _build() {
     _$InputSerialization _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$InputSerialization._(
             csv: _csv?.build(),
             compressionType: compressionType,
@@ -127,7 +131,10 @@ class InputSerializationBuilder
         _parquet?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'InputSerialization', _$failedField, e.toString());
+          r'InputSerialization',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

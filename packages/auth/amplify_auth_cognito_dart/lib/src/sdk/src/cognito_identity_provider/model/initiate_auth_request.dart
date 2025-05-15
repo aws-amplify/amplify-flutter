@@ -42,9 +42,9 @@ abstract class InitiateAuthRequest
   }
 
   /// Initiates the authentication request.
-  factory InitiateAuthRequest.build(
-          [void Function(InitiateAuthRequestBuilder) updates]) =
-      _$InitiateAuthRequest;
+  factory InitiateAuthRequest.build([
+    void Function(InitiateAuthRequestBuilder) updates,
+  ]) = _$InitiateAuthRequest;
 
   const InitiateAuthRequest._();
 
@@ -52,11 +52,10 @@ abstract class InitiateAuthRequest
     InitiateAuthRequest payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<InitiateAuthRequest>> serializers = [
-    InitiateAuthRequestAwsJson11Serializer()
+    InitiateAuthRequestAwsJson11Serializer(),
   ];
 
   /// The authentication flow for this call to run. The API action will depend on this value. For example:
@@ -146,41 +145,24 @@ abstract class InitiateAuthRequest
 
   @override
   List<Object?> get props => [
-        authFlow,
-        authParameters,
-        clientMetadata,
-        clientId,
-        analyticsMetadata,
-        userContextData,
-      ];
+    authFlow,
+    authParameters,
+    clientMetadata,
+    clientId,
+    analyticsMetadata,
+    userContextData,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InitiateAuthRequest')
-      ..add(
-        'authFlow',
-        authFlow,
-      )
-      ..add(
-        'authParameters',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'clientMetadata',
-        clientMetadata,
-      )
-      ..add(
-        'clientId',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'analyticsMetadata',
-        analyticsMetadata,
-      )
-      ..add(
-        'userContextData',
-        '***SENSITIVE***',
-      );
+    final helper =
+        newBuiltValueToStringHelper('InitiateAuthRequest')
+          ..add('authFlow', authFlow)
+          ..add('authParameters', '***SENSITIVE***')
+          ..add('clientMetadata', clientMetadata)
+          ..add('clientId', '***SENSITIVE***')
+          ..add('analyticsMetadata', analyticsMetadata)
+          ..add('userContextData', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -191,17 +173,14 @@ class InitiateAuthRequestAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [
-        InitiateAuthRequest,
-        _$InitiateAuthRequest,
-      ];
+    InitiateAuthRequest,
+    _$InitiateAuthRequest,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   InitiateAuthRequest deserialize(
@@ -220,47 +199,57 @@ class InitiateAuthRequestAwsJson11Serializer
       }
       switch (key) {
         case 'AuthFlow':
-          result.authFlow = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(AuthFlowType),
-          ) as AuthFlowType);
+          result.authFlow =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(AuthFlowType),
+                  )
+                  as AuthFlowType);
         case 'AuthParameters':
-          result.authParameters.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.authParameters.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
         case 'ClientMetadata':
-          result.clientMetadata.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
-                FullType(String),
-                FullType(String),
-              ],
-            ),
-          ) as _i3.BuiltMap<String, String>));
+          result.clientMetadata.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltMap, [
+                    FullType(String),
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltMap<String, String>),
+          );
         case 'ClientId':
-          result.clientId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.clientId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'AnalyticsMetadata':
-          result.analyticsMetadata.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(AnalyticsMetadataType),
-          ) as AnalyticsMetadataType));
+          result.analyticsMetadata.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(AnalyticsMetadataType),
+                )
+                as AnalyticsMetadataType),
+          );
         case 'UserContextData':
-          result.userContextData.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(UserContextDataType),
-          ) as UserContextDataType));
+          result.userContextData.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(UserContextDataType),
+                )
+                as UserContextDataType),
+          );
       }
     }
 
@@ -280,7 +269,7 @@ class InitiateAuthRequestAwsJson11Serializer
       :clientMetadata,
       :clientId,
       :analyticsMetadata,
-      :userContextData
+      :userContextData,
     ) = object;
     result$.addAll([
       'AuthFlow',
@@ -289,54 +278,53 @@ class InitiateAuthRequestAwsJson11Serializer
         specifiedType: const FullType(AuthFlowType),
       ),
       'ClientId',
-      serializers.serialize(
-        clientId,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(clientId, specifiedType: const FullType(String)),
     ]);
     if (authParameters != null) {
       result$
         ..add('AuthParameters')
-        ..add(serializers.serialize(
-          authParameters,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            authParameters,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (clientMetadata != null) {
       result$
         ..add('ClientMetadata')
-        ..add(serializers.serialize(
-          clientMetadata,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          serializers.serialize(
+            clientMetadata,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(String),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     if (analyticsMetadata != null) {
       result$
         ..add('AnalyticsMetadata')
-        ..add(serializers.serialize(
-          analyticsMetadata,
-          specifiedType: const FullType(AnalyticsMetadataType),
-        ));
+        ..add(
+          serializers.serialize(
+            analyticsMetadata,
+            specifiedType: const FullType(AnalyticsMetadataType),
+          ),
+        );
     }
     if (userContextData != null) {
       result$
         ..add('UserContextData')
-        ..add(serializers.serialize(
-          userContextData,
-          specifiedType: const FullType(UserContextDataType),
-        ));
+        ..add(
+          serializers.serialize(
+            userContextData,
+            specifiedType: const FullType(UserContextDataType),
+          ),
+        );
     }
     return result$;
   }

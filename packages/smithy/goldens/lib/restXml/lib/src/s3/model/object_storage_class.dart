@@ -1,16 +1,12 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.s3.model.object_storage_class; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
-  const ObjectStorageClass._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const ObjectStorageClass._(super.index, super.name, super.value);
 
   const ObjectStorageClass._sdkUnknown(super.value) : super.sdkUnknown();
 
@@ -20,11 +16,7 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
     'DEEP_ARCHIVE',
   );
 
-  static const glacier = ObjectStorageClass._(
-    1,
-    'GLACIER',
-    'GLACIER',
-  );
+  static const glacier = ObjectStorageClass._(1, 'GLACIER', 'GLACIER');
 
   static const intelligentTiering = ObjectStorageClass._(
     2,
@@ -32,17 +24,9 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
     'INTELLIGENT_TIERING',
   );
 
-  static const onezoneIa = ObjectStorageClass._(
-    3,
-    'ONEZONE_IA',
-    'ONEZONE_IA',
-  );
+  static const onezoneIa = ObjectStorageClass._(3, 'ONEZONE_IA', 'ONEZONE_IA');
 
-  static const outposts = ObjectStorageClass._(
-    4,
-    'OUTPOSTS',
-    'OUTPOSTS',
-  );
+  static const outposts = ObjectStorageClass._(4, 'OUTPOSTS', 'OUTPOSTS');
 
   static const reducedRedundancy = ObjectStorageClass._(
     5,
@@ -50,11 +34,7 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
     'REDUCED_REDUNDANCY',
   );
 
-  static const standard = ObjectStorageClass._(
-    6,
-    'STANDARD',
-    'STANDARD',
-  );
+  static const standard = ObjectStorageClass._(6, 'STANDARD', 'STANDARD');
 
   static const standardIa = ObjectStorageClass._(
     7,
@@ -80,12 +60,9 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
       values: values,
       sdkUnknown: ObjectStorageClass._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

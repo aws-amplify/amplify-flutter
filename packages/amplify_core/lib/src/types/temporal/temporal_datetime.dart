@@ -86,8 +86,9 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     // Parse cannot take a YYYY-MM-DD as UTC!
     var dateTime = DateTime.parse(match.group(1)!.split('.')[0]);
 
-    final totalNanoseconds =
-        Temporal.getIntOr0(match.group(4)?.padRight(9, '0'));
+    final totalNanoseconds = Temporal.getIntOr0(
+      match.group(4)?.padRight(9, '0'),
+    );
     final milliseconds = totalNanoseconds ~/ 1000000;
     final microseconds = (totalNanoseconds ~/ 1000) % 1000;
     final nanoseconds = totalNanoseconds % 1000;
@@ -121,8 +122,8 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     this._dateTime, {
     int nanoseconds = 0,
     Duration? offset,
-  })  : _nanoseconds = nanoseconds,
-        _offset = offset;
+  }) : _nanoseconds = nanoseconds,
+       _offset = offset;
   final DateTime _dateTime;
   final int _nanoseconds;
   final Duration? _offset;

@@ -23,33 +23,32 @@ final class ASFDeviceInfoLinux extends ASFDeviceInfoPlatform {
   /// For Dart apps, there is not a good mechanism to retrieve this info.
   final AsyncMemoizer<PackageInfo> _packageInfoMemo = AsyncMemoizer();
   Future<PackageInfo> get _packageInfo => _packageInfoMemo.runOnce(() async {
-        final exePath = await File('/proc/self/exe').resolveSymbolicLinks();
-        final appPath = p.dirname(exePath);
-        final assetPath = p.join(appPath, 'data', 'flutter_assets');
-        final versionFile = File(p.join(assetPath, 'version.json'));
-        final versionJson = await versionFile.exists()
-            ? await versionFile.readAsString()
-            : null;
-        if (versionJson == null) {
-          return PackageInfo(
-            // Fallback to the name of the executable in Dart-only environments.
-            appName: p.basename(exePath),
-          );
-        }
-        final versionData = jsonDecode(versionJson) as Map<String, Object?>;
-        return PackageInfo.fromJson(versionData);
-      });
+    final exePath = await File('/proc/self/exe').resolveSymbolicLinks();
+    final appPath = p.dirname(exePath);
+    final assetPath = p.join(appPath, 'data', 'flutter_assets');
+    final versionFile = File(p.join(assetPath, 'version.json'));
+    final versionJson =
+        await versionFile.exists() ? await versionFile.readAsString() : null;
+    if (versionJson == null) {
+      return PackageInfo(
+        // Fallback to the name of the executable in Dart-only environments.
+        appName: p.basename(exePath),
+      );
+    }
+    final versionData = jsonDecode(versionJson) as Map<String, Object?>;
+    return PackageInfo.fromJson(versionData);
+  });
 
   @override
   Future<String?> get applicationName async => (await _packageInfo).appName;
 
   @override
   Future<String?> get applicationVersion async => switch (await _packageInfo) {
-        PackageInfo(:final version?, :final buildNumber?) =>
-          '$version($buildNumber)',
-        PackageInfo(:final version?) => version,
-        _ => null,
-      };
+    PackageInfo(:final version?, :final buildNumber?) =>
+      '$version($buildNumber)',
+    PackageInfo(:final version?) => version,
+    _ => null,
+  };
 
   @override
   Future<String?> get deviceFingerprint async => null;
@@ -85,9 +84,8 @@ final class ASFDeviceInfoLinux extends ASFDeviceInfoPlatform {
     '/usr/lib/extension-release.d/extension-release.IMAGE',
   ].fold<Future<Map<String, String>?>>(
     Future.value(null),
-    (values, path) => values.then(
-      (values) async => values ?? await _tryReadValues(path),
-    ),
+    (values, path) =>
+        values.then((values) async => values ?? await _tryReadValues(path)),
   );
 
   @override
@@ -125,8 +123,10 @@ final class ASFDeviceInfoLinux extends ASFDeviceInfoPlatform {
       lines
           .map(
             (line) => switch (line.split('=')) {
-              [final key, final value] when value.isNotEmpty =>
-                MapEntry(key, unescape(value)),
+              [final key, final value] when value.isNotEmpty => MapEntry(
+                key,
+                unescape(value),
+              ),
               _ => null,
             },
           )
@@ -153,7 +153,7 @@ final class ASFDeviceInfoLinux extends ASFDeviceInfoPlatform {
   }
 
   String? _env(String key) => switch (Platform.environment[key]) {
-        final value? when value.isNotEmpty => value,
-        _ => null,
-      };
+    final value? when value.isNotEmpty => value,
+    _ => null,
+  };
 }

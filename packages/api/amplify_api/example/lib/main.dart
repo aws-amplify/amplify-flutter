@@ -41,8 +41,8 @@ class _MyAppState extends State<MyApp> {
       /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
       secureStorageFactory: AmplifySecureStorage.factoryFrom(
         macOSOptions:
-            // ignore: invalid_use_of_visible_for_testing_member
-            MacOSSecureStorageOptions(useDataProtection: false),
+        // ignore: invalid_use_of_visible_for_testing_member
+        MacOSSecureStorageOptions(useDataProtection: false),
       ),
     );
     await Amplify.addPlugins([
@@ -77,14 +77,11 @@ class _MyAppState extends State<MyApp> {
       _isAmplifyConfigured = true;
     });
 
-    Amplify.Hub.listen(
-      HubChannel.Api,
-      (ApiHubEvent event) {
-        if (event is SubscriptionHubEvent) {
-          safePrint(event);
-        }
-      },
-    );
+    Amplify.Hub.listen(HubChannel.Api, (ApiHubEvent event) {
+      if (event is SubscriptionHubEvent) {
+        safePrint(event);
+      }
+    });
   }
 
   void _onRestApiViewButtonClick() {
@@ -126,9 +123,10 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Padding(
             padding: const EdgeInsets.all(10),
-            child: _showRestApiView == true
-                ? const RestApiView()
-                : GraphQLApiView(isAmplifyConfigured: _isAmplifyConfigured),
+            child:
+                _showRestApiView == true
+                    ? const RestApiView()
+                    : GraphQLApiView(isAmplifyConfigured: _isAmplifyConfigured),
           ),
         ),
       ),

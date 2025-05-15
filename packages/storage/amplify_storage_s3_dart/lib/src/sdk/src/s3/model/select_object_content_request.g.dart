@@ -32,42 +32,60 @@ class _$SelectObjectContentRequest extends SelectObjectContentRequest {
   @override
   final String? expectedBucketOwner;
 
-  factory _$SelectObjectContentRequest(
-          [void Function(SelectObjectContentRequestBuilder)? updates]) =>
-      (new SelectObjectContentRequestBuilder()..update(updates))._build();
+  factory _$SelectObjectContentRequest([
+    void Function(SelectObjectContentRequestBuilder)? updates,
+  ]) => (new SelectObjectContentRequestBuilder()..update(updates))._build();
 
-  _$SelectObjectContentRequest._(
-      {required this.bucket,
-      required this.key,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5,
-      required this.expression,
-      required this.expressionType,
-      this.requestProgress,
-      required this.inputSerialization,
-      required this.outputSerialization,
-      this.scanRange,
-      this.expectedBucketOwner})
-      : super._() {
+  _$SelectObjectContentRequest._({
+    required this.bucket,
+    required this.key,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+    required this.expression,
+    required this.expressionType,
+    this.requestProgress,
+    required this.inputSerialization,
+    required this.outputSerialization,
+    this.scanRange,
+    this.expectedBucketOwner,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'SelectObjectContentRequest', 'bucket');
+      bucket,
+      r'SelectObjectContentRequest',
+      'bucket',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        key, r'SelectObjectContentRequest', 'key');
+      key,
+      r'SelectObjectContentRequest',
+      'key',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        expression, r'SelectObjectContentRequest', 'expression');
+      expression,
+      r'SelectObjectContentRequest',
+      'expression',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        expressionType, r'SelectObjectContentRequest', 'expressionType');
-    BuiltValueNullFieldError.checkNotNull(inputSerialization,
-        r'SelectObjectContentRequest', 'inputSerialization');
-    BuiltValueNullFieldError.checkNotNull(outputSerialization,
-        r'SelectObjectContentRequest', 'outputSerialization');
+      expressionType,
+      r'SelectObjectContentRequest',
+      'expressionType',
+    );
+    BuiltValueNullFieldError.checkNotNull(
+      inputSerialization,
+      r'SelectObjectContentRequest',
+      'inputSerialization',
+    );
+    BuiltValueNullFieldError.checkNotNull(
+      outputSerialization,
+      r'SelectObjectContentRequest',
+      'outputSerialization',
+    );
   }
 
   @override
   SelectObjectContentRequest rebuild(
-          void Function(SelectObjectContentRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SelectObjectContentRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SelectObjectContentRequestBuilder toBuilder() =>
@@ -215,21 +233,32 @@ class SelectObjectContentRequestBuilder
   _$SelectObjectContentRequest _build() {
     _$SelectObjectContentRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$SelectObjectContentRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'SelectObjectContentRequest', 'bucket'),
+              bucket,
+              r'SelectObjectContentRequest',
+              'bucket',
+            ),
             key: BuiltValueNullFieldError.checkNotNull(
-                key, r'SelectObjectContentRequest', 'key'),
+              key,
+              r'SelectObjectContentRequest',
+              'key',
+            ),
             sseCustomerAlgorithm: sseCustomerAlgorithm,
             sseCustomerKey: sseCustomerKey,
             sseCustomerKeyMd5: sseCustomerKeyMd5,
             expression: BuiltValueNullFieldError.checkNotNull(
-                expression, r'SelectObjectContentRequest', 'expression'),
+              expression,
+              r'SelectObjectContentRequest',
+              'expression',
+            ),
             expressionType: BuiltValueNullFieldError.checkNotNull(
-                expressionType,
-                r'SelectObjectContentRequest',
-                'expressionType'),
+              expressionType,
+              r'SelectObjectContentRequest',
+              'expressionType',
+            ),
             requestProgress: _requestProgress?.build(),
             inputSerialization: inputSerialization.build(),
             outputSerialization: outputSerialization.build(),
@@ -249,7 +278,10 @@ class SelectObjectContentRequestBuilder
         _scanRange?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'SelectObjectContentRequest', _$failedField, e.toString());
+          r'SelectObjectContentRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
@@ -273,33 +305,46 @@ class _$SelectObjectContentRequestPayload
   @override
   final ScanRange? scanRange;
 
-  factory _$SelectObjectContentRequestPayload(
-          [void Function(SelectObjectContentRequestPayloadBuilder)? updates]) =>
+  factory _$SelectObjectContentRequestPayload([
+    void Function(SelectObjectContentRequestPayloadBuilder)? updates,
+  ]) =>
       (new SelectObjectContentRequestPayloadBuilder()..update(updates))
           ._build();
 
-  _$SelectObjectContentRequestPayload._(
-      {required this.expression,
-      required this.expressionType,
-      required this.inputSerialization,
-      required this.outputSerialization,
-      this.requestProgress,
-      this.scanRange})
-      : super._() {
+  _$SelectObjectContentRequestPayload._({
+    required this.expression,
+    required this.expressionType,
+    required this.inputSerialization,
+    required this.outputSerialization,
+    this.requestProgress,
+    this.scanRange,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        expression, r'SelectObjectContentRequestPayload', 'expression');
+      expression,
+      r'SelectObjectContentRequestPayload',
+      'expression',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        expressionType, r'SelectObjectContentRequestPayload', 'expressionType');
-    BuiltValueNullFieldError.checkNotNull(inputSerialization,
-        r'SelectObjectContentRequestPayload', 'inputSerialization');
-    BuiltValueNullFieldError.checkNotNull(outputSerialization,
-        r'SelectObjectContentRequestPayload', 'outputSerialization');
+      expressionType,
+      r'SelectObjectContentRequestPayload',
+      'expressionType',
+    );
+    BuiltValueNullFieldError.checkNotNull(
+      inputSerialization,
+      r'SelectObjectContentRequestPayload',
+      'inputSerialization',
+    );
+    BuiltValueNullFieldError.checkNotNull(
+      outputSerialization,
+      r'SelectObjectContentRequestPayload',
+      'outputSerialization',
+    );
   }
 
   @override
   SelectObjectContentRequestPayload rebuild(
-          void Function(SelectObjectContentRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SelectObjectContentRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SelectObjectContentRequestPayloadBuilder toBuilder() =>
@@ -333,8 +378,10 @@ class _$SelectObjectContentRequestPayload
 
 class SelectObjectContentRequestPayloadBuilder
     implements
-        Builder<SelectObjectContentRequestPayload,
-            SelectObjectContentRequestPayloadBuilder> {
+        Builder<
+          SelectObjectContentRequestPayload,
+          SelectObjectContentRequestPayloadBuilder
+        > {
   _$SelectObjectContentRequestPayload? _$v;
 
   String? _expression;
@@ -393,7 +440,8 @@ class SelectObjectContentRequestPayloadBuilder
 
   @override
   void update(
-      void Function(SelectObjectContentRequestPayloadBuilder)? updates) {
+    void Function(SelectObjectContentRequestPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -403,14 +451,19 @@ class SelectObjectContentRequestPayloadBuilder
   _$SelectObjectContentRequestPayload _build() {
     _$SelectObjectContentRequestPayload _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$SelectObjectContentRequestPayload._(
             expression: BuiltValueNullFieldError.checkNotNull(
-                expression, r'SelectObjectContentRequestPayload', 'expression'),
+              expression,
+              r'SelectObjectContentRequestPayload',
+              'expression',
+            ),
             expressionType: BuiltValueNullFieldError.checkNotNull(
-                expressionType,
-                r'SelectObjectContentRequestPayload',
-                'expressionType'),
+              expressionType,
+              r'SelectObjectContentRequestPayload',
+              'expressionType',
+            ),
             inputSerialization: inputSerialization.build(),
             outputSerialization: outputSerialization.build(),
             requestProgress: _requestProgress?.build(),
@@ -429,7 +482,10 @@ class SelectObjectContentRequestPayloadBuilder
         _scanRange?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'SelectObjectContentRequestPayload', _$failedField, e.toString());
+          r'SelectObjectContentRequestPayload',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

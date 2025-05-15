@@ -9,10 +9,8 @@ import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js_util;
 
 /// A [Promise] executor callback.
-typedef Executor<T> = void Function(
-  void Function(T) resolve,
-  void Function(Object) reject,
-);
+typedef Executor<T> =
+    void Function(void Function(T) resolve, void Function(Object) reject);
 
 /// {@template aws_common.js.promise}
 /// Represents the eventual completion (or failure) of an asynchronous operation
@@ -32,10 +30,7 @@ abstract class Promise<T> {
   /// and not reported as unhandled errors in the current [Zone]. This can
   /// decrease the visibility of errors in Dart code depending on the level of
   /// integration with JS APIs and their error-handling specifics.
-  factory Promise.fromFuture(
-    Future<T> future, {
-    bool captureError = false,
-  }) =>
+  factory Promise.fromFuture(Future<T> future, {bool captureError = false}) =>
       Promise((resolve, reject) async {
         try {
           resolve(await future);

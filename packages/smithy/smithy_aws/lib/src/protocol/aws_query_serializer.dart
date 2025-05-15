@@ -37,10 +37,7 @@ class AwsQuerySerializer implements FullSerializer<List<int>> {
       return utf8.encode(_prefix);
     }
     return utf8.encode(
-      [
-        _prefix,
-        ..._serialize(serialized as XmlNode),
-      ].join('&'),
+      [_prefix, ..._serialize(serialized as XmlNode)].join('&'),
     );
   }
 

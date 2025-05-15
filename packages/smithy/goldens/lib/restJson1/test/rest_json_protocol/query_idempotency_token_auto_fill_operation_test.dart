@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.query_idempotency_token_auto_fill_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -12,45 +12,8 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test('RestJsonQueryIdempotencyTokenAutoFill (request)', () async {
-    await _i2.httpRequestTest(
-      operation: QueryIdempotencyTokenAutoFillOperation(
-        region: 'us-east-1',
-        baseUri: Uri.parse('https://example.com'),
-      ),
-      testCase: const _i2.HttpRequestTestCase(
-        id: 'RestJsonQueryIdempotencyTokenAutoFill',
-        documentation: 'Automatically adds idempotency token when not set',
-        protocol: _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        ),
-        authScheme: null,
-        body: '',
-        bodyMediaType: null,
-        params: {},
-        vendorParamsShape: null,
-        vendorParams: {},
-        headers: {},
-        forbidHeaders: [],
-        requireHeaders: [],
-        tags: [],
-        appliesTo: _i2.AppliesTo.client,
-        method: 'POST',
-        uri: '/QueryIdempotencyTokenAutoFill',
-        host: null,
-        resolvedHost: null,
-        queryParams: ['token=00000000-0000-4000-8000-000000000000'],
-        forbidQueryParams: [],
-        requireQueryParams: [],
-      ),
-      inputSerializers: const [
-        QueryIdempotencyTokenAutoFillInputRestJson1Serializer()
-      ],
-    );
-  }, skip: 'bool.fromEnvironment is not working in tests for some reason');
   _i1.test(
-    'RestJsonQueryIdempotencyTokenAutoFillIsSet (request)',
+    'RestJsonQueryIdempotencyTokenAutoFill (request)',
     () async {
       await _i2.httpRequestTest(
         operation: QueryIdempotencyTokenAutoFillOperation(
@@ -58,16 +21,13 @@ void main() {
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonQueryIdempotencyTokenAutoFillIsSet',
-          documentation: 'Uses the given idempotency token as-is',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
+          id: 'RestJsonQueryIdempotencyTokenAutoFill',
+          documentation: 'Automatically adds idempotency token when not set',
+          protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
           authScheme: null,
           body: '',
           bodyMediaType: null,
-          params: {'token': '00000000-0000-4000-8000-000000000000'},
+          params: {},
           vendorParamsShape: null,
           vendorParams: {},
           headers: {},
@@ -84,28 +44,60 @@ void main() {
           requireQueryParams: [],
         ),
         inputSerializers: const [
-          QueryIdempotencyTokenAutoFillInputRestJson1Serializer()
+          QueryIdempotencyTokenAutoFillInputRestJson1Serializer(),
         ],
       );
     },
+    skip: 'bool.fromEnvironment is not working in tests for some reason',
   );
+  _i1.test('RestJsonQueryIdempotencyTokenAutoFillIsSet (request)', () async {
+    await _i2.httpRequestTest(
+      operation: QueryIdempotencyTokenAutoFillOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonQueryIdempotencyTokenAutoFillIsSet',
+        documentation: 'Uses the given idempotency token as-is',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'token': '00000000-0000-4000-8000-000000000000'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        method: 'POST',
+        uri: '/QueryIdempotencyTokenAutoFill',
+        host: null,
+        resolvedHost: null,
+        queryParams: ['token=00000000-0000-4000-8000-000000000000'],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        QueryIdempotencyTokenAutoFillInputRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
 class QueryIdempotencyTokenAutoFillInputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<QueryIdempotencyTokenAutoFillInput> {
   const QueryIdempotencyTokenAutoFillInputRestJson1Serializer()
-      : super('QueryIdempotencyTokenAutoFillInput');
+    : super('QueryIdempotencyTokenAutoFillInput');
 
   @override
   Iterable<Type> get types => const [QueryIdempotencyTokenAutoFillInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   QueryIdempotencyTokenAutoFillInput deserialize(
@@ -124,10 +116,12 @@ class QueryIdempotencyTokenAutoFillInputRestJson1Serializer
       }
       switch (key) {
         case 'token':
-          result.token = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.token =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

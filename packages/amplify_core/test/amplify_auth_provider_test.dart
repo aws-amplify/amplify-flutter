@@ -81,8 +81,9 @@ void main() {
 
   group('AmplifyAuthProvider', () {
     test('can authorize an HTTP request', () async {
-      final authorizedRequest =
-          await authProvider.authorizeRequest(_generateTestRequest());
+      final authorizedRequest = await authProvider.authorizeRequest(
+        _generateTestRequest(),
+      );
       expect(authorizedRequest.headers[_testAuthKey], 'foo');
     });
   });
@@ -90,8 +91,9 @@ void main() {
   group('TokenAmplifyAuthProvider', () {
     test('will assign the token to the "Authorization" header', () async {
       final tokenAuthProvider = TestTokenProvider();
-      final authorizedRequest =
-          await tokenAuthProvider.authorizeRequest(_generateTestRequest());
+      final authorizedRequest = await tokenAuthProvider.authorizeRequest(
+        _generateTestRequest(),
+      );
       expect(authorizedRequest.headers[AWSHeaders.authorization], _testToken);
     });
   });
@@ -99,8 +101,9 @@ void main() {
   group('TokenIdentityAmplifyAuthProvider', () {
     test('will assign the token to the "Authorization" header', () async {
       final tokenAuthProvider = TestTokenProvider();
-      final authorizedRequest =
-          await tokenAuthProvider.authorizeRequest(_generateTestRequest());
+      final authorizedRequest = await tokenAuthProvider.authorizeRequest(
+        _generateTestRequest(),
+      );
       expect(authorizedRequest.headers[AWSHeaders.authorization], _testToken);
     });
 
@@ -117,8 +120,9 @@ void main() {
       const providerKey = AmplifyAuthProviderToken('');
       authRepo.registerAuthProvider(providerKey, authProvider);
       final actualAuthProvider = authRepo.getAuthProvider(providerKey);
-      final authorizedRequest =
-          await actualAuthProvider!.authorizeRequest(_generateTestRequest());
+      final authorizedRequest = await actualAuthProvider!.authorizeRequest(
+        _generateTestRequest(),
+      );
       expect(authorizedRequest.headers[_testAuthKey], 'foo');
     });
 
@@ -126,8 +130,9 @@ void main() {
       final authRepo = AmplifyAuthProviderRepository();
 
       final credentialAuthProvider = TestAWSCredentialsAuthProvider();
-      const providerKey =
-          AmplifyAuthProviderToken<AWSIamAmplifyAuthProvider>('');
+      const providerKey = AmplifyAuthProviderToken<AWSIamAmplifyAuthProvider>(
+        '',
+      );
       authRepo.registerAuthProvider(providerKey, credentialAuthProvider);
       final actualAuthProvider = authRepo.getAuthProvider(providerKey);
       expect(actualAuthProvider, isA<AWSIamAmplifyAuthProvider>());
@@ -142,8 +147,9 @@ void main() {
         ..registerAuthProvider(providerKey, SecondTestAuthProvider());
       final actualAuthProvider = authRepo.getAuthProvider(providerKey);
 
-      final authorizedRequest =
-          await actualAuthProvider!.authorizeRequest(_generateTestRequest());
+      final authorizedRequest = await actualAuthProvider!.authorizeRequest(
+        _generateTestRequest(),
+      );
       expect(authorizedRequest.headers[_testAuthKey], 'bar');
     });
 

@@ -13,10 +13,7 @@ import 'package:drift/drift.dart';
 /// example, "AnalyticsEventCache".
 ///
 /// [path] must be provided on vm platforms. It will be unused on web.
-QueryExecutor connect({
-  required String name,
-  FutureOr<String>? path,
-}) {
+QueryExecutor connect({required String name, FutureOr<String>? path}) {
   throw UnimplementedError(
     'constructDb has not been implemented for this platform.',
   );

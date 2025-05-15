@@ -22,11 +22,9 @@ class CleanCommand extends AmplifyCommand {
     }
     switch (package.flavor) {
       case PackageFlavor.flutter:
-        final cleanCmd = await Process.start(
-          'flutter',
-          ['clean'],
-          workingDirectory: package.path,
-        );
+        final cleanCmd = await Process.start('flutter', [
+          'clean',
+        ], workingDirectory: package.path);
         final errors = StringBuffer();
         cleanCmd.captureStderr(sink: errors.writeln);
         if (await cleanCmd.exitCode != 0) {

@@ -27,12 +27,12 @@ class AuthStringResolver {
     InstructionsResolver? instructions,
     MessageResolver? messages,
     TitleResolver? titles,
-  })  : buttons = buttons ?? const ButtonResolver(),
-        dialCodes = dialCodes ?? const DialCodeResolver(),
-        inputs = inputs ?? const InputResolver(),
-        instruction = instructions ?? const InstructionsResolver(),
-        titles = titles ?? const TitleResolver(),
-        messages = messages ?? const MessageResolver();
+  }) : buttons = buttons ?? const ButtonResolver(),
+       dialCodes = dialCodes ?? const DialCodeResolver(),
+       inputs = inputs ?? const InputResolver(),
+       instruction = instructions ?? const InstructionsResolver(),
+       titles = titles ?? const TitleResolver(),
+       messages = messages ?? const MessageResolver();
 
   /// The resolver class for shared button Widgets
   final ButtonResolver buttons;

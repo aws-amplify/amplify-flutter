@@ -19,7 +19,7 @@ import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
   /// {@macro amplify_auth_cognito.legacy_android_credential_provider}
   LegacyCredentialProviderAndroid(CognitoAuthStateMachine stateMachine)
-      : _stateMachine = stateMachine;
+    : _stateMachine = stateMachine;
   final CognitoAuthStateMachine _stateMachine;
 
   @override
@@ -35,9 +35,7 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
   }
 
   @override
-  Future<void> deleteLegacyCredentials(
-    AuthOutputs authOutputs,
-  ) {
+  Future<void> deleteLegacyCredentials(AuthOutputs authOutputs) {
     final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
     return bridge.clearLegacyCredentials();
   }
@@ -50,10 +48,7 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
     final userPoolId = authOutputs.userPoolId;
     if (userPoolId == null) return null;
     final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
-    final device = await bridge.fetchLegacyDeviceSecrets(
-      username,
-      userPoolId,
-    );
+    final device = await bridge.fetchLegacyDeviceSecrets(username, userPoolId);
     return device?.toLegacyDeviceDetails();
   }
 
@@ -65,9 +60,6 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
     final userPoolId = authOutputs.userPoolId;
     if (userPoolId == null) return;
     final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
-    return bridge.deleteLegacyDeviceSecrets(
-      username,
-      userPoolId,
-    );
+    return bridge.deleteLegacyDeviceSecrets(username, userPoolId);
   }
 }

@@ -13,8 +13,9 @@ QueryPredicateGroup not(QueryPredicate predicate) {
 abstract class QueryPredicate<T extends Model> {
   const QueryPredicate();
 
-  static const _queryPredicateAll =
-      _QueryPredicateConstant(QueryPredicateConstantType.all);
+  static const _queryPredicateAll = _QueryPredicateConstant(
+    QueryPredicateConstantType.all,
+  );
 
   /// A static instance of [QueryPredicate] that matches any object.
   ///

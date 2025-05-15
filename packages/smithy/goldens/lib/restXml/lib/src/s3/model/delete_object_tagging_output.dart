@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.s3.model.delete_object_tagging_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class DeleteObjectTaggingOutput
     return _$DeleteObjectTaggingOutput._(versionId: versionId);
   }
 
-  factory DeleteObjectTaggingOutput.build(
-          [void Function(DeleteObjectTaggingOutputBuilder) updates]) =
-      _$DeleteObjectTaggingOutput;
+  factory DeleteObjectTaggingOutput.build([
+    void Function(DeleteObjectTaggingOutputBuilder) updates,
+  ]) = _$DeleteObjectTaggingOutput;
 
   const DeleteObjectTaggingOutput._();
 
@@ -31,15 +31,14 @@ abstract class DeleteObjectTaggingOutput
   factory DeleteObjectTaggingOutput.fromResponse(
     DeleteObjectTaggingOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      DeleteObjectTaggingOutput.build((b) {
-        if (response.headers['x-amz-version-id'] != null) {
-          b.versionId = response.headers['x-amz-version-id']!;
-        }
-      });
+  ) => DeleteObjectTaggingOutput.build((b) {
+    if (response.headers['x-amz-version-id'] != null) {
+      b.versionId = response.headers['x-amz-version-id']!;
+    }
+  });
 
   static const List<_i2.SmithySerializer<DeleteObjectTaggingOutputPayload>>
-      serializers = [DeleteObjectTaggingOutputRestXmlSerializer()];
+  serializers = [DeleteObjectTaggingOutputRestXmlSerializer()];
 
   String? get versionId;
   @override
@@ -52,25 +51,23 @@ abstract class DeleteObjectTaggingOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectTaggingOutput')
-      ..add(
-        'versionId',
-        versionId,
-      );
+      ..add('versionId', versionId);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class DeleteObjectTaggingOutputPayload
-    with
-        _i1.AWSEquatable<DeleteObjectTaggingOutputPayload>
+    with _i1.AWSEquatable<DeleteObjectTaggingOutputPayload>
     implements
-        Built<DeleteObjectTaggingOutputPayload,
-            DeleteObjectTaggingOutputPayloadBuilder>,
+        Built<
+          DeleteObjectTaggingOutputPayload,
+          DeleteObjectTaggingOutputPayloadBuilder
+        >,
         _i2.EmptyPayload {
-  factory DeleteObjectTaggingOutputPayload(
-          [void Function(DeleteObjectTaggingOutputPayloadBuilder) updates]) =
-      _$DeleteObjectTaggingOutputPayload;
+  factory DeleteObjectTaggingOutputPayload([
+    void Function(DeleteObjectTaggingOutputPayloadBuilder) updates,
+  ]) = _$DeleteObjectTaggingOutputPayload;
 
   const DeleteObjectTaggingOutputPayload._();
 
@@ -79,8 +76,9 @@ abstract class DeleteObjectTaggingOutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteObjectTaggingOutputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'DeleteObjectTaggingOutputPayload',
+    );
     return helper.toString();
   }
 }
@@ -88,23 +86,20 @@ abstract class DeleteObjectTaggingOutputPayload
 class DeleteObjectTaggingOutputRestXmlSerializer
     extends _i2.StructuredSmithySerializer<DeleteObjectTaggingOutputPayload> {
   const DeleteObjectTaggingOutputRestXmlSerializer()
-      : super('DeleteObjectTaggingOutput');
+    : super('DeleteObjectTaggingOutput');
 
   @override
   Iterable<Type> get types => const [
-        DeleteObjectTaggingOutput,
-        _$DeleteObjectTaggingOutput,
-        DeleteObjectTaggingOutputPayload,
-        _$DeleteObjectTaggingOutputPayload,
-      ];
+    DeleteObjectTaggingOutput,
+    _$DeleteObjectTaggingOutput,
+    DeleteObjectTaggingOutputPayload,
+    _$DeleteObjectTaggingOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   DeleteObjectTaggingOutputPayload deserialize(
@@ -125,7 +120,7 @@ class DeleteObjectTaggingOutputRestXmlSerializer
       const _i2.XmlElementName(
         'DeleteObjectTaggingOutput',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
     return result$;

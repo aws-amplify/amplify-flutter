@@ -24,35 +24,37 @@ abstract class VerifyUserFormField<FieldValue extends Object>
   static VerifyUserFormField<CognitoUserAttributeKey> verifyAttribute({
     Key? key,
     FormFieldValidator<CognitoUserAttributeKey>? validator,
-  }) =>
-      _VerifyUserRadioField(
-        key: keyVerifyUserRadioButtonFormField,
-        field: VerifyAttributeField.verify,
-        validator: validator,
-      );
+  }) => _VerifyUserRadioField(
+    key: keyVerifyUserRadioButtonFormField,
+    field: VerifyAttributeField.verify,
+    validator: validator,
+  );
 
   /// Creates a password component.
   static VerifyUserFormField<String> confirmVerifyAttribute({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
-  }) =>
-      _VerifyUserTextField(
-        key: keyVerifyUserConfirmationCode,
-        titleKey: InputResolverKey.verificationCodeTitle,
-        hintTextKey: InputResolverKey.verificationCodeHint,
-        field: VerifyAttributeField.confirmVerify,
-        validator: validator,
-        autofillHints: autofillHints,
-      );
+  }) => _VerifyUserTextField(
+    key: keyVerifyUserConfirmationCode,
+    titleKey: InputResolverKey.verificationCodeTitle,
+    hintTextKey: InputResolverKey.verificationCodeHint,
+    field: VerifyAttributeField.confirmVerify,
+    validator: validator,
+    autofillHints: autofillHints,
+  );
 
   @override
   bool get required => true;
 }
 
 abstract class _VerifyUserFormFieldState<FieldValue extends Object>
-    extends AuthenticatorFormFieldState<VerifyAttributeField, FieldValue,
-        VerifyUserFormField<FieldValue>> {
+    extends
+        AuthenticatorFormFieldState<
+          VerifyAttributeField,
+          FieldValue,
+          VerifyUserFormField<FieldValue>
+        > {
   @override
   int get errorMaxLines {
     return 1;
@@ -97,10 +99,7 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
 
   @override
   Iterable<String>? get autofillHints =>
-      widget.autofillHints ??
-      [
-        AutofillHints.oneTimeCode,
-      ];
+      widget.autofillHints ?? [AutofillHints.oneTimeCode];
 
   @override
   FormFieldValidator<String> get validator {
@@ -131,7 +130,7 @@ class _VerifyAttributeFieldState
     with AuthenticatorRadioField {
   @override
   late final List<InputSelection<InputResolverKey, CognitoUserAttributeKey>>
-      selections;
+  selections;
 
   @override
   late final CognitoUserAttributeKey initialValue;

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v2.query_protocol.model.xml_namespaces_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,9 +18,9 @@ abstract class XmlNamespacesOutput
     return _$XmlNamespacesOutput._(nested: nested);
   }
 
-  factory XmlNamespacesOutput.build(
-          [void Function(XmlNamespacesOutputBuilder) updates]) =
-      _$XmlNamespacesOutput;
+  factory XmlNamespacesOutput.build([
+    void Function(XmlNamespacesOutputBuilder) updates,
+  ]) = _$XmlNamespacesOutput;
 
   const XmlNamespacesOutput._();
 
@@ -28,11 +28,10 @@ abstract class XmlNamespacesOutput
   factory XmlNamespacesOutput.fromResponse(
     XmlNamespacesOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<XmlNamespacesOutput>> serializers = [
-    XmlNamespacesOutputAwsQuerySerializer()
+    XmlNamespacesOutputAwsQuerySerializer(),
   ];
 
   XmlNamespaceNested? get nested;
@@ -42,10 +41,7 @@ abstract class XmlNamespacesOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlNamespacesOutput')
-      ..add(
-        'nested',
-        nested,
-      );
+      ..add('nested', nested);
     return helper.toString();
   }
 }
@@ -56,17 +52,14 @@ class XmlNamespacesOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [
-        XmlNamespacesOutput,
-        _$XmlNamespacesOutput,
-      ];
+    XmlNamespacesOutput,
+    _$XmlNamespacesOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlNamespacesOutput deserialize(
@@ -93,10 +86,13 @@ class XmlNamespacesOutputAwsQuerySerializer
       }
       switch (key) {
         case 'nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(XmlNamespaceNested),
-          ) as XmlNamespaceNested));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(XmlNamespaceNested),
+                )
+                as XmlNamespaceNested),
+          );
       }
     }
 
@@ -113,16 +109,18 @@ class XmlNamespacesOutputAwsQuerySerializer
       const _i2.XmlElementName(
         'XmlNamespacesOutputResponse',
         _i2.XmlNamespace('http://foo.com'),
-      )
+      ),
     ];
     final XmlNamespacesOutput(:nested) = object;
     if (nested != null) {
       result$
         ..add(const _i2.XmlElementName('nested'))
-        ..add(serializers.serialize(
-          nested,
-          specifiedType: const FullType(XmlNamespaceNested),
-        ));
+        ..add(
+          serializers.serialize(
+            nested,
+            specifiedType: const FullType(XmlNamespaceNested),
+          ),
+        );
     }
     return result$;
   }

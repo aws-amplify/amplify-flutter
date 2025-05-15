@@ -7,33 +7,27 @@ part of 'cognito_sign_in_with_web_ui_plugin_options.dart';
 // **************************************************************************
 
 CognitoSignInWithWebUIPluginOptions
-    _$CognitoSignInWithWebUIPluginOptionsFromJson(Map<String, dynamic> json) =>
-        $checkedCreate(
-          'CognitoSignInWithWebUIPluginOptions',
-          json,
-          ($checkedConvert) {
-            final val = CognitoSignInWithWebUIPluginOptions(
-              isPreferPrivateSession: $checkedConvert(
-                  'isPreferPrivateSession', (v) => v as bool? ?? false),
-              browserPackageName:
-                  $checkedConvert('browserPackageName', (v) => v as String?),
-            );
-            return val;
-          },
-        );
+_$CognitoSignInWithWebUIPluginOptionsFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('CognitoSignInWithWebUIPluginOptions', json, (
+      $checkedConvert,
+    ) {
+      final val = CognitoSignInWithWebUIPluginOptions(
+        isPreferPrivateSession: $checkedConvert(
+          'isPreferPrivateSession',
+          (v) => v as bool? ?? false,
+        ),
+        browserPackageName: $checkedConvert(
+          'browserPackageName',
+          (v) => v as String?,
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$CognitoSignInWithWebUIPluginOptionsToJson(
-    CognitoSignInWithWebUIPluginOptions instance) {
-  final val = <String, dynamic>{
-    'isPreferPrivateSession': instance.isPreferPrivateSession,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('browserPackageName', instance.browserPackageName);
-  return val;
-}
+  CognitoSignInWithWebUIPluginOptions instance,
+) => <String, dynamic>{
+  'isPreferPrivateSession': instance.isPreferPrivateSession,
+  if (instance.browserPackageName case final value?)
+    'browserPackageName': value,
+};

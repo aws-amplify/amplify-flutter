@@ -45,15 +45,12 @@ class PubDatabase extends _$PubDatabase {
     required String changelog,
   }) async {
     await transaction(() async {
-      final existingPackage = await (select(packages)
-            ..where((p) => p.name.equals(name)))
-          .getSingleOrNull();
+      final existingPackage =
+          await (select(packages)
+            ..where((p) => p.name.equals(name))).getSingleOrNull();
       if (existingPackage == null) {
         await into(packages).insert(
-          PackagesCompanion.insert(
-            name: name,
-            latest: version.toString(),
-          ),
+          PackagesCompanion.insert(name: name, latest: version.toString()),
         );
       }
       await into(packageVersions).insert(
@@ -72,15 +69,15 @@ class PubDatabase extends _$PubDatabase {
 
   /// Returns the package with the given [packageName].
   Future<PubPackage?> getPackage(String packageName) async {
-    final package = await (select(packages)
-          ..where((p) => p.name.equals(packageName)))
-        .getSingleOrNull();
+    final package =
+        await (select(packages)
+          ..where((p) => p.name.equals(packageName))).getSingleOrNull();
     if (package == null) {
       return null;
     }
-    final versions = await (select(packageVersions)
-          ..where((row) => row.package.equals(packageName)))
-        .get();
+    final versions =
+        await (select(packageVersions)
+          ..where((row) => row.package.equals(packageName))).get();
     versions.sort((a, b) {
       return -Version.parse(a.version).compareTo(Version.parse(b.version));
     });

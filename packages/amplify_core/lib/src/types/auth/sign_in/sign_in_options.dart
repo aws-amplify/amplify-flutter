@@ -13,9 +13,7 @@ class SignInOptions
         AWSEquatable<SignInOptions>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.sign_in_options}
-  const SignInOptions({
-    this.pluginOptions,
-  });
+  const SignInOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.sign_in_plugin_options}
   final SignInPluginOptions? pluginOptions;
@@ -27,9 +25,7 @@ class SignInOptions
   String get runtimeTypeName => 'SignInOptions';
 
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

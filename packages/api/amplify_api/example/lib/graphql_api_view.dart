@@ -90,22 +90,23 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
                   subscription: _subscription,
                   subscriptionByID: _subscriptionByID,
                   unsubscribe: _unsubscribe,
-                  setUnsubscribe: (val) => setState(() {
-                    _unsubscribe = val;
-                    if (_unsubscribe == null) {
-                      _subscription = null;
-                      _subscriptionByID = null;
-                    }
-                  }),
+                  setUnsubscribe:
+                      (val) => setState(() {
+                        _unsubscribe = val;
+                        if (_unsubscribe == null) {
+                          _subscription = null;
+                          _subscriptionByID = null;
+                        }
+                      }),
                   setSubscription: (sub) => setState(() => _subscription = sub),
-                  setSubscriptionByID: (sub) =>
-                      setState(() => _subscriptionByID = sub),
+                  setSubscriptionByID:
+                      (sub) => setState(() => _subscriptionByID = sub),
                 ),
                 const SizedBox(height: 10),
                 GraphQLAuthMode(
                   authMode: _authorizationType,
-                  setAuthType: (val) =>
-                      setState(() => _authorizationType = val),
+                  setAuthType:
+                      (val) => setState(() => _authorizationType = val),
                   authTypes: const [
                     APIAuthorizationType.userPools,
                     APIAuthorizationType.iam,
@@ -129,23 +130,14 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
             ),
           ),
         ),
-        const Divider(
-          color: Colors.black,
-        ),
+        const Divider(color: Colors.black),
         const Text(
           'Results',
           textAlign: TextAlign.left,
-          style: TextStyle(
-            fontSize: 20,
-          ),
+          style: TextStyle(fontSize: 20),
         ),
         const SizedBox(height: 10),
-        Text(
-          '\n$_result\n',
-          style: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
+        Text('\n$_result\n', style: const TextStyle(fontSize: 16)),
       ],
     );
   }

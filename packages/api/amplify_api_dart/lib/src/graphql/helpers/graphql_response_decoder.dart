@@ -63,7 +63,8 @@ class GraphQLResponseDecoder {
       if (!dataJson!.containsKey(element)) {
         throw const ApiOperationException(
           'decodePath did not match the structure of the JSON response',
-          recoverySuggestion: 'Include decodePath when creating a request '
+          recoverySuggestion:
+              'Include decodePath when creating a request '
               'that includes a modelType.',
         );
       }
@@ -97,13 +98,16 @@ class GraphQLResponseDecoder {
           apiName: request.apiName,
         );
       }
-      decodedData = modelType.fromJson(
-        dataJson!,
-        limit: limit,
-        filter: filter,
-        requestForNextResult:
-            requestForNextResult as GraphQLRequest<PaginatedResult<Model>>?,
-      ) as T;
+      decodedData =
+          modelType.fromJson(
+                dataJson!,
+                limit: limit,
+                filter: filter,
+                requestForNextResult:
+                    requestForNextResult
+                        as GraphQLRequest<PaginatedResult<Model>>?,
+              )
+              as T;
     } else {
       decodedData = modelType.fromJson(dataJson!) as T;
     }

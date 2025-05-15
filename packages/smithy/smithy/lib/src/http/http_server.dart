@@ -44,18 +44,17 @@ abstract class HttpServerBase implements FullSerializer<Stream<List<int>>> {
   Future<Object?> deserialize(
     Stream<List<int>> output, {
     FullType? specifiedType,
-  }) async =>
-      protocol.wireSerializer.deserialize(
-        await collectBytes(output),
-        specifiedType: specifiedType,
-      );
+  }) async => protocol.wireSerializer.deserialize(
+    await collectBytes(output),
+    specifiedType: specifiedType,
+  );
 
   Future<Response> handleUncaughtError(Object error, StackTrace st);
 }
 
 class Context {
   Context(this.request, [HttpResponseBuilder? response])
-      : response = response ?? HttpResponseBuilder();
+    : response = response ?? HttpResponseBuilder();
 
   final AWSStreamedHttpRequest request;
   final HttpResponseBuilder response;
@@ -63,13 +62,13 @@ class Context {
 
 extension ShelfAwsRequest on Request {
   AWSStreamedHttpRequest get awsRequest => AWSStreamedHttpRequest.raw(
-        method: AWSHttpMethod.fromString(method),
-        host: requestedUri.host,
-        path: requestedUri.path,
-        headers: headers,
-        queryParameters: requestedUri.queryParametersAll,
-        body: read(),
-      );
+    method: AWSHttpMethod.fromString(method),
+    host: requestedUri.host,
+    path: requestedUri.path,
+    headers: headers,
+    queryParameters: requestedUri.queryParametersAll,
+    body: read(),
+  );
 }
 
 class RpcRouter {

@@ -20,7 +20,7 @@ class _$ComplexError extends ComplexError {
       (new ComplexErrorBuilder()..update(updates))._build();
 
   _$ComplexError._({this.topLevel, this.nested, this.statusCode, this.headers})
-      : super._();
+    : super._();
 
   @override
   ComplexError rebuild(void Function(ComplexErrorBuilder) updates) =>
@@ -99,12 +99,14 @@ class ComplexErrorBuilder
   _$ComplexError _build() {
     _$ComplexError _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ComplexError._(
-              topLevel: topLevel,
-              nested: _nested?.build(),
-              statusCode: statusCode,
-              headers: headers);
+            topLevel: topLevel,
+            nested: _nested?.build(),
+            statusCode: statusCode,
+            headers: headers,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -112,7 +114,10 @@ class ComplexErrorBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ComplexError', _$failedField, e.toString());
+          r'ComplexError',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -20,23 +20,23 @@ class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
   @override
   final _i3.BuiltMap<String, int>? intEnumMap;
 
-  factory _$JsonIntEnumsInputOutput(
-          [void Function(JsonIntEnumsInputOutputBuilder)? updates]) =>
-      (new JsonIntEnumsInputOutputBuilder()..update(updates))._build();
+  factory _$JsonIntEnumsInputOutput([
+    void Function(JsonIntEnumsInputOutputBuilder)? updates,
+  ]) => (new JsonIntEnumsInputOutputBuilder()..update(updates))._build();
 
-  _$JsonIntEnumsInputOutput._(
-      {this.intEnum1,
-      this.intEnum2,
-      this.intEnum3,
-      this.intEnumList,
-      this.intEnumSet,
-      this.intEnumMap})
-      : super._();
+  _$JsonIntEnumsInputOutput._({
+    this.intEnum1,
+    this.intEnum2,
+    this.intEnum3,
+    this.intEnumList,
+    this.intEnumSet,
+    this.intEnumMap,
+  }) : super._();
 
   @override
   JsonIntEnumsInputOutput rebuild(
-          void Function(JsonIntEnumsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(JsonIntEnumsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   JsonIntEnumsInputOutputBuilder toBuilder() =>
@@ -136,14 +136,16 @@ class JsonIntEnumsInputOutputBuilder
   _$JsonIntEnumsInputOutput _build() {
     _$JsonIntEnumsInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$JsonIntEnumsInputOutput._(
-              intEnum1: intEnum1,
-              intEnum2: intEnum2,
-              intEnum3: intEnum3,
-              intEnumList: _intEnumList?.build(),
-              intEnumSet: _intEnumSet?.build(),
-              intEnumMap: _intEnumMap?.build());
+            intEnum1: intEnum1,
+            intEnum2: intEnum2,
+            intEnum3: intEnum3,
+            intEnumList: _intEnumList?.build(),
+            intEnumSet: _intEnumSet?.build(),
+            intEnumMap: _intEnumMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -155,7 +157,10 @@ class JsonIntEnumsInputOutputBuilder
         _intEnumMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'JsonIntEnumsInputOutput', _$failedField, e.toString());
+          r'JsonIntEnumsInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -34,7 +34,8 @@ class MultiAuthTodo extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -54,15 +55,20 @@ class MultiAuthTodo extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const MultiAuthTodo._internal(
-      {required this.id, content, createdAt, updatedAt})
-      : _content = content,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const MultiAuthTodo._internal({
+    required this.id,
+    content,
+    createdAt,
+    updatedAt,
+  }) : _content = content,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
   factory MultiAuthTodo({String? id, String? content}) {
     return MultiAuthTodo._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id, content: content);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      content: content,
+    );
   }
 
   bool equals(Object other) {
@@ -87,11 +93,12 @@ class MultiAuthTodo extends amplify_core.Model {
     buffer.write("MultiAuthTodo {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("content=" + "$_content" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -103,53 +110,59 @@ class MultiAuthTodo extends amplify_core.Model {
 
   MultiAuthTodo copyWithModelFieldValues({ModelFieldValue<String?>? content}) {
     return MultiAuthTodo._internal(
-        id: id, content: content == null ? this.content : content.value);
+      id: id,
+      content: content == null ? this.content : content.value,
+    );
   }
 
   MultiAuthTodo.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _content = json['content'],
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _content = json['content'],
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'content': _content,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'content': _content,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'content': _content,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'content': _content,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
   static final amplify_core.QueryModelIdentifier<MultiAuthTodoModelIdentifier>
-      MODEL_IDENTIFIER =
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<MultiAuthTodoModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final CONTENT = amplify_core.QueryField(fieldName: "content");
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "MultiAuthTodo";
-    modelSchemaDefinition.pluralName = "MultiAuthTodos";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "MultiAuthTodo";
+      modelSchemaDefinition.pluralName = "MultiAuthTodos";
 
-    modelSchemaDefinition.authRules = [
-      amplify_core.AuthRule(
+      modelSchemaDefinition.authRules = [
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PUBLIC,
           provider: amplify_core.AuthRuleProvider.APIKEY,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
           provider: amplify_core.AuthRuleProvider.IAM,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
+          operations: const [amplify_core.ModelOperation.READ],
+        ),
+        amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
@@ -158,34 +171,46 @@ class MultiAuthTodo extends amplify_core.Model {
             amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.READ,
             amplify_core.ModelOperation.UPDATE,
-            amplify_core.ModelOperation.DELETE
-          ])
-    ];
+            amplify_core.ModelOperation.DELETE,
+          ],
+        ),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: MultiAuthTodo.CONTENT,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: MultiAuthTodo.CONTENT,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _MultiAuthTodoModelType extends amplify_core.ModelType<MultiAuthTodo> {
@@ -217,10 +242,10 @@ class MultiAuthTodoModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

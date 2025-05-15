@@ -4,7 +4,7 @@ version: 0.1.1
 publish_to: none
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.7.0
 
 dependencies:
   args: ^2.3.0
@@ -14,7 +14,7 @@ dependencies:
   built_value: ^8.6.0
   checked_yaml: ^2.0.0
   cli_util: ^0.3.5
-  code_builder: 4.10.0
+  code_builder: ^4.10.1
   collection: ^1.16.0
   file: ">=6.0.0 <8.0.0"
   git: any # override
@@ -25,7 +25,7 @@ dependencies:
   markdown: ^5.0.0
   mason: ^0.1.0-dev.40
   mason_logger: ^0.2.5
-  meta: ^1.7.0
+  meta: ^1.16.0
   mustache_template: ^2.0.0
   path: any
   pub_api_client: ^2.4.0
@@ -64,11 +64,11 @@ dependency_overrides:
     path: ../smithy/smithy_codegen
 
 dev_dependencies:
-  amplify_lints: ">=2.0.2 <2.1.0"
+  amplify_lints: ^3.1.0
   build_runner: ^2.4.9
-  built_value_generator: 8.9.3
+  built_value_generator: ^8.9.5
   checks: ^0.3.0
-  json_serializable: 6.8.0
+  json_serializable: ^6.9.4
   test: ^1.22.1
   test_descriptor: ^2.0.1
 

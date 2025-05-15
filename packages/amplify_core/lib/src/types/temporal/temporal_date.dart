@@ -16,11 +16,7 @@ class TemporalDate implements Comparable<TemporalDate> {
   factory TemporalDate(DateTime dateTime) {
     dateTime = dateTime.toUtc();
     return TemporalDate._(
-      DateTime.utc(
-        dateTime.year,
-        dateTime.month,
-        dateTime.day,
-      ),
+      DateTime.utc(dateTime.year, dateTime.month, dateTime.day),
     );
   }
 
@@ -33,11 +29,7 @@ class TemporalDate implements Comparable<TemporalDate> {
 
     dateTime = dateTime.toUtc();
     return TemporalDate._(
-      DateTime.utc(
-        dateTime.year,
-        dateTime.month,
-        dateTime.day,
-      ),
+      DateTime.utc(dateTime.year, dateTime.month, dateTime.day),
       offset,
     );
   }
@@ -109,9 +101,10 @@ class TemporalDate implements Comparable<TemporalDate> {
 
   /// Return ISO8601 String of format YYYY-MM-DD+hh:mm:ss
   String format() {
-    final buffer = StringBuffer()
-      // Extract date portion of DateTime.ISO8601String
-      ..write(_dateTime.toIso8601String().substring(0, 10));
+    final buffer =
+        StringBuffer()
+          // Extract date portion of DateTime.ISO8601String
+          ..write(_dateTime.toIso8601String().substring(0, 10));
 
     // Duration.toString returns string of form -9:30:00.000000 / 9:30:00.000000
     // But we need -09:30 / +09:30

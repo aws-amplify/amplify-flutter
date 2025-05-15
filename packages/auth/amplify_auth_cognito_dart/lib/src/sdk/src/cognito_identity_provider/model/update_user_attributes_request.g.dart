@@ -14,25 +14,31 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$UpdateUserAttributesRequest(
-          [void Function(UpdateUserAttributesRequestBuilder)? updates]) =>
-      (new UpdateUserAttributesRequestBuilder()..update(updates))._build();
+  factory _$UpdateUserAttributesRequest([
+    void Function(UpdateUserAttributesRequestBuilder)? updates,
+  ]) => (new UpdateUserAttributesRequestBuilder()..update(updates))._build();
 
-  _$UpdateUserAttributesRequest._(
-      {required this.userAttributes,
-      required this.accessToken,
-      this.clientMetadata})
-      : super._() {
+  _$UpdateUserAttributesRequest._({
+    required this.userAttributes,
+    required this.accessToken,
+    this.clientMetadata,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        userAttributes, r'UpdateUserAttributesRequest', 'userAttributes');
+      userAttributes,
+      r'UpdateUserAttributesRequest',
+      'userAttributes',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        accessToken, r'UpdateUserAttributesRequest', 'accessToken');
+      accessToken,
+      r'UpdateUserAttributesRequest',
+      'accessToken',
+    );
   }
 
   @override
   UpdateUserAttributesRequest rebuild(
-          void Function(UpdateUserAttributesRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateUserAttributesRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateUserAttributesRequestBuilder toBuilder() =>
@@ -60,8 +66,10 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
 
 class UpdateUserAttributesRequestBuilder
     implements
-        Builder<UpdateUserAttributesRequest,
-            UpdateUserAttributesRequestBuilder> {
+        Builder<
+          UpdateUserAttributesRequest,
+          UpdateUserAttributesRequestBuilder
+        > {
   _$UpdateUserAttributesRequest? _$v;
 
   _i3.ListBuilder<AttributeType>? _userAttributes;
@@ -110,11 +118,15 @@ class UpdateUserAttributesRequestBuilder
   _$UpdateUserAttributesRequest _build() {
     _$UpdateUserAttributesRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$UpdateUserAttributesRequest._(
             userAttributes: userAttributes.build(),
             accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'UpdateUserAttributesRequest', 'accessToken'),
+              accessToken,
+              r'UpdateUserAttributesRequest',
+              'accessToken',
+            ),
             clientMetadata: _clientMetadata?.build(),
           );
     } catch (_) {
@@ -127,7 +139,10 @@ class UpdateUserAttributesRequestBuilder
         _clientMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'UpdateUserAttributesRequest', _$failedField, e.toString());
+          r'UpdateUserAttributesRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

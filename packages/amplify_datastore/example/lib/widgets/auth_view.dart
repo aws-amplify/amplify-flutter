@@ -19,8 +19,9 @@ class _AuthViewState extends State<AuthView> {
   List<String> _streamingData = <String>[];
   late Stream<SubscriptionEvent<PrivateTodo>> _privateTodoStream;
   late Stream<SubscriptionEvent<MultiAuthTodo>> _multiAuthTodoStream;
-  ScrollController _privateTodosScrollController =
-      ScrollController(initialScrollOffset: 50.0);
+  ScrollController _privateTodosScrollController = ScrollController(
+    initialScrollOffset: 50.0,
+  );
 
   @override
   void initState() {
@@ -36,43 +37,54 @@ class _AuthViewState extends State<AuthView> {
   }
 
   Future<void> initPageState() async {
-    Amplify.DataStore.observeQuery(
-      PrivateTodo.classType,
-    ).listen((QuerySnapshot<PrivateTodo> snapshot) {
+    Amplify.DataStore.observeQuery(PrivateTodo.classType).listen((
+      QuerySnapshot<PrivateTodo> snapshot,
+    ) {
       setState(() {
         _privateTodos = snapshot.items;
       });
     });
-    Amplify.DataStore.observeQuery(
-      MultiAuthTodo.classType,
-    ).listen((QuerySnapshot<MultiAuthTodo> snapshot) {
+    Amplify.DataStore.observeQuery(MultiAuthTodo.classType).listen((
+      QuerySnapshot<MultiAuthTodo> snapshot,
+    ) {
       setState(() {
         _multiAuthTodos = snapshot.items;
       });
     });
 
     _privateTodoStream = Amplify.DataStore.observe(PrivateTodo.classType);
-    _privateTodoStream.listen((event) {
-      print("PrivateTodo: ${event.item.content}, of type: ${event.eventType}");
-      _streamingData.add('PrivateTodo: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.content ?? "") +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
+    _privateTodoStream
+        .listen((event) {
+          print(
+            "PrivateTodo: ${event.item.content}, of type: ${event.eventType}",
+          );
+          _streamingData.add(
+            'PrivateTodo: ' +
+                (event.eventType.toString() == EventType.delete.toString()
+                    ? event.item.id
+                    : event.item.content ?? "") +
+                ', of type: ' +
+                event.eventType.toString(),
+          );
+        })
+        .onError((error) => print(error));
 
     _multiAuthTodoStream = Amplify.DataStore.observe(MultiAuthTodo.classType);
-    _multiAuthTodoStream.listen((event) {
-      print(
-          "MultiAuthTodo: ${event.item.content}, of type: ${event.eventType}");
-      _streamingData.add('MultiAuthTodo: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.content ?? "") +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
+    _multiAuthTodoStream
+        .listen((event) {
+          print(
+            "MultiAuthTodo: ${event.item.content}, of type: ${event.eventType}",
+          );
+          _streamingData.add(
+            'MultiAuthTodo: ' +
+                (event.eventType.toString() == EventType.delete.toString()
+                    ? event.item.id
+                    : event.item.content ?? "") +
+                ', of type: ' +
+                event.eventType.toString(),
+          );
+        })
+        .onError((error) => print(error));
   }
 
   Future<void> _restartDataStore() async {
@@ -125,16 +137,24 @@ class _AuthViewState extends State<AuthView> {
             child: Text('Create Multi Todo'),
           ),
 
-          getWidgetToDisplayPrivateTodo(
-              [..._privateTodos, ..._multiAuthTodos], deletePrivateTodo),
-          Text("Events",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 14)),
+          getWidgetToDisplayPrivateTodo([
+            ..._privateTodos,
+            ..._multiAuthTodos,
+          ], deletePrivateTodo),
+          Text(
+            "Events",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontSize: 14,
+            ),
+          ),
           Padding(padding: EdgeInsets.all(5.0)),
           getWidgetToDisplayAuthTodoEvents(
-              _privateTodosScrollController, _streamingData, executeAfterBuild)
+            _privateTodosScrollController,
+            _streamingData,
+            executeAfterBuild,
+          ),
         ],
       ),
     );
@@ -153,9 +173,10 @@ class _AuthViewState extends State<AuthView> {
     Future.delayed(const Duration(milliseconds: 500), () {
       if (_privateTodosScrollController.hasClients)
         _privateTodosScrollController.animateTo(
-            _privateTodosScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
+          _privateTodosScrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        );
     });
   }
 }

@@ -11,16 +11,17 @@ class _$MalformedLengthQueryStringInput
   @override
   final String? string;
 
-  factory _$MalformedLengthQueryStringInput(
-          [void Function(MalformedLengthQueryStringInputBuilder)? updates]) =>
+  factory _$MalformedLengthQueryStringInput([
+    void Function(MalformedLengthQueryStringInputBuilder)? updates,
+  ]) =>
       (new MalformedLengthQueryStringInputBuilder()..update(updates))._build();
 
   _$MalformedLengthQueryStringInput._({this.string}) : super._();
 
   @override
   MalformedLengthQueryStringInput rebuild(
-          void Function(MalformedLengthQueryStringInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLengthQueryStringInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLengthQueryStringInputBuilder toBuilder() =>
@@ -43,8 +44,10 @@ class _$MalformedLengthQueryStringInput
 
 class MalformedLengthQueryStringInputBuilder
     implements
-        Builder<MalformedLengthQueryStringInput,
-            MalformedLengthQueryStringInputBuilder> {
+        Builder<
+          MalformedLengthQueryStringInput,
+          MalformedLengthQueryStringInputBuilder
+        > {
   _$MalformedLengthQueryStringInput? _$v;
 
   String? _string;
@@ -86,9 +89,9 @@ class MalformedLengthQueryStringInputBuilder
 
 class _$MalformedLengthQueryStringInputPayload
     extends MalformedLengthQueryStringInputPayload {
-  factory _$MalformedLengthQueryStringInputPayload(
-          [void Function(MalformedLengthQueryStringInputPayloadBuilder)?
-              updates]) =>
+  factory _$MalformedLengthQueryStringInputPayload([
+    void Function(MalformedLengthQueryStringInputPayloadBuilder)? updates,
+  ]) =>
       (new MalformedLengthQueryStringInputPayloadBuilder()..update(updates))
           ._build();
 
@@ -96,9 +99,8 @@ class _$MalformedLengthQueryStringInputPayload
 
   @override
   MalformedLengthQueryStringInputPayload rebuild(
-          void Function(MalformedLengthQueryStringInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedLengthQueryStringInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedLengthQueryStringInputPayloadBuilder toBuilder() =>
@@ -118,8 +120,10 @@ class _$MalformedLengthQueryStringInputPayload
 
 class MalformedLengthQueryStringInputPayloadBuilder
     implements
-        Builder<MalformedLengthQueryStringInputPayload,
-            MalformedLengthQueryStringInputPayloadBuilder> {
+        Builder<
+          MalformedLengthQueryStringInputPayload,
+          MalformedLengthQueryStringInputPayloadBuilder
+        > {
   _$MalformedLengthQueryStringInputPayload? _$v;
 
   MalformedLengthQueryStringInputPayloadBuilder();
@@ -132,7 +136,8 @@ class MalformedLengthQueryStringInputPayloadBuilder
 
   @override
   void update(
-      void Function(MalformedLengthQueryStringInputPayloadBuilder)? updates) {
+    void Function(MalformedLengthQueryStringInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

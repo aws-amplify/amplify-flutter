@@ -14,9 +14,7 @@ class CognitoSignOutPluginOptions extends SignOutPluginOptions {
   const CognitoSignOutPluginOptions();
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_out_plugin_options}
-  factory CognitoSignOutPluginOptions.fromJson(
-    Map<String, Object?> json,
-  ) =>
+  factory CognitoSignOutPluginOptions.fromJson(Map<String, Object?> json) =>
       _$CognitoSignOutPluginOptionsFromJson(json);
 
   @override

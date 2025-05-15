@@ -11,9 +11,7 @@ import 'package:example_common/src/components/component.dart';
 /// {@endtemplate}
 class TableComponent extends Component {
   /// {@macro example_common.column_component}
-  TableComponent({
-    required this.tableDefinition,
-  });
+  TableComponent({required this.tableDefinition});
 
   /// Header and Rows for to-be table
   final TableDefinition tableDefinition;
@@ -43,10 +41,7 @@ class TableComponent extends Component {
 /// The input type for the [TableComponent] constructor
 class TableDefinition {
   /// {@macro example_common.form_component}
-  TableDefinition({
-    required this.headers,
-    required this.rows,
-  });
+  TableDefinition({required this.headers, required this.rows});
 
   /// The header row for the [TableComponent]
   List<String> headers;

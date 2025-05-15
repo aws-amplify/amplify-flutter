@@ -38,7 +38,8 @@ class BelongsToParent extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -74,37 +75,39 @@ class BelongsToParent extends amplify_core.Model {
     return _belongsToParentExplicitChildId;
   }
 
-  const BelongsToParent._internal(
-      {required this.id,
-      name,
-      implicitChild,
-      explicitChild,
-      createdAt,
-      updatedAt,
-      belongsToParentImplicitChildId,
-      belongsToParentExplicitChildId})
-      : _name = name,
-        _implicitChild = implicitChild,
-        _explicitChild = explicitChild,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt,
-        _belongsToParentImplicitChildId = belongsToParentImplicitChildId,
-        _belongsToParentExplicitChildId = belongsToParentExplicitChildId;
+  const BelongsToParent._internal({
+    required this.id,
+    name,
+    implicitChild,
+    explicitChild,
+    createdAt,
+    updatedAt,
+    belongsToParentImplicitChildId,
+    belongsToParentExplicitChildId,
+  }) : _name = name,
+       _implicitChild = implicitChild,
+       _explicitChild = explicitChild,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt,
+       _belongsToParentImplicitChildId = belongsToParentImplicitChildId,
+       _belongsToParentExplicitChildId = belongsToParentExplicitChildId;
 
-  factory BelongsToParent(
-      {String? id,
-      String? name,
-      BelongsToChildImplicit? implicitChild,
-      BelongsToChildExplicit? explicitChild,
-      String? belongsToParentImplicitChildId,
-      String? belongsToParentExplicitChildId}) {
+  factory BelongsToParent({
+    String? id,
+    String? name,
+    BelongsToChildImplicit? implicitChild,
+    BelongsToChildExplicit? explicitChild,
+    String? belongsToParentImplicitChildId,
+    String? belongsToParentExplicitChildId,
+  }) {
     return BelongsToParent._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        implicitChild: implicitChild,
-        explicitChild: explicitChild,
-        belongsToParentImplicitChildId: belongsToParentImplicitChildId,
-        belongsToParentExplicitChildId: belongsToParentExplicitChildId);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      implicitChild: implicitChild,
+      explicitChild: explicitChild,
+      belongsToParentImplicitChildId: belongsToParentImplicitChildId,
+      belongsToParentExplicitChildId: belongsToParentExplicitChildId,
+    );
   }
 
   bool equals(Object other) {
@@ -135,182 +138,232 @@ class BelongsToParent extends amplify_core.Model {
     buffer.write("BelongsToParent {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
-    buffer.write("updatedAt=" +
-        (_updatedAt != null ? _updatedAt.format() : "null") +
-        ", ");
-    buffer.write("belongsToParentImplicitChildId=" +
-        "$_belongsToParentImplicitChildId" +
-        ", ");
     buffer.write(
-        "belongsToParentExplicitChildId=" + "$_belongsToParentExplicitChildId");
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "belongsToParentImplicitChildId=" +
+          "$_belongsToParentImplicitChildId" +
+          ", ",
+    );
+    buffer.write(
+      "belongsToParentExplicitChildId=" + "$_belongsToParentExplicitChildId",
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  BelongsToParent copyWith(
-      {String? name,
-      BelongsToChildImplicit? implicitChild,
-      BelongsToChildExplicit? explicitChild,
-      String? belongsToParentImplicitChildId,
-      String? belongsToParentExplicitChildId}) {
+  BelongsToParent copyWith({
+    String? name,
+    BelongsToChildImplicit? implicitChild,
+    BelongsToChildExplicit? explicitChild,
+    String? belongsToParentImplicitChildId,
+    String? belongsToParentExplicitChildId,
+  }) {
     return BelongsToParent._internal(
-        id: id,
-        name: name ?? this.name,
-        implicitChild: implicitChild ?? this.implicitChild,
-        explicitChild: explicitChild ?? this.explicitChild,
-        belongsToParentImplicitChildId: belongsToParentImplicitChildId ??
-            this.belongsToParentImplicitChildId,
-        belongsToParentExplicitChildId: belongsToParentExplicitChildId ??
-            this.belongsToParentExplicitChildId);
+      id: id,
+      name: name ?? this.name,
+      implicitChild: implicitChild ?? this.implicitChild,
+      explicitChild: explicitChild ?? this.explicitChild,
+      belongsToParentImplicitChildId:
+          belongsToParentImplicitChildId ?? this.belongsToParentImplicitChildId,
+      belongsToParentExplicitChildId:
+          belongsToParentExplicitChildId ?? this.belongsToParentExplicitChildId,
+    );
   }
 
-  BelongsToParent copyWithModelFieldValues(
-      {ModelFieldValue<String?>? name,
-      ModelFieldValue<BelongsToChildImplicit?>? implicitChild,
-      ModelFieldValue<BelongsToChildExplicit?>? explicitChild,
-      ModelFieldValue<String?>? belongsToParentImplicitChildId,
-      ModelFieldValue<String?>? belongsToParentExplicitChildId}) {
+  BelongsToParent copyWithModelFieldValues({
+    ModelFieldValue<String?>? name,
+    ModelFieldValue<BelongsToChildImplicit?>? implicitChild,
+    ModelFieldValue<BelongsToChildExplicit?>? explicitChild,
+    ModelFieldValue<String?>? belongsToParentImplicitChildId,
+    ModelFieldValue<String?>? belongsToParentExplicitChildId,
+  }) {
     return BelongsToParent._internal(
-        id: id,
-        name: name == null ? this.name : name.value,
-        implicitChild:
-            implicitChild == null ? this.implicitChild : implicitChild.value,
-        explicitChild:
-            explicitChild == null ? this.explicitChild : explicitChild.value,
-        belongsToParentImplicitChildId: belongsToParentImplicitChildId == null
-            ? this.belongsToParentImplicitChildId
-            : belongsToParentImplicitChildId.value,
-        belongsToParentExplicitChildId: belongsToParentExplicitChildId == null
-            ? this.belongsToParentExplicitChildId
-            : belongsToParentExplicitChildId.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+      implicitChild:
+          implicitChild == null ? this.implicitChild : implicitChild.value,
+      explicitChild:
+          explicitChild == null ? this.explicitChild : explicitChild.value,
+      belongsToParentImplicitChildId:
+          belongsToParentImplicitChildId == null
+              ? this.belongsToParentImplicitChildId
+              : belongsToParentImplicitChildId.value,
+      belongsToParentExplicitChildId:
+          belongsToParentExplicitChildId == null
+              ? this.belongsToParentExplicitChildId
+              : belongsToParentExplicitChildId.value,
+    );
   }
 
   BelongsToParent.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _implicitChild = json['implicitChild'] != null
-            ? json['implicitChild']['serializedData'] != null
-                ? BelongsToChildImplicit.fromJson(new Map<String, dynamic>.from(
-                    json['implicitChild']['serializedData']))
-                : BelongsToChildImplicit.fromJson(
-                    new Map<String, dynamic>.from(json['implicitChild']))
-            : null,
-        _explicitChild = json['explicitChild'] != null
-            ? json['explicitChild']['serializedData'] != null
-                ? BelongsToChildExplicit.fromJson(new Map<String, dynamic>.from(
-                    json['explicitChild']['serializedData']))
-                : BelongsToChildExplicit.fromJson(
-                    new Map<String, dynamic>.from(json['explicitChild']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null,
-        _belongsToParentImplicitChildId =
-            json['belongsToParentImplicitChildId'],
-        _belongsToParentExplicitChildId =
-            json['belongsToParentExplicitChildId'];
+    : id = json['id'],
+      _name = json['name'],
+      _implicitChild =
+          json['implicitChild'] != null
+              ? json['implicitChild']['serializedData'] != null
+                  ? BelongsToChildImplicit.fromJson(
+                    new Map<String, dynamic>.from(
+                      json['implicitChild']['serializedData'],
+                    ),
+                  )
+                  : BelongsToChildImplicit.fromJson(
+                    new Map<String, dynamic>.from(json['implicitChild']),
+                  )
+              : null,
+      _explicitChild =
+          json['explicitChild'] != null
+              ? json['explicitChild']['serializedData'] != null
+                  ? BelongsToChildExplicit.fromJson(
+                    new Map<String, dynamic>.from(
+                      json['explicitChild']['serializedData'],
+                    ),
+                  )
+                  : BelongsToChildExplicit.fromJson(
+                    new Map<String, dynamic>.from(json['explicitChild']),
+                  )
+              : null,
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null,
+      _belongsToParentImplicitChildId = json['belongsToParentImplicitChildId'],
+      _belongsToParentExplicitChildId = json['belongsToParentExplicitChildId'];
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'implicitChild': _implicitChild?.toJson(),
-        'explicitChild': _explicitChild?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format(),
-        'belongsToParentImplicitChildId': _belongsToParentImplicitChildId,
-        'belongsToParentExplicitChildId': _belongsToParentExplicitChildId
-      };
+    'id': id,
+    'name': _name,
+    'implicitChild': _implicitChild?.toJson(),
+    'explicitChild': _explicitChild?.toJson(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+    'belongsToParentImplicitChildId': _belongsToParentImplicitChildId,
+    'belongsToParentExplicitChildId': _belongsToParentExplicitChildId,
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'implicitChild': _implicitChild,
-        'explicitChild': _explicitChild,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt,
-        'belongsToParentImplicitChildId': _belongsToParentImplicitChildId,
-        'belongsToParentExplicitChildId': _belongsToParentExplicitChildId
-      };
+    'id': id,
+    'name': _name,
+    'implicitChild': _implicitChild,
+    'explicitChild': _explicitChild,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+    'belongsToParentImplicitChildId': _belongsToParentImplicitChildId,
+    'belongsToParentExplicitChildId': _belongsToParentExplicitChildId,
+  };
 
   static final amplify_core.QueryModelIdentifier<BelongsToParentModelIdentifier>
-      MODEL_IDENTIFIER =
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<BelongsToParentModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final IMPLICITCHILD = amplify_core.QueryField(
-      fieldName: "implicitChild",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'BelongsToChildImplicit'));
+    fieldName: "implicitChild",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'BelongsToChildImplicit',
+    ),
+  );
   static final EXPLICITCHILD = amplify_core.QueryField(
-      fieldName: "explicitChild",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'BelongsToChildExplicit'));
-  static final BELONGSTOPARENTIMPLICITCHILDID =
-      amplify_core.QueryField(fieldName: "belongsToParentImplicitChildId");
-  static final BELONGSTOPARENTEXPLICITCHILDID =
-      amplify_core.QueryField(fieldName: "belongsToParentExplicitChildId");
+    fieldName: "explicitChild",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'BelongsToChildExplicit',
+    ),
+  );
+  static final BELONGSTOPARENTIMPLICITCHILDID = amplify_core.QueryField(
+    fieldName: "belongsToParentImplicitChildId",
+  );
+  static final BELONGSTOPARENTEXPLICITCHILDID = amplify_core.QueryField(
+    fieldName: "belongsToParentExplicitChildId",
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "BelongsToParent";
-    modelSchemaDefinition.pluralName = "BelongsToParents";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "BelongsToParent";
+      modelSchemaDefinition.pluralName = "BelongsToParents";
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: BelongsToParent.NAME,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: BelongsToParent.NAME,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasOne(
-        key: BelongsToParent.IMPLICITCHILD,
-        isRequired: false,
-        ofModelName: 'BelongsToChildImplicit',
-        associatedKey: BelongsToChildImplicit.BELONGSTOPARENT));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasOne(
+          key: BelongsToParent.IMPLICITCHILD,
+          isRequired: false,
+          ofModelName: 'BelongsToChildImplicit',
+          associatedKey: BelongsToChildImplicit.BELONGSTOPARENT,
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasOne(
-        key: BelongsToParent.EXPLICITCHILD,
-        isRequired: false,
-        ofModelName: 'BelongsToChildExplicit',
-        associatedKey: BelongsToChildExplicit.BELONGSTOPARENT));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasOne(
+          key: BelongsToParent.EXPLICITCHILD,
+          isRequired: false,
+          ofModelName: 'BelongsToChildExplicit',
+          associatedKey: BelongsToChildExplicit.BELONGSTOPARENT,
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: BelongsToParent.BELONGSTOPARENTIMPLICITCHILDID,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: BelongsToParent.BELONGSTOPARENTIMPLICITCHILDID,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: BelongsToParent.BELONGSTOPARENTEXPLICITCHILDID,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-  });
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: BelongsToParent.BELONGSTOPARENTEXPLICITCHILDID,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _BelongsToParentModelType
@@ -343,10 +396,10 @@ class BelongsToParentModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

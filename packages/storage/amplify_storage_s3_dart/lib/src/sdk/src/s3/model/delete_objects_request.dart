@@ -40,9 +40,9 @@ abstract class DeleteObjectsRequest
     );
   }
 
-  factory DeleteObjectsRequest.build(
-          [void Function(DeleteObjectsRequestBuilder) updates]) =
-      _$DeleteObjectsRequest;
+  factory DeleteObjectsRequest.build([
+    void Function(DeleteObjectsRequestBuilder) updates,
+  ]) = _$DeleteObjectsRequest;
 
   const DeleteObjectsRequest._();
 
@@ -50,35 +50,35 @@ abstract class DeleteObjectsRequest
     Delete payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      DeleteObjectsRequest.build((b) {
-        b.delete.replace(payload);
-        if (request.headers['x-amz-mfa'] != null) {
-          b.mfa = request.headers['x-amz-mfa']!;
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-bypass-governance-retention'] != null) {
-          b.bypassGovernanceRetention =
-              request.headers['x-amz-bypass-governance-retention']! == 'true';
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = ChecksumAlgorithm.values
-              .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-      });
+  }) => DeleteObjectsRequest.build((b) {
+    b.delete.replace(payload);
+    if (request.headers['x-amz-mfa'] != null) {
+      b.mfa = request.headers['x-amz-mfa']!;
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-bypass-governance-retention'] != null) {
+      b.bypassGovernanceRetention =
+          request.headers['x-amz-bypass-governance-retention']! == 'true';
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
+      b.checksumAlgorithm = ChecksumAlgorithm.values.byValue(
+        request.headers['x-amz-sdk-checksum-algorithm']!,
+      );
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<Delete>> serializers = [
-    DeleteObjectsRequestRestXmlSerializer()
+    DeleteObjectsRequestRestXmlSerializer(),
   ];
 
   /// The bucket name containing the objects to delete.
@@ -140,10 +140,7 @@ abstract class DeleteObjectsRequest
       case 'Bucket':
         return bucket;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -151,46 +148,26 @@ abstract class DeleteObjectsRequest
 
   @override
   List<Object?> get props => [
-        bucket,
-        delete,
-        mfa,
-        requestPayer,
-        bypassGovernanceRetention,
-        expectedBucketOwner,
-        checksumAlgorithm,
-      ];
+    bucket,
+    delete,
+    mfa,
+    requestPayer,
+    bypassGovernanceRetention,
+    expectedBucketOwner,
+    checksumAlgorithm,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectsRequest')
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'delete',
-        delete,
-      )
-      ..add(
-        'mfa',
-        mfa,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'bypassGovernanceRetention',
-        bypassGovernanceRetention,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      )
-      ..add(
-        'checksumAlgorithm',
-        checksumAlgorithm,
-      );
+    final helper =
+        newBuiltValueToStringHelper('DeleteObjectsRequest')
+          ..add('bucket', bucket)
+          ..add('delete', delete)
+          ..add('mfa', mfa)
+          ..add('requestPayer', requestPayer)
+          ..add('bypassGovernanceRetention', bypassGovernanceRetention)
+          ..add('expectedBucketOwner', expectedBucketOwner)
+          ..add('checksumAlgorithm', checksumAlgorithm);
     return helper.toString();
   }
 }
@@ -201,17 +178,14 @@ class DeleteObjectsRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        DeleteObjectsRequest,
-        _$DeleteObjectsRequest,
-      ];
+    DeleteObjectsRequest,
+    _$DeleteObjectsRequest,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   Delete deserialize(
@@ -230,15 +204,20 @@ class DeleteObjectsRequestRestXmlSerializer
       }
       switch (key) {
         case 'Object':
-          result.objects.add((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ObjectIdentifier),
-          ) as ObjectIdentifier));
+          result.objects.add(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ObjectIdentifier),
+                )
+                as ObjectIdentifier),
+          );
         case 'Quiet':
-          result.quiet = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.quiet =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
       }
     }
 
@@ -255,25 +234,24 @@ class DeleteObjectsRequestRestXmlSerializer
       const _i1.XmlElementName(
         'Delete',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final Delete(:objects, :quiet) = object;
     result$.addAll(
-        const _i1.XmlBuiltListSerializer(memberName: 'Object').serialize(
-      serializers,
-      objects,
-      specifiedType: const FullType(
-        _i3.BuiltList,
-        [FullType(ObjectIdentifier)],
+      const _i1.XmlBuiltListSerializer(memberName: 'Object').serialize(
+        serializers,
+        objects,
+        specifiedType: const FullType(_i3.BuiltList, [
+          FullType(ObjectIdentifier),
+        ]),
       ),
-    ));
+    );
     if (quiet != null) {
       result$
         ..add(const _i1.XmlElementName('Quiet'))
-        ..add(serializers.serialize(
-          quiet,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(quiet, specifiedType: const FullType(bool)),
+        );
     }
     return result$;
   }

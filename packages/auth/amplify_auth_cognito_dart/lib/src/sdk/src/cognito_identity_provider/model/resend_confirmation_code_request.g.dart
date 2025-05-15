@@ -20,28 +20,34 @@ class _$ResendConfirmationCodeRequest extends ResendConfirmationCodeRequest {
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$ResendConfirmationCodeRequest(
-          [void Function(ResendConfirmationCodeRequestBuilder)? updates]) =>
-      (new ResendConfirmationCodeRequestBuilder()..update(updates))._build();
+  factory _$ResendConfirmationCodeRequest([
+    void Function(ResendConfirmationCodeRequestBuilder)? updates,
+  ]) => (new ResendConfirmationCodeRequestBuilder()..update(updates))._build();
 
-  _$ResendConfirmationCodeRequest._(
-      {required this.clientId,
-      this.secretHash,
-      this.userContextData,
-      required this.username,
-      this.analyticsMetadata,
-      this.clientMetadata})
-      : super._() {
+  _$ResendConfirmationCodeRequest._({
+    required this.clientId,
+    this.secretHash,
+    this.userContextData,
+    required this.username,
+    this.analyticsMetadata,
+    this.clientMetadata,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        clientId, r'ResendConfirmationCodeRequest', 'clientId');
+      clientId,
+      r'ResendConfirmationCodeRequest',
+      'clientId',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        username, r'ResendConfirmationCodeRequest', 'username');
+      username,
+      r'ResendConfirmationCodeRequest',
+      'username',
+    );
   }
 
   @override
   ResendConfirmationCodeRequest rebuild(
-          void Function(ResendConfirmationCodeRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ResendConfirmationCodeRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResendConfirmationCodeRequestBuilder toBuilder() =>
@@ -75,8 +81,10 @@ class _$ResendConfirmationCodeRequest extends ResendConfirmationCodeRequest {
 
 class ResendConfirmationCodeRequestBuilder
     implements
-        Builder<ResendConfirmationCodeRequest,
-            ResendConfirmationCodeRequestBuilder> {
+        Builder<
+          ResendConfirmationCodeRequest,
+          ResendConfirmationCodeRequestBuilder
+        > {
   _$ResendConfirmationCodeRequest? _$v;
 
   String? _clientId;
@@ -142,14 +150,21 @@ class ResendConfirmationCodeRequestBuilder
   _$ResendConfirmationCodeRequest _build() {
     _$ResendConfirmationCodeRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ResendConfirmationCodeRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
-                clientId, r'ResendConfirmationCodeRequest', 'clientId'),
+              clientId,
+              r'ResendConfirmationCodeRequest',
+              'clientId',
+            ),
             secretHash: secretHash,
             userContextData: _userContextData?.build(),
             username: BuiltValueNullFieldError.checkNotNull(
-                username, r'ResendConfirmationCodeRequest', 'username'),
+              username,
+              r'ResendConfirmationCodeRequest',
+              'username',
+            ),
             analyticsMetadata: _analyticsMetadata?.build(),
             clientMetadata: _clientMetadata?.build(),
           );
@@ -165,7 +180,10 @@ class ResendConfirmationCodeRequestBuilder
         _clientMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ResendConfirmationCodeRequest', _$failedField, e.toString());
+          r'ResendConfirmationCodeRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

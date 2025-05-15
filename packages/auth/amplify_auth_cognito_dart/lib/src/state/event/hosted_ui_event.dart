@@ -62,9 +62,8 @@ sealed class HostedUiEvent
   const factory HostedUiEvent.signOut() = HostedUiSignOut;
 
   /// {@macro amplify_auth_cognito.hosted_ui_succeeded}
-  const factory HostedUiEvent.succeeded(
-    CognitoUserPoolTokens tokens,
-  ) = HostedUiSucceeded;
+  const factory HostedUiEvent.succeeded(CognitoUserPoolTokens tokens) =
+      HostedUiSucceeded;
 
   @override
   String get runtimeTypeName => 'HostedUiEvent';
@@ -89,10 +88,8 @@ final class HostedUiConfigure extends HostedUiEvent {
 /// {@endtemplate}
 final class HostedUiFoundState extends HostedUiEvent {
   /// {@macro amplify_auth_cognito.hosted_ui_found_state}
-  const HostedUiFoundState({
-    required this.state,
-    required this.codeVerifier,
-  }) : super._();
+  const HostedUiFoundState({required this.state, required this.codeVerifier})
+    : super._();
 
   /// The previous OAuth state found in storage.
   final String state;
@@ -130,12 +127,7 @@ final class HostedUiSignIn extends HostedUiEvent {
   final Uri? redirectUri;
 
   @override
-  List<Object?> get props => [
-        type,
-        options,
-        provider,
-        redirectUri,
-      ];
+  List<Object?> get props => [type, options, provider, redirectUri];
 
   @override
   HostedUiEventType get type => HostedUiEventType.signIn;
@@ -146,14 +138,11 @@ final class HostedUiSignIn extends HostedUiEvent {
 /// {@endtemplate}
 final class HostedUiCancelSignIn extends HostedUiEvent {
   /// {@macro amplify_auth_cognito.hosted_ui_cancel_sign_in}
-  const HostedUiCancelSignIn([
-    Object? error,
-    this.stackTrace,
-  ])  : error = error ??
-            const UserCancelledException(
-              'The user canceled the sign-in flow',
-            ),
-        super._();
+  const HostedUiCancelSignIn([Object? error, this.stackTrace])
+    : error =
+          error ??
+          const UserCancelledException('The user canceled the sign-in flow'),
+      super._();
 
   /// The cause of the cancellation.
   final Object error;

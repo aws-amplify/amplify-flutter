@@ -13,17 +13,18 @@ class _$UserPoolAddOnNotEnabledException
   @override
   final Map<String, String>? headers;
 
-  factory _$UserPoolAddOnNotEnabledException(
-          [void Function(UserPoolAddOnNotEnabledExceptionBuilder)? updates]) =>
+  factory _$UserPoolAddOnNotEnabledException([
+    void Function(UserPoolAddOnNotEnabledExceptionBuilder)? updates,
+  ]) =>
       (new UserPoolAddOnNotEnabledExceptionBuilder()..update(updates))._build();
 
   _$UserPoolAddOnNotEnabledException._({this.message, this.headers})
-      : super._();
+    : super._();
 
   @override
   UserPoolAddOnNotEnabledException rebuild(
-          void Function(UserPoolAddOnNotEnabledExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UserPoolAddOnNotEnabledExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UserPoolAddOnNotEnabledExceptionBuilder toBuilder() =>
@@ -47,8 +48,10 @@ class _$UserPoolAddOnNotEnabledException
 
 class UserPoolAddOnNotEnabledExceptionBuilder
     implements
-        Builder<UserPoolAddOnNotEnabledException,
-            UserPoolAddOnNotEnabledExceptionBuilder> {
+        Builder<
+          UserPoolAddOnNotEnabledException,
+          UserPoolAddOnNotEnabledExceptionBuilder
+        > {
   _$UserPoolAddOnNotEnabledException? _$v;
 
   String? _message;
@@ -86,9 +89,12 @@ class UserPoolAddOnNotEnabledExceptionBuilder
   UserPoolAddOnNotEnabledException build() => _build();
 
   _$UserPoolAddOnNotEnabledException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$UserPoolAddOnNotEnabledException._(
-            message: message, headers: headers);
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

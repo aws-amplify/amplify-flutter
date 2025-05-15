@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v1.query_protocol.model.ignores_wrapping_xml_name_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -11,18 +11,19 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'ignores_wrapping_xml_name_output.g.dart';
 
 abstract class IgnoresWrappingXmlNameOutput
-    with
-        _i1.AWSEquatable<IgnoresWrappingXmlNameOutput>
+    with _i1.AWSEquatable<IgnoresWrappingXmlNameOutput>
     implements
-        Built<IgnoresWrappingXmlNameOutput,
-            IgnoresWrappingXmlNameOutputBuilder> {
+        Built<
+          IgnoresWrappingXmlNameOutput,
+          IgnoresWrappingXmlNameOutputBuilder
+        > {
   factory IgnoresWrappingXmlNameOutput({String? foo}) {
     return _$IgnoresWrappingXmlNameOutput._(foo: foo);
   }
 
-  factory IgnoresWrappingXmlNameOutput.build(
-          [void Function(IgnoresWrappingXmlNameOutputBuilder) updates]) =
-      _$IgnoresWrappingXmlNameOutput;
+  factory IgnoresWrappingXmlNameOutput.build([
+    void Function(IgnoresWrappingXmlNameOutputBuilder) updates,
+  ]) = _$IgnoresWrappingXmlNameOutput;
 
   const IgnoresWrappingXmlNameOutput._();
 
@@ -30,11 +31,10 @@ abstract class IgnoresWrappingXmlNameOutput
   factory IgnoresWrappingXmlNameOutput.fromResponse(
     IgnoresWrappingXmlNameOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<IgnoresWrappingXmlNameOutput>>
-      serializers = [IgnoresWrappingXmlNameOutputAwsQuerySerializer()];
+  serializers = [IgnoresWrappingXmlNameOutputAwsQuerySerializer()];
 
   String? get foo;
   @override
@@ -43,10 +43,7 @@ abstract class IgnoresWrappingXmlNameOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('IgnoresWrappingXmlNameOutput')
-      ..add(
-        'foo',
-        foo,
-      );
+      ..add('foo', foo);
     return helper.toString();
   }
 }
@@ -54,21 +51,18 @@ abstract class IgnoresWrappingXmlNameOutput
 class IgnoresWrappingXmlNameOutputAwsQuerySerializer
     extends _i2.StructuredSmithySerializer<IgnoresWrappingXmlNameOutput> {
   const IgnoresWrappingXmlNameOutputAwsQuerySerializer()
-      : super('IgnoresWrappingXmlNameOutput');
+    : super('IgnoresWrappingXmlNameOutput');
 
   @override
   Iterable<Type> get types => const [
-        IgnoresWrappingXmlNameOutput,
-        _$IgnoresWrappingXmlNameOutput,
-      ];
+    IgnoresWrappingXmlNameOutput,
+    _$IgnoresWrappingXmlNameOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   IgnoresWrappingXmlNameOutput deserialize(
@@ -95,10 +89,12 @@ class IgnoresWrappingXmlNameOutputAwsQuerySerializer
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -115,16 +111,15 @@ class IgnoresWrappingXmlNameOutputAwsQuerySerializer
       const _i2.XmlElementName(
         'IgnoreMeResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final IgnoresWrappingXmlNameOutput(:foo) = object;
     if (foo != null) {
       result$
         ..add(const _i2.XmlElementName('foo'))
-        ..add(serializers.serialize(
-          foo,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(foo, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

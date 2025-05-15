@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v1.query_protocol.model.xml_maps_xml_name_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,12 +17,13 @@ abstract class XmlMapsXmlNameOutput
     implements Built<XmlMapsXmlNameOutput, XmlMapsXmlNameOutputBuilder> {
   factory XmlMapsXmlNameOutput({Map<String, GreetingStruct>? myMap}) {
     return _$XmlMapsXmlNameOutput._(
-        myMap: myMap == null ? null : _i2.BuiltMap(myMap));
+      myMap: myMap == null ? null : _i2.BuiltMap(myMap),
+    );
   }
 
-  factory XmlMapsXmlNameOutput.build(
-          [void Function(XmlMapsXmlNameOutputBuilder) updates]) =
-      _$XmlMapsXmlNameOutput;
+  factory XmlMapsXmlNameOutput.build([
+    void Function(XmlMapsXmlNameOutputBuilder) updates,
+  ]) = _$XmlMapsXmlNameOutput;
 
   const XmlMapsXmlNameOutput._();
 
@@ -30,11 +31,10 @@ abstract class XmlMapsXmlNameOutput
   factory XmlMapsXmlNameOutput.fromResponse(
     XmlMapsXmlNameOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<XmlMapsXmlNameOutput>> serializers = [
-    XmlMapsXmlNameOutputAwsQuerySerializer()
+    XmlMapsXmlNameOutputAwsQuerySerializer(),
   ];
 
   _i2.BuiltMap<String, GreetingStruct>? get myMap;
@@ -44,10 +44,7 @@ abstract class XmlMapsXmlNameOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlMapsXmlNameOutput')
-      ..add(
-        'myMap',
-        myMap,
-      );
+      ..add('myMap', myMap);
     return helper.toString();
   }
 }
@@ -55,21 +52,18 @@ abstract class XmlMapsXmlNameOutput
 class XmlMapsXmlNameOutputAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<XmlMapsXmlNameOutput> {
   const XmlMapsXmlNameOutputAwsQuerySerializer()
-      : super('XmlMapsXmlNameOutput');
+    : super('XmlMapsXmlNameOutput');
 
   @override
   Iterable<Type> get types => const [
-        XmlMapsXmlNameOutput,
-        _$XmlMapsXmlNameOutput,
-      ];
+    XmlMapsXmlNameOutput,
+    _$XmlMapsXmlNameOutput,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlMapsXmlNameOutput deserialize(
@@ -96,21 +90,20 @@ class XmlMapsXmlNameOutputAwsQuerySerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.replace(const _i3.XmlBuiltMapSerializer(
-            keyName: 'Attribute',
-            valueName: 'Setting',
-            indexer: _i3.XmlIndexer.awsQueryMap,
-          ).deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i2.BuiltMap,
-              [
+          result.myMap.replace(
+            const _i3.XmlBuiltMapSerializer(
+              keyName: 'Attribute',
+              valueName: 'Setting',
+              indexer: _i3.XmlIndexer.awsQueryMap,
+            ).deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i2.BuiltMap, [
                 FullType(String),
                 FullType(GreetingStruct),
-              ],
+              ]),
             ),
-          ));
+          );
       }
     }
 
@@ -127,27 +120,26 @@ class XmlMapsXmlNameOutputAwsQuerySerializer
       const _i3.XmlElementName(
         'XmlMapsXmlNameOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final XmlMapsXmlNameOutput(:myMap) = object;
     if (myMap != null) {
       result$
         ..add(const _i3.XmlElementName('myMap'))
-        ..add(const _i3.XmlBuiltMapSerializer(
-          keyName: 'Attribute',
-          valueName: 'Setting',
-          indexer: _i3.XmlIndexer.awsQueryMap,
-        ).serialize(
-          serializers,
-          myMap,
-          specifiedType: const FullType(
-            _i2.BuiltMap,
-            [
+        ..add(
+          const _i3.XmlBuiltMapSerializer(
+            keyName: 'Attribute',
+            valueName: 'Setting',
+            indexer: _i3.XmlIndexer.awsQueryMap,
+          ).serialize(
+            serializers,
+            myMap,
+            specifiedType: const FullType(_i2.BuiltMap, [
               FullType(String),
               FullType(GreetingStruct),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

@@ -25,9 +25,8 @@ abstract class LinuxSecureStorageOptions
   /// [SecretSchema](https://developer-old.gnome.org/libsecret/unstable/libsecret-SecretSchema.html#SecretSchema)
   /// schema name.
   /// {@endtemplate}
-  factory LinuxSecureStorageOptions({
-    String? accessGroup,
-  }) = _$LinuxSecureStorageOptions._;
+  factory LinuxSecureStorageOptions({String? accessGroup}) =
+      _$LinuxSecureStorageOptions._;
 
   const LinuxSecureStorageOptions._();
 

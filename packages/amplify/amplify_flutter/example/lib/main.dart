@@ -46,9 +46,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Amplify Core example app'),
-        ),
+        appBar: AppBar(title: const Text('Amplify Core example app')),
         body: Center(
           child: Text('Is Amplify Configured?: $_amplifyConfigured\n'),
         ),

@@ -12,9 +12,7 @@ import 'package:smithy/smithy.dart';
 
 SmithyOperation<T> mockSmithyOperation<T>(FutureOr<T> Function() fn) =>
     SmithyOperation(
-      CancelableOperation.fromFuture(
-        Future.value(fn()),
-      ),
+      CancelableOperation.fromFuture(Future.value(fn())),
       operationName: '',
       requestProgress: const Stream.empty(),
       responseProgress: const Stream.empty(),

@@ -18,9 +18,12 @@ class _$GetIdInput extends GetIdInput {
       (new GetIdInputBuilder()..update(updates))._build();
 
   _$GetIdInput._({this.accountId, required this.identityPoolId, this.logins})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        identityPoolId, r'GetIdInput', 'identityPoolId');
+      identityPoolId,
+      r'GetIdInput',
+      'identityPoolId',
+    );
   }
 
   @override
@@ -97,11 +100,15 @@ class GetIdInputBuilder implements Builder<GetIdInput, GetIdInputBuilder> {
   _$GetIdInput _build() {
     _$GetIdInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$GetIdInput._(
             accountId: accountId,
             identityPoolId: BuiltValueNullFieldError.checkNotNull(
-                identityPoolId, r'GetIdInput', 'identityPoolId'),
+              identityPoolId,
+              r'GetIdInput',
+              'identityPoolId',
+            ),
             logins: _logins?.build(),
           );
     } catch (_) {
@@ -111,7 +118,10 @@ class GetIdInputBuilder implements Builder<GetIdInput, GetIdInputBuilder> {
         _logins?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GetIdInput', _$failedField, e.toString());
+          r'GetIdInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

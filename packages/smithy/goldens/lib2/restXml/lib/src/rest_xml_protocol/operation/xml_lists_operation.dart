@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.operation.xml_lists_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,30 +13,43 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This test case serializes XML lists for the following cases for both input and output: 1. Normal XML lists. 2. Normal XML sets. 3. XML lists of lists. 4. XML lists with @xmlName on its members 5. Flattened XML lists. 6. Flattened XML lists with @xmlName. 7. Flattened XML lists with @xmlNamespace. 8. Lists of structures. 9. Flattened XML list of structures
-class XmlListsOperation extends _i1.HttpOperation<XmlListsInputOutput,
-    XmlListsInputOutput, XmlListsInputOutput, XmlListsInputOutput> {
+class XmlListsOperation
+    extends
+        _i1.HttpOperation<
+          XmlListsInputOutput,
+          XmlListsInputOutput,
+          XmlListsInputOutput,
+          XmlListsInputOutput
+        > {
   /// This test case serializes XML lists for the following cases for both input and output: 1. Normal XML lists. 2. Normal XML sets. 3. XML lists of lists. 4. XML lists with @xmlName on its members 5. Flattened XML lists. 6. Flattened XML lists with @xmlName. 7. Flattened XML lists with @xmlNamespace. 8. Lists of structures. 9. Flattened XML list of structures
   XmlListsOperation({
     required String region,
     Uri? baseUri,
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<XmlListsInputOutput, XmlListsInputOutput,
-          XmlListsInputOutput, XmlListsInputOutput>> protocols = [
+    _i1.HttpProtocol<
+      XmlListsInputOutput,
+      XmlListsInputOutput,
+      XmlListsInputOutput,
+      XmlListsInputOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i2.WithSdkInvocationId(),
             const _i2.WithSdkRequest(),
           ] +
@@ -44,7 +57,7 @@ class XmlListsOperation extends _i1.HttpOperation<XmlListsInputOutput,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: false,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -74,11 +87,7 @@ class XmlListsOperation extends _i1.HttpOperation<XmlListsInputOutput,
   XmlListsInputOutput buildOutput(
     XmlListsInputOutput payload,
     _i3.AWSBaseHttpResponse response,
-  ) =>
-      XmlListsInputOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => XmlListsInputOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -102,11 +111,7 @@ class XmlListsOperation extends _i1.HttpOperation<XmlListsInputOutput,
     _i1.ShapeId? useProtocol,
   }) {
     return _i4.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},

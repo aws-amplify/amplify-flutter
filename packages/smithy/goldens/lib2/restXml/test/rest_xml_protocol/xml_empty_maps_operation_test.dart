@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.xml_empty_maps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -14,119 +14,101 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'XmlEmptyMaps (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: XmlEmptyMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'XmlEmptyMaps',
-          documentation: 'Serializes Empty XML maps',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<XmlMapsInputOutput>\n    <myMap></myMap>\n</XmlMapsInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {'myMap': {}},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          method: 'POST',
-          uri: '/XmlEmptyMaps',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          XmlMapsInputOutputRestXmlSerializer(),
-          GreetingStructRestXmlSerializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'XmlEmptyMaps (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlEmptyMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'XmlEmptyMaps',
-          documentation: 'Deserializes Empty XML maps',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<XmlMapsInputOutput>\n    <myMap></myMap>\n</XmlMapsInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {'myMap': {}},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [
-          XmlMapsInputOutputRestXmlSerializer(),
-          GreetingStructRestXmlSerializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'XmlEmptySelfClosedMaps (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlEmptyMapsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'XmlEmptySelfClosedMaps',
-          documentation: 'Deserializes Empty Self-closed XML maps',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '<XmlMapsInputOutput>\n    <myMap/>\n</XmlMapsInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {'myMap': {}},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [
-          XmlMapsInputOutputRestXmlSerializer(),
-          GreetingStructRestXmlSerializer(),
-        ],
-      );
-    },
-  );
+  _i1.test('XmlEmptyMaps (request)', () async {
+    await _i2.httpRequestTest(
+      operation: XmlEmptyMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'XmlEmptyMaps',
+        documentation: 'Serializes Empty XML maps',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<XmlMapsInputOutput>\n    <myMap></myMap>\n</XmlMapsInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'myMap': {}},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        method: 'POST',
+        uri: '/XmlEmptyMaps',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        XmlMapsInputOutputRestXmlSerializer(),
+        GreetingStructRestXmlSerializer(),
+      ],
+    );
+  });
+  _i1.test('XmlEmptyMaps (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlEmptyMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'XmlEmptyMaps',
+        documentation: 'Deserializes Empty XML maps',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<XmlMapsInputOutput>\n    <myMap></myMap>\n</XmlMapsInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'myMap': {}},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [
+        XmlMapsInputOutputRestXmlSerializer(),
+        GreetingStructRestXmlSerializer(),
+      ],
+    );
+  });
+  _i1.test('XmlEmptySelfClosedMaps (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlEmptyMapsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'XmlEmptySelfClosedMaps',
+        documentation: 'Deserializes Empty Self-closed XML maps',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '<XmlMapsInputOutput>\n    <myMap/>\n</XmlMapsInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {'myMap': {}},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [
+        XmlMapsInputOutputRestXmlSerializer(),
+        GreetingStructRestXmlSerializer(),
+      ],
+    );
+  });
 }
 
 class XmlMapsInputOutputRestXmlSerializer
@@ -138,11 +120,8 @@ class XmlMapsInputOutputRestXmlSerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlMapsInputOutput deserialize(
@@ -161,16 +140,16 @@ class XmlMapsInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(GreetingStruct),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, GreetingStruct>));
+          result.myMap.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltMap, [
+                    FullType(String),
+                    FullType(GreetingStruct),
+                  ]),
+                )
+                as _i4.BuiltMap<String, GreetingStruct>),
+          );
       }
     }
 
@@ -196,11 +175,8 @@ class GreetingStructRestXmlSerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   GreetingStruct deserialize(
@@ -219,10 +195,12 @@ class GreetingStructRestXmlSerializer
       }
       switch (key) {
         case 'hi':
-          result.hi = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.hi =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

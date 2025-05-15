@@ -11,10 +11,9 @@ part 'serializers.g.dart';
 
 /// Serializers common to all worker bees.
 @internal
-@SerializersFor([
-  WorkerBeeExceptionImpl,
-])
-final Serializers workerBeeSerializers = (_$workerBeeSerializers.toBuilder()
-      ..add(const LogEntrySerializer())
-      ..add(const StackTraceSerializer()))
-    .build();
+@SerializersFor([WorkerBeeExceptionImpl])
+final Serializers workerBeeSerializers =
+    (_$workerBeeSerializers.toBuilder()
+          ..add(const LogEntrySerializer())
+          ..add(const StackTraceSerializer()))
+        .build();

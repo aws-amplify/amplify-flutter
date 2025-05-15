@@ -14,24 +14,26 @@ void main() {
   group('AmplifyWebSocketService', () {
     group('generateProtocols', () {});
     const apiKey = 'fake-key';
-    test('should generate a protocol that includes the appropriate headers',
-        () async {
-      final (outputs, repo) = createOutputsAndRepo(
-        AppSyncApiKeyAuthProvider(),
-        APIAuthorizationType.apiKey,
-        apiKey,
-      );
-      final service = AmplifyWebSocketService();
-      final protocols = await service.generateProtocols(outputs, repo);
-      final encodedHeaders = protocols[1].replaceFirst('header-', '');
-      final headers = json.decode(
-        String.fromCharCodes(base64Url.decode(encodedHeaders)),
-      ) as Map<String, dynamic>;
-      expect(headers[xApiKey], apiKey);
-      expect(headers.containsKey(AWSHeaders.accept), true);
-      expect(headers.containsKey(AWSHeaders.contentEncoding), true);
-      expect(headers.containsKey(AWSHeaders.contentType), true);
-      expect(headers.containsKey(AWSHeaders.host), true);
-    });
+    test(
+      'should generate a protocol that includes the appropriate headers',
+      () async {
+        final (outputs, repo) = createOutputsAndRepo(
+          AppSyncApiKeyAuthProvider(),
+          APIAuthorizationType.apiKey,
+          apiKey,
+        );
+        final service = AmplifyWebSocketService();
+        final protocols = await service.generateProtocols(outputs, repo);
+        final encodedHeaders = protocols[1].replaceFirst('header-', '');
+        final headers =
+            json.decode(String.fromCharCodes(base64Url.decode(encodedHeaders)))
+                as Map<String, dynamic>;
+        expect(headers[xApiKey], apiKey);
+        expect(headers.containsKey(AWSHeaders.accept), true);
+        expect(headers.containsKey(AWSHeaders.contentEncoding), true);
+        expect(headers.containsKey(AWSHeaders.contentType), true);
+        expect(headers.containsKey(AWSHeaders.host), true);
+      },
+    );
   });
 }

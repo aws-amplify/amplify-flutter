@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.greeting_with_errors_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -16,165 +16,153 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryGreetingWithErrors (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryGreetingWithErrors',
-          documentation:
-              'Ensures that operations with errors successfully know how to deserialize the successful response',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<GreetingWithErrorsResponse xmlns="https://example.com/">\n    <GreetingWithErrorsResult>\n        <greeting>Hello</greeting>\n    </GreetingWithErrorsResult>\n</GreetingWithErrorsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'greeting': 'Hello'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [GreetingWithErrorsOutputAwsQuerySerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'QueryComplexError (error)',
-    () async {
-      await _i2.httpErrorResponseTest<_i3.Unit, _i3.Unit,
-          GreetingWithErrorsOutput, GreetingWithErrorsOutput, ComplexError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryComplexError',
-          documentation: null,
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<ErrorResponse>\n   <Error>\n      <Type>Sender</Type>\n      <Code>ComplexError</Code>\n      <TopLevel>Top level</TopLevel>\n      <Nested>\n          <Foo>bar</Foo>\n      </Nested>\n   </Error>\n   <RequestId>foo-id</RequestId>\n</ErrorResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'TopLevel': 'Top level',
-            'Nested': {'Foo': 'bar'},
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 400,
-        ),
-        errorSerializers: const [
-          ComplexErrorAwsQuerySerializer(),
-          ComplexNestedErrorDataAwsQuerySerializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'QueryCustomizedError (error)',
-    () async {
-      await _i2.httpErrorResponseTest<_i3.Unit, _i3.Unit,
-          GreetingWithErrorsOutput, GreetingWithErrorsOutput, CustomCodeError>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryCustomizedError',
-          documentation: 'Parses customized XML errors',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<ErrorResponse>\n   <Error>\n      <Type>Sender</Type>\n      <Code>Customized</Code>\n      <Message>Hi</Message>\n   </Error>\n   <RequestId>foo-id</RequestId>\n</ErrorResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'Message': 'Hi'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 402,
-        ),
-        errorSerializers: const [CustomCodeErrorAwsQuerySerializer()],
-      );
-    },
-  );
-  _i1.test(
-    'QueryInvalidGreetingError (error)',
-    () async {
-      await _i2.httpErrorResponseTest<_i3.Unit, _i3.Unit,
-          GreetingWithErrorsOutput, GreetingWithErrorsOutput, InvalidGreeting>(
-        operation: GreetingWithErrorsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryInvalidGreetingError',
-          documentation: 'Parses simple XML errors',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<ErrorResponse>\n   <Error>\n      <Type>Sender</Type>\n      <Code>InvalidGreeting</Code>\n      <Message>Hi</Message>\n   </Error>\n   <RequestId>foo-id</RequestId>\n</ErrorResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'Message': 'Hi'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 400,
-        ),
-        errorSerializers: const [InvalidGreetingAwsQuerySerializer()],
-      );
-    },
-  );
+  _i1.test('QueryGreetingWithErrors (response)', () async {
+    await _i2.httpResponseTest(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryGreetingWithErrors',
+        documentation:
+            'Ensures that operations with errors successfully know how to deserialize the successful response',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<GreetingWithErrorsResponse xmlns="https://example.com/">\n    <GreetingWithErrorsResult>\n        <greeting>Hello</greeting>\n    </GreetingWithErrorsResult>\n</GreetingWithErrorsResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'greeting': 'Hello'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [GreetingWithErrorsOutputAwsQuerySerializer()],
+    );
+  });
+  _i1.test('QueryComplexError (error)', () async {
+    await _i2.httpErrorResponseTest<
+      _i3.Unit,
+      _i3.Unit,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      ComplexError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryComplexError',
+        documentation: null,
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<ErrorResponse>\n   <Error>\n      <Type>Sender</Type>\n      <Code>ComplexError</Code>\n      <TopLevel>Top level</TopLevel>\n      <Nested>\n          <Foo>bar</Foo>\n      </Nested>\n   </Error>\n   <RequestId>foo-id</RequestId>\n</ErrorResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {
+          'TopLevel': 'Top level',
+          'Nested': {'Foo': 'bar'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 400,
+      ),
+      errorSerializers: const [
+        ComplexErrorAwsQuerySerializer(),
+        ComplexNestedErrorDataAwsQuerySerializer(),
+      ],
+    );
+  });
+  _i1.test('QueryCustomizedError (error)', () async {
+    await _i2.httpErrorResponseTest<
+      _i3.Unit,
+      _i3.Unit,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      CustomCodeError
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryCustomizedError',
+        documentation: 'Parses customized XML errors',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<ErrorResponse>\n   <Error>\n      <Type>Sender</Type>\n      <Code>Customized</Code>\n      <Message>Hi</Message>\n   </Error>\n   <RequestId>foo-id</RequestId>\n</ErrorResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'Message': 'Hi'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 402,
+      ),
+      errorSerializers: const [CustomCodeErrorAwsQuerySerializer()],
+    );
+  });
+  _i1.test('QueryInvalidGreetingError (error)', () async {
+    await _i2.httpErrorResponseTest<
+      _i3.Unit,
+      _i3.Unit,
+      GreetingWithErrorsOutput,
+      GreetingWithErrorsOutput,
+      InvalidGreeting
+    >(
+      operation: GreetingWithErrorsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryInvalidGreetingError',
+        documentation: 'Parses simple XML errors',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<ErrorResponse>\n   <Error>\n      <Type>Sender</Type>\n      <Code>InvalidGreeting</Code>\n      <Message>Hi</Message>\n   </Error>\n   <RequestId>foo-id</RequestId>\n</ErrorResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {'Message': 'Hi'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 400,
+      ),
+      errorSerializers: const [InvalidGreetingAwsQuerySerializer()],
+    );
+  });
 }
 
 class GreetingWithErrorsOutputAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<GreetingWithErrorsOutput> {
   const GreetingWithErrorsOutputAwsQuerySerializer()
-      : super('GreetingWithErrorsOutput');
+    : super('GreetingWithErrorsOutput');
 
   @override
   Iterable<Type> get types => const [GreetingWithErrorsOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   GreetingWithErrorsOutput deserialize(
@@ -193,10 +181,12 @@ class GreetingWithErrorsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'greeting':
-          result.greeting = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.greeting =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -222,11 +212,8 @@ class ComplexErrorAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   ComplexError deserialize(
@@ -245,15 +232,20 @@ class ComplexErrorAwsQuerySerializer
       }
       switch (key) {
         case 'TopLevel':
-          result.topLevel = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.topLevel =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(ComplexNestedErrorData),
-          ) as ComplexNestedErrorData));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(ComplexNestedErrorData),
+                )
+                as ComplexNestedErrorData),
+          );
       }
     }
 
@@ -273,18 +265,15 @@ class ComplexErrorAwsQuerySerializer
 class ComplexNestedErrorDataAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<ComplexNestedErrorData> {
   const ComplexNestedErrorDataAwsQuerySerializer()
-      : super('ComplexNestedErrorData');
+    : super('ComplexNestedErrorData');
 
   @override
   Iterable<Type> get types => const [ComplexNestedErrorData];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   ComplexNestedErrorData deserialize(
@@ -303,10 +292,12 @@ class ComplexNestedErrorDataAwsQuerySerializer
       }
       switch (key) {
         case 'Foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -332,11 +323,8 @@ class CustomCodeErrorAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   CustomCodeError deserialize(
@@ -355,10 +343,12 @@ class CustomCodeErrorAwsQuerySerializer
       }
       switch (key) {
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -384,11 +374,8 @@ class InvalidGreetingAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   InvalidGreeting deserialize(
@@ -407,10 +394,12 @@ class InvalidGreetingAwsQuerySerializer
       }
       switch (key) {
         case 'Message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

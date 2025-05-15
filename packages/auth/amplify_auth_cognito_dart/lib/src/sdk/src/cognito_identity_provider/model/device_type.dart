@@ -41,7 +41,7 @@ abstract class DeviceType
   const DeviceType._();
 
   static const List<_i3.SmithySerializer<DeviceType>> serializers = [
-    DeviceTypeAwsJson11Serializer()
+    DeviceTypeAwsJson11Serializer(),
   ];
 
   /// The device key.
@@ -60,36 +60,22 @@ abstract class DeviceType
   DateTime? get deviceLastAuthenticatedDate;
   @override
   List<Object?> get props => [
-        deviceKey,
-        deviceAttributes,
-        deviceCreateDate,
-        deviceLastModifiedDate,
-        deviceLastAuthenticatedDate,
-      ];
+    deviceKey,
+    deviceAttributes,
+    deviceCreateDate,
+    deviceLastModifiedDate,
+    deviceLastAuthenticatedDate,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeviceType')
-      ..add(
-        'deviceKey',
-        deviceKey,
-      )
-      ..add(
-        'deviceAttributes',
-        deviceAttributes,
-      )
-      ..add(
-        'deviceCreateDate',
-        deviceCreateDate,
-      )
-      ..add(
-        'deviceLastModifiedDate',
-        deviceLastModifiedDate,
-      )
-      ..add(
-        'deviceLastAuthenticatedDate',
-        deviceLastAuthenticatedDate,
-      );
+    final helper =
+        newBuiltValueToStringHelper('DeviceType')
+          ..add('deviceKey', deviceKey)
+          ..add('deviceAttributes', deviceAttributes)
+          ..add('deviceCreateDate', deviceCreateDate)
+          ..add('deviceLastModifiedDate', deviceLastModifiedDate)
+          ..add('deviceLastAuthenticatedDate', deviceLastAuthenticatedDate);
     return helper.toString();
   }
 }
@@ -99,18 +85,12 @@ class DeviceTypeAwsJson11Serializer
   const DeviceTypeAwsJson11Serializer() : super('DeviceType');
 
   @override
-  Iterable<Type> get types => const [
-        DeviceType,
-        _$DeviceType,
-      ];
+  Iterable<Type> get types => const [DeviceType, _$DeviceType];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   DeviceType deserialize(
@@ -129,33 +109,43 @@ class DeviceTypeAwsJson11Serializer
       }
       switch (key) {
         case 'DeviceKey':
-          result.deviceKey = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.deviceKey =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'DeviceAttributes':
-          result.deviceAttributes.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(AttributeType)],
-            ),
-          ) as _i2.BuiltList<AttributeType>));
+          result.deviceAttributes.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(AttributeType),
+                  ]),
+                )
+                as _i2.BuiltList<AttributeType>),
+          );
         case 'DeviceCreateDate':
-          result.deviceCreateDate = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.deviceCreateDate =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
         case 'DeviceLastModifiedDate':
-          result.deviceLastModifiedDate = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.deviceLastModifiedDate =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
         case 'DeviceLastAuthenticatedDate':
-          result.deviceLastAuthenticatedDate = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
+          result.deviceLastAuthenticatedDate =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime);
       }
     }
 
@@ -174,50 +164,59 @@ class DeviceTypeAwsJson11Serializer
       :deviceAttributes,
       :deviceCreateDate,
       :deviceLastModifiedDate,
-      :deviceLastAuthenticatedDate
+      :deviceLastAuthenticatedDate,
     ) = object;
     if (deviceKey != null) {
       result$
         ..add('DeviceKey')
-        ..add(serializers.serialize(
-          deviceKey,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            deviceKey,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (deviceAttributes != null) {
       result$
         ..add('DeviceAttributes')
-        ..add(serializers.serialize(
-          deviceAttributes,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(AttributeType)],
+        ..add(
+          serializers.serialize(
+            deviceAttributes,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(AttributeType),
+            ]),
           ),
-        ));
+        );
     }
     if (deviceCreateDate != null) {
       result$
         ..add('DeviceCreateDate')
-        ..add(serializers.serialize(
-          deviceCreateDate,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            deviceCreateDate,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     if (deviceLastModifiedDate != null) {
       result$
         ..add('DeviceLastModifiedDate')
-        ..add(serializers.serialize(
-          deviceLastModifiedDate,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            deviceLastModifiedDate,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     if (deviceLastAuthenticatedDate != null) {
       result$
         ..add('DeviceLastAuthenticatedDate')
-        ..add(serializers.serialize(
-          deviceLastAuthenticatedDate,
-          specifiedType: const FullType(DateTime),
-        ));
+        ..add(
+          serializers.serialize(
+            deviceLastAuthenticatedDate,
+            specifiedType: const FullType(DateTime),
+          ),
+        );
     }
     return result$;
   }

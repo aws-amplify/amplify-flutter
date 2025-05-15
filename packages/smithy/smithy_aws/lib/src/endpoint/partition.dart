@@ -23,14 +23,7 @@ AWSEndpoint resolveEndpoint(List<Partition> partitions, String region) {
 }
 
 /// Acceptable signature versions
-enum AWSSignatureVersion {
-  v2,
-  v4,
-  s3,
-  s3v4,
-  v3,
-  v3https,
-}
+enum AWSSignatureVersion { v2, v4, s3, s3v4, v3, v3https }
 
 /// {@template smithy_aws.endpoint_definition}
 /// A description of a single service endpoint.
@@ -78,14 +71,14 @@ class EndpointDefinition with AWSSerializable {
 
     final hostname = merged.hostname!.replaceAll('{region}', region);
     final sortedProtocols = [...merged.protocols]..sort((a, b) {
-        final aIdx = _protocolPriority.indexOf(a);
-        final bIdx = _protocolPriority.indexOf(b);
-        return (aIdx > -1 && bIdx > -1)
-            ? aIdx.compareTo(bIdx)
-            : aIdx > -1
-                ? -1
-                : 1;
-      });
+      final aIdx = _protocolPriority.indexOf(a);
+      final bIdx = _protocolPriority.indexOf(b);
+      return (aIdx > -1 && bIdx > -1)
+          ? aIdx.compareTo(bIdx)
+          : aIdx > -1
+          ? -1
+          : 1;
+    });
     final protocol = sortedProtocols.first;
     final signingName = merged.credentialScope?.service;
     final signingRegion = merged.credentialScope?.region;
@@ -106,10 +99,7 @@ class EndpointDefinition with AWSSerializable {
   /// Applies [defaults] to this endpoint definition.
   EndpointDefinition withDefaults(EndpointDefinition defaults) {
     final hostname = this.hostname ?? defaults.hostname;
-    final protocols = {
-      ...this.protocols,
-      ...defaults.protocols,
-    }.toList();
+    final protocols = {...this.protocols, ...defaults.protocols}.toList();
     if (protocols.isEmpty) {
       protocols.add(_defaultProtocol);
     }
@@ -118,10 +108,8 @@ class EndpointDefinition with AWSSerializable {
     final service =
         this.credentialScope?.service ?? defaults.credentialScope?.service;
     final credentialScope = CredentialScope(region: region, service: service);
-    final signatureVersions = {
-      ...this.signatureVersions,
-      ...defaults.signatureVersions,
-    }.toList();
+    final signatureVersions =
+        {...this.signatureVersions, ...defaults.signatureVersions}.toList();
     if (signatureVersions.isEmpty) {
       signatureVersions.add(_defaultSigner);
     }

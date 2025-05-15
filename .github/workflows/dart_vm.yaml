@@ -21,7 +21,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - "3.6.0"
+          - "3.7.0"
           - stable
           - beta
         # Skips 'beta' tests on PRs

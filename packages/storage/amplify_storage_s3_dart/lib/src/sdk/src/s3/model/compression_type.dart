@@ -6,31 +6,15 @@ library amplify_storage_s3_dart.s3.model.compression_type; // ignore_for_file: n
 import 'package:smithy/smithy.dart' as _i1;
 
 class CompressionType extends _i1.SmithyEnum<CompressionType> {
-  const CompressionType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const CompressionType._(super.index, super.name, super.value);
 
   const CompressionType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const bzip2 = CompressionType._(
-    0,
-    'BZIP2',
-    'BZIP2',
-  );
+  static const bzip2 = CompressionType._(0, 'BZIP2', 'BZIP2');
 
-  static const gzip = CompressionType._(
-    1,
-    'GZIP',
-    'GZIP',
-  );
+  static const gzip = CompressionType._(1, 'GZIP', 'GZIP');
 
-  static const none = CompressionType._(
-    2,
-    'NONE',
-    'NONE',
-  );
+  static const none = CompressionType._(2, 'NONE', 'NONE');
 
   /// All values of [CompressionType].
   static const values = <CompressionType>[
@@ -45,12 +29,9 @@ class CompressionType extends _i1.SmithyEnum<CompressionType> {
       values: values,
       sdkUnknown: CompressionType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

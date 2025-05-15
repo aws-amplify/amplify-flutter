@@ -6,17 +6,11 @@ import 'dart:io';
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
-enum InputMode {
-  read,
-  write,
-  delete,
-}
+enum InputMode { read, write, delete }
 
 // ignore: invalid_use_of_internal_member
 final storage = AmplifySecureStorageDart(
-  config: AmplifySecureStorageConfig(
-    scope: 'default',
-  ),
+  config: AmplifySecureStorageConfig(scope: 'default'),
 );
 
 Future<void> main() async {

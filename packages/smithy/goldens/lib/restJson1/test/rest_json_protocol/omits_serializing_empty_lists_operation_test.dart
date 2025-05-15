@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.omits_serializing_empty_lists_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -14,71 +14,62 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonOmitsEmptyListQueryValues (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: OmitsSerializingEmptyListsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonOmitsEmptyListQueryValues',
-          documentation: 'Supports omitting empty lists.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'queryStringList': [],
-            'queryIntegerList': [],
-            'queryDoubleList': [],
-            'queryBooleanList': [],
-            'queryTimestampList': [],
-            'queryEnumList': [],
-            'queryIntegerEnumList': [],
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/OmitsSerializingEmptyLists',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          OmitsSerializingEmptyListsInputRestJson1Serializer()
-        ],
-      );
-    },
-  );
+  _i1.test('RestJsonOmitsEmptyListQueryValues (request)', () async {
+    await _i2.httpRequestTest(
+      operation: OmitsSerializingEmptyListsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonOmitsEmptyListQueryValues',
+        documentation: 'Supports omitting empty lists.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {
+          'queryStringList': [],
+          'queryIntegerList': [],
+          'queryDoubleList': [],
+          'queryBooleanList': [],
+          'queryTimestampList': [],
+          'queryEnumList': [],
+          'queryIntegerEnumList': [],
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/OmitsSerializingEmptyLists',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        OmitsSerializingEmptyListsInputRestJson1Serializer(),
+      ],
+    );
+  });
 }
 
 class OmitsSerializingEmptyListsInputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<OmitsSerializingEmptyListsInput> {
   const OmitsSerializingEmptyListsInputRestJson1Serializer()
-      : super('OmitsSerializingEmptyListsInput');
+    : super('OmitsSerializingEmptyListsInput');
 
   @override
   Iterable<Type> get types => const [OmitsSerializingEmptyListsInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   OmitsSerializingEmptyListsInput deserialize(
@@ -97,61 +88,71 @@ class OmitsSerializingEmptyListsInputRestJson1Serializer
       }
       switch (key) {
         case 'queryStringList':
-          result.queryStringList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.queryStringList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'queryIntegerList':
-          result.queryIntegerList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(int)],
-            ),
-          ) as _i4.BuiltList<int>));
+          result.queryIntegerList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [FullType(int)]),
+                )
+                as _i4.BuiltList<int>),
+          );
         case 'queryDoubleList':
-          result.queryDoubleList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(double)],
-            ),
-          ) as _i4.BuiltList<double>));
+          result.queryDoubleList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(double),
+                  ]),
+                )
+                as _i4.BuiltList<double>),
+          );
         case 'queryBooleanList':
-          result.queryBooleanList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(bool)],
-            ),
-          ) as _i4.BuiltList<bool>));
+          result.queryBooleanList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(bool),
+                  ]),
+                )
+                as _i4.BuiltList<bool>),
+          );
         case 'queryTimestampList':
-          result.queryTimestampList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(DateTime)],
-            ),
-          ) as _i4.BuiltList<DateTime>));
+          result.queryTimestampList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(DateTime),
+                  ]),
+                )
+                as _i4.BuiltList<DateTime>),
+          );
         case 'queryEnumList':
-          result.queryEnumList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(FooEnum)],
-            ),
-          ) as _i4.BuiltList<FooEnum>));
+          result.queryEnumList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(FooEnum),
+                  ]),
+                )
+                as _i4.BuiltList<FooEnum>),
+          );
         case 'queryIntegerEnumList':
-          result.queryIntegerEnumList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(int)],
-            ),
-          ) as _i4.BuiltList<int>));
+          result.queryIntegerEnumList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [FullType(int)]),
+                )
+                as _i4.BuiltList<int>),
+          );
       }
     }
 

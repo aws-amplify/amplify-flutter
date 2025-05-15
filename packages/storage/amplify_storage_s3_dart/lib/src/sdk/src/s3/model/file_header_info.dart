@@ -6,31 +6,15 @@ library amplify_storage_s3_dart.s3.model.file_header_info; // ignore_for_file: n
 import 'package:smithy/smithy.dart' as _i1;
 
 class FileHeaderInfo extends _i1.SmithyEnum<FileHeaderInfo> {
-  const FileHeaderInfo._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const FileHeaderInfo._(super.index, super.name, super.value);
 
   const FileHeaderInfo._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const ignore = FileHeaderInfo._(
-    0,
-    'IGNORE',
-    'IGNORE',
-  );
+  static const ignore = FileHeaderInfo._(0, 'IGNORE', 'IGNORE');
 
-  static const none = FileHeaderInfo._(
-    1,
-    'NONE',
-    'NONE',
-  );
+  static const none = FileHeaderInfo._(1, 'NONE', 'NONE');
 
-  static const use = FileHeaderInfo._(
-    2,
-    'USE',
-    'USE',
-  );
+  static const use = FileHeaderInfo._(2, 'USE', 'USE');
 
   /// All values of [FileHeaderInfo].
   static const values = <FileHeaderInfo>[
@@ -45,12 +29,9 @@ class FileHeaderInfo extends _i1.SmithyEnum<FileHeaderInfo> {
       values: values,
       sdkUnknown: FileHeaderInfo._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

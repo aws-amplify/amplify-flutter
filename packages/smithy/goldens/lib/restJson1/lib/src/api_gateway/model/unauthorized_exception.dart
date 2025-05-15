@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.api_gateway.model.unauthorized_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -19,9 +19,9 @@ abstract class UnauthorizedException
     return _$UnauthorizedException._(message: message);
   }
 
-  factory UnauthorizedException.build(
-          [void Function(UnauthorizedExceptionBuilder) updates]) =
-      _$UnauthorizedException;
+  factory UnauthorizedException.build([
+    void Function(UnauthorizedExceptionBuilder) updates,
+  ]) = _$UnauthorizedException;
 
   const UnauthorizedException._();
 
@@ -29,22 +29,21 @@ abstract class UnauthorizedException
   factory UnauthorizedException.fromResponse(
     UnauthorizedException payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<UnauthorizedException>> serializers = [
-    UnauthorizedExceptionRestJson1Serializer()
+    UnauthorizedExceptionRestJson1Serializer(),
   ];
 
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'com.amazonaws.apigateway',
-        shape: 'UnauthorizedException',
-      );
+    namespace: 'com.amazonaws.apigateway',
+    shape: 'UnauthorizedException',
+  );
 
   @override
   _i2.RetryConfig? get retryConfig => null;
@@ -65,10 +64,7 @@ abstract class UnauthorizedException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnauthorizedException')
-      ..add(
-        'message',
-        message,
-      );
+      ..add('message', message);
     return helper.toString();
   }
 }
@@ -76,21 +72,18 @@ abstract class UnauthorizedException
 class UnauthorizedExceptionRestJson1Serializer
     extends _i2.StructuredSmithySerializer<UnauthorizedException> {
   const UnauthorizedExceptionRestJson1Serializer()
-      : super('UnauthorizedException');
+    : super('UnauthorizedException');
 
   @override
   Iterable<Type> get types => const [
-        UnauthorizedException,
-        _$UnauthorizedException,
-      ];
+    UnauthorizedException,
+    _$UnauthorizedException,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   UnauthorizedException deserialize(
@@ -109,10 +102,12 @@ class UnauthorizedExceptionRestJson1Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -130,10 +125,9 @@ class UnauthorizedExceptionRestJson1Serializer
     if (message != null) {
       result$
         ..add('message')
-        ..add(serializers.serialize(
-          message,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(message, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

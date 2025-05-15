@@ -235,11 +235,8 @@ class AuthenticatorState extends ChangeNotifier {
     final currentPhoneNumber =
         authAttributes[CognitoUserAttributeKey.phoneNumber];
     if (currentPhoneNumber != null) {
-      authAttributes[CognitoUserAttributeKey.phoneNumber] =
-          currentPhoneNumber.replaceFirst(
-        oldDialCode.value,
-        newDialCode.value,
-      );
+      authAttributes[CognitoUserAttributeKey.phoneNumber] = currentPhoneNumber
+          .replaceFirst(oldDialCode.value, newDialCode.value);
     }
     _dialCode = newDialCode;
     notifyListeners();
@@ -307,10 +304,7 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   set preferredUsername(String preferredUsername) {
-    _setAttribute(
-      CognitoUserAttributeKey.preferredUsername,
-      preferredUsername,
-    );
+    _setAttribute(CognitoUserAttributeKey.preferredUsername, preferredUsername);
   }
 
   set profile(String profile) {
@@ -468,9 +462,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     _setIsBusy(true);
 
-    final confirm = AuthConfirmSignInData(
-      confirmationValue: _mfaEmail.trim(),
-    );
+    final confirm = AuthConfirmSignInData(confirmationValue: _mfaEmail.trim());
 
     _authBloc.add(AuthConfirmSignIn(confirm));
     await nextBlocEvent();
@@ -563,9 +555,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     final resetPasswordData = AuthResetPasswordData(username: _username.trim());
     _authBloc.add(AuthResetPassword(resetPasswordData));
-    await nextBlocEvent(
-      where: (state) => state is UnauthenticatedState,
-    );
+    await nextBlocEvent(where: (state) => state is UnauthenticatedState);
     _setIsBusy(false);
   }
 
@@ -586,9 +576,7 @@ class AuthenticatorState extends ChangeNotifier {
       newPassword: _newPassword.trim(),
     );
     _authBloc.add(AuthConfirmResetPassword(confirmResetPasswordData));
-    await nextBlocEvent(
-      where: (state) => state is UnauthenticatedState,
-    );
+    await nextBlocEvent(where: (state) => state is UnauthenticatedState);
     _setIsBusy(false);
   }
 
@@ -634,8 +622,9 @@ class AuthenticatorState extends ChangeNotifier {
     );
     _authBloc.add(AuthConfirmVerifyUser(authConfirmVerifyUserData));
     await nextBlocEvent(
-      where: (state) =>
-          state is UnauthenticatedState || state is AuthenticatedState,
+      where:
+          (state) =>
+              state is UnauthenticatedState || state is AuthenticatedState,
     );
     _setIsBusy(false);
   }
@@ -654,9 +643,7 @@ class AuthenticatorState extends ChangeNotifier {
     );
 
     _authBloc.add(AuthVerifyUser(authVerifyUserData));
-    await nextBlocEvent(
-      where: (state) => state is! LoadingState,
-    );
+    await nextBlocEvent(where: (state) => state is! LoadingState);
     _setIsBusy(false);
   }
 
@@ -680,10 +667,7 @@ class AuthenticatorState extends ChangeNotifier {
   ///
   /// If [reset] is `true`, clears temporary form data including username,
   /// password, and user attributes.
-  void changeStep(
-    AuthenticatorStep step, {
-    bool reset = true,
-  }) {
+  void changeStep(AuthenticatorStep step, {bool reset = true}) {
     _authBloc.add(AuthChangeScreen(step));
 
     /// Clean [ViewModel] when user manually navigates widgets

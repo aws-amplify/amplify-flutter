@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.glacier.model.upload_multipart_part_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class UploadMultipartPartOutput
     return _$UploadMultipartPartOutput._(checksum: checksum);
   }
 
-  factory UploadMultipartPartOutput.build(
-          [void Function(UploadMultipartPartOutputBuilder) updates]) =
-      _$UploadMultipartPartOutput;
+  factory UploadMultipartPartOutput.build([
+    void Function(UploadMultipartPartOutputBuilder) updates,
+  ]) = _$UploadMultipartPartOutput;
 
   const UploadMultipartPartOutput._();
 
@@ -31,15 +31,14 @@ abstract class UploadMultipartPartOutput
   factory UploadMultipartPartOutput.fromResponse(
     UploadMultipartPartOutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      UploadMultipartPartOutput.build((b) {
-        if (response.headers['x-amz-sha256-tree-hash'] != null) {
-          b.checksum = response.headers['x-amz-sha256-tree-hash']!;
-        }
-      });
+  ) => UploadMultipartPartOutput.build((b) {
+    if (response.headers['x-amz-sha256-tree-hash'] != null) {
+      b.checksum = response.headers['x-amz-sha256-tree-hash']!;
+    }
+  });
 
   static const List<_i2.SmithySerializer<UploadMultipartPartOutputPayload>>
-      serializers = [UploadMultipartPartOutputRestJson1Serializer()];
+  serializers = [UploadMultipartPartOutputRestJson1Serializer()];
 
   String? get checksum;
   @override
@@ -52,25 +51,23 @@ abstract class UploadMultipartPartOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadMultipartPartOutput')
-      ..add(
-        'checksum',
-        checksum,
-      );
+      ..add('checksum', checksum);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class UploadMultipartPartOutputPayload
-    with
-        _i1.AWSEquatable<UploadMultipartPartOutputPayload>
+    with _i1.AWSEquatable<UploadMultipartPartOutputPayload>
     implements
-        Built<UploadMultipartPartOutputPayload,
-            UploadMultipartPartOutputPayloadBuilder>,
+        Built<
+          UploadMultipartPartOutputPayload,
+          UploadMultipartPartOutputPayloadBuilder
+        >,
         _i2.EmptyPayload {
-  factory UploadMultipartPartOutputPayload(
-          [void Function(UploadMultipartPartOutputPayloadBuilder) updates]) =
-      _$UploadMultipartPartOutputPayload;
+  factory UploadMultipartPartOutputPayload([
+    void Function(UploadMultipartPartOutputPayloadBuilder) updates,
+  ]) = _$UploadMultipartPartOutputPayload;
 
   const UploadMultipartPartOutputPayload._();
 
@@ -79,8 +76,9 @@ abstract class UploadMultipartPartOutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UploadMultipartPartOutputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'UploadMultipartPartOutputPayload',
+    );
     return helper.toString();
   }
 }
@@ -88,23 +86,20 @@ abstract class UploadMultipartPartOutputPayload
 class UploadMultipartPartOutputRestJson1Serializer
     extends _i2.StructuredSmithySerializer<UploadMultipartPartOutputPayload> {
   const UploadMultipartPartOutputRestJson1Serializer()
-      : super('UploadMultipartPartOutput');
+    : super('UploadMultipartPartOutput');
 
   @override
   Iterable<Type> get types => const [
-        UploadMultipartPartOutput,
-        _$UploadMultipartPartOutput,
-        UploadMultipartPartOutputPayload,
-        _$UploadMultipartPartOutputPayload,
-      ];
+    UploadMultipartPartOutput,
+    _$UploadMultipartPartOutput,
+    UploadMultipartPartOutputPayload,
+    _$UploadMultipartPartOutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   UploadMultipartPartOutputPayload deserialize(
@@ -120,6 +115,5 @@ class UploadMultipartPartOutputRestJson1Serializer
     Serializers serializers,
     UploadMultipartPartOutputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

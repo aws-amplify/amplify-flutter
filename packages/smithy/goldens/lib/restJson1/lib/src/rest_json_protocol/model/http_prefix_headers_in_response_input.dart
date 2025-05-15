@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.http_prefix_headers_in_response_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,16 +15,18 @@ abstract class HttpPrefixHeadersInResponseInput
         _i1.HttpInput<HttpPrefixHeadersInResponseInput>,
         _i2.AWSEquatable<HttpPrefixHeadersInResponseInput>
     implements
-        Built<HttpPrefixHeadersInResponseInput,
-            HttpPrefixHeadersInResponseInputBuilder>,
+        Built<
+          HttpPrefixHeadersInResponseInput,
+          HttpPrefixHeadersInResponseInputBuilder
+        >,
         _i1.EmptyPayload {
   factory HttpPrefixHeadersInResponseInput() {
     return _$HttpPrefixHeadersInResponseInput._();
   }
 
-  factory HttpPrefixHeadersInResponseInput.build(
-          [void Function(HttpPrefixHeadersInResponseInputBuilder) updates]) =
-      _$HttpPrefixHeadersInResponseInput;
+  factory HttpPrefixHeadersInResponseInput.build([
+    void Function(HttpPrefixHeadersInResponseInputBuilder) updates,
+  ]) = _$HttpPrefixHeadersInResponseInput;
 
   const HttpPrefixHeadersInResponseInput._();
 
@@ -32,11 +34,10 @@ abstract class HttpPrefixHeadersInResponseInput
     HttpPrefixHeadersInResponseInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<HttpPrefixHeadersInResponseInput>>
-      serializers = [HttpPrefixHeadersInResponseInputRestJson1Serializer()];
+  serializers = [HttpPrefixHeadersInResponseInputRestJson1Serializer()];
 
   @override
   HttpPrefixHeadersInResponseInput getPayload() => this;
@@ -46,8 +47,9 @@ abstract class HttpPrefixHeadersInResponseInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpPrefixHeadersInResponseInput');
+    final helper = newBuiltValueToStringHelper(
+      'HttpPrefixHeadersInResponseInput',
+    );
     return helper.toString();
   }
 }
@@ -55,21 +57,18 @@ abstract class HttpPrefixHeadersInResponseInput
 class HttpPrefixHeadersInResponseInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<HttpPrefixHeadersInResponseInput> {
   const HttpPrefixHeadersInResponseInputRestJson1Serializer()
-      : super('HttpPrefixHeadersInResponseInput');
+    : super('HttpPrefixHeadersInResponseInput');
 
   @override
   Iterable<Type> get types => const [
-        HttpPrefixHeadersInResponseInput,
-        _$HttpPrefixHeadersInResponseInput,
-      ];
+    HttpPrefixHeadersInResponseInput,
+    _$HttpPrefixHeadersInResponseInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   HttpPrefixHeadersInResponseInput deserialize(
@@ -85,6 +84,5 @@ class HttpPrefixHeadersInResponseInputRestJson1Serializer
     Serializers serializers,
     HttpPrefixHeadersInResponseInput object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

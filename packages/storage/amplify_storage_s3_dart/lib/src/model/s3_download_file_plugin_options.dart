@@ -15,9 +15,9 @@ class S3DownloadFilePluginOptions extends StorageDownloadFilePluginOptions {
     bool getProperties = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
-          getProperties: getProperties,
-          useAccelerateEndpoint: useAccelerateEndpoint,
-        );
+         getProperties: getProperties,
+         useAccelerateEndpoint: useAccelerateEndpoint,
+       );
 
   const S3DownloadFilePluginOptions._({
     this.getProperties = false,
@@ -36,10 +36,7 @@ class S3DownloadFilePluginOptions extends StorageDownloadFilePluginOptions {
   final bool useAccelerateEndpoint;
 
   @override
-  List<Object?> get props => [
-        getProperties,
-        useAccelerateEndpoint,
-      ];
+  List<Object?> get props => [getProperties, useAccelerateEndpoint];
 
   @override
   String get runtimeTypeName => 'S3DownloadFilePluginOptions';

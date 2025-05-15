@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_json1_1_v1.json_protocol.test.endpoint_with_host_label_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -13,53 +13,45 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'AwsJson11EndpointTraitWithHostLabel (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: EndpointWithHostLabelOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
+  _i1.test('AwsJson11EndpointTraitWithHostLabel (request)', () async {
+    await _i2.httpRequestTest(
+      operation: EndpointWithHostLabelOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'AwsJson11EndpointTraitWithHostLabel',
-          documentation:
-              'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input.',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body: '{"label": "bar"}',
-          bodyMediaType: 'application/json',
-          params: {'label': 'bar'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {
-            'Content-Type': 'application/x-amz-json-1.1',
-            'X-Amz-Target': 'JsonProtocol.EndpointWithHostLabelOperation',
-          },
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: 'example.com',
-          resolvedHost: 'foo.bar.example.com',
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [HostLabelInputAwsJson11Serializer()],
-      );
-    },
-  );
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'AwsJson11EndpointTraitWithHostLabel',
+        documentation:
+            'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input.',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body: '{"label": "bar"}',
+        bodyMediaType: 'application/json',
+        params: {'label': 'bar'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {
+          'Content-Type': 'application/x-amz-json-1.1',
+          'X-Amz-Target': 'JsonProtocol.EndpointWithHostLabelOperation',
+        },
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: 'example.com',
+        resolvedHost: 'foo.bar.example.com',
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [HostLabelInputAwsJson11Serializer()],
+    );
+  });
 }
 
 class HostLabelInputAwsJson11Serializer
@@ -71,11 +63,8 @@ class HostLabelInputAwsJson11Serializer
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   HostLabelInput deserialize(
@@ -94,10 +83,12 @@ class HostLabelInputAwsJson11Serializer
       }
       switch (key) {
         case 'label':
-          result.label = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.label =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

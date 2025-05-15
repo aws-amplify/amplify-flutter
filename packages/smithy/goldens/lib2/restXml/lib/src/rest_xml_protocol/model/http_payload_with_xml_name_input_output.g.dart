@@ -11,8 +11,9 @@ class _$HttpPayloadWithXmlNameInputOutput
   @override
   final PayloadWithXmlName? nested;
 
-  factory _$HttpPayloadWithXmlNameInputOutput(
-          [void Function(HttpPayloadWithXmlNameInputOutputBuilder)? updates]) =>
+  factory _$HttpPayloadWithXmlNameInputOutput([
+    void Function(HttpPayloadWithXmlNameInputOutputBuilder)? updates,
+  ]) =>
       (new HttpPayloadWithXmlNameInputOutputBuilder()..update(updates))
           ._build();
 
@@ -20,8 +21,8 @@ class _$HttpPayloadWithXmlNameInputOutput
 
   @override
   HttpPayloadWithXmlNameInputOutput rebuild(
-          void Function(HttpPayloadWithXmlNameInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HttpPayloadWithXmlNameInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HttpPayloadWithXmlNameInputOutputBuilder toBuilder() =>
@@ -44,8 +45,10 @@ class _$HttpPayloadWithXmlNameInputOutput
 
 class HttpPayloadWithXmlNameInputOutputBuilder
     implements
-        Builder<HttpPayloadWithXmlNameInputOutput,
-            HttpPayloadWithXmlNameInputOutputBuilder> {
+        Builder<
+          HttpPayloadWithXmlNameInputOutput,
+          HttpPayloadWithXmlNameInputOutputBuilder
+        > {
   _$HttpPayloadWithXmlNameInputOutput? _$v;
 
   PayloadWithXmlNameBuilder? _nested;
@@ -72,7 +75,8 @@ class HttpPayloadWithXmlNameInputOutputBuilder
 
   @override
   void update(
-      void Function(HttpPayloadWithXmlNameInputOutputBuilder)? updates) {
+    void Function(HttpPayloadWithXmlNameInputOutputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -82,7 +86,8 @@ class HttpPayloadWithXmlNameInputOutputBuilder
   _$HttpPayloadWithXmlNameInputOutput _build() {
     _$HttpPayloadWithXmlNameInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$HttpPayloadWithXmlNameInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
@@ -91,7 +96,10 @@ class HttpPayloadWithXmlNameInputOutputBuilder
         _nested?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'HttpPayloadWithXmlNameInputOutput', _$failedField, e.toString());
+          r'HttpPayloadWithXmlNameInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

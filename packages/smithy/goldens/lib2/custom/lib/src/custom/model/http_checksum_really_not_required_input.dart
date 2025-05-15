@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.custom.model.http_checksum_really_not_required_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,8 +18,10 @@ abstract class HttpChecksumReallyNotRequiredInput
         _i1.HttpInput<_i2.Uint8List>,
         _i3.AWSEquatable<HttpChecksumReallyNotRequiredInput>
     implements
-        Built<HttpChecksumReallyNotRequiredInput,
-            HttpChecksumReallyNotRequiredInputBuilder>,
+        Built<
+          HttpChecksumReallyNotRequiredInput,
+          HttpChecksumReallyNotRequiredInputBuilder
+        >,
         _i1.HasPayload<_i2.Uint8List> {
   factory HttpChecksumReallyNotRequiredInput({
     ChecksumAlgorithm? checksumAlgorithm,
@@ -31,9 +33,9 @@ abstract class HttpChecksumReallyNotRequiredInput
     );
   }
 
-  factory HttpChecksumReallyNotRequiredInput.build(
-          [void Function(HttpChecksumReallyNotRequiredInputBuilder) updates]) =
-      _$HttpChecksumReallyNotRequiredInput;
+  factory HttpChecksumReallyNotRequiredInput.build([
+    void Function(HttpChecksumReallyNotRequiredInputBuilder) updates,
+  ]) = _$HttpChecksumReallyNotRequiredInput;
 
   const HttpChecksumReallyNotRequiredInput._();
 
@@ -41,17 +43,17 @@ abstract class HttpChecksumReallyNotRequiredInput
     _i2.Uint8List? payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpChecksumReallyNotRequiredInput.build((b) {
-        b.content = payload;
-        if (request.headers['x-amz-request-algorithm'] != null) {
-          b.checksumAlgorithm = ChecksumAlgorithm.values
-              .byValue(request.headers['x-amz-request-algorithm']!);
-        }
-      });
+  }) => HttpChecksumReallyNotRequiredInput.build((b) {
+    b.content = payload;
+    if (request.headers['x-amz-request-algorithm'] != null) {
+      b.checksumAlgorithm = ChecksumAlgorithm.values.byValue(
+        request.headers['x-amz-request-algorithm']!,
+      );
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
-    HttpChecksumReallyNotRequiredInputRestJson1Serializer()
+    HttpChecksumReallyNotRequiredInputRestJson1Serializer(),
   ];
 
   ChecksumAlgorithm? get checksumAlgorithm;
@@ -60,23 +62,14 @@ abstract class HttpChecksumReallyNotRequiredInput
   _i2.Uint8List? getPayload() => content;
 
   @override
-  List<Object?> get props => [
-        checksumAlgorithm,
-        content,
-      ];
+  List<Object?> get props => [checksumAlgorithm, content];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpChecksumReallyNotRequiredInput')
-          ..add(
-            'checksumAlgorithm',
-            checksumAlgorithm,
-          )
-          ..add(
-            'content',
-            content,
-          );
+          ..add('checksumAlgorithm', checksumAlgorithm)
+          ..add('content', content);
     return helper.toString();
   }
 }
@@ -84,21 +77,18 @@ abstract class HttpChecksumReallyNotRequiredInput
 class HttpChecksumReallyNotRequiredInputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<_i2.Uint8List> {
   const HttpChecksumReallyNotRequiredInputRestJson1Serializer()
-      : super('HttpChecksumReallyNotRequiredInput');
+    : super('HttpChecksumReallyNotRequiredInput');
 
   @override
   Iterable<Type> get types => const [
-        HttpChecksumReallyNotRequiredInput,
-        _$HttpChecksumReallyNotRequiredInput,
-      ];
+    HttpChecksumReallyNotRequiredInput,
+    _$HttpChecksumReallyNotRequiredInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   _i2.Uint8List deserialize(
@@ -107,9 +97,10 @@ class HttpChecksumReallyNotRequiredInputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(_i2.Uint8List),
-    ) as _i2.Uint8List);
+          serialized,
+          specifiedType: const FullType(_i2.Uint8List),
+        )
+        as _i2.Uint8List);
   }
 
   @override

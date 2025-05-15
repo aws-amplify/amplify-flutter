@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.http_payload_traits_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -14,177 +14,140 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'HttpPayloadTraitsWithBlob (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpPayloadTraitsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'HttpPayloadTraitsWithBlob',
-          documentation: 'Serializes a blob in the HTTP payload',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: 'blobby blob blob',
-          bodyMediaType: null,
-          params: {
-            'foo': 'Foo',
-            'blob': 'blobby blob blob',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'X-Foo': 'Foo'},
-          forbidHeaders: [],
-          requireHeaders: ['Content-Length'],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/HttpPayloadTraits',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpPayloadTraitsInputOutputRestXmlSerializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'HttpPayloadTraitsWithNoBlobBody (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpPayloadTraitsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'HttpPayloadTraitsWithNoBlobBody',
-          documentation: 'Serializes an empty blob in the HTTP payload',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'foo': 'Foo'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'X-Foo': 'Foo'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/HttpPayloadTraits',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpPayloadTraitsInputOutputRestXmlSerializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'HttpPayloadTraitsWithBlob (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: HttpPayloadTraitsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'HttpPayloadTraitsWithBlob',
-          documentation: 'Serializes a blob in the HTTP payload',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: 'blobby blob blob',
-          bodyMediaType: null,
-          params: {
-            'foo': 'Foo',
-            'blob': 'blobby blob blob',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'X-Foo': 'Foo'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          HttpPayloadTraitsInputOutputRestXmlSerializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'HttpPayloadTraitsWithNoBlobBody (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: HttpPayloadTraitsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'HttpPayloadTraitsWithNoBlobBody',
-          documentation: 'Serializes an empty blob in the HTTP payload',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {'foo': 'Foo'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'X-Foo': 'Foo'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          HttpPayloadTraitsInputOutputRestXmlSerializer()
-        ],
-      );
-    },
-  );
+  _i1.test('HttpPayloadTraitsWithBlob (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpPayloadTraitsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'HttpPayloadTraitsWithBlob',
+        documentation: 'Serializes a blob in the HTTP payload',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: 'blobby blob blob',
+        bodyMediaType: null,
+        params: {'foo': 'Foo', 'blob': 'blobby blob blob'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'X-Foo': 'Foo'},
+        forbidHeaders: [],
+        requireHeaders: ['Content-Length'],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/HttpPayloadTraits',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [HttpPayloadTraitsInputOutputRestXmlSerializer()],
+    );
+  });
+  _i1.test('HttpPayloadTraitsWithNoBlobBody (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpPayloadTraitsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'HttpPayloadTraitsWithNoBlobBody',
+        documentation: 'Serializes an empty blob in the HTTP payload',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'foo': 'Foo'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'X-Foo': 'Foo'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/HttpPayloadTraits',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [HttpPayloadTraitsInputOutputRestXmlSerializer()],
+    );
+  });
+  _i1.test('HttpPayloadTraitsWithBlob (response)', () async {
+    await _i2.httpResponseTest(
+      operation: HttpPayloadTraitsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'HttpPayloadTraitsWithBlob',
+        documentation: 'Serializes a blob in the HTTP payload',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: 'blobby blob blob',
+        bodyMediaType: null,
+        params: {'foo': 'Foo', 'blob': 'blobby blob blob'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'X-Foo': 'Foo'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        HttpPayloadTraitsInputOutputRestXmlSerializer(),
+      ],
+    );
+  });
+  _i1.test('HttpPayloadTraitsWithNoBlobBody (response)', () async {
+    await _i2.httpResponseTest(
+      operation: HttpPayloadTraitsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'HttpPayloadTraitsWithNoBlobBody',
+        documentation: 'Serializes an empty blob in the HTTP payload',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'foo': 'Foo'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'X-Foo': 'Foo'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        HttpPayloadTraitsInputOutputRestXmlSerializer(),
+      ],
+    );
+  });
 }
 
 class HttpPayloadTraitsInputOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<HttpPayloadTraitsInputOutput> {
   const HttpPayloadTraitsInputOutputRestXmlSerializer()
-      : super('HttpPayloadTraitsInputOutput');
+    : super('HttpPayloadTraitsInputOutput');
 
   @override
   Iterable<Type> get types => const [HttpPayloadTraitsInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   HttpPayloadTraitsInputOutput deserialize(
@@ -203,15 +166,19 @@ class HttpPayloadTraitsInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'blob':
-          result.blob = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i4.Uint8List),
-          ) as _i4.Uint8List);
+          result.blob =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i4.Uint8List),
+                  )
+                  as _i4.Uint8List);
       }
     }
 

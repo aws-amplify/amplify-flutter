@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.s3.operation.get_object_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,8 +14,14 @@ import 'package:custom_v2/src/s3/model/get_object_request.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
-    GetObjectRequest, _i2.Stream<List<int>>, GetObjectOutput> {
+class GetObjectOperation
+    extends
+        _i1.HttpOperation<
+          GetObjectRequestPayload,
+          GetObjectRequest,
+          _i2.Stream<List<int>>,
+          GetObjectOutput
+        > {
   GetObjectOperation({
     required String region,
     Uri? baseUri,
@@ -24,40 +30,47 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
         const _i4.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<GetObjectRequestPayload, GetObjectRequest,
-          _i2.Stream<List<int>>, GetObjectOutput>> protocols = [
+    _i1.HttpProtocol<
+      GetObjectRequestPayload,
+      GetObjectRequest,
+      _i2.Stream<List<int>>,
+      GetObjectOutput
+    >
+  >
+  protocols = [
     _i3.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i3.WithSigV4(
               region: _region,
               service: _i5.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i4.S3ServiceConfiguration(),
             ),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i3.WithSdkInvocationId(),
             const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
-      responseInterceptors: <_i1.HttpResponseInterceptor>[
-            const _i3.CheckPartialResponse()
-          ] +
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[const _i3.CheckPartialResponse()] +
           _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -79,17 +92,18 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
 
   @override
   _i1.HttpRequest buildRequest(GetObjectRequest input) => _i1.HttpRequest((b) {
-        b.method = 'GET';
-        b.path = _s3ClientConfig.usePathStyle
+    b.method = 'GET';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=GetObject'
             : r'/{Key+}?x-id=GetObject';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.range != null) {
-          if (input.range!.isNotEmpty) {
-            b.headers['Range'] = input.range!;
-          }
-        }
-      });
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.range != null) {
+      if (input.range!.isNotEmpty) {
+        b.headers['Range'] = input.range!;
+      }
+    }
+  });
 
   @override
   int successCode([GetObjectOutput? output]) => 200;
@@ -98,11 +112,7 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
   GetObjectOutput buildOutput(
     _i2.Stream<List<int>> payload,
     _i5.AWSBaseHttpResponse response,
-  ) =>
-      GetObjectOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => GetObjectOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -141,11 +151,7 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},

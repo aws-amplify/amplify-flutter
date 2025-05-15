@@ -141,10 +141,7 @@ enum PushNotificationsCategoryMethod with AmplifyCategoryMethod {
 }
 
 /// Identifies [fn] as originating from a call to [categoryMethod].
-R identifyCall<R>(
-  AmplifyCategoryMethod categoryMethod,
-  R Function() fn,
-) {
+R identifyCall<R>(AmplifyCategoryMethod categoryMethod, R Function() fn) {
   return runZoned(
     fn,
     zoneValues: {

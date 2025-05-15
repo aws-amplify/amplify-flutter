@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_length_query_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,19 @@ abstract class MalformedLengthQueryStringInput
         _i1.HttpInput<MalformedLengthQueryStringInputPayload>,
         _i2.AWSEquatable<MalformedLengthQueryStringInput>
     implements
-        Built<MalformedLengthQueryStringInput,
-            MalformedLengthQueryStringInputBuilder>,
+        Built<
+          MalformedLengthQueryStringInput,
+          MalformedLengthQueryStringInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<MalformedLengthQueryStringInputPayload> {
   factory MalformedLengthQueryStringInput({String? string}) {
     return _$MalformedLengthQueryStringInput._(string: string);
   }
 
-  factory MalformedLengthQueryStringInput.build(
-          [void Function(MalformedLengthQueryStringInputBuilder) updates]) =
-      _$MalformedLengthQueryStringInput;
+  factory MalformedLengthQueryStringInput.build([
+    void Function(MalformedLengthQueryStringInputBuilder) updates,
+  ]) = _$MalformedLengthQueryStringInput;
 
   const MalformedLengthQueryStringInput._();
 
@@ -34,16 +36,16 @@ abstract class MalformedLengthQueryStringInput
     MalformedLengthQueryStringInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedLengthQueryStringInput.build((b) {
-        if (request.queryParameters['string'] != null) {
-          b.string = request.queryParameters['string']!;
-        }
-      });
+  }) => MalformedLengthQueryStringInput.build((b) {
+    if (request.queryParameters['string'] != null) {
+      b.string = request.queryParameters['string']!;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<MalformedLengthQueryStringInputPayload>>
-      serializers = [MalformedLengthQueryStringInputRestJson1Serializer()];
+    _i1.SmithySerializer<MalformedLengthQueryStringInputPayload>
+  >
+  serializers = [MalformedLengthQueryStringInputRestJson1Serializer()];
 
   String? get string;
   @override
@@ -55,27 +57,25 @@ abstract class MalformedLengthQueryStringInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedLengthQueryStringInput')
-          ..add(
-            'string',
-            string,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'MalformedLengthQueryStringInput',
+    )..add('string', string);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class MalformedLengthQueryStringInputPayload
-    with
-        _i2.AWSEquatable<MalformedLengthQueryStringInputPayload>
+    with _i2.AWSEquatable<MalformedLengthQueryStringInputPayload>
     implements
-        Built<MalformedLengthQueryStringInputPayload,
-            MalformedLengthQueryStringInputPayloadBuilder>,
+        Built<
+          MalformedLengthQueryStringInputPayload,
+          MalformedLengthQueryStringInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory MalformedLengthQueryStringInputPayload(
-      [void Function(MalformedLengthQueryStringInputPayloadBuilder)
-          updates]) = _$MalformedLengthQueryStringInputPayload;
+  factory MalformedLengthQueryStringInputPayload([
+    void Function(MalformedLengthQueryStringInputPayloadBuilder) updates,
+  ]) = _$MalformedLengthQueryStringInputPayload;
 
   const MalformedLengthQueryStringInputPayload._();
 
@@ -84,32 +84,31 @@ abstract class MalformedLengthQueryStringInputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedLengthQueryStringInputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'MalformedLengthQueryStringInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class MalformedLengthQueryStringInputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<MalformedLengthQueryStringInputPayload> {
+class MalformedLengthQueryStringInputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<MalformedLengthQueryStringInputPayload> {
   const MalformedLengthQueryStringInputRestJson1Serializer()
-      : super('MalformedLengthQueryStringInput');
+    : super('MalformedLengthQueryStringInput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedLengthQueryStringInput,
-        _$MalformedLengthQueryStringInput,
-        MalformedLengthQueryStringInputPayload,
-        _$MalformedLengthQueryStringInputPayload,
-      ];
+    MalformedLengthQueryStringInput,
+    _$MalformedLengthQueryStringInput,
+    MalformedLengthQueryStringInputPayload,
+    _$MalformedLengthQueryStringInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedLengthQueryStringInputPayload deserialize(
@@ -125,6 +124,5 @@ class MalformedLengthQueryStringInputRestJson1Serializer extends _i1
     Serializers serializers,
     MalformedLengthQueryStringInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

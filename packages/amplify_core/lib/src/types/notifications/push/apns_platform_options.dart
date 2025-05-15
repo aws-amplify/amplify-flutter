@@ -17,7 +17,5 @@ class ApnsPlatformOptions
   String get runtimeTypeName => 'ApnsPlatformOptions';
 
   @override
-  Map<String, Object?> toJson() => {
-        'subTitle': subtitle,
-      };
+  Map<String, Object?> toJson() => {'subTitle': subtitle};
 }

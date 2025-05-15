@@ -99,15 +99,17 @@ class _ViewUserAttributesScreenState extends State<ViewUserAttributesScreen> {
                   return ListTile(
                     title: Text(userAttributeKey.key),
                     subtitle: Text(value),
-                    trailing: userAttributeKey.readOnly
-                        ? null
-                        : IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () => context.push(
-                              '/update-user-attribute',
-                              extra: userAttributeKey,
+                    trailing:
+                        userAttributeKey.readOnly
+                            ? null
+                            : IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed:
+                                  () => context.push(
+                                    '/update-user-attribute',
+                                    extra: userAttributeKey,
+                                  ),
                             ),
-                          ),
                   );
                 },
               ),

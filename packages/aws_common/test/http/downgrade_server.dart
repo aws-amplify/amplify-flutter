@@ -13,11 +13,7 @@ import 'http_server.dart';
 Future<void> hybridMain(StreamChannel<Object?> channel) =>
     clientHybridMain(channel, _handleH1, _handleH2);
 
-void _handleH1(
-  StreamChannel<Object?> channel,
-  HttpRequest request,
-  int port,
-) {
+void _handleH1(StreamChannel<Object?> channel, HttpRequest request, int port) {
   request.response
     ..add('OK'.codeUnits)
     ..close();

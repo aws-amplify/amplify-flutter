@@ -28,7 +28,8 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
   }
 
   @override
-  String get description => 'Links all packages in the Amplify Flutter repo '
+  String get description =>
+      'Links all packages in the Amplify Flutter repo '
       'to prepare for local development';
 
   @override
@@ -60,8 +61,7 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
     }
     await file.create();
     // formatting is important to avoid lint errors
-    await file.writeAsString(
-      '''
+    await file.writeAsString('''
 const amplifyconfig = \'\'\'{
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0"
@@ -73,30 +73,25 @@ const amplifyConfig = \'\'\'{
 }\'\'\';
 
 const amplifyEnvironments = <String, String>{};
-''',
-    );
+''');
   }
 
   Future<void> _createEmptyGen2Config(PackageInfo package) async {
-    final file = File(
-      path.join(package.path, 'lib', 'amplify_outputs.dart'),
-    );
+    final file = File(path.join(package.path, 'lib', 'amplify_outputs.dart'));
 
     if (await file.exists() ||
         !await Directory(path.join(package.path, 'lib')).exists()) {
       return;
     }
     await file.create();
-// formatting is important to avoid lint errors
-    await file.writeAsString(
-      '''
+    // formatting is important to avoid lint errors
+    await file.writeAsString('''
 const amplifyConfig = \'\'\'{
   "version": "1"
 }\'\'\';
 
 const amplifyEnvironments = <String, String>{};
-''',
-    );
+''');
   }
 
   @override
@@ -104,34 +99,35 @@ const amplifyEnvironments = <String, String>{};
     await super.run();
     await linkPackages();
 
-    final bootstrapPackages = commandPackages.values
-        .where(
-          // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
-          // run with the native command, and running it again with the embedded
-          // command could cause issues later on, esp. when the native `pub`
-          // command is significantly newer/older than the embedded one.
-          (pkg) => pkg.name != 'aft',
-        )
-        .where(
-          // Skip bootstrapping packages which set incompatible Dart SDK constraints,
-          // e.g. packages which are leveraging preview features.
-          //
-          // The problem of packages setting incorrect constraints, for example setting
-          // `^3.0.5` when the current repo constraint is `^3.0.0` and we're running
-          // `aft` with `3.0.1` is a different issue handled by the constraints commands.
-          (pkg) {
-            final compatibleWithActiveSdk = pkg.compatibleWithActiveSdk;
-            if (!compatibleWithActiveSdk) {
-              logger.info(
-                'Skipping package ${pkg.name} since it sets an incompatible Dart SDK constraint: '
-                '${pkg.dartSdkConstraint}',
-              );
-            }
-            return compatibleWithActiveSdk;
-          },
-        )
-        .expand((pkg) => [pkg, pkg.example, pkg.docs])
-        .nonNulls;
+    final bootstrapPackages =
+        commandPackages.values
+            .where(
+              // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
+              // run with the native command, and running it again with the embedded
+              // command could cause issues later on, esp. when the native `pub`
+              // command is significantly newer/older than the embedded one.
+              (pkg) => pkg.name != 'aft',
+            )
+            .where(
+              // Skip bootstrapping packages which set incompatible Dart SDK constraints,
+              // e.g. packages which are leveraging preview features.
+              //
+              // The problem of packages setting incorrect constraints, for example setting
+              // `^3.0.5` when the current repo constraint is `^3.0.0` and we're running
+              // `aft` with `3.0.1` is a different issue handled by the constraints commands.
+              (pkg) {
+                final compatibleWithActiveSdk = pkg.compatibleWithActiveSdk;
+                if (!compatibleWithActiveSdk) {
+                  logger.info(
+                    'Skipping package ${pkg.name} since it sets an incompatible Dart SDK constraint: '
+                    '${pkg.dartSdkConstraint}',
+                  );
+                }
+                return compatibleWithActiveSdk;
+              },
+            )
+            .expand((pkg) => [pkg, pkg.example, pkg.docs])
+            .nonNulls;
     for (final package in bootstrapPackages) {
       await pubAction(
         arguments: [if (upgrade) 'upgrade' else 'get'],
@@ -145,21 +141,18 @@ const amplifyEnvironments = <String, String>{};
       final buildPackages = <PackageInfo>{};
       final packageGraph = repo.getPackageGraph(includeDevDependencies: true);
       for (final package in bootstrapPackages) {
-        dfs(
-          packageGraph,
-          root: package,
-          (package) {
-            // Only run build_runner for packages which need it for development,
-            // i.e. those packages which specify worker JS files in their assets.
-            final needsBuild = package.needsBuildRunner &&
-                (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
-                    false) &&
-                package.flavor == PackageFlavor.dart;
-            if (needsBuild) {
-              buildPackages.add(package);
-            }
-          },
-        );
+        dfs(packageGraph, root: package, (package) {
+          // Only run build_runner for packages which need it for development,
+          // i.e. those packages which specify worker JS files in their assets.
+          final needsBuild =
+              package.needsBuildRunner &&
+              (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
+                  false) &&
+              package.flavor == PackageFlavor.dart;
+          if (needsBuild) {
+            buildPackages.add(package);
+          }
+        });
       }
       for (final package in buildPackages) {
         await runBuildRunner(package, logger: logger, verbose: verbose);

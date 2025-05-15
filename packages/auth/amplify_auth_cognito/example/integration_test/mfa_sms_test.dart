@@ -18,45 +18,43 @@ void main() {
     );
     for (final environment in smsEnvironments) {
       testRunner.withEnvironment(environment, (env) {
-        asyncTest(
-          'can sign in with SMS MFA enabled by administrator',
-          (_) async {
-            final username = env.generateUsername();
-            final password = generatePassword();
+        asyncTest('can sign in with SMS MFA enabled by administrator', (
+          _,
+        ) async {
+          final username = env.generateUsername();
+          final password = generatePassword();
 
-            final otpResult = await getOtpCode(
-              env.getLoginAttribute(username),
-            );
+          final otpResult = await getOtpCode(env.getLoginAttribute(username));
 
-            await adminCreateUser(
-              username,
-              password,
-              autoConfirm: true,
-              verifyAttributes: true,
-              attributes: env.getDefaultAttributes(username),
-              enableMfa: true,
-            );
+          await adminCreateUser(
+            username,
+            password,
+            autoConfirm: true,
+            verifyAttributes: true,
+            attributes: env.getDefaultAttributes(username),
+            enableMfa: true,
+          );
 
-            final signInRes = await Amplify.Auth.signIn(
-              username: username,
-              password: password,
-            );
-            check(signInRes.nextStep.signInStep)
-                .equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
+          final signInRes = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          check(
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
 
-            final confirmRes = await Amplify.Auth.confirmSignIn(
-              confirmationValue: await otpResult.code,
-            );
-            check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
+          final confirmRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: await otpResult.code,
+          );
+          check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
 
-            check(await cognitoPlugin.fetchMfaPreference()).equals(
-              const UserMfaPreference(
-                enabled: {MfaType.sms},
-                preferred: MfaType.sms,
-              ),
-            );
-          },
-        );
+          check(await cognitoPlugin.fetchMfaPreference()).equals(
+            const UserMfaPreference(
+              enabled: {MfaType.sms},
+              preferred: MfaType.sms,
+            ),
+          );
+        });
       });
     }
 
@@ -73,9 +71,7 @@ void main() {
           attributes: env.getDefaultAttributes(username),
         );
 
-        final otpResult = await getOtpCode(
-          env.getLoginAttribute(username),
-        );
+        final otpResult = await getOtpCode(env.getLoginAttribute(username));
 
         final signInRes = await Amplify.Auth.signIn(
           username: username,
@@ -83,7 +79,8 @@ void main() {
         );
         check(
           signInRes.nextStep.signInStep,
-          because: 'When MFA is required, it must be configured during '
+          because:
+              'When MFA is required, it must be configured during '
               'the first sign-in',
         ).equals(AuthSignInStep.confirmSignInWithSmsMfaCode);
 
@@ -126,60 +123,60 @@ void main() {
         );
         check(
           signInRes.nextStep.signInStep,
-          because: 'When MFA is not required, it can be skipped during '
+          because:
+              'When MFA is not required, it can be skipped during '
               'the first sign-in',
         ).equals(AuthSignInStep.done);
 
-        check(await cognitoPlugin.fetchMfaPreference())
-            .equals(const UserMfaPreference());
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+        ).equals(const UserMfaPreference());
       });
 
-      asyncTest(
-        'fetchMfaPreference returns SMS when enabled outside library',
-        (_) async {
-          final username = env.generateUsername();
-          final password = generatePassword();
+      asyncTest('fetchMfaPreference returns SMS when enabled outside library', (
+        _,
+      ) async {
+        final username = env.generateUsername();
+        final password = generatePassword();
 
-          final cognitoUsername = await adminCreateUser(
-            username,
-            password,
-            autoConfirm: true,
-            verifyAttributes: true,
-            attributes: env.getDefaultAttributes(username),
-          );
+        final cognitoUsername = await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: true,
+          attributes: env.getDefaultAttributes(username),
+        );
 
-          final signInRes = await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
-          check(
-            signInRes.nextStep.signInStep,
-            because: 'When MFA is not required, it can be skipped during '
-                'the first sign-in',
-          ).equals(AuthSignInStep.done);
+        final signInRes = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        check(
+          signInRes.nextStep.signInStep,
+          because:
+              'When MFA is not required, it can be skipped during '
+              'the first sign-in',
+        ).equals(AuthSignInStep.done);
 
-          await adminEnableSmsMfa(cognitoUsername);
+        await adminEnableSmsMfa(cognitoUsername);
 
-          check(await cognitoPlugin.fetchMfaPreference()).equals(
-            const UserMfaPreference(
-              enabled: {MfaType.sms},
-              preferred: MfaType.sms,
-            ),
-          );
+        check(await cognitoPlugin.fetchMfaPreference()).equals(
+          const UserMfaPreference(
+            enabled: {MfaType.sms},
+            preferred: MfaType.sms,
+          ),
+        );
 
-          await check(
-            because: 'SMS can be disabled when optional',
-            cognitoPlugin.updateMfaPreference(sms: MfaPreference.disabled),
-          ).completes();
+        await check(
+          because: 'SMS can be disabled when optional',
+          cognitoPlugin.updateMfaPreference(sms: MfaPreference.disabled),
+        ).completes();
 
-          check(
-            because: 'Disabling SMS should mark it as not preferred',
-            await cognitoPlugin.fetchMfaPreference(),
-          ).equals(
-            const UserMfaPreference(enabled: {}, preferred: null),
-          );
-        },
-      );
+        check(
+          because: 'Disabling SMS should mark it as not preferred',
+          await cognitoPlugin.fetchMfaPreference(),
+        ).equals(const UserMfaPreference(enabled: {}, preferred: null));
+      });
     });
   });
 }

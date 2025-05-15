@@ -6,25 +6,13 @@ library amplify_analytics_pinpoint_dart.pinpoint.model.dimension_type; // ignore
 import 'package:smithy/smithy.dart' as _i1;
 
 class DimensionType extends _i1.SmithyEnum<DimensionType> {
-  const DimensionType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const DimensionType._(super.index, super.name, super.value);
 
   const DimensionType._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const exclusive = DimensionType._(
-    0,
-    'EXCLUSIVE',
-    'EXCLUSIVE',
-  );
+  static const exclusive = DimensionType._(0, 'EXCLUSIVE', 'EXCLUSIVE');
 
-  static const inclusive = DimensionType._(
-    1,
-    'INCLUSIVE',
-    'INCLUSIVE',
-  );
+  static const inclusive = DimensionType._(1, 'INCLUSIVE', 'INCLUSIVE');
 
   /// All values of [DimensionType].
   static const values = <DimensionType>[
@@ -38,12 +26,9 @@ class DimensionType extends _i1.SmithyEnum<DimensionType> {
       values: values,
       sdkUnknown: DimensionType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

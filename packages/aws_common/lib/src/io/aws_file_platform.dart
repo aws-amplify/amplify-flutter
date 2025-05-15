@@ -24,26 +24,16 @@ class AWSFilePlatform extends AWSFile {
   }) : super.protected();
 
   /// {@macro amplify_core.io.aws_file.from_path}
-  AWSFilePlatform.fromPath(
-    String path, {
-    super.name,
-    super.contentType,
-  }) : super.protected(
-          path: path,
-        ) {
+  AWSFilePlatform.fromPath(String path, {super.name, super.contentType})
+    : super.protected(path: path) {
     throw UnimplementedError(
       'AWSFile is not available in the current platform',
     );
   }
 
   /// {@macro amplify_core.io.aws_file.from_path}
-  AWSFilePlatform.fromData(
-    List<int> data, {
-    super.name,
-    super.contentType,
-  }) : super.protected(
-          bytes: data,
-        );
+  AWSFilePlatform.fromData(List<int> data, {super.name, super.contentType})
+    : super.protected(bytes: data);
 
   @override
   Future<int> get size {

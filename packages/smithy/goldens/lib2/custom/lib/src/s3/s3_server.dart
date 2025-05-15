@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,16 +28,8 @@ abstract class S3ServerBase extends _i1.HttpServerBase {
   late final Router _router = () {
     final service = _S3Server(this);
     final router = Router();
-    router.add(
-      'PUT',
-      r'/<Bucket>/<Key>?x-id=CopyObject',
-      service.copyObject,
-    );
-    router.add(
-      'GET',
-      r'/<Bucket>/<Key>?x-id=GetObject',
-      service.getObject,
-    );
+    router.add('PUT', r'/<Bucket>/<Key>?x-id=CopyObject', service.copyObject);
+    router.add('GET', r'/<Bucket>/<Key>?x-id=GetObject', service.getObject);
     return router;
   }();
 
@@ -59,20 +51,24 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
   final S3ServerBase service;
 
   late final _i1.HttpProtocol<
-      CopyObjectRequestPayload,
-      CopyObjectRequest,
-      CopyObjectResult,
-      CopyObjectOutput> _copyObjectProtocol = _i2.RestXmlProtocol(
+    CopyObjectRequestPayload,
+    CopyObjectRequest,
+    CopyObjectResult,
+    CopyObjectOutput
+  >
+  _copyObjectProtocol = _i2.RestXmlProtocol(
     serializers: serializers,
     builderFactories: builderFactories,
     noErrorWrapping: true,
   );
 
   late final _i1.HttpProtocol<
-      GetObjectRequestPayload,
-      GetObjectRequest,
-      _i3.Stream<List<int>>,
-      GetObjectOutput> _getObjectProtocol = _i2.RestXmlProtocol(
+    GetObjectRequestPayload,
+    GetObjectRequest,
+    _i3.Stream<List<int>>,
+    GetObjectOutput
+  >
+  _getObjectProtocol = _i2.RestXmlProtocol(
     serializers: serializers,
     builderFactories: builderFactories,
     noErrorWrapping: true,
@@ -87,29 +83,24 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _copyObjectProtocol.contentType;
     try {
-      final payload = (await _copyObjectProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(CopyObjectRequestPayload),
-      ) as CopyObjectRequestPayload);
+      final payload =
+          (await _copyObjectProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(CopyObjectRequestPayload),
+              )
+              as CopyObjectRequestPayload);
       final input = CopyObjectRequest.fromRequest(
         payload,
         awsRequest,
-        labels: {
-          'Bucket': Bucket,
-          'Key': Key,
-        },
+        labels: {'Bucket': Bucket, 'Key': Key},
       );
-      final output = await service.copyObject(
-        input,
-        context,
-      );
+      final output = await service.copyObject(input, context);
       const statusCode = 200;
       final body = await _copyObjectProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          CopyObjectOutput,
-          [FullType.nullable(CopyObjectResult)],
-        ),
+        specifiedType: const FullType(CopyObjectOutput, [
+          FullType.nullable(CopyObjectResult),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -120,10 +111,9 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
       context.response.headers['X-Amzn-Errortype'] = 'CopyObjectError';
       final body = _copyObjectProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          CopyObjectError,
-          [FullType(CopyObjectError)],
-        ),
+        specifiedType: const FullType(CopyObjectError, [
+          FullType(CopyObjectError),
+        ]),
       );
       const statusCode = 500;
       return _i4.Response(
@@ -132,10 +122,7 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -148,39 +135,26 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _getObjectProtocol.contentType;
     try {
-      final payload = (await _getObjectProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(GetObjectRequestPayload),
-      ) as GetObjectRequestPayload);
+      final payload =
+          (await _getObjectProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(GetObjectRequestPayload),
+              )
+              as GetObjectRequestPayload);
       final input = GetObjectRequest.fromRequest(
         payload,
         awsRequest,
-        labels: {
-          'Bucket': Bucket,
-          'Key': Key,
-        },
+        labels: {'Bucket': Bucket, 'Key': Key},
       );
-      final output = await service.getObject(
-        input,
-        context,
-      );
+      final output = await service.getObject(input, context);
       const statusCode = 200;
       final body = await _getObjectProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          GetObjectOutput,
-          [
-            FullType(
-              _i3.Stream,
-              [
-                FullType(
-                  List,
-                  [FullType(int)],
-                )
-              ],
-            )
-          ],
-        ),
+        specifiedType: const FullType(GetObjectOutput, [
+          FullType(_i3.Stream, [
+            FullType(List, [FullType(int)]),
+          ]),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -188,10 +162,7 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 }

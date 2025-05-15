@@ -30,8 +30,8 @@ import 'common.dart';
 final Uri applicationUri = Uri.parse('http://localhost:3000/');
 
 final ProcessManager processManager = ProcessManager();
-final AWSHttpClient httpClient = AWSHttpClient()
-  ..supportedProtocols = SupportedProtocols.http1;
+final AWSHttpClient httpClient =
+    AWSHttpClient()..supportedProtocols = SupportedProtocols.http1;
 
 enum Compiler {
   ddc('DDC'),
@@ -44,7 +44,8 @@ enum Compiler {
 
 /// Kills all processes listening on [port].
 Future<void> killAll(int port) async {
-  final pipeline = Script('lsof -i :$port') |
+  final pipeline =
+      Script('lsof -i :$port') |
       Script('grep LISTEN') |
       Script(r"awk -F\  '{print $2}'");
   await for (final pid in pipeline.lines.map(int.parse)) {
@@ -85,11 +86,14 @@ Future<void> buildAndRun(Compiler compiler) async {
       await Future.doWhile(() async {
         await Future<void>.delayed(const Duration(seconds: 5));
         try {
-          final response = await httpClient
-              .send(
-                AWSHttpRequest.get(Uri.parse('http://localhost:$servePort')),
-              )
-              .response;
+          final response =
+              await httpClient
+                  .send(
+                    AWSHttpRequest.get(
+                      Uri.parse('http://localhost:$servePort'),
+                    ),
+                  )
+                  .response;
           return response.statusCode != 200;
         } on Exception {
           return true;
@@ -111,8 +115,9 @@ Future<void> buildAndRun(Compiler compiler) async {
   // Serve the built website at `applicationUri` with appropriate fallbacks.
   // This is done so that, for example, `/auth` can be properly handled without
   // needing front-end routing or other tricks.
-  final handler =
-      const Pipeline().addMiddleware(logRequests()).addHandler((request) async {
+  final handler = const Pipeline().addMiddleware(logRequests()).addHandler((
+    request,
+  ) async {
     if (request.method != 'GET') {
       return Response(HttpStatus.methodNotAllowed);
     }
@@ -126,16 +131,10 @@ Future<void> buildAndRun(Compiler compiler) async {
     final mimeType = mimeResolver.lookup(path);
     return Response.ok(
       await file.readAsBytes(),
-      headers: {
-        if (mimeType != null) 'Content-Type': mimeType,
-      },
+      headers: {if (mimeType != null) 'Content-Type': mimeType},
     );
   });
-  final fileServer = await io.serve(
-    handler,
-    'localhost',
-    applicationUri.port,
-  );
+  final fileServer = await io.serve(handler, 'localhost', applicationUri.port);
   addTearDown(() => fileServer.close(force: true));
 }
 
@@ -149,97 +148,89 @@ Future<void> buildAndRun(Compiler compiler) async {
 Future<void> main() async {
   AWSLogger().logLevel = LogLevel.verbose;
 
-  group(
-    'Hosted UI',
-    () {
-      late WebDriver driver;
-      late String username;
-      late String password;
+  group('Hosted UI', () {
+    late WebDriver driver;
+    late String username;
+    late String password;
 
-      tearDownAll(() async {
-        await httpClient.close();
-      });
+    tearDownAll(() async {
+      await httpClient.close();
+    });
 
-      for (final compiler in Compiler.values) {
-        group(compiler.name, () {
-          setUp(() async {
-            await buildAndRun(compiler);
+    for (final compiler in Compiler.values) {
+      group(compiler.name, () {
+        setUp(() async {
+          await buildAndRun(compiler);
 
-            await Amplify.configure(jsonEncode(config));
-            addTearDown(Amplify.reset);
+          await Amplify.configure(jsonEncode(config));
+          addTearDown(Amplify.reset);
 
-            username = generateUsername();
-            password = generatePassword();
+          username = generateUsername();
+          password = generatePassword();
 
-            logger.debug('Creating user $username...');
-            await adminCreateUser(username, password, autoConfirm: true);
-            addTearDown(() => adminDeleteUser(username));
+          logger.debug('Creating user $username...');
+          await adminCreateUser(username, password, autoConfirm: true);
+          addTearDown(() => adminDeleteUser(username));
 
-            logger.info('Launching Chrome...');
-            driver = await createWebDriver();
-            addTearDown(driver.quit);
+          logger.info('Launching Chrome...');
+          driver = await createWebDriver();
+          addTearDown(driver.quit);
 
-            await driver.get(applicationUri);
-          });
+          await driver.get(applicationUri);
+        });
 
-          test('sign in/sign out', () async {
-            await driver.signIn(username: username, password: password);
-            {
-              final credentials = await driver.getCredentials();
+        test('sign in/sign out', () async {
+          await driver.signIn(username: username, password: password);
+          {
+            final credentials = await driver.getCredentials();
 
-              check(
-                because: 'User should be logged in after redirect',
-                credentials.userPoolTokens,
-              ).isNotNull();
-            }
+            check(
+              because: 'User should be logged in after redirect',
+              credentials.userPoolTokens,
+            ).isNotNull();
+          }
 
-            await driver.signOut();
-            {
-              final credentials = await driver.getCredentials();
+          await driver.signOut();
+          {
+            final credentials = await driver.getCredentials();
 
-              check(
+            check(
                 because: 'User should be signed out after redirect',
                 credentials,
               )
-                ..has((creds) => creds.awsCredentials, 'awsCredentials')
-                    .isNull()
-                ..has((creds) => creds.identityId, 'identityId').isNull()
-                ..has((creds) => creds.userPoolTokens, 'userPoolTokens')
-                    .isNull();
-            }
-          });
+              ..has((creds) => creds.awsCredentials, 'awsCredentials').isNull()
+              ..has((creds) => creds.identityId, 'identityId').isNull()
+              ..has((creds) => creds.userPoolTokens, 'userPoolTokens').isNull();
+          }
+        });
 
-          test('incomplete sign out', () async {
-            await driver.signIn(username: username, password: password);
-            {
-              final credentials = await driver.getCredentials();
+        test('incomplete sign out', () async {
+          await driver.signIn(username: username, password: password);
+          {
+            final credentials = await driver.getCredentials();
 
-              check(
-                because: 'User should be logged in after redirect',
-                credentials.userPoolTokens,
-              ).isNotNull();
-            }
+            check(
+              because: 'User should be logged in after redirect',
+              credentials.userPoolTokens,
+            ).isNotNull();
+          }
 
-            await driver.incompleteSignOut();
-            {
-              final credentials = await driver.getCredentials();
+          await driver.incompleteSignOut();
+          {
+            final credentials = await driver.getCredentials();
 
-              check(
+            check(
                 because: 'User should be signed out without redirecting',
                 credentials,
               )
-                ..has((creds) => creds.awsCredentials, 'awsCredentials')
-                    .isNull()
-                ..has((creds) => creds.identityId, 'identityId').isNull()
-                ..has((creds) => creds.userPoolTokens, 'userPoolTokens')
-                    .isNull();
-            }
-          });
+              ..has((creds) => creds.awsCredentials, 'awsCredentials').isNull()
+              ..has((creds) => creds.identityId, 'identityId').isNull()
+              ..has((creds) => creds.userPoolTokens, 'userPoolTokens').isNull();
+          }
         });
-      }
-    },
-    timeout: const Timeout(Duration(minutes: 30)),
-  );
+      });
+    }
+  }, timeout: const Timeout(Duration(minutes: 30)));
 }
 
 extension on WebDriver {
@@ -252,9 +243,7 @@ extension on WebDriver {
     await loginWithCognitoButton.click();
 
     logger.info('REDIRECTING TO COGNITO');
-    await locationChanges.firstWhere(
-      (uri) => uri.host != 'localhost',
-    );
+    await locationChanges.firstWhere((uri) => uri.host != 'localhost');
     logger.info('REDIRECTED TO COGNITO');
     await signInCognito(username: username, password: password);
     logger.info('REDIRECTED AFTER SIGN IN');
@@ -265,8 +254,7 @@ extension on WebDriver {
   /// Performs an "incomplete sign out" on Web platform by mimicking a redirect
   /// which never completes.
   Future<void> incompleteSignOut() async {
-    await driver.execute(
-      '''
+    await driver.execute('''
 const windowOpen = window.open;
 window.open = function(url, target) {
   // Restore functionality for future calls.
@@ -280,9 +268,7 @@ window.open = function(url, target) {
   // this error will go unhandled and propagate to user code.
   throw new Error('Sign out aborted');
 };
-''',
-      [],
-    );
+''', []);
 
     final currentUri = Uri.parse(await currentUrl);
 
@@ -319,8 +305,9 @@ window.open = function(url, target) {
 
   /// Gets credentials from the browser via IndexedDB.
   Future<CredentialStoreData> getCredentials() async {
-    final json = await executeAsync(
-      r'''
+    final json =
+        await executeAsync(
+              r'''
 const [
   databaseName,
 
@@ -370,8 +357,9 @@ await new Promise((resolve, reject) => {
 
 callback(JSON.stringify(items));
 ''',
-      [webDatabaseName],
-    ) as String;
+              [webDatabaseName],
+            )
+            as String;
     final data =
         (jsonDecode(json) as Map<String, Object?>).cast<String, String?>();
     final keys = HostedUiKeys(
@@ -399,8 +387,11 @@ callback(JSON.stringify(items));
         data[awsKeys[CognitoIdentityPoolKey.secretAccessKey]];
     final sessionToken = data[awsKeys[CognitoIdentityPoolKey.sessionToken]];
     if (accessKeyId != null && secretAccessKey != null) {
-      awsCredentials =
-          AWSCredentials(accessKeyId, secretAccessKey, sessionToken);
+      awsCredentials = AWSCredentials(
+        accessKeyId,
+        secretAccessKey,
+        sessionToken,
+      );
     }
     return CredentialStoreData(
       userPoolTokens: userPoolTokens,

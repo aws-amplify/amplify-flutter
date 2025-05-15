@@ -16,20 +16,16 @@ class AWSCredentialScope {
     AWSDateTime? dateTime,
     required String region,
     required AWSService service,
-  }) : this.raw(
-          region: region,
-          service: service.service,
-          dateTime: dateTime,
-        );
+  }) : this.raw(region: region, service: service.service, dateTime: dateTime);
 
   /// {@macro aws_signature_v4.aws_credential_scope}
   AWSCredentialScope.raw({
     AWSDateTime? dateTime,
     required String region,
     required String service,
-  })  : _region = region,
-        _service = service,
-        dateTime = dateTime ?? AWSDateTime.now();
+  }) : _region = region,
+       _service = service,
+       dateTime = dateTime ?? AWSDateTime.now();
 
   /// The time of the request.
   final AWSDateTime dateTime;

@@ -10,16 +10,16 @@ class _$MalformedBlobInput extends MalformedBlobInput {
   @override
   final _i3.Uint8List? blob;
 
-  factory _$MalformedBlobInput(
-          [void Function(MalformedBlobInputBuilder)? updates]) =>
-      (new MalformedBlobInputBuilder()..update(updates))._build();
+  factory _$MalformedBlobInput([
+    void Function(MalformedBlobInputBuilder)? updates,
+  ]) => (new MalformedBlobInputBuilder()..update(updates))._build();
 
   _$MalformedBlobInput._({this.blob}) : super._();
 
   @override
   MalformedBlobInput rebuild(
-          void Function(MalformedBlobInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedBlobInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedBlobInputBuilder toBuilder() =>

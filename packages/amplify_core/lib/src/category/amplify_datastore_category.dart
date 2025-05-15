@@ -38,7 +38,7 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
           throw AmplifyException.fromMap(
             Map<String, String>.from(
               // ignore: avoid_dynamic_calls
-              (e as dynamic /* PlatformException */).details as Map,
+              (e as dynamic /* PlatformException */ ).details as Map,
             ),
           );
         } on NoSuchMethodError {
@@ -73,11 +73,11 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
   }) {
     return plugins.length == 1
         ? plugins[0].query(
-            modelType,
-            where: where,
-            pagination: pagination,
-            sortBy: sortBy,
-          )
+          modelType,
+          where: where,
+          pagination: pagination,
+          sortBy: sortBy,
+        )
         : throw _pluginNotAddedException('DataStore');
   }
 
@@ -156,11 +156,11 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
   }) {
     return plugins.length == 1
         ? plugins[0].observeQuery(
-            modelType,
-            where: where,
-            sortBy: sortBy,
-            throttleOptions: throttleOptions,
-          )
+          modelType,
+          where: where,
+          sortBy: sortBy,
+          throttleOptions: throttleOptions,
+        )
         : throw _pluginNotAddedException('DataStore');
   }
 }

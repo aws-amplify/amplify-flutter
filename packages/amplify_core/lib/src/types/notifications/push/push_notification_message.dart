@@ -23,7 +23,7 @@ class PushNotificationMessage
   factory PushNotificationMessage.fromJson(Map<String, Object?> json) {
     final data =
         (json['data'] as Map<Object?, Object?>?)?.cast<String, Object?>() ??
-            const {};
+        const {};
     switch (json) {
       // `aps` dictionary references:
       // - https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification
@@ -64,9 +64,9 @@ class PushNotificationMessage
         final imageUrl = json['imageUrl'] as String?;
         final (deeplinkUrl, goToUrl) = switch (json['action']) {
           {'deeplink': final String deeplink, 'url': final String url} => (
-              deeplink,
-              url
-            ),
+            deeplink,
+            url,
+          ),
           {'deeplink': final String deeplink} => (deeplink, null),
           {'url': final String url} => (null, url),
           _ => (null, null),
@@ -107,13 +107,13 @@ class PushNotificationMessage
 
   @override
   Map<String, Object?> toJson() => {
-        'title': title,
-        'body': body,
-        'imageUrl': imageUrl,
-        'deeplinkUrl': deeplinkUrl,
-        'goToUrl': goToUrl,
-        'fcmOptions': fcmOptions,
-        'apnsOptions': apnsOptions,
-        'data': data,
-      };
+    'title': title,
+    'body': body,
+    'imageUrl': imageUrl,
+    'deeplinkUrl': deeplinkUrl,
+    'goToUrl': goToUrl,
+    'fcmOptions': fcmOptions,
+    'apnsOptions': apnsOptions,
+    'data': data,
+  };
 }

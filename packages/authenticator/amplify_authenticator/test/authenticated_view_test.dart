@@ -64,61 +64,57 @@ void main() {
       }
     }
 
-    testWidgets(
-      'should be navigable by keyboard events',
-      (tester) async {
-        final testWidget = MaterialApp(
-          home: Scaffold(
-            body: MockAuthenticatorApp(
-              child: InheritedAuthenticatorState(
-                state: mockState,
-                child: const AuthenticatedView(
-                  child: Center(child: Text('You are signed in.')),
-                ),
+    testWidgets('should be navigable by keyboard events', (tester) async {
+      final testWidget = MaterialApp(
+        home: Scaffold(
+          body: MockAuthenticatorApp(
+            child: InheritedAuthenticatorState(
+              state: mockState,
+              child: const AuthenticatedView(
+                child: Center(child: Text('You are signed in.')),
               ),
             ),
           ),
-        );
-        await tester.pumpWidget(testWidget);
-        await tester.pumpAndSettle();
+        ),
+      );
+      await tester.pumpWidget(testWidget);
+      await tester.pumpAndSettle();
 
-        // Set initial focus to window.
-        await tester.tapAt(Offset.zero);
+      // Set initial focus to window.
+      await tester.tapAt(Offset.zero);
 
-        verifyNever(mockState.signIn);
-        await signInWithKeyboard(tester);
-        await tester.pumpAndSettle();
-        verify(mockState.signIn).called(1);
-      },
-    );
+      verifyNever(mockState.signIn);
+      await signInWithKeyboard(tester);
+      await tester.pumpAndSettle();
+      verify(mockState.signIn).called(1);
+    });
 
-    testWidgets(
-      'form should submit when enter is pressed from a text field',
-      (tester) async {
-        final testWidget = MaterialApp(
-          home: Scaffold(
-            body: MockAuthenticatorApp(
-              child: InheritedAuthenticatorState(
-                state: mockState,
-                child: const AuthenticatedView(
-                  child: Center(child: Text('You are signed in.')),
-                ),
+    testWidgets('form should submit when enter is pressed from a text field', (
+      tester,
+    ) async {
+      final testWidget = MaterialApp(
+        home: Scaffold(
+          body: MockAuthenticatorApp(
+            child: InheritedAuthenticatorState(
+              state: mockState,
+              child: const AuthenticatedView(
+                child: Center(child: Text('You are signed in.')),
               ),
             ),
           ),
-        );
-        await tester.pumpWidget(testWidget);
-        await tester.pumpAndSettle();
+        ),
+      );
+      await tester.pumpWidget(testWidget);
+      await tester.pumpAndSettle();
 
-        // Set initial focus to window.
-        await tester.tapAt(Offset.zero);
+      // Set initial focus to window.
+      await tester.tapAt(Offset.zero);
 
-        verifyNever(mockState.signIn);
-        await signInWithKeyboard(tester, submitViaTextField: true);
-        await tester.pumpAndSettle();
-        verify(mockState.signIn).called(1);
-      },
-    );
+      verifyNever(mockState.signIn);
+      await signInWithKeyboard(tester, submitViaTextField: true);
+      await tester.pumpAndSettle();
+      verify(mockState.signIn).called(1);
+    });
 
     testWidgets(
       'form should only submit once when enter is pressed multiple times from a text field',

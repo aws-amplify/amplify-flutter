@@ -14,13 +14,14 @@ void main() {
     test('Test Case 1', () async {
       final op = TestOp1();
       const input = Unit();
-      final req = await op
-          .createRequest(
-            op.buildRequest(input),
-            GenericJsonProtocol(),
-            input,
-          )
-          .transformRequest();
+      final req =
+          await op
+              .createRequest(
+                op.buildRequest(input),
+                GenericJsonProtocol(),
+                input,
+              )
+              .transformRequest();
       expect(
         req.uri.host,
         equalsIgnoringCase('data.service.us-west-2.amazonaws.com'),
@@ -30,13 +31,16 @@ void main() {
     test('Test Case 2', () async {
       final op = TestOp2();
       const input = TestOp2Input();
-      final req = await op
-          .createRequest(
-            op.buildRequest(input),
-            GenericJsonProtocol(serializers: [const TestOp2InputSerializer()]),
-            input,
-          )
-          .transformRequest();
+      final req =
+          await op
+              .createRequest(
+                op.buildRequest(input),
+                GenericJsonProtocol(
+                  serializers: [const TestOp2InputSerializer()],
+                ),
+                input,
+              )
+              .transformRequest();
       expect(
         req.uri.host,
         equalsIgnoringCase(
@@ -53,26 +57,22 @@ class TestOp1 extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   HttpRequest buildRequest(Unit input) => HttpRequest((b) {
-        b
-          ..method = 'GET'
-          ..path = '/'
-          ..hostPrefix = 'data.';
-      });
+    b
+      ..method = 'GET'
+      ..path = '/'
+      ..hostPrefix = 'data.';
+  });
 
   @override
-  Unit buildOutput(
-    Unit payload,
-    AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  Unit buildOutput(Unit payload, AWSBaseHttpResponse response) => payload;
 
   @override
   List<SmithyError> get errorTypes => const [];
 
   @override
   Iterable<HttpProtocol<Unit, Unit, Unit, Unit>> get protocols => [
-        GenericJsonProtocol(),
-      ];
+    GenericJsonProtocol(),
+  ];
 
   @override
   int successCode([Unit? output]) => 200;
@@ -102,8 +102,9 @@ class TestOp2InputSerializer
   const TestOp2InputSerializer();
 
   @override
-  Iterable<ShapeId> get supportedProtocols =>
-      [GenericJsonProtocolDefinitionTrait.id];
+  Iterable<ShapeId> get supportedProtocols => [
+    GenericJsonProtocolDefinitionTrait.id,
+  ];
 
   @override
   Iterable<Type> get types => const [TestOp2Input];
@@ -136,27 +137,21 @@ class TestOp2 extends HttpOperation<TestOp2Input, TestOp2Input, Unit, Unit> {
 
   @override
   HttpRequest buildRequest(TestOp2Input input) => HttpRequest((b) {
-        b
-          ..method = 'GET'
-          ..path = '/'
-          ..hostPrefix = '{Bucket}-{AccountId}.';
-      });
+    b
+      ..method = 'GET'
+      ..path = '/'
+      ..hostPrefix = '{Bucket}-{AccountId}.';
+  });
 
   @override
-  Unit buildOutput(
-    Unit payload,
-    AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  Unit buildOutput(Unit payload, AWSBaseHttpResponse response) => payload;
 
   @override
   List<SmithyError> get errorTypes => const [];
 
   @override
   Iterable<HttpProtocol<TestOp2Input, TestOp2Input, Unit, Unit>>
-      get protocols => [
-            GenericJsonProtocol(),
-          ];
+  get protocols => [GenericJsonProtocol()];
 
   @override
   int successCode([Unit? output]) => 200;

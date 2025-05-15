@@ -29,30 +29,26 @@ final dependencyVersions = {
   'smithy_codegen': const Dependency('^0.3.0', DependencyType.smithy),
   'aws_common': const Dependency('^0.4.0', DependencyType.aws),
   'aws_signature_v4': const Dependency('^0.3.0', DependencyType.aws),
-  'built_value': const Dependency('">=8.6.0 <8.7.0"'),
+  'built_value': const Dependency('^8.6.0'),
   'built_collection': const Dependency('^5.0.0'),
   'fixnum': const Dependency('^1.0.0'),
-  'meta': const Dependency('^1.7.0'),
+  'meta': const Dependency('^1.16.0'),
   'shelf': const Dependency('^1.4.0'),
   'shelf_router': const Dependency('^1.1.0'),
   'xml': const Dependency('6.3.0'),
 
   // Dev Dependencies
   'smithy_test': const Dependency.dev('^0.5.0', DependencyType.smithy),
-  'build_runner': const Dependency.dev('^2.4.0'),
+  'build_runner': const Dependency.dev('^2.4.9'),
   'build_web_compilers': const Dependency.dev('^4.0.0'),
   'build_test': const Dependency.dev('^2.1.5'),
-  'built_value_generator': const Dependency.dev('8.6.1'),
+  'built_value_generator': const Dependency.dev('^8.9.5'),
   'lints': const Dependency.dev('^2.1.0'),
   'test': const Dependency.dev('^1.22.1'),
 };
 
 class PubspecGenerator implements Generator<String> {
-  const PubspecGenerator(
-    this.pubspec,
-    this._dependencies, {
-    this.smithyPath,
-  });
+  const PubspecGenerator(this.pubspec, this._dependencies, {this.smithyPath});
 
   final Pubspec pubspec;
   final Iterable<String> _dependencies;
@@ -108,9 +104,13 @@ class PubspecGenerator implements Generator<String> {
 name: ${pubspec.name}
 description: ${pubspec.description ?? '${pubspec.name.groupIntoWords().map((s) => s.capitalized).join(' ')} client SDK'}
 version: ${pubspec.version?.canonicalizedVersion ?? '0.1.0'}
-${smithyPath == null ? pubspec.publishTo != null ? 'publish_to: ${pubspec.publishTo}\n' : '' : 'publish_to: none\n'}${pubspec.homepage != null ? 'homepage: ${pubspec.homepage}\n' : ''}
+${smithyPath == null
+        ? pubspec.publishTo != null
+            ? 'publish_to: ${pubspec.publishTo}\n'
+            : ''
+        : 'publish_to: none\n'}${pubspec.homepage != null ? 'homepage: ${pubspec.homepage}\n' : ''}
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.7.0
 
 dependencies:
 $dependenciesBlock

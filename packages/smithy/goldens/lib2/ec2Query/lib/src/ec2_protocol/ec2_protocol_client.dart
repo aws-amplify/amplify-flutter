@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v2.ec2_protocol.ec2_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -60,11 +60,11 @@ class Ec2ProtocolClient {
     Uri? baseUri,
     List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -76,17 +76,15 @@ class Ec2ProtocolClient {
 
   final List<_i2.HttpResponseInterceptor> _responseInterceptors;
 
-  _i2.SmithyOperation<DatetimeOffsetsOutput> datetimeOffsets(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<DatetimeOffsetsOutput> datetimeOffsets({
+    _i1.AWSHttpClient? client,
+  }) {
     return DatetimeOffsetsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response members. While this should be rare, code generators must support this.
@@ -99,10 +97,7 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> endpointOperation({_i1.AWSHttpClient? client}) {
@@ -111,10 +106,7 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> endpointWithHostLabelOperation(
@@ -126,37 +118,30 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
-  _i2.SmithyOperation<FractionalSecondsOutput> fractionalSeconds(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<FractionalSecondsOutput> fractionalSeconds({
+    _i1.AWSHttpClient? client,
+  }) {
     return FractionalSecondsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A BadRequest error.
-  _i2.SmithyOperation<GreetingWithErrorsOutput> greetingWithErrors(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<GreetingWithErrorsOutput> greetingWithErrors({
+    _i1.AWSHttpClient? client,
+  }) {
     return GreetingWithErrorsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   _i2.SmithyOperation<void> hostWithPathOperation({_i1.AWSHttpClient? client}) {
@@ -165,24 +150,19 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// The xmlName trait on the output structure is ignored in AWS Query. The wrapping element is always operation name + "Response".
-  _i2.SmithyOperation<IgnoresWrappingXmlNameOutput> ignoresWrappingXmlName(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<IgnoresWrappingXmlNameOutput> ignoresWrappingXmlName({
+    _i1.AWSHttpClient? client,
+  }) {
     return IgnoresWrappingXmlNameOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This test serializes nested and recursive structure members.
@@ -195,24 +175,19 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// The example tests how requests and responses are serialized when there's no request payload or response members. While this should be rare, code generators must support this.
-  _i2.SmithyOperation<NoInputAndOutputOutput> noInputAndOutput(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<NoInputAndOutputOutput> noInputAndOutput({
+    _i1.AWSHttpClient? client,
+  }) {
     return NoInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// Automatically adds idempotency tokens.
@@ -225,10 +200,7 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This test serializes simple and complex lists.
@@ -241,10 +213,7 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// This test serializes timestamps. 1. Timestamps are serialized as RFC 3339 date-time values by default. 2. A timestampFormat trait on a member changes the format. 3. A timestampFormat trait on the shape targeted by the member changes the format.
@@ -257,24 +226,19 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   /// Recursive shapes
-  _i2.SmithyOperation<RecursiveXmlShapesOutput> recursiveXmlShapes(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<RecursiveXmlShapesOutput> recursiveXmlShapes({
+    _i1.AWSHttpClient? client,
+  }) {
     return RecursiveXmlShapesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This test serializes strings, numbers, and boolean values.
@@ -287,23 +251,17 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i2.SmithyOperation<SimpleScalarXmlPropertiesOutput>
-      simpleScalarXmlProperties({_i1.AWSHttpClient? client}) {
+  simpleScalarXmlProperties({_i1.AWSHttpClient? client}) {
     return SimpleScalarXmlPropertiesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// Blobs are base64 encoded
@@ -313,36 +271,29 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
-  _i2.SmithyOperation<XmlBlobsOutput> xmlEmptyBlobs(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<XmlBlobsOutput> xmlEmptyBlobs({
+    _i1.AWSHttpClient? client,
+  }) {
     return XmlEmptyBlobsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
-  _i2.SmithyOperation<XmlListsOutput> xmlEmptyLists(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<XmlListsOutput> xmlEmptyLists({
+    _i1.AWSHttpClient? client,
+  }) {
     return XmlEmptyListsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This example serializes enums as top level properties, in lists, sets, and maps.
@@ -352,24 +303,19 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This example serializes intEnums as top level properties, in lists, sets, and maps.
-  _i2.SmithyOperation<XmlIntEnumsOutput> xmlIntEnums(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<XmlIntEnumsOutput> xmlIntEnums({
+    _i1.AWSHttpClient? client,
+  }) {
     return XmlIntEnumsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This test case serializes XML lists for the following cases for both input and output: 1. Normal XML lists. 2. Normal XML sets. 3. XML lists of lists. 4. XML lists with @xmlName on its members 5. Flattened XML lists. 6. Flattened XML lists with @xmlName. 7. Flattened XML lists with @xmlNamespace. 8. Lists of structures.
@@ -379,36 +325,29 @@ class Ec2ProtocolClient {
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
-  _i2.SmithyOperation<XmlNamespacesOutput> xmlNamespaces(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<XmlNamespacesOutput> xmlNamespaces({
+    _i1.AWSHttpClient? client,
+  }) {
     return XmlNamespacesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 
   /// This tests how timestamps are serialized, including using the default format of date-time and various @timestampFormat trait values.
-  _i2.SmithyOperation<XmlTimestampsOutput> xmlTimestamps(
-      {_i1.AWSHttpClient? client}) {
+  _i2.SmithyOperation<XmlTimestampsOutput> xmlTimestamps({
+    _i1.AWSHttpClient? client,
+  }) {
     return XmlTimestampsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
+    ).run(const _i2.Unit(), client: client ?? _client);
   }
 }

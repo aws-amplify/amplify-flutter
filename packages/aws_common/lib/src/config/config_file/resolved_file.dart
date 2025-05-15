@@ -14,9 +14,7 @@ class ResolvedFile with AWSEquatable<ResolvedFile> {
   const ResolvedFile(this.type, this.contents, [this.filepath]);
 
   /// An empty file.
-  const ResolvedFile.empty(this.type)
-      : filepath = null,
-        contents = '';
+  const ResolvedFile.empty(this.type) : filepath = null, contents = '';
 
   /// The type of profile file this represents.
   final AWSProfileFileType type;

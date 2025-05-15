@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.xml_attributes_on_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,17 +17,20 @@ abstract class XmlAttributesOnPayloadInputOutput
         _i1.HttpInput<XmlAttributesInputOutput>,
         _i2.AWSEquatable<XmlAttributesOnPayloadInputOutput>
     implements
-        Built<XmlAttributesOnPayloadInputOutput,
-            XmlAttributesOnPayloadInputOutputBuilder>,
+        Built<
+          XmlAttributesOnPayloadInputOutput,
+          XmlAttributesOnPayloadInputOutputBuilder
+        >,
         _i1.HasPayload<XmlAttributesInputOutput> {
-  factory XmlAttributesOnPayloadInputOutput(
-      {XmlAttributesInputOutput? payload}) {
+  factory XmlAttributesOnPayloadInputOutput({
+    XmlAttributesInputOutput? payload,
+  }) {
     return _$XmlAttributesOnPayloadInputOutput._(payload: payload);
   }
 
-  factory XmlAttributesOnPayloadInputOutput.build(
-          [void Function(XmlAttributesOnPayloadInputOutputBuilder) updates]) =
-      _$XmlAttributesOnPayloadInputOutput;
+  factory XmlAttributesOnPayloadInputOutput.build([
+    void Function(XmlAttributesOnPayloadInputOutputBuilder) updates,
+  ]) = _$XmlAttributesOnPayloadInputOutput;
 
   const XmlAttributesOnPayloadInputOutput._();
 
@@ -35,26 +38,24 @@ abstract class XmlAttributesOnPayloadInputOutput
     XmlAttributesInputOutput? payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      XmlAttributesOnPayloadInputOutput.build((b) {
-        if (payload != null) {
-          b.payload.replace(payload);
-        }
-      });
+  }) => XmlAttributesOnPayloadInputOutput.build((b) {
+    if (payload != null) {
+      b.payload.replace(payload);
+    }
+  });
 
   /// Constructs a [XmlAttributesOnPayloadInputOutput] from a [payload] and [response].
   factory XmlAttributesOnPayloadInputOutput.fromResponse(
     XmlAttributesInputOutput? payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      XmlAttributesOnPayloadInputOutput.build((b) {
-        if (payload != null) {
-          b.payload.replace(payload);
-        }
-      });
+  ) => XmlAttributesOnPayloadInputOutput.build((b) {
+    if (payload != null) {
+      b.payload.replace(payload);
+    }
+  });
 
   static const List<_i1.SmithySerializer<XmlAttributesInputOutput?>>
-      serializers = [XmlAttributesOnPayloadInputOutputRestXmlSerializer()];
+  serializers = [XmlAttributesOnPayloadInputOutputRestXmlSerializer()];
 
   XmlAttributesInputOutput? get payload;
   @override
@@ -66,12 +67,9 @@ abstract class XmlAttributesOnPayloadInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('XmlAttributesOnPayloadInputOutput')
-          ..add(
-            'payload',
-            payload,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'XmlAttributesOnPayloadInputOutput',
+    )..add('payload', payload);
     return helper.toString();
   }
 }
@@ -79,21 +77,18 @@ abstract class XmlAttributesOnPayloadInputOutput
 class XmlAttributesOnPayloadInputOutputRestXmlSerializer
     extends _i1.StructuredSmithySerializer<XmlAttributesInputOutput> {
   const XmlAttributesOnPayloadInputOutputRestXmlSerializer()
-      : super('XmlAttributesOnPayloadInputOutput');
+    : super('XmlAttributesOnPayloadInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        XmlAttributesOnPayloadInputOutput,
-        _$XmlAttributesOnPayloadInputOutput,
-      ];
+    XmlAttributesOnPayloadInputOutput,
+    _$XmlAttributesOnPayloadInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlAttributesInputOutput deserialize(
@@ -112,15 +107,19 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'test':
-          result.attr = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.attr =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -134,25 +133,24 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('XmlAttributesInputOutput')
+      const _i1.XmlElementName('XmlAttributesInputOutput'),
     ];
     final XmlAttributesInputOutput(:foo, :attr) = object;
     if (attr != null) {
-      result$.add(_i3.XmlAttribute(
-        _i3.XmlName('test'),
-        (serializers.serialize(
-          attr,
-          specifiedType: const FullType(String),
-        ) as String),
-      ));
+      result$.add(
+        _i3.XmlAttribute(
+          _i3.XmlName('test'),
+          (serializers.serialize(attr, specifiedType: const FullType(String))
+              as String),
+        ),
+      );
     }
     if (foo != null) {
       result$
         ..add(const _i1.XmlElementName('foo'))
-        ..add(serializers.serialize(
-          foo,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(foo, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library worker_bee.log_serializers;
+library;
 
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';
@@ -47,17 +47,21 @@ class LogEntrySerializer implements StructuredSerializer<LogEntry> {
         case 'loggerName':
           loggerName = value as String;
         case 'time':
-          time = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          time =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
         case 'error':
           error = value?.toString();
         case 'stackTrace':
-          stackTrace = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(StackTrace),
-          ) as StackTrace;
+          stackTrace =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(StackTrace),
+                  )
+                  as StackTrace;
         case 'local':
           local = value as bool;
       }
@@ -95,10 +99,7 @@ class LogEntrySerializer implements StructuredSerializer<LogEntry> {
         object.time.toUtc(),
         specifiedType: const FullType(DateTime),
       ),
-      if (object.error != null) ...[
-        'error',
-        object.error.toString(),
-      ],
+      if (object.error != null) ...['error', object.error.toString()],
       if (object.stackTrace != null) ...[
         'stackTrace',
         serializers.serialize(
@@ -106,10 +107,7 @@ class LogEntrySerializer implements StructuredSerializer<LogEntry> {
           specifiedType: const FullType(StackTrace),
         ),
       ],
-      if (object is WorkerLogEntry) ...[
-        'local',
-        object.local,
-      ],
+      if (object is WorkerLogEntry) ...['local', object.local],
     ];
   }
 }

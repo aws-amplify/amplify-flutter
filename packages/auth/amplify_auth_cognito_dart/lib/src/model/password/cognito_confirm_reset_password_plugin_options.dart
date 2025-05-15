@@ -19,8 +19,7 @@ class CognitoConfirmResetPasswordPluginOptions
   /// {@macro amplify_auth_cognito.model.cognito_confirm_reset_password_plugin_options}
   factory CognitoConfirmResetPasswordPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoConfirmResetPasswordPluginOptionsFromJson(json);
+  ) => _$CognitoConfirmResetPasswordPluginOptionsFromJson(json);
 
   /// Additional custom attributes to be sent to the service such as information
   /// about the client.

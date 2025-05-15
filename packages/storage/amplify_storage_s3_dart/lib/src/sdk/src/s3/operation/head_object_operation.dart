@@ -74,8 +74,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
 ///
 /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
-    HeadObjectRequest, HeadObjectOutputPayload, HeadObjectOutput> {
+class HeadObjectOperation
+    extends
+        _i1.HttpOperation<
+          HeadObjectRequestPayload,
+          HeadObjectRequest,
+          HeadObjectOutputPayload,
+          HeadObjectOutput
+        > {
   /// The `HEAD` operation retrieves metadata from an object without returning the object itself. This operation is useful if you're interested only in an object's metadata.
   ///
   /// A `HEAD` request has the same options as a `GET` operation on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic code, such as `400 Bad Request`, `403 Forbidden`, `404 Not Found`, `405 Method Not Allowed`, `412 Precondition Failed`, or `304 Not Modified`. It's not possible to retrieve the exact exception of these error codes.
@@ -143,27 +149,35 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<HeadObjectRequestPayload, HeadObjectRequest,
-          HeadObjectOutputPayload, HeadObjectOutput>> protocols = [
+    _i1.HttpProtocol<
+      HeadObjectRequestPayload,
+      HeadObjectRequest,
+      HeadObjectOutputPayload,
+      HeadObjectOutput
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -174,7 +188,7 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -196,79 +210,72 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
 
   @override
   _i1.HttpRequest buildRequest(HeadObjectRequest input) => _i1.HttpRequest((b) {
-        b.method = 'HEAD';
-        b.path =
-            _s3ClientConfig.usePathStyle ? r'/{Bucket}/{Key+}' : r'/{Key+}';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.ifMatch != null) {
-          if (input.ifMatch!.isNotEmpty) {
-            b.headers['If-Match'] = input.ifMatch!;
-          }
-        }
-        if (input.ifModifiedSince != null) {
-          b.headers['If-Modified-Since'] = _i1.Timestamp(input.ifModifiedSince!)
-              .format(_i1.TimestampFormat.httpDate)
-              .toString();
-        }
-        if (input.ifNoneMatch != null) {
-          if (input.ifNoneMatch!.isNotEmpty) {
-            b.headers['If-None-Match'] = input.ifNoneMatch!;
-          }
-        }
-        if (input.ifUnmodifiedSince != null) {
-          b.headers['If-Unmodified-Since'] =
-              _i1.Timestamp(input.ifUnmodifiedSince!)
-                  .format(_i1.TimestampFormat.httpDate)
-                  .toString();
-        }
-        if (input.range != null) {
-          if (input.range!.isNotEmpty) {
-            b.headers['Range'] = input.range!;
-          }
-        }
-        if (input.sseCustomerAlgorithm != null) {
-          if (input.sseCustomerAlgorithm!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-algorithm'] =
-                input.sseCustomerAlgorithm!;
-          }
-        }
-        if (input.sseCustomerKey != null) {
-          if (input.sseCustomerKey!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key'] =
-                input.sseCustomerKey!;
-          }
-        }
-        if (input.sseCustomerKeyMd5 != null) {
-          if (input.sseCustomerKeyMd5!.isNotEmpty) {
-            b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
-                input.sseCustomerKeyMd5!;
-          }
-        }
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.checksumMode != null) {
-          b.headers['x-amz-checksum-mode'] = input.checksumMode!.value;
-        }
-        if (input.versionId != null) {
-          b.queryParameters.add(
-            'versionId',
-            input.versionId!,
-          );
-        }
-        if (input.partNumber != null) {
-          b.queryParameters.add(
-            'partNumber',
-            input.partNumber!.toString(),
-          );
-        }
-      });
+    b.method = 'HEAD';
+    b.path = _s3ClientConfig.usePathStyle ? r'/{Bucket}/{Key+}' : r'/{Key+}';
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.ifMatch != null) {
+      if (input.ifMatch!.isNotEmpty) {
+        b.headers['If-Match'] = input.ifMatch!;
+      }
+    }
+    if (input.ifModifiedSince != null) {
+      b.headers['If-Modified-Since'] =
+          _i1.Timestamp(
+            input.ifModifiedSince!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.ifNoneMatch != null) {
+      if (input.ifNoneMatch!.isNotEmpty) {
+        b.headers['If-None-Match'] = input.ifNoneMatch!;
+      }
+    }
+    if (input.ifUnmodifiedSince != null) {
+      b.headers['If-Unmodified-Since'] =
+          _i1.Timestamp(
+            input.ifUnmodifiedSince!,
+          ).format(_i1.TimestampFormat.httpDate).toString();
+    }
+    if (input.range != null) {
+      if (input.range!.isNotEmpty) {
+        b.headers['Range'] = input.range!;
+      }
+    }
+    if (input.sseCustomerAlgorithm != null) {
+      if (input.sseCustomerAlgorithm!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-algorithm'] =
+            input.sseCustomerAlgorithm!;
+      }
+    }
+    if (input.sseCustomerKey != null) {
+      if (input.sseCustomerKey!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key'] =
+            input.sseCustomerKey!;
+      }
+    }
+    if (input.sseCustomerKeyMd5 != null) {
+      if (input.sseCustomerKeyMd5!.isNotEmpty) {
+        b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
+            input.sseCustomerKeyMd5!;
+      }
+    }
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.checksumMode != null) {
+      b.headers['x-amz-checksum-mode'] = input.checksumMode!.value;
+    }
+    if (input.versionId != null) {
+      b.queryParameters.add('versionId', input.versionId!);
+    }
+    if (input.partNumber != null) {
+      b.queryParameters.add('partNumber', input.partNumber!.toString());
+    }
+  });
 
   @override
   int successCode([HeadObjectOutput? output]) => 200;
@@ -277,24 +284,17 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
   HeadObjectOutput buildOutput(
     HeadObjectOutputPayload payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      HeadObjectOutput.fromResponse(
-        payload,
-        response,
-      );
+  ) => HeadObjectOutput.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<NotFound, NotFound>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.s3',
-            shape: 'NotFound',
-          ),
-          _i1.ErrorKind.client,
-          NotFound,
-          builder: NotFound.fromResponse,
-        )
-      ];
+    _i1.SmithyError<NotFound, NotFound>(
+      _i1.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NotFound'),
+      _i1.ErrorKind.client,
+      NotFound,
+      builder: NotFound.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'HeadObject';
@@ -330,11 +330,7 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

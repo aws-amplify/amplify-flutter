@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v1.s3.operation.list_objects_v2_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,14 +15,17 @@ import 'package:rest_xml_v1/src/s3/model/no_such_bucket.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
-    ListObjectsV2RequestPayload,
-    ListObjectsV2Request,
-    ListObjectsV2Output,
-    ListObjectsV2Output,
-    String,
-    int,
-    ListObjectsV2Output> {
+class ListObjectsV2Operation
+    extends
+        _i1.PaginatedHttpOperation<
+          ListObjectsV2RequestPayload,
+          ListObjectsV2Request,
+          ListObjectsV2Output,
+          ListObjectsV2Output,
+          String,
+          int,
+          ListObjectsV2Output
+        > {
   ListObjectsV2Operation({
     required String region,
     Uri? baseUri,
@@ -31,30 +34,38 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<ListObjectsV2RequestPayload, ListObjectsV2Request,
-          ListObjectsV2Output, ListObjectsV2Output>> protocols = [
+    _i1.HttpProtocol<
+      ListObjectsV2RequestPayload,
+      ListObjectsV2Request,
+      ListObjectsV2Output,
+      ListObjectsV2Output
+    >
+  >
+  protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i2.WithSigV4(
               region: _region,
               service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              serviceConfiguration:
+                  _s3ClientConfig.signerConfiguration ??
                   _i3.S3ServiceConfiguration(),
             ),
-            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.2'),
             const _i2.WithSdkInvocationId(),
             const _i2.WithSdkRequest(),
           ] +
@@ -62,7 +73,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
-    )
+    ),
   ];
 
   late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -83,65 +94,45 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(ListObjectsV2Request input) =>
-      _i1.HttpRequest((b) {
-        b.method = 'GET';
-        b.path = _s3ClientConfig.usePathStyle
+  _i1.HttpRequest buildRequest(ListObjectsV2Request input) => _i1.HttpRequest((
+    b,
+  ) {
+    b.method = 'GET';
+    b.path =
+        _s3ClientConfig.usePathStyle
             ? r'/{Bucket}?list-type=2'
             : r'/?list-type=2';
-        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.requestPayer != null) {
-          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
-        }
-        if (input.expectedBucketOwner != null) {
-          if (input.expectedBucketOwner!.isNotEmpty) {
-            b.headers['x-amz-expected-bucket-owner'] =
-                input.expectedBucketOwner!;
-          }
-        }
-        if (input.delimiter != null) {
-          b.queryParameters.add(
-            'delimiter',
-            input.delimiter!,
-          );
-        }
-        if (input.encodingType != null) {
-          b.queryParameters.add(
-            'encoding-type',
-            input.encodingType!.value,
-          );
-        }
-        if (input.maxKeys != null) {
-          b.queryParameters.add(
-            'max-keys',
-            input.maxKeys!.toString(),
-          );
-        }
-        if (input.prefix != null) {
-          b.queryParameters.add(
-            'prefix',
-            input.prefix!,
-          );
-        }
-        if (input.continuationToken != null) {
-          b.queryParameters.add(
-            'continuation-token',
-            input.continuationToken!,
-          );
-        }
-        if (input.fetchOwner != null) {
-          b.queryParameters.add(
-            'fetch-owner',
-            input.fetchOwner!.toString(),
-          );
-        }
-        if (input.startAfter != null) {
-          b.queryParameters.add(
-            'start-after',
-            input.startAfter!,
-          );
-        }
-      });
+    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+    if (input.requestPayer != null) {
+      b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+    }
+    if (input.expectedBucketOwner != null) {
+      if (input.expectedBucketOwner!.isNotEmpty) {
+        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
+      }
+    }
+    if (input.delimiter != null) {
+      b.queryParameters.add('delimiter', input.delimiter!);
+    }
+    if (input.encodingType != null) {
+      b.queryParameters.add('encoding-type', input.encodingType!.value);
+    }
+    if (input.maxKeys != null) {
+      b.queryParameters.add('max-keys', input.maxKeys!.toString());
+    }
+    if (input.prefix != null) {
+      b.queryParameters.add('prefix', input.prefix!);
+    }
+    if (input.continuationToken != null) {
+      b.queryParameters.add('continuation-token', input.continuationToken!);
+    }
+    if (input.fetchOwner != null) {
+      b.queryParameters.add('fetch-owner', input.fetchOwner!.toString());
+    }
+    if (input.startAfter != null) {
+      b.queryParameters.add('start-after', input.startAfter!);
+    }
+  });
 
   @override
   int successCode([ListObjectsV2Output? output]) => 200;
@@ -150,24 +141,17 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
   ListObjectsV2Output buildOutput(
     ListObjectsV2Output payload,
     _i4.AWSBaseHttpResponse response,
-  ) =>
-      ListObjectsV2Output.fromResponse(
-        payload,
-        response,
-      );
+  ) => ListObjectsV2Output.fromResponse(payload, response);
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<NoSuchBucket, NoSuchBucket>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.s3',
-            shape: 'NoSuchBucket',
-          ),
-          _i1.ErrorKind.client,
-          NoSuchBucket,
-          builder: NoSuchBucket.fromResponse,
-        )
-      ];
+    _i1.SmithyError<NoSuchBucket, NoSuchBucket>(
+      _i1.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NoSuchBucket'),
+      _i1.ErrorKind.client,
+      NoSuchBucket,
+      builder: NoSuchBucket.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'ListObjectsV2';
@@ -203,11 +187,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
@@ -226,11 +206,10 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
     ListObjectsV2Request input,
     String token,
     int? pageSize,
-  ) =>
-      input.rebuild((b) {
-        b.continuationToken = token;
-        if (pageSize != null) {
-          b.maxKeys = pageSize;
-        }
-      });
+  ) => input.rebuild((b) {
+    b.continuationToken = token;
+    if (pageSize != null) {
+      b.maxKeys = pageSize;
+    }
+  });
 }

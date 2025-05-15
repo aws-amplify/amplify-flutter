@@ -87,9 +87,12 @@ class SetDimensionBuilder
   _$SetDimension _build() {
     _$SetDimension _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$SetDimension._(
-              dimensionType: dimensionType, values: values.build());
+            dimensionType: dimensionType,
+            values: values.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -97,7 +100,10 @@ class SetDimensionBuilder
         values.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'SetDimension', _$failedField, e.toString());
+          r'SetDimension',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

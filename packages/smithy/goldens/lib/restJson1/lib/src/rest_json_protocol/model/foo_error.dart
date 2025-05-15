@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.foo_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,20 +31,19 @@ abstract class FooError
   factory FooError.fromResponse(
     FooError payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload.rebuild((b) {
-        b.headers = response.headers;
-      });
+  ) => payload.rebuild((b) {
+    b.headers = response.headers;
+  });
 
   static const List<_i2.SmithySerializer<FooError>> serializers = [
-    FooErrorRestJson1Serializer()
+    FooErrorRestJson1Serializer(),
   ];
 
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-        namespace: 'aws.protocoltests.restjson',
-        shape: 'FooError',
-      );
+    namespace: 'aws.protocoltests.restjson',
+    shape: 'FooError',
+  );
 
   @override
   String? get message => null;
@@ -77,18 +76,12 @@ class FooErrorRestJson1Serializer
   const FooErrorRestJson1Serializer() : super('FooError');
 
   @override
-  Iterable<Type> get types => const [
-        FooError,
-        _$FooError,
-      ];
+  Iterable<Type> get types => const [FooError, _$FooError];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   FooError deserialize(
@@ -104,6 +97,5 @@ class FooErrorRestJson1Serializer
     Serializers serializers,
     FooError object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

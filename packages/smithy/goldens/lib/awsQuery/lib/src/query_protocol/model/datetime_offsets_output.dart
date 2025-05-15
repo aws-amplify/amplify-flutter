@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v1.query_protocol.model.datetime_offsets_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,9 +17,9 @@ abstract class DatetimeOffsetsOutput
     return _$DatetimeOffsetsOutput._(datetime: datetime);
   }
 
-  factory DatetimeOffsetsOutput.build(
-          [void Function(DatetimeOffsetsOutputBuilder) updates]) =
-      _$DatetimeOffsetsOutput;
+  factory DatetimeOffsetsOutput.build([
+    void Function(DatetimeOffsetsOutputBuilder) updates,
+  ]) = _$DatetimeOffsetsOutput;
 
   const DatetimeOffsetsOutput._();
 
@@ -27,11 +27,10 @@ abstract class DatetimeOffsetsOutput
   factory DatetimeOffsetsOutput.fromResponse(
     DatetimeOffsetsOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i2.SmithySerializer<DatetimeOffsetsOutput>> serializers = [
-    DatetimeOffsetsOutputAwsQuerySerializer()
+    DatetimeOffsetsOutputAwsQuerySerializer(),
   ];
 
   DateTime? get datetime;
@@ -41,10 +40,7 @@ abstract class DatetimeOffsetsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DatetimeOffsetsOutput')
-      ..add(
-        'datetime',
-        datetime,
-      );
+      ..add('datetime', datetime);
     return helper.toString();
   }
 }
@@ -52,21 +48,18 @@ abstract class DatetimeOffsetsOutput
 class DatetimeOffsetsOutputAwsQuerySerializer
     extends _i2.StructuredSmithySerializer<DatetimeOffsetsOutput> {
   const DatetimeOffsetsOutputAwsQuerySerializer()
-      : super('DatetimeOffsetsOutput');
+    : super('DatetimeOffsetsOutput');
 
   @override
   Iterable<Type> get types => const [
-        DatetimeOffsetsOutput,
-        _$DatetimeOffsetsOutput,
-      ];
+    DatetimeOffsetsOutput,
+    _$DatetimeOffsetsOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   DatetimeOffsetsOutput deserialize(
@@ -113,16 +106,15 @@ class DatetimeOffsetsOutputAwsQuerySerializer
       const _i2.XmlElementName(
         'DatetimeOffsetsOutputResponse',
         _i2.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final DatetimeOffsetsOutput(:datetime) = object;
     if (datetime != null) {
       result$
         ..add(const _i2.XmlElementName('datetime'))
-        ..add(_i2.TimestampSerializer.dateTime.serialize(
-          serializers,
-          datetime,
-        ));
+        ..add(
+          _i2.TimestampSerializer.dateTime.serialize(serializers, datetime),
+        );
     }
     return result$;
   }

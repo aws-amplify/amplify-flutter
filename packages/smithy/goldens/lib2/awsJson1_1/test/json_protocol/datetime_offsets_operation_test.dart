@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_json1_1_v2.json_protocol.test.datetime_offsets_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -13,101 +13,82 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'AwsJson11DateTimeWithNegativeOffset (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: DatetimeOffsetsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
+  _i1.test('AwsJson11DateTimeWithNegativeOffset (response)', () async {
+    await _i2.httpResponseTest(
+      operation: DatetimeOffsetsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DateTimeWithNegativeOffset',
-          documentation:
-              'Ensures that clients can correctly parse datetime (timestamps) with offsets',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '      {\n          "datetime": "2019-12-16T22:48:18-01:00"\n      }\n',
-          bodyMediaType: 'application/json',
-          params: {'datetime': 1576540098},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DateTimeWithNegativeOffset',
+        documentation:
+            'Ensures that clients can correctly parse datetime (timestamps) with offsets',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '      {\n          "datetime": "2019-12-16T22:48:18-01:00"\n      }\n',
+        bodyMediaType: 'application/json',
+        params: {'datetime': 1576540098},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [DatetimeOffsetsOutputAwsJson11Serializer()],
+    );
+  });
+  _i1.test('AwsJson11DateTimeWithPositiveOffset (response)', () async {
+    await _i2.httpResponseTest(
+      operation: DatetimeOffsetsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+        credentialsProvider: const _i3.AWSCredentialsProvider(
+          _i3.AWSCredentials('DUMMY-ACCESS-KEY-ID', 'DUMMY-SECRET-ACCESS-KEY'),
         ),
-        outputSerializers: const [DatetimeOffsetsOutputAwsJson11Serializer()],
-      );
-    },
-  );
-  _i1.test(
-    'AwsJson11DateTimeWithPositiveOffset (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: DatetimeOffsetsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11DateTimeWithPositiveOffset',
-          documentation:
-              'Ensures that clients can correctly parse datetime (timestamps) with offsets',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '      {\n          "datetime": "2019-12-17T00:48:18+01:00"\n      }\n',
-          bodyMediaType: 'application/json',
-          params: {'datetime': 1576540098},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [DatetimeOffsetsOutputAwsJson11Serializer()],
-      );
-    },
-  );
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'AwsJson11DateTimeWithPositiveOffset',
+        documentation:
+            'Ensures that clients can correctly parse datetime (timestamps) with offsets',
+        protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+        authScheme: null,
+        body:
+            '      {\n          "datetime": "2019-12-17T00:48:18+01:00"\n      }\n',
+        bodyMediaType: 'application/json',
+        params: {'datetime': 1576540098},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-amz-json-1.1'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: _i2.AppliesTo.client,
+        code: 200,
+      ),
+      outputSerializers: const [DatetimeOffsetsOutputAwsJson11Serializer()],
+    );
+  });
 }
 
 class DatetimeOffsetsOutputAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<DatetimeOffsetsOutput> {
   const DatetimeOffsetsOutputAwsJson11Serializer()
-      : super('DatetimeOffsetsOutput');
+    : super('DatetimeOffsetsOutput');
 
   @override
   Iterable<Type> get types => const [DatetimeOffsetsOutput];
 
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   DatetimeOffsetsOutput deserialize(

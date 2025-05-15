@@ -5,11 +5,9 @@ import 'package:amplify_test/amplify_test.dart';
 /// Email based sign in mechanism is used.
 class TestUser {
   /// Create a test user with a random email and password.
-  TestUser({
-    String? email,
-    String? password,
-  })  : _email = email ?? generateEmail(),
-        _password = password ?? generatePassword();
+  TestUser({String? email, String? password})
+    : _email = email ?? generateEmail(),
+      _password = password ?? generatePassword();
 
   final String _email;
   final String _password;

@@ -6,11 +6,7 @@ library amplify_integration_test.cognito_identity_provider.model.event_type; // 
 import 'package:smithy/smithy.dart' as _i1;
 
 class EventType extends _i1.SmithyEnum<EventType> {
-  const EventType._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const EventType._(super.index, super.name, super.value);
 
   const EventType._sdkUnknown(super.value) : super.sdkUnknown();
 
@@ -26,23 +22,11 @@ class EventType extends _i1.SmithyEnum<EventType> {
     'PasswordChange',
   );
 
-  static const resendCode = EventType._(
-    2,
-    'ResendCode',
-    'ResendCode',
-  );
+  static const resendCode = EventType._(2, 'ResendCode', 'ResendCode');
 
-  static const signIn = EventType._(
-    3,
-    'SignIn',
-    'SignIn',
-  );
+  static const signIn = EventType._(3, 'SignIn', 'SignIn');
 
-  static const signUp = EventType._(
-    4,
-    'SignUp',
-    'SignUp',
-  );
+  static const signUp = EventType._(4, 'SignUp', 'SignUp');
 
   /// All values of [EventType].
   static const values = <EventType>[
@@ -59,12 +43,9 @@ class EventType extends _i1.SmithyEnum<EventType> {
       values: values,
       sdkUnknown: EventType._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
       ],
-    )
+    ),
   ];
 }
 

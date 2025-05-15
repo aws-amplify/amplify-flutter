@@ -42,18 +42,11 @@ class FileKeyValueStore {
   final pkg_file.FileSystem fs;
 
   @visibleForTesting
-  File get file => fs.file(
-        pkg_path.join(
-          path,
-          fileName,
-        ),
-      );
+  File get file => fs.file(pkg_path.join(path, fileName));
 
   /// Overwrites the existing data in [file] with the key-value pairs in [data].
   @visibleForTesting
-  Future<void> writeAll(
-    Map<String, Object> data,
-  ) async {
+  Future<void> writeAll(Map<String, Object> data) async {
     if (!await file.exists()) {
       await file.create(recursive: true);
     }
@@ -86,10 +79,7 @@ class FileKeyValueStore {
   }
 
   /// Writes a single key to storage.
-  Future<void> writeKey({
-    required String key,
-    required Object value,
-  }) async {
+  Future<void> writeKey({required String key, required Object value}) async {
     return _scheduler.schedule(() async {
       final data = await readAll();
       data[key] = value;
@@ -98,9 +88,7 @@ class FileKeyValueStore {
   }
 
   /// Reads a single key from storage.
-  Future<Object?> readKey({
-    required String key,
-  }) async {
+  Future<Object?> readKey({required String key}) async {
     return _scheduler.schedule(() async {
       final data = await readAll();
       return data[key];
@@ -108,9 +96,7 @@ class FileKeyValueStore {
   }
 
   /// Removes a single key from storage.
-  Future<void> removeKey({
-    required String key,
-  }) async {
+  Future<void> removeKey({required String key}) async {
     return _scheduler.schedule(() async {
       final data = await readAll();
       data.remove(key);
@@ -119,9 +105,7 @@ class FileKeyValueStore {
   }
 
   /// Returns true if the key exists in storage
-  Future<bool> containsKey({
-    required String key,
-  }) async {
+  Future<bool> containsKey({required String key}) async {
     return _scheduler.schedule(() async {
       final data = await readAll();
       return data.containsKey(key);

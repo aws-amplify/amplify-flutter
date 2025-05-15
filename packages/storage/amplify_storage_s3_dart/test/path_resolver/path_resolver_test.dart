@@ -7,9 +7,7 @@ import 'package:test/test.dart';
 
 class MockTokenIdentityAmplifyAuthProvider
     implements TokenIdentityAmplifyAuthProvider {
-  MockTokenIdentityAmplifyAuthProvider({
-    this.getIdException,
-  });
+  MockTokenIdentityAmplifyAuthProvider({this.getIdException});
 
   Exception? getIdException;
   int getIdCount = 0;
@@ -41,19 +39,16 @@ void main() {
 
     test('should resolve static strings', () async {
       const path = StoragePath.fromString('foo/bar/picture.png');
-      expect(
-        await pathResolver.resolvePath(path: path),
-        'foo/bar/picture.png',
-      );
+      expect(await pathResolver.resolvePath(path: path), 'foo/bar/picture.png');
     });
 
     test('should resolve multiple static strings', () async {
       const path1 = StoragePath.fromString('foo/bar/picture1.png');
       const path2 = StoragePath.fromString('foo/bar/picture2.png');
-      expect(
-        await pathResolver.resolvePaths(paths: [path1, path2]),
-        ['foo/bar/picture1.png', 'foo/bar/picture2.png'],
-      );
+      expect(await pathResolver.resolvePaths(paths: [path1, path2]), [
+        'foo/bar/picture1.png',
+        'foo/bar/picture2.png',
+      ]);
     });
 
     test('should resolve path with identity Id', () async {
@@ -71,10 +66,10 @@ void main() {
       );
       final path1 = StoragePath.fromIdentityId((id) => 'foo/$id/picture1.png');
       final path2 = StoragePath.fromIdentityId((id) => 'foo/$id/picture2.png');
-      expect(
-        await pathResolver.resolvePaths(paths: [path1, path2]),
-        ['foo/mock-id/picture1.png', 'foo/mock-id/picture2.png'],
-      );
+      expect(await pathResolver.resolvePaths(paths: [path1, path2]), [
+        'foo/mock-id/picture1.png',
+        'foo/mock-id/picture2.png',
+      ]);
       expect(tokenAmplifyAuthProvider.getIdCount, 1);
     });
 
@@ -95,20 +90,21 @@ void main() {
     });
 
     test(
-        'should throw StorageAccessDeniedException if AuthProvider throws SessionExpiredException',
-        () async {
-      final tokenAmplifyAuthProvider = MockTokenIdentityAmplifyAuthProvider(
-        getIdException: const SessionExpiredException('Session Expired.'),
-      );
-      final pathResolver = S3PathResolver(
-        identityProvider: tokenAmplifyAuthProvider,
-      );
-      final path = StoragePath.fromIdentityId((id) => 'foo/$id/bar');
-      expect(
-        () => pathResolver.resolvePath(path: path),
-        throwsA(isA<StorageAccessDeniedException>()),
-      );
-    });
+      'should throw StorageAccessDeniedException if AuthProvider throws SessionExpiredException',
+      () async {
+        final tokenAmplifyAuthProvider = MockTokenIdentityAmplifyAuthProvider(
+          getIdException: const SessionExpiredException('Session Expired.'),
+        );
+        final pathResolver = S3PathResolver(
+          identityProvider: tokenAmplifyAuthProvider,
+        );
+        final path = StoragePath.fromIdentityId((id) => 'foo/$id/bar');
+        expect(
+          () => pathResolver.resolvePath(path: path),
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
+      },
+    );
 
     test('should throw UnknownException for any other exception', () async {
       final tokenAmplifyAuthProvider = MockTokenIdentityAmplifyAuthProvider(

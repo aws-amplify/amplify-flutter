@@ -17,18 +17,17 @@ class E2EWorkerImpl extends E2EWorker {
         .takeWhile((segment) => segment != 'test')
         .map(Uri.encodeComponent)
         .join('/');
-    const relativePath = zDebugMode
-        ? 'packages/e2e/workers.debug.dart.js'
-        : 'packages/e2e/workers.release.dart.js';
-    final testRelativePath = Uri(
-      scheme: baseUri.scheme,
-      host: baseUri.host,
-      port: baseUri.port,
-      path: '$basePath/test/$relativePath',
-    ).toString();
-    return [
-      relativePath,
-      testRelativePath,
-    ];
+    const relativePath =
+        zDebugMode
+            ? 'packages/e2e/workers.debug.dart.js'
+            : 'packages/e2e/workers.release.dart.js';
+    final testRelativePath =
+        Uri(
+          scheme: baseUri.scheme,
+          host: baseUri.host,
+          port: baseUri.port,
+          path: '$basePath/test/$relativePath',
+        ).toString();
+    return [relativePath, testRelativePath];
   }
 }

@@ -11,38 +11,40 @@ import 'models/belongs_to/ModelProvider.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('BelongsTo (child refers to parent with implicit connection field)',
-      () {
-    // schema
-    // type BelongsToParent @model {
-    //   id: ID!
-    //   name: String
-    //   implicitChild: BelongsToChildImplicit @hasOne
-    // }
-    // type BelongsToChildImplicit @model {
-    //   id: ID!
-    //   name: String
-    //   belongsToParent: BelongsToParent @belongsTo
-    // }
-    final enableCloudSync = shouldEnableCloudSync();
-    var rootModels = [BelongsToParent(name: 'belongs to parent')];
-    var associatedModels = [
-      BelongsToChildImplicit(
-        name: 'belongs to child (implicit)',
-        belongsToParent: rootModels.first,
-      )
-    ];
+  group(
+    'BelongsTo (child refers to parent with implicit connection field)',
+    () {
+      // schema
+      // type BelongsToParent @model {
+      //   id: ID!
+      //   name: String
+      //   implicitChild: BelongsToChildImplicit @hasOne
+      // }
+      // type BelongsToChildImplicit @model {
+      //   id: ID!
+      //   name: String
+      //   belongsToParent: BelongsToParent @belongsTo
+      // }
+      final enableCloudSync = shouldEnableCloudSync();
+      var rootModels = [BelongsToParent(name: 'belongs to parent')];
+      var associatedModels = [
+        BelongsToChildImplicit(
+          name: 'belongs to child (implicit)',
+          belongsToParent: rootModels.first,
+        ),
+      ];
 
-    testRootAndAssociatedModelsRelationship(
-      modelProvider: ModelProvider.instance,
-      rootModelType: BelongsToParent.classType,
-      rootModels: rootModels,
-      rootModelQueryIdentifier: BelongsToParent.MODEL_IDENTIFIER,
-      associatedModelType: BelongsToChildImplicit.classType,
-      associatedModels: associatedModels,
-      associatedModelQueryIdentifier: BelongsToChildImplicit.MODEL_IDENTIFIER,
-      supportCascadeDelete: true,
-      enableCloudSync: enableCloudSync,
-    );
-  });
+      testRootAndAssociatedModelsRelationship(
+        modelProvider: ModelProvider.instance,
+        rootModelType: BelongsToParent.classType,
+        rootModels: rootModels,
+        rootModelQueryIdentifier: BelongsToParent.MODEL_IDENTIFIER,
+        associatedModelType: BelongsToChildImplicit.classType,
+        associatedModels: associatedModels,
+        associatedModelQueryIdentifier: BelongsToChildImplicit.MODEL_IDENTIFIER,
+        supportCascadeDelete: true,
+        enableCloudSync: enableCloudSync,
+      );
+    },
+  );
 }

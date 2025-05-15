@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @internal
-library aws_common.config_file.file_loader;
+library;
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/config/aws_path_provider.dart';
@@ -19,9 +19,8 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 abstract class AWSFileLoader {
   /// {@macro aws_common.config_file.file_loader}
-  const factory AWSFileLoader({
-    AWSPathProvider? pathProvider,
-  }) = AWSFileLoaderImpl;
+  const factory AWSFileLoader({AWSPathProvider? pathProvider}) =
+      AWSFileLoaderImpl;
 
   /// {@macro aws_common.config_file.file_loader}
   @protected
@@ -31,10 +30,7 @@ abstract class AWSFileLoader {
   static final AWSLogger logger = AWSLogger('AWSFileLoader');
 
   /// Loads the file at [filepath] or returns the empty string if unavailable.
-  Future<ResolvedFile> loadFile(
-    AWSProfileFileType type,
-    String filepath,
-  );
+  Future<ResolvedFile> loadFile(AWSProfileFileType type, String filepath);
 }
 
 /// {@template aws_common.config_file.profile_file_loader}
@@ -43,9 +39,7 @@ abstract class AWSFileLoader {
 /// {@endtemplate}
 class AWSProfileFileLoader {
   /// {@macro aws_common.config_file.profile_file_loader}
-  const AWSProfileFileLoader([
-    this._fileLoader = const AWSFileLoader(),
-  ]);
+  const AWSProfileFileLoader([this._fileLoader = const AWSFileLoader()]);
 
   final AWSFileLoader _fileLoader;
 
@@ -73,9 +67,6 @@ class AWSProfileFileLoader {
     final parsedConfig = AWSProfileFileParser(configFile).parse();
     final parsedCredentials = AWSProfileFileParser(credentialsFile).parse();
 
-    return AWSProfileFileStandardizer.merge(
-      parsedConfig,
-      parsedCredentials,
-    );
+    return AWSProfileFileStandardizer.merge(parsedConfig, parsedCredentials);
   }
 }

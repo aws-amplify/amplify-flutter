@@ -13,20 +13,19 @@ class _$PasswordHistoryPolicyViolationException
   @override
   final Map<String, String>? headers;
 
-  factory _$PasswordHistoryPolicyViolationException(
-          [void Function(PasswordHistoryPolicyViolationExceptionBuilder)?
-              updates]) =>
+  factory _$PasswordHistoryPolicyViolationException([
+    void Function(PasswordHistoryPolicyViolationExceptionBuilder)? updates,
+  ]) =>
       (new PasswordHistoryPolicyViolationExceptionBuilder()..update(updates))
           ._build();
 
   _$PasswordHistoryPolicyViolationException._({this.message, this.headers})
-      : super._();
+    : super._();
 
   @override
   PasswordHistoryPolicyViolationException rebuild(
-          void Function(PasswordHistoryPolicyViolationExceptionBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PasswordHistoryPolicyViolationExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PasswordHistoryPolicyViolationExceptionBuilder toBuilder() =>
@@ -50,8 +49,10 @@ class _$PasswordHistoryPolicyViolationException
 
 class PasswordHistoryPolicyViolationExceptionBuilder
     implements
-        Builder<PasswordHistoryPolicyViolationException,
-            PasswordHistoryPolicyViolationExceptionBuilder> {
+        Builder<
+          PasswordHistoryPolicyViolationException,
+          PasswordHistoryPolicyViolationExceptionBuilder
+        > {
   _$PasswordHistoryPolicyViolationException? _$v;
 
   String? _message;
@@ -82,7 +83,8 @@ class PasswordHistoryPolicyViolationExceptionBuilder
 
   @override
   void update(
-      void Function(PasswordHistoryPolicyViolationExceptionBuilder)? updates) {
+    void Function(PasswordHistoryPolicyViolationExceptionBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -90,7 +92,8 @@ class PasswordHistoryPolicyViolationExceptionBuilder
   PasswordHistoryPolicyViolationException build() => _build();
 
   _$PasswordHistoryPolicyViolationException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PasswordHistoryPolicyViolationException._(
           message: message,
           headers: headers,

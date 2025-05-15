@@ -20,23 +20,23 @@ class _$JsonEnumsInputOutput extends JsonEnumsInputOutput {
   @override
   final _i3.BuiltMap<String, FooEnum>? fooEnumMap;
 
-  factory _$JsonEnumsInputOutput(
-          [void Function(JsonEnumsInputOutputBuilder)? updates]) =>
-      (new JsonEnumsInputOutputBuilder()..update(updates))._build();
+  factory _$JsonEnumsInputOutput([
+    void Function(JsonEnumsInputOutputBuilder)? updates,
+  ]) => (new JsonEnumsInputOutputBuilder()..update(updates))._build();
 
-  _$JsonEnumsInputOutput._(
-      {this.fooEnum1,
-      this.fooEnum2,
-      this.fooEnum3,
-      this.fooEnumList,
-      this.fooEnumSet,
-      this.fooEnumMap})
-      : super._();
+  _$JsonEnumsInputOutput._({
+    this.fooEnum1,
+    this.fooEnum2,
+    this.fooEnum3,
+    this.fooEnumList,
+    this.fooEnumSet,
+    this.fooEnumMap,
+  }) : super._();
 
   @override
   JsonEnumsInputOutput rebuild(
-          void Function(JsonEnumsInputOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(JsonEnumsInputOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   JsonEnumsInputOutputBuilder toBuilder() =>
@@ -135,14 +135,16 @@ class JsonEnumsInputOutputBuilder
   _$JsonEnumsInputOutput _build() {
     _$JsonEnumsInputOutput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$JsonEnumsInputOutput._(
-              fooEnum1: fooEnum1,
-              fooEnum2: fooEnum2,
-              fooEnum3: fooEnum3,
-              fooEnumList: _fooEnumList?.build(),
-              fooEnumSet: _fooEnumSet?.build(),
-              fooEnumMap: _fooEnumMap?.build());
+            fooEnum1: fooEnum1,
+            fooEnum2: fooEnum2,
+            fooEnum3: fooEnum3,
+            fooEnumList: _fooEnumList?.build(),
+            fooEnumSet: _fooEnumSet?.build(),
+            fooEnumMap: _fooEnumMap?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -154,7 +156,10 @@ class JsonEnumsInputOutputBuilder
         _fooEnumMap?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'JsonEnumsInputOutput', _$failedField, e.toString());
+          r'JsonEnumsInputOutput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

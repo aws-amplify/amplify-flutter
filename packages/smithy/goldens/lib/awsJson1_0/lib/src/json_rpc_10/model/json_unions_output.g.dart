@@ -10,9 +10,9 @@ class _$JsonUnionsOutput extends JsonUnionsOutput {
   @override
   final MyUnion? contents;
 
-  factory _$JsonUnionsOutput(
-          [void Function(JsonUnionsOutputBuilder)? updates]) =>
-      (new JsonUnionsOutputBuilder()..update(updates))._build();
+  factory _$JsonUnionsOutput([
+    void Function(JsonUnionsOutputBuilder)? updates,
+  ]) => (new JsonUnionsOutputBuilder()..update(updates))._build();
 
   _$JsonUnionsOutput._({this.contents}) : super._();
 

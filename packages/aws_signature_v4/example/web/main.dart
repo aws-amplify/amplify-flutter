@@ -61,10 +61,7 @@ Future<void> upload(BucketUpload bucketUpload) async {
   const signer = AWSSigV4Signer();
 
   // Set up S3 values
-  final scope = AWSCredentialScope(
-    region: region,
-    service: AWSService.s3,
-  );
+  final scope = AWSCredentialScope(region: region, service: AWSService.s3);
   final serviceConfiguration = S3ServiceConfiguration();
   final host = '$bucketName.s3.$region.amazonaws.com';
   final path = '/$filename';
@@ -82,10 +79,7 @@ Future<void> upload(BucketUpload bucketUpload) async {
   final uploadRequest = AWSHttpRequest.put(
     Uri.https(host, path),
     body: fileBytes,
-    headers: {
-      AWSHeaders.host: host,
-      AWSHeaders.contentType: file.type,
-    },
+    headers: {AWSHeaders.host: host, AWSHeaders.contentType: file.type},
   );
 
   safePrint('Uploading file $filename to $path...');
@@ -105,9 +99,7 @@ Future<void> upload(BucketUpload bucketUpload) async {
   // Create a pre-signed URL for downloading the file
   final urlRequest = AWSHttpRequest.get(
     Uri.https(host, path),
-    headers: {
-      AWSHeaders.host: host,
-    },
+    headers: {AWSHeaders.host: host},
   );
   final signedUrl = await signer.presign(
     urlRequest,
@@ -135,7 +127,8 @@ BucketUpload? getBucketUpload() {
   final bucketName = bucketNameEl.value;
   final region = regionEl.value;
   final files = fileEl.files;
-  final hasInvalidProps = bucketName == null ||
+  final hasInvalidProps =
+      bucketName == null ||
       bucketName.isEmpty ||
       region == null ||
       region.isEmpty ||

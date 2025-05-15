@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library aws_query_v1.query_protocol.model.flattened_xml_map_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,12 +17,13 @@ abstract class FlattenedXmlMapOutput
     implements Built<FlattenedXmlMapOutput, FlattenedXmlMapOutputBuilder> {
   factory FlattenedXmlMapOutput({Map<String, FooEnum>? myMap}) {
     return _$FlattenedXmlMapOutput._(
-        myMap: myMap == null ? null : _i2.BuiltMap(myMap));
+      myMap: myMap == null ? null : _i2.BuiltMap(myMap),
+    );
   }
 
-  factory FlattenedXmlMapOutput.build(
-          [void Function(FlattenedXmlMapOutputBuilder) updates]) =
-      _$FlattenedXmlMapOutput;
+  factory FlattenedXmlMapOutput.build([
+    void Function(FlattenedXmlMapOutputBuilder) updates,
+  ]) = _$FlattenedXmlMapOutput;
 
   const FlattenedXmlMapOutput._();
 
@@ -30,11 +31,10 @@ abstract class FlattenedXmlMapOutput
   factory FlattenedXmlMapOutput.fromResponse(
     FlattenedXmlMapOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<FlattenedXmlMapOutput>> serializers = [
-    FlattenedXmlMapOutputAwsQuerySerializer()
+    FlattenedXmlMapOutputAwsQuerySerializer(),
   ];
 
   _i2.BuiltMap<String, FooEnum>? get myMap;
@@ -44,10 +44,7 @@ abstract class FlattenedXmlMapOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FlattenedXmlMapOutput')
-      ..add(
-        'myMap',
-        myMap,
-      );
+      ..add('myMap', myMap);
     return helper.toString();
   }
 }
@@ -55,21 +52,18 @@ abstract class FlattenedXmlMapOutput
 class FlattenedXmlMapOutputAwsQuerySerializer
     extends _i3.StructuredSmithySerializer<FlattenedXmlMapOutput> {
   const FlattenedXmlMapOutputAwsQuerySerializer()
-      : super('FlattenedXmlMapOutput');
+    : super('FlattenedXmlMapOutput');
 
   @override
   Iterable<Type> get types => const [
-        FlattenedXmlMapOutput,
-        _$FlattenedXmlMapOutput,
-      ];
+    FlattenedXmlMapOutput,
+    _$FlattenedXmlMapOutput,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   FlattenedXmlMapOutput deserialize(
@@ -96,23 +90,22 @@ class FlattenedXmlMapOutputAwsQuerySerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.addAll(const _i3.XmlBuiltMapSerializer(
-            flattenedKey: 'myMap',
-            indexer: _i3.XmlIndexer.awsQueryMap,
-          )
-              .deserialize(
-                serializers,
-                value is String ? const [] : (value as Iterable<Object?>),
-                specifiedType: const FullType(
-                  _i2.BuiltMap,
-                  [
+          result.myMap.addAll(
+            const _i3.XmlBuiltMapSerializer(
+                  flattenedKey: 'myMap',
+                  indexer: _i3.XmlIndexer.awsQueryMap,
+                )
+                .deserialize(
+                  serializers,
+                  value is String ? const [] : (value as Iterable<Object?>),
+                  specifiedType: const FullType(_i2.BuiltMap, [
                     FullType(String),
                     FullType(FooEnum),
-                  ],
-                ),
-              )
-              .toMap()
-              .cast());
+                  ]),
+                )
+                .toMap()
+                .cast(),
+          );
       }
     }
 
@@ -129,24 +122,23 @@ class FlattenedXmlMapOutputAwsQuerySerializer
       const _i3.XmlElementName(
         'FlattenedXmlMapOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final FlattenedXmlMapOutput(:myMap) = object;
     if (myMap != null) {
-      result$.addAll(const _i3.XmlBuiltMapSerializer(
-        flattenedKey: 'myMap',
-        indexer: _i3.XmlIndexer.awsQueryMap,
-      ).serialize(
-        serializers,
-        myMap,
-        specifiedType: const FullType(
-          _i2.BuiltMap,
-          [
+      result$.addAll(
+        const _i3.XmlBuiltMapSerializer(
+          flattenedKey: 'myMap',
+          indexer: _i3.XmlIndexer.awsQueryMap,
+        ).serialize(
+          serializers,
+          myMap,
+          specifiedType: const FullType(_i2.BuiltMap, [
             FullType(String),
             FullType(FooEnum),
-          ],
+          ]),
         ),
-      ));
+      );
     }
     return result$;
   }

@@ -6,8 +6,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('TotpSetupDetails', () {
-    const details =
-        TotpSetupDetails(sharedSecret: 'sharedSecret', username: 'username');
+    const details = TotpSetupDetails(
+      sharedSecret: 'sharedSecret',
+      username: 'username',
+    );
 
     test('Correct encodes appName/issuer', () {
       final setupUri = details.getSetupUri(appName: 'My Application');

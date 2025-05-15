@@ -69,8 +69,12 @@ abstract class SrpPasswordVerifierMessage
 /// Worker bee for handling the SRP password verifier challenge routine.
 /// {@endtemplate}
 @WorkerBee('lib/src/workers/workers.dart')
-abstract class SrpPasswordVerifierWorker extends WorkerBeeBase<
-    SrpPasswordVerifierMessage, RespondToAuthChallengeRequest> {
+abstract class SrpPasswordVerifierWorker
+    extends
+        WorkerBeeBase<
+          SrpPasswordVerifierMessage,
+          RespondToAuthChallengeRequest
+        > {
   /// {@macro amplify_auth_cognito.srp_password_verifier_worker}
   SrpPasswordVerifierWorker() : super(serializers: serializers);
 
@@ -134,10 +138,12 @@ abstract class SrpPasswordVerifierWorker extends WorkerBeeBase<
         b
           ..clientId = clientId
           ..challengeName = ChallengeNameType.passwordVerifier
-          ..challengeResponses[
-              CognitoConstants.challengeParamPasswordSecretBlock] = secretBlock
-          ..challengeResponses[
-              CognitoConstants.challengeParamPasswordSignature] = encodedClaim
+          ..challengeResponses[CognitoConstants
+                  .challengeParamPasswordSecretBlock] =
+              secretBlock
+          ..challengeResponses[CognitoConstants
+                  .challengeParamPasswordSignature] =
+              encodedClaim
           ..challengeResponses[CognitoConstants.challengeParamUsername] =
               username
           ..challengeResponses[CognitoConstants.challengeParamTimestamp] =
@@ -160,14 +166,12 @@ abstract class SrpPasswordVerifierWorker extends WorkerBeeBase<
 }
 
 /// Serializers for the [SrpPasswordVerifierWorker] worker.
-@SerializersFor([
-  SrpPasswordVerifierMessage,
-])
-final Serializers serializers = (_$serializers.toBuilder()
-      ..addAll(const [
-        ...RespondToAuthChallengeRequest.serializers,
-        ...AnalyticsMetadataType.serializers,
-        ...ChallengeNameType.serializers,
-        ...UserContextDataType.serializers,
-      ]))
-    .build();
+@SerializersFor([SrpPasswordVerifierMessage])
+final Serializers serializers =
+    (_$serializers.toBuilder()..addAll(const [
+          ...RespondToAuthChallengeRequest.serializers,
+          ...AnalyticsMetadataType.serializers,
+          ...ChallengeNameType.serializers,
+          ...UserContextDataType.serializers,
+        ]))
+        .build();

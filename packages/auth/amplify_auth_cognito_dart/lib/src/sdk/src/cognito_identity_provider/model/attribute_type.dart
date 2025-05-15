@@ -15,14 +15,8 @@ abstract class AttributeType
     with _i1.AWSEquatable<AttributeType>
     implements Built<AttributeType, AttributeTypeBuilder> {
   /// Specifies whether the attribute is standard or custom.
-  factory AttributeType({
-    required String name,
-    String? value,
-  }) {
-    return _$AttributeType._(
-      name: name,
-      value: value,
-    );
+  factory AttributeType({required String name, String? value}) {
+    return _$AttributeType._(name: name, value: value);
   }
 
   /// Specifies whether the attribute is standard or custom.
@@ -32,7 +26,7 @@ abstract class AttributeType
   const AttributeType._();
 
   static const List<_i2.SmithySerializer<AttributeType>> serializers = [
-    AttributeTypeAwsJson11Serializer()
+    AttributeTypeAwsJson11Serializer(),
   ];
 
   /// The name of the attribute.
@@ -41,22 +35,14 @@ abstract class AttributeType
   /// The value of the attribute.
   String? get value;
   @override
-  List<Object?> get props => [
-        name,
-        value,
-      ];
+  List<Object?> get props => [name, value];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttributeType')
-      ..add(
-        'name',
-        name,
-      )
-      ..add(
-        'value',
-        '***SENSITIVE***',
-      );
+    final helper =
+        newBuiltValueToStringHelper('AttributeType')
+          ..add('name', name)
+          ..add('value', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -66,18 +52,12 @@ class AttributeTypeAwsJson11Serializer
   const AttributeTypeAwsJson11Serializer() : super('AttributeType');
 
   @override
-  Iterable<Type> get types => const [
-        AttributeType,
-        _$AttributeType,
-      ];
+  Iterable<Type> get types => const [AttributeType, _$AttributeType];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   AttributeType deserialize(
@@ -96,15 +76,19 @@ class AttributeTypeAwsJson11Serializer
       }
       switch (key) {
         case 'Name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Value':
-          result.value = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.value =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -121,18 +105,14 @@ class AttributeTypeAwsJson11Serializer
     final AttributeType(:name, :value) = object;
     result$.addAll([
       'Name',
-      serializers.serialize(
-        name,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(name, specifiedType: const FullType(String)),
     ]);
     if (value != null) {
       result$
         ..add('Value')
-        ..add(serializers.serialize(
-          value,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

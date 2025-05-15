@@ -7,23 +7,23 @@ import 'dart:js_interop';
 external Cache get cache;
 
 /// Tools for interacting with the GitHub Actions cache.
-/// 
+///
 /// See: https://www.npmjs.com/package/@actions/cache
 @JS()
 @anonymous
 extension type Cache._(JSObject it) {
   /// Returns true if Actions cache service feature is available, otherwise false.
   external bool isFeatureAvailable();
-  
+
   @JS('restoreCache')
   external JSPromise _restoreCache(
     JSArray paths,
-    String primaryKey,[
+    String primaryKey, [
     JSArray? restoreKeys,
   ]);
 
   /// Restores cache from keys
-  /// 
+  ///
   /// @param paths a list of file paths to restore from the cache
   /// @param primaryKey an explicit key for restoring the cache
   /// @param restoreKeys an optional ordered list of keys to use for restoring the cache if no cache hit occurred for key
@@ -34,7 +34,7 @@ extension type Cache._(JSObject it) {
     List<String>? restoreKeys,
   }) async {
     final promise = _restoreCache(
-      paths.map((p) => p.toJS).toList().toJS, 
+      paths.map((p) => p.toJS).toList().toJS,
       primaryKey,
       restoreKeys?.map((key) => key.toJS).toList().toJS,
     );
@@ -43,13 +43,10 @@ extension type Cache._(JSObject it) {
   }
 
   @JS('saveCache')
-  external JSPromise _saveCache(
-    JSArray paths,
-    String primaryKey,
-  );
+  external JSPromise _saveCache(JSArray paths, String primaryKey);
 
   /// Saves a list of files with the specified key
-  /// 
+  ///
   /// @param paths a list of file paths to be cached
   /// @param primaryKey an explicit key for restoring the cache
   /// @returns number returns cacheId if the cache was saved successfully and throws an error if save fails
@@ -58,7 +55,7 @@ extension type Cache._(JSObject it) {
     required String primaryKey,
   }) async {
     final promise = _saveCache(
-      paths.map((path) => path.toJS).toList().toJS, 
+      paths.map((path) => path.toJS).toList().toJS,
       primaryKey,
     );
     final result = await promise.toDart;

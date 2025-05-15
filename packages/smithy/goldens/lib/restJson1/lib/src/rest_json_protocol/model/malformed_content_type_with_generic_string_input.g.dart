@@ -11,9 +11,9 @@ class _$MalformedContentTypeWithGenericStringInput
   @override
   final String? payload;
 
-  factory _$MalformedContentTypeWithGenericStringInput(
-          [void Function(MalformedContentTypeWithGenericStringInputBuilder)?
-              updates]) =>
+  factory _$MalformedContentTypeWithGenericStringInput([
+    void Function(MalformedContentTypeWithGenericStringInputBuilder)? updates,
+  ]) =>
       (new MalformedContentTypeWithGenericStringInputBuilder()..update(updates))
           ._build();
 
@@ -21,9 +21,8 @@ class _$MalformedContentTypeWithGenericStringInput
 
   @override
   MalformedContentTypeWithGenericStringInput rebuild(
-          void Function(MalformedContentTypeWithGenericStringInputBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedContentTypeWithGenericStringInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedContentTypeWithGenericStringInputBuilder toBuilder() =>
@@ -47,8 +46,10 @@ class _$MalformedContentTypeWithGenericStringInput
 
 class MalformedContentTypeWithGenericStringInputBuilder
     implements
-        Builder<MalformedContentTypeWithGenericStringInput,
-            MalformedContentTypeWithGenericStringInputBuilder> {
+        Builder<
+          MalformedContentTypeWithGenericStringInput,
+          MalformedContentTypeWithGenericStringInputBuilder
+        > {
   _$MalformedContentTypeWithGenericStringInput? _$v;
 
   String? _payload;
@@ -74,8 +75,8 @@ class MalformedContentTypeWithGenericStringInputBuilder
 
   @override
   void update(
-      void Function(MalformedContentTypeWithGenericStringInputBuilder)?
-          updates) {
+    void Function(MalformedContentTypeWithGenericStringInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -83,7 +84,8 @@ class MalformedContentTypeWithGenericStringInputBuilder
   MalformedContentTypeWithGenericStringInput build() => _build();
 
   _$MalformedContentTypeWithGenericStringInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MalformedContentTypeWithGenericStringInput._(payload: payload);
     replace(_$result);
     return _$result;

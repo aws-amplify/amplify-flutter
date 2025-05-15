@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.test_payload_structure_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,8 +16,10 @@ abstract class TestPayloadStructureInputOutput
         _i1.HttpInput<PayloadConfig>,
         _i2.AWSEquatable<TestPayloadStructureInputOutput>
     implements
-        Built<TestPayloadStructureInputOutput,
-            TestPayloadStructureInputOutputBuilder>,
+        Built<
+          TestPayloadStructureInputOutput,
+          TestPayloadStructureInputOutputBuilder
+        >,
         _i1.HasPayload<PayloadConfig> {
   factory TestPayloadStructureInputOutput({
     String? testId,
@@ -29,9 +31,9 @@ abstract class TestPayloadStructureInputOutput
     );
   }
 
-  factory TestPayloadStructureInputOutput.build(
-          [void Function(TestPayloadStructureInputOutputBuilder) updates]) =
-      _$TestPayloadStructureInputOutput;
+  factory TestPayloadStructureInputOutput.build([
+    void Function(TestPayloadStructureInputOutputBuilder) updates,
+  ]) = _$TestPayloadStructureInputOutput;
 
   const TestPayloadStructureInputOutput._();
 
@@ -39,32 +41,30 @@ abstract class TestPayloadStructureInputOutput
     PayloadConfig? payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      TestPayloadStructureInputOutput.build((b) {
-        if (payload != null) {
-          b.payloadConfig.replace(payload);
-        }
-        if (request.headers['x-amz-test-id'] != null) {
-          b.testId = request.headers['x-amz-test-id']!;
-        }
-      });
+  }) => TestPayloadStructureInputOutput.build((b) {
+    if (payload != null) {
+      b.payloadConfig.replace(payload);
+    }
+    if (request.headers['x-amz-test-id'] != null) {
+      b.testId = request.headers['x-amz-test-id']!;
+    }
+  });
 
   /// Constructs a [TestPayloadStructureInputOutput] from a [payload] and [response].
   factory TestPayloadStructureInputOutput.fromResponse(
     PayloadConfig? payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      TestPayloadStructureInputOutput.build((b) {
-        if (payload != null) {
-          b.payloadConfig.replace(payload);
-        }
-        if (response.headers['x-amz-test-id'] != null) {
-          b.testId = response.headers['x-amz-test-id']!;
-        }
-      });
+  ) => TestPayloadStructureInputOutput.build((b) {
+    if (payload != null) {
+      b.payloadConfig.replace(payload);
+    }
+    if (response.headers['x-amz-test-id'] != null) {
+      b.testId = response.headers['x-amz-test-id']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<PayloadConfig?>> serializers = [
-    TestPayloadStructureInputOutputRestJson1Serializer()
+    TestPayloadStructureInputOutputRestJson1Serializer(),
   ];
 
   String? get testId;
@@ -73,23 +73,14 @@ abstract class TestPayloadStructureInputOutput
   PayloadConfig? getPayload() => payloadConfig ?? PayloadConfig();
 
   @override
-  List<Object?> get props => [
-        testId,
-        payloadConfig,
-      ];
+  List<Object?> get props => [testId, payloadConfig];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('TestPayloadStructureInputOutput')
-          ..add(
-            'testId',
-            testId,
-          )
-          ..add(
-            'payloadConfig',
-            payloadConfig,
-          );
+          ..add('testId', testId)
+          ..add('payloadConfig', payloadConfig);
     return helper.toString();
   }
 }
@@ -97,21 +88,18 @@ abstract class TestPayloadStructureInputOutput
 class TestPayloadStructureInputOutputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<PayloadConfig> {
   const TestPayloadStructureInputOutputRestJson1Serializer()
-      : super('TestPayloadStructureInputOutput');
+    : super('TestPayloadStructureInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        TestPayloadStructureInputOutput,
-        _$TestPayloadStructureInputOutput,
-      ];
+    TestPayloadStructureInputOutput,
+    _$TestPayloadStructureInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   PayloadConfig deserialize(
@@ -120,9 +108,10 @@ class TestPayloadStructureInputOutputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(PayloadConfig),
-    ) as PayloadConfig);
+          serialized,
+          specifiedType: const FullType(PayloadConfig),
+        )
+        as PayloadConfig);
   }
 
   @override

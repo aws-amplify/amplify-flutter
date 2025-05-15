@@ -12,16 +12,16 @@ class _$PasswordResetRequiredException extends PasswordResetRequiredException {
   @override
   final Map<String, String>? headers;
 
-  factory _$PasswordResetRequiredException(
-          [void Function(PasswordResetRequiredExceptionBuilder)? updates]) =>
-      (new PasswordResetRequiredExceptionBuilder()..update(updates))._build();
+  factory _$PasswordResetRequiredException([
+    void Function(PasswordResetRequiredExceptionBuilder)? updates,
+  ]) => (new PasswordResetRequiredExceptionBuilder()..update(updates))._build();
 
   _$PasswordResetRequiredException._({this.message, this.headers}) : super._();
 
   @override
   PasswordResetRequiredException rebuild(
-          void Function(PasswordResetRequiredExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PasswordResetRequiredExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PasswordResetRequiredExceptionBuilder toBuilder() =>
@@ -44,8 +44,10 @@ class _$PasswordResetRequiredException extends PasswordResetRequiredException {
 
 class PasswordResetRequiredExceptionBuilder
     implements
-        Builder<PasswordResetRequiredException,
-            PasswordResetRequiredExceptionBuilder> {
+        Builder<
+          PasswordResetRequiredException,
+          PasswordResetRequiredExceptionBuilder
+        > {
   _$PasswordResetRequiredException? _$v;
 
   String? _message;
@@ -83,7 +85,8 @@ class PasswordResetRequiredExceptionBuilder
   PasswordResetRequiredException build() => _build();
 
   _$PasswordResetRequiredException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PasswordResetRequiredException._(
           message: message,
           headers: headers,

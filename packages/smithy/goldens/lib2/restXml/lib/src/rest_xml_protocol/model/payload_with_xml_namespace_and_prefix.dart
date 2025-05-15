@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.payload_with_xml_namespace_and_prefix; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -11,23 +11,24 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'payload_with_xml_namespace_and_prefix.g.dart';
 
 abstract class PayloadWithXmlNamespaceAndPrefix
-    with
-        _i1.AWSEquatable<PayloadWithXmlNamespaceAndPrefix>
+    with _i1.AWSEquatable<PayloadWithXmlNamespaceAndPrefix>
     implements
-        Built<PayloadWithXmlNamespaceAndPrefix,
-            PayloadWithXmlNamespaceAndPrefixBuilder> {
+        Built<
+          PayloadWithXmlNamespaceAndPrefix,
+          PayloadWithXmlNamespaceAndPrefixBuilder
+        > {
   factory PayloadWithXmlNamespaceAndPrefix({String? name}) {
     return _$PayloadWithXmlNamespaceAndPrefix._(name: name);
   }
 
-  factory PayloadWithXmlNamespaceAndPrefix.build(
-          [void Function(PayloadWithXmlNamespaceAndPrefixBuilder) updates]) =
-      _$PayloadWithXmlNamespaceAndPrefix;
+  factory PayloadWithXmlNamespaceAndPrefix.build([
+    void Function(PayloadWithXmlNamespaceAndPrefixBuilder) updates,
+  ]) = _$PayloadWithXmlNamespaceAndPrefix;
 
   const PayloadWithXmlNamespaceAndPrefix._();
 
   static const List<_i2.SmithySerializer<PayloadWithXmlNamespaceAndPrefix>>
-      serializers = [PayloadWithXmlNamespaceAndPrefixRestXmlSerializer()];
+  serializers = [PayloadWithXmlNamespaceAndPrefixRestXmlSerializer()];
 
   String? get name;
   @override
@@ -35,12 +36,9 @@ abstract class PayloadWithXmlNamespaceAndPrefix
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PayloadWithXmlNamespaceAndPrefix')
-          ..add(
-            'name',
-            name,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'PayloadWithXmlNamespaceAndPrefix',
+    )..add('name', name);
     return helper.toString();
   }
 }
@@ -48,21 +46,18 @@ abstract class PayloadWithXmlNamespaceAndPrefix
 class PayloadWithXmlNamespaceAndPrefixRestXmlSerializer
     extends _i2.StructuredSmithySerializer<PayloadWithXmlNamespaceAndPrefix> {
   const PayloadWithXmlNamespaceAndPrefixRestXmlSerializer()
-      : super('PayloadWithXmlNamespaceAndPrefix');
+    : super('PayloadWithXmlNamespaceAndPrefix');
 
   @override
   Iterable<Type> get types => const [
-        PayloadWithXmlNamespaceAndPrefix,
-        _$PayloadWithXmlNamespaceAndPrefix,
-      ];
+    PayloadWithXmlNamespaceAndPrefix,
+    _$PayloadWithXmlNamespaceAndPrefix,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   PayloadWithXmlNamespaceAndPrefix deserialize(
@@ -81,10 +76,12 @@ class PayloadWithXmlNamespaceAndPrefixRestXmlSerializer
       }
       switch (key) {
         case 'name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -100,20 +97,16 @@ class PayloadWithXmlNamespaceAndPrefixRestXmlSerializer
     final result$ = <Object?>[
       const _i2.XmlElementName(
         'PayloadWithXmlNamespaceAndPrefix',
-        _i2.XmlNamespace(
-          'http://foo.com',
-          'baz',
-        ),
-      )
+        _i2.XmlNamespace('http://foo.com', 'baz'),
+      ),
     ];
     final PayloadWithXmlNamespaceAndPrefix(:name) = object;
     if (name != null) {
       result$
         ..add(const _i2.XmlElementName('name'))
-        ..add(serializers.serialize(
-          name,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(name, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

@@ -16,11 +16,7 @@ class _MyEnum extends SmithyEnum<_MyEnum> {
   static const foo = _MyEnum._(2, 'FOO', 'Foo');
 
   /// All values of [_MyEnum].
-  static const values = <_MyEnum>[
-    _MyEnum.bar,
-    _MyEnum.baz,
-    _MyEnum.foo,
-  ];
+  static const values = <_MyEnum>[_MyEnum.bar, _MyEnum.baz, _MyEnum.foo];
 
   // ignore: unused_field
   static const List<SmithySerializer<_MyEnum>> serializers = [
@@ -57,24 +53,15 @@ void main() {
     });
 
     test('byName', () {
-      expect(
-        _MyEnum.values.byName('foo'),
-        equals(_MyEnum.foo),
-      );
+      expect(_MyEnum.values.byName('foo'), equals(_MyEnum.foo));
     });
 
     test('byValue', () {
-      expect(
-        _MyEnum.values.byValue('Foo'),
-        equals(_MyEnum.foo),
-      );
+      expect(_MyEnum.values.byValue('Foo'), equals(_MyEnum.foo));
     });
 
     test('byValue (unknown)', () {
-      expect(
-        () => _MyEnum.values.byValue('UNKNOWN'),
-        throwsStateError,
-      );
+      expect(() => _MyEnum.values.byValue('UNKNOWN'), throwsStateError);
     });
   });
 }

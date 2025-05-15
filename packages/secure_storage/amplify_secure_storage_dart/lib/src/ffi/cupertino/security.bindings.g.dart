@@ -11,37 +11,36 @@ import './core_foundation.bindings.g.dart' as coreFoundation;
 class Security {
   /// Holds the symbol lookup function.
   final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-      _lookup;
+  _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
   Security(ffi.DynamicLibrary dynamicLibrary) : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
   Security.fromLookup(
-      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-          lookup)
-      : _lookup = lookup;
+    ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup,
+  ) : _lookup = lookup;
 
   coreFoundation.CFStringRef SecCopyErrorMessageString(
     int status,
     ffi.Pointer<ffi.Void> reserved,
   ) {
-    return _SecCopyErrorMessageString(
-      status,
-      reserved,
-    );
+    return _SecCopyErrorMessageString(status, reserved);
   }
 
   late final _SecCopyErrorMessageStringPtr = _lookup<
-      ffi.NativeFunction<
-          coreFoundation.CFStringRef Function(
-              OSStatus, ffi.Pointer<ffi.Void>)>>('SecCopyErrorMessageString');
+    ffi.NativeFunction<
+      coreFoundation.CFStringRef Function(OSStatus, ffi.Pointer<ffi.Void>)
+    >
+  >('SecCopyErrorMessageString');
   late final _SecCopyErrorMessageString =
       _SecCopyErrorMessageStringPtr.asFunction<
-          coreFoundation.CFStringRef Function(int, ffi.Pointer<ffi.Void>)>();
+        coreFoundation.CFStringRef Function(int, ffi.Pointer<ffi.Void>)
+      >();
 
-  late final ffi.Pointer<CFBooleanRef> _kCFBooleanTrue =
-      _lookup<CFBooleanRef>('kCFBooleanTrue');
+  late final ffi.Pointer<CFBooleanRef> _kCFBooleanTrue = _lookup<CFBooleanRef>(
+    'kCFBooleanTrue',
+  );
 
   CFBooleanRef get kCFBooleanTrue => _kCFBooleanTrue.value;
 
@@ -98,8 +97,9 @@ class Security {
       _kSecAttrService.value = value;
 
   late final ffi.Pointer<coreFoundation.CFStringRef>
-      _kSecAttrAccessibleWhenUnlocked =
-      _lookup<coreFoundation.CFStringRef>('kSecAttrAccessibleWhenUnlocked');
+  _kSecAttrAccessibleWhenUnlocked = _lookup<coreFoundation.CFStringRef>(
+    'kSecAttrAccessibleWhenUnlocked',
+  );
 
   coreFoundation.CFStringRef get kSecAttrAccessibleWhenUnlocked =>
       _kSecAttrAccessibleWhenUnlocked.value;
@@ -108,8 +108,9 @@ class Security {
       _kSecAttrAccessibleWhenUnlocked.value = value;
 
   late final ffi.Pointer<coreFoundation.CFStringRef>
-      _kSecAttrAccessibleAfterFirstUnlock =
-      _lookup<coreFoundation.CFStringRef>('kSecAttrAccessibleAfterFirstUnlock');
+  _kSecAttrAccessibleAfterFirstUnlock = _lookup<coreFoundation.CFStringRef>(
+    'kSecAttrAccessibleAfterFirstUnlock',
+  );
 
   coreFoundation.CFStringRef get kSecAttrAccessibleAfterFirstUnlock =>
       _kSecAttrAccessibleAfterFirstUnlock.value;
@@ -118,42 +119,45 @@ class Security {
       _kSecAttrAccessibleAfterFirstUnlock.value = value;
 
   late final ffi.Pointer<coreFoundation.CFStringRef>
-      _kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly =
+  _kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly =
       _lookup<coreFoundation.CFStringRef>(
-          'kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly');
+        'kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly',
+      );
 
   coreFoundation.CFStringRef
-      get kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly =>
-          _kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly.value;
+  get kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly =>
+      _kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly.value;
 
   set kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly(
-          coreFoundation.CFStringRef value) =>
-      _kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly.value = value;
+    coreFoundation.CFStringRef value,
+  ) => _kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly.value = value;
 
   late final ffi.Pointer<coreFoundation.CFStringRef>
-      _kSecAttrAccessibleWhenUnlockedThisDeviceOnly =
+  _kSecAttrAccessibleWhenUnlockedThisDeviceOnly =
       _lookup<coreFoundation.CFStringRef>(
-          'kSecAttrAccessibleWhenUnlockedThisDeviceOnly');
+        'kSecAttrAccessibleWhenUnlockedThisDeviceOnly',
+      );
 
   coreFoundation.CFStringRef get kSecAttrAccessibleWhenUnlockedThisDeviceOnly =>
       _kSecAttrAccessibleWhenUnlockedThisDeviceOnly.value;
 
   set kSecAttrAccessibleWhenUnlockedThisDeviceOnly(
-          coreFoundation.CFStringRef value) =>
-      _kSecAttrAccessibleWhenUnlockedThisDeviceOnly.value = value;
+    coreFoundation.CFStringRef value,
+  ) => _kSecAttrAccessibleWhenUnlockedThisDeviceOnly.value = value;
 
   late final ffi.Pointer<coreFoundation.CFStringRef>
-      _kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly =
+  _kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly =
       _lookup<coreFoundation.CFStringRef>(
-          'kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly');
+        'kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly',
+      );
 
   coreFoundation.CFStringRef
-      get kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly =>
-          _kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly.value;
+  get kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly =>
+      _kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly.value;
 
   set kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly(
-          coreFoundation.CFStringRef value) =>
-      _kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly.value = value;
+    coreFoundation.CFStringRef value,
+  ) => _kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly.value = value;
 
   late final ffi.Pointer<coreFoundation.CFStringRef> _kSecMatchLimit =
       _lookup<coreFoundation.CFStringRef>('kSecMatchLimit');
@@ -196,8 +200,9 @@ class Security {
       _kSecValueData.value = value;
 
   late final ffi.Pointer<coreFoundation.CFStringRef>
-      _kSecUseDataProtectionKeychain =
-      _lookup<coreFoundation.CFStringRef>('kSecUseDataProtectionKeychain');
+  _kSecUseDataProtectionKeychain = _lookup<coreFoundation.CFStringRef>(
+    'kSecUseDataProtectionKeychain',
+  );
 
   coreFoundation.CFStringRef get kSecUseDataProtectionKeychain =>
       _kSecUseDataProtectionKeychain.value;
@@ -209,69 +214,82 @@ class Security {
     coreFoundation.CFDictionaryRef query,
     ffi.Pointer<coreFoundation.CFTypeRef> result,
   ) {
-    return _SecItemCopyMatching(
-      query,
-      result,
-    );
+    return _SecItemCopyMatching(query, result);
   }
 
   late final _SecItemCopyMatchingPtr = _lookup<
-      ffi.NativeFunction<
-          OSStatus Function(coreFoundation.CFDictionaryRef,
-              ffi.Pointer<coreFoundation.CFTypeRef>)>>('SecItemCopyMatching');
-  late final _SecItemCopyMatching = _SecItemCopyMatchingPtr.asFunction<
-      int Function(coreFoundation.CFDictionaryRef,
-          ffi.Pointer<coreFoundation.CFTypeRef>)>();
+    ffi.NativeFunction<
+      OSStatus Function(
+        coreFoundation.CFDictionaryRef,
+        ffi.Pointer<coreFoundation.CFTypeRef>,
+      )
+    >
+  >('SecItemCopyMatching');
+  late final _SecItemCopyMatching =
+      _SecItemCopyMatchingPtr.asFunction<
+        int Function(
+          coreFoundation.CFDictionaryRef,
+          ffi.Pointer<coreFoundation.CFTypeRef>,
+        )
+      >();
 
   int SecItemAdd(
     coreFoundation.CFDictionaryRef attributes,
     ffi.Pointer<coreFoundation.CFTypeRef> result,
   ) {
-    return _SecItemAdd(
-      attributes,
-      result,
-    );
+    return _SecItemAdd(attributes, result);
   }
 
   late final _SecItemAddPtr = _lookup<
-      ffi.NativeFunction<
-          OSStatus Function(coreFoundation.CFDictionaryRef,
-              ffi.Pointer<coreFoundation.CFTypeRef>)>>('SecItemAdd');
-  late final _SecItemAdd = _SecItemAddPtr.asFunction<
-      int Function(coreFoundation.CFDictionaryRef,
-          ffi.Pointer<coreFoundation.CFTypeRef>)>();
+    ffi.NativeFunction<
+      OSStatus Function(
+        coreFoundation.CFDictionaryRef,
+        ffi.Pointer<coreFoundation.CFTypeRef>,
+      )
+    >
+  >('SecItemAdd');
+  late final _SecItemAdd =
+      _SecItemAddPtr.asFunction<
+        int Function(
+          coreFoundation.CFDictionaryRef,
+          ffi.Pointer<coreFoundation.CFTypeRef>,
+        )
+      >();
 
   int SecItemUpdate(
     coreFoundation.CFDictionaryRef query,
     coreFoundation.CFDictionaryRef attributesToUpdate,
   ) {
-    return _SecItemUpdate(
-      query,
-      attributesToUpdate,
-    );
+    return _SecItemUpdate(query, attributesToUpdate);
   }
 
   late final _SecItemUpdatePtr = _lookup<
-      ffi.NativeFunction<
-          OSStatus Function(coreFoundation.CFDictionaryRef,
-              coreFoundation.CFDictionaryRef)>>('SecItemUpdate');
-  late final _SecItemUpdate = _SecItemUpdatePtr.asFunction<
-      int Function(
-          coreFoundation.CFDictionaryRef, coreFoundation.CFDictionaryRef)>();
+    ffi.NativeFunction<
+      OSStatus Function(
+        coreFoundation.CFDictionaryRef,
+        coreFoundation.CFDictionaryRef,
+      )
+    >
+  >('SecItemUpdate');
+  late final _SecItemUpdate =
+      _SecItemUpdatePtr.asFunction<
+        int Function(
+          coreFoundation.CFDictionaryRef,
+          coreFoundation.CFDictionaryRef,
+        )
+      >();
 
-  int SecItemDelete(
-    coreFoundation.CFDictionaryRef query,
-  ) {
-    return _SecItemDelete(
-      query,
-    );
+  int SecItemDelete(coreFoundation.CFDictionaryRef query) {
+    return _SecItemDelete(query);
   }
 
   late final _SecItemDeletePtr = _lookup<
-      ffi.NativeFunction<
-          OSStatus Function(coreFoundation.CFDictionaryRef)>>('SecItemDelete');
-  late final _SecItemDelete = _SecItemDeletePtr.asFunction<
-      int Function(coreFoundation.CFDictionaryRef)>();
+    ffi.NativeFunction<OSStatus Function(coreFoundation.CFDictionaryRef)>
+  >('SecItemDelete');
+  late final _SecItemDelete =
+      _SecItemDeletePtr.asFunction<
+        int Function(coreFoundation.CFDictionaryRef)
+      >();
 }
 
 typedef OSStatus = SInt32;

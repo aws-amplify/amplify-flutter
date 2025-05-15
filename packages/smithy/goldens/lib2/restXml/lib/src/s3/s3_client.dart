@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,13 +27,13 @@ class S3Client {
         const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i4.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i4.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _client = client,
-        _region = region,
-        _baseUri = baseUri,
-        _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _client = client,
+       _region = region,
+       _baseUri = baseUri,
+       _s3ClientConfig = s3ClientConfig,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -62,10 +62,7 @@ class S3Client {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i4.SmithyOperation<GetBucketLocationOutput> getBucketLocation(
@@ -81,14 +78,11 @@ class S3Client {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
+    ).run(input, client: client ?? _client);
   }
 
   _i4.SmithyOperation<_i4.PaginatedResult<ListObjectsV2Output, int, String>>
-      listObjectsV2(
+  listObjectsV2(
     ListObjectsV2Request input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
@@ -101,9 +95,6 @@ class S3Client {
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
-    ).runPaginated(
-      input,
-      client: client ?? _client,
-    );
+    ).runPaginated(input, client: client ?? _client);
   }
 }

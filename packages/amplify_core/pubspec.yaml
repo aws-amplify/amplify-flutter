@@ -1,29 +1,29 @@
 name: amplify_core
 description: The base package containing common types and utilities that are shared across the Amplify Flutter packages.
-version: 2.6.1
+version: 2.6.2
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_core
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.7.0
 
 dependencies:
   async: ^2.10.0
-  aws_common: ">=0.7.6 <0.8.0"
-  aws_signature_v4: ">=0.6.4 <0.7.0"
+  aws_common: ">=0.7.7 <0.8.0"
+  aws_signature_v4: ">=0.6.5 <0.7.0"
   collection: ^1.15.0
   graphs: ^2.1.0
   intl: ">=0.18.0 <1.0.0"
   json_annotation: ">=4.9.0 <4.10.0"
   logging: ^1.0.0
-  meta: ^1.7.0
+  meta: ^1.16.0
   retry: ^3.1.0
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <5.0.0"
 
 dev_dependencies:
-  amplify_lints: ">=3.1.1 <3.2.0"
+  amplify_lints: ">=3.1.2 <3.2.0"
   build_runner: ^2.4.9
   build_test: ^2.1.5
   build_version: ^2.1.1
@@ -34,6 +34,6 @@ dev_dependencies:
       path: packages/code_excerpt_updater
       # TODO: Bump when global SDK >=3.1
       ref: 923adadacbb95f11d222e6fc6135f6dbb66f84ee
-  json_serializable: 6.8.0
+  json_serializable: ^6.9.4
   path: any
   test: ^1.22.1

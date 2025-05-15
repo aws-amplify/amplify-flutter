@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_validation_protocol.test.recursive_structures_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -16,68 +16,59 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestJsonRecursiveStructuresValidate (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: RecursiveStructuresOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestJsonRecursiveStructuresValidate',
-          documentation: 'Validation should work with recursive structures.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restJson1',
-          ),
-          authScheme: null,
-          body:
-              '{ "union" : {\n    "union" : {\n        "union" : { "string" : "abc" }\n    }\n  }\n}',
-          bodyMediaType: 'application/json',
-          params: {
+  _i1.test('RestJsonRecursiveStructuresValidate (request)', () async {
+    await _i2.httpRequestTest(
+      operation: RecursiveStructuresOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestJsonRecursiveStructuresValidate',
+        documentation: 'Validation should work with recursive structures.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+        authScheme: null,
+        body:
+            '{ "union" : {\n    "union" : {\n        "union" : { "string" : "abc" }\n    }\n  }\n}',
+        bodyMediaType: 'application/json',
+        params: {
+          'union': {
             'union': {
-              'union': {
-                'union': {'string': 'abc'}
-              }
-            }
+              'union': {'string': 'abc'},
+            },
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'content-type': 'application/json'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/RecursiveStructures',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [RecursiveStructuresInputRestJson1Serializer()],
-      );
-    },
-  );
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'content-type': 'application/json'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/RecursiveStructures',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [RecursiveStructuresInputRestJson1Serializer()],
+    );
+  });
 }
 
 class RecursiveStructuresInputRestJson1Serializer
     extends _i3.StructuredSmithySerializer<RecursiveStructuresInput> {
   const RecursiveStructuresInputRestJson1Serializer()
-      : super('RecursiveStructuresInput');
+    : super('RecursiveStructuresInput');
 
   @override
   Iterable<Type> get types => const [RecursiveStructuresInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   RecursiveStructuresInput deserialize(
@@ -96,10 +87,12 @@ class RecursiveStructuresInputRestJson1Serializer
       }
       switch (key) {
         case 'union':
-          result.union = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RecursiveUnionOne),
-          ) as RecursiveUnionOne);
+          result.union =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RecursiveUnionOne),
+                  )
+                  as RecursiveUnionOne);
       }
     }
 
@@ -125,11 +118,8 @@ class ValidationExceptionRestJson1Serializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   ValidationException deserialize(
@@ -148,18 +138,22 @@ class ValidationExceptionRestJson1Serializer
       }
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'fieldList':
-          result.fieldList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(ValidationExceptionField)],
-            ),
-          ) as _i4.BuiltList<ValidationExceptionField>));
+          result.fieldList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(ValidationExceptionField),
+                  ]),
+                )
+                as _i4.BuiltList<ValidationExceptionField>),
+          );
       }
     }
 
@@ -179,18 +173,15 @@ class ValidationExceptionRestJson1Serializer
 class ValidationExceptionFieldRestJson1Serializer
     extends _i3.StructuredSmithySerializer<ValidationExceptionField> {
   const ValidationExceptionFieldRestJson1Serializer()
-      : super('ValidationExceptionField');
+    : super('ValidationExceptionField');
 
   @override
   Iterable<Type> get types => const [ValidationExceptionField];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   ValidationExceptionField deserialize(
@@ -209,15 +200,19 @@ class ValidationExceptionFieldRestJson1Serializer
       }
       switch (key) {
         case 'path':
-          result.path = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.path =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'message':
-          result.message = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.message =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

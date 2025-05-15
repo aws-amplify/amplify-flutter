@@ -5,9 +5,7 @@ const androidJourneyMessage = {
   'title': 'TITTLE',
   'body': 'BODY',
   'imageUrl': null,
-  'fcmOptions': {
-    'channelId': 'PINPOINT.NOTIFICATION',
-  },
+  'fcmOptions': {'channelId': 'PINPOINT.NOTIFICATION'},
   'action': {'openApp': true, 'url': null, 'deeplink': null},
   'data': {
     'pinpoint.openApp': true,
@@ -31,9 +29,7 @@ const androidCampaignMessage = {
   'title': 'TITTLE',
   'body': 'BODY',
   'imageUrl': null,
-  'fcmOptions': {
-    'channelId': 'PINPOINT.NOTIFICATION',
-  },
+  'fcmOptions': {'channelId': 'PINPOINT.NOTIFICATION'},
   'action': {'openApp': true, 'url': null, 'deeplink': null},
   'data': {
     'pinpoint.openApp': true,

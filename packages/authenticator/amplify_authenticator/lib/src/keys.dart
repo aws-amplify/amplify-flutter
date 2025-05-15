@@ -12,8 +12,9 @@ const keyPasswordSignInFormField = Key('passwordSignInFormField');
 
 const keyUsernameSignUpFormField = Key('usernameSignUpFormField');
 const keyPasswordSignUpFormField = Key('passwordSignUpFormField');
-const keyPasswordConfirmationSignUpFormField =
-    Key('keyPasswordConfirmationSignUpFormField');
+const keyPasswordConfirmationSignUpFormField = Key(
+  'keyPasswordConfirmationSignUpFormField',
+);
 const keyAddressSignUpFormField = Key('addresslSignUpFormField');
 const keyBirthdateSignUpFormField = Key('birthdateSignUpFormField');
 const keyEmailSignUpFormField = Key('emailSignUpFormField');
@@ -26,11 +27,13 @@ const keyNameSignUpFormField = Key('nameSignUpFormField');
 const keyNicknameSignUpFormField = Key('nicknameSignUpFormField');
 const keyPhoneNumberSignUpFormField = Key('phoneNumberSignUpFormField');
 const keyPictureSignUpFormField = Key('pictureSignUpFormField');
-const keyPreferredUsernameSignUpFormField =
-    Key('preferredUsernameSignUpFormField');
+const keyPreferredUsernameSignUpFormField = Key(
+  'preferredUsernameSignUpFormField',
+);
 const keyProfileSignUpFormField = Key('profileSignUpFormField');
-const keySelectedUsernameSignUpFormField =
-    Key('selectedUsernameSignUpFormField');
+const keySelectedUsernameSignUpFormField = Key(
+  'selectedUsernameSignUpFormField',
+);
 const keyZoneinfoSignUpFormField = Key('zoneinfoSignUpFormField');
 const keyUpdatedAtSignUpFormField = Key('updatedAtSignUpFormField');
 const keyWebsiteSignUpFormField = Key('websiteSignUpFormField');
@@ -41,57 +44,72 @@ const keyCustomSignUpFormField = Key('customSignUpFormField');
 const keyUsernameConfirmSignUpFormField = Key('usernameConfirmSignUpFormField');
 const keyPasswordConfirmSignUpFormField = Key('passwordConfirmSignUpFormField');
 const keyEmailConfirmSignUpFormField = Key('emailConfirmSignUpFormField');
-const keyPhoneNumberConfirmSignUpFormField =
-    Key('phoneNumberConfirmSignUpFormField');
+const keyPhoneNumberConfirmSignUpFormField = Key(
+  'phoneNumberConfirmSignUpFormField',
+);
 const keyCodeConfirmSignUpFormField = Key('codeConfirmSignUpFormField');
 
 //Confirm Sign In form field keys
 
 const keyCodeConfirmSignInFormField = Key('codeConfirmSignInFormField');
-const keyCustomChallengeConfirmSignInFormField =
-    Key('customChallengeConfirmSignInFormField');
-const keyMfaMethodRadioConfirmSignInFormField =
-    Key('mfaMethodRadioConfirmSignInFormField');
-const keyMfaSetupMethodRadioConfirmSignInFormField =
-    Key('mfaSetupMethodRadioConfirmSignInFormField');
+const keyCustomChallengeConfirmSignInFormField = Key(
+  'customChallengeConfirmSignInFormField',
+);
+const keyMfaMethodRadioConfirmSignInFormField = Key(
+  'mfaMethodRadioConfirmSignInFormField',
+);
+const keyMfaSetupMethodRadioConfirmSignInFormField = Key(
+  'mfaSetupMethodRadioConfirmSignInFormField',
+);
 const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
-const keyNewPasswordConfirmSignInFormField =
-    Key('newPasswordConfirmSignInFormField');
-const keyConfirmNewPasswordConfirmSignInFormField =
-    Key('confirmNewPasswordConfirmSignInFormField');
+const keyNewPasswordConfirmSignInFormField = Key(
+  'newPasswordConfirmSignInFormField',
+);
+const keyConfirmNewPasswordConfirmSignInFormField = Key(
+  'confirmNewPasswordConfirmSignInFormField',
+);
 const keyAddressConfirmSignInFormField = Key('addresslConfirmSignInFormField');
-const keyBirthdateConfirmSignInFormField =
-    Key('birthdateConfirmSignInFormField');
+const keyBirthdateConfirmSignInFormField = Key(
+  'birthdateConfirmSignInFormField',
+);
 const keyEmailConfirmSignInFormField = Key('emailConfirmSignInFormField');
-const keyFamilyNameConfirmSignInFormField =
-    Key('familyNameConfirmSignInFormField');
+const keyFamilyNameConfirmSignInFormField = Key(
+  'familyNameConfirmSignInFormField',
+);
 const keyGenderConfirmSignInFormField = Key('genderConfirmSignInFormField');
-const keyGivenNameConfirmSignInFormField =
-    Key('givenNameConfirmSignInFormField');
+const keyGivenNameConfirmSignInFormField = Key(
+  'givenNameConfirmSignInFormField',
+);
 const keyLocaleConfirmSignInFormField = Key('localeConfirmSignInFormField');
-const keyMiddleNameConfirmSignInFormField =
-    Key('middleNameConfirmSignInFormField');
+const keyMiddleNameConfirmSignInFormField = Key(
+  'middleNameConfirmSignInFormField',
+);
 const keyNameConfirmSignInFormField = Key('nameConfirmSignInFormField');
 const keyNicknameConfirmSignInFormField = Key('nicknameConfirmSignInFormField');
-const keyPhoneNumberConfirmSignInFormField =
-    Key('phoneNumberConfirmSignInFormField');
+const keyPhoneNumberConfirmSignInFormField = Key(
+  'phoneNumberConfirmSignInFormField',
+);
 const keyPictureConfirmSignInFormField = Key('pictureConfirmSignInFormField');
-const keyPreferredUsernameConfirmSignInFormField =
-    Key('preferredUsernameConfirmSignInFormField');
+const keyPreferredUsernameConfirmSignInFormField = Key(
+  'preferredUsernameConfirmSignInFormField',
+);
 const keyProfileConfirmSignInFormField = Key('profileConfirmSignInFormField');
 const keyZoneinfoConfirmSignInFormField = Key('zoneinfoConfirmSignInFormField');
-const keyUpdatedAtConfirmSignInFormField =
-    Key('updatedAtConfirmSignInFormField');
+const keyUpdatedAtConfirmSignInFormField = Key(
+  'updatedAtConfirmSignInFormField',
+);
 const keyWebsiteConfirmSignInFormField = Key('websiteConfirmSignInFormField');
 const keyCustomConfirmSignInFormField = Key('customConfirmSignInFormField');
 
 // Reset Password form field keys
 const keyPasswordResetPasswordFormField = Key('passwordResetPasswordFormField');
-const keyPasswordConfirmationResetPasswordFormField =
-    Key('passwordConfirmationResetPasswordFormField');
-const keyVerificationCodeResetPasswordFormField =
-    Key('verificationCodeResetPasswordFormField');
+const keyPasswordConfirmationResetPasswordFormField = Key(
+  'passwordConfirmationResetPasswordFormField',
+);
+const keyVerificationCodeResetPasswordFormField = Key(
+  'verificationCodeResetPasswordFormField',
+);
 
 // Attribute Verification keys
 const keyVerifyUserRadioButtonFormField = Key('verifyUserRadioButtonFormField');
@@ -107,12 +125,15 @@ const keyBackToSignInButton = Key('backToSignInButton');
 const keyGoToSignUpButton = Key('goToSignUpButton');
 const keyGoToSignInButton = Key('goToSignInButton');
 const keyConfirmSignInButton = Key('confirmSignInButton');
-const keyConfirmSignInMfaSelectionButton =
-    Key('confirmSignInMfaSelectionButton');
-const keyConfirmSignInMfaSetupSelectionButton =
-    Key('confirmSignInMfaSetupSelectionButton');
-const keyConfirmSignInWithEmailMfaSetupButton =
-    Key('confirmSignInWithEmailMfaSetupButton');
+const keyConfirmSignInMfaSelectionButton = Key(
+  'confirmSignInMfaSelectionButton',
+);
+const keyConfirmSignInMfaSetupSelectionButton = Key(
+  'confirmSignInMfaSetupSelectionButton',
+);
+const keyConfirmSignInWithEmailMfaSetupButton = Key(
+  'confirmSignInWithEmailMfaSetupButton',
+);
 const keyConfirmSignInCustomButton = Key('confirmSignInCustomButton');
 const keyLostCodeButton = Key('lostCodeButton');
 const keySendCodeButton = Key('sendCodeButton');

@@ -82,7 +82,10 @@ class OperationConfigBuilder
         _s3?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'OperationConfig', _$failedField, e.toString());
+          r'OperationConfig',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

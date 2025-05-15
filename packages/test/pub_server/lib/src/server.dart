@@ -26,11 +26,7 @@ part 'server.g.dart';
 /// This follows the API documented at
 /// https://github.com/dart-lang/pub/blob/master/doc/repository-spec-v2.md
 class PubServer {
-  PubServer._({
-    required this.db,
-    required this.dataDir,
-    required this.fs,
-  });
+  PubServer._({required this.db, required this.dataDir, required this.fs});
 
   /// Creates a new [PubServer] with a temporary directory for data.
   ///
@@ -44,9 +40,9 @@ class PubServer {
 
   /// Creates a new [PubServer] with an in-memory file system and database.
   PubServer.test()
-      : db = PubDatabase.test(),
-        fs = MemoryFileSystem.test(),
-        dataDir = '';
+    : db = PubDatabase.test(),
+      fs = MemoryFileSystem.test(),
+      dataDir = '';
 
   static final _pubUri = Uri.parse('https://pub.dev/');
   static final _logger = AWSLogger().createChild('PubServer');
@@ -79,9 +75,7 @@ class PubServer {
   static Response _okJson(Object? body) {
     return Response.ok(
       HttpPayload.json(body),
-      headers: {
-        AWSHeaders.contentType: 'application/vnd.pub.v2+json',
-      },
+      headers: {AWSHeaders.contentType: 'application/vnd.pub.v2+json'},
     );
   }
 
@@ -134,9 +128,10 @@ class PubServer {
   @Route.get('/api/packages/versions/new')
   Future<Response> newVersion(Request request) async {
     return _okJson({
-      'url': request.requestedUri
-          .resolve('/api/packages/versions/newUpload')
-          .toString(),
+      'url':
+          request.requestedUri
+              .resolve('/api/packages/versions/newUpload')
+              .toString(),
       'fields': <String, Object?>{},
     });
   }
@@ -147,9 +142,7 @@ class PubServer {
   @Route.post('/api/packages/versions/newUpload')
   Future<Response> upload(Request request) async {
     if (request.multipart() == null) {
-      return Response.badRequest(
-        body: 'Expected multipart request',
-      );
+      return Response.badRequest(body: 'Expected multipart request');
     }
 
     final formDataRequest = request.formData();
@@ -190,27 +183,19 @@ class PubServer {
     }
 
     if (pubspecYaml == null) {
-      return Response.badRequest(
-        body: 'Missing pubspec.yaml',
-      );
+      return Response.badRequest(body: 'Missing pubspec.yaml');
     }
     if (readme == null) {
-      return Response.badRequest(
-        body: 'Missing readme.md',
-      );
+      return Response.badRequest(body: 'Missing readme.md');
     }
     if (changelog == null) {
-      return Response.badRequest(
-        body: 'Missing changelog.md',
-      );
+      return Response.badRequest(body: 'Missing changelog.md');
     }
 
     final pubspec = Pubspec.parse(pubspecYaml);
     final version = pubspec.version;
     if (version == null) {
-      return Response.badRequest(
-        body: 'Missing version in pubspec.yaml',
-      );
+      return Response.badRequest(body: 'Missing version in pubspec.yaml');
     }
 
     final filepath = fs.path.join(dataDir, pubspec.name, '$version.tar.gz');
@@ -228,9 +213,10 @@ class PubServer {
     await db.upsertPackageVersion(
       name: pubspec.name,
       version: version,
-      archiveUrl: request.requestedUri
-          .resolve('/packages/${pubspec.name}/versions/$version.tar.gz')
-          .toString(),
+      archiveUrl:
+          request.requestedUri
+              .resolve('/packages/${pubspec.name}/versions/$version.tar.gz')
+              .toString(),
       pubspecYaml: pubspecYaml,
       readme: readme,
       changelog: changelog,
@@ -238,9 +224,10 @@ class PubServer {
     return Response(
       204,
       headers: {
-        AWSHeaders.location: request.requestedUri
-            .resolve('/api/packages/versions/newUploadFinish')
-            .toString(),
+        AWSHeaders.location:
+            request.requestedUri
+                .resolve('/api/packages/versions/newUploadFinish')
+                .toString(),
       },
     );
   }
@@ -251,9 +238,7 @@ class PubServer {
   @Route.get('/api/packages/versions/newUploadFinish')
   Future<Response> uploadFinish(Request request) async {
     return _okJson({
-      'success': {
-        'message': 'Package uploaded successfully.',
-      },
+      'success': {'message': 'Package uploaded successfully.'},
     });
   }
 
@@ -294,9 +279,9 @@ class PubServer {
   }
 
   static Middleware get _loggerMiddleware => logRequests(
-        logger: (message, isError) =>
-            (isError ? _logger.error : _logger.info)(message),
-      );
+    logger:
+        (message, isError) => (isError ? _logger.error : _logger.info)(message),
+  );
 
   Handler get handler => const Pipeline()
       .addMiddleware(_loggerMiddleware)
@@ -308,12 +293,7 @@ class PubServer {
 Handler corsMiddleware(Handler handler) {
   return (request) {
     if (request.method == 'OPTIONS') {
-      return Response.ok(
-        null,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-      );
+      return Response.ok(null, headers: {'Access-Control-Allow-Origin': '*'});
     }
     return handler(request);
   };

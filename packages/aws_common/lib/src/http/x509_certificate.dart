@@ -10,11 +10,8 @@ import 'dart:typed_data';
 /// certificate chain.
 ///
 /// Returning `true` allows the connection proceed regardless.
-typedef BadCertificateCallback = bool Function(
-  X509Certificate,
-  String host,
-  int port,
-);
+typedef BadCertificateCallback =
+    bool Function(X509Certificate, String host, int port);
 
 /// {@template aws_http.x509_certificate}
 /// X509Certificate represents an SSL certificate, with accessors to

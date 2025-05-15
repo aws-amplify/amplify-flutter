@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library ec2_query_v1.ec2_protocol.model.simple_scalar_xml_properties_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -12,11 +12,12 @@ import 'package:smithy/smithy.dart' as _i3;
 part 'simple_scalar_xml_properties_output.g.dart';
 
 abstract class SimpleScalarXmlPropertiesOutput
-    with
-        _i1.AWSEquatable<SimpleScalarXmlPropertiesOutput>
+    with _i1.AWSEquatable<SimpleScalarXmlPropertiesOutput>
     implements
-        Built<SimpleScalarXmlPropertiesOutput,
-            SimpleScalarXmlPropertiesOutputBuilder> {
+        Built<
+          SimpleScalarXmlPropertiesOutput,
+          SimpleScalarXmlPropertiesOutputBuilder
+        > {
   factory SimpleScalarXmlPropertiesOutput({
     String? stringValue,
     String? emptyStringValue,
@@ -43,9 +44,9 @@ abstract class SimpleScalarXmlPropertiesOutput
     );
   }
 
-  factory SimpleScalarXmlPropertiesOutput.build(
-          [void Function(SimpleScalarXmlPropertiesOutputBuilder) updates]) =
-      _$SimpleScalarXmlPropertiesOutput;
+  factory SimpleScalarXmlPropertiesOutput.build([
+    void Function(SimpleScalarXmlPropertiesOutputBuilder) updates,
+  ]) = _$SimpleScalarXmlPropertiesOutput;
 
   const SimpleScalarXmlPropertiesOutput._();
 
@@ -53,11 +54,10 @@ abstract class SimpleScalarXmlPropertiesOutput
   factory SimpleScalarXmlPropertiesOutput.fromResponse(
     SimpleScalarXmlPropertiesOutput payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<SimpleScalarXmlPropertiesOutput>>
-      serializers = [SimpleScalarXmlPropertiesOutputEc2QuerySerializer()];
+  serializers = [SimpleScalarXmlPropertiesOutputEc2QuerySerializer()];
 
   String? get stringValue;
   String? get emptyStringValue;
@@ -71,62 +71,32 @@ abstract class SimpleScalarXmlPropertiesOutput
   double? get doubleValue;
   @override
   List<Object?> get props => [
-        stringValue,
-        emptyStringValue,
-        trueBooleanValue,
-        falseBooleanValue,
-        byteValue,
-        shortValue,
-        integerValue,
-        longValue,
-        floatValue,
-        doubleValue,
-      ];
+    stringValue,
+    emptyStringValue,
+    trueBooleanValue,
+    falseBooleanValue,
+    byteValue,
+    shortValue,
+    integerValue,
+    longValue,
+    floatValue,
+    doubleValue,
+  ];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('SimpleScalarXmlPropertiesOutput')
-          ..add(
-            'stringValue',
-            stringValue,
-          )
-          ..add(
-            'emptyStringValue',
-            emptyStringValue,
-          )
-          ..add(
-            'trueBooleanValue',
-            trueBooleanValue,
-          )
-          ..add(
-            'falseBooleanValue',
-            falseBooleanValue,
-          )
-          ..add(
-            'byteValue',
-            byteValue,
-          )
-          ..add(
-            'shortValue',
-            shortValue,
-          )
-          ..add(
-            'integerValue',
-            integerValue,
-          )
-          ..add(
-            'longValue',
-            longValue,
-          )
-          ..add(
-            'floatValue',
-            floatValue,
-          )
-          ..add(
-            'doubleValue',
-            doubleValue,
-          );
+          ..add('stringValue', stringValue)
+          ..add('emptyStringValue', emptyStringValue)
+          ..add('trueBooleanValue', trueBooleanValue)
+          ..add('falseBooleanValue', falseBooleanValue)
+          ..add('byteValue', byteValue)
+          ..add('shortValue', shortValue)
+          ..add('integerValue', integerValue)
+          ..add('longValue', longValue)
+          ..add('floatValue', floatValue)
+          ..add('doubleValue', doubleValue);
     return helper.toString();
   }
 }
@@ -134,21 +104,18 @@ abstract class SimpleScalarXmlPropertiesOutput
 class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
     extends _i3.StructuredSmithySerializer<SimpleScalarXmlPropertiesOutput> {
   const SimpleScalarXmlPropertiesOutputEc2QuerySerializer()
-      : super('SimpleScalarXmlPropertiesOutput');
+    : super('SimpleScalarXmlPropertiesOutput');
 
   @override
   Iterable<Type> get types => const [
-        SimpleScalarXmlPropertiesOutput,
-        _$SimpleScalarXmlPropertiesOutput,
-      ];
+    SimpleScalarXmlPropertiesOutput,
+    _$SimpleScalarXmlPropertiesOutput,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   SimpleScalarXmlPropertiesOutput deserialize(
@@ -167,55 +134,75 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
       }
       switch (key) {
         case 'stringValue':
-          result.stringValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.stringValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'emptyStringValue':
-          result.emptyStringValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.emptyStringValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'trueBooleanValue':
-          result.trueBooleanValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.trueBooleanValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'falseBooleanValue':
-          result.falseBooleanValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.falseBooleanValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'byteValue':
-          result.byteValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.byteValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'shortValue':
-          result.shortValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.shortValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'integerValue':
-          result.integerValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.integerValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'longValue':
-          result.longValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          result.longValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i2.Int64),
+                  )
+                  as _i2.Int64);
         case 'floatValue':
-          result.floatValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.floatValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'DoubleDribble':
-          result.doubleValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.doubleValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
       }
     }
 
@@ -232,7 +219,7 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
       const _i3.XmlElementName(
         'SimpleScalarXmlPropertiesOutputResponse',
         _i3.XmlNamespace('https://example.com/'),
-      )
+      ),
     ];
     final SimpleScalarXmlPropertiesOutput(
       :stringValue,
@@ -244,87 +231,101 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
       :integerValue,
       :longValue,
       :floatValue,
-      :doubleValue
+      :doubleValue,
     ) = object;
     if (stringValue != null) {
       result$
         ..add(const _i3.XmlElementName('IgnoreMe'))
-        ..add(serializers.serialize(
-          stringValue,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            stringValue,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (emptyStringValue != null) {
       result$
         ..add(const _i3.XmlElementName('EmptyStringValue'))
-        ..add(serializers.serialize(
-          emptyStringValue,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            emptyStringValue,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (trueBooleanValue != null) {
       result$
         ..add(const _i3.XmlElementName('TrueBooleanValue'))
-        ..add(serializers.serialize(
-          trueBooleanValue,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(
+            trueBooleanValue,
+            specifiedType: const FullType(bool),
+          ),
+        );
     }
     if (falseBooleanValue != null) {
       result$
         ..add(const _i3.XmlElementName('FalseBooleanValue'))
-        ..add(serializers.serialize(
-          falseBooleanValue,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(
+            falseBooleanValue,
+            specifiedType: const FullType(bool),
+          ),
+        );
     }
     if (byteValue != null) {
       result$
         ..add(const _i3.XmlElementName('ByteValue'))
-        ..add(serializers.serialize(
-          byteValue,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(byteValue, specifiedType: const FullType(int)),
+        );
     }
     if (shortValue != null) {
       result$
         ..add(const _i3.XmlElementName('ShortValue'))
-        ..add(serializers.serialize(
-          shortValue,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(shortValue, specifiedType: const FullType(int)),
+        );
     }
     if (integerValue != null) {
       result$
         ..add(const _i3.XmlElementName('IntegerValue'))
-        ..add(serializers.serialize(
-          integerValue,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(
+            integerValue,
+            specifiedType: const FullType(int),
+          ),
+        );
     }
     if (longValue != null) {
       result$
         ..add(const _i3.XmlElementName('LongValue'))
-        ..add(serializers.serialize(
-          longValue,
-          specifiedType: const FullType(_i2.Int64),
-        ));
+        ..add(
+          serializers.serialize(
+            longValue,
+            specifiedType: const FullType(_i2.Int64),
+          ),
+        );
     }
     if (floatValue != null) {
       result$
         ..add(const _i3.XmlElementName('FloatValue'))
-        ..add(serializers.serialize(
-          floatValue,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            floatValue,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     if (doubleValue != null) {
       result$
         ..add(const _i3.XmlElementName('DoubleDribble'))
-        ..add(serializers.serialize(
-          doubleValue,
-          specifiedType: const FullType(double),
-        ));
+        ..add(
+          serializers.serialize(
+            doubleValue,
+            specifiedType: const FullType(double),
+          ),
+        );
     }
     return result$;
   }

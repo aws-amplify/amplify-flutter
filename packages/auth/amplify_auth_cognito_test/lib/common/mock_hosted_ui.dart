@@ -8,16 +8,18 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
     if (dart.library.io) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-typedef SignInFn = Future<void> Function(
-  HostedUiPlatform platform,
-  CognitoSignInWithWebUIPluginOptions options,
-  AuthProvider? provider,
-);
+typedef SignInFn =
+    Future<void> Function(
+      HostedUiPlatform platform,
+      CognitoSignInWithWebUIPluginOptions options,
+      AuthProvider? provider,
+    );
 
-typedef SignOutFn = Future<void> Function(
-  HostedUiPlatform platform,
-  CognitoSignInWithWebUIPluginOptions options,
-);
+typedef SignOutFn =
+    Future<void> Function(
+      HostedUiPlatform platform,
+      CognitoSignInWithWebUIPluginOptions options,
+    );
 
 HostedUiPlatformFactory createHostedUiFactory({
   required SignInFn signIn,
@@ -37,8 +39,8 @@ class MockHostedUiPlatform extends HostedUiPlatformImpl {
     super.dependencyManager, {
     required SignInFn signIn,
     required SignOutFn signOut,
-  })  : _signIn = signIn,
-        _signOut = signOut;
+  }) : _signIn = signIn,
+       _signOut = signOut;
 
   final SignInFn _signIn;
   final SignOutFn _signOut;
@@ -47,14 +49,12 @@ class MockHostedUiPlatform extends HostedUiPlatformImpl {
   Future<void> signIn({
     required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
-  }) =>
-      _signIn(this, options, provider);
+  }) => _signIn(this, options, provider);
 
   @override
   Future<void> signOut({
     required CognitoSignInWithWebUIPluginOptions options,
-  }) =>
-      _signOut(this, options);
+  }) => _signOut(this, options);
 
   @override
   Uri get signInRedirectUri =>

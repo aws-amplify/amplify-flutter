@@ -1,24 +1,16 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.s3.model.request_payer; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class RequestPayer extends _i1.SmithyEnum<RequestPayer> {
-  const RequestPayer._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const RequestPayer._(super.index, super.name, super.value);
 
   const RequestPayer._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const requester = RequestPayer._(
-    0,
-    'requester',
-    'requester',
-  );
+  static const requester = RequestPayer._(0, 'requester', 'requester');
 
   /// All values of [RequestPayer].
   static const values = <RequestPayer>[RequestPayer.requester];
@@ -29,12 +21,9 @@ class RequestPayer extends _i1.SmithyEnum<RequestPayer> {
       values: values,
       sdkUnknown: RequestPayer._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

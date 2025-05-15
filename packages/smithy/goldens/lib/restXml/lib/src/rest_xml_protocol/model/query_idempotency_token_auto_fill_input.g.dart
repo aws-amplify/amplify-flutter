@@ -11,9 +11,9 @@ class _$QueryIdempotencyTokenAutoFillInput
   @override
   final String? token;
 
-  factory _$QueryIdempotencyTokenAutoFillInput(
-          [void Function(QueryIdempotencyTokenAutoFillInputBuilder)?
-              updates]) =>
+  factory _$QueryIdempotencyTokenAutoFillInput([
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder)? updates,
+  ]) =>
       (new QueryIdempotencyTokenAutoFillInputBuilder()..update(updates))
           ._build();
 
@@ -21,8 +21,8 @@ class _$QueryIdempotencyTokenAutoFillInput
 
   @override
   QueryIdempotencyTokenAutoFillInput rebuild(
-          void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryIdempotencyTokenAutoFillInputBuilder toBuilder() =>
@@ -45,8 +45,10 @@ class _$QueryIdempotencyTokenAutoFillInput
 
 class QueryIdempotencyTokenAutoFillInputBuilder
     implements
-        Builder<QueryIdempotencyTokenAutoFillInput,
-            QueryIdempotencyTokenAutoFillInputBuilder> {
+        Builder<
+          QueryIdempotencyTokenAutoFillInput,
+          QueryIdempotencyTokenAutoFillInputBuilder
+        > {
   _$QueryIdempotencyTokenAutoFillInput? _$v;
 
   String? _token;
@@ -74,7 +76,8 @@ class QueryIdempotencyTokenAutoFillInputBuilder
 
   @override
   void update(
-      void Function(QueryIdempotencyTokenAutoFillInputBuilder)? updates) {
+    void Function(QueryIdempotencyTokenAutoFillInputBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -91,9 +94,9 @@ class QueryIdempotencyTokenAutoFillInputBuilder
 
 class _$QueryIdempotencyTokenAutoFillInputPayload
     extends QueryIdempotencyTokenAutoFillInputPayload {
-  factory _$QueryIdempotencyTokenAutoFillInputPayload(
-          [void Function(QueryIdempotencyTokenAutoFillInputPayloadBuilder)?
-              updates]) =>
+  factory _$QueryIdempotencyTokenAutoFillInputPayload([
+    void Function(QueryIdempotencyTokenAutoFillInputPayloadBuilder)? updates,
+  ]) =>
       (new QueryIdempotencyTokenAutoFillInputPayloadBuilder()..update(updates))
           ._build();
 
@@ -101,9 +104,8 @@ class _$QueryIdempotencyTokenAutoFillInputPayload
 
   @override
   QueryIdempotencyTokenAutoFillInputPayload rebuild(
-          void Function(QueryIdempotencyTokenAutoFillInputPayloadBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(QueryIdempotencyTokenAutoFillInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   QueryIdempotencyTokenAutoFillInputPayloadBuilder toBuilder() =>
@@ -123,8 +125,10 @@ class _$QueryIdempotencyTokenAutoFillInputPayload
 
 class QueryIdempotencyTokenAutoFillInputPayloadBuilder
     implements
-        Builder<QueryIdempotencyTokenAutoFillInputPayload,
-            QueryIdempotencyTokenAutoFillInputPayloadBuilder> {
+        Builder<
+          QueryIdempotencyTokenAutoFillInputPayload,
+          QueryIdempotencyTokenAutoFillInputPayloadBuilder
+        > {
   _$QueryIdempotencyTokenAutoFillInputPayload? _$v;
 
   QueryIdempotencyTokenAutoFillInputPayloadBuilder();
@@ -137,8 +141,8 @@ class QueryIdempotencyTokenAutoFillInputPayloadBuilder
 
   @override
   void update(
-      void Function(QueryIdempotencyTokenAutoFillInputPayloadBuilder)?
-          updates) {
+    void Function(QueryIdempotencyTokenAutoFillInputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 

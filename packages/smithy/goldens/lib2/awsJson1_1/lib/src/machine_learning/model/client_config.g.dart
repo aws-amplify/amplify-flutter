@@ -25,15 +25,15 @@ class _$ClientConfig extends ClientConfig {
   factory _$ClientConfig([void Function(ClientConfigBuilder)? updates]) =>
       (new ClientConfigBuilder()..update(updates))._build();
 
-  _$ClientConfig._(
-      {this.awsAccessKeyId,
-      this.awsSecretAccessKey,
-      this.awsSessionToken,
-      this.region,
-      this.s3,
-      this.retryConfig,
-      this.awsProfile})
-      : super._();
+  _$ClientConfig._({
+    this.awsAccessKeyId,
+    this.awsSecretAccessKey,
+    this.awsSessionToken,
+    this.region,
+    this.s3,
+    this.retryConfig,
+    this.awsProfile,
+  }) : super._();
 
   @override
   ClientConfig rebuild(void Function(ClientConfigBuilder) updates) =>
@@ -141,15 +141,17 @@ class ClientConfigBuilder
   _$ClientConfig _build() {
     _$ClientConfig _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ClientConfig._(
-              awsAccessKeyId: awsAccessKeyId,
-              awsSecretAccessKey: awsSecretAccessKey,
-              awsSessionToken: awsSessionToken,
-              region: region,
-              s3: _s3?.build(),
-              retryConfig: _retryConfig?.build(),
-              awsProfile: awsProfile);
+            awsAccessKeyId: awsAccessKeyId,
+            awsSecretAccessKey: awsSecretAccessKey,
+            awsSessionToken: awsSessionToken,
+            region: region,
+            s3: _s3?.build(),
+            retryConfig: _retryConfig?.build(),
+            awsProfile: awsProfile,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -159,7 +161,10 @@ class ClientConfigBuilder
         _retryConfig?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ClientConfig', _$failedField, e.toString());
+          r'ClientConfig',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

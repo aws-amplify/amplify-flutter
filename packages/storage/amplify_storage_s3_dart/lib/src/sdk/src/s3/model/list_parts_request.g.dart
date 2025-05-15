@@ -28,27 +28,33 @@ class _$ListPartsRequest extends ListPartsRequest {
   @override
   final String? sseCustomerKeyMd5;
 
-  factory _$ListPartsRequest(
-          [void Function(ListPartsRequestBuilder)? updates]) =>
-      (new ListPartsRequestBuilder()..update(updates))._build();
+  factory _$ListPartsRequest([
+    void Function(ListPartsRequestBuilder)? updates,
+  ]) => (new ListPartsRequestBuilder()..update(updates))._build();
 
-  _$ListPartsRequest._(
-      {required this.bucket,
-      required this.key,
-      this.maxParts,
-      this.partNumberMarker,
-      required this.uploadId,
-      this.requestPayer,
-      this.expectedBucketOwner,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5})
-      : super._() {
+  _$ListPartsRequest._({
+    required this.bucket,
+    required this.key,
+    this.maxParts,
+    this.partNumberMarker,
+    required this.uploadId,
+    this.requestPayer,
+    this.expectedBucketOwner,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'ListPartsRequest', 'bucket');
+      bucket,
+      r'ListPartsRequest',
+      'bucket',
+    );
     BuiltValueNullFieldError.checkNotNull(key, r'ListPartsRequest', 'key');
     BuiltValueNullFieldError.checkNotNull(
-        uploadId, r'ListPartsRequest', 'uploadId');
+      uploadId,
+      r'ListPartsRequest',
+      'uploadId',
+    );
   }
 
   @override
@@ -178,16 +184,26 @@ class ListPartsRequestBuilder
   ListPartsRequest build() => _build();
 
   _$ListPartsRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ListPartsRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
-              bucket, r'ListPartsRequest', 'bucket'),
+            bucket,
+            r'ListPartsRequest',
+            'bucket',
+          ),
           key: BuiltValueNullFieldError.checkNotNull(
-              key, r'ListPartsRequest', 'key'),
+            key,
+            r'ListPartsRequest',
+            'key',
+          ),
           maxParts: maxParts,
           partNumberMarker: partNumberMarker,
           uploadId: BuiltValueNullFieldError.checkNotNull(
-              uploadId, r'ListPartsRequest', 'uploadId'),
+            uploadId,
+            r'ListPartsRequest',
+            'uploadId',
+          ),
           requestPayer: requestPayer,
           expectedBucketOwner: expectedBucketOwner,
           sseCustomerAlgorithm: sseCustomerAlgorithm,
@@ -200,16 +216,16 @@ class ListPartsRequestBuilder
 }
 
 class _$ListPartsRequestPayload extends ListPartsRequestPayload {
-  factory _$ListPartsRequestPayload(
-          [void Function(ListPartsRequestPayloadBuilder)? updates]) =>
-      (new ListPartsRequestPayloadBuilder()..update(updates))._build();
+  factory _$ListPartsRequestPayload([
+    void Function(ListPartsRequestPayloadBuilder)? updates,
+  ]) => (new ListPartsRequestPayloadBuilder()..update(updates))._build();
 
   _$ListPartsRequestPayload._() : super._();
 
   @override
   ListPartsRequestPayload rebuild(
-          void Function(ListPartsRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ListPartsRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ListPartsRequestPayloadBuilder toBuilder() =>

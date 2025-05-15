@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_validation_protocol.model.recursive_structures_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class RecursiveStructuresInput
     return _$RecursiveStructuresInput._(union: union);
   }
 
-  factory RecursiveStructuresInput.build(
-          [void Function(RecursiveStructuresInputBuilder) updates]) =
-      _$RecursiveStructuresInput;
+  factory RecursiveStructuresInput.build([
+    void Function(RecursiveStructuresInputBuilder) updates,
+  ]) = _$RecursiveStructuresInput;
 
   const RecursiveStructuresInput._();
 
@@ -31,11 +31,10 @@ abstract class RecursiveStructuresInput
     RecursiveStructuresInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<RecursiveStructuresInput>>
-      serializers = [RecursiveStructuresInputRestJson1Serializer()];
+  serializers = [RecursiveStructuresInputRestJson1Serializer()];
 
   RecursiveUnionOne? get union;
   @override
@@ -47,10 +46,7 @@ abstract class RecursiveStructuresInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RecursiveStructuresInput')
-      ..add(
-        'union',
-        union,
-      );
+      ..add('union', union);
     return helper.toString();
   }
 }
@@ -58,21 +54,18 @@ abstract class RecursiveStructuresInput
 class RecursiveStructuresInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<RecursiveStructuresInput> {
   const RecursiveStructuresInputRestJson1Serializer()
-      : super('RecursiveStructuresInput');
+    : super('RecursiveStructuresInput');
 
   @override
   Iterable<Type> get types => const [
-        RecursiveStructuresInput,
-        _$RecursiveStructuresInput,
-      ];
+    RecursiveStructuresInput,
+    _$RecursiveStructuresInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   RecursiveStructuresInput deserialize(
@@ -91,10 +84,12 @@ class RecursiveStructuresInputRestJson1Serializer
       }
       switch (key) {
         case 'union':
-          result.union = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(RecursiveUnionOne),
-          ) as RecursiveUnionOne);
+          result.union =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RecursiveUnionOne),
+                  )
+                  as RecursiveUnionOne);
       }
     }
 
@@ -112,10 +107,12 @@ class RecursiveStructuresInputRestJson1Serializer
     if (union != null) {
       result$
         ..add('union')
-        ..add(serializers.serialize(
-          union,
-          specifiedType: const FullType(RecursiveUnionOne),
-        ));
+        ..add(
+          serializers.serialize(
+            union,
+            specifiedType: const FullType(RecursiveUnionOne),
+          ),
+        );
     }
     return result$;
   }

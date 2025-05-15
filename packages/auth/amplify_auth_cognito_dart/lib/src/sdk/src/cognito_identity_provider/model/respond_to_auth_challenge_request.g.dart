@@ -22,29 +22,35 @@ class _$RespondToAuthChallengeRequest extends RespondToAuthChallengeRequest {
   @override
   final _i3.BuiltMap<String, String>? clientMetadata;
 
-  factory _$RespondToAuthChallengeRequest(
-          [void Function(RespondToAuthChallengeRequestBuilder)? updates]) =>
-      (new RespondToAuthChallengeRequestBuilder()..update(updates))._build();
+  factory _$RespondToAuthChallengeRequest([
+    void Function(RespondToAuthChallengeRequestBuilder)? updates,
+  ]) => (new RespondToAuthChallengeRequestBuilder()..update(updates))._build();
 
-  _$RespondToAuthChallengeRequest._(
-      {required this.clientId,
-      required this.challengeName,
-      this.session,
-      this.challengeResponses,
-      this.analyticsMetadata,
-      this.userContextData,
-      this.clientMetadata})
-      : super._() {
+  _$RespondToAuthChallengeRequest._({
+    required this.clientId,
+    required this.challengeName,
+    this.session,
+    this.challengeResponses,
+    this.analyticsMetadata,
+    this.userContextData,
+    this.clientMetadata,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        clientId, r'RespondToAuthChallengeRequest', 'clientId');
+      clientId,
+      r'RespondToAuthChallengeRequest',
+      'clientId',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        challengeName, r'RespondToAuthChallengeRequest', 'challengeName');
+      challengeName,
+      r'RespondToAuthChallengeRequest',
+      'challengeName',
+    );
   }
 
   @override
   RespondToAuthChallengeRequest rebuild(
-          void Function(RespondToAuthChallengeRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RespondToAuthChallengeRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RespondToAuthChallengeRequestBuilder toBuilder() =>
@@ -80,8 +86,10 @@ class _$RespondToAuthChallengeRequest extends RespondToAuthChallengeRequest {
 
 class RespondToAuthChallengeRequestBuilder
     implements
-        Builder<RespondToAuthChallengeRequest,
-            RespondToAuthChallengeRequestBuilder> {
+        Builder<
+          RespondToAuthChallengeRequest,
+          RespondToAuthChallengeRequestBuilder
+        > {
   _$RespondToAuthChallengeRequest? _$v;
 
   String? _clientId;
@@ -155,12 +163,19 @@ class RespondToAuthChallengeRequestBuilder
   _$RespondToAuthChallengeRequest _build() {
     _$RespondToAuthChallengeRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$RespondToAuthChallengeRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
-                clientId, r'RespondToAuthChallengeRequest', 'clientId'),
-            challengeName: BuiltValueNullFieldError.checkNotNull(challengeName,
-                r'RespondToAuthChallengeRequest', 'challengeName'),
+              clientId,
+              r'RespondToAuthChallengeRequest',
+              'clientId',
+            ),
+            challengeName: BuiltValueNullFieldError.checkNotNull(
+              challengeName,
+              r'RespondToAuthChallengeRequest',
+              'challengeName',
+            ),
             session: session,
             challengeResponses: _challengeResponses?.build(),
             analyticsMetadata: _analyticsMetadata?.build(),
@@ -180,7 +195,10 @@ class RespondToAuthChallengeRequestBuilder
         _clientMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'RespondToAuthChallengeRequest', _$failedField, e.toString());
+          r'RespondToAuthChallengeRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

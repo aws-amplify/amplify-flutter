@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.media_type_header_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,12 +24,13 @@ abstract class MediaTypeHeaderInput
         _i1.HasPayload<MediaTypeHeaderInputPayload> {
   factory MediaTypeHeaderInput({Object? json}) {
     return _$MediaTypeHeaderInput._(
-        json: json == null ? null : _i3.JsonObject(json));
+      json: json == null ? null : _i3.JsonObject(json),
+    );
   }
 
-  factory MediaTypeHeaderInput.build(
-          [void Function(MediaTypeHeaderInputBuilder) updates]) =
-      _$MediaTypeHeaderInput;
+  factory MediaTypeHeaderInput.build([
+    void Function(MediaTypeHeaderInputBuilder) updates,
+  ]) = _$MediaTypeHeaderInput;
 
   const MediaTypeHeaderInput._();
 
@@ -37,16 +38,18 @@ abstract class MediaTypeHeaderInput
     MediaTypeHeaderInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MediaTypeHeaderInput.build((b) {
-        if (request.headers['X-Json'] != null) {
-          b.json = _i3.JsonObject(_i4.jsonDecode(
-              _i4.utf8.decode(_i4.base64Decode(request.headers['X-Json']!))));
-        }
-      });
+  }) => MediaTypeHeaderInput.build((b) {
+    if (request.headers['X-Json'] != null) {
+      b.json = _i3.JsonObject(
+        _i4.jsonDecode(
+          _i4.utf8.decode(_i4.base64Decode(request.headers['X-Json']!)),
+        ),
+      );
+    }
+  });
 
   static const List<_i1.SmithySerializer<MediaTypeHeaderInputPayload>>
-      serializers = [MediaTypeHeaderInputRestJson1Serializer()];
+  serializers = [MediaTypeHeaderInputRestJson1Serializer()];
 
   _i3.JsonObject? get json;
   @override
@@ -58,10 +61,7 @@ abstract class MediaTypeHeaderInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MediaTypeHeaderInput')
-      ..add(
-        'json',
-        json,
-      );
+      ..add('json', json);
     return helper.toString();
   }
 }
@@ -72,9 +72,9 @@ abstract class MediaTypeHeaderInputPayload
     implements
         Built<MediaTypeHeaderInputPayload, MediaTypeHeaderInputPayloadBuilder>,
         _i1.EmptyPayload {
-  factory MediaTypeHeaderInputPayload(
-          [void Function(MediaTypeHeaderInputPayloadBuilder) updates]) =
-      _$MediaTypeHeaderInputPayload;
+  factory MediaTypeHeaderInputPayload([
+    void Function(MediaTypeHeaderInputPayloadBuilder) updates,
+  ]) = _$MediaTypeHeaderInputPayload;
 
   const MediaTypeHeaderInputPayload._();
 
@@ -91,23 +91,20 @@ abstract class MediaTypeHeaderInputPayload
 class MediaTypeHeaderInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<MediaTypeHeaderInputPayload> {
   const MediaTypeHeaderInputRestJson1Serializer()
-      : super('MediaTypeHeaderInput');
+    : super('MediaTypeHeaderInput');
 
   @override
   Iterable<Type> get types => const [
-        MediaTypeHeaderInput,
-        _$MediaTypeHeaderInput,
-        MediaTypeHeaderInputPayload,
-        _$MediaTypeHeaderInputPayload,
-      ];
+    MediaTypeHeaderInput,
+    _$MediaTypeHeaderInput,
+    MediaTypeHeaderInputPayload,
+    _$MediaTypeHeaderInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MediaTypeHeaderInputPayload deserialize(
@@ -123,6 +120,5 @@ class MediaTypeHeaderInputRestJson1Serializer
     Serializers serializers,
     MediaTypeHeaderInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

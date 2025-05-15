@@ -81,18 +81,18 @@ class AuthOutputs
 
   @override
   List<Object?> get props => [
-        awsRegion,
-        userPoolId,
-        userPoolClientId,
-        identityPoolId,
-        oauth,
-        standardRequiredAttributes,
-        usernameAttributes,
-        userVerificationTypes,
-        unauthenticatedIdentitiesEnabled,
-        mfaConfiguration,
-        mfaMethods,
-      ];
+    awsRegion,
+    userPoolId,
+    userPoolClientId,
+    identityPoolId,
+    oauth,
+    standardRequiredAttributes,
+    usernameAttributes,
+    userVerificationTypes,
+    unauthenticatedIdentitiesEnabled,
+    mfaConfiguration,
+    mfaMethods,
+  ];
 
   @override
   String get runtimeTypeName => 'AuthOutputs';

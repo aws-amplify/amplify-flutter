@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.xml_maps_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,12 +20,13 @@ abstract class XmlMapsXmlNameInputOutput
         Built<XmlMapsXmlNameInputOutput, XmlMapsXmlNameInputOutputBuilder> {
   factory XmlMapsXmlNameInputOutput({Map<String, GreetingStruct>? myMap}) {
     return _$XmlMapsXmlNameInputOutput._(
-        myMap: myMap == null ? null : _i3.BuiltMap(myMap));
+      myMap: myMap == null ? null : _i3.BuiltMap(myMap),
+    );
   }
 
-  factory XmlMapsXmlNameInputOutput.build(
-          [void Function(XmlMapsXmlNameInputOutputBuilder) updates]) =
-      _$XmlMapsXmlNameInputOutput;
+  factory XmlMapsXmlNameInputOutput.build([
+    void Function(XmlMapsXmlNameInputOutputBuilder) updates,
+  ]) = _$XmlMapsXmlNameInputOutput;
 
   const XmlMapsXmlNameInputOutput._();
 
@@ -33,18 +34,16 @@ abstract class XmlMapsXmlNameInputOutput
     XmlMapsXmlNameInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [XmlMapsXmlNameInputOutput] from a [payload] and [response].
   factory XmlMapsXmlNameInputOutput.fromResponse(
     XmlMapsXmlNameInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<XmlMapsXmlNameInputOutput>>
-      serializers = [XmlMapsXmlNameInputOutputRestXmlSerializer()];
+  serializers = [XmlMapsXmlNameInputOutputRestXmlSerializer()];
 
   _i3.BuiltMap<String, GreetingStruct>? get myMap;
   @override
@@ -56,10 +55,7 @@ abstract class XmlMapsXmlNameInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlMapsXmlNameInputOutput')
-      ..add(
-        'myMap',
-        myMap,
-      );
+      ..add('myMap', myMap);
     return helper.toString();
   }
 }
@@ -67,21 +63,18 @@ abstract class XmlMapsXmlNameInputOutput
 class XmlMapsXmlNameInputOutputRestXmlSerializer
     extends _i1.StructuredSmithySerializer<XmlMapsXmlNameInputOutput> {
   const XmlMapsXmlNameInputOutputRestXmlSerializer()
-      : super('XmlMapsXmlNameInputOutput');
+    : super('XmlMapsXmlNameInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        XmlMapsXmlNameInputOutput,
-        _$XmlMapsXmlNameInputOutput,
-      ];
+    XmlMapsXmlNameInputOutput,
+    _$XmlMapsXmlNameInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlMapsXmlNameInputOutput deserialize(
@@ -100,20 +93,19 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.replace(const _i1.XmlBuiltMapSerializer(
-            keyName: 'Attribute',
-            valueName: 'Setting',
-          ).deserialize(
-            serializers,
-            value is String ? const [] : (value as Iterable<Object?>),
-            specifiedType: const FullType(
-              _i3.BuiltMap,
-              [
+          result.myMap.replace(
+            const _i1.XmlBuiltMapSerializer(
+              keyName: 'Attribute',
+              valueName: 'Setting',
+            ).deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(_i3.BuiltMap, [
                 FullType(String),
                 FullType(GreetingStruct),
-              ],
+              ]),
             ),
-          ));
+          );
       }
     }
 
@@ -127,26 +119,25 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('XmlMapsXmlNameInputOutput')
+      const _i1.XmlElementName('XmlMapsXmlNameInputOutput'),
     ];
     final XmlMapsXmlNameInputOutput(:myMap) = object;
     if (myMap != null) {
       result$
         ..add(const _i1.XmlElementName('myMap'))
-        ..add(const _i1.XmlBuiltMapSerializer(
-          keyName: 'Attribute',
-          valueName: 'Setting',
-        ).serialize(
-          serializers,
-          myMap,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
+        ..add(
+          const _i1.XmlBuiltMapSerializer(
+            keyName: 'Attribute',
+            valueName: 'Setting',
+          ).serialize(
+            serializers,
+            myMap,
+            specifiedType: const FullType(_i3.BuiltMap, [
               FullType(String),
               FullType(GreetingStruct),
-            ],
+            ]),
           ),
-        ));
+        );
     }
     return result$;
   }

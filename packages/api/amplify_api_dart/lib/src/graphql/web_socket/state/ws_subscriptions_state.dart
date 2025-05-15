@@ -21,31 +21,17 @@ abstract class WsSubscriptionState<T> {
 
   /// Move state to [SubscriptionCompletedState]
   SubscriptionCompletedState<T> complete() {
-    return SubscriptionCompletedState(
-      request,
-      onEstablished,
-      parentBloc,
-    );
+    return SubscriptionCompletedState(request, onEstablished, parentBloc);
   }
 
   /// Move state to [SubscriptionErrorState]
   SubscriptionErrorState<T> error(Object e, StackTrace? st) {
-    return SubscriptionErrorState(
-      request,
-      onEstablished,
-      parentBloc,
-      e,
-      st,
-    );
+    return SubscriptionErrorState(request, onEstablished, parentBloc, e, st);
   }
 
   /// Move state to [SubscriptionPendingState]
   SubscriptionPendingState<T> pending() {
-    return SubscriptionPendingState(
-      request,
-      onEstablished,
-      parentBloc,
-    );
+    return SubscriptionPendingState(request, onEstablished, parentBloc);
   }
 }
 
@@ -60,11 +46,7 @@ class SubscriptionPendingState<T> extends WsSubscriptionState<T> {
 
   /// Move state to [SubscriptionListeningState]
   SubscriptionListeningState<T> ready() {
-    return SubscriptionListeningState(
-      request,
-      onEstablished,
-      parentBloc,
-    );
+    return SubscriptionListeningState(request, onEstablished, parentBloc);
   }
 }
 

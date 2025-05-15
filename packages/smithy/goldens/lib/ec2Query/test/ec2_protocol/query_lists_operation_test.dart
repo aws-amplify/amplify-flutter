@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library ec2_query_v1.ec2_protocol.test.query_lists_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -15,76 +15,27 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'Ec2Lists (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: QueryListsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'Ec2Lists',
-          documentation: 'Serializes query lists. All EC2 lists are flattened.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'ec2Query',
-          ),
-          authScheme: null,
-          body:
-              'Action=QueryLists&Version=2020-01-08&ListArg.1=foo&ListArg.2=bar&ListArg.3=baz&ComplexListArg.1.Hi=hello&ComplexListArg.2.Hi=hola',
-          bodyMediaType: 'application/x-www-form-urlencoded',
-          params: {
-            'ListArg': [
-              'foo',
-              'bar',
-              'baz',
-            ],
-            'ComplexListArg': [
-              {'hi': 'hello'},
-              {'hi': 'hola'},
-            ],
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          QueryListsInputEc2QuerySerializer(),
-          GreetingStructEc2QuerySerializer(),
-          NestedStructWithListEc2QuerySerializer(),
-        ],
-      );
-    },
-  );
-  _i1.test('Ec2EmptyQueryLists (request)', () async {
+  _i1.test('Ec2Lists (request)', () async {
     await _i2.httpRequestTest(
       operation: QueryListsOperation(
         region: 'us-east-1',
         baseUri: Uri.parse('https://example.com'),
       ),
       testCase: const _i2.HttpRequestTestCase(
-        id: 'Ec2EmptyQueryLists',
-        documentation: 'Serializes empty query lists',
-        protocol: _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        ),
+        id: 'Ec2Lists',
+        documentation: 'Serializes query lists. All EC2 lists are flattened.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
         authScheme: null,
-        body: 'Action=QueryLists&Version=2020-01-08&ListArg=',
+        body:
+            'Action=QueryLists&Version=2020-01-08&ListArg.1=foo&ListArg.2=bar&ListArg.3=baz&ComplexListArg.1.Hi=hello&ComplexListArg.2.Hi=hola',
         bodyMediaType: 'application/x-www-form-urlencoded',
-        params: {'ListArg': []},
+        params: {
+          'ListArg': ['foo', 'bar', 'baz'],
+          'ComplexListArg': [
+            {'hi': 'hello'},
+            {'hi': 'hola'},
+          ],
+        },
         vendorParamsShape: null,
         vendorParams: {},
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -106,9 +57,9 @@ void main() {
         NestedStructWithListEc2QuerySerializer(),
       ],
     );
-  }, skip: 'Unclear how to reconcile with QueryEmptyQueryMaps');
+  });
   _i1.test(
-    'Ec2ListArgWithXmlNameMember (request)',
+    'Ec2EmptyQueryLists (request)',
     () async {
       await _i2.httpRequestTest(
         operation: QueryListsOperation(
@@ -116,23 +67,13 @@ void main() {
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
-          id: 'Ec2ListArgWithXmlNameMember',
-          documentation:
-              'An xmlName trait in the member of a list has no effect on the list serialization.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'ec2Query',
-          ),
+          id: 'Ec2EmptyQueryLists',
+          documentation: 'Serializes empty query lists',
+          protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
           authScheme: null,
-          body:
-              'Action=QueryLists&Version=2020-01-08&ListArgWithXmlNameMember.1=A&ListArgWithXmlNameMember.2=B',
+          body: 'Action=QueryLists&Version=2020-01-08&ListArg=',
           bodyMediaType: 'application/x-www-form-urlencoded',
-          params: {
-            'ListArgWithXmlNameMember': [
-              'A',
-              'B',
-            ]
-          },
+          params: {'ListArg': []},
           vendorParamsShape: null,
           vendorParams: {},
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -155,104 +96,127 @@ void main() {
         ],
       );
     },
+    skip: 'Unclear how to reconcile with QueryEmptyQueryMaps',
   );
-  _i1.test(
-    'Ec2ListMemberWithXmlName (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: QueryListsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'Ec2ListMemberWithXmlName',
-          documentation: 'Changes the name of the list using the xmlName trait',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'ec2Query',
-          ),
-          authScheme: null,
-          body: 'Action=QueryLists&Version=2020-01-08&Hi.1=A&Hi.2=B',
-          bodyMediaType: 'application/x-www-form-urlencoded',
-          params: {
-            'ListArgWithXmlName': [
-              'A',
-              'B',
-            ]
+  _i1.test('Ec2ListArgWithXmlNameMember (request)', () async {
+    await _i2.httpRequestTest(
+      operation: QueryListsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'Ec2ListArgWithXmlNameMember',
+        documentation:
+            'An xmlName trait in the member of a list has no effect on the list serialization.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+        authScheme: null,
+        body:
+            'Action=QueryLists&Version=2020-01-08&ListArgWithXmlNameMember.1=A&ListArgWithXmlNameMember.2=B',
+        bodyMediaType: 'application/x-www-form-urlencoded',
+        params: {
+          'ListArgWithXmlNameMember': ['A', 'B'],
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        QueryListsInputEc2QuerySerializer(),
+        GreetingStructEc2QuerySerializer(),
+        NestedStructWithListEc2QuerySerializer(),
+      ],
+    );
+  });
+  _i1.test('Ec2ListMemberWithXmlName (request)', () async {
+    await _i2.httpRequestTest(
+      operation: QueryListsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'Ec2ListMemberWithXmlName',
+        documentation: 'Changes the name of the list using the xmlName trait',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+        authScheme: null,
+        body: 'Action=QueryLists&Version=2020-01-08&Hi.1=A&Hi.2=B',
+        bodyMediaType: 'application/x-www-form-urlencoded',
+        params: {
+          'ListArgWithXmlName': ['A', 'B'],
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        QueryListsInputEc2QuerySerializer(),
+        GreetingStructEc2QuerySerializer(),
+        NestedStructWithListEc2QuerySerializer(),
+      ],
+    );
+  });
+  _i1.test('Ec2ListNestedStructWithList (request)', () async {
+    await _i2.httpRequestTest(
+      operation: QueryListsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'Ec2ListNestedStructWithList',
+        documentation: 'Nested structure with a list member',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+        authScheme: null,
+        body:
+            'Action=QueryLists&Version=2020-01-08&NestedWithList.ListArg.1=A&NestedWithList.ListArg.2=B',
+        bodyMediaType: 'application/x-www-form-urlencoded',
+        params: {
+          'NestedWithList': {
+            'ListArg': ['A', 'B'],
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          QueryListsInputEc2QuerySerializer(),
-          GreetingStructEc2QuerySerializer(),
-          NestedStructWithListEc2QuerySerializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'Ec2ListNestedStructWithList (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: QueryListsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'Ec2ListNestedStructWithList',
-          documentation: 'Nested structure with a list member',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'ec2Query',
-          ),
-          authScheme: null,
-          body:
-              'Action=QueryLists&Version=2020-01-08&NestedWithList.ListArg.1=A&NestedWithList.ListArg.2=B',
-          bodyMediaType: 'application/x-www-form-urlencoded',
-          params: {
-            'NestedWithList': {
-              'ListArg': [
-                'A',
-                'B',
-              ]
-            }
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          QueryListsInputEc2QuerySerializer(),
-          GreetingStructEc2QuerySerializer(),
-          NestedStructWithListEc2QuerySerializer(),
-        ],
-      );
-    },
-  );
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        QueryListsInputEc2QuerySerializer(),
+        GreetingStructEc2QuerySerializer(),
+        NestedStructWithListEc2QuerySerializer(),
+      ],
+    );
+  });
 }
 
 class QueryListsInputEc2QuerySerializer
@@ -264,11 +228,8 @@ class QueryListsInputEc2QuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   QueryListsInput deserialize(
@@ -287,42 +248,53 @@ class QueryListsInputEc2QuerySerializer
       }
       switch (key) {
         case 'ListArg':
-          result.listArg.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.listArg.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'ComplexListArg':
-          result.complexListArg.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(GreetingStruct)],
-            ),
-          ) as _i4.BuiltList<GreetingStruct>));
+          result.complexListArg.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(GreetingStruct),
+                  ]),
+                )
+                as _i4.BuiltList<GreetingStruct>),
+          );
         case 'ListArgWithXmlNameMember':
-          result.listArgWithXmlNameMember.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.listArgWithXmlNameMember.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'ListArgWithXmlName':
-          result.listArgWithXmlName.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.listArgWithXmlName.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
         case 'NestedWithList':
-          result.nestedWithList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(NestedStructWithList),
-          ) as NestedStructWithList));
+          result.nestedWithList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(NestedStructWithList),
+                )
+                as NestedStructWithList),
+          );
       }
     }
 
@@ -348,11 +320,8 @@ class GreetingStructEc2QuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   GreetingStruct deserialize(
@@ -371,10 +340,12 @@ class GreetingStructEc2QuerySerializer
       }
       switch (key) {
         case 'hi':
-          result.hi = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.hi =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -394,18 +365,15 @@ class GreetingStructEc2QuerySerializer
 class NestedStructWithListEc2QuerySerializer
     extends _i3.StructuredSmithySerializer<NestedStructWithList> {
   const NestedStructWithListEc2QuerySerializer()
-      : super('NestedStructWithList');
+    : super('NestedStructWithList');
 
   @override
   Iterable<Type> get types => const [NestedStructWithList];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'ec2Query',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'ec2Query'),
+  ];
 
   @override
   NestedStructWithList deserialize(
@@ -424,13 +392,15 @@ class NestedStructWithListEc2QuerySerializer
       }
       switch (key) {
         case 'ListArg':
-          result.listArg.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.listArg.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
       }
     }
 

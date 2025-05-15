@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.malformed_accept_with_payload_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,19 +13,20 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'malformed_accept_with_payload_output.g.dart';
 
 abstract class MalformedAcceptWithPayloadOutput
-    with
-        _i1.AWSEquatable<MalformedAcceptWithPayloadOutput>
+    with _i1.AWSEquatable<MalformedAcceptWithPayloadOutput>
     implements
-        Built<MalformedAcceptWithPayloadOutput,
-            MalformedAcceptWithPayloadOutputBuilder>,
+        Built<
+          MalformedAcceptWithPayloadOutput,
+          MalformedAcceptWithPayloadOutputBuilder
+        >,
         _i2.HasPayload<_i3.Uint8List> {
   factory MalformedAcceptWithPayloadOutput({_i3.Uint8List? payload}) {
     return _$MalformedAcceptWithPayloadOutput._(payload: payload);
   }
 
-  factory MalformedAcceptWithPayloadOutput.build(
-          [void Function(MalformedAcceptWithPayloadOutputBuilder) updates]) =
-      _$MalformedAcceptWithPayloadOutput;
+  factory MalformedAcceptWithPayloadOutput.build([
+    void Function(MalformedAcceptWithPayloadOutputBuilder) updates,
+  ]) = _$MalformedAcceptWithPayloadOutput;
 
   const MalformedAcceptWithPayloadOutput._();
 
@@ -33,13 +34,12 @@ abstract class MalformedAcceptWithPayloadOutput
   factory MalformedAcceptWithPayloadOutput.fromResponse(
     _i3.Uint8List? payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      MalformedAcceptWithPayloadOutput.build((b) {
-        b.payload = payload;
-      });
+  ) => MalformedAcceptWithPayloadOutput.build((b) {
+    b.payload = payload;
+  });
 
   static const List<_i2.SmithySerializer<_i3.Uint8List?>> serializers = [
-    MalformedAcceptWithPayloadOutputRestJson1Serializer()
+    MalformedAcceptWithPayloadOutputRestJson1Serializer(),
   ];
 
   _i3.Uint8List? get payload;
@@ -51,12 +51,9 @@ abstract class MalformedAcceptWithPayloadOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedAcceptWithPayloadOutput')
-          ..add(
-            'payload',
-            payload,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'MalformedAcceptWithPayloadOutput',
+    )..add('payload', payload);
     return helper.toString();
   }
 }
@@ -64,21 +61,18 @@ abstract class MalformedAcceptWithPayloadOutput
 class MalformedAcceptWithPayloadOutputRestJson1Serializer
     extends _i2.PrimitiveSmithySerializer<_i3.Uint8List> {
   const MalformedAcceptWithPayloadOutputRestJson1Serializer()
-      : super('MalformedAcceptWithPayloadOutput');
+    : super('MalformedAcceptWithPayloadOutput');
 
   @override
   Iterable<Type> get types => const [
-        MalformedAcceptWithPayloadOutput,
-        _$MalformedAcceptWithPayloadOutput,
-      ];
+    MalformedAcceptWithPayloadOutput,
+    _$MalformedAcceptWithPayloadOutput,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   _i3.Uint8List deserialize(
@@ -87,9 +81,10 @@ class MalformedAcceptWithPayloadOutputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(_i3.Uint8List),
-    ) as _i3.Uint8List);
+          serialized,
+          specifiedType: const FullType(_i3.Uint8List),
+        )
+        as _i3.Uint8List);
   }
 
   @override

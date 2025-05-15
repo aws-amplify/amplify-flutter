@@ -28,16 +28,12 @@ void main() {
     //     @belongsTo(fields: ["belongsToParentID", "belongsToParentName"])
     // }
     final enableCloudSync = shouldEnableCloudSync();
-    var rootModels = [
-      CpkOneToOneBidirectionalParentID(
-        name: "the parent",
-      )
-    ];
+    var rootModels = [CpkOneToOneBidirectionalParentID(name: "the parent")];
     var associatedModels = [
       CpkOneToOneBidirectionalChildExplicitID(
         name: 'belongs to child (explicit)',
         belongsToParent: rootModels.first,
-      )
+      ),
     ];
 
     testRootAndAssociatedModelsRelationship(

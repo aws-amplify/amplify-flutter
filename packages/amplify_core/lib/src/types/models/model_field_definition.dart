@@ -132,8 +132,10 @@ class ModelFieldDefinition {
     return field(
       key: key,
       isRequired: isRequired,
-      ofType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
+      ofType: ModelFieldType(
+        ModelFieldTypeEnum.model,
+        ofModelName: ofModelName,
+      ),
       association: ModelAssociation(
         associationType: ModelAssociationEnum.HasOne,
         associatedName: associatedKey.fieldName,
@@ -159,8 +161,10 @@ class ModelFieldDefinition {
     return field(
       key: key,
       isRequired: isRequired,
-      ofType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
+      ofType: ModelFieldType(
+        ModelFieldTypeEnum.model,
+        ofModelName: ofModelName,
+      ),
       association: ModelAssociation(
         associationType: ModelAssociationEnum.BelongsTo,
         targetNames: targetNames,

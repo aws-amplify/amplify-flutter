@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_validation_protocol.model.sensitive_validation_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,9 +20,9 @@ abstract class SensitiveValidationInput
     return _$SensitiveValidationInput._(string: string);
   }
 
-  factory SensitiveValidationInput.build(
-          [void Function(SensitiveValidationInputBuilder) updates]) =
-      _$SensitiveValidationInput;
+  factory SensitiveValidationInput.build([
+    void Function(SensitiveValidationInputBuilder) updates,
+  ]) = _$SensitiveValidationInput;
 
   const SensitiveValidationInput._();
 
@@ -30,11 +30,10 @@ abstract class SensitiveValidationInput
     SensitiveValidationInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<SensitiveValidationInput>>
-      serializers = [SensitiveValidationInputRestJson1Serializer()];
+  serializers = [SensitiveValidationInputRestJson1Serializer()];
 
   String? get string;
   @override
@@ -46,10 +45,7 @@ abstract class SensitiveValidationInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SensitiveValidationInput')
-      ..add(
-        'string',
-        '***SENSITIVE***',
-      );
+      ..add('string', '***SENSITIVE***');
     return helper.toString();
   }
 }
@@ -57,21 +53,18 @@ abstract class SensitiveValidationInput
 class SensitiveValidationInputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<SensitiveValidationInput> {
   const SensitiveValidationInputRestJson1Serializer()
-      : super('SensitiveValidationInput');
+    : super('SensitiveValidationInput');
 
   @override
   Iterable<Type> get types => const [
-        SensitiveValidationInput,
-        _$SensitiveValidationInput,
-      ];
+    SensitiveValidationInput,
+    _$SensitiveValidationInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   SensitiveValidationInput deserialize(
@@ -90,10 +83,12 @@ class SensitiveValidationInputRestJson1Serializer
       }
       switch (key) {
         case 'string':
-          result.string = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.string =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -111,10 +106,9 @@ class SensitiveValidationInputRestJson1Serializer
     if (string != null) {
       result$
         ..add('string')
-        ..add(serializers.serialize(
-          string,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(string, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

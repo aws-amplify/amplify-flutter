@@ -36,31 +36,31 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$CompleteMultipartUploadOutput(
-          [void Function(CompleteMultipartUploadOutputBuilder)? updates]) =>
-      (new CompleteMultipartUploadOutputBuilder()..update(updates))._build();
+  factory _$CompleteMultipartUploadOutput([
+    void Function(CompleteMultipartUploadOutputBuilder)? updates,
+  ]) => (new CompleteMultipartUploadOutputBuilder()..update(updates))._build();
 
-  _$CompleteMultipartUploadOutput._(
-      {this.location,
-      this.bucket,
-      this.key,
-      this.expiration,
-      this.eTag,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.serverSideEncryption,
-      this.versionId,
-      this.ssekmsKeyId,
-      this.bucketKeyEnabled,
-      this.requestCharged})
-      : super._();
+  _$CompleteMultipartUploadOutput._({
+    this.location,
+    this.bucket,
+    this.key,
+    this.expiration,
+    this.eTag,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.serverSideEncryption,
+    this.versionId,
+    this.ssekmsKeyId,
+    this.bucketKeyEnabled,
+    this.requestCharged,
+  }) : super._();
 
   @override
   CompleteMultipartUploadOutput rebuild(
-          void Function(CompleteMultipartUploadOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CompleteMultipartUploadOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CompleteMultipartUploadOutputBuilder toBuilder() =>
@@ -110,8 +110,10 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
 
 class CompleteMultipartUploadOutputBuilder
     implements
-        Builder<CompleteMultipartUploadOutput,
-            CompleteMultipartUploadOutputBuilder> {
+        Builder<
+          CompleteMultipartUploadOutput,
+          CompleteMultipartUploadOutputBuilder
+        > {
   _$CompleteMultipartUploadOutput? _$v;
 
   String? _location;
@@ -216,7 +218,8 @@ class CompleteMultipartUploadOutputBuilder
   CompleteMultipartUploadOutput build() => _build();
 
   _$CompleteMultipartUploadOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CompleteMultipartUploadOutput._(
           location: location,
           bucket: bucket,
@@ -257,27 +260,27 @@ class _$CompleteMultipartUploadOutputPayload
   @override
   final String? location;
 
-  factory _$CompleteMultipartUploadOutputPayload(
-          [void Function(CompleteMultipartUploadOutputPayloadBuilder)?
-              updates]) =>
+  factory _$CompleteMultipartUploadOutputPayload([
+    void Function(CompleteMultipartUploadOutputPayloadBuilder)? updates,
+  ]) =>
       (new CompleteMultipartUploadOutputPayloadBuilder()..update(updates))
           ._build();
 
-  _$CompleteMultipartUploadOutputPayload._(
-      {this.bucket,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256,
-      this.eTag,
-      this.key,
-      this.location})
-      : super._();
+  _$CompleteMultipartUploadOutputPayload._({
+    this.bucket,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+    this.eTag,
+    this.key,
+    this.location,
+  }) : super._();
 
   @override
   CompleteMultipartUploadOutputPayload rebuild(
-          void Function(CompleteMultipartUploadOutputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CompleteMultipartUploadOutputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CompleteMultipartUploadOutputPayloadBuilder toBuilder() =>
@@ -315,8 +318,10 @@ class _$CompleteMultipartUploadOutputPayload
 
 class CompleteMultipartUploadOutputPayloadBuilder
     implements
-        Builder<CompleteMultipartUploadOutputPayload,
-            CompleteMultipartUploadOutputPayloadBuilder> {
+        Builder<
+          CompleteMultipartUploadOutputPayload,
+          CompleteMultipartUploadOutputPayloadBuilder
+        > {
   _$CompleteMultipartUploadOutputPayload? _$v;
 
   String? _bucket;
@@ -380,7 +385,8 @@ class CompleteMultipartUploadOutputPayloadBuilder
 
   @override
   void update(
-      void Function(CompleteMultipartUploadOutputPayloadBuilder)? updates) {
+    void Function(CompleteMultipartUploadOutputPayloadBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -388,7 +394,8 @@ class CompleteMultipartUploadOutputPayloadBuilder
   CompleteMultipartUploadOutputPayload build() => _build();
 
   _$CompleteMultipartUploadOutputPayload _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CompleteMultipartUploadOutputPayload._(
           bucket: bucket,
           checksumCrc32: checksumCrc32,

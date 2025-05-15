@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library custom_v2.s3.model.copy_object_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,13 +17,14 @@ abstract class CopyObjectResult
     return _$CopyObjectResult._(eTag: eTag);
   }
 
-  factory CopyObjectResult.build(
-      [void Function(CopyObjectResultBuilder) updates]) = _$CopyObjectResult;
+  factory CopyObjectResult.build([
+    void Function(CopyObjectResultBuilder) updates,
+  ]) = _$CopyObjectResult;
 
   const CopyObjectResult._();
 
   static const List<_i2.SmithySerializer<CopyObjectResult>> serializers = [
-    CopyObjectResultRestXmlSerializer()
+    CopyObjectResultRestXmlSerializer(),
   ];
 
   String? get eTag;
@@ -33,10 +34,7 @@ abstract class CopyObjectResult
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectResult')
-      ..add(
-        'eTag',
-        eTag,
-      );
+      ..add('eTag', eTag);
     return helper.toString();
   }
 }
@@ -46,18 +44,12 @@ class CopyObjectResultRestXmlSerializer
   const CopyObjectResultRestXmlSerializer() : super('CopyObjectResult');
 
   @override
-  Iterable<Type> get types => const [
-        CopyObjectResult,
-        _$CopyObjectResult,
-      ];
+  Iterable<Type> get types => const [CopyObjectResult, _$CopyObjectResult];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   CopyObjectResult deserialize(
@@ -76,10 +68,12 @@ class CopyObjectResultRestXmlSerializer
       }
       switch (key) {
         case 'ETag':
-          result.eTag = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.eTag =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -96,16 +90,15 @@ class CopyObjectResultRestXmlSerializer
       const _i2.XmlElementName(
         'CopyObjectResult',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final CopyObjectResult(:eTag) = object;
     if (eTag != null) {
       result$
         ..add(const _i2.XmlElementName('ETag'))
-        ..add(serializers.serialize(
-          eTag,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(eTag, specifiedType: const FullType(String)),
+        );
     }
     return result$;
   }

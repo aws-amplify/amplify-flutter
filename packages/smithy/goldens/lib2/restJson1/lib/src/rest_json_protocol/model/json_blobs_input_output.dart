@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.json_blobs_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class JsonBlobsInputOutput
     return _$JsonBlobsInputOutput._(data: data);
   }
 
-  factory JsonBlobsInputOutput.build(
-          [void Function(JsonBlobsInputOutputBuilder) updates]) =
-      _$JsonBlobsInputOutput;
+  factory JsonBlobsInputOutput.build([
+    void Function(JsonBlobsInputOutputBuilder) updates,
+  ]) = _$JsonBlobsInputOutput;
 
   const JsonBlobsInputOutput._();
 
@@ -31,18 +31,16 @@ abstract class JsonBlobsInputOutput
     JsonBlobsInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [JsonBlobsInputOutput] from a [payload] and [response].
   factory JsonBlobsInputOutput.fromResponse(
     JsonBlobsInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<JsonBlobsInputOutput>> serializers = [
-    JsonBlobsInputOutputRestJson1Serializer()
+    JsonBlobsInputOutputRestJson1Serializer(),
   ];
 
   _i3.Uint8List? get data;
@@ -55,10 +53,7 @@ abstract class JsonBlobsInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonBlobsInputOutput')
-      ..add(
-        'data',
-        data,
-      );
+      ..add('data', data);
     return helper.toString();
   }
 }
@@ -66,21 +61,18 @@ abstract class JsonBlobsInputOutput
 class JsonBlobsInputOutputRestJson1Serializer
     extends _i1.StructuredSmithySerializer<JsonBlobsInputOutput> {
   const JsonBlobsInputOutputRestJson1Serializer()
-      : super('JsonBlobsInputOutput');
+    : super('JsonBlobsInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        JsonBlobsInputOutput,
-        _$JsonBlobsInputOutput,
-      ];
+    JsonBlobsInputOutput,
+    _$JsonBlobsInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   JsonBlobsInputOutput deserialize(
@@ -99,10 +91,12 @@ class JsonBlobsInputOutputRestJson1Serializer
       }
       switch (key) {
         case 'data':
-          result.data = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i3.Uint8List),
-          ) as _i3.Uint8List);
+          result.data =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(_i3.Uint8List),
+                  )
+                  as _i3.Uint8List);
       }
     }
 
@@ -120,10 +114,12 @@ class JsonBlobsInputOutputRestJson1Serializer
     if (data != null) {
       result$
         ..add('data')
-        ..add(serializers.serialize(
-          data,
-          specifiedType: const FullType(_i3.Uint8List),
-        ));
+        ..add(
+          serializers.serialize(
+            data,
+            specifiedType: const FullType(_i3.Uint8List),
+          ),
+        );
     }
     return result$;
   }

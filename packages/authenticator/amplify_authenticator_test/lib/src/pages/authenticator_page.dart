@@ -28,10 +28,7 @@ abstract class AuthenticatorPage {
   Finder get signOutButton => find.byKey(keySignOutButton);
 
   /// Then I see "Username" as an input field
-  void expectUsername({
-    String label = 'Username',
-    bool isPresent = true,
-  }) {
+  void expectUsername({String label = 'Username', bool isPresent = true}) {
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
@@ -43,10 +40,7 @@ abstract class AuthenticatorPage {
   }
 
   /// Then I see "Email" as an input field
-  void expectEmail({
-    String label = 'Email',
-    bool isPresent = true,
-  }) {
+  void expectEmail({String label = 'Email', bool isPresent = true}) {
     // email field is present
     expect(usernameField, findsOneWidget);
     // login type is "email"
@@ -71,10 +65,7 @@ abstract class AuthenticatorPage {
     final finder = find.byKey(inputField);
     expect(finder, findsOneWidget);
     expect(
-      find.descendant(
-        of: finder,
-        matching: find.textContaining(errorText),
-      ),
+      find.descendant(of: finder, matching: find.textContaining(errorText)),
       findsOneWidget,
     );
   }
@@ -103,8 +94,9 @@ abstract class AuthenticatorPage {
   }
 
   Future<void> expectState(AuthState state) async {
-    final inheritedBloc =
-        tester.widget<InheritedAuthBloc>(find.byKey(keyInheritedAuthBloc));
+    final inheritedBloc = tester.widget<InheritedAuthBloc>(
+      find.byKey(keyInheritedAuthBloc),
+    );
     if (inheritedBloc.authBloc.currentState != state) {
       await nextBlocEvent(tester);
     }

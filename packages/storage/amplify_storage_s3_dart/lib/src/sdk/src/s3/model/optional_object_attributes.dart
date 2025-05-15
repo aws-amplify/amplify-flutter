@@ -7,11 +7,7 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class OptionalObjectAttributes
     extends _i1.SmithyEnum<OptionalObjectAttributes> {
-  const OptionalObjectAttributes._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const OptionalObjectAttributes._(super.index, super.name, super.value);
 
   const OptionalObjectAttributes._sdkUnknown(super.value) : super.sdkUnknown();
 
@@ -23,22 +19,19 @@ class OptionalObjectAttributes
 
   /// All values of [OptionalObjectAttributes].
   static const values = <OptionalObjectAttributes>[
-    OptionalObjectAttributes.restoreStatus
+    OptionalObjectAttributes.restoreStatus,
   ];
 
   static const List<_i1.SmithySerializer<OptionalObjectAttributes>>
-      serializers = [
+  serializers = [
     _i1.SmithyEnumSerializer(
       'OptionalObjectAttributes',
       values: values,
       sdkUnknown: OptionalObjectAttributes._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
       ],
-    )
+    ),
   ];
 }
 

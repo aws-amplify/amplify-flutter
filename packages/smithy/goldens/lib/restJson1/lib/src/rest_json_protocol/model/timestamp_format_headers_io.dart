@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.timestamp_format_headers_io; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,9 +39,9 @@ abstract class TimestampFormatHeadersIo
     );
   }
 
-  factory TimestampFormatHeadersIo.build(
-          [void Function(TimestampFormatHeadersIoBuilder) updates]) =
-      _$TimestampFormatHeadersIo;
+  factory TimestampFormatHeadersIo.build([
+    void Function(TimestampFormatHeadersIoBuilder) updates,
+  ]) = _$TimestampFormatHeadersIo;
 
   const TimestampFormatHeadersIo._();
 
@@ -49,104 +49,116 @@ abstract class TimestampFormatHeadersIo
     TimestampFormatHeadersIoPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      TimestampFormatHeadersIo.build((b) {
-        if (request.headers['X-memberEpochSeconds'] != null) {
-          b.memberEpochSeconds = _i1.Timestamp.parse(
+  }) => TimestampFormatHeadersIo.build((b) {
+    if (request.headers['X-memberEpochSeconds'] != null) {
+      b.memberEpochSeconds =
+          _i1.Timestamp.parse(
             int.parse(request.headers['X-memberEpochSeconds']!),
             format: _i1.TimestampFormat.epochSeconds,
           ).asDateTime;
-        }
-        if (request.headers['X-memberHttpDate'] != null) {
-          b.memberHttpDate = _i1.Timestamp.parse(
+    }
+    if (request.headers['X-memberHttpDate'] != null) {
+      b.memberHttpDate =
+          _i1.Timestamp.parse(
             request.headers['X-memberHttpDate']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['X-memberDateTime'] != null) {
-          b.memberDateTime = _i1.Timestamp.parse(
+    }
+    if (request.headers['X-memberDateTime'] != null) {
+      b.memberDateTime =
+          _i1.Timestamp.parse(
             request.headers['X-memberDateTime']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-        if (request.headers['X-defaultFormat'] != null) {
-          b.defaultFormat = _i1.Timestamp.parse(
+    }
+    if (request.headers['X-defaultFormat'] != null) {
+      b.defaultFormat =
+          _i1.Timestamp.parse(
             request.headers['X-defaultFormat']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['X-targetEpochSeconds'] != null) {
-          b.targetEpochSeconds = _i1.Timestamp.parse(
+    }
+    if (request.headers['X-targetEpochSeconds'] != null) {
+      b.targetEpochSeconds =
+          _i1.Timestamp.parse(
             int.parse(request.headers['X-targetEpochSeconds']!),
             format: _i1.TimestampFormat.epochSeconds,
           ).asDateTime;
-        }
-        if (request.headers['X-targetHttpDate'] != null) {
-          b.targetHttpDate = _i1.Timestamp.parse(
+    }
+    if (request.headers['X-targetHttpDate'] != null) {
+      b.targetHttpDate =
+          _i1.Timestamp.parse(
             request.headers['X-targetHttpDate']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (request.headers['X-targetDateTime'] != null) {
-          b.targetDateTime = _i1.Timestamp.parse(
+    }
+    if (request.headers['X-targetDateTime'] != null) {
+      b.targetDateTime =
+          _i1.Timestamp.parse(
             request.headers['X-targetDateTime']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-      });
+    }
+  });
 
   /// Constructs a [TimestampFormatHeadersIo] from a [payload] and [response].
   factory TimestampFormatHeadersIo.fromResponse(
     TimestampFormatHeadersIoPayload payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      TimestampFormatHeadersIo.build((b) {
-        if (response.headers['X-memberEpochSeconds'] != null) {
-          b.memberEpochSeconds = _i1.Timestamp.parse(
+  ) => TimestampFormatHeadersIo.build((b) {
+    if (response.headers['X-memberEpochSeconds'] != null) {
+      b.memberEpochSeconds =
+          _i1.Timestamp.parse(
             int.parse(response.headers['X-memberEpochSeconds']!),
             format: _i1.TimestampFormat.epochSeconds,
           ).asDateTime;
-        }
-        if (response.headers['X-memberHttpDate'] != null) {
-          b.memberHttpDate = _i1.Timestamp.parse(
+    }
+    if (response.headers['X-memberHttpDate'] != null) {
+      b.memberHttpDate =
+          _i1.Timestamp.parse(
             response.headers['X-memberHttpDate']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (response.headers['X-memberDateTime'] != null) {
-          b.memberDateTime = _i1.Timestamp.parse(
+    }
+    if (response.headers['X-memberDateTime'] != null) {
+      b.memberDateTime =
+          _i1.Timestamp.parse(
             response.headers['X-memberDateTime']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-        if (response.headers['X-defaultFormat'] != null) {
-          b.defaultFormat = _i1.Timestamp.parse(
+    }
+    if (response.headers['X-defaultFormat'] != null) {
+      b.defaultFormat =
+          _i1.Timestamp.parse(
             response.headers['X-defaultFormat']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (response.headers['X-targetEpochSeconds'] != null) {
-          b.targetEpochSeconds = _i1.Timestamp.parse(
+    }
+    if (response.headers['X-targetEpochSeconds'] != null) {
+      b.targetEpochSeconds =
+          _i1.Timestamp.parse(
             int.parse(response.headers['X-targetEpochSeconds']!),
             format: _i1.TimestampFormat.epochSeconds,
           ).asDateTime;
-        }
-        if (response.headers['X-targetHttpDate'] != null) {
-          b.targetHttpDate = _i1.Timestamp.parse(
+    }
+    if (response.headers['X-targetHttpDate'] != null) {
+      b.targetHttpDate =
+          _i1.Timestamp.parse(
             response.headers['X-targetHttpDate']!,
             format: _i1.TimestampFormat.httpDate,
           ).asDateTime;
-        }
-        if (response.headers['X-targetDateTime'] != null) {
-          b.targetDateTime = _i1.Timestamp.parse(
+    }
+    if (response.headers['X-targetDateTime'] != null) {
+      b.targetDateTime =
+          _i1.Timestamp.parse(
             response.headers['X-targetDateTime']!,
             format: _i1.TimestampFormat.dateTime,
           ).asDateTime;
-        }
-      });
+    }
+  });
 
   static const List<_i1.SmithySerializer<TimestampFormatHeadersIoPayload>>
-      serializers = [TimestampFormatHeadersIoRestJson1Serializer()];
+  serializers = [TimestampFormatHeadersIoRestJson1Serializer()];
 
   DateTime? get memberEpochSeconds;
   DateTime? get memberHttpDate;
@@ -161,61 +173,42 @@ abstract class TimestampFormatHeadersIo
 
   @override
   List<Object?> get props => [
-        memberEpochSeconds,
-        memberHttpDate,
-        memberDateTime,
-        defaultFormat,
-        targetEpochSeconds,
-        targetHttpDate,
-        targetDateTime,
-      ];
+    memberEpochSeconds,
+    memberHttpDate,
+    memberDateTime,
+    defaultFormat,
+    targetEpochSeconds,
+    targetHttpDate,
+    targetDateTime,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TimestampFormatHeadersIo')
-      ..add(
-        'memberEpochSeconds',
-        memberEpochSeconds,
-      )
-      ..add(
-        'memberHttpDate',
-        memberHttpDate,
-      )
-      ..add(
-        'memberDateTime',
-        memberDateTime,
-      )
-      ..add(
-        'defaultFormat',
-        defaultFormat,
-      )
-      ..add(
-        'targetEpochSeconds',
-        targetEpochSeconds,
-      )
-      ..add(
-        'targetHttpDate',
-        targetHttpDate,
-      )
-      ..add(
-        'targetDateTime',
-        targetDateTime,
-      );
+    final helper =
+        newBuiltValueToStringHelper('TimestampFormatHeadersIo')
+          ..add('memberEpochSeconds', memberEpochSeconds)
+          ..add('memberHttpDate', memberHttpDate)
+          ..add('memberDateTime', memberDateTime)
+          ..add('defaultFormat', defaultFormat)
+          ..add('targetEpochSeconds', targetEpochSeconds)
+          ..add('targetHttpDate', targetHttpDate)
+          ..add('targetDateTime', targetDateTime);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class TimestampFormatHeadersIoPayload
-    with
-        _i2.AWSEquatable<TimestampFormatHeadersIoPayload>
+    with _i2.AWSEquatable<TimestampFormatHeadersIoPayload>
     implements
-        Built<TimestampFormatHeadersIoPayload,
-            TimestampFormatHeadersIoPayloadBuilder>,
+        Built<
+          TimestampFormatHeadersIoPayload,
+          TimestampFormatHeadersIoPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory TimestampFormatHeadersIoPayload(
-          [void Function(TimestampFormatHeadersIoPayloadBuilder) updates]) =
-      _$TimestampFormatHeadersIoPayload;
+  factory TimestampFormatHeadersIoPayload([
+    void Function(TimestampFormatHeadersIoPayloadBuilder) updates,
+  ]) = _$TimestampFormatHeadersIoPayload;
 
   const TimestampFormatHeadersIoPayload._();
 
@@ -224,8 +217,9 @@ abstract class TimestampFormatHeadersIoPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TimestampFormatHeadersIoPayload');
+    final helper = newBuiltValueToStringHelper(
+      'TimestampFormatHeadersIoPayload',
+    );
     return helper.toString();
   }
 }
@@ -233,23 +227,20 @@ abstract class TimestampFormatHeadersIoPayload
 class TimestampFormatHeadersIoRestJson1Serializer
     extends _i1.StructuredSmithySerializer<TimestampFormatHeadersIoPayload> {
   const TimestampFormatHeadersIoRestJson1Serializer()
-      : super('TimestampFormatHeadersIo');
+    : super('TimestampFormatHeadersIo');
 
   @override
   Iterable<Type> get types => const [
-        TimestampFormatHeadersIo,
-        _$TimestampFormatHeadersIo,
-        TimestampFormatHeadersIoPayload,
-        _$TimestampFormatHeadersIoPayload,
-      ];
+    TimestampFormatHeadersIo,
+    _$TimestampFormatHeadersIo,
+    TimestampFormatHeadersIoPayload,
+    _$TimestampFormatHeadersIoPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   TimestampFormatHeadersIoPayload deserialize(
@@ -265,6 +256,5 @@ class TimestampFormatHeadersIoRestJson1Serializer
     Serializers serializers,
     TimestampFormatHeadersIoPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

@@ -17,9 +17,11 @@ class _$GetObjectOutput extends GetObjectOutput {
   factory _$GetObjectOutput([void Function(GetObjectOutputBuilder)? updates]) =>
       (new GetObjectOutputBuilder()..update(updates))._build();
 
-  _$GetObjectOutput._(
-      {required this.body, this.contentLength, this.contentRange})
-      : super._() {
+  _$GetObjectOutput._({
+    required this.body,
+    this.contentLength,
+    this.contentRange,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(body, r'GetObjectOutput', 'body');
   }
 
@@ -98,12 +100,17 @@ class GetObjectOutputBuilder
   GetObjectOutput build() => _build();
 
   _$GetObjectOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$GetObjectOutput._(
-            body: BuiltValueNullFieldError.checkNotNull(
-                body, r'GetObjectOutput', 'body'),
-            contentLength: contentLength,
-            contentRange: contentRange);
+          body: BuiltValueNullFieldError.checkNotNull(
+            body,
+            r'GetObjectOutput',
+            'body',
+          ),
+          contentLength: contentLength,
+          contentRange: contentRange,
+        );
     replace(_$result);
     return _$result;
   }

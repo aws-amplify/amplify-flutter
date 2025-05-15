@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.api_gateway.api_gateway_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,11 +27,7 @@ abstract class ApiGatewayServerBase extends _i1.HttpServerBase {
   late final Router _router = () {
     final service = _ApiGatewayServer(this);
     final router = Router();
-    router.add(
-      'GET',
-      r'/restapis',
-      service.getRestApis,
-    );
+    router.add('GET', r'/restapis', service.getRestApis);
     return router;
   }();
 
@@ -48,8 +44,13 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
   @override
   final ApiGatewayServerBase service;
 
-  late final _i1.HttpProtocol<GetRestApisRequestPayload, GetRestApisRequest,
-      RestApis, RestApis> _getRestApisProtocol = _i2.RestJson1Protocol(
+  late final _i1.HttpProtocol<
+    GetRestApisRequestPayload,
+    GetRestApisRequest,
+    RestApis,
+    RestApis
+  >
+  _getRestApisProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
@@ -59,26 +60,22 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _getRestApisProtocol.contentType;
     try {
-      final payload = (await _getRestApisProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType(GetRestApisRequestPayload),
-      ) as GetRestApisRequestPayload);
+      final payload =
+          (await _getRestApisProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType(GetRestApisRequestPayload),
+              )
+              as GetRestApisRequestPayload);
       final input = GetRestApisRequest.fromRequest(
         payload,
         awsRequest,
         labels: {},
       );
-      final output = await service.getRestApis(
-        input,
-        context,
-      );
+      final output = await service.getRestApis(input, context);
       const statusCode = 200;
       final body = await _getRestApisProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          RestApis,
-          [FullType(RestApis)],
-        ),
+        specifiedType: const FullType(RestApis, [FullType(RestApis)]),
       );
       return _i4.Response(
         statusCode,
@@ -89,10 +86,9 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
       context.response.headers['X-Amzn-Errortype'] = 'BadRequestException';
       final body = _getRestApisProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          BadRequestException,
-          [FullType(BadRequestException)],
-        ),
+        specifiedType: const FullType(BadRequestException, [
+          FullType(BadRequestException),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -104,10 +100,9 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
       context.response.headers['X-Amzn-Errortype'] = 'TooManyRequestsException';
       final body = _getRestApisProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          TooManyRequestsException,
-          [FullType(TooManyRequestsExceptionPayload)],
-        ),
+        specifiedType: const FullType(TooManyRequestsException, [
+          FullType(TooManyRequestsExceptionPayload),
+        ]),
       );
       const statusCode = 429;
       return _i4.Response(
@@ -119,10 +114,9 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
       context.response.headers['X-Amzn-Errortype'] = 'UnauthorizedException';
       final body = _getRestApisProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          UnauthorizedException,
-          [FullType(UnauthorizedException)],
-        ),
+        specifiedType: const FullType(UnauthorizedException, [
+          FullType(UnauthorizedException),
+        ]),
       );
       const statusCode = 401;
       return _i4.Response(
@@ -131,10 +125,7 @@ class _ApiGatewayServer extends _i1.HttpServer<ApiGatewayServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 }

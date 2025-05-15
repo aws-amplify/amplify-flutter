@@ -9,10 +9,7 @@ import 'package:amplify_core/amplify_core.dart';
 class FcmPlatformOptions
     with AWSDebuggable, AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.push.fcm_platform_options}
-  const FcmPlatformOptions({
-    this.channelId,
-    this.messageId,
-  });
+  const FcmPlatformOptions({this.channelId, this.messageId});
 
   /// The default channelId for Push Notifications. Currently only supporting default channels.
   final String? channelId;
@@ -25,7 +22,7 @@ class FcmPlatformOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'channelId': channelId,
-        'messageId': messageId,
-      };
+    'channelId': channelId,
+    'messageId': messageId,
+  };
 }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.malformed_list_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,12 +16,13 @@ abstract class MalformedListInput
     implements Built<MalformedListInput, MalformedListInputBuilder> {
   factory MalformedListInput({List<String>? bodyList}) {
     return _$MalformedListInput._(
-        bodyList: bodyList == null ? null : _i3.BuiltList(bodyList));
+      bodyList: bodyList == null ? null : _i3.BuiltList(bodyList),
+    );
   }
 
-  factory MalformedListInput.build(
-          [void Function(MalformedListInputBuilder) updates]) =
-      _$MalformedListInput;
+  factory MalformedListInput.build([
+    void Function(MalformedListInputBuilder) updates,
+  ]) = _$MalformedListInput;
 
   const MalformedListInput._();
 
@@ -29,11 +30,10 @@ abstract class MalformedListInput
     MalformedListInput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   static const List<_i1.SmithySerializer<MalformedListInput>> serializers = [
-    MalformedListInputRestJson1Serializer()
+    MalformedListInputRestJson1Serializer(),
   ];
 
   _i3.BuiltList<String>? get bodyList;
@@ -46,10 +46,7 @@ abstract class MalformedListInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedListInput')
-      ..add(
-        'bodyList',
-        bodyList,
-      );
+      ..add('bodyList', bodyList);
     return helper.toString();
   }
 }
@@ -59,18 +56,12 @@ class MalformedListInputRestJson1Serializer
   const MalformedListInputRestJson1Serializer() : super('MalformedListInput');
 
   @override
-  Iterable<Type> get types => const [
-        MalformedListInput,
-        _$MalformedListInput,
-      ];
+  Iterable<Type> get types => const [MalformedListInput, _$MalformedListInput];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedListInput deserialize(
@@ -89,13 +80,15 @@ class MalformedListInputRestJson1Serializer
       }
       switch (key) {
         case 'bodyList':
-          result.bodyList.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i3.BuiltList<String>));
+          result.bodyList.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i3.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i3.BuiltList<String>),
+          );
       }
     }
 
@@ -113,13 +106,12 @@ class MalformedListInputRestJson1Serializer
     if (bodyList != null) {
       result$
         ..add('bodyList')
-        ..add(serializers.serialize(
-          bodyList,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
+        ..add(
+          serializers.serialize(
+            bodyList,
+            specifiedType: const FullType(_i3.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     return result$;
   }

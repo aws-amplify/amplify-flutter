@@ -18,9 +18,7 @@ class AuthUsernamePasswordSignInData extends AuthSignInData {
 }
 
 class AuthSocialSignInData extends AuthSignInData {
-  const AuthSocialSignInData({
-    required this.provider,
-  });
+  const AuthSocialSignInData({required this.provider});
 
   final AuthProvider provider;
 }
@@ -54,9 +52,7 @@ class AuthConfirmSignUpData {
 }
 
 class AuthResetPasswordData {
-  const AuthResetPasswordData({
-    required this.username,
-  });
+  const AuthResetPasswordData({required this.username});
 
   final String username;
 }
@@ -104,9 +100,7 @@ class AuthSetUnverifiedAttributeKeysData {
 }
 
 class AuthVerifyUserData {
-  const AuthVerifyUserData({
-    required this.userAttributeKey,
-  });
+  const AuthVerifyUserData({required this.userAttributeKey});
 
   final CognitoUserAttributeKey userAttributeKey;
 }

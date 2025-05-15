@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.endpoint_with_host_label_header_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -12,45 +12,39 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestXmlEndpointTraitWithHostLabelAndHttpBinding (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: EndpointWithHostLabelHeaderOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestXmlEndpointTraitWithHostLabelAndHttpBinding',
-          documentation:
-              'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input. The label must also\nbe serialized in into any other location it is bound to, such\nas the body or in this case an http header.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: 'application/xml',
-          params: {'accountId': 'bar'},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'X-Amz-Account-Id': 'bar'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'POST',
-          uri: '/EndpointWithHostLabelHeaderOperation',
-          host: 'example.com',
-          resolvedHost: 'bar.example.com',
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [HostLabelHeaderInputRestXmlSerializer()],
-      );
-    },
-  );
+  _i1.test('RestXmlEndpointTraitWithHostLabelAndHttpBinding (request)', () async {
+    await _i2.httpRequestTest(
+      operation: EndpointWithHostLabelHeaderOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestXmlEndpointTraitWithHostLabelAndHttpBinding',
+        documentation:
+            'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input. The label must also\nbe serialized in into any other location it is bound to, such\nas the body or in this case an http header.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: 'application/xml',
+        params: {'accountId': 'bar'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'X-Amz-Account-Id': 'bar'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'POST',
+        uri: '/EndpointWithHostLabelHeaderOperation',
+        host: 'example.com',
+        resolvedHost: 'bar.example.com',
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [HostLabelHeaderInputRestXmlSerializer()],
+    );
+  });
 }
 
 class HostLabelHeaderInputRestXmlSerializer
@@ -62,11 +56,8 @@ class HostLabelHeaderInputRestXmlSerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   HostLabelHeaderInput deserialize(
@@ -85,10 +76,12 @@ class HostLabelHeaderInputRestXmlSerializer
       }
       switch (key) {
         case 'accountId':
-          result.accountId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.accountId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

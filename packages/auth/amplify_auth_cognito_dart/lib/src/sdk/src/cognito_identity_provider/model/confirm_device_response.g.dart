@@ -10,20 +10,23 @@ class _$ConfirmDeviceResponse extends ConfirmDeviceResponse {
   @override
   final bool userConfirmationNecessary;
 
-  factory _$ConfirmDeviceResponse(
-          [void Function(ConfirmDeviceResponseBuilder)? updates]) =>
-      (new ConfirmDeviceResponseBuilder()..update(updates))._build();
+  factory _$ConfirmDeviceResponse([
+    void Function(ConfirmDeviceResponseBuilder)? updates,
+  ]) => (new ConfirmDeviceResponseBuilder()..update(updates))._build();
 
   _$ConfirmDeviceResponse._({required this.userConfirmationNecessary})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(userConfirmationNecessary,
-        r'ConfirmDeviceResponse', 'userConfirmationNecessary');
+    : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+      userConfirmationNecessary,
+      r'ConfirmDeviceResponse',
+      'userConfirmationNecessary',
+    );
   }
 
   @override
   ConfirmDeviceResponse rebuild(
-          void Function(ConfirmDeviceResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ConfirmDeviceResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ConfirmDeviceResponseBuilder toBuilder() =>
@@ -82,12 +85,14 @@ class ConfirmDeviceResponseBuilder
   ConfirmDeviceResponse build() => _build();
 
   _$ConfirmDeviceResponse _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ConfirmDeviceResponse._(
           userConfirmationNecessary: BuiltValueNullFieldError.checkNotNull(
-              userConfirmationNecessary,
-              r'ConfirmDeviceResponse',
-              'userConfirmationNecessary'),
+            userConfirmationNecessary,
+            r'ConfirmDeviceResponse',
+            'userConfirmationNecessary',
+          ),
         );
     replace(_$result);
     return _$result;

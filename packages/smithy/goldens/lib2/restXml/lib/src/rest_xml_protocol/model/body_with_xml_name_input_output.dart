@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.body_with_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ abstract class BodyWithXmlNameInputOutput
     return _$BodyWithXmlNameInputOutput._(nested: nested);
   }
 
-  factory BodyWithXmlNameInputOutput.build(
-          [void Function(BodyWithXmlNameInputOutputBuilder) updates]) =
-      _$BodyWithXmlNameInputOutput;
+  factory BodyWithXmlNameInputOutput.build([
+    void Function(BodyWithXmlNameInputOutputBuilder) updates,
+  ]) = _$BodyWithXmlNameInputOutput;
 
   const BodyWithXmlNameInputOutput._();
 
@@ -31,18 +31,16 @@ abstract class BodyWithXmlNameInputOutput
     BodyWithXmlNameInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [BodyWithXmlNameInputOutput] from a [payload] and [response].
   factory BodyWithXmlNameInputOutput.fromResponse(
     BodyWithXmlNameInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<BodyWithXmlNameInputOutput>>
-      serializers = [BodyWithXmlNameInputOutputRestXmlSerializer()];
+  serializers = [BodyWithXmlNameInputOutputRestXmlSerializer()];
 
   PayloadWithXmlName? get nested;
   @override
@@ -54,10 +52,7 @@ abstract class BodyWithXmlNameInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('BodyWithXmlNameInputOutput')
-      ..add(
-        'nested',
-        nested,
-      );
+      ..add('nested', nested);
     return helper.toString();
   }
 }
@@ -65,21 +60,18 @@ abstract class BodyWithXmlNameInputOutput
 class BodyWithXmlNameInputOutputRestXmlSerializer
     extends _i1.StructuredSmithySerializer<BodyWithXmlNameInputOutput> {
   const BodyWithXmlNameInputOutputRestXmlSerializer()
-      : super('BodyWithXmlNameInputOutput');
+    : super('BodyWithXmlNameInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        BodyWithXmlNameInputOutput,
-        _$BodyWithXmlNameInputOutput,
-      ];
+    BodyWithXmlNameInputOutput,
+    _$BodyWithXmlNameInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   BodyWithXmlNameInputOutput deserialize(
@@ -98,10 +90,13 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(PayloadWithXmlName),
-          ) as PayloadWithXmlName));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(PayloadWithXmlName),
+                )
+                as PayloadWithXmlName),
+          );
       }
     }
 
@@ -119,10 +114,12 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
     if (nested != null) {
       result$
         ..add(const _i1.XmlElementName('nested'))
-        ..add(serializers.serialize(
-          nested,
-          specifiedType: const FullType(PayloadWithXmlName),
-        ));
+        ..add(
+          serializers.serialize(
+            nested,
+            specifiedType: const FullType(PayloadWithXmlName),
+          ),
+        );
     }
     return result$;
   }

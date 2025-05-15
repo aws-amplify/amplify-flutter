@@ -14,14 +14,14 @@ import 'package:worker_bee_builder/src/impl/vm.dart';
 
 /// Creates an emitter instance with common configuration.
 DartEmitter createEmitter() => DartEmitter(
-      allocator: Allocator(),
-      orderDirectives: true,
-      useNullSafetySyntax: true,
-    );
+  allocator: Allocator(),
+  orderDirectives: true,
+  useNullSafetySyntax: true,
+);
 
 /// The common formatter for generated code.
 final formatter = DartFormatter(
-  fixes: StyleFix.all,
+  languageVersion: DartFormatter.latestLanguageVersion,
 );
 
 /// Common header for generated outputs.
@@ -56,9 +56,9 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
     final requestTypeEl = requestType.element;
     if (requestTypeEl == null || requestTypeEl is! ClassElement) {
       final requestTypeName =
-          // TODO(Jordan-Nelson): remove use of `withNullability` when min dart version is 3.4 or higher
-          // ignore: deprecated_member_use
-          requestType.getDisplayString(withNullability: true);
+      // TODO(Jordan-Nelson): remove use of `withNullability` when min dart version is 3.4 or higher
+      // ignore: deprecated_member_use
+      requestType.getDisplayString(withNullability: true);
       throw ArgumentError('Could not find element for $requestTypeName.');
     }
 
@@ -114,19 +114,17 @@ export '${libraries[Target.vm]}'
     bool declaresFallbackUrls,
     AssetId hiveEntrypointId,
   ) {
-    final vmClass = VmGenerator(
-      workerEl,
-      messageTypeEl,
-      resultTypeEl,
-    ).generate();
-    final jsClass = JsGenerator(
-      workerEl,
-      messageTypeEl,
-      resultTypeEl,
-      declaresJsEntrypoint: declaresJsEntrypoint,
-      declaresFallbackUrls: declaresFallbackUrls,
-      hiveEntrypointId: hiveEntrypointId,
-    ).generate();
+    final vmClass =
+        VmGenerator(workerEl, messageTypeEl, resultTypeEl).generate();
+    final jsClass =
+        JsGenerator(
+          workerEl,
+          messageTypeEl,
+          resultTypeEl,
+          declaresJsEntrypoint: declaresJsEntrypoint,
+          declaresFallbackUrls: declaresFallbackUrls,
+          hiveEntrypointId: hiveEntrypointId,
+        ).generate();
 
     return [
       WorkerImpl(

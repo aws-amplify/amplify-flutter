@@ -14,10 +14,7 @@ abstract class E2EWorkerVoidResult extends WorkerBeeBase<E2EMessage, void> {
   factory E2EWorkerVoidResult.create() = E2EWorkerVoidResultImpl;
 
   @override
-  Future<void> run(
-    Stream<E2EMessage> listen,
-    StreamSink<void> respond,
-  ) async {
+  Future<void> run(Stream<E2EMessage> listen, StreamSink<void> respond) async {
     await listen.first;
   }
 }

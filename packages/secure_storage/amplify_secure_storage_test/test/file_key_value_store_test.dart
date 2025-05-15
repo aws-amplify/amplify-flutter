@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
+library;
 
 import 'dart:io';
 
@@ -69,10 +70,7 @@ void main() {
 
       test('writeAll', () async {
         // write key-value pairs
-        await storage.writeAll({
-          'key1': 'value1',
-          'key2': 'value2',
-        });
+        await storage.writeAll({'key1': 'value1', 'key2': 'value2'});
 
         // assert values are updated
         final data = await storage.readAll();
@@ -118,14 +116,12 @@ void main() {
 
         // Reference: https://github.com/aws-amplify/amplify-flutter/issues/5190
         test('should not corrupt the file', () async {
-          final futures = items.map(
-            (i) async {
-              if (i % 5 == 1) {
-                await storage.removeKey(key: 'key_${i - 1}');
-              }
-              return storage.writeKey(key: 'key_$i', value: 'value_$i');
-            },
-          );
+          final futures = items.map((i) async {
+            if (i % 5 == 1) {
+              await storage.removeKey(key: 'key_${i - 1}');
+            }
+            return storage.writeKey(key: 'key_$i', value: 'value_$i');
+          });
           await Future.wait(futures);
         });
       });
@@ -134,8 +130,10 @@ void main() {
         await storage.writeKey(key: 'foo', value: 'value');
         final value1 = await storage.readKey(key: 'foo');
         expect(value1, 'value');
-        await storage.file
-            .writeAsString('{invalid json}', mode: FileMode.append);
+        await storage.file.writeAsString(
+          '{invalid json}',
+          mode: FileMode.append,
+        );
         final value2 = await storage.readKey(key: 'foo');
         expect(value2, null);
         await storage.writeKey(key: 'foo', value: 'value');

@@ -12,7 +12,7 @@ enum Target {
   vm,
 
   /// Web target
-  js
+  js,
 }
 
 /// {@template worker_bee_builder.worker_impl}
@@ -34,17 +34,10 @@ class WorkerImpl {
 /// {@endtemplate}
 abstract class ImplGenerator {
   /// {@macro worker_bee_builder.impl_generator}
-  ImplGenerator(
-    this.workerEl,
-    this.requestEl,
-    this.responseEl,
-  ) {
+  ImplGenerator(this.workerEl, this.requestEl, this.responseEl) {
     workerName = workerEl.name;
     workerImplName = '${workerName}Impl';
-    workerType = Reference(
-      workerName,
-      workerEl.librarySource.uri.toString(),
-    );
+    workerType = Reference(workerName, workerEl.librarySource.uri.toString());
     _checkCtors(workerEl.constructors);
 
     requestType = requestEl.thisType.accept(symbolVisitor);

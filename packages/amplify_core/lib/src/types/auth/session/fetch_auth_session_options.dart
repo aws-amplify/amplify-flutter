@@ -35,9 +35,9 @@ class FetchAuthSessionOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'forceRefresh': forceRefresh,
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+    'forceRefresh': forceRefresh,
+    'pluginOptions': pluginOptions?.toJson(),
+  };
 }
 
 /// @nodoc

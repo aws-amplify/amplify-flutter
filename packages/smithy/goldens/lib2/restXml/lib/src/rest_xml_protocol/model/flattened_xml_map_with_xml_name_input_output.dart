@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.flattened_xml_map_with_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,16 +16,19 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
         _i1.HttpInput<FlattenedXmlMapWithXmlNameInputOutput>,
         _i2.AWSEquatable<FlattenedXmlMapWithXmlNameInputOutput>
     implements
-        Built<FlattenedXmlMapWithXmlNameInputOutput,
-            FlattenedXmlMapWithXmlNameInputOutputBuilder> {
+        Built<
+          FlattenedXmlMapWithXmlNameInputOutput,
+          FlattenedXmlMapWithXmlNameInputOutputBuilder
+        > {
   factory FlattenedXmlMapWithXmlNameInputOutput({Map<String, String>? myMap}) {
     return _$FlattenedXmlMapWithXmlNameInputOutput._(
-        myMap: myMap == null ? null : _i3.BuiltMap(myMap));
+      myMap: myMap == null ? null : _i3.BuiltMap(myMap),
+    );
   }
 
-  factory FlattenedXmlMapWithXmlNameInputOutput.build(
-      [void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder)
-          updates]) = _$FlattenedXmlMapWithXmlNameInputOutput;
+  factory FlattenedXmlMapWithXmlNameInputOutput.build([
+    void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder) updates,
+  ]) = _$FlattenedXmlMapWithXmlNameInputOutput;
 
   const FlattenedXmlMapWithXmlNameInputOutput._();
 
@@ -33,18 +36,16 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
     FlattenedXmlMapWithXmlNameInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [FlattenedXmlMapWithXmlNameInputOutput] from a [payload] and [response].
   factory FlattenedXmlMapWithXmlNameInputOutput.fromResponse(
     FlattenedXmlMapWithXmlNameInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<FlattenedXmlMapWithXmlNameInputOutput>>
-      serializers = [FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer()];
+  serializers = [FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer()];
 
   _i3.BuiltMap<String, String>? get myMap;
   @override
@@ -55,34 +56,29 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNameInputOutput')
-          ..add(
-            'myMap',
-            myMap,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'FlattenedXmlMapWithXmlNameInputOutput',
+    )..add('myMap', myMap);
     return helper.toString();
   }
 }
 
-class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer extends _i1
-    .StructuredSmithySerializer<FlattenedXmlMapWithXmlNameInputOutput> {
+class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer
+    extends
+        _i1.StructuredSmithySerializer<FlattenedXmlMapWithXmlNameInputOutput> {
   const FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer()
-      : super('FlattenedXmlMapWithXmlNameInputOutput');
+    : super('FlattenedXmlMapWithXmlNameInputOutput');
 
   @override
   Iterable<Type> get types => const [
-        FlattenedXmlMapWithXmlNameInputOutput,
-        _$FlattenedXmlMapWithXmlNameInputOutput,
-      ];
+    FlattenedXmlMapWithXmlNameInputOutput,
+    _$FlattenedXmlMapWithXmlNameInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   FlattenedXmlMapWithXmlNameInputOutput deserialize(
@@ -101,24 +97,23 @@ class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer extends _i1
       }
       switch (key) {
         case 'KVP':
-          result.myMap.addAll(const _i1.XmlBuiltMapSerializer(
-            keyName: 'K',
-            valueName: 'V',
-            flattenedKey: 'KVP',
-          )
-              .deserialize(
-                serializers,
-                value is String ? const [] : (value as Iterable<Object?>),
-                specifiedType: const FullType(
-                  _i3.BuiltMap,
-                  [
+          result.myMap.addAll(
+            const _i1.XmlBuiltMapSerializer(
+                  keyName: 'K',
+                  valueName: 'V',
+                  flattenedKey: 'KVP',
+                )
+                .deserialize(
+                  serializers,
+                  value is String ? const [] : (value as Iterable<Object?>),
+                  specifiedType: const FullType(_i3.BuiltMap, [
                     FullType(String),
                     FullType(String),
-                  ],
-                ),
-              )
-              .toMap()
-              .cast());
+                  ]),
+                )
+                .toMap()
+                .cast(),
+          );
       }
     }
 
@@ -132,25 +127,24 @@ class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i1.XmlElementName('FlattenedXmlMapWithXmlNameInputOutput')
+      const _i1.XmlElementName('FlattenedXmlMapWithXmlNameInputOutput'),
     ];
     final FlattenedXmlMapWithXmlNameInputOutput(:myMap) = object;
     if (myMap != null) {
-      result$.addAll(const _i1.XmlBuiltMapSerializer(
-        keyName: 'K',
-        valueName: 'V',
-        flattenedKey: 'KVP',
-      ).serialize(
-        serializers,
-        myMap,
-        specifiedType: const FullType(
-          _i3.BuiltMap,
-          [
+      result$.addAll(
+        const _i1.XmlBuiltMapSerializer(
+          keyName: 'K',
+          valueName: 'V',
+          flattenedKey: 'KVP',
+        ).serialize(
+          serializers,
+          myMap,
+          specifiedType: const FullType(_i3.BuiltMap, [
             FullType(String),
             FullType(String),
-          ],
+          ]),
         ),
-      ));
+      );
     }
     return result$;
   }

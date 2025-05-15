@@ -13,9 +13,7 @@ class ResendSignUpCodeOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.resend_sign_up_code_options}
-  const ResendSignUpCodeOptions({
-    this.pluginOptions,
-  });
+  const ResendSignUpCodeOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.sign_up_plugin_options}
   final ResendSignUpCodePluginOptions? pluginOptions;
@@ -27,9 +25,7 @@ class ResendSignUpCodeOptions
   String get runtimeTypeName => 'ResendSignUpCodeOptions';
 
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

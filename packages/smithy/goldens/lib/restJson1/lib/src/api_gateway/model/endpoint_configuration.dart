@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.api_gateway.model.endpoint_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,35 +26,27 @@ abstract class EndpointConfiguration
     );
   }
 
-  factory EndpointConfiguration.build(
-          [void Function(EndpointConfigurationBuilder) updates]) =
-      _$EndpointConfiguration;
+  factory EndpointConfiguration.build([
+    void Function(EndpointConfigurationBuilder) updates,
+  ]) = _$EndpointConfiguration;
 
   const EndpointConfiguration._();
 
   static const List<_i3.SmithySerializer<EndpointConfiguration>> serializers = [
-    EndpointConfigurationRestJson1Serializer()
+    EndpointConfigurationRestJson1Serializer(),
   ];
 
   _i2.BuiltList<EndpointType>? get types;
   _i2.BuiltList<String>? get vpcEndpointIds;
   @override
-  List<Object?> get props => [
-        types,
-        vpcEndpointIds,
-      ];
+  List<Object?> get props => [types, vpcEndpointIds];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointConfiguration')
-      ..add(
-        'types',
-        types,
-      )
-      ..add(
-        'vpcEndpointIds',
-        vpcEndpointIds,
-      );
+    final helper =
+        newBuiltValueToStringHelper('EndpointConfiguration')
+          ..add('types', types)
+          ..add('vpcEndpointIds', vpcEndpointIds);
     return helper.toString();
   }
 }
@@ -62,21 +54,18 @@ abstract class EndpointConfiguration
 class EndpointConfigurationRestJson1Serializer
     extends _i3.StructuredSmithySerializer<EndpointConfiguration> {
   const EndpointConfigurationRestJson1Serializer()
-      : super('EndpointConfiguration');
+    : super('EndpointConfiguration');
 
   @override
   Iterable<Type> get types => const [
-        EndpointConfiguration,
-        _$EndpointConfiguration,
-      ];
+    EndpointConfiguration,
+    _$EndpointConfiguration,
+  ];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   EndpointConfiguration deserialize(
@@ -95,21 +84,25 @@ class EndpointConfigurationRestJson1Serializer
       }
       switch (key) {
         case 'types':
-          result.types.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(EndpointType)],
-            ),
-          ) as _i2.BuiltList<EndpointType>));
+          result.types.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(EndpointType),
+                  ]),
+                )
+                as _i2.BuiltList<EndpointType>),
+          );
         case 'vpcEndpointIds':
-          result.vpcEndpointIds.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i2.BuiltList<String>));
+          result.vpcEndpointIds.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i2.BuiltList<String>),
+          );
       }
     }
 
@@ -127,24 +120,24 @@ class EndpointConfigurationRestJson1Serializer
     if (types != null) {
       result$
         ..add('types')
-        ..add(serializers.serialize(
-          types,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(EndpointType)],
+        ..add(
+          serializers.serialize(
+            types,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(EndpointType),
+            ]),
           ),
-        ));
+        );
     }
     if (vpcEndpointIds != null) {
       result$
         ..add('vpcEndpointIds')
-        ..add(serializers.serialize(
-          vpcEndpointIds,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(String)],
+        ..add(
+          serializers.serialize(
+            vpcEndpointIds,
+            specifiedType: const FullType(_i2.BuiltList, [FullType(String)]),
           ),
-        ));
+        );
     }
     return result$;
   }

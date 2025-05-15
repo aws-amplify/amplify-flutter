@@ -6,31 +6,15 @@ library amplify_analytics_pinpoint_dart.pinpoint.model.alignment; // ignore_for_
 import 'package:smithy/smithy.dart' as _i1;
 
 class Alignment extends _i1.SmithyEnum<Alignment> {
-  const Alignment._(
-    super.index,
-    super.name,
-    super.value,
-  );
+  const Alignment._(super.index, super.name, super.value);
 
   const Alignment._sdkUnknown(super.value) : super.sdkUnknown();
 
-  static const center = Alignment._(
-    0,
-    'CENTER',
-    'CENTER',
-  );
+  static const center = Alignment._(0, 'CENTER', 'CENTER');
 
-  static const left = Alignment._(
-    1,
-    'LEFT',
-    'LEFT',
-  );
+  static const left = Alignment._(1, 'LEFT', 'LEFT');
 
-  static const right = Alignment._(
-    2,
-    'RIGHT',
-    'RIGHT',
-  );
+  static const right = Alignment._(2, 'RIGHT', 'RIGHT');
 
   /// All values of [Alignment].
   static const values = <Alignment>[
@@ -45,12 +29,9 @@ class Alignment extends _i1.SmithyEnum<Alignment> {
       values: values,
       sdkUnknown: Alignment._sdkUnknown,
       supportedProtocols: [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
+        _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
       ],
-    )
+    ),
   ];
 }
 

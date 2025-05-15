@@ -263,8 +263,9 @@ class DialCodeResolver extends Resolver<DialCodeResolverKey> {
   }
 
   String noDialCodeSearchResults(BuildContext context) {
-    return AuthenticatorLocalizations.countriesOf(context)
-        .noDialCodeSearchResults;
+    return AuthenticatorLocalizations.countriesOf(
+      context,
+    ).noDialCodeSearchResults;
   }
 
   /// The label for Afghanistan.

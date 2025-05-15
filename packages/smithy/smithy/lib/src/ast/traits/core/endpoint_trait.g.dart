@@ -7,11 +7,7 @@ part of 'endpoint_trait.dart';
 // **************************************************************************
 
 EndpointTrait _$EndpointTraitFromJson(Map<String, dynamic> json) =>
-    EndpointTrait(
-      json['hostPrefix'] as String,
-    );
+    EndpointTrait(json['hostPrefix'] as String);
 
 Map<String, dynamic> _$EndpointTraitToJson(EndpointTrait instance) =>
-    <String, dynamic>{
-      'hostPrefix': instance.hostPrefix,
-    };
+    <String, dynamic>{'hostPrefix': instance.hostPrefix};

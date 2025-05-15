@@ -8,11 +8,7 @@ part 'ec2_query_trait.g.dart';
 
 @JsonSerializable()
 class Ec2QueryTrait extends AWSProtocolTrait {
-  const Ec2QueryTrait()
-      : super(
-          id,
-          timestampFormat: TimestampFormat.dateTime,
-        );
+  const Ec2QueryTrait() : super(id, timestampFormat: TimestampFormat.dateTime);
 
   factory Ec2QueryTrait.fromJson(Object? json) =>
       _$Ec2QueryTraitFromJson((json as Map).cast<String, Object?>());
@@ -24,16 +20,16 @@ class Ec2QueryTrait extends AWSProtocolTrait {
 
   @override
   List<ShapeId> get traits => const [
-        CorsTrait.id,
-        EndpointTrait.id,
-        HostLabelTrait.id,
-        Ec2QueryNameTrait.id,
-        XmlAttributeTrait.id,
-        XmlFlattenedTrait.id,
-        XmlNameTrait.id,
-        XmlNamespaceTrait.id,
-        TimestampFormatTrait.id,
-      ];
+    CorsTrait.id,
+    EndpointTrait.id,
+    HostLabelTrait.id,
+    Ec2QueryNameTrait.id,
+    XmlAttributeTrait.id,
+    XmlFlattenedTrait.id,
+    XmlNameTrait.id,
+    XmlNamespaceTrait.id,
+    TimestampFormatTrait.id,
+  ];
 }
 
 /// Provides a custom name to use when serializing a structure member

@@ -14,9 +14,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 /// limit which options are shown in the modal.
 /// {@endtemplate}
 class DialCodeOptions {
-  const DialCodeOptions({
-    this.defaultDialCode = DialCode.us,
-  });
+  const DialCodeOptions({this.defaultDialCode = DialCode.us});
 
   final DialCode defaultDialCode;
 }

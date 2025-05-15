@@ -89,8 +89,9 @@ class TemporalTime implements Comparable<TemporalTime> {
     final minutes = int.parse(match.group(2)!);
     final seconds = Temporal.getIntOr0(match.group(4));
 
-    final totalNanoseconds =
-        Temporal.getIntOr0(match.group(6)?.padRight(9, '0'));
+    final totalNanoseconds = Temporal.getIntOr0(
+      match.group(6)?.padRight(9, '0'),
+    );
     final milliseconds = totalNanoseconds ~/ 1000000;
     final microseconds = (totalNanoseconds ~/ 1000) % 1000;
     final nanoseconds = totalNanoseconds % 1000;
@@ -119,12 +120,9 @@ class TemporalTime implements Comparable<TemporalTime> {
     );
   }
 
-  const TemporalTime._(
-    this._dateTime, {
-    int nanoseconds = 0,
-    Duration? offset,
-  })  : _nanoseconds = nanoseconds,
-        _offset = offset;
+  const TemporalTime._(this._dateTime, {int nanoseconds = 0, Duration? offset})
+    : _nanoseconds = nanoseconds,
+      _offset = offset;
   final DateTime _dateTime;
   final int _nanoseconds; // DateTime only stores millisecond and microsecond
   final Duration? _offset;

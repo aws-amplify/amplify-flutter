@@ -30,7 +30,7 @@ class ModelProvider implements ModelProviderInterface {
     Comment.schema,
     Post.schema,
     PostTags.schema,
-    Tag.schema
+    Tag.schema,
   ];
   static final ModelProvider _instance = ModelProvider();
   @override
@@ -52,8 +52,8 @@ class ModelProvider implements ModelProviderInterface {
         return Tag.classType;
       default:
         throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+          "Failed to find model in model provider for model name: " + modelName,
+        );
     }
   }
 }

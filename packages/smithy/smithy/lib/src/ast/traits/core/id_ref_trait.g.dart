@@ -7,10 +7,10 @@ part of 'id_ref_trait.dart';
 // **************************************************************************
 
 IdRefTrait _$IdRefTraitFromJson(Map<String, dynamic> json) => IdRefTrait(
-      selector: json['selector'] as String? ?? '*',
-      failWhenMissing: json['failWhenMissing'] as bool,
-      errorMessage: json['errorMessage'] as String?,
-    );
+  selector: json['selector'] as String? ?? '*',
+  failWhenMissing: json['failWhenMissing'] as bool,
+  errorMessage: json['errorMessage'] as String?,
+);
 
 Map<String, dynamic> _$IdRefTraitToJson(IdRefTrait instance) =>
     <String, dynamic>{
