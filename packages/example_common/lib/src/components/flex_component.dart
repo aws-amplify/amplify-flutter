@@ -1,11 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-//ignore: deprecated_member_use
-import 'dart:html';
-
 import 'package:example_common/src/components/component.dart';
 import 'package:example_common/src/enums.dart';
+import 'package:web/web.dart';
 
 /// {@template example_common.flex_component}
 /// a component that displays a set of [children] in either a row or column
@@ -29,7 +27,7 @@ class FlexComponent extends Component {
 
   @override
   Component render() {
-    final div = Element.div();
+    final div = HTMLDivElement();
     div.style.display = 'flex';
     div.style.flexDirection = direction.flexDirection;
     div.style.alignItems = alignItems.name;
