@@ -47,6 +47,8 @@ void main() {
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
+            UnauthenticatedState.confirmSignInWithOtpCode,
+            isA<AuthenticatedState>(),
             emitsDone,
           ]),
         );
