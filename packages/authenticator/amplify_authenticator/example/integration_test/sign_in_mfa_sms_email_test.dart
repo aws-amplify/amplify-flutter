@@ -43,11 +43,10 @@ void main() {
           tester.bloc.stream,
           emitsInOrder([
             UnauthenticatedState.signIn,
+            isA<ContinueSignInWithMfaSelection>(),
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
-            isA<ContinueSignInWithMfaSelection>(),
-            UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             emitsDone,
           ]),
