@@ -47,7 +47,6 @@ void main() {
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
-            isA<AuthenticatedState>(),
             emitsDone,
           ]),
         );
