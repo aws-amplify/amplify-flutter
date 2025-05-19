@@ -43,6 +43,7 @@ void main() {
           tester.bloc.stream,
           emitsInOrder([
             UnauthenticatedState.signIn,
+            isA<ContinueSignInWithMfaSelection>(),
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
@@ -67,6 +68,15 @@ void main() {
 
         // And I click the "Sign in" button
         await signInPage.submitSignIn();
+
+        // Then I will be redirected to chose MFA type
+        await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
+
+        // When I select "TOTP"
+        await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);
+
+        // And I click the "Confirm" button
+        await confirmSignInPage.submitConfirmSignInMfaSelection();
 
         // Then I will be redirected to the confirm sms mfa page
         await confirmSignInPage.expectConfirmSignInMFAIsPresent();
@@ -139,6 +149,7 @@ void main() {
           tester.bloc.stream,
           emitsInOrder([
             UnauthenticatedState.signIn,
+            isA<ContinueSignInWithMfaSelection>(),
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
@@ -163,6 +174,15 @@ void main() {
 
         // And I click the "Sign in" button
         await signInPage.submitSignIn();
+
+        // Then I will be redirected to chose MFA type
+        await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
+
+        // When I select "TOTP"
+        await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);
+
+        // And I click the "Confirm" button
+        await confirmSignInPage.submitConfirmSignInMfaSelection();
 
         // Then I will be redirected to the confirm sms mfa page
         await confirmSignInPage.expectConfirmSignInMFAIsPresent();
@@ -201,6 +221,15 @@ void main() {
 
         // And I click the "Sign in" button
         await signInPage.submitSignIn();
+
+        // Then I will be redirected to chose MFA type
+        await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
+
+        // When I select "TOTP"
+        await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);
+
+        // And I click the "Confirm" button
+        await confirmSignInPage.submitConfirmSignInMfaSelection();
 
         // Then I will be redirected to the confirm sms mfa page
         await confirmSignInPage.expectConfirmSignInMFAIsPresent();
