@@ -80,7 +80,9 @@ enum TestTheme {
             primarySwatch: Colors.red,
             backgroundColor: Colors.white,
           ),
-        ).copyWith(tabBarTheme: const TabBarThemeData(indicatorColor: Colors.red));
+        ).copyWith(
+          tabBarTheme: const TabBarThemeData(indicatorColor: Colors.red),
+        );
       case TestTheme.custom:
         return ThemeData.light().copyWith(
           tabBarTheme: const TabBarThemeData(labelColor: Colors.amber),
