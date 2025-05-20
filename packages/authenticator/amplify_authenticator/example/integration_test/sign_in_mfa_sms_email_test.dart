@@ -37,8 +37,6 @@ void main() {
           },
         );
 
-        generateEmail();
-
         await loadAuthenticator(tester: tester);
 
         expect(
@@ -119,7 +117,7 @@ void main() {
       });
 
       // Scenario: Sign in using a SMS code when both SMS and TOTP are enabled
-      testWidgets('can select SMS MFA', (tester) async {
+      testWidgets('can select SMS TOTP MFA', (tester) async {
         final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generateUSPhoneNumber();
