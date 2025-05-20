@@ -15,6 +15,9 @@ void main() {
   testRunner.setupTests();
 
   group('sign-in-sms-totp-mfa', () {
+    for (final mfaRequiredEmailSms in [true, false]) {
+      print(mfaRequiredEmailSms);
+    }
     testRunner.withEnvironment(mfaRequiredEmailSms, (env) {
       // Scenario: Sign in using a totp code when both SMS and EMAIL are enabled
       // Note: When email and sms are both enabled,
