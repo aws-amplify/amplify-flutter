@@ -37,6 +37,8 @@ void main() {
           },
         );
 
+        generateEmail();
+
         await loadAuthenticator(tester: tester);
 
         expect(
