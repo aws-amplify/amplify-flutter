@@ -9,7 +9,7 @@ on:
       - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/amplify_analytics_pinpoint_dart.yaml'
       - '.github/workflows/dart_dart2js.yaml'
-      - '.github/workflows/dart_wasm2js.yaml'
+      - '.github/workflows/dart_dart2wasm.yaml'
       - '.github/workflows/dart_ddc.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
@@ -42,7 +42,7 @@ on:
       - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/amplify_analytics_pinpoint_dart.yaml'
       - '.github/workflows/dart_dart2js.yaml'
-      - '.github/workflows/dart_wasm2js.yaml'
+      - '.github/workflows/dart_dart2wasm.yaml'
       - '.github/workflows/dart_ddc.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_vm.yaml'
@@ -116,7 +116,7 @@ jobs:
     with:
       package-name: amplify_analytics_pinpoint_dart
       working-directory: packages/analytics/amplify_analytics_pinpoint_dart
-  dart2js_test:
+  dart2wasm_test:
     needs: test
     uses: ./.github/workflows/dart_wasm2js.yaml
     secrets: inherit
