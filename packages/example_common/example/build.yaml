@@ -2,6 +2,8 @@ targets:
   $default:
     builders:
       build_web_compilers:entrypoint:
-        release_options:
+      release_options:
           dart2js_args:
-            - --define=dart.vm.product=true
+              - --define=dart.vm.product=true
+          dart2wasm_args:
+              - --define=dart.vm.product=true
