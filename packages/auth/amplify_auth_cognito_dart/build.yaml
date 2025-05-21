@@ -18,14 +18,10 @@ targets:
         generate_for:
           - lib/src/workers/*.debug.dart
         options:
-          compilers:
-            dart2js:
-              args:
-                - --no-minify
-            dart2wasm:
-              args:
-                - --no-minify
-          compiler: dart2js
+          dart2js_args:
+              - --no-minify
+          dart2wasm_args:
+              - --no-minify
     dependencies:
       - $default
   release:
@@ -38,15 +34,12 @@ targets:
         generate_for:
           - lib/src/workers/*.release.dart
         options:
-          compilers:
-            dart2js:
-              args:
-                - -O2
-                - --define=dart.vm.product=true
-            dart2wasm:
-              args:
-                - -O3
-                - --define=dart.vm.product=true
+          dart2js_args:
+              - -O2
+              - --define=dart.vm.product=true
+          dart2wasm_args:
+              - -O3
+              - --define=dart.vm.product=true
     dependencies:
       - $default
   workers:
