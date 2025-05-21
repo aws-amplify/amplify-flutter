@@ -19,7 +19,7 @@ void main() {
       // Scenario: Sign in using a totp code when both SMS and EMAIL are enabled
       // Note: When email and sms are both enabled,
       // one of them must be selected as preferred.
-      // This is different from other mfa methods and
+      // This is different from other mfa methods and abcd
       // is expected behavior from cognito
       testWidgets('can select EMAIL MFA', (tester) async {
         final username = env.generateUsername();
@@ -59,7 +59,7 @@ void main() {
         final smsResult = await getOtpCode(
           UserAttribute.phone(phoneNumber.toE164()),
         );
-
+        print('abcd');
         // When I type my "username"
         await signInPage.enterUsername(username);
 
@@ -127,7 +127,7 @@ void main() {
       });
 
       // Scenario: Sign in using a SMS code when both SMS and TOTP are enabled
-      testWidgets('can select SMS MFA', (tester) async {
+      testWidgets('can select SMS TOTP MFA', (tester) async {
         final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generateUSPhoneNumber();
