@@ -4,6 +4,6 @@ output-localization-file: app_localizations.dart
 synthetic-package: false
 
 # To make use of Authenticator enums
-header: import 'package:amplify_authenticator/amplify_authenticator.dart';
+#header: import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 nullable-getter: false
