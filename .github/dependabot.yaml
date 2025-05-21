@@ -1097,6 +1097,9 @@ updates:
       built_value:
         patterns:
           - "built_value"
+      http:
+        patterns:
+          - "http"
       json_annotation:
         patterns:
           - "json_annotation"

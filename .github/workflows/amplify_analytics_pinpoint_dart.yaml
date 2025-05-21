@@ -118,7 +118,7 @@ jobs:
       working-directory: packages/analytics/amplify_analytics_pinpoint_dart
   dart2wasm_test:
     needs: test
-    uses: ./.github/workflows/dart_wasm2js.yaml
+    uses: ./.github/workflows/dart_dart2wasm.yaml
     secrets: inherit
     with:
       package-name: amplify_analytics_pinpoint_dart
