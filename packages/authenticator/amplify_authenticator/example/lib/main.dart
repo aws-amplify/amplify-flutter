@@ -3,12 +3,14 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator_example/l10n/app_localizations.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_dial_code_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_input_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_title_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'amplifyconfiguration.dart';
 
@@ -129,6 +131,15 @@ class _MyAppState extends State<MyApp> {
         darkTheme: ThemeData.dark(useMaterial3: true),
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
+
+        // These lines enable our custom localizations specified in the lib/l10n
+        // directory, which will be used later to customize the values displayed
+        // in the Authenticator component.
+        localizationsDelegates: const [AppLocalizations.delegate],
+        supportedLocales: const [
+          Locale('en'), // English
+          Locale('es'), // Spanish
+        ],
 
         // The Authenticator component must wrap your Navigator component which
         // can be done using the `builder` method.
