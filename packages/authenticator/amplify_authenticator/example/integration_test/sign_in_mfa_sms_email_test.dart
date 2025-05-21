@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -18,7 +19,7 @@ void main() {
       // Scenario: Sign in using a totp code when both SMS and EMAIL are enabled
       // Note: When email and sms are both enabled,
       // one of them must be selected as preferred.
-      // This is different from other mfa methods and abcd
+      // This is different from other mfa methods and
       // is expected behavior from cognito
       testWidgets('can select EMAIL MFA', (tester) async {
         final username = env.generateUsername();
@@ -58,7 +59,6 @@ void main() {
         final smsResult = await getOtpCode(
           UserAttribute.phone(phoneNumber.toE164()),
         );
-        print('abcd');
         // When I type my "username"
         await signInPage.enterUsername(username);
 
@@ -126,124 +126,124 @@ void main() {
       });
 
       // Scenario: Sign in using a SMS code when both SMS and TOTP are enabled
-      // testWidgets('can select SMS TOTP MFA', (tester) async {
-      //   final username = env.generateUsername();
-      //   final password = generatePassword();
-      //   final phoneNumber = generateUSPhoneNumber();
+      testWidgets('can select SMS TOTP MFA', (tester) async {
+        final username = env.generateUsername();
+        final password = generatePassword();
+        final phoneNumber = generateUSPhoneNumber();
 
-      //   await adminCreateUser(
-      //     username,
-      //     password,
-      //     autoConfirm: true,
-      //     verifyAttributes: false,
-      //     attributes: {
-      //       AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-      //       AuthUserAttributeKey.email: username,
-      //     },
-      //   );
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: false,
+          attributes: {
+            AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
+            AuthUserAttributeKey.email: username,
+          },
+        );
 
-      //   await loadAuthenticator(tester: tester);
+        await loadAuthenticator(tester: tester);
 
-      //   expect(
-      //     tester.bloc.stream,
-      //     emitsInOrder([
-      //       UnauthenticatedState.signIn,
-      //       isA<ContinueSignInWithMfaSelection>(),
-      //       UnauthenticatedState.confirmSignInMfa,
-      //       isA<AuthenticatedState>(),
-      //       UnauthenticatedState.signIn,
-      //       UnauthenticatedState.confirmSignInMfa,
-      //       isA<AuthenticatedState>(),
-      //       emitsDone,
-      //     ]),
-      //   );
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            isA<ContinueSignInWithMfaSelection>(),
+            UnauthenticatedState.confirmSignInMfa,
+            isA<AuthenticatedState>(),
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.confirmSignInMfa,
+            isA<AuthenticatedState>(),
+            emitsDone,
+          ]),
+        );
 
-      //   final signInPage = SignInPage(tester: tester);
-      //   final confirmSignInPage = ConfirmSignInPage(tester: tester);
+        final signInPage = SignInPage(tester: tester);
+        final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-      //   final smsResult_1 = await getOtpCode(
-      //     UserAttribute.phone(phoneNumber.toE164()),
-      //   );
+        final smsResult_1 = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
-      //   // When I type my "username"
-      //   await signInPage.enterUsername(username);
+        // When I type my "username"
+        await signInPage.enterUsername(username);
 
-      //   // And I type my password
-      //   await signInPage.enterPassword(password);
+        // And I type my password
+        await signInPage.enterPassword(password);
 
-      //   // And I click the "Sign in" button
-      //   await signInPage.submitSignIn();
+        // And I click the "Sign in" button
+        await signInPage.submitSignIn();
 
-      //   // Then I will be redirected to chose MFA type
-      //   await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
+        // Then I will be redirected to chose MFA type
+        await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
 
-      //   // When I select "SMS"
-      //   await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);
+        // When I select "SMS"
+        await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);
 
-      //   // And I click the "Confirm" button
-      //   await confirmSignInPage.submitConfirmSignInMfaSelection();
+        // And I click the "Confirm" button
+        await confirmSignInPage.submitConfirmSignInMfaSelection();
 
-      //   // Then I will be redirected to the confirm sms mfa page
-      //   await confirmSignInPage.expectConfirmSignInMFAIsPresent();
+        // Then I will be redirected to the confirm sms mfa page
+        await confirmSignInPage.expectConfirmSignInMFAIsPresent();
 
-      //   // When I type a valid confirmation code
-      //   await confirmSignInPage.enterVerificationCode(await smsResult_1.code);
+        // When I type a valid confirmation code
+        await confirmSignInPage.enterVerificationCode(await smsResult_1.code);
 
-      //   // And I click the "Confirm" button
-      //   await confirmSignInPage.submitConfirmSignIn();
+        // And I click the "Confirm" button
+        await confirmSignInPage.submitConfirmSignIn();
 
-      //   // Then I see the authenticated app
-      //   await signInPage.expectAuthenticated();
+        // Then I see the authenticated app
+        await signInPage.expectAuthenticated();
 
-      //   // When I enable EMAIL for MFA instead of the default set up by cognito (SMS)
-      //   await setUpEmailMfa();
+        // When I enable EMAIL for MFA instead of the default set up by cognito (SMS)
+        await setUpEmailMfa();
 
-      //   final plugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
-      //   await plugin.updateMfaPreference(sms: MfaPreference.preferred);
+        final plugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
+        await plugin.updateMfaPreference(sms: MfaPreference.preferred);
 
-      //   // And I sign out using Auth.signOut()
-      //   await Amplify.Auth.signOut();
-      //   await tester.pumpAndSettle();
+        // And I sign out using Auth.signOut()
+        await Amplify.Auth.signOut();
+        await tester.pumpAndSettle();
 
-      //   final smsResult_2 = await getOtpCode(
-      //     UserAttribute.phone(phoneNumber.toE164()),
-      //   );
+        final smsResult_2 = await getOtpCode(
+          UserAttribute.email(username),
+        );
 
-      //   // Then I see the sign in page
-      //   signInPage.expectEmail();
+        // Then I see the sign in page
+        signInPage.expectEmail();
 
-      //   // When I type my "username"
-      //   await signInPage.enterUsername(username);
+        // When I type my "username"
+        await signInPage.enterUsername(username);
 
-      //   // And I type my password
-      //   await signInPage.enterPassword(password);
+        // And I type my password
+        await signInPage.enterPassword(password);
 
-      //   // And I click the "Sign in" button
-      //   await signInPage.submitSignIn();
+        // And I click the "Sign in" button
+        await signInPage.submitSignIn();
 
-      //   // Then I will be redirected to chose MFA type
-      //   await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
+        // Then I will be redirected to chose MFA type
+        await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
 
-      //   // When I select "SMS"
-      //   await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);
+        // When I select "SMS"
+        await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.email);
 
-      //   // And I click the "Confirm" button
-      //   await confirmSignInPage.submitConfirmSignInMfaSelection();
+        // And I click the "Confirm" button
+        await confirmSignInPage.submitConfirmSignInMfaSelection();
 
-      //   // Then I will be redirected to the confirm sms mfa page
-      //   await confirmSignInPage.expectConfirmSignInMFAIsPresent();
+        // Then I will be redirected to the confirm sms mfa page
+        await confirmSignInPage.expectConfirmSignInMFAIsPresent();
 
-      //   // When I type a valid confirmation code
-      //   await confirmSignInPage.enterVerificationCode(await smsResult_2.code);
+        // When I type a valid confirmation code
+        await confirmSignInPage.enterVerificationCode(await smsResult_2.code);
 
-      //   // And I click the "Confirm" button
-      //   await confirmSignInPage.submitConfirmSignIn();
+        // And I click the "Confirm" button
+        await confirmSignInPage.submitConfirmSignIn();
 
-      //   // Then I see the authenticated app
-      //   await signInPage.expectAuthenticated();
+        // Then I see the authenticated app
+        await signInPage.expectAuthenticated();
 
-      //   await tester.bloc.close();
-      // });
+        await tester.bloc.close();
+      });
     });
   });
 }
