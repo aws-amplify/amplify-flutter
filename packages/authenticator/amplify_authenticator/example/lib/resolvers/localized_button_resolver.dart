@@ -4,7 +4,6 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_example/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Our custom button string resolver which calls into our localizations class.
 class LocalizedButtonResolver extends ButtonResolver {
