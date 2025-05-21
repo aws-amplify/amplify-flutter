@@ -50,7 +50,7 @@ extension type Exec._(JSObject it) {
             args.map((arg) => arg.toJS).toList().toJS,
             options,
           ).toDart;
-          
+
       final exitCode = (jsExitCode as JSNumber).toDartInt;
       return ExecResult(
         exitCode: exitCode,
