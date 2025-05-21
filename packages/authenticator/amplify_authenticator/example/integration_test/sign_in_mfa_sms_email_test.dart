@@ -205,9 +205,7 @@ void main() {
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();
 
-        final smsResult_2 = await getOtpCode(
-          UserAttribute.email(username),
-        );
+        final smsResult_2 = await getOtpCode(UserAttribute.email(username));
 
         // Then I see the sign in page
         signInPage.expectEmail();
