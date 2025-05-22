@@ -19,18 +19,15 @@ class _$Session extends Session {
   factory _$Session([void Function(SessionBuilder)? updates]) =>
       (new SessionBuilder()..update(updates))._build();
 
-  _$Session._({
-    this.duration,
-    required this.id,
-    required this.startTimestamp,
-    this.stopTimestamp,
-  }) : super._() {
+  _$Session._(
+      {this.duration,
+      required this.id,
+      required this.startTimestamp,
+      this.stopTimestamp})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'Session', 'id');
     BuiltValueNullFieldError.checkNotNull(
-      startTimestamp,
-      r'Session',
-      'startTimestamp',
-    );
+        startTimestamp, r'Session', 'startTimestamp');
   }
 
   @override
@@ -112,16 +109,12 @@ class SessionBuilder implements Builder<Session, SessionBuilder> {
   Session build() => _build();
 
   _$Session _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$Session._(
           duration: duration,
           id: BuiltValueNullFieldError.checkNotNull(id, r'Session', 'id'),
           startTimestamp: BuiltValueNullFieldError.checkNotNull(
-            startTimestamp,
-            r'Session',
-            'startTimestamp',
-          ),
+              startTimestamp, r'Session', 'startTimestamp'),
           stopTimestamp: stopTimestamp,
         );
     replace(_$result);

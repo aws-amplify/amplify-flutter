@@ -15,22 +15,14 @@ PasswordPolicy _$PasswordPolicyFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = PasswordPolicy(
           minLength: $checkedConvert('min_length', (v) => (v as num?)?.toInt()),
-          requireNumbers: $checkedConvert(
-            'require_numbers',
-            (v) => v as bool? ?? false,
-          ),
-          requireLowercase: $checkedConvert(
-            'require_lowercase',
-            (v) => v as bool? ?? false,
-          ),
-          requireUppercase: $checkedConvert(
-            'require_uppercase',
-            (v) => v as bool? ?? false,
-          ),
-          requireSymbols: $checkedConvert(
-            'require_symbols',
-            (v) => v as bool? ?? false,
-          ),
+          requireNumbers:
+              $checkedConvert('require_numbers', (v) => v as bool? ?? false),
+          requireLowercase:
+              $checkedConvert('require_lowercase', (v) => v as bool? ?? false),
+          requireUppercase:
+              $checkedConvert('require_uppercase', (v) => v as bool? ?? false),
+          requireSymbols:
+              $checkedConvert('require_symbols', (v) => v as bool? ?? false),
         );
         return val;
       },
@@ -39,7 +31,7 @@ PasswordPolicy _$PasswordPolicyFromJson(Map<String, dynamic> json) =>
         'requireNumbers': 'require_numbers',
         'requireLowercase': 'require_lowercase',
         'requireUppercase': 'require_uppercase',
-        'requireSymbols': 'require_symbols',
+        'requireSymbols': 'require_symbols'
       },
     );
 

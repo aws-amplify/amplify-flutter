@@ -24,25 +24,25 @@ class _$InAppMessageCampaign extends InAppMessageCampaign {
   @override
   final String? treatmentId;
 
-  factory _$InAppMessageCampaign([
-    void Function(InAppMessageCampaignBuilder)? updates,
-  ]) => (new InAppMessageCampaignBuilder()..update(updates))._build();
+  factory _$InAppMessageCampaign(
+          [void Function(InAppMessageCampaignBuilder)? updates]) =>
+      (new InAppMessageCampaignBuilder()..update(updates))._build();
 
-  _$InAppMessageCampaign._({
-    this.campaignId,
-    this.dailyCap,
-    this.inAppMessage,
-    this.priority,
-    this.schedule,
-    this.sessionCap,
-    this.totalCap,
-    this.treatmentId,
-  }) : super._();
+  _$InAppMessageCampaign._(
+      {this.campaignId,
+      this.dailyCap,
+      this.inAppMessage,
+      this.priority,
+      this.schedule,
+      this.sessionCap,
+      this.totalCap,
+      this.treatmentId})
+      : super._();
 
   @override
   InAppMessageCampaign rebuild(
-    void Function(InAppMessageCampaignBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(InAppMessageCampaignBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageCampaignBuilder toBuilder() =>
@@ -153,8 +153,7 @@ class InAppMessageCampaignBuilder
   _$InAppMessageCampaign _build() {
     _$InAppMessageCampaign _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$InAppMessageCampaign._(
             campaignId: campaignId,
             dailyCap: dailyCap,
@@ -175,10 +174,7 @@ class InAppMessageCampaignBuilder
         _schedule?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'InAppMessageCampaign',
-          _$failedField,
-          e.toString(),
-        );
+            r'InAppMessageCampaign', _$failedField, e.toString());
       }
       rethrow;
     }

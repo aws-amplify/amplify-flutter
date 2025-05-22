@@ -14,25 +14,17 @@ class _$EventFeedbackType extends EventFeedbackType {
   @override
   final DateTime? feedbackDate;
 
-  factory _$EventFeedbackType([
-    void Function(EventFeedbackTypeBuilder)? updates,
-  ]) => (new EventFeedbackTypeBuilder()..update(updates))._build();
+  factory _$EventFeedbackType(
+          [void Function(EventFeedbackTypeBuilder)? updates]) =>
+      (new EventFeedbackTypeBuilder()..update(updates))._build();
 
-  _$EventFeedbackType._({
-    required this.feedbackValue,
-    required this.provider,
-    this.feedbackDate,
-  }) : super._() {
+  _$EventFeedbackType._(
+      {required this.feedbackValue, required this.provider, this.feedbackDate})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      feedbackValue,
-      r'EventFeedbackType',
-      'feedbackValue',
-    );
+        feedbackValue, r'EventFeedbackType', 'feedbackValue');
     BuiltValueNullFieldError.checkNotNull(
-      provider,
-      r'EventFeedbackType',
-      'provider',
-    );
+        provider, r'EventFeedbackType', 'provider');
   }
 
   @override
@@ -109,19 +101,12 @@ class EventFeedbackTypeBuilder
   EventFeedbackType build() => _build();
 
   _$EventFeedbackType _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$EventFeedbackType._(
           feedbackValue: BuiltValueNullFieldError.checkNotNull(
-            feedbackValue,
-            r'EventFeedbackType',
-            'feedbackValue',
-          ),
+              feedbackValue, r'EventFeedbackType', 'feedbackValue'),
           provider: BuiltValueNullFieldError.checkNotNull(
-            provider,
-            r'EventFeedbackType',
-            'provider',
-          ),
+              provider, r'EventFeedbackType', 'provider'),
           feedbackDate: feedbackDate,
         );
     replace(_$result);

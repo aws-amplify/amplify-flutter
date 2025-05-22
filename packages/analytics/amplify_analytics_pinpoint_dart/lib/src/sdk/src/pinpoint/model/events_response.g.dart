@@ -76,7 +76,10 @@ class EventsResponseBuilder
   _$EventsResponse _build() {
     _$EventsResponse _$result;
     try {
-      _$result = _$v ?? new _$EventsResponse._(results: _results?.build());
+      _$result = _$v ??
+          new _$EventsResponse._(
+            results: _results?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -84,10 +87,7 @@ class EventsResponseBuilder
         _results?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'EventsResponse',
-          _$failedField,
-          e.toString(),
-        );
+            r'EventsResponse', _$failedField, e.toString());
       }
       rethrow;
     }

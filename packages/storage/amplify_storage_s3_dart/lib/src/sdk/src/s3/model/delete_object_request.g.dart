@@ -22,31 +22,28 @@ class _$DeleteObjectRequest extends DeleteObjectRequest {
   @override
   final String? expectedBucketOwner;
 
-  factory _$DeleteObjectRequest([
-    void Function(DeleteObjectRequestBuilder)? updates,
-  ]) => (new DeleteObjectRequestBuilder()..update(updates))._build();
+  factory _$DeleteObjectRequest(
+          [void Function(DeleteObjectRequestBuilder)? updates]) =>
+      (new DeleteObjectRequestBuilder()..update(updates))._build();
 
-  _$DeleteObjectRequest._({
-    required this.bucket,
-    required this.key,
-    this.mfa,
-    this.versionId,
-    this.requestPayer,
-    this.bypassGovernanceRetention,
-    this.expectedBucketOwner,
-  }) : super._() {
+  _$DeleteObjectRequest._(
+      {required this.bucket,
+      required this.key,
+      this.mfa,
+      this.versionId,
+      this.requestPayer,
+      this.bypassGovernanceRetention,
+      this.expectedBucketOwner})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'DeleteObjectRequest',
-      'bucket',
-    );
+        bucket, r'DeleteObjectRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'DeleteObjectRequest', 'key');
   }
 
   @override
   DeleteObjectRequest rebuild(
-    void Function(DeleteObjectRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(DeleteObjectRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectRequestBuilder toBuilder() =>
@@ -147,19 +144,12 @@ class DeleteObjectRequestBuilder
   DeleteObjectRequest build() => _build();
 
   _$DeleteObjectRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$DeleteObjectRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
-            bucket,
-            r'DeleteObjectRequest',
-            'bucket',
-          ),
+              bucket, r'DeleteObjectRequest', 'bucket'),
           key: BuiltValueNullFieldError.checkNotNull(
-            key,
-            r'DeleteObjectRequest',
-            'key',
-          ),
+              key, r'DeleteObjectRequest', 'key'),
           mfa: mfa,
           versionId: versionId,
           requestPayer: requestPayer,
@@ -172,16 +162,16 @@ class DeleteObjectRequestBuilder
 }
 
 class _$DeleteObjectRequestPayload extends DeleteObjectRequestPayload {
-  factory _$DeleteObjectRequestPayload([
-    void Function(DeleteObjectRequestPayloadBuilder)? updates,
-  ]) => (new DeleteObjectRequestPayloadBuilder()..update(updates))._build();
+  factory _$DeleteObjectRequestPayload(
+          [void Function(DeleteObjectRequestPayloadBuilder)? updates]) =>
+      (new DeleteObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$DeleteObjectRequestPayload._() : super._();
 
   @override
   DeleteObjectRequestPayload rebuild(
-    void Function(DeleteObjectRequestPayloadBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(DeleteObjectRequestPayloadBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectRequestPayloadBuilder toBuilder() =>

@@ -9,28 +9,28 @@ part of 'reset_password_step.dart';
 // **************************************************************************
 
 ResetPasswordStep _$ResetPasswordStepFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('ResetPasswordStep', json, ($checkedConvert) {
-      final val = ResetPasswordStep(
-        additionalInfo: $checkedConvert(
-          'additionalInfo',
-          (v) => (v as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ),
-        ),
-        codeDeliveryDetails: $checkedConvert(
-          'codeDeliveryDetails',
-          (v) =>
-              v == null
+    $checkedCreate(
+      'ResetPasswordStep',
+      json,
+      ($checkedConvert) {
+        final val = ResetPasswordStep(
+          additionalInfo: $checkedConvert(
+              'additionalInfo',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+          codeDeliveryDetails: $checkedConvert(
+              'codeDeliveryDetails',
+              (v) => v == null
                   ? null
-                  : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
-        ),
-        updateStep: $checkedConvert(
-          'updateStep',
-          (v) => $enumDecode(_$AuthResetPasswordStepEnumMap, v),
-        ),
-      );
-      return val;
-    });
+                  : AuthCodeDeliveryDetails.fromJson(
+                      v as Map<String, dynamic>)),
+          updateStep: $checkedConvert('updateStep',
+              (v) => $enumDecode(_$AuthResetPasswordStepEnumMap, v)),
+        );
+        return val;
+      },
+    );
 
 Map<String, dynamic> _$ResetPasswordStepToJson(ResetPasswordStep instance) =>
     <String, dynamic>{

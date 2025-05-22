@@ -8,50 +8,48 @@ part of 'amplify_outputs.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AmplifyOutputs _$AmplifyOutputsFromJson(
-  Map<String, dynamic> json,
-) => $checkedCreate('AmplifyOutputs', json, ($checkedConvert) {
-  final val = AmplifyOutputs(
-    schema: $checkedConvert('schema', (v) => v as String?),
-    version: $checkedConvert('version', (v) => v as String),
-    analytics: $checkedConvert(
-      'analytics',
-      (v) =>
-          v == null
-              ? null
-              : AnalyticsOutputs.fromJson(v as Map<String, dynamic>),
-    ),
-    auth: $checkedConvert(
-      'auth',
-      (v) => v == null ? null : AuthOutputs.fromJson(v as Map<String, dynamic>),
-    ),
-    data: $checkedConvert(
-      'data',
-      (v) => _dataFromJson(v as Map<String, Object?>?),
-    ),
-    restApi: $checkedConvert(
-      'rest_api',
-      (v) => (v as Map<String, dynamic>?)?.map(
-        (k, e) =>
-            MapEntry(k, RestApiOutputs.fromJson(e as Map<String, dynamic>)),
-      ),
-    ),
-    notifications: $checkedConvert(
-      'notifications',
-      (v) =>
-          v == null
-              ? null
-              : NotificationsOutputs.fromJson(v as Map<String, dynamic>),
-    ),
-    storage: $checkedConvert(
-      'storage',
-      (v) =>
-          v == null ? null : StorageOutputs.fromJson(v as Map<String, dynamic>),
-    ),
-    custom: $checkedConvert('custom', (v) => v as Map<String, dynamic>?),
-  );
-  return val;
-}, fieldKeyMap: const {'restApi': 'rest_api'});
+AmplifyOutputs _$AmplifyOutputsFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      'AmplifyOutputs',
+      json,
+      ($checkedConvert) {
+        final val = AmplifyOutputs(
+          schema: $checkedConvert('schema', (v) => v as String?),
+          version: $checkedConvert('version', (v) => v as String),
+          analytics: $checkedConvert(
+              'analytics',
+              (v) => v == null
+                  ? null
+                  : AnalyticsOutputs.fromJson(v as Map<String, dynamic>)),
+          auth: $checkedConvert(
+              'auth',
+              (v) => v == null
+                  ? null
+                  : AuthOutputs.fromJson(v as Map<String, dynamic>)),
+          data: $checkedConvert(
+              'data', (v) => _dataFromJson(v as Map<String, Object?>?)),
+          restApi: $checkedConvert(
+              'rest_api',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(
+                        k, RestApiOutputs.fromJson(e as Map<String, dynamic>)),
+                  )),
+          notifications: $checkedConvert(
+              'notifications',
+              (v) => v == null
+                  ? null
+                  : NotificationsOutputs.fromJson(v as Map<String, dynamic>)),
+          storage: $checkedConvert(
+              'storage',
+              (v) => v == null
+                  ? null
+                  : StorageOutputs.fromJson(v as Map<String, dynamic>)),
+          custom: $checkedConvert('custom', (v) => v as Map<String, dynamic>?),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'restApi': 'rest_api'},
+    );
 
 Map<String, dynamic> _$AmplifyOutputsToJson(AmplifyOutputs instance) =>
     <String, dynamic>{

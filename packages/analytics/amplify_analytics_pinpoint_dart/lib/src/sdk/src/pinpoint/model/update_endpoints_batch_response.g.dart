@@ -10,22 +10,19 @@ class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
   @override
   final MessageBody messageBody;
 
-  factory _$UpdateEndpointsBatchResponse([
-    void Function(UpdateEndpointsBatchResponseBuilder)? updates,
-  ]) => (new UpdateEndpointsBatchResponseBuilder()..update(updates))._build();
+  factory _$UpdateEndpointsBatchResponse(
+          [void Function(UpdateEndpointsBatchResponseBuilder)? updates]) =>
+      (new UpdateEndpointsBatchResponseBuilder()..update(updates))._build();
 
   _$UpdateEndpointsBatchResponse._({required this.messageBody}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      messageBody,
-      r'UpdateEndpointsBatchResponse',
-      'messageBody',
-    );
+        messageBody, r'UpdateEndpointsBatchResponse', 'messageBody');
   }
 
   @override
   UpdateEndpointsBatchResponse rebuild(
-    void Function(UpdateEndpointsBatchResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(UpdateEndpointsBatchResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   UpdateEndpointsBatchResponseBuilder toBuilder() =>
@@ -49,10 +46,8 @@ class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
 
 class UpdateEndpointsBatchResponseBuilder
     implements
-        Builder<
-          UpdateEndpointsBatchResponse,
-          UpdateEndpointsBatchResponseBuilder
-        > {
+        Builder<UpdateEndpointsBatchResponse,
+            UpdateEndpointsBatchResponseBuilder> {
   _$UpdateEndpointsBatchResponse? _$v;
 
   MessageBodyBuilder? _messageBody;
@@ -89,8 +84,7 @@ class UpdateEndpointsBatchResponseBuilder
   _$UpdateEndpointsBatchResponse _build() {
     _$UpdateEndpointsBatchResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$UpdateEndpointsBatchResponse._(
             messageBody: messageBody.build(),
           );
@@ -101,10 +95,7 @@ class UpdateEndpointsBatchResponseBuilder
         messageBody.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'UpdateEndpointsBatchResponse',
-          _$failedField,
-          e.toString(),
-        );
+            r'UpdateEndpointsBatchResponse', _$failedField, e.toString());
       }
       rethrow;
     }

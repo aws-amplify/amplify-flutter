@@ -17,17 +17,12 @@ class _$BigIntegerShapeSerializer
   final String wireName = 'BigIntegerShape';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    BigIntegerShape object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, BigIntegerShape object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(
-        object.traits,
-        specifiedType: const FullType(TraitMap),
-      ),
+      serializers.serialize(object.traits,
+          specifiedType: const FullType(TraitMap)),
     ];
 
     return result;
@@ -35,10 +30,8 @@ class _$BigIntegerShapeSerializer
 
   @override
   BigIntegerShape deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new BigIntegerShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -48,12 +41,8 @@ class _$BigIntegerShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(TraitMap),
-                  )!
-                  as TraitMap;
+          result.traits = serializers.deserialize(value,
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }
@@ -72,12 +61,9 @@ class _$BigIntegerShape extends BigIntegerShape {
       (new BigIntegerShapeBuilder()..update(updates))._build();
 
   _$BigIntegerShape._({required this.shapeId, required this.traits})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'BigIntegerShape',
-      'shapeId',
-    );
+        shapeId, r'BigIntegerShape', 'shapeId');
     BuiltValueNullFieldError.checkNotNull(traits, r'BigIntegerShape', 'traits');
   }
 
@@ -158,19 +144,12 @@ class BigIntegerShapeBuilder
   BigIntegerShape build() => _build();
 
   _$BigIntegerShape _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$BigIntegerShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-            shapeId,
-            r'BigIntegerShape',
-            'shapeId',
-          ),
+              shapeId, r'BigIntegerShape', 'shapeId'),
           traits: BuiltValueNullFieldError.checkNotNull(
-            traits,
-            r'BigIntegerShape',
-            'traits',
-          ),
+              traits, r'BigIntegerShape', 'traits'),
         );
     replace(_$result);
     return _$result;

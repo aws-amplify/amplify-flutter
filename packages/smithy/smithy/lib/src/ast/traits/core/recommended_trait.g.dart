@@ -7,7 +7,11 @@ part of 'recommended_trait.dart';
 // **************************************************************************
 
 RecommendedTrait _$RecommendedTraitFromJson(Map<String, dynamic> json) =>
-    RecommendedTrait(reason: json['reason'] as String?);
+    RecommendedTrait(
+      reason: json['reason'] as String?,
+    );
 
 Map<String, dynamic> _$RecommendedTraitToJson(RecommendedTrait instance) =>
-    <String, dynamic>{'reason': instance.reason};
+    <String, dynamic>{
+      'reason': instance.reason,
+    };

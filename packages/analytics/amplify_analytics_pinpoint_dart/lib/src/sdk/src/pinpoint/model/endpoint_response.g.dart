@@ -38,27 +38,27 @@ class _$EndpointResponse extends EndpointResponse {
   @override
   final EndpointUser? user;
 
-  factory _$EndpointResponse([
-    void Function(EndpointResponseBuilder)? updates,
-  ]) => (new EndpointResponseBuilder()..update(updates))._build();
+  factory _$EndpointResponse(
+          [void Function(EndpointResponseBuilder)? updates]) =>
+      (new EndpointResponseBuilder()..update(updates))._build();
 
-  _$EndpointResponse._({
-    this.address,
-    this.applicationId,
-    this.attributes,
-    this.channelType,
-    this.cohortId,
-    this.creationDate,
-    this.demographic,
-    this.effectiveDate,
-    this.endpointStatus,
-    this.id,
-    this.location,
-    this.metrics,
-    this.optOut,
-    this.requestId,
-    this.user,
-  }) : super._();
+  _$EndpointResponse._(
+      {this.address,
+      this.applicationId,
+      this.attributes,
+      this.channelType,
+      this.cohortId,
+      this.creationDate,
+      this.demographic,
+      this.effectiveDate,
+      this.endpointStatus,
+      this.id,
+      this.location,
+      this.metrics,
+      this.optOut,
+      this.requestId,
+      this.user})
+      : super._();
 
   @override
   EndpointResponse rebuild(void Function(EndpointResponseBuilder) updates) =>
@@ -230,8 +230,7 @@ class EndpointResponseBuilder
   _$EndpointResponse _build() {
     _$EndpointResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$EndpointResponse._(
             address: address,
             applicationId: applicationId,
@@ -267,10 +266,7 @@ class EndpointResponseBuilder
         _user?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'EndpointResponse',
-          _$failedField,
-          e.toString(),
-        );
+            r'EndpointResponse', _$failedField, e.toString());
       }
       rethrow;
     }

@@ -33,19 +33,19 @@ class _$PublicEndpoint extends PublicEndpoint {
   factory _$PublicEndpoint([void Function(PublicEndpointBuilder)? updates]) =>
       (new PublicEndpointBuilder()..update(updates))._build();
 
-  _$PublicEndpoint._({
-    this.address,
-    this.attributes,
-    this.channelType,
-    this.demographic,
-    this.effectiveDate,
-    this.endpointStatus,
-    this.location,
-    this.metrics,
-    this.optOut,
-    this.requestId,
-    this.user,
-  }) : super._();
+  _$PublicEndpoint._(
+      {this.address,
+      this.attributes,
+      this.channelType,
+      this.demographic,
+      this.effectiveDate,
+      this.endpointStatus,
+      this.location,
+      this.metrics,
+      this.optOut,
+      this.requestId,
+      this.user})
+      : super._();
 
   @override
   PublicEndpoint rebuild(void Function(PublicEndpointBuilder) updates) =>
@@ -188,8 +188,7 @@ class PublicEndpointBuilder
   _$PublicEndpoint _build() {
     _$PublicEndpoint _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$PublicEndpoint._(
             address: address,
             attributes: _attributes?.build(),
@@ -221,10 +220,7 @@ class PublicEndpointBuilder
         _user?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'PublicEndpoint',
-          _$failedField,
-          e.toString(),
-        );
+            r'PublicEndpoint', _$failedField, e.toString());
       }
       rethrow;
     }

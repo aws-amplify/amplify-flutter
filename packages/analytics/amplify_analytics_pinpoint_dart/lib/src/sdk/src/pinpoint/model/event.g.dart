@@ -31,18 +31,18 @@ class _$Event extends Event {
   factory _$Event([void Function(EventBuilder)? updates]) =>
       (new EventBuilder()..update(updates))._build();
 
-  _$Event._({
-    this.appPackageName,
-    this.appTitle,
-    this.appVersionCode,
-    this.attributes,
-    this.clientSdkVersion,
-    required this.eventType,
-    this.metrics,
-    this.sdkName,
-    this.session,
-    required this.timestamp,
-  }) : super._() {
+  _$Event._(
+      {this.appPackageName,
+      this.appTitle,
+      this.appVersionCode,
+      this.attributes,
+      this.clientSdkVersion,
+      required this.eventType,
+      this.metrics,
+      this.sdkName,
+      this.session,
+      required this.timestamp})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(eventType, r'Event', 'eventType');
     BuiltValueNullFieldError.checkNotNull(timestamp, r'Event', 'timestamp');
   }
@@ -175,8 +175,7 @@ class EventBuilder implements Builder<Event, EventBuilder> {
   _$Event _build() {
     _$Event _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$Event._(
             appPackageName: appPackageName,
             appTitle: appTitle,
@@ -184,18 +183,12 @@ class EventBuilder implements Builder<Event, EventBuilder> {
             attributes: _attributes?.build(),
             clientSdkVersion: clientSdkVersion,
             eventType: BuiltValueNullFieldError.checkNotNull(
-              eventType,
-              r'Event',
-              'eventType',
-            ),
+                eventType, r'Event', 'eventType'),
             metrics: _metrics?.build(),
             sdkName: sdkName,
             session: _session?.build(),
             timestamp: BuiltValueNullFieldError.checkNotNull(
-              timestamp,
-              r'Event',
-              'timestamp',
-            ),
+                timestamp, r'Event', 'timestamp'),
           );
     } catch (_) {
       late String _$failedField;
@@ -210,10 +203,7 @@ class EventBuilder implements Builder<Event, EventBuilder> {
         _session?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'Event',
-          _$failedField,
-          e.toString(),
-        );
+            r'Event', _$failedField, e.toString());
       }
       rethrow;
     }

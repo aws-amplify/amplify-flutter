@@ -15,10 +15,7 @@ class _$EventsRequest extends EventsRequest {
 
   _$EventsRequest._({required this.batchItem}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      batchItem,
-      r'EventsRequest',
-      'batchItem',
-    );
+        batchItem, r'EventsRequest', 'batchItem');
   }
 
   @override
@@ -81,7 +78,10 @@ class EventsRequestBuilder
   _$EventsRequest _build() {
     _$EventsRequest _$result;
     try {
-      _$result = _$v ?? new _$EventsRequest._(batchItem: batchItem.build());
+      _$result = _$v ??
+          new _$EventsRequest._(
+            batchItem: batchItem.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -89,10 +89,7 @@ class EventsRequestBuilder
         batchItem.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'EventsRequest',
-          _$failedField,
-          e.toString(),
-        );
+            r'EventsRequest', _$failedField, e.toString());
       }
       rethrow;
     }

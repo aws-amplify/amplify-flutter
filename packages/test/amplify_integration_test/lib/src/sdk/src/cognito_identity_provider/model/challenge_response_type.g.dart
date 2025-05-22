@@ -12,17 +12,17 @@ class _$ChallengeResponseType extends ChallengeResponseType {
   @override
   final ChallengeResponse? challengeResponse;
 
-  factory _$ChallengeResponseType([
-    void Function(ChallengeResponseTypeBuilder)? updates,
-  ]) => (new ChallengeResponseTypeBuilder()..update(updates))._build();
+  factory _$ChallengeResponseType(
+          [void Function(ChallengeResponseTypeBuilder)? updates]) =>
+      (new ChallengeResponseTypeBuilder()..update(updates))._build();
 
   _$ChallengeResponseType._({this.challengeName, this.challengeResponse})
-    : super._();
+      : super._();
 
   @override
   ChallengeResponseType rebuild(
-    void Function(ChallengeResponseTypeBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(ChallengeResponseTypeBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ChallengeResponseTypeBuilder toBuilder() =>
@@ -87,8 +87,7 @@ class ChallengeResponseTypeBuilder
   ChallengeResponseType build() => _build();
 
   _$ChallengeResponseType _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$ChallengeResponseType._(
           challengeName: challengeName,
           challengeResponse: challengeResponse,

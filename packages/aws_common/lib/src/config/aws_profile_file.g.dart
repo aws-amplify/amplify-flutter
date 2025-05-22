@@ -7,9 +7,8 @@ part of 'aws_profile_file.dart';
 // **************************************************************************
 
 const AWSProfileFileType _$config = const AWSProfileFileType._('config');
-const AWSProfileFileType _$credentials = const AWSProfileFileType._(
-  'credentials',
-);
+const AWSProfileFileType _$credentials =
+    const AWSProfileFileType._('credentials');
 
 AWSProfileFileType _$AWSProfileFileTypeValueOf(String name) {
   switch (name) {
@@ -24,38 +23,28 @@ AWSProfileFileType _$AWSProfileFileTypeValueOf(String name) {
 
 final BuiltSet<AWSProfileFileType> _$AWSProfileFileTypeValues =
     new BuiltSet<AWSProfileFileType>(const <AWSProfileFileType>[
-      _$config,
-      _$credentials,
-    ]);
+  _$config,
+  _$credentials,
+]);
 
-Serializers _$_serializers =
-    (new Serializers().toBuilder()
-          ..add(AWSProfile.serializer)
-          ..add(AWSProfileFile.serializer)
-          ..add(AWSProfileFileType.serializer)
-          ..add(AWSProperty.serializer)
-          ..addBuilderFactory(
-            const FullType(BuiltMap, const [
-              const FullType(String),
-              const FullType(AWSProfile),
-            ]),
-            () => new MapBuilder<String, AWSProfile>(),
-          )
-          ..addBuilderFactory(
-            const FullType(BuiltMap, const [
-              const FullType(String),
-              const FullType(AWSProperty),
-            ]),
-            () => new MapBuilder<String, AWSProperty>(),
-          )
-          ..addBuilderFactory(
-            const FullType(BuiltMap, const [
-              const FullType(String),
-              const FullType(AWSProperty),
-            ]),
-            () => new MapBuilder<String, AWSProperty>(),
-          ))
-        .build();
+Serializers _$_serializers = (new Serializers().toBuilder()
+      ..add(AWSProfile.serializer)
+      ..add(AWSProfileFile.serializer)
+      ..add(AWSProfileFileType.serializer)
+      ..add(AWSProperty.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltMap,
+              const [const FullType(String), const FullType(AWSProfile)]),
+          () => new MapBuilder<String, AWSProfile>())
+      ..addBuilderFactory(
+          const FullType(BuiltMap,
+              const [const FullType(String), const FullType(AWSProperty)]),
+          () => new MapBuilder<String, AWSProperty>())
+      ..addBuilderFactory(
+          const FullType(BuiltMap,
+              const [const FullType(String), const FullType(AWSProperty)]),
+          () => new MapBuilder<String, AWSProperty>()))
+    .build();
 Serializer<AWSProfileFileType> _$aWSProfileFileTypeSerializer =
     new _$AWSProfileFileTypeSerializer();
 Serializer<AWSProfileFile> _$aWSProfileFileSerializer =
@@ -71,18 +60,14 @@ class _$AWSProfileFileTypeSerializer
   final String wireName = 'AWSProfileFileType';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    AWSProfileFileType object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => object.name;
+  Object serialize(Serializers serializers, AWSProfileFileType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
 
   @override
-  AWSProfileFileType deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => AWSProfileFileType.valueOf(serialized as String);
+  AWSProfileFileType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      AWSProfileFileType.valueOf(serialized as String);
 }
 
 class _$AWSProfileFileSerializer
@@ -93,20 +78,13 @@ class _$AWSProfileFileSerializer
   final String wireName = 'AWSProfileFile';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    AWSProfileFile object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, AWSProfileFile object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'profiles',
-      serializers.serialize(
-        object.profiles,
-        specifiedType: const FullType(BuiltMap, const [
-          const FullType(String),
-          const FullType(AWSProfile),
-        ]),
-      ),
+      serializers.serialize(object.profiles,
+          specifiedType: const FullType(BuiltMap,
+              const [const FullType(String), const FullType(AWSProfile)])),
     ];
 
     return result;
@@ -114,10 +92,8 @@ class _$AWSProfileFileSerializer
 
   @override
   AWSProfileFile deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new AWSProfileFileBuilder();
 
     final iterator = serialized.iterator;
@@ -127,15 +103,11 @@ class _$AWSProfileFileSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'profiles':
-          result.profiles.replace(
-            serializers.deserialize(
-              value,
+          result.profiles.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
-                const FullType(AWSProfile),
-              ]),
-            )!,
-          );
+                const FullType(AWSProfile)
+              ]))!);
           break;
       }
     }
@@ -151,33 +123,23 @@ class _$AWSProfileSerializer implements StructuredSerializer<AWSProfile> {
   final String wireName = 'AWSProfile';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    AWSProfile object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, AWSProfile object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'properties',
-      serializers.serialize(
-        object.properties,
-        specifiedType: const FullType(BuiltMap, const [
-          const FullType(String),
-          const FullType(AWSProperty),
-        ]),
-      ),
+      serializers.serialize(object.properties,
+          specifiedType: const FullType(BuiltMap,
+              const [const FullType(String), const FullType(AWSProperty)])),
     ];
 
     return result;
   }
 
   @override
-  AWSProfile deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  AWSProfile deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new AWSProfileBuilder();
 
     final iterator = serialized.iterator;
@@ -187,23 +149,15 @@ class _$AWSProfileSerializer implements StructuredSerializer<AWSProfile> {
       final Object? value = iterator.current;
       switch (key) {
         case 'name':
-          result.name =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'properties':
-          result.properties.replace(
-            serializers.deserialize(
-              value,
+          result.properties.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
-                const FullType(AWSProperty),
-              ]),
-            )!,
-          );
+                const FullType(AWSProperty)
+              ]))!);
           break;
       }
     }
@@ -219,38 +173,26 @@ class _$AWSPropertySerializer implements StructuredSerializer<AWSProperty> {
   final String wireName = 'AWSProperty';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    AWSProperty object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, AWSProperty object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
       'value',
-      serializers.serialize(
-        object.value,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(object.value,
+          specifiedType: const FullType(String)),
       'subProperties',
-      serializers.serialize(
-        object.subProperties,
-        specifiedType: const FullType(BuiltMap, const [
-          const FullType(String),
-          const FullType(AWSProperty),
-        ]),
-      ),
+      serializers.serialize(object.subProperties,
+          specifiedType: const FullType(BuiltMap,
+              const [const FullType(String), const FullType(AWSProperty)])),
     ];
 
     return result;
   }
 
   @override
-  AWSProperty deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  AWSProperty deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new AWSPropertyBuilder();
 
     final iterator = serialized.iterator;
@@ -260,31 +202,19 @@ class _$AWSPropertySerializer implements StructuredSerializer<AWSProperty> {
       final Object? value = iterator.current;
       switch (key) {
         case 'name':
-          result.name =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'value':
-          result.value =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.value = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'subProperties':
-          result.subProperties.replace(
-            serializers.deserialize(
-              value,
+          result.subProperties.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
-                const FullType(AWSProperty),
-              ]),
-            )!,
-          );
+                const FullType(AWSProperty)
+              ]))!);
           break;
       }
     }
@@ -302,10 +232,7 @@ class _$AWSProfileFile extends AWSProfileFile {
 
   _$AWSProfileFile._({required this.profiles}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      profiles,
-      r'AWSProfileFile',
-      'profiles',
-    );
+        profiles, r'AWSProfileFile', 'profiles');
   }
 
   @override
@@ -333,7 +260,8 @@ class _$AWSProfileFile extends AWSProfileFile {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'AWSProfileFile')
-      ..add('profiles', profiles)).toString();
+          ..add('profiles', profiles))
+        .toString();
   }
 }
 
@@ -375,7 +303,10 @@ class AWSProfileFileBuilder
   _$AWSProfileFile _build() {
     _$AWSProfileFile _$result;
     try {
-      _$result = _$v ?? new _$AWSProfileFile._(profiles: profiles.build());
+      _$result = _$v ??
+          new _$AWSProfileFile._(
+            profiles: profiles.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -383,10 +314,7 @@ class AWSProfileFileBuilder
         profiles.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'AWSProfileFile',
-          _$failedField,
-          e.toString(),
-        );
+            r'AWSProfileFile', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -407,10 +335,7 @@ class _$AWSProfile extends AWSProfile {
   _$AWSProfile._({required this.name, required this.properties}) : super._() {
     BuiltValueNullFieldError.checkNotNull(name, r'AWSProfile', 'name');
     BuiltValueNullFieldError.checkNotNull(
-      properties,
-      r'AWSProfile',
-      'properties',
-    );
+        properties, r'AWSProfile', 'properties');
   }
 
   @override
@@ -488,14 +413,10 @@ class AWSProfileBuilder implements Builder<AWSProfile, AWSProfileBuilder> {
   _$AWSProfile _build() {
     _$AWSProfile _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$AWSProfile._(
             name: BuiltValueNullFieldError.checkNotNull(
-              name,
-              r'AWSProfile',
-              'name',
-            ),
+                name, r'AWSProfile', 'name'),
             properties: properties.build(),
           );
     } catch (_) {
@@ -505,10 +426,7 @@ class AWSProfileBuilder implements Builder<AWSProfile, AWSProfileBuilder> {
         properties.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'AWSProfile',
-          _$failedField,
-          e.toString(),
-        );
+            r'AWSProfile', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -528,18 +446,13 @@ class _$AWSProperty extends AWSProperty {
   factory _$AWSProperty([void Function(AWSPropertyBuilder)? updates]) =>
       (new AWSPropertyBuilder()..update(updates))._build();
 
-  _$AWSProperty._({
-    required this.name,
-    required this.value,
-    required this.subProperties,
-  }) : super._() {
+  _$AWSProperty._(
+      {required this.name, required this.value, required this.subProperties})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(name, r'AWSProperty', 'name');
     BuiltValueNullFieldError.checkNotNull(value, r'AWSProperty', 'value');
     BuiltValueNullFieldError.checkNotNull(
-      subProperties,
-      r'AWSProperty',
-      'subProperties',
-    );
+        subProperties, r'AWSProperty', 'subProperties');
   }
 
   @override
@@ -625,19 +538,12 @@ class AWSPropertyBuilder implements Builder<AWSProperty, AWSPropertyBuilder> {
   _$AWSProperty _build() {
     _$AWSProperty _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$AWSProperty._(
             name: BuiltValueNullFieldError.checkNotNull(
-              name,
-              r'AWSProperty',
-              'name',
-            ),
+                name, r'AWSProperty', 'name'),
             value: BuiltValueNullFieldError.checkNotNull(
-              value,
-              r'AWSProperty',
-              'value',
-            ),
+                value, r'AWSProperty', 'value'),
             subProperties: subProperties.build(),
           );
     } catch (_) {
@@ -647,10 +553,7 @@ class AWSPropertyBuilder implements Builder<AWSProperty, AWSPropertyBuilder> {
         subProperties.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'AWSProperty',
-          _$failedField,
-          e.toString(),
-        );
+            r'AWSProperty', _$failedField, e.toString());
       }
       rethrow;
     }

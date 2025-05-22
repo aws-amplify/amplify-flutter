@@ -102,7 +102,7 @@ ${workerImpl.impl}''');
 $generatedHeader
 
 export '${libraries[Target.vm]}' 
-  if (dart.library.js) '${libraries[Target.js]}';
+  if (dart.library.js_interop) '${libraries[Target.js]}';
 ''';
   }
 

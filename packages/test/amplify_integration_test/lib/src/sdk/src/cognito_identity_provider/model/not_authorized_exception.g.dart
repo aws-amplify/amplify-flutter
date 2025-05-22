@@ -12,16 +12,16 @@ class _$NotAuthorizedException extends NotAuthorizedException {
   @override
   final Map<String, String>? headers;
 
-  factory _$NotAuthorizedException([
-    void Function(NotAuthorizedExceptionBuilder)? updates,
-  ]) => (new NotAuthorizedExceptionBuilder()..update(updates))._build();
+  factory _$NotAuthorizedException(
+          [void Function(NotAuthorizedExceptionBuilder)? updates]) =>
+      (new NotAuthorizedExceptionBuilder()..update(updates))._build();
 
   _$NotAuthorizedException._({this.message, this.headers}) : super._();
 
   @override
   NotAuthorizedException rebuild(
-    void Function(NotAuthorizedExceptionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(NotAuthorizedExceptionBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   NotAuthorizedExceptionBuilder toBuilder() =>
@@ -81,9 +81,11 @@ class NotAuthorizedExceptionBuilder
   NotAuthorizedException build() => _build();
 
   _$NotAuthorizedException _build() {
-    final _$result =
-        _$v ??
-        new _$NotAuthorizedException._(message: message, headers: headers);
+    final _$result = _$v ??
+        new _$NotAuthorizedException._(
+          message: message,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

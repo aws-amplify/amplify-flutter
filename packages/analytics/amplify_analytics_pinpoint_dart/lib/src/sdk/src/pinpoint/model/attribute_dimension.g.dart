@@ -12,23 +12,20 @@ class _$AttributeDimension extends AttributeDimension {
   @override
   final _i2.BuiltList<String> values;
 
-  factory _$AttributeDimension([
-    void Function(AttributeDimensionBuilder)? updates,
-  ]) => (new AttributeDimensionBuilder()..update(updates))._build();
+  factory _$AttributeDimension(
+          [void Function(AttributeDimensionBuilder)? updates]) =>
+      (new AttributeDimensionBuilder()..update(updates))._build();
 
   _$AttributeDimension._({this.attributeType, required this.values})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      values,
-      r'AttributeDimension',
-      'values',
-    );
+        values, r'AttributeDimension', 'values');
   }
 
   @override
   AttributeDimension rebuild(
-    void Function(AttributeDimensionBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(AttributeDimensionBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   AttributeDimensionBuilder toBuilder() =>
@@ -95,8 +92,7 @@ class AttributeDimensionBuilder
   _$AttributeDimension _build() {
     _$AttributeDimension _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$AttributeDimension._(
             attributeType: attributeType,
             values: values.build(),
@@ -108,10 +104,7 @@ class AttributeDimensionBuilder
         values.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'AttributeDimension',
-          _$failedField,
-          e.toString(),
-        );
+            r'AttributeDimension', _$failedField, e.toString());
       }
       rethrow;
     }

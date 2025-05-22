@@ -25,15 +25,15 @@ class _$CsvInput extends CsvInput {
   factory _$CsvInput([void Function(CsvInputBuilder)? updates]) =>
       (new CsvInputBuilder()..update(updates))._build();
 
-  _$CsvInput._({
-    this.fileHeaderInfo,
-    this.comments,
-    this.quoteEscapeCharacter,
-    this.recordDelimiter,
-    this.fieldDelimiter,
-    this.quoteCharacter,
-    this.allowQuotedRecordDelimiter,
-  }) : super._();
+  _$CsvInput._(
+      {this.fileHeaderInfo,
+      this.comments,
+      this.quoteEscapeCharacter,
+      this.recordDelimiter,
+      this.fieldDelimiter,
+      this.quoteCharacter,
+      this.allowQuotedRecordDelimiter})
+      : super._();
 
   @override
   CsvInput rebuild(void Function(CsvInputBuilder) updates) =>
@@ -139,8 +139,7 @@ class CsvInputBuilder implements Builder<CsvInput, CsvInputBuilder> {
   CsvInput build() => _build();
 
   _$CsvInput _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$CsvInput._(
           fileHeaderInfo: fileHeaderInfo,
           comments: comments,

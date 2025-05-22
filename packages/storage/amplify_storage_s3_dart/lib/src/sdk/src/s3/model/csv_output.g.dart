@@ -21,13 +21,13 @@ class _$CsvOutput extends CsvOutput {
   factory _$CsvOutput([void Function(CsvOutputBuilder)? updates]) =>
       (new CsvOutputBuilder()..update(updates))._build();
 
-  _$CsvOutput._({
-    this.quoteFields,
-    this.quoteEscapeCharacter,
-    this.recordDelimiter,
-    this.fieldDelimiter,
-    this.quoteCharacter,
-  }) : super._();
+  _$CsvOutput._(
+      {this.quoteFields,
+      this.quoteEscapeCharacter,
+      this.recordDelimiter,
+      this.fieldDelimiter,
+      this.quoteCharacter})
+      : super._();
 
   @override
   CsvOutput rebuild(void Function(CsvOutputBuilder) updates) =>
@@ -118,8 +118,7 @@ class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   CsvOutput build() => _build();
 
   _$CsvOutput _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$CsvOutput._(
           quoteFields: quoteFields,
           quoteEscapeCharacter: quoteEscapeCharacter,

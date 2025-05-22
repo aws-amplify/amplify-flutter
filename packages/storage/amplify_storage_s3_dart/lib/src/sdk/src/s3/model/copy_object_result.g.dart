@@ -20,18 +20,18 @@ class _$CopyObjectResult extends CopyObjectResult {
   @override
   final String? checksumSha256;
 
-  factory _$CopyObjectResult([
-    void Function(CopyObjectResultBuilder)? updates,
-  ]) => (new CopyObjectResultBuilder()..update(updates))._build();
+  factory _$CopyObjectResult(
+          [void Function(CopyObjectResultBuilder)? updates]) =>
+      (new CopyObjectResultBuilder()..update(updates))._build();
 
-  _$CopyObjectResult._({
-    this.eTag,
-    this.lastModified,
-    this.checksumCrc32,
-    this.checksumCrc32C,
-    this.checksumSha1,
-    this.checksumSha256,
-  }) : super._();
+  _$CopyObjectResult._(
+      {this.eTag,
+      this.lastModified,
+      this.checksumCrc32,
+      this.checksumCrc32C,
+      this.checksumSha1,
+      this.checksumSha256})
+      : super._();
 
   @override
   CopyObjectResult rebuild(void Function(CopyObjectResultBuilder) updates) =>
@@ -130,8 +130,7 @@ class CopyObjectResultBuilder
   CopyObjectResult build() => _build();
 
   _$CopyObjectResult _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$CopyObjectResult._(
           eTag: eTag,
           lastModified: lastModified,

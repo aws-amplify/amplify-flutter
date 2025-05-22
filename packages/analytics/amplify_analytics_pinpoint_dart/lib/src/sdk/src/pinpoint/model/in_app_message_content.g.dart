@@ -20,23 +20,23 @@ class _$InAppMessageContent extends InAppMessageContent {
   @override
   final InAppMessageButton? secondaryBtn;
 
-  factory _$InAppMessageContent([
-    void Function(InAppMessageContentBuilder)? updates,
-  ]) => (new InAppMessageContentBuilder()..update(updates))._build();
+  factory _$InAppMessageContent(
+          [void Function(InAppMessageContentBuilder)? updates]) =>
+      (new InAppMessageContentBuilder()..update(updates))._build();
 
-  _$InAppMessageContent._({
-    this.backgroundColor,
-    this.bodyConfig,
-    this.headerConfig,
-    this.imageUrl,
-    this.primaryBtn,
-    this.secondaryBtn,
-  }) : super._();
+  _$InAppMessageContent._(
+      {this.backgroundColor,
+      this.bodyConfig,
+      this.headerConfig,
+      this.imageUrl,
+      this.primaryBtn,
+      this.secondaryBtn})
+      : super._();
 
   @override
   InAppMessageContent rebuild(
-    void Function(InAppMessageContentBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(InAppMessageContentBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageContentBuilder toBuilder() =>
@@ -138,8 +138,7 @@ class InAppMessageContentBuilder
   _$InAppMessageContent _build() {
     _$InAppMessageContent _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$InAppMessageContent._(
             backgroundColor: backgroundColor,
             bodyConfig: _bodyConfig?.build(),
@@ -162,10 +161,7 @@ class InAppMessageContentBuilder
         _secondaryBtn?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'InAppMessageContent',
-          _$failedField,
-          e.toString(),
-        );
+            r'InAppMessageContent', _$failedField, e.toString());
       }
       rethrow;
     }
