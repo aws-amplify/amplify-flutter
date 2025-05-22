@@ -225,7 +225,7 @@ void main() {
         await confirmSignInPage.expectConfirmSignInMfaSelectionIsPresent();
 
         // When I select "SMS"
-        await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.email);
+        await confirmSignInPage.selectMfaMethod(mfaMethod: MfaType.sms);
 
         // And I click the "Confirm" button
         await confirmSignInPage.submitConfirmSignInMfaSelection();
