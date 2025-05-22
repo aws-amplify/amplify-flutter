@@ -152,6 +152,7 @@ void main() {
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             UnauthenticatedState.signIn,
+            isA<ContinueSignInWithMfaSelection>(),
             UnauthenticatedState.confirmSignInMfa,
             isA<AuthenticatedState>(),
             emitsDone,
@@ -205,7 +206,9 @@ void main() {
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();
 
-        final smsResult_2 = await getOtpCode(UserAttribute.email(username));
+        final smsResult_2 = await getOtpCode(
+          UserAttribute.phone(phoneNumber.toE164()),
+        );
 
         // Then I see the sign in page
         signInPage.expectEmail();
