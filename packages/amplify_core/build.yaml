@@ -6,12 +6,15 @@ targets:
     builders:
       build_web_compilers:entrypoint:
         release_options:
-          dart2js_args:
-              - --define=dart.vm.product=true
-              - --enable-asserts
-          dart2wasm_args:
-              - --define=dart.vm.product=true
-              - --enable-asserts
+          compilers:
+            dart2js:
+              args:
+                - --define=dart.vm.product=true
+                - --enable-asserts
+            dart2wasm:
+              args:
+                - --define=dart.vm.product=true
+                - --enable-asserts
       source_gen:combining_builder:
         options:
           # TODO(equartey): Remove when customAuthWithSrp & customAuthWithoutSrp are supported by CLI

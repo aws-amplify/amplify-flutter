@@ -3,7 +3,10 @@ targets:
     builders:
       build_web_compilers:entrypoint:
         release_options:
-          dart2js_args:
-              - --define=dart.vm.product=true
-          dart2wasm_args:
-              - --define=dart.vm.product=true
+          compilers:
+            dart2js:
+              args:
+                - --define=dart.vm.product=true
+            dart2wasm:
+              args:
+                - --define=dart.vm.product=true
