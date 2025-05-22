@@ -5,6 +5,9 @@ publish_to: none
 environment:
   sdk: ^3.7.0
 
+dependencies:
+  web: ^1.1.1
+
 dependency_overrides:
   aws_common:
     path: ../../aws_common

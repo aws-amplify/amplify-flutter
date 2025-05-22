@@ -12,16 +12,16 @@ class _$OutputSerialization extends OutputSerialization {
   @override
   final JsonOutput? json;
 
-  factory _$OutputSerialization([
-    void Function(OutputSerializationBuilder)? updates,
-  ]) => (new OutputSerializationBuilder()..update(updates))._build();
+  factory _$OutputSerialization(
+          [void Function(OutputSerializationBuilder)? updates]) =>
+      (new OutputSerializationBuilder()..update(updates))._build();
 
   _$OutputSerialization._({this.csv, this.json}) : super._();
 
   @override
   OutputSerialization rebuild(
-    void Function(OutputSerializationBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(OutputSerializationBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   OutputSerializationBuilder toBuilder() =>
@@ -86,9 +86,11 @@ class OutputSerializationBuilder
   _$OutputSerialization _build() {
     _$OutputSerialization _$result;
     try {
-      _$result =
-          _$v ??
-          new _$OutputSerialization._(csv: _csv?.build(), json: _json?.build());
+      _$result = _$v ??
+          new _$OutputSerialization._(
+            csv: _csv?.build(),
+            json: _json?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -98,10 +100,7 @@ class OutputSerializationBuilder
         _json?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'OutputSerialization',
-          _$failedField,
-          e.toString(),
-        );
+            r'OutputSerialization', _$failedField, e.toString());
       }
       rethrow;
     }

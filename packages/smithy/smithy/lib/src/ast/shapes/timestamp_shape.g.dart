@@ -17,17 +17,12 @@ class _$TimestampShapeSerializer
   final String wireName = 'TimestampShape';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    TimestampShape object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, TimestampShape object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(
-        object.traits,
-        specifiedType: const FullType(TraitMap),
-      ),
+      serializers.serialize(object.traits,
+          specifiedType: const FullType(TraitMap)),
     ];
 
     return result;
@@ -35,10 +30,8 @@ class _$TimestampShapeSerializer
 
   @override
   TimestampShape deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new TimestampShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -48,12 +41,8 @@ class _$TimestampShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(TraitMap),
-                  )!
-                  as TraitMap;
+          result.traits = serializers.deserialize(value,
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }
@@ -72,12 +61,9 @@ class _$TimestampShape extends TimestampShape {
       (new TimestampShapeBuilder()..update(updates))._build();
 
   _$TimestampShape._({required this.shapeId, required this.traits})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'TimestampShape',
-      'shapeId',
-    );
+        shapeId, r'TimestampShape', 'shapeId');
     BuiltValueNullFieldError.checkNotNull(traits, r'TimestampShape', 'traits');
   }
 
@@ -158,19 +144,12 @@ class TimestampShapeBuilder
   TimestampShape build() => _build();
 
   _$TimestampShape _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$TimestampShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-            shapeId,
-            r'TimestampShape',
-            'shapeId',
-          ),
+              shapeId, r'TimestampShape', 'shapeId'),
           traits: BuiltValueNullFieldError.checkNotNull(
-            traits,
-            r'TimestampShape',
-            'traits',
-          ),
+              traits, r'TimestampShape', 'traits'),
         );
     replace(_$result);
     return _$result;

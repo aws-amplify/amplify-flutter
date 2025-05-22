@@ -20,34 +20,28 @@ class _$DefaultButtonConfiguration extends DefaultButtonConfiguration {
   @override
   final String? textColor;
 
-  factory _$DefaultButtonConfiguration([
-    void Function(DefaultButtonConfigurationBuilder)? updates,
-  ]) => (new DefaultButtonConfigurationBuilder()..update(updates))._build();
+  factory _$DefaultButtonConfiguration(
+          [void Function(DefaultButtonConfigurationBuilder)? updates]) =>
+      (new DefaultButtonConfigurationBuilder()..update(updates))._build();
 
-  _$DefaultButtonConfiguration._({
-    this.backgroundColor,
-    this.borderRadius,
-    required this.buttonAction,
-    this.link,
-    required this.text,
-    this.textColor,
-  }) : super._() {
+  _$DefaultButtonConfiguration._(
+      {this.backgroundColor,
+      this.borderRadius,
+      required this.buttonAction,
+      this.link,
+      required this.text,
+      this.textColor})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      buttonAction,
-      r'DefaultButtonConfiguration',
-      'buttonAction',
-    );
+        buttonAction, r'DefaultButtonConfiguration', 'buttonAction');
     BuiltValueNullFieldError.checkNotNull(
-      text,
-      r'DefaultButtonConfiguration',
-      'text',
-    );
+        text, r'DefaultButtonConfiguration', 'text');
   }
 
   @override
   DefaultButtonConfiguration rebuild(
-    void Function(DefaultButtonConfigurationBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(DefaultButtonConfigurationBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   DefaultButtonConfigurationBuilder toBuilder() =>
@@ -141,22 +135,15 @@ class DefaultButtonConfigurationBuilder
   DefaultButtonConfiguration build() => _build();
 
   _$DefaultButtonConfiguration _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$DefaultButtonConfiguration._(
           backgroundColor: backgroundColor,
           borderRadius: borderRadius,
           buttonAction: BuiltValueNullFieldError.checkNotNull(
-            buttonAction,
-            r'DefaultButtonConfiguration',
-            'buttonAction',
-          ),
+              buttonAction, r'DefaultButtonConfiguration', 'buttonAction'),
           link: link,
           text: BuiltValueNullFieldError.checkNotNull(
-            text,
-            r'DefaultButtonConfiguration',
-            'text',
-          ),
+              text, r'DefaultButtonConfiguration', 'text'),
           textColor: textColor,
         );
     replace(_$result);

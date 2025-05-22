@@ -17,17 +17,15 @@ RestApiOutputs _$RestApiOutputsFromJson(Map<String, dynamic> json) =>
           awsRegion: $checkedConvert('aws_region', (v) => v as String),
           url: $checkedConvert('url', (v) => v as String),
           apiKey: $checkedConvert('api_key', (v) => v as String?),
-          authorizationType: $checkedConvert(
-            'authorization_type',
-            (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v),
-          ),
+          authorizationType: $checkedConvert('authorization_type',
+              (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v)),
         );
         return val;
       },
       fieldKeyMap: const {
         'awsRegion': 'aws_region',
         'apiKey': 'api_key',
-        'authorizationType': 'authorization_type',
+        'authorizationType': 'authorization_type'
       },
     );
 

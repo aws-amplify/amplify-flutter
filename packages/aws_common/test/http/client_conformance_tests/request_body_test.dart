@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 
 import '../http_common.dart';
 import 'request_body_server_vm.dart'
-    if (dart.library.js) 'request_body_server_web.dart';
+    if (dart.library.js_interop) 'request_body_server_web.dart';
 
 class _Plus2Decoder extends Converter<List<int>, String> {
   @override

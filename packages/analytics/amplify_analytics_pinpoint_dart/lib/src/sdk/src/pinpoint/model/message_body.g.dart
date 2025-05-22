@@ -80,8 +80,11 @@ class MessageBodyBuilder implements Builder<MessageBody, MessageBodyBuilder> {
   MessageBody build() => _build();
 
   _$MessageBody _build() {
-    final _$result =
-        _$v ?? new _$MessageBody._(message: message, requestId: requestId);
+    final _$result = _$v ??
+        new _$MessageBody._(
+          message: message,
+          requestId: requestId,
+        );
     replace(_$result);
     return _$result;
   }

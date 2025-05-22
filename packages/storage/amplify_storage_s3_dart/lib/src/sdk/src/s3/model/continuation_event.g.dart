@@ -7,9 +7,9 @@ part of 'continuation_event.dart';
 // **************************************************************************
 
 class _$ContinuationEvent extends ContinuationEvent {
-  factory _$ContinuationEvent([
-    void Function(ContinuationEventBuilder)? updates,
-  ]) => (new ContinuationEventBuilder()..update(updates))._build();
+  factory _$ContinuationEvent(
+          [void Function(ContinuationEventBuilder)? updates]) =>
+      (new ContinuationEventBuilder()..update(updates))._build();
 
   _$ContinuationEvent._() : super._();
 

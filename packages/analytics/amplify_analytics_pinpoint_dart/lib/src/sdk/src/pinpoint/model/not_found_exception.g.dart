@@ -14,12 +14,12 @@ class _$NotFoundException extends NotFoundException {
   @override
   final Map<String, String>? headers;
 
-  factory _$NotFoundException([
-    void Function(NotFoundExceptionBuilder)? updates,
-  ]) => (new NotFoundExceptionBuilder()..update(updates))._build();
+  factory _$NotFoundException(
+          [void Function(NotFoundExceptionBuilder)? updates]) =>
+      (new NotFoundExceptionBuilder()..update(updates))._build();
 
   _$NotFoundException._({this.message, this.requestId, this.headers})
-    : super._();
+      : super._();
 
   @override
   NotFoundException rebuild(void Function(NotFoundExceptionBuilder) updates) =>
@@ -91,8 +91,7 @@ class NotFoundExceptionBuilder
   NotFoundException build() => _build();
 
   _$NotFoundException _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$NotFoundException._(
           message: message,
           requestId: requestId,

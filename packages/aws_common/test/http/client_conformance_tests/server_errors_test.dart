@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 import '../http_common.dart';
 import 'server_errors_server_vm.dart'
-    if (dart.library.js) 'server_errors_server_web.dart';
+    if (dart.library.js_interop) 'server_errors_server_web.dart';
 
 /// Tests that the [AWSHttpClient] correctly handles server errors.
 void main() {

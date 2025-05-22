@@ -26,32 +26,29 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
   @override
   final RequestPayer? requestPayer;
 
-  factory _$ListMultipartUploadsRequest([
-    void Function(ListMultipartUploadsRequestBuilder)? updates,
-  ]) => (new ListMultipartUploadsRequestBuilder()..update(updates))._build();
+  factory _$ListMultipartUploadsRequest(
+          [void Function(ListMultipartUploadsRequestBuilder)? updates]) =>
+      (new ListMultipartUploadsRequestBuilder()..update(updates))._build();
 
-  _$ListMultipartUploadsRequest._({
-    required this.bucket,
-    this.delimiter,
-    this.encodingType,
-    this.keyMarker,
-    this.maxUploads,
-    this.prefix,
-    this.uploadIdMarker,
-    this.expectedBucketOwner,
-    this.requestPayer,
-  }) : super._() {
+  _$ListMultipartUploadsRequest._(
+      {required this.bucket,
+      this.delimiter,
+      this.encodingType,
+      this.keyMarker,
+      this.maxUploads,
+      this.prefix,
+      this.uploadIdMarker,
+      this.expectedBucketOwner,
+      this.requestPayer})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'ListMultipartUploadsRequest',
-      'bucket',
-    );
+        bucket, r'ListMultipartUploadsRequest', 'bucket');
   }
 
   @override
   ListMultipartUploadsRequest rebuild(
-    void Function(ListMultipartUploadsRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(ListMultipartUploadsRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ListMultipartUploadsRequestBuilder toBuilder() =>
@@ -91,10 +88,8 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
 
 class ListMultipartUploadsRequestBuilder
     implements
-        Builder<
-          ListMultipartUploadsRequest,
-          ListMultipartUploadsRequestBuilder
-        > {
+        Builder<ListMultipartUploadsRequest,
+            ListMultipartUploadsRequestBuilder> {
   _$ListMultipartUploadsRequest? _$v;
 
   String? _bucket;
@@ -171,14 +166,10 @@ class ListMultipartUploadsRequestBuilder
   ListMultipartUploadsRequest build() => _build();
 
   _$ListMultipartUploadsRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$ListMultipartUploadsRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
-            bucket,
-            r'ListMultipartUploadsRequest',
-            'bucket',
-          ),
+              bucket, r'ListMultipartUploadsRequest', 'bucket'),
           delimiter: delimiter,
           encodingType: encodingType,
           keyMarker: keyMarker,
@@ -195,9 +186,9 @@ class ListMultipartUploadsRequestBuilder
 
 class _$ListMultipartUploadsRequestPayload
     extends ListMultipartUploadsRequestPayload {
-  factory _$ListMultipartUploadsRequestPayload([
-    void Function(ListMultipartUploadsRequestPayloadBuilder)? updates,
-  ]) =>
+  factory _$ListMultipartUploadsRequestPayload(
+          [void Function(ListMultipartUploadsRequestPayloadBuilder)?
+              updates]) =>
       (new ListMultipartUploadsRequestPayloadBuilder()..update(updates))
           ._build();
 
@@ -205,8 +196,8 @@ class _$ListMultipartUploadsRequestPayload
 
   @override
   ListMultipartUploadsRequestPayload rebuild(
-    void Function(ListMultipartUploadsRequestPayloadBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(ListMultipartUploadsRequestPayloadBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ListMultipartUploadsRequestPayloadBuilder toBuilder() =>
@@ -226,10 +217,8 @@ class _$ListMultipartUploadsRequestPayload
 
 class ListMultipartUploadsRequestPayloadBuilder
     implements
-        Builder<
-          ListMultipartUploadsRequestPayload,
-          ListMultipartUploadsRequestPayloadBuilder
-        > {
+        Builder<ListMultipartUploadsRequestPayload,
+            ListMultipartUploadsRequestPayloadBuilder> {
   _$ListMultipartUploadsRequestPayload? _$v;
 
   ListMultipartUploadsRequestPayloadBuilder();
@@ -242,8 +231,7 @@ class ListMultipartUploadsRequestPayloadBuilder
 
   @override
   void update(
-    void Function(ListMultipartUploadsRequestPayloadBuilder)? updates,
-  ) {
+      void Function(ListMultipartUploadsRequestPayloadBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

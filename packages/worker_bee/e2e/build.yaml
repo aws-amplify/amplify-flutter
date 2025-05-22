@@ -15,9 +15,13 @@ targets:
         generate_for:
           - lib/*.debug.dart
         options:
-          compiler: dart2js
-          dart2js_args:
-            - --no-minify
+          compilers:
+            dart2js:
+              args:
+                - --no-minify
+            dart2wasm:
+              args:
+                - --no-minify
   release:
     auto_apply_builders: false
     builders:
@@ -28,10 +32,15 @@ targets:
         generate_for:
           - lib/*.release.dart
         options:
-          compiler: dart2js
-          dart2js_args:
-            - -O2
-            - --define=dart.vm.product=true
+          compilers:
+            dart2js:
+              args:
+                - -O2
+                - --define=dart.vm.product=true
+            dart2wasm:
+              args:
+                - -O3
+                - --define=dart.vm.product=true
   workers:
     auto_apply_builders: false
     builders:

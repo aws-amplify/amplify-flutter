@@ -10,16 +10,16 @@ class _$InAppMessagesResponse extends InAppMessagesResponse {
   @override
   final _i2.BuiltList<InAppMessageCampaign>? inAppMessageCampaigns;
 
-  factory _$InAppMessagesResponse([
-    void Function(InAppMessagesResponseBuilder)? updates,
-  ]) => (new InAppMessagesResponseBuilder()..update(updates))._build();
+  factory _$InAppMessagesResponse(
+          [void Function(InAppMessagesResponseBuilder)? updates]) =>
+      (new InAppMessagesResponseBuilder()..update(updates))._build();
 
   _$InAppMessagesResponse._({this.inAppMessageCampaigns}) : super._();
 
   @override
   InAppMessagesResponse rebuild(
-    void Function(InAppMessagesResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(InAppMessagesResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InAppMessagesResponseBuilder toBuilder() =>
@@ -50,8 +50,8 @@ class InAppMessagesResponseBuilder
       _$this._inAppMessageCampaigns ??=
           new _i2.ListBuilder<InAppMessageCampaign>();
   set inAppMessageCampaigns(
-    _i2.ListBuilder<InAppMessageCampaign>? inAppMessageCampaigns,
-  ) => _$this._inAppMessageCampaigns = inAppMessageCampaigns;
+          _i2.ListBuilder<InAppMessageCampaign>? inAppMessageCampaigns) =>
+      _$this._inAppMessageCampaigns = inAppMessageCampaigns;
 
   InAppMessagesResponseBuilder();
 
@@ -81,8 +81,7 @@ class InAppMessagesResponseBuilder
   _$InAppMessagesResponse _build() {
     _$InAppMessagesResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$InAppMessagesResponse._(
             inAppMessageCampaigns: _inAppMessageCampaigns?.build(),
           );
@@ -93,10 +92,7 @@ class InAppMessagesResponseBuilder
         _inAppMessageCampaigns?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'InAppMessagesResponse',
-          _$failedField,
-          e.toString(),
-        );
+            r'InAppMessagesResponse', _$failedField, e.toString());
       }
       rethrow;
     }

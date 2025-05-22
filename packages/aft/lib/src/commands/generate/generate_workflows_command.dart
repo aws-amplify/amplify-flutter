@@ -240,6 +240,7 @@ ${dependabotGroups.join('\n')}
 
     const ddcWorkflow = 'dart_ddc.yaml';
     const dart2JsWorkflow = 'dart_dart2js.yaml';
+    const dart2WasmWorkflow = 'dart_dart2wasm.yaml';
     const nativeWorkflow = 'dart_native.yaml';
     final e2eWorkflows = {
       'android': 'e2e_android.yaml',
@@ -267,7 +268,7 @@ ${dependabotGroups.join('\n')}
     final workflows = <String>[
       analyzeAndTestWorkflow,
       if (needsNativeTest) nativeWorkflow,
-      if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
+      if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow, dart2WasmWorkflow],
       if (needsE2ETest) ...e2eWorkflows.values,
     ];
 
@@ -386,6 +387,13 @@ jobs:
     with:
       package-name: ${package.name}
       working-directory: $repoRelativePath
+  dart2wasm_test:
+    needs: test
+    uses: ./.github/workflows/$dart2WasmWorkflow
+    secrets: inherit
+    with:
+      package-name: ${package.name}
+      working-directory: $repoRelativePath
 ''');
       }
     }
@@ -394,7 +402,7 @@ jobs:
       final dependsOn = [
         'test',
         if (needsNativeTest) 'native_test',
-        if (needsWebTest) ...['ddc_test', 'dart2js_test'],
+        if (needsWebTest) ...['ddc_test', 'dart2js_test', 'dart2wasm_test'],
       ];
       final needsAwsConfig =
           File(

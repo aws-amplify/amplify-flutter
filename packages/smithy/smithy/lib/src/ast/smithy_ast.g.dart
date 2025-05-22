@@ -21,7 +21,10 @@ SmithyVersion _$SmithyVersionValueOf(String name) {
 }
 
 final BuiltSet<SmithyVersion> _$SmithyVersionValues =
-    new BuiltSet<SmithyVersion>(const <SmithyVersion>[_$v1, _$v2]);
+    new BuiltSet<SmithyVersion>(const <SmithyVersion>[
+  _$v1,
+  _$v2,
+]);
 
 Serializer<SmithyAst> _$smithyAstSerializer = new _$SmithyAstSerializer();
 
@@ -32,41 +35,27 @@ class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
   final String wireName = 'SmithyAst';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    SmithyAst object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, SmithyAst object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'smithy',
-      serializers.serialize(
-        object.version,
-        specifiedType: const FullType(SmithyVersion),
-      ),
+      serializers.serialize(object.version,
+          specifiedType: const FullType(SmithyVersion)),
       'metadata',
-      serializers.serialize(
-        object.metadata,
-        specifiedType: const FullType(BuiltMap, const [
-          const FullType(String),
-          const FullType(JsonObject),
-        ]),
-      ),
+      serializers.serialize(object.metadata,
+          specifiedType: const FullType(BuiltMap,
+              const [const FullType(String), const FullType(JsonObject)])),
       'shapes',
-      serializers.serialize(
-        object.shapes,
-        specifiedType: const FullType(ShapeMap),
-      ),
+      serializers.serialize(object.shapes,
+          specifiedType: const FullType(ShapeMap)),
     ];
 
     return result;
   }
 
   @override
-  SmithyAst deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  SmithyAst deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new SmithyAstBuilder();
 
     final iterator = serialized.iterator;
@@ -76,31 +65,19 @@ class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
       final Object? value = iterator.current;
       switch (key) {
         case 'smithy':
-          result.version =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(SmithyVersion),
-                  )!
-                  as SmithyVersion;
+          result.version = serializers.deserialize(value,
+              specifiedType: const FullType(SmithyVersion))! as SmithyVersion;
           break;
         case 'metadata':
-          result.metadata.replace(
-            serializers.deserialize(
-              value,
+          result.metadata.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
-                const FullType(JsonObject),
-              ]),
-            )!,
-          );
+                const FullType(JsonObject)
+              ]))!);
           break;
         case 'shapes':
-          result.shapes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(ShapeMap),
-                  )!
-                  as ShapeMap;
+          result.shapes = serializers.deserialize(value,
+              specifiedType: const FullType(ShapeMap))! as ShapeMap;
           break;
       }
     }
@@ -120,11 +97,9 @@ class _$SmithyAst extends SmithyAst {
   factory _$SmithyAst([void Function(SmithyAstBuilder)? updates]) =>
       (new SmithyAstBuilder()..update(updates))._build();
 
-  _$SmithyAst._({
-    required this.version,
-    required this.metadata,
-    required this.shapes,
-  }) : super._() {
+  _$SmithyAst._(
+      {required this.version, required this.metadata, required this.shapes})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(version, r'SmithyAst', 'version');
     BuiltValueNullFieldError.checkNotNull(metadata, r'SmithyAst', 'metadata');
     BuiltValueNullFieldError.checkNotNull(shapes, r'SmithyAst', 'shapes');
@@ -214,20 +189,13 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
     SmithyAst._init(this);
     _$SmithyAst _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$SmithyAst._(
             version: BuiltValueNullFieldError.checkNotNull(
-              version,
-              r'SmithyAst',
-              'version',
-            ),
+                version, r'SmithyAst', 'version'),
             metadata: metadata.build(),
             shapes: BuiltValueNullFieldError.checkNotNull(
-              shapes,
-              r'SmithyAst',
-              'shapes',
-            ),
+                shapes, r'SmithyAst', 'shapes'),
           );
     } catch (_) {
       late String _$failedField;
@@ -236,10 +204,7 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
         metadata.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'SmithyAst',
-          _$failedField,
-          e.toString(),
-        );
+            r'SmithyAst', _$failedField, e.toString());
       }
       rethrow;
     }

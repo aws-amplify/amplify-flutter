@@ -78,7 +78,11 @@ class QuietTimeBuilder implements Builder<QuietTime, QuietTimeBuilder> {
   QuietTime build() => _build();
 
   _$QuietTime _build() {
-    final _$result = _$v ?? new _$QuietTime._(end: end, start: start);
+    final _$result = _$v ??
+        new _$QuietTime._(
+          end: end,
+          start: start,
+        );
     replace(_$result);
     return _$result;
   }

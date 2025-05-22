@@ -14,36 +14,25 @@ class _$InAppMessageBodyConfig extends InAppMessageBodyConfig {
   @override
   final String textColor;
 
-  factory _$InAppMessageBodyConfig([
-    void Function(InAppMessageBodyConfigBuilder)? updates,
-  ]) => (new InAppMessageBodyConfigBuilder()..update(updates))._build();
+  factory _$InAppMessageBodyConfig(
+          [void Function(InAppMessageBodyConfigBuilder)? updates]) =>
+      (new InAppMessageBodyConfigBuilder()..update(updates))._build();
 
-  _$InAppMessageBodyConfig._({
-    required this.alignment,
-    required this.body,
-    required this.textColor,
-  }) : super._() {
+  _$InAppMessageBodyConfig._(
+      {required this.alignment, required this.body, required this.textColor})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      alignment,
-      r'InAppMessageBodyConfig',
-      'alignment',
-    );
+        alignment, r'InAppMessageBodyConfig', 'alignment');
     BuiltValueNullFieldError.checkNotNull(
-      body,
-      r'InAppMessageBodyConfig',
-      'body',
-    );
+        body, r'InAppMessageBodyConfig', 'body');
     BuiltValueNullFieldError.checkNotNull(
-      textColor,
-      r'InAppMessageBodyConfig',
-      'textColor',
-    );
+        textColor, r'InAppMessageBodyConfig', 'textColor');
   }
 
   @override
   InAppMessageBodyConfig rebuild(
-    void Function(InAppMessageBodyConfigBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(InAppMessageBodyConfigBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageBodyConfigBuilder toBuilder() =>
@@ -113,24 +102,14 @@ class InAppMessageBodyConfigBuilder
   InAppMessageBodyConfig build() => _build();
 
   _$InAppMessageBodyConfig _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$InAppMessageBodyConfig._(
           alignment: BuiltValueNullFieldError.checkNotNull(
-            alignment,
-            r'InAppMessageBodyConfig',
-            'alignment',
-          ),
+              alignment, r'InAppMessageBodyConfig', 'alignment'),
           body: BuiltValueNullFieldError.checkNotNull(
-            body,
-            r'InAppMessageBodyConfig',
-            'body',
-          ),
+              body, r'InAppMessageBodyConfig', 'body'),
           textColor: BuiltValueNullFieldError.checkNotNull(
-            textColor,
-            r'InAppMessageBodyConfig',
-            'textColor',
-          ),
+              textColor, r'InAppMessageBodyConfig', 'textColor'),
         );
     replace(_$result);
     return _$result;

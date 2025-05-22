@@ -16,7 +16,7 @@ class _$RestoreStatus extends RestoreStatus {
       (new RestoreStatusBuilder()..update(updates))._build();
 
   _$RestoreStatus._({this.isRestoreInProgress, this.restoreExpiryDate})
-    : super._();
+      : super._();
 
   @override
   RestoreStatus rebuild(void Function(RestoreStatusBuilder) updates) =>
@@ -84,8 +84,7 @@ class RestoreStatusBuilder
   RestoreStatus build() => _build();
 
   _$RestoreStatus _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$RestoreStatus._(
           isRestoreInProgress: isRestoreInProgress,
           restoreExpiryDate: restoreExpiryDate,

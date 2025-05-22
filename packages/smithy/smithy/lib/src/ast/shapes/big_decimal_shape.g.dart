@@ -17,17 +17,12 @@ class _$BigDecimalShapeSerializer
   final String wireName = 'BigDecimalShape';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    BigDecimalShape object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, BigDecimalShape object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(
-        object.traits,
-        specifiedType: const FullType(TraitMap),
-      ),
+      serializers.serialize(object.traits,
+          specifiedType: const FullType(TraitMap)),
     ];
 
     return result;
@@ -35,10 +30,8 @@ class _$BigDecimalShapeSerializer
 
   @override
   BigDecimalShape deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new BigDecimalShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -48,12 +41,8 @@ class _$BigDecimalShapeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(TraitMap),
-                  )!
-                  as TraitMap;
+          result.traits = serializers.deserialize(value,
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }
@@ -72,12 +61,9 @@ class _$BigDecimalShape extends BigDecimalShape {
       (new BigDecimalShapeBuilder()..update(updates))._build();
 
   _$BigDecimalShape._({required this.shapeId, required this.traits})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'BigDecimalShape',
-      'shapeId',
-    );
+        shapeId, r'BigDecimalShape', 'shapeId');
     BuiltValueNullFieldError.checkNotNull(traits, r'BigDecimalShape', 'traits');
   }
 
@@ -158,19 +144,12 @@ class BigDecimalShapeBuilder
   BigDecimalShape build() => _build();
 
   _$BigDecimalShape _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$BigDecimalShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-            shapeId,
-            r'BigDecimalShape',
-            'shapeId',
-          ),
+              shapeId, r'BigDecimalShape', 'shapeId'),
           traits: BuiltValueNullFieldError.checkNotNull(
-            traits,
-            r'BigDecimalShape',
-            'traits',
-          ),
+              traits, r'BigDecimalShape', 'traits'),
         );
     replace(_$result);
     return _$result;

@@ -14,45 +14,35 @@ class _$WorkerBeeExceptionImplSerializer
   @override
   final Iterable<Type> types = const [
     WorkerBeeExceptionImpl,
-    _$WorkerBeeExceptionImpl,
+    _$WorkerBeeExceptionImpl
   ];
   @override
   final String wireName = 'WorkerBeeExceptionImpl';
 
   @override
   Iterable<Object?> serialize(
-    Serializers serializers,
-    WorkerBeeExceptionImpl object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+      Serializers serializers, WorkerBeeExceptionImpl object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'error',
-      serializers.serialize(
-        object.error,
-        specifiedType: const FullType(String),
-      ),
+      serializers.serialize(object.error,
+          specifiedType: const FullType(String)),
     ];
     Object? value;
     value = object.stackTrace;
     if (value != null) {
       result
         ..add('stackTrace')
-        ..add(
-          serializers.serialize(
-            value,
-            specifiedType: const FullType(StackTrace),
-          ),
-        );
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(StackTrace)));
     }
     return result;
   }
 
   @override
   WorkerBeeExceptionImpl deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new WorkerBeeExceptionImplBuilder();
 
     final iterator = serialized.iterator;
@@ -62,20 +52,12 @@ class _$WorkerBeeExceptionImplSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'error':
-          result.error =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )!
-                  as String;
+          result.error = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'stackTrace':
-          result.stackTrace =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(StackTrace),
-                  )
-                  as StackTrace?;
+          result.stackTrace = serializers.deserialize(value,
+              specifiedType: const FullType(StackTrace)) as StackTrace?;
           break;
       }
     }
@@ -100,23 +82,20 @@ class _$WorkerBeeExceptionImpl extends WorkerBeeExceptionImpl {
   @override
   final StackTrace? stackTrace;
 
-  factory _$WorkerBeeExceptionImpl([
-    void Function(WorkerBeeExceptionImplBuilder)? updates,
-  ]) => (new WorkerBeeExceptionImplBuilder()..update(updates))._build();
+  factory _$WorkerBeeExceptionImpl(
+          [void Function(WorkerBeeExceptionImplBuilder)? updates]) =>
+      (new WorkerBeeExceptionImplBuilder()..update(updates))._build();
 
   _$WorkerBeeExceptionImpl._({required this.error, this.stackTrace})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      error,
-      r'WorkerBeeExceptionImpl',
-      'error',
-    );
+        error, r'WorkerBeeExceptionImpl', 'error');
   }
 
   @override
   WorkerBeeExceptionImpl rebuild(
-    void Function(WorkerBeeExceptionImplBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(WorkerBeeExceptionImplBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   WorkerBeeExceptionImplBuilder toBuilder() =>
@@ -190,14 +169,10 @@ class WorkerBeeExceptionImplBuilder
   WorkerBeeExceptionImpl build() => _build();
 
   _$WorkerBeeExceptionImpl _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$WorkerBeeExceptionImpl._(
           error: BuiltValueNullFieldError.checkNotNull(
-            error,
-            r'WorkerBeeExceptionImpl',
-            'error',
-          ),
+              error, r'WorkerBeeExceptionImpl', 'error'),
           stackTrace: stackTrace,
         );
     replace(_$result);

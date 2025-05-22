@@ -14,17 +14,17 @@ class _$DeleteObjectsOutput extends DeleteObjectsOutput {
   @override
   final _i3.BuiltList<Error>? errors;
 
-  factory _$DeleteObjectsOutput([
-    void Function(DeleteObjectsOutputBuilder)? updates,
-  ]) => (new DeleteObjectsOutputBuilder()..update(updates))._build();
+  factory _$DeleteObjectsOutput(
+          [void Function(DeleteObjectsOutputBuilder)? updates]) =>
+      (new DeleteObjectsOutputBuilder()..update(updates))._build();
 
   _$DeleteObjectsOutput._({this.deleted, this.requestCharged, this.errors})
-    : super._();
+      : super._();
 
   @override
   DeleteObjectsOutput rebuild(
-    void Function(DeleteObjectsOutputBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(DeleteObjectsOutputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectsOutputBuilder toBuilder() =>
@@ -100,8 +100,7 @@ class DeleteObjectsOutputBuilder
   _$DeleteObjectsOutput _build() {
     _$DeleteObjectsOutput _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$DeleteObjectsOutput._(
             deleted: _deleted?.build(),
             requestCharged: requestCharged,
@@ -117,10 +116,7 @@ class DeleteObjectsOutputBuilder
         _errors?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'DeleteObjectsOutput',
-          _$failedField,
-          e.toString(),
-        );
+            r'DeleteObjectsOutput', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -135,16 +131,16 @@ class _$DeleteObjectsOutputPayload extends DeleteObjectsOutputPayload {
   @override
   final _i3.BuiltList<Error>? errors;
 
-  factory _$DeleteObjectsOutputPayload([
-    void Function(DeleteObjectsOutputPayloadBuilder)? updates,
-  ]) => (new DeleteObjectsOutputPayloadBuilder()..update(updates))._build();
+  factory _$DeleteObjectsOutputPayload(
+          [void Function(DeleteObjectsOutputPayloadBuilder)? updates]) =>
+      (new DeleteObjectsOutputPayloadBuilder()..update(updates))._build();
 
   _$DeleteObjectsOutputPayload._({this.deleted, this.errors}) : super._();
 
   @override
   DeleteObjectsOutputPayload rebuild(
-    void Function(DeleteObjectsOutputPayloadBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(DeleteObjectsOutputPayloadBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   DeleteObjectsOutputPayloadBuilder toBuilder() =>
@@ -213,8 +209,7 @@ class DeleteObjectsOutputPayloadBuilder
   _$DeleteObjectsOutputPayload _build() {
     _$DeleteObjectsOutputPayload _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$DeleteObjectsOutputPayload._(
             deleted: _deleted?.build(),
             errors: _errors?.build(),
@@ -228,10 +223,7 @@ class DeleteObjectsOutputPayloadBuilder
         _errors?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'DeleteObjectsOutputPayload',
-          _$failedField,
-          e.toString(),
-        );
+            r'DeleteObjectsOutputPayload', _$failedField, e.toString());
       }
       rethrow;
     }

@@ -15,28 +15,20 @@ class _$StringShapeSerializer implements StructuredSerializer<StringShape> {
   final String wireName = 'StringShape';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    StringShape object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, StringShape object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(
-        object.traits,
-        specifiedType: const FullType(TraitMap),
-      ),
+      serializers.serialize(object.traits,
+          specifiedType: const FullType(TraitMap)),
     ];
 
     return result;
   }
 
   @override
-  StringShape deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  StringShape deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new StringShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -46,12 +38,8 @@ class _$StringShapeSerializer implements StructuredSerializer<StringShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(TraitMap),
-                  )!
-                  as TraitMap;
+          result.traits = serializers.deserialize(value,
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }
@@ -148,19 +136,12 @@ class StringShapeBuilder
   StringShape build() => _build();
 
   _$StringShape _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$StringShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-            shapeId,
-            r'StringShape',
-            'shapeId',
-          ),
+              shapeId, r'StringShape', 'shapeId'),
           traits: BuiltValueNullFieldError.checkNotNull(
-            traits,
-            r'StringShape',
-            'traits',
-          ),
+              traits, r'StringShape', 'traits'),
         );
     replace(_$result);
     return _$result;

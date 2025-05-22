@@ -15,44 +15,33 @@ CognitoOAuthConfig _$CognitoOAuthConfigFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = CognitoOAuthConfig(
           appClientId: $checkedConvert('AppClientId', (v) => v as String),
-          appClientSecret: $checkedConvert(
-            'AppClientSecret',
-            (v) => v as String?,
-          ),
-          scopes: $checkedConvert(
-            'Scopes',
-            (v) => (v as List<dynamic>).map((e) => e as String).toList(),
-          ),
-          signInRedirectUri: $checkedConvert(
-            'SignInRedirectURI',
-            (v) => v as String,
-          ),
-          signOutRedirectUri: $checkedConvert(
-            'SignOutRedirectURI',
-            (v) => v as String,
-          ),
+          appClientSecret:
+              $checkedConvert('AppClientSecret', (v) => v as String?),
+          scopes: $checkedConvert('Scopes',
+              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          signInRedirectUri:
+              $checkedConvert('SignInRedirectURI', (v) => v as String),
+          signOutRedirectUri:
+              $checkedConvert('SignOutRedirectURI', (v) => v as String),
           webDomain: $checkedConvert('WebDomain', (v) => v as String),
           signInUri: $checkedConvert('SignInURI', (v) => v as String?),
           signOutUri: $checkedConvert('SignOutURI', (v) => v as String?),
           tokenUri: $checkedConvert('TokenURI', (v) => v as String?),
           signInUriQueryParameters: $checkedConvert(
-            'SignInURIQueryParameters',
-            (v) => (v as Map<String, dynamic>?)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ),
-          ),
+              'SignInURIQueryParameters',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
           signOutUriQueryParameters: $checkedConvert(
-            'SignOutURIQueryParameters',
-            (v) => (v as Map<String, dynamic>?)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ),
-          ),
+              'SignOutURIQueryParameters',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
           tokenUriQueryParameters: $checkedConvert(
-            'TokenURIQueryParameters',
-            (v) => (v as Map<String, dynamic>?)?.map(
-              (k, e) => MapEntry(k, e as String),
-            ),
-          ),
+              'TokenURIQueryParameters',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
         );
         return val;
       },
@@ -68,7 +57,7 @@ CognitoOAuthConfig _$CognitoOAuthConfigFromJson(Map<String, dynamic> json) =>
         'tokenUri': 'TokenURI',
         'signInUriQueryParameters': 'SignInURIQueryParameters',
         'signOutUriQueryParameters': 'SignOutURIQueryParameters',
-        'tokenUriQueryParameters': 'TokenURIQueryParameters',
+        'tokenUriQueryParameters': 'TokenURIQueryParameters'
       },
     );
 

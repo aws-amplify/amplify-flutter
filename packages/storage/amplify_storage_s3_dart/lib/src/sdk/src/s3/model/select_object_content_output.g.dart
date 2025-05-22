@@ -10,16 +10,16 @@ class _$SelectObjectContentOutput extends SelectObjectContentOutput {
   @override
   final SelectObjectContentEventStream? payload;
 
-  factory _$SelectObjectContentOutput([
-    void Function(SelectObjectContentOutputBuilder)? updates,
-  ]) => (new SelectObjectContentOutputBuilder()..update(updates))._build();
+  factory _$SelectObjectContentOutput(
+          [void Function(SelectObjectContentOutputBuilder)? updates]) =>
+      (new SelectObjectContentOutputBuilder()..update(updates))._build();
 
   _$SelectObjectContentOutput._({this.payload}) : super._();
 
   @override
   SelectObjectContentOutput rebuild(
-    void Function(SelectObjectContentOutputBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(SelectObjectContentOutputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   SelectObjectContentOutputBuilder toBuilder() =>
@@ -76,7 +76,10 @@ class SelectObjectContentOutputBuilder
   SelectObjectContentOutput build() => _build();
 
   _$SelectObjectContentOutput _build() {
-    final _$result = _$v ?? new _$SelectObjectContentOutput._(payload: payload);
+    final _$result = _$v ??
+        new _$SelectObjectContentOutput._(
+          payload: payload,
+        );
     replace(_$result);
     return _$result;
   }

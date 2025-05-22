@@ -18,7 +18,7 @@ class _$Progress extends Progress {
       (new ProgressBuilder()..update(updates))._build();
 
   _$Progress._({this.bytesScanned, this.bytesProcessed, this.bytesReturned})
-    : super._();
+      : super._();
 
   @override
   Progress rebuild(void Function(ProgressBuilder) updates) =>
@@ -93,8 +93,7 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   Progress build() => _build();
 
   _$Progress _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$Progress._(
           bytesScanned: bytesScanned,
           bytesProcessed: bytesProcessed,

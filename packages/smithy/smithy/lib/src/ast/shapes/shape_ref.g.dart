@@ -15,33 +15,23 @@ class _$ShapeRefSerializer implements StructuredSerializer<ShapeRef> {
   final String wireName = 'ShapeRef';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    ShapeRef object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, ShapeRef object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(
-        object.traits,
-        specifiedType: const FullType(TraitMap),
-      ),
+      serializers.serialize(object.traits,
+          specifiedType: const FullType(TraitMap)),
       'target',
-      serializers.serialize(
-        object.target,
-        specifiedType: const FullType(ShapeId),
-      ),
+      serializers.serialize(object.target,
+          specifiedType: const FullType(ShapeId)),
     ];
 
     return result;
   }
 
   @override
-  ShapeRef deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  ShapeRef deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new ShapeRefBuilder();
 
     final iterator = serialized.iterator;
@@ -51,20 +41,12 @@ class _$ShapeRefSerializer implements StructuredSerializer<ShapeRef> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(TraitMap),
-                  )!
-                  as TraitMap;
+          result.traits = serializers.deserialize(value,
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
         case 'target':
-          result.target =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(ShapeId),
-                  )!
-                  as ShapeId;
+          result.target = serializers.deserialize(value,
+              specifiedType: const FullType(ShapeId))! as ShapeId;
           break;
       }
     }
@@ -160,19 +142,12 @@ class ShapeRefBuilder implements Builder<ShapeRef, ShapeRefBuilder> {
   ShapeRef build() => _build();
 
   _$ShapeRef _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$ShapeRef._(
           traits: BuiltValueNullFieldError.checkNotNull(
-            traits,
-            r'ShapeRef',
-            'traits',
-          ),
+              traits, r'ShapeRef', 'traits'),
           target: BuiltValueNullFieldError.checkNotNull(
-            target,
-            r'ShapeRef',
-            'target',
-          ),
+              target, r'ShapeRef', 'target'),
         );
     replace(_$result);
     return _$result;

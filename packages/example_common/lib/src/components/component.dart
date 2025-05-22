@@ -2,10 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-//ignore: deprecated_member_use
-import 'dart:html';
 
 import 'package:meta/meta.dart';
+import 'package:web/web.dart';
 
 /// {@template example_common.component}
 /// A base component class that other components should extend
@@ -21,13 +20,13 @@ abstract class Component {
   late Component _component = render();
 
   // The element for this component
-  Element get _element => _component._element;
+  HTMLElement get _element => _component._element;
 
   // Wether or not the component is mounted (current rendered in the DOM)
   bool _isMounted = false;
 
   /// The style of the component's element
-  CssStyleDeclaration get style => _element.style;
+  CSSStyleDeclaration get style => _element.style;
 
   /// Calls [render], schedules the [componentDidMount] callback, and returns the [_element].
   ///
@@ -50,7 +49,7 @@ abstract class Component {
   }
 
   /// Creates a component from an html [Element].
-  static Component fromElement(Element element) {
+  static Component fromElement(HTMLElement element) {
     return _ElementComponent(element);
   }
 }
@@ -89,10 +88,10 @@ abstract class StatefulComponent extends Component {
 /// Useful for creating primitive components, but generally
 /// shouldn't be used directly
 class _ElementComponent extends Component {
-  _ElementComponent(Element element) : _element = element;
+  _ElementComponent(HTMLElement element) : _element = element;
 
   @override
-  final Element _element;
+  final HTMLElement _element;
 
   @override
   Component render() {

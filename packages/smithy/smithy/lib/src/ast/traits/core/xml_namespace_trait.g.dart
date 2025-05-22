@@ -13,4 +13,7 @@ XmlNamespaceTrait _$XmlNamespaceTraitFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$XmlNamespaceTraitToJson(XmlNamespaceTrait instance) =>
-    <String, dynamic>{'uri': instance.uri, 'prefix': instance.prefix};
+    <String, dynamic>{
+      'uri': instance.uri,
+      'prefix': instance.prefix,
+    };

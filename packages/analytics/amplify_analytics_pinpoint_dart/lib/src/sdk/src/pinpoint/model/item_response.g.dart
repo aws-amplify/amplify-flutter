@@ -16,7 +16,7 @@ class _$ItemResponse extends ItemResponse {
       (new ItemResponseBuilder()..update(updates))._build();
 
   _$ItemResponse._({this.endpointItemResponse, this.eventsItemResponse})
-    : super._();
+      : super._();
 
   @override
   ItemResponse rebuild(void Function(ItemResponseBuilder) updates) =>
@@ -58,8 +58,8 @@ class ItemResponseBuilder
       _$this._eventsItemResponse ??=
           new _i2.MapBuilder<String, EventItemResponse>();
   set eventsItemResponse(
-    _i2.MapBuilder<String, EventItemResponse>? eventsItemResponse,
-  ) => _$this._eventsItemResponse = eventsItemResponse;
+          _i2.MapBuilder<String, EventItemResponse>? eventsItemResponse) =>
+      _$this._eventsItemResponse = eventsItemResponse;
 
   ItemResponseBuilder();
 
@@ -90,8 +90,7 @@ class ItemResponseBuilder
   _$ItemResponse _build() {
     _$ItemResponse _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$ItemResponse._(
             endpointItemResponse: _endpointItemResponse?.build(),
             eventsItemResponse: _eventsItemResponse?.build(),
@@ -105,10 +104,7 @@ class ItemResponseBuilder
         _eventsItemResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'ItemResponse',
-          _$failedField,
-          e.toString(),
-        );
+            r'ItemResponse', _$failedField, e.toString());
       }
       rethrow;
     }

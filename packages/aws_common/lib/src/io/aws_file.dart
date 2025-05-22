@@ -4,7 +4,7 @@
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/io/aws_file_platform.dart'
-    if (dart.library.html) 'aws_file_platform_html.dart'
+    if (dart.library.js_interop) 'aws_file_platform_html.dart'
     if (dart.library.io) 'aws_file_platform_io.dart';
 import 'package:meta/meta.dart';
 

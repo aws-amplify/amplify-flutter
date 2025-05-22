@@ -6,24 +6,24 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/tables.dart'
     as i2;
 
-typedef $$TransferRecordsTableCreateCompanionBuilder =
-    i1.TransferRecordsCompanion Function({
-      i0.Value<int> id,
-      required String uploadId,
-      required String objectKey,
-      required String createdAt,
-      i0.Value<String?> bucketName,
-      i0.Value<String?> awsRegion,
-    });
-typedef $$TransferRecordsTableUpdateCompanionBuilder =
-    i1.TransferRecordsCompanion Function({
-      i0.Value<int> id,
-      i0.Value<String> uploadId,
-      i0.Value<String> objectKey,
-      i0.Value<String> createdAt,
-      i0.Value<String?> bucketName,
-      i0.Value<String?> awsRegion,
-    });
+typedef $$TransferRecordsTableCreateCompanionBuilder
+    = i1.TransferRecordsCompanion Function({
+  i0.Value<int> id,
+  required String uploadId,
+  required String objectKey,
+  required String createdAt,
+  i0.Value<String?> bucketName,
+  i0.Value<String?> awsRegion,
+});
+typedef $$TransferRecordsTableUpdateCompanionBuilder
+    = i1.TransferRecordsCompanion Function({
+  i0.Value<int> id,
+  i0.Value<String> uploadId,
+  i0.Value<String> objectKey,
+  i0.Value<String> createdAt,
+  i0.Value<String?> bucketName,
+  i0.Value<String?> awsRegion,
+});
 
 class $$TransferRecordsTableFilterComposer
     extends i0.Composer<i0.GeneratedDatabase, i1.$TransferRecordsTable> {
@@ -35,34 +35,22 @@ class $$TransferRecordsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   i0.ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => i0.ColumnFilters(column),
-  );
+      column: $table.id, builder: (column) => i0.ColumnFilters(column));
 
   i0.ColumnFilters<String> get uploadId => $composableBuilder(
-    column: $table.uploadId,
-    builder: (column) => i0.ColumnFilters(column),
-  );
+      column: $table.uploadId, builder: (column) => i0.ColumnFilters(column));
 
   i0.ColumnFilters<String> get objectKey => $composableBuilder(
-    column: $table.objectKey,
-    builder: (column) => i0.ColumnFilters(column),
-  );
+      column: $table.objectKey, builder: (column) => i0.ColumnFilters(column));
 
   i0.ColumnFilters<String> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => i0.ColumnFilters(column),
-  );
+      column: $table.createdAt, builder: (column) => i0.ColumnFilters(column));
 
   i0.ColumnFilters<String> get bucketName => $composableBuilder(
-    column: $table.bucketName,
-    builder: (column) => i0.ColumnFilters(column),
-  );
+      column: $table.bucketName, builder: (column) => i0.ColumnFilters(column));
 
   i0.ColumnFilters<String> get awsRegion => $composableBuilder(
-    column: $table.awsRegion,
-    builder: (column) => i0.ColumnFilters(column),
-  );
+      column: $table.awsRegion, builder: (column) => i0.ColumnFilters(column));
 }
 
 class $$TransferRecordsTableOrderingComposer
@@ -75,34 +63,26 @@ class $$TransferRecordsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   i0.ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => i0.ColumnOrderings(column),
-  );
+      column: $table.id, builder: (column) => i0.ColumnOrderings(column));
 
   i0.ColumnOrderings<String> get uploadId => $composableBuilder(
-    column: $table.uploadId,
-    builder: (column) => i0.ColumnOrderings(column),
-  );
+      column: $table.uploadId, builder: (column) => i0.ColumnOrderings(column));
 
   i0.ColumnOrderings<String> get objectKey => $composableBuilder(
-    column: $table.objectKey,
-    builder: (column) => i0.ColumnOrderings(column),
-  );
+      column: $table.objectKey,
+      builder: (column) => i0.ColumnOrderings(column));
 
   i0.ColumnOrderings<String> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => i0.ColumnOrderings(column),
-  );
+      column: $table.createdAt,
+      builder: (column) => i0.ColumnOrderings(column));
 
   i0.ColumnOrderings<String> get bucketName => $composableBuilder(
-    column: $table.bucketName,
-    builder: (column) => i0.ColumnOrderings(column),
-  );
+      column: $table.bucketName,
+      builder: (column) => i0.ColumnOrderings(column));
 
   i0.ColumnOrderings<String> get awsRegion => $composableBuilder(
-    column: $table.awsRegion,
-    builder: (column) => i0.ColumnOrderings(column),
-  );
+      column: $table.awsRegion,
+      builder: (column) => i0.ColumnOrderings(column));
 }
 
 class $$TransferRecordsTableAnnotationComposer
@@ -127,126 +107,94 @@ class $$TransferRecordsTableAnnotationComposer
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   i0.GeneratedColumn<String> get bucketName => $composableBuilder(
-    column: $table.bucketName,
-    builder: (column) => column,
-  );
+      column: $table.bucketName, builder: (column) => column);
 
   i0.GeneratedColumn<String> get awsRegion =>
       $composableBuilder(column: $table.awsRegion, builder: (column) => column);
 }
 
-class $$TransferRecordsTableTableManager
-    extends
-        i0.RootTableManager<
-          i0.GeneratedDatabase,
-          i1.$TransferRecordsTable,
-          i1.TransferRecord,
-          i1.$$TransferRecordsTableFilterComposer,
-          i1.$$TransferRecordsTableOrderingComposer,
-          i1.$$TransferRecordsTableAnnotationComposer,
-          $$TransferRecordsTableCreateCompanionBuilder,
-          $$TransferRecordsTableUpdateCompanionBuilder,
-          (
-            i1.TransferRecord,
-            i0.BaseReferences<
-              i0.GeneratedDatabase,
-              i1.$TransferRecordsTable,
-              i1.TransferRecord
-            >,
-          ),
-          i1.TransferRecord,
-          i0.PrefetchHooks Function()
-        > {
+class $$TransferRecordsTableTableManager extends i0.RootTableManager<
+    i0.GeneratedDatabase,
+    i1.$TransferRecordsTable,
+    i1.TransferRecord,
+    i1.$$TransferRecordsTableFilterComposer,
+    i1.$$TransferRecordsTableOrderingComposer,
+    i1.$$TransferRecordsTableAnnotationComposer,
+    $$TransferRecordsTableCreateCompanionBuilder,
+    $$TransferRecordsTableUpdateCompanionBuilder,
+    (
+      i1.TransferRecord,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.$TransferRecordsTable,
+          i1.TransferRecord>
+    ),
+    i1.TransferRecord,
+    i0.PrefetchHooks Function()> {
   $$TransferRecordsTableTableManager(
-    i0.GeneratedDatabase db,
-    i1.$TransferRecordsTable table,
-  ) : super(
-        i0.TableManagerState(
+      i0.GeneratedDatabase db, i1.$TransferRecordsTable table)
+      : super(i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => i1.$$TransferRecordsTableFilterComposer(
-                $db: db,
-                $table: table,
-              ),
-          createOrderingComposer:
-              () => i1.$$TransferRecordsTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer:
-              () => i1.$$TransferRecordsTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
-          updateCompanionCallback:
-              ({
-                i0.Value<int> id = const i0.Value.absent(),
-                i0.Value<String> uploadId = const i0.Value.absent(),
-                i0.Value<String> objectKey = const i0.Value.absent(),
-                i0.Value<String> createdAt = const i0.Value.absent(),
-                i0.Value<String?> bucketName = const i0.Value.absent(),
-                i0.Value<String?> awsRegion = const i0.Value.absent(),
-              }) => i1.TransferRecordsCompanion(
-                id: id,
-                uploadId: uploadId,
-                objectKey: objectKey,
-                createdAt: createdAt,
-                bucketName: bucketName,
-                awsRegion: awsRegion,
-              ),
-          createCompanionCallback:
-              ({
-                i0.Value<int> id = const i0.Value.absent(),
-                required String uploadId,
-                required String objectKey,
-                required String createdAt,
-                i0.Value<String?> bucketName = const i0.Value.absent(),
-                i0.Value<String?> awsRegion = const i0.Value.absent(),
-              }) => i1.TransferRecordsCompanion.insert(
-                id: id,
-                uploadId: uploadId,
-                objectKey: objectKey,
-                createdAt: createdAt,
-                bucketName: bucketName,
-                awsRegion: awsRegion,
-              ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          i0.BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          createFilteringComposer: () =>
+              i1.$$TransferRecordsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$$TransferRecordsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => i1
+              .$$TransferRecordsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            i0.Value<String> uploadId = const i0.Value.absent(),
+            i0.Value<String> objectKey = const i0.Value.absent(),
+            i0.Value<String> createdAt = const i0.Value.absent(),
+            i0.Value<String?> bucketName = const i0.Value.absent(),
+            i0.Value<String?> awsRegion = const i0.Value.absent(),
+          }) =>
+              i1.TransferRecordsCompanion(
+            id: id,
+            uploadId: uploadId,
+            objectKey: objectKey,
+            createdAt: createdAt,
+            bucketName: bucketName,
+            awsRegion: awsRegion,
+          ),
+          createCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            required String uploadId,
+            required String objectKey,
+            required String createdAt,
+            i0.Value<String?> bucketName = const i0.Value.absent(),
+            i0.Value<String?> awsRegion = const i0.Value.absent(),
+          }) =>
+              i1.TransferRecordsCompanion.insert(
+            id: id,
+            uploadId: uploadId,
+            objectKey: objectKey,
+            createdAt: createdAt,
+            bucketName: bucketName,
+            awsRegion: awsRegion,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
-        ),
-      );
+        ));
 }
 
-typedef $$TransferRecordsTableProcessedTableManager =
-    i0.ProcessedTableManager<
-      i0.GeneratedDatabase,
-      i1.$TransferRecordsTable,
+typedef $$TransferRecordsTableProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.$TransferRecordsTable,
+    i1.TransferRecord,
+    i1.$$TransferRecordsTableFilterComposer,
+    i1.$$TransferRecordsTableOrderingComposer,
+    i1.$$TransferRecordsTableAnnotationComposer,
+    $$TransferRecordsTableCreateCompanionBuilder,
+    $$TransferRecordsTableUpdateCompanionBuilder,
+    (
       i1.TransferRecord,
-      i1.$$TransferRecordsTableFilterComposer,
-      i1.$$TransferRecordsTableOrderingComposer,
-      i1.$$TransferRecordsTableAnnotationComposer,
-      $$TransferRecordsTableCreateCompanionBuilder,
-      $$TransferRecordsTableUpdateCompanionBuilder,
-      (
-        i1.TransferRecord,
-        i0.BaseReferences<
-          i0.GeneratedDatabase,
-          i1.$TransferRecordsTable,
-          i1.TransferRecord
-        >,
-      ),
-      i1.TransferRecord,
-      i0.PrefetchHooks Function()
-    >;
+      i0.BaseReferences<i0.GeneratedDatabase, i1.$TransferRecordsTable,
+          i1.TransferRecord>
+    ),
+    i1.TransferRecord,
+    i0.PrefetchHooks Function()>;
 
 class $TransferRecordsTable extends i2.TransferRecords
     with i0.TableInfo<$TransferRecordsTable, i1.TransferRecord> {
@@ -257,80 +205,45 @@ class $TransferRecordsTable extends i2.TransferRecords
   static const i0.VerificationMeta _idMeta = const i0.VerificationMeta('id');
   @override
   late final i0.GeneratedColumn<int> id = i0.GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: i0.DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: i0.GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const i0.VerificationMeta _uploadIdMeta = const i0.VerificationMeta(
-    'uploadId',
-  );
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: i0.DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          i0.GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const i0.VerificationMeta _uploadIdMeta =
+      const i0.VerificationMeta('uploadId');
   @override
   late final i0.GeneratedColumn<String> uploadId = i0.GeneratedColumn<String>(
-    'upload_id',
-    aliasedName,
-    false,
-    type: i0.DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const i0.VerificationMeta _objectKeyMeta = const i0.VerificationMeta(
-    'objectKey',
-  );
+      'upload_id', aliasedName, false,
+      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+  static const i0.VerificationMeta _objectKeyMeta =
+      const i0.VerificationMeta('objectKey');
   @override
   late final i0.GeneratedColumn<String> objectKey = i0.GeneratedColumn<String>(
-    'object_key',
-    aliasedName,
-    false,
-    type: i0.DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const i0.VerificationMeta _createdAtMeta = const i0.VerificationMeta(
-    'createdAt',
-  );
+      'object_key', aliasedName, false,
+      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+  static const i0.VerificationMeta _createdAtMeta =
+      const i0.VerificationMeta('createdAt');
   @override
   late final i0.GeneratedColumn<String> createdAt = i0.GeneratedColumn<String>(
-    'created_at',
-    aliasedName,
-    false,
-    type: i0.DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const i0.VerificationMeta _bucketNameMeta = const i0.VerificationMeta(
-    'bucketName',
-  );
+      'created_at', aliasedName, false,
+      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+  static const i0.VerificationMeta _bucketNameMeta =
+      const i0.VerificationMeta('bucketName');
   @override
   late final i0.GeneratedColumn<String> bucketName = i0.GeneratedColumn<String>(
-    'bucket_name',
-    aliasedName,
-    true,
-    type: i0.DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  static const i0.VerificationMeta _awsRegionMeta = const i0.VerificationMeta(
-    'awsRegion',
-  );
+      'bucket_name', aliasedName, true,
+      type: i0.DriftSqlType.string, requiredDuringInsert: false);
+  static const i0.VerificationMeta _awsRegionMeta =
+      const i0.VerificationMeta('awsRegion');
   @override
   late final i0.GeneratedColumn<String> awsRegion = i0.GeneratedColumn<String>(
-    'aws_region',
-    aliasedName,
-    true,
-    type: i0.DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
+      'aws_region', aliasedName, true,
+      type: i0.DriftSqlType.string, requiredDuringInsert: false);
   @override
-  List<i0.GeneratedColumn> get $columns => [
-    id,
-    uploadId,
-    objectKey,
-    createdAt,
-    bucketName,
-    awsRegion,
-  ];
+  List<i0.GeneratedColumn> get $columns =>
+      [id, uploadId, objectKey, createdAt, bucketName, awsRegion];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -338,49 +251,40 @@ class $TransferRecordsTable extends i2.TransferRecords
   static const String $name = 'transfer_records';
   @override
   i0.VerificationContext validateIntegrity(
-    i0.Insertable<i1.TransferRecord> instance, {
-    bool isInserting = false,
-  }) {
+      i0.Insertable<i1.TransferRecord> instance,
+      {bool isInserting = false}) {
     final context = i0.VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('upload_id')) {
-      context.handle(
-        _uploadIdMeta,
-        uploadId.isAcceptableOrUnknown(data['upload_id']!, _uploadIdMeta),
-      );
+      context.handle(_uploadIdMeta,
+          uploadId.isAcceptableOrUnknown(data['upload_id']!, _uploadIdMeta));
     } else if (isInserting) {
       context.missing(_uploadIdMeta);
     }
     if (data.containsKey('object_key')) {
-      context.handle(
-        _objectKeyMeta,
-        objectKey.isAcceptableOrUnknown(data['object_key']!, _objectKeyMeta),
-      );
+      context.handle(_objectKeyMeta,
+          objectKey.isAcceptableOrUnknown(data['object_key']!, _objectKeyMeta));
     } else if (isInserting) {
       context.missing(_objectKeyMeta);
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
     if (data.containsKey('bucket_name')) {
       context.handle(
-        _bucketNameMeta,
-        bucketName.isAcceptableOrUnknown(data['bucket_name']!, _bucketNameMeta),
-      );
+          _bucketNameMeta,
+          bucketName.isAcceptableOrUnknown(
+              data['bucket_name']!, _bucketNameMeta));
     }
     if (data.containsKey('aws_region')) {
-      context.handle(
-        _awsRegionMeta,
-        awsRegion.isAcceptableOrUnknown(data['aws_region']!, _awsRegionMeta),
-      );
+      context.handle(_awsRegionMeta,
+          awsRegion.isAcceptableOrUnknown(data['aws_region']!, _awsRegionMeta));
     }
     return context;
   }
@@ -391,34 +295,18 @@ class $TransferRecordsTable extends i2.TransferRecords
   i1.TransferRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.TransferRecord(
-      id:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      uploadId:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}upload_id'],
-          )!,
-      objectKey:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}object_key'],
-          )!,
-      createdAt:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}created_at'],
-          )!,
-      bucketName: attachedDatabase.typeMapping.read(
-        i0.DriftSqlType.string,
-        data['${effectivePrefix}bucket_name'],
-      ),
-      awsRegion: attachedDatabase.typeMapping.read(
-        i0.DriftSqlType.string,
-        data['${effectivePrefix}aws_region'],
-      ),
+      id: attachedDatabase.typeMapping
+          .read(i0.DriftSqlType.int, data['${effectivePrefix}id'])!,
+      uploadId: attachedDatabase.typeMapping
+          .read(i0.DriftSqlType.string, data['${effectivePrefix}upload_id'])!,
+      objectKey: attachedDatabase.typeMapping
+          .read(i0.DriftSqlType.string, data['${effectivePrefix}object_key'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(i0.DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+      bucketName: attachedDatabase.typeMapping
+          .read(i0.DriftSqlType.string, data['${effectivePrefix}bucket_name']),
+      awsRegion: attachedDatabase.typeMapping
+          .read(i0.DriftSqlType.string, data['${effectivePrefix}aws_region']),
     );
   }
 
@@ -447,14 +335,13 @@ class TransferRecord extends i0.DataClass
 
   /// AWS region of Amazon S3 bucket.
   final String? awsRegion;
-  const TransferRecord({
-    required this.id,
-    required this.uploadId,
-    required this.objectKey,
-    required this.createdAt,
-    this.bucketName,
-    this.awsRegion,
-  });
+  const TransferRecord(
+      {required this.id,
+      required this.uploadId,
+      required this.objectKey,
+      required this.createdAt,
+      this.bucketName,
+      this.awsRegion});
   @override
   Map<String, i0.Expression> toColumns(bool nullToAbsent) {
     final map = <String, i0.Expression>{};
@@ -477,21 +364,17 @@ class TransferRecord extends i0.DataClass
       uploadId: i0.Value(uploadId),
       objectKey: i0.Value(objectKey),
       createdAt: i0.Value(createdAt),
-      bucketName:
-          bucketName == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(bucketName),
-      awsRegion:
-          awsRegion == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(awsRegion),
+      bucketName: bucketName == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(bucketName),
+      awsRegion: awsRegion == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(awsRegion),
     );
   }
 
-  factory TransferRecord.fromJson(
-    Map<String, dynamic> json, {
-    i0.ValueSerializer? serializer,
-  }) {
+  factory TransferRecord.fromJson(Map<String, dynamic> json,
+      {i0.ValueSerializer? serializer}) {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return TransferRecord(
       id: serializer.fromJson<int>(json['id']),
@@ -515,21 +398,21 @@ class TransferRecord extends i0.DataClass
     };
   }
 
-  i1.TransferRecord copyWith({
-    int? id,
-    String? uploadId,
-    String? objectKey,
-    String? createdAt,
-    i0.Value<String?> bucketName = const i0.Value.absent(),
-    i0.Value<String?> awsRegion = const i0.Value.absent(),
-  }) => i1.TransferRecord(
-    id: id ?? this.id,
-    uploadId: uploadId ?? this.uploadId,
-    objectKey: objectKey ?? this.objectKey,
-    createdAt: createdAt ?? this.createdAt,
-    bucketName: bucketName.present ? bucketName.value : this.bucketName,
-    awsRegion: awsRegion.present ? awsRegion.value : this.awsRegion,
-  );
+  i1.TransferRecord copyWith(
+          {int? id,
+          String? uploadId,
+          String? objectKey,
+          String? createdAt,
+          i0.Value<String?> bucketName = const i0.Value.absent(),
+          i0.Value<String?> awsRegion = const i0.Value.absent()}) =>
+      i1.TransferRecord(
+        id: id ?? this.id,
+        uploadId: uploadId ?? this.uploadId,
+        objectKey: objectKey ?? this.objectKey,
+        createdAt: createdAt ?? this.createdAt,
+        bucketName: bucketName.present ? bucketName.value : this.bucketName,
+        awsRegion: awsRegion.present ? awsRegion.value : this.awsRegion,
+      );
   TransferRecord copyWithCompanion(i1.TransferRecordsCompanion data) {
     return TransferRecord(
       id: data.id.present ? data.id.value : this.id,
@@ -592,9 +475,9 @@ class TransferRecordsCompanion extends i0.UpdateCompanion<i1.TransferRecord> {
     required String createdAt,
     this.bucketName = const i0.Value.absent(),
     this.awsRegion = const i0.Value.absent(),
-  }) : uploadId = i0.Value(uploadId),
-       objectKey = i0.Value(objectKey),
-       createdAt = i0.Value(createdAt);
+  })  : uploadId = i0.Value(uploadId),
+        objectKey = i0.Value(objectKey),
+        createdAt = i0.Value(createdAt);
   static i0.Insertable<i1.TransferRecord> custom({
     i0.Expression<int>? id,
     i0.Expression<String>? uploadId,
@@ -613,14 +496,13 @@ class TransferRecordsCompanion extends i0.UpdateCompanion<i1.TransferRecord> {
     });
   }
 
-  i1.TransferRecordsCompanion copyWith({
-    i0.Value<int>? id,
-    i0.Value<String>? uploadId,
-    i0.Value<String>? objectKey,
-    i0.Value<String>? createdAt,
-    i0.Value<String?>? bucketName,
-    i0.Value<String?>? awsRegion,
-  }) {
+  i1.TransferRecordsCompanion copyWith(
+      {i0.Value<int>? id,
+      i0.Value<String>? uploadId,
+      i0.Value<String>? objectKey,
+      i0.Value<String>? createdAt,
+      i0.Value<String?>? bucketName,
+      i0.Value<String?>? awsRegion}) {
     return i1.TransferRecordsCompanion(
       id: id ?? this.id,
       uploadId: uploadId ?? this.uploadId,

@@ -14,17 +14,17 @@ class _$InAppCampaignSchedule extends InAppCampaignSchedule {
   @override
   final QuietTime? quietTime;
 
-  factory _$InAppCampaignSchedule([
-    void Function(InAppCampaignScheduleBuilder)? updates,
-  ]) => (new InAppCampaignScheduleBuilder()..update(updates))._build();
+  factory _$InAppCampaignSchedule(
+          [void Function(InAppCampaignScheduleBuilder)? updates]) =>
+      (new InAppCampaignScheduleBuilder()..update(updates))._build();
 
   _$InAppCampaignSchedule._({this.endDate, this.eventFilter, this.quietTime})
-    : super._();
+      : super._();
 
   @override
   InAppCampaignSchedule rebuild(
-    void Function(InAppCampaignScheduleBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(InAppCampaignScheduleBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InAppCampaignScheduleBuilder toBuilder() =>
@@ -99,8 +99,7 @@ class InAppCampaignScheduleBuilder
   _$InAppCampaignSchedule _build() {
     _$InAppCampaignSchedule _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$InAppCampaignSchedule._(
             endDate: endDate,
             eventFilter: _eventFilter?.build(),
@@ -115,10 +114,7 @@ class InAppCampaignScheduleBuilder
         _quietTime?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'InAppCampaignSchedule',
-          _$failedField,
-          e.toString(),
-        );
+            r'InAppCampaignSchedule', _$failedField, e.toString());
       }
       rethrow;
     }

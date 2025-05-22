@@ -14,4 +14,6 @@ WaitableTrait _$WaitableTraitFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$WaitableTraitToJson(WaitableTrait instance) =>
-    <String, dynamic>{'waiters': instance.waiters};
+    <String, dynamic>{
+      'waiters': instance.waiters,
+    };

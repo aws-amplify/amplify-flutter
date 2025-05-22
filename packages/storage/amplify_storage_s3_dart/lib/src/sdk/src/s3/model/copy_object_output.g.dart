@@ -30,23 +30,23 @@ class _$CopyObjectOutput extends CopyObjectOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$CopyObjectOutput([
-    void Function(CopyObjectOutputBuilder)? updates,
-  ]) => (new CopyObjectOutputBuilder()..update(updates))._build();
+  factory _$CopyObjectOutput(
+          [void Function(CopyObjectOutputBuilder)? updates]) =>
+      (new CopyObjectOutputBuilder()..update(updates))._build();
 
-  _$CopyObjectOutput._({
-    this.copyObjectResult,
-    this.expiration,
-    this.copySourceVersionId,
-    this.versionId,
-    this.serverSideEncryption,
-    this.sseCustomerAlgorithm,
-    this.sseCustomerKeyMd5,
-    this.ssekmsKeyId,
-    this.ssekmsEncryptionContext,
-    this.bucketKeyEnabled,
-    this.requestCharged,
-  }) : super._();
+  _$CopyObjectOutput._(
+      {this.copyObjectResult,
+      this.expiration,
+      this.copySourceVersionId,
+      this.versionId,
+      this.serverSideEncryption,
+      this.sseCustomerAlgorithm,
+      this.sseCustomerKeyMd5,
+      this.ssekmsKeyId,
+      this.ssekmsEncryptionContext,
+      this.bucketKeyEnabled,
+      this.requestCharged})
+      : super._();
 
   @override
   CopyObjectOutput rebuild(void Function(CopyObjectOutputBuilder) updates) =>
@@ -188,8 +188,7 @@ class CopyObjectOutputBuilder
   _$CopyObjectOutput _build() {
     _$CopyObjectOutput _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$CopyObjectOutput._(
             copyObjectResult: _copyObjectResult?.build(),
             expiration: expiration,
@@ -210,10 +209,7 @@ class CopyObjectOutputBuilder
         _copyObjectResult?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'CopyObjectOutput',
-          _$failedField,
-          e.toString(),
-        );
+            r'CopyObjectOutput', _$failedField, e.toString());
       }
       rethrow;
     }

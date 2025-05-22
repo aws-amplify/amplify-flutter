@@ -14,36 +14,27 @@ class _$UpdateEndpointRequest extends UpdateEndpointRequest {
   @override
   final EndpointRequest endpointRequest;
 
-  factory _$UpdateEndpointRequest([
-    void Function(UpdateEndpointRequestBuilder)? updates,
-  ]) => (new UpdateEndpointRequestBuilder()..update(updates))._build();
+  factory _$UpdateEndpointRequest(
+          [void Function(UpdateEndpointRequestBuilder)? updates]) =>
+      (new UpdateEndpointRequestBuilder()..update(updates))._build();
 
-  _$UpdateEndpointRequest._({
-    required this.applicationId,
-    required this.endpointId,
-    required this.endpointRequest,
-  }) : super._() {
+  _$UpdateEndpointRequest._(
+      {required this.applicationId,
+      required this.endpointId,
+      required this.endpointRequest})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      applicationId,
-      r'UpdateEndpointRequest',
-      'applicationId',
-    );
+        applicationId, r'UpdateEndpointRequest', 'applicationId');
     BuiltValueNullFieldError.checkNotNull(
-      endpointId,
-      r'UpdateEndpointRequest',
-      'endpointId',
-    );
+        endpointId, r'UpdateEndpointRequest', 'endpointId');
     BuiltValueNullFieldError.checkNotNull(
-      endpointRequest,
-      r'UpdateEndpointRequest',
-      'endpointRequest',
-    );
+        endpointRequest, r'UpdateEndpointRequest', 'endpointRequest');
   }
 
   @override
   UpdateEndpointRequest rebuild(
-    void Function(UpdateEndpointRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(UpdateEndpointRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   UpdateEndpointRequestBuilder toBuilder() =>
@@ -118,19 +109,12 @@ class UpdateEndpointRequestBuilder
   _$UpdateEndpointRequest _build() {
     _$UpdateEndpointRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$UpdateEndpointRequest._(
             applicationId: BuiltValueNullFieldError.checkNotNull(
-              applicationId,
-              r'UpdateEndpointRequest',
-              'applicationId',
-            ),
+                applicationId, r'UpdateEndpointRequest', 'applicationId'),
             endpointId: BuiltValueNullFieldError.checkNotNull(
-              endpointId,
-              r'UpdateEndpointRequest',
-              'endpointId',
-            ),
+                endpointId, r'UpdateEndpointRequest', 'endpointId'),
             endpointRequest: endpointRequest.build(),
           );
     } catch (_) {
@@ -140,10 +124,7 @@ class UpdateEndpointRequestBuilder
         endpointRequest.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'UpdateEndpointRequest',
-          _$failedField,
-          e.toString(),
-        );
+            r'UpdateEndpointRequest', _$failedField, e.toString());
       }
       rethrow;
     }

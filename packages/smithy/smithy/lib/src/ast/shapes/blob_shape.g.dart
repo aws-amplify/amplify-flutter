@@ -15,28 +15,20 @@ class _$BlobShapeSerializer implements StructuredSerializer<BlobShape> {
   final String wireName = 'BlobShape';
 
   @override
-  Iterable<Object?> serialize(
-    Serializers serializers,
-    BlobShape object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  Iterable<Object?> serialize(Serializers serializers, BlobShape object,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'traits',
-      serializers.serialize(
-        object.traits,
-        specifiedType: const FullType(TraitMap),
-      ),
+      serializers.serialize(object.traits,
+          specifiedType: const FullType(TraitMap)),
     ];
 
     return result;
   }
 
   @override
-  BlobShape deserialize(
-    Serializers serializers,
-    Iterable<Object?> serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
+  BlobShape deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result = new BlobShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -46,12 +38,8 @@ class _$BlobShapeSerializer implements StructuredSerializer<BlobShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'traits':
-          result.traits =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(TraitMap),
-                  )!
-                  as TraitMap;
+          result.traits = serializers.deserialize(value,
+              specifiedType: const FullType(TraitMap))! as TraitMap;
           break;
       }
     }
@@ -148,19 +136,12 @@ class BlobShapeBuilder
   BlobShape build() => _build();
 
   _$BlobShape _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         new _$BlobShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
-            shapeId,
-            r'BlobShape',
-            'shapeId',
-          ),
+              shapeId, r'BlobShape', 'shapeId'),
           traits: BuiltValueNullFieldError.checkNotNull(
-            traits,
-            r'BlobShape',
-            'traits',
-          ),
+              traits, r'BlobShape', 'traits'),
         );
     replace(_$result);
     return _$result;

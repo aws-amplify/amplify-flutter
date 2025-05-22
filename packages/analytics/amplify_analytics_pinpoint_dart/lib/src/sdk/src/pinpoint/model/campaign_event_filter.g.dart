@@ -12,28 +12,22 @@ class _$CampaignEventFilter extends CampaignEventFilter {
   @override
   final FilterType filterType;
 
-  factory _$CampaignEventFilter([
-    void Function(CampaignEventFilterBuilder)? updates,
-  ]) => (new CampaignEventFilterBuilder()..update(updates))._build();
+  factory _$CampaignEventFilter(
+          [void Function(CampaignEventFilterBuilder)? updates]) =>
+      (new CampaignEventFilterBuilder()..update(updates))._build();
 
   _$CampaignEventFilter._({required this.dimensions, required this.filterType})
-    : super._() {
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-      dimensions,
-      r'CampaignEventFilter',
-      'dimensions',
-    );
+        dimensions, r'CampaignEventFilter', 'dimensions');
     BuiltValueNullFieldError.checkNotNull(
-      filterType,
-      r'CampaignEventFilter',
-      'filterType',
-    );
+        filterType, r'CampaignEventFilter', 'filterType');
   }
 
   @override
   CampaignEventFilter rebuild(
-    void Function(CampaignEventFilterBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(CampaignEventFilterBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   CampaignEventFilterBuilder toBuilder() =>
@@ -100,15 +94,11 @@ class CampaignEventFilterBuilder
   _$CampaignEventFilter _build() {
     _$CampaignEventFilter _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$CampaignEventFilter._(
             dimensions: dimensions.build(),
             filterType: BuiltValueNullFieldError.checkNotNull(
-              filterType,
-              r'CampaignEventFilter',
-              'filterType',
-            ),
+                filterType, r'CampaignEventFilter', 'filterType'),
           );
     } catch (_) {
       late String _$failedField;
@@ -117,10 +107,7 @@ class CampaignEventFilterBuilder
         dimensions.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'CampaignEventFilter',
-          _$failedField,
-          e.toString(),
-        );
+            r'CampaignEventFilter', _$failedField, e.toString());
       }
       rethrow;
     }

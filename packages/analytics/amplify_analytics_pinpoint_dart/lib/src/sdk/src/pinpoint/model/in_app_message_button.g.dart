@@ -16,17 +16,17 @@ class _$InAppMessageButton extends InAppMessageButton {
   @override
   final OverrideButtonConfiguration? web;
 
-  factory _$InAppMessageButton([
-    void Function(InAppMessageButtonBuilder)? updates,
-  ]) => (new InAppMessageButtonBuilder()..update(updates))._build();
+  factory _$InAppMessageButton(
+          [void Function(InAppMessageButtonBuilder)? updates]) =>
+      (new InAppMessageButtonBuilder()..update(updates))._build();
 
   _$InAppMessageButton._({this.android, this.defaultConfig, this.ios, this.web})
-    : super._();
+      : super._();
 
   @override
   InAppMessageButton rebuild(
-    void Function(InAppMessageButtonBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(InAppMessageButtonBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   InAppMessageButtonBuilder toBuilder() =>
@@ -111,8 +111,7 @@ class InAppMessageButtonBuilder
   _$InAppMessageButton _build() {
     _$InAppMessageButton _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           new _$InAppMessageButton._(
             android: _android?.build(),
             defaultConfig: _defaultConfig?.build(),
@@ -132,10 +131,7 @@ class InAppMessageButtonBuilder
         _web?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-          r'InAppMessageButton',
-          _$failedField,
-          e.toString(),
-        );
+            r'InAppMessageButton', _$failedField, e.toString());
       }
       rethrow;
     }

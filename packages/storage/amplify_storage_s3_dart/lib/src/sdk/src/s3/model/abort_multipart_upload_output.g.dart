@@ -10,16 +10,16 @@ class _$AbortMultipartUploadOutput extends AbortMultipartUploadOutput {
   @override
   final RequestCharged? requestCharged;
 
-  factory _$AbortMultipartUploadOutput([
-    void Function(AbortMultipartUploadOutputBuilder)? updates,
-  ]) => (new AbortMultipartUploadOutputBuilder()..update(updates))._build();
+  factory _$AbortMultipartUploadOutput(
+          [void Function(AbortMultipartUploadOutputBuilder)? updates]) =>
+      (new AbortMultipartUploadOutputBuilder()..update(updates))._build();
 
   _$AbortMultipartUploadOutput._({this.requestCharged}) : super._();
 
   @override
   AbortMultipartUploadOutput rebuild(
-    void Function(AbortMultipartUploadOutputBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(AbortMultipartUploadOutputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   AbortMultipartUploadOutputBuilder toBuilder() =>
@@ -77,9 +77,10 @@ class AbortMultipartUploadOutputBuilder
   AbortMultipartUploadOutput build() => _build();
 
   _$AbortMultipartUploadOutput _build() {
-    final _$result =
-        _$v ??
-        new _$AbortMultipartUploadOutput._(requestCharged: requestCharged);
+    final _$result = _$v ??
+        new _$AbortMultipartUploadOutput._(
+          requestCharged: requestCharged,
+        );
     replace(_$result);
     return _$result;
   }
@@ -87,9 +88,8 @@ class AbortMultipartUploadOutputBuilder
 
 class _$AbortMultipartUploadOutputPayload
     extends AbortMultipartUploadOutputPayload {
-  factory _$AbortMultipartUploadOutputPayload([
-    void Function(AbortMultipartUploadOutputPayloadBuilder)? updates,
-  ]) =>
+  factory _$AbortMultipartUploadOutputPayload(
+          [void Function(AbortMultipartUploadOutputPayloadBuilder)? updates]) =>
       (new AbortMultipartUploadOutputPayloadBuilder()..update(updates))
           ._build();
 
@@ -97,8 +97,8 @@ class _$AbortMultipartUploadOutputPayload
 
   @override
   AbortMultipartUploadOutputPayload rebuild(
-    void Function(AbortMultipartUploadOutputPayloadBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(AbortMultipartUploadOutputPayloadBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   AbortMultipartUploadOutputPayloadBuilder toBuilder() =>
@@ -118,10 +118,8 @@ class _$AbortMultipartUploadOutputPayload
 
 class AbortMultipartUploadOutputPayloadBuilder
     implements
-        Builder<
-          AbortMultipartUploadOutputPayload,
-          AbortMultipartUploadOutputPayloadBuilder
-        > {
+        Builder<AbortMultipartUploadOutputPayload,
+            AbortMultipartUploadOutputPayloadBuilder> {
   _$AbortMultipartUploadOutputPayload? _$v;
 
   AbortMultipartUploadOutputPayloadBuilder();
@@ -134,8 +132,7 @@ class AbortMultipartUploadOutputPayloadBuilder
 
   @override
   void update(
-    void Function(AbortMultipartUploadOutputPayloadBuilder)? updates,
-  ) {
+      void Function(AbortMultipartUploadOutputPayloadBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
