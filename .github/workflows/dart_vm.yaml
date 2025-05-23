@@ -82,7 +82,7 @@ jobs:
 
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"
-        run: dart format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed -o show .
         working-directory: ${{ inputs.working-directory }}
 
       - name: Check for Tests
