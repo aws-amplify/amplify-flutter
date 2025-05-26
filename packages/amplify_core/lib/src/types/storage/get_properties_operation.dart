@@ -7,8 +7,10 @@ import 'package:amplify_core/src/types/storage/base/storage_operation.dart';
 /// {@template amplify_core.storage.get_properties_operation}
 /// Presents a storage copy operation.
 /// {@endtemplate}
-class StorageGetPropertiesOperation<Request extends StorageGetPropertiesRequest,
-        Result extends StorageGetPropertiesResult>
+class StorageGetPropertiesOperation<
+  Request extends StorageGetPropertiesRequest,
+  Result extends StorageGetPropertiesResult
+>
     extends StorageOperation<Request, Result> {
   /// {@macro amplify_core.storage.get_properties_operation}
   StorageGetPropertiesOperation({

@@ -38,7 +38,8 @@ class HasOneParent extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -74,37 +75,39 @@ class HasOneParent extends amplify_core.Model {
     return _hasOneParentImplicitChildId;
   }
 
-  const HasOneParent._internal(
-      {required this.id,
-      name,
-      implicitChild,
-      explicitChildID,
-      explicitChild,
-      createdAt,
-      updatedAt,
-      hasOneParentImplicitChildId})
-      : _name = name,
-        _implicitChild = implicitChild,
-        _explicitChildID = explicitChildID,
-        _explicitChild = explicitChild,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt,
-        _hasOneParentImplicitChildId = hasOneParentImplicitChildId;
+  const HasOneParent._internal({
+    required this.id,
+    name,
+    implicitChild,
+    explicitChildID,
+    explicitChild,
+    createdAt,
+    updatedAt,
+    hasOneParentImplicitChildId,
+  }) : _name = name,
+       _implicitChild = implicitChild,
+       _explicitChildID = explicitChildID,
+       _explicitChild = explicitChild,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt,
+       _hasOneParentImplicitChildId = hasOneParentImplicitChildId;
 
-  factory HasOneParent(
-      {String? id,
-      String? name,
-      HasOneChild? implicitChild,
-      String? explicitChildID,
-      HasOneChild? explicitChild,
-      String? hasOneParentImplicitChildId}) {
+  factory HasOneParent({
+    String? id,
+    String? name,
+    HasOneChild? implicitChild,
+    String? explicitChildID,
+    HasOneChild? explicitChild,
+    String? hasOneParentImplicitChildId,
+  }) {
     return HasOneParent._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        implicitChild: implicitChild,
-        explicitChildID: explicitChildID,
-        explicitChild: explicitChild,
-        hasOneParentImplicitChildId: hasOneParentImplicitChildId);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      implicitChild: implicitChild,
+      explicitChildID: explicitChildID,
+      explicitChild: explicitChild,
+      hasOneParentImplicitChildId: hasOneParentImplicitChildId,
+    );
   }
 
   bool equals(Object other) {
@@ -134,176 +137,226 @@ class HasOneParent extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("explicitChildID=" + "$_explicitChildID" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
-    buffer.write("updatedAt=" +
-        (_updatedAt != null ? _updatedAt.format() : "null") +
-        ", ");
     buffer.write(
-        "hasOneParentImplicitChildId=" + "$_hasOneParentImplicitChildId");
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "hasOneParentImplicitChildId=" + "$_hasOneParentImplicitChildId",
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  HasOneParent copyWith(
-      {String? name,
-      HasOneChild? implicitChild,
-      String? explicitChildID,
-      HasOneChild? explicitChild,
-      String? hasOneParentImplicitChildId}) {
+  HasOneParent copyWith({
+    String? name,
+    HasOneChild? implicitChild,
+    String? explicitChildID,
+    HasOneChild? explicitChild,
+    String? hasOneParentImplicitChildId,
+  }) {
     return HasOneParent._internal(
-        id: id,
-        name: name ?? this.name,
-        implicitChild: implicitChild ?? this.implicitChild,
-        explicitChildID: explicitChildID ?? this.explicitChildID,
-        explicitChild: explicitChild ?? this.explicitChild,
-        hasOneParentImplicitChildId:
-            hasOneParentImplicitChildId ?? this.hasOneParentImplicitChildId);
+      id: id,
+      name: name ?? this.name,
+      implicitChild: implicitChild ?? this.implicitChild,
+      explicitChildID: explicitChildID ?? this.explicitChildID,
+      explicitChild: explicitChild ?? this.explicitChild,
+      hasOneParentImplicitChildId:
+          hasOneParentImplicitChildId ?? this.hasOneParentImplicitChildId,
+    );
   }
 
-  HasOneParent copyWithModelFieldValues(
-      {ModelFieldValue<String?>? name,
-      ModelFieldValue<HasOneChild?>? implicitChild,
-      ModelFieldValue<String?>? explicitChildID,
-      ModelFieldValue<HasOneChild?>? explicitChild,
-      ModelFieldValue<String?>? hasOneParentImplicitChildId}) {
+  HasOneParent copyWithModelFieldValues({
+    ModelFieldValue<String?>? name,
+    ModelFieldValue<HasOneChild?>? implicitChild,
+    ModelFieldValue<String?>? explicitChildID,
+    ModelFieldValue<HasOneChild?>? explicitChild,
+    ModelFieldValue<String?>? hasOneParentImplicitChildId,
+  }) {
     return HasOneParent._internal(
-        id: id,
-        name: name == null ? this.name : name.value,
-        implicitChild:
-            implicitChild == null ? this.implicitChild : implicitChild.value,
-        explicitChildID: explicitChildID == null
-            ? this.explicitChildID
-            : explicitChildID.value,
-        explicitChild:
-            explicitChild == null ? this.explicitChild : explicitChild.value,
-        hasOneParentImplicitChildId: hasOneParentImplicitChildId == null
-            ? this.hasOneParentImplicitChildId
-            : hasOneParentImplicitChildId.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+      implicitChild:
+          implicitChild == null ? this.implicitChild : implicitChild.value,
+      explicitChildID:
+          explicitChildID == null
+              ? this.explicitChildID
+              : explicitChildID.value,
+      explicitChild:
+          explicitChild == null ? this.explicitChild : explicitChild.value,
+      hasOneParentImplicitChildId:
+          hasOneParentImplicitChildId == null
+              ? this.hasOneParentImplicitChildId
+              : hasOneParentImplicitChildId.value,
+    );
   }
 
   HasOneParent.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _implicitChild = json['implicitChild'] != null
-            ? json['implicitChild']['serializedData'] != null
-                ? HasOneChild.fromJson(new Map<String, dynamic>.from(
-                    json['implicitChild']['serializedData']))
-                : HasOneChild.fromJson(
-                    new Map<String, dynamic>.from(json['implicitChild']))
-            : null,
-        _explicitChildID = json['explicitChildID'],
-        _explicitChild = json['explicitChild'] != null
-            ? json['explicitChild']['serializedData'] != null
-                ? HasOneChild.fromJson(new Map<String, dynamic>.from(
-                    json['explicitChild']['serializedData']))
-                : HasOneChild.fromJson(
-                    new Map<String, dynamic>.from(json['explicitChild']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null,
-        _hasOneParentImplicitChildId = json['hasOneParentImplicitChildId'];
+    : id = json['id'],
+      _name = json['name'],
+      _implicitChild =
+          json['implicitChild'] != null
+              ? json['implicitChild']['serializedData'] != null
+                  ? HasOneChild.fromJson(
+                    new Map<String, dynamic>.from(
+                      json['implicitChild']['serializedData'],
+                    ),
+                  )
+                  : HasOneChild.fromJson(
+                    new Map<String, dynamic>.from(json['implicitChild']),
+                  )
+              : null,
+      _explicitChildID = json['explicitChildID'],
+      _explicitChild =
+          json['explicitChild'] != null
+              ? json['explicitChild']['serializedData'] != null
+                  ? HasOneChild.fromJson(
+                    new Map<String, dynamic>.from(
+                      json['explicitChild']['serializedData'],
+                    ),
+                  )
+                  : HasOneChild.fromJson(
+                    new Map<String, dynamic>.from(json['explicitChild']),
+                  )
+              : null,
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null,
+      _hasOneParentImplicitChildId = json['hasOneParentImplicitChildId'];
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'implicitChild': _implicitChild?.toJson(),
-        'explicitChildID': _explicitChildID,
-        'explicitChild': _explicitChild?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format(),
-        'hasOneParentImplicitChildId': _hasOneParentImplicitChildId
-      };
+    'id': id,
+    'name': _name,
+    'implicitChild': _implicitChild?.toJson(),
+    'explicitChildID': _explicitChildID,
+    'explicitChild': _explicitChild?.toJson(),
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+    'hasOneParentImplicitChildId': _hasOneParentImplicitChildId,
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'implicitChild': _implicitChild,
-        'explicitChildID': _explicitChildID,
-        'explicitChild': _explicitChild,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt,
-        'hasOneParentImplicitChildId': _hasOneParentImplicitChildId
-      };
+    'id': id,
+    'name': _name,
+    'implicitChild': _implicitChild,
+    'explicitChildID': _explicitChildID,
+    'explicitChild': _explicitChild,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+    'hasOneParentImplicitChildId': _hasOneParentImplicitChildId,
+  };
 
   static final amplify_core.QueryModelIdentifier<HasOneParentModelIdentifier>
-      MODEL_IDENTIFIER =
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<HasOneParentModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final IMPLICITCHILD = amplify_core.QueryField(
-      fieldName: "implicitChild",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'HasOneChild'));
-  static final EXPLICITCHILDID =
-      amplify_core.QueryField(fieldName: "explicitChildID");
+    fieldName: "implicitChild",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'HasOneChild',
+    ),
+  );
+  static final EXPLICITCHILDID = amplify_core.QueryField(
+    fieldName: "explicitChildID",
+  );
   static final EXPLICITCHILD = amplify_core.QueryField(
-      fieldName: "explicitChild",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'HasOneChild'));
-  static final HASONEPARENTIMPLICITCHILDID =
-      amplify_core.QueryField(fieldName: "hasOneParentImplicitChildId");
+    fieldName: "explicitChild",
+    fieldType: amplify_core.ModelFieldType(
+      amplify_core.ModelFieldTypeEnum.model,
+      ofModelName: 'HasOneChild',
+    ),
+  );
+  static final HASONEPARENTIMPLICITCHILDID = amplify_core.QueryField(
+    fieldName: "hasOneParentImplicitChildId",
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasOneParent";
-    modelSchemaDefinition.pluralName = "HasOneParents";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "HasOneParent";
+      modelSchemaDefinition.pluralName = "HasOneParents";
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: HasOneParent.NAME,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: HasOneParent.NAME,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasOne(
-        key: HasOneParent.IMPLICITCHILD,
-        isRequired: false,
-        ofModelName: 'HasOneChild',
-        associatedKey: HasOneChild.ID));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasOne(
+          key: HasOneParent.IMPLICITCHILD,
+          isRequired: false,
+          ofModelName: 'HasOneChild',
+          associatedKey: HasOneChild.ID,
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: HasOneParent.EXPLICITCHILDID,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: HasOneParent.EXPLICITCHILDID,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasOne(
-        key: HasOneParent.EXPLICITCHILD,
-        isRequired: false,
-        ofModelName: 'HasOneChild',
-        associatedKey: HasOneChild.ID));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.hasOne(
+          key: HasOneParent.EXPLICITCHILD,
+          isRequired: false,
+          ofModelName: 'HasOneChild',
+          associatedKey: HasOneChild.ID,
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: HasOneParent.HASONEPARENTIMPLICITCHILDID,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-  });
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: HasOneParent.HASONEPARENTIMPLICITCHILDID,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _HasOneParentModelType extends amplify_core.ModelType<HasOneParent> {
@@ -335,10 +388,10 @@ class HasOneParentModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

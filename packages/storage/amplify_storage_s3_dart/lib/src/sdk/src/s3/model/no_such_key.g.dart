@@ -67,10 +67,7 @@ class NoSuchKeyBuilder implements Builder<NoSuchKey, NoSuchKeyBuilder> {
   NoSuchKey build() => _build();
 
   _$NoSuchKey _build() {
-    final _$result = _$v ??
-        new _$NoSuchKey._(
-          headers: headers,
-        );
+    final _$result = _$v ?? new _$NoSuchKey._(headers: headers);
     replace(_$result);
     return _$result;
   }

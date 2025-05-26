@@ -18,18 +18,22 @@ class _$EventContextDataType extends EventContextDataType {
   @override
   final String? country;
 
-  factory _$EventContextDataType(
-          [void Function(EventContextDataTypeBuilder)? updates]) =>
-      (new EventContextDataTypeBuilder()..update(updates))._build();
+  factory _$EventContextDataType([
+    void Function(EventContextDataTypeBuilder)? updates,
+  ]) => (new EventContextDataTypeBuilder()..update(updates))._build();
 
-  _$EventContextDataType._(
-      {this.ipAddress, this.deviceName, this.timezone, this.city, this.country})
-      : super._();
+  _$EventContextDataType._({
+    this.ipAddress,
+    this.deviceName,
+    this.timezone,
+    this.city,
+    this.country,
+  }) : super._();
 
   @override
   EventContextDataType rebuild(
-          void Function(EventContextDataTypeBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EventContextDataTypeBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EventContextDataTypeBuilder toBuilder() =>
@@ -113,13 +117,15 @@ class EventContextDataTypeBuilder
   EventContextDataType build() => _build();
 
   _$EventContextDataType _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$EventContextDataType._(
-            ipAddress: ipAddress,
-            deviceName: deviceName,
-            timezone: timezone,
-            city: city,
-            country: country);
+          ipAddress: ipAddress,
+          deviceName: deviceName,
+          timezone: timezone,
+          city: city,
+          country: country,
+        );
     replace(_$result);
     return _$result;
   }

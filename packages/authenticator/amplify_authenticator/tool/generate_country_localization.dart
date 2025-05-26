@@ -16,19 +16,21 @@ class GenCountry {
   final String dialCode;
   final String key;
   final String code;
-  GenCountry(
-      {required this.displayName,
-      required this.dialCode,
-      required this.key,
-      required this.code});
+  GenCountry({
+    required this.displayName,
+    required this.dialCode,
+    required this.key,
+    required this.code,
+  });
   // add fromJson method here
   factory GenCountry.fromJson(Map<String, dynamic> json) {
     var name = json['name'] as String;
     return GenCountry(
-        dialCode: (json['dial_code'] as String).replaceAll('+', ''),
-        displayName: name,
-        key: '${(json['code'] as String).toLowerCase()}\$',
-        code: json['code'] as String);
+      dialCode: (json['dial_code'] as String).replaceAll('+', ''),
+      displayName: name,
+      key: '${(json['code'] as String).toLowerCase()}\$',
+      code: json['code'] as String,
+    );
   }
 }
 
@@ -160,9 +162,11 @@ const countryCodes = [
 ''');
 
   _countries.insert(
-      0,
-      _countries
-          .removeAt(_countries.indexWhere((element) => element.code == 'US')));
+    0,
+    _countries.removeAt(
+      _countries.indexWhere((element) => element.code == 'US'),
+    ),
+  );
 
   for (var element in _countries) {
     var comma = _countries.indexOf(element) != _countries.length - 1 ? ',' : '';

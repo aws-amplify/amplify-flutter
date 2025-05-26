@@ -97,19 +97,19 @@ class OAuthOutputs
 
   @override
   List<Object?> get props => [
-        identityProviders,
-        domain,
-        scopes,
-        redirectSignInUri,
-        signInUri,
-        signInUriQueryParameters,
-        redirectSignOutUri,
-        signOutUri,
-        signOutUriQueryParameters,
-        tokenUri,
-        tokenUriQueryParameters,
-        responseType,
-      ];
+    identityProviders,
+    domain,
+    scopes,
+    redirectSignInUri,
+    signInUri,
+    signInUriQueryParameters,
+    redirectSignOutUri,
+    signOutUri,
+    signOutUriQueryParameters,
+    tokenUri,
+    tokenUriQueryParameters,
+    responseType,
+  ];
 
   @override
   String get runtimeTypeName => 'OAuthOutputs';

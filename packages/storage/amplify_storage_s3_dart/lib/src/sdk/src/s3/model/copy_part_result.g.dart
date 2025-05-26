@@ -23,14 +23,14 @@ class _$CopyPartResult extends CopyPartResult {
   factory _$CopyPartResult([void Function(CopyPartResultBuilder)? updates]) =>
       (new CopyPartResultBuilder()..update(updates))._build();
 
-  _$CopyPartResult._(
-      {this.eTag,
-      this.lastModified,
-      this.checksumCrc32,
-      this.checksumCrc32C,
-      this.checksumSha1,
-      this.checksumSha256})
-      : super._();
+  _$CopyPartResult._({
+    this.eTag,
+    this.lastModified,
+    this.checksumCrc32,
+    this.checksumCrc32C,
+    this.checksumSha1,
+    this.checksumSha256,
+  }) : super._();
 
   @override
   CopyPartResult rebuild(void Function(CopyPartResultBuilder) updates) =>
@@ -129,7 +129,8 @@ class CopyPartResultBuilder
   CopyPartResult build() => _build();
 
   _$CopyPartResult _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$CopyPartResult._(
           eTag: eTag,
           lastModified: lastModified,

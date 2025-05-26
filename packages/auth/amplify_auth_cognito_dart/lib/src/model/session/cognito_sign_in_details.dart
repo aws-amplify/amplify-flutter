@@ -56,9 +56,8 @@ abstract class CognitoSignInDetails extends SignInDetails {
   }) = CognitoSignInDetailsApiBased;
 
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_hosted_ui}
-  const factory CognitoSignInDetails.hostedUi({
-    AuthProvider? provider,
-  }) = CognitoSignInDetailsHostedUi;
+  const factory CognitoSignInDetails.hostedUi({AuthProvider? provider}) =
+      CognitoSignInDetailsHostedUi;
 
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_type}
   final CognitoSignInType signInType;
@@ -92,9 +91,9 @@ class CognitoSignInDetailsApiBased extends CognitoSignInDetails
 
   @override
   Map<String, Object?> toJson() => {
-        'signInType': signInType.name,
-        ..._$CognitoSignInDetailsApiBasedToJson(this),
-      };
+    'signInType': signInType.name,
+    ..._$CognitoSignInDetailsApiBasedToJson(this),
+  };
 }
 
 /// {@template amplify_auth_cognito_dart.cognito_sign_in_details_hosted_ui}
@@ -104,9 +103,8 @@ class CognitoSignInDetailsApiBased extends CognitoSignInDetails
 class CognitoSignInDetailsHostedUi extends CognitoSignInDetails
     with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_hosted_ui}
-  const CognitoSignInDetailsHostedUi({
-    this.provider,
-  }) : super(CognitoSignInType.hostedUi);
+  const CognitoSignInDetailsHostedUi({this.provider})
+    : super(CognitoSignInType.hostedUi);
 
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_hosted_ui}
   factory CognitoSignInDetailsHostedUi.fromJson(Map<String, Object?> json) =>
@@ -120,9 +118,9 @@ class CognitoSignInDetailsHostedUi extends CognitoSignInDetails
 
   @override
   Map<String, Object?> toJson() => {
-        'signInType': signInType.name,
-        ..._$CognitoSignInDetailsHostedUiToJson(this),
-      };
+    'signInType': signInType.name,
+    ..._$CognitoSignInDetailsHostedUiToJson(this),
+  };
 }
 
 /// {@template amplify_auth_cognito_dart.cognito_sign_in_details_federated}
@@ -150,9 +148,9 @@ class CognitoSignInDetailsFederated extends CognitoSignInDetails
 
   @override
   Map<String, Object?> toJson() => {
-        'signInType': signInType.name,
-        ..._$CognitoSignInDetailsFederatedToJson(this),
-      };
+    'signInType': signInType.name,
+    ..._$CognitoSignInDetailsFederatedToJson(this),
+  };
 }
 
 /// The method by which the user logged in and retrieved the accompanying

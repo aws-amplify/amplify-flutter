@@ -16,7 +16,7 @@ import '../http_server.dart';
 ///    On Startup:
 ///     - send port
 ///    On Request Received:
-///     - send headers as Map<String, List<String>>
+///     - send headers as Map of String, List of String>
 ///    When Receive Anything:
 ///     - exit
 Future<void> hybridMain(StreamChannel<Object?> channel) async =>
@@ -52,18 +52,12 @@ Future<void> _handleH2(
 ) async {
   final method = AWSHttpMethod.fromString(headers[':method']!);
   if (method == AWSHttpMethod.options) {
-    return request.sendHeaders(
-      [
-        Header.ascii(':status', '200'),
-        Header.ascii('Access-Control-Allow-Methods', 'GET'),
-        Header.ascii('Access-Control-Allow-Headers', '*'),
-      ],
-      endStream: true,
-    );
+    return request.sendHeaders([
+      Header.ascii(':status', '200'),
+      Header.ascii('Access-Control-Allow-Methods', 'GET'),
+      Header.ascii('Access-Control-Allow-Headers', '*'),
+    ], endStream: true);
   }
   channel.sink.add(headers);
-  request.sendHeaders(
-    [Header.ascii(':status', '200')],
-    endStream: true,
-  );
+  request.sendHeaders([Header.ascii(':status', '200')], endStream: true);
 }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_xml_v2.rest_xml_protocol.model.xml_unions_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,9 +20,9 @@ abstract class XmlUnionsInputOutput
     return _$XmlUnionsInputOutput._(unionValue: unionValue);
   }
 
-  factory XmlUnionsInputOutput.build(
-          [void Function(XmlUnionsInputOutputBuilder) updates]) =
-      _$XmlUnionsInputOutput;
+  factory XmlUnionsInputOutput.build([
+    void Function(XmlUnionsInputOutputBuilder) updates,
+  ]) = _$XmlUnionsInputOutput;
 
   const XmlUnionsInputOutput._();
 
@@ -30,18 +30,16 @@ abstract class XmlUnionsInputOutput
     XmlUnionsInputOutput payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      payload;
+  }) => payload;
 
   /// Constructs a [XmlUnionsInputOutput] from a [payload] and [response].
   factory XmlUnionsInputOutput.fromResponse(
     XmlUnionsInputOutput payload,
     _i2.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i1.SmithySerializer<XmlUnionsInputOutput>> serializers = [
-    XmlUnionsInputOutputRestXmlSerializer()
+    XmlUnionsInputOutputRestXmlSerializer(),
   ];
 
   XmlUnionShape? get unionValue;
@@ -54,10 +52,7 @@ abstract class XmlUnionsInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlUnionsInputOutput')
-      ..add(
-        'unionValue',
-        unionValue,
-      );
+      ..add('unionValue', unionValue);
     return helper.toString();
   }
 }
@@ -68,17 +63,14 @@ class XmlUnionsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        XmlUnionsInputOutput,
-        _$XmlUnionsInputOutput,
-      ];
+    XmlUnionsInputOutput,
+    _$XmlUnionsInputOutput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlUnionsInputOutput deserialize(
@@ -97,10 +89,12 @@ class XmlUnionsInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'unionValue':
-          result.unionValue = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(XmlUnionShape),
-          ) as XmlUnionShape);
+          result.unionValue =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(XmlUnionShape),
+                  )
+                  as XmlUnionShape);
       }
     }
 
@@ -118,10 +112,12 @@ class XmlUnionsInputOutputRestXmlSerializer
     if (unionValue != null) {
       result$
         ..add(const _i1.XmlElementName('unionValue'))
-        ..add(serializers.serialize(
-          unionValue,
-          specifiedType: const FullType(XmlUnionShape),
-        ));
+        ..add(
+          serializers.serialize(
+            unionValue,
+            specifiedType: const FullType(XmlUnionShape),
+          ),
+        );
     }
     return result$;
   }

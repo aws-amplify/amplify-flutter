@@ -16,8 +16,7 @@ class CognitoGetCurrentUserPluginOptions extends GetCurrentUserPluginOptions {
   /// {@macro amplify_auth_cognito.model.cognito_get_current_user_plugin_options}
   factory CognitoGetCurrentUserPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoGetCurrentUserPluginOptionsFromJson(json);
+  ) => _$CognitoGetCurrentUserPluginOptionsFromJson(json);
 
   @override
   List<Object?> get props => [];

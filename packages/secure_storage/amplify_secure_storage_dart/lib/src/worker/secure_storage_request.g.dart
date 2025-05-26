@@ -14,51 +14,63 @@ class _$SecureStorageRequestSerializer
   @override
   final Iterable<Type> types = const [
     SecureStorageRequest,
-    _$SecureStorageRequest
+    _$SecureStorageRequest,
   ];
   @override
   final String wireName = 'SecureStorageRequest';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, SecureStorageRequest object,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    SecureStorageRequest object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'action',
-      serializers.serialize(object.action,
-          specifiedType: const FullType(SecureStorageAction)),
+      serializers.serialize(
+        object.action,
+        specifiedType: const FullType(SecureStorageAction),
+      ),
     ];
     Object? value;
     value = object.config;
     if (value != null) {
       result
         ..add('config')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(AmplifySecureStorageConfig)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(AmplifySecureStorageConfig),
+          ),
+        );
     }
     value = object.key;
     if (value != null) {
       result
         ..add('key')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     value = object.value;
     if (value != null) {
       result
         ..add('value')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(value, specifiedType: const FullType(String)),
+        );
     }
     return result;
   }
 
   @override
   SecureStorageRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new SecureStorageRequestBuilder();
 
     final iterator = serialized.iterator;
@@ -68,26 +80,45 @@ class _$SecureStorageRequestSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+          result.id =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )!
+                  as String;
           break;
         case 'action':
-          result.action = serializers.deserialize(value,
-                  specifiedType: const FullType(SecureStorageAction))!
-              as SecureStorageAction;
+          result.action =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(SecureStorageAction),
+                  )!
+                  as SecureStorageAction;
           break;
         case 'config':
-          result.config.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(AmplifySecureStorageConfig))!
-              as AmplifySecureStorageConfig);
+          result.config.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(AmplifySecureStorageConfig),
+                )!
+                as AmplifySecureStorageConfig,
+          );
           break;
         case 'key':
-          result.key = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.key =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
         case 'value':
-          result.value = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.value =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String?;
           break;
       }
     }
@@ -108,26 +139,29 @@ class _$SecureStorageRequest extends SecureStorageRequest {
   @override
   final String? value;
 
-  factory _$SecureStorageRequest(
-          [void Function(SecureStorageRequestBuilder)? updates]) =>
-      (new SecureStorageRequestBuilder()..update(updates))._build();
+  factory _$SecureStorageRequest([
+    void Function(SecureStorageRequestBuilder)? updates,
+  ]) => (new SecureStorageRequestBuilder()..update(updates))._build();
 
-  _$SecureStorageRequest._(
-      {required this.id,
-      required this.action,
-      this.config,
-      this.key,
-      this.value})
-      : super._() {
+  _$SecureStorageRequest._({
+    required this.id,
+    required this.action,
+    this.config,
+    this.key,
+    this.value,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'SecureStorageRequest', 'id');
     BuiltValueNullFieldError.checkNotNull(
-        action, r'SecureStorageRequest', 'action');
+      action,
+      r'SecureStorageRequest',
+      'action',
+    );
   }
 
   @override
   SecureStorageRequest rebuild(
-          void Function(SecureStorageRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SecureStorageRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SecureStorageRequestBuilder toBuilder() =>
@@ -216,15 +250,23 @@ class SecureStorageRequestBuilder
     SecureStorageRequest._init(this);
     _$SecureStorageRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$SecureStorageRequest._(
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'SecureStorageRequest', 'id'),
-              action: BuiltValueNullFieldError.checkNotNull(
-                  action, r'SecureStorageRequest', 'action'),
-              config: _config?.build(),
-              key: key,
-              value: value);
+            id: BuiltValueNullFieldError.checkNotNull(
+              id,
+              r'SecureStorageRequest',
+              'id',
+            ),
+            action: BuiltValueNullFieldError.checkNotNull(
+              action,
+              r'SecureStorageRequest',
+              'action',
+            ),
+            config: _config?.build(),
+            key: key,
+            value: value,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -232,7 +274,10 @@ class SecureStorageRequestBuilder
         _config?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'SecureStorageRequest', _$failedField, e.toString());
+          r'SecureStorageRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -11,12 +11,11 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
   /// {@macro amplify_api.amplify_api}
-  AmplifyAPI({
-    super.options,
-  }) : super(
-          connectivity: const ConnectivityPlusPlatform(),
-          processLifeCycle: FlutterLifeCycle(),
-        );
+  AmplifyAPI({super.options})
+    : super(
+        connectivity: const ConnectivityPlusPlatform(),
+        processLifeCycle: FlutterLifeCycle(),
+      );
 
   @override
   Future<void> addPlugin({

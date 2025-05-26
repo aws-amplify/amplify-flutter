@@ -26,38 +26,41 @@ Future<void> _bumpVersionInFiles() async {
   String? newVersion = stdin.readLineSync();
 
   stdout.write(
-      'What is the date for this release? Use international format yyyy-mm-dd e.g. 2020-07-29. \n');
+    'What is the date for this release? Use international format yyyy-mm-dd e.g. 2020-07-29. \n',
+  );
   String? date = stdin.readLineSync();
   if (oldVersion != null && newVersion != null && date != null) {
     // First, update in pubspec files.
     final packagePubspecFilePattern = 'packages/**/pubspec.yaml';
     final patternsForAllPubspecs = [
       packagePubspecFilePattern,
-      'example/pubspec.yaml'
+      'example/pubspec.yaml',
     ];
     // Changes references to amplify libraries.
     patternsForAllPubspecs.forEach((pattern) async {
       await Process.run('/bin/sh', [
         '-c',
-        'sed -i "" "/amplify/s/$oldVersion/$newVersion/g" $pattern' // lines that have "amplify" and the old version, change old to new
+        'sed -i "" "/amplify/s/$oldVersion/$newVersion/g" $pattern', // lines that have "amplify" and the old version, change old to new
       ]);
     });
     // Change the version: x at top of files.
     await Process.run('/bin/sh', [
       '-c',
-      'sed -i "" "s/version: $oldVersion/version: $newVersion/g" $packagePubspecFilePattern' // instances of "version: <old>" to "version: <new>"
+      'sed -i "" "s/version: $oldVersion/version: $newVersion/g" $packagePubspecFilePattern', // instances of "version: <old>" to "version: <new>"
     ]);
 
     // Change the string representation of version in top-level amplify.dart.
     await Process.run('/bin/sh', [
       '-c',
-      'sed -i "" "s/return \'$oldVersion\'/return \'$newVersion\'/g" packages/amplify_flutter/lib/amplify.dart'
+      'sed -i "" "s/return \'$oldVersion\'/return \'$newVersion\'/g" packages/amplify_flutter/lib/amplify.dart',
     ]);
 
     // Get all the changelog file names and add the blank entry to the top of them.
     final textToAdd = '## $newVersion ($date)\n\n';
-    final results =
-        await Process.run('/bin/sh', ['-c', 'find packages/**/CHANGELOG.md']);
+    final results = await Process.run('/bin/sh', [
+      '-c',
+      'find packages/**/CHANGELOG.md',
+    ]);
     final fileNames = results.stdout.toString().trim().split('\n');
     fileNames.forEach((fileName) async {
       await _addTextToTopOfFile(fileName, textToAdd);

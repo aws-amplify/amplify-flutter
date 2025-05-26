@@ -13,20 +13,19 @@ class _$InvalidIdentityPoolConfigurationException
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidIdentityPoolConfigurationException(
-          [void Function(InvalidIdentityPoolConfigurationExceptionBuilder)?
-              updates]) =>
+  factory _$InvalidIdentityPoolConfigurationException([
+    void Function(InvalidIdentityPoolConfigurationExceptionBuilder)? updates,
+  ]) =>
       (new InvalidIdentityPoolConfigurationExceptionBuilder()..update(updates))
           ._build();
 
   _$InvalidIdentityPoolConfigurationException._({this.message, this.headers})
-      : super._();
+    : super._();
 
   @override
   InvalidIdentityPoolConfigurationException rebuild(
-          void Function(InvalidIdentityPoolConfigurationExceptionBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidIdentityPoolConfigurationExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidIdentityPoolConfigurationExceptionBuilder toBuilder() =>
@@ -50,8 +49,10 @@ class _$InvalidIdentityPoolConfigurationException
 
 class InvalidIdentityPoolConfigurationExceptionBuilder
     implements
-        Builder<InvalidIdentityPoolConfigurationException,
-            InvalidIdentityPoolConfigurationExceptionBuilder> {
+        Builder<
+          InvalidIdentityPoolConfigurationException,
+          InvalidIdentityPoolConfigurationExceptionBuilder
+        > {
   _$InvalidIdentityPoolConfigurationException? _$v;
 
   String? _message;
@@ -82,8 +83,8 @@ class InvalidIdentityPoolConfigurationExceptionBuilder
 
   @override
   void update(
-      void Function(InvalidIdentityPoolConfigurationExceptionBuilder)?
-          updates) {
+    void Function(InvalidIdentityPoolConfigurationExceptionBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -91,7 +92,8 @@ class InvalidIdentityPoolConfigurationExceptionBuilder
   InvalidIdentityPoolConfigurationException build() => _build();
 
   _$InvalidIdentityPoolConfigurationException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InvalidIdentityPoolConfigurationException._(
           message: message,
           headers: headers,

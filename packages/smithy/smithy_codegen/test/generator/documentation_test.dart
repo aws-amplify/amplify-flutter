@@ -45,10 +45,11 @@ void main() {
 
     test('structure', () {
       final struct = StructureShape(
-        (b) => b
-          ..shapeId = const ShapeId(namespace: 'example', shape: 'MyStruct')
-          ..members = NamedMembersMap({})
-          ..traits = TraitMap.fromTraits(const [DocumentationTrait(docs)]),
+        (b) =>
+            b
+              ..shapeId = const ShapeId(namespace: 'example', shape: 'MyStruct')
+              ..members = NamedMembersMap({})
+              ..traits = TraitMap.fromTraits(const [DocumentationTrait(docs)]),
       );
       final context = createTestContext([struct]);
       context.run(() {

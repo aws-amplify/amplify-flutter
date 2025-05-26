@@ -29,14 +29,10 @@ enum ButtonResolverKeyType {
 
 class ButtonResolverKey {
   const ButtonResolverKey.signInWith(AuthProvider provider)
-      : this._(ButtonResolverKeyType.signInWith, provider: provider);
+    : this._(ButtonResolverKeyType.signInWith, provider: provider);
   const ButtonResolverKey.backTo(AuthenticatorStep previousStep)
-      : this._(ButtonResolverKeyType.backTo, previousStep: previousStep);
-  const ButtonResolverKey._(
-    this.type, {
-    this.provider,
-    this.previousStep,
-  });
+    : this._(ButtonResolverKeyType.backTo, previousStep: previousStep);
+  const ButtonResolverKey._(this.type, {this.provider, this.previousStep});
 
   final ButtonResolverKeyType type;
   final AuthProvider? provider;
@@ -45,23 +41,29 @@ class ButtonResolverKey {
   static const signIn = ButtonResolverKey._(ButtonResolverKeyType.signIn);
   static const signUp = ButtonResolverKey._(ButtonResolverKeyType.signUp);
   static const confirm = ButtonResolverKey._(ButtonResolverKeyType.confirm);
-  static const continueLabel =
-      ButtonResolverKey._(ButtonResolverKeyType.continueLabel);
+  static const continueLabel = ButtonResolverKey._(
+    ButtonResolverKeyType.continueLabel,
+  );
   static const submit = ButtonResolverKey._(ButtonResolverKeyType.submit);
-  static const changePassword =
-      ButtonResolverKey._(ButtonResolverKeyType.changePassword);
+  static const changePassword = ButtonResolverKey._(
+    ButtonResolverKeyType.changePassword,
+  );
   static const sendCode = ButtonResolverKey._(ButtonResolverKeyType.sendCode);
-  static const lostCodeQuestion =
-      ButtonResolverKey._(ButtonResolverKeyType.lostCode);
+  static const lostCodeQuestion = ButtonResolverKey._(
+    ButtonResolverKeyType.lostCode,
+  );
   static const verify = ButtonResolverKey._(ButtonResolverKeyType.verify);
   static const signout = ButtonResolverKey._(ButtonResolverKeyType.signOut);
   static const noAccount = ButtonResolverKey._(ButtonResolverKeyType.noAccount);
-  static const haveAccount =
-      ButtonResolverKey._(ButtonResolverKeyType.haveAccount);
-  static const forgotPassword =
-      ButtonResolverKey._(ButtonResolverKeyType.forgotPassword);
-  static const confirmResetPassword =
-      ButtonResolverKey._(ButtonResolverKeyType.confirmResetPassword);
+  static const haveAccount = ButtonResolverKey._(
+    ButtonResolverKeyType.haveAccount,
+  );
+  static const forgotPassword = ButtonResolverKey._(
+    ButtonResolverKeyType.forgotPassword,
+  );
+  static const confirmResetPassword = ButtonResolverKey._(
+    ButtonResolverKeyType.confirmResetPassword,
+  );
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
   static const copyKey = ButtonResolverKey._(ButtonResolverKeyType.copyKey);
 
@@ -125,8 +127,9 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
 
   /// Label of button to sign in with a social provider
   String signInWith(BuildContext context, AuthProvider provider) {
-    return AuthenticatorLocalizations.buttonsOf(context)
-        .signInWith(provider.name);
+    return AuthenticatorLocalizations.buttonsOf(
+      context,
+    ).signInWith(provider.name);
   }
 
   /// Hint text for the 'Go to Sign Up' button
@@ -151,8 +154,9 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
 
   /// Label of button to return to the Sign In step.
   String backTo(BuildContext context, AuthenticatorStep previousStep) {
-    return AuthenticatorLocalizations.buttonsOf(context)
-        .backTo(previousStep.name);
+    return AuthenticatorLocalizations.buttonsOf(
+      context,
+    ).backTo(previousStep.name);
   }
 
   /// Label of button to skip the current step or action.

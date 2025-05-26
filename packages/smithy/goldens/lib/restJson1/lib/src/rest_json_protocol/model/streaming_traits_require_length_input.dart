@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.streaming_traits_require_length_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,22 +17,21 @@ abstract class StreamingTraitsRequireLengthInput
         _i1.HttpInput<_i2.Stream<List<int>>>,
         _i3.AWSEquatable<StreamingTraitsRequireLengthInput>
     implements
-        Built<StreamingTraitsRequireLengthInput,
-            StreamingTraitsRequireLengthInputBuilder>,
+        Built<
+          StreamingTraitsRequireLengthInput,
+          StreamingTraitsRequireLengthInputBuilder
+        >,
         _i1.HasPayload<_i2.Stream<List<int>>> {
   factory StreamingTraitsRequireLengthInput({
     String? foo,
     _i2.Stream<List<int>>? blob,
   }) {
-    return _$StreamingTraitsRequireLengthInput._(
-      foo: foo,
-      blob: blob,
-    );
+    return _$StreamingTraitsRequireLengthInput._(foo: foo, blob: blob);
   }
 
-  factory StreamingTraitsRequireLengthInput.build(
-          [void Function(StreamingTraitsRequireLengthInputBuilder) updates]) =
-      _$StreamingTraitsRequireLengthInput;
+  factory StreamingTraitsRequireLengthInput.build([
+    void Function(StreamingTraitsRequireLengthInputBuilder) updates,
+  ]) = _$StreamingTraitsRequireLengthInput;
 
   const StreamingTraitsRequireLengthInput._();
 
@@ -40,13 +39,12 @@ abstract class StreamingTraitsRequireLengthInput
     _i2.Stream<List<int>>? payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      StreamingTraitsRequireLengthInput.build((b) {
-        b.blob = payload;
-        if (request.headers['X-Foo'] != null) {
-          b.foo = request.headers['X-Foo']!;
-        }
-      });
+  }) => StreamingTraitsRequireLengthInput.build((b) {
+    b.blob = payload;
+    if (request.headers['X-Foo'] != null) {
+      b.foo = request.headers['X-Foo']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
       [StreamingTraitsRequireLengthInputRestJson1Serializer()];
@@ -57,23 +55,14 @@ abstract class StreamingTraitsRequireLengthInput
   _i2.Stream<List<int>>? getPayload() => blob;
 
   @override
-  List<Object?> get props => [
-        foo,
-        blob,
-      ];
+  List<Object?> get props => [foo, blob];
 
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('StreamingTraitsRequireLengthInput')
-          ..add(
-            'foo',
-            foo,
-          )
-          ..add(
-            'blob',
-            blob,
-          );
+          ..add('foo', foo)
+          ..add('blob', blob);
     return helper.toString();
   }
 }
@@ -81,21 +70,18 @@ abstract class StreamingTraitsRequireLengthInput
 class StreamingTraitsRequireLengthInputRestJson1Serializer
     extends _i1.PrimitiveSmithySerializer<_i2.Stream<List<int>>> {
   const StreamingTraitsRequireLengthInputRestJson1Serializer()
-      : super('StreamingTraitsRequireLengthInput');
+    : super('StreamingTraitsRequireLengthInput');
 
   @override
   Iterable<Type> get types => const [
-        StreamingTraitsRequireLengthInput,
-        _$StreamingTraitsRequireLengthInput,
-      ];
+    StreamingTraitsRequireLengthInput,
+    _$StreamingTraitsRequireLengthInput,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   _i2.Stream<List<int>> deserialize(
@@ -104,17 +90,12 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
-    ) as _i2.Stream<List<int>>);
+          serialized,
+          specifiedType: const FullType(_i2.Stream, [
+            FullType(List, [FullType(int)]),
+          ]),
+        )
+        as _i2.Stream<List<int>>);
   }
 
   @override
@@ -125,15 +106,9 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
   }) {
     return serializers.serialize(
       object,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
+      specifiedType: const FullType(_i2.Stream, [
+        FullType(List, [FullType(int)]),
+      ]),
     )!;
   }
 }

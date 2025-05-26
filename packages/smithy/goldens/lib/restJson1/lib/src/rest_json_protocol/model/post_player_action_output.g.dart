@@ -10,19 +10,22 @@ class _$PostPlayerActionOutput extends PostPlayerActionOutput {
   @override
   final PlayerAction action;
 
-  factory _$PostPlayerActionOutput(
-          [void Function(PostPlayerActionOutputBuilder)? updates]) =>
-      (new PostPlayerActionOutputBuilder()..update(updates))._build();
+  factory _$PostPlayerActionOutput([
+    void Function(PostPlayerActionOutputBuilder)? updates,
+  ]) => (new PostPlayerActionOutputBuilder()..update(updates))._build();
 
   _$PostPlayerActionOutput._({required this.action}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        action, r'PostPlayerActionOutput', 'action');
+      action,
+      r'PostPlayerActionOutput',
+      'action',
+    );
   }
 
   @override
   PostPlayerActionOutput rebuild(
-          void Function(PostPlayerActionOutputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PostPlayerActionOutputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PostPlayerActionOutputBuilder toBuilder() =>
@@ -77,10 +80,15 @@ class PostPlayerActionOutputBuilder
   PostPlayerActionOutput build() => _build();
 
   _$PostPlayerActionOutput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$PostPlayerActionOutput._(
-            action: BuiltValueNullFieldError.checkNotNull(
-                action, r'PostPlayerActionOutput', 'action'));
+          action: BuiltValueNullFieldError.checkNotNull(
+            action,
+            r'PostPlayerActionOutput',
+            'action',
+          ),
+        );
     replace(_$result);
     return _$result;
   }

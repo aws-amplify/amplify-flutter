@@ -13,9 +13,10 @@ class StreamSerializer<T extends Object>
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) async* {
-    final streamType = specifiedType.isUnspecified
-        ? FullType.unspecified
-        : specifiedType.parameters.first;
+    final streamType =
+        specifiedType.isUnspecified
+            ? FullType.unspecified
+            : specifiedType.parameters.first;
     if (serialized is Stream) {
       await for (final value in serialized) {
         yield serializers.deserialize(value, specifiedType: streamType) as T;
@@ -31,9 +32,10 @@ class StreamSerializer<T extends Object>
     Stream<T> object, {
     FullType specifiedType = FullType.unspecified,
   }) async* {
-    final streamType = specifiedType.isUnspecified
-        ? FullType.unspecified
-        : specifiedType.parameters.first;
+    final streamType =
+        specifiedType.isUnspecified
+            ? FullType.unspecified
+            : specifiedType.parameters.first;
     await for (final value in object) {
       yield serializers.serialize(value, specifiedType: streamType);
     }
@@ -41,9 +43,9 @@ class StreamSerializer<T extends Object>
 
   @override
   Iterable<Type> get types => [
-        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49851
-        Stream,
-      ];
+    // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49851
+    Stream,
+  ];
 
   @override
   String get wireName => 'Stream<$T>';

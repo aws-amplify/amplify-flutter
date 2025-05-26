@@ -15,23 +15,33 @@ class _$ListShapeSerializer implements StructuredSerializer<ListShape> {
   final String wireName = 'ListShape';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, ListShape object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    ListShape object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'member',
-      serializers.serialize(object.member,
-          specifiedType: const FullType(MemberShape)),
+      serializers.serialize(
+        object.member,
+        specifiedType: const FullType(MemberShape),
+      ),
       'traits',
-      serializers.serialize(object.traits,
-          specifiedType: const FullType(TraitMap)),
+      serializers.serialize(
+        object.traits,
+        specifiedType: const FullType(TraitMap),
+      ),
     ];
 
     return result;
   }
 
   @override
-  ListShape deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  ListShape deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new ListShapeBuilder();
 
     final iterator = serialized.iterator;
@@ -41,12 +51,21 @@ class _$ListShapeSerializer implements StructuredSerializer<ListShape> {
       final Object? value = iterator.current;
       switch (key) {
         case 'member':
-          result.member.replace(serializers.deserialize(value,
-              specifiedType: const FullType(MemberShape))! as MemberShape);
+          result.member.replace(
+            serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(MemberShape),
+                )!
+                as MemberShape,
+          );
           break;
         case 'traits':
-          result.traits = serializers.deserialize(value,
-              specifiedType: const FullType(TraitMap))! as TraitMap;
+          result.traits =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(TraitMap),
+                  )!
+                  as TraitMap;
           break;
       }
     }
@@ -66,9 +85,11 @@ class _$ListShape extends ListShape {
   factory _$ListShape([void Function(ListShapeBuilder)? updates]) =>
       (new ListShapeBuilder()..update(updates))._build();
 
-  _$ListShape._(
-      {required this.member, required this.shapeId, required this.traits})
-      : super._() {
+  _$ListShape._({
+    required this.member,
+    required this.shapeId,
+    required this.traits,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(member, r'ListShape', 'member');
     BuiltValueNullFieldError.checkNotNull(shapeId, r'ListShape', 'shapeId');
     BuiltValueNullFieldError.checkNotNull(traits, r'ListShape', 'traits');
@@ -158,13 +179,21 @@ class ListShapeBuilder
   _$ListShape _build() {
     _$ListShape _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$ListShape._(
-              member: member.build(),
-              shapeId: BuiltValueNullFieldError.checkNotNull(
-                  shapeId, r'ListShape', 'shapeId'),
-              traits: BuiltValueNullFieldError.checkNotNull(
-                  traits, r'ListShape', 'traits'));
+            member: member.build(),
+            shapeId: BuiltValueNullFieldError.checkNotNull(
+              shapeId,
+              r'ListShape',
+              'shapeId',
+            ),
+            traits: BuiltValueNullFieldError.checkNotNull(
+              traits,
+              r'ListShape',
+              'traits',
+            ),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -172,7 +201,10 @@ class ListShapeBuilder
         member.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'ListShape', _$failedField, e.toString());
+          r'ListShape',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -18,8 +18,9 @@ void main() {
   AmplifyLogger().logLevel = LogLevel.verbose;
 
   final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
-  final identityPoolKeys =
-      CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!);
+  final identityPoolKeys = CognitoIdentityPoolKeys(
+    mockConfig.auth!.identityPoolId!,
+  );
   final testAuthRepo = AmplifyAuthProviderRepository();
   final mockUpdateDeviceStatusResponse = UpdateDeviceStatusResponse();
 
@@ -45,8 +46,10 @@ void main() {
         secureStorage,
         userPoolKeys: userPoolKeys,
         identityPoolKeys: identityPoolKeys,
-        deviceKeys:
-            CognitoDeviceKeys(mockConfig.auth!.userPoolClientId!, username),
+        deviceKeys: CognitoDeviceKeys(
+          mockConfig.auth!.userPoolClientId!,
+          username,
+        ),
       );
       plugin = AmplifyAuthCognitoDart(
         secureStorageFactory: (_) => secureStorage,
@@ -68,21 +71,24 @@ void main() {
       await plugin.close();
     });
 
-    test('rememberDevice changes the device state from tracked to remembered',
-        () async {
-      expect(await getDeviceState(), DeviceState.tracked);
-      await plugin.rememberDevice();
-      expect(await getDeviceState(), DeviceState.remembered);
-    });
+    test(
+      'rememberDevice changes the device state from tracked to remembered',
+      () async {
+        expect(await getDeviceState(), DeviceState.tracked);
+        await plugin.rememberDevice();
+        expect(await getDeviceState(), DeviceState.remembered);
+      },
+    );
 
     test(
-        'rememberDevice throws a DeviceNotTrackedException when device is forgotten',
-        () async {
-      await plugin.forgetDevice();
-      await expectLater(
-        plugin.rememberDevice,
-        throwsA(isA<DeviceNotTrackedException>()),
-      );
-    });
+      'rememberDevice throws a DeviceNotTrackedException when device is forgotten',
+      () async {
+        await plugin.forgetDevice();
+        await expectLater(
+          plugin.rememberDevice,
+          throwsA(isA<DeviceNotTrackedException>()),
+        );
+      },
+    );
   });
 }

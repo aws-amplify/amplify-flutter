@@ -42,13 +42,9 @@ void main() {
               'When an email is registered and the userpool has email MFA enabled, Cognito will automatically enable email MFA as the preferred MFA method.',
         ).equals(AuthSignInStep.continueSignInWithMfaSetupSelection);
 
-        await Amplify.Auth.confirmSignIn(
-          confirmationValue: 'EMAIL',
-        );
+        await Amplify.Auth.confirmSignIn(confirmationValue: 'EMAIL');
 
-        await Amplify.Auth.confirmSignIn(
-          confirmationValue: email,
-        );
+        await Amplify.Auth.confirmSignIn(confirmationValue: email);
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult.code,
@@ -71,8 +67,9 @@ void main() {
           username: username,
           password: password,
         );
-        check(resignInRes.nextStep.signInStep)
-            .equals(AuthSignInStep.confirmSignInWithOtpCode);
+        check(
+          resignInRes.nextStep.signInStep,
+        ).equals(AuthSignInStep.confirmSignInWithOtpCode);
         check(resignInRes.nextStep.codeDeliveryDetails)
             .isNotNull()
             .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -168,13 +165,9 @@ void main() {
                 'When both EMAIL and TOTP are enabled but email attribute isnt verified, choose an mfa method to set up.',
           ).equals(AuthSignInStep.continueSignInWithMfaSetupSelection);
 
-          await Amplify.Auth.confirmSignIn(
-            confirmationValue: 'EMAIL',
-          );
+          await Amplify.Auth.confirmSignIn(confirmationValue: 'EMAIL');
 
-          await Amplify.Auth.confirmSignIn(
-            confirmationValue: email,
-          );
+          await Amplify.Auth.confirmSignIn(confirmationValue: email);
 
           final confirmRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await otpResult.code,
@@ -198,8 +191,9 @@ void main() {
             password: password,
           );
 
-          check(resignInRes.nextStep.signInStep)
-              .equals(AuthSignInStep.confirmSignInWithOtpCode);
+          check(
+            resignInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.confirmSignInWithOtpCode);
           check(resignInRes.nextStep.codeDeliveryDetails)
               .isNotNull()
               .has((d) => d.deliveryMedium, 'deliveryMedium')
@@ -227,13 +221,12 @@ void main() {
             password: password,
           );
 
-          check(resignInRes2.nextStep.signInStep)
-              .equals(AuthSignInStep.continueSignInWithMfaSelection);
+          check(
+            resignInRes2.nextStep.signInStep,
+          ).equals(AuthSignInStep.continueSignInWithMfaSelection);
 
           // select totp as the preferred method
-          await Amplify.Auth.confirmSignIn(
-            confirmationValue: 'TOTP',
-          );
+          await Amplify.Auth.confirmSignIn(confirmationValue: 'TOTP');
 
           final confirmRes3 = await Amplify.Auth.confirmSignIn(
             confirmationValue: await generateTotpCode(),

@@ -19,8 +19,7 @@ Future<void> generateParserTests() async {
   final json = jsonDecode(await file.readAsString()) as Map<String, Object?>;
   final tests = (json['tests'] as List).cast<Map<Object?, Object?>>();
 
-  final output = StringBuffer(
-    '''
+  final output = StringBuffer('''
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -37,50 +36,40 @@ import 'package:test/test.dart';
 void main() {
   const loader = AWSProfileFileLoader();
   group(testOn: 'vm', 'AWSProfileFileParser', () {
-''',
-  );
+''');
   for (final testJson in tests) {
     final test = ParserTest.fromJson(testJson.cast());
     output.writeln("test(r'${test.name}', () {");
 
     final config = test.input.configFile;
     if (config != null) {
-      output.writeln(
-        '''
+      output.writeln('''
   const configContents = r\'\'\'
 $config\'\'\';
   const configFile = ResolvedFile(AWSProfileFileType.config, configContents);
-''',
-      );
+''');
     } else {
-      output.writeln(
-        '''
+      output.writeln('''
   const configFile = ResolvedFile.empty(AWSProfileFileType.config);
-''',
-      );
+''');
     }
 
     final credentials = test.input.credentialsFile;
     if (credentials != null) {
-      output.writeln(
-        '''
+      output.writeln('''
   const credentialsContents = r\'\'\'
 $credentials\'\'\';
   const credentialsFile = ResolvedFile(AWSProfileFileType.credentials, credentialsContents,);
-''',
-      );
+''');
     } else {
-      output.writeln(
-        '''
+      output.writeln('''
   const credentialsFile = ResolvedFile.empty(AWSProfileFileType.credentials);
-''',
-      );
+''');
     }
 
     final error = test.output.errorContaining?.replaceAll('\'', '\\\'');
     if (error != null) {
-      output.writeln(
-        '''
+      output.writeln('''
 expect(
     loader.load(
       configFile: configFile,
@@ -92,12 +81,10 @@ expect(
       contains('$error'),
     ),),
   );
-''',
-      );
+''');
     } else {
       assert(test.output.profiles != null, 'profiles should be defined');
-      output.writeln(
-        '''
+      output.writeln('''
 final expected = AWSProfileFile.fromJson(jsonDecode(r\'\'\'
 ${jsonEncode(test.output.toJson())}
 \'\'\',) as Map<String, Object?>,);
@@ -108,18 +95,15 @@ expect(
     ),
     completion(equals(expected)),
   );
-''',
-      );
+''');
     }
 
     output.writeln('});');
   }
-  output.writeln(
-    '''
+  output.writeln('''
   });
 }
-''',
-  );
+''');
   await File(outputFilepath).writeAsString(output.toString());
   await Process.run('dart', ['format', '--fix', outputFilepath]);
 }
@@ -131,8 +115,7 @@ Future<void> generateFileLocationTests() async {
   final json = jsonDecode(await file.readAsString()) as Map<String, Object?>;
   final tests = (json['tests'] as List).cast<Map<Object?, Object?>>();
 
-  final output = StringBuffer(
-    '''
+  final output = StringBuffer('''
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -145,8 +128,7 @@ import 'package:test/test.dart';
 void main() {
   const pathProvider = AWSPathProvider();
   group(testOn: 'vm', 'AWSPathProvider', () {
-''',
-  );
+''');
   for (final testJson in tests) {
     final test = FileLocationTest.fromJson(testJson.cast());
     // These tests test resolution when no environment variables are set, but
@@ -160,8 +142,7 @@ void main() {
     if (skipTests.contains(test.name)) {
       continue;
     }
-    output.writeln(
-      '''
+    output.writeln('''
 test(r'${test.name}', () {
   overrideOperatingSystem(OperatingSystem('${test.platform.name}', ''), () {
      overrideEnvironment({
@@ -172,16 +153,16 @@ test(r'${test.name}', () {
      },);
   },);
 });
-''',
-    );
+''');
   }
   output.writeln('});}');
 
   await File(outputFilepath).writeAsString(output.toString());
-  final formatRes = await Process.run(
-    'dart',
-    ['format', '--fix', outputFilepath],
-  );
+  final formatRes = await Process.run('dart', [
+    'format',
+    '--fix',
+    outputFilepath,
+  ]);
   if (formatRes.exitCode != 0) {
     throw Exception(formatRes.stderr);
   }
@@ -196,8 +177,7 @@ Future<void> generateProfileTests() async {
     (json['testSuites'] as List<Object?>).single as Map<String, Object?>,
   );
 
-  final output = StringBuffer(
-    '''
+  final output = StringBuffer('''
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -210,28 +190,23 @@ import 'package:test/test.dart';
 
 void main() {
   group('AWSProfile', () {
-''',
-  );
+''');
 
   for (final test in [tests.regionTests, ...tests.credentialsTests]) {
-    output.writeln(
-      '''
+    output.writeln('''
 test('${test.name}', () {
   final profile = AWSProfileFile.fromJson(jsonDecode(r\'\'\'
 ${jsonEncode(tests.profiles)}
 \'\'\',) as Map<String, Object?>,);
-''',
-    );
+''');
     final region = test.output.region;
     if (region != null) {
-      output.writeln(
-        '''
+      output.writeln('''
 expect(
   profile.region('${test.profile}'),
   '$region'
 );
-''',
-      );
+''');
     } else {
       final credentialsType = test.output.credentialType!;
       final expect = switch (credentialsType) {
@@ -255,14 +230,12 @@ isA<StaticCredentialsProvider>().having(
 )
 ''',
       };
-      output.writeln(
-        '''
+      output.writeln('''
 expect(
   profile.credentials('${test.profile}'),
   $expect,
 );
-''',
-      );
+''');
     }
     output.writeln('});');
   }

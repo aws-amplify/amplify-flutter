@@ -13,7 +13,7 @@
 /// any published package without causing circular dependency errors. Likewise, this
 /// package is free to import any published package from the repo without causing
 /// errors during publishing.
-library amplify_integration_test;
+library;
 
 export 'package:amplify_test/amplify_test.dart';
 

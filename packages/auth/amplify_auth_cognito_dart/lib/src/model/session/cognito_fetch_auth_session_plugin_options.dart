@@ -17,8 +17,7 @@ class CognitoFetchAuthSessionPluginOptions
   /// {@macro amplify_auth_cognito.model.cognito_fetch_auth_session_plugin_options}
   factory CognitoFetchAuthSessionPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoFetchAuthSessionPluginOptionsFromJson(json);
+  ) => _$CognitoFetchAuthSessionPluginOptionsFromJson(json);
 
   @override
   List<Object?> get props => [];

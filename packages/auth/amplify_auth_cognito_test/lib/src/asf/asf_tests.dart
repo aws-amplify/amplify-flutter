@@ -12,7 +12,7 @@ void runAsfDeviceInfoTests([DependencyManager Function()? getManager]) {
   test('ASFDeviceInfo', () async {
     final deviceInfo =
         getManager?.call().getOrCreate<ASFDeviceInfoCollector>() ??
-            ASFDeviceInfoCollector();
+        ASFDeviceInfoCollector();
     final contextData = await deviceInfo.getNativeContextData();
     _logger.debug('Got context data: $contextData');
     expect(

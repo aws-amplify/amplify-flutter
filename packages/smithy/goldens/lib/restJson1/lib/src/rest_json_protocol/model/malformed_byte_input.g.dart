@@ -16,24 +16,27 @@ class _$MalformedByteInput extends MalformedByteInput {
   @override
   final int? byteInHeader;
 
-  factory _$MalformedByteInput(
-          [void Function(MalformedByteInputBuilder)? updates]) =>
-      (new MalformedByteInputBuilder()..update(updates))._build();
+  factory _$MalformedByteInput([
+    void Function(MalformedByteInputBuilder)? updates,
+  ]) => (new MalformedByteInputBuilder()..update(updates))._build();
 
-  _$MalformedByteInput._(
-      {this.byteInBody,
-      required this.byteInPath,
-      this.byteInQuery,
-      this.byteInHeader})
-      : super._() {
+  _$MalformedByteInput._({
+    this.byteInBody,
+    required this.byteInPath,
+    this.byteInQuery,
+    this.byteInHeader,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        byteInPath, r'MalformedByteInput', 'byteInPath');
+      byteInPath,
+      r'MalformedByteInput',
+      'byteInPath',
+    );
   }
 
   @override
   MalformedByteInput rebuild(
-          void Function(MalformedByteInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedByteInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedByteInputBuilder toBuilder() =>
@@ -110,13 +113,18 @@ class MalformedByteInputBuilder
   MalformedByteInput build() => _build();
 
   _$MalformedByteInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$MalformedByteInput._(
-            byteInBody: byteInBody,
-            byteInPath: BuiltValueNullFieldError.checkNotNull(
-                byteInPath, r'MalformedByteInput', 'byteInPath'),
-            byteInQuery: byteInQuery,
-            byteInHeader: byteInHeader);
+          byteInBody: byteInBody,
+          byteInPath: BuiltValueNullFieldError.checkNotNull(
+            byteInPath,
+            r'MalformedByteInput',
+            'byteInPath',
+          ),
+          byteInQuery: byteInQuery,
+          byteInHeader: byteInHeader,
+        );
     replace(_$result);
     return _$result;
   }
@@ -126,16 +134,16 @@ class _$MalformedByteInputPayload extends MalformedByteInputPayload {
   @override
   final int? byteInBody;
 
-  factory _$MalformedByteInputPayload(
-          [void Function(MalformedByteInputPayloadBuilder)? updates]) =>
-      (new MalformedByteInputPayloadBuilder()..update(updates))._build();
+  factory _$MalformedByteInputPayload([
+    void Function(MalformedByteInputPayloadBuilder)? updates,
+  ]) => (new MalformedByteInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedByteInputPayload._({this.byteInBody}) : super._();
 
   @override
   MalformedByteInputPayload rebuild(
-          void Function(MalformedByteInputPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(MalformedByteInputPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   MalformedByteInputPayloadBuilder toBuilder() =>

@@ -17,11 +17,10 @@ abstract class WebSecureStorageOptions
   factory WebSecureStorageOptions({
     String? databaseName,
     WebPersistenceOption persistenceOption = WebPersistenceOption.indexedDB,
-  }) =>
-      _$WebSecureStorageOptions._(
-        databaseName: databaseName,
-        persistenceOption: persistenceOption,
-      );
+  }) => _$WebSecureStorageOptions._(
+    databaseName: databaseName,
+    persistenceOption: persistenceOption,
+  );
 
   const WebSecureStorageOptions._();
 

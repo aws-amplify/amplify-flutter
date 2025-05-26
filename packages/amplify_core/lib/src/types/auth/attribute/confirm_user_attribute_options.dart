@@ -13,9 +13,7 @@ class ConfirmUserAttributeOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.types.auth.confirm_user_attribute_options}
-  const ConfirmUserAttributeOptions({
-    this.pluginOptions,
-  });
+  const ConfirmUserAttributeOptions({this.pluginOptions});
 
   /// {@macro amplify_core.auth.confirm_user_attribute_plugin_options}
   final ConfirmUserAttributePluginOptions? pluginOptions;
@@ -27,9 +25,7 @@ class ConfirmUserAttributeOptions
   String get runtimeTypeName => 'ConfirmUserAttributeOptions';
 
   @override
-  Map<String, Object?> toJson() => {
-        'pluginOptions': pluginOptions?.toJson(),
-      };
+  Map<String, Object?> toJson() => {'pluginOptions': pluginOptions?.toJson()};
 }
 
 /// @nodoc

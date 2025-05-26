@@ -63,8 +63,9 @@ abstract class UploadPartRequest
     );
   }
 
-  factory UploadPartRequest.build(
-      [void Function(UploadPartRequestBuilder) updates]) = _$UploadPartRequest;
+  factory UploadPartRequest.build([
+    void Function(UploadPartRequestBuilder) updates,
+  ]) = _$UploadPartRequest;
 
   const UploadPartRequest._();
 
@@ -72,72 +73,69 @@ abstract class UploadPartRequest
     _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      UploadPartRequest.build((b) {
-        b.body = payload;
-        if (request.headers['Content-Length'] != null) {
-          b.contentLength =
-              _i4.Int64.parseInt(request.headers['Content-Length']!);
-        }
-        if (request.headers['Content-MD5'] != null) {
-          b.contentMd5 = request.headers['Content-MD5']!;
-        }
-        if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = ChecksumAlgorithm.values
-              .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
-        }
-        if (request.headers['x-amz-checksum-crc32'] != null) {
-          b.checksumCrc32 = request.headers['x-amz-checksum-crc32']!;
-        }
-        if (request.headers['x-amz-checksum-crc32c'] != null) {
-          b.checksumCrc32C = request.headers['x-amz-checksum-crc32c']!;
-        }
-        if (request.headers['x-amz-checksum-sha1'] != null) {
-          b.checksumSha1 = request.headers['x-amz-checksum-sha1']!;
-        }
-        if (request.headers['x-amz-checksum-sha256'] != null) {
-          b.checksumSha256 = request.headers['x-amz-checksum-sha256']!;
-        }
-        if (request
-                .headers['x-amz-server-side-encryption-customer-algorithm'] !=
-            null) {
-          b.sseCustomerAlgorithm = request
-              .headers['x-amz-server-side-encryption-customer-algorithm']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key'] !=
-            null) {
-          b.sseCustomerKey =
-              request.headers['x-amz-server-side-encryption-customer-key']!;
-        }
-        if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
-            null) {
-          b.sseCustomerKeyMd5 =
-              request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
-        }
-        if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = RequestPayer.values
-              .byValue(request.headers['x-amz-request-payer']!);
-        }
-        if (request.headers['x-amz-expected-bucket-owner'] != null) {
-          b.expectedBucketOwner =
-              request.headers['x-amz-expected-bucket-owner']!;
-        }
-        if (request.queryParameters['partNumber'] != null) {
-          b.partNumber = int.parse(request.queryParameters['partNumber']!);
-        }
-        if (request.queryParameters['uploadId'] != null) {
-          b.uploadId = request.queryParameters['uploadId']!;
-        }
-        if (labels['bucket'] != null) {
-          b.bucket = labels['bucket']!;
-        }
-        if (labels['key'] != null) {
-          b.key = labels['key']!;
-        }
-      });
+  }) => UploadPartRequest.build((b) {
+    b.body = payload;
+    if (request.headers['Content-Length'] != null) {
+      b.contentLength = _i4.Int64.parseInt(request.headers['Content-Length']!);
+    }
+    if (request.headers['Content-MD5'] != null) {
+      b.contentMd5 = request.headers['Content-MD5']!;
+    }
+    if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
+      b.checksumAlgorithm = ChecksumAlgorithm.values.byValue(
+        request.headers['x-amz-sdk-checksum-algorithm']!,
+      );
+    }
+    if (request.headers['x-amz-checksum-crc32'] != null) {
+      b.checksumCrc32 = request.headers['x-amz-checksum-crc32']!;
+    }
+    if (request.headers['x-amz-checksum-crc32c'] != null) {
+      b.checksumCrc32C = request.headers['x-amz-checksum-crc32c']!;
+    }
+    if (request.headers['x-amz-checksum-sha1'] != null) {
+      b.checksumSha1 = request.headers['x-amz-checksum-sha1']!;
+    }
+    if (request.headers['x-amz-checksum-sha256'] != null) {
+      b.checksumSha256 = request.headers['x-amz-checksum-sha256']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-algorithm'] !=
+        null) {
+      b.sseCustomerAlgorithm =
+          request.headers['x-amz-server-side-encryption-customer-algorithm']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key'] != null) {
+      b.sseCustomerKey =
+          request.headers['x-amz-server-side-encryption-customer-key']!;
+    }
+    if (request.headers['x-amz-server-side-encryption-customer-key-MD5'] !=
+        null) {
+      b.sseCustomerKeyMd5 =
+          request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
+    }
+    if (request.headers['x-amz-request-payer'] != null) {
+      b.requestPayer = RequestPayer.values.byValue(
+        request.headers['x-amz-request-payer']!,
+      );
+    }
+    if (request.headers['x-amz-expected-bucket-owner'] != null) {
+      b.expectedBucketOwner = request.headers['x-amz-expected-bucket-owner']!;
+    }
+    if (request.queryParameters['partNumber'] != null) {
+      b.partNumber = int.parse(request.queryParameters['partNumber']!);
+    }
+    if (request.queryParameters['uploadId'] != null) {
+      b.uploadId = request.queryParameters['uploadId']!;
+    }
+    if (labels['bucket'] != null) {
+      b.bucket = labels['bucket']!;
+    }
+    if (labels['key'] != null) {
+      b.key = labels['key']!;
+    }
+  });
 
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
-    UploadPartRequestRestXmlSerializer()
+    UploadPartRequestRestXmlSerializer(),
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -225,10 +223,7 @@ abstract class UploadPartRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -236,96 +231,46 @@ abstract class UploadPartRequest
 
   @override
   List<Object?> get props => [
-        body,
-        bucket,
-        contentLength,
-        contentMd5,
-        checksumAlgorithm,
-        checksumCrc32,
-        checksumCrc32C,
-        checksumSha1,
-        checksumSha256,
-        key,
-        partNumber,
-        uploadId,
-        sseCustomerAlgorithm,
-        sseCustomerKey,
-        sseCustomerKeyMd5,
-        requestPayer,
-        expectedBucketOwner,
-      ];
+    body,
+    bucket,
+    contentLength,
+    contentMd5,
+    checksumAlgorithm,
+    checksumCrc32,
+    checksumCrc32C,
+    checksumSha1,
+    checksumSha256,
+    key,
+    partNumber,
+    uploadId,
+    sseCustomerAlgorithm,
+    sseCustomerKey,
+    sseCustomerKeyMd5,
+    requestPayer,
+    expectedBucketOwner,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadPartRequest')
-      ..add(
-        'body',
-        body,
-      )
-      ..add(
-        'bucket',
-        bucket,
-      )
-      ..add(
-        'contentLength',
-        contentLength,
-      )
-      ..add(
-        'contentMd5',
-        contentMd5,
-      )
-      ..add(
-        'checksumAlgorithm',
-        checksumAlgorithm,
-      )
-      ..add(
-        'checksumCrc32',
-        checksumCrc32,
-      )
-      ..add(
-        'checksumCrc32C',
-        checksumCrc32C,
-      )
-      ..add(
-        'checksumSha1',
-        checksumSha1,
-      )
-      ..add(
-        'checksumSha256',
-        checksumSha256,
-      )
-      ..add(
-        'key',
-        key,
-      )
-      ..add(
-        'partNumber',
-        partNumber,
-      )
-      ..add(
-        'uploadId',
-        uploadId,
-      )
-      ..add(
-        'sseCustomerAlgorithm',
-        sseCustomerAlgorithm,
-      )
-      ..add(
-        'sseCustomerKey',
-        '***SENSITIVE***',
-      )
-      ..add(
-        'sseCustomerKeyMd5',
-        sseCustomerKeyMd5,
-      )
-      ..add(
-        'requestPayer',
-        requestPayer,
-      )
-      ..add(
-        'expectedBucketOwner',
-        expectedBucketOwner,
-      );
+    final helper =
+        newBuiltValueToStringHelper('UploadPartRequest')
+          ..add('body', body)
+          ..add('bucket', bucket)
+          ..add('contentLength', contentLength)
+          ..add('contentMd5', contentMd5)
+          ..add('checksumAlgorithm', checksumAlgorithm)
+          ..add('checksumCrc32', checksumCrc32)
+          ..add('checksumCrc32C', checksumCrc32C)
+          ..add('checksumSha1', checksumSha1)
+          ..add('checksumSha256', checksumSha256)
+          ..add('key', key)
+          ..add('partNumber', partNumber)
+          ..add('uploadId', uploadId)
+          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+          ..add('sseCustomerKey', '***SENSITIVE***')
+          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+          ..add('requestPayer', requestPayer)
+          ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }
@@ -335,18 +280,12 @@ class UploadPartRequestRestXmlSerializer
   const UploadPartRequestRestXmlSerializer() : super('UploadPartRequest');
 
   @override
-  Iterable<Type> get types => const [
-        UploadPartRequest,
-        _$UploadPartRequest,
-      ];
+  Iterable<Type> get types => const [UploadPartRequest, _$UploadPartRequest];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   _i2.Stream<List<int>> deserialize(
@@ -355,17 +294,12 @@ class UploadPartRequestRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
-      serialized,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
-    ) as _i2.Stream<List<int>>);
+          serialized,
+          specifiedType: const FullType(_i2.Stream, [
+            FullType(List, [FullType(int)]),
+          ]),
+        )
+        as _i2.Stream<List<int>>);
   }
 
   @override
@@ -378,21 +312,17 @@ class UploadPartRequestRestXmlSerializer
       const _i1.XmlElementName(
         'UploadPartRequest',
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
 
-    result$.add(serializers.serialize(
-      object,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
+    result$.add(
+      serializers.serialize(
+        object,
+        specifiedType: const FullType(_i2.Stream, [
+          FullType(List, [FullType(int)]),
+        ]),
       ),
-    ));
+    );
     return result$;
   }
 }

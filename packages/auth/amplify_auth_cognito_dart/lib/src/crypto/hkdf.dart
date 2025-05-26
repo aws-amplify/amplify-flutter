@@ -43,10 +43,11 @@ final class HkdfSha256 {
 
     final outputKeyMaterial = Uint8List(length);
     for (var i = 1; i <= numHashes; i++) {
-      final block = BytesBuilder()
-        ..add(hashedBlock)
-        ..add(info)
-        ..addByte(i);
+      final block =
+          BytesBuilder()
+            ..add(hashedBlock)
+            ..add(info)
+            ..addByte(i);
       hashedBlock = hmac.convert(block.toBytes()).bytes;
 
       outputKeyMaterial.setRange(

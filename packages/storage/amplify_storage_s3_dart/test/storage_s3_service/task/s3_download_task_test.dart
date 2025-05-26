@@ -29,17 +29,11 @@ void main() {
       s3Client = MockS3Client();
 
       registerFallbackValue(
-        GetObjectRequest(
-          bucket: 'fake bucket',
-          key: 'dummy key',
-        ),
+        GetObjectRequest(bucket: 'fake bucket', key: 'dummy key'),
       );
 
       registerFallbackValue(
-        HeadObjectRequest(
-          bucket: 'fake bucket',
-          key: 'dummy key',
-        ),
+        HeadObjectRequest(bucket: 'fake bucket', key: 'dummy key'),
       );
 
       registerFallbackValue(const S3ClientConfig());
@@ -47,204 +41,207 @@ void main() {
 
     group('start() API', () {
       test(
-          'it should ripple exception thrown from `preStart` to the result Future',
-          () {
-        const testException = UnknownException('test exception');
-        Future<void> testPreStart() async {
-          throw testException;
-        }
+        'it should ripple exception thrown from `preStart` to the result Future',
+        () {
+          const testException = UnknownException('test exception');
+          Future<void> testPreStart() async {
+            throw testException;
+          }
 
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          bucket: testBucket,
-          path: const StoragePath.fromString(testKey),
-          pathResolver: TestPathResolver(),
-          options: defaultTestOptions,
-          preStart: testPreStart,
-        );
+          final downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            bucket: testBucket,
+            path: const StoragePath.fromString(testKey),
+            pathResolver: TestPathResolver(),
+            options: defaultTestOptions,
+            preStart: testPreStart,
+          );
 
-        unawaited(downloadTask.start());
+          unawaited(downloadTask.start());
 
-        expect(downloadTask.result, throwsA(testException));
-      });
-
-      test(
-          'it should invoke S3Client.getObject API with correct parameters and default access level',
-          () async {
-        const testBodyBytes = [101, 102];
-        final testGetObjectOutput = GetObjectOutput(
-          contentLength: Int64(testBodyBytes.length),
-          body: Stream.value(testBodyBytes),
-        );
-        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        late StorageTransferState finalState;
-
-        when(
-          () => smithyOperation.result,
-        ).thenAnswer((_) async => testGetObjectOutput);
-
-        when(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
-          ),
-        ).thenAnswer((_) => smithyOperation);
-
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          bucket: testBucket,
-          path: const StoragePath.fromString(testKey),
-          pathResolver: TestPathResolver(),
-          options: const StorageDownloadDataOptions(),
-          onProgress: (progress) {
-            finalState = progress.state;
-          },
-        );
-
-        await downloadTask.start();
-
-        final capturedRequest = verify(
-          () => s3Client.getObject(
-            captureAny<GetObjectRequest>(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
-          ),
-        ).captured.last;
-
-        expect(capturedRequest is GetObjectRequest, isTrue);
-
-        final request = capturedRequest as GetObjectRequest;
-        expect(request.bucket, testBucket);
-        expect(
-          request.key,
-          TestPathResolver.path,
-        );
-        expect(request.checksumMode, ChecksumMode.enabled);
-
-        await downloadTask.result;
-        expect(finalState, StorageTransferState.success);
-      });
+          expect(downloadTask.result, throwsA(testException));
+        },
+      );
 
       test(
-          'it should invoke S3Client.getObject API with correct useAcceleration parameter',
-          () async {
-        const testUseAccelerateEndpoint = true;
-        const testOptions = StorageDownloadDataOptions(
-          pluginOptions: S3DownloadDataPluginOptions(
-            useAccelerateEndpoint: testUseAccelerateEndpoint,
-          ),
-        );
-        const testBodyBytes = [101, 102];
-        final testGetObjectOutput = GetObjectOutput(
-          contentLength: Int64(testBodyBytes.length),
-          body: Stream.value(testBodyBytes),
-        );
-        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+        'it should invoke S3Client.getObject API with correct parameters and default access level',
+        () async {
+          const testBodyBytes = [101, 102];
+          final testGetObjectOutput = GetObjectOutput(
+            contentLength: Int64(testBodyBytes.length),
+            body: Stream.value(testBodyBytes),
+          );
+          final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+          late StorageTransferState finalState;
 
-        when(
-          () => smithyOperation.result,
-        ).thenAnswer((_) async => testGetObjectOutput);
+          when(
+            () => smithyOperation.result,
+          ).thenAnswer((_) async => testGetObjectOutput);
 
-        when(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
-          ),
-        ).thenAnswer((_) => smithyOperation);
-
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          bucket: testBucket,
-          path: const StoragePath.fromString(testKey),
-          pathResolver: TestPathResolver(),
-          options: testOptions,
-        );
-
-        await downloadTask.start();
-
-        final capturedS3ClientConfig = verify(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: captureAny<S3ClientConfig>(named: 's3ClientConfig'),
-          ),
-        ).captured.last;
-
-        expect(
-          capturedS3ClientConfig,
-          isA<S3ClientConfig>().having(
-            (o) => o.useAcceleration,
-            'useAcceleration',
-            testUseAccelerateEndpoint,
-          ),
-        );
-      });
-
-      test(
-          'it should throw StorageException when getObject response doesn\'t include a value contentLength header',
-          () async {
-        final testGetObjectOutput = GetObjectOutput(
-          body: Stream.value([101]),
-        );
-        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        var onErrorHasBeenCalled = false;
-
-        when(
-          () => smithyOperation.result,
-        ).thenAnswer((_) async => testGetObjectOutput);
-
-        when(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
-          ),
-        ).thenAnswer((_) => smithyOperation);
-
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          bucket: testBucket,
-          path: const StoragePath.fromString(testKey),
-          pathResolver: TestPathResolver(),
-          options: defaultTestOptions,
-          onError: () {
-            onErrorHasBeenCalled = true;
-          },
-        );
-
-        unawaited(downloadTask.start());
-
-        await expectLater(
-          downloadTask.result,
-          throwsA(isA<StorageException>()),
-        );
-        expect(onErrorHasBeenCalled, isTrue);
-      });
-
-      test(
-          'throw exception when attempt to use accelerate endpoint with path style URL',
-          () {
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: const S3ClientConfig(usePathStyle: true),
-          bucket: 'bucket.name.has.dots.com',
-          path: const StoragePath.fromString('public/$testKey'),
-          pathResolver: TestPathResolver(),
-          options: const StorageDownloadDataOptions(
-            pluginOptions: S3DownloadDataPluginOptions(
-              useAccelerateEndpoint: true,
+          when(
+            () => s3Client.getObject(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
             ),
-          ),
-        );
+          ).thenAnswer((_) => smithyOperation);
 
-        unawaited(downloadTask.start());
+          final downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            bucket: testBucket,
+            path: const StoragePath.fromString(testKey),
+            pathResolver: TestPathResolver(),
+            options: const StorageDownloadDataOptions(),
+            onProgress: (progress) {
+              finalState = progress.state;
+            },
+          );
 
-        expect(
-          downloadTask.result,
-          throwsA(accelerateEndpointUnusable),
-        );
-      });
+          await downloadTask.start();
+
+          final capturedRequest =
+              verify(
+                () => s3Client.getObject(
+                  captureAny<GetObjectRequest>(),
+                  s3ClientConfig: any(named: 's3ClientConfig'),
+                ),
+              ).captured.last;
+
+          expect(capturedRequest is GetObjectRequest, isTrue);
+
+          final request = capturedRequest as GetObjectRequest;
+          expect(request.bucket, testBucket);
+          expect(request.key, TestPathResolver.path);
+          expect(request.checksumMode, ChecksumMode.enabled);
+
+          await downloadTask.result;
+          expect(finalState, StorageTransferState.success);
+        },
+      );
+
+      test(
+        'it should invoke S3Client.getObject API with correct useAcceleration parameter',
+        () async {
+          const testUseAccelerateEndpoint = true;
+          const testOptions = StorageDownloadDataOptions(
+            pluginOptions: S3DownloadDataPluginOptions(
+              useAccelerateEndpoint: testUseAccelerateEndpoint,
+            ),
+          );
+          const testBodyBytes = [101, 102];
+          final testGetObjectOutput = GetObjectOutput(
+            contentLength: Int64(testBodyBytes.length),
+            body: Stream.value(testBodyBytes),
+          );
+          final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+
+          when(
+            () => smithyOperation.result,
+          ).thenAnswer((_) async => testGetObjectOutput);
+
+          when(
+            () => s3Client.getObject(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).thenAnswer((_) => smithyOperation);
+
+          final downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            bucket: testBucket,
+            path: const StoragePath.fromString(testKey),
+            pathResolver: TestPathResolver(),
+            options: testOptions,
+          );
+
+          await downloadTask.start();
+
+          final capturedS3ClientConfig =
+              verify(
+                () => s3Client.getObject(
+                  any(),
+                  s3ClientConfig: captureAny<S3ClientConfig>(
+                    named: 's3ClientConfig',
+                  ),
+                ),
+              ).captured.last;
+
+          expect(
+            capturedS3ClientConfig,
+            isA<S3ClientConfig>().having(
+              (o) => o.useAcceleration,
+              'useAcceleration',
+              testUseAccelerateEndpoint,
+            ),
+          );
+        },
+      );
+
+      test(
+        'it should throw StorageException when getObject response doesn\'t include a value contentLength header',
+        () async {
+          final testGetObjectOutput = GetObjectOutput(
+            body: Stream.value([101]),
+          );
+          final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+          var onErrorHasBeenCalled = false;
+
+          when(
+            () => smithyOperation.result,
+          ).thenAnswer((_) async => testGetObjectOutput);
+
+          when(
+            () => s3Client.getObject(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).thenAnswer((_) => smithyOperation);
+
+          final downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            bucket: testBucket,
+            path: const StoragePath.fromString(testKey),
+            pathResolver: TestPathResolver(),
+            options: defaultTestOptions,
+            onError: () {
+              onErrorHasBeenCalled = true;
+            },
+          );
+
+          unawaited(downloadTask.start());
+
+          await expectLater(
+            downloadTask.result,
+            throwsA(isA<StorageException>()),
+          );
+          expect(onErrorHasBeenCalled, isTrue);
+        },
+      );
+
+      test(
+        'throw exception when attempt to use accelerate endpoint with path style URL',
+        () {
+          final downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: const S3ClientConfig(usePathStyle: true),
+            bucket: 'bucket.name.has.dots.com',
+            path: const StoragePath.fromString('public/$testKey'),
+            pathResolver: TestPathResolver(),
+            options: const StorageDownloadDataOptions(
+              pluginOptions: S3DownloadDataPluginOptions(
+                useAccelerateEndpoint: true,
+              ),
+            ),
+          );
+
+          unawaited(downloadTask.start());
+
+          expect(downloadTask.result, throwsA(accelerateEndpointUnusable));
+        },
+      );
     });
 
     group('pause API()', () {
@@ -253,13 +250,15 @@ void main() {
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
-            const Duration(microseconds: 200),
-            (_) => [101],
-          ).take(1024).asBroadcastStream(
-            onCancel: (StreamSubscription<List<int>> subscription) {
-              bodyStreamHasBeenCanceled = true;
-            },
-          ),
+                const Duration(microseconds: 200),
+                (_) => [101],
+              )
+              .take(1024)
+              .asBroadcastStream(
+                onCancel: (StreamSubscription<List<int>> subscription) {
+                  bodyStreamHasBeenCanceled = true;
+                },
+              ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <StorageTransferState>[];
@@ -366,13 +365,15 @@ void main() {
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
-            const Duration(microseconds: 200),
-            (_) => [101],
-          ).take(1024).asBroadcastStream(
-            onCancel: (StreamSubscription<List<int>> subscription) {
-              bodyStreamHasBeenCanceled = true;
-            },
-          ),
+                const Duration(microseconds: 200),
+                (_) => [101],
+              )
+              .take(1024)
+              .asBroadcastStream(
+                onCancel: (StreamSubscription<List<int>> subscription) {
+                  bodyStreamHasBeenCanceled = true;
+                },
+              ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <StorageTransferState>[];
@@ -443,35 +444,39 @@ void main() {
         ),
       ];
 
-      test('should forward StorageException when getObject returns no body',
-          () {
-        final testGetObjectOutput = GetObjectOutput(contentLength: Int64(1024));
-        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+      test(
+        'should forward StorageException when getObject returns no body',
+        () {
+          final testGetObjectOutput = GetObjectOutput(
+            contentLength: Int64(1024),
+          );
+          final smithyOperation = MockSmithyOperation<GetObjectOutput>();
 
-        when(
-          () => smithyOperation.result,
-        ).thenAnswer((_) async => testGetObjectOutput);
+          when(
+            () => smithyOperation.result,
+          ).thenAnswer((_) async => testGetObjectOutput);
 
-        when(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
-          ),
-        ).thenAnswer((_) => smithyOperation);
+          when(
+            () => s3Client.getObject(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).thenAnswer((_) => smithyOperation);
 
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          bucket: testBucket,
-          path: const StoragePath.fromString('public/$testKey'),
-          pathResolver: TestPathResolver(),
-          options: defaultTestOptions,
-        );
+          final downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            bucket: testBucket,
+            path: const StoragePath.fromString('public/$testKey'),
+            pathResolver: TestPathResolver(),
+            options: defaultTestOptions,
+          );
 
-        unawaited(downloadTask.start());
+          unawaited(downloadTask.start());
 
-        expect(downloadTask.result, throwsA(isA<StorageException>()));
-      });
+          expect(downloadTask.result, throwsA(isA<StorageException>()));
+        },
+      );
 
       group('error handling on start()', () {
         late S3DownloadTask downloadTask;
@@ -599,58 +604,56 @@ void main() {
       });
 
       test(
-          '`onDone` should be invoked when body stream is completed and ripples exception from onDone to the result Future',
-          () async {
-        const testBodyBytes = [101, 102];
-        final testGetObjectOutput = GetObjectOutput(
-          contentLength: Int64(testBodyBytes.length),
-          body: Stream.value(testBodyBytes),
-        );
-        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        final testOnDoneException = Exception('some exception');
-        var onDoneHasBeenCalled = false;
-        late StorageTransferState finalState;
+        '`onDone` should be invoked when body stream is completed and ripples exception from onDone to the result Future',
+        () async {
+          const testBodyBytes = [101, 102];
+          final testGetObjectOutput = GetObjectOutput(
+            contentLength: Int64(testBodyBytes.length),
+            body: Stream.value(testBodyBytes),
+          );
+          final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+          final testOnDoneException = Exception('some exception');
+          var onDoneHasBeenCalled = false;
+          late StorageTransferState finalState;
 
-        when(
-          () => smithyOperation.result,
-        ).thenAnswer((_) async => testGetObjectOutput);
+          when(
+            () => smithyOperation.result,
+          ).thenAnswer((_) async => testGetObjectOutput);
 
-        when(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
-          ),
-        ).thenAnswer((_) => smithyOperation);
+          when(
+            () => s3Client.getObject(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).thenAnswer((_) => smithyOperation);
 
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          bucket: testBucket,
-          path: const StoragePath.fromString('public/$testKey'),
-          pathResolver: TestPathResolver(),
-          options: defaultTestOptions,
-          onDone: () async {
-            onDoneHasBeenCalled = true;
-            throw testOnDoneException;
-          },
-          onProgress: (progress) {
-            finalState = progress.state;
-          },
-        );
+          final downloadTask = S3DownloadTask(
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            bucket: testBucket,
+            path: const StoragePath.fromString('public/$testKey'),
+            pathResolver: TestPathResolver(),
+            options: defaultTestOptions,
+            onDone: () async {
+              onDoneHasBeenCalled = true;
+              throw testOnDoneException;
+            },
+            onProgress: (progress) {
+              finalState = progress.state;
+            },
+          );
 
-        unawaited(downloadTask.start());
+          unawaited(downloadTask.start());
 
-        await expectLater(downloadTask.result, throwsA(testOnDoneException));
-        expect(onDoneHasBeenCalled, isTrue);
-        expect(finalState, StorageTransferState.failure);
-      });
+          await expectLater(downloadTask.result, throwsA(testOnDoneException));
+          expect(onDoneHasBeenCalled, isTrue);
+          expect(finalState, StorageTransferState.failure);
+        },
+      );
 
       group('download result', () {
         const testBodyBytes = [101, 102];
-        const testMetadata = {
-          'filename': '1.jpg',
-          'group': 'GroupA',
-        };
+        const testMetadata = {'filename': '1.jpg', 'group': 'GroupA'};
         final testItems = [
           GetPropertiesTestItem(
             description:

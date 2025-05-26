@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.rest_json_protocol.model.malformed_byte_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,9 +32,9 @@ abstract class MalformedByteInput
     );
   }
 
-  factory MalformedByteInput.build(
-          [void Function(MalformedByteInputBuilder) updates]) =
-      _$MalformedByteInput;
+  factory MalformedByteInput.build([
+    void Function(MalformedByteInputBuilder) updates,
+  ]) = _$MalformedByteInput;
 
   const MalformedByteInput._();
 
@@ -42,22 +42,21 @@ abstract class MalformedByteInput
     MalformedByteInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      MalformedByteInput.build((b) {
-        b.byteInBody = payload.byteInBody;
-        if (request.headers['byteInHeader'] != null) {
-          b.byteInHeader = int.parse(request.headers['byteInHeader']!);
-        }
-        if (request.queryParameters['byteInQuery'] != null) {
-          b.byteInQuery = int.parse(request.queryParameters['byteInQuery']!);
-        }
-        if (labels['byteInPath'] != null) {
-          b.byteInPath = int.parse(labels['byteInPath']!);
-        }
-      });
+  }) => MalformedByteInput.build((b) {
+    b.byteInBody = payload.byteInBody;
+    if (request.headers['byteInHeader'] != null) {
+      b.byteInHeader = int.parse(request.headers['byteInHeader']!);
+    }
+    if (request.queryParameters['byteInQuery'] != null) {
+      b.byteInQuery = int.parse(request.queryParameters['byteInQuery']!);
+    }
+    if (labels['byteInPath'] != null) {
+      b.byteInPath = int.parse(labels['byteInPath']!);
+    }
+  });
 
   static const List<_i1.SmithySerializer<MalformedByteInputPayload>>
-      serializers = [MalformedByteInputRestJson1Serializer()];
+  serializers = [MalformedByteInputRestJson1Serializer()];
 
   int? get byteInBody;
   int get byteInPath;
@@ -69,44 +68,30 @@ abstract class MalformedByteInput
       case 'byteInPath':
         return byteInPath.toString();
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
   MalformedByteInputPayload getPayload() => MalformedByteInputPayload((b) {
-        b.byteInBody = byteInBody;
-      });
+    b.byteInBody = byteInBody;
+  });
 
   @override
   List<Object?> get props => [
-        byteInBody,
-        byteInPath,
-        byteInQuery,
-        byteInHeader,
-      ];
+    byteInBody,
+    byteInPath,
+    byteInQuery,
+    byteInHeader,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedByteInput')
-      ..add(
-        'byteInBody',
-        byteInBody,
-      )
-      ..add(
-        'byteInPath',
-        byteInPath,
-      )
-      ..add(
-        'byteInQuery',
-        byteInQuery,
-      )
-      ..add(
-        'byteInHeader',
-        byteInHeader,
-      );
+    final helper =
+        newBuiltValueToStringHelper('MalformedByteInput')
+          ..add('byteInBody', byteInBody)
+          ..add('byteInPath', byteInPath)
+          ..add('byteInQuery', byteInQuery)
+          ..add('byteInHeader', byteInHeader);
     return helper.toString();
   }
 }
@@ -116,9 +101,9 @@ abstract class MalformedByteInputPayload
     with _i2.AWSEquatable<MalformedByteInputPayload>
     implements
         Built<MalformedByteInputPayload, MalformedByteInputPayloadBuilder> {
-  factory MalformedByteInputPayload(
-          [void Function(MalformedByteInputPayloadBuilder) updates]) =
-      _$MalformedByteInputPayload;
+  factory MalformedByteInputPayload([
+    void Function(MalformedByteInputPayloadBuilder) updates,
+  ]) = _$MalformedByteInputPayload;
 
   const MalformedByteInputPayload._();
 
@@ -129,10 +114,7 @@ abstract class MalformedByteInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedByteInputPayload')
-      ..add(
-        'byteInBody',
-        byteInBody,
-      );
+      ..add('byteInBody', byteInBody);
     return helper.toString();
   }
 }
@@ -143,19 +125,16 @@ class MalformedByteInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [
-        MalformedByteInput,
-        _$MalformedByteInput,
-        MalformedByteInputPayload,
-        _$MalformedByteInputPayload,
-      ];
+    MalformedByteInput,
+    _$MalformedByteInput,
+    MalformedByteInputPayload,
+    _$MalformedByteInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   MalformedByteInputPayload deserialize(
@@ -174,10 +153,12 @@ class MalformedByteInputRestJson1Serializer
       }
       switch (key) {
         case 'byteInBody':
-          result.byteInBody = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.byteInBody =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
       }
     }
 
@@ -195,10 +176,9 @@ class MalformedByteInputRestJson1Serializer
     if (byteInBody != null) {
       result$
         ..add('byteInBody')
-        ..add(serializers.serialize(
-          byteInBody,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(byteInBody, specifiedType: const FullType(int)),
+        );
     }
     return result$;
   }

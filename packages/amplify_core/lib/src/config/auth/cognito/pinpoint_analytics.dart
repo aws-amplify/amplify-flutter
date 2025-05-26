@@ -22,10 +22,7 @@ class CognitoPinpointAnalyticsConfig
   @override
   List<Object?> get props => [appId, region];
 
-  CognitoPinpointAnalyticsConfig copyWith({
-    String? appId,
-    String? region,
-  }) {
+  CognitoPinpointAnalyticsConfig copyWith({String? appId, String? region}) {
     return CognitoPinpointAnalyticsConfig(
       appId: appId ?? this.appId,
       region: region ?? this.region,

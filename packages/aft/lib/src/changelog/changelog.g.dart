@@ -16,9 +16,12 @@ class _$Changelog extends Changelog {
       (new ChangelogBuilder()..update(updates))._build();
 
   _$Changelog._({required this.originalText, required this.versions})
-      : super._() {
+    : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        originalText, r'Changelog', 'originalText');
+      originalText,
+      r'Changelog',
+      'originalText',
+    );
     BuiltValueNullFieldError.checkNotNull(versions, r'Changelog', 'versions');
   }
 
@@ -89,11 +92,16 @@ class ChangelogBuilder implements Builder<Changelog, ChangelogBuilder> {
   _$Changelog _build() {
     _$Changelog _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           new _$Changelog._(
-              originalText: BuiltValueNullFieldError.checkNotNull(
-                  originalText, r'Changelog', 'originalText'),
-              versions: versions.build());
+            originalText: BuiltValueNullFieldError.checkNotNull(
+              originalText,
+              r'Changelog',
+              'originalText',
+            ),
+            versions: versions.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -101,7 +109,10 @@ class ChangelogBuilder implements Builder<Changelog, ChangelogBuilder> {
         versions.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'Changelog', _$failedField, e.toString());
+          r'Changelog',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

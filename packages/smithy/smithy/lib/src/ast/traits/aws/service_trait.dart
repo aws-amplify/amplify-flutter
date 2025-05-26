@@ -76,12 +76,12 @@ class ServiceTrait with AWSSerializable implements Trait<ServiceTrait> {
 
   @override
   List<Object?> get props => [
-        cloudFormationName,
-        arnNamespace,
-        sdkId,
-        cloudTrailEventSource,
-        endpointPrefix,
-      ];
+    cloudFormationName,
+    arnNamespace,
+    sdkId,
+    cloudTrailEventSource,
+    endpointPrefix,
+  ];
 
   @override
   ShapeId get shapeId => id;

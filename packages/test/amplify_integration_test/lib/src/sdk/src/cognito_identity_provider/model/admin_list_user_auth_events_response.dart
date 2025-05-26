@@ -13,11 +13,12 @@ import 'package:smithy/smithy.dart' as _i3;
 part 'admin_list_user_auth_events_response.g.dart';
 
 abstract class AdminListUserAuthEventsResponse
-    with
-        _i1.AWSEquatable<AdminListUserAuthEventsResponse>
+    with _i1.AWSEquatable<AdminListUserAuthEventsResponse>
     implements
-        Built<AdminListUserAuthEventsResponse,
-            AdminListUserAuthEventsResponseBuilder> {
+        Built<
+          AdminListUserAuthEventsResponse,
+          AdminListUserAuthEventsResponseBuilder
+        > {
   factory AdminListUserAuthEventsResponse({
     List<AuthEventType>? authEvents,
     String? nextToken,
@@ -28,9 +29,9 @@ abstract class AdminListUserAuthEventsResponse
     );
   }
 
-  factory AdminListUserAuthEventsResponse.build(
-          [void Function(AdminListUserAuthEventsResponseBuilder) updates]) =
-      _$AdminListUserAuthEventsResponse;
+  factory AdminListUserAuthEventsResponse.build([
+    void Function(AdminListUserAuthEventsResponseBuilder) updates,
+  ]) = _$AdminListUserAuthEventsResponse;
 
   const AdminListUserAuthEventsResponse._();
 
@@ -38,11 +39,10 @@ abstract class AdminListUserAuthEventsResponse
   factory AdminListUserAuthEventsResponse.fromResponse(
     AdminListUserAuthEventsResponse payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      payload;
+  ) => payload;
 
   static const List<_i3.SmithySerializer<AdminListUserAuthEventsResponse>>
-      serializers = [AdminListUserAuthEventsResponseAwsJson11Serializer()];
+  serializers = [AdminListUserAuthEventsResponseAwsJson11Serializer()];
 
   /// The response object. It includes the `EventID`, `EventType`, `CreationDate`, `EventRisk`, and `EventResponse`.
   _i2.BuiltList<AuthEventType>? get authEvents;
@@ -50,22 +50,13 @@ abstract class AdminListUserAuthEventsResponse
   /// A pagination token.
   String? get nextToken;
   @override
-  List<Object?> get props => [
-        authEvents,
-        nextToken,
-      ];
+  List<Object?> get props => [authEvents, nextToken];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('AdminListUserAuthEventsResponse')
-          ..add(
-            'authEvents',
-            authEvents,
-          )
-          ..add(
-            'nextToken',
-            nextToken,
-          );
+          ..add('authEvents', authEvents)
+          ..add('nextToken', nextToken);
     return helper.toString();
   }
 }
@@ -73,20 +64,17 @@ abstract class AdminListUserAuthEventsResponse
 class AdminListUserAuthEventsResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<AdminListUserAuthEventsResponse> {
   const AdminListUserAuthEventsResponseAwsJson11Serializer()
-      : super('AdminListUserAuthEventsResponse');
+    : super('AdminListUserAuthEventsResponse');
 
   @override
   Iterable<Type> get types => const [
-        AdminListUserAuthEventsResponse,
-        _$AdminListUserAuthEventsResponse,
-      ];
+    AdminListUserAuthEventsResponse,
+    _$AdminListUserAuthEventsResponse,
+  ];
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
   @override
   AdminListUserAuthEventsResponse deserialize(
     Serializers serializers,
@@ -104,18 +92,22 @@ class AdminListUserAuthEventsResponseAwsJson11Serializer
       }
       switch (key) {
         case 'AuthEvents':
-          result.authEvents.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i2.BuiltList,
-              [FullType(AuthEventType)],
-            ),
-          ) as _i2.BuiltList<AuthEventType>));
+          result.authEvents.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i2.BuiltList, [
+                    FullType(AuthEventType),
+                  ]),
+                )
+                as _i2.BuiltList<AuthEventType>),
+          );
         case 'NextToken':
-          result.nextToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.nextToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -133,21 +125,24 @@ class AdminListUserAuthEventsResponseAwsJson11Serializer
     if (authEvents != null) {
       result$
         ..add('AuthEvents')
-        ..add(serializers.serialize(
-          authEvents,
-          specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(AuthEventType)],
+        ..add(
+          serializers.serialize(
+            authEvents,
+            specifiedType: const FullType(_i2.BuiltList, [
+              FullType(AuthEventType),
+            ]),
           ),
-        ));
+        );
     }
     if (nextToken != null) {
       result$
         ..add('NextToken')
-        ..add(serializers.serialize(
-          nextToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            nextToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

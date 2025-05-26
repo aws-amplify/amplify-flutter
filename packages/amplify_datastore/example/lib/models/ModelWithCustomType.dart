@@ -36,7 +36,8 @@ class ModelWithCustomType extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -60,28 +61,32 @@ class ModelWithCustomType extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const ModelWithCustomType._internal(
-      {required this.id,
-      customTypeValue,
-      listOfCustomTypeValue,
-      createdAt,
-      updatedAt})
-      : _customTypeValue = customTypeValue,
-        _listOfCustomTypeValue = listOfCustomTypeValue,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const ModelWithCustomType._internal({
+    required this.id,
+    customTypeValue,
+    listOfCustomTypeValue,
+    createdAt,
+    updatedAt,
+  }) : _customTypeValue = customTypeValue,
+       _listOfCustomTypeValue = listOfCustomTypeValue,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory ModelWithCustomType(
-      {String? id,
-      CustomTypeWithAppsyncScalarTypes? customTypeValue,
-      List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
+  factory ModelWithCustomType({
+    String? id,
+    CustomTypeWithAppsyncScalarTypes? customTypeValue,
+    List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue,
+  }) {
     return ModelWithCustomType._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        customTypeValue: customTypeValue,
-        listOfCustomTypeValue: listOfCustomTypeValue != null
-            ? List<CustomTypeWithAppsyncScalarTypes>.unmodifiable(
-                listOfCustomTypeValue)
-            : listOfCustomTypeValue);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      customTypeValue: customTypeValue,
+      listOfCustomTypeValue:
+          listOfCustomTypeValue != null
+              ? List<CustomTypeWithAppsyncScalarTypes>.unmodifiable(
+                listOfCustomTypeValue,
+              )
+              : listOfCustomTypeValue,
+    );
   }
 
   bool equals(Object other) {
@@ -94,8 +99,10 @@ class ModelWithCustomType extends amplify_core.Model {
     return other is ModelWithCustomType &&
         id == other.id &&
         _customTypeValue == other._customTypeValue &&
-        DeepCollectionEquality()
-            .equals(_listOfCustomTypeValue, other._listOfCustomTypeValue);
+        DeepCollectionEquality().equals(
+          _listOfCustomTypeValue,
+          other._listOfCustomTypeValue,
+        );
   }
 
   @override
@@ -107,137 +114,177 @@ class ModelWithCustomType extends amplify_core.Model {
 
     buffer.write("ModelWithCustomType {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("customTypeValue=" +
-        (_customTypeValue != null ? _customTypeValue.toString() : "null") +
-        ", ");
-    buffer.write("listOfCustomTypeValue=" +
-        (_listOfCustomTypeValue != null
-            ? _listOfCustomTypeValue.toString()
-            : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+      "customTypeValue=" +
+          (_customTypeValue != null ? _customTypeValue.toString() : "null") +
+          ", ",
+    );
+    buffer.write(
+      "listOfCustomTypeValue=" +
+          (_listOfCustomTypeValue != null
+              ? _listOfCustomTypeValue.toString()
+              : "null") +
+          ", ",
+    );
+    buffer.write(
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  ModelWithCustomType copyWith(
-      {CustomTypeWithAppsyncScalarTypes? customTypeValue,
-      List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue}) {
+  ModelWithCustomType copyWith({
+    CustomTypeWithAppsyncScalarTypes? customTypeValue,
+    List<CustomTypeWithAppsyncScalarTypes>? listOfCustomTypeValue,
+  }) {
     return ModelWithCustomType._internal(
-        id: id,
-        customTypeValue: customTypeValue ?? this.customTypeValue,
-        listOfCustomTypeValue:
-            listOfCustomTypeValue ?? this.listOfCustomTypeValue);
+      id: id,
+      customTypeValue: customTypeValue ?? this.customTypeValue,
+      listOfCustomTypeValue:
+          listOfCustomTypeValue ?? this.listOfCustomTypeValue,
+    );
   }
 
-  ModelWithCustomType copyWithModelFieldValues(
-      {ModelFieldValue<CustomTypeWithAppsyncScalarTypes?>? customTypeValue,
-      ModelFieldValue<List<CustomTypeWithAppsyncScalarTypes>?>?
-          listOfCustomTypeValue}) {
+  ModelWithCustomType copyWithModelFieldValues({
+    ModelFieldValue<CustomTypeWithAppsyncScalarTypes?>? customTypeValue,
+    ModelFieldValue<List<CustomTypeWithAppsyncScalarTypes>?>?
+    listOfCustomTypeValue,
+  }) {
     return ModelWithCustomType._internal(
-        id: id,
-        customTypeValue: customTypeValue == null
-            ? this.customTypeValue
-            : customTypeValue.value,
-        listOfCustomTypeValue: listOfCustomTypeValue == null
-            ? this.listOfCustomTypeValue
-            : listOfCustomTypeValue.value);
+      id: id,
+      customTypeValue:
+          customTypeValue == null
+              ? this.customTypeValue
+              : customTypeValue.value,
+      listOfCustomTypeValue:
+          listOfCustomTypeValue == null
+              ? this.listOfCustomTypeValue
+              : listOfCustomTypeValue.value,
+    );
   }
 
   ModelWithCustomType.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _customTypeValue = json['customTypeValue'] != null
-            ? json['customTypeValue']['serializedData'] != null
-                ? CustomTypeWithAppsyncScalarTypes.fromJson(
+    : id = json['id'],
+      _customTypeValue =
+          json['customTypeValue'] != null
+              ? json['customTypeValue']['serializedData'] != null
+                  ? CustomTypeWithAppsyncScalarTypes.fromJson(
                     new Map<String, dynamic>.from(
-                        json['customTypeValue']['serializedData']))
-                : CustomTypeWithAppsyncScalarTypes.fromJson(
-                    new Map<String, dynamic>.from(json['customTypeValue']))
-            : null,
-        _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
-            ? (json['listOfCustomTypeValue'] as List)
-                .where((e) => e != null)
-                .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'] ?? e)))
-                .toList()
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+                      json['customTypeValue']['serializedData'],
+                    ),
+                  )
+                  : CustomTypeWithAppsyncScalarTypes.fromJson(
+                    new Map<String, dynamic>.from(json['customTypeValue']),
+                  )
+              : null,
+      _listOfCustomTypeValue =
+          json['listOfCustomTypeValue'] is List
+              ? (json['listOfCustomTypeValue'] as List)
+                  .where((e) => e != null)
+                  .map(
+                    (e) => CustomTypeWithAppsyncScalarTypes.fromJson(
+                      new Map<String, dynamic>.from(e['serializedData'] ?? e),
+                    ),
+                  )
+                  .toList()
+              : null,
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'customTypeValue': _customTypeValue?.toJson(),
-        'listOfCustomTypeValue': _listOfCustomTypeValue
+    'id': id,
+    'customTypeValue': _customTypeValue?.toJson(),
+    'listOfCustomTypeValue':
+        _listOfCustomTypeValue
             ?.map((CustomTypeWithAppsyncScalarTypes? e) => e?.toJson())
             .toList(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'customTypeValue': _customTypeValue,
-        'listOfCustomTypeValue': _listOfCustomTypeValue,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'customTypeValue': _customTypeValue,
+    'listOfCustomTypeValue': _listOfCustomTypeValue,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>
-      MODEL_IDENTIFIER =
+  static final amplify_core.QueryModelIdentifier<
+    ModelWithCustomTypeModelIdentifier
+  >
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final CUSTOMTYPEVALUE =
-      amplify_core.QueryField(fieldName: "customTypeValue");
-  static final LISTOFCUSTOMTYPEVALUE =
-      amplify_core.QueryField(fieldName: "listOfCustomTypeValue");
+  static final CUSTOMTYPEVALUE = amplify_core.QueryField(
+    fieldName: "customTypeValue",
+  );
+  static final LISTOFCUSTOMTYPEVALUE = amplify_core.QueryField(
+    fieldName: "listOfCustomTypeValue",
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "ModelWithCustomType";
-    modelSchemaDefinition.pluralName = "ModelWithCustomTypes";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "ModelWithCustomType";
+      modelSchemaDefinition.pluralName = "ModelWithCustomTypes";
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
-        fieldName: 'customTypeValue',
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.embedded(
+          fieldName: 'customTypeValue',
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes')));
+            ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes',
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
-        fieldName: 'listOfCustomTypeValue',
-        isRequired: false,
-        isArray: true,
-        ofType: amplify_core.ModelFieldType(
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.embedded(
+          fieldName: 'listOfCustomTypeValue',
+          isRequired: false,
+          isArray: true,
+          ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.embeddedCollection,
-            ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes')));
+            ofCustomTypeName: 'CustomTypeWithAppsyncScalarTypes',
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _ModelWithCustomTypeModelType
@@ -270,10 +317,10 @@ class ModelWithCustomTypeModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

@@ -23,9 +23,7 @@ Future<void> main() async {
     AmplifyAPI(
       options: APIPluginOptions(modelProvider: ModelProvider.instance),
     ),
-    AmplifyDataStore(
-      modelProvider: ModelProvider.instance,
-    ),
+    AmplifyDataStore(modelProvider: ModelProvider.instance),
   ]);
   await Amplify.configure(amplifyconfig);
   safePrint('Successfully configured Amplify.');
@@ -40,9 +38,7 @@ class MyApp extends StatelessWidget {
     return Authenticator(
       child: MaterialApp(
         title: 'Amplify Flutter Canary',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue),
         builder: Authenticator.builder(),
         home: const MyHomePage(),
       ),
@@ -56,12 +52,8 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Amplify Flutter Canary'),
-      ),
-      body: const Center(
-        child: Text('Signed in'),
-      ),
+      appBar: AppBar(title: const Text('Amplify Flutter Canary')),
+      body: const Center(child: Text('Signed in')),
     );
   }
 }

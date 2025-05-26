@@ -88,6 +88,6 @@ abstract class ModelIdentifier<T extends Model> {
   List<Map<String, dynamic>> serializeAsList();
 
   /// Serialize a model identifier into a single string in format:
-  /// <primaryKey>[#<sortKey>]
+  /// primaryKey[#<sortKey>]
   String serializeAsString();
 }

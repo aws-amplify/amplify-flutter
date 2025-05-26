@@ -44,9 +44,7 @@ sealed class SignUpState extends AuthState<SignUpStateType> {
   const factory SignUpState.confirming() = SignUpConfirming;
 
   /// {@macro amplify_auth_cognito.sign_up_success}
-  const factory SignUpState.success({
-    String? userId,
-  }) = SignUpSuccess;
+  const factory SignUpState.success({String? userId}) = SignUpSuccess;
 
   /// {@macro amplify_auth_cognito.sign_up_failure}
   const factory SignUpState.failure(
@@ -128,9 +126,7 @@ final class SignUpConfirming extends SignUpState {
 /// {@endtemplate}
 final class SignUpSuccess extends SignUpState with SuccessState {
   /// {@macro amplify_auth_cognito.sign_up_success}
-  const SignUpSuccess({
-    this.userId,
-  }) : super._();
+  const SignUpSuccess({this.userId}) : super._();
 
   /// The ID of the user.
   final String? userId;

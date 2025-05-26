@@ -11,10 +11,8 @@ part of '../form_field.dart';
 /// A prebuilt form widget for use on the MFA setup selection step.
 /// {@endtemplate}
 class _MfaSetupMethodRadioField extends ConfirmSignInFormField<MfaType> {
-  const _MfaSetupMethodRadioField({
-    super.key,
-    required super.field,
-  }) : super._();
+  const _MfaSetupMethodRadioField({super.key, required super.field})
+    : super._();
 
   @override
   _MfaSetupSelectionFieldState createState() => _MfaSetupSelectionFieldState();
@@ -33,17 +31,17 @@ class _MfaSetupSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
 
   @override
   List<InputSelection<InputResolverKey, MfaType>> get selections => [
-        if (_allowedMfaTypes.contains(MfaType.totp))
-          const InputSelection<InputResolverKey, MfaType>(
-            label: InputResolverKey.selectTotp,
-            value: MfaType.totp,
-          ),
-        if (_allowedMfaTypes.contains(MfaType.email))
-          const InputSelection<InputResolverKey, MfaType>(
-            label: InputResolverKey.selectEmail,
-            value: MfaType.email,
-          ),
-      ];
+    if (_allowedMfaTypes.contains(MfaType.totp))
+      const InputSelection<InputResolverKey, MfaType>(
+        label: InputResolverKey.selectTotp,
+        value: MfaType.totp,
+      ),
+    if (_allowedMfaTypes.contains(MfaType.email))
+      const InputSelection<InputResolverKey, MfaType>(
+        label: InputResolverKey.selectEmail,
+        value: MfaType.email,
+      ),
+  ];
 
   @override
   MfaType get initialValue => selections.first.value;

@@ -14,17 +14,17 @@ class _$ResourceNotFoundException extends ResourceNotFoundException {
   @override
   final Map<String, String>? headers;
 
-  factory _$ResourceNotFoundException(
-          [void Function(ResourceNotFoundExceptionBuilder)? updates]) =>
-      (new ResourceNotFoundExceptionBuilder()..update(updates))._build();
+  factory _$ResourceNotFoundException([
+    void Function(ResourceNotFoundExceptionBuilder)? updates,
+  ]) => (new ResourceNotFoundExceptionBuilder()..update(updates))._build();
 
   _$ResourceNotFoundException._({this.message, this.code, this.headers})
-      : super._();
+    : super._();
 
   @override
   ResourceNotFoundException rebuild(
-          void Function(ResourceNotFoundExceptionBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ResourceNotFoundExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ResourceNotFoundExceptionBuilder toBuilder() =>
@@ -93,9 +93,13 @@ class ResourceNotFoundExceptionBuilder
   ResourceNotFoundException build() => _build();
 
   _$ResourceNotFoundException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$ResourceNotFoundException._(
-            message: message, code: code, headers: headers);
+          message: message,
+          code: code,
+          headers: headers,
+        );
     replace(_$result);
     return _$result;
   }

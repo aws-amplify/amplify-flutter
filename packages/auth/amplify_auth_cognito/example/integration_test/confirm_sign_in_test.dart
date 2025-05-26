@@ -64,9 +64,7 @@ void main() {
           final otpCode = await otpResult.code;
 
           await expectLater(
-            Amplify.Auth.confirmSignIn(
-              confirmationValue: otpCode,
-            ),
+            Amplify.Auth.confirmSignIn(confirmationValue: otpCode),
             completion(
               isA<SignInResult>().having(
                 (res) => res.isSignedIn,
@@ -92,16 +90,12 @@ void main() {
           final otpCode = await otpResult.code;
 
           await expectLater(
-            Amplify.Auth.confirmSignIn(
-              confirmationValue: 'incorrect-code',
-            ),
+            Amplify.Auth.confirmSignIn(confirmationValue: 'incorrect-code'),
             throwsA(isA<CodeMismatchException>()),
           );
 
           await expectLater(
-            Amplify.Auth.confirmSignIn(
-              confirmationValue: otpCode,
-            ),
+            Amplify.Auth.confirmSignIn(confirmationValue: otpCode),
             completion(
               isA<SignInResult>().having(
                 (res) => res.isSignedIn,
@@ -115,9 +109,7 @@ void main() {
         asyncTest('allows retrying on weak password', (_) async {
           const weakPassword = 'weak';
           await expectLater(
-            Amplify.Auth.confirmSignIn(
-              confirmationValue: weakPassword,
-            ),
+            Amplify.Auth.confirmSignIn(confirmationValue: weakPassword),
             throwsA(isA<InvalidPasswordException>()),
           );
 
@@ -149,9 +141,7 @@ void main() {
           password,
           autoConfirm: false,
           autoFillAttributes: false,
-          attributes: {
-            AuthUserAttributeKey.phoneNumber: phoneNumber,
-          },
+          attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber},
         );
 
         final signInRes = await Amplify.Auth.signIn(
@@ -184,10 +174,7 @@ void main() {
             ),
           ),
         );
-        expect(
-          confirmSignInRes.nextStep.signInStep,
-          AuthSignInStep.done,
-        );
+        expect(confirmSignInRes.nextStep.signInStep, AuthSignInStep.done);
 
         final userAttributes = await Amplify.Auth.fetchUserAttributes();
         expect(

@@ -12,8 +12,8 @@ abstract class AWSProtocolTrait implements ProtocolDefinitionTrait {
     List<AlpnProtocol>? eventStreamHttp,
     required this.timestampFormat,
     this.noInlineDocumentSupport = false,
-  })  : _http = http,
-        _eventStreamHttp = eventStreamHttp;
+  }) : _http = http,
+       _eventStreamHttp = eventStreamHttp;
 
   // A client SHOULD assume that a service supports http/1.1 when no http or
   // eventStreamHttp values are provided.
@@ -36,11 +36,7 @@ abstract class AWSProtocolTrait implements ProtocolDefinitionTrait {
   bool get isSynthetic => false;
 
   @override
-  List<Object?> get props => [
-        shapeId,
-        http,
-        eventStreamHttp,
-      ];
+  List<Object?> get props => [shapeId, http, eventStreamHttp];
 
   @override
   Map<String, Object?> toJson();

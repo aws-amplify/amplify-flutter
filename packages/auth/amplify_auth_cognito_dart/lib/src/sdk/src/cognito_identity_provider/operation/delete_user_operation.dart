@@ -27,8 +27,14 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
 ///
 /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
-class DeleteUserOperation extends _i1
-    .HttpOperation<DeleteUserRequest, DeleteUserRequest, _i1.Unit, _i1.Unit> {
+class DeleteUserOperation
+    extends
+        _i1.HttpOperation<
+          DeleteUserRequest,
+          DeleteUserRequest,
+          _i1.Unit,
+          _i1.Unit
+        > {
   /// Allows a user to delete their own user profile.
   ///
   /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
@@ -41,20 +47,22 @@ class DeleteUserOperation extends _i1
         const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
-  })  : _region = region,
-        _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider,
-        _requestInterceptors = requestInterceptors,
-        _responseInterceptors = responseInterceptors;
+  }) : _region = region,
+       _baseUri = baseUri,
+       _credentialsProvider = credentialsProvider,
+       _requestInterceptors = requestInterceptors,
+       _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
-      _i1.HttpProtocol<DeleteUserRequest, DeleteUserRequest, _i1.Unit,
-          _i1.Unit>> protocols = [
+    _i1.HttpProtocol<DeleteUserRequest, DeleteUserRequest, _i1.Unit, _i1.Unit>
+  >
+  protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
-      requestInterceptors: <_i1.HttpRequestInterceptor>[
+      requestInterceptors:
+          <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithHeader(
@@ -74,7 +82,7 @@ class DeleteUserOperation extends _i1
           _requestInterceptors,
       responseInterceptors:
           <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
-    )
+    ),
   ];
 
   late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
@@ -94,113 +102,112 @@ class DeleteUserOperation extends _i1
 
   @override
   _i1.HttpRequest buildRequest(DeleteUserRequest input) => _i1.HttpRequest((b) {
-        b.method = 'POST';
-        b.path = r'/';
-      });
+    b.method = 'POST';
+    b.path = r'/';
+  });
 
   @override
   int successCode([_i1.Unit? output]) => 200;
 
   @override
-  _i1.Unit buildOutput(
-    _i1.Unit payload,
-    _i4.AWSBaseHttpResponse response,
-  ) =>
+  _i1.Unit buildOutput(_i1.Unit payload, _i4.AWSBaseHttpResponse response) =>
       payload;
 
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<ForbiddenException, ForbiddenException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'ForbiddenException',
-          ),
-          _i1.ErrorKind.client,
-          ForbiddenException,
-          statusCode: 403,
-          builder: ForbiddenException.fromResponse,
-        ),
-        _i1.SmithyError<InternalErrorException, InternalErrorException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InternalErrorException',
-          ),
-          _i1.ErrorKind.server,
-          InternalErrorException,
-          builder: InternalErrorException.fromResponse,
-        ),
-        _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'InvalidParameterException',
-          ),
-          _i1.ErrorKind.client,
-          InvalidParameterException,
-          statusCode: 400,
-          builder: InvalidParameterException.fromResponse,
-        ),
-        _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'NotAuthorizedException',
-          ),
-          _i1.ErrorKind.client,
-          NotAuthorizedException,
-          statusCode: 403,
-          builder: NotAuthorizedException.fromResponse,
-        ),
-        _i1.SmithyError<PasswordResetRequiredException,
-            PasswordResetRequiredException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'PasswordResetRequiredException',
-          ),
-          _i1.ErrorKind.client,
-          PasswordResetRequiredException,
-          statusCode: 400,
-          builder: PasswordResetRequiredException.fromResponse,
-        ),
-        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'ResourceNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          ResourceNotFoundException,
-          statusCode: 404,
-          builder: ResourceNotFoundException.fromResponse,
-        ),
-        _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'TooManyRequestsException',
-          ),
-          _i1.ErrorKind.client,
-          TooManyRequestsException,
-          statusCode: 429,
-          builder: TooManyRequestsException.fromResponse,
-        ),
-        _i1.SmithyError<UserNotConfirmedException, UserNotConfirmedException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'UserNotConfirmedException',
-          ),
-          _i1.ErrorKind.client,
-          UserNotConfirmedException,
-          statusCode: 400,
-          builder: UserNotConfirmedException.fromResponse,
-        ),
-        _i1.SmithyError<UserNotFoundException, UserNotFoundException>(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.cognitoidentityprovider',
-            shape: 'UserNotFoundException',
-          ),
-          _i1.ErrorKind.client,
-          UserNotFoundException,
-          statusCode: 404,
-          builder: UserNotFoundException.fromResponse,
-        ),
-      ];
+    _i1.SmithyError<ForbiddenException, ForbiddenException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'ForbiddenException',
+      ),
+      _i1.ErrorKind.client,
+      ForbiddenException,
+      statusCode: 403,
+      builder: ForbiddenException.fromResponse,
+    ),
+    _i1.SmithyError<InternalErrorException, InternalErrorException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InternalErrorException',
+      ),
+      _i1.ErrorKind.server,
+      InternalErrorException,
+      builder: InternalErrorException.fromResponse,
+    ),
+    _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidParameterException',
+      ),
+      _i1.ErrorKind.client,
+      InvalidParameterException,
+      statusCode: 400,
+      builder: InvalidParameterException.fromResponse,
+    ),
+    _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'NotAuthorizedException',
+      ),
+      _i1.ErrorKind.client,
+      NotAuthorizedException,
+      statusCode: 403,
+      builder: NotAuthorizedException.fromResponse,
+    ),
+    _i1.SmithyError<
+      PasswordResetRequiredException,
+      PasswordResetRequiredException
+    >(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'PasswordResetRequiredException',
+      ),
+      _i1.ErrorKind.client,
+      PasswordResetRequiredException,
+      statusCode: 400,
+      builder: PasswordResetRequiredException.fromResponse,
+    ),
+    _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'ResourceNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      ResourceNotFoundException,
+      statusCode: 404,
+      builder: ResourceNotFoundException.fromResponse,
+    ),
+    _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'TooManyRequestsException',
+      ),
+      _i1.ErrorKind.client,
+      TooManyRequestsException,
+      statusCode: 429,
+      builder: TooManyRequestsException.fromResponse,
+    ),
+    _i1.SmithyError<UserNotConfirmedException, UserNotConfirmedException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UserNotConfirmedException',
+      ),
+      _i1.ErrorKind.client,
+      UserNotConfirmedException,
+      statusCode: 400,
+      builder: UserNotConfirmedException.fromResponse,
+    ),
+    _i1.SmithyError<UserNotFoundException, UserNotFoundException>(
+      _i1.ShapeId(
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UserNotFoundException',
+      ),
+      _i1.ErrorKind.client,
+      UserNotFoundException,
+      statusCode: 404,
+      builder: UserNotFoundException.fromResponse,
+    ),
+  ];
 
   @override
   String get runtimeTypeName => 'DeleteUser';
@@ -221,11 +228,7 @@ class DeleteUserOperation extends _i1
     _i1.ShapeId? useProtocol,
   }) {
     return _i5.runZoned(
-      () => super.run(
-        input,
-        client: client,
-        useProtocol: useProtocol,
-      ),
+      () => super.run(input, client: client, useProtocol: useProtocol),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
         ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},

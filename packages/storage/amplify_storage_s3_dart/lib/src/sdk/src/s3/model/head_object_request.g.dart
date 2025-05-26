@@ -38,29 +38,32 @@ class _$HeadObjectRequest extends HeadObjectRequest {
   @override
   final ChecksumMode? checksumMode;
 
-  factory _$HeadObjectRequest(
-          [void Function(HeadObjectRequestBuilder)? updates]) =>
-      (new HeadObjectRequestBuilder()..update(updates))._build();
+  factory _$HeadObjectRequest([
+    void Function(HeadObjectRequestBuilder)? updates,
+  ]) => (new HeadObjectRequestBuilder()..update(updates))._build();
 
-  _$HeadObjectRequest._(
-      {required this.bucket,
-      this.ifMatch,
-      this.ifModifiedSince,
-      this.ifNoneMatch,
-      this.ifUnmodifiedSince,
-      required this.key,
-      this.range,
-      this.versionId,
-      this.sseCustomerAlgorithm,
-      this.sseCustomerKey,
-      this.sseCustomerKeyMd5,
-      this.requestPayer,
-      this.partNumber,
-      this.expectedBucketOwner,
-      this.checksumMode})
-      : super._() {
+  _$HeadObjectRequest._({
+    required this.bucket,
+    this.ifMatch,
+    this.ifModifiedSince,
+    this.ifNoneMatch,
+    this.ifUnmodifiedSince,
+    required this.key,
+    this.range,
+    this.versionId,
+    this.sseCustomerAlgorithm,
+    this.sseCustomerKey,
+    this.sseCustomerKeyMd5,
+    this.requestPayer,
+    this.partNumber,
+    this.expectedBucketOwner,
+    this.checksumMode,
+  }) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'HeadObjectRequest', 'bucket');
+      bucket,
+      r'HeadObjectRequest',
+      'bucket',
+    );
     BuiltValueNullFieldError.checkNotNull(key, r'HeadObjectRequest', 'key');
   }
 
@@ -228,16 +231,23 @@ class HeadObjectRequestBuilder
   HeadObjectRequest build() => _build();
 
   _$HeadObjectRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$HeadObjectRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
-              bucket, r'HeadObjectRequest', 'bucket'),
+            bucket,
+            r'HeadObjectRequest',
+            'bucket',
+          ),
           ifMatch: ifMatch,
           ifModifiedSince: ifModifiedSince,
           ifNoneMatch: ifNoneMatch,
           ifUnmodifiedSince: ifUnmodifiedSince,
           key: BuiltValueNullFieldError.checkNotNull(
-              key, r'HeadObjectRequest', 'key'),
+            key,
+            r'HeadObjectRequest',
+            'key',
+          ),
           range: range,
           versionId: versionId,
           sseCustomerAlgorithm: sseCustomerAlgorithm,
@@ -254,16 +264,16 @@ class HeadObjectRequestBuilder
 }
 
 class _$HeadObjectRequestPayload extends HeadObjectRequestPayload {
-  factory _$HeadObjectRequestPayload(
-          [void Function(HeadObjectRequestPayloadBuilder)? updates]) =>
-      (new HeadObjectRequestPayloadBuilder()..update(updates))._build();
+  factory _$HeadObjectRequestPayload([
+    void Function(HeadObjectRequestPayloadBuilder)? updates,
+  ]) => (new HeadObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$HeadObjectRequestPayload._() : super._();
 
   @override
   HeadObjectRequestPayload rebuild(
-          void Function(HeadObjectRequestPayloadBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HeadObjectRequestPayloadBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HeadObjectRequestPayloadBuilder toBuilder() =>

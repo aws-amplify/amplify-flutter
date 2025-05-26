@@ -24,9 +24,7 @@ void main() {
     setUp(() async {
       // Given I'm running the example
       // "ui/components/authenticator/sign-in-with-phone"
-      await testRunner.configure(
-        environmentName: 'sign-in-with-phone',
-      );
+      await testRunner.configure(environmentName: 'sign-in-with-phone');
 
       phoneNumber = generateUSPhoneNumber();
       password = generatePassword();
@@ -34,9 +32,7 @@ void main() {
         phoneNumber.toE164(),
         password,
         verifyAttributes: true,
-        attributes: {
-          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
-        },
+        attributes: {AuthUserAttributeKey.phoneNumber: phoneNumber.toE164()},
       );
     });
 

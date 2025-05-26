@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v1.glacier.glacier_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -62,17 +62,23 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
   final GlacierServerBase service;
 
   late final _i1.HttpProtocol<
-      _i3.Stream<List<int>>,
-      UploadArchiveInput,
-      ArchiveCreationOutputPayload,
-      ArchiveCreationOutput> _uploadArchiveProtocol = _i2.RestJson1Protocol(
+    _i3.Stream<List<int>>,
+    UploadArchiveInput,
+    ArchiveCreationOutputPayload,
+    ArchiveCreationOutput
+  >
+  _uploadArchiveProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i3.Stream<List<int>>, UploadMultipartPartInput,
-          UploadMultipartPartOutputPayload, UploadMultipartPartOutput>
-      _uploadMultipartPartProtocol = _i2.RestJson1Protocol(
+  late final _i1.HttpProtocol<
+    _i3.Stream<List<int>>,
+    UploadMultipartPartInput,
+    UploadMultipartPartOutputPayload,
+    UploadMultipartPartOutput
+  >
+  _uploadMultipartPartProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
@@ -87,37 +93,26 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     context.response.headers['Content-Type'] =
         _uploadArchiveProtocol.contentType;
     try {
-      final payload = (await _uploadArchiveProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType.nullable(
-          _i3.Stream,
-          [
-            FullType(
-              List,
-              [FullType(int)],
-            )
-          ],
-        ),
-      ) as _i3.Stream<List<int>>?);
+      final payload =
+          (await _uploadArchiveProtocol.wireSerializer.deserialize(
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType.nullable(_i3.Stream, [
+                  FullType(List, [FullType(int)]),
+                ]),
+              )
+              as _i3.Stream<List<int>>?);
       final input = UploadArchiveInput.fromRequest(
         payload,
         awsRequest,
-        labels: {
-          'vaultName': vaultName,
-          'accountId': accountId,
-        },
+        labels: {'vaultName': vaultName, 'accountId': accountId},
       );
-      final output = await service.uploadArchive(
-        input,
-        context,
-      );
+      final output = await service.uploadArchive(input, context);
       const statusCode = 201;
       final body = await _uploadArchiveProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          ArchiveCreationOutput,
-          [FullType(ArchiveCreationOutputPayload)],
-        ),
+        specifiedType: const FullType(ArchiveCreationOutput, [
+          FullType(ArchiveCreationOutputPayload),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -129,10 +124,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
           'InvalidParameterValueException';
       final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          InvalidParameterValueException,
-          [FullType(InvalidParameterValueException)],
-        ),
+        specifiedType: const FullType(InvalidParameterValueException, [
+          FullType(InvalidParameterValueException),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -145,10 +139,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
           'MissingParameterValueException';
       final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          MissingParameterValueException,
-          [FullType(MissingParameterValueException)],
-        ),
+        specifiedType: const FullType(MissingParameterValueException, [
+          FullType(MissingParameterValueException),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -160,10 +153,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
       context.response.headers['X-Amzn-Errortype'] = 'RequestTimeoutException';
       final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          RequestTimeoutException,
-          [FullType(RequestTimeoutException)],
-        ),
+        specifiedType: const FullType(RequestTimeoutException, [
+          FullType(RequestTimeoutException),
+        ]),
       );
       const statusCode = 408;
       return _i4.Response(
@@ -176,10 +168,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
           'ResourceNotFoundException';
       final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          ResourceNotFoundException,
-          [FullType(ResourceNotFoundException)],
-        ),
+        specifiedType: const FullType(ResourceNotFoundException, [
+          FullType(ResourceNotFoundException),
+        ]),
       );
       const statusCode = 404;
       return _i4.Response(
@@ -192,10 +183,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
           'ServiceUnavailableException';
       final body = _uploadArchiveProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          ServiceUnavailableException,
-          [FullType(ServiceUnavailableException)],
-        ),
+        specifiedType: const FullType(ServiceUnavailableException, [
+          FullType(ServiceUnavailableException),
+        ]),
       );
       const statusCode = 500;
       return _i4.Response(
@@ -204,10 +194,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 
@@ -224,17 +211,12 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     try {
       final payload =
           (await _uploadMultipartPartProtocol.wireSerializer.deserialize(
-        await awsRequest.bodyBytes,
-        specifiedType: const FullType.nullable(
-          _i3.Stream,
-          [
-            FullType(
-              List,
-              [FullType(int)],
-            )
-          ],
-        ),
-      ) as _i3.Stream<List<int>>?);
+                await awsRequest.bodyBytes,
+                specifiedType: const FullType.nullable(_i3.Stream, [
+                  FullType(List, [FullType(int)]),
+                ]),
+              )
+              as _i3.Stream<List<int>>?);
       final input = UploadMultipartPartInput.fromRequest(
         payload,
         awsRequest,
@@ -244,17 +226,13 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
           'uploadId': uploadId,
         },
       );
-      final output = await service.uploadMultipartPart(
-        input,
-        context,
-      );
+      final output = await service.uploadMultipartPart(input, context);
       const statusCode = 204;
       final body = await _uploadMultipartPartProtocol.wireSerializer.serialize(
         output,
-        specifiedType: const FullType(
-          UploadMultipartPartOutput,
-          [FullType(UploadMultipartPartOutputPayload)],
-        ),
+        specifiedType: const FullType(UploadMultipartPartOutput, [
+          FullType(UploadMultipartPartOutputPayload),
+        ]),
       );
       return _i4.Response(
         statusCode,
@@ -266,10 +244,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
           'InvalidParameterValueException';
       final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          InvalidParameterValueException,
-          [FullType(InvalidParameterValueException)],
-        ),
+        specifiedType: const FullType(InvalidParameterValueException, [
+          FullType(InvalidParameterValueException),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -282,10 +259,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
           'MissingParameterValueException';
       final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          MissingParameterValueException,
-          [FullType(MissingParameterValueException)],
-        ),
+        specifiedType: const FullType(MissingParameterValueException, [
+          FullType(MissingParameterValueException),
+        ]),
       );
       const statusCode = 400;
       return _i4.Response(
@@ -297,10 +273,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
       context.response.headers['X-Amzn-Errortype'] = 'RequestTimeoutException';
       final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          RequestTimeoutException,
-          [FullType(RequestTimeoutException)],
-        ),
+        specifiedType: const FullType(RequestTimeoutException, [
+          FullType(RequestTimeoutException),
+        ]),
       );
       const statusCode = 408;
       return _i4.Response(
@@ -313,10 +288,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
           'ResourceNotFoundException';
       final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          ResourceNotFoundException,
-          [FullType(ResourceNotFoundException)],
-        ),
+        specifiedType: const FullType(ResourceNotFoundException, [
+          FullType(ResourceNotFoundException),
+        ]),
       );
       const statusCode = 404;
       return _i4.Response(
@@ -329,10 +303,9 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
           'ServiceUnavailableException';
       final body = _uploadMultipartPartProtocol.wireSerializer.serialize(
         e,
-        specifiedType: const FullType(
-          ServiceUnavailableException,
-          [FullType(ServiceUnavailableException)],
-        ),
+        specifiedType: const FullType(ServiceUnavailableException, [
+          FullType(ServiceUnavailableException),
+        ]),
       );
       const statusCode = 500;
       return _i4.Response(
@@ -341,10 +314,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
         headers: context.response.build().headers.toMap(),
       );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(
-        e,
-        st,
-      );
+      return service.handleUncaughtError(e, st);
     }
   }
 }

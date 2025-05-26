@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.xml_attributes_on_payload_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -13,112 +13,90 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'XmlAttributesOnPayload (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: XmlAttributesOnPayloadOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'XmlAttributesOnPayload',
-          documentation:
-              'Serializes XML attributes on the synthesized document',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<XmlAttributesInputOutput test="test">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'payload': {
-              'foo': 'hi',
-              'attr': 'test',
-            }
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'PUT',
-          uri: '/XmlAttributesOnPayload',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          XmlAttributesOnPayloadInputOutputRestXmlSerializer(),
-          XmlAttributesInputOutputRestXmlSerializer(),
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'XmlAttributesOnPayload (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlAttributesOnPayloadOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'XmlAttributesOnPayload',
-          documentation: 'Serializes simple scalar properties',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body:
-              '<XmlAttributesInputOutput test="test">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'payload': {
-              'foo': 'hi',
-              'attr': 'test',
-            }
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          XmlAttributesOnPayloadInputOutputRestXmlSerializer(),
-          XmlAttributesInputOutputRestXmlSerializer(),
-        ],
-      );
-    },
-  );
+  _i1.test('XmlAttributesOnPayload (request)', () async {
+    await _i2.httpRequestTest(
+      operation: XmlAttributesOnPayloadOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'XmlAttributesOnPayload',
+        documentation: 'Serializes XML attributes on the synthesized document',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<XmlAttributesInputOutput test="test">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {
+          'payload': {'foo': 'hi', 'attr': 'test'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'PUT',
+        uri: '/XmlAttributesOnPayload',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        XmlAttributesOnPayloadInputOutputRestXmlSerializer(),
+        XmlAttributesInputOutputRestXmlSerializer(),
+      ],
+    );
+  });
+  _i1.test('XmlAttributesOnPayload (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlAttributesOnPayloadOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'XmlAttributesOnPayload',
+        documentation: 'Serializes simple scalar properties',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body:
+            '<XmlAttributesInputOutput test="test">\n    <foo>hi</foo>\n</XmlAttributesInputOutput>\n',
+        bodyMediaType: 'application/xml',
+        params: {
+          'payload': {'foo': 'hi', 'attr': 'test'},
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'application/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        XmlAttributesOnPayloadInputOutputRestXmlSerializer(),
+        XmlAttributesInputOutputRestXmlSerializer(),
+      ],
+    );
+  });
 }
 
 class XmlAttributesOnPayloadInputOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<XmlAttributesOnPayloadInputOutput> {
   const XmlAttributesOnPayloadInputOutputRestXmlSerializer()
-      : super('XmlAttributesOnPayloadInputOutput');
+    : super('XmlAttributesOnPayloadInputOutput');
 
   @override
   Iterable<Type> get types => const [XmlAttributesOnPayloadInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlAttributesOnPayloadInputOutput deserialize(
@@ -137,10 +115,13 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'payload':
-          result.payload.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(XmlAttributesInputOutput),
-          ) as XmlAttributesInputOutput));
+          result.payload.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(XmlAttributesInputOutput),
+                )
+                as XmlAttributesInputOutput),
+          );
       }
     }
 
@@ -160,18 +141,15 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
 class XmlAttributesInputOutputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<XmlAttributesInputOutput> {
   const XmlAttributesInputOutputRestXmlSerializer()
-      : super('XmlAttributesInputOutput');
+    : super('XmlAttributesInputOutput');
 
   @override
   Iterable<Type> get types => const [XmlAttributesInputOutput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   XmlAttributesInputOutput deserialize(
@@ -190,15 +168,19 @@ class XmlAttributesInputOutputRestXmlSerializer
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'attr':
-          result.attr = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.attr =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 

@@ -11,15 +11,12 @@ part 'cognito_confirm_sign_up_plugin_options.g.dart';
 @zAmplifySerializable
 class CognitoConfirmSignUpPluginOptions extends ConfirmSignUpPluginOptions {
   /// {@macro amplify_auth_cognito_dart.cognito_confirm_sign_up_plugin_options}
-  const CognitoConfirmSignUpPluginOptions({
-    this.clientMetadata = const {},
-  });
+  const CognitoConfirmSignUpPluginOptions({this.clientMetadata = const {}});
 
   /// {@macro amplify_auth_cognito_dart.cognito_confirm_sign_up_plugin_options}
   factory CognitoConfirmSignUpPluginOptions.fromJson(
     Map<String, Object?> json,
-  ) =>
-      _$CognitoConfirmSignUpPluginOptionsFromJson(json);
+  ) => _$CognitoConfirmSignUpPluginOptionsFromJson(json);
 
   /// {@template amplify_auth_cognito_dart.cognito_confirm_sign_up_plugin_options.client_metadata}
   /// A map of custom key-value pairs that you can provide as input for certain

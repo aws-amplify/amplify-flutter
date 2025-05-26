@@ -14,10 +14,7 @@ part 'credential_scope.g.dart';
 @JsonSerializable()
 class CredentialScope with AWSSerializable<Map<String, Object?>> {
   /// {@macro smithy_aws.credential_scope}
-  const CredentialScope({
-    this.region,
-    this.service,
-  });
+  const CredentialScope({this.region, this.service});
 
   factory CredentialScope.fromJson(Map<String, Object?> json) =>
       _$CredentialScopeFromJson(json);
@@ -30,9 +27,9 @@ class CredentialScope with AWSSerializable<Map<String, Object?>> {
 
   /// Zone value overrides for use in [runZoned].
   Map<Object?, Object?> get zoneValues => {
-        #sigV4Region: region,
-        #sigV4Service: service,
-      };
+    #sigV4Region: region,
+    #sigV4Service: service,
+  };
 
   @override
   Map<String, Object?> toJson() => _$CredentialScopeToJson(this);

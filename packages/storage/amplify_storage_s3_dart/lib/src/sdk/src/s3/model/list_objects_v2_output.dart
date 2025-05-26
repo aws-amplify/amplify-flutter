@@ -54,9 +54,9 @@ abstract class ListObjectsV2Output
     );
   }
 
-  factory ListObjectsV2Output.build(
-          [void Function(ListObjectsV2OutputBuilder) updates]) =
-      _$ListObjectsV2Output;
+  factory ListObjectsV2Output.build([
+    void Function(ListObjectsV2OutputBuilder) updates,
+  ]) = _$ListObjectsV2Output;
 
   const ListObjectsV2Output._();
 
@@ -64,32 +64,32 @@ abstract class ListObjectsV2Output
   factory ListObjectsV2Output.fromResponse(
     ListObjectsV2OutputPayload payload,
     _i1.AWSBaseHttpResponse response,
-  ) =>
-      ListObjectsV2Output.build((b) {
-        if (payload.commonPrefixes != null) {
-          b.commonPrefixes.replace(payload.commonPrefixes!);
-        }
-        if (payload.contents != null) {
-          b.contents.replace(payload.contents!);
-        }
-        b.continuationToken = payload.continuationToken;
-        b.delimiter = payload.delimiter;
-        b.encodingType = payload.encodingType;
-        b.isTruncated = payload.isTruncated;
-        b.keyCount = payload.keyCount;
-        b.maxKeys = payload.maxKeys;
-        b.name = payload.name;
-        b.nextContinuationToken = payload.nextContinuationToken;
-        b.prefix = payload.prefix;
-        b.startAfter = payload.startAfter;
-        if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = RequestCharged.values
-              .byValue(response.headers['x-amz-request-charged']!);
-        }
-      });
+  ) => ListObjectsV2Output.build((b) {
+    if (payload.commonPrefixes != null) {
+      b.commonPrefixes.replace(payload.commonPrefixes!);
+    }
+    if (payload.contents != null) {
+      b.contents.replace(payload.contents!);
+    }
+    b.continuationToken = payload.continuationToken;
+    b.delimiter = payload.delimiter;
+    b.encodingType = payload.encodingType;
+    b.isTruncated = payload.isTruncated;
+    b.keyCount = payload.keyCount;
+    b.maxKeys = payload.maxKeys;
+    b.name = payload.name;
+    b.nextContinuationToken = payload.nextContinuationToken;
+    b.prefix = payload.prefix;
+    b.startAfter = payload.startAfter;
+    if (response.headers['x-amz-request-charged'] != null) {
+      b.requestCharged = RequestCharged.values.byValue(
+        response.headers['x-amz-request-charged']!,
+      );
+    }
+  });
 
   static const List<_i2.SmithySerializer<ListObjectsV2OutputPayload>>
-      serializers = [ListObjectsV2OutputRestXmlSerializer()];
+  serializers = [ListObjectsV2OutputRestXmlSerializer()];
 
   /// Set to `false` if all of the results were returned. Set to `true` if more keys are available to return. If the number of results exceeds that specified by `MaxKeys`, all of the results might not be returned.
   bool? get isTruncated;
@@ -155,96 +155,58 @@ abstract class ListObjectsV2Output
   RequestCharged? get requestCharged;
   @override
   ListObjectsV2OutputPayload getPayload() => ListObjectsV2OutputPayload((b) {
-        if (commonPrefixes != null) {
-          b.commonPrefixes.replace(commonPrefixes!);
-        }
-        if (contents != null) {
-          b.contents.replace(contents!);
-        }
-        b.continuationToken = continuationToken;
-        b.delimiter = delimiter;
-        b.encodingType = encodingType;
-        b.isTruncated = isTruncated;
-        b.keyCount = keyCount;
-        b.maxKeys = maxKeys;
-        b.name = name;
-        b.nextContinuationToken = nextContinuationToken;
-        b.prefix = prefix;
-        b.startAfter = startAfter;
-      });
+    if (commonPrefixes != null) {
+      b.commonPrefixes.replace(commonPrefixes!);
+    }
+    if (contents != null) {
+      b.contents.replace(contents!);
+    }
+    b.continuationToken = continuationToken;
+    b.delimiter = delimiter;
+    b.encodingType = encodingType;
+    b.isTruncated = isTruncated;
+    b.keyCount = keyCount;
+    b.maxKeys = maxKeys;
+    b.name = name;
+    b.nextContinuationToken = nextContinuationToken;
+    b.prefix = prefix;
+    b.startAfter = startAfter;
+  });
 
   @override
   List<Object?> get props => [
-        isTruncated,
-        contents,
-        name,
-        prefix,
-        delimiter,
-        maxKeys,
-        commonPrefixes,
-        encodingType,
-        keyCount,
-        continuationToken,
-        nextContinuationToken,
-        startAfter,
-        requestCharged,
-      ];
+    isTruncated,
+    contents,
+    name,
+    prefix,
+    delimiter,
+    maxKeys,
+    commonPrefixes,
+    encodingType,
+    keyCount,
+    continuationToken,
+    nextContinuationToken,
+    startAfter,
+    requestCharged,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsV2Output')
-      ..add(
-        'isTruncated',
-        isTruncated,
-      )
-      ..add(
-        'contents',
-        contents,
-      )
-      ..add(
-        'name',
-        name,
-      )
-      ..add(
-        'prefix',
-        prefix,
-      )
-      ..add(
-        'delimiter',
-        delimiter,
-      )
-      ..add(
-        'maxKeys',
-        maxKeys,
-      )
-      ..add(
-        'commonPrefixes',
-        commonPrefixes,
-      )
-      ..add(
-        'encodingType',
-        encodingType,
-      )
-      ..add(
-        'keyCount',
-        keyCount,
-      )
-      ..add(
-        'continuationToken',
-        continuationToken,
-      )
-      ..add(
-        'nextContinuationToken',
-        nextContinuationToken,
-      )
-      ..add(
-        'startAfter',
-        startAfter,
-      )
-      ..add(
-        'requestCharged',
-        requestCharged,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ListObjectsV2Output')
+          ..add('isTruncated', isTruncated)
+          ..add('contents', contents)
+          ..add('name', name)
+          ..add('prefix', prefix)
+          ..add('delimiter', delimiter)
+          ..add('maxKeys', maxKeys)
+          ..add('commonPrefixes', commonPrefixes)
+          ..add('encodingType', encodingType)
+          ..add('keyCount', keyCount)
+          ..add('continuationToken', continuationToken)
+          ..add('nextContinuationToken', nextContinuationToken)
+          ..add('startAfter', startAfter)
+          ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }
@@ -254,9 +216,9 @@ abstract class ListObjectsV2OutputPayload
     with _i1.AWSEquatable<ListObjectsV2OutputPayload>
     implements
         Built<ListObjectsV2OutputPayload, ListObjectsV2OutputPayloadBuilder> {
-  factory ListObjectsV2OutputPayload(
-          [void Function(ListObjectsV2OutputPayloadBuilder) updates]) =
-      _$ListObjectsV2OutputPayload;
+  factory ListObjectsV2OutputPayload([
+    void Function(ListObjectsV2OutputPayloadBuilder) updates,
+  ]) = _$ListObjectsV2OutputPayload;
 
   const ListObjectsV2OutputPayload._();
 
@@ -319,71 +281,36 @@ abstract class ListObjectsV2OutputPayload
   String? get startAfter;
   @override
   List<Object?> get props => [
-        commonPrefixes,
-        contents,
-        continuationToken,
-        delimiter,
-        encodingType,
-        isTruncated,
-        keyCount,
-        maxKeys,
-        name,
-        nextContinuationToken,
-        prefix,
-        startAfter,
-      ];
+    commonPrefixes,
+    contents,
+    continuationToken,
+    delimiter,
+    encodingType,
+    isTruncated,
+    keyCount,
+    maxKeys,
+    name,
+    nextContinuationToken,
+    prefix,
+    startAfter,
+  ];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsV2OutputPayload')
-      ..add(
-        'commonPrefixes',
-        commonPrefixes,
-      )
-      ..add(
-        'contents',
-        contents,
-      )
-      ..add(
-        'continuationToken',
-        continuationToken,
-      )
-      ..add(
-        'delimiter',
-        delimiter,
-      )
-      ..add(
-        'encodingType',
-        encodingType,
-      )
-      ..add(
-        'isTruncated',
-        isTruncated,
-      )
-      ..add(
-        'keyCount',
-        keyCount,
-      )
-      ..add(
-        'maxKeys',
-        maxKeys,
-      )
-      ..add(
-        'name',
-        name,
-      )
-      ..add(
-        'nextContinuationToken',
-        nextContinuationToken,
-      )
-      ..add(
-        'prefix',
-        prefix,
-      )
-      ..add(
-        'startAfter',
-        startAfter,
-      );
+    final helper =
+        newBuiltValueToStringHelper('ListObjectsV2OutputPayload')
+          ..add('commonPrefixes', commonPrefixes)
+          ..add('contents', contents)
+          ..add('continuationToken', continuationToken)
+          ..add('delimiter', delimiter)
+          ..add('encodingType', encodingType)
+          ..add('isTruncated', isTruncated)
+          ..add('keyCount', keyCount)
+          ..add('maxKeys', maxKeys)
+          ..add('name', name)
+          ..add('nextContinuationToken', nextContinuationToken)
+          ..add('prefix', prefix)
+          ..add('startAfter', startAfter);
     return helper.toString();
   }
 }
@@ -394,19 +321,16 @@ class ListObjectsV2OutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [
-        ListObjectsV2Output,
-        _$ListObjectsV2Output,
-        ListObjectsV2OutputPayload,
-        _$ListObjectsV2OutputPayload,
-      ];
+    ListObjectsV2Output,
+    _$ListObjectsV2Output,
+    ListObjectsV2OutputPayload,
+    _$ListObjectsV2OutputPayload,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   ListObjectsV2OutputPayload deserialize(
@@ -425,65 +349,91 @@ class ListObjectsV2OutputRestXmlSerializer
       }
       switch (key) {
         case 'CommonPrefixes':
-          result.commonPrefixes.add((serializers.deserialize(
-            value,
-            specifiedType: const FullType(CommonPrefix),
-          ) as CommonPrefix));
+          result.commonPrefixes.add(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(CommonPrefix),
+                )
+                as CommonPrefix),
+          );
         case 'Contents':
-          result.contents.add((serializers.deserialize(
-            value,
-            specifiedType: const FullType(S3Object),
-          ) as S3Object));
+          result.contents.add(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(S3Object),
+                )
+                as S3Object),
+          );
         case 'ContinuationToken':
-          result.continuationToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.continuationToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Delimiter':
-          result.delimiter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.delimiter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'EncodingType':
-          result.encodingType = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(EncodingType),
-          ) as EncodingType);
+          result.encodingType =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(EncodingType),
+                  )
+                  as EncodingType);
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          result.isTruncated =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool);
         case 'KeyCount':
-          result.keyCount = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.keyCount =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'MaxKeys':
-          result.maxKeys = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int);
+          result.maxKeys =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int);
         case 'Name':
-          result.name = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.name =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'NextContinuationToken':
-          result.nextContinuationToken = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.nextContinuationToken =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'Prefix':
-          result.prefix = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.prefix =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'StartAfter':
-          result.startAfter = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.startAfter =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -500,7 +450,7 @@ class ListObjectsV2OutputRestXmlSerializer
       const _i2.XmlElementName(
         'ListBucketResult',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final ListObjectsV2OutputPayload(
       :commonPrefixes,
@@ -514,110 +464,117 @@ class ListObjectsV2OutputRestXmlSerializer
       :name,
       :nextContinuationToken,
       :prefix,
-      :startAfter
+      :startAfter,
     ) = object;
     if (commonPrefixes != null) {
       result$.addAll(
-          const _i2.XmlBuiltListSerializer(memberName: 'CommonPrefixes')
-              .serialize(
-        serializers,
-        commonPrefixes,
-        specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(CommonPrefix)],
+        const _i2.XmlBuiltListSerializer(
+          memberName: 'CommonPrefixes',
+        ).serialize(
+          serializers,
+          commonPrefixes,
+          specifiedType: const FullType(_i3.BuiltList, [
+            FullType(CommonPrefix),
+          ]),
         ),
-      ));
+      );
     }
     if (contents != null) {
       result$.addAll(
-          const _i2.XmlBuiltListSerializer(memberName: 'Contents').serialize(
-        serializers,
-        contents,
-        specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(S3Object)],
+        const _i2.XmlBuiltListSerializer(memberName: 'Contents').serialize(
+          serializers,
+          contents,
+          specifiedType: const FullType(_i3.BuiltList, [FullType(S3Object)]),
         ),
-      ));
+      );
     }
     if (continuationToken != null) {
       result$
         ..add(const _i2.XmlElementName('ContinuationToken'))
-        ..add(serializers.serialize(
-          continuationToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            continuationToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (delimiter != null) {
       result$
         ..add(const _i2.XmlElementName('Delimiter'))
-        ..add(serializers.serialize(
-          delimiter,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            delimiter,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (encodingType != null) {
       result$
         ..add(const _i2.XmlElementName('EncodingType'))
-        ..add(serializers.serialize(
-          encodingType,
-          specifiedType: const FullType(EncodingType),
-        ));
+        ..add(
+          serializers.serialize(
+            encodingType,
+            specifiedType: const FullType(EncodingType),
+          ),
+        );
     }
     if (isTruncated != null) {
       result$
         ..add(const _i2.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType(bool),
-        ));
+        ..add(
+          serializers.serialize(
+            isTruncated,
+            specifiedType: const FullType(bool),
+          ),
+        );
     }
     if (keyCount != null) {
       result$
         ..add(const _i2.XmlElementName('KeyCount'))
-        ..add(serializers.serialize(
-          keyCount,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(keyCount, specifiedType: const FullType(int)),
+        );
     }
     if (maxKeys != null) {
       result$
         ..add(const _i2.XmlElementName('MaxKeys'))
-        ..add(serializers.serialize(
-          maxKeys,
-          specifiedType: const FullType(int),
-        ));
+        ..add(
+          serializers.serialize(maxKeys, specifiedType: const FullType(int)),
+        );
     }
     if (name != null) {
       result$
         ..add(const _i2.XmlElementName('Name'))
-        ..add(serializers.serialize(
-          name,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(name, specifiedType: const FullType(String)),
+        );
     }
     if (nextContinuationToken != null) {
       result$
         ..add(const _i2.XmlElementName('NextContinuationToken'))
-        ..add(serializers.serialize(
-          nextContinuationToken,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            nextContinuationToken,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (prefix != null) {
       result$
         ..add(const _i2.XmlElementName('Prefix'))
-        ..add(serializers.serialize(
-          prefix,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(prefix, specifiedType: const FullType(String)),
+        );
     }
     if (startAfter != null) {
       result$
         ..add(const _i2.XmlElementName('StartAfter'))
-        ..add(serializers.serialize(
-          startAfter,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            startAfter,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

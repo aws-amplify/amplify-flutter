@@ -23,20 +23,14 @@ void main() {
       expect(currentState.type, equals(MyType.initial));
 
       stateMachine.accept(const MyEvent(MyType.initial)).ignore();
-      expect(
-        stateMachine.stream,
-        neverEmits(anything),
-      );
+      expect(stateMachine.stream, neverEmits(anything));
 
       await stateMachine.close();
     });
 
     test('dispatches correctly', () {
       stateMachine.accept(const MyEvent(MyType.doWork)).ignore();
-      expect(
-        stateMachine.stream,
-        emitsThrough(const MyState(MyType.success)),
-      );
+      expect(stateMachine.stream, emitsThrough(const MyState(MyType.success)));
     });
 
     group('handles errors', () {
@@ -99,9 +93,10 @@ void main() {
       });
 
       test('dispatch', () async {
-        final completion = await stateMachine
-            .dispatch(const MyEvent(MyType.tryWork))
-            .completed;
+        final completion =
+            await stateMachine
+                .dispatch(const MyEvent(MyType.tryWork))
+                .completed;
         expect(
           completion,
           isA<MyErrorState>().having(
@@ -135,16 +130,13 @@ void main() {
             reason: 'Should complete in forked zone',
           );
         });
-        runZonedGuarded(
-          () {
-            expect(
-              completer.completed,
-              completes,
-              reason: 'Should complete with different error zone',
-            );
-          },
-          (e, st) {},
-        );
+        runZonedGuarded(() {
+          expect(
+            completer.completed,
+            completes,
+            reason: 'Should complete with different error zone',
+          );
+        }, (e, st) {});
         expect(completer.completed, completes);
       });
 
@@ -157,16 +149,13 @@ void main() {
             reason: 'Should complete in forked zone',
           );
         });
-        runZonedGuarded(
-          () {
-            expect(
-              completer.completed,
-              throwsA(isA<Error>()),
-              reason: 'Should complete with different error zone',
-            );
-          },
-          (e, st) {},
-        );
+        runZonedGuarded(() {
+          expect(
+            completer.completed,
+            throwsA(isA<Error>()),
+            reason: 'Should complete with different error zone',
+          );
+        }, (e, st) {});
         expect(completer.completed, throwsA(isA<Error>()));
       });
     });
@@ -212,9 +201,7 @@ void main() {
 
     test('queues calls to accept appropriately', () async {
       final tryWork1 = stateMachine.accept(const MyEvent(MyType.tryWork));
-      final delegate = stateMachine.accept(
-        const MyEvent(MyType.delegateWork),
-      );
+      final delegate = stateMachine.accept(const MyEvent(MyType.delegateWork));
       final tryWork2 = stateMachine.accept(const MyEvent(MyType.tryWork));
       await expectLater(
         stateMachine.stream,

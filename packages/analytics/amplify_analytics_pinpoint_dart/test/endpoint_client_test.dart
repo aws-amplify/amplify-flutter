@@ -34,12 +34,13 @@ void main() {
       pinpointClient = MockPinpointClient();
 
       final mockStore = MockSecureStorage();
-      EndpointStore(pinpointAppId, mockStore).write(
-        key: EndpointStoreKey.endpointId.name,
-        value: mockEndpointId,
+      EndpointStore(
+        pinpointAppId,
+        mockStore,
+      ).write(key: EndpointStoreKey.endpointId.name, value: mockEndpointId);
+      final mockEndpointInfoStoreManager = EndpointInfoStoreManager(
+        store: mockStore,
       );
-      final mockEndpointInfoStoreManager =
-          EndpointInfoStoreManager(store: mockStore);
 
       await mockEndpointInfoStoreManager.init(pinpointAppId: pinpointAppId);
 
@@ -58,8 +59,9 @@ void main() {
     });
 
     test('demographic and device info sent in updateEndpointRequest', () async {
-      when(() => pinpointClient.updateEndpoint(any<UpdateEndpointRequest>()))
-          .thenReturn(
+      when(
+        () => pinpointClient.updateEndpoint(any<UpdateEndpointRequest>()),
+      ).thenReturn(
         mockSmithyOperation(
           () => UpdateEndpointResponse(
             messageBody: MessageBody(
@@ -72,8 +74,9 @@ void main() {
 
       await endpointClient.updateEndpoint();
 
-      final captured = verify(() => pinpointClient.updateEndpoint(captureAny()))
-          .captured[0] as UpdateEndpointRequest;
+      final captured =
+          verify(() => pinpointClient.updateEndpoint(captureAny())).captured[0]
+              as UpdateEndpointRequest;
 
       expect(captured.applicationId, pinpointAppId);
       expect(captured.endpointId, mockEndpointId);
@@ -108,40 +111,47 @@ void main() {
       expect(location.longitude, isNull);
     });
 
-    test('channelType, address, and optOut sent in updateEndpointRequest',
-        () async {
-      when(() => pinpointClient.updateEndpoint(any<UpdateEndpointRequest>()))
-          .thenReturn(
-        mockSmithyOperation(
-          () => UpdateEndpointResponse(
-            messageBody: MessageBody(
-              message: 'message',
-              requestId: 'requestId',
+    test(
+      'channelType, address, and optOut sent in updateEndpointRequest',
+      () async {
+        when(
+          () => pinpointClient.updateEndpoint(any<UpdateEndpointRequest>()),
+        ).thenReturn(
+          mockSmithyOperation(
+            () => UpdateEndpointResponse(
+              messageBody: MessageBody(
+                message: 'message',
+                requestId: 'requestId',
+              ),
             ),
           ),
-        ),
-      );
+        );
 
-      endpointClient
-        ..channelType = channelType
-        ..address = address
-        ..optOut = optOut;
+        endpointClient
+          ..channelType = channelType
+          ..address = address
+          ..optOut = optOut;
 
-      await endpointClient.updateEndpoint();
+        await endpointClient.updateEndpoint();
 
-      final captured = verify(() => pinpointClient.updateEndpoint(captureAny()))
-          .captured[0] as UpdateEndpointRequest;
+        final captured =
+            verify(
+                  () => pinpointClient.updateEndpoint(captureAny()),
+                ).captured[0]
+                as UpdateEndpointRequest;
 
-      final endpointRequest = captured.endpointRequest;
+        final endpointRequest = captured.endpointRequest;
 
-      expect(endpointRequest.channelType, channelType);
-      expect(endpointRequest.address, address);
-      expect(endpointRequest.optOut, optOut);
-    });
+        expect(endpointRequest.channelType, channelType);
+        expect(endpointRequest.address, address);
+        expect(endpointRequest.optOut, optOut);
+      },
+    );
 
     test('values from setUser sent in updateEndpointRequest', () async {
-      when(() => pinpointClient.updateEndpoint(any<UpdateEndpointRequest>()))
-          .thenReturn(
+      when(
+        () => pinpointClient.updateEndpoint(any<UpdateEndpointRequest>()),
+      ).thenReturn(
         mockSmithyOperation(
           () => UpdateEndpointResponse(
             messageBody: MessageBody(
@@ -152,15 +162,13 @@ void main() {
         ),
       );
 
-      await endpointClient.setUser(
-        userId,
-        userProfile,
-      );
+      await endpointClient.setUser(userId, userProfile);
 
       await endpointClient.updateEndpoint();
 
-      final captured = verify(() => pinpointClient.updateEndpoint(captureAny()))
-          .captured[0] as UpdateEndpointRequest;
+      final captured =
+          verify(() => pinpointClient.updateEndpoint(captureAny())).captured[0]
+              as UpdateEndpointRequest;
 
       final endpointRequest = captured.endpointRequest;
 
@@ -199,10 +207,7 @@ void main() {
         ..address = address
         ..optOut = optOut;
 
-      await endpointClient.setUser(
-        userId,
-        userProfile,
-      );
+      await endpointClient.setUser(userId, userProfile);
 
       final endpoint = endpointClient.getPublicEndpoint();
 
@@ -262,93 +267,92 @@ void main() {
     });
 
     test(
-        'setUser handles null user attributes when provided a AWSPinpointUserProfile',
-        () async {
-      endpointClient
-        ..channelType = channelType
-        ..address = address
-        ..optOut = optOut;
+      'setUser handles null user attributes when provided a AWSPinpointUserProfile',
+      () async {
+        endpointClient
+          ..channelType = channelType
+          ..address = address
+          ..optOut = optOut;
 
-      await endpointClient.setUser(
-        userId,
-        pinpointUserProfileNullUserAttribute,
-      );
+        await endpointClient.setUser(
+          userId,
+          pinpointUserProfileNullUserAttribute,
+        );
 
-      final endpoint = endpointClient.getPublicEndpoint();
+        final endpoint = endpointClient.getPublicEndpoint();
 
-      expect(endpoint.address, address);
-      expect(endpoint.channelType, channelType);
-      expect(endpoint.optOut, optOut);
+        expect(endpoint.address, address);
+        expect(endpoint.channelType, channelType);
+        expect(endpoint.optOut, optOut);
 
-      // Attributes
-      expect(endpoint.attributes, isNotNull);
-      final attributes = endpoint.attributes!;
+        // Attributes
+        expect(endpoint.attributes, isNotNull);
+        final attributes = endpoint.attributes!;
 
-      expect(attributes['name'], [userProfile.name]);
-      expect(attributes['email'], [userProfile.email]);
-      expect(attributes['plan'], [userProfile.plan]);
+        expect(attributes['name'], [userProfile.name]);
+        expect(attributes['email'], [userProfile.email]);
+        expect(attributes['plan'], [userProfile.plan]);
 
-      // Demographic
-      expect(endpoint.demographic, isNotNull);
-      final demographic = endpoint.demographic!;
+        // Demographic
+        expect(endpoint.demographic, isNotNull);
+        final demographic = endpoint.demographic!;
 
-      expect(demographic.appVersion, mockDeviceContextInfo.appVersion);
-      expect(demographic.locale, mockDeviceContextInfo.locale);
-      expect(demographic.make, mockDeviceContextInfo.make);
-      expect(demographic.model, mockDeviceContextInfo.model);
-      expect(demographic.modelVersion, mockDeviceContextInfo.modelVersion);
-      expect(demographic.platform, mockDeviceContextInfo.platform!.name);
-      expect(
-        demographic.platformVersion,
-        mockDeviceContextInfo.platformVersion,
-      );
+        expect(demographic.appVersion, mockDeviceContextInfo.appVersion);
+        expect(demographic.locale, mockDeviceContextInfo.locale);
+        expect(demographic.make, mockDeviceContextInfo.make);
+        expect(demographic.model, mockDeviceContextInfo.model);
+        expect(demographic.modelVersion, mockDeviceContextInfo.modelVersion);
+        expect(demographic.platform, mockDeviceContextInfo.platform!.name);
+        expect(
+          demographic.platformVersion,
+          mockDeviceContextInfo.platformVersion,
+        );
 
-      // Location
-      expect(endpoint.location, isNotNull);
-      final location = endpoint.location!;
+        // Location
+        expect(endpoint.location, isNotNull);
+        final location = endpoint.location!;
 
-      expect(location.city, userLocation.city);
-      expect(location.country, userLocation.country);
-      expect(location.latitude, userLocation.latitude);
-      expect(location.longitude, userLocation.longitude);
-      expect(location.postalCode, userLocation.postalCode);
-      expect(location.region, userLocation.region);
+        expect(location.city, userLocation.city);
+        expect(location.country, userLocation.country);
+        expect(location.latitude, userLocation.latitude);
+        expect(location.longitude, userLocation.longitude);
+        expect(location.postalCode, userLocation.postalCode);
+        expect(location.region, userLocation.region);
 
-      // User
-      expect(endpoint.user, isNotNull);
-      expect(endpoint.user!.userId, userId);
+        // User
+        expect(endpoint.user, isNotNull);
+        expect(endpoint.user!.userId, userId);
 
-      expect(endpoint.user!.userAttributes, isNull);
-    });
-
-    test(
-        'updateEndpoint throws AnalyticsException from unrecognized exceptions',
-        () async {
-      when(() => pinpointClient.updateEndpoint(any())).thenThrow(Exception());
-
-      expect(
-        endpointClient.updateEndpoint(),
-        throwsA(
-          isA<AnalyticsException>(),
-        ),
-      );
-    });
+        expect(endpoint.user!.userAttributes, isNull);
+      },
+    );
 
     test(
-        'updateEndpoint throws NetworkException for AWSHttpException exceptions',
-        () async {
-      when(() => pinpointClient.updateEndpoint(any())).thenThrow(
-        AWSHttpException(
-          AWSHttpRequest(method: AWSHttpMethod.post, uri: Uri()),
-        ),
-      );
+      'updateEndpoint throws AnalyticsException from unrecognized exceptions',
+      () async {
+        when(() => pinpointClient.updateEndpoint(any())).thenThrow(Exception());
 
-      expect(
-        endpointClient.updateEndpoint(),
-        throwsA(
-          isA<NetworkException>(),
-        ),
-      );
-    });
+        expect(
+          endpointClient.updateEndpoint(),
+          throwsA(isA<AnalyticsException>()),
+        );
+      },
+    );
+
+    test(
+      'updateEndpoint throws NetworkException for AWSHttpException exceptions',
+      () async {
+        when(() => pinpointClient.updateEndpoint(any())).thenThrow(
+          AWSHttpException(
+            AWSHttpRequest(method: AWSHttpMethod.post, uri: Uri()),
+          ),
+        );
+
+        expect(
+          endpointClient.updateEndpoint(),
+          throwsA(isA<NetworkException>()),
+        );
+      },
+    );
   });
 }

@@ -3,20 +3,18 @@
 
 /// Erase types on maps to mimic how maps come back from the platform.
 Map<Object?, Object?> _eraseTypes(Map<Object?, Object?> map) => {
-      for (final MapEntry(:key, :value) in map.entries)
-        key: switch (value) {
-          final Map<Object?, Object?> map => _eraseTypes(map),
-          _ => value,
-        },
-    };
+  for (final MapEntry(:key, :value) in map.entries)
+    key: switch (value) {
+      final Map<Object?, Object?> map => _eraseTypes(map),
+      _ => value,
+    },
+};
 
 final standardAndroidPushMessage = _eraseTypes({
   'title': 'TITTLE',
   'body': 'BODY',
   'imageUrl': null,
-  'fcmOptions': {
-    'channelId': 'PINPOINT.NOTIFICATION',
-  },
+  'fcmOptions': {'channelId': 'PINPOINT.NOTIFICATION'},
   'action': {'openApp': true, 'url': null, 'deeplink': null},
   'rawData': {
     'pinpoint.openApp': true,
@@ -31,9 +29,7 @@ final urlsAndroidMessage = _eraseTypes({
   'title': 'TITTLE',
   'body': 'BODY',
   'imageUrl': null,
-  'fcmOptions': {
-    'channelId': 'PINPOINT.NOTIFICATION',
-  },
+  'fcmOptions': {'channelId': 'PINPOINT.NOTIFICATION'},
   'action': {'openApp': null, 'url': 'URL', 'deeplink': 'DEEPLINK'},
   'rawData': {
     'pinpoint.url': 'URL',
@@ -48,9 +44,7 @@ final imageUrlAndroidPushMessage = _eraseTypes({
   'title': 'TITTLE',
   'body': 'BODY',
   'imageUrl': 'TEST_URL',
-  'fcmOptions': {
-    'channelId': 'PINPOINT.NOTIFICATION',
-  },
+  'fcmOptions': {'channelId': 'PINPOINT.NOTIFICATION'},
   'action': {'openApp': true, 'url': null, 'deeplink': null},
   'rawData': {
     'pinpoint.openApp': true,
@@ -70,15 +64,11 @@ final standardiOSMessage = _eraseTypes({
 });
 
 final simpleAlertiOSMessage = _eraseTypes({
-  'aps': {
-    'alert': 'Hello, world',
-  },
+  'aps': {'alert': 'Hello, world'},
 });
 
 final imageUrliOSMessage = _eraseTypes({
-  'data': {
-    'media-url': 'TEST_URL',
-  },
+  'data': {'media-url': 'TEST_URL'},
   'aps': {
     'alert': {'title': 'TITTLE', 'body': 'BODY'},
     'mutable-content': 0,

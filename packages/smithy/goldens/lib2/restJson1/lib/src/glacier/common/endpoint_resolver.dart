@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.glacier.common.endpoint_resolver; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,10 +14,7 @@ final _partitions = [
     isRegionalized: true,
     defaults: const _i1.EndpointDefinition(
       hostname: 'glacier.{region}.amazonaws.com',
-      protocols: [
-        'http',
-        'https',
-      ],
+      protocols: ['http', 'https'],
       signatureVersions: [_i1.AWSSignatureVersion.v4],
       credentialScope: _i1.CredentialScope(),
       variants: [],
@@ -56,12 +53,14 @@ final _partitions = [
       'ap-southeast-1': _i1.EndpointDefinition(variants: []),
       'ap-southeast-2': _i1.EndpointDefinition(variants: []),
       'ap-southeast-3': _i1.EndpointDefinition(variants: []),
-      'ca-central-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 'glacier-fips.ca-central-1.amazonaws.com',
-          tags: ['fips'],
-        )
-      ]),
+      'ca-central-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 'glacier-fips.ca-central-1.amazonaws.com',
+            tags: ['fips'],
+          ),
+        ],
+      ),
       'eu-central-1': _i1.EndpointDefinition(variants: []),
       'eu-north-1': _i1.EndpointDefinition(variants: []),
       'eu-south-1': _i1.EndpointDefinition(variants: []),
@@ -95,30 +94,38 @@ final _partitions = [
       ),
       'me-south-1': _i1.EndpointDefinition(variants: []),
       'sa-east-1': _i1.EndpointDefinition(variants: []),
-      'us-east-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 'glacier-fips.us-east-1.amazonaws.com',
-          tags: ['fips'],
-        )
-      ]),
-      'us-east-2': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 'glacier-fips.us-east-2.amazonaws.com',
-          tags: ['fips'],
-        )
-      ]),
-      'us-west-1': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 'glacier-fips.us-west-1.amazonaws.com',
-          tags: ['fips'],
-        )
-      ]),
-      'us-west-2': _i1.EndpointDefinition(variants: [
-        _i1.EndpointDefinitionVariant(
-          hostname: 'glacier-fips.us-west-2.amazonaws.com',
-          tags: ['fips'],
-        )
-      ]),
+      'us-east-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 'glacier-fips.us-east-1.amazonaws.com',
+            tags: ['fips'],
+          ),
+        ],
+      ),
+      'us-east-2': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 'glacier-fips.us-east-2.amazonaws.com',
+            tags: ['fips'],
+          ),
+        ],
+      ),
+      'us-west-1': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 'glacier-fips.us-west-1.amazonaws.com',
+            tags: ['fips'],
+          ),
+        ],
+      ),
+      'us-west-2': _i1.EndpointDefinition(
+        variants: [
+          _i1.EndpointDefinitionVariant(
+            hostname: 'glacier-fips.us-west-2.amazonaws.com',
+            tags: ['fips'],
+          ),
+        ],
+      ),
     },
   ),
   _i1.Partition(
@@ -128,18 +135,12 @@ final _partitions = [
     isRegionalized: true,
     defaults: const _i1.EndpointDefinition(
       hostname: 'glacier.{region}.amazonaws.com.cn',
-      protocols: [
-        'http',
-        'https',
-      ],
+      protocols: ['http', 'https'],
       signatureVersions: [_i1.AWSSignatureVersion.v4],
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'cn-north-1',
-      'cn-northwest-1',
-    },
+    regions: const {'cn-north-1', 'cn-northwest-1'},
     endpoints: const {
       'cn-north-1': _i1.EndpointDefinition(variants: []),
       'cn-northwest-1': _i1.EndpointDefinition(variants: []),
@@ -157,16 +158,10 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-iso-east-1',
-      'us-iso-west-1',
-    },
+    regions: const {'us-iso-east-1', 'us-iso-west-1'},
     endpoints: const {
       'us-iso-east-1': _i1.EndpointDefinition(
-        protocols: [
-          'http',
-          'https',
-        ],
+        protocols: ['http', 'https'],
         variants: [],
       ),
       'us-iso-west-1': _i1.EndpointDefinition(variants: []),
@@ -199,10 +194,7 @@ final _partitions = [
       credentialScope: _i1.CredentialScope(),
       variants: [],
     ),
-    regions: const {
-      'us-gov-east-1',
-      'us-gov-west-1',
-    },
+    regions: const {'us-gov-east-1', 'us-gov-west-1'},
     endpoints: const {
       'us-gov-east-1': _i1.EndpointDefinition(
         hostname: 'glacier.us-gov-east-1.amazonaws.com',
@@ -211,10 +203,7 @@ final _partitions = [
       ),
       'us-gov-west-1': _i1.EndpointDefinition(
         hostname: 'glacier.us-gov-west-1.amazonaws.com',
-        protocols: [
-          'http',
-          'https',
-        ],
+        protocols: ['http', 'https'],
         credentialScope: _i1.CredentialScope(region: 'us-gov-west-1'),
         variants: [],
       ),
@@ -222,7 +211,8 @@ final _partitions = [
   ),
 ];
 @_i2.internal
-final _i1.AWSEndpointResolver endpointResolver =
-    _i1.AWSEndpointResolver(_partitions);
+final _i1.AWSEndpointResolver endpointResolver = _i1.AWSEndpointResolver(
+  _partitions,
+);
 @_i2.internal
 const String sdkId = 'Glacier';

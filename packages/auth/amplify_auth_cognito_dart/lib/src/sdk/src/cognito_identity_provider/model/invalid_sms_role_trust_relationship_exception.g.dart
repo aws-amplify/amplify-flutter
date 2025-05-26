@@ -13,20 +13,19 @@ class _$InvalidSmsRoleTrustRelationshipException
   @override
   final Map<String, String>? headers;
 
-  factory _$InvalidSmsRoleTrustRelationshipException(
-          [void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder)?
-              updates]) =>
+  factory _$InvalidSmsRoleTrustRelationshipException([
+    void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder)? updates,
+  ]) =>
       (new InvalidSmsRoleTrustRelationshipExceptionBuilder()..update(updates))
           ._build();
 
   _$InvalidSmsRoleTrustRelationshipException._({this.message, this.headers})
-      : super._();
+    : super._();
 
   @override
   InvalidSmsRoleTrustRelationshipException rebuild(
-          void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InvalidSmsRoleTrustRelationshipExceptionBuilder toBuilder() =>
@@ -50,8 +49,10 @@ class _$InvalidSmsRoleTrustRelationshipException
 
 class InvalidSmsRoleTrustRelationshipExceptionBuilder
     implements
-        Builder<InvalidSmsRoleTrustRelationshipException,
-            InvalidSmsRoleTrustRelationshipExceptionBuilder> {
+        Builder<
+          InvalidSmsRoleTrustRelationshipException,
+          InvalidSmsRoleTrustRelationshipExceptionBuilder
+        > {
   _$InvalidSmsRoleTrustRelationshipException? _$v;
 
   String? _message;
@@ -82,7 +83,8 @@ class InvalidSmsRoleTrustRelationshipExceptionBuilder
 
   @override
   void update(
-      void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder)? updates) {
+    void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -90,7 +92,8 @@ class InvalidSmsRoleTrustRelationshipExceptionBuilder
   InvalidSmsRoleTrustRelationshipException build() => _build();
 
   _$InvalidSmsRoleTrustRelationshipException _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         new _$InvalidSmsRoleTrustRelationshipException._(
           message: message,
           headers: headers,

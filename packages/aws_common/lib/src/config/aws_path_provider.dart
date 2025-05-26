@@ -49,16 +49,12 @@ abstract class AWSPathProvider {
     }
     final specifiedUser = homeDirExp.group(1);
     logger.debug('Getting home directory for user: $specifiedUser');
-    final resolvedHome = await getHomeDirectory(
-      forUser: specifiedUser,
-    );
+    final resolvedHome = await getHomeDirectory(forUser: specifiedUser);
     logger.debug('Resolved home directory: $resolvedHome');
     if (resolvedHome == null) {
       return null;
     }
-    return path.normalize(
-      filepath.replaceFirst(_homeDirExp, resolvedHome),
-    );
+    return path.normalize(filepath.replaceFirst(_homeDirExp, resolvedHome));
   }
 }
 

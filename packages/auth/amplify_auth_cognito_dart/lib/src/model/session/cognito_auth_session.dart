@@ -35,27 +35,27 @@ class CognitoAuthSession extends AuthSession
 
   @override
   List<Object?> get props => [
-        userPoolTokensResult,
-        userSubResult,
-        credentialsResult,
-        identityIdResult,
-      ];
+    userPoolTokensResult,
+    userSubResult,
+    credentialsResult,
+    identityIdResult,
+  ];
 
   @override
   Map<String, Object?> toJson() => <String, dynamic>{
-        'isSignedIn': isSignedIn,
-        'userSub': userSubResult.valueOrNull,
-        'userPoolTokens': userPoolTokensResult.valueOrNull,
-        'credentials': credentialsResult.valueOrNull,
-        'identityId': identityIdResult.valueOrNull,
-      };
+    'isSignedIn': isSignedIn,
+    'userSub': userSubResult.valueOrNull,
+    'userPoolTokens': userPoolTokensResult.valueOrNull,
+    'credentials': credentialsResult.valueOrNull,
+    'identityId': identityIdResult.valueOrNull,
+  };
 
   @override
   String toString() => prettyPrintJson({
-        'isSignedIn': isSignedIn,
-        'userSub': userSubResult.toString(),
-        'userPoolTokens': userPoolTokensResult.toString(),
-        'credentials': credentialsResult.toString(),
-        'identityId': identityIdResult.toString(),
-      });
+    'isSignedIn': isSignedIn,
+    'userSub': userSubResult.toString(),
+    'userPoolTokens': userPoolTokensResult.toString(),
+    'credentials': credentialsResult.toString(),
+    'identityId': identityIdResult.toString(),
+  });
 }

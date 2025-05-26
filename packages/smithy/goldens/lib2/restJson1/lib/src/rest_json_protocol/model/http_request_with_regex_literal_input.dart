@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 library rest_json1_v2.rest_json_protocol.model.http_request_with_regex_literal_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,19 @@ abstract class HttpRequestWithRegexLiteralInput
         _i1.HttpInput<HttpRequestWithRegexLiteralInputPayload>,
         _i2.AWSEquatable<HttpRequestWithRegexLiteralInput>
     implements
-        Built<HttpRequestWithRegexLiteralInput,
-            HttpRequestWithRegexLiteralInputBuilder>,
+        Built<
+          HttpRequestWithRegexLiteralInput,
+          HttpRequestWithRegexLiteralInputBuilder
+        >,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithRegexLiteralInputPayload> {
   factory HttpRequestWithRegexLiteralInput({required String str}) {
     return _$HttpRequestWithRegexLiteralInput._(str: str);
   }
 
-  factory HttpRequestWithRegexLiteralInput.build(
-          [void Function(HttpRequestWithRegexLiteralInputBuilder) updates]) =
-      _$HttpRequestWithRegexLiteralInput;
+  factory HttpRequestWithRegexLiteralInput.build([
+    void Function(HttpRequestWithRegexLiteralInputBuilder) updates,
+  ]) = _$HttpRequestWithRegexLiteralInput;
 
   const HttpRequestWithRegexLiteralInput._();
 
@@ -34,16 +36,16 @@ abstract class HttpRequestWithRegexLiteralInput
     HttpRequestWithRegexLiteralInputPayload payload,
     _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
-  }) =>
-      HttpRequestWithRegexLiteralInput.build((b) {
-        if (labels['str'] != null) {
-          b.str = labels['str']!;
-        }
-      });
+  }) => HttpRequestWithRegexLiteralInput.build((b) {
+    if (labels['str'] != null) {
+      b.str = labels['str']!;
+    }
+  });
 
   static const List<
-          _i1.SmithySerializer<HttpRequestWithRegexLiteralInputPayload>>
-      serializers = [HttpRequestWithRegexLiteralInputRestJson1Serializer()];
+    _i1.SmithySerializer<HttpRequestWithRegexLiteralInputPayload>
+  >
+  serializers = [HttpRequestWithRegexLiteralInputRestJson1Serializer()];
 
   String get str;
   @override
@@ -52,10 +54,7 @@ abstract class HttpRequestWithRegexLiteralInput
       case 'str':
         return str;
     }
-    throw _i1.MissingLabelException(
-      this,
-      key,
-    );
+    throw _i1.MissingLabelException(this, key);
   }
 
   @override
@@ -67,27 +66,25 @@ abstract class HttpRequestWithRegexLiteralInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpRequestWithRegexLiteralInput')
-          ..add(
-            'str',
-            str,
-          );
+    final helper = newBuiltValueToStringHelper(
+      'HttpRequestWithRegexLiteralInput',
+    )..add('str', str);
     return helper.toString();
   }
 }
 
 @_i3.internal
 abstract class HttpRequestWithRegexLiteralInputPayload
-    with
-        _i2.AWSEquatable<HttpRequestWithRegexLiteralInputPayload>
+    with _i2.AWSEquatable<HttpRequestWithRegexLiteralInputPayload>
     implements
-        Built<HttpRequestWithRegexLiteralInputPayload,
-            HttpRequestWithRegexLiteralInputPayloadBuilder>,
+        Built<
+          HttpRequestWithRegexLiteralInputPayload,
+          HttpRequestWithRegexLiteralInputPayloadBuilder
+        >,
         _i1.EmptyPayload {
-  factory HttpRequestWithRegexLiteralInputPayload(
-      [void Function(HttpRequestWithRegexLiteralInputPayloadBuilder)
-          updates]) = _$HttpRequestWithRegexLiteralInputPayload;
+  factory HttpRequestWithRegexLiteralInputPayload([
+    void Function(HttpRequestWithRegexLiteralInputPayloadBuilder) updates,
+  ]) = _$HttpRequestWithRegexLiteralInputPayload;
 
   const HttpRequestWithRegexLiteralInputPayload._();
 
@@ -96,32 +93,33 @@ abstract class HttpRequestWithRegexLiteralInputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpRequestWithRegexLiteralInputPayload');
+    final helper = newBuiltValueToStringHelper(
+      'HttpRequestWithRegexLiteralInputPayload',
+    );
     return helper.toString();
   }
 }
 
-class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i1
-    .StructuredSmithySerializer<HttpRequestWithRegexLiteralInputPayload> {
+class HttpRequestWithRegexLiteralInputRestJson1Serializer
+    extends
+        _i1.StructuredSmithySerializer<
+          HttpRequestWithRegexLiteralInputPayload
+        > {
   const HttpRequestWithRegexLiteralInputRestJson1Serializer()
-      : super('HttpRequestWithRegexLiteralInput');
+    : super('HttpRequestWithRegexLiteralInput');
 
   @override
   Iterable<Type> get types => const [
-        HttpRequestWithRegexLiteralInput,
-        _$HttpRequestWithRegexLiteralInput,
-        HttpRequestWithRegexLiteralInputPayload,
-        _$HttpRequestWithRegexLiteralInputPayload,
-      ];
+    HttpRequestWithRegexLiteralInput,
+    _$HttpRequestWithRegexLiteralInput,
+    HttpRequestWithRegexLiteralInputPayload,
+    _$HttpRequestWithRegexLiteralInputPayload,
+  ];
 
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
-        _i1.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restJson1',
-        )
-      ];
+    _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
+  ];
 
   @override
   HttpRequestWithRegexLiteralInputPayload deserialize(
@@ -137,6 +135,5 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i1
     Serializers serializers,
     HttpRequestWithRegexLiteralInputPayload object, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      const <Object?>[];
+  }) => const <Object?>[];
 }

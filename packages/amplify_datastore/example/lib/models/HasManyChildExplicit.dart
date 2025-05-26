@@ -35,7 +35,8 @@ class HasManyChildExplicit extends amplify_core.Model {
   getInstanceType() => classType;
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   @override
   String getId() => id;
 
@@ -52,11 +53,15 @@ class HasManyChildExplicit extends amplify_core.Model {
       return _hasManyParentID!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+        amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastExceptionMessage,
+        recoverySuggestion:
+            amplify_core
+                .AmplifyExceptionMessages
+                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -68,19 +73,27 @@ class HasManyChildExplicit extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const HasManyChildExplicit._internal(
-      {required this.id, name, required hasManyParentID, createdAt, updatedAt})
-      : _name = name,
-        _hasManyParentID = hasManyParentID,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const HasManyChildExplicit._internal({
+    required this.id,
+    name,
+    required hasManyParentID,
+    createdAt,
+    updatedAt,
+  }) : _name = name,
+       _hasManyParentID = hasManyParentID,
+       _createdAt = createdAt,
+       _updatedAt = updatedAt;
 
-  factory HasManyChildExplicit(
-      {String? id, String? name, required String hasManyParentID}) {
+  factory HasManyChildExplicit({
+    String? id,
+    String? name,
+    required String hasManyParentID,
+  }) {
     return HasManyChildExplicit._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        hasManyParentID: hasManyParentID);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      name: name,
+      hasManyParentID: hasManyParentID,
+    );
   }
 
   bool equals(Object other) {
@@ -107,11 +120,12 @@ class HasManyChildExplicit extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("hasManyParentID=" + "$_hasManyParentID" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+      "createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ",
+    );
+    buffer.write(
+      "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"),
+    );
     buffer.write("}");
 
     return buffer.toString();
@@ -119,97 +133,122 @@ class HasManyChildExplicit extends amplify_core.Model {
 
   HasManyChildExplicit copyWith({String? name, String? hasManyParentID}) {
     return HasManyChildExplicit._internal(
-        id: id,
-        name: name ?? this.name,
-        hasManyParentID: hasManyParentID ?? this.hasManyParentID);
+      id: id,
+      name: name ?? this.name,
+      hasManyParentID: hasManyParentID ?? this.hasManyParentID,
+    );
   }
 
-  HasManyChildExplicit copyWithModelFieldValues(
-      {ModelFieldValue<String?>? name,
-      ModelFieldValue<String>? hasManyParentID}) {
+  HasManyChildExplicit copyWithModelFieldValues({
+    ModelFieldValue<String?>? name,
+    ModelFieldValue<String>? hasManyParentID,
+  }) {
     return HasManyChildExplicit._internal(
-        id: id,
-        name: name == null ? this.name : name.value,
-        hasManyParentID: hasManyParentID == null
-            ? this.hasManyParentID
-            : hasManyParentID.value);
+      id: id,
+      name: name == null ? this.name : name.value,
+      hasManyParentID:
+          hasManyParentID == null
+              ? this.hasManyParentID
+              : hasManyParentID.value,
+    );
   }
 
   HasManyChildExplicit.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _hasManyParentID = json['hasManyParentID'],
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+    : id = json['id'],
+      _name = json['name'],
+      _hasManyParentID = json['hasManyParentID'],
+      _createdAt =
+          json['createdAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+              : null,
+      _updatedAt =
+          json['updatedAt'] != null
+              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+              : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'hasManyParentID': _hasManyParentID,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id,
+    'name': _name,
+    'hasManyParentID': _hasManyParentID,
+    'createdAt': _createdAt?.format(),
+    'updatedAt': _updatedAt?.format(),
+  };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': _name,
-        'hasManyParentID': _hasManyParentID,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'name': _name,
+    'hasManyParentID': _hasManyParentID,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt,
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<HasManyChildExplicitModelIdentifier>
-      MODEL_IDENTIFIER =
+  static final amplify_core.QueryModelIdentifier<
+    HasManyChildExplicitModelIdentifier
+  >
+  MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<HasManyChildExplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
-  static final HASMANYPARENTID =
-      amplify_core.QueryField(fieldName: "hasManyParentID");
+  static final HASMANYPARENTID = amplify_core.QueryField(
+    fieldName: "hasManyParentID",
+  );
   static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasManyChildExplicit";
-    modelSchemaDefinition.pluralName = "HasManyChildExplicits";
+    define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      modelSchemaDefinition.name = "HasManyChildExplicit";
+      modelSchemaDefinition.pluralName = "HasManyChildExplicits";
 
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(
-          fields: const ["hasManyParentID", "name"], name: "byHasManyParent")
-    ];
+      modelSchemaDefinition.indexes = [
+        amplify_core.ModelIndex(
+          fields: const ["hasManyParentID", "name"],
+          name: "byHasManyParent",
+        ),
+      ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+      modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: HasManyChildExplicit.NAME,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: HasManyChildExplicit.NAME,
+          isRequired: false,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: HasManyChildExplicit.HASMANYPARENTID,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+      modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.field(
+          key: HasManyChildExplicit.HASMANYPARENTID,
+          isRequired: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+          fieldName: 'createdAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
 
-    modelSchemaDefinition.addField(
+      modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-  });
+          fieldName: 'updatedAt',
+          isRequired: false,
+          isReadOnly: true,
+          ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime,
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class _HasManyChildExplicitModelType
@@ -242,10 +281,10 @@ class HasManyChildExplicitModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
+  List<Map<String, dynamic>> serializeAsList() =>
+      serializeAsMap().entries
+          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+          .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

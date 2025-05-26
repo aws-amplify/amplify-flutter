@@ -15,14 +15,8 @@ abstract class Owner
     with _i1.AWSEquatable<Owner>
     implements Built<Owner, OwnerBuilder> {
   /// Container for the owner's display name and ID.
-  factory Owner({
-    String? displayName,
-    String? id,
-  }) {
-    return _$Owner._(
-      displayName: displayName,
-      id: id,
-    );
+  factory Owner({String? displayName, String? id}) {
+    return _$Owner._(displayName: displayName, id: id);
   }
 
   /// Container for the owner's display name and ID.
@@ -31,7 +25,7 @@ abstract class Owner
   const Owner._();
 
   static const List<_i2.SmithySerializer<Owner>> serializers = [
-    OwnerRestXmlSerializer()
+    OwnerRestXmlSerializer(),
   ];
 
   /// Container for the display name of the owner. This value is only supported in the following Amazon Web Services Regions:
@@ -59,22 +53,14 @@ abstract class Owner
   /// Container for the ID of the owner.
   String? get id;
   @override
-  List<Object?> get props => [
-        displayName,
-        id,
-      ];
+  List<Object?> get props => [displayName, id];
 
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Owner')
-      ..add(
-        'displayName',
-        displayName,
-      )
-      ..add(
-        'id',
-        id,
-      );
+    final helper =
+        newBuiltValueToStringHelper('Owner')
+          ..add('displayName', displayName)
+          ..add('id', id);
     return helper.toString();
   }
 }
@@ -83,18 +69,12 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
   const OwnerRestXmlSerializer() : super('Owner');
 
   @override
-  Iterable<Type> get types => const [
-        Owner,
-        _$Owner,
-      ];
+  Iterable<Type> get types => const [Owner, _$Owner];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   Owner deserialize(
@@ -113,15 +93,19 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
       }
       switch (key) {
         case 'DisplayName':
-          result.displayName = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.displayName =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'ID':
-          result.id = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.id =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -138,24 +122,23 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
       const _i2.XmlElementName(
         'Owner',
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
-      )
+      ),
     ];
     final Owner(:displayName, :id) = object;
     if (displayName != null) {
       result$
         ..add(const _i2.XmlElementName('DisplayName'))
-        ..add(serializers.serialize(
-          displayName,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            displayName,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     if (id != null) {
       result$
         ..add(const _i2.XmlElementName('ID'))
-        ..add(serializers.serialize(
-          id,
-          specifiedType: const FullType(String),
-        ));
+        ..add(serializers.serialize(id, specifiedType: const FullType(String)));
     }
     return result$;
   }

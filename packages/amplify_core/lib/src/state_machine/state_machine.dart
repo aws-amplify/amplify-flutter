@@ -9,10 +9,10 @@ import 'package:stack_trace/stack_trace.dart';
 
 /// Factory for a state machine under a [Manager].
 typedef StateMachineBuilder<
-        E extends StateMachineEvent,
-        S extends StateMachineState,
-        Manager extends StateMachineManager<E, S, Manager>>
-    = StateMachine Function(Manager);
+  E extends StateMachineEvent,
+  S extends StateMachineState,
+  Manager extends StateMachineManager<E, S, Manager>
+> = StateMachine Function(Manager);
 
 /// Interface for dispatching an event to a state machine.
 @optionalTypeArgs
@@ -48,13 +48,14 @@ abstract interface class Emitter<S extends StateMachineState> {
 /// A marker for state machine types to improve DX with generic functions.
 /// {@endtemplate}
 final class StateMachineToken<
-    Event extends ManagerEvent,
-    State extends ManagerState,
-    ManagerEvent extends StateMachineEvent,
-    ManagerState extends StateMachineState,
-    Manager extends StateMachineManager<ManagerEvent, ManagerState, Manager>,
-    M extends StateMachine<Event, State, ManagerEvent, ManagerState,
-        Manager>> extends Token<M> {
+  Event extends ManagerEvent,
+  State extends ManagerState,
+  ManagerEvent extends StateMachineEvent,
+  ManagerState extends StateMachineState,
+  Manager extends StateMachineManager<ManagerEvent, ManagerState, Manager>,
+  M extends StateMachine<Event, State, ManagerEvent, ManagerState, Manager>
+>
+    extends Token<M> {
   /// {@macro amplify_core.state_machine_type}
   const StateMachineToken();
 }
@@ -65,15 +66,16 @@ final class StateMachineToken<
 /// {@endtemplate}
 @optionalTypeArgs
 abstract class StateMachineManager<
-        E extends StateMachineEvent,
-        S extends StateMachineState,
-        Manager extends StateMachineManager<E, S, Manager>>
+  E extends StateMachineEvent,
+  S extends StateMachineState,
+  Manager extends StateMachineManager<E, S, Manager>
+>
     with Dispatcher<E, S>, AWSDebuggable, AWSLoggerMixin
     implements DependencyManager, Closeable {
   /// {@macro amplify_core.state_machinedispatcher}
   StateMachineManager(
     Map<StateMachineToken, StateMachineBuilder<E, S, Manager>>
-        stateMachineBuilders,
+    stateMachineBuilders,
     this._dependencyManager,
   ) {
     addInstance<Dispatcher<E, S>>(this);
@@ -89,8 +91,9 @@ abstract class StateMachineManager<
   final Map<StateMachineToken, StateMachine> _stateMachines = {};
 
   final _eventController = StreamController<EventCompleter<E, S>>();
-  final StreamController<S> _stateController =
-      StreamController.broadcast(sync: true);
+  final StreamController<S> _stateController = StreamController.broadcast(
+    sync: true,
+  );
   final StreamController<Transition<E, S>> _transitionController =
       StreamController.broadcast(sync: true);
 
@@ -122,10 +125,7 @@ abstract class StateMachineManager<
   }
 
   @override
-  void addInstance<T extends Object>(
-    T instance, [
-    Token<T>? token,
-  ]) {
+  void addInstance<T extends Object>(T instance, [Token<T>? token]) {
     _dependencyManager.addInstance<T>(instance, token);
   }
 
@@ -191,9 +191,7 @@ abstract class StateMachineManager<
   @override
   @protected
   @visibleForTesting
-  Future<SuccessState> dispatchAndComplete<SuccessState extends S>(
-    E event,
-  ) =>
+  Future<SuccessState> dispatchAndComplete<SuccessState extends S>(E event) =>
       super.dispatchAndComplete(event);
 
   /// Maps [event] to its state machine.
@@ -215,12 +213,12 @@ abstract class StateMachineManager<
 /// Base class for state machines.
 /// {@endtemplate}
 abstract class StateMachine<
-        Event extends ManagerEvent,
-        State extends ManagerState,
-        ManagerEvent extends StateMachineEvent,
-        ManagerState extends StateMachineState,
-        Manager extends StateMachineManager<ManagerEvent, ManagerState,
-            Manager>>
+  Event extends ManagerEvent,
+  State extends ManagerState,
+  ManagerEvent extends StateMachineEvent,
+  ManagerState extends StateMachineState,
+  Manager extends StateMachineManager<ManagerEvent, ManagerState, Manager>
+>
     with AWSDebuggable, AmplifyLoggerMixin
     implements
         Emitter<State>,
@@ -280,11 +278,7 @@ abstract class StateMachine<
   void emit(State state) {
     _stateController.add(state);
     manager._stateController.add(state);
-    final transition = Transition(
-      _currentState,
-      _currentEvent,
-      state,
-    );
+    final transition = Transition(_currentState, _currentEvent, state);
     _transitionController.add(transition);
     manager._transitionController.add(transition);
     _currentState = state;
@@ -347,7 +341,7 @@ abstract class StateMachine<
 
   /// Event controller.
   final StreamController<EventCompleter<ManagerEvent, ManagerState>>
-      _eventController = StreamController();
+  _eventController = StreamController();
 
   /// Transition controller.
   final StreamController<Transition<Event, State>> _transitionController =
@@ -389,14 +383,10 @@ abstract class StateMachine<
   void addBuilder<T extends Object>(
     DependencyBuilder<T> builder, [
     Token<T>? token,
-  ]) =>
-      manager.addBuilder<T>(builder, token);
+  ]) => manager.addBuilder<T>(builder, token);
 
   @override
-  void addInstance<T extends Object>(
-    T instance, [
-    Token<T>? token,
-  ]) =>
+  void addInstance<T extends Object>(T instance, [Token<T>? token]) =>
       manager.addInstance<T>(instance, token);
 
   @override
@@ -425,8 +415,7 @@ abstract class StateMachine<
   @override
   Future<SuccessState> dispatchAndComplete<SuccessState extends ManagerState>(
     ManagerEvent event,
-  ) =>
-      manager.dispatchAndComplete(event);
+  ) => manager.dispatchAndComplete(event);
 
   /// Closes the state machine and all stream controllers.
   @override

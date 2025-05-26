@@ -26,14 +26,14 @@ abstract class AnalyticsMetadataType
   /// An Amazon Pinpoint analytics endpoint.
   ///
   /// An endpoint uniquely identifies a mobile device, email address, or phone number that can receive messages from Amazon Pinpoint analytics. For more information about Amazon Web Services Regions that can contain Amazon Pinpoint resources for use with Amazon Cognito user pools, see [Using Amazon Pinpoint analytics with Amazon Cognito user pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-pinpoint-integration.html).
-  factory AnalyticsMetadataType.build(
-          [void Function(AnalyticsMetadataTypeBuilder) updates]) =
-      _$AnalyticsMetadataType;
+  factory AnalyticsMetadataType.build([
+    void Function(AnalyticsMetadataTypeBuilder) updates,
+  ]) = _$AnalyticsMetadataType;
 
   const AnalyticsMetadataType._();
 
   static const List<_i2.SmithySerializer<AnalyticsMetadataType>> serializers = [
-    AnalyticsMetadataTypeAwsJson11Serializer()
+    AnalyticsMetadataTypeAwsJson11Serializer(),
   ];
 
   /// The endpoint ID.
@@ -44,10 +44,7 @@ abstract class AnalyticsMetadataType
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AnalyticsMetadataType')
-      ..add(
-        'analyticsEndpointId',
-        analyticsEndpointId,
-      );
+      ..add('analyticsEndpointId', analyticsEndpointId);
     return helper.toString();
   }
 }
@@ -55,21 +52,18 @@ abstract class AnalyticsMetadataType
 class AnalyticsMetadataTypeAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<AnalyticsMetadataType> {
   const AnalyticsMetadataTypeAwsJson11Serializer()
-      : super('AnalyticsMetadataType');
+    : super('AnalyticsMetadataType');
 
   @override
   Iterable<Type> get types => const [
-        AnalyticsMetadataType,
-        _$AnalyticsMetadataType,
-      ];
+    AnalyticsMetadataType,
+    _$AnalyticsMetadataType,
+  ];
 
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsJson1_1',
-        )
-      ];
+    _i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1'),
+  ];
 
   @override
   AnalyticsMetadataType deserialize(
@@ -88,10 +82,12 @@ class AnalyticsMetadataTypeAwsJson11Serializer
       }
       switch (key) {
         case 'AnalyticsEndpointId':
-          result.analyticsEndpointId = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.analyticsEndpointId =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
       }
     }
 
@@ -109,10 +105,12 @@ class AnalyticsMetadataTypeAwsJson11Serializer
     if (analyticsEndpointId != null) {
       result$
         ..add('AnalyticsEndpointId')
-        ..add(serializers.serialize(
-          analyticsEndpointId,
-          specifiedType: const FullType(String),
-        ));
+        ..add(
+          serializers.serialize(
+            analyticsEndpointId,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result$;
   }

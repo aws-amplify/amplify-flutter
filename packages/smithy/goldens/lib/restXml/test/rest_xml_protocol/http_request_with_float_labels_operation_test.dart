@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.http_request_with_float_labels_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -12,152 +12,122 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'RestXmlSupportsNaNFloatLabels (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpRequestWithFloatLabelsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestXmlSupportsNaNFloatLabels',
-          documentation: 'Supports handling NaN float label values.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'float': 'NaN',
-            'double': 'NaN',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/FloatHttpLabels/NaN/NaN',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpRequestWithFloatLabelsInputRestXmlSerializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'RestXmlSupportsInfinityFloatLabels (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpRequestWithFloatLabelsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestXmlSupportsInfinityFloatLabels',
-          documentation: 'Supports handling Infinity float label values.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'float': 'Infinity',
-            'double': 'Infinity',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/FloatHttpLabels/Infinity/Infinity',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpRequestWithFloatLabelsInputRestXmlSerializer()
-        ],
-      );
-    },
-  );
-  _i1.test(
-    'RestXmlSupportsNegativeInfinityFloatLabels (request)',
-    () async {
-      await _i2.httpRequestTest(
-        operation: HttpRequestWithFloatLabelsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpRequestTestCase(
-          id: 'RestXmlSupportsNegativeInfinityFloatLabels',
-          documentation: 'Supports handling -Infinity float label values.',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'restXml',
-          ),
-          authScheme: null,
-          body: '',
-          bodyMediaType: null,
-          params: {
-            'float': '-Infinity',
-            'double': '-Infinity',
-          },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          method: 'GET',
-          uri: '/FloatHttpLabels/-Infinity/-Infinity',
-          host: null,
-          resolvedHost: null,
-          queryParams: [],
-          forbidQueryParams: [],
-          requireQueryParams: [],
-        ),
-        inputSerializers: const [
-          HttpRequestWithFloatLabelsInputRestXmlSerializer()
-        ],
-      );
-    },
-  );
+  _i1.test('RestXmlSupportsNaNFloatLabels (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpRequestWithFloatLabelsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestXmlSupportsNaNFloatLabels',
+        documentation: 'Supports handling NaN float label values.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'float': 'NaN', 'double': 'NaN'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/FloatHttpLabels/NaN/NaN',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        HttpRequestWithFloatLabelsInputRestXmlSerializer(),
+      ],
+    );
+  });
+  _i1.test('RestXmlSupportsInfinityFloatLabels (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpRequestWithFloatLabelsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestXmlSupportsInfinityFloatLabels',
+        documentation: 'Supports handling Infinity float label values.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'float': 'Infinity', 'double': 'Infinity'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/FloatHttpLabels/Infinity/Infinity',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        HttpRequestWithFloatLabelsInputRestXmlSerializer(),
+      ],
+    );
+  });
+  _i1.test('RestXmlSupportsNegativeInfinityFloatLabels (request)', () async {
+    await _i2.httpRequestTest(
+      operation: HttpRequestWithFloatLabelsOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpRequestTestCase(
+        id: 'RestXmlSupportsNegativeInfinityFloatLabels',
+        documentation: 'Supports handling -Infinity float label values.',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+        authScheme: null,
+        body: '',
+        bodyMediaType: null,
+        params: {'float': '-Infinity', 'double': '-Infinity'},
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        method: 'GET',
+        uri: '/FloatHttpLabels/-Infinity/-Infinity',
+        host: null,
+        resolvedHost: null,
+        queryParams: [],
+        forbidQueryParams: [],
+        requireQueryParams: [],
+      ),
+      inputSerializers: const [
+        HttpRequestWithFloatLabelsInputRestXmlSerializer(),
+      ],
+    );
+  });
 }
 
 class HttpRequestWithFloatLabelsInputRestXmlSerializer
     extends _i3.StructuredSmithySerializer<HttpRequestWithFloatLabelsInput> {
   const HttpRequestWithFloatLabelsInputRestXmlSerializer()
-      : super('HttpRequestWithFloatLabelsInput');
+    : super('HttpRequestWithFloatLabelsInput');
 
   @override
   Iterable<Type> get types => const [HttpRequestWithFloatLabelsInput];
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'restXml',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
+  ];
 
   @override
   HttpRequestWithFloatLabelsInput deserialize(
@@ -176,15 +146,19 @@ class HttpRequestWithFloatLabelsInputRestXmlSerializer
       }
       switch (key) {
         case 'float':
-          result.float = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.float =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
         case 'double':
-          result.double_ = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(double),
-          ) as double);
+          result.double_ =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(double),
+                  )
+                  as double);
       }
     }
 

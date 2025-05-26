@@ -21,7 +21,7 @@ const _expectedQuerySuccessResponseBody = {
           'id': 'TEST_ID',
           'name': 'Test App Blog',
           'createdAt': '2022-06-28T17:36:52.460Z',
-        }
+        },
       ],
     },
   },
@@ -36,9 +36,7 @@ final _mockGqlClient = MockAWSHttpClient((request, _) async {
   expect(request.headers[xApiKey], isA<String>());
   return AWSHttpResponse(
     statusCode: 200,
-    body: utf8.encode(
-      json.encode(_expectedQuerySuccessResponseBody),
-    ),
+    body: utf8.encode(json.encode(_expectedQuerySuccessResponseBody)),
   );
 });
 
@@ -56,11 +54,11 @@ final _mockRestClient = MockAWSHttpClient((request, _) async {
 });
 
 void main() {
-  final authProviderRepo = AmplifyAuthProviderRepository()
-    ..registerAuthProvider(
-      APIAuthorizationType.iam.authProviderToken,
-      TestIamAuthProvider(),
-    );
+  final authProviderRepo =
+      AmplifyAuthProviderRepository()..registerAuthProvider(
+        APIAuthorizationType.iam.authProviderToken,
+        TestIamAuthProvider(),
+      );
   final amplifyOutputs = AmplifyOutputs.fromJson(
     jsonDecode(amplifyConfig) as Map<String, Object?>,
   );
@@ -70,83 +68,97 @@ void main() {
 
   group('AmplifyAPI plugin configuration', () {
     test(
-        'should register an API key auth provider when the configuration has an API key',
-        () async {
-      final plugin = AmplifyAPIDart();
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: amplifyOutputs,
-      );
-      final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
-        APIAuthorizationType.apiKey.authProviderToken,
-      );
-      expect(apiKeyAuthProvider, isA<AppSyncApiKeyAuthProvider>());
-    });
+      'should register an API key auth provider when the configuration has an API key',
+      () async {
+        final plugin = AmplifyAPIDart();
+        await plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: amplifyOutputs,
+        );
+        final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
+          APIAuthorizationType.apiKey.authProviderToken,
+        );
+        expect(apiKeyAuthProvider, isA<AppSyncApiKeyAuthProvider>());
+      },
+    );
 
     test(
-        'should register an API key auth provider when the configuration has an API key and IAM is default auth mode',
-        () async {
-      final plugin = AmplifyAPIDart();
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: amplifyOutputsIamWithApiKey,
-      );
-      final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
-        APIAuthorizationType.apiKey.authProviderToken,
-      );
-      expect(apiKeyAuthProvider, isA<AppSyncApiKeyAuthProvider>());
-    });
-
-    test('should register an OIDC auth provider when passed to plugin',
-        () async {
-      final plugin = AmplifyAPIDart(
-        options: const APIPluginOptions(authProviders: [CustomOIDCProvider()]),
-      );
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: amplifyOutputs,
-      );
-      final oidcAuthProvider = authProviderRepo
-          .getAuthProvider(APIAuthorizationType.oidc.authProviderToken);
-      expect(oidcAuthProvider, isA<OidcFunctionAuthProvider>());
-      final actualRegisteredProvider = authProviderRepo
-          .getAuthProvider(APIAuthorizationType.oidc.authProviderToken);
-      final actualToken = await actualRegisteredProvider!.getLatestAuthToken();
-      expect(actualToken, testOidcToken);
-    });
+      'should register an API key auth provider when the configuration has an API key and IAM is default auth mode',
+      () async {
+        final plugin = AmplifyAPIDart();
+        await plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: amplifyOutputsIamWithApiKey,
+        );
+        final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
+          APIAuthorizationType.apiKey.authProviderToken,
+        );
+        expect(apiKeyAuthProvider, isA<AppSyncApiKeyAuthProvider>());
+      },
+    );
 
     test(
-        'should register a Lambda (function) auth provider when passed to plugin',
-        () async {
-      final plugin = AmplifyAPIDart(
-        options:
-            const APIPluginOptions(authProviders: [CustomFunctionProvider()]),
-      );
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: amplifyOutputs,
-      );
-      final functionAuthProvider = authProviderRepo
-          .getAuthProvider(APIAuthorizationType.function.authProviderToken);
-      expect(functionAuthProvider, isA<OidcFunctionAuthProvider>());
-      final actualRegisteredProvider = authProviderRepo
-          .getAuthProvider(APIAuthorizationType.function.authProviderToken);
-      final actualToken = await actualRegisteredProvider!.getLatestAuthToken();
-      expect(actualToken, testFunctionToken);
-    });
+      'should register an OIDC auth provider when passed to plugin',
+      () async {
+        final plugin = AmplifyAPIDart(
+          options: const APIPluginOptions(
+            authProviders: [CustomOIDCProvider()],
+          ),
+        );
+        await plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: amplifyOutputs,
+        );
+        final oidcAuthProvider = authProviderRepo.getAuthProvider(
+          APIAuthorizationType.oidc.authProviderToken,
+        );
+        expect(oidcAuthProvider, isA<OidcFunctionAuthProvider>());
+        final actualRegisteredProvider = authProviderRepo.getAuthProvider(
+          APIAuthorizationType.oidc.authProviderToken,
+        );
+        final actualToken =
+            await actualRegisteredProvider!.getLatestAuthToken();
+        expect(actualToken, testOidcToken);
+      },
+    );
 
     test(
-        'should configure an HTTP client for GraphQL that authorizes with auth providers and adds user-agent',
-        () async {
-      final plugin = AmplifyAPIDart(
-        options: APIPluginOptions(baseHttpClient: _mockGqlClient),
-      );
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: amplifyOutputs,
-      );
+      'should register a Lambda (function) auth provider when passed to plugin',
+      () async {
+        final plugin = AmplifyAPIDart(
+          options: const APIPluginOptions(
+            authProviders: [CustomFunctionProvider()],
+          ),
+        );
+        await plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: amplifyOutputs,
+        );
+        final functionAuthProvider = authProviderRepo.getAuthProvider(
+          APIAuthorizationType.function.authProviderToken,
+        );
+        expect(functionAuthProvider, isA<OidcFunctionAuthProvider>());
+        final actualRegisteredProvider = authProviderRepo.getAuthProvider(
+          APIAuthorizationType.function.authProviderToken,
+        );
+        final actualToken =
+            await actualRegisteredProvider!.getLatestAuthToken();
+        expect(actualToken, testFunctionToken);
+      },
+    );
 
-      const graphQLDocument = '''query TestQuery {
+    test(
+      'should configure an HTTP client for GraphQL that authorizes with auth providers and adds user-agent',
+      () async {
+        final plugin = AmplifyAPIDart(
+          options: APIPluginOptions(baseHttpClient: _mockGqlClient),
+        );
+        await plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: amplifyOutputs,
+        );
+
+        const graphQLDocument = '''query TestQuery {
           listBlogs {
             items {
               id
@@ -155,25 +167,29 @@ void main() {
             }
           }
         }''';
-      final request =
-          GraphQLRequest<String>(document: graphQLDocument, variables: {});
-      await plugin.query(request: request).response;
-      // no assertion here because assertion implemented in mock HTTP client
-    });
+        final request = GraphQLRequest<String>(
+          document: graphQLDocument,
+          variables: {},
+        );
+        await plugin.query(request: request).response;
+        // no assertion here because assertion implemented in mock HTTP client
+      },
+    );
 
     test(
-        'should configure an HTTP client for REST that authorizes with auth providers and adds user-agent',
-        () async {
-      final plugin = AmplifyAPIDart(
-        options: APIPluginOptions(baseHttpClient: _mockRestClient),
-      );
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: amplifyOutputs,
-      );
+      'should configure an HTTP client for REST that authorizes with auth providers and adds user-agent',
+      () async {
+        final plugin = AmplifyAPIDart(
+          options: APIPluginOptions(baseHttpClient: _mockRestClient),
+        );
+        await plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: amplifyOutputs,
+        );
 
-      await plugin.get('/items').response;
-      // no assertion here because assertion implemented in mock HTTP client
-    });
+        await plugin.get('/items').response;
+        // no assertion here because assertion implemented in mock HTTP client
+      },
+    );
   });
 }

@@ -1,5 +1,5 @@
-// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
+// Generated with smithy-dart 0.3.2. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,unnecessary_library_name
 
 // ignore_for_file: unused_element
 library aws_query_v2.query_protocol.test.xml_namespaces_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -14,50 +14,41 @@ import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
-  _i1.test(
-    'QueryXmlNamespaces (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: XmlNamespacesOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'QueryXmlNamespaces',
-          documentation: 'Serializes XML namespaces',
-          protocol: _i3.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<XmlNamespacesResponse xmlns="https://example.com/">\n    <XmlNamespacesResult>\n        <nested>\n            <foo xmlns:baz="http://baz.com">Foo</foo>\n            <values xmlns="http://qux.com">\n                <member xmlns="http://bux.com">Bar</member>\n                <member xmlns="http://bux.com">Baz</member>\n            </values>\n        </nested>\n    </XmlNamespacesResult>\n</XmlNamespacesResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {
-            'nested': {
-              'foo': 'Foo',
-              'values': [
-                'Bar',
-                'Baz',
-              ],
-            }
+  _i1.test('QueryXmlNamespaces (response)', () async {
+    await _i2.httpResponseTest(
+      operation: XmlNamespacesOperation(
+        region: 'us-east-1',
+        baseUri: Uri.parse('https://example.com'),
+      ),
+      testCase: const _i2.HttpResponseTestCase(
+        id: 'QueryXmlNamespaces',
+        documentation: 'Serializes XML namespaces',
+        protocol: _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+        authScheme: null,
+        body:
+            '<XmlNamespacesResponse xmlns="https://example.com/">\n    <XmlNamespacesResult>\n        <nested>\n            <foo xmlns:baz="http://baz.com">Foo</foo>\n            <values xmlns="http://qux.com">\n                <member xmlns="http://bux.com">Bar</member>\n                <member xmlns="http://bux.com">Baz</member>\n            </values>\n        </nested>\n    </XmlNamespacesResult>\n</XmlNamespacesResponse>\n',
+        bodyMediaType: 'application/xml',
+        params: {
+          'nested': {
+            'foo': 'Foo',
+            'values': ['Bar', 'Baz'],
           },
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: null,
-          code: 200,
-        ),
-        outputSerializers: const [
-          XmlNamespacesOutputAwsQuerySerializer(),
-          XmlNamespaceNestedAwsQuerySerializer(),
-        ],
-      );
-    },
-  );
+        },
+        vendorParamsShape: null,
+        vendorParams: {},
+        headers: {'Content-Type': 'text/xml'},
+        forbidHeaders: [],
+        requireHeaders: [],
+        tags: [],
+        appliesTo: null,
+        code: 200,
+      ),
+      outputSerializers: const [
+        XmlNamespacesOutputAwsQuerySerializer(),
+        XmlNamespaceNestedAwsQuerySerializer(),
+      ],
+    );
+  });
 }
 
 class XmlNamespacesOutputAwsQuerySerializer
@@ -69,11 +60,8 @@ class XmlNamespacesOutputAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlNamespacesOutput deserialize(
@@ -92,10 +80,13 @@ class XmlNamespacesOutputAwsQuerySerializer
       }
       switch (key) {
         case 'nested':
-          result.nested.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(XmlNamespaceNested),
-          ) as XmlNamespaceNested));
+          result.nested.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(XmlNamespaceNested),
+                )
+                as XmlNamespaceNested),
+          );
       }
     }
 
@@ -121,11 +112,8 @@ class XmlNamespaceNestedAwsQuerySerializer
 
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
-          namespace: 'aws.protocols',
-          shape: 'awsQuery',
-        )
-      ];
+    _i3.ShapeId(namespace: 'aws.protocols', shape: 'awsQuery'),
+  ];
 
   @override
   XmlNamespaceNested deserialize(
@@ -144,18 +132,22 @@ class XmlNamespaceNestedAwsQuerySerializer
       }
       switch (key) {
         case 'foo':
-          result.foo = (serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String);
+          result.foo =
+              (serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String);
         case 'values':
-          result.values.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(String)],
-            ),
-          ) as _i4.BuiltList<String>));
+          result.values.replace(
+            (serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(_i4.BuiltList, [
+                    FullType(String),
+                  ]),
+                )
+                as _i4.BuiltList<String>),
+          );
       }
     }
 
