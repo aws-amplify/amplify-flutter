@@ -9,10 +9,9 @@ part of 'verify_user_attribute_response.dart';
 class _$VerifyUserAttributeResponse extends VerifyUserAttributeResponse {
   factory _$VerifyUserAttributeResponse([
     void Function(VerifyUserAttributeResponseBuilder)? updates,
-  ]) => (new VerifyUserAttributeResponseBuilder()..update(updates))._build();
+  ]) => (VerifyUserAttributeResponseBuilder()..update(updates))._build();
 
   _$VerifyUserAttributeResponse._() : super._();
-
   @override
   VerifyUserAttributeResponse rebuild(
     void Function(VerifyUserAttributeResponseBuilder) updates,
@@ -20,7 +19,7 @@ class _$VerifyUserAttributeResponse extends VerifyUserAttributeResponse {
 
   @override
   VerifyUserAttributeResponseBuilder toBuilder() =>
-      new VerifyUserAttributeResponseBuilder()..replace(this);
+      VerifyUserAttributeResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,7 +45,6 @@ class VerifyUserAttributeResponseBuilder
 
   @override
   void replace(VerifyUserAttributeResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$VerifyUserAttributeResponse;
   }
 
@@ -59,7 +57,7 @@ class VerifyUserAttributeResponseBuilder
   VerifyUserAttributeResponse build() => _build();
 
   _$VerifyUserAttributeResponse _build() {
-    final _$result = _$v ?? new _$VerifyUserAttributeResponse._();
+    final _$result = _$v ?? _$VerifyUserAttributeResponse._();
     replace(_$result);
     return _$result;
   }

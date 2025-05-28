@@ -14,10 +14,9 @@ class _$ListDevicesResponse extends ListDevicesResponse {
 
   factory _$ListDevicesResponse([
     void Function(ListDevicesResponseBuilder)? updates,
-  ]) => (new ListDevicesResponseBuilder()..update(updates))._build();
+  ]) => (ListDevicesResponseBuilder()..update(updates))._build();
 
   _$ListDevicesResponse._({this.devices, this.paginationToken}) : super._();
-
   @override
   ListDevicesResponse rebuild(
     void Function(ListDevicesResponseBuilder) updates,
@@ -25,7 +24,7 @@ class _$ListDevicesResponse extends ListDevicesResponse {
 
   @override
   ListDevicesResponseBuilder toBuilder() =>
-      new ListDevicesResponseBuilder()..replace(this);
+      ListDevicesResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -51,7 +50,7 @@ class ListDevicesResponseBuilder
 
   _i2.ListBuilder<DeviceType>? _devices;
   _i2.ListBuilder<DeviceType> get devices =>
-      _$this._devices ??= new _i2.ListBuilder<DeviceType>();
+      _$this._devices ??= _i2.ListBuilder<DeviceType>();
   set devices(_i2.ListBuilder<DeviceType>? devices) =>
       _$this._devices = devices;
 
@@ -74,7 +73,6 @@ class ListDevicesResponseBuilder
 
   @override
   void replace(ListDevicesResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListDevicesResponse;
   }
 
@@ -91,7 +89,7 @@ class ListDevicesResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$ListDevicesResponse._(
+          _$ListDevicesResponse._(
             devices: _devices?.build(),
             paginationToken: paginationToken,
           );
@@ -101,7 +99,7 @@ class ListDevicesResponseBuilder
         _$failedField = 'devices';
         _devices?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ListDevicesResponse',
           _$failedField,
           e.toString(),

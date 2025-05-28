@@ -18,21 +18,14 @@ class _$VerifySoftwareTokenRequest extends VerifySoftwareTokenRequest {
 
   factory _$VerifySoftwareTokenRequest([
     void Function(VerifySoftwareTokenRequestBuilder)? updates,
-  ]) => (new VerifySoftwareTokenRequestBuilder()..update(updates))._build();
+  ]) => (VerifySoftwareTokenRequestBuilder()..update(updates))._build();
 
   _$VerifySoftwareTokenRequest._({
     this.accessToken,
     this.session,
     required this.userCode,
     this.friendlyDeviceName,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      userCode,
-      r'VerifySoftwareTokenRequest',
-      'userCode',
-    );
-  }
-
+  }) : super._();
   @override
   VerifySoftwareTokenRequest rebuild(
     void Function(VerifySoftwareTokenRequestBuilder) updates,
@@ -40,7 +33,7 @@ class _$VerifySoftwareTokenRequest extends VerifySoftwareTokenRequest {
 
   @override
   VerifySoftwareTokenRequestBuilder toBuilder() =>
-      new VerifySoftwareTokenRequestBuilder()..replace(this);
+      VerifySoftwareTokenRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -102,7 +95,6 @@ class VerifySoftwareTokenRequestBuilder
 
   @override
   void replace(VerifySoftwareTokenRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$VerifySoftwareTokenRequest;
   }
 
@@ -117,7 +109,7 @@ class VerifySoftwareTokenRequestBuilder
   _$VerifySoftwareTokenRequest _build() {
     final _$result =
         _$v ??
-        new _$VerifySoftwareTokenRequest._(
+        _$VerifySoftwareTokenRequest._(
           accessToken: accessToken,
           session: session,
           userCode: BuiltValueNullFieldError.checkNotNull(

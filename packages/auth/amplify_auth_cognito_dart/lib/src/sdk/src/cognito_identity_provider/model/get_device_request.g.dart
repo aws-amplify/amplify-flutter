@@ -14,24 +14,16 @@ class _$GetDeviceRequest extends GetDeviceRequest {
 
   factory _$GetDeviceRequest([
     void Function(GetDeviceRequestBuilder)? updates,
-  ]) => (new GetDeviceRequestBuilder()..update(updates))._build();
+  ]) => (GetDeviceRequestBuilder()..update(updates))._build();
 
-  _$GetDeviceRequest._({required this.deviceKey, this.accessToken})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      deviceKey,
-      r'GetDeviceRequest',
-      'deviceKey',
-    );
-  }
-
+  _$GetDeviceRequest._({required this.deviceKey, this.accessToken}) : super._();
   @override
   GetDeviceRequest rebuild(void Function(GetDeviceRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   GetDeviceRequestBuilder toBuilder() =>
-      new GetDeviceRequestBuilder()..replace(this);
+      GetDeviceRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -77,7 +69,6 @@ class GetDeviceRequestBuilder
 
   @override
   void replace(GetDeviceRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetDeviceRequest;
   }
 
@@ -92,7 +83,7 @@ class GetDeviceRequestBuilder
   _$GetDeviceRequest _build() {
     final _$result =
         _$v ??
-        new _$GetDeviceRequest._(
+        _$GetDeviceRequest._(
           deviceKey: BuiltValueNullFieldError.checkNotNull(
             deviceKey,
             r'GetDeviceRequest',

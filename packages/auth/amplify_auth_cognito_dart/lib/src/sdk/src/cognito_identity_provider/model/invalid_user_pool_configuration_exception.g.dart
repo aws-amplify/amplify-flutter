@@ -16,12 +16,11 @@ class _$InvalidUserPoolConfigurationException
   factory _$InvalidUserPoolConfigurationException([
     void Function(InvalidUserPoolConfigurationExceptionBuilder)? updates,
   ]) =>
-      (new InvalidUserPoolConfigurationExceptionBuilder()..update(updates))
+      (InvalidUserPoolConfigurationExceptionBuilder()..update(updates))
           ._build();
 
   _$InvalidUserPoolConfigurationException._({this.message, this.headers})
     : super._();
-
   @override
   InvalidUserPoolConfigurationException rebuild(
     void Function(InvalidUserPoolConfigurationExceptionBuilder) updates,
@@ -29,7 +28,7 @@ class _$InvalidUserPoolConfigurationException
 
   @override
   InvalidUserPoolConfigurationExceptionBuilder toBuilder() =>
-      new InvalidUserPoolConfigurationExceptionBuilder()..replace(this);
+      InvalidUserPoolConfigurationExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -77,7 +76,6 @@ class InvalidUserPoolConfigurationExceptionBuilder
 
   @override
   void replace(InvalidUserPoolConfigurationException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidUserPoolConfigurationException;
   }
 
@@ -94,7 +92,7 @@ class InvalidUserPoolConfigurationExceptionBuilder
   _$InvalidUserPoolConfigurationException _build() {
     final _$result =
         _$v ??
-        new _$InvalidUserPoolConfigurationException._(
+        _$InvalidUserPoolConfigurationException._(
           message: message,
           headers: headers,
         );

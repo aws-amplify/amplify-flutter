@@ -9,10 +9,9 @@ part of 'confirm_sign_up_response.dart';
 class _$ConfirmSignUpResponse extends ConfirmSignUpResponse {
   factory _$ConfirmSignUpResponse([
     void Function(ConfirmSignUpResponseBuilder)? updates,
-  ]) => (new ConfirmSignUpResponseBuilder()..update(updates))._build();
+  ]) => (ConfirmSignUpResponseBuilder()..update(updates))._build();
 
   _$ConfirmSignUpResponse._() : super._();
-
   @override
   ConfirmSignUpResponse rebuild(
     void Function(ConfirmSignUpResponseBuilder) updates,
@@ -20,7 +19,7 @@ class _$ConfirmSignUpResponse extends ConfirmSignUpResponse {
 
   @override
   ConfirmSignUpResponseBuilder toBuilder() =>
-      new ConfirmSignUpResponseBuilder()..replace(this);
+      ConfirmSignUpResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -42,7 +41,6 @@ class ConfirmSignUpResponseBuilder
 
   @override
   void replace(ConfirmSignUpResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConfirmSignUpResponse;
   }
 
@@ -55,7 +53,7 @@ class ConfirmSignUpResponseBuilder
   ConfirmSignUpResponse build() => _build();
 
   _$ConfirmSignUpResponse _build() {
-    final _$result = _$v ?? new _$ConfirmSignUpResponse._();
+    final _$result = _$v ?? _$ConfirmSignUpResponse._();
     replace(_$result);
     return _$result;
   }

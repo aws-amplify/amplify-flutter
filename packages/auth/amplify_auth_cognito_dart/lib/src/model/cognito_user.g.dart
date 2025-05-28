@@ -25,7 +25,7 @@ class _$CognitoUser extends CognitoUser {
   final BuiltMap<String, String> attributes;
 
   factory _$CognitoUser([void Function(CognitoUserBuilder)? updates]) =>
-      (new CognitoUserBuilder()..update(updates))._build();
+      (CognitoUserBuilder()..update(updates))._build();
 
   _$CognitoUser._({
     this.identityId,
@@ -36,27 +36,13 @@ class _$CognitoUser extends CognitoUser {
     required this.username,
     required this.signInDetails,
     required this.attributes,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(userId, r'CognitoUser', 'userId');
-    BuiltValueNullFieldError.checkNotNull(username, r'CognitoUser', 'username');
-    BuiltValueNullFieldError.checkNotNull(
-      signInDetails,
-      r'CognitoUser',
-      'signInDetails',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      attributes,
-      r'CognitoUser',
-      'attributes',
-    );
-  }
-
+  }) : super._();
   @override
   CognitoUser rebuild(void Function(CognitoUserBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CognitoUserBuilder toBuilder() => new CognitoUserBuilder()..replace(this);
+  CognitoUserBuilder toBuilder() => CognitoUserBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -116,7 +102,7 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
 
   CognitoUserPoolTokensBuilder? _userPoolTokens;
   CognitoUserPoolTokensBuilder get userPoolTokens =>
-      _$this._userPoolTokens ??= new CognitoUserPoolTokensBuilder();
+      _$this._userPoolTokens ??= CognitoUserPoolTokensBuilder();
   set userPoolTokens(CognitoUserPoolTokensBuilder? userPoolTokens) =>
       _$this._userPoolTokens = userPoolTokens;
 
@@ -140,7 +126,7 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
 
   MapBuilder<String, String>? _attributes;
   MapBuilder<String, String> get attributes =>
-      _$this._attributes ??= new MapBuilder<String, String>();
+      _$this._attributes ??= MapBuilder<String, String>();
   set attributes(MapBuilder<String, String>? attributes) =>
       _$this._attributes = attributes;
 
@@ -164,7 +150,6 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
 
   @override
   void replace(CognitoUser other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CognitoUser;
   }
 
@@ -182,7 +167,7 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
     try {
       _$result =
           _$v ??
-          new _$CognitoUser._(
+          _$CognitoUser._(
             identityId: identityId,
             awsCredentials: awsCredentials,
             userPoolTokens: _userPoolTokens?.build(),
@@ -215,7 +200,7 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
         _$failedField = 'attributes';
         attributes.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'CognitoUser',
           _$failedField,
           e.toString(),

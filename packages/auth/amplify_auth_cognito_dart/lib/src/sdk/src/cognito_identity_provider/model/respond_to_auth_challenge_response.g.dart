@@ -18,7 +18,7 @@ class _$RespondToAuthChallengeResponse extends RespondToAuthChallengeResponse {
 
   factory _$RespondToAuthChallengeResponse([
     void Function(RespondToAuthChallengeResponseBuilder)? updates,
-  ]) => (new RespondToAuthChallengeResponseBuilder()..update(updates))._build();
+  ]) => (RespondToAuthChallengeResponseBuilder()..update(updates))._build();
 
   _$RespondToAuthChallengeResponse._({
     this.challengeName,
@@ -26,7 +26,6 @@ class _$RespondToAuthChallengeResponse extends RespondToAuthChallengeResponse {
     this.challengeParameters,
     this.authenticationResult,
   }) : super._();
-
   @override
   RespondToAuthChallengeResponse rebuild(
     void Function(RespondToAuthChallengeResponseBuilder) updates,
@@ -34,7 +33,7 @@ class _$RespondToAuthChallengeResponse extends RespondToAuthChallengeResponse {
 
   @override
   RespondToAuthChallengeResponseBuilder toBuilder() =>
-      new RespondToAuthChallengeResponseBuilder()..replace(this);
+      RespondToAuthChallengeResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -77,14 +76,14 @@ class RespondToAuthChallengeResponseBuilder
 
   _i2.MapBuilder<String, String?>? _challengeParameters;
   _i2.MapBuilder<String, String?> get challengeParameters =>
-      _$this._challengeParameters ??= new _i2.MapBuilder<String, String?>();
+      _$this._challengeParameters ??= _i2.MapBuilder<String, String?>();
   set challengeParameters(
     _i2.MapBuilder<String, String?>? challengeParameters,
   ) => _$this._challengeParameters = challengeParameters;
 
   AuthenticationResultTypeBuilder? _authenticationResult;
   AuthenticationResultTypeBuilder get authenticationResult =>
-      _$this._authenticationResult ??= new AuthenticationResultTypeBuilder();
+      _$this._authenticationResult ??= AuthenticationResultTypeBuilder();
   set authenticationResult(
     AuthenticationResultTypeBuilder? authenticationResult,
   ) => _$this._authenticationResult = authenticationResult;
@@ -105,7 +104,6 @@ class RespondToAuthChallengeResponseBuilder
 
   @override
   void replace(RespondToAuthChallengeResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RespondToAuthChallengeResponse;
   }
 
@@ -122,7 +120,7 @@ class RespondToAuthChallengeResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$RespondToAuthChallengeResponse._(
+          _$RespondToAuthChallengeResponse._(
             challengeName: challengeName,
             session: session,
             challengeParameters: _challengeParameters?.build(),
@@ -136,7 +134,7 @@ class RespondToAuthChallengeResponseBuilder
         _$failedField = 'authenticationResult';
         _authenticationResult?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'RespondToAuthChallengeResponse',
           _$failedField,
           e.toString(),

@@ -27,7 +27,7 @@ class _$SignUpRequest extends SignUpRequest {
   final _i3.BuiltMap<String, String>? clientMetadata;
 
   factory _$SignUpRequest([void Function(SignUpRequestBuilder)? updates]) =>
-      (new SignUpRequestBuilder()..update(updates))._build();
+      (SignUpRequestBuilder()..update(updates))._build();
 
   _$SignUpRequest._({
     required this.clientId,
@@ -39,30 +39,13 @@ class _$SignUpRequest extends SignUpRequest {
     this.analyticsMetadata,
     this.userContextData,
     this.clientMetadata,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      clientId,
-      r'SignUpRequest',
-      'clientId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      username,
-      r'SignUpRequest',
-      'username',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      password,
-      r'SignUpRequest',
-      'password',
-    );
-  }
-
+  }) : super._();
   @override
   SignUpRequest rebuild(void Function(SignUpRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SignUpRequestBuilder toBuilder() => new SignUpRequestBuilder()..replace(this);
+  SignUpRequestBuilder toBuilder() => SignUpRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -118,31 +101,31 @@ class SignUpRequestBuilder
 
   _i3.ListBuilder<AttributeType>? _userAttributes;
   _i3.ListBuilder<AttributeType> get userAttributes =>
-      _$this._userAttributes ??= new _i3.ListBuilder<AttributeType>();
+      _$this._userAttributes ??= _i3.ListBuilder<AttributeType>();
   set userAttributes(_i3.ListBuilder<AttributeType>? userAttributes) =>
       _$this._userAttributes = userAttributes;
 
   _i3.ListBuilder<AttributeType>? _validationData;
   _i3.ListBuilder<AttributeType> get validationData =>
-      _$this._validationData ??= new _i3.ListBuilder<AttributeType>();
+      _$this._validationData ??= _i3.ListBuilder<AttributeType>();
   set validationData(_i3.ListBuilder<AttributeType>? validationData) =>
       _$this._validationData = validationData;
 
   AnalyticsMetadataTypeBuilder? _analyticsMetadata;
   AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+      _$this._analyticsMetadata ??= AnalyticsMetadataTypeBuilder();
   set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -167,7 +150,6 @@ class SignUpRequestBuilder
 
   @override
   void replace(SignUpRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignUpRequest;
   }
 
@@ -184,7 +166,7 @@ class SignUpRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$SignUpRequest._(
+          _$SignUpRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,
               r'SignUpRequest',
@@ -221,7 +203,7 @@ class SignUpRequestBuilder
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'SignUpRequest',
           _$failedField,
           e.toString(),

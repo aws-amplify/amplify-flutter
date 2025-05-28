@@ -16,12 +16,11 @@ class _$InvalidIdentityPoolConfigurationException
   factory _$InvalidIdentityPoolConfigurationException([
     void Function(InvalidIdentityPoolConfigurationExceptionBuilder)? updates,
   ]) =>
-      (new InvalidIdentityPoolConfigurationExceptionBuilder()..update(updates))
+      (InvalidIdentityPoolConfigurationExceptionBuilder()..update(updates))
           ._build();
 
   _$InvalidIdentityPoolConfigurationException._({this.message, this.headers})
     : super._();
-
   @override
   InvalidIdentityPoolConfigurationException rebuild(
     void Function(InvalidIdentityPoolConfigurationExceptionBuilder) updates,
@@ -29,7 +28,7 @@ class _$InvalidIdentityPoolConfigurationException
 
   @override
   InvalidIdentityPoolConfigurationExceptionBuilder toBuilder() =>
-      new InvalidIdentityPoolConfigurationExceptionBuilder()..replace(this);
+      InvalidIdentityPoolConfigurationExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -77,7 +76,6 @@ class InvalidIdentityPoolConfigurationExceptionBuilder
 
   @override
   void replace(InvalidIdentityPoolConfigurationException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidIdentityPoolConfigurationException;
   }
 
@@ -94,7 +92,7 @@ class InvalidIdentityPoolConfigurationExceptionBuilder
   _$InvalidIdentityPoolConfigurationException _build() {
     final _$result =
         _$v ??
-        new _$InvalidIdentityPoolConfigurationException._(
+        _$InvalidIdentityPoolConfigurationException._(
           message: message,
           headers: headers,
         );

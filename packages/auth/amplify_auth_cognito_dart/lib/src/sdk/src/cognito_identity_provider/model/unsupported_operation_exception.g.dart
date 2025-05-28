@@ -14,10 +14,9 @@ class _$UnsupportedOperationException extends UnsupportedOperationException {
 
   factory _$UnsupportedOperationException([
     void Function(UnsupportedOperationExceptionBuilder)? updates,
-  ]) => (new UnsupportedOperationExceptionBuilder()..update(updates))._build();
+  ]) => (UnsupportedOperationExceptionBuilder()..update(updates))._build();
 
   _$UnsupportedOperationException._({this.message, this.headers}) : super._();
-
   @override
   UnsupportedOperationException rebuild(
     void Function(UnsupportedOperationExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$UnsupportedOperationException extends UnsupportedOperationException {
 
   @override
   UnsupportedOperationExceptionBuilder toBuilder() =>
-      new UnsupportedOperationExceptionBuilder()..replace(this);
+      UnsupportedOperationExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class UnsupportedOperationExceptionBuilder
 
   @override
   void replace(UnsupportedOperationException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UnsupportedOperationException;
   }
 
@@ -87,10 +85,7 @@ class UnsupportedOperationExceptionBuilder
   _$UnsupportedOperationException _build() {
     final _$result =
         _$v ??
-        new _$UnsupportedOperationException._(
-          message: message,
-          headers: headers,
-        );
+        _$UnsupportedOperationException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

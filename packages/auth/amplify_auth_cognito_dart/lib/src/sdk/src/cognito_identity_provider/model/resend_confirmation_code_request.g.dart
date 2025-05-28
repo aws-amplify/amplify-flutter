@@ -22,7 +22,7 @@ class _$ResendConfirmationCodeRequest extends ResendConfirmationCodeRequest {
 
   factory _$ResendConfirmationCodeRequest([
     void Function(ResendConfirmationCodeRequestBuilder)? updates,
-  ]) => (new ResendConfirmationCodeRequestBuilder()..update(updates))._build();
+  ]) => (ResendConfirmationCodeRequestBuilder()..update(updates))._build();
 
   _$ResendConfirmationCodeRequest._({
     required this.clientId,
@@ -31,19 +31,7 @@ class _$ResendConfirmationCodeRequest extends ResendConfirmationCodeRequest {
     required this.username,
     this.analyticsMetadata,
     this.clientMetadata,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      clientId,
-      r'ResendConfirmationCodeRequest',
-      'clientId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      username,
-      r'ResendConfirmationCodeRequest',
-      'username',
-    );
-  }
-
+  }) : super._();
   @override
   ResendConfirmationCodeRequest rebuild(
     void Function(ResendConfirmationCodeRequestBuilder) updates,
@@ -51,7 +39,7 @@ class _$ResendConfirmationCodeRequest extends ResendConfirmationCodeRequest {
 
   @override
   ResendConfirmationCodeRequestBuilder toBuilder() =>
-      new ResendConfirmationCodeRequestBuilder()..replace(this);
+      ResendConfirmationCodeRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -97,7 +85,7 @@ class ResendConfirmationCodeRequestBuilder
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
@@ -107,13 +95,13 @@ class ResendConfirmationCodeRequestBuilder
 
   AnalyticsMetadataTypeBuilder? _analyticsMetadata;
   AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+      _$this._analyticsMetadata ??= AnalyticsMetadataTypeBuilder();
   set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -135,7 +123,6 @@ class ResendConfirmationCodeRequestBuilder
 
   @override
   void replace(ResendConfirmationCodeRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResendConfirmationCodeRequest;
   }
 
@@ -152,7 +139,7 @@ class ResendConfirmationCodeRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$ResendConfirmationCodeRequest._(
+          _$ResendConfirmationCodeRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,
               r'ResendConfirmationCodeRequest',
@@ -179,7 +166,7 @@ class ResendConfirmationCodeRequestBuilder
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ResendConfirmationCodeRequest',
           _$failedField,
           e.toString(),

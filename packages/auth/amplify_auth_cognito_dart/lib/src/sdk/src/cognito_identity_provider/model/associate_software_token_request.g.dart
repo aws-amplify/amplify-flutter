@@ -14,11 +14,10 @@ class _$AssociateSoftwareTokenRequest extends AssociateSoftwareTokenRequest {
 
   factory _$AssociateSoftwareTokenRequest([
     void Function(AssociateSoftwareTokenRequestBuilder)? updates,
-  ]) => (new AssociateSoftwareTokenRequestBuilder()..update(updates))._build();
+  ]) => (AssociateSoftwareTokenRequestBuilder()..update(updates))._build();
 
   _$AssociateSoftwareTokenRequest._({this.accessToken, this.session})
     : super._();
-
   @override
   AssociateSoftwareTokenRequest rebuild(
     void Function(AssociateSoftwareTokenRequestBuilder) updates,
@@ -26,7 +25,7 @@ class _$AssociateSoftwareTokenRequest extends AssociateSoftwareTokenRequest {
 
   @override
   AssociateSoftwareTokenRequestBuilder toBuilder() =>
-      new AssociateSoftwareTokenRequestBuilder()..replace(this);
+      AssociateSoftwareTokenRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -76,7 +75,6 @@ class AssociateSoftwareTokenRequestBuilder
 
   @override
   void replace(AssociateSoftwareTokenRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssociateSoftwareTokenRequest;
   }
 
@@ -91,7 +89,7 @@ class AssociateSoftwareTokenRequestBuilder
   _$AssociateSoftwareTokenRequest _build() {
     final _$result =
         _$v ??
-        new _$AssociateSoftwareTokenRequest._(
+        _$AssociateSoftwareTokenRequest._(
           accessToken: accessToken,
           session: session,
         );
