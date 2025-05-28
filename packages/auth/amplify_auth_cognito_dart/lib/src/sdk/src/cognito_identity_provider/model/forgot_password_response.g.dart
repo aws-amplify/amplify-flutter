@@ -12,10 +12,9 @@ class _$ForgotPasswordResponse extends ForgotPasswordResponse {
 
   factory _$ForgotPasswordResponse([
     void Function(ForgotPasswordResponseBuilder)? updates,
-  ]) => (new ForgotPasswordResponseBuilder()..update(updates))._build();
+  ]) => (ForgotPasswordResponseBuilder()..update(updates))._build();
 
   _$ForgotPasswordResponse._({this.codeDeliveryDetails}) : super._();
-
   @override
   ForgotPasswordResponse rebuild(
     void Function(ForgotPasswordResponseBuilder) updates,
@@ -23,7 +22,7 @@ class _$ForgotPasswordResponse extends ForgotPasswordResponse {
 
   @override
   ForgotPasswordResponseBuilder toBuilder() =>
-      new ForgotPasswordResponseBuilder()..replace(this);
+      ForgotPasswordResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,7 +46,7 @@ class ForgotPasswordResponseBuilder
 
   CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
   CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
+      _$this._codeDeliveryDetails ??= CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
     CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
   ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
@@ -65,7 +64,6 @@ class ForgotPasswordResponseBuilder
 
   @override
   void replace(ForgotPasswordResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ForgotPasswordResponse;
   }
 
@@ -82,7 +80,7 @@ class ForgotPasswordResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$ForgotPasswordResponse._(
+          _$ForgotPasswordResponse._(
             codeDeliveryDetails: _codeDeliveryDetails?.build(),
           );
     } catch (_) {
@@ -91,7 +89,7 @@ class ForgotPasswordResponseBuilder
         _$failedField = 'codeDeliveryDetails';
         _codeDeliveryDetails?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ForgotPasswordResponse',
           _$failedField,
           e.toString(),

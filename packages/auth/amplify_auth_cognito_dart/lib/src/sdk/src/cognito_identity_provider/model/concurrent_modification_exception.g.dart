@@ -15,11 +15,9 @@ class _$ConcurrentModificationException
 
   factory _$ConcurrentModificationException([
     void Function(ConcurrentModificationExceptionBuilder)? updates,
-  ]) =>
-      (new ConcurrentModificationExceptionBuilder()..update(updates))._build();
+  ]) => (ConcurrentModificationExceptionBuilder()..update(updates))._build();
 
   _$ConcurrentModificationException._({this.message, this.headers}) : super._();
-
   @override
   ConcurrentModificationException rebuild(
     void Function(ConcurrentModificationExceptionBuilder) updates,
@@ -27,7 +25,7 @@ class _$ConcurrentModificationException
 
   @override
   ConcurrentModificationExceptionBuilder toBuilder() =>
-      new ConcurrentModificationExceptionBuilder()..replace(this);
+      ConcurrentModificationExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +72,6 @@ class ConcurrentModificationExceptionBuilder
 
   @override
   void replace(ConcurrentModificationException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConcurrentModificationException;
   }
 
@@ -89,10 +86,7 @@ class ConcurrentModificationExceptionBuilder
   _$ConcurrentModificationException _build() {
     final _$result =
         _$v ??
-        new _$ConcurrentModificationException._(
-          message: message,
-          headers: headers,
-        );
+        _$ConcurrentModificationException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

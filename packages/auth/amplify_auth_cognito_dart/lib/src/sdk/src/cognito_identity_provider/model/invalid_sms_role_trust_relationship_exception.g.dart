@@ -16,12 +16,11 @@ class _$InvalidSmsRoleTrustRelationshipException
   factory _$InvalidSmsRoleTrustRelationshipException([
     void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder)? updates,
   ]) =>
-      (new InvalidSmsRoleTrustRelationshipExceptionBuilder()..update(updates))
+      (InvalidSmsRoleTrustRelationshipExceptionBuilder()..update(updates))
           ._build();
 
   _$InvalidSmsRoleTrustRelationshipException._({this.message, this.headers})
     : super._();
-
   @override
   InvalidSmsRoleTrustRelationshipException rebuild(
     void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder) updates,
@@ -29,7 +28,7 @@ class _$InvalidSmsRoleTrustRelationshipException
 
   @override
   InvalidSmsRoleTrustRelationshipExceptionBuilder toBuilder() =>
-      new InvalidSmsRoleTrustRelationshipExceptionBuilder()..replace(this);
+      InvalidSmsRoleTrustRelationshipExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -77,7 +76,6 @@ class InvalidSmsRoleTrustRelationshipExceptionBuilder
 
   @override
   void replace(InvalidSmsRoleTrustRelationshipException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidSmsRoleTrustRelationshipException;
   }
 
@@ -94,7 +92,7 @@ class InvalidSmsRoleTrustRelationshipExceptionBuilder
   _$InvalidSmsRoleTrustRelationshipException _build() {
     final _$result =
         _$v ??
-        new _$InvalidSmsRoleTrustRelationshipException._(
+        _$InvalidSmsRoleTrustRelationshipException._(
           message: message,
           headers: headers,
         );

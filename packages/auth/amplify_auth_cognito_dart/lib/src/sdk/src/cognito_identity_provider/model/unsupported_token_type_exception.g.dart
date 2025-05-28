@@ -14,10 +14,9 @@ class _$UnsupportedTokenTypeException extends UnsupportedTokenTypeException {
 
   factory _$UnsupportedTokenTypeException([
     void Function(UnsupportedTokenTypeExceptionBuilder)? updates,
-  ]) => (new UnsupportedTokenTypeExceptionBuilder()..update(updates))._build();
+  ]) => (UnsupportedTokenTypeExceptionBuilder()..update(updates))._build();
 
   _$UnsupportedTokenTypeException._({this.message, this.headers}) : super._();
-
   @override
   UnsupportedTokenTypeException rebuild(
     void Function(UnsupportedTokenTypeExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$UnsupportedTokenTypeException extends UnsupportedTokenTypeException {
 
   @override
   UnsupportedTokenTypeExceptionBuilder toBuilder() =>
-      new UnsupportedTokenTypeExceptionBuilder()..replace(this);
+      UnsupportedTokenTypeExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class UnsupportedTokenTypeExceptionBuilder
 
   @override
   void replace(UnsupportedTokenTypeException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UnsupportedTokenTypeException;
   }
 
@@ -87,10 +85,7 @@ class UnsupportedTokenTypeExceptionBuilder
   _$UnsupportedTokenTypeException _build() {
     final _$result =
         _$v ??
-        new _$UnsupportedTokenTypeException._(
-          message: message,
-          headers: headers,
-        );
+        _$UnsupportedTokenTypeException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

@@ -16,12 +16,11 @@ class _$InvalidEmailRoleAccessPolicyException
   factory _$InvalidEmailRoleAccessPolicyException([
     void Function(InvalidEmailRoleAccessPolicyExceptionBuilder)? updates,
   ]) =>
-      (new InvalidEmailRoleAccessPolicyExceptionBuilder()..update(updates))
+      (InvalidEmailRoleAccessPolicyExceptionBuilder()..update(updates))
           ._build();
 
   _$InvalidEmailRoleAccessPolicyException._({this.message, this.headers})
     : super._();
-
   @override
   InvalidEmailRoleAccessPolicyException rebuild(
     void Function(InvalidEmailRoleAccessPolicyExceptionBuilder) updates,
@@ -29,7 +28,7 @@ class _$InvalidEmailRoleAccessPolicyException
 
   @override
   InvalidEmailRoleAccessPolicyExceptionBuilder toBuilder() =>
-      new InvalidEmailRoleAccessPolicyExceptionBuilder()..replace(this);
+      InvalidEmailRoleAccessPolicyExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -77,7 +76,6 @@ class InvalidEmailRoleAccessPolicyExceptionBuilder
 
   @override
   void replace(InvalidEmailRoleAccessPolicyException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidEmailRoleAccessPolicyException;
   }
 
@@ -94,7 +92,7 @@ class InvalidEmailRoleAccessPolicyExceptionBuilder
   _$InvalidEmailRoleAccessPolicyException _build() {
     final _$result =
         _$v ??
-        new _$InvalidEmailRoleAccessPolicyException._(
+        _$InvalidEmailRoleAccessPolicyException._(
           message: message,
           headers: headers,
         );

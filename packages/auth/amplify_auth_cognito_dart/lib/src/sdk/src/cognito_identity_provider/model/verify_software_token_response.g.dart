@@ -14,10 +14,9 @@ class _$VerifySoftwareTokenResponse extends VerifySoftwareTokenResponse {
 
   factory _$VerifySoftwareTokenResponse([
     void Function(VerifySoftwareTokenResponseBuilder)? updates,
-  ]) => (new VerifySoftwareTokenResponseBuilder()..update(updates))._build();
+  ]) => (VerifySoftwareTokenResponseBuilder()..update(updates))._build();
 
   _$VerifySoftwareTokenResponse._({this.status, this.session}) : super._();
-
   @override
   VerifySoftwareTokenResponse rebuild(
     void Function(VerifySoftwareTokenResponseBuilder) updates,
@@ -25,7 +24,7 @@ class _$VerifySoftwareTokenResponse extends VerifySoftwareTokenResponse {
 
   @override
   VerifySoftwareTokenResponseBuilder toBuilder() =>
-      new VerifySoftwareTokenResponseBuilder()..replace(this);
+      VerifySoftwareTokenResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -76,7 +75,6 @@ class VerifySoftwareTokenResponseBuilder
 
   @override
   void replace(VerifySoftwareTokenResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$VerifySoftwareTokenResponse;
   }
 
@@ -91,7 +89,7 @@ class VerifySoftwareTokenResponseBuilder
   _$VerifySoftwareTokenResponse _build() {
     final _$result =
         _$v ??
-        new _$VerifySoftwareTokenResponse._(status: status, session: session);
+        _$VerifySoftwareTokenResponse._(status: status, session: session);
     replace(_$result);
     return _$result;
   }

@@ -22,7 +22,7 @@ class _$AuthenticationResultType extends AuthenticationResultType {
 
   factory _$AuthenticationResultType([
     void Function(AuthenticationResultTypeBuilder)? updates,
-  ]) => (new AuthenticationResultTypeBuilder()..update(updates))._build();
+  ]) => (AuthenticationResultTypeBuilder()..update(updates))._build();
 
   _$AuthenticationResultType._({
     this.accessToken,
@@ -31,14 +31,7 @@ class _$AuthenticationResultType extends AuthenticationResultType {
     this.refreshToken,
     this.idToken,
     this.newDeviceMetadata,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      expiresIn,
-      r'AuthenticationResultType',
-      'expiresIn',
-    );
-  }
-
+  }) : super._();
   @override
   AuthenticationResultType rebuild(
     void Function(AuthenticationResultTypeBuilder) updates,
@@ -46,7 +39,7 @@ class _$AuthenticationResultType extends AuthenticationResultType {
 
   @override
   AuthenticationResultTypeBuilder toBuilder() =>
-      new AuthenticationResultTypeBuilder()..replace(this);
+      AuthenticationResultTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,7 +94,7 @@ class AuthenticationResultTypeBuilder
 
   NewDeviceMetadataTypeBuilder? _newDeviceMetadata;
   NewDeviceMetadataTypeBuilder get newDeviceMetadata =>
-      _$this._newDeviceMetadata ??= new NewDeviceMetadataTypeBuilder();
+      _$this._newDeviceMetadata ??= NewDeviceMetadataTypeBuilder();
   set newDeviceMetadata(NewDeviceMetadataTypeBuilder? newDeviceMetadata) =>
       _$this._newDeviceMetadata = newDeviceMetadata;
 
@@ -125,7 +118,6 @@ class AuthenticationResultTypeBuilder
 
   @override
   void replace(AuthenticationResultType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AuthenticationResultType;
   }
 
@@ -142,7 +134,7 @@ class AuthenticationResultTypeBuilder
     try {
       _$result =
           _$v ??
-          new _$AuthenticationResultType._(
+          _$AuthenticationResultType._(
             accessToken: accessToken,
             expiresIn: BuiltValueNullFieldError.checkNotNull(
               expiresIn,
@@ -160,7 +152,7 @@ class AuthenticationResultTypeBuilder
         _$failedField = 'newDeviceMetadata';
         _newDeviceMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'AuthenticationResultType',
           _$failedField,
           e.toString(),

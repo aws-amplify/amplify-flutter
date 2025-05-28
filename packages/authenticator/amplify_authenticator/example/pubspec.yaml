@@ -33,6 +33,7 @@ dependencies:
   #
   # See https://flutter.dev/docs/development/accessibility-and-localization/internationalization
   # for more information.
+  flutter_gen: ^5.10.0
   flutter_localizations:
     sdk: flutter
 

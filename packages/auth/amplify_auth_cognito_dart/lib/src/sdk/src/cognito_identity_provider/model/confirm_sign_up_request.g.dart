@@ -26,7 +26,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
 
   factory _$ConfirmSignUpRequest([
     void Function(ConfirmSignUpRequestBuilder)? updates,
-  ]) => (new ConfirmSignUpRequestBuilder()..update(updates))._build();
+  ]) => (ConfirmSignUpRequestBuilder()..update(updates))._build();
 
   _$ConfirmSignUpRequest._({
     required this.clientId,
@@ -37,29 +37,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
     this.analyticsMetadata,
     this.userContextData,
     this.clientMetadata,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      clientId,
-      r'ConfirmSignUpRequest',
-      'clientId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      username,
-      r'ConfirmSignUpRequest',
-      'username',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      confirmationCode,
-      r'ConfirmSignUpRequest',
-      'confirmationCode',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      forceAliasCreation,
-      r'ConfirmSignUpRequest',
-      'forceAliasCreation',
-    );
-  }
-
+  }) : super._();
   @override
   ConfirmSignUpRequest rebuild(
     void Function(ConfirmSignUpRequestBuilder) updates,
@@ -67,7 +45,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
 
   @override
   ConfirmSignUpRequestBuilder toBuilder() =>
-      new ConfirmSignUpRequestBuilder()..replace(this);
+      ConfirmSignUpRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -127,19 +105,19 @@ class ConfirmSignUpRequestBuilder
 
   AnalyticsMetadataTypeBuilder? _analyticsMetadata;
   AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+      _$this._analyticsMetadata ??= AnalyticsMetadataTypeBuilder();
   set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -165,7 +143,6 @@ class ConfirmSignUpRequestBuilder
 
   @override
   void replace(ConfirmSignUpRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConfirmSignUpRequest;
   }
 
@@ -182,7 +159,7 @@ class ConfirmSignUpRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$ConfirmSignUpRequest._(
+          _$ConfirmSignUpRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,
               r'ConfirmSignUpRequest',
@@ -218,7 +195,7 @@ class ConfirmSignUpRequestBuilder
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ConfirmSignUpRequest',
           _$failedField,
           e.toString(),

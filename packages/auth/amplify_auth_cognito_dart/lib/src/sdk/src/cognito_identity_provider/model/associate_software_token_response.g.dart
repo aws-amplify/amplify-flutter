@@ -14,11 +14,10 @@ class _$AssociateSoftwareTokenResponse extends AssociateSoftwareTokenResponse {
 
   factory _$AssociateSoftwareTokenResponse([
     void Function(AssociateSoftwareTokenResponseBuilder)? updates,
-  ]) => (new AssociateSoftwareTokenResponseBuilder()..update(updates))._build();
+  ]) => (AssociateSoftwareTokenResponseBuilder()..update(updates))._build();
 
   _$AssociateSoftwareTokenResponse._({this.secretCode, this.session})
     : super._();
-
   @override
   AssociateSoftwareTokenResponse rebuild(
     void Function(AssociateSoftwareTokenResponseBuilder) updates,
@@ -26,7 +25,7 @@ class _$AssociateSoftwareTokenResponse extends AssociateSoftwareTokenResponse {
 
   @override
   AssociateSoftwareTokenResponseBuilder toBuilder() =>
-      new AssociateSoftwareTokenResponseBuilder()..replace(this);
+      AssociateSoftwareTokenResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -76,7 +75,6 @@ class AssociateSoftwareTokenResponseBuilder
 
   @override
   void replace(AssociateSoftwareTokenResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssociateSoftwareTokenResponse;
   }
 
@@ -91,7 +89,7 @@ class AssociateSoftwareTokenResponseBuilder
   _$AssociateSoftwareTokenResponse _build() {
     final _$result =
         _$v ??
-        new _$AssociateSoftwareTokenResponse._(
+        _$AssociateSoftwareTokenResponse._(
           secretCode: secretCode,
           session: session,
         );

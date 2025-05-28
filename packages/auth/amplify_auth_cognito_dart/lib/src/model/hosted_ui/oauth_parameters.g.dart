@@ -82,12 +82,12 @@ OAuthErrorCode _$valueOf(String name) {
     case 'registrationUriNotSupported':
       return _$registrationUriNotSupported;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<OAuthErrorCode> _$values =
-    new BuiltSet<OAuthErrorCode>(const <OAuthErrorCode>[
+    BuiltSet<OAuthErrorCode>(const <OAuthErrorCode>[
       _$invalidRequest,
       _$unauthorizedClient,
       _$accessDenied,
@@ -107,14 +107,14 @@ final BuiltSet<OAuthErrorCode> _$values =
     ]);
 
 Serializers _$oauthSerializers =
-    (new Serializers().toBuilder()
+    (Serializers().toBuilder()
           ..add(OAuthErrorCode.serializer)
           ..add(OAuthParameters.serializer))
         .build();
 Serializer<OAuthErrorCode> _$oAuthErrorCodeSerializer =
-    new _$OAuthErrorCodeSerializer();
+    _$OAuthErrorCodeSerializer();
 Serializer<OAuthParameters> _$oAuthParametersSerializer =
-    new _$OAuthParametersSerializer();
+    _$OAuthParametersSerializer();
 
 class _$OAuthErrorCodeSerializer
     implements PrimitiveSerializer<OAuthErrorCode> {
@@ -242,7 +242,7 @@ class _$OAuthParametersSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new OAuthParametersBuilder();
+    final result = OAuthParametersBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -310,7 +310,7 @@ class _$OAuthParameters extends OAuthParameters {
   final String? errorUri;
 
   factory _$OAuthParameters([void Function(OAuthParametersBuilder)? updates]) =>
-      (new OAuthParametersBuilder()..update(updates))._build();
+      (OAuthParametersBuilder()..update(updates))._build();
 
   _$OAuthParameters._({
     required this.state,
@@ -318,17 +318,13 @@ class _$OAuthParameters extends OAuthParameters {
     this.error,
     this.errorDescription,
     this.errorUri,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(state, r'OAuthParameters', 'state');
-  }
-
+  }) : super._();
   @override
   OAuthParameters rebuild(void Function(OAuthParametersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  OAuthParametersBuilder toBuilder() =>
-      new OAuthParametersBuilder()..replace(this);
+  OAuthParametersBuilder toBuilder() => OAuthParametersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -407,7 +403,6 @@ class OAuthParametersBuilder
 
   @override
   void replace(OAuthParameters other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OAuthParameters;
   }
 
@@ -423,7 +418,7 @@ class OAuthParametersBuilder
     OAuthParameters._finalize(this);
     final _$result =
         _$v ??
-        new _$OAuthParameters._(
+        _$OAuthParameters._(
           state: BuiltValueNullFieldError.checkNotNull(
             state,
             r'OAuthParameters',
