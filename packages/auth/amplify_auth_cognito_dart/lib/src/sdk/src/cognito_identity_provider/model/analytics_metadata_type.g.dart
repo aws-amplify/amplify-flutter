@@ -12,10 +12,9 @@ class _$AnalyticsMetadataType extends AnalyticsMetadataType {
 
   factory _$AnalyticsMetadataType([
     void Function(AnalyticsMetadataTypeBuilder)? updates,
-  ]) => (new AnalyticsMetadataTypeBuilder()..update(updates))._build();
+  ]) => (AnalyticsMetadataTypeBuilder()..update(updates))._build();
 
   _$AnalyticsMetadataType._({this.analyticsEndpointId}) : super._();
-
   @override
   AnalyticsMetadataType rebuild(
     void Function(AnalyticsMetadataTypeBuilder) updates,
@@ -23,7 +22,7 @@ class _$AnalyticsMetadataType extends AnalyticsMetadataType {
 
   @override
   AnalyticsMetadataTypeBuilder toBuilder() =>
-      new AnalyticsMetadataTypeBuilder()..replace(this);
+      AnalyticsMetadataTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -63,7 +62,6 @@ class AnalyticsMetadataTypeBuilder
 
   @override
   void replace(AnalyticsMetadataType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AnalyticsMetadataType;
   }
 
@@ -78,7 +76,7 @@ class AnalyticsMetadataTypeBuilder
   _$AnalyticsMetadataType _build() {
     final _$result =
         _$v ??
-        new _$AnalyticsMetadataType._(analyticsEndpointId: analyticsEndpointId);
+        _$AnalyticsMetadataType._(analyticsEndpointId: analyticsEndpointId);
     replace(_$result);
     return _$result;
   }

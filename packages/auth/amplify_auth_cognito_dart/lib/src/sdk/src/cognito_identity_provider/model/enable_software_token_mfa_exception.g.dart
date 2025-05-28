@@ -15,11 +15,9 @@ class _$EnableSoftwareTokenMfaException
 
   factory _$EnableSoftwareTokenMfaException([
     void Function(EnableSoftwareTokenMfaExceptionBuilder)? updates,
-  ]) =>
-      (new EnableSoftwareTokenMfaExceptionBuilder()..update(updates))._build();
+  ]) => (EnableSoftwareTokenMfaExceptionBuilder()..update(updates))._build();
 
   _$EnableSoftwareTokenMfaException._({this.message, this.headers}) : super._();
-
   @override
   EnableSoftwareTokenMfaException rebuild(
     void Function(EnableSoftwareTokenMfaExceptionBuilder) updates,
@@ -27,7 +25,7 @@ class _$EnableSoftwareTokenMfaException
 
   @override
   EnableSoftwareTokenMfaExceptionBuilder toBuilder() =>
-      new EnableSoftwareTokenMfaExceptionBuilder()..replace(this);
+      EnableSoftwareTokenMfaExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +72,6 @@ class EnableSoftwareTokenMfaExceptionBuilder
 
   @override
   void replace(EnableSoftwareTokenMfaException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EnableSoftwareTokenMfaException;
   }
 
@@ -89,10 +86,7 @@ class EnableSoftwareTokenMfaExceptionBuilder
   _$EnableSoftwareTokenMfaException _build() {
     final _$result =
         _$v ??
-        new _$EnableSoftwareTokenMfaException._(
-          message: message,
-          headers: headers,
-        );
+        _$EnableSoftwareTokenMfaException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

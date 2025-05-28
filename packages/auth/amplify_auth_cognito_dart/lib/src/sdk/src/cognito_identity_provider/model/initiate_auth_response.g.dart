@@ -18,7 +18,7 @@ class _$InitiateAuthResponse extends InitiateAuthResponse {
 
   factory _$InitiateAuthResponse([
     void Function(InitiateAuthResponseBuilder)? updates,
-  ]) => (new InitiateAuthResponseBuilder()..update(updates))._build();
+  ]) => (InitiateAuthResponseBuilder()..update(updates))._build();
 
   _$InitiateAuthResponse._({
     this.challengeName,
@@ -26,7 +26,6 @@ class _$InitiateAuthResponse extends InitiateAuthResponse {
     this.challengeParameters,
     this.authenticationResult,
   }) : super._();
-
   @override
   InitiateAuthResponse rebuild(
     void Function(InitiateAuthResponseBuilder) updates,
@@ -34,7 +33,7 @@ class _$InitiateAuthResponse extends InitiateAuthResponse {
 
   @override
   InitiateAuthResponseBuilder toBuilder() =>
-      new InitiateAuthResponseBuilder()..replace(this);
+      InitiateAuthResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -73,14 +72,14 @@ class InitiateAuthResponseBuilder
 
   _i2.MapBuilder<String, String?>? _challengeParameters;
   _i2.MapBuilder<String, String?> get challengeParameters =>
-      _$this._challengeParameters ??= new _i2.MapBuilder<String, String?>();
+      _$this._challengeParameters ??= _i2.MapBuilder<String, String?>();
   set challengeParameters(
     _i2.MapBuilder<String, String?>? challengeParameters,
   ) => _$this._challengeParameters = challengeParameters;
 
   AuthenticationResultTypeBuilder? _authenticationResult;
   AuthenticationResultTypeBuilder get authenticationResult =>
-      _$this._authenticationResult ??= new AuthenticationResultTypeBuilder();
+      _$this._authenticationResult ??= AuthenticationResultTypeBuilder();
   set authenticationResult(
     AuthenticationResultTypeBuilder? authenticationResult,
   ) => _$this._authenticationResult = authenticationResult;
@@ -101,7 +100,6 @@ class InitiateAuthResponseBuilder
 
   @override
   void replace(InitiateAuthResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InitiateAuthResponse;
   }
 
@@ -118,7 +116,7 @@ class InitiateAuthResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$InitiateAuthResponse._(
+          _$InitiateAuthResponse._(
             challengeName: challengeName,
             session: session,
             challengeParameters: _challengeParameters?.build(),
@@ -132,7 +130,7 @@ class InitiateAuthResponseBuilder
         _$failedField = 'authenticationResult';
         _authenticationResult?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'InitiateAuthResponse',
           _$failedField,
           e.toString(),

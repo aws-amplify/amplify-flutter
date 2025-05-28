@@ -7,7 +7,7 @@ part of 'srp_init_result.dart';
 // **************************************************************************
 
 Serializer<SrpInitResult> _$srpInitResultSerializer =
-    new _$SrpInitResultSerializer();
+    _$SrpInitResultSerializer();
 
 class _$SrpInitResultSerializer implements StructuredSerializer<SrpInitResult> {
   @override
@@ -43,7 +43,7 @@ class _$SrpInitResultSerializer implements StructuredSerializer<SrpInitResult> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new SrpInitResultBuilder();
+    final result = SrpInitResultBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -81,24 +81,16 @@ class _$SrpInitResult extends SrpInitResult {
   final BigInt publicA;
 
   factory _$SrpInitResult([void Function(SrpInitResultBuilder)? updates]) =>
-      (new SrpInitResultBuilder()..update(updates))._build();
+      (SrpInitResultBuilder()..update(updates))._build();
 
   _$SrpInitResult._({required this.privateA, required this.publicA})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      privateA,
-      r'SrpInitResult',
-      'privateA',
-    );
-    BuiltValueNullFieldError.checkNotNull(publicA, r'SrpInitResult', 'publicA');
-  }
-
+    : super._();
   @override
   SrpInitResult rebuild(void Function(SrpInitResultBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SrpInitResultBuilder toBuilder() => new SrpInitResultBuilder()..replace(this);
+  SrpInitResultBuilder toBuilder() => SrpInitResultBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -152,7 +144,6 @@ class SrpInitResultBuilder
 
   @override
   void replace(SrpInitResult other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SrpInitResult;
   }
 
@@ -167,7 +158,7 @@ class SrpInitResultBuilder
   _$SrpInitResult _build() {
     final _$result =
         _$v ??
-        new _$SrpInitResult._(
+        _$SrpInitResult._(
           privateA: BuiltValueNullFieldError.checkNotNull(
             privateA,
             r'SrpInitResult',

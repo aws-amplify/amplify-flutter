@@ -16,12 +16,12 @@ CognitoSignInMethod _$CognitoSignInMethodValueOf(String name) {
     case 'hostedUi':
       return _$hostedUi;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<CognitoSignInMethod> _$CognitoSignInMethodValues =
-    new BuiltSet<CognitoSignInMethod>(const <CognitoSignInMethod>[
+    BuiltSet<CognitoSignInMethod>(const <CognitoSignInMethod>[
       _$default$,
       _$hostedUi,
     ]);

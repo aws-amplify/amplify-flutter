@@ -16,20 +16,13 @@ class _$GetCredentialsForIdentityInput extends GetCredentialsForIdentityInput {
 
   factory _$GetCredentialsForIdentityInput([
     void Function(GetCredentialsForIdentityInputBuilder)? updates,
-  ]) => (new GetCredentialsForIdentityInputBuilder()..update(updates))._build();
+  ]) => (GetCredentialsForIdentityInputBuilder()..update(updates))._build();
 
   _$GetCredentialsForIdentityInput._({
     required this.identityId,
     this.logins,
     this.customRoleArn,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      identityId,
-      r'GetCredentialsForIdentityInput',
-      'identityId',
-    );
-  }
-
+  }) : super._();
   @override
   GetCredentialsForIdentityInput rebuild(
     void Function(GetCredentialsForIdentityInputBuilder) updates,
@@ -37,7 +30,7 @@ class _$GetCredentialsForIdentityInput extends GetCredentialsForIdentityInput {
 
   @override
   GetCredentialsForIdentityInputBuilder toBuilder() =>
-      new GetCredentialsForIdentityInputBuilder()..replace(this);
+      GetCredentialsForIdentityInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -73,7 +66,7 @@ class GetCredentialsForIdentityInputBuilder
 
   _i3.MapBuilder<String, String>? _logins;
   _i3.MapBuilder<String, String> get logins =>
-      _$this._logins ??= new _i3.MapBuilder<String, String>();
+      _$this._logins ??= _i3.MapBuilder<String, String>();
   set logins(_i3.MapBuilder<String, String>? logins) => _$this._logins = logins;
 
   String? _customRoleArn;
@@ -96,7 +89,6 @@ class GetCredentialsForIdentityInputBuilder
 
   @override
   void replace(GetCredentialsForIdentityInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetCredentialsForIdentityInput;
   }
 
@@ -113,7 +105,7 @@ class GetCredentialsForIdentityInputBuilder
     try {
       _$result =
           _$v ??
-          new _$GetCredentialsForIdentityInput._(
+          _$GetCredentialsForIdentityInput._(
             identityId: BuiltValueNullFieldError.checkNotNull(
               identityId,
               r'GetCredentialsForIdentityInput',
@@ -128,7 +120,7 @@ class GetCredentialsForIdentityInputBuilder
         _$failedField = 'logins';
         _logins?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'GetCredentialsForIdentityInput',
           _$failedField,
           e.toString(),

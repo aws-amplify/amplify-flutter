@@ -12,10 +12,9 @@ class _$UpdateUserAttributesResponse extends UpdateUserAttributesResponse {
 
   factory _$UpdateUserAttributesResponse([
     void Function(UpdateUserAttributesResponseBuilder)? updates,
-  ]) => (new UpdateUserAttributesResponseBuilder()..update(updates))._build();
+  ]) => (UpdateUserAttributesResponseBuilder()..update(updates))._build();
 
   _$UpdateUserAttributesResponse._({this.codeDeliveryDetailsList}) : super._();
-
   @override
   UpdateUserAttributesResponse rebuild(
     void Function(UpdateUserAttributesResponseBuilder) updates,
@@ -23,7 +22,7 @@ class _$UpdateUserAttributesResponse extends UpdateUserAttributesResponse {
 
   @override
   UpdateUserAttributesResponseBuilder toBuilder() =>
-      new UpdateUserAttributesResponseBuilder()..replace(this);
+      UpdateUserAttributesResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -52,7 +51,7 @@ class UpdateUserAttributesResponseBuilder
   _i2.ListBuilder<CodeDeliveryDetailsType>? _codeDeliveryDetailsList;
   _i2.ListBuilder<CodeDeliveryDetailsType> get codeDeliveryDetailsList =>
       _$this._codeDeliveryDetailsList ??=
-          new _i2.ListBuilder<CodeDeliveryDetailsType>();
+          _i2.ListBuilder<CodeDeliveryDetailsType>();
   set codeDeliveryDetailsList(
     _i2.ListBuilder<CodeDeliveryDetailsType>? codeDeliveryDetailsList,
   ) => _$this._codeDeliveryDetailsList = codeDeliveryDetailsList;
@@ -70,7 +69,6 @@ class UpdateUserAttributesResponseBuilder
 
   @override
   void replace(UpdateUserAttributesResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateUserAttributesResponse;
   }
 
@@ -87,7 +85,7 @@ class UpdateUserAttributesResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$UpdateUserAttributesResponse._(
+          _$UpdateUserAttributesResponse._(
             codeDeliveryDetailsList: _codeDeliveryDetailsList?.build(),
           );
     } catch (_) {
@@ -96,7 +94,7 @@ class UpdateUserAttributesResponseBuilder
         _$failedField = 'codeDeliveryDetailsList';
         _codeDeliveryDetailsList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'UpdateUserAttributesResponse',
           _$failedField,
           e.toString(),

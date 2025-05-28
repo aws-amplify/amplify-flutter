@@ -7,7 +7,7 @@ part of 'asf_context_data.dart';
 // **************************************************************************
 
 Serializer<ASFContextData> _$aSFContextDataSerializer =
-    new _$ASFContextDataSerializer();
+    _$ASFContextDataSerializer();
 
 class _$ASFContextDataSerializer
     implements StructuredSerializer<ASFContextData> {
@@ -109,7 +109,7 @@ class _$ASFContextDataSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ASFContextDataBuilder();
+    final result = ASFContextDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -221,7 +221,7 @@ class _$ASFContextData extends ASFContextData {
   final int? screenWidthPixels;
 
   factory _$ASFContextData([void Function(ASFContextDataBuilder)? updates]) =>
-      (new ASFContextDataBuilder()..update(updates))._build();
+      (ASFContextDataBuilder()..update(updates))._build();
 
   _$ASFContextData._({
     this.deviceName,
@@ -235,14 +235,12 @@ class _$ASFContextData extends ASFContextData {
     this.screenHeightPixels,
     this.screenWidthPixels,
   }) : super._();
-
   @override
   ASFContextData rebuild(void Function(ASFContextDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ASFContextDataBuilder toBuilder() =>
-      new ASFContextDataBuilder()..replace(this);
+  ASFContextDataBuilder toBuilder() => ASFContextDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -369,7 +367,6 @@ class ASFContextDataBuilder
 
   @override
   void replace(ASFContextData other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ASFContextData;
   }
 
@@ -384,7 +381,7 @@ class ASFContextDataBuilder
   _$ASFContextData _build() {
     final _$result =
         _$v ??
-        new _$ASFContextData._(
+        _$ASFContextData._(
           deviceName: deviceName,
           thirdPartyDeviceId: thirdPartyDeviceId,
           deviceFingerprint: deviceFingerprint,

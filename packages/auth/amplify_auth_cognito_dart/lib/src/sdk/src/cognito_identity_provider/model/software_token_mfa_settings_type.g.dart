@@ -14,24 +14,12 @@ class _$SoftwareTokenMfaSettingsType extends SoftwareTokenMfaSettingsType {
 
   factory _$SoftwareTokenMfaSettingsType([
     void Function(SoftwareTokenMfaSettingsTypeBuilder)? updates,
-  ]) => (new SoftwareTokenMfaSettingsTypeBuilder()..update(updates))._build();
+  ]) => (SoftwareTokenMfaSettingsTypeBuilder()..update(updates))._build();
 
   _$SoftwareTokenMfaSettingsType._({
     required this.enabled,
     required this.preferredMfa,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      enabled,
-      r'SoftwareTokenMfaSettingsType',
-      'enabled',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      preferredMfa,
-      r'SoftwareTokenMfaSettingsType',
-      'preferredMfa',
-    );
-  }
-
+  }) : super._();
   @override
   SoftwareTokenMfaSettingsType rebuild(
     void Function(SoftwareTokenMfaSettingsTypeBuilder) updates,
@@ -39,7 +27,7 @@ class _$SoftwareTokenMfaSettingsType extends SoftwareTokenMfaSettingsType {
 
   @override
   SoftwareTokenMfaSettingsTypeBuilder toBuilder() =>
-      new SoftwareTokenMfaSettingsTypeBuilder()..replace(this);
+      SoftwareTokenMfaSettingsTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -91,7 +79,6 @@ class SoftwareTokenMfaSettingsTypeBuilder
 
   @override
   void replace(SoftwareTokenMfaSettingsType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SoftwareTokenMfaSettingsType;
   }
 
@@ -106,7 +93,7 @@ class SoftwareTokenMfaSettingsTypeBuilder
   _$SoftwareTokenMfaSettingsType _build() {
     final _$result =
         _$v ??
-        new _$SoftwareTokenMfaSettingsType._(
+        _$SoftwareTokenMfaSettingsType._(
           enabled: BuiltValueNullFieldError.checkNotNull(
             enabled,
             r'SoftwareTokenMfaSettingsType',

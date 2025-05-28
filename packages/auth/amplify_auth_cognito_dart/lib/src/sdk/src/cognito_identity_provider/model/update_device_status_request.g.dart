@@ -16,25 +16,13 @@ class _$UpdateDeviceStatusRequest extends UpdateDeviceStatusRequest {
 
   factory _$UpdateDeviceStatusRequest([
     void Function(UpdateDeviceStatusRequestBuilder)? updates,
-  ]) => (new UpdateDeviceStatusRequestBuilder()..update(updates))._build();
+  ]) => (UpdateDeviceStatusRequestBuilder()..update(updates))._build();
 
   _$UpdateDeviceStatusRequest._({
     required this.accessToken,
     required this.deviceKey,
     this.deviceRememberedStatus,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      accessToken,
-      r'UpdateDeviceStatusRequest',
-      'accessToken',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      deviceKey,
-      r'UpdateDeviceStatusRequest',
-      'deviceKey',
-    );
-  }
-
+  }) : super._();
   @override
   UpdateDeviceStatusRequest rebuild(
     void Function(UpdateDeviceStatusRequestBuilder) updates,
@@ -42,7 +30,7 @@ class _$UpdateDeviceStatusRequest extends UpdateDeviceStatusRequest {
 
   @override
   UpdateDeviceStatusRequestBuilder toBuilder() =>
-      new UpdateDeviceStatusRequestBuilder()..replace(this);
+      UpdateDeviceStatusRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -99,7 +87,6 @@ class UpdateDeviceStatusRequestBuilder
 
   @override
   void replace(UpdateDeviceStatusRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateDeviceStatusRequest;
   }
 
@@ -114,7 +101,7 @@ class UpdateDeviceStatusRequestBuilder
   _$UpdateDeviceStatusRequest _build() {
     final _$result =
         _$v ??
-        new _$UpdateDeviceStatusRequest._(
+        _$UpdateDeviceStatusRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,
             r'UpdateDeviceStatusRequest',

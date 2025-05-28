@@ -14,10 +14,9 @@ class _$UserContextDataType extends UserContextDataType {
 
   factory _$UserContextDataType([
     void Function(UserContextDataTypeBuilder)? updates,
-  ]) => (new UserContextDataTypeBuilder()..update(updates))._build();
+  ]) => (UserContextDataTypeBuilder()..update(updates))._build();
 
   _$UserContextDataType._({this.ipAddress, this.encodedData}) : super._();
-
   @override
   UserContextDataType rebuild(
     void Function(UserContextDataTypeBuilder) updates,
@@ -25,7 +24,7 @@ class _$UserContextDataType extends UserContextDataType {
 
   @override
   UserContextDataTypeBuilder toBuilder() =>
-      new UserContextDataTypeBuilder()..replace(this);
+      UserContextDataTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -71,7 +70,6 @@ class UserContextDataTypeBuilder
 
   @override
   void replace(UserContextDataType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UserContextDataType;
   }
 
@@ -86,10 +84,7 @@ class UserContextDataTypeBuilder
   _$UserContextDataType _build() {
     final _$result =
         _$v ??
-        new _$UserContextDataType._(
-          ipAddress: ipAddress,
-          encodedData: encodedData,
-        );
+        _$UserContextDataType._(ipAddress: ipAddress, encodedData: encodedData);
     replace(_$result);
     return _$result;
   }
