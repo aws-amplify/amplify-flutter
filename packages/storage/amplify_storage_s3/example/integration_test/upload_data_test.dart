@@ -399,7 +399,11 @@ void main() {
       testWidgets('can cancel', (_) async {
         const size = 1024 * 1024 * 6;
         const chars = 'qwertyuiopasdfghjklzxcvbnm';
-        final content = List.generate(size, (i) => chars[i % 25]).join();
+        final sb = StringBuffer();
+        for (var i = 0; i < size; i++) {
+          sb.write(chars[i % 25]);
+        }
+        final content = sb.toString();
         final fileId = uuid();
         final path = 'public/upload-data-cancel-$fileId';
         addTearDownPath(StoragePath.fromString(path));

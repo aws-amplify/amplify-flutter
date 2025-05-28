@@ -16,20 +16,13 @@ class _$ListDevicesRequest extends ListDevicesRequest {
 
   factory _$ListDevicesRequest([
     void Function(ListDevicesRequestBuilder)? updates,
-  ]) => (new ListDevicesRequestBuilder()..update(updates))._build();
+  ]) => (ListDevicesRequestBuilder()..update(updates))._build();
 
   _$ListDevicesRequest._({
     required this.accessToken,
     this.limit,
     this.paginationToken,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      accessToken,
-      r'ListDevicesRequest',
-      'accessToken',
-    );
-  }
-
+  }) : super._();
   @override
   ListDevicesRequest rebuild(
     void Function(ListDevicesRequestBuilder) updates,
@@ -37,7 +30,7 @@ class _$ListDevicesRequest extends ListDevicesRequest {
 
   @override
   ListDevicesRequestBuilder toBuilder() =>
-      new ListDevicesRequestBuilder()..replace(this);
+      ListDevicesRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -91,7 +84,6 @@ class ListDevicesRequestBuilder
 
   @override
   void replace(ListDevicesRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListDevicesRequest;
   }
 
@@ -106,7 +98,7 @@ class ListDevicesRequestBuilder
   _$ListDevicesRequest _build() {
     final _$result =
         _$v ??
-        new _$ListDevicesRequest._(
+        _$ListDevicesRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,
             r'ListDevicesRequest',

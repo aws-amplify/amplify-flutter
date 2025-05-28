@@ -11,16 +11,15 @@ class _$GetIdResponse extends GetIdResponse {
   final String? identityId;
 
   factory _$GetIdResponse([void Function(GetIdResponseBuilder)? updates]) =>
-      (new GetIdResponseBuilder()..update(updates))._build();
+      (GetIdResponseBuilder()..update(updates))._build();
 
   _$GetIdResponse._({this.identityId}) : super._();
-
   @override
   GetIdResponse rebuild(void Function(GetIdResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GetIdResponseBuilder toBuilder() => new GetIdResponseBuilder()..replace(this);
+  GetIdResponseBuilder toBuilder() => GetIdResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -58,7 +57,6 @@ class GetIdResponseBuilder
 
   @override
   void replace(GetIdResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetIdResponse;
   }
 
@@ -71,7 +69,7 @@ class GetIdResponseBuilder
   GetIdResponse build() => _build();
 
   _$GetIdResponse _build() {
-    final _$result = _$v ?? new _$GetIdResponse._(identityId: identityId);
+    final _$result = _$v ?? _$GetIdResponse._(identityId: identityId);
     replace(_$result);
     return _$result;
   }

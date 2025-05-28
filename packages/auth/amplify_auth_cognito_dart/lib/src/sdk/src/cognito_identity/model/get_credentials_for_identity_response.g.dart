@@ -15,13 +15,10 @@ class _$GetCredentialsForIdentityResponse
 
   factory _$GetCredentialsForIdentityResponse([
     void Function(GetCredentialsForIdentityResponseBuilder)? updates,
-  ]) =>
-      (new GetCredentialsForIdentityResponseBuilder()..update(updates))
-          ._build();
+  ]) => (GetCredentialsForIdentityResponseBuilder()..update(updates))._build();
 
   _$GetCredentialsForIdentityResponse._({this.identityId, this.credentials})
     : super._();
-
   @override
   GetCredentialsForIdentityResponse rebuild(
     void Function(GetCredentialsForIdentityResponseBuilder) updates,
@@ -29,7 +26,7 @@ class _$GetCredentialsForIdentityResponse
 
   @override
   GetCredentialsForIdentityResponseBuilder toBuilder() =>
-      new GetCredentialsForIdentityResponseBuilder()..replace(this);
+      GetCredentialsForIdentityResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -63,7 +60,7 @@ class GetCredentialsForIdentityResponseBuilder
 
   CredentialsBuilder? _credentials;
   CredentialsBuilder get credentials =>
-      _$this._credentials ??= new CredentialsBuilder();
+      _$this._credentials ??= CredentialsBuilder();
   set credentials(CredentialsBuilder? credentials) =>
       _$this._credentials = credentials;
 
@@ -81,7 +78,6 @@ class GetCredentialsForIdentityResponseBuilder
 
   @override
   void replace(GetCredentialsForIdentityResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetCredentialsForIdentityResponse;
   }
 
@@ -100,7 +96,7 @@ class GetCredentialsForIdentityResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$GetCredentialsForIdentityResponse._(
+          _$GetCredentialsForIdentityResponse._(
             identityId: identityId,
             credentials: _credentials?.build(),
           );
@@ -110,7 +106,7 @@ class GetCredentialsForIdentityResponseBuilder
         _$failedField = 'credentials';
         _credentials?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'GetCredentialsForIdentityResponse',
           _$failedField,
           e.toString(),

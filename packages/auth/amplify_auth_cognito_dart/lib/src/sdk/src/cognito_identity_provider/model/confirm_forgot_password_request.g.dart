@@ -26,7 +26,7 @@ class _$ConfirmForgotPasswordRequest extends ConfirmForgotPasswordRequest {
 
   factory _$ConfirmForgotPasswordRequest([
     void Function(ConfirmForgotPasswordRequestBuilder)? updates,
-  ]) => (new ConfirmForgotPasswordRequestBuilder()..update(updates))._build();
+  ]) => (ConfirmForgotPasswordRequestBuilder()..update(updates))._build();
 
   _$ConfirmForgotPasswordRequest._({
     required this.clientId,
@@ -37,29 +37,7 @@ class _$ConfirmForgotPasswordRequest extends ConfirmForgotPasswordRequest {
     this.analyticsMetadata,
     this.userContextData,
     this.clientMetadata,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      clientId,
-      r'ConfirmForgotPasswordRequest',
-      'clientId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      username,
-      r'ConfirmForgotPasswordRequest',
-      'username',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      confirmationCode,
-      r'ConfirmForgotPasswordRequest',
-      'confirmationCode',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      password,
-      r'ConfirmForgotPasswordRequest',
-      'password',
-    );
-  }
-
+  }) : super._();
   @override
   ConfirmForgotPasswordRequest rebuild(
     void Function(ConfirmForgotPasswordRequestBuilder) updates,
@@ -67,7 +45,7 @@ class _$ConfirmForgotPasswordRequest extends ConfirmForgotPasswordRequest {
 
   @override
   ConfirmForgotPasswordRequestBuilder toBuilder() =>
-      new ConfirmForgotPasswordRequestBuilder()..replace(this);
+      ConfirmForgotPasswordRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -130,19 +108,19 @@ class ConfirmForgotPasswordRequestBuilder
 
   AnalyticsMetadataTypeBuilder? _analyticsMetadata;
   AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+      _$this._analyticsMetadata ??= AnalyticsMetadataTypeBuilder();
   set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -166,7 +144,6 @@ class ConfirmForgotPasswordRequestBuilder
 
   @override
   void replace(ConfirmForgotPasswordRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConfirmForgotPasswordRequest;
   }
 
@@ -183,7 +160,7 @@ class ConfirmForgotPasswordRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$ConfirmForgotPasswordRequest._(
+          _$ConfirmForgotPasswordRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,
               r'ConfirmForgotPasswordRequest',
@@ -219,7 +196,7 @@ class ConfirmForgotPasswordRequestBuilder
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ConfirmForgotPasswordRequest',
           _$failedField,
           e.toString(),

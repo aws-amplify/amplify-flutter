@@ -9,10 +9,9 @@ part of 'global_sign_out_response.dart';
 class _$GlobalSignOutResponse extends GlobalSignOutResponse {
   factory _$GlobalSignOutResponse([
     void Function(GlobalSignOutResponseBuilder)? updates,
-  ]) => (new GlobalSignOutResponseBuilder()..update(updates))._build();
+  ]) => (GlobalSignOutResponseBuilder()..update(updates))._build();
 
   _$GlobalSignOutResponse._() : super._();
-
   @override
   GlobalSignOutResponse rebuild(
     void Function(GlobalSignOutResponseBuilder) updates,
@@ -20,7 +19,7 @@ class _$GlobalSignOutResponse extends GlobalSignOutResponse {
 
   @override
   GlobalSignOutResponseBuilder toBuilder() =>
-      new GlobalSignOutResponseBuilder()..replace(this);
+      GlobalSignOutResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -42,7 +41,6 @@ class GlobalSignOutResponseBuilder
 
   @override
   void replace(GlobalSignOutResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GlobalSignOutResponse;
   }
 
@@ -55,7 +53,7 @@ class GlobalSignOutResponseBuilder
   GlobalSignOutResponse build() => _build();
 
   _$GlobalSignOutResponse _build() {
-    final _$result = _$v ?? new _$GlobalSignOutResponse._();
+    final _$result = _$v ?? _$GlobalSignOutResponse._();
     replace(_$result);
     return _$result;
   }

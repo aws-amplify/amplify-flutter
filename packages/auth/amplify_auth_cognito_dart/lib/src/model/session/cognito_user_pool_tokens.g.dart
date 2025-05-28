@@ -18,36 +18,14 @@ class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
 
   factory _$CognitoUserPoolTokens([
     void Function(CognitoUserPoolTokensBuilder)? updates,
-  ]) => (new CognitoUserPoolTokensBuilder()..update(updates))._build();
+  ]) => (CognitoUserPoolTokensBuilder()..update(updates))._build();
 
   _$CognitoUserPoolTokens._({
     required this.signInMethod,
     required this.accessToken,
     required this.refreshToken,
     required this.idToken,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      signInMethod,
-      r'CognitoUserPoolTokens',
-      'signInMethod',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      accessToken,
-      r'CognitoUserPoolTokens',
-      'accessToken',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      refreshToken,
-      r'CognitoUserPoolTokens',
-      'refreshToken',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      idToken,
-      r'CognitoUserPoolTokens',
-      'idToken',
-    );
-  }
-
+  }) : super._();
   @override
   CognitoUserPoolTokens rebuild(
     void Function(CognitoUserPoolTokensBuilder) updates,
@@ -55,7 +33,7 @@ class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
 
   @override
   CognitoUserPoolTokensBuilder toBuilder() =>
-      new CognitoUserPoolTokensBuilder()..replace(this);
+      CognitoUserPoolTokensBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -117,7 +95,6 @@ class CognitoUserPoolTokensBuilder
 
   @override
   void replace(CognitoUserPoolTokens other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CognitoUserPoolTokens;
   }
 
@@ -133,7 +110,7 @@ class CognitoUserPoolTokensBuilder
     CognitoUserPoolTokens._finalize(this);
     final _$result =
         _$v ??
-        new _$CognitoUserPoolTokens._(
+        _$CognitoUserPoolTokens._(
           signInMethod: BuiltValueNullFieldError.checkNotNull(
             signInMethod,
             r'CognitoUserPoolTokens',

@@ -12,23 +12,16 @@ class _$GetDeviceResponse extends GetDeviceResponse {
 
   factory _$GetDeviceResponse([
     void Function(GetDeviceResponseBuilder)? updates,
-  ]) => (new GetDeviceResponseBuilder()..update(updates))._build();
+  ]) => (GetDeviceResponseBuilder()..update(updates))._build();
 
-  _$GetDeviceResponse._({required this.device}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      device,
-      r'GetDeviceResponse',
-      'device',
-    );
-  }
-
+  _$GetDeviceResponse._({required this.device}) : super._();
   @override
   GetDeviceResponse rebuild(void Function(GetDeviceResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   GetDeviceResponseBuilder toBuilder() =>
-      new GetDeviceResponseBuilder()..replace(this);
+      GetDeviceResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -50,7 +43,7 @@ class GetDeviceResponseBuilder
   _$GetDeviceResponse? _$v;
 
   DeviceTypeBuilder? _device;
-  DeviceTypeBuilder get device => _$this._device ??= new DeviceTypeBuilder();
+  DeviceTypeBuilder get device => _$this._device ??= DeviceTypeBuilder();
   set device(DeviceTypeBuilder? device) => _$this._device = device;
 
   GetDeviceResponseBuilder();
@@ -66,7 +59,6 @@ class GetDeviceResponseBuilder
 
   @override
   void replace(GetDeviceResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetDeviceResponse;
   }
 
@@ -81,14 +73,14 @@ class GetDeviceResponseBuilder
   _$GetDeviceResponse _build() {
     _$GetDeviceResponse _$result;
     try {
-      _$result = _$v ?? new _$GetDeviceResponse._(device: device.build());
+      _$result = _$v ?? _$GetDeviceResponse._(device: device.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'device';
         device.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'GetDeviceResponse',
           _$failedField,
           e.toString(),
