@@ -20,7 +20,7 @@ class _$UploadArchiveInput extends UploadArchiveInput {
 
   factory _$UploadArchiveInput([
     void Function(UploadArchiveInputBuilder)? updates,
-  ]) => (new UploadArchiveInputBuilder()..update(updates))._build();
+  ]) => (UploadArchiveInputBuilder()..update(updates))._build();
 
   _$UploadArchiveInput._({
     required this.vaultName,
@@ -28,20 +28,7 @@ class _$UploadArchiveInput extends UploadArchiveInput {
     this.archiveDescription,
     this.checksum,
     required this.body,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      vaultName,
-      r'UploadArchiveInput',
-      'vaultName',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      accountId,
-      r'UploadArchiveInput',
-      'accountId',
-    );
-    BuiltValueNullFieldError.checkNotNull(body, r'UploadArchiveInput', 'body');
-  }
-
+  }) : super._();
   @override
   UploadArchiveInput rebuild(
     void Function(UploadArchiveInputBuilder) updates,
@@ -49,7 +36,7 @@ class _$UploadArchiveInput extends UploadArchiveInput {
 
   @override
   UploadArchiveInputBuilder toBuilder() =>
-      new UploadArchiveInputBuilder()..replace(this);
+      UploadArchiveInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -119,7 +106,6 @@ class UploadArchiveInputBuilder
 
   @override
   void replace(UploadArchiveInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadArchiveInput;
   }
 
@@ -134,7 +120,7 @@ class UploadArchiveInputBuilder
   _$UploadArchiveInput _build() {
     final _$result =
         _$v ??
-        new _$UploadArchiveInput._(
+        _$UploadArchiveInput._(
           vaultName: BuiltValueNullFieldError.checkNotNull(
             vaultName,
             r'UploadArchiveInput',

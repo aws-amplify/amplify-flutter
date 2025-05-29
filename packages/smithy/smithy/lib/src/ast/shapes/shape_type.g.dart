@@ -85,12 +85,12 @@ ShapeType _$shapeTypeValueOf(String name) {
     case 'operation':
       return _$operation;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<ShapeType> _$shapeTypeValues =
-    new BuiltSet<ShapeType>(const <ShapeType>[
+    BuiltSet<ShapeType>(const <ShapeType>[
       _$apply,
       _$blob,
       _$boolean,
@@ -118,7 +118,7 @@ final BuiltSet<ShapeType> _$shapeTypeValues =
       _$operation,
     ]);
 
-Serializer<ShapeType> _$shapeTypeSerializer = new _$ShapeTypeSerializer();
+Serializer<ShapeType> _$shapeTypeSerializer = _$ShapeTypeSerializer();
 
 class _$ShapeTypeSerializer implements PrimitiveSerializer<ShapeType> {
   static const Map<String, Object> _toWire = const <String, Object>{

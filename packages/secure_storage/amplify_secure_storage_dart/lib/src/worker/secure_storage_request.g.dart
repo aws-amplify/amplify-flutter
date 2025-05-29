@@ -7,7 +7,7 @@ part of 'secure_storage_request.dart';
 // **************************************************************************
 
 Serializer<SecureStorageRequest> _$secureStorageRequestSerializer =
-    new _$SecureStorageRequestSerializer();
+    _$SecureStorageRequestSerializer();
 
 class _$SecureStorageRequestSerializer
     implements StructuredSerializer<SecureStorageRequest> {
@@ -71,7 +71,7 @@ class _$SecureStorageRequestSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new SecureStorageRequestBuilder();
+    final result = SecureStorageRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -141,7 +141,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
 
   factory _$SecureStorageRequest([
     void Function(SecureStorageRequestBuilder)? updates,
-  ]) => (new SecureStorageRequestBuilder()..update(updates))._build();
+  ]) => (SecureStorageRequestBuilder()..update(updates))._build();
 
   _$SecureStorageRequest._({
     required this.id,
@@ -149,15 +149,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
     this.config,
     this.key,
     this.value,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(id, r'SecureStorageRequest', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-      action,
-      r'SecureStorageRequest',
-      'action',
-    );
-  }
-
+  }) : super._();
   @override
   SecureStorageRequest rebuild(
     void Function(SecureStorageRequestBuilder) updates,
@@ -165,7 +157,7 @@ class _$SecureStorageRequest extends SecureStorageRequest {
 
   @override
   SecureStorageRequestBuilder toBuilder() =>
-      new SecureStorageRequestBuilder()..replace(this);
+      SecureStorageRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -205,7 +197,7 @@ class SecureStorageRequestBuilder
 
   AmplifySecureStorageConfigBuilder? _config;
   AmplifySecureStorageConfigBuilder get config =>
-      _$this._config ??= new AmplifySecureStorageConfigBuilder();
+      _$this._config ??= AmplifySecureStorageConfigBuilder();
   set config(AmplifySecureStorageConfigBuilder? config) =>
       _$this._config = config;
 
@@ -234,7 +226,6 @@ class SecureStorageRequestBuilder
 
   @override
   void replace(SecureStorageRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SecureStorageRequest;
   }
 
@@ -252,7 +243,7 @@ class SecureStorageRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$SecureStorageRequest._(
+          _$SecureStorageRequest._(
             id: BuiltValueNullFieldError.checkNotNull(
               id,
               r'SecureStorageRequest',
@@ -273,7 +264,7 @@ class SecureStorageRequestBuilder
         _$failedField = 'config';
         _config?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'SecureStorageRequest',
           _$failedField,
           e.toString(),

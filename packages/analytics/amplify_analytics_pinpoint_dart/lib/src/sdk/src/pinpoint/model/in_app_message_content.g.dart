@@ -22,7 +22,7 @@ class _$InAppMessageContent extends InAppMessageContent {
 
   factory _$InAppMessageContent([
     void Function(InAppMessageContentBuilder)? updates,
-  ]) => (new InAppMessageContentBuilder()..update(updates))._build();
+  ]) => (InAppMessageContentBuilder()..update(updates))._build();
 
   _$InAppMessageContent._({
     this.backgroundColor,
@@ -32,7 +32,6 @@ class _$InAppMessageContent extends InAppMessageContent {
     this.primaryBtn,
     this.secondaryBtn,
   }) : super._();
-
   @override
   InAppMessageContent rebuild(
     void Function(InAppMessageContentBuilder) updates,
@@ -40,7 +39,7 @@ class _$InAppMessageContent extends InAppMessageContent {
 
   @override
   InAppMessageContentBuilder toBuilder() =>
-      new InAppMessageContentBuilder()..replace(this);
+      InAppMessageContentBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -79,13 +78,13 @@ class InAppMessageContentBuilder
 
   InAppMessageBodyConfigBuilder? _bodyConfig;
   InAppMessageBodyConfigBuilder get bodyConfig =>
-      _$this._bodyConfig ??= new InAppMessageBodyConfigBuilder();
+      _$this._bodyConfig ??= InAppMessageBodyConfigBuilder();
   set bodyConfig(InAppMessageBodyConfigBuilder? bodyConfig) =>
       _$this._bodyConfig = bodyConfig;
 
   InAppMessageHeaderConfigBuilder? _headerConfig;
   InAppMessageHeaderConfigBuilder get headerConfig =>
-      _$this._headerConfig ??= new InAppMessageHeaderConfigBuilder();
+      _$this._headerConfig ??= InAppMessageHeaderConfigBuilder();
   set headerConfig(InAppMessageHeaderConfigBuilder? headerConfig) =>
       _$this._headerConfig = headerConfig;
 
@@ -95,13 +94,13 @@ class InAppMessageContentBuilder
 
   InAppMessageButtonBuilder? _primaryBtn;
   InAppMessageButtonBuilder get primaryBtn =>
-      _$this._primaryBtn ??= new InAppMessageButtonBuilder();
+      _$this._primaryBtn ??= InAppMessageButtonBuilder();
   set primaryBtn(InAppMessageButtonBuilder? primaryBtn) =>
       _$this._primaryBtn = primaryBtn;
 
   InAppMessageButtonBuilder? _secondaryBtn;
   InAppMessageButtonBuilder get secondaryBtn =>
-      _$this._secondaryBtn ??= new InAppMessageButtonBuilder();
+      _$this._secondaryBtn ??= InAppMessageButtonBuilder();
   set secondaryBtn(InAppMessageButtonBuilder? secondaryBtn) =>
       _$this._secondaryBtn = secondaryBtn;
 
@@ -123,7 +122,6 @@ class InAppMessageContentBuilder
 
   @override
   void replace(InAppMessageContent other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppMessageContent;
   }
 
@@ -140,7 +138,7 @@ class InAppMessageContentBuilder
     try {
       _$result =
           _$v ??
-          new _$InAppMessageContent._(
+          _$InAppMessageContent._(
             backgroundColor: backgroundColor,
             bodyConfig: _bodyConfig?.build(),
             headerConfig: _headerConfig?.build(),
@@ -161,7 +159,7 @@ class InAppMessageContentBuilder
         _$failedField = 'secondaryBtn';
         _secondaryBtn?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'InAppMessageContent',
           _$failedField,
           e.toString(),

@@ -15,20 +15,19 @@ class _$EventRiskType extends EventRiskType {
   final bool? compromisedCredentialsDetected;
 
   factory _$EventRiskType([void Function(EventRiskTypeBuilder)? updates]) =>
-      (new EventRiskTypeBuilder()..update(updates))._build();
+      (EventRiskTypeBuilder()..update(updates))._build();
 
   _$EventRiskType._({
     this.riskDecision,
     this.riskLevel,
     this.compromisedCredentialsDetected,
   }) : super._();
-
   @override
   EventRiskType rebuild(void Function(EventRiskTypeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EventRiskTypeBuilder toBuilder() => new EventRiskTypeBuilder()..replace(this);
+  EventRiskTypeBuilder toBuilder() => EventRiskTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -84,7 +83,6 @@ class EventRiskTypeBuilder
 
   @override
   void replace(EventRiskType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EventRiskType;
   }
 
@@ -99,7 +97,7 @@ class EventRiskTypeBuilder
   _$EventRiskType _build() {
     final _$result =
         _$v ??
-        new _$EventRiskType._(
+        _$EventRiskType._(
           riskDecision: riskDecision,
           riskLevel: riskLevel,
           compromisedCredentialsDetected: compromisedCredentialsDetected,

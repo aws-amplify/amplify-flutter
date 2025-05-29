@@ -26,7 +26,7 @@ class _$HttpRequestWithLabelsInput extends HttpRequestWithLabelsInput {
 
   factory _$HttpRequestWithLabelsInput([
     void Function(HttpRequestWithLabelsInputBuilder)? updates,
-  ]) => (new HttpRequestWithLabelsInputBuilder()..update(updates))._build();
+  ]) => (HttpRequestWithLabelsInputBuilder()..update(updates))._build();
 
   _$HttpRequestWithLabelsInput._({
     required this.string,
@@ -37,49 +37,7 @@ class _$HttpRequestWithLabelsInput extends HttpRequestWithLabelsInput {
     required this.double_,
     required this.boolean,
     required this.timestamp,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      string,
-      r'HttpRequestWithLabelsInput',
-      'string',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      short,
-      r'HttpRequestWithLabelsInput',
-      'short',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      integer,
-      r'HttpRequestWithLabelsInput',
-      'integer',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      long,
-      r'HttpRequestWithLabelsInput',
-      'long',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      float,
-      r'HttpRequestWithLabelsInput',
-      'float',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      double_,
-      r'HttpRequestWithLabelsInput',
-      'double_',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      boolean,
-      r'HttpRequestWithLabelsInput',
-      'boolean',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      timestamp,
-      r'HttpRequestWithLabelsInput',
-      'timestamp',
-    );
-  }
-
+  }) : super._();
   @override
   HttpRequestWithLabelsInput rebuild(
     void Function(HttpRequestWithLabelsInputBuilder) updates,
@@ -87,7 +45,7 @@ class _$HttpRequestWithLabelsInput extends HttpRequestWithLabelsInput {
 
   @override
   HttpRequestWithLabelsInputBuilder toBuilder() =>
-      new HttpRequestWithLabelsInputBuilder()..replace(this);
+      HttpRequestWithLabelsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -176,7 +134,6 @@ class HttpRequestWithLabelsInputBuilder
 
   @override
   void replace(HttpRequestWithLabelsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithLabelsInput;
   }
 
@@ -191,7 +148,7 @@ class HttpRequestWithLabelsInputBuilder
   _$HttpRequestWithLabelsInput _build() {
     final _$result =
         _$v ??
-        new _$HttpRequestWithLabelsInput._(
+        _$HttpRequestWithLabelsInput._(
           string: BuiltValueNullFieldError.checkNotNull(
             string,
             r'HttpRequestWithLabelsInput',
@@ -242,12 +199,9 @@ class _$HttpRequestWithLabelsInputPayload
     extends HttpRequestWithLabelsInputPayload {
   factory _$HttpRequestWithLabelsInputPayload([
     void Function(HttpRequestWithLabelsInputPayloadBuilder)? updates,
-  ]) =>
-      (new HttpRequestWithLabelsInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (HttpRequestWithLabelsInputPayloadBuilder()..update(updates))._build();
 
   _$HttpRequestWithLabelsInputPayload._() : super._();
-
   @override
   HttpRequestWithLabelsInputPayload rebuild(
     void Function(HttpRequestWithLabelsInputPayloadBuilder) updates,
@@ -255,7 +209,7 @@ class _$HttpRequestWithLabelsInputPayload
 
   @override
   HttpRequestWithLabelsInputPayloadBuilder toBuilder() =>
-      new HttpRequestWithLabelsInputPayloadBuilder()..replace(this);
+      HttpRequestWithLabelsInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -281,7 +235,6 @@ class HttpRequestWithLabelsInputPayloadBuilder
 
   @override
   void replace(HttpRequestWithLabelsInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpRequestWithLabelsInputPayload;
   }
 
@@ -296,7 +249,7 @@ class HttpRequestWithLabelsInputPayloadBuilder
   HttpRequestWithLabelsInputPayload build() => _build();
 
   _$HttpRequestWithLabelsInputPayload _build() {
-    final _$result = _$v ?? new _$HttpRequestWithLabelsInputPayload._();
+    final _$result = _$v ?? _$HttpRequestWithLabelsInputPayload._();
     replace(_$result);
     return _$result;
   }

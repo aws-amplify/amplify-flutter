@@ -7,7 +7,7 @@ part of 'ios_secure_storage_options.dart';
 // **************************************************************************
 
 Serializer<IOSSecureStorageOptions> _$iOSSecureStorageOptionsSerializer =
-    new _$IOSSecureStorageOptionsSerializer();
+    _$IOSSecureStorageOptionsSerializer();
 
 class _$IOSSecureStorageOptionsSerializer
     implements StructuredSerializer<IOSSecureStorageOptions> {
@@ -55,7 +55,7 @@ class _$IOSSecureStorageOptionsSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new IOSSecureStorageOptionsBuilder();
+    final result = IOSSecureStorageOptionsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -94,10 +94,9 @@ class _$IOSSecureStorageOptions extends IOSSecureStorageOptions {
 
   factory _$IOSSecureStorageOptions([
     void Function(IOSSecureStorageOptionsBuilder)? updates,
-  ]) => (new IOSSecureStorageOptionsBuilder()..update(updates))._build();
+  ]) => (IOSSecureStorageOptionsBuilder()..update(updates))._build();
 
   _$IOSSecureStorageOptions._({this.accessGroup, this.accessible}) : super._();
-
   @override
   IOSSecureStorageOptions rebuild(
     void Function(IOSSecureStorageOptionsBuilder) updates,
@@ -105,7 +104,7 @@ class _$IOSSecureStorageOptions extends IOSSecureStorageOptions {
 
   @override
   IOSSecureStorageOptionsBuilder toBuilder() =>
-      new IOSSecureStorageOptionsBuilder()..replace(this);
+      IOSSecureStorageOptionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -161,7 +160,6 @@ class IOSSecureStorageOptionsBuilder
 
   @override
   void replace(IOSSecureStorageOptions other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$IOSSecureStorageOptions;
   }
 
@@ -176,7 +174,7 @@ class IOSSecureStorageOptionsBuilder
   _$IOSSecureStorageOptions _build() {
     final _$result =
         _$v ??
-        new _$IOSSecureStorageOptions._(
+        _$IOSSecureStorageOptions._(
           accessGroup: accessGroup,
           accessible: accessible,
         );

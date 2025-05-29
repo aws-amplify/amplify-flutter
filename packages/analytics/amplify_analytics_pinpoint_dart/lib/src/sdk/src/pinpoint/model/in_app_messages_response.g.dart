@@ -12,10 +12,9 @@ class _$InAppMessagesResponse extends InAppMessagesResponse {
 
   factory _$InAppMessagesResponse([
     void Function(InAppMessagesResponseBuilder)? updates,
-  ]) => (new InAppMessagesResponseBuilder()..update(updates))._build();
+  ]) => (InAppMessagesResponseBuilder()..update(updates))._build();
 
   _$InAppMessagesResponse._({this.inAppMessageCampaigns}) : super._();
-
   @override
   InAppMessagesResponse rebuild(
     void Function(InAppMessagesResponseBuilder) updates,
@@ -23,7 +22,7 @@ class _$InAppMessagesResponse extends InAppMessagesResponse {
 
   @override
   InAppMessagesResponseBuilder toBuilder() =>
-      new InAppMessagesResponseBuilder()..replace(this);
+      InAppMessagesResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,8 +46,7 @@ class InAppMessagesResponseBuilder
 
   _i2.ListBuilder<InAppMessageCampaign>? _inAppMessageCampaigns;
   _i2.ListBuilder<InAppMessageCampaign> get inAppMessageCampaigns =>
-      _$this._inAppMessageCampaigns ??=
-          new _i2.ListBuilder<InAppMessageCampaign>();
+      _$this._inAppMessageCampaigns ??= _i2.ListBuilder<InAppMessageCampaign>();
   set inAppMessageCampaigns(
     _i2.ListBuilder<InAppMessageCampaign>? inAppMessageCampaigns,
   ) => _$this._inAppMessageCampaigns = inAppMessageCampaigns;
@@ -66,7 +64,6 @@ class InAppMessagesResponseBuilder
 
   @override
   void replace(InAppMessagesResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppMessagesResponse;
   }
 
@@ -83,7 +80,7 @@ class InAppMessagesResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$InAppMessagesResponse._(
+          _$InAppMessagesResponse._(
             inAppMessageCampaigns: _inAppMessageCampaigns?.build(),
           );
     } catch (_) {
@@ -92,7 +89,7 @@ class InAppMessagesResponseBuilder
         _$failedField = 'inAppMessageCampaigns';
         _inAppMessageCampaigns?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'InAppMessagesResponse',
           _$failedField,
           e.toString(),

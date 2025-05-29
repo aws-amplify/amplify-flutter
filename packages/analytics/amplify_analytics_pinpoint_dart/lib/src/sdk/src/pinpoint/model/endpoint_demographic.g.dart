@@ -26,7 +26,7 @@ class _$EndpointDemographic extends EndpointDemographic {
 
   factory _$EndpointDemographic([
     void Function(EndpointDemographicBuilder)? updates,
-  ]) => (new EndpointDemographicBuilder()..update(updates))._build();
+  ]) => (EndpointDemographicBuilder()..update(updates))._build();
 
   _$EndpointDemographic._({
     this.appVersion,
@@ -38,7 +38,6 @@ class _$EndpointDemographic extends EndpointDemographic {
     this.platformVersion,
     this.timezone,
   }) : super._();
-
   @override
   EndpointDemographic rebuild(
     void Function(EndpointDemographicBuilder) updates,
@@ -46,7 +45,7 @@ class _$EndpointDemographic extends EndpointDemographic {
 
   @override
   EndpointDemographicBuilder toBuilder() =>
-      new EndpointDemographicBuilder()..replace(this);
+      EndpointDemographicBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,7 +134,6 @@ class EndpointDemographicBuilder
 
   @override
   void replace(EndpointDemographic other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointDemographic;
   }
 
@@ -150,7 +148,7 @@ class EndpointDemographicBuilder
   _$EndpointDemographic _build() {
     final _$result =
         _$v ??
-        new _$EndpointDemographic._(
+        _$EndpointDemographic._(
           appVersion: appVersion,
           locale: locale,
           make: make,

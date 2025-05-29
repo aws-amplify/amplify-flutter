@@ -12,10 +12,9 @@ class _$FractionalSecondsOutput extends FractionalSecondsOutput {
 
   factory _$FractionalSecondsOutput([
     void Function(FractionalSecondsOutputBuilder)? updates,
-  ]) => (new FractionalSecondsOutputBuilder()..update(updates))._build();
+  ]) => (FractionalSecondsOutputBuilder()..update(updates))._build();
 
   _$FractionalSecondsOutput._({this.datetime}) : super._();
-
   @override
   FractionalSecondsOutput rebuild(
     void Function(FractionalSecondsOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$FractionalSecondsOutput extends FractionalSecondsOutput {
 
   @override
   FractionalSecondsOutputBuilder toBuilder() =>
-      new FractionalSecondsOutputBuilder()..replace(this);
+      FractionalSecondsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class FractionalSecondsOutputBuilder
 
   @override
   void replace(FractionalSecondsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$FractionalSecondsOutput;
   }
 
@@ -75,7 +73,7 @@ class FractionalSecondsOutputBuilder
   FractionalSecondsOutput build() => _build();
 
   _$FractionalSecondsOutput _build() {
-    final _$result = _$v ?? new _$FractionalSecondsOutput._(datetime: datetime);
+    final _$result = _$v ?? _$FractionalSecondsOutput._(datetime: datetime);
     replace(_$result);
     return _$result;
   }

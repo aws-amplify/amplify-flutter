@@ -14,31 +14,19 @@ class _$PutEventsRequest extends PutEventsRequest {
 
   factory _$PutEventsRequest([
     void Function(PutEventsRequestBuilder)? updates,
-  ]) => (new PutEventsRequestBuilder()..update(updates))._build();
+  ]) => (PutEventsRequestBuilder()..update(updates))._build();
 
   _$PutEventsRequest._({
     required this.applicationId,
     required this.eventsRequest,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      applicationId,
-      r'PutEventsRequest',
-      'applicationId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      eventsRequest,
-      r'PutEventsRequest',
-      'eventsRequest',
-    );
-  }
-
+  }) : super._();
   @override
   PutEventsRequest rebuild(void Function(PutEventsRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   PutEventsRequestBuilder toBuilder() =>
-      new PutEventsRequestBuilder()..replace(this);
+      PutEventsRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +57,7 @@ class PutEventsRequestBuilder
 
   EventsRequestBuilder? _eventsRequest;
   EventsRequestBuilder get eventsRequest =>
-      _$this._eventsRequest ??= new EventsRequestBuilder();
+      _$this._eventsRequest ??= EventsRequestBuilder();
   set eventsRequest(EventsRequestBuilder? eventsRequest) =>
       _$this._eventsRequest = eventsRequest;
 
@@ -87,7 +75,6 @@ class PutEventsRequestBuilder
 
   @override
   void replace(PutEventsRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutEventsRequest;
   }
 
@@ -104,7 +91,7 @@ class PutEventsRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$PutEventsRequest._(
+          _$PutEventsRequest._(
             applicationId: BuiltValueNullFieldError.checkNotNull(
               applicationId,
               r'PutEventsRequest',
@@ -118,7 +105,7 @@ class PutEventsRequestBuilder
         _$failedField = 'eventsRequest';
         eventsRequest.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'PutEventsRequest',
           _$failedField,
           e.toString(),

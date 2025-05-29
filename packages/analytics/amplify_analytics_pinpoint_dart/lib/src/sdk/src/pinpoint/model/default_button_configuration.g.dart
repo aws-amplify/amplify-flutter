@@ -22,7 +22,7 @@ class _$DefaultButtonConfiguration extends DefaultButtonConfiguration {
 
   factory _$DefaultButtonConfiguration([
     void Function(DefaultButtonConfigurationBuilder)? updates,
-  ]) => (new DefaultButtonConfigurationBuilder()..update(updates))._build();
+  ]) => (DefaultButtonConfigurationBuilder()..update(updates))._build();
 
   _$DefaultButtonConfiguration._({
     this.backgroundColor,
@@ -31,19 +31,7 @@ class _$DefaultButtonConfiguration extends DefaultButtonConfiguration {
     this.link,
     required this.text,
     this.textColor,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      buttonAction,
-      r'DefaultButtonConfiguration',
-      'buttonAction',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      text,
-      r'DefaultButtonConfiguration',
-      'text',
-    );
-  }
-
+  }) : super._();
   @override
   DefaultButtonConfiguration rebuild(
     void Function(DefaultButtonConfigurationBuilder) updates,
@@ -51,7 +39,7 @@ class _$DefaultButtonConfiguration extends DefaultButtonConfiguration {
 
   @override
   DefaultButtonConfigurationBuilder toBuilder() =>
-      new DefaultButtonConfigurationBuilder()..replace(this);
+      DefaultButtonConfigurationBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -128,7 +116,6 @@ class DefaultButtonConfigurationBuilder
 
   @override
   void replace(DefaultButtonConfiguration other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DefaultButtonConfiguration;
   }
 
@@ -143,7 +130,7 @@ class DefaultButtonConfigurationBuilder
   _$DefaultButtonConfiguration _build() {
     final _$result =
         _$v ??
-        new _$DefaultButtonConfiguration._(
+        _$DefaultButtonConfiguration._(
           backgroundColor: backgroundColor,
           borderRadius: borderRadius,
           buttonAction: BuiltValueNullFieldError.checkNotNull(

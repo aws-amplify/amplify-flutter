@@ -14,17 +14,9 @@ class _$EndpointWithHostLabelOperationInput
   factory _$EndpointWithHostLabelOperationInput([
     void Function(EndpointWithHostLabelOperationInputBuilder)? updates,
   ]) =>
-      (new EndpointWithHostLabelOperationInputBuilder()..update(updates))
-          ._build();
+      (EndpointWithHostLabelOperationInputBuilder()..update(updates))._build();
 
-  _$EndpointWithHostLabelOperationInput._({required this.label}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      label,
-      r'EndpointWithHostLabelOperationInput',
-      'label',
-    );
-  }
-
+  _$EndpointWithHostLabelOperationInput._({required this.label}) : super._();
   @override
   EndpointWithHostLabelOperationInput rebuild(
     void Function(EndpointWithHostLabelOperationInputBuilder) updates,
@@ -32,7 +24,7 @@ class _$EndpointWithHostLabelOperationInput
 
   @override
   EndpointWithHostLabelOperationInputBuilder toBuilder() =>
-      new EndpointWithHostLabelOperationInputBuilder()..replace(this);
+      EndpointWithHostLabelOperationInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +66,6 @@ class EndpointWithHostLabelOperationInputBuilder
 
   @override
   void replace(EndpointWithHostLabelOperationInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointWithHostLabelOperationInput;
   }
 
@@ -91,7 +82,7 @@ class EndpointWithHostLabelOperationInputBuilder
   _$EndpointWithHostLabelOperationInput _build() {
     final _$result =
         _$v ??
-        new _$EndpointWithHostLabelOperationInput._(
+        _$EndpointWithHostLabelOperationInput._(
           label: BuiltValueNullFieldError.checkNotNull(
             label,
             r'EndpointWithHostLabelOperationInput',

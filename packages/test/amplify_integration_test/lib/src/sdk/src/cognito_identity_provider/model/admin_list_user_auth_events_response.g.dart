@@ -15,12 +15,10 @@ class _$AdminListUserAuthEventsResponse
 
   factory _$AdminListUserAuthEventsResponse([
     void Function(AdminListUserAuthEventsResponseBuilder)? updates,
-  ]) =>
-      (new AdminListUserAuthEventsResponseBuilder()..update(updates))._build();
+  ]) => (AdminListUserAuthEventsResponseBuilder()..update(updates))._build();
 
   _$AdminListUserAuthEventsResponse._({this.authEvents, this.nextToken})
     : super._();
-
   @override
   AdminListUserAuthEventsResponse rebuild(
     void Function(AdminListUserAuthEventsResponseBuilder) updates,
@@ -28,7 +26,7 @@ class _$AdminListUserAuthEventsResponse
 
   @override
   AdminListUserAuthEventsResponseBuilder toBuilder() =>
-      new AdminListUserAuthEventsResponseBuilder()..replace(this);
+      AdminListUserAuthEventsResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -58,7 +56,7 @@ class AdminListUserAuthEventsResponseBuilder
 
   _i2.ListBuilder<AuthEventType>? _authEvents;
   _i2.ListBuilder<AuthEventType> get authEvents =>
-      _$this._authEvents ??= new _i2.ListBuilder<AuthEventType>();
+      _$this._authEvents ??= _i2.ListBuilder<AuthEventType>();
   set authEvents(_i2.ListBuilder<AuthEventType>? authEvents) =>
       _$this._authEvents = authEvents;
 
@@ -80,7 +78,6 @@ class AdminListUserAuthEventsResponseBuilder
 
   @override
   void replace(AdminListUserAuthEventsResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AdminListUserAuthEventsResponse;
   }
 
@@ -97,7 +94,7 @@ class AdminListUserAuthEventsResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$AdminListUserAuthEventsResponse._(
+          _$AdminListUserAuthEventsResponse._(
             authEvents: _authEvents?.build(),
             nextToken: nextToken,
           );
@@ -107,7 +104,7 @@ class AdminListUserAuthEventsResponseBuilder
         _$failedField = 'authEvents';
         _authEvents?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'AdminListUserAuthEventsResponse',
           _$failedField,
           e.toString(),

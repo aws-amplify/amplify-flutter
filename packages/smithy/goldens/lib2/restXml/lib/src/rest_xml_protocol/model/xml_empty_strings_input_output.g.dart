@@ -12,10 +12,9 @@ class _$XmlEmptyStringsInputOutput extends XmlEmptyStringsInputOutput {
 
   factory _$XmlEmptyStringsInputOutput([
     void Function(XmlEmptyStringsInputOutputBuilder)? updates,
-  ]) => (new XmlEmptyStringsInputOutputBuilder()..update(updates))._build();
+  ]) => (XmlEmptyStringsInputOutputBuilder()..update(updates))._build();
 
   _$XmlEmptyStringsInputOutput._({this.emptyString}) : super._();
-
   @override
   XmlEmptyStringsInputOutput rebuild(
     void Function(XmlEmptyStringsInputOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$XmlEmptyStringsInputOutput extends XmlEmptyStringsInputOutput {
 
   @override
   XmlEmptyStringsInputOutputBuilder toBuilder() =>
-      new XmlEmptyStringsInputOutputBuilder()..replace(this);
+      XmlEmptyStringsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -63,7 +62,6 @@ class XmlEmptyStringsInputOutputBuilder
 
   @override
   void replace(XmlEmptyStringsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlEmptyStringsInputOutput;
   }
 
@@ -77,7 +75,7 @@ class XmlEmptyStringsInputOutputBuilder
 
   _$XmlEmptyStringsInputOutput _build() {
     final _$result =
-        _$v ?? new _$XmlEmptyStringsInputOutput._(emptyString: emptyString);
+        _$v ?? _$XmlEmptyStringsInputOutput._(emptyString: emptyString);
     replace(_$result);
     return _$result;
   }

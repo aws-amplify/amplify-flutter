@@ -13,11 +13,9 @@ class _$MalformedAcceptWithPayloadOutput
 
   factory _$MalformedAcceptWithPayloadOutput([
     void Function(MalformedAcceptWithPayloadOutputBuilder)? updates,
-  ]) =>
-      (new MalformedAcceptWithPayloadOutputBuilder()..update(updates))._build();
+  ]) => (MalformedAcceptWithPayloadOutputBuilder()..update(updates))._build();
 
   _$MalformedAcceptWithPayloadOutput._({this.payload}) : super._();
-
   @override
   MalformedAcceptWithPayloadOutput rebuild(
     void Function(MalformedAcceptWithPayloadOutputBuilder) updates,
@@ -25,7 +23,7 @@ class _$MalformedAcceptWithPayloadOutput
 
   @override
   MalformedAcceptWithPayloadOutputBuilder toBuilder() =>
-      new MalformedAcceptWithPayloadOutputBuilder()..replace(this);
+      MalformedAcceptWithPayloadOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +66,6 @@ class MalformedAcceptWithPayloadOutputBuilder
 
   @override
   void replace(MalformedAcceptWithPayloadOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedAcceptWithPayloadOutput;
   }
 
@@ -82,7 +79,7 @@ class MalformedAcceptWithPayloadOutputBuilder
 
   _$MalformedAcceptWithPayloadOutput _build() {
     final _$result =
-        _$v ?? new _$MalformedAcceptWithPayloadOutput._(payload: payload);
+        _$v ?? _$MalformedAcceptWithPayloadOutput._(payload: payload);
     replace(_$result);
     return _$result;
   }

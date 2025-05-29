@@ -26,7 +26,7 @@ class _$XmlNestedUnionStruct extends XmlNestedUnionStruct {
 
   factory _$XmlNestedUnionStruct([
     void Function(XmlNestedUnionStructBuilder)? updates,
-  ]) => (new XmlNestedUnionStructBuilder()..update(updates))._build();
+  ]) => (XmlNestedUnionStructBuilder()..update(updates))._build();
 
   _$XmlNestedUnionStruct._({
     this.stringValue,
@@ -38,7 +38,6 @@ class _$XmlNestedUnionStruct extends XmlNestedUnionStruct {
     this.floatValue,
     this.doubleValue,
   }) : super._();
-
   @override
   XmlNestedUnionStruct rebuild(
     void Function(XmlNestedUnionStructBuilder) updates,
@@ -46,7 +45,7 @@ class _$XmlNestedUnionStruct extends XmlNestedUnionStruct {
 
   @override
   XmlNestedUnionStructBuilder toBuilder() =>
-      new XmlNestedUnionStructBuilder()..replace(this);
+      XmlNestedUnionStructBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -134,7 +133,6 @@ class XmlNestedUnionStructBuilder
 
   @override
   void replace(XmlNestedUnionStruct other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlNestedUnionStruct;
   }
 
@@ -149,7 +147,7 @@ class XmlNestedUnionStructBuilder
   _$XmlNestedUnionStruct _build() {
     final _$result =
         _$v ??
-        new _$XmlNestedUnionStruct._(
+        _$XmlNestedUnionStruct._(
           stringValue: stringValue,
           booleanValue: booleanValue,
           byteValue: byteValue,
