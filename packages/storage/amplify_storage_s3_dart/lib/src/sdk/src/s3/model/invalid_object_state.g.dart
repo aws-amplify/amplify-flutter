@@ -16,11 +16,10 @@ class _$InvalidObjectState extends InvalidObjectState {
 
   factory _$InvalidObjectState([
     void Function(InvalidObjectStateBuilder)? updates,
-  ]) => (new InvalidObjectStateBuilder()..update(updates))._build();
+  ]) => (InvalidObjectStateBuilder()..update(updates))._build();
 
   _$InvalidObjectState._({this.storageClass, this.accessTier, this.headers})
     : super._();
-
   @override
   InvalidObjectState rebuild(
     void Function(InvalidObjectStateBuilder) updates,
@@ -28,7 +27,7 @@ class _$InvalidObjectState extends InvalidObjectState {
 
   @override
   InvalidObjectStateBuilder toBuilder() =>
-      new InvalidObjectStateBuilder()..replace(this);
+      InvalidObjectStateBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -81,7 +80,6 @@ class InvalidObjectStateBuilder
 
   @override
   void replace(InvalidObjectState other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidObjectState;
   }
 
@@ -96,7 +94,7 @@ class InvalidObjectStateBuilder
   _$InvalidObjectState _build() {
     final _$result =
         _$v ??
-        new _$InvalidObjectState._(
+        _$InvalidObjectState._(
           storageClass: storageClass,
           accessTier: accessTier,
           headers: headers,

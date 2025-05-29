@@ -13,12 +13,9 @@ class _$XmlAttributesOnPayloadInputOutput
 
   factory _$XmlAttributesOnPayloadInputOutput([
     void Function(XmlAttributesOnPayloadInputOutputBuilder)? updates,
-  ]) =>
-      (new XmlAttributesOnPayloadInputOutputBuilder()..update(updates))
-          ._build();
+  ]) => (XmlAttributesOnPayloadInputOutputBuilder()..update(updates))._build();
 
   _$XmlAttributesOnPayloadInputOutput._({this.payload}) : super._();
-
   @override
   XmlAttributesOnPayloadInputOutput rebuild(
     void Function(XmlAttributesOnPayloadInputOutputBuilder) updates,
@@ -26,7 +23,7 @@ class _$XmlAttributesOnPayloadInputOutput
 
   @override
   XmlAttributesOnPayloadInputOutputBuilder toBuilder() =>
-      new XmlAttributesOnPayloadInputOutputBuilder()..replace(this);
+      XmlAttributesOnPayloadInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -54,7 +51,7 @@ class XmlAttributesOnPayloadInputOutputBuilder
 
   XmlAttributesInputOutputBuilder? _payload;
   XmlAttributesInputOutputBuilder get payload =>
-      _$this._payload ??= new XmlAttributesInputOutputBuilder();
+      _$this._payload ??= XmlAttributesInputOutputBuilder();
   set payload(XmlAttributesInputOutputBuilder? payload) =>
       _$this._payload = payload;
 
@@ -71,7 +68,6 @@ class XmlAttributesOnPayloadInputOutputBuilder
 
   @override
   void replace(XmlAttributesOnPayloadInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlAttributesOnPayloadInputOutput;
   }
 
@@ -90,14 +86,14 @@ class XmlAttributesOnPayloadInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$XmlAttributesOnPayloadInputOutput._(payload: _payload?.build());
+          _$XmlAttributesOnPayloadInputOutput._(payload: _payload?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'payload';
         _payload?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'XmlAttributesOnPayloadInputOutput',
           _$failedField,
           e.toString(),

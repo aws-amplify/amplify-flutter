@@ -26,7 +26,7 @@ class _$InAppMessageCampaign extends InAppMessageCampaign {
 
   factory _$InAppMessageCampaign([
     void Function(InAppMessageCampaignBuilder)? updates,
-  ]) => (new InAppMessageCampaignBuilder()..update(updates))._build();
+  ]) => (InAppMessageCampaignBuilder()..update(updates))._build();
 
   _$InAppMessageCampaign._({
     this.campaignId,
@@ -38,7 +38,6 @@ class _$InAppMessageCampaign extends InAppMessageCampaign {
     this.totalCap,
     this.treatmentId,
   }) : super._();
-
   @override
   InAppMessageCampaign rebuild(
     void Function(InAppMessageCampaignBuilder) updates,
@@ -46,7 +45,7 @@ class _$InAppMessageCampaign extends InAppMessageCampaign {
 
   @override
   InAppMessageCampaignBuilder toBuilder() =>
-      new InAppMessageCampaignBuilder()..replace(this);
+      InAppMessageCampaignBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -92,7 +91,7 @@ class InAppMessageCampaignBuilder
 
   InAppMessageBuilder? _inAppMessage;
   InAppMessageBuilder get inAppMessage =>
-      _$this._inAppMessage ??= new InAppMessageBuilder();
+      _$this._inAppMessage ??= InAppMessageBuilder();
   set inAppMessage(InAppMessageBuilder? inAppMessage) =>
       _$this._inAppMessage = inAppMessage;
 
@@ -102,7 +101,7 @@ class InAppMessageCampaignBuilder
 
   InAppCampaignScheduleBuilder? _schedule;
   InAppCampaignScheduleBuilder get schedule =>
-      _$this._schedule ??= new InAppCampaignScheduleBuilder();
+      _$this._schedule ??= InAppCampaignScheduleBuilder();
   set schedule(InAppCampaignScheduleBuilder? schedule) =>
       _$this._schedule = schedule;
 
@@ -138,7 +137,6 @@ class InAppMessageCampaignBuilder
 
   @override
   void replace(InAppMessageCampaign other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppMessageCampaign;
   }
 
@@ -155,7 +153,7 @@ class InAppMessageCampaignBuilder
     try {
       _$result =
           _$v ??
-          new _$InAppMessageCampaign._(
+          _$InAppMessageCampaign._(
             campaignId: campaignId,
             dailyCap: dailyCap,
             inAppMessage: _inAppMessage?.build(),
@@ -174,7 +172,7 @@ class InAppMessageCampaignBuilder
         _$failedField = 'schedule';
         _schedule?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'InAppMessageCampaign',
           _$failedField,
           e.toString(),

@@ -13,16 +13,15 @@ class _$FooError extends FooError {
   final Map<String, String>? headers;
 
   factory _$FooError([void Function(FooErrorBuilder)? updates]) =>
-      (new FooErrorBuilder()..update(updates))._build();
+      (FooErrorBuilder()..update(updates))._build();
 
   _$FooError._({this.statusCode, this.headers}) : super._();
-
   @override
   FooError rebuild(void Function(FooErrorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  FooErrorBuilder toBuilder() => new FooErrorBuilder()..replace(this);
+  FooErrorBuilder toBuilder() => FooErrorBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +60,6 @@ class FooErrorBuilder implements Builder<FooError, FooErrorBuilder> {
 
   @override
   void replace(FooError other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$FooError;
   }
 
@@ -75,7 +73,7 @@ class FooErrorBuilder implements Builder<FooError, FooErrorBuilder> {
 
   _$FooError _build() {
     final _$result =
-        _$v ?? new _$FooError._(statusCode: statusCode, headers: headers);
+        _$v ?? _$FooError._(statusCode: statusCode, headers: headers);
     replace(_$result);
     return _$result;
   }

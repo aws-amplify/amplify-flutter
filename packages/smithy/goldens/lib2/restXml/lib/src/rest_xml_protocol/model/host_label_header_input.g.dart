@@ -12,16 +12,9 @@ class _$HostLabelHeaderInput extends HostLabelHeaderInput {
 
   factory _$HostLabelHeaderInput([
     void Function(HostLabelHeaderInputBuilder)? updates,
-  ]) => (new HostLabelHeaderInputBuilder()..update(updates))._build();
+  ]) => (HostLabelHeaderInputBuilder()..update(updates))._build();
 
-  _$HostLabelHeaderInput._({required this.accountId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      accountId,
-      r'HostLabelHeaderInput',
-      'accountId',
-    );
-  }
-
+  _$HostLabelHeaderInput._({required this.accountId}) : super._();
   @override
   HostLabelHeaderInput rebuild(
     void Function(HostLabelHeaderInputBuilder) updates,
@@ -29,7 +22,7 @@ class _$HostLabelHeaderInput extends HostLabelHeaderInput {
 
   @override
   HostLabelHeaderInputBuilder toBuilder() =>
-      new HostLabelHeaderInputBuilder()..replace(this);
+      HostLabelHeaderInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,7 +60,6 @@ class HostLabelHeaderInputBuilder
 
   @override
   void replace(HostLabelHeaderInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HostLabelHeaderInput;
   }
 
@@ -82,7 +74,7 @@ class HostLabelHeaderInputBuilder
   _$HostLabelHeaderInput _build() {
     final _$result =
         _$v ??
-        new _$HostLabelHeaderInput._(
+        _$HostLabelHeaderInput._(
           accountId: BuiltValueNullFieldError.checkNotNull(
             accountId,
             r'HostLabelHeaderInput',
@@ -97,10 +89,9 @@ class HostLabelHeaderInputBuilder
 class _$HostLabelHeaderInputPayload extends HostLabelHeaderInputPayload {
   factory _$HostLabelHeaderInputPayload([
     void Function(HostLabelHeaderInputPayloadBuilder)? updates,
-  ]) => (new HostLabelHeaderInputPayloadBuilder()..update(updates))._build();
+  ]) => (HostLabelHeaderInputPayloadBuilder()..update(updates))._build();
 
   _$HostLabelHeaderInputPayload._() : super._();
-
   @override
   HostLabelHeaderInputPayload rebuild(
     void Function(HostLabelHeaderInputPayloadBuilder) updates,
@@ -108,7 +99,7 @@ class _$HostLabelHeaderInputPayload extends HostLabelHeaderInputPayload {
 
   @override
   HostLabelHeaderInputPayloadBuilder toBuilder() =>
-      new HostLabelHeaderInputPayloadBuilder()..replace(this);
+      HostLabelHeaderInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -134,7 +125,6 @@ class HostLabelHeaderInputPayloadBuilder
 
   @override
   void replace(HostLabelHeaderInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HostLabelHeaderInputPayload;
   }
 
@@ -147,7 +137,7 @@ class HostLabelHeaderInputPayloadBuilder
   HostLabelHeaderInputPayload build() => _build();
 
   _$HostLabelHeaderInputPayload _build() {
-    final _$result = _$v ?? new _$HostLabelHeaderInputPayload._();
+    final _$result = _$v ?? _$HostLabelHeaderInputPayload._();
     replace(_$result);
     return _$result;
   }

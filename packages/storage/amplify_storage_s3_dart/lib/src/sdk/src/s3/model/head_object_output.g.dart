@@ -78,7 +78,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
 
   factory _$HeadObjectOutput([
     void Function(HeadObjectOutputBuilder)? updates,
-  ]) => (new HeadObjectOutputBuilder()..update(updates))._build();
+  ]) => (HeadObjectOutputBuilder()..update(updates))._build();
 
   _$HeadObjectOutput._({
     this.deleteMarker,
@@ -116,14 +116,13 @@ class _$HeadObjectOutput extends HeadObjectOutput {
     this.objectLockRetainUntilDate,
     this.objectLockLegalHoldStatus,
   }) : super._();
-
   @override
   HeadObjectOutput rebuild(void Function(HeadObjectOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   HeadObjectOutputBuilder toBuilder() =>
-      new HeadObjectOutputBuilder()..replace(this);
+      HeadObjectOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -313,7 +312,7 @@ class HeadObjectOutputBuilder
 
   _i4.MapBuilder<String, String>? _metadata;
   _i4.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i4.MapBuilder<String, String>();
+      _$this._metadata ??= _i4.MapBuilder<String, String>();
   set metadata(_i4.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
@@ -418,7 +417,6 @@ class HeadObjectOutputBuilder
 
   @override
   void replace(HeadObjectOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HeadObjectOutput;
   }
 
@@ -435,7 +433,7 @@ class HeadObjectOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$HeadObjectOutput._(
+          _$HeadObjectOutput._(
             deleteMarker: deleteMarker,
             acceptRanges: acceptRanges,
             expiration: expiration,
@@ -477,7 +475,7 @@ class HeadObjectOutputBuilder
         _$failedField = 'metadata';
         _metadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'HeadObjectOutput',
           _$failedField,
           e.toString(),
@@ -493,10 +491,9 @@ class HeadObjectOutputBuilder
 class _$HeadObjectOutputPayload extends HeadObjectOutputPayload {
   factory _$HeadObjectOutputPayload([
     void Function(HeadObjectOutputPayloadBuilder)? updates,
-  ]) => (new HeadObjectOutputPayloadBuilder()..update(updates))._build();
+  ]) => (HeadObjectOutputPayloadBuilder()..update(updates))._build();
 
   _$HeadObjectOutputPayload._() : super._();
-
   @override
   HeadObjectOutputPayload rebuild(
     void Function(HeadObjectOutputPayloadBuilder) updates,
@@ -504,7 +501,7 @@ class _$HeadObjectOutputPayload extends HeadObjectOutputPayload {
 
   @override
   HeadObjectOutputPayloadBuilder toBuilder() =>
-      new HeadObjectOutputPayloadBuilder()..replace(this);
+      HeadObjectOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -527,7 +524,6 @@ class HeadObjectOutputPayloadBuilder
 
   @override
   void replace(HeadObjectOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HeadObjectOutputPayload;
   }
 
@@ -540,7 +536,7 @@ class HeadObjectOutputPayloadBuilder
   HeadObjectOutputPayload build() => _build();
 
   _$HeadObjectOutputPayload _build() {
-    final _$result = _$v ?? new _$HeadObjectOutputPayload._();
+    final _$result = _$v ?? _$HeadObjectOutputPayload._();
     replace(_$result);
     return _$result;
   }

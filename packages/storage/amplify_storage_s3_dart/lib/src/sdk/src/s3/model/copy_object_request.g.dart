@@ -92,7 +92,7 @@ class _$CopyObjectRequest extends CopyObjectRequest {
 
   factory _$CopyObjectRequest([
     void Function(CopyObjectRequestBuilder)? updates,
-  ]) => (new CopyObjectRequestBuilder()..update(updates))._build();
+  ]) => (CopyObjectRequestBuilder()..update(updates))._build();
 
   _$CopyObjectRequest._({
     this.acl,
@@ -136,27 +136,14 @@ class _$CopyObjectRequest extends CopyObjectRequest {
     this.objectLockLegalHoldStatus,
     this.expectedBucketOwner,
     this.expectedSourceBucketOwner,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'CopyObjectRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      copySource,
-      r'CopyObjectRequest',
-      'copySource',
-    );
-    BuiltValueNullFieldError.checkNotNull(key, r'CopyObjectRequest', 'key');
-  }
-
+  }) : super._();
   @override
   CopyObjectRequest rebuild(void Function(CopyObjectRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   CopyObjectRequestBuilder toBuilder() =>
-      new CopyObjectRequestBuilder()..replace(this);
+      CopyObjectRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -348,7 +335,7 @@ class CopyObjectRequestBuilder
 
   _i3.MapBuilder<String, String>? _metadata;
   _i3.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i3.MapBuilder<String, String>();
+      _$this._metadata ??= _i3.MapBuilder<String, String>();
   set metadata(_i3.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
@@ -513,7 +500,6 @@ class CopyObjectRequestBuilder
 
   @override
   void replace(CopyObjectRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyObjectRequest;
   }
 
@@ -530,7 +516,7 @@ class CopyObjectRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$CopyObjectRequest._(
+          _$CopyObjectRequest._(
             acl: acl,
             bucket: BuiltValueNullFieldError.checkNotNull(
               bucket,
@@ -591,7 +577,7 @@ class CopyObjectRequestBuilder
         _$failedField = 'metadata';
         _metadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'CopyObjectRequest',
           _$failedField,
           e.toString(),
@@ -607,10 +593,9 @@ class CopyObjectRequestBuilder
 class _$CopyObjectRequestPayload extends CopyObjectRequestPayload {
   factory _$CopyObjectRequestPayload([
     void Function(CopyObjectRequestPayloadBuilder)? updates,
-  ]) => (new CopyObjectRequestPayloadBuilder()..update(updates))._build();
+  ]) => (CopyObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$CopyObjectRequestPayload._() : super._();
-
   @override
   CopyObjectRequestPayload rebuild(
     void Function(CopyObjectRequestPayloadBuilder) updates,
@@ -618,7 +603,7 @@ class _$CopyObjectRequestPayload extends CopyObjectRequestPayload {
 
   @override
   CopyObjectRequestPayloadBuilder toBuilder() =>
-      new CopyObjectRequestPayloadBuilder()..replace(this);
+      CopyObjectRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -641,7 +626,6 @@ class CopyObjectRequestPayloadBuilder
 
   @override
   void replace(CopyObjectRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyObjectRequestPayload;
   }
 
@@ -654,7 +638,7 @@ class CopyObjectRequestPayloadBuilder
   CopyObjectRequestPayload build() => _build();
 
   _$CopyObjectRequestPayload _build() {
-    final _$result = _$v ?? new _$CopyObjectRequestPayload._();
+    final _$result = _$v ?? _$CopyObjectRequestPayload._();
     replace(_$result);
     return _$result;
   }

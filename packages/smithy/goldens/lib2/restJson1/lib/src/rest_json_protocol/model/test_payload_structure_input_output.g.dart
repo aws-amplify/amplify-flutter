@@ -15,12 +15,10 @@ class _$TestPayloadStructureInputOutput
 
   factory _$TestPayloadStructureInputOutput([
     void Function(TestPayloadStructureInputOutputBuilder)? updates,
-  ]) =>
-      (new TestPayloadStructureInputOutputBuilder()..update(updates))._build();
+  ]) => (TestPayloadStructureInputOutputBuilder()..update(updates))._build();
 
   _$TestPayloadStructureInputOutput._({this.testId, this.payloadConfig})
     : super._();
-
   @override
   TestPayloadStructureInputOutput rebuild(
     void Function(TestPayloadStructureInputOutputBuilder) updates,
@@ -28,7 +26,7 @@ class _$TestPayloadStructureInputOutput
 
   @override
   TestPayloadStructureInputOutputBuilder toBuilder() =>
-      new TestPayloadStructureInputOutputBuilder()..replace(this);
+      TestPayloadStructureInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +60,7 @@ class TestPayloadStructureInputOutputBuilder
 
   PayloadConfigBuilder? _payloadConfig;
   PayloadConfigBuilder get payloadConfig =>
-      _$this._payloadConfig ??= new PayloadConfigBuilder();
+      _$this._payloadConfig ??= PayloadConfigBuilder();
   set payloadConfig(PayloadConfigBuilder? payloadConfig) =>
       _$this._payloadConfig = payloadConfig;
 
@@ -80,7 +78,6 @@ class TestPayloadStructureInputOutputBuilder
 
   @override
   void replace(TestPayloadStructureInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TestPayloadStructureInputOutput;
   }
 
@@ -97,7 +94,7 @@ class TestPayloadStructureInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$TestPayloadStructureInputOutput._(
+          _$TestPayloadStructureInputOutput._(
             testId: testId,
             payloadConfig: _payloadConfig?.build(),
           );
@@ -107,7 +104,7 @@ class TestPayloadStructureInputOutputBuilder
         _$failedField = 'payloadConfig';
         _payloadConfig?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'TestPayloadStructureInputOutput',
           _$failedField,
           e.toString(),

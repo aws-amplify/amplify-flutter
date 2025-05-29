@@ -11,17 +11,15 @@ class _$CopyObjectError extends CopyObjectError {
   final Map<String, String>? headers;
 
   factory _$CopyObjectError([void Function(CopyObjectErrorBuilder)? updates]) =>
-      (new CopyObjectErrorBuilder()..update(updates))._build();
+      (CopyObjectErrorBuilder()..update(updates))._build();
 
   _$CopyObjectError._({this.headers}) : super._();
-
   @override
   CopyObjectError rebuild(void Function(CopyObjectErrorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CopyObjectErrorBuilder toBuilder() =>
-      new CopyObjectErrorBuilder()..replace(this);
+  CopyObjectErrorBuilder toBuilder() => CopyObjectErrorBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -56,7 +54,6 @@ class CopyObjectErrorBuilder
 
   @override
   void replace(CopyObjectError other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyObjectError;
   }
 
@@ -69,7 +66,7 @@ class CopyObjectErrorBuilder
   CopyObjectError build() => _build();
 
   _$CopyObjectError _build() {
-    final _$result = _$v ?? new _$CopyObjectError._(headers: headers);
+    final _$result = _$v ?? _$CopyObjectError._(headers: headers);
     replace(_$result);
     return _$result;
   }

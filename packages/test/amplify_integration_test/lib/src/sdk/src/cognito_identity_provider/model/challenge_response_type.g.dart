@@ -14,11 +14,10 @@ class _$ChallengeResponseType extends ChallengeResponseType {
 
   factory _$ChallengeResponseType([
     void Function(ChallengeResponseTypeBuilder)? updates,
-  ]) => (new ChallengeResponseTypeBuilder()..update(updates))._build();
+  ]) => (ChallengeResponseTypeBuilder()..update(updates))._build();
 
   _$ChallengeResponseType._({this.challengeName, this.challengeResponse})
     : super._();
-
   @override
   ChallengeResponseType rebuild(
     void Function(ChallengeResponseTypeBuilder) updates,
@@ -26,7 +25,7 @@ class _$ChallengeResponseType extends ChallengeResponseType {
 
   @override
   ChallengeResponseTypeBuilder toBuilder() =>
-      new ChallengeResponseTypeBuilder()..replace(this);
+      ChallengeResponseTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +73,6 @@ class ChallengeResponseTypeBuilder
 
   @override
   void replace(ChallengeResponseType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ChallengeResponseType;
   }
 
@@ -89,7 +87,7 @@ class ChallengeResponseTypeBuilder
   _$ChallengeResponseType _build() {
     final _$result =
         _$v ??
-        new _$ChallengeResponseType._(
+        _$ChallengeResponseType._(
           challengeName: challengeName,
           challengeResponse: challengeResponse,
         );

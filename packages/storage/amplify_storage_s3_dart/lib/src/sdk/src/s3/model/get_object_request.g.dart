@@ -52,7 +52,7 @@ class _$GetObjectRequest extends GetObjectRequest {
 
   factory _$GetObjectRequest([
     void Function(GetObjectRequestBuilder)? updates,
-  ]) => (new GetObjectRequestBuilder()..update(updates))._build();
+  ]) => (GetObjectRequestBuilder()..update(updates))._build();
 
   _$GetObjectRequest._({
     required this.bucket,
@@ -76,22 +76,14 @@ class _$GetObjectRequest extends GetObjectRequest {
     this.partNumber,
     this.expectedBucketOwner,
     this.checksumMode,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'GetObjectRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(key, r'GetObjectRequest', 'key');
-  }
-
+  }) : super._();
   @override
   GetObjectRequest rebuild(void Function(GetObjectRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   GetObjectRequestBuilder toBuilder() =>
-      new GetObjectRequestBuilder()..replace(this);
+      GetObjectRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -284,7 +276,6 @@ class GetObjectRequestBuilder
 
   @override
   void replace(GetObjectRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetObjectRequest;
   }
 
@@ -299,7 +290,7 @@ class GetObjectRequestBuilder
   _$GetObjectRequest _build() {
     final _$result =
         _$v ??
-        new _$GetObjectRequest._(
+        _$GetObjectRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
             bucket,
             r'GetObjectRequest',
@@ -338,10 +329,9 @@ class GetObjectRequestBuilder
 class _$GetObjectRequestPayload extends GetObjectRequestPayload {
   factory _$GetObjectRequestPayload([
     void Function(GetObjectRequestPayloadBuilder)? updates,
-  ]) => (new GetObjectRequestPayloadBuilder()..update(updates))._build();
+  ]) => (GetObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$GetObjectRequestPayload._() : super._();
-
   @override
   GetObjectRequestPayload rebuild(
     void Function(GetObjectRequestPayloadBuilder) updates,
@@ -349,7 +339,7 @@ class _$GetObjectRequestPayload extends GetObjectRequestPayload {
 
   @override
   GetObjectRequestPayloadBuilder toBuilder() =>
-      new GetObjectRequestPayloadBuilder()..replace(this);
+      GetObjectRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -372,7 +362,6 @@ class GetObjectRequestPayloadBuilder
 
   @override
   void replace(GetObjectRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetObjectRequestPayload;
   }
 
@@ -385,7 +374,7 @@ class GetObjectRequestPayloadBuilder
   GetObjectRequestPayload build() => _build();
 
   _$GetObjectRequestPayload _build() {
-    final _$result = _$v ?? new _$GetObjectRequestPayload._();
+    final _$result = _$v ?? _$GetObjectRequestPayload._();
     replace(_$result);
     return _$result;
   }

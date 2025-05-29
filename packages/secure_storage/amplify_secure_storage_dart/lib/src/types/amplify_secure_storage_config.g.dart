@@ -7,7 +7,7 @@ part of 'amplify_secure_storage_config.dart';
 // **************************************************************************
 
 Serializer<AmplifySecureStorageConfig> _$amplifySecureStorageConfigSerializer =
-    new _$AmplifySecureStorageConfigSerializer();
+    _$AmplifySecureStorageConfigSerializer();
 
 class _$AmplifySecureStorageConfigSerializer
     implements StructuredSerializer<AmplifySecureStorageConfig> {
@@ -78,7 +78,7 @@ class _$AmplifySecureStorageConfigSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new AmplifySecureStorageConfigBuilder();
+    final result = AmplifySecureStorageConfigBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -172,7 +172,7 @@ class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
 
   factory _$AmplifySecureStorageConfig([
     void Function(AmplifySecureStorageConfigBuilder)? updates,
-  ]) => (new AmplifySecureStorageConfigBuilder()..update(updates))._build();
+  ]) => (AmplifySecureStorageConfigBuilder()..update(updates))._build();
 
   _$AmplifySecureStorageConfig._({
     this.namespace,
@@ -182,34 +182,7 @@ class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
     required this.linuxOptions,
     required this.macOSOptions,
     required this.iOSOptions,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      webOptions,
-      r'AmplifySecureStorageConfig',
-      'webOptions',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      windowsOptions,
-      r'AmplifySecureStorageConfig',
-      'windowsOptions',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      linuxOptions,
-      r'AmplifySecureStorageConfig',
-      'linuxOptions',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      macOSOptions,
-      r'AmplifySecureStorageConfig',
-      'macOSOptions',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      iOSOptions,
-      r'AmplifySecureStorageConfig',
-      'iOSOptions',
-    );
-  }
-
+  }) : super._();
   @override
   AmplifySecureStorageConfig rebuild(
     void Function(AmplifySecureStorageConfigBuilder) updates,
@@ -217,7 +190,7 @@ class _$AmplifySecureStorageConfig extends AmplifySecureStorageConfig {
 
   @override
   AmplifySecureStorageConfigBuilder toBuilder() =>
-      new AmplifySecureStorageConfigBuilder()..replace(this);
+      AmplifySecureStorageConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -275,31 +248,31 @@ class AmplifySecureStorageConfigBuilder
 
   WebSecureStorageOptionsBuilder? _webOptions;
   WebSecureStorageOptionsBuilder get webOptions =>
-      _$this._webOptions ??= new WebSecureStorageOptionsBuilder();
+      _$this._webOptions ??= WebSecureStorageOptionsBuilder();
   set webOptions(WebSecureStorageOptionsBuilder? webOptions) =>
       _$this._webOptions = webOptions;
 
   WindowsSecureStorageOptionsBuilder? _windowsOptions;
   WindowsSecureStorageOptionsBuilder get windowsOptions =>
-      _$this._windowsOptions ??= new WindowsSecureStorageOptionsBuilder();
+      _$this._windowsOptions ??= WindowsSecureStorageOptionsBuilder();
   set windowsOptions(WindowsSecureStorageOptionsBuilder? windowsOptions) =>
       _$this._windowsOptions = windowsOptions;
 
   LinuxSecureStorageOptionsBuilder? _linuxOptions;
   LinuxSecureStorageOptionsBuilder get linuxOptions =>
-      _$this._linuxOptions ??= new LinuxSecureStorageOptionsBuilder();
+      _$this._linuxOptions ??= LinuxSecureStorageOptionsBuilder();
   set linuxOptions(LinuxSecureStorageOptionsBuilder? linuxOptions) =>
       _$this._linuxOptions = linuxOptions;
 
   MacOSSecureStorageOptionsBuilder? _macOSOptions;
   MacOSSecureStorageOptionsBuilder get macOSOptions =>
-      _$this._macOSOptions ??= new MacOSSecureStorageOptionsBuilder();
+      _$this._macOSOptions ??= MacOSSecureStorageOptionsBuilder();
   set macOSOptions(MacOSSecureStorageOptionsBuilder? macOSOptions) =>
       _$this._macOSOptions = macOSOptions;
 
   IOSSecureStorageOptionsBuilder? _iOSOptions;
   IOSSecureStorageOptionsBuilder get iOSOptions =>
-      _$this._iOSOptions ??= new IOSSecureStorageOptionsBuilder();
+      _$this._iOSOptions ??= IOSSecureStorageOptionsBuilder();
   set iOSOptions(IOSSecureStorageOptionsBuilder? iOSOptions) =>
       _$this._iOSOptions = iOSOptions;
 
@@ -322,7 +295,6 @@ class AmplifySecureStorageConfigBuilder
 
   @override
   void replace(AmplifySecureStorageConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AmplifySecureStorageConfig;
   }
 
@@ -339,7 +311,7 @@ class AmplifySecureStorageConfigBuilder
     try {
       _$result =
           _$v ??
-          new _$AmplifySecureStorageConfig._(
+          _$AmplifySecureStorageConfig._(
             namespace: namespace,
             scope: scope,
             webOptions: webOptions.build(),
@@ -362,7 +334,7 @@ class AmplifySecureStorageConfigBuilder
         _$failedField = 'iOSOptions';
         iOSOptions.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'AmplifySecureStorageConfig',
           _$failedField,
           e.toString(),

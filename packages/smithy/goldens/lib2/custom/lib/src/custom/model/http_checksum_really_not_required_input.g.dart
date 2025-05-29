@@ -15,13 +15,10 @@ class _$HttpChecksumReallyNotRequiredInput
 
   factory _$HttpChecksumReallyNotRequiredInput([
     void Function(HttpChecksumReallyNotRequiredInputBuilder)? updates,
-  ]) =>
-      (new HttpChecksumReallyNotRequiredInputBuilder()..update(updates))
-          ._build();
+  ]) => (HttpChecksumReallyNotRequiredInputBuilder()..update(updates))._build();
 
   _$HttpChecksumReallyNotRequiredInput._({this.checksumAlgorithm, this.content})
     : super._();
-
   @override
   HttpChecksumReallyNotRequiredInput rebuild(
     void Function(HttpChecksumReallyNotRequiredInputBuilder) updates,
@@ -29,7 +26,7 @@ class _$HttpChecksumReallyNotRequiredInput
 
   @override
   HttpChecksumReallyNotRequiredInputBuilder toBuilder() =>
-      new HttpChecksumReallyNotRequiredInputBuilder()..replace(this);
+      HttpChecksumReallyNotRequiredInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -80,7 +77,6 @@ class HttpChecksumReallyNotRequiredInputBuilder
 
   @override
   void replace(HttpChecksumReallyNotRequiredInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpChecksumReallyNotRequiredInput;
   }
 
@@ -97,7 +93,7 @@ class HttpChecksumReallyNotRequiredInputBuilder
   _$HttpChecksumReallyNotRequiredInput _build() {
     final _$result =
         _$v ??
-        new _$HttpChecksumReallyNotRequiredInput._(
+        _$HttpChecksumReallyNotRequiredInput._(
           checksumAlgorithm: checksumAlgorithm,
           content: content,
         );

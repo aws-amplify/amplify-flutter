@@ -14,17 +14,10 @@ class _$OverrideButtonConfiguration extends OverrideButtonConfiguration {
 
   factory _$OverrideButtonConfiguration([
     void Function(OverrideButtonConfigurationBuilder)? updates,
-  ]) => (new OverrideButtonConfigurationBuilder()..update(updates))._build();
+  ]) => (OverrideButtonConfigurationBuilder()..update(updates))._build();
 
   _$OverrideButtonConfiguration._({required this.buttonAction, this.link})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      buttonAction,
-      r'OverrideButtonConfiguration',
-      'buttonAction',
-    );
-  }
-
+    : super._();
   @override
   OverrideButtonConfiguration rebuild(
     void Function(OverrideButtonConfigurationBuilder) updates,
@@ -32,7 +25,7 @@ class _$OverrideButtonConfiguration extends OverrideButtonConfiguration {
 
   @override
   OverrideButtonConfigurationBuilder toBuilder() =>
-      new OverrideButtonConfigurationBuilder()..replace(this);
+      OverrideButtonConfigurationBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -83,7 +76,6 @@ class OverrideButtonConfigurationBuilder
 
   @override
   void replace(OverrideButtonConfiguration other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OverrideButtonConfiguration;
   }
 
@@ -98,7 +90,7 @@ class OverrideButtonConfigurationBuilder
   _$OverrideButtonConfiguration _build() {
     final _$result =
         _$v ??
-        new _$OverrideButtonConfiguration._(
+        _$OverrideButtonConfiguration._(
           buttonAction: BuiltValueNullFieldError.checkNotNull(
             buttonAction,
             r'OverrideButtonConfiguration',

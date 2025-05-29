@@ -7,7 +7,7 @@ part of 'macos_secure_storage_options.dart';
 // **************************************************************************
 
 Serializer<MacOSSecureStorageOptions> _$macOSSecureStorageOptionsSerializer =
-    new _$MacOSSecureStorageOptionsSerializer();
+    _$MacOSSecureStorageOptionsSerializer();
 
 class _$MacOSSecureStorageOptionsSerializer
     implements StructuredSerializer<MacOSSecureStorageOptions> {
@@ -61,7 +61,7 @@ class _$MacOSSecureStorageOptionsSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new MacOSSecureStorageOptionsBuilder();
+    final result = MacOSSecureStorageOptionsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -110,20 +110,13 @@ class _$MacOSSecureStorageOptions extends MacOSSecureStorageOptions {
 
   factory _$MacOSSecureStorageOptions([
     void Function(MacOSSecureStorageOptionsBuilder)? updates,
-  ]) => (new MacOSSecureStorageOptionsBuilder()..update(updates))._build();
+  ]) => (MacOSSecureStorageOptionsBuilder()..update(updates))._build();
 
   _$MacOSSecureStorageOptions._({
     required this.useDataProtection,
     this.accessGroup,
     this.accessible,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      useDataProtection,
-      r'MacOSSecureStorageOptions',
-      'useDataProtection',
-    );
-  }
-
+  }) : super._();
   @override
   MacOSSecureStorageOptions rebuild(
     void Function(MacOSSecureStorageOptionsBuilder) updates,
@@ -131,7 +124,7 @@ class _$MacOSSecureStorageOptions extends MacOSSecureStorageOptions {
 
   @override
   MacOSSecureStorageOptionsBuilder toBuilder() =>
-      new MacOSSecureStorageOptionsBuilder()..replace(this);
+      MacOSSecureStorageOptionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -196,7 +189,6 @@ class MacOSSecureStorageOptionsBuilder
 
   @override
   void replace(MacOSSecureStorageOptions other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MacOSSecureStorageOptions;
   }
 
@@ -211,7 +203,7 @@ class MacOSSecureStorageOptionsBuilder
   _$MacOSSecureStorageOptions _build() {
     final _$result =
         _$v ??
-        new _$MacOSSecureStorageOptions._(
+        _$MacOSSecureStorageOptions._(
           useDataProtection: BuiltValueNullFieldError.checkNotNull(
             useDataProtection,
             r'MacOSSecureStorageOptions',

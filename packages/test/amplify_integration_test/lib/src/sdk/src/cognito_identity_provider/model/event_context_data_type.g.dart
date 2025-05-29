@@ -20,7 +20,7 @@ class _$EventContextDataType extends EventContextDataType {
 
   factory _$EventContextDataType([
     void Function(EventContextDataTypeBuilder)? updates,
-  ]) => (new EventContextDataTypeBuilder()..update(updates))._build();
+  ]) => (EventContextDataTypeBuilder()..update(updates))._build();
 
   _$EventContextDataType._({
     this.ipAddress,
@@ -29,7 +29,6 @@ class _$EventContextDataType extends EventContextDataType {
     this.city,
     this.country,
   }) : super._();
-
   @override
   EventContextDataType rebuild(
     void Function(EventContextDataTypeBuilder) updates,
@@ -37,7 +36,7 @@ class _$EventContextDataType extends EventContextDataType {
 
   @override
   EventContextDataTypeBuilder toBuilder() =>
-      new EventContextDataTypeBuilder()..replace(this);
+      EventContextDataTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -104,7 +103,6 @@ class EventContextDataTypeBuilder
 
   @override
   void replace(EventContextDataType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EventContextDataType;
   }
 
@@ -119,7 +117,7 @@ class EventContextDataTypeBuilder
   _$EventContextDataType _build() {
     final _$result =
         _$v ??
-        new _$EventContextDataType._(
+        _$EventContextDataType._(
           ipAddress: ipAddress,
           deviceName: deviceName,
           timezone: timezone,

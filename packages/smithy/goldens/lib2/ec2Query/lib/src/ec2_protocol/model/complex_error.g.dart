@@ -17,17 +17,16 @@ class _$ComplexError extends ComplexError {
   final Map<String, String>? headers;
 
   factory _$ComplexError([void Function(ComplexErrorBuilder)? updates]) =>
-      (new ComplexErrorBuilder()..update(updates))._build();
+      (ComplexErrorBuilder()..update(updates))._build();
 
   _$ComplexError._({this.topLevel, this.nested, this.statusCode, this.headers})
     : super._();
-
   @override
   ComplexError rebuild(void Function(ComplexErrorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ComplexErrorBuilder toBuilder() => new ComplexErrorBuilder()..replace(this);
+  ComplexErrorBuilder toBuilder() => ComplexErrorBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -57,7 +56,7 @@ class ComplexErrorBuilder
 
   ComplexNestedErrorDataBuilder? _nested;
   ComplexNestedErrorDataBuilder get nested =>
-      _$this._nested ??= new ComplexNestedErrorDataBuilder();
+      _$this._nested ??= ComplexNestedErrorDataBuilder();
   set nested(ComplexNestedErrorDataBuilder? nested) => _$this._nested = nested;
 
   int? _statusCode;
@@ -84,7 +83,6 @@ class ComplexErrorBuilder
 
   @override
   void replace(ComplexError other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ComplexError;
   }
 
@@ -101,7 +99,7 @@ class ComplexErrorBuilder
     try {
       _$result =
           _$v ??
-          new _$ComplexError._(
+          _$ComplexError._(
             topLevel: topLevel,
             nested: _nested?.build(),
             statusCode: statusCode,
@@ -113,7 +111,7 @@ class ComplexErrorBuilder
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ComplexError',
           _$failedField,
           e.toString(),

@@ -13,16 +13,15 @@ class _$MessageBody extends MessageBody {
   final String? requestId;
 
   factory _$MessageBody([void Function(MessageBodyBuilder)? updates]) =>
-      (new MessageBodyBuilder()..update(updates))._build();
+      (MessageBodyBuilder()..update(updates))._build();
 
   _$MessageBody._({this.message, this.requestId}) : super._();
-
   @override
   MessageBody rebuild(void Function(MessageBodyBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  MessageBodyBuilder toBuilder() => new MessageBodyBuilder()..replace(this);
+  MessageBodyBuilder toBuilder() => MessageBodyBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,7 +66,6 @@ class MessageBodyBuilder implements Builder<MessageBody, MessageBodyBuilder> {
 
   @override
   void replace(MessageBody other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MessageBody;
   }
 
@@ -81,7 +79,7 @@ class MessageBodyBuilder implements Builder<MessageBody, MessageBodyBuilder> {
 
   _$MessageBody _build() {
     final _$result =
-        _$v ?? new _$MessageBody._(message: message, requestId: requestId);
+        _$v ?? _$MessageBody._(message: message, requestId: requestId);
     replace(_$result);
     return _$result;
   }

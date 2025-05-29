@@ -42,7 +42,7 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
 
   factory _$InputAndOutputWithHeadersIo([
     void Function(InputAndOutputWithHeadersIoBuilder)? updates,
-  ]) => (new InputAndOutputWithHeadersIoBuilder()..update(updates))._build();
+  ]) => (InputAndOutputWithHeadersIoBuilder()..update(updates))._build();
 
   _$InputAndOutputWithHeadersIo._({
     this.headerString,
@@ -62,7 +62,6 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
     this.headerEnum,
     this.headerEnumList,
   }) : super._();
-
   @override
   InputAndOutputWithHeadersIo rebuild(
     void Function(InputAndOutputWithHeadersIoBuilder) updates,
@@ -70,7 +69,7 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
 
   @override
   InputAndOutputWithHeadersIoBuilder toBuilder() =>
-      new InputAndOutputWithHeadersIoBuilder()..replace(this);
+      InputAndOutputWithHeadersIoBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -167,31 +166,31 @@ class InputAndOutputWithHeadersIoBuilder
 
   _i4.ListBuilder<String>? _headerStringList;
   _i4.ListBuilder<String> get headerStringList =>
-      _$this._headerStringList ??= new _i4.ListBuilder<String>();
+      _$this._headerStringList ??= _i4.ListBuilder<String>();
   set headerStringList(_i4.ListBuilder<String>? headerStringList) =>
       _$this._headerStringList = headerStringList;
 
   _i4.SetBuilder<String>? _headerStringSet;
   _i4.SetBuilder<String> get headerStringSet =>
-      _$this._headerStringSet ??= new _i4.SetBuilder<String>();
+      _$this._headerStringSet ??= _i4.SetBuilder<String>();
   set headerStringSet(_i4.SetBuilder<String>? headerStringSet) =>
       _$this._headerStringSet = headerStringSet;
 
   _i4.ListBuilder<int>? _headerIntegerList;
   _i4.ListBuilder<int> get headerIntegerList =>
-      _$this._headerIntegerList ??= new _i4.ListBuilder<int>();
+      _$this._headerIntegerList ??= _i4.ListBuilder<int>();
   set headerIntegerList(_i4.ListBuilder<int>? headerIntegerList) =>
       _$this._headerIntegerList = headerIntegerList;
 
   _i4.ListBuilder<bool>? _headerBooleanList;
   _i4.ListBuilder<bool> get headerBooleanList =>
-      _$this._headerBooleanList ??= new _i4.ListBuilder<bool>();
+      _$this._headerBooleanList ??= _i4.ListBuilder<bool>();
   set headerBooleanList(_i4.ListBuilder<bool>? headerBooleanList) =>
       _$this._headerBooleanList = headerBooleanList;
 
   _i4.ListBuilder<DateTime>? _headerTimestampList;
   _i4.ListBuilder<DateTime> get headerTimestampList =>
-      _$this._headerTimestampList ??= new _i4.ListBuilder<DateTime>();
+      _$this._headerTimestampList ??= _i4.ListBuilder<DateTime>();
   set headerTimestampList(_i4.ListBuilder<DateTime>? headerTimestampList) =>
       _$this._headerTimestampList = headerTimestampList;
 
@@ -201,7 +200,7 @@ class InputAndOutputWithHeadersIoBuilder
 
   _i4.ListBuilder<FooEnum>? _headerEnumList;
   _i4.ListBuilder<FooEnum> get headerEnumList =>
-      _$this._headerEnumList ??= new _i4.ListBuilder<FooEnum>();
+      _$this._headerEnumList ??= _i4.ListBuilder<FooEnum>();
   set headerEnumList(_i4.ListBuilder<FooEnum>? headerEnumList) =>
       _$this._headerEnumList = headerEnumList;
 
@@ -233,7 +232,6 @@ class InputAndOutputWithHeadersIoBuilder
 
   @override
   void replace(InputAndOutputWithHeadersIo other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InputAndOutputWithHeadersIo;
   }
 
@@ -250,7 +248,7 @@ class InputAndOutputWithHeadersIoBuilder
     try {
       _$result =
           _$v ??
-          new _$InputAndOutputWithHeadersIo._(
+          _$InputAndOutputWithHeadersIo._(
             headerString: headerString,
             headerByte: headerByte,
             headerShort: headerShort,
@@ -285,7 +283,7 @@ class InputAndOutputWithHeadersIoBuilder
         _$failedField = 'headerEnumList';
         _headerEnumList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'InputAndOutputWithHeadersIo',
           _$failedField,
           e.toString(),
@@ -302,12 +300,9 @@ class _$InputAndOutputWithHeadersIoPayload
     extends InputAndOutputWithHeadersIoPayload {
   factory _$InputAndOutputWithHeadersIoPayload([
     void Function(InputAndOutputWithHeadersIoPayloadBuilder)? updates,
-  ]) =>
-      (new InputAndOutputWithHeadersIoPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (InputAndOutputWithHeadersIoPayloadBuilder()..update(updates))._build();
 
   _$InputAndOutputWithHeadersIoPayload._() : super._();
-
   @override
   InputAndOutputWithHeadersIoPayload rebuild(
     void Function(InputAndOutputWithHeadersIoPayloadBuilder) updates,
@@ -315,7 +310,7 @@ class _$InputAndOutputWithHeadersIoPayload
 
   @override
   InputAndOutputWithHeadersIoPayloadBuilder toBuilder() =>
-      new InputAndOutputWithHeadersIoPayloadBuilder()..replace(this);
+      InputAndOutputWithHeadersIoPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -341,7 +336,6 @@ class InputAndOutputWithHeadersIoPayloadBuilder
 
   @override
   void replace(InputAndOutputWithHeadersIoPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InputAndOutputWithHeadersIoPayload;
   }
 
@@ -356,7 +350,7 @@ class InputAndOutputWithHeadersIoPayloadBuilder
   InputAndOutputWithHeadersIoPayload build() => _build();
 
   _$InputAndOutputWithHeadersIoPayload _build() {
-    final _$result = _$v ?? new _$InputAndOutputWithHeadersIoPayload._();
+    final _$result = _$v ?? _$InputAndOutputWithHeadersIoPayload._();
     replace(_$result);
     return _$result;
   }

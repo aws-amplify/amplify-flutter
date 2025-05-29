@@ -6,7 +6,7 @@ part of 'union_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<UnionShape> _$unionShapeSerializer = new _$UnionShapeSerializer();
+Serializer<UnionShape> _$unionShapeSerializer = _$UnionShapeSerializer();
 
 class _$UnionShapeSerializer implements StructuredSerializer<UnionShape> {
   @override
@@ -42,7 +42,7 @@ class _$UnionShapeSerializer implements StructuredSerializer<UnionShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new UnionShapeBuilder();
+    final result = UnionShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -82,24 +82,19 @@ class _$UnionShape extends UnionShape {
   final TraitMap traits;
 
   factory _$UnionShape([void Function(UnionShapeBuilder)? updates]) =>
-      (new UnionShapeBuilder()..update(updates))._build();
+      (UnionShapeBuilder()..update(updates))._build();
 
   _$UnionShape._({
     required this.members,
     required this.shapeId,
     required this.traits,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(members, r'UnionShape', 'members');
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'UnionShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'UnionShape', 'traits');
-  }
-
+  }) : super._();
   @override
   UnionShape rebuild(void Function(UnionShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  UnionShapeBuilder toBuilder() => new UnionShapeBuilder()..replace(this);
+  UnionShapeBuilder toBuilder() => UnionShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -165,7 +160,6 @@ class UnionShapeBuilder
 
   @override
   void replace(covariant UnionShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UnionShape;
   }
 
@@ -180,7 +174,7 @@ class UnionShapeBuilder
   _$UnionShape _build() {
     final _$result =
         _$v ??
-        new _$UnionShape._(
+        _$UnionShape._(
           members: BuiltValueNullFieldError.checkNotNull(
             members,
             r'UnionShape',

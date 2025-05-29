@@ -15,13 +15,10 @@ class _$RecursiveShapesInputOutputNested2
 
   factory _$RecursiveShapesInputOutputNested2([
     void Function(RecursiveShapesInputOutputNested2Builder)? updates,
-  ]) =>
-      (new RecursiveShapesInputOutputNested2Builder()..update(updates))
-          ._build();
+  ]) => (RecursiveShapesInputOutputNested2Builder()..update(updates))._build();
 
   _$RecursiveShapesInputOutputNested2._({this.bar, this.recursiveMember})
     : super._();
-
   @override
   RecursiveShapesInputOutputNested2 rebuild(
     void Function(RecursiveShapesInputOutputNested2Builder) updates,
@@ -29,7 +26,7 @@ class _$RecursiveShapesInputOutputNested2
 
   @override
   RecursiveShapesInputOutputNested2Builder toBuilder() =>
-      new RecursiveShapesInputOutputNested2Builder()..replace(this);
+      RecursiveShapesInputOutputNested2Builder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -63,8 +60,7 @@ class RecursiveShapesInputOutputNested2Builder
 
   RecursiveShapesInputOutputNested1Builder? _recursiveMember;
   RecursiveShapesInputOutputNested1Builder get recursiveMember =>
-      _$this._recursiveMember ??=
-          new RecursiveShapesInputOutputNested1Builder();
+      _$this._recursiveMember ??= RecursiveShapesInputOutputNested1Builder();
   set recursiveMember(
     RecursiveShapesInputOutputNested1Builder? recursiveMember,
   ) => _$this._recursiveMember = recursiveMember;
@@ -83,7 +79,6 @@ class RecursiveShapesInputOutputNested2Builder
 
   @override
   void replace(RecursiveShapesInputOutputNested2 other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RecursiveShapesInputOutputNested2;
   }
 
@@ -102,7 +97,7 @@ class RecursiveShapesInputOutputNested2Builder
     try {
       _$result =
           _$v ??
-          new _$RecursiveShapesInputOutputNested2._(
+          _$RecursiveShapesInputOutputNested2._(
             bar: bar,
             recursiveMember: _recursiveMember?.build(),
           );
@@ -112,7 +107,7 @@ class RecursiveShapesInputOutputNested2Builder
         _$failedField = 'recursiveMember';
         _recursiveMember?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'RecursiveShapesInputOutputNested2',
           _$failedField,
           e.toString(),

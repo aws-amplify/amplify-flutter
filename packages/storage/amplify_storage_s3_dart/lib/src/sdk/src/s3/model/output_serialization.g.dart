@@ -14,10 +14,9 @@ class _$OutputSerialization extends OutputSerialization {
 
   factory _$OutputSerialization([
     void Function(OutputSerializationBuilder)? updates,
-  ]) => (new OutputSerializationBuilder()..update(updates))._build();
+  ]) => (OutputSerializationBuilder()..update(updates))._build();
 
   _$OutputSerialization._({this.csv, this.json}) : super._();
-
   @override
   OutputSerialization rebuild(
     void Function(OutputSerializationBuilder) updates,
@@ -25,7 +24,7 @@ class _$OutputSerialization extends OutputSerialization {
 
   @override
   OutputSerializationBuilder toBuilder() =>
-      new OutputSerializationBuilder()..replace(this);
+      OutputSerializationBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -50,11 +49,11 @@ class OutputSerializationBuilder
   _$OutputSerialization? _$v;
 
   CsvOutputBuilder? _csv;
-  CsvOutputBuilder get csv => _$this._csv ??= new CsvOutputBuilder();
+  CsvOutputBuilder get csv => _$this._csv ??= CsvOutputBuilder();
   set csv(CsvOutputBuilder? csv) => _$this._csv = csv;
 
   JsonOutputBuilder? _json;
-  JsonOutputBuilder get json => _$this._json ??= new JsonOutputBuilder();
+  JsonOutputBuilder get json => _$this._json ??= JsonOutputBuilder();
   set json(JsonOutputBuilder? json) => _$this._json = json;
 
   OutputSerializationBuilder();
@@ -71,7 +70,6 @@ class OutputSerializationBuilder
 
   @override
   void replace(OutputSerialization other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OutputSerialization;
   }
 
@@ -88,7 +86,7 @@ class OutputSerializationBuilder
     try {
       _$result =
           _$v ??
-          new _$OutputSerialization._(csv: _csv?.build(), json: _json?.build());
+          _$OutputSerialization._(csv: _csv?.build(), json: _json?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -97,7 +95,7 @@ class OutputSerializationBuilder
         _$failedField = 'json';
         _json?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'OutputSerialization',
           _$failedField,
           e.toString(),

@@ -7,7 +7,7 @@ part of 'primitive_long_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveLongShape> _$primitiveLongShapeSerializer =
-    new _$PrimitiveLongShapeSerializer();
+    _$PrimitiveLongShapeSerializer();
 
 class _$PrimitiveLongShapeSerializer
     implements StructuredSerializer<PrimitiveLongShape> {
@@ -39,7 +39,7 @@ class _$PrimitiveLongShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new PrimitiveLongShapeBuilder();
+    final result = PrimitiveLongShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,22 +70,10 @@ class _$PrimitiveLongShape extends PrimitiveLongShape {
 
   factory _$PrimitiveLongShape([
     void Function(PrimitiveLongShapeBuilder)? updates,
-  ]) => (new PrimitiveLongShapeBuilder()..update(updates))._build();
+  ]) => (PrimitiveLongShapeBuilder()..update(updates))._build();
 
   _$PrimitiveLongShape._({required this.shapeId, required this.traits})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'PrimitiveLongShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      traits,
-      r'PrimitiveLongShape',
-      'traits',
-    );
-  }
-
+    : super._();
   @override
   PrimitiveLongShape rebuild(
     void Function(PrimitiveLongShapeBuilder) updates,
@@ -93,7 +81,7 @@ class _$PrimitiveLongShape extends PrimitiveLongShape {
 
   @override
   PrimitiveLongShapeBuilder toBuilder() =>
-      new PrimitiveLongShapeBuilder()..replace(this);
+      PrimitiveLongShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -151,7 +139,6 @@ class PrimitiveLongShapeBuilder
 
   @override
   void replace(covariant PrimitiveLongShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveLongShape;
   }
 
@@ -166,7 +153,7 @@ class PrimitiveLongShapeBuilder
   _$PrimitiveLongShape _build() {
     final _$result =
         _$v ??
-        new _$PrimitiveLongShape._(
+        _$PrimitiveLongShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'PrimitiveLongShape',

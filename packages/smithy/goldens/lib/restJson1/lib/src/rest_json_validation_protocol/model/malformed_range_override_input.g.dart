@@ -40,7 +40,7 @@ class _$MalformedRangeOverrideInput extends MalformedRangeOverrideInput {
 
   factory _$MalformedRangeOverrideInput([
     void Function(MalformedRangeOverrideInputBuilder)? updates,
-  ]) => (new MalformedRangeOverrideInputBuilder()..update(updates))._build();
+  ]) => (MalformedRangeOverrideInputBuilder()..update(updates))._build();
 
   _$MalformedRangeOverrideInput._({
     this.byte,
@@ -59,7 +59,6 @@ class _$MalformedRangeOverrideInput extends MalformedRangeOverrideInput {
     this.minFloat,
     this.maxFloat,
   }) : super._();
-
   @override
   MalformedRangeOverrideInput rebuild(
     void Function(MalformedRangeOverrideInputBuilder) updates,
@@ -67,7 +66,7 @@ class _$MalformedRangeOverrideInput extends MalformedRangeOverrideInput {
 
   @override
   MalformedRangeOverrideInputBuilder toBuilder() =>
-      new MalformedRangeOverrideInputBuilder()..replace(this);
+      MalformedRangeOverrideInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -208,7 +207,6 @@ class MalformedRangeOverrideInputBuilder
 
   @override
   void replace(MalformedRangeOverrideInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedRangeOverrideInput;
   }
 
@@ -223,7 +221,7 @@ class MalformedRangeOverrideInputBuilder
   _$MalformedRangeOverrideInput _build() {
     final _$result =
         _$v ??
-        new _$MalformedRangeOverrideInput._(
+        _$MalformedRangeOverrideInput._(
           byte: byte,
           minByte: minByte,
           maxByte: maxByte,

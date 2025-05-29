@@ -15,32 +15,19 @@ class _$PredictInput extends PredictInput {
   final String predictEndpoint;
 
   factory _$PredictInput([void Function(PredictInputBuilder)? updates]) =>
-      (new PredictInputBuilder()..update(updates))._build();
+      (PredictInputBuilder()..update(updates))._build();
 
   _$PredictInput._({
     required this.mlModelId,
     required this.record,
     required this.predictEndpoint,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      mlModelId,
-      r'PredictInput',
-      'mlModelId',
-    );
-    BuiltValueNullFieldError.checkNotNull(record, r'PredictInput', 'record');
-    BuiltValueNullFieldError.checkNotNull(
-      predictEndpoint,
-      r'PredictInput',
-      'predictEndpoint',
-    );
-  }
-
+  }) : super._();
   @override
   PredictInput rebuild(void Function(PredictInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PredictInputBuilder toBuilder() => new PredictInputBuilder()..replace(this);
+  PredictInputBuilder toBuilder() => PredictInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +59,7 @@ class PredictInputBuilder
 
   _i3.MapBuilder<String, String>? _record;
   _i3.MapBuilder<String, String> get record =>
-      _$this._record ??= new _i3.MapBuilder<String, String>();
+      _$this._record ??= _i3.MapBuilder<String, String>();
   set record(_i3.MapBuilder<String, String>? record) => _$this._record = record;
 
   String? _predictEndpoint;
@@ -95,7 +82,6 @@ class PredictInputBuilder
 
   @override
   void replace(PredictInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PredictInput;
   }
 
@@ -112,7 +98,7 @@ class PredictInputBuilder
     try {
       _$result =
           _$v ??
-          new _$PredictInput._(
+          _$PredictInput._(
             mlModelId: BuiltValueNullFieldError.checkNotNull(
               mlModelId,
               r'PredictInput',
@@ -131,7 +117,7 @@ class PredictInputBuilder
         _$failedField = 'record';
         record.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'PredictInput',
           _$failedField,
           e.toString(),
