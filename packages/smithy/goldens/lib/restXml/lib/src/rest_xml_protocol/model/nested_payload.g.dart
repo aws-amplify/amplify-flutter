@@ -13,16 +13,15 @@ class _$NestedPayload extends NestedPayload {
   final String? name;
 
   factory _$NestedPayload([void Function(NestedPayloadBuilder)? updates]) =>
-      (new NestedPayloadBuilder()..update(updates))._build();
+      (NestedPayloadBuilder()..update(updates))._build();
 
   _$NestedPayload._({this.greeting, this.name}) : super._();
-
   @override
   NestedPayload rebuild(void Function(NestedPayloadBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  NestedPayloadBuilder toBuilder() => new NestedPayloadBuilder()..replace(this);
+  NestedPayloadBuilder toBuilder() => NestedPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +67,6 @@ class NestedPayloadBuilder
 
   @override
   void replace(NestedPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NestedPayload;
   }
 
@@ -81,8 +79,7 @@ class NestedPayloadBuilder
   NestedPayload build() => _build();
 
   _$NestedPayload _build() {
-    final _$result =
-        _$v ?? new _$NestedPayload._(greeting: greeting, name: name);
+    final _$result = _$v ?? _$NestedPayload._(greeting: greeting, name: name);
     replace(_$result);
     return _$result;
   }

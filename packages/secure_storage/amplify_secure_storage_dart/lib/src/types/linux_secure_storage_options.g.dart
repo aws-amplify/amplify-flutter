@@ -7,7 +7,7 @@ part of 'linux_secure_storage_options.dart';
 // **************************************************************************
 
 Serializer<LinuxSecureStorageOptions> _$linuxSecureStorageOptionsSerializer =
-    new _$LinuxSecureStorageOptionsSerializer();
+    _$LinuxSecureStorageOptionsSerializer();
 
 class _$LinuxSecureStorageOptionsSerializer
     implements StructuredSerializer<LinuxSecureStorageOptions> {
@@ -44,7 +44,7 @@ class _$LinuxSecureStorageOptionsSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new LinuxSecureStorageOptionsBuilder();
+    final result = LinuxSecureStorageOptionsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -73,10 +73,9 @@ class _$LinuxSecureStorageOptions extends LinuxSecureStorageOptions {
 
   factory _$LinuxSecureStorageOptions([
     void Function(LinuxSecureStorageOptionsBuilder)? updates,
-  ]) => (new LinuxSecureStorageOptionsBuilder()..update(updates))._build();
+  ]) => (LinuxSecureStorageOptionsBuilder()..update(updates))._build();
 
   _$LinuxSecureStorageOptions._({this.accessGroup}) : super._();
-
   @override
   LinuxSecureStorageOptions rebuild(
     void Function(LinuxSecureStorageOptionsBuilder) updates,
@@ -84,7 +83,7 @@ class _$LinuxSecureStorageOptions extends LinuxSecureStorageOptions {
 
   @override
   LinuxSecureStorageOptionsBuilder toBuilder() =>
-      new LinuxSecureStorageOptionsBuilder()..replace(this);
+      LinuxSecureStorageOptionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -130,7 +129,6 @@ class LinuxSecureStorageOptionsBuilder
 
   @override
   void replace(LinuxSecureStorageOptions other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$LinuxSecureStorageOptions;
   }
 
@@ -144,7 +142,7 @@ class LinuxSecureStorageOptionsBuilder
 
   _$LinuxSecureStorageOptions _build() {
     final _$result =
-        _$v ?? new _$LinuxSecureStorageOptions._(accessGroup: accessGroup);
+        _$v ?? _$LinuxSecureStorageOptions._(accessGroup: accessGroup);
     replace(_$result);
     return _$result;
   }

@@ -12,16 +12,9 @@ class _$PostUnionWithJsonNameOutput extends PostUnionWithJsonNameOutput {
 
   factory _$PostUnionWithJsonNameOutput([
     void Function(PostUnionWithJsonNameOutputBuilder)? updates,
-  ]) => (new PostUnionWithJsonNameOutputBuilder()..update(updates))._build();
+  ]) => (PostUnionWithJsonNameOutputBuilder()..update(updates))._build();
 
-  _$PostUnionWithJsonNameOutput._({required this.value}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      value,
-      r'PostUnionWithJsonNameOutput',
-      'value',
-    );
-  }
-
+  _$PostUnionWithJsonNameOutput._({required this.value}) : super._();
   @override
   PostUnionWithJsonNameOutput rebuild(
     void Function(PostUnionWithJsonNameOutputBuilder) updates,
@@ -29,7 +22,7 @@ class _$PostUnionWithJsonNameOutput extends PostUnionWithJsonNameOutput {
 
   @override
   PostUnionWithJsonNameOutputBuilder toBuilder() =>
-      new PostUnionWithJsonNameOutputBuilder()..replace(this);
+      PostUnionWithJsonNameOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -71,7 +64,6 @@ class PostUnionWithJsonNameOutputBuilder
 
   @override
   void replace(PostUnionWithJsonNameOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PostUnionWithJsonNameOutput;
   }
 
@@ -86,7 +78,7 @@ class PostUnionWithJsonNameOutputBuilder
   _$PostUnionWithJsonNameOutput _build() {
     final _$result =
         _$v ??
-        new _$PostUnionWithJsonNameOutput._(
+        _$PostUnionWithJsonNameOutput._(
           value: BuiltValueNullFieldError.checkNotNull(
             value,
             r'PostUnionWithJsonNameOutput',

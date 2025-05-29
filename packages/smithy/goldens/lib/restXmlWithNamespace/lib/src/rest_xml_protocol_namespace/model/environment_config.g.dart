@@ -22,7 +22,7 @@ class _$EnvironmentConfig extends EnvironmentConfig {
 
   factory _$EnvironmentConfig([
     void Function(EnvironmentConfigBuilder)? updates,
-  ]) => (new EnvironmentConfigBuilder()..update(updates))._build();
+  ]) => (EnvironmentConfigBuilder()..update(updates))._build();
 
   _$EnvironmentConfig._({
     this.awsAccessKeyId,
@@ -32,14 +32,13 @@ class _$EnvironmentConfig extends EnvironmentConfig {
     this.awsSessionToken,
     this.awsProfile,
   }) : super._();
-
   @override
   EnvironmentConfig rebuild(void Function(EnvironmentConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   EnvironmentConfigBuilder toBuilder() =>
-      new EnvironmentConfigBuilder()..replace(this);
+      EnvironmentConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -118,7 +117,6 @@ class EnvironmentConfigBuilder
 
   @override
   void replace(EnvironmentConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EnvironmentConfig;
   }
 
@@ -133,7 +131,7 @@ class EnvironmentConfigBuilder
   _$EnvironmentConfig _build() {
     final _$result =
         _$v ??
-        new _$EnvironmentConfig._(
+        _$EnvironmentConfig._(
           awsAccessKeyId: awsAccessKeyId,
           awsSecretAccessKey: awsSecretAccessKey,
           awsDefaultRegion: awsDefaultRegion,

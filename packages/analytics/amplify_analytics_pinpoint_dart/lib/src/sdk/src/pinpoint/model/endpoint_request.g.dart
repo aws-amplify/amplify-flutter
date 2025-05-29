@@ -31,7 +31,7 @@ class _$EndpointRequest extends EndpointRequest {
   final EndpointUser? user;
 
   factory _$EndpointRequest([void Function(EndpointRequestBuilder)? updates]) =>
-      (new EndpointRequestBuilder()..update(updates))._build();
+      (EndpointRequestBuilder()..update(updates))._build();
 
   _$EndpointRequest._({
     this.address,
@@ -46,14 +46,12 @@ class _$EndpointRequest extends EndpointRequest {
     this.requestId,
     this.user,
   }) : super._();
-
   @override
   EndpointRequest rebuild(void Function(EndpointRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EndpointRequestBuilder toBuilder() =>
-      new EndpointRequestBuilder()..replace(this);
+  EndpointRequestBuilder toBuilder() => EndpointRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,7 +99,7 @@ class EndpointRequestBuilder
 
   _i2.ListMultimapBuilder<String, String>? _attributes;
   _i2.ListMultimapBuilder<String, String> get attributes =>
-      _$this._attributes ??= new _i2.ListMultimapBuilder<String, String>();
+      _$this._attributes ??= _i2.ListMultimapBuilder<String, String>();
   set attributes(_i2.ListMultimapBuilder<String, String>? attributes) =>
       _$this._attributes = attributes;
 
@@ -112,7 +110,7 @@ class EndpointRequestBuilder
 
   EndpointDemographicBuilder? _demographic;
   EndpointDemographicBuilder get demographic =>
-      _$this._demographic ??= new EndpointDemographicBuilder();
+      _$this._demographic ??= EndpointDemographicBuilder();
   set demographic(EndpointDemographicBuilder? demographic) =>
       _$this._demographic = demographic;
 
@@ -128,13 +126,13 @@ class EndpointRequestBuilder
 
   EndpointLocationBuilder? _location;
   EndpointLocationBuilder get location =>
-      _$this._location ??= new EndpointLocationBuilder();
+      _$this._location ??= EndpointLocationBuilder();
   set location(EndpointLocationBuilder? location) =>
       _$this._location = location;
 
   _i2.MapBuilder<String, double>? _metrics;
   _i2.MapBuilder<String, double> get metrics =>
-      _$this._metrics ??= new _i2.MapBuilder<String, double>();
+      _$this._metrics ??= _i2.MapBuilder<String, double>();
   set metrics(_i2.MapBuilder<String, double>? metrics) =>
       _$this._metrics = metrics;
 
@@ -147,7 +145,7 @@ class EndpointRequestBuilder
   set requestId(String? requestId) => _$this._requestId = requestId;
 
   EndpointUserBuilder? _user;
-  EndpointUserBuilder get user => _$this._user ??= new EndpointUserBuilder();
+  EndpointUserBuilder get user => _$this._user ??= EndpointUserBuilder();
   set user(EndpointUserBuilder? user) => _$this._user = user;
 
   EndpointRequestBuilder();
@@ -173,7 +171,6 @@ class EndpointRequestBuilder
 
   @override
   void replace(EndpointRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointRequest;
   }
 
@@ -190,7 +187,7 @@ class EndpointRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$EndpointRequest._(
+          _$EndpointRequest._(
             address: address,
             attributes: _attributes?.build(),
             channelType: channelType,
@@ -220,7 +217,7 @@ class EndpointRequestBuilder
         _$failedField = 'user';
         _user?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'EndpointRequest',
           _$failedField,
           e.toString(),

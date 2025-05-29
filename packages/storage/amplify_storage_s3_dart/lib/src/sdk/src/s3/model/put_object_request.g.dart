@@ -84,7 +84,7 @@ class _$PutObjectRequest extends PutObjectRequest {
 
   factory _$PutObjectRequest([
     void Function(PutObjectRequestBuilder)? updates,
-  ]) => (new PutObjectRequestBuilder()..update(updates))._build();
+  ]) => (PutObjectRequestBuilder()..update(updates))._build();
 
   _$PutObjectRequest._({
     this.acl,
@@ -124,23 +124,14 @@ class _$PutObjectRequest extends PutObjectRequest {
     this.objectLockRetainUntilDate,
     this.objectLockLegalHoldStatus,
     this.expectedBucketOwner,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(body, r'PutObjectRequest', 'body');
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'PutObjectRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(key, r'PutObjectRequest', 'key');
-  }
-
+  }) : super._();
   @override
   PutObjectRequest rebuild(void Function(PutObjectRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   PutObjectRequestBuilder toBuilder() =>
-      new PutObjectRequestBuilder()..replace(this);
+      PutObjectRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -330,7 +321,7 @@ class PutObjectRequestBuilder
 
   _i5.MapBuilder<String, String>? _metadata;
   _i5.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i5.MapBuilder<String, String>();
+      _$this._metadata ??= _i5.MapBuilder<String, String>();
   set metadata(_i5.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
@@ -461,7 +452,6 @@ class PutObjectRequestBuilder
 
   @override
   void replace(PutObjectRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutObjectRequest;
   }
 
@@ -478,7 +468,7 @@ class PutObjectRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$PutObjectRequest._(
+          _$PutObjectRequest._(
             acl: acl,
             body: BuiltValueNullFieldError.checkNotNull(
               body,
@@ -535,7 +525,7 @@ class PutObjectRequestBuilder
         _$failedField = 'metadata';
         _metadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'PutObjectRequest',
           _$failedField,
           e.toString(),

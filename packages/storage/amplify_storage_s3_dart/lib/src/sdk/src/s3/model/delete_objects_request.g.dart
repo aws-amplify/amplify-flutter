@@ -24,7 +24,7 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
 
   factory _$DeleteObjectsRequest([
     void Function(DeleteObjectsRequestBuilder)? updates,
-  ]) => (new DeleteObjectsRequestBuilder()..update(updates))._build();
+  ]) => (DeleteObjectsRequestBuilder()..update(updates))._build();
 
   _$DeleteObjectsRequest._({
     required this.bucket,
@@ -34,19 +34,7 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
     this.bypassGovernanceRetention,
     this.expectedBucketOwner,
     this.checksumAlgorithm,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'DeleteObjectsRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      delete,
-      r'DeleteObjectsRequest',
-      'delete',
-    );
-  }
-
+  }) : super._();
   @override
   DeleteObjectsRequest rebuild(
     void Function(DeleteObjectsRequestBuilder) updates,
@@ -54,7 +42,7 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
 
   @override
   DeleteObjectsRequestBuilder toBuilder() =>
-      new DeleteObjectsRequestBuilder()..replace(this);
+      DeleteObjectsRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,7 +81,7 @@ class DeleteObjectsRequestBuilder
   set bucket(String? bucket) => _$this._bucket = bucket;
 
   DeleteBuilder? _delete;
-  DeleteBuilder get delete => _$this._delete ??= new DeleteBuilder();
+  DeleteBuilder get delete => _$this._delete ??= DeleteBuilder();
   set delete(DeleteBuilder? delete) => _$this._delete = delete;
 
   String? _mfa;
@@ -139,7 +127,6 @@ class DeleteObjectsRequestBuilder
 
   @override
   void replace(DeleteObjectsRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectsRequest;
   }
 
@@ -156,7 +143,7 @@ class DeleteObjectsRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$DeleteObjectsRequest._(
+          _$DeleteObjectsRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
               bucket,
               r'DeleteObjectsRequest',
@@ -175,7 +162,7 @@ class DeleteObjectsRequestBuilder
         _$failedField = 'delete';
         delete.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'DeleteObjectsRequest',
           _$failedField,
           e.toString(),

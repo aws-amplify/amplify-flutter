@@ -22,7 +22,7 @@ class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
 
   factory _$JsonIntEnumsInputOutput([
     void Function(JsonIntEnumsInputOutputBuilder)? updates,
-  ]) => (new JsonIntEnumsInputOutputBuilder()..update(updates))._build();
+  ]) => (JsonIntEnumsInputOutputBuilder()..update(updates))._build();
 
   _$JsonIntEnumsInputOutput._({
     this.integerEnum1,
@@ -32,7 +32,6 @@ class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
     this.integerEnumSet,
     this.integerEnumMap,
   }) : super._();
-
   @override
   JsonIntEnumsInputOutput rebuild(
     void Function(JsonIntEnumsInputOutputBuilder) updates,
@@ -40,7 +39,7 @@ class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
 
   @override
   JsonIntEnumsInputOutputBuilder toBuilder() =>
-      new JsonIntEnumsInputOutputBuilder()..replace(this);
+      JsonIntEnumsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -90,19 +89,19 @@ class JsonIntEnumsInputOutputBuilder
 
   _i3.ListBuilder<IntegerEnum>? _integerEnumList;
   _i3.ListBuilder<IntegerEnum> get integerEnumList =>
-      _$this._integerEnumList ??= new _i3.ListBuilder<IntegerEnum>();
+      _$this._integerEnumList ??= _i3.ListBuilder<IntegerEnum>();
   set integerEnumList(_i3.ListBuilder<IntegerEnum>? integerEnumList) =>
       _$this._integerEnumList = integerEnumList;
 
   _i3.SetBuilder<IntegerEnum>? _integerEnumSet;
   _i3.SetBuilder<IntegerEnum> get integerEnumSet =>
-      _$this._integerEnumSet ??= new _i3.SetBuilder<IntegerEnum>();
+      _$this._integerEnumSet ??= _i3.SetBuilder<IntegerEnum>();
   set integerEnumSet(_i3.SetBuilder<IntegerEnum>? integerEnumSet) =>
       _$this._integerEnumSet = integerEnumSet;
 
   _i3.MapBuilder<String, IntegerEnum>? _integerEnumMap;
   _i3.MapBuilder<String, IntegerEnum> get integerEnumMap =>
-      _$this._integerEnumMap ??= new _i3.MapBuilder<String, IntegerEnum>();
+      _$this._integerEnumMap ??= _i3.MapBuilder<String, IntegerEnum>();
   set integerEnumMap(_i3.MapBuilder<String, IntegerEnum>? integerEnumMap) =>
       _$this._integerEnumMap = integerEnumMap;
 
@@ -124,7 +123,6 @@ class JsonIntEnumsInputOutputBuilder
 
   @override
   void replace(JsonIntEnumsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$JsonIntEnumsInputOutput;
   }
 
@@ -141,7 +139,7 @@ class JsonIntEnumsInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$JsonIntEnumsInputOutput._(
+          _$JsonIntEnumsInputOutput._(
             integerEnum1: integerEnum1,
             integerEnum2: integerEnum2,
             integerEnum3: integerEnum3,
@@ -159,7 +157,7 @@ class JsonIntEnumsInputOutputBuilder
         _$failedField = 'integerEnumMap';
         _integerEnumMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'JsonIntEnumsInputOutput',
           _$failedField,
           e.toString(),

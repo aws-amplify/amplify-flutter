@@ -11,11 +11,9 @@ class _$ResponseCodeHttpFallbackInputOutput
   factory _$ResponseCodeHttpFallbackInputOutput([
     void Function(ResponseCodeHttpFallbackInputOutputBuilder)? updates,
   ]) =>
-      (new ResponseCodeHttpFallbackInputOutputBuilder()..update(updates))
-          ._build();
+      (ResponseCodeHttpFallbackInputOutputBuilder()..update(updates))._build();
 
   _$ResponseCodeHttpFallbackInputOutput._() : super._();
-
   @override
   ResponseCodeHttpFallbackInputOutput rebuild(
     void Function(ResponseCodeHttpFallbackInputOutputBuilder) updates,
@@ -23,7 +21,7 @@ class _$ResponseCodeHttpFallbackInputOutput
 
   @override
   ResponseCodeHttpFallbackInputOutputBuilder toBuilder() =>
-      new ResponseCodeHttpFallbackInputOutputBuilder()..replace(this);
+      ResponseCodeHttpFallbackInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -49,7 +47,6 @@ class ResponseCodeHttpFallbackInputOutputBuilder
 
   @override
   void replace(ResponseCodeHttpFallbackInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResponseCodeHttpFallbackInputOutput;
   }
 
@@ -64,7 +61,7 @@ class ResponseCodeHttpFallbackInputOutputBuilder
   ResponseCodeHttpFallbackInputOutput build() => _build();
 
   _$ResponseCodeHttpFallbackInputOutput _build() {
-    final _$result = _$v ?? new _$ResponseCodeHttpFallbackInputOutput._();
+    final _$result = _$v ?? _$ResponseCodeHttpFallbackInputOutput._();
     replace(_$result);
     return _$result;
   }

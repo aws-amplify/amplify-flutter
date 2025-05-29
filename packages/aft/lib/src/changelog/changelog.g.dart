@@ -13,24 +13,16 @@ class _$Changelog extends Changelog {
   final BuiltListMultimap<Version, Node> versions;
 
   factory _$Changelog([void Function(ChangelogBuilder)? updates]) =>
-      (new ChangelogBuilder()..update(updates))._build();
+      (ChangelogBuilder()..update(updates))._build();
 
   _$Changelog._({required this.originalText, required this.versions})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      originalText,
-      r'Changelog',
-      'originalText',
-    );
-    BuiltValueNullFieldError.checkNotNull(versions, r'Changelog', 'versions');
-  }
-
+    : super._();
   @override
   Changelog rebuild(void Function(ChangelogBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ChangelogBuilder toBuilder() => new ChangelogBuilder()..replace(this);
+  ChangelogBuilder toBuilder() => ChangelogBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -59,7 +51,7 @@ class ChangelogBuilder implements Builder<Changelog, ChangelogBuilder> {
 
   ListMultimapBuilder<Version, Node>? _versions;
   ListMultimapBuilder<Version, Node> get versions =>
-      _$this._versions ??= new ListMultimapBuilder<Version, Node>();
+      _$this._versions ??= ListMultimapBuilder<Version, Node>();
   set versions(ListMultimapBuilder<Version, Node>? versions) =>
       _$this._versions = versions;
 
@@ -77,7 +69,6 @@ class ChangelogBuilder implements Builder<Changelog, ChangelogBuilder> {
 
   @override
   void replace(Changelog other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Changelog;
   }
 
@@ -94,7 +85,7 @@ class ChangelogBuilder implements Builder<Changelog, ChangelogBuilder> {
     try {
       _$result =
           _$v ??
-          new _$Changelog._(
+          _$Changelog._(
             originalText: BuiltValueNullFieldError.checkNotNull(
               originalText,
               r'Changelog',
@@ -108,7 +99,7 @@ class ChangelogBuilder implements Builder<Changelog, ChangelogBuilder> {
         _$failedField = 'versions';
         versions.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'Changelog',
           _$failedField,
           e.toString(),

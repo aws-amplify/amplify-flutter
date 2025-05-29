@@ -13,16 +13,15 @@ class _$AwsConfig extends AwsConfig {
   final ScopedConfig? scopedConfig;
 
   factory _$AwsConfig([void Function(AwsConfigBuilder)? updates]) =>
-      (new AwsConfigBuilder()..update(updates))._build();
+      (AwsConfigBuilder()..update(updates))._build();
 
   _$AwsConfig._({this.clockTime, this.scopedConfig}) : super._();
-
   @override
   AwsConfig rebuild(void Function(AwsConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AwsConfigBuilder toBuilder() => new AwsConfigBuilder()..replace(this);
+  AwsConfigBuilder toBuilder() => AwsConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -51,7 +50,7 @@ class AwsConfigBuilder implements Builder<AwsConfig, AwsConfigBuilder> {
 
   ScopedConfigBuilder? _scopedConfig;
   ScopedConfigBuilder get scopedConfig =>
-      _$this._scopedConfig ??= new ScopedConfigBuilder();
+      _$this._scopedConfig ??= ScopedConfigBuilder();
   set scopedConfig(ScopedConfigBuilder? scopedConfig) =>
       _$this._scopedConfig = scopedConfig;
 
@@ -69,7 +68,6 @@ class AwsConfigBuilder implements Builder<AwsConfig, AwsConfigBuilder> {
 
   @override
   void replace(AwsConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AwsConfig;
   }
 
@@ -86,7 +84,7 @@ class AwsConfigBuilder implements Builder<AwsConfig, AwsConfigBuilder> {
     try {
       _$result =
           _$v ??
-          new _$AwsConfig._(
+          _$AwsConfig._(
             clockTime: clockTime,
             scopedConfig: _scopedConfig?.build(),
           );
@@ -96,7 +94,7 @@ class AwsConfigBuilder implements Builder<AwsConfig, AwsConfigBuilder> {
         _$failedField = 'scopedConfig';
         _scopedConfig?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'AwsConfig',
           _$failedField,
           e.toString(),

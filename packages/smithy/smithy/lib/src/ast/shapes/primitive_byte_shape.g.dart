@@ -7,7 +7,7 @@ part of 'primitive_byte_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveByteShape> _$primitiveByteShapeSerializer =
-    new _$PrimitiveByteShapeSerializer();
+    _$PrimitiveByteShapeSerializer();
 
 class _$PrimitiveByteShapeSerializer
     implements StructuredSerializer<PrimitiveByteShape> {
@@ -39,7 +39,7 @@ class _$PrimitiveByteShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new PrimitiveByteShapeBuilder();
+    final result = PrimitiveByteShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,22 +70,10 @@ class _$PrimitiveByteShape extends PrimitiveByteShape {
 
   factory _$PrimitiveByteShape([
     void Function(PrimitiveByteShapeBuilder)? updates,
-  ]) => (new PrimitiveByteShapeBuilder()..update(updates))._build();
+  ]) => (PrimitiveByteShapeBuilder()..update(updates))._build();
 
   _$PrimitiveByteShape._({required this.shapeId, required this.traits})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'PrimitiveByteShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      traits,
-      r'PrimitiveByteShape',
-      'traits',
-    );
-  }
-
+    : super._();
   @override
   PrimitiveByteShape rebuild(
     void Function(PrimitiveByteShapeBuilder) updates,
@@ -93,7 +81,7 @@ class _$PrimitiveByteShape extends PrimitiveByteShape {
 
   @override
   PrimitiveByteShapeBuilder toBuilder() =>
-      new PrimitiveByteShapeBuilder()..replace(this);
+      PrimitiveByteShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -151,7 +139,6 @@ class PrimitiveByteShapeBuilder
 
   @override
   void replace(covariant PrimitiveByteShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveByteShape;
   }
 
@@ -166,7 +153,7 @@ class PrimitiveByteShapeBuilder
   _$PrimitiveByteShape _build() {
     final _$result =
         _$v ??
-        new _$PrimitiveByteShape._(
+        _$PrimitiveByteShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'PrimitiveByteShape',

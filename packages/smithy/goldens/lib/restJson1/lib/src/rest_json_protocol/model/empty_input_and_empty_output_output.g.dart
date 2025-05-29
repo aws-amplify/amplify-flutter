@@ -9,10 +9,9 @@ part of 'empty_input_and_empty_output_output.dart';
 class _$EmptyInputAndEmptyOutputOutput extends EmptyInputAndEmptyOutputOutput {
   factory _$EmptyInputAndEmptyOutputOutput([
     void Function(EmptyInputAndEmptyOutputOutputBuilder)? updates,
-  ]) => (new EmptyInputAndEmptyOutputOutputBuilder()..update(updates))._build();
+  ]) => (EmptyInputAndEmptyOutputOutputBuilder()..update(updates))._build();
 
   _$EmptyInputAndEmptyOutputOutput._() : super._();
-
   @override
   EmptyInputAndEmptyOutputOutput rebuild(
     void Function(EmptyInputAndEmptyOutputOutputBuilder) updates,
@@ -20,7 +19,7 @@ class _$EmptyInputAndEmptyOutputOutput extends EmptyInputAndEmptyOutputOutput {
 
   @override
   EmptyInputAndEmptyOutputOutputBuilder toBuilder() =>
-      new EmptyInputAndEmptyOutputOutputBuilder()..replace(this);
+      EmptyInputAndEmptyOutputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,7 +45,6 @@ class EmptyInputAndEmptyOutputOutputBuilder
 
   @override
   void replace(EmptyInputAndEmptyOutputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EmptyInputAndEmptyOutputOutput;
   }
 
@@ -59,7 +57,7 @@ class EmptyInputAndEmptyOutputOutputBuilder
   EmptyInputAndEmptyOutputOutput build() => _build();
 
   _$EmptyInputAndEmptyOutputOutput _build() {
-    final _$result = _$v ?? new _$EmptyInputAndEmptyOutputOutput._();
+    final _$result = _$v ?? _$EmptyInputAndEmptyOutputOutput._();
     replace(_$result);
     return _$result;
   }

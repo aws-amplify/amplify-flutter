@@ -13,19 +13,15 @@ class _$EventsBatch extends EventsBatch {
   final _i2.BuiltMap<String, Event> events;
 
   factory _$EventsBatch([void Function(EventsBatchBuilder)? updates]) =>
-      (new EventsBatchBuilder()..update(updates))._build();
+      (EventsBatchBuilder()..update(updates))._build();
 
-  _$EventsBatch._({required this.endpoint, required this.events}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(endpoint, r'EventsBatch', 'endpoint');
-    BuiltValueNullFieldError.checkNotNull(events, r'EventsBatch', 'events');
-  }
-
+  _$EventsBatch._({required this.endpoint, required this.events}) : super._();
   @override
   EventsBatch rebuild(void Function(EventsBatchBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EventsBatchBuilder toBuilder() => new EventsBatchBuilder()..replace(this);
+  EventsBatchBuilder toBuilder() => EventsBatchBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -50,12 +46,12 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
 
   PublicEndpointBuilder? _endpoint;
   PublicEndpointBuilder get endpoint =>
-      _$this._endpoint ??= new PublicEndpointBuilder();
+      _$this._endpoint ??= PublicEndpointBuilder();
   set endpoint(PublicEndpointBuilder? endpoint) => _$this._endpoint = endpoint;
 
   _i2.MapBuilder<String, Event>? _events;
   _i2.MapBuilder<String, Event> get events =>
-      _$this._events ??= new _i2.MapBuilder<String, Event>();
+      _$this._events ??= _i2.MapBuilder<String, Event>();
   set events(_i2.MapBuilder<String, Event>? events) => _$this._events = events;
 
   EventsBatchBuilder();
@@ -72,7 +68,6 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
 
   @override
   void replace(EventsBatch other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EventsBatch;
   }
 
@@ -89,10 +84,7 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
     try {
       _$result =
           _$v ??
-          new _$EventsBatch._(
-            endpoint: endpoint.build(),
-            events: events.build(),
-          );
+          _$EventsBatch._(endpoint: endpoint.build(), events: events.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -101,7 +93,7 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
         _$failedField = 'events';
         events.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'EventsBatch',
           _$failedField,
           e.toString(),

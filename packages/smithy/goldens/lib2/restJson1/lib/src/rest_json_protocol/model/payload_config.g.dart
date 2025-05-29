@@ -11,16 +11,15 @@ class _$PayloadConfig extends PayloadConfig {
   final int? data;
 
   factory _$PayloadConfig([void Function(PayloadConfigBuilder)? updates]) =>
-      (new PayloadConfigBuilder()..update(updates))._build();
+      (PayloadConfigBuilder()..update(updates))._build();
 
   _$PayloadConfig._({this.data}) : super._();
-
   @override
   PayloadConfig rebuild(void Function(PayloadConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PayloadConfigBuilder toBuilder() => new PayloadConfigBuilder()..replace(this);
+  PayloadConfigBuilder toBuilder() => PayloadConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -58,7 +57,6 @@ class PayloadConfigBuilder
 
   @override
   void replace(PayloadConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PayloadConfig;
   }
 
@@ -71,7 +69,7 @@ class PayloadConfigBuilder
   PayloadConfig build() => _build();
 
   _$PayloadConfig _build() {
-    final _$result = _$v ?? new _$PayloadConfig._(data: data);
+    final _$result = _$v ?? _$PayloadConfig._(data: data);
     replace(_$result);
     return _$result;
   }

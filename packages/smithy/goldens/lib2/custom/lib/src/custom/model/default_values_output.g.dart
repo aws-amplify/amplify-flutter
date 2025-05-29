@@ -46,7 +46,7 @@ class _$DefaultValuesOutput extends DefaultValuesOutput {
 
   factory _$DefaultValuesOutput([
     void Function(DefaultValuesOutputBuilder)? updates,
-  ]) => (new DefaultValuesOutputBuilder()..update(updates))._build();
+  ]) => (DefaultValuesOutputBuilder()..update(updates))._build();
 
   _$DefaultValuesOutput._({
     required this.requiredDefaultInt,
@@ -67,69 +67,7 @@ class _$DefaultValuesOutput extends DefaultValuesOutput {
     required this.requiredDefaultBool,
     required this.optionalDefaultBool,
     this.nullifiedDefaultBool,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      requiredDefaultInt,
-      r'DefaultValuesOutput',
-      'requiredDefaultInt',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      optionalDefaultInt,
-      r'DefaultValuesOutput',
-      'optionalDefaultInt',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      requiredDefaultString,
-      r'DefaultValuesOutput',
-      'requiredDefaultString',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      optionalDefaultString,
-      r'DefaultValuesOutput',
-      'optionalDefaultString',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      requiredDefaultEnum,
-      r'DefaultValuesOutput',
-      'requiredDefaultEnum',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      optionalDefaultEnum,
-      r'DefaultValuesOutput',
-      'optionalDefaultEnum',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      requiredDefaultList,
-      r'DefaultValuesOutput',
-      'requiredDefaultList',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      optionalDefaultList,
-      r'DefaultValuesOutput',
-      'optionalDefaultList',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      requiredDefaultMap,
-      r'DefaultValuesOutput',
-      'requiredDefaultMap',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      optionalDefaultMap,
-      r'DefaultValuesOutput',
-      'optionalDefaultMap',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      requiredDefaultBool,
-      r'DefaultValuesOutput',
-      'requiredDefaultBool',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      optionalDefaultBool,
-      r'DefaultValuesOutput',
-      'optionalDefaultBool',
-    );
-  }
-
+  }) : super._();
   @override
   DefaultValuesOutput rebuild(
     void Function(DefaultValuesOutputBuilder) updates,
@@ -137,7 +75,7 @@ class _$DefaultValuesOutput extends DefaultValuesOutput {
 
   @override
   DefaultValuesOutputBuilder toBuilder() =>
-      new DefaultValuesOutputBuilder()..replace(this);
+      DefaultValuesOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -240,37 +178,37 @@ class DefaultValuesOutputBuilder
 
   _i2.ListBuilder<String>? _requiredDefaultList;
   _i2.ListBuilder<String> get requiredDefaultList =>
-      _$this._requiredDefaultList ??= new _i2.ListBuilder<String>();
+      _$this._requiredDefaultList ??= _i2.ListBuilder<String>();
   set requiredDefaultList(_i2.ListBuilder<String>? requiredDefaultList) =>
       _$this._requiredDefaultList = requiredDefaultList;
 
   _i2.ListBuilder<String>? _optionalDefaultList;
   _i2.ListBuilder<String> get optionalDefaultList =>
-      _$this._optionalDefaultList ??= new _i2.ListBuilder<String>();
+      _$this._optionalDefaultList ??= _i2.ListBuilder<String>();
   set optionalDefaultList(_i2.ListBuilder<String>? optionalDefaultList) =>
       _$this._optionalDefaultList = optionalDefaultList;
 
   _i2.ListBuilder<String>? _nullifiedDefaultList;
   _i2.ListBuilder<String> get nullifiedDefaultList =>
-      _$this._nullifiedDefaultList ??= new _i2.ListBuilder<String>();
+      _$this._nullifiedDefaultList ??= _i2.ListBuilder<String>();
   set nullifiedDefaultList(_i2.ListBuilder<String>? nullifiedDefaultList) =>
       _$this._nullifiedDefaultList = nullifiedDefaultList;
 
   _i2.MapBuilder<String, String>? _requiredDefaultMap;
   _i2.MapBuilder<String, String> get requiredDefaultMap =>
-      _$this._requiredDefaultMap ??= new _i2.MapBuilder<String, String>();
+      _$this._requiredDefaultMap ??= _i2.MapBuilder<String, String>();
   set requiredDefaultMap(_i2.MapBuilder<String, String>? requiredDefaultMap) =>
       _$this._requiredDefaultMap = requiredDefaultMap;
 
   _i2.MapBuilder<String, String>? _optionalDefaultMap;
   _i2.MapBuilder<String, String> get optionalDefaultMap =>
-      _$this._optionalDefaultMap ??= new _i2.MapBuilder<String, String>();
+      _$this._optionalDefaultMap ??= _i2.MapBuilder<String, String>();
   set optionalDefaultMap(_i2.MapBuilder<String, String>? optionalDefaultMap) =>
       _$this._optionalDefaultMap = optionalDefaultMap;
 
   _i2.MapBuilder<String, String>? _nullifiedDefaultMap;
   _i2.MapBuilder<String, String> get nullifiedDefaultMap =>
-      _$this._nullifiedDefaultMap ??= new _i2.MapBuilder<String, String>();
+      _$this._nullifiedDefaultMap ??= _i2.MapBuilder<String, String>();
   set nullifiedDefaultMap(
     _i2.MapBuilder<String, String>? nullifiedDefaultMap,
   ) => _$this._nullifiedDefaultMap = nullifiedDefaultMap;
@@ -322,7 +260,6 @@ class DefaultValuesOutputBuilder
 
   @override
   void replace(DefaultValuesOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DefaultValuesOutput;
   }
 
@@ -339,7 +276,7 @@ class DefaultValuesOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$DefaultValuesOutput._(
+          _$DefaultValuesOutput._(
             requiredDefaultInt: BuiltValueNullFieldError.checkNotNull(
               requiredDefaultInt,
               r'DefaultValuesOutput',
@@ -407,7 +344,7 @@ class DefaultValuesOutputBuilder
         _$failedField = 'nullifiedDefaultMap';
         _nullifiedDefaultMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'DefaultValuesOutput',
           _$failedField,
           e.toString(),

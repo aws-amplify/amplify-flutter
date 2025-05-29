@@ -7,7 +7,7 @@ part of 'secure_storage_worker.dart';
 // **************************************************************************
 
 Serializers _$serializers =
-    (new Serializers().toBuilder()
+    (Serializers().toBuilder()
           ..add(AmplifySecureStorageConfig.serializer)
           ..add(IOSSecureStorageOptions.serializer)
           ..add(KeychainAttributeAccessible.serializer)

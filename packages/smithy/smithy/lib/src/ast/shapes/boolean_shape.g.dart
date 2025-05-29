@@ -6,8 +6,7 @@ part of 'boolean_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<BooleanShape> _$booleanShapeSerializer =
-    new _$BooleanShapeSerializer();
+Serializer<BooleanShape> _$booleanShapeSerializer = _$BooleanShapeSerializer();
 
 class _$BooleanShapeSerializer implements StructuredSerializer<BooleanShape> {
   @override
@@ -38,7 +37,7 @@ class _$BooleanShapeSerializer implements StructuredSerializer<BooleanShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new BooleanShapeBuilder();
+    final result = BooleanShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -68,19 +67,15 @@ class _$BooleanShape extends BooleanShape {
   final TraitMap traits;
 
   factory _$BooleanShape([void Function(BooleanShapeBuilder)? updates]) =>
-      (new BooleanShapeBuilder()..update(updates))._build();
+      (BooleanShapeBuilder()..update(updates))._build();
 
-  _$BooleanShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'BooleanShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'BooleanShape', 'traits');
-  }
-
+  _$BooleanShape._({required this.shapeId, required this.traits}) : super._();
   @override
   BooleanShape rebuild(void Function(BooleanShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BooleanShapeBuilder toBuilder() => new BooleanShapeBuilder()..replace(this);
+  BooleanShapeBuilder toBuilder() => BooleanShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -136,7 +131,6 @@ class BooleanShapeBuilder
 
   @override
   void replace(covariant BooleanShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BooleanShape;
   }
 
@@ -151,7 +145,7 @@ class BooleanShapeBuilder
   _$BooleanShape _build() {
     final _$result =
         _$v ??
-        new _$BooleanShape._(
+        _$BooleanShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'BooleanShape',

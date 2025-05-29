@@ -14,18 +14,10 @@ class _$MalformedTimestampQueryDefaultInput
   factory _$MalformedTimestampQueryDefaultInput([
     void Function(MalformedTimestampQueryDefaultInputBuilder)? updates,
   ]) =>
-      (new MalformedTimestampQueryDefaultInputBuilder()..update(updates))
-          ._build();
+      (MalformedTimestampQueryDefaultInputBuilder()..update(updates))._build();
 
   _$MalformedTimestampQueryDefaultInput._({required this.timestamp})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      timestamp,
-      r'MalformedTimestampQueryDefaultInput',
-      'timestamp',
-    );
-  }
-
+    : super._();
   @override
   MalformedTimestampQueryDefaultInput rebuild(
     void Function(MalformedTimestampQueryDefaultInputBuilder) updates,
@@ -33,7 +25,7 @@ class _$MalformedTimestampQueryDefaultInput
 
   @override
   MalformedTimestampQueryDefaultInputBuilder toBuilder() =>
-      new MalformedTimestampQueryDefaultInputBuilder()..replace(this);
+      MalformedTimestampQueryDefaultInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -76,7 +68,6 @@ class MalformedTimestampQueryDefaultInputBuilder
 
   @override
   void replace(MalformedTimestampQueryDefaultInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedTimestampQueryDefaultInput;
   }
 
@@ -93,7 +84,7 @@ class MalformedTimestampQueryDefaultInputBuilder
   _$MalformedTimestampQueryDefaultInput _build() {
     final _$result =
         _$v ??
-        new _$MalformedTimestampQueryDefaultInput._(
+        _$MalformedTimestampQueryDefaultInput._(
           timestamp: BuiltValueNullFieldError.checkNotNull(
             timestamp,
             r'MalformedTimestampQueryDefaultInput',
@@ -110,11 +101,10 @@ class _$MalformedTimestampQueryDefaultInputPayload
   factory _$MalformedTimestampQueryDefaultInputPayload([
     void Function(MalformedTimestampQueryDefaultInputPayloadBuilder)? updates,
   ]) =>
-      (new MalformedTimestampQueryDefaultInputPayloadBuilder()..update(updates))
+      (MalformedTimestampQueryDefaultInputPayloadBuilder()..update(updates))
           ._build();
 
   _$MalformedTimestampQueryDefaultInputPayload._() : super._();
-
   @override
   MalformedTimestampQueryDefaultInputPayload rebuild(
     void Function(MalformedTimestampQueryDefaultInputPayloadBuilder) updates,
@@ -122,7 +112,7 @@ class _$MalformedTimestampQueryDefaultInputPayload
 
   @override
   MalformedTimestampQueryDefaultInputPayloadBuilder toBuilder() =>
-      new MalformedTimestampQueryDefaultInputPayloadBuilder()..replace(this);
+      MalformedTimestampQueryDefaultInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -148,7 +138,6 @@ class MalformedTimestampQueryDefaultInputPayloadBuilder
 
   @override
   void replace(MalformedTimestampQueryDefaultInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedTimestampQueryDefaultInputPayload;
   }
 
@@ -163,8 +152,7 @@ class MalformedTimestampQueryDefaultInputPayloadBuilder
   MalformedTimestampQueryDefaultInputPayload build() => _build();
 
   _$MalformedTimestampQueryDefaultInputPayload _build() {
-    final _$result =
-        _$v ?? new _$MalformedTimestampQueryDefaultInputPayload._();
+    final _$result = _$v ?? _$MalformedTimestampQueryDefaultInputPayload._();
     replace(_$result);
     return _$result;
   }

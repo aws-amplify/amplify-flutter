@@ -16,12 +16,10 @@ class _$OmitsNullSerializesEmptyStringInput
   factory _$OmitsNullSerializesEmptyStringInput([
     void Function(OmitsNullSerializesEmptyStringInputBuilder)? updates,
   ]) =>
-      (new OmitsNullSerializesEmptyStringInputBuilder()..update(updates))
-          ._build();
+      (OmitsNullSerializesEmptyStringInputBuilder()..update(updates))._build();
 
   _$OmitsNullSerializesEmptyStringInput._({this.nullValue, this.emptyString})
     : super._();
-
   @override
   OmitsNullSerializesEmptyStringInput rebuild(
     void Function(OmitsNullSerializesEmptyStringInputBuilder) updates,
@@ -29,7 +27,7 @@ class _$OmitsNullSerializesEmptyStringInput
 
   @override
   OmitsNullSerializesEmptyStringInputBuilder toBuilder() =>
-      new OmitsNullSerializesEmptyStringInputBuilder()..replace(this);
+      OmitsNullSerializesEmptyStringInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -79,7 +77,6 @@ class OmitsNullSerializesEmptyStringInputBuilder
 
   @override
   void replace(OmitsNullSerializesEmptyStringInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OmitsNullSerializesEmptyStringInput;
   }
 
@@ -96,7 +93,7 @@ class OmitsNullSerializesEmptyStringInputBuilder
   _$OmitsNullSerializesEmptyStringInput _build() {
     final _$result =
         _$v ??
-        new _$OmitsNullSerializesEmptyStringInput._(
+        _$OmitsNullSerializesEmptyStringInput._(
           nullValue: nullValue,
           emptyString: emptyString,
         );
@@ -110,11 +107,10 @@ class _$OmitsNullSerializesEmptyStringInputPayload
   factory _$OmitsNullSerializesEmptyStringInputPayload([
     void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)? updates,
   ]) =>
-      (new OmitsNullSerializesEmptyStringInputPayloadBuilder()..update(updates))
+      (OmitsNullSerializesEmptyStringInputPayloadBuilder()..update(updates))
           ._build();
 
   _$OmitsNullSerializesEmptyStringInputPayload._() : super._();
-
   @override
   OmitsNullSerializesEmptyStringInputPayload rebuild(
     void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder) updates,
@@ -122,7 +118,7 @@ class _$OmitsNullSerializesEmptyStringInputPayload
 
   @override
   OmitsNullSerializesEmptyStringInputPayloadBuilder toBuilder() =>
-      new OmitsNullSerializesEmptyStringInputPayloadBuilder()..replace(this);
+      OmitsNullSerializesEmptyStringInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -148,7 +144,6 @@ class OmitsNullSerializesEmptyStringInputPayloadBuilder
 
   @override
   void replace(OmitsNullSerializesEmptyStringInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OmitsNullSerializesEmptyStringInputPayload;
   }
 
@@ -163,8 +158,7 @@ class OmitsNullSerializesEmptyStringInputPayloadBuilder
   OmitsNullSerializesEmptyStringInputPayload build() => _build();
 
   _$OmitsNullSerializesEmptyStringInputPayload _build() {
-    final _$result =
-        _$v ?? new _$OmitsNullSerializesEmptyStringInputPayload._();
+    final _$result = _$v ?? _$OmitsNullSerializesEmptyStringInputPayload._();
     replace(_$result);
     return _$result;
   }

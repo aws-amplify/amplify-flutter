@@ -6,7 +6,7 @@ part of 'string_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<StringShape> _$stringShapeSerializer = new _$StringShapeSerializer();
+Serializer<StringShape> _$stringShapeSerializer = _$StringShapeSerializer();
 
 class _$StringShapeSerializer implements StructuredSerializer<StringShape> {
   @override
@@ -37,7 +37,7 @@ class _$StringShapeSerializer implements StructuredSerializer<StringShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new StringShapeBuilder();
+    final result = StringShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -67,19 +67,15 @@ class _$StringShape extends StringShape {
   final TraitMap traits;
 
   factory _$StringShape([void Function(StringShapeBuilder)? updates]) =>
-      (new StringShapeBuilder()..update(updates))._build();
+      (StringShapeBuilder()..update(updates))._build();
 
-  _$StringShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'StringShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'StringShape', 'traits');
-  }
-
+  _$StringShape._({required this.shapeId, required this.traits}) : super._();
   @override
   StringShape rebuild(void Function(StringShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  StringShapeBuilder toBuilder() => new StringShapeBuilder()..replace(this);
+  StringShapeBuilder toBuilder() => StringShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,7 +131,6 @@ class StringShapeBuilder
 
   @override
   void replace(covariant StringShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StringShape;
   }
 
@@ -150,7 +145,7 @@ class StringShapeBuilder
   _$StringShape _build() {
     final _$result =
         _$v ??
-        new _$StringShape._(
+        _$StringShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'StringShape',
