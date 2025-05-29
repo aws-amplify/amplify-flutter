@@ -14,11 +14,9 @@ class _$PutAndGetInlineDocumentsInputOutput
   factory _$PutAndGetInlineDocumentsInputOutput([
     void Function(PutAndGetInlineDocumentsInputOutputBuilder)? updates,
   ]) =>
-      (new PutAndGetInlineDocumentsInputOutputBuilder()..update(updates))
-          ._build();
+      (PutAndGetInlineDocumentsInputOutputBuilder()..update(updates))._build();
 
   _$PutAndGetInlineDocumentsInputOutput._({this.inlineDocument}) : super._();
-
   @override
   PutAndGetInlineDocumentsInputOutput rebuild(
     void Function(PutAndGetInlineDocumentsInputOutputBuilder) updates,
@@ -26,7 +24,7 @@ class _$PutAndGetInlineDocumentsInputOutput
 
   @override
   PutAndGetInlineDocumentsInputOutputBuilder toBuilder() =>
-      new PutAndGetInlineDocumentsInputOutputBuilder()..replace(this);
+      PutAndGetInlineDocumentsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +68,6 @@ class PutAndGetInlineDocumentsInputOutputBuilder
 
   @override
   void replace(PutAndGetInlineDocumentsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutAndGetInlineDocumentsInputOutput;
   }
 
@@ -87,9 +84,7 @@ class PutAndGetInlineDocumentsInputOutputBuilder
   _$PutAndGetInlineDocumentsInputOutput _build() {
     final _$result =
         _$v ??
-        new _$PutAndGetInlineDocumentsInputOutput._(
-          inlineDocument: inlineDocument,
-        );
+        _$PutAndGetInlineDocumentsInputOutput._(inlineDocument: inlineDocument);
     replace(_$result);
     return _$result;
   }

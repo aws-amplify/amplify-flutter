@@ -25,8 +25,7 @@ class _$OmitsSerializingEmptyListsInput
 
   factory _$OmitsSerializingEmptyListsInput([
     void Function(OmitsSerializingEmptyListsInputBuilder)? updates,
-  ]) =>
-      (new OmitsSerializingEmptyListsInputBuilder()..update(updates))._build();
+  ]) => (OmitsSerializingEmptyListsInputBuilder()..update(updates))._build();
 
   _$OmitsSerializingEmptyListsInput._({
     this.queryStringList,
@@ -37,7 +36,6 @@ class _$OmitsSerializingEmptyListsInput
     this.queryEnumList,
     this.queryIntegerEnumList,
   }) : super._();
-
   @override
   OmitsSerializingEmptyListsInput rebuild(
     void Function(OmitsSerializingEmptyListsInputBuilder) updates,
@@ -45,7 +43,7 @@ class _$OmitsSerializingEmptyListsInput
 
   @override
   OmitsSerializingEmptyListsInputBuilder toBuilder() =>
-      new OmitsSerializingEmptyListsInputBuilder()..replace(this);
+      OmitsSerializingEmptyListsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -85,43 +83,43 @@ class OmitsSerializingEmptyListsInputBuilder
 
   _i3.ListBuilder<String>? _queryStringList;
   _i3.ListBuilder<String> get queryStringList =>
-      _$this._queryStringList ??= new _i3.ListBuilder<String>();
+      _$this._queryStringList ??= _i3.ListBuilder<String>();
   set queryStringList(_i3.ListBuilder<String>? queryStringList) =>
       _$this._queryStringList = queryStringList;
 
   _i3.ListBuilder<int>? _queryIntegerList;
   _i3.ListBuilder<int> get queryIntegerList =>
-      _$this._queryIntegerList ??= new _i3.ListBuilder<int>();
+      _$this._queryIntegerList ??= _i3.ListBuilder<int>();
   set queryIntegerList(_i3.ListBuilder<int>? queryIntegerList) =>
       _$this._queryIntegerList = queryIntegerList;
 
   _i3.ListBuilder<double>? _queryDoubleList;
   _i3.ListBuilder<double> get queryDoubleList =>
-      _$this._queryDoubleList ??= new _i3.ListBuilder<double>();
+      _$this._queryDoubleList ??= _i3.ListBuilder<double>();
   set queryDoubleList(_i3.ListBuilder<double>? queryDoubleList) =>
       _$this._queryDoubleList = queryDoubleList;
 
   _i3.ListBuilder<bool>? _queryBooleanList;
   _i3.ListBuilder<bool> get queryBooleanList =>
-      _$this._queryBooleanList ??= new _i3.ListBuilder<bool>();
+      _$this._queryBooleanList ??= _i3.ListBuilder<bool>();
   set queryBooleanList(_i3.ListBuilder<bool>? queryBooleanList) =>
       _$this._queryBooleanList = queryBooleanList;
 
   _i3.ListBuilder<DateTime>? _queryTimestampList;
   _i3.ListBuilder<DateTime> get queryTimestampList =>
-      _$this._queryTimestampList ??= new _i3.ListBuilder<DateTime>();
+      _$this._queryTimestampList ??= _i3.ListBuilder<DateTime>();
   set queryTimestampList(_i3.ListBuilder<DateTime>? queryTimestampList) =>
       _$this._queryTimestampList = queryTimestampList;
 
   _i3.ListBuilder<FooEnum>? _queryEnumList;
   _i3.ListBuilder<FooEnum> get queryEnumList =>
-      _$this._queryEnumList ??= new _i3.ListBuilder<FooEnum>();
+      _$this._queryEnumList ??= _i3.ListBuilder<FooEnum>();
   set queryEnumList(_i3.ListBuilder<FooEnum>? queryEnumList) =>
       _$this._queryEnumList = queryEnumList;
 
   _i3.ListBuilder<int>? _queryIntegerEnumList;
   _i3.ListBuilder<int> get queryIntegerEnumList =>
-      _$this._queryIntegerEnumList ??= new _i3.ListBuilder<int>();
+      _$this._queryIntegerEnumList ??= _i3.ListBuilder<int>();
   set queryIntegerEnumList(_i3.ListBuilder<int>? queryIntegerEnumList) =>
       _$this._queryIntegerEnumList = queryIntegerEnumList;
 
@@ -144,7 +142,6 @@ class OmitsSerializingEmptyListsInputBuilder
 
   @override
   void replace(OmitsSerializingEmptyListsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OmitsSerializingEmptyListsInput;
   }
 
@@ -161,7 +158,7 @@ class OmitsSerializingEmptyListsInputBuilder
     try {
       _$result =
           _$v ??
-          new _$OmitsSerializingEmptyListsInput._(
+          _$OmitsSerializingEmptyListsInput._(
             queryStringList: _queryStringList?.build(),
             queryIntegerList: _queryIntegerList?.build(),
             queryDoubleList: _queryDoubleList?.build(),
@@ -188,7 +185,7 @@ class OmitsSerializingEmptyListsInputBuilder
         _$failedField = 'queryIntegerEnumList';
         _queryIntegerEnumList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'OmitsSerializingEmptyListsInput',
           _$failedField,
           e.toString(),
@@ -206,11 +203,10 @@ class _$OmitsSerializingEmptyListsInputPayload
   factory _$OmitsSerializingEmptyListsInputPayload([
     void Function(OmitsSerializingEmptyListsInputPayloadBuilder)? updates,
   ]) =>
-      (new OmitsSerializingEmptyListsInputPayloadBuilder()..update(updates))
+      (OmitsSerializingEmptyListsInputPayloadBuilder()..update(updates))
           ._build();
 
   _$OmitsSerializingEmptyListsInputPayload._() : super._();
-
   @override
   OmitsSerializingEmptyListsInputPayload rebuild(
     void Function(OmitsSerializingEmptyListsInputPayloadBuilder) updates,
@@ -218,7 +214,7 @@ class _$OmitsSerializingEmptyListsInputPayload
 
   @override
   OmitsSerializingEmptyListsInputPayloadBuilder toBuilder() =>
-      new OmitsSerializingEmptyListsInputPayloadBuilder()..replace(this);
+      OmitsSerializingEmptyListsInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -244,7 +240,6 @@ class OmitsSerializingEmptyListsInputPayloadBuilder
 
   @override
   void replace(OmitsSerializingEmptyListsInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OmitsSerializingEmptyListsInputPayload;
   }
 
@@ -259,7 +254,7 @@ class OmitsSerializingEmptyListsInputPayloadBuilder
   OmitsSerializingEmptyListsInputPayload build() => _build();
 
   _$OmitsSerializingEmptyListsInputPayload _build() {
-    final _$result = _$v ?? new _$OmitsSerializingEmptyListsInputPayload._();
+    final _$result = _$v ?? _$OmitsSerializingEmptyListsInputPayload._();
     replace(_$result);
     return _$result;
   }

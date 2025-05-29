@@ -13,11 +13,9 @@ class _$PayloadWithXmlNamespaceAndPrefix
 
   factory _$PayloadWithXmlNamespaceAndPrefix([
     void Function(PayloadWithXmlNamespaceAndPrefixBuilder)? updates,
-  ]) =>
-      (new PayloadWithXmlNamespaceAndPrefixBuilder()..update(updates))._build();
+  ]) => (PayloadWithXmlNamespaceAndPrefixBuilder()..update(updates))._build();
 
   _$PayloadWithXmlNamespaceAndPrefix._({this.name}) : super._();
-
   @override
   PayloadWithXmlNamespaceAndPrefix rebuild(
     void Function(PayloadWithXmlNamespaceAndPrefixBuilder) updates,
@@ -25,7 +23,7 @@ class _$PayloadWithXmlNamespaceAndPrefix
 
   @override
   PayloadWithXmlNamespaceAndPrefixBuilder toBuilder() =>
-      new PayloadWithXmlNamespaceAndPrefixBuilder()..replace(this);
+      PayloadWithXmlNamespaceAndPrefixBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,7 +65,6 @@ class PayloadWithXmlNamespaceAndPrefixBuilder
 
   @override
   void replace(PayloadWithXmlNamespaceAndPrefix other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PayloadWithXmlNamespaceAndPrefix;
   }
 
@@ -80,8 +77,7 @@ class PayloadWithXmlNamespaceAndPrefixBuilder
   PayloadWithXmlNamespaceAndPrefix build() => _build();
 
   _$PayloadWithXmlNamespaceAndPrefix _build() {
-    final _$result =
-        _$v ?? new _$PayloadWithXmlNamespaceAndPrefix._(name: name);
+    final _$result = _$v ?? _$PayloadWithXmlNamespaceAndPrefix._(name: name);
     replace(_$result);
     return _$result;
   }

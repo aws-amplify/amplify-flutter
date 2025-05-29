@@ -18,21 +18,14 @@ class _$MalformedFloatInput extends MalformedFloatInput {
 
   factory _$MalformedFloatInput([
     void Function(MalformedFloatInputBuilder)? updates,
-  ]) => (new MalformedFloatInputBuilder()..update(updates))._build();
+  ]) => (MalformedFloatInputBuilder()..update(updates))._build();
 
   _$MalformedFloatInput._({
     this.floatInBody,
     required this.floatInPath,
     this.floatInQuery,
     this.floatInHeader,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      floatInPath,
-      r'MalformedFloatInput',
-      'floatInPath',
-    );
-  }
-
+  }) : super._();
   @override
   MalformedFloatInput rebuild(
     void Function(MalformedFloatInputBuilder) updates,
@@ -40,7 +33,7 @@ class _$MalformedFloatInput extends MalformedFloatInput {
 
   @override
   MalformedFloatInputBuilder toBuilder() =>
-      new MalformedFloatInputBuilder()..replace(this);
+      MalformedFloatInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,7 +94,6 @@ class MalformedFloatInputBuilder
 
   @override
   void replace(MalformedFloatInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedFloatInput;
   }
 
@@ -116,7 +108,7 @@ class MalformedFloatInputBuilder
   _$MalformedFloatInput _build() {
     final _$result =
         _$v ??
-        new _$MalformedFloatInput._(
+        _$MalformedFloatInput._(
           floatInBody: floatInBody,
           floatInPath: BuiltValueNullFieldError.checkNotNull(
             floatInPath,
@@ -137,10 +129,9 @@ class _$MalformedFloatInputPayload extends MalformedFloatInputPayload {
 
   factory _$MalformedFloatInputPayload([
     void Function(MalformedFloatInputPayloadBuilder)? updates,
-  ]) => (new MalformedFloatInputPayloadBuilder()..update(updates))._build();
+  ]) => (MalformedFloatInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedFloatInputPayload._({this.floatInBody}) : super._();
-
   @override
   MalformedFloatInputPayload rebuild(
     void Function(MalformedFloatInputPayloadBuilder) updates,
@@ -148,7 +139,7 @@ class _$MalformedFloatInputPayload extends MalformedFloatInputPayload {
 
   @override
   MalformedFloatInputPayloadBuilder toBuilder() =>
-      new MalformedFloatInputPayloadBuilder()..replace(this);
+      MalformedFloatInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -188,7 +179,6 @@ class MalformedFloatInputPayloadBuilder
 
   @override
   void replace(MalformedFloatInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedFloatInputPayload;
   }
 
@@ -202,7 +192,7 @@ class MalformedFloatInputPayloadBuilder
 
   _$MalformedFloatInputPayload _build() {
     final _$result =
-        _$v ?? new _$MalformedFloatInputPayload._(floatInBody: floatInBody);
+        _$v ?? _$MalformedFloatInputPayload._(floatInBody: floatInBody);
     replace(_$result);
     return _$result;
   }

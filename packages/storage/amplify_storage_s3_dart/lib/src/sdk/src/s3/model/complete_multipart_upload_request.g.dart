@@ -36,7 +36,7 @@ class _$CompleteMultipartUploadRequest extends CompleteMultipartUploadRequest {
 
   factory _$CompleteMultipartUploadRequest([
     void Function(CompleteMultipartUploadRequestBuilder)? updates,
-  ]) => (new CompleteMultipartUploadRequestBuilder()..update(updates))._build();
+  ]) => (CompleteMultipartUploadRequestBuilder()..update(updates))._build();
 
   _$CompleteMultipartUploadRequest._({
     required this.bucket,
@@ -52,24 +52,7 @@ class _$CompleteMultipartUploadRequest extends CompleteMultipartUploadRequest {
     this.sseCustomerAlgorithm,
     this.sseCustomerKey,
     this.sseCustomerKeyMd5,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'CompleteMultipartUploadRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      key,
-      r'CompleteMultipartUploadRequest',
-      'key',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      uploadId,
-      r'CompleteMultipartUploadRequest',
-      'uploadId',
-    );
-  }
-
+  }) : super._();
   @override
   CompleteMultipartUploadRequest rebuild(
     void Function(CompleteMultipartUploadRequestBuilder) updates,
@@ -77,7 +60,7 @@ class _$CompleteMultipartUploadRequest extends CompleteMultipartUploadRequest {
 
   @override
   CompleteMultipartUploadRequestBuilder toBuilder() =>
-      new CompleteMultipartUploadRequestBuilder()..replace(this);
+      CompleteMultipartUploadRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -137,7 +120,7 @@ class CompleteMultipartUploadRequestBuilder
 
   CompletedMultipartUploadBuilder? _multipartUpload;
   CompletedMultipartUploadBuilder get multipartUpload =>
-      _$this._multipartUpload ??= new CompletedMultipartUploadBuilder();
+      _$this._multipartUpload ??= CompletedMultipartUploadBuilder();
   set multipartUpload(CompletedMultipartUploadBuilder? multipartUpload) =>
       _$this._multipartUpload = multipartUpload;
 
@@ -214,7 +197,6 @@ class CompleteMultipartUploadRequestBuilder
 
   @override
   void replace(CompleteMultipartUploadRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CompleteMultipartUploadRequest;
   }
 
@@ -231,7 +213,7 @@ class CompleteMultipartUploadRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$CompleteMultipartUploadRequest._(
+          _$CompleteMultipartUploadRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
               bucket,
               r'CompleteMultipartUploadRequest',
@@ -264,7 +246,7 @@ class CompleteMultipartUploadRequestBuilder
         _$failedField = 'multipartUpload';
         _multipartUpload?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'CompleteMultipartUploadRequest',
           _$failedField,
           e.toString(),

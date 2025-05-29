@@ -12,10 +12,9 @@ class _$AbortMultipartUploadOutput extends AbortMultipartUploadOutput {
 
   factory _$AbortMultipartUploadOutput([
     void Function(AbortMultipartUploadOutputBuilder)? updates,
-  ]) => (new AbortMultipartUploadOutputBuilder()..update(updates))._build();
+  ]) => (AbortMultipartUploadOutputBuilder()..update(updates))._build();
 
   _$AbortMultipartUploadOutput._({this.requestCharged}) : super._();
-
   @override
   AbortMultipartUploadOutput rebuild(
     void Function(AbortMultipartUploadOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$AbortMultipartUploadOutput extends AbortMultipartUploadOutput {
 
   @override
   AbortMultipartUploadOutputBuilder toBuilder() =>
-      new AbortMultipartUploadOutputBuilder()..replace(this);
+      AbortMultipartUploadOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -64,7 +63,6 @@ class AbortMultipartUploadOutputBuilder
 
   @override
   void replace(AbortMultipartUploadOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AbortMultipartUploadOutput;
   }
 
@@ -78,8 +76,7 @@ class AbortMultipartUploadOutputBuilder
 
   _$AbortMultipartUploadOutput _build() {
     final _$result =
-        _$v ??
-        new _$AbortMultipartUploadOutput._(requestCharged: requestCharged);
+        _$v ?? _$AbortMultipartUploadOutput._(requestCharged: requestCharged);
     replace(_$result);
     return _$result;
   }
@@ -89,12 +86,9 @@ class _$AbortMultipartUploadOutputPayload
     extends AbortMultipartUploadOutputPayload {
   factory _$AbortMultipartUploadOutputPayload([
     void Function(AbortMultipartUploadOutputPayloadBuilder)? updates,
-  ]) =>
-      (new AbortMultipartUploadOutputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (AbortMultipartUploadOutputPayloadBuilder()..update(updates))._build();
 
   _$AbortMultipartUploadOutputPayload._() : super._();
-
   @override
   AbortMultipartUploadOutputPayload rebuild(
     void Function(AbortMultipartUploadOutputPayloadBuilder) updates,
@@ -102,7 +96,7 @@ class _$AbortMultipartUploadOutputPayload
 
   @override
   AbortMultipartUploadOutputPayloadBuilder toBuilder() =>
-      new AbortMultipartUploadOutputPayloadBuilder()..replace(this);
+      AbortMultipartUploadOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -128,7 +122,6 @@ class AbortMultipartUploadOutputPayloadBuilder
 
   @override
   void replace(AbortMultipartUploadOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AbortMultipartUploadOutputPayload;
   }
 
@@ -143,7 +136,7 @@ class AbortMultipartUploadOutputPayloadBuilder
   AbortMultipartUploadOutputPayload build() => _build();
 
   _$AbortMultipartUploadOutputPayload _build() {
-    final _$result = _$v ?? new _$AbortMultipartUploadOutputPayload._();
+    final _$result = _$v ?? _$AbortMultipartUploadOutputPayload._();
     replace(_$result);
     return _$result;
   }

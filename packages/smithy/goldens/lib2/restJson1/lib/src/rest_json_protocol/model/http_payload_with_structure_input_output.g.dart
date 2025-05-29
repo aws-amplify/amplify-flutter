@@ -14,11 +14,9 @@ class _$HttpPayloadWithStructureInputOutput
   factory _$HttpPayloadWithStructureInputOutput([
     void Function(HttpPayloadWithStructureInputOutputBuilder)? updates,
   ]) =>
-      (new HttpPayloadWithStructureInputOutputBuilder()..update(updates))
-          ._build();
+      (HttpPayloadWithStructureInputOutputBuilder()..update(updates))._build();
 
   _$HttpPayloadWithStructureInputOutput._({this.nested}) : super._();
-
   @override
   HttpPayloadWithStructureInputOutput rebuild(
     void Function(HttpPayloadWithStructureInputOutputBuilder) updates,
@@ -26,7 +24,7 @@ class _$HttpPayloadWithStructureInputOutput
 
   @override
   HttpPayloadWithStructureInputOutputBuilder toBuilder() =>
-      new HttpPayloadWithStructureInputOutputBuilder()..replace(this);
+      HttpPayloadWithStructureInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -53,8 +51,7 @@ class HttpPayloadWithStructureInputOutputBuilder
   _$HttpPayloadWithStructureInputOutput? _$v;
 
   NestedPayloadBuilder? _nested;
-  NestedPayloadBuilder get nested =>
-      _$this._nested ??= new NestedPayloadBuilder();
+  NestedPayloadBuilder get nested => _$this._nested ??= NestedPayloadBuilder();
   set nested(NestedPayloadBuilder? nested) => _$this._nested = nested;
 
   HttpPayloadWithStructureInputOutputBuilder();
@@ -70,7 +67,6 @@ class HttpPayloadWithStructureInputOutputBuilder
 
   @override
   void replace(HttpPayloadWithStructureInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPayloadWithStructureInputOutput;
   }
 
@@ -89,14 +85,14 @@ class HttpPayloadWithStructureInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$HttpPayloadWithStructureInputOutput._(nested: _nested?.build());
+          _$HttpPayloadWithStructureInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'HttpPayloadWithStructureInputOutput',
           _$failedField,
           e.toString(),

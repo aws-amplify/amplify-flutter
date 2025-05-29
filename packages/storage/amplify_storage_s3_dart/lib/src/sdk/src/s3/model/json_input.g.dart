@@ -11,16 +11,15 @@ class _$JsonInput extends JsonInput {
   final JsonType? type;
 
   factory _$JsonInput([void Function(JsonInputBuilder)? updates]) =>
-      (new JsonInputBuilder()..update(updates))._build();
+      (JsonInputBuilder()..update(updates))._build();
 
   _$JsonInput._({this.type}) : super._();
-
   @override
   JsonInput rebuild(void Function(JsonInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  JsonInputBuilder toBuilder() => new JsonInputBuilder()..replace(this);
+  JsonInputBuilder toBuilder() => JsonInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -57,7 +56,6 @@ class JsonInputBuilder implements Builder<JsonInput, JsonInputBuilder> {
 
   @override
   void replace(JsonInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$JsonInput;
   }
 
@@ -70,7 +68,7 @@ class JsonInputBuilder implements Builder<JsonInput, JsonInputBuilder> {
   JsonInput build() => _build();
 
   _$JsonInput _build() {
-    final _$result = _$v ?? new _$JsonInput._(type: type);
+    final _$result = _$v ?? _$JsonInput._(type: type);
     replace(_$result);
     return _$result;
   }

@@ -12,17 +12,10 @@ class _$GetInAppMessagesResponse extends GetInAppMessagesResponse {
 
   factory _$GetInAppMessagesResponse([
     void Function(GetInAppMessagesResponseBuilder)? updates,
-  ]) => (new GetInAppMessagesResponseBuilder()..update(updates))._build();
+  ]) => (GetInAppMessagesResponseBuilder()..update(updates))._build();
 
   _$GetInAppMessagesResponse._({required this.inAppMessagesResponse})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      inAppMessagesResponse,
-      r'GetInAppMessagesResponse',
-      'inAppMessagesResponse',
-    );
-  }
-
+    : super._();
   @override
   GetInAppMessagesResponse rebuild(
     void Function(GetInAppMessagesResponseBuilder) updates,
@@ -30,7 +23,7 @@ class _$GetInAppMessagesResponse extends GetInAppMessagesResponse {
 
   @override
   GetInAppMessagesResponseBuilder toBuilder() =>
-      new GetInAppMessagesResponseBuilder()..replace(this);
+      GetInAppMessagesResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -55,7 +48,7 @@ class GetInAppMessagesResponseBuilder
 
   InAppMessagesResponseBuilder? _inAppMessagesResponse;
   InAppMessagesResponseBuilder get inAppMessagesResponse =>
-      _$this._inAppMessagesResponse ??= new InAppMessagesResponseBuilder();
+      _$this._inAppMessagesResponse ??= InAppMessagesResponseBuilder();
   set inAppMessagesResponse(
     InAppMessagesResponseBuilder? inAppMessagesResponse,
   ) => _$this._inAppMessagesResponse = inAppMessagesResponse;
@@ -73,7 +66,6 @@ class GetInAppMessagesResponseBuilder
 
   @override
   void replace(GetInAppMessagesResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetInAppMessagesResponse;
   }
 
@@ -90,7 +82,7 @@ class GetInAppMessagesResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$GetInAppMessagesResponse._(
+          _$GetInAppMessagesResponse._(
             inAppMessagesResponse: inAppMessagesResponse.build(),
           );
     } catch (_) {
@@ -99,7 +91,7 @@ class GetInAppMessagesResponseBuilder
         _$failedField = 'inAppMessagesResponse';
         inAppMessagesResponse.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'GetInAppMessagesResponse',
           _$failedField,
           e.toString(),

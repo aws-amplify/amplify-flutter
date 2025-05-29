@@ -14,17 +14,16 @@ class _$EventItemResponse extends EventItemResponse {
 
   factory _$EventItemResponse([
     void Function(EventItemResponseBuilder)? updates,
-  ]) => (new EventItemResponseBuilder()..update(updates))._build();
+  ]) => (EventItemResponseBuilder()..update(updates))._build();
 
   _$EventItemResponse._({this.message, this.statusCode}) : super._();
-
   @override
   EventItemResponse rebuild(void Function(EventItemResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   EventItemResponseBuilder toBuilder() =>
-      new EventItemResponseBuilder()..replace(this);
+      EventItemResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +69,6 @@ class EventItemResponseBuilder
 
   @override
   void replace(EventItemResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EventItemResponse;
   }
 
@@ -84,8 +82,7 @@ class EventItemResponseBuilder
 
   _$EventItemResponse _build() {
     final _$result =
-        _$v ??
-        new _$EventItemResponse._(message: message, statusCode: statusCode);
+        _$v ?? _$EventItemResponse._(message: message, statusCode: statusCode);
     replace(_$result);
     return _$result;
   }

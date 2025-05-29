@@ -28,7 +28,7 @@ class _$SimpleInputParamsInput extends SimpleInputParamsInput {
 
   factory _$SimpleInputParamsInput([
     void Function(SimpleInputParamsInputBuilder)? updates,
-  ]) => (new SimpleInputParamsInputBuilder()..update(updates))._build();
+  ]) => (SimpleInputParamsInputBuilder()..update(updates))._build();
 
   _$SimpleInputParamsInput._({
     this.foo,
@@ -41,7 +41,6 @@ class _$SimpleInputParamsInput extends SimpleInputParamsInput {
     this.fooEnum,
     this.integerEnum,
   }) : super._();
-
   @override
   SimpleInputParamsInput rebuild(
     void Function(SimpleInputParamsInputBuilder) updates,
@@ -49,7 +48,7 @@ class _$SimpleInputParamsInput extends SimpleInputParamsInput {
 
   @override
   SimpleInputParamsInputBuilder toBuilder() =>
-      new SimpleInputParamsInputBuilder()..replace(this);
+      SimpleInputParamsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -144,7 +143,6 @@ class SimpleInputParamsInputBuilder
 
   @override
   void replace(SimpleInputParamsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleInputParamsInput;
   }
 
@@ -159,7 +157,7 @@ class SimpleInputParamsInputBuilder
   _$SimpleInputParamsInput _build() {
     final _$result =
         _$v ??
-        new _$SimpleInputParamsInput._(
+        _$SimpleInputParamsInput._(
           foo: foo,
           bar: bar,
           baz: baz,

@@ -38,7 +38,7 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
 
   factory _$CompleteMultipartUploadOutput([
     void Function(CompleteMultipartUploadOutputBuilder)? updates,
-  ]) => (new CompleteMultipartUploadOutputBuilder()..update(updates))._build();
+  ]) => (CompleteMultipartUploadOutputBuilder()..update(updates))._build();
 
   _$CompleteMultipartUploadOutput._({
     this.location,
@@ -56,7 +56,6 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
     this.bucketKeyEnabled,
     this.requestCharged,
   }) : super._();
-
   @override
   CompleteMultipartUploadOutput rebuild(
     void Function(CompleteMultipartUploadOutputBuilder) updates,
@@ -64,7 +63,7 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
 
   @override
   CompleteMultipartUploadOutputBuilder toBuilder() =>
-      new CompleteMultipartUploadOutputBuilder()..replace(this);
+      CompleteMultipartUploadOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -205,7 +204,6 @@ class CompleteMultipartUploadOutputBuilder
 
   @override
   void replace(CompleteMultipartUploadOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CompleteMultipartUploadOutput;
   }
 
@@ -220,7 +218,7 @@ class CompleteMultipartUploadOutputBuilder
   _$CompleteMultipartUploadOutput _build() {
     final _$result =
         _$v ??
-        new _$CompleteMultipartUploadOutput._(
+        _$CompleteMultipartUploadOutput._(
           location: location,
           bucket: bucket,
           key: key,
@@ -263,8 +261,7 @@ class _$CompleteMultipartUploadOutputPayload
   factory _$CompleteMultipartUploadOutputPayload([
     void Function(CompleteMultipartUploadOutputPayloadBuilder)? updates,
   ]) =>
-      (new CompleteMultipartUploadOutputPayloadBuilder()..update(updates))
-          ._build();
+      (CompleteMultipartUploadOutputPayloadBuilder()..update(updates))._build();
 
   _$CompleteMultipartUploadOutputPayload._({
     this.bucket,
@@ -276,7 +273,6 @@ class _$CompleteMultipartUploadOutputPayload
     this.key,
     this.location,
   }) : super._();
-
   @override
   CompleteMultipartUploadOutputPayload rebuild(
     void Function(CompleteMultipartUploadOutputPayloadBuilder) updates,
@@ -284,7 +280,7 @@ class _$CompleteMultipartUploadOutputPayload
 
   @override
   CompleteMultipartUploadOutputPayloadBuilder toBuilder() =>
-      new CompleteMultipartUploadOutputPayloadBuilder()..replace(this);
+      CompleteMultipartUploadOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -379,7 +375,6 @@ class CompleteMultipartUploadOutputPayloadBuilder
 
   @override
   void replace(CompleteMultipartUploadOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CompleteMultipartUploadOutputPayload;
   }
 
@@ -396,7 +391,7 @@ class CompleteMultipartUploadOutputPayloadBuilder
   _$CompleteMultipartUploadOutputPayload _build() {
     final _$result =
         _$v ??
-        new _$CompleteMultipartUploadOutputPayload._(
+        _$CompleteMultipartUploadOutputPayload._(
           bucket: bucket,
           checksumCrc32: checksumCrc32,
           checksumCrc32C: checksumCrc32C,

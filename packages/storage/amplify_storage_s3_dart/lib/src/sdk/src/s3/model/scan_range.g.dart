@@ -13,16 +13,15 @@ class _$ScanRange extends ScanRange {
   final _i2.Int64? end;
 
   factory _$ScanRange([void Function(ScanRangeBuilder)? updates]) =>
-      (new ScanRangeBuilder()..update(updates))._build();
+      (ScanRangeBuilder()..update(updates))._build();
 
   _$ScanRange._({this.start, this.end}) : super._();
-
   @override
   ScanRange rebuild(void Function(ScanRangeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ScanRangeBuilder toBuilder() => new ScanRangeBuilder()..replace(this);
+  ScanRangeBuilder toBuilder() => ScanRangeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -65,7 +64,6 @@ class ScanRangeBuilder implements Builder<ScanRange, ScanRangeBuilder> {
 
   @override
   void replace(ScanRange other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ScanRange;
   }
 
@@ -78,7 +76,7 @@ class ScanRangeBuilder implements Builder<ScanRange, ScanRangeBuilder> {
   ScanRange build() => _build();
 
   _$ScanRange _build() {
-    final _$result = _$v ?? new _$ScanRange._(start: start, end: end);
+    final _$result = _$v ?? _$ScanRange._(start: start, end: end);
     replace(_$result);
     return _$result;
   }
