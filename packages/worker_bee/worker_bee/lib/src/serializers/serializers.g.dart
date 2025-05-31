@@ -7,7 +7,6 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$workerBeeSerializers =
-    (new Serializers().toBuilder()..add(WorkerBeeExceptionImpl.serializer))
-        .build();
+    (Serializers().toBuilder()..add(WorkerBeeExceptionImpl.serializer)).build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

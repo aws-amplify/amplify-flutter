@@ -48,7 +48,7 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
 
   factory _$UploadPartCopyRequest([
     void Function(UploadPartCopyRequestBuilder)? updates,
-  ]) => (new UploadPartCopyRequestBuilder()..update(updates))._build();
+  ]) => (UploadPartCopyRequestBuilder()..update(updates))._build();
 
   _$UploadPartCopyRequest._({
     required this.bucket,
@@ -70,25 +70,7 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
     this.requestPayer,
     this.expectedBucketOwner,
     this.expectedSourceBucketOwner,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'UploadPartCopyRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      copySource,
-      r'UploadPartCopyRequest',
-      'copySource',
-    );
-    BuiltValueNullFieldError.checkNotNull(key, r'UploadPartCopyRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-      uploadId,
-      r'UploadPartCopyRequest',
-      'uploadId',
-    );
-  }
-
+  }) : super._();
   @override
   UploadPartCopyRequest rebuild(
     void Function(UploadPartCopyRequestBuilder) updates,
@@ -96,7 +78,7 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
 
   @override
   UploadPartCopyRequestBuilder toBuilder() =>
-      new UploadPartCopyRequestBuilder()..replace(this);
+      UploadPartCopyRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -279,7 +261,6 @@ class UploadPartCopyRequestBuilder
 
   @override
   void replace(UploadPartCopyRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadPartCopyRequest;
   }
 
@@ -294,7 +275,7 @@ class UploadPartCopyRequestBuilder
   _$UploadPartCopyRequest _build() {
     final _$result =
         _$v ??
-        new _$UploadPartCopyRequest._(
+        _$UploadPartCopyRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
             bucket,
             r'UploadPartCopyRequest',
@@ -339,10 +320,9 @@ class UploadPartCopyRequestBuilder
 class _$UploadPartCopyRequestPayload extends UploadPartCopyRequestPayload {
   factory _$UploadPartCopyRequestPayload([
     void Function(UploadPartCopyRequestPayloadBuilder)? updates,
-  ]) => (new UploadPartCopyRequestPayloadBuilder()..update(updates))._build();
+  ]) => (UploadPartCopyRequestPayloadBuilder()..update(updates))._build();
 
   _$UploadPartCopyRequestPayload._() : super._();
-
   @override
   UploadPartCopyRequestPayload rebuild(
     void Function(UploadPartCopyRequestPayloadBuilder) updates,
@@ -350,7 +330,7 @@ class _$UploadPartCopyRequestPayload extends UploadPartCopyRequestPayload {
 
   @override
   UploadPartCopyRequestPayloadBuilder toBuilder() =>
-      new UploadPartCopyRequestPayloadBuilder()..replace(this);
+      UploadPartCopyRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -376,7 +356,6 @@ class UploadPartCopyRequestPayloadBuilder
 
   @override
   void replace(UploadPartCopyRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadPartCopyRequestPayload;
   }
 
@@ -389,7 +368,7 @@ class UploadPartCopyRequestPayloadBuilder
   UploadPartCopyRequestPayload build() => _build();
 
   _$UploadPartCopyRequestPayload _build() {
-    final _$result = _$v ?? new _$UploadPartCopyRequestPayload._();
+    final _$result = _$v ?? _$UploadPartCopyRequestPayload._();
     replace(_$result);
     return _$result;
   }

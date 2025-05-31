@@ -11,16 +11,15 @@ class _$NoSuchKey extends NoSuchKey {
   final Map<String, String>? headers;
 
   factory _$NoSuchKey([void Function(NoSuchKeyBuilder)? updates]) =>
-      (new NoSuchKeyBuilder()..update(updates))._build();
+      (NoSuchKeyBuilder()..update(updates))._build();
 
   _$NoSuchKey._({this.headers}) : super._();
-
   @override
   NoSuchKey rebuild(void Function(NoSuchKeyBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  NoSuchKeyBuilder toBuilder() => new NoSuchKeyBuilder()..replace(this);
+  NoSuchKeyBuilder toBuilder() => NoSuchKeyBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -54,7 +53,6 @@ class NoSuchKeyBuilder implements Builder<NoSuchKey, NoSuchKeyBuilder> {
 
   @override
   void replace(NoSuchKey other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoSuchKey;
   }
 
@@ -67,7 +65,7 @@ class NoSuchKeyBuilder implements Builder<NoSuchKey, NoSuchKeyBuilder> {
   NoSuchKey build() => _build();
 
   _$NoSuchKey _build() {
-    final _$result = _$v ?? new _$NoSuchKey._(headers: headers);
+    final _$result = _$v ?? _$NoSuchKey._(headers: headers);
     replace(_$result);
     return _$result;
   }

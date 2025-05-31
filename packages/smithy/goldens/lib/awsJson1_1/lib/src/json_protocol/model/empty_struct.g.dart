@@ -8,16 +8,15 @@ part of 'empty_struct.dart';
 
 class _$EmptyStruct extends EmptyStruct {
   factory _$EmptyStruct([void Function(EmptyStructBuilder)? updates]) =>
-      (new EmptyStructBuilder()..update(updates))._build();
+      (EmptyStructBuilder()..update(updates))._build();
 
   _$EmptyStruct._() : super._();
-
   @override
   EmptyStruct rebuild(void Function(EmptyStructBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EmptyStructBuilder toBuilder() => new EmptyStructBuilder()..replace(this);
+  EmptyStructBuilder toBuilder() => EmptyStructBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -38,7 +37,6 @@ class EmptyStructBuilder implements Builder<EmptyStruct, EmptyStructBuilder> {
 
   @override
   void replace(EmptyStruct other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EmptyStruct;
   }
 
@@ -51,7 +49,7 @@ class EmptyStructBuilder implements Builder<EmptyStruct, EmptyStructBuilder> {
   EmptyStruct build() => _build();
 
   _$EmptyStruct _build() {
-    final _$result = _$v ?? new _$EmptyStruct._();
+    final _$result = _$v ?? _$EmptyStruct._();
     replace(_$result);
     return _$result;
   }

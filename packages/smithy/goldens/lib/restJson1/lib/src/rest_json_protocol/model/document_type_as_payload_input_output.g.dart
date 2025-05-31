@@ -13,11 +13,9 @@ class _$DocumentTypeAsPayloadInputOutput
 
   factory _$DocumentTypeAsPayloadInputOutput([
     void Function(DocumentTypeAsPayloadInputOutputBuilder)? updates,
-  ]) =>
-      (new DocumentTypeAsPayloadInputOutputBuilder()..update(updates))._build();
+  ]) => (DocumentTypeAsPayloadInputOutputBuilder()..update(updates))._build();
 
   _$DocumentTypeAsPayloadInputOutput._({this.documentValue}) : super._();
-
   @override
   DocumentTypeAsPayloadInputOutput rebuild(
     void Function(DocumentTypeAsPayloadInputOutputBuilder) updates,
@@ -25,7 +23,7 @@ class _$DocumentTypeAsPayloadInputOutput
 
   @override
   DocumentTypeAsPayloadInputOutputBuilder toBuilder() =>
-      new DocumentTypeAsPayloadInputOutputBuilder()..replace(this);
+      DocumentTypeAsPayloadInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +67,6 @@ class DocumentTypeAsPayloadInputOutputBuilder
 
   @override
   void replace(DocumentTypeAsPayloadInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DocumentTypeAsPayloadInputOutput;
   }
 
@@ -84,7 +81,7 @@ class DocumentTypeAsPayloadInputOutputBuilder
   _$DocumentTypeAsPayloadInputOutput _build() {
     final _$result =
         _$v ??
-        new _$DocumentTypeAsPayloadInputOutput._(documentValue: documentValue);
+        _$DocumentTypeAsPayloadInputOutput._(documentValue: documentValue);
     replace(_$result);
     return _$result;
   }

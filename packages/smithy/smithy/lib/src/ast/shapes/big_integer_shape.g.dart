@@ -7,7 +7,7 @@ part of 'big_integer_shape.dart';
 // **************************************************************************
 
 Serializer<BigIntegerShape> _$bigIntegerShapeSerializer =
-    new _$BigIntegerShapeSerializer();
+    _$BigIntegerShapeSerializer();
 
 class _$BigIntegerShapeSerializer
     implements StructuredSerializer<BigIntegerShape> {
@@ -39,7 +39,7 @@ class _$BigIntegerShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new BigIntegerShapeBuilder();
+    final result = BigIntegerShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -69,25 +69,16 @@ class _$BigIntegerShape extends BigIntegerShape {
   final TraitMap traits;
 
   factory _$BigIntegerShape([void Function(BigIntegerShapeBuilder)? updates]) =>
-      (new BigIntegerShapeBuilder()..update(updates))._build();
+      (BigIntegerShapeBuilder()..update(updates))._build();
 
   _$BigIntegerShape._({required this.shapeId, required this.traits})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'BigIntegerShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(traits, r'BigIntegerShape', 'traits');
-  }
-
+    : super._();
   @override
   BigIntegerShape rebuild(void Function(BigIntegerShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BigIntegerShapeBuilder toBuilder() =>
-      new BigIntegerShapeBuilder()..replace(this);
+  BigIntegerShapeBuilder toBuilder() => BigIntegerShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -145,7 +136,6 @@ class BigIntegerShapeBuilder
 
   @override
   void replace(covariant BigIntegerShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BigIntegerShape;
   }
 
@@ -160,7 +150,7 @@ class BigIntegerShapeBuilder
   _$BigIntegerShape _build() {
     final _$result =
         _$v ??
-        new _$BigIntegerShape._(
+        _$BigIntegerShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'BigIntegerShape',

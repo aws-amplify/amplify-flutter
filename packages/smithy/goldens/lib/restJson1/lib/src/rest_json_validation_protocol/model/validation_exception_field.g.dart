@@ -14,22 +14,10 @@ class _$ValidationExceptionField extends ValidationExceptionField {
 
   factory _$ValidationExceptionField([
     void Function(ValidationExceptionFieldBuilder)? updates,
-  ]) => (new ValidationExceptionFieldBuilder()..update(updates))._build();
+  ]) => (ValidationExceptionFieldBuilder()..update(updates))._build();
 
   _$ValidationExceptionField._({required this.path, required this.message})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      path,
-      r'ValidationExceptionField',
-      'path',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      message,
-      r'ValidationExceptionField',
-      'message',
-    );
-  }
-
+    : super._();
   @override
   ValidationExceptionField rebuild(
     void Function(ValidationExceptionFieldBuilder) updates,
@@ -37,7 +25,7 @@ class _$ValidationExceptionField extends ValidationExceptionField {
 
   @override
   ValidationExceptionFieldBuilder toBuilder() =>
-      new ValidationExceptionFieldBuilder()..replace(this);
+      ValidationExceptionFieldBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -84,7 +72,6 @@ class ValidationExceptionFieldBuilder
 
   @override
   void replace(ValidationExceptionField other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ValidationExceptionField;
   }
 
@@ -99,7 +86,7 @@ class ValidationExceptionFieldBuilder
   _$ValidationExceptionField _build() {
     final _$result =
         _$v ??
-        new _$ValidationExceptionField._(
+        _$ValidationExceptionField._(
           path: BuiltValueNullFieldError.checkNotNull(
             path,
             r'ValidationExceptionField',

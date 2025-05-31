@@ -12,17 +12,16 @@ class _$CopyObjectOutput extends CopyObjectOutput {
 
   factory _$CopyObjectOutput([
     void Function(CopyObjectOutputBuilder)? updates,
-  ]) => (new CopyObjectOutputBuilder()..update(updates))._build();
+  ]) => (CopyObjectOutputBuilder()..update(updates))._build();
 
   _$CopyObjectOutput._({this.copyObjectResult}) : super._();
-
   @override
   CopyObjectOutput rebuild(void Function(CopyObjectOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   CopyObjectOutputBuilder toBuilder() =>
-      new CopyObjectOutputBuilder()..replace(this);
+      CopyObjectOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,7 +45,7 @@ class CopyObjectOutputBuilder
 
   CopyObjectResultBuilder? _copyObjectResult;
   CopyObjectResultBuilder get copyObjectResult =>
-      _$this._copyObjectResult ??= new CopyObjectResultBuilder();
+      _$this._copyObjectResult ??= CopyObjectResultBuilder();
   set copyObjectResult(CopyObjectResultBuilder? copyObjectResult) =>
       _$this._copyObjectResult = copyObjectResult;
 
@@ -63,7 +62,6 @@ class CopyObjectOutputBuilder
 
   @override
   void replace(CopyObjectOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyObjectOutput;
   }
 
@@ -80,16 +78,14 @@ class CopyObjectOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$CopyObjectOutput._(
-            copyObjectResult: _copyObjectResult?.build(),
-          );
+          _$CopyObjectOutput._(copyObjectResult: _copyObjectResult?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'copyObjectResult';
         _copyObjectResult?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'CopyObjectOutput',
           _$failedField,
           e.toString(),

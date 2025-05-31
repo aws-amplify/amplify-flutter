@@ -13,16 +13,15 @@ class _$Initiator extends Initiator {
   final String? displayName;
 
   factory _$Initiator([void Function(InitiatorBuilder)? updates]) =>
-      (new InitiatorBuilder()..update(updates))._build();
+      (InitiatorBuilder()..update(updates))._build();
 
   _$Initiator._({this.id, this.displayName}) : super._();
-
   @override
   Initiator rebuild(void Function(InitiatorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  InitiatorBuilder toBuilder() => new InitiatorBuilder()..replace(this);
+  InitiatorBuilder toBuilder() => InitiatorBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,7 +66,6 @@ class InitiatorBuilder implements Builder<Initiator, InitiatorBuilder> {
 
   @override
   void replace(Initiator other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Initiator;
   }
 
@@ -80,7 +78,7 @@ class InitiatorBuilder implements Builder<Initiator, InitiatorBuilder> {
   Initiator build() => _build();
 
   _$Initiator _build() {
-    final _$result = _$v ?? new _$Initiator._(id: id, displayName: displayName);
+    final _$result = _$v ?? _$Initiator._(id: id, displayName: displayName);
     replace(_$result);
     return _$result;
   }

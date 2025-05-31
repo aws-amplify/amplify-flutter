@@ -14,11 +14,10 @@ class _$FlattenedXmlMapWithXmlNameInputOutput
   factory _$FlattenedXmlMapWithXmlNameInputOutput([
     void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder)? updates,
   ]) =>
-      (new FlattenedXmlMapWithXmlNameInputOutputBuilder()..update(updates))
+      (FlattenedXmlMapWithXmlNameInputOutputBuilder()..update(updates))
           ._build();
 
   _$FlattenedXmlMapWithXmlNameInputOutput._({this.myMap}) : super._();
-
   @override
   FlattenedXmlMapWithXmlNameInputOutput rebuild(
     void Function(FlattenedXmlMapWithXmlNameInputOutputBuilder) updates,
@@ -26,7 +25,7 @@ class _$FlattenedXmlMapWithXmlNameInputOutput
 
   @override
   FlattenedXmlMapWithXmlNameInputOutputBuilder toBuilder() =>
-      new FlattenedXmlMapWithXmlNameInputOutputBuilder()..replace(this);
+      FlattenedXmlMapWithXmlNameInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -54,7 +53,7 @@ class FlattenedXmlMapWithXmlNameInputOutputBuilder
 
   _i3.MapBuilder<String, String>? _myMap;
   _i3.MapBuilder<String, String> get myMap =>
-      _$this._myMap ??= new _i3.MapBuilder<String, String>();
+      _$this._myMap ??= _i3.MapBuilder<String, String>();
   set myMap(_i3.MapBuilder<String, String>? myMap) => _$this._myMap = myMap;
 
   FlattenedXmlMapWithXmlNameInputOutputBuilder();
@@ -70,7 +69,6 @@ class FlattenedXmlMapWithXmlNameInputOutputBuilder
 
   @override
   void replace(FlattenedXmlMapWithXmlNameInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$FlattenedXmlMapWithXmlNameInputOutput;
   }
 
@@ -89,14 +87,14 @@ class FlattenedXmlMapWithXmlNameInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$FlattenedXmlMapWithXmlNameInputOutput._(myMap: _myMap?.build());
+          _$FlattenedXmlMapWithXmlNameInputOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'myMap';
         _myMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'FlattenedXmlMapWithXmlNameInputOutput',
           _$failedField,
           e.toString(),

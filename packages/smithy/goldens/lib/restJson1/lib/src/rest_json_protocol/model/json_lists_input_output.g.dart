@@ -30,7 +30,7 @@ class _$JsonListsInputOutput extends JsonListsInputOutput {
 
   factory _$JsonListsInputOutput([
     void Function(JsonListsInputOutputBuilder)? updates,
-  ]) => (new JsonListsInputOutputBuilder()..update(updates))._build();
+  ]) => (JsonListsInputOutputBuilder()..update(updates))._build();
 
   _$JsonListsInputOutput._({
     this.stringList,
@@ -44,7 +44,6 @@ class _$JsonListsInputOutput extends JsonListsInputOutput {
     this.nestedStringList,
     this.structureList,
   }) : super._();
-
   @override
   JsonListsInputOutput rebuild(
     void Function(JsonListsInputOutputBuilder) updates,
@@ -52,7 +51,7 @@ class _$JsonListsInputOutput extends JsonListsInputOutput {
 
   @override
   JsonListsInputOutputBuilder toBuilder() =>
-      new JsonListsInputOutputBuilder()..replace(this);
+      JsonListsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -94,62 +93,62 @@ class JsonListsInputOutputBuilder
 
   _i3.ListBuilder<String>? _stringList;
   _i3.ListBuilder<String> get stringList =>
-      _$this._stringList ??= new _i3.ListBuilder<String>();
+      _$this._stringList ??= _i3.ListBuilder<String>();
   set stringList(_i3.ListBuilder<String>? stringList) =>
       _$this._stringList = stringList;
 
   _i3.ListBuilder<String?>? _sparseStringList;
   _i3.ListBuilder<String?> get sparseStringList =>
-      _$this._sparseStringList ??= new _i3.ListBuilder<String?>();
+      _$this._sparseStringList ??= _i3.ListBuilder<String?>();
   set sparseStringList(_i3.ListBuilder<String?>? sparseStringList) =>
       _$this._sparseStringList = sparseStringList;
 
   _i3.SetBuilder<String>? _stringSet;
   _i3.SetBuilder<String> get stringSet =>
-      _$this._stringSet ??= new _i3.SetBuilder<String>();
+      _$this._stringSet ??= _i3.SetBuilder<String>();
   set stringSet(_i3.SetBuilder<String>? stringSet) =>
       _$this._stringSet = stringSet;
 
   _i3.ListBuilder<int>? _integerList;
   _i3.ListBuilder<int> get integerList =>
-      _$this._integerList ??= new _i3.ListBuilder<int>();
+      _$this._integerList ??= _i3.ListBuilder<int>();
   set integerList(_i3.ListBuilder<int>? integerList) =>
       _$this._integerList = integerList;
 
   _i3.ListBuilder<bool>? _booleanList;
   _i3.ListBuilder<bool> get booleanList =>
-      _$this._booleanList ??= new _i3.ListBuilder<bool>();
+      _$this._booleanList ??= _i3.ListBuilder<bool>();
   set booleanList(_i3.ListBuilder<bool>? booleanList) =>
       _$this._booleanList = booleanList;
 
   _i3.ListBuilder<DateTime>? _timestampList;
   _i3.ListBuilder<DateTime> get timestampList =>
-      _$this._timestampList ??= new _i3.ListBuilder<DateTime>();
+      _$this._timestampList ??= _i3.ListBuilder<DateTime>();
   set timestampList(_i3.ListBuilder<DateTime>? timestampList) =>
       _$this._timestampList = timestampList;
 
   _i3.ListBuilder<FooEnum>? _enumList;
   _i3.ListBuilder<FooEnum> get enumList =>
-      _$this._enumList ??= new _i3.ListBuilder<FooEnum>();
+      _$this._enumList ??= _i3.ListBuilder<FooEnum>();
   set enumList(_i3.ListBuilder<FooEnum>? enumList) =>
       _$this._enumList = enumList;
 
   _i3.ListBuilder<int>? _intEnumList;
   _i3.ListBuilder<int> get intEnumList =>
-      _$this._intEnumList ??= new _i3.ListBuilder<int>();
+      _$this._intEnumList ??= _i3.ListBuilder<int>();
   set intEnumList(_i3.ListBuilder<int>? intEnumList) =>
       _$this._intEnumList = intEnumList;
 
   _i3.ListBuilder<_i3.BuiltList<String>>? _nestedStringList;
   _i3.ListBuilder<_i3.BuiltList<String>> get nestedStringList =>
-      _$this._nestedStringList ??= new _i3.ListBuilder<_i3.BuiltList<String>>();
+      _$this._nestedStringList ??= _i3.ListBuilder<_i3.BuiltList<String>>();
   set nestedStringList(
     _i3.ListBuilder<_i3.BuiltList<String>>? nestedStringList,
   ) => _$this._nestedStringList = nestedStringList;
 
   _i3.ListBuilder<StructureListMember>? _structureList;
   _i3.ListBuilder<StructureListMember> get structureList =>
-      _$this._structureList ??= new _i3.ListBuilder<StructureListMember>();
+      _$this._structureList ??= _i3.ListBuilder<StructureListMember>();
   set structureList(_i3.ListBuilder<StructureListMember>? structureList) =>
       _$this._structureList = structureList;
 
@@ -175,7 +174,6 @@ class JsonListsInputOutputBuilder
 
   @override
   void replace(JsonListsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$JsonListsInputOutput;
   }
 
@@ -192,7 +190,7 @@ class JsonListsInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$JsonListsInputOutput._(
+          _$JsonListsInputOutput._(
             stringList: _stringList?.build(),
             sparseStringList: _sparseStringList?.build(),
             stringSet: _stringSet?.build(),
@@ -228,7 +226,7 @@ class JsonListsInputOutputBuilder
         _$failedField = 'structureList';
         _structureList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'JsonListsInputOutput',
           _$failedField,
           e.toString(),

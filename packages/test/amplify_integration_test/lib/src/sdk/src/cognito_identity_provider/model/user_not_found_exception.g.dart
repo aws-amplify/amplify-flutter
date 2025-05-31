@@ -14,10 +14,9 @@ class _$UserNotFoundException extends UserNotFoundException {
 
   factory _$UserNotFoundException([
     void Function(UserNotFoundExceptionBuilder)? updates,
-  ]) => (new UserNotFoundExceptionBuilder()..update(updates))._build();
+  ]) => (UserNotFoundExceptionBuilder()..update(updates))._build();
 
   _$UserNotFoundException._({this.message, this.headers}) : super._();
-
   @override
   UserNotFoundException rebuild(
     void Function(UserNotFoundExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$UserNotFoundException extends UserNotFoundException {
 
   @override
   UserNotFoundExceptionBuilder toBuilder() =>
-      new UserNotFoundExceptionBuilder()..replace(this);
+      UserNotFoundExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +67,6 @@ class UserNotFoundExceptionBuilder
 
   @override
   void replace(UserNotFoundException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UserNotFoundException;
   }
 
@@ -82,8 +80,7 @@ class UserNotFoundExceptionBuilder
 
   _$UserNotFoundException _build() {
     final _$result =
-        _$v ??
-        new _$UserNotFoundException._(message: message, headers: headers);
+        _$v ?? _$UserNotFoundException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

@@ -16,11 +16,10 @@ class _$MethodNotAllowedException extends MethodNotAllowedException {
 
   factory _$MethodNotAllowedException([
     void Function(MethodNotAllowedExceptionBuilder)? updates,
-  ]) => (new MethodNotAllowedExceptionBuilder()..update(updates))._build();
+  ]) => (MethodNotAllowedExceptionBuilder()..update(updates))._build();
 
   _$MethodNotAllowedException._({this.message, this.requestId, this.headers})
     : super._();
-
   @override
   MethodNotAllowedException rebuild(
     void Function(MethodNotAllowedExceptionBuilder) updates,
@@ -28,7 +27,7 @@ class _$MethodNotAllowedException extends MethodNotAllowedException {
 
   @override
   MethodNotAllowedExceptionBuilder toBuilder() =>
-      new MethodNotAllowedExceptionBuilder()..replace(this);
+      MethodNotAllowedExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -80,7 +79,6 @@ class MethodNotAllowedExceptionBuilder
 
   @override
   void replace(MethodNotAllowedException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MethodNotAllowedException;
   }
 
@@ -95,7 +93,7 @@ class MethodNotAllowedExceptionBuilder
   _$MethodNotAllowedException _build() {
     final _$result =
         _$v ??
-        new _$MethodNotAllowedException._(
+        _$MethodNotAllowedException._(
           message: message,
           requestId: requestId,
           headers: headers,

@@ -14,10 +14,9 @@ class _$PutWithContentEncodingInput extends PutWithContentEncodingInput {
 
   factory _$PutWithContentEncodingInput([
     void Function(PutWithContentEncodingInputBuilder)? updates,
-  ]) => (new PutWithContentEncodingInputBuilder()..update(updates))._build();
+  ]) => (PutWithContentEncodingInputBuilder()..update(updates))._build();
 
   _$PutWithContentEncodingInput._({this.encoding, this.data}) : super._();
-
   @override
   PutWithContentEncodingInput rebuild(
     void Function(PutWithContentEncodingInputBuilder) updates,
@@ -25,7 +24,7 @@ class _$PutWithContentEncodingInput extends PutWithContentEncodingInput {
 
   @override
   PutWithContentEncodingInputBuilder toBuilder() =>
-      new PutWithContentEncodingInputBuilder()..replace(this);
+      PutWithContentEncodingInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -75,7 +74,6 @@ class PutWithContentEncodingInputBuilder
 
   @override
   void replace(PutWithContentEncodingInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutWithContentEncodingInput;
   }
 
@@ -89,8 +87,7 @@ class PutWithContentEncodingInputBuilder
 
   _$PutWithContentEncodingInput _build() {
     final _$result =
-        _$v ??
-        new _$PutWithContentEncodingInput._(encoding: encoding, data: data);
+        _$v ?? _$PutWithContentEncodingInput._(encoding: encoding, data: data);
     replace(_$result);
     return _$result;
   }
@@ -103,12 +100,9 @@ class _$PutWithContentEncodingInputPayload
 
   factory _$PutWithContentEncodingInputPayload([
     void Function(PutWithContentEncodingInputPayloadBuilder)? updates,
-  ]) =>
-      (new PutWithContentEncodingInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (PutWithContentEncodingInputPayloadBuilder()..update(updates))._build();
 
   _$PutWithContentEncodingInputPayload._({this.data}) : super._();
-
   @override
   PutWithContentEncodingInputPayload rebuild(
     void Function(PutWithContentEncodingInputPayloadBuilder) updates,
@@ -116,7 +110,7 @@ class _$PutWithContentEncodingInputPayload
 
   @override
   PutWithContentEncodingInputPayloadBuilder toBuilder() =>
-      new PutWithContentEncodingInputPayloadBuilder()..replace(this);
+      PutWithContentEncodingInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -158,7 +152,6 @@ class PutWithContentEncodingInputPayloadBuilder
 
   @override
   void replace(PutWithContentEncodingInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutWithContentEncodingInputPayload;
   }
 
@@ -173,8 +166,7 @@ class PutWithContentEncodingInputPayloadBuilder
   PutWithContentEncodingInputPayload build() => _build();
 
   _$PutWithContentEncodingInputPayload _build() {
-    final _$result =
-        _$v ?? new _$PutWithContentEncodingInputPayload._(data: data);
+    final _$result = _$v ?? _$PutWithContentEncodingInputPayload._(data: data);
     replace(_$result);
     return _$result;
   }

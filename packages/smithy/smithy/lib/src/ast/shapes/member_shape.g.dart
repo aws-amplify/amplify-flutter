@@ -6,7 +6,7 @@ part of 'member_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<MemberShape> _$memberShapeSerializer = new _$MemberShapeSerializer();
+Serializer<MemberShape> _$memberShapeSerializer = _$MemberShapeSerializer();
 
 class _$MemberShapeSerializer implements StructuredSerializer<MemberShape> {
   @override
@@ -47,7 +47,7 @@ class _$MemberShapeSerializer implements StructuredSerializer<MemberShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new MemberShapeBuilder();
+    final result = MemberShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -97,30 +97,20 @@ class _$MemberShape extends MemberShape {
   final TraitMap traits;
 
   factory _$MemberShape([void Function(MemberShapeBuilder)? updates]) =>
-      (new MemberShapeBuilder()..update(updates))._build();
+      (MemberShapeBuilder()..update(updates))._build();
 
   _$MemberShape._({
     required this.target,
     required this.memberName,
     required this.shapeId,
     required this.traits,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(target, r'MemberShape', 'target');
-    BuiltValueNullFieldError.checkNotNull(
-      memberName,
-      r'MemberShape',
-      'memberName',
-    );
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'MemberShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'MemberShape', 'traits');
-  }
-
+  }) : super._();
   @override
   MemberShape rebuild(void Function(MemberShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  MemberShapeBuilder toBuilder() => new MemberShapeBuilder()..replace(this);
+  MemberShapeBuilder toBuilder() => MemberShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -193,7 +183,6 @@ class MemberShapeBuilder
 
   @override
   void replace(covariant MemberShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MemberShape;
   }
 
@@ -208,7 +197,7 @@ class MemberShapeBuilder
   _$MemberShape _build() {
     final _$result =
         _$v ??
-        new _$MemberShape._(
+        _$MemberShape._(
           target: BuiltValueNullFieldError.checkNotNull(
             target,
             r'MemberShape',

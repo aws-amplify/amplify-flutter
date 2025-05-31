@@ -12,10 +12,9 @@ class _$DatetimeOffsetsOutput extends DatetimeOffsetsOutput {
 
   factory _$DatetimeOffsetsOutput([
     void Function(DatetimeOffsetsOutputBuilder)? updates,
-  ]) => (new DatetimeOffsetsOutputBuilder()..update(updates))._build();
+  ]) => (DatetimeOffsetsOutputBuilder()..update(updates))._build();
 
   _$DatetimeOffsetsOutput._({this.datetime}) : super._();
-
   @override
   DatetimeOffsetsOutput rebuild(
     void Function(DatetimeOffsetsOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$DatetimeOffsetsOutput extends DatetimeOffsetsOutput {
 
   @override
   DatetimeOffsetsOutputBuilder toBuilder() =>
-      new DatetimeOffsetsOutputBuilder()..replace(this);
+      DatetimeOffsetsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +60,6 @@ class DatetimeOffsetsOutputBuilder
 
   @override
   void replace(DatetimeOffsetsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DatetimeOffsetsOutput;
   }
 
@@ -74,7 +72,7 @@ class DatetimeOffsetsOutputBuilder
   DatetimeOffsetsOutput build() => _build();
 
   _$DatetimeOffsetsOutput _build() {
-    final _$result = _$v ?? new _$DatetimeOffsetsOutput._(datetime: datetime);
+    final _$result = _$v ?? _$DatetimeOffsetsOutput._(datetime: datetime);
     replace(_$result);
     return _$result;
   }

@@ -12,16 +12,9 @@ class _$ResponseCodeRequiredOutput extends ResponseCodeRequiredOutput {
 
   factory _$ResponseCodeRequiredOutput([
     void Function(ResponseCodeRequiredOutputBuilder)? updates,
-  ]) => (new ResponseCodeRequiredOutputBuilder()..update(updates))._build();
+  ]) => (ResponseCodeRequiredOutputBuilder()..update(updates))._build();
 
-  _$ResponseCodeRequiredOutput._({required this.responseCode}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      responseCode,
-      r'ResponseCodeRequiredOutput',
-      'responseCode',
-    );
-  }
-
+  _$ResponseCodeRequiredOutput._({required this.responseCode}) : super._();
   @override
   ResponseCodeRequiredOutput rebuild(
     void Function(ResponseCodeRequiredOutputBuilder) updates,
@@ -29,7 +22,7 @@ class _$ResponseCodeRequiredOutput extends ResponseCodeRequiredOutput {
 
   @override
   ResponseCodeRequiredOutputBuilder toBuilder() =>
-      new ResponseCodeRequiredOutputBuilder()..replace(this);
+      ResponseCodeRequiredOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +62,6 @@ class ResponseCodeRequiredOutputBuilder
 
   @override
   void replace(ResponseCodeRequiredOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResponseCodeRequiredOutput;
   }
 
@@ -84,7 +76,7 @@ class ResponseCodeRequiredOutputBuilder
   _$ResponseCodeRequiredOutput _build() {
     final _$result =
         _$v ??
-        new _$ResponseCodeRequiredOutput._(
+        _$ResponseCodeRequiredOutput._(
           responseCode: BuiltValueNullFieldError.checkNotNull(
             responseCode,
             r'ResponseCodeRequiredOutput',
@@ -100,12 +92,9 @@ class _$ResponseCodeRequiredOutputPayload
     extends ResponseCodeRequiredOutputPayload {
   factory _$ResponseCodeRequiredOutputPayload([
     void Function(ResponseCodeRequiredOutputPayloadBuilder)? updates,
-  ]) =>
-      (new ResponseCodeRequiredOutputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (ResponseCodeRequiredOutputPayloadBuilder()..update(updates))._build();
 
   _$ResponseCodeRequiredOutputPayload._() : super._();
-
   @override
   ResponseCodeRequiredOutputPayload rebuild(
     void Function(ResponseCodeRequiredOutputPayloadBuilder) updates,
@@ -113,7 +102,7 @@ class _$ResponseCodeRequiredOutputPayload
 
   @override
   ResponseCodeRequiredOutputPayloadBuilder toBuilder() =>
-      new ResponseCodeRequiredOutputPayloadBuilder()..replace(this);
+      ResponseCodeRequiredOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -139,7 +128,6 @@ class ResponseCodeRequiredOutputPayloadBuilder
 
   @override
   void replace(ResponseCodeRequiredOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResponseCodeRequiredOutputPayload;
   }
 
@@ -154,7 +142,7 @@ class ResponseCodeRequiredOutputPayloadBuilder
   ResponseCodeRequiredOutputPayload build() => _build();
 
   _$ResponseCodeRequiredOutputPayload _build() {
-    final _$result = _$v ?? new _$ResponseCodeRequiredOutputPayload._();
+    final _$result = _$v ?? _$ResponseCodeRequiredOutputPayload._();
     replace(_$result);
     return _$result;
   }

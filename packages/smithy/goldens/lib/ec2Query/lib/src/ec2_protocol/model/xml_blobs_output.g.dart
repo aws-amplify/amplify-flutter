@@ -11,17 +11,15 @@ class _$XmlBlobsOutput extends XmlBlobsOutput {
   final _i2.Uint8List? data;
 
   factory _$XmlBlobsOutput([void Function(XmlBlobsOutputBuilder)? updates]) =>
-      (new XmlBlobsOutputBuilder()..update(updates))._build();
+      (XmlBlobsOutputBuilder()..update(updates))._build();
 
   _$XmlBlobsOutput._({this.data}) : super._();
-
   @override
   XmlBlobsOutput rebuild(void Function(XmlBlobsOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  XmlBlobsOutputBuilder toBuilder() =>
-      new XmlBlobsOutputBuilder()..replace(this);
+  XmlBlobsOutputBuilder toBuilder() => XmlBlobsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -59,7 +57,6 @@ class XmlBlobsOutputBuilder
 
   @override
   void replace(XmlBlobsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlBlobsOutput;
   }
 
@@ -72,7 +69,7 @@ class XmlBlobsOutputBuilder
   XmlBlobsOutput build() => _build();
 
   _$XmlBlobsOutput _build() {
-    final _$result = _$v ?? new _$XmlBlobsOutput._(data: data);
+    final _$result = _$v ?? _$XmlBlobsOutput._(data: data);
     replace(_$result);
     return _$result;
   }

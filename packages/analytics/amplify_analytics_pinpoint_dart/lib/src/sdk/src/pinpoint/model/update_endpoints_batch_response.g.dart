@@ -12,16 +12,9 @@ class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
 
   factory _$UpdateEndpointsBatchResponse([
     void Function(UpdateEndpointsBatchResponseBuilder)? updates,
-  ]) => (new UpdateEndpointsBatchResponseBuilder()..update(updates))._build();
+  ]) => (UpdateEndpointsBatchResponseBuilder()..update(updates))._build();
 
-  _$UpdateEndpointsBatchResponse._({required this.messageBody}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      messageBody,
-      r'UpdateEndpointsBatchResponse',
-      'messageBody',
-    );
-  }
-
+  _$UpdateEndpointsBatchResponse._({required this.messageBody}) : super._();
   @override
   UpdateEndpointsBatchResponse rebuild(
     void Function(UpdateEndpointsBatchResponseBuilder) updates,
@@ -29,7 +22,7 @@ class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
 
   @override
   UpdateEndpointsBatchResponseBuilder toBuilder() =>
-      new UpdateEndpointsBatchResponseBuilder()..replace(this);
+      UpdateEndpointsBatchResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -57,7 +50,7 @@ class UpdateEndpointsBatchResponseBuilder
 
   MessageBodyBuilder? _messageBody;
   MessageBodyBuilder get messageBody =>
-      _$this._messageBody ??= new MessageBodyBuilder();
+      _$this._messageBody ??= MessageBodyBuilder();
   set messageBody(MessageBodyBuilder? messageBody) =>
       _$this._messageBody = messageBody;
 
@@ -74,7 +67,6 @@ class UpdateEndpointsBatchResponseBuilder
 
   @override
   void replace(UpdateEndpointsBatchResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateEndpointsBatchResponse;
   }
 
@@ -91,16 +83,14 @@ class UpdateEndpointsBatchResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$UpdateEndpointsBatchResponse._(
-            messageBody: messageBody.build(),
-          );
+          _$UpdateEndpointsBatchResponse._(messageBody: messageBody.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'messageBody';
         messageBody.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'UpdateEndpointsBatchResponse',
           _$failedField,
           e.toString(),

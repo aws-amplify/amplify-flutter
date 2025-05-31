@@ -11,16 +11,15 @@ class _$RecordsEvent extends RecordsEvent {
   final _i2.Uint8List? payload;
 
   factory _$RecordsEvent([void Function(RecordsEventBuilder)? updates]) =>
-      (new RecordsEventBuilder()..update(updates))._build();
+      (RecordsEventBuilder()..update(updates))._build();
 
   _$RecordsEvent._({this.payload}) : super._();
-
   @override
   RecordsEvent rebuild(void Function(RecordsEventBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  RecordsEventBuilder toBuilder() => new RecordsEventBuilder()..replace(this);
+  RecordsEventBuilder toBuilder() => RecordsEventBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -58,7 +57,6 @@ class RecordsEventBuilder
 
   @override
   void replace(RecordsEvent other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RecordsEvent;
   }
 
@@ -71,7 +69,7 @@ class RecordsEventBuilder
   RecordsEvent build() => _build();
 
   _$RecordsEvent _build() {
-    final _$result = _$v ?? new _$RecordsEvent._(payload: payload);
+    final _$result = _$v ?? _$RecordsEvent._(payload: payload);
     replace(_$result);
     return _$result;
   }

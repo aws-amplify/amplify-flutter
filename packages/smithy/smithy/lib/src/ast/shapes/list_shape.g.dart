@@ -6,7 +6,7 @@ part of 'list_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ListShape> _$listShapeSerializer = new _$ListShapeSerializer();
+Serializer<ListShape> _$listShapeSerializer = _$ListShapeSerializer();
 
 class _$ListShapeSerializer implements StructuredSerializer<ListShape> {
   @override
@@ -42,7 +42,7 @@ class _$ListShapeSerializer implements StructuredSerializer<ListShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ListShapeBuilder();
+    final result = ListShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -83,24 +83,19 @@ class _$ListShape extends ListShape {
   final TraitMap traits;
 
   factory _$ListShape([void Function(ListShapeBuilder)? updates]) =>
-      (new ListShapeBuilder()..update(updates))._build();
+      (ListShapeBuilder()..update(updates))._build();
 
   _$ListShape._({
     required this.member,
     required this.shapeId,
     required this.traits,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(member, r'ListShape', 'member');
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'ListShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'ListShape', 'traits');
-  }
-
+  }) : super._();
   @override
   ListShape rebuild(void Function(ListShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ListShapeBuilder toBuilder() => new ListShapeBuilder()..replace(this);
+  ListShapeBuilder toBuilder() => ListShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -136,7 +131,7 @@ class ListShapeBuilder
   _$ListShape? _$v;
 
   MemberShapeBuilder? _member;
-  MemberShapeBuilder get member => _$this._member ??= new MemberShapeBuilder();
+  MemberShapeBuilder get member => _$this._member ??= MemberShapeBuilder();
   set member(covariant MemberShapeBuilder? member) => _$this._member = member;
 
   ShapeId? _shapeId;
@@ -164,7 +159,6 @@ class ListShapeBuilder
 
   @override
   void replace(covariant ListShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListShape;
   }
 
@@ -181,7 +175,7 @@ class ListShapeBuilder
     try {
       _$result =
           _$v ??
-          new _$ListShape._(
+          _$ListShape._(
             member: member.build(),
             shapeId: BuiltValueNullFieldError.checkNotNull(
               shapeId,
@@ -200,7 +194,7 @@ class ListShapeBuilder
         _$failedField = 'member';
         member.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ListShape',
           _$failedField,
           e.toString(),

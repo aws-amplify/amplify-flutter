@@ -25,7 +25,7 @@ class _$S3Object extends S3Object {
   final RestoreStatus? restoreStatus;
 
   factory _$S3Object([void Function(S3ObjectBuilder)? updates]) =>
-      (new S3ObjectBuilder()..update(updates))._build();
+      (S3ObjectBuilder()..update(updates))._build();
 
   _$S3Object._({
     this.key,
@@ -37,13 +37,12 @@ class _$S3Object extends S3Object {
     this.owner,
     this.restoreStatus,
   }) : super._();
-
   @override
   S3Object rebuild(void Function(S3ObjectBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  S3ObjectBuilder toBuilder() => new S3ObjectBuilder()..replace(this);
+  S3ObjectBuilder toBuilder() => S3ObjectBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,7 +92,7 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
 
   _i3.ListBuilder<ChecksumAlgorithm>? _checksumAlgorithm;
   _i3.ListBuilder<ChecksumAlgorithm> get checksumAlgorithm =>
-      _$this._checksumAlgorithm ??= new _i3.ListBuilder<ChecksumAlgorithm>();
+      _$this._checksumAlgorithm ??= _i3.ListBuilder<ChecksumAlgorithm>();
   set checksumAlgorithm(
     _i3.ListBuilder<ChecksumAlgorithm>? checksumAlgorithm,
   ) => _$this._checksumAlgorithm = checksumAlgorithm;
@@ -108,12 +107,12 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
       _$this._storageClass = storageClass;
 
   OwnerBuilder? _owner;
-  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  OwnerBuilder get owner => _$this._owner ??= OwnerBuilder();
   set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   RestoreStatusBuilder? _restoreStatus;
   RestoreStatusBuilder get restoreStatus =>
-      _$this._restoreStatus ??= new RestoreStatusBuilder();
+      _$this._restoreStatus ??= RestoreStatusBuilder();
   set restoreStatus(RestoreStatusBuilder? restoreStatus) =>
       _$this._restoreStatus = restoreStatus;
 
@@ -137,7 +136,6 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
 
   @override
   void replace(S3Object other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$S3Object;
   }
 
@@ -154,7 +152,7 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
     try {
       _$result =
           _$v ??
-          new _$S3Object._(
+          _$S3Object._(
             key: key,
             lastModified: lastModified,
             eTag: eTag,
@@ -175,7 +173,7 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
         _$failedField = 'restoreStatus';
         _restoreStatus?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'S3Object',
           _$failedField,
           e.toString(),

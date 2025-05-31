@@ -23,7 +23,7 @@ class _$ClientConfig extends ClientConfig {
   final String? awsProfile;
 
   factory _$ClientConfig([void Function(ClientConfigBuilder)? updates]) =>
-      (new ClientConfigBuilder()..update(updates))._build();
+      (ClientConfigBuilder()..update(updates))._build();
 
   _$ClientConfig._({
     this.awsAccessKeyId,
@@ -34,13 +34,12 @@ class _$ClientConfig extends ClientConfig {
     this.retryConfig,
     this.awsProfile,
   }) : super._();
-
   @override
   ClientConfig rebuild(void Function(ClientConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ClientConfigBuilder toBuilder() => new ClientConfigBuilder()..replace(this);
+  ClientConfigBuilder toBuilder() => ClientConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -94,12 +93,12 @@ class ClientConfigBuilder
   set region(String? region) => _$this._region = region;
 
   S3ConfigBuilder? _s3;
-  S3ConfigBuilder get s3 => _$this._s3 ??= new S3ConfigBuilder();
+  S3ConfigBuilder get s3 => _$this._s3 ??= S3ConfigBuilder();
   set s3(S3ConfigBuilder? s3) => _$this._s3 = s3;
 
   RetryConfigBuilder? _retryConfig;
   RetryConfigBuilder get retryConfig =>
-      _$this._retryConfig ??= new RetryConfigBuilder();
+      _$this._retryConfig ??= RetryConfigBuilder();
   set retryConfig(RetryConfigBuilder? retryConfig) =>
       _$this._retryConfig = retryConfig;
 
@@ -126,7 +125,6 @@ class ClientConfigBuilder
 
   @override
   void replace(ClientConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ClientConfig;
   }
 
@@ -143,7 +141,7 @@ class ClientConfigBuilder
     try {
       _$result =
           _$v ??
-          new _$ClientConfig._(
+          _$ClientConfig._(
             awsAccessKeyId: awsAccessKeyId,
             awsSecretAccessKey: awsSecretAccessKey,
             awsSessionToken: awsSessionToken,
@@ -160,7 +158,7 @@ class ClientConfigBuilder
         _$failedField = 'retryConfig';
         _retryConfig?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ClientConfig',
           _$failedField,
           e.toString(),

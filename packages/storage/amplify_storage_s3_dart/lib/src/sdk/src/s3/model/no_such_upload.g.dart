@@ -11,16 +11,15 @@ class _$NoSuchUpload extends NoSuchUpload {
   final Map<String, String>? headers;
 
   factory _$NoSuchUpload([void Function(NoSuchUploadBuilder)? updates]) =>
-      (new NoSuchUploadBuilder()..update(updates))._build();
+      (NoSuchUploadBuilder()..update(updates))._build();
 
   _$NoSuchUpload._({this.headers}) : super._();
-
   @override
   NoSuchUpload rebuild(void Function(NoSuchUploadBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  NoSuchUploadBuilder toBuilder() => new NoSuchUploadBuilder()..replace(this);
+  NoSuchUploadBuilder toBuilder() => NoSuchUploadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -55,7 +54,6 @@ class NoSuchUploadBuilder
 
   @override
   void replace(NoSuchUpload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoSuchUpload;
   }
 
@@ -68,7 +66,7 @@ class NoSuchUploadBuilder
   NoSuchUpload build() => _build();
 
   _$NoSuchUpload _build() {
-    final _$result = _$v ?? new _$NoSuchUpload._(headers: headers);
+    final _$result = _$v ?? _$NoSuchUpload._(headers: headers);
     replace(_$result);
     return _$result;
   }

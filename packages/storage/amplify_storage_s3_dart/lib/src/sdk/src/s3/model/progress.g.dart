@@ -15,17 +15,16 @@ class _$Progress extends Progress {
   final _i2.Int64? bytesReturned;
 
   factory _$Progress([void Function(ProgressBuilder)? updates]) =>
-      (new ProgressBuilder()..update(updates))._build();
+      (ProgressBuilder()..update(updates))._build();
 
   _$Progress._({this.bytesScanned, this.bytesProcessed, this.bytesReturned})
     : super._();
-
   @override
   Progress rebuild(void Function(ProgressBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ProgressBuilder toBuilder() => new ProgressBuilder()..replace(this);
+  ProgressBuilder toBuilder() => ProgressBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -80,7 +79,6 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
 
   @override
   void replace(Progress other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Progress;
   }
 
@@ -95,7 +93,7 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   _$Progress _build() {
     final _$result =
         _$v ??
-        new _$Progress._(
+        _$Progress._(
           bytesScanned: bytesScanned,
           bytesProcessed: bytesProcessed,
           bytesReturned: bytesReturned,

@@ -24,7 +24,7 @@ class _$FileConfigSettings extends FileConfigSettings {
 
   factory _$FileConfigSettings([
     void Function(FileConfigSettingsBuilder)? updates,
-  ]) => (new FileConfigSettingsBuilder()..update(updates))._build();
+  ]) => (FileConfigSettingsBuilder()..update(updates))._build();
 
   _$FileConfigSettings._({
     this.awsAccessKeyId,
@@ -35,7 +35,6 @@ class _$FileConfigSettings extends FileConfigSettings {
     this.retryMode,
     this.maxAttempts,
   }) : super._();
-
   @override
   FileConfigSettings rebuild(
     void Function(FileConfigSettingsBuilder) updates,
@@ -43,7 +42,7 @@ class _$FileConfigSettings extends FileConfigSettings {
 
   @override
   FileConfigSettingsBuilder toBuilder() =>
-      new FileConfigSettingsBuilder()..replace(this);
+      FileConfigSettingsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -97,7 +96,7 @@ class FileConfigSettingsBuilder
   set region(String? region) => _$this._region = region;
 
   S3ConfigBuilder? _s3;
-  S3ConfigBuilder get s3 => _$this._s3 ??= new S3ConfigBuilder();
+  S3ConfigBuilder get s3 => _$this._s3 ??= S3ConfigBuilder();
   set s3(S3ConfigBuilder? s3) => _$this._s3 = s3;
 
   RetryMode? _retryMode;
@@ -127,7 +126,6 @@ class FileConfigSettingsBuilder
 
   @override
   void replace(FileConfigSettings other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$FileConfigSettings;
   }
 
@@ -144,7 +142,7 @@ class FileConfigSettingsBuilder
     try {
       _$result =
           _$v ??
-          new _$FileConfigSettings._(
+          _$FileConfigSettings._(
             awsAccessKeyId: awsAccessKeyId,
             awsSecretAccessKey: awsSecretAccessKey,
             awsSessionToken: awsSessionToken,
@@ -159,7 +157,7 @@ class FileConfigSettingsBuilder
         _$failedField = 's3';
         _s3?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'FileConfigSettings',
           _$failedField,
           e.toString(),

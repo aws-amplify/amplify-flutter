@@ -12,10 +12,9 @@ class _$TestNoPayloadInputOutput extends TestNoPayloadInputOutput {
 
   factory _$TestNoPayloadInputOutput([
     void Function(TestNoPayloadInputOutputBuilder)? updates,
-  ]) => (new TestNoPayloadInputOutputBuilder()..update(updates))._build();
+  ]) => (TestNoPayloadInputOutputBuilder()..update(updates))._build();
 
   _$TestNoPayloadInputOutput._({this.testId}) : super._();
-
   @override
   TestNoPayloadInputOutput rebuild(
     void Function(TestNoPayloadInputOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$TestNoPayloadInputOutput extends TestNoPayloadInputOutput {
 
   @override
   TestNoPayloadInputOutputBuilder toBuilder() =>
-      new TestNoPayloadInputOutputBuilder()..replace(this);
+      TestNoPayloadInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class TestNoPayloadInputOutputBuilder
 
   @override
   void replace(TestNoPayloadInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TestNoPayloadInputOutput;
   }
 
@@ -75,7 +73,7 @@ class TestNoPayloadInputOutputBuilder
   TestNoPayloadInputOutput build() => _build();
 
   _$TestNoPayloadInputOutput _build() {
-    final _$result = _$v ?? new _$TestNoPayloadInputOutput._(testId: testId);
+    final _$result = _$v ?? _$TestNoPayloadInputOutput._(testId: testId);
     replace(_$result);
     return _$result;
   }
@@ -85,11 +83,9 @@ class _$TestNoPayloadInputOutputPayload
     extends TestNoPayloadInputOutputPayload {
   factory _$TestNoPayloadInputOutputPayload([
     void Function(TestNoPayloadInputOutputPayloadBuilder)? updates,
-  ]) =>
-      (new TestNoPayloadInputOutputPayloadBuilder()..update(updates))._build();
+  ]) => (TestNoPayloadInputOutputPayloadBuilder()..update(updates))._build();
 
   _$TestNoPayloadInputOutputPayload._() : super._();
-
   @override
   TestNoPayloadInputOutputPayload rebuild(
     void Function(TestNoPayloadInputOutputPayloadBuilder) updates,
@@ -97,7 +93,7 @@ class _$TestNoPayloadInputOutputPayload
 
   @override
   TestNoPayloadInputOutputPayloadBuilder toBuilder() =>
-      new TestNoPayloadInputOutputPayloadBuilder()..replace(this);
+      TestNoPayloadInputOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -123,7 +119,6 @@ class TestNoPayloadInputOutputPayloadBuilder
 
   @override
   void replace(TestNoPayloadInputOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TestNoPayloadInputOutputPayload;
   }
 
@@ -136,7 +131,7 @@ class TestNoPayloadInputOutputPayloadBuilder
   TestNoPayloadInputOutputPayload build() => _build();
 
   _$TestNoPayloadInputOutputPayload _build() {
-    final _$result = _$v ?? new _$TestNoPayloadInputOutputPayload._();
+    final _$result = _$v ?? _$TestNoPayloadInputOutputPayload._();
     replace(_$result);
     return _$result;
   }

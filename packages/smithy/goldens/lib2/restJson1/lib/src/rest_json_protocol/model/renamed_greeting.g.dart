@@ -11,17 +11,15 @@ class _$RenamedGreeting extends RenamedGreeting {
   final String? salutation;
 
   factory _$RenamedGreeting([void Function(RenamedGreetingBuilder)? updates]) =>
-      (new RenamedGreetingBuilder()..update(updates))._build();
+      (RenamedGreetingBuilder()..update(updates))._build();
 
   _$RenamedGreeting._({this.salutation}) : super._();
-
   @override
   RenamedGreeting rebuild(void Function(RenamedGreetingBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  RenamedGreetingBuilder toBuilder() =>
-      new RenamedGreetingBuilder()..replace(this);
+  RenamedGreetingBuilder toBuilder() => RenamedGreetingBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -59,7 +57,6 @@ class RenamedGreetingBuilder
 
   @override
   void replace(RenamedGreeting other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RenamedGreeting;
   }
 
@@ -72,7 +69,7 @@ class RenamedGreetingBuilder
   RenamedGreeting build() => _build();
 
   _$RenamedGreeting _build() {
-    final _$result = _$v ?? new _$RenamedGreeting._(salutation: salutation);
+    final _$result = _$v ?? _$RenamedGreeting._(salutation: salutation);
     replace(_$result);
     return _$result;
   }

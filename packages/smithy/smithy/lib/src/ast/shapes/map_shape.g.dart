@@ -6,7 +6,7 @@ part of 'map_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<MapShape> _$mapShapeSerializer = new _$MapShapeSerializer();
+Serializer<MapShape> _$mapShapeSerializer = _$MapShapeSerializer();
 
 class _$MapShapeSerializer implements StructuredSerializer<MapShape> {
   @override
@@ -47,7 +47,7 @@ class _$MapShapeSerializer implements StructuredSerializer<MapShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new MapShapeBuilder();
+    final result = MapShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -99,26 +99,20 @@ class _$MapShape extends MapShape {
   final TraitMap traits;
 
   factory _$MapShape([void Function(MapShapeBuilder)? updates]) =>
-      (new MapShapeBuilder()..update(updates))._build();
+      (MapShapeBuilder()..update(updates))._build();
 
   _$MapShape._({
     required this.key,
     required this.value,
     required this.shapeId,
     required this.traits,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(key, r'MapShape', 'key');
-    BuiltValueNullFieldError.checkNotNull(value, r'MapShape', 'value');
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'MapShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'MapShape', 'traits');
-  }
-
+  }) : super._();
   @override
   MapShape rebuild(void Function(MapShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  MapShapeBuilder toBuilder() => new MapShapeBuilder()..replace(this);
+  MapShapeBuilder toBuilder() => MapShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -157,11 +151,11 @@ class MapShapeBuilder
   _$MapShape? _$v;
 
   ShapeRefBuilder? _key;
-  ShapeRefBuilder get key => _$this._key ??= new ShapeRefBuilder();
+  ShapeRefBuilder get key => _$this._key ??= ShapeRefBuilder();
   set key(covariant ShapeRefBuilder? key) => _$this._key = key;
 
   ShapeRefBuilder? _value;
-  ShapeRefBuilder get value => _$this._value ??= new ShapeRefBuilder();
+  ShapeRefBuilder get value => _$this._value ??= ShapeRefBuilder();
   set value(covariant ShapeRefBuilder? value) => _$this._value = value;
 
   ShapeId? _shapeId;
@@ -190,7 +184,6 @@ class MapShapeBuilder
 
   @override
   void replace(covariant MapShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MapShape;
   }
 
@@ -207,7 +200,7 @@ class MapShapeBuilder
     try {
       _$result =
           _$v ??
-          new _$MapShape._(
+          _$MapShape._(
             key: key.build(),
             value: value.build(),
             shapeId: BuiltValueNullFieldError.checkNotNull(
@@ -229,7 +222,7 @@ class MapShapeBuilder
         _$failedField = 'value';
         value.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'MapShape',
           _$failedField,
           e.toString(),

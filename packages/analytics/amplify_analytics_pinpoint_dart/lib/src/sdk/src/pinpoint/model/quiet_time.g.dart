@@ -13,16 +13,15 @@ class _$QuietTime extends QuietTime {
   final String? start;
 
   factory _$QuietTime([void Function(QuietTimeBuilder)? updates]) =>
-      (new QuietTimeBuilder()..update(updates))._build();
+      (QuietTimeBuilder()..update(updates))._build();
 
   _$QuietTime._({this.end, this.start}) : super._();
-
   @override
   QuietTime rebuild(void Function(QuietTimeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  QuietTimeBuilder toBuilder() => new QuietTimeBuilder()..replace(this);
+  QuietTimeBuilder toBuilder() => QuietTimeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -65,7 +64,6 @@ class QuietTimeBuilder implements Builder<QuietTime, QuietTimeBuilder> {
 
   @override
   void replace(QuietTime other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$QuietTime;
   }
 
@@ -78,7 +76,7 @@ class QuietTimeBuilder implements Builder<QuietTime, QuietTimeBuilder> {
   QuietTime build() => _build();
 
   _$QuietTime _build() {
-    final _$result = _$v ?? new _$QuietTime._(end: end, start: start);
+    final _$result = _$v ?? _$QuietTime._(end: end, start: start);
     replace(_$result);
     return _$result;
   }

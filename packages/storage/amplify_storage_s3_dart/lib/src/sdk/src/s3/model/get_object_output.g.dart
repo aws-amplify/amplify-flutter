@@ -81,7 +81,7 @@ class _$GetObjectOutput extends GetObjectOutput {
   final ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
 
   factory _$GetObjectOutput([void Function(GetObjectOutputBuilder)? updates]) =>
-      (new GetObjectOutputBuilder()..update(updates))._build();
+      (GetObjectOutputBuilder()..update(updates))._build();
 
   _$GetObjectOutput._({
     required this.body,
@@ -120,17 +120,13 @@ class _$GetObjectOutput extends GetObjectOutput {
     this.objectLockMode,
     this.objectLockRetainUntilDate,
     this.objectLockLegalHoldStatus,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(body, r'GetObjectOutput', 'body');
-  }
-
+  }) : super._();
   @override
   GetObjectOutput rebuild(void Function(GetObjectOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GetObjectOutputBuilder toBuilder() =>
-      new GetObjectOutputBuilder()..replace(this);
+  GetObjectOutputBuilder toBuilder() => GetObjectOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -327,7 +323,7 @@ class GetObjectOutputBuilder
 
   _i5.MapBuilder<String, String>? _metadata;
   _i5.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i5.MapBuilder<String, String>();
+      _$this._metadata ??= _i5.MapBuilder<String, String>();
   set metadata(_i5.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
@@ -440,7 +436,6 @@ class GetObjectOutputBuilder
 
   @override
   void replace(GetObjectOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetObjectOutput;
   }
 
@@ -457,7 +452,7 @@ class GetObjectOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$GetObjectOutput._(
+          _$GetObjectOutput._(
             body: BuiltValueNullFieldError.checkNotNull(
               body,
               r'GetObjectOutput',
@@ -505,7 +500,7 @@ class GetObjectOutputBuilder
         _$failedField = 'metadata';
         _metadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'GetObjectOutput',
           _$failedField,
           e.toString(),

@@ -7,7 +7,7 @@ part of 'big_decimal_shape.dart';
 // **************************************************************************
 
 Serializer<BigDecimalShape> _$bigDecimalShapeSerializer =
-    new _$BigDecimalShapeSerializer();
+    _$BigDecimalShapeSerializer();
 
 class _$BigDecimalShapeSerializer
     implements StructuredSerializer<BigDecimalShape> {
@@ -39,7 +39,7 @@ class _$BigDecimalShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new BigDecimalShapeBuilder();
+    final result = BigDecimalShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -69,25 +69,16 @@ class _$BigDecimalShape extends BigDecimalShape {
   final TraitMap traits;
 
   factory _$BigDecimalShape([void Function(BigDecimalShapeBuilder)? updates]) =>
-      (new BigDecimalShapeBuilder()..update(updates))._build();
+      (BigDecimalShapeBuilder()..update(updates))._build();
 
   _$BigDecimalShape._({required this.shapeId, required this.traits})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'BigDecimalShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(traits, r'BigDecimalShape', 'traits');
-  }
-
+    : super._();
   @override
   BigDecimalShape rebuild(void Function(BigDecimalShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BigDecimalShapeBuilder toBuilder() =>
-      new BigDecimalShapeBuilder()..replace(this);
+  BigDecimalShapeBuilder toBuilder() => BigDecimalShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -145,7 +136,6 @@ class BigDecimalShapeBuilder
 
   @override
   void replace(covariant BigDecimalShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BigDecimalShape;
   }
 
@@ -160,7 +150,7 @@ class BigDecimalShapeBuilder
   _$BigDecimalShape _build() {
     final _$result =
         _$v ??
-        new _$BigDecimalShape._(
+        _$BigDecimalShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'BigDecimalShape',

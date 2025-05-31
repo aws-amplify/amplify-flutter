@@ -21,7 +21,7 @@ class _$CopyPartResult extends CopyPartResult {
   final String? checksumSha256;
 
   factory _$CopyPartResult([void Function(CopyPartResultBuilder)? updates]) =>
-      (new CopyPartResultBuilder()..update(updates))._build();
+      (CopyPartResultBuilder()..update(updates))._build();
 
   _$CopyPartResult._({
     this.eTag,
@@ -31,14 +31,12 @@ class _$CopyPartResult extends CopyPartResult {
     this.checksumSha1,
     this.checksumSha256,
   }) : super._();
-
   @override
   CopyPartResult rebuild(void Function(CopyPartResultBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CopyPartResultBuilder toBuilder() =>
-      new CopyPartResultBuilder()..replace(this);
+  CopyPartResultBuilder toBuilder() => CopyPartResultBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -116,7 +114,6 @@ class CopyPartResultBuilder
 
   @override
   void replace(CopyPartResult other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyPartResult;
   }
 
@@ -131,7 +128,7 @@ class CopyPartResultBuilder
   _$CopyPartResult _build() {
     final _$result =
         _$v ??
-        new _$CopyPartResult._(
+        _$CopyPartResult._(
           eTag: eTag,
           lastModified: lastModified,
           checksumCrc32: checksumCrc32,

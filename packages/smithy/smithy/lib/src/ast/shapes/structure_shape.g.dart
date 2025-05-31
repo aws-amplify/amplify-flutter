@@ -7,7 +7,7 @@ part of 'structure_shape.dart';
 // **************************************************************************
 
 Serializer<StructureShape> _$structureShapeSerializer =
-    new _$StructureShapeSerializer();
+    _$StructureShapeSerializer();
 
 class _$StructureShapeSerializer
     implements StructuredSerializer<StructureShape> {
@@ -44,7 +44,7 @@ class _$StructureShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new StructureShapeBuilder();
+    final result = StructureShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,33 +84,19 @@ class _$StructureShape extends StructureShape {
   final TraitMap traits;
 
   factory _$StructureShape([void Function(StructureShapeBuilder)? updates]) =>
-      (new StructureShapeBuilder()..update(updates))._build();
+      (StructureShapeBuilder()..update(updates))._build();
 
   _$StructureShape._({
     required this.members,
     required this.shapeId,
     required this.traits,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      members,
-      r'StructureShape',
-      'members',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'StructureShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(traits, r'StructureShape', 'traits');
-  }
-
+  }) : super._();
   @override
   StructureShape rebuild(void Function(StructureShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  StructureShapeBuilder toBuilder() =>
-      new StructureShapeBuilder()..replace(this);
+  StructureShapeBuilder toBuilder() => StructureShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -176,7 +162,6 @@ class StructureShapeBuilder
 
   @override
   void replace(covariant StructureShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StructureShape;
   }
 
@@ -191,7 +176,7 @@ class StructureShapeBuilder
   _$StructureShape _build() {
     final _$result =
         _$v ??
-        new _$StructureShape._(
+        _$StructureShape._(
           members: BuiltValueNullFieldError.checkNotNull(
             members,
             r'StructureShape',

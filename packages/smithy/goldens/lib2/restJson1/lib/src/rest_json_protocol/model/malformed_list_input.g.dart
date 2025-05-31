@@ -12,10 +12,9 @@ class _$MalformedListInput extends MalformedListInput {
 
   factory _$MalformedListInput([
     void Function(MalformedListInputBuilder)? updates,
-  ]) => (new MalformedListInputBuilder()..update(updates))._build();
+  ]) => (MalformedListInputBuilder()..update(updates))._build();
 
   _$MalformedListInput._({this.bodyList}) : super._();
-
   @override
   MalformedListInput rebuild(
     void Function(MalformedListInputBuilder) updates,
@@ -23,7 +22,7 @@ class _$MalformedListInput extends MalformedListInput {
 
   @override
   MalformedListInputBuilder toBuilder() =>
-      new MalformedListInputBuilder()..replace(this);
+      MalformedListInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,7 +45,7 @@ class MalformedListInputBuilder
 
   _i3.ListBuilder<String>? _bodyList;
   _i3.ListBuilder<String> get bodyList =>
-      _$this._bodyList ??= new _i3.ListBuilder<String>();
+      _$this._bodyList ??= _i3.ListBuilder<String>();
   set bodyList(_i3.ListBuilder<String>? bodyList) =>
       _$this._bodyList = bodyList;
 
@@ -63,7 +62,6 @@ class MalformedListInputBuilder
 
   @override
   void replace(MalformedListInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedListInput;
   }
 
@@ -78,15 +76,14 @@ class MalformedListInputBuilder
   _$MalformedListInput _build() {
     _$MalformedListInput _$result;
     try {
-      _$result =
-          _$v ?? new _$MalformedListInput._(bodyList: _bodyList?.build());
+      _$result = _$v ?? _$MalformedListInput._(bodyList: _bodyList?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'bodyList';
         _bodyList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'MalformedListInput',
           _$failedField,
           e.toString(),

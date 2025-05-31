@@ -28,7 +28,7 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
 
   factory _$ListMultipartUploadsRequest([
     void Function(ListMultipartUploadsRequestBuilder)? updates,
-  ]) => (new ListMultipartUploadsRequestBuilder()..update(updates))._build();
+  ]) => (ListMultipartUploadsRequestBuilder()..update(updates))._build();
 
   _$ListMultipartUploadsRequest._({
     required this.bucket,
@@ -40,14 +40,7 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
     this.uploadIdMarker,
     this.expectedBucketOwner,
     this.requestPayer,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'ListMultipartUploadsRequest',
-      'bucket',
-    );
-  }
-
+  }) : super._();
   @override
   ListMultipartUploadsRequest rebuild(
     void Function(ListMultipartUploadsRequestBuilder) updates,
@@ -55,7 +48,7 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
 
   @override
   ListMultipartUploadsRequestBuilder toBuilder() =>
-      new ListMultipartUploadsRequestBuilder()..replace(this);
+      ListMultipartUploadsRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -158,7 +151,6 @@ class ListMultipartUploadsRequestBuilder
 
   @override
   void replace(ListMultipartUploadsRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListMultipartUploadsRequest;
   }
 
@@ -173,7 +165,7 @@ class ListMultipartUploadsRequestBuilder
   _$ListMultipartUploadsRequest _build() {
     final _$result =
         _$v ??
-        new _$ListMultipartUploadsRequest._(
+        _$ListMultipartUploadsRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
             bucket,
             r'ListMultipartUploadsRequest',
@@ -197,12 +189,9 @@ class _$ListMultipartUploadsRequestPayload
     extends ListMultipartUploadsRequestPayload {
   factory _$ListMultipartUploadsRequestPayload([
     void Function(ListMultipartUploadsRequestPayloadBuilder)? updates,
-  ]) =>
-      (new ListMultipartUploadsRequestPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (ListMultipartUploadsRequestPayloadBuilder()..update(updates))._build();
 
   _$ListMultipartUploadsRequestPayload._() : super._();
-
   @override
   ListMultipartUploadsRequestPayload rebuild(
     void Function(ListMultipartUploadsRequestPayloadBuilder) updates,
@@ -210,7 +199,7 @@ class _$ListMultipartUploadsRequestPayload
 
   @override
   ListMultipartUploadsRequestPayloadBuilder toBuilder() =>
-      new ListMultipartUploadsRequestPayloadBuilder()..replace(this);
+      ListMultipartUploadsRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -236,7 +225,6 @@ class ListMultipartUploadsRequestPayloadBuilder
 
   @override
   void replace(ListMultipartUploadsRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListMultipartUploadsRequestPayload;
   }
 
@@ -251,7 +239,7 @@ class ListMultipartUploadsRequestPayloadBuilder
   ListMultipartUploadsRequestPayload build() => _build();
 
   _$ListMultipartUploadsRequestPayload _build() {
-    final _$result = _$v ?? new _$ListMultipartUploadsRequestPayload._();
+    final _$result = _$v ?? _$ListMultipartUploadsRequestPayload._();
     replace(_$result);
     return _$result;
   }

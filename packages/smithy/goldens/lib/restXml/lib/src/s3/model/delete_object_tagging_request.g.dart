@@ -18,26 +18,14 @@ class _$DeleteObjectTaggingRequest extends DeleteObjectTaggingRequest {
 
   factory _$DeleteObjectTaggingRequest([
     void Function(DeleteObjectTaggingRequestBuilder)? updates,
-  ]) => (new DeleteObjectTaggingRequestBuilder()..update(updates))._build();
+  ]) => (DeleteObjectTaggingRequestBuilder()..update(updates))._build();
 
   _$DeleteObjectTaggingRequest._({
     required this.bucket,
     required this.key,
     this.versionId,
     this.expectedBucketOwner,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'DeleteObjectTaggingRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      key,
-      r'DeleteObjectTaggingRequest',
-      'key',
-    );
-  }
-
+  }) : super._();
   @override
   DeleteObjectTaggingRequest rebuild(
     void Function(DeleteObjectTaggingRequestBuilder) updates,
@@ -45,7 +33,7 @@ class _$DeleteObjectTaggingRequest extends DeleteObjectTaggingRequest {
 
   @override
   DeleteObjectTaggingRequestBuilder toBuilder() =>
-      new DeleteObjectTaggingRequestBuilder()..replace(this);
+      DeleteObjectTaggingRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -107,7 +95,6 @@ class DeleteObjectTaggingRequestBuilder
 
   @override
   void replace(DeleteObjectTaggingRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectTaggingRequest;
   }
 
@@ -122,7 +109,7 @@ class DeleteObjectTaggingRequestBuilder
   _$DeleteObjectTaggingRequest _build() {
     final _$result =
         _$v ??
-        new _$DeleteObjectTaggingRequest._(
+        _$DeleteObjectTaggingRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
             bucket,
             r'DeleteObjectTaggingRequest',
@@ -145,12 +132,9 @@ class _$DeleteObjectTaggingRequestPayload
     extends DeleteObjectTaggingRequestPayload {
   factory _$DeleteObjectTaggingRequestPayload([
     void Function(DeleteObjectTaggingRequestPayloadBuilder)? updates,
-  ]) =>
-      (new DeleteObjectTaggingRequestPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (DeleteObjectTaggingRequestPayloadBuilder()..update(updates))._build();
 
   _$DeleteObjectTaggingRequestPayload._() : super._();
-
   @override
   DeleteObjectTaggingRequestPayload rebuild(
     void Function(DeleteObjectTaggingRequestPayloadBuilder) updates,
@@ -158,7 +142,7 @@ class _$DeleteObjectTaggingRequestPayload
 
   @override
   DeleteObjectTaggingRequestPayloadBuilder toBuilder() =>
-      new DeleteObjectTaggingRequestPayloadBuilder()..replace(this);
+      DeleteObjectTaggingRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -184,7 +168,6 @@ class DeleteObjectTaggingRequestPayloadBuilder
 
   @override
   void replace(DeleteObjectTaggingRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectTaggingRequestPayload;
   }
 
@@ -199,7 +182,7 @@ class DeleteObjectTaggingRequestPayloadBuilder
   DeleteObjectTaggingRequestPayload build() => _build();
 
   _$DeleteObjectTaggingRequestPayload _build() {
-    final _$result = _$v ?? new _$DeleteObjectTaggingRequestPayload._();
+    final _$result = _$v ?? _$DeleteObjectTaggingRequestPayload._();
     replace(_$result);
     return _$result;
   }

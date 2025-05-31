@@ -6,7 +6,7 @@ part of 'blob_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<BlobShape> _$blobShapeSerializer = new _$BlobShapeSerializer();
+Serializer<BlobShape> _$blobShapeSerializer = _$BlobShapeSerializer();
 
 class _$BlobShapeSerializer implements StructuredSerializer<BlobShape> {
   @override
@@ -37,7 +37,7 @@ class _$BlobShapeSerializer implements StructuredSerializer<BlobShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new BlobShapeBuilder();
+    final result = BlobShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -67,19 +67,15 @@ class _$BlobShape extends BlobShape {
   final TraitMap traits;
 
   factory _$BlobShape([void Function(BlobShapeBuilder)? updates]) =>
-      (new BlobShapeBuilder()..update(updates))._build();
+      (BlobShapeBuilder()..update(updates))._build();
 
-  _$BlobShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'BlobShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'BlobShape', 'traits');
-  }
-
+  _$BlobShape._({required this.shapeId, required this.traits}) : super._();
   @override
   BlobShape rebuild(void Function(BlobShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BlobShapeBuilder toBuilder() => new BlobShapeBuilder()..replace(this);
+  BlobShapeBuilder toBuilder() => BlobShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,7 +131,6 @@ class BlobShapeBuilder
 
   @override
   void replace(covariant BlobShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BlobShape;
   }
 
@@ -150,7 +145,7 @@ class BlobShapeBuilder
   _$BlobShape _build() {
     final _$result =
         _$v ??
-        new _$BlobShape._(
+        _$BlobShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'BlobShape',

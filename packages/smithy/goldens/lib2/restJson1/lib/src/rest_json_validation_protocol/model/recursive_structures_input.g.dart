@@ -12,10 +12,9 @@ class _$RecursiveStructuresInput extends RecursiveStructuresInput {
 
   factory _$RecursiveStructuresInput([
     void Function(RecursiveStructuresInputBuilder)? updates,
-  ]) => (new RecursiveStructuresInputBuilder()..update(updates))._build();
+  ]) => (RecursiveStructuresInputBuilder()..update(updates))._build();
 
   _$RecursiveStructuresInput._({this.union}) : super._();
-
   @override
   RecursiveStructuresInput rebuild(
     void Function(RecursiveStructuresInputBuilder) updates,
@@ -23,7 +22,7 @@ class _$RecursiveStructuresInput extends RecursiveStructuresInput {
 
   @override
   RecursiveStructuresInputBuilder toBuilder() =>
-      new RecursiveStructuresInputBuilder()..replace(this);
+      RecursiveStructuresInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class RecursiveStructuresInputBuilder
 
   @override
   void replace(RecursiveStructuresInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RecursiveStructuresInput;
   }
 
@@ -75,7 +73,7 @@ class RecursiveStructuresInputBuilder
   RecursiveStructuresInput build() => _build();
 
   _$RecursiveStructuresInput _build() {
-    final _$result = _$v ?? new _$RecursiveStructuresInput._(union: union);
+    final _$result = _$v ?? _$RecursiveStructuresInput._(union: union);
     replace(_$result);
     return _$result;
   }

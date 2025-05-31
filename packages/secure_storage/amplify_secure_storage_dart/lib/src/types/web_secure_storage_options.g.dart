@@ -20,20 +20,20 @@ WebPersistenceOption _$WebPersistenceOptionValueOf(String name) {
     case 'indexedDB':
       return _$indexedDB;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<WebPersistenceOption> _$WebPersistenceOptionValues =
-    new BuiltSet<WebPersistenceOption>(const <WebPersistenceOption>[
+    BuiltSet<WebPersistenceOption>(const <WebPersistenceOption>[
       _$inMemory,
       _$indexedDB,
     ]);
 
 Serializer<WebSecureStorageOptions> _$webSecureStorageOptionsSerializer =
-    new _$WebSecureStorageOptionsSerializer();
+    _$WebSecureStorageOptionsSerializer();
 Serializer<WebPersistenceOption> _$webPersistenceOptionSerializer =
-    new _$WebPersistenceOptionSerializer();
+    _$WebPersistenceOptionSerializer();
 
 class _$WebSecureStorageOptionsSerializer
     implements StructuredSerializer<WebSecureStorageOptions> {
@@ -76,7 +76,7 @@ class _$WebSecureStorageOptionsSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new WebSecureStorageOptionsBuilder();
+    final result = WebSecureStorageOptionsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -137,19 +137,12 @@ class _$WebSecureStorageOptions extends WebSecureStorageOptions {
 
   factory _$WebSecureStorageOptions([
     void Function(WebSecureStorageOptionsBuilder)? updates,
-  ]) => (new WebSecureStorageOptionsBuilder()..update(updates))._build();
+  ]) => (WebSecureStorageOptionsBuilder()..update(updates))._build();
 
   _$WebSecureStorageOptions._({
     this.databaseName,
     required this.persistenceOption,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      persistenceOption,
-      r'WebSecureStorageOptions',
-      'persistenceOption',
-    );
-  }
-
+  }) : super._();
   @override
   WebSecureStorageOptions rebuild(
     void Function(WebSecureStorageOptionsBuilder) updates,
@@ -157,7 +150,7 @@ class _$WebSecureStorageOptions extends WebSecureStorageOptions {
 
   @override
   WebSecureStorageOptionsBuilder toBuilder() =>
-      new WebSecureStorageOptionsBuilder()..replace(this);
+      WebSecureStorageOptionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -213,7 +206,6 @@ class WebSecureStorageOptionsBuilder
 
   @override
   void replace(WebSecureStorageOptions other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WebSecureStorageOptions;
   }
 
@@ -228,7 +220,7 @@ class WebSecureStorageOptionsBuilder
   _$WebSecureStorageOptions _build() {
     final _$result =
         _$v ??
-        new _$WebSecureStorageOptions._(
+        _$WebSecureStorageOptions._(
           databaseName: databaseName,
           persistenceOption: BuiltValueNullFieldError.checkNotNull(
             persistenceOption,

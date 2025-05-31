@@ -34,7 +34,7 @@ class _$SelectObjectContentRequest extends SelectObjectContentRequest {
 
   factory _$SelectObjectContentRequest([
     void Function(SelectObjectContentRequestBuilder)? updates,
-  ]) => (new SelectObjectContentRequestBuilder()..update(updates))._build();
+  ]) => (SelectObjectContentRequestBuilder()..update(updates))._build();
 
   _$SelectObjectContentRequest._({
     required this.bucket,
@@ -49,39 +49,7 @@ class _$SelectObjectContentRequest extends SelectObjectContentRequest {
     required this.outputSerialization,
     this.scanRange,
     this.expectedBucketOwner,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'SelectObjectContentRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      key,
-      r'SelectObjectContentRequest',
-      'key',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      expression,
-      r'SelectObjectContentRequest',
-      'expression',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      expressionType,
-      r'SelectObjectContentRequest',
-      'expressionType',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      inputSerialization,
-      r'SelectObjectContentRequest',
-      'inputSerialization',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      outputSerialization,
-      r'SelectObjectContentRequest',
-      'outputSerialization',
-    );
-  }
-
+  }) : super._();
   @override
   SelectObjectContentRequest rebuild(
     void Function(SelectObjectContentRequestBuilder) updates,
@@ -89,7 +57,7 @@ class _$SelectObjectContentRequest extends SelectObjectContentRequest {
 
   @override
   SelectObjectContentRequestBuilder toBuilder() =>
-      new SelectObjectContentRequestBuilder()..replace(this);
+      SelectObjectContentRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -168,25 +136,24 @@ class SelectObjectContentRequestBuilder
 
   RequestProgressBuilder? _requestProgress;
   RequestProgressBuilder get requestProgress =>
-      _$this._requestProgress ??= new RequestProgressBuilder();
+      _$this._requestProgress ??= RequestProgressBuilder();
   set requestProgress(RequestProgressBuilder? requestProgress) =>
       _$this._requestProgress = requestProgress;
 
   InputSerializationBuilder? _inputSerialization;
   InputSerializationBuilder get inputSerialization =>
-      _$this._inputSerialization ??= new InputSerializationBuilder();
+      _$this._inputSerialization ??= InputSerializationBuilder();
   set inputSerialization(InputSerializationBuilder? inputSerialization) =>
       _$this._inputSerialization = inputSerialization;
 
   OutputSerializationBuilder? _outputSerialization;
   OutputSerializationBuilder get outputSerialization =>
-      _$this._outputSerialization ??= new OutputSerializationBuilder();
+      _$this._outputSerialization ??= OutputSerializationBuilder();
   set outputSerialization(OutputSerializationBuilder? outputSerialization) =>
       _$this._outputSerialization = outputSerialization;
 
   ScanRangeBuilder? _scanRange;
-  ScanRangeBuilder get scanRange =>
-      _$this._scanRange ??= new ScanRangeBuilder();
+  ScanRangeBuilder get scanRange => _$this._scanRange ??= ScanRangeBuilder();
   set scanRange(ScanRangeBuilder? scanRange) => _$this._scanRange = scanRange;
 
   String? _expectedBucketOwner;
@@ -218,7 +185,6 @@ class SelectObjectContentRequestBuilder
 
   @override
   void replace(SelectObjectContentRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SelectObjectContentRequest;
   }
 
@@ -235,7 +201,7 @@ class SelectObjectContentRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$SelectObjectContentRequest._(
+          _$SelectObjectContentRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
               bucket,
               r'SelectObjectContentRequest',
@@ -277,7 +243,7 @@ class SelectObjectContentRequestBuilder
         _$failedField = 'scanRange';
         _scanRange?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'SelectObjectContentRequest',
           _$failedField,
           e.toString(),
@@ -307,9 +273,7 @@ class _$SelectObjectContentRequestPayload
 
   factory _$SelectObjectContentRequestPayload([
     void Function(SelectObjectContentRequestPayloadBuilder)? updates,
-  ]) =>
-      (new SelectObjectContentRequestPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (SelectObjectContentRequestPayloadBuilder()..update(updates))._build();
 
   _$SelectObjectContentRequestPayload._({
     required this.expression,
@@ -318,29 +282,7 @@ class _$SelectObjectContentRequestPayload
     required this.outputSerialization,
     this.requestProgress,
     this.scanRange,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      expression,
-      r'SelectObjectContentRequestPayload',
-      'expression',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      expressionType,
-      r'SelectObjectContentRequestPayload',
-      'expressionType',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      inputSerialization,
-      r'SelectObjectContentRequestPayload',
-      'inputSerialization',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      outputSerialization,
-      r'SelectObjectContentRequestPayload',
-      'outputSerialization',
-    );
-  }
-
+  }) : super._();
   @override
   SelectObjectContentRequestPayload rebuild(
     void Function(SelectObjectContentRequestPayloadBuilder) updates,
@@ -348,7 +290,7 @@ class _$SelectObjectContentRequestPayload
 
   @override
   SelectObjectContentRequestPayloadBuilder toBuilder() =>
-      new SelectObjectContentRequestPayloadBuilder()..replace(this);
+      SelectObjectContentRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -395,25 +337,24 @@ class SelectObjectContentRequestPayloadBuilder
 
   InputSerializationBuilder? _inputSerialization;
   InputSerializationBuilder get inputSerialization =>
-      _$this._inputSerialization ??= new InputSerializationBuilder();
+      _$this._inputSerialization ??= InputSerializationBuilder();
   set inputSerialization(InputSerializationBuilder? inputSerialization) =>
       _$this._inputSerialization = inputSerialization;
 
   OutputSerializationBuilder? _outputSerialization;
   OutputSerializationBuilder get outputSerialization =>
-      _$this._outputSerialization ??= new OutputSerializationBuilder();
+      _$this._outputSerialization ??= OutputSerializationBuilder();
   set outputSerialization(OutputSerializationBuilder? outputSerialization) =>
       _$this._outputSerialization = outputSerialization;
 
   RequestProgressBuilder? _requestProgress;
   RequestProgressBuilder get requestProgress =>
-      _$this._requestProgress ??= new RequestProgressBuilder();
+      _$this._requestProgress ??= RequestProgressBuilder();
   set requestProgress(RequestProgressBuilder? requestProgress) =>
       _$this._requestProgress = requestProgress;
 
   ScanRangeBuilder? _scanRange;
-  ScanRangeBuilder get scanRange =>
-      _$this._scanRange ??= new ScanRangeBuilder();
+  ScanRangeBuilder get scanRange => _$this._scanRange ??= ScanRangeBuilder();
   set scanRange(ScanRangeBuilder? scanRange) => _$this._scanRange = scanRange;
 
   SelectObjectContentRequestPayloadBuilder();
@@ -434,7 +375,6 @@ class SelectObjectContentRequestPayloadBuilder
 
   @override
   void replace(SelectObjectContentRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SelectObjectContentRequestPayload;
   }
 
@@ -453,7 +393,7 @@ class SelectObjectContentRequestPayloadBuilder
     try {
       _$result =
           _$v ??
-          new _$SelectObjectContentRequestPayload._(
+          _$SelectObjectContentRequestPayload._(
             expression: BuiltValueNullFieldError.checkNotNull(
               expression,
               r'SelectObjectContentRequestPayload',
@@ -481,7 +421,7 @@ class SelectObjectContentRequestPayloadBuilder
         _$failedField = 'scanRange';
         _scanRange?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'SelectObjectContentRequestPayload',
           _$failedField,
           e.toString(),

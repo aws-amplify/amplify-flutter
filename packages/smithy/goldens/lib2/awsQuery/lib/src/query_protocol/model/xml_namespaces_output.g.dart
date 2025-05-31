@@ -12,10 +12,9 @@ class _$XmlNamespacesOutput extends XmlNamespacesOutput {
 
   factory _$XmlNamespacesOutput([
     void Function(XmlNamespacesOutputBuilder)? updates,
-  ]) => (new XmlNamespacesOutputBuilder()..update(updates))._build();
+  ]) => (XmlNamespacesOutputBuilder()..update(updates))._build();
 
   _$XmlNamespacesOutput._({this.nested}) : super._();
-
   @override
   XmlNamespacesOutput rebuild(
     void Function(XmlNamespacesOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$XmlNamespacesOutput extends XmlNamespacesOutput {
 
   @override
   XmlNamespacesOutputBuilder toBuilder() =>
-      new XmlNamespacesOutputBuilder()..replace(this);
+      XmlNamespacesOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,7 +45,7 @@ class XmlNamespacesOutputBuilder
 
   XmlNamespaceNestedBuilder? _nested;
   XmlNamespaceNestedBuilder get nested =>
-      _$this._nested ??= new XmlNamespaceNestedBuilder();
+      _$this._nested ??= XmlNamespaceNestedBuilder();
   set nested(XmlNamespaceNestedBuilder? nested) => _$this._nested = nested;
 
   XmlNamespacesOutputBuilder();
@@ -62,7 +61,6 @@ class XmlNamespacesOutputBuilder
 
   @override
   void replace(XmlNamespacesOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlNamespacesOutput;
   }
 
@@ -77,14 +75,14 @@ class XmlNamespacesOutputBuilder
   _$XmlNamespacesOutput _build() {
     _$XmlNamespacesOutput _$result;
     try {
-      _$result = _$v ?? new _$XmlNamespacesOutput._(nested: _nested?.build());
+      _$result = _$v ?? _$XmlNamespacesOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'XmlNamespacesOutput',
           _$failedField,
           e.toString(),

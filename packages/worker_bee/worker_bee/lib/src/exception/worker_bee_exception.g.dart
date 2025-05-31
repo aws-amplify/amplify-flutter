@@ -7,7 +7,7 @@ part of 'worker_bee_exception.dart';
 // **************************************************************************
 
 Serializer<WorkerBeeExceptionImpl> _$workerBeeExceptionImplSerializer =
-    new _$WorkerBeeExceptionImplSerializer();
+    _$WorkerBeeExceptionImplSerializer();
 
 class _$WorkerBeeExceptionImplSerializer
     implements StructuredSerializer<WorkerBeeExceptionImpl> {
@@ -53,7 +53,7 @@ class _$WorkerBeeExceptionImplSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new WorkerBeeExceptionImplBuilder();
+    final result = WorkerBeeExceptionImplBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -102,17 +102,10 @@ class _$WorkerBeeExceptionImpl extends WorkerBeeExceptionImpl {
 
   factory _$WorkerBeeExceptionImpl([
     void Function(WorkerBeeExceptionImplBuilder)? updates,
-  ]) => (new WorkerBeeExceptionImplBuilder()..update(updates))._build();
+  ]) => (WorkerBeeExceptionImplBuilder()..update(updates))._build();
 
   _$WorkerBeeExceptionImpl._({required this.error, this.stackTrace})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      error,
-      r'WorkerBeeExceptionImpl',
-      'error',
-    );
-  }
-
+    : super._();
   @override
   WorkerBeeExceptionImpl rebuild(
     void Function(WorkerBeeExceptionImplBuilder) updates,
@@ -120,7 +113,7 @@ class _$WorkerBeeExceptionImpl extends WorkerBeeExceptionImpl {
 
   @override
   WorkerBeeExceptionImplBuilder toBuilder() =>
-      new WorkerBeeExceptionImplBuilder()..replace(this);
+      WorkerBeeExceptionImplBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -177,7 +170,6 @@ class WorkerBeeExceptionImplBuilder
 
   @override
   void replace(covariant WorkerBeeExceptionImpl other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WorkerBeeExceptionImpl;
   }
 
@@ -192,7 +184,7 @@ class WorkerBeeExceptionImplBuilder
   _$WorkerBeeExceptionImpl _build() {
     final _$result =
         _$v ??
-        new _$WorkerBeeExceptionImpl._(
+        _$WorkerBeeExceptionImpl._(
           error: BuiltValueNullFieldError.checkNotNull(
             error,
             r'WorkerBeeExceptionImpl',

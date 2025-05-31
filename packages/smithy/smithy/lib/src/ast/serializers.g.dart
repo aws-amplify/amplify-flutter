@@ -7,7 +7,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers =
-    (new Serializers().toBuilder()
+    (Serializers().toBuilder()
           ..add(ApplyShape.serializer)
           ..add(BigDecimalShape.serializer)
           ..add(BigIntegerShape.serializer)
@@ -39,52 +39,52 @@ Serializers _$serializers =
           ..add(UnionShape.serializer)
           ..addBuilderFactory(
             const FullType(BuiltList, const [const FullType(ShapeRef)]),
-            () => new ListBuilder<ShapeRef>(),
+            () => ListBuilder<ShapeRef>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(JsonObject),
             ]),
-            () => new MapBuilder<String, JsonObject>(),
+            () => MapBuilder<String, JsonObject>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(ShapeRef),
             ]),
-            () => new MapBuilder<String, ShapeRef>(),
+            () => MapBuilder<String, ShapeRef>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltSet, const [const FullType(ShapeRef)]),
-            () => new SetBuilder<ShapeRef>(),
+            () => SetBuilder<ShapeRef>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltSet, const [const FullType(ShapeRef)]),
-            () => new SetBuilder<ShapeRef>(),
+            () => SetBuilder<ShapeRef>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltSet, const [const FullType(ShapeRef)]),
-            () => new SetBuilder<ShapeRef>(),
+            () => SetBuilder<ShapeRef>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(String),
             ]),
-            () => new MapBuilder<String, String>(),
+            () => MapBuilder<String, String>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltSet, const [const FullType(ShapeRef)]),
-            () => new SetBuilder<ShapeRef>(),
+            () => SetBuilder<ShapeRef>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltSet, const [const FullType(ShapeRef)]),
-            () => new SetBuilder<ShapeRef>(),
+            () => SetBuilder<ShapeRef>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltSet, const [const FullType(ShapeRef)]),
-            () => new SetBuilder<ShapeRef>(),
+            () => SetBuilder<ShapeRef>(),
           ))
         .build();
 

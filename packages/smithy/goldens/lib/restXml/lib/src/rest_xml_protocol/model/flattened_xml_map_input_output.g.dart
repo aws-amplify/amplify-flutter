@@ -12,10 +12,9 @@ class _$FlattenedXmlMapInputOutput extends FlattenedXmlMapInputOutput {
 
   factory _$FlattenedXmlMapInputOutput([
     void Function(FlattenedXmlMapInputOutputBuilder)? updates,
-  ]) => (new FlattenedXmlMapInputOutputBuilder()..update(updates))._build();
+  ]) => (FlattenedXmlMapInputOutputBuilder()..update(updates))._build();
 
   _$FlattenedXmlMapInputOutput._({this.myMap}) : super._();
-
   @override
   FlattenedXmlMapInputOutput rebuild(
     void Function(FlattenedXmlMapInputOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$FlattenedXmlMapInputOutput extends FlattenedXmlMapInputOutput {
 
   @override
   FlattenedXmlMapInputOutputBuilder toBuilder() =>
-      new FlattenedXmlMapInputOutputBuilder()..replace(this);
+      FlattenedXmlMapInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,7 +46,7 @@ class FlattenedXmlMapInputOutputBuilder
 
   _i3.MapBuilder<String, FooEnum>? _myMap;
   _i3.MapBuilder<String, FooEnum> get myMap =>
-      _$this._myMap ??= new _i3.MapBuilder<String, FooEnum>();
+      _$this._myMap ??= _i3.MapBuilder<String, FooEnum>();
   set myMap(_i3.MapBuilder<String, FooEnum>? myMap) => _$this._myMap = myMap;
 
   FlattenedXmlMapInputOutputBuilder();
@@ -63,7 +62,6 @@ class FlattenedXmlMapInputOutputBuilder
 
   @override
   void replace(FlattenedXmlMapInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$FlattenedXmlMapInputOutput;
   }
 
@@ -78,15 +76,14 @@ class FlattenedXmlMapInputOutputBuilder
   _$FlattenedXmlMapInputOutput _build() {
     _$FlattenedXmlMapInputOutput _$result;
     try {
-      _$result =
-          _$v ?? new _$FlattenedXmlMapInputOutput._(myMap: _myMap?.build());
+      _$result = _$v ?? _$FlattenedXmlMapInputOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'myMap';
         _myMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'FlattenedXmlMapInputOutput',
           _$failedField,
           e.toString(),

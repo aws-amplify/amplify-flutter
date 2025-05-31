@@ -18,26 +18,14 @@ class _$AdminListUserAuthEventsRequest extends AdminListUserAuthEventsRequest {
 
   factory _$AdminListUserAuthEventsRequest([
     void Function(AdminListUserAuthEventsRequestBuilder)? updates,
-  ]) => (new AdminListUserAuthEventsRequestBuilder()..update(updates))._build();
+  ]) => (AdminListUserAuthEventsRequestBuilder()..update(updates))._build();
 
   _$AdminListUserAuthEventsRequest._({
     required this.userPoolId,
     required this.username,
     this.maxResults,
     this.nextToken,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      userPoolId,
-      r'AdminListUserAuthEventsRequest',
-      'userPoolId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      username,
-      r'AdminListUserAuthEventsRequest',
-      'username',
-    );
-  }
-
+  }) : super._();
   @override
   AdminListUserAuthEventsRequest rebuild(
     void Function(AdminListUserAuthEventsRequestBuilder) updates,
@@ -45,7 +33,7 @@ class _$AdminListUserAuthEventsRequest extends AdminListUserAuthEventsRequest {
 
   @override
   AdminListUserAuthEventsRequestBuilder toBuilder() =>
-      new AdminListUserAuthEventsRequestBuilder()..replace(this);
+      AdminListUserAuthEventsRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -109,7 +97,6 @@ class AdminListUserAuthEventsRequestBuilder
 
   @override
   void replace(AdminListUserAuthEventsRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AdminListUserAuthEventsRequest;
   }
 
@@ -124,7 +111,7 @@ class AdminListUserAuthEventsRequestBuilder
   _$AdminListUserAuthEventsRequest _build() {
     final _$result =
         _$v ??
-        new _$AdminListUserAuthEventsRequest._(
+        _$AdminListUserAuthEventsRequest._(
           userPoolId: BuiltValueNullFieldError.checkNotNull(
             userPoolId,
             r'AdminListUserAuthEventsRequest',

@@ -6,7 +6,7 @@ part of 'short_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ShortShape> _$shortShapeSerializer = new _$ShortShapeSerializer();
+Serializer<ShortShape> _$shortShapeSerializer = _$ShortShapeSerializer();
 
 class _$ShortShapeSerializer implements StructuredSerializer<ShortShape> {
   @override
@@ -37,7 +37,7 @@ class _$ShortShapeSerializer implements StructuredSerializer<ShortShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ShortShapeBuilder();
+    final result = ShortShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -67,19 +67,15 @@ class _$ShortShape extends ShortShape {
   final TraitMap traits;
 
   factory _$ShortShape([void Function(ShortShapeBuilder)? updates]) =>
-      (new ShortShapeBuilder()..update(updates))._build();
+      (ShortShapeBuilder()..update(updates))._build();
 
-  _$ShortShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'ShortShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'ShortShape', 'traits');
-  }
-
+  _$ShortShape._({required this.shapeId, required this.traits}) : super._();
   @override
   ShortShape rebuild(void Function(ShortShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ShortShapeBuilder toBuilder() => new ShortShapeBuilder()..replace(this);
+  ShortShapeBuilder toBuilder() => ShortShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,7 +131,6 @@ class ShortShapeBuilder
 
   @override
   void replace(covariant ShortShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ShortShape;
   }
 
@@ -150,7 +145,7 @@ class ShortShapeBuilder
   _$ShortShape _build() {
     final _$result =
         _$v ??
-        new _$ShortShape._(
+        _$ShortShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'ShortShape',

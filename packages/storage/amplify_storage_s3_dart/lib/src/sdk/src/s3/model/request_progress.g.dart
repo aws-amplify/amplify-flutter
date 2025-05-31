@@ -11,17 +11,15 @@ class _$RequestProgress extends RequestProgress {
   final bool? enabled;
 
   factory _$RequestProgress([void Function(RequestProgressBuilder)? updates]) =>
-      (new RequestProgressBuilder()..update(updates))._build();
+      (RequestProgressBuilder()..update(updates))._build();
 
   _$RequestProgress._({this.enabled}) : super._();
-
   @override
   RequestProgress rebuild(void Function(RequestProgressBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  RequestProgressBuilder toBuilder() =>
-      new RequestProgressBuilder()..replace(this);
+  RequestProgressBuilder toBuilder() => RequestProgressBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -59,7 +57,6 @@ class RequestProgressBuilder
 
   @override
   void replace(RequestProgress other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RequestProgress;
   }
 
@@ -72,7 +69,7 @@ class RequestProgressBuilder
   RequestProgress build() => _build();
 
   _$RequestProgress _build() {
-    final _$result = _$v ?? new _$RequestProgress._(enabled: enabled);
+    final _$result = _$v ?? _$RequestProgress._(enabled: enabled);
     replace(_$result);
     return _$result;
   }

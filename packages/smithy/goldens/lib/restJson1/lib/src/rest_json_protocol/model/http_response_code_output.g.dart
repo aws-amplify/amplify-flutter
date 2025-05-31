@@ -12,10 +12,9 @@ class _$HttpResponseCodeOutput extends HttpResponseCodeOutput {
 
   factory _$HttpResponseCodeOutput([
     void Function(HttpResponseCodeOutputBuilder)? updates,
-  ]) => (new HttpResponseCodeOutputBuilder()..update(updates))._build();
+  ]) => (HttpResponseCodeOutputBuilder()..update(updates))._build();
 
   _$HttpResponseCodeOutput._({this.status}) : super._();
-
   @override
   HttpResponseCodeOutput rebuild(
     void Function(HttpResponseCodeOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$HttpResponseCodeOutput extends HttpResponseCodeOutput {
 
   @override
   HttpResponseCodeOutputBuilder toBuilder() =>
-      new HttpResponseCodeOutputBuilder()..replace(this);
+      HttpResponseCodeOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +60,6 @@ class HttpResponseCodeOutputBuilder
 
   @override
   void replace(HttpResponseCodeOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpResponseCodeOutput;
   }
 
@@ -74,7 +72,7 @@ class HttpResponseCodeOutputBuilder
   HttpResponseCodeOutput build() => _build();
 
   _$HttpResponseCodeOutput _build() {
-    final _$result = _$v ?? new _$HttpResponseCodeOutput._(status: status);
+    final _$result = _$v ?? _$HttpResponseCodeOutput._(status: status);
     replace(_$result);
     return _$result;
   }
@@ -83,10 +81,9 @@ class HttpResponseCodeOutputBuilder
 class _$HttpResponseCodeOutputPayload extends HttpResponseCodeOutputPayload {
   factory _$HttpResponseCodeOutputPayload([
     void Function(HttpResponseCodeOutputPayloadBuilder)? updates,
-  ]) => (new HttpResponseCodeOutputPayloadBuilder()..update(updates))._build();
+  ]) => (HttpResponseCodeOutputPayloadBuilder()..update(updates))._build();
 
   _$HttpResponseCodeOutputPayload._() : super._();
-
   @override
   HttpResponseCodeOutputPayload rebuild(
     void Function(HttpResponseCodeOutputPayloadBuilder) updates,
@@ -94,7 +91,7 @@ class _$HttpResponseCodeOutputPayload extends HttpResponseCodeOutputPayload {
 
   @override
   HttpResponseCodeOutputPayloadBuilder toBuilder() =>
-      new HttpResponseCodeOutputPayloadBuilder()..replace(this);
+      HttpResponseCodeOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -120,7 +117,6 @@ class HttpResponseCodeOutputPayloadBuilder
 
   @override
   void replace(HttpResponseCodeOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpResponseCodeOutputPayload;
   }
 
@@ -133,7 +129,7 @@ class HttpResponseCodeOutputPayloadBuilder
   HttpResponseCodeOutputPayload build() => _build();
 
   _$HttpResponseCodeOutputPayload _build() {
-    final _$result = _$v ?? new _$HttpResponseCodeOutputPayload._();
+    final _$result = _$v ?? _$HttpResponseCodeOutputPayload._();
     replace(_$result);
     return _$result;
   }

@@ -12,16 +12,9 @@ class _$PostPlayerActionOutput extends PostPlayerActionOutput {
 
   factory _$PostPlayerActionOutput([
     void Function(PostPlayerActionOutputBuilder)? updates,
-  ]) => (new PostPlayerActionOutputBuilder()..update(updates))._build();
+  ]) => (PostPlayerActionOutputBuilder()..update(updates))._build();
 
-  _$PostPlayerActionOutput._({required this.action}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      action,
-      r'PostPlayerActionOutput',
-      'action',
-    );
-  }
-
+  _$PostPlayerActionOutput._({required this.action}) : super._();
   @override
   PostPlayerActionOutput rebuild(
     void Function(PostPlayerActionOutputBuilder) updates,
@@ -29,7 +22,7 @@ class _$PostPlayerActionOutput extends PostPlayerActionOutput {
 
   @override
   PostPlayerActionOutputBuilder toBuilder() =>
-      new PostPlayerActionOutputBuilder()..replace(this);
+      PostPlayerActionOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,7 +60,6 @@ class PostPlayerActionOutputBuilder
 
   @override
   void replace(PostPlayerActionOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PostPlayerActionOutput;
   }
 
@@ -82,7 +74,7 @@ class PostPlayerActionOutputBuilder
   _$PostPlayerActionOutput _build() {
     final _$result =
         _$v ??
-        new _$PostPlayerActionOutput._(
+        _$PostPlayerActionOutput._(
           action: BuiltValueNullFieldError.checkNotNull(
             action,
             r'PostPlayerActionOutput',

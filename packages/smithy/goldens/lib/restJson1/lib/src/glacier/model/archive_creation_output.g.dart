@@ -16,11 +16,10 @@ class _$ArchiveCreationOutput extends ArchiveCreationOutput {
 
   factory _$ArchiveCreationOutput([
     void Function(ArchiveCreationOutputBuilder)? updates,
-  ]) => (new ArchiveCreationOutputBuilder()..update(updates))._build();
+  ]) => (ArchiveCreationOutputBuilder()..update(updates))._build();
 
   _$ArchiveCreationOutput._({this.location, this.checksum, this.archiveId})
     : super._();
-
   @override
   ArchiveCreationOutput rebuild(
     void Function(ArchiveCreationOutputBuilder) updates,
@@ -28,7 +27,7 @@ class _$ArchiveCreationOutput extends ArchiveCreationOutput {
 
   @override
   ArchiveCreationOutputBuilder toBuilder() =>
-      new ArchiveCreationOutputBuilder()..replace(this);
+      ArchiveCreationOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -81,7 +80,6 @@ class ArchiveCreationOutputBuilder
 
   @override
   void replace(ArchiveCreationOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ArchiveCreationOutput;
   }
 
@@ -96,7 +94,7 @@ class ArchiveCreationOutputBuilder
   _$ArchiveCreationOutput _build() {
     final _$result =
         _$v ??
-        new _$ArchiveCreationOutput._(
+        _$ArchiveCreationOutput._(
           location: location,
           checksum: checksum,
           archiveId: archiveId,
@@ -109,10 +107,9 @@ class ArchiveCreationOutputBuilder
 class _$ArchiveCreationOutputPayload extends ArchiveCreationOutputPayload {
   factory _$ArchiveCreationOutputPayload([
     void Function(ArchiveCreationOutputPayloadBuilder)? updates,
-  ]) => (new ArchiveCreationOutputPayloadBuilder()..update(updates))._build();
+  ]) => (ArchiveCreationOutputPayloadBuilder()..update(updates))._build();
 
   _$ArchiveCreationOutputPayload._() : super._();
-
   @override
   ArchiveCreationOutputPayload rebuild(
     void Function(ArchiveCreationOutputPayloadBuilder) updates,
@@ -120,7 +117,7 @@ class _$ArchiveCreationOutputPayload extends ArchiveCreationOutputPayload {
 
   @override
   ArchiveCreationOutputPayloadBuilder toBuilder() =>
-      new ArchiveCreationOutputPayloadBuilder()..replace(this);
+      ArchiveCreationOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -146,7 +143,6 @@ class ArchiveCreationOutputPayloadBuilder
 
   @override
   void replace(ArchiveCreationOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ArchiveCreationOutputPayload;
   }
 
@@ -159,7 +155,7 @@ class ArchiveCreationOutputPayloadBuilder
   ArchiveCreationOutputPayload build() => _build();
 
   _$ArchiveCreationOutputPayload _build() {
-    final _$result = _$v ?? new _$ArchiveCreationOutputPayload._();
+    final _$result = _$v ?? _$ArchiveCreationOutputPayload._();
     replace(_$result);
     return _$result;
   }

@@ -13,16 +13,15 @@ class _$NoSuchBucket extends NoSuchBucket {
   final Map<String, String>? headers;
 
   factory _$NoSuchBucket([void Function(NoSuchBucketBuilder)? updates]) =>
-      (new NoSuchBucketBuilder()..update(updates))._build();
+      (NoSuchBucketBuilder()..update(updates))._build();
 
   _$NoSuchBucket._({this.statusCode, this.headers}) : super._();
-
   @override
   NoSuchBucket rebuild(void Function(NoSuchBucketBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  NoSuchBucketBuilder toBuilder() => new NoSuchBucketBuilder()..replace(this);
+  NoSuchBucketBuilder toBuilder() => NoSuchBucketBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class NoSuchBucketBuilder
 
   @override
   void replace(NoSuchBucket other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoSuchBucket;
   }
 
@@ -76,7 +74,7 @@ class NoSuchBucketBuilder
 
   _$NoSuchBucket _build() {
     final _$result =
-        _$v ?? new _$NoSuchBucket._(statusCode: statusCode, headers: headers);
+        _$v ?? _$NoSuchBucket._(statusCode: statusCode, headers: headers);
     replace(_$result);
     return _$result;
   }

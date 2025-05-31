@@ -14,24 +14,12 @@ class _$GetInAppMessagesRequest extends GetInAppMessagesRequest {
 
   factory _$GetInAppMessagesRequest([
     void Function(GetInAppMessagesRequestBuilder)? updates,
-  ]) => (new GetInAppMessagesRequestBuilder()..update(updates))._build();
+  ]) => (GetInAppMessagesRequestBuilder()..update(updates))._build();
 
   _$GetInAppMessagesRequest._({
     required this.applicationId,
     required this.endpointId,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      applicationId,
-      r'GetInAppMessagesRequest',
-      'applicationId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      endpointId,
-      r'GetInAppMessagesRequest',
-      'endpointId',
-    );
-  }
-
+  }) : super._();
   @override
   GetInAppMessagesRequest rebuild(
     void Function(GetInAppMessagesRequestBuilder) updates,
@@ -39,7 +27,7 @@ class _$GetInAppMessagesRequest extends GetInAppMessagesRequest {
 
   @override
   GetInAppMessagesRequestBuilder toBuilder() =>
-      new GetInAppMessagesRequestBuilder()..replace(this);
+      GetInAppMessagesRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,7 +75,6 @@ class GetInAppMessagesRequestBuilder
 
   @override
   void replace(GetInAppMessagesRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetInAppMessagesRequest;
   }
 
@@ -102,7 +89,7 @@ class GetInAppMessagesRequestBuilder
   _$GetInAppMessagesRequest _build() {
     final _$result =
         _$v ??
-        new _$GetInAppMessagesRequest._(
+        _$GetInAppMessagesRequest._(
           applicationId: BuiltValueNullFieldError.checkNotNull(
             applicationId,
             r'GetInAppMessagesRequest',
@@ -122,10 +109,9 @@ class GetInAppMessagesRequestBuilder
 class _$GetInAppMessagesRequestPayload extends GetInAppMessagesRequestPayload {
   factory _$GetInAppMessagesRequestPayload([
     void Function(GetInAppMessagesRequestPayloadBuilder)? updates,
-  ]) => (new GetInAppMessagesRequestPayloadBuilder()..update(updates))._build();
+  ]) => (GetInAppMessagesRequestPayloadBuilder()..update(updates))._build();
 
   _$GetInAppMessagesRequestPayload._() : super._();
-
   @override
   GetInAppMessagesRequestPayload rebuild(
     void Function(GetInAppMessagesRequestPayloadBuilder) updates,
@@ -133,7 +119,7 @@ class _$GetInAppMessagesRequestPayload extends GetInAppMessagesRequestPayload {
 
   @override
   GetInAppMessagesRequestPayloadBuilder toBuilder() =>
-      new GetInAppMessagesRequestPayloadBuilder()..replace(this);
+      GetInAppMessagesRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -159,7 +145,6 @@ class GetInAppMessagesRequestPayloadBuilder
 
   @override
   void replace(GetInAppMessagesRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetInAppMessagesRequestPayload;
   }
 
@@ -172,7 +157,7 @@ class GetInAppMessagesRequestPayloadBuilder
   GetInAppMessagesRequestPayload build() => _build();
 
   _$GetInAppMessagesRequestPayload _build() {
-    final _$result = _$v ?? new _$GetInAppMessagesRequestPayload._();
+    final _$result = _$v ?? _$GetInAppMessagesRequestPayload._();
     replace(_$result);
     return _$result;
   }

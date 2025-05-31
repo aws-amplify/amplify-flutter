@@ -14,10 +14,9 @@ class _$PutWithContentEncodingInput extends PutWithContentEncodingInput {
 
   factory _$PutWithContentEncodingInput([
     void Function(PutWithContentEncodingInputBuilder)? updates,
-  ]) => (new PutWithContentEncodingInputBuilder()..update(updates))._build();
+  ]) => (PutWithContentEncodingInputBuilder()..update(updates))._build();
 
   _$PutWithContentEncodingInput._({this.encoding, this.data}) : super._();
-
   @override
   PutWithContentEncodingInput rebuild(
     void Function(PutWithContentEncodingInputBuilder) updates,
@@ -25,7 +24,7 @@ class _$PutWithContentEncodingInput extends PutWithContentEncodingInput {
 
   @override
   PutWithContentEncodingInputBuilder toBuilder() =>
-      new PutWithContentEncodingInputBuilder()..replace(this);
+      PutWithContentEncodingInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -75,7 +74,6 @@ class PutWithContentEncodingInputBuilder
 
   @override
   void replace(PutWithContentEncodingInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PutWithContentEncodingInput;
   }
 
@@ -89,8 +87,7 @@ class PutWithContentEncodingInputBuilder
 
   _$PutWithContentEncodingInput _build() {
     final _$result =
-        _$v ??
-        new _$PutWithContentEncodingInput._(encoding: encoding, data: data);
+        _$v ?? _$PutWithContentEncodingInput._(encoding: encoding, data: data);
     replace(_$result);
     return _$result;
   }

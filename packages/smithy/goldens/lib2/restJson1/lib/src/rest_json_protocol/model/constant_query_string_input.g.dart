@@ -12,16 +12,9 @@ class _$ConstantQueryStringInput extends ConstantQueryStringInput {
 
   factory _$ConstantQueryStringInput([
     void Function(ConstantQueryStringInputBuilder)? updates,
-  ]) => (new ConstantQueryStringInputBuilder()..update(updates))._build();
+  ]) => (ConstantQueryStringInputBuilder()..update(updates))._build();
 
-  _$ConstantQueryStringInput._({required this.hello}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      hello,
-      r'ConstantQueryStringInput',
-      'hello',
-    );
-  }
-
+  _$ConstantQueryStringInput._({required this.hello}) : super._();
   @override
   ConstantQueryStringInput rebuild(
     void Function(ConstantQueryStringInputBuilder) updates,
@@ -29,7 +22,7 @@ class _$ConstantQueryStringInput extends ConstantQueryStringInput {
 
   @override
   ConstantQueryStringInputBuilder toBuilder() =>
-      new ConstantQueryStringInputBuilder()..replace(this);
+      ConstantQueryStringInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +61,6 @@ class ConstantQueryStringInputBuilder
 
   @override
   void replace(ConstantQueryStringInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConstantQueryStringInput;
   }
 
@@ -83,7 +75,7 @@ class ConstantQueryStringInputBuilder
   _$ConstantQueryStringInput _build() {
     final _$result =
         _$v ??
-        new _$ConstantQueryStringInput._(
+        _$ConstantQueryStringInput._(
           hello: BuiltValueNullFieldError.checkNotNull(
             hello,
             r'ConstantQueryStringInput',
@@ -99,11 +91,9 @@ class _$ConstantQueryStringInputPayload
     extends ConstantQueryStringInputPayload {
   factory _$ConstantQueryStringInputPayload([
     void Function(ConstantQueryStringInputPayloadBuilder)? updates,
-  ]) =>
-      (new ConstantQueryStringInputPayloadBuilder()..update(updates))._build();
+  ]) => (ConstantQueryStringInputPayloadBuilder()..update(updates))._build();
 
   _$ConstantQueryStringInputPayload._() : super._();
-
   @override
   ConstantQueryStringInputPayload rebuild(
     void Function(ConstantQueryStringInputPayloadBuilder) updates,
@@ -111,7 +101,7 @@ class _$ConstantQueryStringInputPayload
 
   @override
   ConstantQueryStringInputPayloadBuilder toBuilder() =>
-      new ConstantQueryStringInputPayloadBuilder()..replace(this);
+      ConstantQueryStringInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -137,7 +127,6 @@ class ConstantQueryStringInputPayloadBuilder
 
   @override
   void replace(ConstantQueryStringInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConstantQueryStringInputPayload;
   }
 
@@ -150,7 +139,7 @@ class ConstantQueryStringInputPayloadBuilder
   ConstantQueryStringInputPayload build() => _build();
 
   _$ConstantQueryStringInputPayload _build() {
-    final _$result = _$v ?? new _$ConstantQueryStringInputPayload._();
+    final _$result = _$v ?? _$ConstantQueryStringInputPayload._();
     replace(_$result);
     return _$result;
   }

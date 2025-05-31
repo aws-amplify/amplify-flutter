@@ -14,10 +14,9 @@ class _$MalformedRequestBodyInput extends MalformedRequestBodyInput {
 
   factory _$MalformedRequestBodyInput([
     void Function(MalformedRequestBodyInputBuilder)? updates,
-  ]) => (new MalformedRequestBodyInputBuilder()..update(updates))._build();
+  ]) => (MalformedRequestBodyInputBuilder()..update(updates))._build();
 
   _$MalformedRequestBodyInput._({this.int_, this.float}) : super._();
-
   @override
   MalformedRequestBodyInput rebuild(
     void Function(MalformedRequestBodyInputBuilder) updates,
@@ -25,7 +24,7 @@ class _$MalformedRequestBodyInput extends MalformedRequestBodyInput {
 
   @override
   MalformedRequestBodyInputBuilder toBuilder() =>
-      new MalformedRequestBodyInputBuilder()..replace(this);
+      MalformedRequestBodyInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class MalformedRequestBodyInputBuilder
 
   @override
   void replace(MalformedRequestBodyInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedRequestBodyInput;
   }
 
@@ -86,7 +84,7 @@ class MalformedRequestBodyInputBuilder
 
   _$MalformedRequestBodyInput _build() {
     final _$result =
-        _$v ?? new _$MalformedRequestBodyInput._(int_: int_, float: float);
+        _$v ?? _$MalformedRequestBodyInput._(int_: int_, float: float);
     replace(_$result);
     return _$result;
   }

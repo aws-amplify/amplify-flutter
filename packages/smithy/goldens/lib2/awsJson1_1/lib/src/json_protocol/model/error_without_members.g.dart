@@ -14,10 +14,9 @@ class _$ErrorWithoutMembers extends ErrorWithoutMembers {
 
   factory _$ErrorWithoutMembers([
     void Function(ErrorWithoutMembersBuilder)? updates,
-  ]) => (new ErrorWithoutMembersBuilder()..update(updates))._build();
+  ]) => (ErrorWithoutMembersBuilder()..update(updates))._build();
 
   _$ErrorWithoutMembers._({this.statusCode, this.headers}) : super._();
-
   @override
   ErrorWithoutMembers rebuild(
     void Function(ErrorWithoutMembersBuilder) updates,
@@ -25,7 +24,7 @@ class _$ErrorWithoutMembers extends ErrorWithoutMembers {
 
   @override
   ErrorWithoutMembersBuilder toBuilder() =>
-      new ErrorWithoutMembersBuilder()..replace(this);
+      ErrorWithoutMembersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -65,7 +64,6 @@ class ErrorWithoutMembersBuilder
 
   @override
   void replace(ErrorWithoutMembers other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ErrorWithoutMembers;
   }
 
@@ -80,7 +78,7 @@ class ErrorWithoutMembersBuilder
   _$ErrorWithoutMembers _build() {
     final _$result =
         _$v ??
-        new _$ErrorWithoutMembers._(statusCode: statusCode, headers: headers);
+        _$ErrorWithoutMembers._(statusCode: statusCode, headers: headers);
     replace(_$result);
     return _$result;
   }

@@ -18,21 +18,14 @@ class _$MalformedBooleanInput extends MalformedBooleanInput {
 
   factory _$MalformedBooleanInput([
     void Function(MalformedBooleanInputBuilder)? updates,
-  ]) => (new MalformedBooleanInputBuilder()..update(updates))._build();
+  ]) => (MalformedBooleanInputBuilder()..update(updates))._build();
 
   _$MalformedBooleanInput._({
     this.booleanInBody,
     required this.booleanInPath,
     this.booleanInQuery,
     this.booleanInHeader,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      booleanInPath,
-      r'MalformedBooleanInput',
-      'booleanInPath',
-    );
-  }
-
+  }) : super._();
   @override
   MalformedBooleanInput rebuild(
     void Function(MalformedBooleanInputBuilder) updates,
@@ -40,7 +33,7 @@ class _$MalformedBooleanInput extends MalformedBooleanInput {
 
   @override
   MalformedBooleanInputBuilder toBuilder() =>
-      new MalformedBooleanInputBuilder()..replace(this);
+      MalformedBooleanInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -104,7 +97,6 @@ class MalformedBooleanInputBuilder
 
   @override
   void replace(MalformedBooleanInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedBooleanInput;
   }
 
@@ -119,7 +111,7 @@ class MalformedBooleanInputBuilder
   _$MalformedBooleanInput _build() {
     final _$result =
         _$v ??
-        new _$MalformedBooleanInput._(
+        _$MalformedBooleanInput._(
           booleanInBody: booleanInBody,
           booleanInPath: BuiltValueNullFieldError.checkNotNull(
             booleanInPath,
@@ -140,10 +132,9 @@ class _$MalformedBooleanInputPayload extends MalformedBooleanInputPayload {
 
   factory _$MalformedBooleanInputPayload([
     void Function(MalformedBooleanInputPayloadBuilder)? updates,
-  ]) => (new MalformedBooleanInputPayloadBuilder()..update(updates))._build();
+  ]) => (MalformedBooleanInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedBooleanInputPayload._({this.booleanInBody}) : super._();
-
   @override
   MalformedBooleanInputPayload rebuild(
     void Function(MalformedBooleanInputPayloadBuilder) updates,
@@ -151,7 +142,7 @@ class _$MalformedBooleanInputPayload extends MalformedBooleanInputPayload {
 
   @override
   MalformedBooleanInputPayloadBuilder toBuilder() =>
-      new MalformedBooleanInputPayloadBuilder()..replace(this);
+      MalformedBooleanInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -195,7 +186,6 @@ class MalformedBooleanInputPayloadBuilder
 
   @override
   void replace(MalformedBooleanInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedBooleanInputPayload;
   }
 
@@ -209,8 +199,7 @@ class MalformedBooleanInputPayloadBuilder
 
   _$MalformedBooleanInputPayload _build() {
     final _$result =
-        _$v ??
-        new _$MalformedBooleanInputPayload._(booleanInBody: booleanInBody);
+        _$v ?? _$MalformedBooleanInputPayload._(booleanInBody: booleanInBody);
     replace(_$result);
     return _$result;
   }

@@ -7,7 +7,7 @@ part of 'primitive_float_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveFloatShape> _$primitiveFloatShapeSerializer =
-    new _$PrimitiveFloatShapeSerializer();
+    _$PrimitiveFloatShapeSerializer();
 
 class _$PrimitiveFloatShapeSerializer
     implements StructuredSerializer<PrimitiveFloatShape> {
@@ -42,7 +42,7 @@ class _$PrimitiveFloatShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new PrimitiveFloatShapeBuilder();
+    final result = PrimitiveFloatShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -73,22 +73,10 @@ class _$PrimitiveFloatShape extends PrimitiveFloatShape {
 
   factory _$PrimitiveFloatShape([
     void Function(PrimitiveFloatShapeBuilder)? updates,
-  ]) => (new PrimitiveFloatShapeBuilder()..update(updates))._build();
+  ]) => (PrimitiveFloatShapeBuilder()..update(updates))._build();
 
   _$PrimitiveFloatShape._({required this.shapeId, required this.traits})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'PrimitiveFloatShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      traits,
-      r'PrimitiveFloatShape',
-      'traits',
-    );
-  }
-
+    : super._();
   @override
   PrimitiveFloatShape rebuild(
     void Function(PrimitiveFloatShapeBuilder) updates,
@@ -96,7 +84,7 @@ class _$PrimitiveFloatShape extends PrimitiveFloatShape {
 
   @override
   PrimitiveFloatShapeBuilder toBuilder() =>
-      new PrimitiveFloatShapeBuilder()..replace(this);
+      PrimitiveFloatShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -154,7 +142,6 @@ class PrimitiveFloatShapeBuilder
 
   @override
   void replace(covariant PrimitiveFloatShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveFloatShape;
   }
 
@@ -169,7 +156,7 @@ class PrimitiveFloatShapeBuilder
   _$PrimitiveFloatShape _build() {
     final _$result =
         _$v ??
-        new _$PrimitiveFloatShape._(
+        _$PrimitiveFloatShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'PrimitiveFloatShape',

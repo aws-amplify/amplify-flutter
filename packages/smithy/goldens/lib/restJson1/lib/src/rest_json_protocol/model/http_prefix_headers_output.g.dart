@@ -14,10 +14,9 @@ class _$HttpPrefixHeadersOutput extends HttpPrefixHeadersOutput {
 
   factory _$HttpPrefixHeadersOutput([
     void Function(HttpPrefixHeadersOutputBuilder)? updates,
-  ]) => (new HttpPrefixHeadersOutputBuilder()..update(updates))._build();
+  ]) => (HttpPrefixHeadersOutputBuilder()..update(updates))._build();
 
   _$HttpPrefixHeadersOutput._({this.foo, this.fooMap}) : super._();
-
   @override
   HttpPrefixHeadersOutput rebuild(
     void Function(HttpPrefixHeadersOutputBuilder) updates,
@@ -25,7 +24,7 @@ class _$HttpPrefixHeadersOutput extends HttpPrefixHeadersOutput {
 
   @override
   HttpPrefixHeadersOutputBuilder toBuilder() =>
-      new HttpPrefixHeadersOutputBuilder()..replace(this);
+      HttpPrefixHeadersOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -56,7 +55,7 @@ class HttpPrefixHeadersOutputBuilder
 
   _i3.MapBuilder<String, String>? _fooMap;
   _i3.MapBuilder<String, String> get fooMap =>
-      _$this._fooMap ??= new _i3.MapBuilder<String, String>();
+      _$this._fooMap ??= _i3.MapBuilder<String, String>();
   set fooMap(_i3.MapBuilder<String, String>? fooMap) => _$this._fooMap = fooMap;
 
   HttpPrefixHeadersOutputBuilder();
@@ -73,7 +72,6 @@ class HttpPrefixHeadersOutputBuilder
 
   @override
   void replace(HttpPrefixHeadersOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPrefixHeadersOutput;
   }
 
@@ -90,14 +88,14 @@ class HttpPrefixHeadersOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$HttpPrefixHeadersOutput._(foo: foo, fooMap: _fooMap?.build());
+          _$HttpPrefixHeadersOutput._(foo: foo, fooMap: _fooMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'fooMap';
         _fooMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'HttpPrefixHeadersOutput',
           _$failedField,
           e.toString(),
@@ -113,10 +111,9 @@ class HttpPrefixHeadersOutputBuilder
 class _$HttpPrefixHeadersOutputPayload extends HttpPrefixHeadersOutputPayload {
   factory _$HttpPrefixHeadersOutputPayload([
     void Function(HttpPrefixHeadersOutputPayloadBuilder)? updates,
-  ]) => (new HttpPrefixHeadersOutputPayloadBuilder()..update(updates))._build();
+  ]) => (HttpPrefixHeadersOutputPayloadBuilder()..update(updates))._build();
 
   _$HttpPrefixHeadersOutputPayload._() : super._();
-
   @override
   HttpPrefixHeadersOutputPayload rebuild(
     void Function(HttpPrefixHeadersOutputPayloadBuilder) updates,
@@ -124,7 +121,7 @@ class _$HttpPrefixHeadersOutputPayload extends HttpPrefixHeadersOutputPayload {
 
   @override
   HttpPrefixHeadersOutputPayloadBuilder toBuilder() =>
-      new HttpPrefixHeadersOutputPayloadBuilder()..replace(this);
+      HttpPrefixHeadersOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -150,7 +147,6 @@ class HttpPrefixHeadersOutputPayloadBuilder
 
   @override
   void replace(HttpPrefixHeadersOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPrefixHeadersOutputPayload;
   }
 
@@ -163,7 +159,7 @@ class HttpPrefixHeadersOutputPayloadBuilder
   HttpPrefixHeadersOutputPayload build() => _build();
 
   _$HttpPrefixHeadersOutputPayload _build() {
-    final _$result = _$v ?? new _$HttpPrefixHeadersOutputPayload._();
+    final _$result = _$v ?? _$HttpPrefixHeadersOutputPayload._();
     replace(_$result);
     return _$result;
   }

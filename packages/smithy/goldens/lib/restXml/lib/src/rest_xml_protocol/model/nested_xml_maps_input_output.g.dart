@@ -14,11 +14,10 @@ class _$NestedXmlMapsInputOutput extends NestedXmlMapsInputOutput {
 
   factory _$NestedXmlMapsInputOutput([
     void Function(NestedXmlMapsInputOutputBuilder)? updates,
-  ]) => (new NestedXmlMapsInputOutputBuilder()..update(updates))._build();
+  ]) => (NestedXmlMapsInputOutputBuilder()..update(updates))._build();
 
   _$NestedXmlMapsInputOutput._({this.nestedMap, this.flatNestedMap})
     : super._();
-
   @override
   NestedXmlMapsInputOutput rebuild(
     void Function(NestedXmlMapsInputOutputBuilder) updates,
@@ -26,7 +25,7 @@ class _$NestedXmlMapsInputOutput extends NestedXmlMapsInputOutput {
 
   @override
   NestedXmlMapsInputOutputBuilder toBuilder() =>
-      new NestedXmlMapsInputOutputBuilder()..replace(this);
+      NestedXmlMapsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -54,7 +53,7 @@ class NestedXmlMapsInputOutputBuilder
   _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>? _nestedMap;
   _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>> get nestedMap =>
       _$this._nestedMap ??=
-          new _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>();
+          _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>();
   set nestedMap(
     _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>? nestedMap,
   ) => _$this._nestedMap = nestedMap;
@@ -62,7 +61,7 @@ class NestedXmlMapsInputOutputBuilder
   _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>? _flatNestedMap;
   _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>> get flatNestedMap =>
       _$this._flatNestedMap ??=
-          new _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>();
+          _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>();
   set flatNestedMap(
     _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>? flatNestedMap,
   ) => _$this._flatNestedMap = flatNestedMap;
@@ -81,7 +80,6 @@ class NestedXmlMapsInputOutputBuilder
 
   @override
   void replace(NestedXmlMapsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NestedXmlMapsInputOutput;
   }
 
@@ -98,7 +96,7 @@ class NestedXmlMapsInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$NestedXmlMapsInputOutput._(
+          _$NestedXmlMapsInputOutput._(
             nestedMap: _nestedMap?.build(),
             flatNestedMap: _flatNestedMap?.build(),
           );
@@ -110,7 +108,7 @@ class NestedXmlMapsInputOutputBuilder
         _$failedField = 'flatNestedMap';
         _flatNestedMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'NestedXmlMapsInputOutput',
           _$failedField,
           e.toString(),

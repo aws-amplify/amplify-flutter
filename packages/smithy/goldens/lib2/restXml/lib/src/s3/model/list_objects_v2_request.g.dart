@@ -30,7 +30,7 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
 
   factory _$ListObjectsV2Request([
     void Function(ListObjectsV2RequestBuilder)? updates,
-  ]) => (new ListObjectsV2RequestBuilder()..update(updates))._build();
+  ]) => (ListObjectsV2RequestBuilder()..update(updates))._build();
 
   _$ListObjectsV2Request._({
     required this.bucket,
@@ -43,14 +43,7 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
     this.startAfter,
     this.requestPayer,
     this.expectedBucketOwner,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'ListObjectsV2Request',
-      'bucket',
-    );
-  }
-
+  }) : super._();
   @override
   ListObjectsV2Request rebuild(
     void Function(ListObjectsV2RequestBuilder) updates,
@@ -58,7 +51,7 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
 
   @override
   ListObjectsV2RequestBuilder toBuilder() =>
-      new ListObjectsV2RequestBuilder()..replace(this);
+      ListObjectsV2RequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -164,7 +157,6 @@ class ListObjectsV2RequestBuilder
 
   @override
   void replace(ListObjectsV2Request other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListObjectsV2Request;
   }
 
@@ -179,7 +171,7 @@ class ListObjectsV2RequestBuilder
   _$ListObjectsV2Request _build() {
     final _$result =
         _$v ??
-        new _$ListObjectsV2Request._(
+        _$ListObjectsV2Request._(
           bucket: BuiltValueNullFieldError.checkNotNull(
             bucket,
             r'ListObjectsV2Request',
@@ -203,10 +195,9 @@ class ListObjectsV2RequestBuilder
 class _$ListObjectsV2RequestPayload extends ListObjectsV2RequestPayload {
   factory _$ListObjectsV2RequestPayload([
     void Function(ListObjectsV2RequestPayloadBuilder)? updates,
-  ]) => (new ListObjectsV2RequestPayloadBuilder()..update(updates))._build();
+  ]) => (ListObjectsV2RequestPayloadBuilder()..update(updates))._build();
 
   _$ListObjectsV2RequestPayload._() : super._();
-
   @override
   ListObjectsV2RequestPayload rebuild(
     void Function(ListObjectsV2RequestPayloadBuilder) updates,
@@ -214,7 +205,7 @@ class _$ListObjectsV2RequestPayload extends ListObjectsV2RequestPayload {
 
   @override
   ListObjectsV2RequestPayloadBuilder toBuilder() =>
-      new ListObjectsV2RequestPayloadBuilder()..replace(this);
+      ListObjectsV2RequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -240,7 +231,6 @@ class ListObjectsV2RequestPayloadBuilder
 
   @override
   void replace(ListObjectsV2RequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ListObjectsV2RequestPayload;
   }
 
@@ -253,7 +243,7 @@ class ListObjectsV2RequestPayloadBuilder
   ListObjectsV2RequestPayload build() => _build();
 
   _$ListObjectsV2RequestPayload _build() {
-    final _$result = _$v ?? new _$ListObjectsV2RequestPayload._();
+    final _$result = _$v ?? _$ListObjectsV2RequestPayload._();
     replace(_$result);
     return _$result;
   }

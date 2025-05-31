@@ -7,43 +7,43 @@ part of 'e2e_message.dart';
 // **************************************************************************
 
 Serializers _$serializers =
-    (new Serializers().toBuilder()
+    (Serializers().toBuilder()
           ..add(CustomType.serializer)
           ..add(E2EMessage.serializer)
           ..add(E2EResult.serializer)
           ..addBuilderFactory(
             const FullType(BuiltList, const [const FullType(String)]),
-            () => new ListBuilder<String>(),
+            () => ListBuilder<String>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltListMultimap, const [
               const FullType(String),
               const FullType(String),
             ]),
-            () => new ListMultimapBuilder<String, String>(),
+            () => ListMultimapBuilder<String, String>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(String),
             ]),
-            () => new MapBuilder<String, String>(),
+            () => MapBuilder<String, String>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltSet, const [const FullType(String)]),
-            () => new SetBuilder<String>(),
+            () => SetBuilder<String>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltSetMultimap, const [
               const FullType(String),
               const FullType(String),
             ]),
-            () => new SetMultimapBuilder<String, String>(),
+            () => SetMultimapBuilder<String, String>(),
           ))
         .build();
-Serializer<CustomType> _$customTypeSerializer = new _$CustomTypeSerializer();
-Serializer<E2EMessage> _$e2EMessageSerializer = new _$E2EMessageSerializer();
-Serializer<E2EResult> _$e2EResultSerializer = new _$E2EResultSerializer();
+Serializer<CustomType> _$customTypeSerializer = _$CustomTypeSerializer();
+Serializer<E2EMessage> _$e2EMessageSerializer = _$E2EMessageSerializer();
+Serializer<E2EResult> _$e2EResultSerializer = _$E2EResultSerializer();
 
 class _$CustomTypeSerializer implements StructuredSerializer<CustomType> {
   @override
@@ -74,7 +74,7 @@ class _$CustomTypeSerializer implements StructuredSerializer<CustomType> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new CustomTypeBuilder();
+    final result = CustomTypeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -202,7 +202,7 @@ class _$E2EMessageSerializer implements StructuredSerializer<E2EMessage> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new E2EMessageBuilder();
+    final result = E2EMessageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -397,7 +397,7 @@ class _$E2EResultSerializer implements StructuredSerializer<E2EResult> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new E2EResultBuilder();
+    final result = E2EResultBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -426,22 +426,15 @@ class _$CustomType extends CustomType {
   final String customField;
 
   factory _$CustomType([void Function(CustomTypeBuilder)? updates]) =>
-      (new CustomTypeBuilder()..update(updates))._build();
+      (CustomTypeBuilder()..update(updates))._build();
 
-  _$CustomType._({required this.customField}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      customField,
-      r'CustomType',
-      'customField',
-    );
-  }
-
+  _$CustomType._({required this.customField}) : super._();
   @override
   CustomType rebuild(void Function(CustomTypeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CustomTypeBuilder toBuilder() => new CustomTypeBuilder()..replace(this);
+  CustomTypeBuilder toBuilder() => CustomTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -484,7 +477,6 @@ class CustomTypeBuilder implements Builder<CustomType, CustomTypeBuilder> {
 
   @override
   void replace(CustomType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CustomType;
   }
 
@@ -499,7 +491,7 @@ class CustomTypeBuilder implements Builder<CustomType, CustomTypeBuilder> {
   _$CustomType _build() {
     final _$result =
         _$v ??
-        new _$CustomType._(
+        _$CustomType._(
           customField: BuiltValueNullFieldError.checkNotNull(
             customField,
             r'CustomType',
@@ -548,7 +540,7 @@ class _$E2EMessage extends E2EMessage {
   final Uri uri;
 
   factory _$E2EMessage([void Function(E2EMessageBuilder)? updates]) =>
-      (new E2EMessageBuilder()..update(updates))._build();
+      (E2EMessageBuilder()..update(updates))._build();
 
   _$E2EMessage._({
     required this.bigInt,
@@ -568,48 +560,13 @@ class _$E2EMessage extends E2EMessage {
     required this.regExp,
     required this.string,
     required this.uri,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(bigInt, r'E2EMessage', 'bigInt');
-    BuiltValueNullFieldError.checkNotNull(bool_, r'E2EMessage', 'bool_');
-    BuiltValueNullFieldError.checkNotNull(
-      builtList,
-      r'E2EMessage',
-      'builtList',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      builtListMultimap,
-      r'E2EMessage',
-      'builtListMultimap',
-    );
-    BuiltValueNullFieldError.checkNotNull(builtMap, r'E2EMessage', 'builtMap');
-    BuiltValueNullFieldError.checkNotNull(builtSet, r'E2EMessage', 'builtSet');
-    BuiltValueNullFieldError.checkNotNull(
-      builtSetMultimap,
-      r'E2EMessage',
-      'builtSetMultimap',
-    );
-    BuiltValueNullFieldError.checkNotNull(dateTime, r'E2EMessage', 'dateTime');
-    BuiltValueNullFieldError.checkNotNull(double_, r'E2EMessage', 'double_');
-    BuiltValueNullFieldError.checkNotNull(duration, r'E2EMessage', 'duration');
-    BuiltValueNullFieldError.checkNotNull(int_, r'E2EMessage', 'int_');
-    BuiltValueNullFieldError.checkNotNull(int64, r'E2EMessage', 'int64');
-    BuiltValueNullFieldError.checkNotNull(
-      jsonObject,
-      r'E2EMessage',
-      'jsonObject',
-    );
-    BuiltValueNullFieldError.checkNotNull(num_, r'E2EMessage', 'num_');
-    BuiltValueNullFieldError.checkNotNull(regExp, r'E2EMessage', 'regExp');
-    BuiltValueNullFieldError.checkNotNull(string, r'E2EMessage', 'string');
-    BuiltValueNullFieldError.checkNotNull(uri, r'E2EMessage', 'uri');
-  }
-
+  }) : super._();
   @override
   E2EMessage rebuild(void Function(E2EMessageBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  E2EMessageBuilder toBuilder() => new E2EMessageBuilder()..replace(this);
+  E2EMessageBuilder toBuilder() => E2EMessageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -695,31 +652,30 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
 
   ListBuilder<String>? _builtList;
   ListBuilder<String> get builtList =>
-      _$this._builtList ??= new ListBuilder<String>();
+      _$this._builtList ??= ListBuilder<String>();
   set builtList(ListBuilder<String>? builtList) =>
       _$this._builtList = builtList;
 
   ListMultimapBuilder<String, String>? _builtListMultimap;
   ListMultimapBuilder<String, String> get builtListMultimap =>
-      _$this._builtListMultimap ??= new ListMultimapBuilder<String, String>();
+      _$this._builtListMultimap ??= ListMultimapBuilder<String, String>();
   set builtListMultimap(
     ListMultimapBuilder<String, String>? builtListMultimap,
   ) => _$this._builtListMultimap = builtListMultimap;
 
   MapBuilder<String, String>? _builtMap;
   MapBuilder<String, String> get builtMap =>
-      _$this._builtMap ??= new MapBuilder<String, String>();
+      _$this._builtMap ??= MapBuilder<String, String>();
   set builtMap(MapBuilder<String, String>? builtMap) =>
       _$this._builtMap = builtMap;
 
   SetBuilder<String>? _builtSet;
-  SetBuilder<String> get builtSet =>
-      _$this._builtSet ??= new SetBuilder<String>();
+  SetBuilder<String> get builtSet => _$this._builtSet ??= SetBuilder<String>();
   set builtSet(SetBuilder<String>? builtSet) => _$this._builtSet = builtSet;
 
   SetMultimapBuilder<String, String>? _builtSetMultimap;
   SetMultimapBuilder<String, String> get builtSetMultimap =>
-      _$this._builtSetMultimap ??= new SetMultimapBuilder<String, String>();
+      _$this._builtSetMultimap ??= SetMultimapBuilder<String, String>();
   set builtSetMultimap(SetMultimapBuilder<String, String>? builtSetMultimap) =>
       _$this._builtSetMultimap = builtSetMultimap;
 
@@ -792,7 +748,6 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
 
   @override
   void replace(E2EMessage other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$E2EMessage;
   }
 
@@ -809,7 +764,7 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
     try {
       _$result =
           _$v ??
-          new _$E2EMessage._(
+          _$E2EMessage._(
             bigInt: BuiltValueNullFieldError.checkNotNull(
               bigInt,
               r'E2EMessage',
@@ -890,7 +845,7 @@ class E2EMessageBuilder implements Builder<E2EMessage, E2EMessageBuilder> {
         _$failedField = 'builtSetMultimap';
         builtSetMultimap.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'E2EMessage',
           _$failedField,
           e.toString(),
@@ -908,18 +863,15 @@ class _$E2EResult extends E2EResult {
   final E2EMessage message;
 
   factory _$E2EResult([void Function(E2EResultBuilder)? updates]) =>
-      (new E2EResultBuilder()..update(updates))._build();
+      (E2EResultBuilder()..update(updates))._build();
 
-  _$E2EResult._({required this.message}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(message, r'E2EResult', 'message');
-  }
-
+  _$E2EResult._({required this.message}) : super._();
   @override
   E2EResult rebuild(void Function(E2EResultBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  E2EResultBuilder toBuilder() => new E2EResultBuilder()..replace(this);
+  E2EResultBuilder toBuilder() => E2EResultBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -946,7 +898,7 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
   _$E2EResult? _$v;
 
   E2EMessageBuilder? _message;
-  E2EMessageBuilder get message => _$this._message ??= new E2EMessageBuilder();
+  E2EMessageBuilder get message => _$this._message ??= E2EMessageBuilder();
   set message(E2EMessageBuilder? message) => _$this._message = message;
 
   E2EResultBuilder();
@@ -962,7 +914,6 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
 
   @override
   void replace(E2EResult other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$E2EResult;
   }
 
@@ -977,14 +928,14 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
   _$E2EResult _build() {
     _$E2EResult _$result;
     try {
-      _$result = _$v ?? new _$E2EResult._(message: message.build());
+      _$result = _$v ?? _$E2EResult._(message: message.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'message';
         message.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'E2EResult',
           _$failedField,
           e.toString(),

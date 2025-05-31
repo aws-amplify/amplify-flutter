@@ -14,24 +14,12 @@ class _$UpdateEndpointsBatchRequest extends UpdateEndpointsBatchRequest {
 
   factory _$UpdateEndpointsBatchRequest([
     void Function(UpdateEndpointsBatchRequestBuilder)? updates,
-  ]) => (new UpdateEndpointsBatchRequestBuilder()..update(updates))._build();
+  ]) => (UpdateEndpointsBatchRequestBuilder()..update(updates))._build();
 
   _$UpdateEndpointsBatchRequest._({
     required this.applicationId,
     required this.endpointBatchRequest,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      applicationId,
-      r'UpdateEndpointsBatchRequest',
-      'applicationId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      endpointBatchRequest,
-      r'UpdateEndpointsBatchRequest',
-      'endpointBatchRequest',
-    );
-  }
-
+  }) : super._();
   @override
   UpdateEndpointsBatchRequest rebuild(
     void Function(UpdateEndpointsBatchRequestBuilder) updates,
@@ -39,7 +27,7 @@ class _$UpdateEndpointsBatchRequest extends UpdateEndpointsBatchRequest {
 
   @override
   UpdateEndpointsBatchRequestBuilder toBuilder() =>
-      new UpdateEndpointsBatchRequestBuilder()..replace(this);
+      UpdateEndpointsBatchRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +62,7 @@ class UpdateEndpointsBatchRequestBuilder
 
   EndpointBatchRequestBuilder? _endpointBatchRequest;
   EndpointBatchRequestBuilder get endpointBatchRequest =>
-      _$this._endpointBatchRequest ??= new EndpointBatchRequestBuilder();
+      _$this._endpointBatchRequest ??= EndpointBatchRequestBuilder();
   set endpointBatchRequest(EndpointBatchRequestBuilder? endpointBatchRequest) =>
       _$this._endpointBatchRequest = endpointBatchRequest;
 
@@ -92,7 +80,6 @@ class UpdateEndpointsBatchRequestBuilder
 
   @override
   void replace(UpdateEndpointsBatchRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateEndpointsBatchRequest;
   }
 
@@ -109,7 +96,7 @@ class UpdateEndpointsBatchRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$UpdateEndpointsBatchRequest._(
+          _$UpdateEndpointsBatchRequest._(
             applicationId: BuiltValueNullFieldError.checkNotNull(
               applicationId,
               r'UpdateEndpointsBatchRequest',
@@ -123,7 +110,7 @@ class UpdateEndpointsBatchRequestBuilder
         _$failedField = 'endpointBatchRequest';
         endpointBatchRequest.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'UpdateEndpointsBatchRequest',
           _$failedField,
           e.toString(),

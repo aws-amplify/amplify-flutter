@@ -13,16 +13,15 @@ class _$RetryConfig extends RetryConfig {
   final int? maxAttempts;
 
   factory _$RetryConfig([void Function(RetryConfigBuilder)? updates]) =>
-      (new RetryConfigBuilder()..update(updates))._build();
+      (RetryConfigBuilder()..update(updates))._build();
 
   _$RetryConfig._({this.mode, this.maxAttempts}) : super._();
-
   @override
   RetryConfig rebuild(void Function(RetryConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  RetryConfigBuilder toBuilder() => new RetryConfigBuilder()..replace(this);
+  RetryConfigBuilder toBuilder() => RetryConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,7 +66,6 @@ class RetryConfigBuilder implements Builder<RetryConfig, RetryConfigBuilder> {
 
   @override
   void replace(RetryConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RetryConfig;
   }
 
@@ -81,7 +79,7 @@ class RetryConfigBuilder implements Builder<RetryConfig, RetryConfigBuilder> {
 
   _$RetryConfig _build() {
     final _$result =
-        _$v ?? new _$RetryConfig._(mode: mode, maxAttempts: maxAttempts);
+        _$v ?? _$RetryConfig._(mode: mode, maxAttempts: maxAttempts);
     replace(_$result);
     return _$result;
   }

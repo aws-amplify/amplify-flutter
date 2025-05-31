@@ -13,11 +13,9 @@ class _$HttpChecksumRequiredInputOutput
 
   factory _$HttpChecksumRequiredInputOutput([
     void Function(HttpChecksumRequiredInputOutputBuilder)? updates,
-  ]) =>
-      (new HttpChecksumRequiredInputOutputBuilder()..update(updates))._build();
+  ]) => (HttpChecksumRequiredInputOutputBuilder()..update(updates))._build();
 
   _$HttpChecksumRequiredInputOutput._({this.foo}) : super._();
-
   @override
   HttpChecksumRequiredInputOutput rebuild(
     void Function(HttpChecksumRequiredInputOutputBuilder) updates,
@@ -25,7 +23,7 @@ class _$HttpChecksumRequiredInputOutput
 
   @override
   HttpChecksumRequiredInputOutputBuilder toBuilder() =>
-      new HttpChecksumRequiredInputOutputBuilder()..replace(this);
+      HttpChecksumRequiredInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,7 +65,6 @@ class HttpChecksumRequiredInputOutputBuilder
 
   @override
   void replace(HttpChecksumRequiredInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpChecksumRequiredInputOutput;
   }
 
@@ -80,7 +77,7 @@ class HttpChecksumRequiredInputOutputBuilder
   HttpChecksumRequiredInputOutput build() => _build();
 
   _$HttpChecksumRequiredInputOutput _build() {
-    final _$result = _$v ?? new _$HttpChecksumRequiredInputOutput._(foo: foo);
+    final _$result = _$v ?? _$HttpChecksumRequiredInputOutput._(foo: foo);
     replace(_$result);
     return _$result;
   }

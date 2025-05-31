@@ -16,30 +16,13 @@ class _$UpdateEndpointRequest extends UpdateEndpointRequest {
 
   factory _$UpdateEndpointRequest([
     void Function(UpdateEndpointRequestBuilder)? updates,
-  ]) => (new UpdateEndpointRequestBuilder()..update(updates))._build();
+  ]) => (UpdateEndpointRequestBuilder()..update(updates))._build();
 
   _$UpdateEndpointRequest._({
     required this.applicationId,
     required this.endpointId,
     required this.endpointRequest,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      applicationId,
-      r'UpdateEndpointRequest',
-      'applicationId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      endpointId,
-      r'UpdateEndpointRequest',
-      'endpointId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      endpointRequest,
-      r'UpdateEndpointRequest',
-      'endpointRequest',
-    );
-  }
-
+  }) : super._();
   @override
   UpdateEndpointRequest rebuild(
     void Function(UpdateEndpointRequestBuilder) updates,
@@ -47,7 +30,7 @@ class _$UpdateEndpointRequest extends UpdateEndpointRequest {
 
   @override
   UpdateEndpointRequestBuilder toBuilder() =>
-      new UpdateEndpointRequestBuilder()..replace(this);
+      UpdateEndpointRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -84,7 +67,7 @@ class UpdateEndpointRequestBuilder
 
   EndpointRequestBuilder? _endpointRequest;
   EndpointRequestBuilder get endpointRequest =>
-      _$this._endpointRequest ??= new EndpointRequestBuilder();
+      _$this._endpointRequest ??= EndpointRequestBuilder();
   set endpointRequest(EndpointRequestBuilder? endpointRequest) =>
       _$this._endpointRequest = endpointRequest;
 
@@ -103,7 +86,6 @@ class UpdateEndpointRequestBuilder
 
   @override
   void replace(UpdateEndpointRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateEndpointRequest;
   }
 
@@ -120,7 +102,7 @@ class UpdateEndpointRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$UpdateEndpointRequest._(
+          _$UpdateEndpointRequest._(
             applicationId: BuiltValueNullFieldError.checkNotNull(
               applicationId,
               r'UpdateEndpointRequest',
@@ -139,7 +121,7 @@ class UpdateEndpointRequestBuilder
         _$failedField = 'endpointRequest';
         endpointRequest.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'UpdateEndpointRequest',
           _$failedField,
           e.toString(),

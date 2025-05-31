@@ -12,16 +12,9 @@ class _$GetBucketLocationRequest extends GetBucketLocationRequest {
 
   factory _$GetBucketLocationRequest([
     void Function(GetBucketLocationRequestBuilder)? updates,
-  ]) => (new GetBucketLocationRequestBuilder()..update(updates))._build();
+  ]) => (GetBucketLocationRequestBuilder()..update(updates))._build();
 
-  _$GetBucketLocationRequest._({required this.bucket}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'GetBucketLocationRequest',
-      'bucket',
-    );
-  }
-
+  _$GetBucketLocationRequest._({required this.bucket}) : super._();
   @override
   GetBucketLocationRequest rebuild(
     void Function(GetBucketLocationRequestBuilder) updates,
@@ -29,7 +22,7 @@ class _$GetBucketLocationRequest extends GetBucketLocationRequest {
 
   @override
   GetBucketLocationRequestBuilder toBuilder() =>
-      new GetBucketLocationRequestBuilder()..replace(this);
+      GetBucketLocationRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +61,6 @@ class GetBucketLocationRequestBuilder
 
   @override
   void replace(GetBucketLocationRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetBucketLocationRequest;
   }
 
@@ -83,7 +75,7 @@ class GetBucketLocationRequestBuilder
   _$GetBucketLocationRequest _build() {
     final _$result =
         _$v ??
-        new _$GetBucketLocationRequest._(
+        _$GetBucketLocationRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
             bucket,
             r'GetBucketLocationRequest',
@@ -99,11 +91,9 @@ class _$GetBucketLocationRequestPayload
     extends GetBucketLocationRequestPayload {
   factory _$GetBucketLocationRequestPayload([
     void Function(GetBucketLocationRequestPayloadBuilder)? updates,
-  ]) =>
-      (new GetBucketLocationRequestPayloadBuilder()..update(updates))._build();
+  ]) => (GetBucketLocationRequestPayloadBuilder()..update(updates))._build();
 
   _$GetBucketLocationRequestPayload._() : super._();
-
   @override
   GetBucketLocationRequestPayload rebuild(
     void Function(GetBucketLocationRequestPayloadBuilder) updates,
@@ -111,7 +101,7 @@ class _$GetBucketLocationRequestPayload
 
   @override
   GetBucketLocationRequestPayloadBuilder toBuilder() =>
-      new GetBucketLocationRequestPayloadBuilder()..replace(this);
+      GetBucketLocationRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -137,7 +127,6 @@ class GetBucketLocationRequestPayloadBuilder
 
   @override
   void replace(GetBucketLocationRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetBucketLocationRequestPayload;
   }
 
@@ -150,7 +139,7 @@ class GetBucketLocationRequestPayloadBuilder
   GetBucketLocationRequestPayload build() => _build();
 
   _$GetBucketLocationRequestPayload _build() {
-    final _$result = _$v ?? new _$GetBucketLocationRequestPayload._();
+    final _$result = _$v ?? _$GetBucketLocationRequestPayload._();
     replace(_$result);
     return _$result;
   }

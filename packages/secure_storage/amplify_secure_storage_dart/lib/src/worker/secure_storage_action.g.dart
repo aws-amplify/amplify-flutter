@@ -27,12 +27,12 @@ SecureStorageAction _$SecureStorageActionValueOf(String name) {
     case 'removeAll':
       return _$removeAll;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<SecureStorageAction> _$SecureStorageActionValues =
-    new BuiltSet<SecureStorageAction>(const <SecureStorageAction>[
+    BuiltSet<SecureStorageAction>(const <SecureStorageAction>[
       _$init,
       _$read,
       _$write,
@@ -41,7 +41,7 @@ final BuiltSet<SecureStorageAction> _$SecureStorageActionValues =
     ]);
 
 Serializer<SecureStorageAction> _$secureStorageActionSerializer =
-    new _$SecureStorageActionSerializer();
+    _$SecureStorageActionSerializer();
 
 class _$SecureStorageActionSerializer
     implements PrimitiveSerializer<SecureStorageAction> {

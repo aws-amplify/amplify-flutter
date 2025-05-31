@@ -40,7 +40,7 @@ class _$XmlListsInputOutput extends XmlListsInputOutput {
 
   factory _$XmlListsInputOutput([
     void Function(XmlListsInputOutputBuilder)? updates,
-  ]) => (new XmlListsInputOutputBuilder()..update(updates))._build();
+  ]) => (XmlListsInputOutputBuilder()..update(updates))._build();
 
   _$XmlListsInputOutput._({
     this.stringList,
@@ -59,7 +59,6 @@ class _$XmlListsInputOutput extends XmlListsInputOutput {
     this.structureList,
     this.flattenedStructureList,
   }) : super._();
-
   @override
   XmlListsInputOutput rebuild(
     void Function(XmlListsInputOutputBuilder) updates,
@@ -67,7 +66,7 @@ class _$XmlListsInputOutput extends XmlListsInputOutput {
 
   @override
   XmlListsInputOutputBuilder toBuilder() =>
-      new XmlListsInputOutputBuilder()..replace(this);
+      XmlListsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -120,75 +119,74 @@ class XmlListsInputOutputBuilder
 
   _i3.ListBuilder<String>? _stringList;
   _i3.ListBuilder<String> get stringList =>
-      _$this._stringList ??= new _i3.ListBuilder<String>();
+      _$this._stringList ??= _i3.ListBuilder<String>();
   set stringList(_i3.ListBuilder<String>? stringList) =>
       _$this._stringList = stringList;
 
   _i3.SetBuilder<String>? _stringSet;
   _i3.SetBuilder<String> get stringSet =>
-      _$this._stringSet ??= new _i3.SetBuilder<String>();
+      _$this._stringSet ??= _i3.SetBuilder<String>();
   set stringSet(_i3.SetBuilder<String>? stringSet) =>
       _$this._stringSet = stringSet;
 
   _i3.ListBuilder<int>? _integerList;
   _i3.ListBuilder<int> get integerList =>
-      _$this._integerList ??= new _i3.ListBuilder<int>();
+      _$this._integerList ??= _i3.ListBuilder<int>();
   set integerList(_i3.ListBuilder<int>? integerList) =>
       _$this._integerList = integerList;
 
   _i3.ListBuilder<bool>? _booleanList;
   _i3.ListBuilder<bool> get booleanList =>
-      _$this._booleanList ??= new _i3.ListBuilder<bool>();
+      _$this._booleanList ??= _i3.ListBuilder<bool>();
   set booleanList(_i3.ListBuilder<bool>? booleanList) =>
       _$this._booleanList = booleanList;
 
   _i3.ListBuilder<DateTime>? _timestampList;
   _i3.ListBuilder<DateTime> get timestampList =>
-      _$this._timestampList ??= new _i3.ListBuilder<DateTime>();
+      _$this._timestampList ??= _i3.ListBuilder<DateTime>();
   set timestampList(_i3.ListBuilder<DateTime>? timestampList) =>
       _$this._timestampList = timestampList;
 
   _i3.ListBuilder<FooEnum>? _enumList;
   _i3.ListBuilder<FooEnum> get enumList =>
-      _$this._enumList ??= new _i3.ListBuilder<FooEnum>();
+      _$this._enumList ??= _i3.ListBuilder<FooEnum>();
   set enumList(_i3.ListBuilder<FooEnum>? enumList) =>
       _$this._enumList = enumList;
 
   _i3.ListBuilder<int>? _intEnumList;
   _i3.ListBuilder<int> get intEnumList =>
-      _$this._intEnumList ??= new _i3.ListBuilder<int>();
+      _$this._intEnumList ??= _i3.ListBuilder<int>();
   set intEnumList(_i3.ListBuilder<int>? intEnumList) =>
       _$this._intEnumList = intEnumList;
 
   _i3.ListBuilder<_i3.BuiltList<String>>? _nestedStringList;
   _i3.ListBuilder<_i3.BuiltList<String>> get nestedStringList =>
-      _$this._nestedStringList ??= new _i3.ListBuilder<_i3.BuiltList<String>>();
+      _$this._nestedStringList ??= _i3.ListBuilder<_i3.BuiltList<String>>();
   set nestedStringList(
     _i3.ListBuilder<_i3.BuiltList<String>>? nestedStringList,
   ) => _$this._nestedStringList = nestedStringList;
 
   _i3.ListBuilder<String>? _renamedListMembers;
   _i3.ListBuilder<String> get renamedListMembers =>
-      _$this._renamedListMembers ??= new _i3.ListBuilder<String>();
+      _$this._renamedListMembers ??= _i3.ListBuilder<String>();
   set renamedListMembers(_i3.ListBuilder<String>? renamedListMembers) =>
       _$this._renamedListMembers = renamedListMembers;
 
   _i3.ListBuilder<String>? _flattenedList;
   _i3.ListBuilder<String> get flattenedList =>
-      _$this._flattenedList ??= new _i3.ListBuilder<String>();
+      _$this._flattenedList ??= _i3.ListBuilder<String>();
   set flattenedList(_i3.ListBuilder<String>? flattenedList) =>
       _$this._flattenedList = flattenedList;
 
   _i3.ListBuilder<String>? _flattenedList2;
   _i3.ListBuilder<String> get flattenedList2 =>
-      _$this._flattenedList2 ??= new _i3.ListBuilder<String>();
+      _$this._flattenedList2 ??= _i3.ListBuilder<String>();
   set flattenedList2(_i3.ListBuilder<String>? flattenedList2) =>
       _$this._flattenedList2 = flattenedList2;
 
   _i3.ListBuilder<String>? _flattenedListWithMemberNamespace;
   _i3.ListBuilder<String> get flattenedListWithMemberNamespace =>
-      _$this._flattenedListWithMemberNamespace ??=
-          new _i3.ListBuilder<String>();
+      _$this._flattenedListWithMemberNamespace ??= _i3.ListBuilder<String>();
   set flattenedListWithMemberNamespace(
     _i3.ListBuilder<String>? flattenedListWithMemberNamespace,
   ) =>
@@ -197,21 +195,20 @@ class XmlListsInputOutputBuilder
 
   _i3.ListBuilder<String>? _flattenedListWithNamespace;
   _i3.ListBuilder<String> get flattenedListWithNamespace =>
-      _$this._flattenedListWithNamespace ??= new _i3.ListBuilder<String>();
+      _$this._flattenedListWithNamespace ??= _i3.ListBuilder<String>();
   set flattenedListWithNamespace(
     _i3.ListBuilder<String>? flattenedListWithNamespace,
   ) => _$this._flattenedListWithNamespace = flattenedListWithNamespace;
 
   _i3.ListBuilder<StructureListMember>? _structureList;
   _i3.ListBuilder<StructureListMember> get structureList =>
-      _$this._structureList ??= new _i3.ListBuilder<StructureListMember>();
+      _$this._structureList ??= _i3.ListBuilder<StructureListMember>();
   set structureList(_i3.ListBuilder<StructureListMember>? structureList) =>
       _$this._structureList = structureList;
 
   _i3.ListBuilder<StructureListMember>? _flattenedStructureList;
   _i3.ListBuilder<StructureListMember> get flattenedStructureList =>
-      _$this._flattenedStructureList ??=
-          new _i3.ListBuilder<StructureListMember>();
+      _$this._flattenedStructureList ??= _i3.ListBuilder<StructureListMember>();
   set flattenedStructureList(
     _i3.ListBuilder<StructureListMember>? flattenedStructureList,
   ) => _$this._flattenedStructureList = flattenedStructureList;
@@ -244,7 +241,6 @@ class XmlListsInputOutputBuilder
 
   @override
   void replace(XmlListsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlListsInputOutput;
   }
 
@@ -261,7 +257,7 @@ class XmlListsInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$XmlListsInputOutput._(
+          _$XmlListsInputOutput._(
             stringList: _stringList?.build(),
             stringSet: _stringSet?.build(),
             integerList: _integerList?.build(),
@@ -313,7 +309,7 @@ class XmlListsInputOutputBuilder
         _$failedField = 'flattenedStructureList';
         _flattenedStructureList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'XmlListsInputOutput',
           _$failedField,
           e.toString(),

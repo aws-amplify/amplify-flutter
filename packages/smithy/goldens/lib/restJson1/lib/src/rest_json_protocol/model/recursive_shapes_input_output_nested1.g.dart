@@ -15,12 +15,9 @@ class _$RecursiveShapesInputOutputNested1
 
   factory _$RecursiveShapesInputOutputNested1([
     void Function(RecursiveShapesInputOutputNested1Builder)? updates,
-  ]) =>
-      (new RecursiveShapesInputOutputNested1Builder()..update(updates))
-          ._build();
+  ]) => (RecursiveShapesInputOutputNested1Builder()..update(updates))._build();
 
   _$RecursiveShapesInputOutputNested1._({this.foo, this.nested}) : super._();
-
   @override
   RecursiveShapesInputOutputNested1 rebuild(
     void Function(RecursiveShapesInputOutputNested1Builder) updates,
@@ -28,7 +25,7 @@ class _$RecursiveShapesInputOutputNested1
 
   @override
   RecursiveShapesInputOutputNested1Builder toBuilder() =>
-      new RecursiveShapesInputOutputNested1Builder()..replace(this);
+      RecursiveShapesInputOutputNested1Builder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +59,7 @@ class RecursiveShapesInputOutputNested1Builder
 
   RecursiveShapesInputOutputNested2Builder? _nested;
   RecursiveShapesInputOutputNested2Builder get nested =>
-      _$this._nested ??= new RecursiveShapesInputOutputNested2Builder();
+      _$this._nested ??= RecursiveShapesInputOutputNested2Builder();
   set nested(RecursiveShapesInputOutputNested2Builder? nested) =>
       _$this._nested = nested;
 
@@ -80,7 +77,6 @@ class RecursiveShapesInputOutputNested1Builder
 
   @override
   void replace(RecursiveShapesInputOutputNested1 other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RecursiveShapesInputOutputNested1;
   }
 
@@ -99,7 +95,7 @@ class RecursiveShapesInputOutputNested1Builder
     try {
       _$result =
           _$v ??
-          new _$RecursiveShapesInputOutputNested1._(
+          _$RecursiveShapesInputOutputNested1._(
             foo: foo,
             nested: _nested?.build(),
           );
@@ -109,7 +105,7 @@ class RecursiveShapesInputOutputNested1Builder
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'RecursiveShapesInputOutputNested1',
           _$failedField,
           e.toString(),

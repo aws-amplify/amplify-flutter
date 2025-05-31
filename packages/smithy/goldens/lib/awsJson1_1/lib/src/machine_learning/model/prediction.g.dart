@@ -17,7 +17,7 @@ class _$Prediction extends Prediction {
   final _i2.BuiltMap<DetailsAttributes, String>? details;
 
   factory _$Prediction([void Function(PredictionBuilder)? updates]) =>
-      (new PredictionBuilder()..update(updates))._build();
+      (PredictionBuilder()..update(updates))._build();
 
   _$Prediction._({
     this.predictedLabel,
@@ -25,13 +25,12 @@ class _$Prediction extends Prediction {
     this.predictedScores,
     this.details,
   }) : super._();
-
   @override
   Prediction rebuild(void Function(PredictionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PredictionBuilder toBuilder() => new PredictionBuilder()..replace(this);
+  PredictionBuilder toBuilder() => PredictionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,13 +69,13 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
 
   _i2.MapBuilder<String, double>? _predictedScores;
   _i2.MapBuilder<String, double> get predictedScores =>
-      _$this._predictedScores ??= new _i2.MapBuilder<String, double>();
+      _$this._predictedScores ??= _i2.MapBuilder<String, double>();
   set predictedScores(_i2.MapBuilder<String, double>? predictedScores) =>
       _$this._predictedScores = predictedScores;
 
   _i2.MapBuilder<DetailsAttributes, String>? _details;
   _i2.MapBuilder<DetailsAttributes, String> get details =>
-      _$this._details ??= new _i2.MapBuilder<DetailsAttributes, String>();
+      _$this._details ??= _i2.MapBuilder<DetailsAttributes, String>();
   set details(_i2.MapBuilder<DetailsAttributes, String>? details) =>
       _$this._details = details;
 
@@ -96,7 +95,6 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
 
   @override
   void replace(Prediction other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Prediction;
   }
 
@@ -113,7 +111,7 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
     try {
       _$result =
           _$v ??
-          new _$Prediction._(
+          _$Prediction._(
             predictedLabel: predictedLabel,
             predictedValue: predictedValue,
             predictedScores: _predictedScores?.build(),
@@ -127,7 +125,7 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
         _$failedField = 'details';
         _details?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'Prediction',
           _$failedField,
           e.toString(),

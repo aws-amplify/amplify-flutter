@@ -24,7 +24,7 @@ class _$TimestampFormatHeadersIo extends TimestampFormatHeadersIo {
 
   factory _$TimestampFormatHeadersIo([
     void Function(TimestampFormatHeadersIoBuilder)? updates,
-  ]) => (new TimestampFormatHeadersIoBuilder()..update(updates))._build();
+  ]) => (TimestampFormatHeadersIoBuilder()..update(updates))._build();
 
   _$TimestampFormatHeadersIo._({
     this.memberEpochSeconds,
@@ -35,7 +35,6 @@ class _$TimestampFormatHeadersIo extends TimestampFormatHeadersIo {
     this.targetHttpDate,
     this.targetDateTime,
   }) : super._();
-
   @override
   TimestampFormatHeadersIo rebuild(
     void Function(TimestampFormatHeadersIoBuilder) updates,
@@ -43,7 +42,7 @@ class _$TimestampFormatHeadersIo extends TimestampFormatHeadersIo {
 
   @override
   TimestampFormatHeadersIoBuilder toBuilder() =>
-      new TimestampFormatHeadersIoBuilder()..replace(this);
+      TimestampFormatHeadersIoBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -132,7 +131,6 @@ class TimestampFormatHeadersIoBuilder
 
   @override
   void replace(TimestampFormatHeadersIo other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TimestampFormatHeadersIo;
   }
 
@@ -147,7 +145,7 @@ class TimestampFormatHeadersIoBuilder
   _$TimestampFormatHeadersIo _build() {
     final _$result =
         _$v ??
-        new _$TimestampFormatHeadersIo._(
+        _$TimestampFormatHeadersIo._(
           memberEpochSeconds: memberEpochSeconds,
           memberHttpDate: memberHttpDate,
           memberDateTime: memberDateTime,
@@ -165,11 +163,9 @@ class _$TimestampFormatHeadersIoPayload
     extends TimestampFormatHeadersIoPayload {
   factory _$TimestampFormatHeadersIoPayload([
     void Function(TimestampFormatHeadersIoPayloadBuilder)? updates,
-  ]) =>
-      (new TimestampFormatHeadersIoPayloadBuilder()..update(updates))._build();
+  ]) => (TimestampFormatHeadersIoPayloadBuilder()..update(updates))._build();
 
   _$TimestampFormatHeadersIoPayload._() : super._();
-
   @override
   TimestampFormatHeadersIoPayload rebuild(
     void Function(TimestampFormatHeadersIoPayloadBuilder) updates,
@@ -177,7 +173,7 @@ class _$TimestampFormatHeadersIoPayload
 
   @override
   TimestampFormatHeadersIoPayloadBuilder toBuilder() =>
-      new TimestampFormatHeadersIoPayloadBuilder()..replace(this);
+      TimestampFormatHeadersIoPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -203,7 +199,6 @@ class TimestampFormatHeadersIoPayloadBuilder
 
   @override
   void replace(TimestampFormatHeadersIoPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TimestampFormatHeadersIoPayload;
   }
 
@@ -216,7 +211,7 @@ class TimestampFormatHeadersIoPayloadBuilder
   TimestampFormatHeadersIoPayload build() => _build();
 
   _$TimestampFormatHeadersIoPayload _build() {
-    final _$result = _$v ?? new _$TimestampFormatHeadersIoPayload._();
+    final _$result = _$v ?? _$TimestampFormatHeadersIoPayload._();
     replace(_$result);
     return _$result;
   }

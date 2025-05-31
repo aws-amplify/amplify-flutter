@@ -22,7 +22,7 @@ class _$UploadMultipartPartInput extends UploadMultipartPartInput {
 
   factory _$UploadMultipartPartInput([
     void Function(UploadMultipartPartInputBuilder)? updates,
-  ]) => (new UploadMultipartPartInputBuilder()..update(updates))._build();
+  ]) => (UploadMultipartPartInputBuilder()..update(updates))._build();
 
   _$UploadMultipartPartInput._({
     required this.accountId,
@@ -31,29 +31,7 @@ class _$UploadMultipartPartInput extends UploadMultipartPartInput {
     this.checksum,
     this.range,
     required this.body,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      accountId,
-      r'UploadMultipartPartInput',
-      'accountId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      vaultName,
-      r'UploadMultipartPartInput',
-      'vaultName',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      uploadId,
-      r'UploadMultipartPartInput',
-      'uploadId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      body,
-      r'UploadMultipartPartInput',
-      'body',
-    );
-  }
-
+  }) : super._();
   @override
   UploadMultipartPartInput rebuild(
     void Function(UploadMultipartPartInputBuilder) updates,
@@ -61,7 +39,7 @@ class _$UploadMultipartPartInput extends UploadMultipartPartInput {
 
   @override
   UploadMultipartPartInputBuilder toBuilder() =>
-      new UploadMultipartPartInputBuilder()..replace(this);
+      UploadMultipartPartInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -138,7 +116,6 @@ class UploadMultipartPartInputBuilder
 
   @override
   void replace(UploadMultipartPartInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadMultipartPartInput;
   }
 
@@ -153,7 +130,7 @@ class UploadMultipartPartInputBuilder
   _$UploadMultipartPartInput _build() {
     final _$result =
         _$v ??
-        new _$UploadMultipartPartInput._(
+        _$UploadMultipartPartInput._(
           accountId: BuiltValueNullFieldError.checkNotNull(
             accountId,
             r'UploadMultipartPartInput',

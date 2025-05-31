@@ -11,16 +11,15 @@ class _$CommonPrefix extends CommonPrefix {
   final String? prefix;
 
   factory _$CommonPrefix([void Function(CommonPrefixBuilder)? updates]) =>
-      (new CommonPrefixBuilder()..update(updates))._build();
+      (CommonPrefixBuilder()..update(updates))._build();
 
   _$CommonPrefix._({this.prefix}) : super._();
-
   @override
   CommonPrefix rebuild(void Function(CommonPrefixBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CommonPrefixBuilder toBuilder() => new CommonPrefixBuilder()..replace(this);
+  CommonPrefixBuilder toBuilder() => CommonPrefixBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -58,7 +57,6 @@ class CommonPrefixBuilder
 
   @override
   void replace(CommonPrefix other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CommonPrefix;
   }
 
@@ -71,7 +69,7 @@ class CommonPrefixBuilder
   CommonPrefix build() => _build();
 
   _$CommonPrefix _build() {
-    final _$result = _$v ?? new _$CommonPrefix._(prefix: prefix);
+    final _$result = _$v ?? _$CommonPrefix._(prefix: prefix);
     replace(_$result);
     return _$result;
   }

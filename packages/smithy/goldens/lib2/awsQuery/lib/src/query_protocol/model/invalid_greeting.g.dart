@@ -15,18 +15,16 @@ class _$InvalidGreeting extends InvalidGreeting {
   final Map<String, String>? headers;
 
   factory _$InvalidGreeting([void Function(InvalidGreetingBuilder)? updates]) =>
-      (new InvalidGreetingBuilder()..update(updates))._build();
+      (InvalidGreetingBuilder()..update(updates))._build();
 
   _$InvalidGreeting._({this.message, this.statusCode, this.headers})
     : super._();
-
   @override
   InvalidGreeting rebuild(void Function(InvalidGreetingBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  InvalidGreetingBuilder toBuilder() =>
-      new InvalidGreetingBuilder()..replace(this);
+  InvalidGreetingBuilder toBuilder() => InvalidGreetingBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +72,6 @@ class InvalidGreetingBuilder
 
   @override
   void replace(InvalidGreeting other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidGreeting;
   }
 
@@ -89,7 +86,7 @@ class InvalidGreetingBuilder
   _$InvalidGreeting _build() {
     final _$result =
         _$v ??
-        new _$InvalidGreeting._(
+        _$InvalidGreeting._(
           message: message,
           statusCode: statusCode,
           headers: headers,

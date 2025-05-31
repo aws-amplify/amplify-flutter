@@ -52,7 +52,7 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
 
   factory _$AllQueryStringTypesInput([
     void Function(AllQueryStringTypesInputBuilder)? updates,
-  ]) => (new AllQueryStringTypesInputBuilder()..update(updates))._build();
+  ]) => (AllQueryStringTypesInputBuilder()..update(updates))._build();
 
   _$AllQueryStringTypesInput._({
     this.queryString,
@@ -77,7 +77,6 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
     this.queryIntegerEnumList,
     this.queryParamsMapOfStrings,
   }) : super._();
-
   @override
   AllQueryStringTypesInput rebuild(
     void Function(AllQueryStringTypesInputBuilder) updates,
@@ -85,7 +84,7 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
 
   @override
   AllQueryStringTypesInputBuilder toBuilder() =>
-      new AllQueryStringTypesInputBuilder()..replace(this);
+      AllQueryStringTypesInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -154,13 +153,13 @@ class AllQueryStringTypesInputBuilder
 
   _i4.ListBuilder<String>? _queryStringList;
   _i4.ListBuilder<String> get queryStringList =>
-      _$this._queryStringList ??= new _i4.ListBuilder<String>();
+      _$this._queryStringList ??= _i4.ListBuilder<String>();
   set queryStringList(_i4.ListBuilder<String>? queryStringList) =>
       _$this._queryStringList = queryStringList;
 
   _i4.SetBuilder<String>? _queryStringSet;
   _i4.SetBuilder<String> get queryStringSet =>
-      _$this._queryStringSet ??= new _i4.SetBuilder<String>();
+      _$this._queryStringSet ??= _i4.SetBuilder<String>();
   set queryStringSet(_i4.SetBuilder<String>? queryStringSet) =>
       _$this._queryStringSet = queryStringSet;
 
@@ -178,13 +177,13 @@ class AllQueryStringTypesInputBuilder
 
   _i4.ListBuilder<int>? _queryIntegerList;
   _i4.ListBuilder<int> get queryIntegerList =>
-      _$this._queryIntegerList ??= new _i4.ListBuilder<int>();
+      _$this._queryIntegerList ??= _i4.ListBuilder<int>();
   set queryIntegerList(_i4.ListBuilder<int>? queryIntegerList) =>
       _$this._queryIntegerList = queryIntegerList;
 
   _i4.SetBuilder<int>? _queryIntegerSet;
   _i4.SetBuilder<int> get queryIntegerSet =>
-      _$this._queryIntegerSet ??= new _i4.SetBuilder<int>();
+      _$this._queryIntegerSet ??= _i4.SetBuilder<int>();
   set queryIntegerSet(_i4.SetBuilder<int>? queryIntegerSet) =>
       _$this._queryIntegerSet = queryIntegerSet;
 
@@ -202,7 +201,7 @@ class AllQueryStringTypesInputBuilder
 
   _i4.ListBuilder<double>? _queryDoubleList;
   _i4.ListBuilder<double> get queryDoubleList =>
-      _$this._queryDoubleList ??= new _i4.ListBuilder<double>();
+      _$this._queryDoubleList ??= _i4.ListBuilder<double>();
   set queryDoubleList(_i4.ListBuilder<double>? queryDoubleList) =>
       _$this._queryDoubleList = queryDoubleList;
 
@@ -212,7 +211,7 @@ class AllQueryStringTypesInputBuilder
 
   _i4.ListBuilder<bool>? _queryBooleanList;
   _i4.ListBuilder<bool> get queryBooleanList =>
-      _$this._queryBooleanList ??= new _i4.ListBuilder<bool>();
+      _$this._queryBooleanList ??= _i4.ListBuilder<bool>();
   set queryBooleanList(_i4.ListBuilder<bool>? queryBooleanList) =>
       _$this._queryBooleanList = queryBooleanList;
 
@@ -223,7 +222,7 @@ class AllQueryStringTypesInputBuilder
 
   _i4.ListBuilder<DateTime>? _queryTimestampList;
   _i4.ListBuilder<DateTime> get queryTimestampList =>
-      _$this._queryTimestampList ??= new _i4.ListBuilder<DateTime>();
+      _$this._queryTimestampList ??= _i4.ListBuilder<DateTime>();
   set queryTimestampList(_i4.ListBuilder<DateTime>? queryTimestampList) =>
       _$this._queryTimestampList = queryTimestampList;
 
@@ -233,7 +232,7 @@ class AllQueryStringTypesInputBuilder
 
   _i4.ListBuilder<FooEnum>? _queryEnumList;
   _i4.ListBuilder<FooEnum> get queryEnumList =>
-      _$this._queryEnumList ??= new _i4.ListBuilder<FooEnum>();
+      _$this._queryEnumList ??= _i4.ListBuilder<FooEnum>();
   set queryEnumList(_i4.ListBuilder<FooEnum>? queryEnumList) =>
       _$this._queryEnumList = queryEnumList;
 
@@ -244,13 +243,13 @@ class AllQueryStringTypesInputBuilder
 
   _i4.ListBuilder<int>? _queryIntegerEnumList;
   _i4.ListBuilder<int> get queryIntegerEnumList =>
-      _$this._queryIntegerEnumList ??= new _i4.ListBuilder<int>();
+      _$this._queryIntegerEnumList ??= _i4.ListBuilder<int>();
   set queryIntegerEnumList(_i4.ListBuilder<int>? queryIntegerEnumList) =>
       _$this._queryIntegerEnumList = queryIntegerEnumList;
 
   _i4.MapBuilder<String, String>? _queryParamsMapOfStrings;
   _i4.MapBuilder<String, String> get queryParamsMapOfStrings =>
-      _$this._queryParamsMapOfStrings ??= new _i4.MapBuilder<String, String>();
+      _$this._queryParamsMapOfStrings ??= _i4.MapBuilder<String, String>();
   set queryParamsMapOfStrings(
     _i4.MapBuilder<String, String>? queryParamsMapOfStrings,
   ) => _$this._queryParamsMapOfStrings = queryParamsMapOfStrings;
@@ -288,7 +287,6 @@ class AllQueryStringTypesInputBuilder
 
   @override
   void replace(AllQueryStringTypesInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AllQueryStringTypesInput;
   }
 
@@ -305,7 +303,7 @@ class AllQueryStringTypesInputBuilder
     try {
       _$result =
           _$v ??
-          new _$AllQueryStringTypesInput._(
+          _$AllQueryStringTypesInput._(
             queryString: queryString,
             queryStringList: _queryStringList?.build(),
             queryStringSet: _queryStringSet?.build(),
@@ -358,7 +356,7 @@ class AllQueryStringTypesInputBuilder
         _$failedField = 'queryParamsMapOfStrings';
         _queryParamsMapOfStrings?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'AllQueryStringTypesInput',
           _$failedField,
           e.toString(),
@@ -375,11 +373,9 @@ class _$AllQueryStringTypesInputPayload
     extends AllQueryStringTypesInputPayload {
   factory _$AllQueryStringTypesInputPayload([
     void Function(AllQueryStringTypesInputPayloadBuilder)? updates,
-  ]) =>
-      (new AllQueryStringTypesInputPayloadBuilder()..update(updates))._build();
+  ]) => (AllQueryStringTypesInputPayloadBuilder()..update(updates))._build();
 
   _$AllQueryStringTypesInputPayload._() : super._();
-
   @override
   AllQueryStringTypesInputPayload rebuild(
     void Function(AllQueryStringTypesInputPayloadBuilder) updates,
@@ -387,7 +383,7 @@ class _$AllQueryStringTypesInputPayload
 
   @override
   AllQueryStringTypesInputPayloadBuilder toBuilder() =>
-      new AllQueryStringTypesInputPayloadBuilder()..replace(this);
+      AllQueryStringTypesInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -413,7 +409,6 @@ class AllQueryStringTypesInputPayloadBuilder
 
   @override
   void replace(AllQueryStringTypesInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AllQueryStringTypesInputPayload;
   }
 
@@ -426,7 +421,7 @@ class AllQueryStringTypesInputPayloadBuilder
   AllQueryStringTypesInputPayload build() => _build();
 
   _$AllQueryStringTypesInputPayload _build() {
-    final _$result = _$v ?? new _$AllQueryStringTypesInputPayload._();
+    final _$result = _$v ?? _$AllQueryStringTypesInputPayload._();
     replace(_$result);
     return _$result;
   }

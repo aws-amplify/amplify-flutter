@@ -16,11 +16,10 @@ class _$InternalErrorException extends InternalErrorException {
 
   factory _$InternalErrorException([
     void Function(InternalErrorExceptionBuilder)? updates,
-  ]) => (new InternalErrorExceptionBuilder()..update(updates))._build();
+  ]) => (InternalErrorExceptionBuilder()..update(updates))._build();
 
   _$InternalErrorException._({this.message, this.statusCode, this.headers})
     : super._();
-
   @override
   InternalErrorException rebuild(
     void Function(InternalErrorExceptionBuilder) updates,
@@ -28,7 +27,7 @@ class _$InternalErrorException extends InternalErrorException {
 
   @override
   InternalErrorExceptionBuilder toBuilder() =>
-      new InternalErrorExceptionBuilder()..replace(this);
+      InternalErrorExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -76,7 +75,6 @@ class InternalErrorExceptionBuilder
 
   @override
   void replace(InternalErrorException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InternalErrorException;
   }
 
@@ -91,7 +89,7 @@ class InternalErrorExceptionBuilder
   _$InternalErrorException _build() {
     final _$result =
         _$v ??
-        new _$InternalErrorException._(
+        _$InternalErrorException._(
           message: message,
           statusCode: statusCode,
           headers: headers,

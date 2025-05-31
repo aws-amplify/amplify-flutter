@@ -14,10 +14,9 @@ class _$StreamingTraitsInputOutput extends StreamingTraitsInputOutput {
 
   factory _$StreamingTraitsInputOutput([
     void Function(StreamingTraitsInputOutputBuilder)? updates,
-  ]) => (new StreamingTraitsInputOutputBuilder()..update(updates))._build();
+  ]) => (StreamingTraitsInputOutputBuilder()..update(updates))._build();
 
   _$StreamingTraitsInputOutput._({this.foo, this.blob}) : super._();
-
   @override
   StreamingTraitsInputOutput rebuild(
     void Function(StreamingTraitsInputOutputBuilder) updates,
@@ -25,7 +24,7 @@ class _$StreamingTraitsInputOutput extends StreamingTraitsInputOutput {
 
   @override
   StreamingTraitsInputOutputBuilder toBuilder() =>
-      new StreamingTraitsInputOutputBuilder()..replace(this);
+      StreamingTraitsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class StreamingTraitsInputOutputBuilder
 
   @override
   void replace(StreamingTraitsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StreamingTraitsInputOutput;
   }
 
@@ -86,7 +84,7 @@ class StreamingTraitsInputOutputBuilder
 
   _$StreamingTraitsInputOutput _build() {
     final _$result =
-        _$v ?? new _$StreamingTraitsInputOutput._(foo: foo, blob: blob);
+        _$v ?? _$StreamingTraitsInputOutput._(foo: foo, blob: blob);
     replace(_$result);
     return _$result;
   }

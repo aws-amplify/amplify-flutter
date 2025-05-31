@@ -18,21 +18,14 @@ class _$MalformedByteInput extends MalformedByteInput {
 
   factory _$MalformedByteInput([
     void Function(MalformedByteInputBuilder)? updates,
-  ]) => (new MalformedByteInputBuilder()..update(updates))._build();
+  ]) => (MalformedByteInputBuilder()..update(updates))._build();
 
   _$MalformedByteInput._({
     this.byteInBody,
     required this.byteInPath,
     this.byteInQuery,
     this.byteInHeader,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      byteInPath,
-      r'MalformedByteInput',
-      'byteInPath',
-    );
-  }
-
+  }) : super._();
   @override
   MalformedByteInput rebuild(
     void Function(MalformedByteInputBuilder) updates,
@@ -40,7 +33,7 @@ class _$MalformedByteInput extends MalformedByteInput {
 
   @override
   MalformedByteInputBuilder toBuilder() =>
-      new MalformedByteInputBuilder()..replace(this);
+      MalformedByteInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -100,7 +93,6 @@ class MalformedByteInputBuilder
 
   @override
   void replace(MalformedByteInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedByteInput;
   }
 
@@ -115,7 +107,7 @@ class MalformedByteInputBuilder
   _$MalformedByteInput _build() {
     final _$result =
         _$v ??
-        new _$MalformedByteInput._(
+        _$MalformedByteInput._(
           byteInBody: byteInBody,
           byteInPath: BuiltValueNullFieldError.checkNotNull(
             byteInPath,
@@ -136,10 +128,9 @@ class _$MalformedByteInputPayload extends MalformedByteInputPayload {
 
   factory _$MalformedByteInputPayload([
     void Function(MalformedByteInputPayloadBuilder)? updates,
-  ]) => (new MalformedByteInputPayloadBuilder()..update(updates))._build();
+  ]) => (MalformedByteInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedByteInputPayload._({this.byteInBody}) : super._();
-
   @override
   MalformedByteInputPayload rebuild(
     void Function(MalformedByteInputPayloadBuilder) updates,
@@ -147,7 +138,7 @@ class _$MalformedByteInputPayload extends MalformedByteInputPayload {
 
   @override
   MalformedByteInputPayloadBuilder toBuilder() =>
-      new MalformedByteInputPayloadBuilder()..replace(this);
+      MalformedByteInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -186,7 +177,6 @@ class MalformedByteInputPayloadBuilder
 
   @override
   void replace(MalformedByteInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedByteInputPayload;
   }
 
@@ -200,7 +190,7 @@ class MalformedByteInputPayloadBuilder
 
   _$MalformedByteInputPayload _build() {
     final _$result =
-        _$v ?? new _$MalformedByteInputPayload._(byteInBody: byteInBody);
+        _$v ?? _$MalformedByteInputPayload._(byteInBody: byteInBody);
     replace(_$result);
     return _$result;
   }

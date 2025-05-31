@@ -6,17 +6,17 @@ part of 'raw_config.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Environment> _$environmentSerializer = new _$EnvironmentSerializer();
+Serializer<Environment> _$environmentSerializer = _$EnvironmentSerializer();
 Serializer<PlatformEnvironment> _$platformEnvironmentSerializer =
-    new _$PlatformEnvironmentSerializer();
+    _$PlatformEnvironmentSerializer();
 Serializer<AndroidEnvironment> _$androidEnvironmentSerializer =
-    new _$AndroidEnvironmentSerializer();
+    _$AndroidEnvironmentSerializer();
 Serializer<IosEnvironment> _$iosEnvironmentSerializer =
-    new _$IosEnvironmentSerializer();
+    _$IosEnvironmentSerializer();
 Serializer<MacOSEnvironment> _$macOSEnvironmentSerializer =
-    new _$MacOSEnvironmentSerializer();
+    _$MacOSEnvironmentSerializer();
 Serializer<GitHubPackageConfig> _$gitHubPackageConfigSerializer =
-    new _$GitHubPackageConfigSerializer();
+    _$GitHubPackageConfigSerializer();
 
 class _$EnvironmentSerializer implements StructuredSerializer<Environment> {
   @override
@@ -52,7 +52,7 @@ class _$EnvironmentSerializer implements StructuredSerializer<Environment> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new EnvironmentBuilder();
+    final result = EnvironmentBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -126,7 +126,7 @@ class _$PlatformEnvironmentSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new PlatformEnvironmentBuilder();
+    final result = PlatformEnvironmentBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -198,7 +198,7 @@ class _$AndroidEnvironmentSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new AndroidEnvironmentBuilder();
+    final result = AndroidEnvironmentBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -251,7 +251,7 @@ class _$IosEnvironmentSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new IosEnvironmentBuilder();
+    final result = IosEnvironmentBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -304,7 +304,7 @@ class _$MacOSEnvironmentSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new MacOSEnvironmentBuilder();
+    final result = MacOSEnvironmentBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -357,7 +357,7 @@ class _$GitHubPackageConfigSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new GitHubPackageConfigBuilder();
+    final result = GitHubPackageConfigBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -387,19 +387,15 @@ class _$Environment extends Environment {
   final VersionConstraint flutter;
 
   factory _$Environment([void Function(EnvironmentBuilder)? updates]) =>
-      (new EnvironmentBuilder()..update(updates))._build();
+      (EnvironmentBuilder()..update(updates))._build();
 
-  _$Environment._({required this.sdk, required this.flutter}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(sdk, r'Environment', 'sdk');
-    BuiltValueNullFieldError.checkNotNull(flutter, r'Environment', 'flutter');
-  }
-
+  _$Environment._({required this.sdk, required this.flutter}) : super._();
   @override
   Environment rebuild(void Function(EnvironmentBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EnvironmentBuilder toBuilder() => new EnvironmentBuilder()..replace(this);
+  EnvironmentBuilder toBuilder() => EnvironmentBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -442,7 +438,6 @@ class EnvironmentBuilder implements Builder<Environment, EnvironmentBuilder> {
 
   @override
   void replace(Environment other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Environment;
   }
 
@@ -458,7 +453,7 @@ class EnvironmentBuilder implements Builder<Environment, EnvironmentBuilder> {
     Environment._finalize(this);
     final _$result =
         _$v ??
-        new _$Environment._(
+        _$Environment._(
           sdk: BuiltValueNullFieldError.checkNotNull(
             sdk,
             r'Environment',
@@ -485,26 +480,13 @@ class _$PlatformEnvironment extends PlatformEnvironment {
 
   factory _$PlatformEnvironment([
     void Function(PlatformEnvironmentBuilder)? updates,
-  ]) => (new PlatformEnvironmentBuilder()..update(updates))._build();
+  ]) => (PlatformEnvironmentBuilder()..update(updates))._build();
 
   _$PlatformEnvironment._({
     required this.android,
     required this.ios,
     required this.macOS,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      android,
-      r'PlatformEnvironment',
-      'android',
-    );
-    BuiltValueNullFieldError.checkNotNull(ios, r'PlatformEnvironment', 'ios');
-    BuiltValueNullFieldError.checkNotNull(
-      macOS,
-      r'PlatformEnvironment',
-      'macOS',
-    );
-  }
-
+  }) : super._();
   @override
   PlatformEnvironment rebuild(
     void Function(PlatformEnvironmentBuilder) updates,
@@ -512,7 +494,7 @@ class _$PlatformEnvironment extends PlatformEnvironment {
 
   @override
   PlatformEnvironmentBuilder toBuilder() =>
-      new PlatformEnvironmentBuilder()..replace(this);
+      PlatformEnvironmentBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -549,16 +531,16 @@ class PlatformEnvironmentBuilder
 
   AndroidEnvironmentBuilder? _android;
   AndroidEnvironmentBuilder get android =>
-      _$this._android ??= new AndroidEnvironmentBuilder();
+      _$this._android ??= AndroidEnvironmentBuilder();
   set android(AndroidEnvironmentBuilder? android) => _$this._android = android;
 
   IosEnvironmentBuilder? _ios;
-  IosEnvironmentBuilder get ios => _$this._ios ??= new IosEnvironmentBuilder();
+  IosEnvironmentBuilder get ios => _$this._ios ??= IosEnvironmentBuilder();
   set ios(IosEnvironmentBuilder? ios) => _$this._ios = ios;
 
   MacOSEnvironmentBuilder? _macOS;
   MacOSEnvironmentBuilder get macOS =>
-      _$this._macOS ??= new MacOSEnvironmentBuilder();
+      _$this._macOS ??= MacOSEnvironmentBuilder();
   set macOS(MacOSEnvironmentBuilder? macOS) => _$this._macOS = macOS;
 
   PlatformEnvironmentBuilder();
@@ -576,7 +558,6 @@ class PlatformEnvironmentBuilder
 
   @override
   void replace(PlatformEnvironment other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PlatformEnvironment;
   }
 
@@ -593,7 +574,7 @@ class PlatformEnvironmentBuilder
     try {
       _$result =
           _$v ??
-          new _$PlatformEnvironment._(
+          _$PlatformEnvironment._(
             android: android.build(),
             ios: ios.build(),
             macOS: macOS.build(),
@@ -608,7 +589,7 @@ class PlatformEnvironmentBuilder
         _$failedField = 'macOS';
         macOS.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'PlatformEnvironment',
           _$failedField,
           e.toString(),
@@ -627,16 +608,9 @@ class _$AndroidEnvironment extends AndroidEnvironment {
 
   factory _$AndroidEnvironment([
     void Function(AndroidEnvironmentBuilder)? updates,
-  ]) => (new AndroidEnvironmentBuilder()..update(updates))._build();
+  ]) => (AndroidEnvironmentBuilder()..update(updates))._build();
 
-  _$AndroidEnvironment._({required this.minSdkVersion}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      minSdkVersion,
-      r'AndroidEnvironment',
-      'minSdkVersion',
-    );
-  }
-
+  _$AndroidEnvironment._({required this.minSdkVersion}) : super._();
   @override
   AndroidEnvironment rebuild(
     void Function(AndroidEnvironmentBuilder) updates,
@@ -644,7 +618,7 @@ class _$AndroidEnvironment extends AndroidEnvironment {
 
   @override
   AndroidEnvironmentBuilder toBuilder() =>
-      new AndroidEnvironmentBuilder()..replace(this);
+      AndroidEnvironmentBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -683,7 +657,6 @@ class AndroidEnvironmentBuilder
 
   @override
   void replace(AndroidEnvironment other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AndroidEnvironment;
   }
 
@@ -698,7 +671,7 @@ class AndroidEnvironmentBuilder
   _$AndroidEnvironment _build() {
     final _$result =
         _$v ??
-        new _$AndroidEnvironment._(
+        _$AndroidEnvironment._(
           minSdkVersion: BuiltValueNullFieldError.checkNotNull(
             minSdkVersion,
             r'AndroidEnvironment',
@@ -715,23 +688,15 @@ class _$IosEnvironment extends IosEnvironment {
   final String minOSVersion;
 
   factory _$IosEnvironment([void Function(IosEnvironmentBuilder)? updates]) =>
-      (new IosEnvironmentBuilder()..update(updates))._build();
+      (IosEnvironmentBuilder()..update(updates))._build();
 
-  _$IosEnvironment._({required this.minOSVersion}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      minOSVersion,
-      r'IosEnvironment',
-      'minOSVersion',
-    );
-  }
-
+  _$IosEnvironment._({required this.minOSVersion}) : super._();
   @override
   IosEnvironment rebuild(void Function(IosEnvironmentBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  IosEnvironmentBuilder toBuilder() =>
-      new IosEnvironmentBuilder()..replace(this);
+  IosEnvironmentBuilder toBuilder() => IosEnvironmentBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -769,7 +734,6 @@ class IosEnvironmentBuilder
 
   @override
   void replace(IosEnvironment other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$IosEnvironment;
   }
 
@@ -784,7 +748,7 @@ class IosEnvironmentBuilder
   _$IosEnvironment _build() {
     final _$result =
         _$v ??
-        new _$IosEnvironment._(
+        _$IosEnvironment._(
           minOSVersion: BuiltValueNullFieldError.checkNotNull(
             minOSVersion,
             r'IosEnvironment',
@@ -802,23 +766,16 @@ class _$MacOSEnvironment extends MacOSEnvironment {
 
   factory _$MacOSEnvironment([
     void Function(MacOSEnvironmentBuilder)? updates,
-  ]) => (new MacOSEnvironmentBuilder()..update(updates))._build();
+  ]) => (MacOSEnvironmentBuilder()..update(updates))._build();
 
-  _$MacOSEnvironment._({required this.minOSVersion}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      minOSVersion,
-      r'MacOSEnvironment',
-      'minOSVersion',
-    );
-  }
-
+  _$MacOSEnvironment._({required this.minOSVersion}) : super._();
   @override
   MacOSEnvironment rebuild(void Function(MacOSEnvironmentBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   MacOSEnvironmentBuilder toBuilder() =>
-      new MacOSEnvironmentBuilder()..replace(this);
+      MacOSEnvironmentBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -856,7 +813,6 @@ class MacOSEnvironmentBuilder
 
   @override
   void replace(MacOSEnvironment other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MacOSEnvironment;
   }
 
@@ -871,7 +827,7 @@ class MacOSEnvironmentBuilder
   _$MacOSEnvironment _build() {
     final _$result =
         _$v ??
-        new _$MacOSEnvironment._(
+        _$MacOSEnvironment._(
           minOSVersion: BuiltValueNullFieldError.checkNotNull(
             minOSVersion,
             r'MacOSEnvironment',
@@ -889,16 +845,9 @@ class _$GitHubPackageConfig extends GitHubPackageConfig {
 
   factory _$GitHubPackageConfig([
     void Function(GitHubPackageConfigBuilder)? updates,
-  ]) => (new GitHubPackageConfigBuilder()..update(updates))._build();
+  ]) => (GitHubPackageConfigBuilder()..update(updates))._build();
 
-  _$GitHubPackageConfig._({required this.custom}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      custom,
-      r'GitHubPackageConfig',
-      'custom',
-    );
-  }
-
+  _$GitHubPackageConfig._({required this.custom}) : super._();
   @override
   GitHubPackageConfig rebuild(
     void Function(GitHubPackageConfigBuilder) updates,
@@ -906,7 +855,7 @@ class _$GitHubPackageConfig extends GitHubPackageConfig {
 
   @override
   GitHubPackageConfigBuilder toBuilder() =>
-      new GitHubPackageConfigBuilder()..replace(this);
+      GitHubPackageConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -946,7 +895,6 @@ class GitHubPackageConfigBuilder
 
   @override
   void replace(GitHubPackageConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GitHubPackageConfig;
   }
 
@@ -961,7 +909,7 @@ class GitHubPackageConfigBuilder
   _$GitHubPackageConfig _build() {
     final _$result =
         _$v ??
-        new _$GitHubPackageConfig._(
+        _$GitHubPackageConfig._(
           custom: BuiltValueNullFieldError.checkNotNull(
             custom,
             r'GitHubPackageConfig',

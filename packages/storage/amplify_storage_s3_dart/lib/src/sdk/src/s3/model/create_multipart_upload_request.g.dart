@@ -70,7 +70,7 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
 
   factory _$CreateMultipartUploadRequest([
     void Function(CreateMultipartUploadRequestBuilder)? updates,
-  ]) => (new CreateMultipartUploadRequestBuilder()..update(updates))._build();
+  ]) => (CreateMultipartUploadRequestBuilder()..update(updates))._build();
 
   _$CreateMultipartUploadRequest._({
     this.acl,
@@ -103,19 +103,7 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
     this.objectLockLegalHoldStatus,
     this.expectedBucketOwner,
     this.checksumAlgorithm,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'CreateMultipartUploadRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      key,
-      r'CreateMultipartUploadRequest',
-      'key',
-    );
-  }
-
+  }) : super._();
   @override
   CreateMultipartUploadRequest rebuild(
     void Function(CreateMultipartUploadRequestBuilder) updates,
@@ -123,7 +111,7 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
 
   @override
   CreateMultipartUploadRequestBuilder toBuilder() =>
-      new CreateMultipartUploadRequestBuilder()..replace(this);
+      CreateMultipartUploadRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -266,7 +254,7 @@ class CreateMultipartUploadRequestBuilder
 
   _i3.MapBuilder<String, String>? _metadata;
   _i3.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i3.MapBuilder<String, String>();
+      _$this._metadata ??= _i3.MapBuilder<String, String>();
   set metadata(_i3.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
@@ -393,7 +381,6 @@ class CreateMultipartUploadRequestBuilder
 
   @override
   void replace(CreateMultipartUploadRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateMultipartUploadRequest;
   }
 
@@ -410,7 +397,7 @@ class CreateMultipartUploadRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$CreateMultipartUploadRequest._(
+          _$CreateMultipartUploadRequest._(
             acl: acl,
             bucket: BuiltValueNullFieldError.checkNotNull(
               bucket,
@@ -456,7 +443,7 @@ class CreateMultipartUploadRequestBuilder
         _$failedField = 'metadata';
         _metadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'CreateMultipartUploadRequest',
           _$failedField,
           e.toString(),
@@ -474,11 +461,9 @@ class _$CreateMultipartUploadRequestPayload
   factory _$CreateMultipartUploadRequestPayload([
     void Function(CreateMultipartUploadRequestPayloadBuilder)? updates,
   ]) =>
-      (new CreateMultipartUploadRequestPayloadBuilder()..update(updates))
-          ._build();
+      (CreateMultipartUploadRequestPayloadBuilder()..update(updates))._build();
 
   _$CreateMultipartUploadRequestPayload._() : super._();
-
   @override
   CreateMultipartUploadRequestPayload rebuild(
     void Function(CreateMultipartUploadRequestPayloadBuilder) updates,
@@ -486,7 +471,7 @@ class _$CreateMultipartUploadRequestPayload
 
   @override
   CreateMultipartUploadRequestPayloadBuilder toBuilder() =>
-      new CreateMultipartUploadRequestPayloadBuilder()..replace(this);
+      CreateMultipartUploadRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -512,7 +497,6 @@ class CreateMultipartUploadRequestPayloadBuilder
 
   @override
   void replace(CreateMultipartUploadRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateMultipartUploadRequestPayload;
   }
 
@@ -527,7 +511,7 @@ class CreateMultipartUploadRequestPayloadBuilder
   CreateMultipartUploadRequestPayload build() => _build();
 
   _$CreateMultipartUploadRequestPayload _build() {
-    final _$result = _$v ?? new _$CreateMultipartUploadRequestPayload._();
+    final _$result = _$v ?? _$CreateMultipartUploadRequestPayload._();
     replace(_$result);
     return _$result;
   }

@@ -18,7 +18,7 @@ class _$MissingParameterValueException extends MissingParameterValueException {
 
   factory _$MissingParameterValueException([
     void Function(MissingParameterValueExceptionBuilder)? updates,
-  ]) => (new MissingParameterValueExceptionBuilder()..update(updates))._build();
+  ]) => (MissingParameterValueExceptionBuilder()..update(updates))._build();
 
   _$MissingParameterValueException._({
     this.type,
@@ -26,7 +26,6 @@ class _$MissingParameterValueException extends MissingParameterValueException {
     this.message,
     this.headers,
   }) : super._();
-
   @override
   MissingParameterValueException rebuild(
     void Function(MissingParameterValueExceptionBuilder) updates,
@@ -34,7 +33,7 @@ class _$MissingParameterValueException extends MissingParameterValueException {
 
   @override
   MissingParameterValueExceptionBuilder toBuilder() =>
-      new MissingParameterValueExceptionBuilder()..replace(this);
+      MissingParameterValueExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -96,7 +95,6 @@ class MissingParameterValueExceptionBuilder
 
   @override
   void replace(MissingParameterValueException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MissingParameterValueException;
   }
 
@@ -111,7 +109,7 @@ class MissingParameterValueExceptionBuilder
   _$MissingParameterValueException _build() {
     final _$result =
         _$v ??
-        new _$MissingParameterValueException._(
+        _$MissingParameterValueException._(
           type: type,
           code: code,
           message: message,

@@ -6,8 +6,7 @@ part of 'integer_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<IntegerShape> _$integerShapeSerializer =
-    new _$IntegerShapeSerializer();
+Serializer<IntegerShape> _$integerShapeSerializer = _$IntegerShapeSerializer();
 
 class _$IntegerShapeSerializer implements StructuredSerializer<IntegerShape> {
   @override
@@ -38,7 +37,7 @@ class _$IntegerShapeSerializer implements StructuredSerializer<IntegerShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new IntegerShapeBuilder();
+    final result = IntegerShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -68,19 +67,15 @@ class _$IntegerShape extends IntegerShape {
   final TraitMap traits;
 
   factory _$IntegerShape([void Function(IntegerShapeBuilder)? updates]) =>
-      (new IntegerShapeBuilder()..update(updates))._build();
+      (IntegerShapeBuilder()..update(updates))._build();
 
-  _$IntegerShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'IntegerShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'IntegerShape', 'traits');
-  }
-
+  _$IntegerShape._({required this.shapeId, required this.traits}) : super._();
   @override
   IntegerShape rebuild(void Function(IntegerShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  IntegerShapeBuilder toBuilder() => new IntegerShapeBuilder()..replace(this);
+  IntegerShapeBuilder toBuilder() => IntegerShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -136,7 +131,6 @@ class IntegerShapeBuilder
 
   @override
   void replace(covariant IntegerShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$IntegerShape;
   }
 
@@ -151,7 +145,7 @@ class IntegerShapeBuilder
   _$IntegerShape _build() {
     final _$result =
         _$v ??
-        new _$IntegerShape._(
+        _$IntegerShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'IntegerShape',

@@ -8,16 +8,15 @@ part of 'end_event.dart';
 
 class _$EndEvent extends EndEvent {
   factory _$EndEvent([void Function(EndEventBuilder)? updates]) =>
-      (new EndEventBuilder()..update(updates))._build();
+      (EndEventBuilder()..update(updates))._build();
 
   _$EndEvent._() : super._();
-
   @override
   EndEvent rebuild(void Function(EndEventBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EndEventBuilder toBuilder() => new EndEventBuilder()..replace(this);
+  EndEventBuilder toBuilder() => EndEventBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -38,7 +37,6 @@ class EndEventBuilder implements Builder<EndEvent, EndEventBuilder> {
 
   @override
   void replace(EndEvent other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndEvent;
   }
 
@@ -51,7 +49,7 @@ class EndEventBuilder implements Builder<EndEvent, EndEventBuilder> {
   EndEvent build() => _build();
 
   _$EndEvent _build() {
-    final _$result = _$v ?? new _$EndEvent._();
+    final _$result = _$v ?? _$EndEvent._();
     replace(_$result);
     return _$result;
   }

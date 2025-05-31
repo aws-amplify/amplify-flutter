@@ -18,7 +18,7 @@ class _$InvalidParameterValueException extends InvalidParameterValueException {
 
   factory _$InvalidParameterValueException([
     void Function(InvalidParameterValueExceptionBuilder)? updates,
-  ]) => (new InvalidParameterValueExceptionBuilder()..update(updates))._build();
+  ]) => (InvalidParameterValueExceptionBuilder()..update(updates))._build();
 
   _$InvalidParameterValueException._({
     this.type,
@@ -26,7 +26,6 @@ class _$InvalidParameterValueException extends InvalidParameterValueException {
     this.message,
     this.headers,
   }) : super._();
-
   @override
   InvalidParameterValueException rebuild(
     void Function(InvalidParameterValueExceptionBuilder) updates,
@@ -34,7 +33,7 @@ class _$InvalidParameterValueException extends InvalidParameterValueException {
 
   @override
   InvalidParameterValueExceptionBuilder toBuilder() =>
-      new InvalidParameterValueExceptionBuilder()..replace(this);
+      InvalidParameterValueExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -96,7 +95,6 @@ class InvalidParameterValueExceptionBuilder
 
   @override
   void replace(InvalidParameterValueException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidParameterValueException;
   }
 
@@ -111,7 +109,7 @@ class InvalidParameterValueExceptionBuilder
   _$InvalidParameterValueException _build() {
     final _$result =
         _$v ??
-        new _$InvalidParameterValueException._(
+        _$InvalidParameterValueException._(
           type: type,
           code: code,
           message: message,

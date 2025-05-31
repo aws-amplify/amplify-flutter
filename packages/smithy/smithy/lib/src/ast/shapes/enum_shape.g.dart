@@ -7,9 +7,8 @@ part of 'enum_shape.dart';
 // **************************************************************************
 
 Serializer<StringEnumShape> _$stringEnumShapeSerializer =
-    new _$StringEnumShapeSerializer();
-Serializer<IntEnumShape> _$intEnumShapeSerializer =
-    new _$IntEnumShapeSerializer();
+    _$StringEnumShapeSerializer();
+Serializer<IntEnumShape> _$intEnumShapeSerializer = _$IntEnumShapeSerializer();
 
 class _$StringEnumShapeSerializer
     implements StructuredSerializer<StringEnumShape> {
@@ -46,7 +45,7 @@ class _$StringEnumShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new StringEnumShapeBuilder();
+    final result = StringEnumShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -111,7 +110,7 @@ class _$IntEnumShapeSerializer implements StructuredSerializer<IntEnumShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new IntEnumShapeBuilder();
+    final result = IntEnumShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -164,33 +163,19 @@ class _$StringEnumShape extends StringEnumShape {
   final TraitMap traits;
 
   factory _$StringEnumShape([void Function(StringEnumShapeBuilder)? updates]) =>
-      (new StringEnumShapeBuilder()..update(updates))._build();
+      (StringEnumShapeBuilder()..update(updates))._build();
 
   _$StringEnumShape._({
     required this.members,
     required this.shapeId,
     required this.traits,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      members,
-      r'StringEnumShape',
-      'members',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'StringEnumShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(traits, r'StringEnumShape', 'traits');
-  }
-
+  }) : super._();
   @override
   StringEnumShape rebuild(void Function(StringEnumShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  StringEnumShapeBuilder toBuilder() =>
-      new StringEnumShapeBuilder()..replace(this);
+  StringEnumShapeBuilder toBuilder() => StringEnumShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -256,7 +241,6 @@ class StringEnumShapeBuilder
 
   @override
   void replace(covariant StringEnumShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StringEnumShape;
   }
 
@@ -271,7 +255,7 @@ class StringEnumShapeBuilder
   _$StringEnumShape _build() {
     final _$result =
         _$v ??
-        new _$StringEnumShape._(
+        _$StringEnumShape._(
           members: BuiltValueNullFieldError.checkNotNull(
             members,
             r'StringEnumShape',
@@ -302,24 +286,19 @@ class _$IntEnumShape extends IntEnumShape {
   final TraitMap traits;
 
   factory _$IntEnumShape([void Function(IntEnumShapeBuilder)? updates]) =>
-      (new IntEnumShapeBuilder()..update(updates))._build();
+      (IntEnumShapeBuilder()..update(updates))._build();
 
   _$IntEnumShape._({
     required this.members,
     required this.shapeId,
     required this.traits,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(members, r'IntEnumShape', 'members');
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'IntEnumShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'IntEnumShape', 'traits');
-  }
-
+  }) : super._();
   @override
   IntEnumShape rebuild(void Function(IntEnumShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  IntEnumShapeBuilder toBuilder() => new IntEnumShapeBuilder()..replace(this);
+  IntEnumShapeBuilder toBuilder() => IntEnumShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -383,7 +362,6 @@ class IntEnumShapeBuilder
 
   @override
   void replace(covariant IntEnumShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$IntEnumShape;
   }
 
@@ -398,7 +376,7 @@ class IntEnumShapeBuilder
   _$IntEnumShape _build() {
     final _$result =
         _$v ??
-        new _$IntEnumShape._(
+        _$IntEnumShape._(
           members: BuiltValueNullFieldError.checkNotNull(
             members,
             r'IntEnumShape',

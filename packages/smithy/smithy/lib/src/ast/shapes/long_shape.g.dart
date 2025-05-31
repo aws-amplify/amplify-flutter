@@ -6,7 +6,7 @@ part of 'long_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<LongShape> _$longShapeSerializer = new _$LongShapeSerializer();
+Serializer<LongShape> _$longShapeSerializer = _$LongShapeSerializer();
 
 class _$LongShapeSerializer implements StructuredSerializer<LongShape> {
   @override
@@ -37,7 +37,7 @@ class _$LongShapeSerializer implements StructuredSerializer<LongShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new LongShapeBuilder();
+    final result = LongShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -67,19 +67,15 @@ class _$LongShape extends LongShape {
   final TraitMap traits;
 
   factory _$LongShape([void Function(LongShapeBuilder)? updates]) =>
-      (new LongShapeBuilder()..update(updates))._build();
+      (LongShapeBuilder()..update(updates))._build();
 
-  _$LongShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'LongShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'LongShape', 'traits');
-  }
-
+  _$LongShape._({required this.shapeId, required this.traits}) : super._();
   @override
   LongShape rebuild(void Function(LongShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  LongShapeBuilder toBuilder() => new LongShapeBuilder()..replace(this);
+  LongShapeBuilder toBuilder() => LongShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,7 +131,6 @@ class LongShapeBuilder
 
   @override
   void replace(covariant LongShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$LongShape;
   }
 
@@ -150,7 +145,7 @@ class LongShapeBuilder
   _$LongShape _build() {
     final _$result =
         _$v ??
-        new _$LongShape._(
+        _$LongShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'LongShape',

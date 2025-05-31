@@ -34,24 +34,23 @@ KeychainAttributeAccessible _$KeychainAttributeAccessibleValueOf(String name) {
     case 'accessibleAfterFirstUnlock':
       return _$accessibleAfterFirstUnlock;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<KeychainAttributeAccessible>
-_$KeychainAttributeAccessibleValues = new BuiltSet<KeychainAttributeAccessible>(
-  const <KeychainAttributeAccessible>[
-    _$accessibleWhenPasscodeSetThisDeviceOnly,
-    _$accessibleWhenUnlockedThisDeviceOnly,
-    _$accessibleWhenUnlocked,
-    _$accessibleAfterFirstUnlockThisDeviceOnly,
-    _$accessibleAfterFirstUnlock,
-  ],
-);
+_$KeychainAttributeAccessibleValues =
+    BuiltSet<KeychainAttributeAccessible>(const <KeychainAttributeAccessible>[
+      _$accessibleWhenPasscodeSetThisDeviceOnly,
+      _$accessibleWhenUnlockedThisDeviceOnly,
+      _$accessibleWhenUnlocked,
+      _$accessibleAfterFirstUnlockThisDeviceOnly,
+      _$accessibleAfterFirstUnlock,
+    ]);
 
 Serializer<KeychainAttributeAccessible>
 _$keychainAttributeAccessibleSerializer =
-    new _$KeychainAttributeAccessibleSerializer();
+    _$KeychainAttributeAccessibleSerializer();
 
 class _$KeychainAttributeAccessibleSerializer
     implements PrimitiveSerializer<KeychainAttributeAccessible> {

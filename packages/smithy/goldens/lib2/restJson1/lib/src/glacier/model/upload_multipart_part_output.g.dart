@@ -12,10 +12,9 @@ class _$UploadMultipartPartOutput extends UploadMultipartPartOutput {
 
   factory _$UploadMultipartPartOutput([
     void Function(UploadMultipartPartOutputBuilder)? updates,
-  ]) => (new UploadMultipartPartOutputBuilder()..update(updates))._build();
+  ]) => (UploadMultipartPartOutputBuilder()..update(updates))._build();
 
   _$UploadMultipartPartOutput._({this.checksum}) : super._();
-
   @override
   UploadMultipartPartOutput rebuild(
     void Function(UploadMultipartPartOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$UploadMultipartPartOutput extends UploadMultipartPartOutput {
 
   @override
   UploadMultipartPartOutputBuilder toBuilder() =>
-      new UploadMultipartPartOutputBuilder()..replace(this);
+      UploadMultipartPartOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class UploadMultipartPartOutputBuilder
 
   @override
   void replace(UploadMultipartPartOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadMultipartPartOutput;
   }
 
@@ -75,8 +73,7 @@ class UploadMultipartPartOutputBuilder
   UploadMultipartPartOutput build() => _build();
 
   _$UploadMultipartPartOutput _build() {
-    final _$result =
-        _$v ?? new _$UploadMultipartPartOutput._(checksum: checksum);
+    final _$result = _$v ?? _$UploadMultipartPartOutput._(checksum: checksum);
     replace(_$result);
     return _$result;
   }
@@ -86,11 +83,9 @@ class _$UploadMultipartPartOutputPayload
     extends UploadMultipartPartOutputPayload {
   factory _$UploadMultipartPartOutputPayload([
     void Function(UploadMultipartPartOutputPayloadBuilder)? updates,
-  ]) =>
-      (new UploadMultipartPartOutputPayloadBuilder()..update(updates))._build();
+  ]) => (UploadMultipartPartOutputPayloadBuilder()..update(updates))._build();
 
   _$UploadMultipartPartOutputPayload._() : super._();
-
   @override
   UploadMultipartPartOutputPayload rebuild(
     void Function(UploadMultipartPartOutputPayloadBuilder) updates,
@@ -98,7 +93,7 @@ class _$UploadMultipartPartOutputPayload
 
   @override
   UploadMultipartPartOutputPayloadBuilder toBuilder() =>
-      new UploadMultipartPartOutputPayloadBuilder()..replace(this);
+      UploadMultipartPartOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -124,7 +119,6 @@ class UploadMultipartPartOutputPayloadBuilder
 
   @override
   void replace(UploadMultipartPartOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadMultipartPartOutputPayload;
   }
 
@@ -137,7 +131,7 @@ class UploadMultipartPartOutputPayloadBuilder
   UploadMultipartPartOutputPayload build() => _build();
 
   _$UploadMultipartPartOutputPayload _build() {
-    final _$result = _$v ?? new _$UploadMultipartPartOutputPayload._();
+    final _$result = _$v ?? _$UploadMultipartPartOutputPayload._();
     replace(_$result);
     return _$result;
   }

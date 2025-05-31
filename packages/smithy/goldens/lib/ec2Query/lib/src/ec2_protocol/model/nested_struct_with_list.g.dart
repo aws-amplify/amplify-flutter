@@ -12,10 +12,9 @@ class _$NestedStructWithList extends NestedStructWithList {
 
   factory _$NestedStructWithList([
     void Function(NestedStructWithListBuilder)? updates,
-  ]) => (new NestedStructWithListBuilder()..update(updates))._build();
+  ]) => (NestedStructWithListBuilder()..update(updates))._build();
 
   _$NestedStructWithList._({this.listArg}) : super._();
-
   @override
   NestedStructWithList rebuild(
     void Function(NestedStructWithListBuilder) updates,
@@ -23,7 +22,7 @@ class _$NestedStructWithList extends NestedStructWithList {
 
   @override
   NestedStructWithListBuilder toBuilder() =>
-      new NestedStructWithListBuilder()..replace(this);
+      NestedStructWithListBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,7 +45,7 @@ class NestedStructWithListBuilder
 
   _i2.ListBuilder<String>? _listArg;
   _i2.ListBuilder<String> get listArg =>
-      _$this._listArg ??= new _i2.ListBuilder<String>();
+      _$this._listArg ??= _i2.ListBuilder<String>();
   set listArg(_i2.ListBuilder<String>? listArg) => _$this._listArg = listArg;
 
   NestedStructWithListBuilder();
@@ -62,7 +61,6 @@ class NestedStructWithListBuilder
 
   @override
   void replace(NestedStructWithList other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NestedStructWithList;
   }
 
@@ -77,15 +75,14 @@ class NestedStructWithListBuilder
   _$NestedStructWithList _build() {
     _$NestedStructWithList _$result;
     try {
-      _$result =
-          _$v ?? new _$NestedStructWithList._(listArg: _listArg?.build());
+      _$result = _$v ?? _$NestedStructWithList._(listArg: _listArg?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'listArg';
         _listArg?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'NestedStructWithList',
           _$failedField,
           e.toString(),

@@ -16,12 +16,11 @@ class _$HttpPayloadTraitsWithMediaTypeInputOutput
   factory _$HttpPayloadTraitsWithMediaTypeInputOutput([
     void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder)? updates,
   ]) =>
-      (new HttpPayloadTraitsWithMediaTypeInputOutputBuilder()..update(updates))
+      (HttpPayloadTraitsWithMediaTypeInputOutputBuilder()..update(updates))
           ._build();
 
   _$HttpPayloadTraitsWithMediaTypeInputOutput._({this.foo, this.blob})
     : super._();
-
   @override
   HttpPayloadTraitsWithMediaTypeInputOutput rebuild(
     void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder) updates,
@@ -29,7 +28,7 @@ class _$HttpPayloadTraitsWithMediaTypeInputOutput
 
   @override
   HttpPayloadTraitsWithMediaTypeInputOutputBuilder toBuilder() =>
-      new HttpPayloadTraitsWithMediaTypeInputOutputBuilder()..replace(this);
+      HttpPayloadTraitsWithMediaTypeInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -79,7 +78,6 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
 
   @override
   void replace(HttpPayloadTraitsWithMediaTypeInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPayloadTraitsWithMediaTypeInputOutput;
   }
 
@@ -96,7 +94,7 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
   _$HttpPayloadTraitsWithMediaTypeInputOutput _build() {
     final _$result =
         _$v ??
-        new _$HttpPayloadTraitsWithMediaTypeInputOutput._(foo: foo, blob: blob);
+        _$HttpPayloadTraitsWithMediaTypeInputOutput._(foo: foo, blob: blob);
     replace(_$result);
     return _$result;
   }

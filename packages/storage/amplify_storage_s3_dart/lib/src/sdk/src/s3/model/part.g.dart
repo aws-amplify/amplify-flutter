@@ -25,7 +25,7 @@ class _$Part extends Part {
   final String? checksumSha256;
 
   factory _$Part([void Function(PartBuilder)? updates]) =>
-      (new PartBuilder()..update(updates))._build();
+      (PartBuilder()..update(updates))._build();
 
   _$Part._({
     this.partNumber,
@@ -37,13 +37,12 @@ class _$Part extends Part {
     this.checksumSha1,
     this.checksumSha256,
   }) : super._();
-
   @override
   Part rebuild(void Function(PartBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PartBuilder toBuilder() => new PartBuilder()..replace(this);
+  PartBuilder toBuilder() => PartBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -134,7 +133,6 @@ class PartBuilder implements Builder<Part, PartBuilder> {
 
   @override
   void replace(Part other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Part;
   }
 
@@ -149,7 +147,7 @@ class PartBuilder implements Builder<Part, PartBuilder> {
   _$Part _build() {
     final _$result =
         _$v ??
-        new _$Part._(
+        _$Part._(
           partNumber: partNumber,
           lastModified: lastModified,
           eTag: eTag,

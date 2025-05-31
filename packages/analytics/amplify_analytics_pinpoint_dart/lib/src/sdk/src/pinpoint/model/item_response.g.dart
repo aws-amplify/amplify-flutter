@@ -13,17 +13,16 @@ class _$ItemResponse extends ItemResponse {
   final _i2.BuiltMap<String, EventItemResponse>? eventsItemResponse;
 
   factory _$ItemResponse([void Function(ItemResponseBuilder)? updates]) =>
-      (new ItemResponseBuilder()..update(updates))._build();
+      (ItemResponseBuilder()..update(updates))._build();
 
   _$ItemResponse._({this.endpointItemResponse, this.eventsItemResponse})
     : super._();
-
   @override
   ItemResponse rebuild(void Function(ItemResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ItemResponseBuilder toBuilder() => new ItemResponseBuilder()..replace(this);
+  ItemResponseBuilder toBuilder() => ItemResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -49,14 +48,14 @@ class ItemResponseBuilder
 
   EndpointItemResponseBuilder? _endpointItemResponse;
   EndpointItemResponseBuilder get endpointItemResponse =>
-      _$this._endpointItemResponse ??= new EndpointItemResponseBuilder();
+      _$this._endpointItemResponse ??= EndpointItemResponseBuilder();
   set endpointItemResponse(EndpointItemResponseBuilder? endpointItemResponse) =>
       _$this._endpointItemResponse = endpointItemResponse;
 
   _i2.MapBuilder<String, EventItemResponse>? _eventsItemResponse;
   _i2.MapBuilder<String, EventItemResponse> get eventsItemResponse =>
       _$this._eventsItemResponse ??=
-          new _i2.MapBuilder<String, EventItemResponse>();
+          _i2.MapBuilder<String, EventItemResponse>();
   set eventsItemResponse(
     _i2.MapBuilder<String, EventItemResponse>? eventsItemResponse,
   ) => _$this._eventsItemResponse = eventsItemResponse;
@@ -75,7 +74,6 @@ class ItemResponseBuilder
 
   @override
   void replace(ItemResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ItemResponse;
   }
 
@@ -92,7 +90,7 @@ class ItemResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$ItemResponse._(
+          _$ItemResponse._(
             endpointItemResponse: _endpointItemResponse?.build(),
             eventsItemResponse: _eventsItemResponse?.build(),
           );
@@ -104,7 +102,7 @@ class ItemResponseBuilder
         _$failedField = 'eventsItemResponse';
         _eventsItemResponse?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ItemResponse',
           _$failedField,
           e.toString(),

@@ -11,17 +11,15 @@ class _$GreetingStruct extends GreetingStruct {
   final String? hi;
 
   factory _$GreetingStruct([void Function(GreetingStructBuilder)? updates]) =>
-      (new GreetingStructBuilder()..update(updates))._build();
+      (GreetingStructBuilder()..update(updates))._build();
 
   _$GreetingStruct._({this.hi}) : super._();
-
   @override
   GreetingStruct rebuild(void Function(GreetingStructBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GreetingStructBuilder toBuilder() =>
-      new GreetingStructBuilder()..replace(this);
+  GreetingStructBuilder toBuilder() => GreetingStructBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -59,7 +57,6 @@ class GreetingStructBuilder
 
   @override
   void replace(GreetingStruct other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GreetingStruct;
   }
 
@@ -72,7 +69,7 @@ class GreetingStructBuilder
   GreetingStruct build() => _build();
 
   _$GreetingStruct _build() {
-    final _$result = _$v ?? new _$GreetingStruct._(hi: hi);
+    final _$result = _$v ?? _$GreetingStruct._(hi: hi);
     replace(_$result);
     return _$result;
   }

@@ -13,12 +13,9 @@ class _$IgnoreQueryParamsInResponseOutput
 
   factory _$IgnoreQueryParamsInResponseOutput([
     void Function(IgnoreQueryParamsInResponseOutputBuilder)? updates,
-  ]) =>
-      (new IgnoreQueryParamsInResponseOutputBuilder()..update(updates))
-          ._build();
+  ]) => (IgnoreQueryParamsInResponseOutputBuilder()..update(updates))._build();
 
   _$IgnoreQueryParamsInResponseOutput._({this.baz}) : super._();
-
   @override
   IgnoreQueryParamsInResponseOutput rebuild(
     void Function(IgnoreQueryParamsInResponseOutputBuilder) updates,
@@ -26,7 +23,7 @@ class _$IgnoreQueryParamsInResponseOutput
 
   @override
   IgnoreQueryParamsInResponseOutputBuilder toBuilder() =>
-      new IgnoreQueryParamsInResponseOutputBuilder()..replace(this);
+      IgnoreQueryParamsInResponseOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +65,6 @@ class IgnoreQueryParamsInResponseOutputBuilder
 
   @override
   void replace(IgnoreQueryParamsInResponseOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$IgnoreQueryParamsInResponseOutput;
   }
 
@@ -83,7 +79,7 @@ class IgnoreQueryParamsInResponseOutputBuilder
   IgnoreQueryParamsInResponseOutput build() => _build();
 
   _$IgnoreQueryParamsInResponseOutput _build() {
-    final _$result = _$v ?? new _$IgnoreQueryParamsInResponseOutput._(baz: baz);
+    final _$result = _$v ?? _$IgnoreQueryParamsInResponseOutput._(baz: baz);
     replace(_$result);
     return _$result;
   }

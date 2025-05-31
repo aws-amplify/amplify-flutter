@@ -11,16 +11,15 @@ class _$JsonOutput extends JsonOutput {
   final String? recordDelimiter;
 
   factory _$JsonOutput([void Function(JsonOutputBuilder)? updates]) =>
-      (new JsonOutputBuilder()..update(updates))._build();
+      (JsonOutputBuilder()..update(updates))._build();
 
   _$JsonOutput._({this.recordDelimiter}) : super._();
-
   @override
   JsonOutput rebuild(void Function(JsonOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  JsonOutputBuilder toBuilder() => new JsonOutputBuilder()..replace(this);
+  JsonOutputBuilder toBuilder() => JsonOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -58,7 +57,6 @@ class JsonOutputBuilder implements Builder<JsonOutput, JsonOutputBuilder> {
 
   @override
   void replace(JsonOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$JsonOutput;
   }
 
@@ -71,8 +69,7 @@ class JsonOutputBuilder implements Builder<JsonOutput, JsonOutputBuilder> {
   JsonOutput build() => _build();
 
   _$JsonOutput _build() {
-    final _$result =
-        _$v ?? new _$JsonOutput._(recordDelimiter: recordDelimiter);
+    final _$result = _$v ?? _$JsonOutput._(recordDelimiter: recordDelimiter);
     replace(_$result);
     return _$result;
   }

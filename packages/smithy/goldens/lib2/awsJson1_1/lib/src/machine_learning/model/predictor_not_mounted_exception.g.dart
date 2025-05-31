@@ -14,10 +14,9 @@ class _$PredictorNotMountedException extends PredictorNotMountedException {
 
   factory _$PredictorNotMountedException([
     void Function(PredictorNotMountedExceptionBuilder)? updates,
-  ]) => (new PredictorNotMountedExceptionBuilder()..update(updates))._build();
+  ]) => (PredictorNotMountedExceptionBuilder()..update(updates))._build();
 
   _$PredictorNotMountedException._({this.message, this.headers}) : super._();
-
   @override
   PredictorNotMountedException rebuild(
     void Function(PredictorNotMountedExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$PredictorNotMountedException extends PredictorNotMountedException {
 
   @override
   PredictorNotMountedExceptionBuilder toBuilder() =>
-      new PredictorNotMountedExceptionBuilder()..replace(this);
+      PredictorNotMountedExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class PredictorNotMountedExceptionBuilder
 
   @override
   void replace(PredictorNotMountedException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PredictorNotMountedException;
   }
 
@@ -87,10 +85,7 @@ class PredictorNotMountedExceptionBuilder
   _$PredictorNotMountedException _build() {
     final _$result =
         _$v ??
-        new _$PredictorNotMountedException._(
-          message: message,
-          headers: headers,
-        );
+        _$PredictorNotMountedException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

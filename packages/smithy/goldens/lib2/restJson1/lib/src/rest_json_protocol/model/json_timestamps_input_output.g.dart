@@ -24,7 +24,7 @@ class _$JsonTimestampsInputOutput extends JsonTimestampsInputOutput {
 
   factory _$JsonTimestampsInputOutput([
     void Function(JsonTimestampsInputOutputBuilder)? updates,
-  ]) => (new JsonTimestampsInputOutputBuilder()..update(updates))._build();
+  ]) => (JsonTimestampsInputOutputBuilder()..update(updates))._build();
 
   _$JsonTimestampsInputOutput._({
     this.normal,
@@ -35,7 +35,6 @@ class _$JsonTimestampsInputOutput extends JsonTimestampsInputOutput {
     this.httpDate,
     this.httpDateOnTarget,
   }) : super._();
-
   @override
   JsonTimestampsInputOutput rebuild(
     void Function(JsonTimestampsInputOutputBuilder) updates,
@@ -43,7 +42,7 @@ class _$JsonTimestampsInputOutput extends JsonTimestampsInputOutput {
 
   @override
   JsonTimestampsInputOutputBuilder toBuilder() =>
-      new JsonTimestampsInputOutputBuilder()..replace(this);
+      JsonTimestampsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -129,7 +128,6 @@ class JsonTimestampsInputOutputBuilder
 
   @override
   void replace(JsonTimestampsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$JsonTimestampsInputOutput;
   }
 
@@ -144,7 +142,7 @@ class JsonTimestampsInputOutputBuilder
   _$JsonTimestampsInputOutput _build() {
     final _$result =
         _$v ??
-        new _$JsonTimestampsInputOutput._(
+        _$JsonTimestampsInputOutput._(
           normal: normal,
           dateTime: dateTime,
           dateTimeOnTarget: dateTimeOnTarget,

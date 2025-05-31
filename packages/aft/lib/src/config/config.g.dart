@@ -6,7 +6,7 @@ part of 'config.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<AftConfig> _$aftConfigSerializer = new _$AftConfigSerializer();
+Serializer<AftConfig> _$aftConfigSerializer = _$AftConfigSerializer();
 
 class _$AftConfigSerializer implements StructuredSerializer<AftConfig> {
   @override
@@ -97,7 +97,7 @@ class _$AftConfigSerializer implements StructuredSerializer<AftConfig> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new AftConfigBuilder();
+    final result = AftConfigBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -222,7 +222,7 @@ class _$AftConfig extends AftConfig {
   final BuiltMap<String, AftScript> scripts;
 
   factory _$AftConfig([void Function(AftConfigBuilder)? updates]) =>
-      (new AftConfigBuilder()..update(updates))._build();
+      (AftConfigBuilder()..update(updates))._build();
 
   _$AftConfig._({
     required this.rootDirectory,
@@ -234,47 +234,13 @@ class _$AftConfig extends AftConfig {
     required this.ignore,
     required this.components,
     required this.scripts,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      rootDirectory,
-      r'AftConfig',
-      'rootDirectory',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      workingDirectory,
-      r'AftConfig',
-      'workingDirectory',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      allPackages,
-      r'AftConfig',
-      'allPackages',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      dependencies,
-      r'AftConfig',
-      'dependencies',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      environment,
-      r'AftConfig',
-      'environment',
-    );
-    BuiltValueNullFieldError.checkNotNull(ignore, r'AftConfig', 'ignore');
-    BuiltValueNullFieldError.checkNotNull(
-      components,
-      r'AftConfig',
-      'components',
-    );
-    BuiltValueNullFieldError.checkNotNull(scripts, r'AftConfig', 'scripts');
-  }
-
+  }) : super._();
   @override
   AftConfig rebuild(void Function(AftConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AftConfigBuilder toBuilder() => new AftConfigBuilder()..replace(this);
+  AftConfigBuilder toBuilder() => AftConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -323,42 +289,41 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
 
   MapBuilder<String, PackageInfo>? _allPackages;
   MapBuilder<String, PackageInfo> get allPackages =>
-      _$this._allPackages ??= new MapBuilder<String, PackageInfo>();
+      _$this._allPackages ??= MapBuilder<String, PackageInfo>();
   set allPackages(MapBuilder<String, PackageInfo>? allPackages) =>
       _$this._allPackages = allPackages;
 
   MapBuilder<String, VersionConstraint>? _dependencies;
   MapBuilder<String, VersionConstraint> get dependencies =>
-      _$this._dependencies ??= new MapBuilder<String, VersionConstraint>();
+      _$this._dependencies ??= MapBuilder<String, VersionConstraint>();
   set dependencies(MapBuilder<String, VersionConstraint>? dependencies) =>
       _$this._dependencies = dependencies;
 
   EnvironmentBuilder? _environment;
   EnvironmentBuilder get environment =>
-      _$this._environment ??= new EnvironmentBuilder();
+      _$this._environment ??= EnvironmentBuilder();
   set environment(EnvironmentBuilder? environment) =>
       _$this._environment = environment;
 
   PlatformEnvironmentBuilder? _platforms;
   PlatformEnvironmentBuilder get platforms =>
-      _$this._platforms ??= new PlatformEnvironmentBuilder();
+      _$this._platforms ??= PlatformEnvironmentBuilder();
   set platforms(PlatformEnvironmentBuilder? platforms) =>
       _$this._platforms = platforms;
 
   ListBuilder<String>? _ignore;
-  ListBuilder<String> get ignore =>
-      _$this._ignore ??= new ListBuilder<String>();
+  ListBuilder<String> get ignore => _$this._ignore ??= ListBuilder<String>();
   set ignore(ListBuilder<String>? ignore) => _$this._ignore = ignore;
 
   MapBuilder<String, AftComponent>? _components;
   MapBuilder<String, AftComponent> get components =>
-      _$this._components ??= new MapBuilder<String, AftComponent>();
+      _$this._components ??= MapBuilder<String, AftComponent>();
   set components(MapBuilder<String, AftComponent>? components) =>
       _$this._components = components;
 
   MapBuilder<String, AftScript>? _scripts;
   MapBuilder<String, AftScript> get scripts =>
-      _$this._scripts ??= new MapBuilder<String, AftScript>();
+      _$this._scripts ??= MapBuilder<String, AftScript>();
   set scripts(MapBuilder<String, AftScript>? scripts) =>
       _$this._scripts = scripts;
 
@@ -383,7 +348,6 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
 
   @override
   void replace(AftConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AftConfig;
   }
 
@@ -400,7 +364,7 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
     try {
       _$result =
           _$v ??
-          new _$AftConfig._(
+          _$AftConfig._(
             rootDirectory: BuiltValueNullFieldError.checkNotNull(
               rootDirectory,
               r'AftConfig',
@@ -437,7 +401,7 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
         _$failedField = 'scripts';
         scripts.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'AftConfig',
           _$failedField,
           e.toString(),

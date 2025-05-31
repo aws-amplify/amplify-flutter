@@ -16,11 +16,10 @@ class _$PayloadTooLargeException extends PayloadTooLargeException {
 
   factory _$PayloadTooLargeException([
     void Function(PayloadTooLargeExceptionBuilder)? updates,
-  ]) => (new PayloadTooLargeExceptionBuilder()..update(updates))._build();
+  ]) => (PayloadTooLargeExceptionBuilder()..update(updates))._build();
 
   _$PayloadTooLargeException._({this.message, this.requestId, this.headers})
     : super._();
-
   @override
   PayloadTooLargeException rebuild(
     void Function(PayloadTooLargeExceptionBuilder) updates,
@@ -28,7 +27,7 @@ class _$PayloadTooLargeException extends PayloadTooLargeException {
 
   @override
   PayloadTooLargeExceptionBuilder toBuilder() =>
-      new PayloadTooLargeExceptionBuilder()..replace(this);
+      PayloadTooLargeExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -80,7 +79,6 @@ class PayloadTooLargeExceptionBuilder
 
   @override
   void replace(PayloadTooLargeException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PayloadTooLargeException;
   }
 
@@ -95,7 +93,7 @@ class PayloadTooLargeExceptionBuilder
   _$PayloadTooLargeException _build() {
     final _$result =
         _$v ??
-        new _$PayloadTooLargeException._(
+        _$PayloadTooLargeException._(
           message: message,
           requestId: requestId,
           headers: headers,

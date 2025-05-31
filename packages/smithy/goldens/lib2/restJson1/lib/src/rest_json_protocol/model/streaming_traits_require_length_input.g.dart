@@ -15,19 +15,10 @@ class _$StreamingTraitsRequireLengthInput
 
   factory _$StreamingTraitsRequireLengthInput([
     void Function(StreamingTraitsRequireLengthInputBuilder)? updates,
-  ]) =>
-      (new StreamingTraitsRequireLengthInputBuilder()..update(updates))
-          ._build();
+  ]) => (StreamingTraitsRequireLengthInputBuilder()..update(updates))._build();
 
   _$StreamingTraitsRequireLengthInput._({this.foo, required this.blob})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      blob,
-      r'StreamingTraitsRequireLengthInput',
-      'blob',
-    );
-  }
-
+    : super._();
   @override
   StreamingTraitsRequireLengthInput rebuild(
     void Function(StreamingTraitsRequireLengthInputBuilder) updates,
@@ -35,7 +26,7 @@ class _$StreamingTraitsRequireLengthInput
 
   @override
   StreamingTraitsRequireLengthInputBuilder toBuilder() =>
-      new StreamingTraitsRequireLengthInputBuilder()..replace(this);
+      StreamingTraitsRequireLengthInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,7 +78,6 @@ class StreamingTraitsRequireLengthInputBuilder
 
   @override
   void replace(StreamingTraitsRequireLengthInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StreamingTraitsRequireLengthInput;
   }
 
@@ -104,7 +94,7 @@ class StreamingTraitsRequireLengthInputBuilder
   _$StreamingTraitsRequireLengthInput _build() {
     final _$result =
         _$v ??
-        new _$StreamingTraitsRequireLengthInput._(
+        _$StreamingTraitsRequireLengthInput._(
           foo: foo,
           blob: BuiltValueNullFieldError.checkNotNull(
             blob,

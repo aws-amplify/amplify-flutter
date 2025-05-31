@@ -12,10 +12,9 @@ class _$FlattenedXmlMapOutput extends FlattenedXmlMapOutput {
 
   factory _$FlattenedXmlMapOutput([
     void Function(FlattenedXmlMapOutputBuilder)? updates,
-  ]) => (new FlattenedXmlMapOutputBuilder()..update(updates))._build();
+  ]) => (FlattenedXmlMapOutputBuilder()..update(updates))._build();
 
   _$FlattenedXmlMapOutput._({this.myMap}) : super._();
-
   @override
   FlattenedXmlMapOutput rebuild(
     void Function(FlattenedXmlMapOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$FlattenedXmlMapOutput extends FlattenedXmlMapOutput {
 
   @override
   FlattenedXmlMapOutputBuilder toBuilder() =>
-      new FlattenedXmlMapOutputBuilder()..replace(this);
+      FlattenedXmlMapOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -46,7 +45,7 @@ class FlattenedXmlMapOutputBuilder
 
   _i2.MapBuilder<String, FooEnum>? _myMap;
   _i2.MapBuilder<String, FooEnum> get myMap =>
-      _$this._myMap ??= new _i2.MapBuilder<String, FooEnum>();
+      _$this._myMap ??= _i2.MapBuilder<String, FooEnum>();
   set myMap(_i2.MapBuilder<String, FooEnum>? myMap) => _$this._myMap = myMap;
 
   FlattenedXmlMapOutputBuilder();
@@ -62,7 +61,6 @@ class FlattenedXmlMapOutputBuilder
 
   @override
   void replace(FlattenedXmlMapOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$FlattenedXmlMapOutput;
   }
 
@@ -77,14 +75,14 @@ class FlattenedXmlMapOutputBuilder
   _$FlattenedXmlMapOutput _build() {
     _$FlattenedXmlMapOutput _$result;
     try {
-      _$result = _$v ?? new _$FlattenedXmlMapOutput._(myMap: _myMap?.build());
+      _$result = _$v ?? _$FlattenedXmlMapOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'myMap';
         _myMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'FlattenedXmlMapOutput',
           _$failedField,
           e.toString(),

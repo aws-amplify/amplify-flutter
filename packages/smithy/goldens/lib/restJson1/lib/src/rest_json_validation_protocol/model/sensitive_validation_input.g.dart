@@ -12,10 +12,9 @@ class _$SensitiveValidationInput extends SensitiveValidationInput {
 
   factory _$SensitiveValidationInput([
     void Function(SensitiveValidationInputBuilder)? updates,
-  ]) => (new SensitiveValidationInputBuilder()..update(updates))._build();
+  ]) => (SensitiveValidationInputBuilder()..update(updates))._build();
 
   _$SensitiveValidationInput._({this.string}) : super._();
-
   @override
   SensitiveValidationInput rebuild(
     void Function(SensitiveValidationInputBuilder) updates,
@@ -23,7 +22,7 @@ class _$SensitiveValidationInput extends SensitiveValidationInput {
 
   @override
   SensitiveValidationInputBuilder toBuilder() =>
-      new SensitiveValidationInputBuilder()..replace(this);
+      SensitiveValidationInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class SensitiveValidationInputBuilder
 
   @override
   void replace(SensitiveValidationInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SensitiveValidationInput;
   }
 
@@ -75,7 +73,7 @@ class SensitiveValidationInputBuilder
   SensitiveValidationInput build() => _build();
 
   _$SensitiveValidationInput _build() {
-    final _$result = _$v ?? new _$SensitiveValidationInput._(string: string);
+    final _$result = _$v ?? _$SensitiveValidationInput._(string: string);
     replace(_$result);
     return _$result;
   }

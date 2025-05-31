@@ -16,14 +16,13 @@ class _$HttpChecksumNotRequiredWithMemberInput
   factory _$HttpChecksumNotRequiredWithMemberInput([
     void Function(HttpChecksumNotRequiredWithMemberInputBuilder)? updates,
   ]) =>
-      (new HttpChecksumNotRequiredWithMemberInputBuilder()..update(updates))
+      (HttpChecksumNotRequiredWithMemberInputBuilder()..update(updates))
           ._build();
 
   _$HttpChecksumNotRequiredWithMemberInput._({
     this.checksumAlgorithm,
     this.content,
   }) : super._();
-
   @override
   HttpChecksumNotRequiredWithMemberInput rebuild(
     void Function(HttpChecksumNotRequiredWithMemberInputBuilder) updates,
@@ -31,7 +30,7 @@ class _$HttpChecksumNotRequiredWithMemberInput
 
   @override
   HttpChecksumNotRequiredWithMemberInputBuilder toBuilder() =>
-      new HttpChecksumNotRequiredWithMemberInputBuilder()..replace(this);
+      HttpChecksumNotRequiredWithMemberInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -82,7 +81,6 @@ class HttpChecksumNotRequiredWithMemberInputBuilder
 
   @override
   void replace(HttpChecksumNotRequiredWithMemberInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpChecksumNotRequiredWithMemberInput;
   }
 
@@ -99,7 +97,7 @@ class HttpChecksumNotRequiredWithMemberInputBuilder
   _$HttpChecksumNotRequiredWithMemberInput _build() {
     final _$result =
         _$v ??
-        new _$HttpChecksumNotRequiredWithMemberInput._(
+        _$HttpChecksumNotRequiredWithMemberInput._(
           checksumAlgorithm: checksumAlgorithm,
           content: content,
         );

@@ -14,10 +14,9 @@ class _$TestBodyStructureInputOutput extends TestBodyStructureInputOutput {
 
   factory _$TestBodyStructureInputOutput([
     void Function(TestBodyStructureInputOutputBuilder)? updates,
-  ]) => (new TestBodyStructureInputOutputBuilder()..update(updates))._build();
+  ]) => (TestBodyStructureInputOutputBuilder()..update(updates))._build();
 
   _$TestBodyStructureInputOutput._({this.testId, this.testConfig}) : super._();
-
   @override
   TestBodyStructureInputOutput rebuild(
     void Function(TestBodyStructureInputOutputBuilder) updates,
@@ -25,7 +24,7 @@ class _$TestBodyStructureInputOutput extends TestBodyStructureInputOutput {
 
   @override
   TestBodyStructureInputOutputBuilder toBuilder() =>
-      new TestBodyStructureInputOutputBuilder()..replace(this);
+      TestBodyStructureInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -59,7 +58,7 @@ class TestBodyStructureInputOutputBuilder
 
   TestConfigBuilder? _testConfig;
   TestConfigBuilder get testConfig =>
-      _$this._testConfig ??= new TestConfigBuilder();
+      _$this._testConfig ??= TestConfigBuilder();
   set testConfig(TestConfigBuilder? testConfig) =>
       _$this._testConfig = testConfig;
 
@@ -77,7 +76,6 @@ class TestBodyStructureInputOutputBuilder
 
   @override
   void replace(TestBodyStructureInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TestBodyStructureInputOutput;
   }
 
@@ -94,7 +92,7 @@ class TestBodyStructureInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$TestBodyStructureInputOutput._(
+          _$TestBodyStructureInputOutput._(
             testId: testId,
             testConfig: _testConfig?.build(),
           );
@@ -104,7 +102,7 @@ class TestBodyStructureInputOutputBuilder
         _$failedField = 'testConfig';
         _testConfig?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'TestBodyStructureInputOutput',
           _$failedField,
           e.toString(),
@@ -125,11 +123,9 @@ class _$TestBodyStructureInputOutputPayload
   factory _$TestBodyStructureInputOutputPayload([
     void Function(TestBodyStructureInputOutputPayloadBuilder)? updates,
   ]) =>
-      (new TestBodyStructureInputOutputPayloadBuilder()..update(updates))
-          ._build();
+      (TestBodyStructureInputOutputPayloadBuilder()..update(updates))._build();
 
   _$TestBodyStructureInputOutputPayload._({this.testConfig}) : super._();
-
   @override
   TestBodyStructureInputOutputPayload rebuild(
     void Function(TestBodyStructureInputOutputPayloadBuilder) updates,
@@ -137,7 +133,7 @@ class _$TestBodyStructureInputOutputPayload
 
   @override
   TestBodyStructureInputOutputPayloadBuilder toBuilder() =>
-      new TestBodyStructureInputOutputPayloadBuilder()..replace(this);
+      TestBodyStructureInputOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -165,7 +161,7 @@ class TestBodyStructureInputOutputPayloadBuilder
 
   TestConfigBuilder? _testConfig;
   TestConfigBuilder get testConfig =>
-      _$this._testConfig ??= new TestConfigBuilder();
+      _$this._testConfig ??= TestConfigBuilder();
   set testConfig(TestConfigBuilder? testConfig) =>
       _$this._testConfig = testConfig;
 
@@ -182,7 +178,6 @@ class TestBodyStructureInputOutputPayloadBuilder
 
   @override
   void replace(TestBodyStructureInputOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TestBodyStructureInputOutputPayload;
   }
 
@@ -201,7 +196,7 @@ class TestBodyStructureInputOutputPayloadBuilder
     try {
       _$result =
           _$v ??
-          new _$TestBodyStructureInputOutputPayload._(
+          _$TestBodyStructureInputOutputPayload._(
             testConfig: _testConfig?.build(),
           );
     } catch (_) {
@@ -210,7 +205,7 @@ class TestBodyStructureInputOutputPayloadBuilder
         _$failedField = 'testConfig';
         _testConfig?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'TestBodyStructureInputOutputPayload',
           _$failedField,
           e.toString(),

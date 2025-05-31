@@ -12,10 +12,9 @@ class _$PayloadWithXmlNamespace extends PayloadWithXmlNamespace {
 
   factory _$PayloadWithXmlNamespace([
     void Function(PayloadWithXmlNamespaceBuilder)? updates,
-  ]) => (new PayloadWithXmlNamespaceBuilder()..update(updates))._build();
+  ]) => (PayloadWithXmlNamespaceBuilder()..update(updates))._build();
 
   _$PayloadWithXmlNamespace._({this.name}) : super._();
-
   @override
   PayloadWithXmlNamespace rebuild(
     void Function(PayloadWithXmlNamespaceBuilder) updates,
@@ -23,7 +22,7 @@ class _$PayloadWithXmlNamespace extends PayloadWithXmlNamespace {
 
   @override
   PayloadWithXmlNamespaceBuilder toBuilder() =>
-      new PayloadWithXmlNamespaceBuilder()..replace(this);
+      PayloadWithXmlNamespaceBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class PayloadWithXmlNamespaceBuilder
 
   @override
   void replace(PayloadWithXmlNamespace other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PayloadWithXmlNamespace;
   }
 
@@ -75,7 +73,7 @@ class PayloadWithXmlNamespaceBuilder
   PayloadWithXmlNamespace build() => _build();
 
   _$PayloadWithXmlNamespace _build() {
-    final _$result = _$v ?? new _$PayloadWithXmlNamespace._(name: name);
+    final _$result = _$v ?? _$PayloadWithXmlNamespace._(name: name);
     replace(_$result);
     return _$result;
   }

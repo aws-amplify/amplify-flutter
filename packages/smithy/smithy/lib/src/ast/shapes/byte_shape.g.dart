@@ -6,7 +6,7 @@ part of 'byte_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ByteShape> _$byteShapeSerializer = new _$ByteShapeSerializer();
+Serializer<ByteShape> _$byteShapeSerializer = _$ByteShapeSerializer();
 
 class _$ByteShapeSerializer implements StructuredSerializer<ByteShape> {
   @override
@@ -37,7 +37,7 @@ class _$ByteShapeSerializer implements StructuredSerializer<ByteShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ByteShapeBuilder();
+    final result = ByteShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -67,19 +67,15 @@ class _$ByteShape extends ByteShape {
   final TraitMap traits;
 
   factory _$ByteShape([void Function(ByteShapeBuilder)? updates]) =>
-      (new ByteShapeBuilder()..update(updates))._build();
+      (ByteShapeBuilder()..update(updates))._build();
 
-  _$ByteShape._({required this.shapeId, required this.traits}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'ByteShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'ByteShape', 'traits');
-  }
-
+  _$ByteShape._({required this.shapeId, required this.traits}) : super._();
   @override
   ByteShape rebuild(void Function(ByteShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ByteShapeBuilder toBuilder() => new ByteShapeBuilder()..replace(this);
+  ByteShapeBuilder toBuilder() => ByteShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,7 +131,6 @@ class ByteShapeBuilder
 
   @override
   void replace(covariant ByteShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ByteShape;
   }
 
@@ -150,7 +145,7 @@ class ByteShapeBuilder
   _$ByteShape _build() {
     final _$result =
         _$v ??
-        new _$ByteShape._(
+        _$ByteShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'ByteShape',

@@ -6,8 +6,7 @@ part of 'service_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ServiceShape> _$serviceShapeSerializer =
-    new _$ServiceShapeSerializer();
+Serializer<ServiceShape> _$serviceShapeSerializer = _$ServiceShapeSerializer();
 
 class _$ServiceShapeSerializer implements StructuredSerializer<ServiceShape> {
   @override
@@ -75,7 +74,7 @@ class _$ServiceShapeSerializer implements StructuredSerializer<ServiceShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ServiceShapeBuilder();
+    final result = ServiceShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -167,7 +166,7 @@ class _$ServiceShape extends ServiceShape {
   final BuiltSet<ShapeRef> operations;
 
   factory _$ServiceShape([void Function(ServiceShapeBuilder)? updates]) =>
-      (new ServiceShapeBuilder()..update(updates))._build();
+      (ServiceShapeBuilder()..update(updates))._build();
 
   _$ServiceShape._({
     this.version,
@@ -177,29 +176,13 @@ class _$ServiceShape extends ServiceShape {
     required this.traits,
     required this.resources,
     required this.operations,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(rename, r'ServiceShape', 'rename');
-    BuiltValueNullFieldError.checkNotNull(errors, r'ServiceShape', 'errors');
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'ServiceShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'ServiceShape', 'traits');
-    BuiltValueNullFieldError.checkNotNull(
-      resources,
-      r'ServiceShape',
-      'resources',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      operations,
-      r'ServiceShape',
-      'operations',
-    );
-  }
-
+  }) : super._();
   @override
   ServiceShape rebuild(void Function(ServiceShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ServiceShapeBuilder toBuilder() => new ServiceShapeBuilder()..replace(this);
+  ServiceShapeBuilder toBuilder() => ServiceShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -252,13 +235,12 @@ class ServiceShapeBuilder
 
   MapBuilder<String, String>? _rename;
   MapBuilder<String, String> get rename =>
-      _$this._rename ??= new MapBuilder<String, String>();
+      _$this._rename ??= MapBuilder<String, String>();
   set rename(covariant MapBuilder<String, String>? rename) =>
       _$this._rename = rename;
 
   SetBuilder<ShapeRef>? _errors;
-  SetBuilder<ShapeRef> get errors =>
-      _$this._errors ??= new SetBuilder<ShapeRef>();
+  SetBuilder<ShapeRef> get errors => _$this._errors ??= SetBuilder<ShapeRef>();
   set errors(covariant SetBuilder<ShapeRef>? errors) => _$this._errors = errors;
 
   ShapeId? _shapeId;
@@ -271,13 +253,13 @@ class ServiceShapeBuilder
 
   SetBuilder<ShapeRef>? _resources;
   SetBuilder<ShapeRef> get resources =>
-      _$this._resources ??= new SetBuilder<ShapeRef>();
+      _$this._resources ??= SetBuilder<ShapeRef>();
   set resources(covariant SetBuilder<ShapeRef>? resources) =>
       _$this._resources = resources;
 
   SetBuilder<ShapeRef>? _operations;
   SetBuilder<ShapeRef> get operations =>
-      _$this._operations ??= new SetBuilder<ShapeRef>();
+      _$this._operations ??= SetBuilder<ShapeRef>();
   set operations(covariant SetBuilder<ShapeRef>? operations) =>
       _$this._operations = operations;
 
@@ -302,7 +284,6 @@ class ServiceShapeBuilder
 
   @override
   void replace(covariant ServiceShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ServiceShape;
   }
 
@@ -319,7 +300,7 @@ class ServiceShapeBuilder
     try {
       _$result =
           _$v ??
-          new _$ServiceShape._(
+          _$ServiceShape._(
             version: version,
             rename: rename.build(),
             errors: errors.build(),
@@ -349,7 +330,7 @@ class ServiceShapeBuilder
         _$failedField = 'operations';
         operations.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ServiceShape',
           _$failedField,
           e.toString(),

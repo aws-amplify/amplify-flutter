@@ -20,7 +20,7 @@ class _$MalformedEnumInput extends MalformedEnumInput {
 
   factory _$MalformedEnumInput([
     void Function(MalformedEnumInputBuilder)? updates,
-  ]) => (new MalformedEnumInputBuilder()..update(updates))._build();
+  ]) => (MalformedEnumInputBuilder()..update(updates))._build();
 
   _$MalformedEnumInput._({
     this.string,
@@ -29,7 +29,6 @@ class _$MalformedEnumInput extends MalformedEnumInput {
     this.map,
     this.union,
   }) : super._();
-
   @override
   MalformedEnumInput rebuild(
     void Function(MalformedEnumInputBuilder) updates,
@@ -37,7 +36,7 @@ class _$MalformedEnumInput extends MalformedEnumInput {
 
   @override
   MalformedEnumInputBuilder toBuilder() =>
-      new MalformedEnumInputBuilder()..replace(this);
+      MalformedEnumInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -78,12 +77,12 @@ class MalformedEnumInputBuilder
 
   _i3.ListBuilder<EnumString>? _list;
   _i3.ListBuilder<EnumString> get list =>
-      _$this._list ??= new _i3.ListBuilder<EnumString>();
+      _$this._list ??= _i3.ListBuilder<EnumString>();
   set list(_i3.ListBuilder<EnumString>? list) => _$this._list = list;
 
   _i3.MapBuilder<EnumString, EnumString>? _map;
   _i3.MapBuilder<EnumString, EnumString> get map =>
-      _$this._map ??= new _i3.MapBuilder<EnumString, EnumString>();
+      _$this._map ??= _i3.MapBuilder<EnumString, EnumString>();
   set map(_i3.MapBuilder<EnumString, EnumString>? map) => _$this._map = map;
 
   EnumUnion? _union;
@@ -107,7 +106,6 @@ class MalformedEnumInputBuilder
 
   @override
   void replace(MalformedEnumInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedEnumInput;
   }
 
@@ -124,7 +122,7 @@ class MalformedEnumInputBuilder
     try {
       _$result =
           _$v ??
-          new _$MalformedEnumInput._(
+          _$MalformedEnumInput._(
             string: string,
             stringWithEnumTrait: stringWithEnumTrait,
             list: _list?.build(),
@@ -139,7 +137,7 @@ class MalformedEnumInputBuilder
         _$failedField = 'map';
         _map?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'MalformedEnumInput',
           _$failedField,
           e.toString(),

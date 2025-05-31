@@ -14,11 +14,10 @@ class _$HttpPayloadWithMemberXmlNameInputOutput
   factory _$HttpPayloadWithMemberXmlNameInputOutput([
     void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder)? updates,
   ]) =>
-      (new HttpPayloadWithMemberXmlNameInputOutputBuilder()..update(updates))
+      (HttpPayloadWithMemberXmlNameInputOutputBuilder()..update(updates))
           ._build();
 
   _$HttpPayloadWithMemberXmlNameInputOutput._({this.nested}) : super._();
-
   @override
   HttpPayloadWithMemberXmlNameInputOutput rebuild(
     void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder) updates,
@@ -26,7 +25,7 @@ class _$HttpPayloadWithMemberXmlNameInputOutput
 
   @override
   HttpPayloadWithMemberXmlNameInputOutputBuilder toBuilder() =>
-      new HttpPayloadWithMemberXmlNameInputOutputBuilder()..replace(this);
+      HttpPayloadWithMemberXmlNameInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -54,7 +53,7 @@ class HttpPayloadWithMemberXmlNameInputOutputBuilder
 
   PayloadWithXmlNameBuilder? _nested;
   PayloadWithXmlNameBuilder get nested =>
-      _$this._nested ??= new PayloadWithXmlNameBuilder();
+      _$this._nested ??= PayloadWithXmlNameBuilder();
   set nested(PayloadWithXmlNameBuilder? nested) => _$this._nested = nested;
 
   HttpPayloadWithMemberXmlNameInputOutputBuilder();
@@ -70,7 +69,6 @@ class HttpPayloadWithMemberXmlNameInputOutputBuilder
 
   @override
   void replace(HttpPayloadWithMemberXmlNameInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPayloadWithMemberXmlNameInputOutput;
   }
 
@@ -89,16 +87,14 @@ class HttpPayloadWithMemberXmlNameInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$HttpPayloadWithMemberXmlNameInputOutput._(
-            nested: _nested?.build(),
-          );
+          _$HttpPayloadWithMemberXmlNameInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'HttpPayloadWithMemberXmlNameInputOutput',
           _$failedField,
           e.toString(),

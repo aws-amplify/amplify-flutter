@@ -12,10 +12,9 @@ class _$XmlMapsXmlNameInputOutput extends XmlMapsXmlNameInputOutput {
 
   factory _$XmlMapsXmlNameInputOutput([
     void Function(XmlMapsXmlNameInputOutputBuilder)? updates,
-  ]) => (new XmlMapsXmlNameInputOutputBuilder()..update(updates))._build();
+  ]) => (XmlMapsXmlNameInputOutputBuilder()..update(updates))._build();
 
   _$XmlMapsXmlNameInputOutput._({this.myMap}) : super._();
-
   @override
   XmlMapsXmlNameInputOutput rebuild(
     void Function(XmlMapsXmlNameInputOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$XmlMapsXmlNameInputOutput extends XmlMapsXmlNameInputOutput {
 
   @override
   XmlMapsXmlNameInputOutputBuilder toBuilder() =>
-      new XmlMapsXmlNameInputOutputBuilder()..replace(this);
+      XmlMapsXmlNameInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,7 +46,7 @@ class XmlMapsXmlNameInputOutputBuilder
 
   _i3.MapBuilder<String, GreetingStruct>? _myMap;
   _i3.MapBuilder<String, GreetingStruct> get myMap =>
-      _$this._myMap ??= new _i3.MapBuilder<String, GreetingStruct>();
+      _$this._myMap ??= _i3.MapBuilder<String, GreetingStruct>();
   set myMap(_i3.MapBuilder<String, GreetingStruct>? myMap) =>
       _$this._myMap = myMap;
 
@@ -64,7 +63,6 @@ class XmlMapsXmlNameInputOutputBuilder
 
   @override
   void replace(XmlMapsXmlNameInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlMapsXmlNameInputOutput;
   }
 
@@ -79,15 +77,14 @@ class XmlMapsXmlNameInputOutputBuilder
   _$XmlMapsXmlNameInputOutput _build() {
     _$XmlMapsXmlNameInputOutput _$result;
     try {
-      _$result =
-          _$v ?? new _$XmlMapsXmlNameInputOutput._(myMap: _myMap?.build());
+      _$result = _$v ?? _$XmlMapsXmlNameInputOutput._(myMap: _myMap?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'myMap';
         _myMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'XmlMapsXmlNameInputOutput',
           _$failedField,
           e.toString(),

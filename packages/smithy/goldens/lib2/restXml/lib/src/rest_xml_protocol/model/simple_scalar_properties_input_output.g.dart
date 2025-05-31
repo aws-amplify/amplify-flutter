@@ -31,9 +31,7 @@ class _$SimpleScalarPropertiesInputOutput
 
   factory _$SimpleScalarPropertiesInputOutput([
     void Function(SimpleScalarPropertiesInputOutputBuilder)? updates,
-  ]) =>
-      (new SimpleScalarPropertiesInputOutputBuilder()..update(updates))
-          ._build();
+  ]) => (SimpleScalarPropertiesInputOutputBuilder()..update(updates))._build();
 
   _$SimpleScalarPropertiesInputOutput._({
     this.foo,
@@ -47,7 +45,6 @@ class _$SimpleScalarPropertiesInputOutput
     this.floatValue,
     this.doubleValue,
   }) : super._();
-
   @override
   SimpleScalarPropertiesInputOutput rebuild(
     void Function(SimpleScalarPropertiesInputOutputBuilder) updates,
@@ -55,7 +52,7 @@ class _$SimpleScalarPropertiesInputOutput
 
   @override
   SimpleScalarPropertiesInputOutputBuilder toBuilder() =>
-      new SimpleScalarPropertiesInputOutputBuilder()..replace(this);
+      SimpleScalarPropertiesInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -163,7 +160,6 @@ class SimpleScalarPropertiesInputOutputBuilder
 
   @override
   void replace(SimpleScalarPropertiesInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleScalarPropertiesInputOutput;
   }
 
@@ -180,7 +176,7 @@ class SimpleScalarPropertiesInputOutputBuilder
   _$SimpleScalarPropertiesInputOutput _build() {
     final _$result =
         _$v ??
-        new _$SimpleScalarPropertiesInputOutput._(
+        _$SimpleScalarPropertiesInputOutput._(
           foo: foo,
           stringValue: stringValue,
           trueBooleanValue: trueBooleanValue,
@@ -221,7 +217,7 @@ class _$SimpleScalarPropertiesInputOutputPayload
   factory _$SimpleScalarPropertiesInputOutputPayload([
     void Function(SimpleScalarPropertiesInputOutputPayloadBuilder)? updates,
   ]) =>
-      (new SimpleScalarPropertiesInputOutputPayloadBuilder()..update(updates))
+      (SimpleScalarPropertiesInputOutputPayloadBuilder()..update(updates))
           ._build();
 
   _$SimpleScalarPropertiesInputOutputPayload._({
@@ -235,7 +231,6 @@ class _$SimpleScalarPropertiesInputOutputPayload
     this.stringValue,
     this.trueBooleanValue,
   }) : super._();
-
   @override
   SimpleScalarPropertiesInputOutputPayload rebuild(
     void Function(SimpleScalarPropertiesInputOutputPayloadBuilder) updates,
@@ -243,7 +238,7 @@ class _$SimpleScalarPropertiesInputOutputPayload
 
   @override
   SimpleScalarPropertiesInputOutputPayloadBuilder toBuilder() =>
-      new SimpleScalarPropertiesInputOutputPayloadBuilder()..replace(this);
+      SimpleScalarPropertiesInputOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -344,7 +339,6 @@ class SimpleScalarPropertiesInputOutputPayloadBuilder
 
   @override
   void replace(SimpleScalarPropertiesInputOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleScalarPropertiesInputOutputPayload;
   }
 
@@ -361,7 +355,7 @@ class SimpleScalarPropertiesInputOutputPayloadBuilder
   _$SimpleScalarPropertiesInputOutputPayload _build() {
     final _$result =
         _$v ??
-        new _$SimpleScalarPropertiesInputOutputPayload._(
+        _$SimpleScalarPropertiesInputOutputPayload._(
           byteValue: byteValue,
           doubleValue: doubleValue,
           falseBooleanValue: falseBooleanValue,

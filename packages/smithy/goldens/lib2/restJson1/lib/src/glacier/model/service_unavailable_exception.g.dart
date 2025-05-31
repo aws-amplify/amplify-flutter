@@ -18,7 +18,7 @@ class _$ServiceUnavailableException extends ServiceUnavailableException {
 
   factory _$ServiceUnavailableException([
     void Function(ServiceUnavailableExceptionBuilder)? updates,
-  ]) => (new ServiceUnavailableExceptionBuilder()..update(updates))._build();
+  ]) => (ServiceUnavailableExceptionBuilder()..update(updates))._build();
 
   _$ServiceUnavailableException._({
     this.type,
@@ -26,7 +26,6 @@ class _$ServiceUnavailableException extends ServiceUnavailableException {
     this.message,
     this.headers,
   }) : super._();
-
   @override
   ServiceUnavailableException rebuild(
     void Function(ServiceUnavailableExceptionBuilder) updates,
@@ -34,7 +33,7 @@ class _$ServiceUnavailableException extends ServiceUnavailableException {
 
   @override
   ServiceUnavailableExceptionBuilder toBuilder() =>
-      new ServiceUnavailableExceptionBuilder()..replace(this);
+      ServiceUnavailableExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -96,7 +95,6 @@ class ServiceUnavailableExceptionBuilder
 
   @override
   void replace(ServiceUnavailableException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ServiceUnavailableException;
   }
 
@@ -111,7 +109,7 @@ class ServiceUnavailableExceptionBuilder
   _$ServiceUnavailableException _build() {
     final _$result =
         _$v ??
-        new _$ServiceUnavailableException._(
+        _$ServiceUnavailableException._(
           type: type,
           code: code,
           message: message,

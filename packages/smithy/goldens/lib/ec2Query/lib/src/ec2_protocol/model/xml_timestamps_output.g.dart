@@ -24,7 +24,7 @@ class _$XmlTimestampsOutput extends XmlTimestampsOutput {
 
   factory _$XmlTimestampsOutput([
     void Function(XmlTimestampsOutputBuilder)? updates,
-  ]) => (new XmlTimestampsOutputBuilder()..update(updates))._build();
+  ]) => (XmlTimestampsOutputBuilder()..update(updates))._build();
 
   _$XmlTimestampsOutput._({
     this.normal,
@@ -35,7 +35,6 @@ class _$XmlTimestampsOutput extends XmlTimestampsOutput {
     this.httpDate,
     this.httpDateOnTarget,
   }) : super._();
-
   @override
   XmlTimestampsOutput rebuild(
     void Function(XmlTimestampsOutputBuilder) updates,
@@ -43,7 +42,7 @@ class _$XmlTimestampsOutput extends XmlTimestampsOutput {
 
   @override
   XmlTimestampsOutputBuilder toBuilder() =>
-      new XmlTimestampsOutputBuilder()..replace(this);
+      XmlTimestampsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -128,7 +127,6 @@ class XmlTimestampsOutputBuilder
 
   @override
   void replace(XmlTimestampsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlTimestampsOutput;
   }
 
@@ -143,7 +141,7 @@ class XmlTimestampsOutputBuilder
   _$XmlTimestampsOutput _build() {
     final _$result =
         _$v ??
-        new _$XmlTimestampsOutput._(
+        _$XmlTimestampsOutput._(
           normal: normal,
           dateTime: dateTime,
           dateTimeOnTarget: dateTimeOnTarget,

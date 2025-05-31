@@ -16,11 +16,10 @@ class _$InvalidInputException extends InvalidInputException {
 
   factory _$InvalidInputException([
     void Function(InvalidInputExceptionBuilder)? updates,
-  ]) => (new InvalidInputExceptionBuilder()..update(updates))._build();
+  ]) => (InvalidInputExceptionBuilder()..update(updates))._build();
 
   _$InvalidInputException._({this.message, this.code, this.headers})
     : super._();
-
   @override
   InvalidInputException rebuild(
     void Function(InvalidInputExceptionBuilder) updates,
@@ -28,7 +27,7 @@ class _$InvalidInputException extends InvalidInputException {
 
   @override
   InvalidInputExceptionBuilder toBuilder() =>
-      new InvalidInputExceptionBuilder()..replace(this);
+      InvalidInputExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -79,7 +78,6 @@ class InvalidInputExceptionBuilder
 
   @override
   void replace(InvalidInputException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidInputException;
   }
 
@@ -94,7 +92,7 @@ class InvalidInputExceptionBuilder
   _$InvalidInputException _build() {
     final _$result =
         _$v ??
-        new _$InvalidInputException._(
+        _$InvalidInputException._(
           message: message,
           code: code,
           headers: headers,

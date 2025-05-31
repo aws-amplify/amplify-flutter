@@ -14,10 +14,9 @@ class _$NotAuthorizedException extends NotAuthorizedException {
 
   factory _$NotAuthorizedException([
     void Function(NotAuthorizedExceptionBuilder)? updates,
-  ]) => (new NotAuthorizedExceptionBuilder()..update(updates))._build();
+  ]) => (NotAuthorizedExceptionBuilder()..update(updates))._build();
 
   _$NotAuthorizedException._({this.message, this.headers}) : super._();
-
   @override
   NotAuthorizedException rebuild(
     void Function(NotAuthorizedExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$NotAuthorizedException extends NotAuthorizedException {
 
   @override
   NotAuthorizedExceptionBuilder toBuilder() =>
-      new NotAuthorizedExceptionBuilder()..replace(this);
+      NotAuthorizedExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +67,6 @@ class NotAuthorizedExceptionBuilder
 
   @override
   void replace(NotAuthorizedException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NotAuthorizedException;
   }
 
@@ -82,8 +80,7 @@ class NotAuthorizedExceptionBuilder
 
   _$NotAuthorizedException _build() {
     final _$result =
-        _$v ??
-        new _$NotAuthorizedException._(message: message, headers: headers);
+        _$v ?? _$NotAuthorizedException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

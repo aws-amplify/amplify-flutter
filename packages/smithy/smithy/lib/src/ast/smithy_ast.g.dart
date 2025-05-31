@@ -16,14 +16,15 @@ SmithyVersion _$SmithyVersionValueOf(String name) {
     case 'v2':
       return _$v2;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
-final BuiltSet<SmithyVersion> _$SmithyVersionValues =
-    new BuiltSet<SmithyVersion>(const <SmithyVersion>[_$v1, _$v2]);
+final BuiltSet<SmithyVersion> _$SmithyVersionValues = BuiltSet<SmithyVersion>(
+  const <SmithyVersion>[_$v1, _$v2],
+);
 
-Serializer<SmithyAst> _$smithyAstSerializer = new _$SmithyAstSerializer();
+Serializer<SmithyAst> _$smithyAstSerializer = _$SmithyAstSerializer();
 
 class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
   @override
@@ -67,7 +68,7 @@ class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new SmithyAstBuilder();
+    final result = SmithyAstBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -118,24 +119,19 @@ class _$SmithyAst extends SmithyAst {
   final ShapeMap shapes;
 
   factory _$SmithyAst([void Function(SmithyAstBuilder)? updates]) =>
-      (new SmithyAstBuilder()..update(updates))._build();
+      (SmithyAstBuilder()..update(updates))._build();
 
   _$SmithyAst._({
     required this.version,
     required this.metadata,
     required this.shapes,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(version, r'SmithyAst', 'version');
-    BuiltValueNullFieldError.checkNotNull(metadata, r'SmithyAst', 'metadata');
-    BuiltValueNullFieldError.checkNotNull(shapes, r'SmithyAst', 'shapes');
-  }
-
+  }) : super._();
   @override
   SmithyAst rebuild(void Function(SmithyAstBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SmithyAstBuilder toBuilder() => new SmithyAstBuilder()..replace(this);
+  SmithyAstBuilder toBuilder() => SmithyAstBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -175,7 +171,7 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
 
   MapBuilder<String, JsonObject>? _metadata;
   MapBuilder<String, JsonObject> get metadata =>
-      _$this._metadata ??= new MapBuilder<String, JsonObject>();
+      _$this._metadata ??= MapBuilder<String, JsonObject>();
   set metadata(MapBuilder<String, JsonObject>? metadata) =>
       _$this._metadata = metadata;
 
@@ -198,7 +194,6 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
 
   @override
   void replace(SmithyAst other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SmithyAst;
   }
 
@@ -216,7 +211,7 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
     try {
       _$result =
           _$v ??
-          new _$SmithyAst._(
+          _$SmithyAst._(
             version: BuiltValueNullFieldError.checkNotNull(
               version,
               r'SmithyAst',
@@ -235,7 +230,7 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
         _$failedField = 'metadata';
         metadata.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'SmithyAst',
           _$failedField,
           e.toString(),

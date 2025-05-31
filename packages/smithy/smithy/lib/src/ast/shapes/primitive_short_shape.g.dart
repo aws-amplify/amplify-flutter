@@ -7,7 +7,7 @@ part of 'primitive_short_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveShortShape> _$primitiveShortShapeSerializer =
-    new _$PrimitiveShortShapeSerializer();
+    _$PrimitiveShortShapeSerializer();
 
 class _$PrimitiveShortShapeSerializer
     implements StructuredSerializer<PrimitiveShortShape> {
@@ -42,7 +42,7 @@ class _$PrimitiveShortShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new PrimitiveShortShapeBuilder();
+    final result = PrimitiveShortShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -73,22 +73,10 @@ class _$PrimitiveShortShape extends PrimitiveShortShape {
 
   factory _$PrimitiveShortShape([
     void Function(PrimitiveShortShapeBuilder)? updates,
-  ]) => (new PrimitiveShortShapeBuilder()..update(updates))._build();
+  ]) => (PrimitiveShortShapeBuilder()..update(updates))._build();
 
   _$PrimitiveShortShape._({required this.shapeId, required this.traits})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'PrimitiveShortShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      traits,
-      r'PrimitiveShortShape',
-      'traits',
-    );
-  }
-
+    : super._();
   @override
   PrimitiveShortShape rebuild(
     void Function(PrimitiveShortShapeBuilder) updates,
@@ -96,7 +84,7 @@ class _$PrimitiveShortShape extends PrimitiveShortShape {
 
   @override
   PrimitiveShortShapeBuilder toBuilder() =>
-      new PrimitiveShortShapeBuilder()..replace(this);
+      PrimitiveShortShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -154,7 +142,6 @@ class PrimitiveShortShapeBuilder
 
   @override
   void replace(covariant PrimitiveShortShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveShortShape;
   }
 
@@ -169,7 +156,7 @@ class PrimitiveShortShapeBuilder
   _$PrimitiveShortShape _build() {
     final _$result =
         _$v ??
-        new _$PrimitiveShortShape._(
+        _$PrimitiveShortShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'PrimitiveShortShape',

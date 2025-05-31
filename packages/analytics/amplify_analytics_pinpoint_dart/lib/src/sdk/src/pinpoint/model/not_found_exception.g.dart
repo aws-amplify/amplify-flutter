@@ -16,18 +16,17 @@ class _$NotFoundException extends NotFoundException {
 
   factory _$NotFoundException([
     void Function(NotFoundExceptionBuilder)? updates,
-  ]) => (new NotFoundExceptionBuilder()..update(updates))._build();
+  ]) => (NotFoundExceptionBuilder()..update(updates))._build();
 
   _$NotFoundException._({this.message, this.requestId, this.headers})
     : super._();
-
   @override
   NotFoundException rebuild(void Function(NotFoundExceptionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   NotFoundExceptionBuilder toBuilder() =>
-      new NotFoundExceptionBuilder()..replace(this);
+      NotFoundExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -78,7 +77,6 @@ class NotFoundExceptionBuilder
 
   @override
   void replace(NotFoundException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NotFoundException;
   }
 
@@ -93,7 +91,7 @@ class NotFoundExceptionBuilder
   _$NotFoundException _build() {
     final _$result =
         _$v ??
-        new _$NotFoundException._(
+        _$NotFoundException._(
           message: message,
           requestId: requestId,
           headers: headers,

@@ -7,7 +7,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$aftSerializers =
-    (new Serializers().toBuilder()
+    (Serializers().toBuilder()
           ..add(AftConfig.serializer)
           ..add(AndroidEnvironment.serializer)
           ..add(Environment.serializer)
@@ -20,32 +20,32 @@ Serializers _$aftSerializers =
               const FullType(String),
               const FullType(PackageInfo),
             ]),
-            () => new MapBuilder<String, PackageInfo>(),
+            () => MapBuilder<String, PackageInfo>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(VersionConstraint),
             ]),
-            () => new MapBuilder<String, VersionConstraint>(),
+            () => MapBuilder<String, VersionConstraint>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltList, const [const FullType(String)]),
-            () => new ListBuilder<String>(),
+            () => ListBuilder<String>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(AftComponent),
             ]),
-            () => new MapBuilder<String, AftComponent>(),
+            () => MapBuilder<String, AftComponent>(),
           )
           ..addBuilderFactory(
             const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(AftScript),
             ]),
-            () => new MapBuilder<String, AftScript>(),
+            () => MapBuilder<String, AftScript>(),
           ))
         .build();
 
