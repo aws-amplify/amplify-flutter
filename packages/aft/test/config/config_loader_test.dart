@@ -71,7 +71,7 @@ environment:
   sdk: ^3.7.0
 
 dependencies:
-  built_value: ^8.0.0
+  built_value: ^8.10.1
   json_serializable: ^6.9.4
 
 aft:
