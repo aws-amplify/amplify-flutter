@@ -55,6 +55,8 @@ android {
         htmlReport false
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
+
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
@@ -73,6 +75,8 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.2.0"
+
     implementation 'com.amplifyframework:aws-auth-cognito:2.21.1'
     implementation "com.amplifyframework:aws-api:2.21.1"
     implementation "com.amplifyframework:aws-datastore:2.21.1"
