@@ -15,7 +15,12 @@ class BlobSerializer extends PrimitiveSmithySerializer<Uint8List> {
   final String mediaType;
 
   @override
-  Iterable<Type> get types => [Uint8List, Uint8List(0).runtimeType, List<int>, List<dynamic>];
+  Iterable<Type> get types => [
+    Uint8List,
+    Uint8List(0).runtimeType,
+    List<int>,
+    List<dynamic>,
+  ];
 
   @override
   Uint8List deserialize(
