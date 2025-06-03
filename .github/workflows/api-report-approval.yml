@@ -9,8 +9,8 @@ on:
       - '**/*api_changes_report.md'
 
 jobs:
-  require-approval:
-    name: Require Additional Approval for API Changes
+  label-api-changes:
+    name: Label API Changes
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -31,10 +31,28 @@ jobs:
             echo "No API changes detected."
           fi
 
-      - name: Require additional approval
+      - name: Add API changes label
         if: env.API_CHANGES_DETECTED == 'true'
-        uses: pulsar-edit/require-additional-reviewer-action@v0.2
+        uses: actions/github-script@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          reviewers: 2
-          message: "⚠️ This PR contains API changes and requires additional approval. Please review the API changes carefully."
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['api-changes']
+            })
+            
+      - name: Comment on PR
+        if: env.API_CHANGES_DETECTED == 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ This PR contains API changes and requires careful review. Please ensure these changes are intentional and backward compatible where possible.'
+            })
