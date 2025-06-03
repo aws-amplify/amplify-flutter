@@ -96,66 +96,6 @@ class GenerateApiReportCommand extends AmplifyCommand {
     logger.info('Extracting API model to $outputPath');
 
     try {
-      // Handle packages with dependency conflicts
-      if (packagePath.contains('auth/amplify_auth_cognito')) {
-        await _createEmptyApiJson(outputPath);
-        return;
-      }
-
-      final result = await Process.run('dart-apitool', [
-        'extract',
-        '--input',
-        packagePath,
-        '--output',
-        outputPath,
-      ], workingDirectory: rootDir.path);
-
-      if (result.exitCode != 0) {
-        logger.error(result.stderr.toString());
-        // If extraction fails, create an empty file instead of failing
-        await _createEmptyApiJson(outputPath);
-        return;
-      }
-
-      // Verify the file was created
-      final outputFile = File(outputPath);
-      if (!outputFile.existsSync()) {
-        await _createEmptyApiJson(outputPath);
-        return;
-      }
-    } catch (e) {
-      logger.warn('Error generating API JSON for $packagePath: $e');
-      await _createEmptyApiJson(outputPath);
-    }
-  }
-
-  /// Creates an empty API JSON file as a fallback
-  Future<void> _createEmptyApiJson(String outputPath) async {
-    logger.info('Creating an empty API JSON file as a placeholder');
-    final outputFile = File(outputPath);
-    await outputFile.writeAsString('{}');
-    logger.info('Created empty placeholder file at $outputPath');
-  }
-
-  /// Generates API change report for amplify_core by comparing with the latest published version
-  Future<void> _generateApiJson(String packagePath) async {
-    // Ensure the package directory exists
-    final directory = Directory(packagePath);
-    if (!directory.existsSync()) {
-      throw Exception('Package directory not found: $packagePath');
-    }
-
-    // Check if the package has a pubspec.yaml file
-    final pubspecFile = File(path.join(packagePath, 'pubspec.yaml'));
-    if (!pubspecFile.existsSync()) {
-      logger.warn('Skipping $packagePath: No pubspec.yaml found');
-      return;
-    }
-
-    final outputPath = path.join(packagePath, 'api.json');
-    logger.info('Extracting API model to $outputPath');
-
-    try {
       // Create a temporary directory with just the lib folder
       final tempDir = Directory.systemTemp.createTempSync('aft_api_report_');
       try {
@@ -188,12 +128,11 @@ class GenerateApiReportCommand extends AmplifyCommand {
           await _createEmptyApiJson(outputPath);
           return;
         }
-
-        logger.success('Successfully generated $outputPath');
       } finally {
         // Clean up the temporary directory
         tempDir.deleteSync(recursive: true);
       }
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       logger.warn('Error generating API JSON for $packagePath: $e');
       await _createEmptyApiJson(outputPath);
@@ -206,8 +145,7 @@ class GenerateApiReportCommand extends AmplifyCommand {
       if (entity is Directory) {
         final newDirectory = Directory(
           path.join(target.path, path.basename(entity.path)),
-        );
-        newDirectory.createSync();
+        )..createSync();
         await _copyDirectory(entity, newDirectory);
       } else if (entity is File) {
         await entity.copy(path.join(target.path, path.basename(entity.path)));
@@ -243,6 +181,70 @@ class GenerateApiReportCommand extends AmplifyCommand {
     }
 
     return simplifiedLines.join('\n');
+  }
+
+  /// Creates an empty API JSON file as a fallback
+  Future<void> _createEmptyApiJson(String outputPath) async {
+    logger.info('Creating an empty API JSON file as a placeholder');
+    final outputFile = File(outputPath);
+    await outputFile.writeAsString('{}');
+    logger.info('Created empty placeholder file at $outputPath');
+  }
+
+  /// Generates API change report for amplify_core by comparing with the latest published version
+  Future<void> _generateApiChangeReport() async {
+    const corePackagePath = 'packages/amplify_core';
+
+    // Read the current version of amplify_core from pubspec.yaml
+    final pubspecFile = File(path.join(corePackagePath, 'pubspec.yaml'));
+    if (!pubspecFile.existsSync()) {
+      throw Exception('Could not find pubspec.yaml for amplify_core');
+    }
+
+    final pubspecContent = await pubspecFile.readAsString();
+    final versionMatch = RegExp(
+      r'version:\s*([\d\.]+)',
+    ).firstMatch(pubspecContent);
+    final latestPublishedVersion =
+        versionMatch?.group(1) ?? '2.4.1'; // Default to 2.4.1 if not found
+
+    logger.info(
+      'Comparing current code with published version $latestPublishedVersion',
+    );
+
+    final outputPath = path.join(corePackagePath, 'api_changes_report.md');
+
+    try {
+      final result = await Process.run('dart-apitool', [
+        'diff',
+        '--old',
+        'pub://amplify_core/$latestPublishedVersion',
+        '--new',
+        corePackagePath,
+        '--report-format',
+        'markdown',
+        '--report-file-path',
+        outputPath,
+      ], workingDirectory: rootDir.path);
+
+      if (result.exitCode != 0) {
+        logger
+          ..error(result.stderr.toString())
+          ..verbose(result.stdout.toString());
+        await _createEmptyApiChangeReport(outputPath);
+        return;
+      }
+
+      // Verify the file was created
+      final outputFile = File(outputPath);
+      if (!outputFile.existsSync()) {
+        await _createEmptyApiChangeReport(outputPath);
+        return;
+      }
+    } catch (e) {
+      logger.warn('Error generating API change report: $e');
+      await _createEmptyApiChangeReport(outputPath);
+    }
   }
 
   /// Creates an empty API change report as a fallback
