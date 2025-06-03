@@ -2,7 +2,8 @@
     "version": 3,
     "packageApi": {
         "packageName": "amplify_core",
-        "packageVersion": "2.4.1",
+        "packageVersion": "2.6.0",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/zveUzE",
         "interfaceDeclarations": [
             {
                 "name": "AmplifyClass",
@@ -4232,6 +4233,17 @@
                         "isWriteable": false
                     },
                     {
+                        "typeName": "MfaMethod",
+                        "name": "email",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": true,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/amplify_outputs/auth/mfa.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
                         "typeName": "List<MfaMethod>",
                         "name": "values",
                         "isDeprecated": false,
@@ -5042,6 +5054,15 @@
                                 "isExperimental": false,
                                 "typeName": "String",
                                 "relativePath": "lib/src/config/amplify_outputs/storage/storage_outputs.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "buckets",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "List<BucketOutputs>?",
+                                "relativePath": "lib/src/config/amplify_outputs/storage/storage_outputs.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -5097,6 +5118,17 @@
                         "isWriteable": false
                     },
                     {
+                        "typeName": "List<BucketOutputs>?",
+                        "name": "buckets",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/amplify_outputs/storage/storage_outputs.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
                         "typeName": "List<Object?>",
                         "name": "props",
                         "isDeprecated": false,
@@ -5121,6 +5153,143 @@
                 ],
                 "entryPoints": [],
                 "relativePath": "lib/src/config/amplify_outputs/storage/storage_outputs.dart"
+            },
+            {
+                "name": "BucketOutputs",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isSealed": false,
+                "isRequired": false,
+                "typeParameterNames": [],
+                "superTypeNames": [
+                    "Object",
+                    "AWSEquatable<BucketOutputs>",
+                    "AWSSerializable<Object?>",
+                    "AWSDebuggable"
+                ],
+                "executableDeclarations": [
+                    {
+                        "returnTypeName": "BucketOutputs",
+                        "name": "BucketOutputs",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": true,
+                                "name": "name",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "String",
+                                "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart"
+                            },
+                            {
+                                "isRequired": true,
+                                "isNamed": true,
+                                "name": "bucketName",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "String",
+                                "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart"
+                            },
+                            {
+                                "isRequired": true,
+                                "isNamed": true,
+                                "name": "awsRegion",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "String",
+                                "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart"
+                    },
+                    {
+                        "returnTypeName": "BucketOutputs",
+                        "name": "BucketOutputs.fromJson",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": false,
+                                "name": "json",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "Map<String, Object?>",
+                                "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart"
+                    }
+                ],
+                "fieldDeclarations": [
+                    {
+                        "typeName": "String",
+                        "name": "name",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "String",
+                        "name": "bucketName",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "String",
+                        "name": "awsRegion",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "List<Object?>",
+                        "name": "props",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "String",
+                        "name": "runtimeTypeName",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    }
+                ],
+                "entryPoints": [],
+                "relativePath": "lib/src/config/amplify_outputs/storage/bucket_outputs.dart"
             },
             {
                 "name": "AuthPluginInterface",
@@ -7506,7 +7675,29 @@
                     },
                     {
                         "typeName": "AuthSignInStep",
+                        "name": "continueSignInWithMfaSetupSelection",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": true,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/auth/sign_in/auth_sign_in_step.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "AuthSignInStep",
                         "name": "continueSignInWithTotpSetup",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": true,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/auth/sign_in/auth_sign_in_step.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "AuthSignInStep",
+                        "name": "continueSignInWithEmailMfaSetup",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": true,
@@ -7529,6 +7720,17 @@
                     {
                         "typeName": "AuthSignInStep",
                         "name": "confirmSignInWithTotpMfaCode",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": true,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/auth/sign_in/auth_sign_in_step.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "AuthSignInStep",
+                        "name": "confirmSignInWithOtpCode",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": true,
@@ -7636,6 +7838,17 @@
                     {
                         "typeName": "MfaType",
                         "name": "totp",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": true,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/config/auth/cognito/mfa.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "MfaType",
+                        "name": "email",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": true,
@@ -12981,6 +13194,15 @@
                             {
                                 "isRequired": false,
                                 "isNamed": true,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket?",
+                                "relativePath": "lib/src/types/storage/list_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
                                 "name": "pluginOptions",
                                 "isDeprecated": false,
                                 "isExperimental": false,
@@ -13021,6 +13243,17 @@
                     {
                         "typeName": "StorageListPluginOptions?",
                         "name": "pluginOptions",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/list_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket?",
+                        "name": "bucket",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -13089,6 +13322,176 @@
                     "amplify_core.dart"
                 ],
                 "relativePath": "lib/src/types/storage/list_options.dart"
+            },
+            {
+                "name": "StorageBucket",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isSealed": false,
+                "isRequired": false,
+                "typeParameterNames": [],
+                "superTypeNames": [
+                    "Object",
+                    "AWSSerializable<Map<String, Object?>>"
+                ],
+                "executableDeclarations": [
+                    {
+                        "returnTypeName": "StorageBucket",
+                        "name": "StorageBucket.fromBucketInfo",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": false,
+                                "name": "_info",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "BucketInfo",
+                                "relativePath": "lib/src/types/storage/storage_bucket.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/storage_bucket.dart"
+                    },
+                    {
+                        "returnTypeName": "StorageBucket",
+                        "name": "StorageBucket.fromOutputs",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": false,
+                                "name": "name",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "String",
+                                "relativePath": "lib/src/types/storage/storage_bucket.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/storage_bucket.dart"
+                    },
+                    {
+                        "returnTypeName": "BucketInfo",
+                        "name": "resolveBucketInfo",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": false,
+                                "name": "storageOutputs",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageOutputs?",
+                                "relativePath": "lib/src/types/storage/storage_bucket.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "method",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/storage_bucket.dart"
+                    }
+                ],
+                "fieldDeclarations": [],
+                "entryPoints": [
+                    "amplify_core.dart"
+                ],
+                "relativePath": "lib/src/types/storage/storage_bucket.dart"
+            },
+            {
+                "name": "BucketInfo",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isSealed": false,
+                "isRequired": false,
+                "typeParameterNames": [],
+                "superTypeNames": [
+                    "Object",
+                    "AWSEquatable<BucketInfo>",
+                    "AWSSerializable<Map<String, Object?>>"
+                ],
+                "executableDeclarations": [
+                    {
+                        "returnTypeName": "BucketInfo",
+                        "name": "BucketInfo",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": true,
+                                "name": "bucketName",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "String",
+                                "relativePath": "lib/src/types/storage/bucket_info.dart"
+                            },
+                            {
+                                "isRequired": true,
+                                "isNamed": true,
+                                "name": "region",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "String",
+                                "relativePath": "lib/src/types/storage/bucket_info.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/bucket_info.dart"
+                    }
+                ],
+                "fieldDeclarations": [
+                    {
+                        "typeName": "String",
+                        "name": "bucketName",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/bucket_info.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "String",
+                        "name": "region",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/bucket_info.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "List<Object?>",
+                        "name": "props",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/bucket_info.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    }
+                ],
+                "entryPoints": [
+                    "amplify_core.dart"
+                ],
+                "relativePath": "lib/src/types/storage/bucket_info.dart"
             },
             {
                 "name": "StorageListOperation",
@@ -13503,6 +13906,15 @@
                                 "isExperimental": false,
                                 "typeName": "StorageGetPropertiesPluginOptions?",
                                 "relativePath": "lib/src/types/storage/get_properties_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket?",
+                                "relativePath": "lib/src/types/storage/get_properties_options.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -13516,6 +13928,17 @@
                     {
                         "typeName": "StorageGetPropertiesPluginOptions?",
                         "name": "pluginOptions",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/get_properties_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket?",
+                        "name": "bucket",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -13826,6 +14249,15 @@
                                 "isExperimental": false,
                                 "typeName": "StorageGetUrlPluginOptions?",
                                 "relativePath": "lib/src/types/storage/get_url_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket?",
+                                "relativePath": "lib/src/types/storage/get_url_options.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -13839,6 +14271,17 @@
                     {
                         "typeName": "StorageGetUrlPluginOptions?",
                         "name": "pluginOptions",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/get_url_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket?",
+                        "name": "bucket",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -14147,6 +14590,15 @@
                                 "isExperimental": false,
                                 "typeName": "StorageDownloadDataPluginOptions?",
                                 "relativePath": "lib/src/types/storage/download_data_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket?",
+                                "relativePath": "lib/src/types/storage/download_data_options.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -14160,6 +14612,17 @@
                     {
                         "typeName": "StorageDownloadDataPluginOptions?",
                         "name": "pluginOptions",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/download_data_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket?",
+                        "name": "bucket",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -14528,6 +14991,15 @@
                                 "isExperimental": false,
                                 "typeName": "StorageDownloadFilePluginOptions?",
                                 "relativePath": "lib/src/types/storage/download_file_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket?",
+                                "relativePath": "lib/src/types/storage/download_file_options.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -14541,6 +15013,17 @@
                     {
                         "typeName": "StorageDownloadFilePluginOptions?",
                         "name": "pluginOptions",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/download_file_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket?",
+                        "name": "bucket",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -15207,6 +15690,15 @@
                                 "isExperimental": false,
                                 "typeName": "StorageUploadDataPluginOptions?",
                                 "relativePath": "lib/src/types/storage/upload_data_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket?",
+                                "relativePath": "lib/src/types/storage/upload_data_options.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -15220,6 +15712,17 @@
                     {
                         "typeName": "Map<String, String>",
                         "name": "metadata",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/upload_data_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket?",
+                        "name": "bucket",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -15583,6 +16086,15 @@
                                 "isExperimental": false,
                                 "typeName": "StorageUploadFilePluginOptions?",
                                 "relativePath": "lib/src/types/storage/upload_file_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket?",
+                                "relativePath": "lib/src/types/storage/upload_file_options.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -15607,6 +16119,17 @@
                     {
                         "typeName": "StorageUploadFilePluginOptions?",
                         "name": "pluginOptions",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/upload_file_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket?",
+                        "name": "bucket",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -15975,6 +16498,15 @@
                                 "isExperimental": false,
                                 "typeName": "StorageCopyPluginOptions?",
                                 "relativePath": "lib/src/types/storage/copy_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "buckets",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "CopyBuckets?",
+                                "relativePath": "lib/src/types/storage/copy_options.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -15988,6 +16520,17 @@
                     {
                         "typeName": "StorageCopyPluginOptions?",
                         "name": "pluginOptions",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/copy_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "CopyBuckets?",
+                        "name": "buckets",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -16056,6 +16599,101 @@
                     "amplify_core.dart"
                 ],
                 "relativePath": "lib/src/types/storage/copy_options.dart"
+            },
+            {
+                "name": "CopyBuckets",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isSealed": false,
+                "isRequired": false,
+                "typeParameterNames": [],
+                "superTypeNames": [
+                    "Object",
+                    "AWSSerializable<Map<String, Object?>>"
+                ],
+                "executableDeclarations": [
+                    {
+                        "returnTypeName": "CopyBuckets",
+                        "name": "CopyBuckets",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": true,
+                                "name": "source",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket",
+                                "relativePath": "lib/src/types/storage/copy_buckets.dart"
+                            },
+                            {
+                                "isRequired": true,
+                                "isNamed": true,
+                                "name": "destination",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket",
+                                "relativePath": "lib/src/types/storage/copy_buckets.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/copy_buckets.dart"
+                    },
+                    {
+                        "returnTypeName": "CopyBuckets",
+                        "name": "CopyBuckets.sameBucket",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": false,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket",
+                                "relativePath": "lib/src/types/storage/copy_buckets.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/copy_buckets.dart"
+                    }
+                ],
+                "fieldDeclarations": [
+                    {
+                        "typeName": "StorageBucket",
+                        "name": "source",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/copy_buckets.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket",
+                        "name": "destination",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/copy_buckets.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    }
+                ],
+                "entryPoints": [
+                    "amplify_core.dart"
+                ],
+                "relativePath": "lib/src/types/storage/copy_buckets.dart"
             },
             {
                 "name": "StorageCopyOperation",
@@ -16320,6 +16958,15 @@
                                 "isExperimental": false,
                                 "typeName": "StorageRemovePluginOptions?",
                                 "relativePath": "lib/src/types/storage/remove_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket?",
+                                "relativePath": "lib/src/types/storage/remove_options.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -16333,6 +16980,17 @@
                     {
                         "typeName": "StorageRemovePluginOptions?",
                         "name": "pluginOptions",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/remove_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket?",
+                        "name": "bucket",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -16643,6 +17301,15 @@
                                 "isExperimental": false,
                                 "typeName": "StorageRemoveManyPluginOptions?",
                                 "relativePath": "lib/src/types/storage/remove_many_options.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "bucket",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "StorageBucket?",
+                                "relativePath": "lib/src/types/storage/remove_many_options.dart"
                             }
                         ],
                         "typeParameterNames": [],
@@ -16656,6 +17323,17 @@
                     {
                         "typeName": "StorageRemoveManyPluginOptions?",
                         "name": "pluginOptions",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/storage/remove_many_options.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "StorageBucket?",
+                        "name": "bucket",
                         "isDeprecated": false,
                         "isExperimental": false,
                         "isStatic": false,
@@ -36253,6 +36931,148 @@
                 "relativePath": "lib/src/types/exception/amplify_exception.dart"
             },
             {
+                "name": "InvalidStorageBucketException",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isSealed": false,
+                "isRequired": false,
+                "typeParameterNames": [],
+                "superTypeNames": [
+                    "StorageException",
+                    "AmplifyException",
+                    "Object",
+                    "Exception",
+                    "AWSDebuggable",
+                    "AWSEquatable<AmplifyException>",
+                    "AWSSerializable<Map<String, Object?>>"
+                ],
+                "executableDeclarations": [
+                    {
+                        "returnTypeName": "InvalidStorageBucketException",
+                        "name": "InvalidStorageBucketException",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": false,
+                                "name": "message",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "String",
+                                "relativePath": "lib/src/types/exception/amplify_exception.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "recoverySuggestion",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "String?",
+                                "relativePath": "lib/src/types/exception/amplify_exception.dart"
+                            },
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "underlyingException",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "Object?",
+                                "relativePath": "lib/src/types/exception/amplify_exception.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/exception/amplify_exception.dart"
+                    },
+                    {
+                        "returnTypeName": "AmplifyException",
+                        "name": "fromMap",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": true,
+                                "isNamed": false,
+                                "name": "serializedException",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "Map<String, String>",
+                                "relativePath": "lib/src/types/exception/amplify_exception.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "method",
+                        "isStatic": true,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/exception/amplify_exception.dart"
+                    }
+                ],
+                "fieldDeclarations": [
+                    {
+                        "typeName": "String",
+                        "name": "runtimeTypeName",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/exception/amplify_exception.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "String",
+                        "name": "message",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/exception/amplify_exception.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "String?",
+                        "name": "recoverySuggestion",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/exception/amplify_exception.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "Object?",
+                        "name": "underlyingException",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/exception/amplify_exception.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "List<Object?>",
+                        "name": "props",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/types/exception/amplify_exception.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    }
+                ],
+                "entryPoints": [
+                    "amplify_core.dart"
+                ],
+                "relativePath": "lib/src/types/exception/amplify_exception.dart"
+            },
+            {
                 "name": "StorageLocalFileNotFoundException",
                 "isDeprecated": false,
                 "isExperimental": false,
@@ -47719,7 +48539,7 @@
             },
             {
                 "packageName": "aws_common",
-                "packageVersion": ">=0.7.3 <0.8.0"
+                "packageVersion": ">=0.7.5 <0.8.0"
             },
             {
                 "packageName": "aws_signature_v4",
@@ -47778,6 +48598,7 @@
         "RestApiOutputs",
         "NotificationsOutputs",
         "AmazonPinpointChannel",
-        "StorageOutputs"
+        "StorageOutputs",
+        "BucketOutputs"
     ]
 }

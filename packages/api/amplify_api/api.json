@@ -2,7 +2,8 @@
     "version": 3,
     "packageApi": {
         "packageName": "amplify_api",
-        "packageVersion": "2.4.1",
+        "packageVersion": "2.6.0",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/MF362V",
         "interfaceDeclarations": [
             {
                 "name": "AmplifyAPI",
@@ -74,15 +75,15 @@
         "packageDependencies": [
             {
                 "packageName": "amplify_api_dart",
-                "packageVersion": ">=0.5.5 <0.6.0"
+                "packageVersion": ">=0.5.7 <0.6.0"
             },
             {
                 "packageName": "amplify_core",
-                "packageVersion": ">=2.4.1 <2.5.0"
+                "packageVersion": ">=2.6.0 <2.7.0"
             },
             {
                 "packageName": "amplify_flutter",
-                "packageVersion": ">=2.4.1 <2.5.0"
+                "packageVersion": ">=2.6.0 <2.7.0"
             },
             {
                 "packageName": "connectivity_plus",

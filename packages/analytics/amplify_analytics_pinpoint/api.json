@@ -2,7 +2,8 @@
     "version": 3,
     "packageApi": {
         "packageName": "amplify_analytics_pinpoint",
-        "packageVersion": "2.4.1",
+        "packageVersion": "2.6.0",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/VQDMIu",
         "interfaceDeclarations": [
             {
                 "name": "AmplifyAnalyticsPinpoint",
@@ -83,15 +84,15 @@
         "packageDependencies": [
             {
                 "packageName": "amplify_analytics_pinpoint_dart",
-                "packageVersion": ">=0.4.5 <0.5.0"
+                "packageVersion": ">=0.4.7 <0.5.0"
             },
             {
                 "packageName": "amplify_core",
-                "packageVersion": ">=2.4.1 <2.5.0"
+                "packageVersion": ">=2.6.0 <2.7.0"
             },
             {
                 "packageName": "amplify_db_common",
-                "packageVersion": ">=0.4.5 <0.5.0"
+                "packageVersion": ">=0.4.8 <0.5.0"
             },
             {
                 "packageName": "amplify_secure_storage",

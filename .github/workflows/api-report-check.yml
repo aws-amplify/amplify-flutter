@@ -1,0 +1,71 @@
+name: API Report Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'packages/**/*.dart'
+      - 'packages/**/pubspec.yaml'
+      - '!packages/**/example/**'
+      - '!packages/**/test/**'
+
+jobs:
+  check-api-reports:
+    name: Check API Reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: |
+          flutter pub global activate dart_apitool
+          cd packages/aft
+          flutter pub get
+
+      - name: Generate API reports
+        run: |
+          cd packages/aft
+          dart run bin/aft.dart generate api-report
+
+      - name: Check for changes in API reports
+        id: check-changes
+        run: |
+          if [[ -n "$(git status --porcelain | grep 'api.json\|api_changes_report.md')" ]]; then
+            echo "API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
+            git diff --name-only | grep 'api.json\|api_changes_report.md'
+            exit 1
+          else
+            echo "API report files are up-to-date."
+          fi
+
+      - name: Check if API reports are included in PR
+        run: |
+          # Get the list of changed files in the PR
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+          
+          # Check if any Dart files were modified
+          DART_FILES=$(echo "$CHANGED_FILES" | grep -E '\.dart$' || true)
+          if [[ -z "$DART_FILES" ]]; then
+            echo "No Dart files were modified, skipping API report check."
+            exit 0
+          fi
+          
+          # Check if API report files are included
+          API_REPORTS=$(echo "$CHANGED_FILES" | grep -E 'api\.json|api_changes_report\.md' || true)
+          if [[ -z "$API_REPORTS" ]]; then
+            echo "Error: API report files are not included in this PR."
+            echo "Please run 'aft generate api-report' and commit the changes."
+            exit 1
+          fi
+          
+          echo "API report files are included in the PR."
