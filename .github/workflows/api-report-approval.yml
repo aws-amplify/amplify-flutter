@@ -1,0 +1,40 @@
+name: API Report Approval
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**/*api.json'
+      - '**/*api_changes_report.md'
+
+jobs:
+  require-approval:
+    name: Require Additional Approval for API Changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check for API changes
+        id: check-api-changes
+        run: |
+          API_CHANGES=$(git diff --name-only origin/main...HEAD | grep -E 'api\.json|api_changes_report\.md' || true)
+          if [[ -n "$API_CHANGES" ]]; then
+            echo "API_CHANGES_DETECTED=true" >> $GITHUB_ENV
+            echo "API changes detected in the following files:"
+            echo "$API_CHANGES"
+          else
+            echo "API_CHANGES_DETECTED=false" >> $GITHUB_ENV
+            echo "No API changes detected."
+          fi
+
+      - name: Require additional approval
+        if: env.API_CHANGES_DETECTED == 'true'
+        uses: pulsar-edit/require-additional-reviewer-action@v0.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reviewers: 2
+          message: "⚠️ This PR contains API changes and requires additional approval. Please review the API changes carefully."
