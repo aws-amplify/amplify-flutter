@@ -33,7 +33,7 @@ class GenerateApiReportCommand extends AmplifyCommand {
 
       logger.info('Generating API JSON files for all packages...');
       final failedPackages = <String>[];
-      
+
       for (final package in _categoryPackages) {
         logger.info('Processing $package...');
         try {
@@ -48,11 +48,12 @@ class GenerateApiReportCommand extends AmplifyCommand {
       logger.info('Generating API change report for amplify_core...');
       await _generateApiChangeReport();
 
-      
       if (failedPackages.isNotEmpty) {
-        logger.warn('Some packages had issues but placeholders were created: ${failedPackages.join(', ')}');
+        logger.warn(
+          'Some packages had issues but placeholders were created: ${failedPackages.join(', ')}',
+        );
       }
-      
+
       logger.info('Remember to commit these files with your changes.');
     } catch (e, stackTrace) {
       logger.error('Failed to generate API reports: $e');
@@ -107,7 +108,8 @@ class GenerateApiReportCommand extends AmplifyCommand {
         packagePath,
         '--output',
         outputPath,
-      ], workingDirectory: rootDir.path,);
+        '--no-deps', // Skip dependency resolution
+      ], workingDirectory: rootDir.path);
 
       if (result.exitCode != 0) {
         logger.error(result.stderr.toString());
@@ -122,13 +124,13 @@ class GenerateApiReportCommand extends AmplifyCommand {
         await _createEmptyApiJson(outputPath);
         return;
       }
-      
+    // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       logger.warn('Error generating API JSON for $packagePath: $e');
       await _createEmptyApiJson(outputPath);
     }
   }
-  
+
   /// Creates an empty API JSON file as a fallback
   Future<void> _createEmptyApiJson(String outputPath) async {
     logger.info('Creating an empty API JSON file as a placeholder');
@@ -159,7 +161,7 @@ class GenerateApiReportCommand extends AmplifyCommand {
     );
 
     final outputPath = path.join(corePackagePath, 'api_changes_report.md');
-    
+
     try {
       final result = await Process.run('dart-apitool', [
         'diff',
@@ -171,7 +173,7 @@ class GenerateApiReportCommand extends AmplifyCommand {
         'markdown',
         '--report-file-path',
         outputPath,
-      ], workingDirectory: rootDir.path,);
+      ], workingDirectory: rootDir.path);
 
       if (result.exitCode != 0) {
         logger
@@ -187,18 +189,19 @@ class GenerateApiReportCommand extends AmplifyCommand {
         await _createEmptyApiChangeReport(outputPath);
         return;
       }
-      
     } catch (e) {
       logger.warn('Error generating API change report: $e');
       await _createEmptyApiChangeReport(outputPath);
     }
   }
-  
+
   /// Creates an empty API change report as a fallback
   Future<void> _createEmptyApiChangeReport(String outputPath) async {
     logger.info('Creating an empty API change report as a placeholder');
     final outputFile = File(outputPath);
-    await outputFile.writeAsString('# API Changes Report\n\nNo changes detected or report generation failed.\n');
+    await outputFile.writeAsString(
+      '# API Changes Report\n\nNo changes detected or report generation failed.\n',
+    );
     logger.info('Created placeholder report at $outputPath');
   }
 }
