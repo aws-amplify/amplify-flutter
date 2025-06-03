@@ -34,7 +34,7 @@ jobs:
 
       - name: Generate API reports
         run: |
-          dart run bin/aft.dart generate api-report
+          dart run packages/aft/bin/aft.dart generate api-report
 
       - name: Check for changes in API reports
         id: check-changes
