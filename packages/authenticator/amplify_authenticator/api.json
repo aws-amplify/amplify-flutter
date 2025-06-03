@@ -2,8 +2,8 @@
     "version": 3,
     "packageApi": {
         "packageName": "amplify_authenticator",
-        "packageVersion": "2.3.2",
-        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/2ZfEWI",
+        "packageVersion": "2.3.4",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/QmdQHX",
         "interfaceDeclarations": [
             {
                 "name": "Authenticator",
@@ -24477,19 +24477,19 @@
         "iosPlatformConstraints": null,
         "androidPlatformConstraints": null,
         "sdkType": "flutter",
-        "minSdkVersion": "3.3.0",
+        "minSdkVersion": "3.7.0",
         "packageDependencies": [
             {
                 "packageName": "amplify_auth_cognito",
-                "packageVersion": ">=2.6.0 <2.7.0"
+                "packageVersion": ">=2.6.2 <2.7.0"
             },
             {
                 "packageName": "amplify_core",
-                "packageVersion": ">=2.6.0 <2.7.0"
+                "packageVersion": ">=2.6.2 <2.7.0"
             },
             {
                 "packageName": "amplify_flutter",
-                "packageVersion": ">=2.6.0 <2.7.0"
+                "packageVersion": ">=2.6.2 <2.7.0"
             },
             {
                 "packageName": "async",
@@ -24497,7 +24497,7 @@
             },
             {
                 "packageName": "aws_common",
-                "packageVersion": ">=0.7.5 <0.8.0"
+                "packageVersion": ">=0.7.7 <0.8.0"
             },
             {
                 "packageName": "collection",
@@ -24509,7 +24509,7 @@
             },
             {
                 "packageName": "meta",
-                "packageVersion": "^1.7.0"
+                "packageVersion": "^1.16.0"
             },
             {
                 "packageName": "package_info_plus",
@@ -24521,7 +24521,7 @@
             },
             {
                 "packageName": "smithy",
-                "packageVersion": ">=0.7.3 <0.8.0"
+                "packageVersion": ">=0.7.5 <0.8.0"
             },
             {
                 "packageName": "stream_transform",
