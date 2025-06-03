@@ -2,8 +2,8 @@
     "version": 3,
     "packageApi": {
         "packageName": "amplify_core",
-        "packageVersion": "2.6.0",
-        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/zveUzE",
+        "packageVersion": "2.6.2",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/VOqEfG",
         "interfaceDeclarations": [
             {
                 "name": "AmplifyClass",
@@ -48531,7 +48531,7 @@
         "iosPlatformConstraints": null,
         "androidPlatformConstraints": null,
         "sdkType": "dart",
-        "minSdkVersion": "3.3.0",
+        "minSdkVersion": "3.7.0",
         "packageDependencies": [
             {
                 "packageName": "async",
@@ -48539,11 +48539,11 @@
             },
             {
                 "packageName": "aws_common",
-                "packageVersion": ">=0.7.5 <0.8.0"
+                "packageVersion": ">=0.7.7 <0.8.0"
             },
             {
                 "packageName": "aws_signature_v4",
-                "packageVersion": ">=0.6.3 <0.7.0"
+                "packageVersion": ">=0.6.5 <0.7.0"
             },
             {
                 "packageName": "collection",
@@ -48567,7 +48567,7 @@
             },
             {
                 "packageName": "meta",
-                "packageVersion": "^1.7.0"
+                "packageVersion": "^1.16.0"
             },
             {
                 "packageName": "retry",
