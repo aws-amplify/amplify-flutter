@@ -21,10 +21,10 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa # 2.10.0
         with:
-          flutter-version: '3.19.0'
-          channel: 'stable'
+          cache: true
+          channel: stable
 
       - name: Install dependencies
         run: |
