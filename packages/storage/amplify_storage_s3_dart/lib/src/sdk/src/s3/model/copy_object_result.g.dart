@@ -22,7 +22,7 @@ class _$CopyObjectResult extends CopyObjectResult {
 
   factory _$CopyObjectResult([
     void Function(CopyObjectResultBuilder)? updates,
-  ]) => (new CopyObjectResultBuilder()..update(updates))._build();
+  ]) => (CopyObjectResultBuilder()..update(updates))._build();
 
   _$CopyObjectResult._({
     this.eTag,
@@ -32,14 +32,13 @@ class _$CopyObjectResult extends CopyObjectResult {
     this.checksumSha1,
     this.checksumSha256,
   }) : super._();
-
   @override
   CopyObjectResult rebuild(void Function(CopyObjectResultBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   CopyObjectResultBuilder toBuilder() =>
-      new CopyObjectResultBuilder()..replace(this);
+      CopyObjectResultBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -117,7 +116,6 @@ class CopyObjectResultBuilder
 
   @override
   void replace(CopyObjectResult other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CopyObjectResult;
   }
 
@@ -132,7 +130,7 @@ class CopyObjectResultBuilder
   _$CopyObjectResult _build() {
     final _$result =
         _$v ??
-        new _$CopyObjectResult._(
+        _$CopyObjectResult._(
           eTag: eTag,
           lastModified: lastModified,
           checksumCrc32: checksumCrc32,

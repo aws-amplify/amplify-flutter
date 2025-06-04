@@ -14,12 +14,11 @@ class _$GetUserAttributeVerificationCodeResponse
   factory _$GetUserAttributeVerificationCodeResponse([
     void Function(GetUserAttributeVerificationCodeResponseBuilder)? updates,
   ]) =>
-      (new GetUserAttributeVerificationCodeResponseBuilder()..update(updates))
+      (GetUserAttributeVerificationCodeResponseBuilder()..update(updates))
           ._build();
 
   _$GetUserAttributeVerificationCodeResponse._({this.codeDeliveryDetails})
     : super._();
-
   @override
   GetUserAttributeVerificationCodeResponse rebuild(
     void Function(GetUserAttributeVerificationCodeResponseBuilder) updates,
@@ -27,7 +26,7 @@ class _$GetUserAttributeVerificationCodeResponse
 
   @override
   GetUserAttributeVerificationCodeResponseBuilder toBuilder() =>
-      new GetUserAttributeVerificationCodeResponseBuilder()..replace(this);
+      GetUserAttributeVerificationCodeResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -55,7 +54,7 @@ class GetUserAttributeVerificationCodeResponseBuilder
 
   CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
   CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
+      _$this._codeDeliveryDetails ??= CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
     CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
   ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
@@ -73,7 +72,6 @@ class GetUserAttributeVerificationCodeResponseBuilder
 
   @override
   void replace(GetUserAttributeVerificationCodeResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserAttributeVerificationCodeResponse;
   }
 
@@ -92,7 +90,7 @@ class GetUserAttributeVerificationCodeResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$GetUserAttributeVerificationCodeResponse._(
+          _$GetUserAttributeVerificationCodeResponse._(
             codeDeliveryDetails: _codeDeliveryDetails?.build(),
           );
     } catch (_) {
@@ -101,7 +99,7 @@ class GetUserAttributeVerificationCodeResponseBuilder
         _$failedField = 'codeDeliveryDetails';
         _codeDeliveryDetails?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'GetUserAttributeVerificationCodeResponse',
           _$failedField,
           e.toString(),

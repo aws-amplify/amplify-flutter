@@ -26,7 +26,7 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
 
   factory _$UploadPartCopyOutput([
     void Function(UploadPartCopyOutputBuilder)? updates,
-  ]) => (new UploadPartCopyOutputBuilder()..update(updates))._build();
+  ]) => (UploadPartCopyOutputBuilder()..update(updates))._build();
 
   _$UploadPartCopyOutput._({
     this.copySourceVersionId,
@@ -38,7 +38,6 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
     this.bucketKeyEnabled,
     this.requestCharged,
   }) : super._();
-
   @override
   UploadPartCopyOutput rebuild(
     void Function(UploadPartCopyOutputBuilder) updates,
@@ -46,7 +45,7 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
 
   @override
   UploadPartCopyOutputBuilder toBuilder() =>
-      new UploadPartCopyOutputBuilder()..replace(this);
+      UploadPartCopyOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -89,7 +88,7 @@ class UploadPartCopyOutputBuilder
 
   CopyPartResultBuilder? _copyPartResult;
   CopyPartResultBuilder get copyPartResult =>
-      _$this._copyPartResult ??= new CopyPartResultBuilder();
+      _$this._copyPartResult ??= CopyPartResultBuilder();
   set copyPartResult(CopyPartResultBuilder? copyPartResult) =>
       _$this._copyPartResult = copyPartResult;
 
@@ -143,7 +142,6 @@ class UploadPartCopyOutputBuilder
 
   @override
   void replace(UploadPartCopyOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UploadPartCopyOutput;
   }
 
@@ -160,7 +158,7 @@ class UploadPartCopyOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$UploadPartCopyOutput._(
+          _$UploadPartCopyOutput._(
             copySourceVersionId: copySourceVersionId,
             copyPartResult: _copyPartResult?.build(),
             serverSideEncryption: serverSideEncryption,
@@ -176,7 +174,7 @@ class UploadPartCopyOutputBuilder
         _$failedField = 'copyPartResult';
         _copyPartResult?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'UploadPartCopyOutput',
           _$failedField,
           e.toString(),

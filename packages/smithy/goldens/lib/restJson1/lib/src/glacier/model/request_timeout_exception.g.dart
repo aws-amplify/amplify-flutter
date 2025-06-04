@@ -18,7 +18,7 @@ class _$RequestTimeoutException extends RequestTimeoutException {
 
   factory _$RequestTimeoutException([
     void Function(RequestTimeoutExceptionBuilder)? updates,
-  ]) => (new RequestTimeoutExceptionBuilder()..update(updates))._build();
+  ]) => (RequestTimeoutExceptionBuilder()..update(updates))._build();
 
   _$RequestTimeoutException._({
     this.type,
@@ -26,7 +26,6 @@ class _$RequestTimeoutException extends RequestTimeoutException {
     this.message,
     this.headers,
   }) : super._();
-
   @override
   RequestTimeoutException rebuild(
     void Function(RequestTimeoutExceptionBuilder) updates,
@@ -34,7 +33,7 @@ class _$RequestTimeoutException extends RequestTimeoutException {
 
   @override
   RequestTimeoutExceptionBuilder toBuilder() =>
-      new RequestTimeoutExceptionBuilder()..replace(this);
+      RequestTimeoutExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,7 +92,6 @@ class RequestTimeoutExceptionBuilder
 
   @override
   void replace(RequestTimeoutException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RequestTimeoutException;
   }
 
@@ -108,7 +106,7 @@ class RequestTimeoutExceptionBuilder
   _$RequestTimeoutException _build() {
     final _$result =
         _$v ??
-        new _$RequestTimeoutException._(
+        _$RequestTimeoutException._(
           type: type,
           code: code,
           message: message,

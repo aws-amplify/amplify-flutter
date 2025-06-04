@@ -22,7 +22,7 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
 
   factory _$InitiateAuthRequest([
     void Function(InitiateAuthRequestBuilder)? updates,
-  ]) => (new InitiateAuthRequestBuilder()..update(updates))._build();
+  ]) => (InitiateAuthRequestBuilder()..update(updates))._build();
 
   _$InitiateAuthRequest._({
     required this.authFlow,
@@ -31,19 +31,7 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
     required this.clientId,
     this.analyticsMetadata,
     this.userContextData,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      authFlow,
-      r'InitiateAuthRequest',
-      'authFlow',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      clientId,
-      r'InitiateAuthRequest',
-      'clientId',
-    );
-  }
-
+  }) : super._();
   @override
   InitiateAuthRequest rebuild(
     void Function(InitiateAuthRequestBuilder) updates,
@@ -51,7 +39,7 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
 
   @override
   InitiateAuthRequestBuilder toBuilder() =>
-      new InitiateAuthRequestBuilder()..replace(this);
+      InitiateAuthRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -89,13 +77,13 @@ class InitiateAuthRequestBuilder
 
   _i3.MapBuilder<String, String>? _authParameters;
   _i3.MapBuilder<String, String> get authParameters =>
-      _$this._authParameters ??= new _i3.MapBuilder<String, String>();
+      _$this._authParameters ??= _i3.MapBuilder<String, String>();
   set authParameters(_i3.MapBuilder<String, String>? authParameters) =>
       _$this._authParameters = authParameters;
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -105,13 +93,13 @@ class InitiateAuthRequestBuilder
 
   AnalyticsMetadataTypeBuilder? _analyticsMetadata;
   AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+      _$this._analyticsMetadata ??= AnalyticsMetadataTypeBuilder();
   set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
@@ -133,7 +121,6 @@ class InitiateAuthRequestBuilder
 
   @override
   void replace(InitiateAuthRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InitiateAuthRequest;
   }
 
@@ -150,7 +137,7 @@ class InitiateAuthRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$InitiateAuthRequest._(
+          _$InitiateAuthRequest._(
             authFlow: BuiltValueNullFieldError.checkNotNull(
               authFlow,
               r'InitiateAuthRequest',
@@ -179,7 +166,7 @@ class InitiateAuthRequestBuilder
         _$failedField = 'userContextData';
         _userContextData?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'InitiateAuthRequest',
           _$failedField,
           e.toString(),

@@ -7,14 +7,14 @@ part of 'confirm_device_worker.dart';
 // **************************************************************************
 
 Serializers _$_serializers =
-    (new Serializers().toBuilder()
+    (Serializers().toBuilder()
           ..add(ConfirmDeviceMessage.serializer)
           ..add(ConfirmDeviceResponse.serializer))
         .build();
 Serializer<ConfirmDeviceMessage> _$confirmDeviceMessageSerializer =
-    new _$ConfirmDeviceMessageSerializer();
+    _$ConfirmDeviceMessageSerializer();
 Serializer<ConfirmDeviceResponse> _$confirmDeviceResponseSerializer =
-    new _$ConfirmDeviceResponseSerializer();
+    _$ConfirmDeviceResponseSerializer();
 
 class _$ConfirmDeviceMessageSerializer
     implements StructuredSerializer<ConfirmDeviceMessage> {
@@ -54,7 +54,7 @@ class _$ConfirmDeviceMessageSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ConfirmDeviceMessageBuilder();
+    final result = ConfirmDeviceMessageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -124,7 +124,7 @@ class _$ConfirmDeviceResponseSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ConfirmDeviceResponseBuilder();
+    final result = ConfirmDeviceResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -164,24 +164,12 @@ class _$ConfirmDeviceMessage extends ConfirmDeviceMessage {
 
   factory _$ConfirmDeviceMessage([
     void Function(ConfirmDeviceMessageBuilder)? updates,
-  ]) => (new ConfirmDeviceMessageBuilder()..update(updates))._build();
+  ]) => (ConfirmDeviceMessageBuilder()..update(updates))._build();
 
   _$ConfirmDeviceMessage._({
     required this.accessToken,
     required this.newDeviceMetadata,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      accessToken,
-      r'ConfirmDeviceMessage',
-      'accessToken',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      newDeviceMetadata,
-      r'ConfirmDeviceMessage',
-      'newDeviceMetadata',
-    );
-  }
-
+  }) : super._();
   @override
   ConfirmDeviceMessage rebuild(
     void Function(ConfirmDeviceMessageBuilder) updates,
@@ -189,7 +177,7 @@ class _$ConfirmDeviceMessage extends ConfirmDeviceMessage {
 
   @override
   ConfirmDeviceMessageBuilder toBuilder() =>
-      new ConfirmDeviceMessageBuilder()..replace(this);
+      ConfirmDeviceMessageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -227,7 +215,7 @@ class ConfirmDeviceMessageBuilder
 
   NewDeviceMetadataTypeBuilder? _newDeviceMetadata;
   NewDeviceMetadataTypeBuilder get newDeviceMetadata =>
-      _$this._newDeviceMetadata ??= new NewDeviceMetadataTypeBuilder();
+      _$this._newDeviceMetadata ??= NewDeviceMetadataTypeBuilder();
   set newDeviceMetadata(NewDeviceMetadataTypeBuilder? newDeviceMetadata) =>
       _$this._newDeviceMetadata = newDeviceMetadata;
 
@@ -245,7 +233,6 @@ class ConfirmDeviceMessageBuilder
 
   @override
   void replace(ConfirmDeviceMessage other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConfirmDeviceMessage;
   }
 
@@ -262,7 +249,7 @@ class ConfirmDeviceMessageBuilder
     try {
       _$result =
           _$v ??
-          new _$ConfirmDeviceMessage._(
+          _$ConfirmDeviceMessage._(
             accessToken: BuiltValueNullFieldError.checkNotNull(
               accessToken,
               r'ConfirmDeviceMessage',
@@ -276,7 +263,7 @@ class ConfirmDeviceMessageBuilder
         _$failedField = 'newDeviceMetadata';
         newDeviceMetadata.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ConfirmDeviceMessage',
           _$failedField,
           e.toString(),
@@ -297,24 +284,12 @@ class _$ConfirmDeviceResponse extends ConfirmDeviceResponse {
 
   factory _$ConfirmDeviceResponse([
     void Function(ConfirmDeviceResponseBuilder)? updates,
-  ]) => (new ConfirmDeviceResponseBuilder()..update(updates))._build();
+  ]) => (ConfirmDeviceResponseBuilder()..update(updates))._build();
 
   _$ConfirmDeviceResponse._({
     required this.devicePassword,
     required this.request,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      devicePassword,
-      r'ConfirmDeviceResponse',
-      'devicePassword',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      request,
-      r'ConfirmDeviceResponse',
-      'request',
-    );
-  }
-
+  }) : super._();
   @override
   ConfirmDeviceResponse rebuild(
     void Function(ConfirmDeviceResponseBuilder) updates,
@@ -322,7 +297,7 @@ class _$ConfirmDeviceResponse extends ConfirmDeviceResponse {
 
   @override
   ConfirmDeviceResponseBuilder toBuilder() =>
-      new ConfirmDeviceResponseBuilder()..replace(this);
+      ConfirmDeviceResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -361,7 +336,7 @@ class ConfirmDeviceResponseBuilder
 
   ConfirmDeviceRequestBuilder? _request;
   ConfirmDeviceRequestBuilder get request =>
-      _$this._request ??= new ConfirmDeviceRequestBuilder();
+      _$this._request ??= ConfirmDeviceRequestBuilder();
   set request(ConfirmDeviceRequestBuilder? request) =>
       _$this._request = request;
 
@@ -379,7 +354,6 @@ class ConfirmDeviceResponseBuilder
 
   @override
   void replace(ConfirmDeviceResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConfirmDeviceResponse;
   }
 
@@ -396,7 +370,7 @@ class ConfirmDeviceResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$ConfirmDeviceResponse._(
+          _$ConfirmDeviceResponse._(
             devicePassword: BuiltValueNullFieldError.checkNotNull(
               devicePassword,
               r'ConfirmDeviceResponse',
@@ -410,7 +384,7 @@ class ConfirmDeviceResponseBuilder
         _$failedField = 'request';
         request.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ConfirmDeviceResponse',
           _$failedField,
           e.toString(),

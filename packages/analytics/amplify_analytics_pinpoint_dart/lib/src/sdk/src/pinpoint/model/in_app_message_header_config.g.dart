@@ -16,30 +16,13 @@ class _$InAppMessageHeaderConfig extends InAppMessageHeaderConfig {
 
   factory _$InAppMessageHeaderConfig([
     void Function(InAppMessageHeaderConfigBuilder)? updates,
-  ]) => (new InAppMessageHeaderConfigBuilder()..update(updates))._build();
+  ]) => (InAppMessageHeaderConfigBuilder()..update(updates))._build();
 
   _$InAppMessageHeaderConfig._({
     required this.alignment,
     required this.header,
     required this.textColor,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      alignment,
-      r'InAppMessageHeaderConfig',
-      'alignment',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      header,
-      r'InAppMessageHeaderConfig',
-      'header',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      textColor,
-      r'InAppMessageHeaderConfig',
-      'textColor',
-    );
-  }
-
+  }) : super._();
   @override
   InAppMessageHeaderConfig rebuild(
     void Function(InAppMessageHeaderConfigBuilder) updates,
@@ -47,7 +30,7 @@ class _$InAppMessageHeaderConfig extends InAppMessageHeaderConfig {
 
   @override
   InAppMessageHeaderConfigBuilder toBuilder() =>
-      new InAppMessageHeaderConfigBuilder()..replace(this);
+      InAppMessageHeaderConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,7 +84,6 @@ class InAppMessageHeaderConfigBuilder
 
   @override
   void replace(InAppMessageHeaderConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppMessageHeaderConfig;
   }
 
@@ -116,7 +98,7 @@ class InAppMessageHeaderConfigBuilder
   _$InAppMessageHeaderConfig _build() {
     final _$result =
         _$v ??
-        new _$InAppMessageHeaderConfig._(
+        _$InAppMessageHeaderConfig._(
           alignment: BuiltValueNullFieldError.checkNotNull(
             alignment,
             r'InAppMessageHeaderConfig',

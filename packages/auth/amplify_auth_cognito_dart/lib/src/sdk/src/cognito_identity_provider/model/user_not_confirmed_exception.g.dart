@@ -14,10 +14,9 @@ class _$UserNotConfirmedException extends UserNotConfirmedException {
 
   factory _$UserNotConfirmedException([
     void Function(UserNotConfirmedExceptionBuilder)? updates,
-  ]) => (new UserNotConfirmedExceptionBuilder()..update(updates))._build();
+  ]) => (UserNotConfirmedExceptionBuilder()..update(updates))._build();
 
   _$UserNotConfirmedException._({this.message, this.headers}) : super._();
-
   @override
   UserNotConfirmedException rebuild(
     void Function(UserNotConfirmedExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$UserNotConfirmedException extends UserNotConfirmedException {
 
   @override
   UserNotConfirmedExceptionBuilder toBuilder() =>
-      new UserNotConfirmedExceptionBuilder()..replace(this);
+      UserNotConfirmedExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class UserNotConfirmedExceptionBuilder
 
   @override
   void replace(UserNotConfirmedException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UserNotConfirmedException;
   }
 
@@ -84,7 +82,7 @@ class UserNotConfirmedExceptionBuilder
   _$UserNotConfirmedException _build() {
     final _$result =
         _$v ??
-        new _$UserNotConfirmedException._(message: message, headers: headers);
+        _$UserNotConfirmedException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

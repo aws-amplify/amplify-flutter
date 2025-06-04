@@ -15,13 +15,10 @@ class _$SoftwareTokenMfaNotFoundException
 
   factory _$SoftwareTokenMfaNotFoundException([
     void Function(SoftwareTokenMfaNotFoundExceptionBuilder)? updates,
-  ]) =>
-      (new SoftwareTokenMfaNotFoundExceptionBuilder()..update(updates))
-          ._build();
+  ]) => (SoftwareTokenMfaNotFoundExceptionBuilder()..update(updates))._build();
 
   _$SoftwareTokenMfaNotFoundException._({this.message, this.headers})
     : super._();
-
   @override
   SoftwareTokenMfaNotFoundException rebuild(
     void Function(SoftwareTokenMfaNotFoundExceptionBuilder) updates,
@@ -29,7 +26,7 @@ class _$SoftwareTokenMfaNotFoundException
 
   @override
   SoftwareTokenMfaNotFoundExceptionBuilder toBuilder() =>
-      new SoftwareTokenMfaNotFoundExceptionBuilder()..replace(this);
+      SoftwareTokenMfaNotFoundExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -77,7 +74,6 @@ class SoftwareTokenMfaNotFoundExceptionBuilder
 
   @override
   void replace(SoftwareTokenMfaNotFoundException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SoftwareTokenMfaNotFoundException;
   }
 
@@ -94,7 +90,7 @@ class SoftwareTokenMfaNotFoundExceptionBuilder
   _$SoftwareTokenMfaNotFoundException _build() {
     final _$result =
         _$v ??
-        new _$SoftwareTokenMfaNotFoundException._(
+        _$SoftwareTokenMfaNotFoundException._(
           message: message,
           headers: headers,
         );

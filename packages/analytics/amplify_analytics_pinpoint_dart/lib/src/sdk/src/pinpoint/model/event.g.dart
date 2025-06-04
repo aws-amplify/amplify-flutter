@@ -29,7 +29,7 @@ class _$Event extends Event {
   final String timestamp;
 
   factory _$Event([void Function(EventBuilder)? updates]) =>
-      (new EventBuilder()..update(updates))._build();
+      (EventBuilder()..update(updates))._build();
 
   _$Event._({
     this.appPackageName,
@@ -42,17 +42,13 @@ class _$Event extends Event {
     this.sdkName,
     this.session,
     required this.timestamp,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(eventType, r'Event', 'eventType');
-    BuiltValueNullFieldError.checkNotNull(timestamp, r'Event', 'timestamp');
-  }
-
+  }) : super._();
   @override
   Event rebuild(void Function(EventBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EventBuilder toBuilder() => new EventBuilder()..replace(this);
+  EventBuilder toBuilder() => EventBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -107,7 +103,7 @@ class EventBuilder implements Builder<Event, EventBuilder> {
 
   _i2.MapBuilder<String, String>? _attributes;
   _i2.MapBuilder<String, String> get attributes =>
-      _$this._attributes ??= new _i2.MapBuilder<String, String>();
+      _$this._attributes ??= _i2.MapBuilder<String, String>();
   set attributes(_i2.MapBuilder<String, String>? attributes) =>
       _$this._attributes = attributes;
 
@@ -122,7 +118,7 @@ class EventBuilder implements Builder<Event, EventBuilder> {
 
   _i2.MapBuilder<String, double>? _metrics;
   _i2.MapBuilder<String, double> get metrics =>
-      _$this._metrics ??= new _i2.MapBuilder<String, double>();
+      _$this._metrics ??= _i2.MapBuilder<String, double>();
   set metrics(_i2.MapBuilder<String, double>? metrics) =>
       _$this._metrics = metrics;
 
@@ -131,7 +127,7 @@ class EventBuilder implements Builder<Event, EventBuilder> {
   set sdkName(String? sdkName) => _$this._sdkName = sdkName;
 
   SessionBuilder? _session;
-  SessionBuilder get session => _$this._session ??= new SessionBuilder();
+  SessionBuilder get session => _$this._session ??= SessionBuilder();
   set session(SessionBuilder? session) => _$this._session = session;
 
   String? _timestamp;
@@ -160,7 +156,6 @@ class EventBuilder implements Builder<Event, EventBuilder> {
 
   @override
   void replace(Event other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Event;
   }
 
@@ -177,7 +172,7 @@ class EventBuilder implements Builder<Event, EventBuilder> {
     try {
       _$result =
           _$v ??
-          new _$Event._(
+          _$Event._(
             appPackageName: appPackageName,
             appTitle: appTitle,
             appVersionCode: appVersionCode,
@@ -209,11 +204,7 @@ class EventBuilder implements Builder<Event, EventBuilder> {
         _$failedField = 'session';
         _session?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-          r'Event',
-          _$failedField,
-          e.toString(),
-        );
+        throw BuiltValueNestedFieldError(r'Event', _$failedField, e.toString());
       }
       rethrow;
     }

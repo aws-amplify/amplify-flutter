@@ -7,7 +7,7 @@ part of 'resource_shape.dart';
 // **************************************************************************
 
 Serializer<ResourceShape> _$resourceShapeSerializer =
-    new _$ResourceShapeSerializer();
+    _$ResourceShapeSerializer();
 
 class _$ResourceShapeSerializer implements StructuredSerializer<ResourceShape> {
   @override
@@ -115,7 +115,7 @@ class _$ResourceShapeSerializer implements StructuredSerializer<ResourceShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ResourceShapeBuilder();
+    final result = ResourceShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -263,7 +263,7 @@ class _$ResourceShape extends ResourceShape {
   final BuiltSet<ShapeRef> operations;
 
   factory _$ResourceShape([void Function(ResourceShapeBuilder)? updates]) =>
-      (new ResourceShapeBuilder()..update(updates))._build();
+      (ResourceShapeBuilder()..update(updates))._build();
 
   _$ResourceShape._({
     required this.identifiers,
@@ -278,37 +278,13 @@ class _$ResourceShape extends ResourceShape {
     required this.traits,
     required this.resources,
     required this.operations,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      identifiers,
-      r'ResourceShape',
-      'identifiers',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      collectionOperations,
-      r'ResourceShape',
-      'collectionOperations',
-    );
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'ResourceShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'ResourceShape', 'traits');
-    BuiltValueNullFieldError.checkNotNull(
-      resources,
-      r'ResourceShape',
-      'resources',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      operations,
-      r'ResourceShape',
-      'operations',
-    );
-  }
-
+  }) : super._();
   @override
   ResourceShape rebuild(void Function(ResourceShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ResourceShapeBuilder toBuilder() => new ResourceShapeBuilder()..replace(this);
+  ResourceShapeBuilder toBuilder() => ResourceShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -372,37 +348,37 @@ class ResourceShapeBuilder
 
   MapBuilder<String, ShapeRef>? _identifiers;
   MapBuilder<String, ShapeRef> get identifiers =>
-      _$this._identifiers ??= new MapBuilder<String, ShapeRef>();
+      _$this._identifiers ??= MapBuilder<String, ShapeRef>();
   set identifiers(covariant MapBuilder<String, ShapeRef>? identifiers) =>
       _$this._identifiers = identifiers;
 
   ShapeRefBuilder? _put;
-  ShapeRefBuilder get put => _$this._put ??= new ShapeRefBuilder();
+  ShapeRefBuilder get put => _$this._put ??= ShapeRefBuilder();
   set put(covariant ShapeRefBuilder? put) => _$this._put = put;
 
   ShapeRefBuilder? _create;
-  ShapeRefBuilder get create => _$this._create ??= new ShapeRefBuilder();
+  ShapeRefBuilder get create => _$this._create ??= ShapeRefBuilder();
   set create(covariant ShapeRefBuilder? create) => _$this._create = create;
 
   ShapeRefBuilder? _read;
-  ShapeRefBuilder get read => _$this._read ??= new ShapeRefBuilder();
+  ShapeRefBuilder get read => _$this._read ??= ShapeRefBuilder();
   set read(covariant ShapeRefBuilder? read) => _$this._read = read;
 
   ShapeRefBuilder? _update_;
-  ShapeRefBuilder get update_ => _$this._update_ ??= new ShapeRefBuilder();
+  ShapeRefBuilder get update_ => _$this._update_ ??= ShapeRefBuilder();
   set update_(covariant ShapeRefBuilder? update_) => _$this._update_ = update_;
 
   ShapeRefBuilder? _delete;
-  ShapeRefBuilder get delete => _$this._delete ??= new ShapeRefBuilder();
+  ShapeRefBuilder get delete => _$this._delete ??= ShapeRefBuilder();
   set delete(covariant ShapeRefBuilder? delete) => _$this._delete = delete;
 
   ShapeRefBuilder? _list;
-  ShapeRefBuilder get list => _$this._list ??= new ShapeRefBuilder();
+  ShapeRefBuilder get list => _$this._list ??= ShapeRefBuilder();
   set list(covariant ShapeRefBuilder? list) => _$this._list = list;
 
   SetBuilder<ShapeRef>? _collectionOperations;
   SetBuilder<ShapeRef> get collectionOperations =>
-      _$this._collectionOperations ??= new SetBuilder<ShapeRef>();
+      _$this._collectionOperations ??= SetBuilder<ShapeRef>();
   set collectionOperations(
     covariant SetBuilder<ShapeRef>? collectionOperations,
   ) => _$this._collectionOperations = collectionOperations;
@@ -417,13 +393,13 @@ class ResourceShapeBuilder
 
   SetBuilder<ShapeRef>? _resources;
   SetBuilder<ShapeRef> get resources =>
-      _$this._resources ??= new SetBuilder<ShapeRef>();
+      _$this._resources ??= SetBuilder<ShapeRef>();
   set resources(covariant SetBuilder<ShapeRef>? resources) =>
       _$this._resources = resources;
 
   SetBuilder<ShapeRef>? _operations;
   SetBuilder<ShapeRef> get operations =>
-      _$this._operations ??= new SetBuilder<ShapeRef>();
+      _$this._operations ??= SetBuilder<ShapeRef>();
   set operations(covariant SetBuilder<ShapeRef>? operations) =>
       _$this._operations = operations;
 
@@ -453,7 +429,6 @@ class ResourceShapeBuilder
 
   @override
   void replace(covariant ResourceShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResourceShape;
   }
 
@@ -470,7 +445,7 @@ class ResourceShapeBuilder
     try {
       _$result =
           _$v ??
-          new _$ResourceShape._(
+          _$ResourceShape._(
             identifiers: identifiers.build(),
             put: _put?.build(),
             create: _create?.build(),
@@ -517,7 +492,7 @@ class ResourceShapeBuilder
         _$failedField = 'operations';
         operations.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ResourceShape',
           _$failedField,
           e.toString(),

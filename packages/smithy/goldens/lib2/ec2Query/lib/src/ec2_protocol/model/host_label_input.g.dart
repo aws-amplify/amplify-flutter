@@ -11,19 +11,15 @@ class _$HostLabelInput extends HostLabelInput {
   final String label;
 
   factory _$HostLabelInput([void Function(HostLabelInputBuilder)? updates]) =>
-      (new HostLabelInputBuilder()..update(updates))._build();
+      (HostLabelInputBuilder()..update(updates))._build();
 
-  _$HostLabelInput._({required this.label}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(label, r'HostLabelInput', 'label');
-  }
-
+  _$HostLabelInput._({required this.label}) : super._();
   @override
   HostLabelInput rebuild(void Function(HostLabelInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  HostLabelInputBuilder toBuilder() =>
-      new HostLabelInputBuilder()..replace(this);
+  HostLabelInputBuilder toBuilder() => HostLabelInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +57,6 @@ class HostLabelInputBuilder
 
   @override
   void replace(HostLabelInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HostLabelInput;
   }
 
@@ -76,7 +71,7 @@ class HostLabelInputBuilder
   _$HostLabelInput _build() {
     final _$result =
         _$v ??
-        new _$HostLabelInput._(
+        _$HostLabelInput._(
           label: BuiltValueNullFieldError.checkNotNull(
             label,
             r'HostLabelInput',

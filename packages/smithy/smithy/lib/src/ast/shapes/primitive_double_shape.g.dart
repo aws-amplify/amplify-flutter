@@ -7,7 +7,7 @@ part of 'primitive_double_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveDoubleShape> _$primitiveDoubleShapeSerializer =
-    new _$PrimitiveDoubleShapeSerializer();
+    _$PrimitiveDoubleShapeSerializer();
 
 class _$PrimitiveDoubleShapeSerializer
     implements StructuredSerializer<PrimitiveDoubleShape> {
@@ -42,7 +42,7 @@ class _$PrimitiveDoubleShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new PrimitiveDoubleShapeBuilder();
+    final result = PrimitiveDoubleShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -73,22 +73,10 @@ class _$PrimitiveDoubleShape extends PrimitiveDoubleShape {
 
   factory _$PrimitiveDoubleShape([
     void Function(PrimitiveDoubleShapeBuilder)? updates,
-  ]) => (new PrimitiveDoubleShapeBuilder()..update(updates))._build();
+  ]) => (PrimitiveDoubleShapeBuilder()..update(updates))._build();
 
   _$PrimitiveDoubleShape._({required this.shapeId, required this.traits})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'PrimitiveDoubleShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      traits,
-      r'PrimitiveDoubleShape',
-      'traits',
-    );
-  }
-
+    : super._();
   @override
   PrimitiveDoubleShape rebuild(
     void Function(PrimitiveDoubleShapeBuilder) updates,
@@ -96,7 +84,7 @@ class _$PrimitiveDoubleShape extends PrimitiveDoubleShape {
 
   @override
   PrimitiveDoubleShapeBuilder toBuilder() =>
-      new PrimitiveDoubleShapeBuilder()..replace(this);
+      PrimitiveDoubleShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -154,7 +142,6 @@ class PrimitiveDoubleShapeBuilder
 
   @override
   void replace(covariant PrimitiveDoubleShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveDoubleShape;
   }
 
@@ -169,7 +156,7 @@ class PrimitiveDoubleShapeBuilder
   _$PrimitiveDoubleShape _build() {
     final _$result =
         _$v ??
-        new _$PrimitiveDoubleShape._(
+        _$PrimitiveDoubleShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'PrimitiveDoubleShape',

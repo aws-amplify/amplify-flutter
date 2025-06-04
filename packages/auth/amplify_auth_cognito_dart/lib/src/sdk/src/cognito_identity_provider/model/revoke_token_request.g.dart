@@ -16,25 +16,13 @@ class _$RevokeTokenRequest extends RevokeTokenRequest {
 
   factory _$RevokeTokenRequest([
     void Function(RevokeTokenRequestBuilder)? updates,
-  ]) => (new RevokeTokenRequestBuilder()..update(updates))._build();
+  ]) => (RevokeTokenRequestBuilder()..update(updates))._build();
 
   _$RevokeTokenRequest._({
     required this.token,
     required this.clientId,
     this.clientSecret,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      token,
-      r'RevokeTokenRequest',
-      'token',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      clientId,
-      r'RevokeTokenRequest',
-      'clientId',
-    );
-  }
-
+  }) : super._();
   @override
   RevokeTokenRequest rebuild(
     void Function(RevokeTokenRequestBuilder) updates,
@@ -42,7 +30,7 @@ class _$RevokeTokenRequest extends RevokeTokenRequest {
 
   @override
   RevokeTokenRequestBuilder toBuilder() =>
-      new RevokeTokenRequestBuilder()..replace(this);
+      RevokeTokenRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -95,7 +83,6 @@ class RevokeTokenRequestBuilder
 
   @override
   void replace(RevokeTokenRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RevokeTokenRequest;
   }
 
@@ -110,7 +97,7 @@ class RevokeTokenRequestBuilder
   _$RevokeTokenRequest _build() {
     final _$result =
         _$v ??
-        new _$RevokeTokenRequest._(
+        _$RevokeTokenRequest._(
           token: BuiltValueNullFieldError.checkNotNull(
             token,
             r'RevokeTokenRequest',

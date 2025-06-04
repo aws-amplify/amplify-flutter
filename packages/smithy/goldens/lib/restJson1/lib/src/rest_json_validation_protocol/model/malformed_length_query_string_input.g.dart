@@ -13,11 +13,9 @@ class _$MalformedLengthQueryStringInput
 
   factory _$MalformedLengthQueryStringInput([
     void Function(MalformedLengthQueryStringInputBuilder)? updates,
-  ]) =>
-      (new MalformedLengthQueryStringInputBuilder()..update(updates))._build();
+  ]) => (MalformedLengthQueryStringInputBuilder()..update(updates))._build();
 
   _$MalformedLengthQueryStringInput._({this.string}) : super._();
-
   @override
   MalformedLengthQueryStringInput rebuild(
     void Function(MalformedLengthQueryStringInputBuilder) updates,
@@ -25,7 +23,7 @@ class _$MalformedLengthQueryStringInput
 
   @override
   MalformedLengthQueryStringInputBuilder toBuilder() =>
-      new MalformedLengthQueryStringInputBuilder()..replace(this);
+      MalformedLengthQueryStringInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -67,7 +65,6 @@ class MalformedLengthQueryStringInputBuilder
 
   @override
   void replace(MalformedLengthQueryStringInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedLengthQueryStringInput;
   }
 
@@ -80,8 +77,7 @@ class MalformedLengthQueryStringInputBuilder
   MalformedLengthQueryStringInput build() => _build();
 
   _$MalformedLengthQueryStringInput _build() {
-    final _$result =
-        _$v ?? new _$MalformedLengthQueryStringInput._(string: string);
+    final _$result = _$v ?? _$MalformedLengthQueryStringInput._(string: string);
     replace(_$result);
     return _$result;
   }
@@ -92,11 +88,10 @@ class _$MalformedLengthQueryStringInputPayload
   factory _$MalformedLengthQueryStringInputPayload([
     void Function(MalformedLengthQueryStringInputPayloadBuilder)? updates,
   ]) =>
-      (new MalformedLengthQueryStringInputPayloadBuilder()..update(updates))
+      (MalformedLengthQueryStringInputPayloadBuilder()..update(updates))
           ._build();
 
   _$MalformedLengthQueryStringInputPayload._() : super._();
-
   @override
   MalformedLengthQueryStringInputPayload rebuild(
     void Function(MalformedLengthQueryStringInputPayloadBuilder) updates,
@@ -104,7 +99,7 @@ class _$MalformedLengthQueryStringInputPayload
 
   @override
   MalformedLengthQueryStringInputPayloadBuilder toBuilder() =>
-      new MalformedLengthQueryStringInputPayloadBuilder()..replace(this);
+      MalformedLengthQueryStringInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -130,7 +125,6 @@ class MalformedLengthQueryStringInputPayloadBuilder
 
   @override
   void replace(MalformedLengthQueryStringInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedLengthQueryStringInputPayload;
   }
 
@@ -145,7 +139,7 @@ class MalformedLengthQueryStringInputPayloadBuilder
   MalformedLengthQueryStringInputPayload build() => _build();
 
   _$MalformedLengthQueryStringInputPayload _build() {
-    final _$result = _$v ?? new _$MalformedLengthQueryStringInputPayload._();
+    final _$result = _$v ?? _$MalformedLengthQueryStringInputPayload._();
     replace(_$result);
     return _$result;
   }

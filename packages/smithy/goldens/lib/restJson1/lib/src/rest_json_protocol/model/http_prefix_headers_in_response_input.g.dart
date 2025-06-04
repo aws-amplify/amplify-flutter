@@ -10,11 +10,9 @@ class _$HttpPrefixHeadersInResponseInput
     extends HttpPrefixHeadersInResponseInput {
   factory _$HttpPrefixHeadersInResponseInput([
     void Function(HttpPrefixHeadersInResponseInputBuilder)? updates,
-  ]) =>
-      (new HttpPrefixHeadersInResponseInputBuilder()..update(updates))._build();
+  ]) => (HttpPrefixHeadersInResponseInputBuilder()..update(updates))._build();
 
   _$HttpPrefixHeadersInResponseInput._() : super._();
-
   @override
   HttpPrefixHeadersInResponseInput rebuild(
     void Function(HttpPrefixHeadersInResponseInputBuilder) updates,
@@ -22,7 +20,7 @@ class _$HttpPrefixHeadersInResponseInput
 
   @override
   HttpPrefixHeadersInResponseInputBuilder toBuilder() =>
-      new HttpPrefixHeadersInResponseInputBuilder()..replace(this);
+      HttpPrefixHeadersInResponseInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -48,7 +46,6 @@ class HttpPrefixHeadersInResponseInputBuilder
 
   @override
   void replace(HttpPrefixHeadersInResponseInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPrefixHeadersInResponseInput;
   }
 
@@ -61,7 +58,7 @@ class HttpPrefixHeadersInResponseInputBuilder
   HttpPrefixHeadersInResponseInput build() => _build();
 
   _$HttpPrefixHeadersInResponseInput _build() {
-    final _$result = _$v ?? new _$HttpPrefixHeadersInResponseInput._();
+    final _$result = _$v ?? _$HttpPrefixHeadersInResponseInput._();
     replace(_$result);
     return _$result;
   }

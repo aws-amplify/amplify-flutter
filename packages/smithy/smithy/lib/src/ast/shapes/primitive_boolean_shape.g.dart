@@ -7,7 +7,7 @@ part of 'primitive_boolean_shape.dart';
 // **************************************************************************
 
 Serializer<PrimitiveBooleanShape> _$primitiveBooleanShapeSerializer =
-    new _$PrimitiveBooleanShapeSerializer();
+    _$PrimitiveBooleanShapeSerializer();
 
 class _$PrimitiveBooleanShapeSerializer
     implements StructuredSerializer<PrimitiveBooleanShape> {
@@ -42,7 +42,7 @@ class _$PrimitiveBooleanShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new PrimitiveBooleanShapeBuilder();
+    final result = PrimitiveBooleanShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -73,22 +73,10 @@ class _$PrimitiveBooleanShape extends PrimitiveBooleanShape {
 
   factory _$PrimitiveBooleanShape([
     void Function(PrimitiveBooleanShapeBuilder)? updates,
-  ]) => (new PrimitiveBooleanShapeBuilder()..update(updates))._build();
+  ]) => (PrimitiveBooleanShapeBuilder()..update(updates))._build();
 
   _$PrimitiveBooleanShape._({required this.shapeId, required this.traits})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'PrimitiveBooleanShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      traits,
-      r'PrimitiveBooleanShape',
-      'traits',
-    );
-  }
-
+    : super._();
   @override
   PrimitiveBooleanShape rebuild(
     void Function(PrimitiveBooleanShapeBuilder) updates,
@@ -96,7 +84,7 @@ class _$PrimitiveBooleanShape extends PrimitiveBooleanShape {
 
   @override
   PrimitiveBooleanShapeBuilder toBuilder() =>
-      new PrimitiveBooleanShapeBuilder()..replace(this);
+      PrimitiveBooleanShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -154,7 +142,6 @@ class PrimitiveBooleanShapeBuilder
 
   @override
   void replace(covariant PrimitiveBooleanShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PrimitiveBooleanShape;
   }
 
@@ -169,7 +156,7 @@ class PrimitiveBooleanShapeBuilder
   _$PrimitiveBooleanShape _build() {
     final _$result =
         _$v ??
-        new _$PrimitiveBooleanShape._(
+        _$PrimitiveBooleanShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'PrimitiveBooleanShape',

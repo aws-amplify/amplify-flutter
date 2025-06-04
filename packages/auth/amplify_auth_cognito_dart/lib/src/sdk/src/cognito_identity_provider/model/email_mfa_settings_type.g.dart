@@ -14,22 +14,10 @@ class _$EmailMfaSettingsType extends EmailMfaSettingsType {
 
   factory _$EmailMfaSettingsType([
     void Function(EmailMfaSettingsTypeBuilder)? updates,
-  ]) => (new EmailMfaSettingsTypeBuilder()..update(updates))._build();
+  ]) => (EmailMfaSettingsTypeBuilder()..update(updates))._build();
 
   _$EmailMfaSettingsType._({required this.enabled, required this.preferredMfa})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      enabled,
-      r'EmailMfaSettingsType',
-      'enabled',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      preferredMfa,
-      r'EmailMfaSettingsType',
-      'preferredMfa',
-    );
-  }
-
+    : super._();
   @override
   EmailMfaSettingsType rebuild(
     void Function(EmailMfaSettingsTypeBuilder) updates,
@@ -37,7 +25,7 @@ class _$EmailMfaSettingsType extends EmailMfaSettingsType {
 
   @override
   EmailMfaSettingsTypeBuilder toBuilder() =>
-      new EmailMfaSettingsTypeBuilder()..replace(this);
+      EmailMfaSettingsTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -85,7 +73,6 @@ class EmailMfaSettingsTypeBuilder
 
   @override
   void replace(EmailMfaSettingsType other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EmailMfaSettingsType;
   }
 
@@ -100,7 +87,7 @@ class EmailMfaSettingsTypeBuilder
   _$EmailMfaSettingsType _build() {
     final _$result =
         _$v ??
-        new _$EmailMfaSettingsType._(
+        _$EmailMfaSettingsType._(
           enabled: BuiltValueNullFieldError.checkNotNull(
             enabled,
             r'EmailMfaSettingsType',

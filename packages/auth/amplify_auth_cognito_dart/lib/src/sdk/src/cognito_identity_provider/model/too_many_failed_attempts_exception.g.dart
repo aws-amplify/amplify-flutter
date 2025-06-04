@@ -14,10 +14,9 @@ class _$TooManyFailedAttemptsException extends TooManyFailedAttemptsException {
 
   factory _$TooManyFailedAttemptsException([
     void Function(TooManyFailedAttemptsExceptionBuilder)? updates,
-  ]) => (new TooManyFailedAttemptsExceptionBuilder()..update(updates))._build();
+  ]) => (TooManyFailedAttemptsExceptionBuilder()..update(updates))._build();
 
   _$TooManyFailedAttemptsException._({this.message, this.headers}) : super._();
-
   @override
   TooManyFailedAttemptsException rebuild(
     void Function(TooManyFailedAttemptsExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$TooManyFailedAttemptsException extends TooManyFailedAttemptsException {
 
   @override
   TooManyFailedAttemptsExceptionBuilder toBuilder() =>
-      new TooManyFailedAttemptsExceptionBuilder()..replace(this);
+      TooManyFailedAttemptsExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class TooManyFailedAttemptsExceptionBuilder
 
   @override
   void replace(TooManyFailedAttemptsException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TooManyFailedAttemptsException;
   }
 
@@ -87,10 +85,7 @@ class TooManyFailedAttemptsExceptionBuilder
   _$TooManyFailedAttemptsException _build() {
     final _$result =
         _$v ??
-        new _$TooManyFailedAttemptsException._(
-          message: message,
-          headers: headers,
-        );
+        _$TooManyFailedAttemptsException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

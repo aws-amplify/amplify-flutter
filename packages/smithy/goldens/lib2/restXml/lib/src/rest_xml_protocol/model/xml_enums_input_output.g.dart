@@ -22,7 +22,7 @@ class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
 
   factory _$XmlEnumsInputOutput([
     void Function(XmlEnumsInputOutputBuilder)? updates,
-  ]) => (new XmlEnumsInputOutputBuilder()..update(updates))._build();
+  ]) => (XmlEnumsInputOutputBuilder()..update(updates))._build();
 
   _$XmlEnumsInputOutput._({
     this.fooEnum1,
@@ -32,7 +32,6 @@ class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
     this.fooEnumSet,
     this.fooEnumMap,
   }) : super._();
-
   @override
   XmlEnumsInputOutput rebuild(
     void Function(XmlEnumsInputOutputBuilder) updates,
@@ -40,7 +39,7 @@ class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
 
   @override
   XmlEnumsInputOutputBuilder toBuilder() =>
-      new XmlEnumsInputOutputBuilder()..replace(this);
+      XmlEnumsInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -86,19 +85,19 @@ class XmlEnumsInputOutputBuilder
 
   _i3.ListBuilder<FooEnum>? _fooEnumList;
   _i3.ListBuilder<FooEnum> get fooEnumList =>
-      _$this._fooEnumList ??= new _i3.ListBuilder<FooEnum>();
+      _$this._fooEnumList ??= _i3.ListBuilder<FooEnum>();
   set fooEnumList(_i3.ListBuilder<FooEnum>? fooEnumList) =>
       _$this._fooEnumList = fooEnumList;
 
   _i3.SetBuilder<FooEnum>? _fooEnumSet;
   _i3.SetBuilder<FooEnum> get fooEnumSet =>
-      _$this._fooEnumSet ??= new _i3.SetBuilder<FooEnum>();
+      _$this._fooEnumSet ??= _i3.SetBuilder<FooEnum>();
   set fooEnumSet(_i3.SetBuilder<FooEnum>? fooEnumSet) =>
       _$this._fooEnumSet = fooEnumSet;
 
   _i3.MapBuilder<String, FooEnum>? _fooEnumMap;
   _i3.MapBuilder<String, FooEnum> get fooEnumMap =>
-      _$this._fooEnumMap ??= new _i3.MapBuilder<String, FooEnum>();
+      _$this._fooEnumMap ??= _i3.MapBuilder<String, FooEnum>();
   set fooEnumMap(_i3.MapBuilder<String, FooEnum>? fooEnumMap) =>
       _$this._fooEnumMap = fooEnumMap;
 
@@ -120,7 +119,6 @@ class XmlEnumsInputOutputBuilder
 
   @override
   void replace(XmlEnumsInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlEnumsInputOutput;
   }
 
@@ -137,7 +135,7 @@ class XmlEnumsInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$XmlEnumsInputOutput._(
+          _$XmlEnumsInputOutput._(
             fooEnum1: fooEnum1,
             fooEnum2: fooEnum2,
             fooEnum3: fooEnum3,
@@ -155,7 +153,7 @@ class XmlEnumsInputOutputBuilder
         _$failedField = 'fooEnumMap';
         _fooEnumMap?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'XmlEnumsInputOutput',
           _$failedField,
           e.toString(),

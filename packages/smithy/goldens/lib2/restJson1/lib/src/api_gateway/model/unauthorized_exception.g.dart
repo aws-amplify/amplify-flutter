@@ -14,10 +14,9 @@ class _$UnauthorizedException extends UnauthorizedException {
 
   factory _$UnauthorizedException([
     void Function(UnauthorizedExceptionBuilder)? updates,
-  ]) => (new UnauthorizedExceptionBuilder()..update(updates))._build();
+  ]) => (UnauthorizedExceptionBuilder()..update(updates))._build();
 
   _$UnauthorizedException._({this.message, this.headers}) : super._();
-
   @override
   UnauthorizedException rebuild(
     void Function(UnauthorizedExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$UnauthorizedException extends UnauthorizedException {
 
   @override
   UnauthorizedExceptionBuilder toBuilder() =>
-      new UnauthorizedExceptionBuilder()..replace(this);
+      UnauthorizedExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +67,6 @@ class UnauthorizedExceptionBuilder
 
   @override
   void replace(UnauthorizedException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UnauthorizedException;
   }
 
@@ -82,8 +80,7 @@ class UnauthorizedExceptionBuilder
 
   _$UnauthorizedException _build() {
     final _$result =
-        _$v ??
-        new _$UnauthorizedException._(message: message, headers: headers);
+        _$v ?? _$UnauthorizedException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

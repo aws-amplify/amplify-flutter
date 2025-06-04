@@ -16,12 +16,11 @@ class _$PasswordHistoryPolicyViolationException
   factory _$PasswordHistoryPolicyViolationException([
     void Function(PasswordHistoryPolicyViolationExceptionBuilder)? updates,
   ]) =>
-      (new PasswordHistoryPolicyViolationExceptionBuilder()..update(updates))
+      (PasswordHistoryPolicyViolationExceptionBuilder()..update(updates))
           ._build();
 
   _$PasswordHistoryPolicyViolationException._({this.message, this.headers})
     : super._();
-
   @override
   PasswordHistoryPolicyViolationException rebuild(
     void Function(PasswordHistoryPolicyViolationExceptionBuilder) updates,
@@ -29,7 +28,7 @@ class _$PasswordHistoryPolicyViolationException
 
   @override
   PasswordHistoryPolicyViolationExceptionBuilder toBuilder() =>
-      new PasswordHistoryPolicyViolationExceptionBuilder()..replace(this);
+      PasswordHistoryPolicyViolationExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -77,7 +76,6 @@ class PasswordHistoryPolicyViolationExceptionBuilder
 
   @override
   void replace(PasswordHistoryPolicyViolationException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PasswordHistoryPolicyViolationException;
   }
 
@@ -94,7 +92,7 @@ class PasswordHistoryPolicyViolationExceptionBuilder
   _$PasswordHistoryPolicyViolationException _build() {
     final _$result =
         _$v ??
-        new _$PasswordHistoryPolicyViolationException._(
+        _$PasswordHistoryPolicyViolationException._(
           message: message,
           headers: headers,
         );

@@ -11,17 +11,15 @@ class _$JsonUnionsInput extends JsonUnionsInput {
   final MyUnion? contents;
 
   factory _$JsonUnionsInput([void Function(JsonUnionsInputBuilder)? updates]) =>
-      (new JsonUnionsInputBuilder()..update(updates))._build();
+      (JsonUnionsInputBuilder()..update(updates))._build();
 
   _$JsonUnionsInput._({this.contents}) : super._();
-
   @override
   JsonUnionsInput rebuild(void Function(JsonUnionsInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  JsonUnionsInputBuilder toBuilder() =>
-      new JsonUnionsInputBuilder()..replace(this);
+  JsonUnionsInputBuilder toBuilder() => JsonUnionsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -59,7 +57,6 @@ class JsonUnionsInputBuilder
 
   @override
   void replace(JsonUnionsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$JsonUnionsInput;
   }
 
@@ -72,7 +69,7 @@ class JsonUnionsInputBuilder
   JsonUnionsInput build() => _build();
 
   _$JsonUnionsInput _build() {
-    final _$result = _$v ?? new _$JsonUnionsInput._(contents: contents);
+    final _$result = _$v ?? _$JsonUnionsInput._(contents: contents);
     replace(_$result);
     return _$result;
   }

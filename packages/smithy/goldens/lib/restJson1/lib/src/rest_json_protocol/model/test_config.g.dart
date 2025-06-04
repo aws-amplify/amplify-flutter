@@ -11,16 +11,15 @@ class _$TestConfig extends TestConfig {
   final int? timeout;
 
   factory _$TestConfig([void Function(TestConfigBuilder)? updates]) =>
-      (new TestConfigBuilder()..update(updates))._build();
+      (TestConfigBuilder()..update(updates))._build();
 
   _$TestConfig._({this.timeout}) : super._();
-
   @override
   TestConfig rebuild(void Function(TestConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  TestConfigBuilder toBuilder() => new TestConfigBuilder()..replace(this);
+  TestConfigBuilder toBuilder() => TestConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -57,7 +56,6 @@ class TestConfigBuilder implements Builder<TestConfig, TestConfigBuilder> {
 
   @override
   void replace(TestConfig other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TestConfig;
   }
 
@@ -70,7 +68,7 @@ class TestConfigBuilder implements Builder<TestConfig, TestConfigBuilder> {
   TestConfig build() => _build();
 
   _$TestConfig _build() {
-    final _$result = _$v ?? new _$TestConfig._(timeout: timeout);
+    final _$result = _$v ?? _$TestConfig._(timeout: timeout);
     replace(_$result);
     return _$result;
   }

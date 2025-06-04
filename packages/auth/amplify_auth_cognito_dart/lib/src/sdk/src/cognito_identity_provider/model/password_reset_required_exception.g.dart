@@ -14,10 +14,9 @@ class _$PasswordResetRequiredException extends PasswordResetRequiredException {
 
   factory _$PasswordResetRequiredException([
     void Function(PasswordResetRequiredExceptionBuilder)? updates,
-  ]) => (new PasswordResetRequiredExceptionBuilder()..update(updates))._build();
+  ]) => (PasswordResetRequiredExceptionBuilder()..update(updates))._build();
 
   _$PasswordResetRequiredException._({this.message, this.headers}) : super._();
-
   @override
   PasswordResetRequiredException rebuild(
     void Function(PasswordResetRequiredExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$PasswordResetRequiredException extends PasswordResetRequiredException {
 
   @override
   PasswordResetRequiredExceptionBuilder toBuilder() =>
-      new PasswordResetRequiredExceptionBuilder()..replace(this);
+      PasswordResetRequiredExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class PasswordResetRequiredExceptionBuilder
 
   @override
   void replace(PasswordResetRequiredException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PasswordResetRequiredException;
   }
 
@@ -87,10 +85,7 @@ class PasswordResetRequiredExceptionBuilder
   _$PasswordResetRequiredException _build() {
     final _$result =
         _$v ??
-        new _$PasswordResetRequiredException._(
-          message: message,
-          headers: headers,
-        );
+        _$PasswordResetRequiredException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

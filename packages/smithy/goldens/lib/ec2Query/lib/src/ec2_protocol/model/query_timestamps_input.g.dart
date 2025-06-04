@@ -16,14 +16,13 @@ class _$QueryTimestampsInput extends QueryTimestampsInput {
 
   factory _$QueryTimestampsInput([
     void Function(QueryTimestampsInputBuilder)? updates,
-  ]) => (new QueryTimestampsInputBuilder()..update(updates))._build();
+  ]) => (QueryTimestampsInputBuilder()..update(updates))._build();
 
   _$QueryTimestampsInput._({
     this.normalFormat,
     this.epochMember,
     this.epochTarget,
   }) : super._();
-
   @override
   QueryTimestampsInput rebuild(
     void Function(QueryTimestampsInputBuilder) updates,
@@ -31,7 +30,7 @@ class _$QueryTimestampsInput extends QueryTimestampsInput {
 
   @override
   QueryTimestampsInputBuilder toBuilder() =>
-      new QueryTimestampsInputBuilder()..replace(this);
+      QueryTimestampsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -85,7 +84,6 @@ class QueryTimestampsInputBuilder
 
   @override
   void replace(QueryTimestampsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$QueryTimestampsInput;
   }
 
@@ -100,7 +98,7 @@ class QueryTimestampsInputBuilder
   _$QueryTimestampsInput _build() {
     final _$result =
         _$v ??
-        new _$QueryTimestampsInput._(
+        _$QueryTimestampsInput._(
           normalFormat: normalFormat,
           epochMember: epochMember,
           epochTarget: epochTarget,

@@ -18,21 +18,14 @@ class _$MalformedShortInput extends MalformedShortInput {
 
   factory _$MalformedShortInput([
     void Function(MalformedShortInputBuilder)? updates,
-  ]) => (new MalformedShortInputBuilder()..update(updates))._build();
+  ]) => (MalformedShortInputBuilder()..update(updates))._build();
 
   _$MalformedShortInput._({
     this.shortInBody,
     required this.shortInPath,
     this.shortInQuery,
     this.shortInHeader,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shortInPath,
-      r'MalformedShortInput',
-      'shortInPath',
-    );
-  }
-
+  }) : super._();
   @override
   MalformedShortInput rebuild(
     void Function(MalformedShortInputBuilder) updates,
@@ -40,7 +33,7 @@ class _$MalformedShortInput extends MalformedShortInput {
 
   @override
   MalformedShortInputBuilder toBuilder() =>
-      new MalformedShortInputBuilder()..replace(this);
+      MalformedShortInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,7 +94,6 @@ class MalformedShortInputBuilder
 
   @override
   void replace(MalformedShortInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedShortInput;
   }
 
@@ -116,7 +108,7 @@ class MalformedShortInputBuilder
   _$MalformedShortInput _build() {
     final _$result =
         _$v ??
-        new _$MalformedShortInput._(
+        _$MalformedShortInput._(
           shortInBody: shortInBody,
           shortInPath: BuiltValueNullFieldError.checkNotNull(
             shortInPath,
@@ -137,10 +129,9 @@ class _$MalformedShortInputPayload extends MalformedShortInputPayload {
 
   factory _$MalformedShortInputPayload([
     void Function(MalformedShortInputPayloadBuilder)? updates,
-  ]) => (new MalformedShortInputPayloadBuilder()..update(updates))._build();
+  ]) => (MalformedShortInputPayloadBuilder()..update(updates))._build();
 
   _$MalformedShortInputPayload._({this.shortInBody}) : super._();
-
   @override
   MalformedShortInputPayload rebuild(
     void Function(MalformedShortInputPayloadBuilder) updates,
@@ -148,7 +139,7 @@ class _$MalformedShortInputPayload extends MalformedShortInputPayload {
 
   @override
   MalformedShortInputPayloadBuilder toBuilder() =>
-      new MalformedShortInputPayloadBuilder()..replace(this);
+      MalformedShortInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -188,7 +179,6 @@ class MalformedShortInputPayloadBuilder
 
   @override
   void replace(MalformedShortInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedShortInputPayload;
   }
 
@@ -202,7 +192,7 @@ class MalformedShortInputPayloadBuilder
 
   _$MalformedShortInputPayload _build() {
     final _$result =
-        _$v ?? new _$MalformedShortInputPayload._(shortInBody: shortInBody);
+        _$v ?? _$MalformedShortInputPayload._(shortInBody: shortInBody);
     replace(_$result);
     return _$result;
   }

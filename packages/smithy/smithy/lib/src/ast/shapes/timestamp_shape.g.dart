@@ -7,7 +7,7 @@ part of 'timestamp_shape.dart';
 // **************************************************************************
 
 Serializer<TimestampShape> _$timestampShapeSerializer =
-    new _$TimestampShapeSerializer();
+    _$TimestampShapeSerializer();
 
 class _$TimestampShapeSerializer
     implements StructuredSerializer<TimestampShape> {
@@ -39,7 +39,7 @@ class _$TimestampShapeSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new TimestampShapeBuilder();
+    final result = TimestampShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -69,25 +69,15 @@ class _$TimestampShape extends TimestampShape {
   final TraitMap traits;
 
   factory _$TimestampShape([void Function(TimestampShapeBuilder)? updates]) =>
-      (new TimestampShapeBuilder()..update(updates))._build();
+      (TimestampShapeBuilder()..update(updates))._build();
 
-  _$TimestampShape._({required this.shapeId, required this.traits})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      shapeId,
-      r'TimestampShape',
-      'shapeId',
-    );
-    BuiltValueNullFieldError.checkNotNull(traits, r'TimestampShape', 'traits');
-  }
-
+  _$TimestampShape._({required this.shapeId, required this.traits}) : super._();
   @override
   TimestampShape rebuild(void Function(TimestampShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  TimestampShapeBuilder toBuilder() =>
-      new TimestampShapeBuilder()..replace(this);
+  TimestampShapeBuilder toBuilder() => TimestampShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -145,7 +135,6 @@ class TimestampShapeBuilder
 
   @override
   void replace(covariant TimestampShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TimestampShape;
   }
 
@@ -160,7 +149,7 @@ class TimestampShapeBuilder
   _$TimestampShape _build() {
     final _$result =
         _$v ??
-        new _$TimestampShape._(
+        _$TimestampShape._(
           shapeId: BuiltValueNullFieldError.checkNotNull(
             shapeId,
             r'TimestampShape',

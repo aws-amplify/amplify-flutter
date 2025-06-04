@@ -14,11 +14,10 @@ class _$OperationWithOptionalInputOutputInput
   factory _$OperationWithOptionalInputOutputInput([
     void Function(OperationWithOptionalInputOutputInputBuilder)? updates,
   ]) =>
-      (new OperationWithOptionalInputOutputInputBuilder()..update(updates))
+      (OperationWithOptionalInputOutputInputBuilder()..update(updates))
           ._build();
 
   _$OperationWithOptionalInputOutputInput._({this.value}) : super._();
-
   @override
   OperationWithOptionalInputOutputInput rebuild(
     void Function(OperationWithOptionalInputOutputInputBuilder) updates,
@@ -26,7 +25,7 @@ class _$OperationWithOptionalInputOutputInput
 
   @override
   OperationWithOptionalInputOutputInputBuilder toBuilder() =>
-      new OperationWithOptionalInputOutputInputBuilder()..replace(this);
+      OperationWithOptionalInputOutputInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class OperationWithOptionalInputOutputInputBuilder
 
   @override
   void replace(OperationWithOptionalInputOutputInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$OperationWithOptionalInputOutputInput;
   }
 
@@ -85,7 +83,7 @@ class OperationWithOptionalInputOutputInputBuilder
 
   _$OperationWithOptionalInputOutputInput _build() {
     final _$result =
-        _$v ?? new _$OperationWithOptionalInputOutputInput._(value: value);
+        _$v ?? _$OperationWithOptionalInputOutputInput._(value: value);
     replace(_$result);
     return _$result;
   }

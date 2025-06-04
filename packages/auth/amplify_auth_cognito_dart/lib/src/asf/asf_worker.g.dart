@@ -7,15 +7,15 @@ part of 'asf_worker.dart';
 // **************************************************************************
 
 Serializers _$_serializers =
-    (new Serializers().toBuilder()
+    (Serializers().toBuilder()
           ..add(ASFContextData.serializer)
           ..add(ASFWorkerRequest.serializer)
           ..add(ASFWorkerResponse.serializer))
         .build();
 Serializer<ASFWorkerRequest> _$aSFWorkerRequestSerializer =
-    new _$ASFWorkerRequestSerializer();
+    _$ASFWorkerRequestSerializer();
 Serializer<ASFWorkerResponse> _$aSFWorkerResponseSerializer =
-    new _$ASFWorkerResponseSerializer();
+    _$ASFWorkerResponseSerializer();
 
 class _$ASFWorkerRequestSerializer
     implements StructuredSerializer<ASFWorkerRequest> {
@@ -72,7 +72,7 @@ class _$ASFWorkerRequestSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ASFWorkerRequestBuilder();
+    final result = ASFWorkerRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -171,7 +171,7 @@ class _$ASFWorkerResponseSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new ASFWorkerResponseBuilder();
+    final result = ASFWorkerResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -219,7 +219,7 @@ class _$ASFWorkerRequest extends ASFWorkerRequest {
 
   factory _$ASFWorkerRequest([
     void Function(ASFWorkerRequestBuilder)? updates,
-  ]) => (new ASFWorkerRequestBuilder()..update(updates))._build();
+  ]) => (ASFWorkerRequestBuilder()..update(updates))._build();
 
   _$ASFWorkerRequest._({
     required this.requestId,
@@ -228,46 +228,14 @@ class _$ASFWorkerRequest extends ASFWorkerRequest {
     required this.username,
     required this.deviceId,
     required this.nativeContextData,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      requestId,
-      r'ASFWorkerRequest',
-      'requestId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      userPoolId,
-      r'ASFWorkerRequest',
-      'userPoolId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      clientId,
-      r'ASFWorkerRequest',
-      'clientId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      username,
-      r'ASFWorkerRequest',
-      'username',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      deviceId,
-      r'ASFWorkerRequest',
-      'deviceId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      nativeContextData,
-      r'ASFWorkerRequest',
-      'nativeContextData',
-    );
-  }
-
+  }) : super._();
   @override
   ASFWorkerRequest rebuild(void Function(ASFWorkerRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   ASFWorkerRequestBuilder toBuilder() =>
-      new ASFWorkerRequestBuilder()..replace(this);
+      ASFWorkerRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -333,7 +301,7 @@ class ASFWorkerRequestBuilder
 
   ASFContextDataBuilder? _nativeContextData;
   ASFContextDataBuilder get nativeContextData =>
-      _$this._nativeContextData ??= new ASFContextDataBuilder();
+      _$this._nativeContextData ??= ASFContextDataBuilder();
   set nativeContextData(ASFContextDataBuilder? nativeContextData) =>
       _$this._nativeContextData = nativeContextData;
 
@@ -357,7 +325,6 @@ class ASFWorkerRequestBuilder
 
   @override
   void replace(ASFWorkerRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ASFWorkerRequest;
   }
 
@@ -374,7 +341,7 @@ class ASFWorkerRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$ASFWorkerRequest._(
+          _$ASFWorkerRequest._(
             requestId: BuiltValueNullFieldError.checkNotNull(
               requestId,
               r'ASFWorkerRequest',
@@ -408,7 +375,7 @@ class ASFWorkerRequestBuilder
         _$failedField = 'nativeContextData';
         nativeContextData.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ASFWorkerRequest',
           _$failedField,
           e.toString(),
@@ -429,31 +396,19 @@ class _$ASFWorkerResponse extends ASFWorkerResponse {
 
   factory _$ASFWorkerResponse([
     void Function(ASFWorkerResponseBuilder)? updates,
-  ]) => (new ASFWorkerResponseBuilder()..update(updates))._build();
+  ]) => (ASFWorkerResponseBuilder()..update(updates))._build();
 
   _$ASFWorkerResponse._({
     required this.requestId,
     required this.userContextData,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      requestId,
-      r'ASFWorkerResponse',
-      'requestId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      userContextData,
-      r'ASFWorkerResponse',
-      'userContextData',
-    );
-  }
-
+  }) : super._();
   @override
   ASFWorkerResponse rebuild(void Function(ASFWorkerResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   ASFWorkerResponseBuilder toBuilder() =>
-      new ASFWorkerResponseBuilder()..replace(this);
+      ASFWorkerResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -491,7 +446,7 @@ class ASFWorkerResponseBuilder
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
@@ -509,7 +464,6 @@ class ASFWorkerResponseBuilder
 
   @override
   void replace(ASFWorkerResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ASFWorkerResponse;
   }
 
@@ -526,7 +480,7 @@ class ASFWorkerResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$ASFWorkerResponse._(
+          _$ASFWorkerResponse._(
             requestId: BuiltValueNullFieldError.checkNotNull(
               requestId,
               r'ASFWorkerResponse',
@@ -540,7 +494,7 @@ class ASFWorkerResponseBuilder
         _$failedField = 'userContextData';
         userContextData.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ASFWorkerResponse',
           _$failedField,
           e.toString(),
