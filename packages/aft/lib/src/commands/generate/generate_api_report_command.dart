@@ -1,6 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: avoid_catches_without_on_clauses
+
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
@@ -27,6 +30,7 @@ class GenerateApiReportCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     try {
       logger.info('Installing dart_apitool...');
       await _installDartApiTool();
@@ -41,7 +45,6 @@ class GenerateApiReportCommand extends AmplifyCommand {
         } catch (e) {
           logger.error('Failed to process $package: $e');
           failedPackages.add(package);
-          // Continue with other packages instead of failing completely
         }
       }
 
@@ -56,8 +59,9 @@ class GenerateApiReportCommand extends AmplifyCommand {
 
       logger.info('Remember to commit these files with your changes.');
     } catch (e, stackTrace) {
-      logger.error('Failed to generate API reports: $e');
-      logger.verbose('Stack trace: $stackTrace');
+      logger
+        ..error('Failed to generate API reports: $e')
+        ..verbose('Stack trace: $stackTrace');
       exit(1);
     }
   }
@@ -85,102 +89,30 @@ class GenerateApiReportCommand extends AmplifyCommand {
       throw Exception('Package directory not found: $packagePath');
     }
 
-    // Check if the package has a pubspec.yaml file
-    final pubspecFile = File(path.join(packagePath, 'pubspec.yaml'));
-    if (!pubspecFile.existsSync()) {
-      logger.warn('Skipping $packagePath: No pubspec.yaml found');
-      return;
-    }
-
     final outputPath = path.join(packagePath, 'api.json');
     logger.info('Extracting API model to $outputPath');
 
     try {
-      // Create a temporary directory with just the lib folder
-      final tempDir = Directory.systemTemp.createTempSync('aft_api_report_');
-      try {
-        // Copy only the lib directory
-        final libDir = Directory(path.join(packagePath, 'lib'));
-        final targetLibDir = Directory(path.join(tempDir.path, 'lib'));
-        if (libDir.existsSync()) {
-          targetLibDir.createSync();
-          await _copyDirectory(libDir, targetLibDir);
-        }
+      final result = await Process.run('dart-apitool', [
+        'extract',
+        '--input',
+        packagePath,
+        '--output',
+        outputPath,
+      ], workingDirectory: rootDir.path);
 
-        // Create a simplified pubspec.yaml without dependencies
-        final pubspecContent = await pubspecFile.readAsString();
-        final simplePubspec = _simplifyPubspec(pubspecContent);
-        await File(
-          path.join(tempDir.path, 'pubspec.yaml'),
-        ).writeAsString(simplePubspec);
-
-        // Run dart-apitool on the simplified package
-        final result = await Process.run('dart-apitool', [
-          'extract',
-          '--input',
-          tempDir.path,
-          '--output',
-          outputPath,
-        ], workingDirectory: rootDir.path);
-
-        if (result.exitCode != 0) {
-          logger.error(result.stderr.toString());
-          await _createEmptyApiJson(outputPath);
-          return;
-        }
-      } finally {
-        // Clean up the temporary directory
-        tempDir.deleteSync(recursive: true);
+      if (result.exitCode != 0) {
+        logger.error(result.stderr.toString());
+        await _createEmptyApiJson(outputPath);
+        return;
       }
-      // ignore: avoid_catches_without_on_clauses
+
+      // Remove packagePath from the generated JSON since it will be different on ci/cd than on local
+      await _removePackagePathFromJson(outputPath);
     } catch (e) {
       logger.warn('Error generating API JSON for $packagePath: $e');
       await _createEmptyApiJson(outputPath);
     }
-  }
-
-  /// Helper method to copy a directory recursively
-  Future<void> _copyDirectory(Directory source, Directory target) async {
-    await for (final entity in source.list(recursive: false)) {
-      if (entity is Directory) {
-        final newDirectory = Directory(
-          path.join(target.path, path.basename(entity.path)),
-        )..createSync();
-        await _copyDirectory(entity, newDirectory);
-      } else if (entity is File) {
-        await entity.copy(path.join(target.path, path.basename(entity.path)));
-      }
-    }
-  }
-
-  /// Simplifies a pubspec.yaml by removing dependencies
-  String _simplifyPubspec(String pubspecContent) {
-    // Keep only the name, description, version, and environment sections
-    final lines = pubspecContent.split('\n');
-    final simplifiedLines = <String>[];
-
-    var inDependenciesSection = false;
-
-    for (final line in lines) {
-      if (line.startsWith('dependencies:') ||
-          line.startsWith('dev_dependencies:') ||
-          line.startsWith('dependency_overrides:')) {
-        inDependenciesSection = true;
-        continue;
-      }
-
-      if (inDependenciesSection &&
-          line.trim().isNotEmpty &&
-          !line.startsWith(' ')) {
-        inDependenciesSection = false;
-      }
-
-      if (!inDependenciesSection) {
-        simplifiedLines.add(line);
-      }
-    }
-
-    return simplifiedLines.join('\n');
   }
 
   /// Creates an empty API JSON file as a fallback
@@ -206,7 +138,8 @@ class GenerateApiReportCommand extends AmplifyCommand {
       r'version:\s*([\d\.]+)',
     ).firstMatch(pubspecContent);
     final latestPublishedVersion =
-        versionMatch?.group(1) ?? '2.4.1'; // Default to 2.4.1 if not found
+        versionMatch?.group(1) ??
+        '2.4.1'; // Default to 2.4.1 if not found, should update this regularly with releases
 
     logger.info(
       'Comparing current code with published version $latestPublishedVersion',
@@ -255,5 +188,29 @@ class GenerateApiReportCommand extends AmplifyCommand {
       '# API Changes Report\n\nNo changes detected or report generation failed.\n',
     );
     logger.info('Created placeholder report at $outputPath');
+  }
+
+  /// Removes the packagePath field from the generated API JSON file
+  Future<void> _removePackagePathFromJson(String filePath) async {
+    try {
+      final file = File(filePath);
+      if (!file.existsSync()) return;
+
+      final content = await file.readAsString();
+      final json = jsonDecode(content);
+
+      if (json is Map &&
+          json.containsKey('packageApi') &&
+          json['packageApi'] is Map) {
+        (json['packageApi'] as Map).remove('packagePath');
+
+        const encoder = JsonEncoder.withIndent('  ');
+        await file.writeAsString(encoder.convert(json));
+
+        logger.info('Removed packagePath from $filePath');
+      }
+    } catch (e) {
+      logger.warn('Failed to remove packagePath from $filePath: $e');
+    }
   }
 }
