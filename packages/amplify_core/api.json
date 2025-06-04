@@ -3,7 +3,7 @@
     "packageApi": {
         "packageName": "amplify_core",
         "packageVersion": "2.6.2",
-        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/VOqEfG",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/xhrX1K",
         "interfaceDeclarations": [
             {
                 "name": "AmplifyClass",
@@ -1531,8 +1531,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "Closeable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -1914,7 +1913,7 @@
                         "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                     },
                     {
-                        "returnTypeName": "Future<AWSBaseHttpRequest>",
+                        "returnTypeName": "Future<InvalidType>",
                         "name": "authorizeRequest",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -1925,7 +1924,7 @@
                                 "name": "request",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSBaseHttpRequest",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                             },
                             {
@@ -2043,10 +2042,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<AmplifyOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -2302,10 +2298,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<AnalyticsOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -2399,10 +2392,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<AmazonPinpointOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -2516,10 +2506,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<AuthOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -2853,10 +2840,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<PasswordPolicy>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -3030,10 +3014,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<OAuthOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -3471,10 +3452,7 @@
                 "superTypeNames": [
                     "AuthUserAttributeKey",
                     "Object",
-                    "Comparable<AuthUserAttributeKey>",
-                    "AWSSerializable<String>",
-                    "AWSEquatable<AuthUserAttributeKey>",
-                    "AWSDebuggable"
+                    "Comparable<AuthUserAttributeKey>"
                 ],
                 "executableDeclarations": [
                     {
@@ -3857,10 +3835,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "Object",
-                    "Comparable<AuthUserAttributeKey>",
-                    "AWSSerializable<String>",
-                    "AWSEquatable<AuthUserAttributeKey>",
-                    "AWSDebuggable"
+                    "Comparable<AuthUserAttributeKey>"
                 ],
                 "executableDeclarations": [
                     {
@@ -4278,10 +4253,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "Object",
-                    "ApiOutputs",
-                    "AWSEquatable<DataOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "ApiOutputs"
                 ],
                 "executableDeclarations": [
                     {
@@ -4637,10 +4609,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "Object",
-                    "ApiOutputs",
-                    "AWSEquatable<RestApiOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "ApiOutputs"
                 ],
                 "executableDeclarations": [
                     {
@@ -4805,10 +4774,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<NotificationsOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -5025,10 +4991,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -5162,10 +5125,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<BucketOutputs>",
-                    "AWSSerializable<Object?>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -6151,10 +6111,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SignUpOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -6248,10 +6205,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SignUpPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -6281,10 +6235,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SignUpResult>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -6421,10 +6372,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "AuthNextStep",
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSEquatable<AuthNextSignUpStep>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -6560,8 +6508,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -6633,10 +6580,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<AuthCodeDeliveryDetails>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -6909,10 +6853,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ConfirmSignUpOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -6986,10 +6927,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ConfirmSignUpPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -7019,10 +6957,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ResendSignUpCodeOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -7096,10 +7031,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ResendSignUpCodePluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -7129,10 +7061,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ResendSignUpCodeResult>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -7228,10 +7157,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSEquatable<SignInOptions>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -7305,10 +7231,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SignInPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -7338,10 +7261,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SignInResult>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -7458,10 +7378,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "AuthNextStep",
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSEquatable<AuthNextSignInStep>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -7893,10 +7810,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<TotpSetupDetails>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8032,10 +7946,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ConfirmSignInOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8109,10 +8020,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ConfirmSignInPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8142,10 +8050,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SignOutOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8239,10 +8144,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SignOutPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8272,9 +8174,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8316,10 +8216,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<UpdatePasswordOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8393,10 +8290,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<UpdatePasswordPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8426,10 +8320,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<UpdatePasswordResult>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8482,10 +8373,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ResetPasswordOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8559,10 +8447,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ResetPasswordPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8592,8 +8477,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8666,10 +8550,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "AuthNextStep",
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSEquatable<ResetPasswordStep>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8857,10 +8738,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ConfirmResetPasswordOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8934,10 +8812,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ConfirmResetPasswordPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -8967,10 +8842,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<GetCurrentUserOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9044,10 +8916,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<GetCurrentUserPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9077,9 +8946,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9182,8 +9049,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9213,10 +9079,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<FetchUserAttributesOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9290,10 +9153,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<FetchUserAttributesPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9323,10 +9183,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<AuthUserAttribute>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9442,10 +9299,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<FetchAuthSessionOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9539,10 +9393,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<FetchAuthSessionPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9572,8 +9423,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9625,10 +9475,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<AuthProvider>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9885,10 +9732,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SignInWithWebUIOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9962,10 +9806,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SignInWithWebUIPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -9995,10 +9836,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<UpdateUserAttributeOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10072,10 +9910,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<UpdateUserAttributePluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10105,10 +9940,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<UpdateUserAttributeResult>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10225,8 +10057,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "AuthNextStep",
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10392,10 +10223,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<UpdateUserAttributesOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10469,10 +10297,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<UpdateUserAttributesPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10502,10 +10327,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ConfirmUserAttributeOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10579,10 +10401,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ConfirmUserAttributePluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10642,10 +10461,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SendUserAttributeVerificationCodeOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10719,10 +10535,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SendUserAttributeVerificationCodePluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10752,10 +10565,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<SendUserAttributeVerificationCodeResult>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10851,10 +10661,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<TotpSetupOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10928,10 +10735,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<TotpSetupPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -10961,10 +10765,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<VerifyTotpSetupOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -11038,10 +10839,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<VerifyTotpSetupPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -11071,8 +10869,7 @@
                 "isRequired": true,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -11128,8 +10925,7 @@
                 ],
                 "superTypeNames": [
                     "AmplifyPluginKey<Plugin>",
-                    "Object",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -11161,8 +10957,7 @@
                     "P"
                 ],
                 "superTypeNames": [
-                    "Object",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -12198,7 +11993,7 @@
                                 "name": "localFile",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSFile",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/category/amplify_categories.dart"
                             },
                             {
@@ -12287,7 +12082,7 @@
                                 "name": "localFile",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSFile",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/category/amplify_categories.dart"
                             },
                             {
@@ -12699,7 +12494,7 @@
                                 "name": "localFile",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSFile",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/plugin/amplify_storage_plugin_interface.dart"
                             },
                             {
@@ -12797,7 +12592,7 @@
                                 "name": "localFile",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSFile",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/plugin/amplify_storage_plugin_interface.dart"
                             },
                             {
@@ -13161,10 +12956,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageListOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -13298,10 +13090,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageListPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -13331,8 +13120,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -13416,9 +13204,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<BucketInfo>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -13886,10 +13672,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageGetPropertiesOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -13983,10 +13766,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageGetPropertiesPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -14229,10 +14009,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageGetUrlOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -14326,10 +14103,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageGetUrlPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -14570,10 +14344,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageDownloadDataOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -14667,10 +14438,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageDownloadDataPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -14971,10 +14739,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageDownloadFileOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -15068,10 +14833,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageDownloadFilePluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -15250,7 +15012,7 @@
                                 "name": "localFile",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSFile",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/storage/download_file_request.dart"
                             },
                             {
@@ -15283,7 +15045,7 @@
                         "isWriteable": false
                     },
                     {
-                        "typeName": "AWSFile",
+                        "typeName": "InvalidType",
                         "name": "localFile",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -15335,7 +15097,7 @@
                                 "name": "localFile",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSFile",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/storage/download_file_result.dart"
                             },
                             {
@@ -15357,7 +15119,7 @@
                 ],
                 "fieldDeclarations": [
                     {
-                        "typeName": "AWSFile",
+                        "typeName": "InvalidType",
                         "name": "localFile",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -15661,10 +15423,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageUploadDataOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -15778,10 +15537,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageUploadDataPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -16057,10 +15813,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageUploadFileOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -16174,10 +15927,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageUploadFilePluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -16356,7 +16106,7 @@
                                 "name": "localFile",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSFile",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/storage/upload_file_request.dart"
                             },
                             {
@@ -16389,7 +16139,7 @@
                         "isWriteable": false
                     },
                     {
-                        "typeName": "AWSFile",
+                        "typeName": "InvalidType",
                         "name": "localFile",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -16478,10 +16228,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageCopyOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -16575,10 +16322,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageCopyPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -16608,8 +16352,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -16938,10 +16681,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageRemoveOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -17035,10 +16775,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageRemovePluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -17281,10 +17018,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageRemoveManyOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -17378,10 +17112,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StorageRemoveManyPluginOptions>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -17648,8 +17379,7 @@
                 ],
                 "superTypeNames": [
                     "AmplifyPluginKey<P>",
-                    "Object",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -18840,8 +18570,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ModelSchema>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -20259,9 +19988,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ModelAssociation>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -20508,9 +20235,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<ModelIndex>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -21570,7 +21295,7 @@
                                 "name": "body",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "HttpPayload?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/category/amplify_categories.dart"
                             },
                             {
@@ -21726,7 +21451,7 @@
                                 "name": "body",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "HttpPayload?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/category/amplify_categories.dart"
                             },
                             {
@@ -21784,7 +21509,7 @@
                                 "name": "body",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "HttpPayload?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/category/amplify_categories.dart"
                             },
                             {
@@ -21842,7 +21567,7 @@
                                 "name": "body",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "HttpPayload?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/category/amplify_categories.dart"
                             },
                             {
@@ -21975,8 +21700,7 @@
                     "T"
                 ],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -22237,12 +21961,7 @@
                     "T"
                 ],
                 "superTypeNames": [
-                    "AWSOperation<GraphQLResponse<T>>",
-                    "Object",
-                    "Cancelable",
-                    "Closeable",
-                    "AWSDebuggable",
-                    "AWSLoggerMixin"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -22257,7 +21976,7 @@
                                 "name": "operation",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "CancelableOperation<GraphQLResponse<T>>",
+                                "typeName": "dynamic",
                                 "relativePath": "lib/src/types/api/graphql/graphql_operation.dart"
                             },
                             {
@@ -22266,7 +21985,7 @@
                                 "name": "onCancel",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "FutureOr<void> Function()?",
+                                "typeName": "dynamic",
                                 "relativePath": "lib/src/types/api/graphql/graphql_operation.dart"
                             }
                         ],
@@ -22744,14 +22463,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AWSHttpOperation<AWSHttpResponse>",
-                    "AWSOperation<AWSHttpResponse>",
-                    "Object",
-                    "Cancelable",
-                    "Closeable",
-                    "AWSDebuggable",
-                    "AWSLoggerMixin",
-                    "AWSProgressOperation<AWSHttpResponse>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -22766,7 +22478,7 @@
                                 "name": "httpOperation",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSHttpOperation<AWSBaseHttpResponse>",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/api/types/rest/rest_operation.dart"
                             }
                         ],
@@ -22791,8 +22503,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "Closeable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -23333,9 +23044,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSDebuggable",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -23560,9 +23269,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSDebuggable",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -23645,9 +23352,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSDebuggable",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -23795,9 +23500,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<AmplifyConfig>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -24076,9 +23779,7 @@
                     "ConfigMap<AmplifyPluginConfig>",
                     "Object",
                     "MapBase<String, AmplifyPluginConfig>",
-                    "Map<String, AmplifyPluginConfig>",
-                    "AWSEquatable<ConfigMap<AmplifyPluginConfig>>",
-                    "AWSSerializable<Object?>"
+                    "Map<String, AmplifyPluginConfig>"
                 ],
                 "executableDeclarations": [
                     {
@@ -24160,7 +23861,7 @@
                         "relativePath": "lib/src/config/api/api_config.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -24256,9 +23957,7 @@
                     "ConfigMap<AmplifyPluginConfig>",
                     "Object",
                     "MapBase<String, AmplifyPluginConfig>",
-                    "Map<String, AmplifyPluginConfig>",
-                    "AWSEquatable<ConfigMap<AmplifyPluginConfig>>",
-                    "AWSSerializable<Object?>"
+                    "Map<String, AmplifyPluginConfig>"
                 ],
                 "executableDeclarations": [
                     {
@@ -24284,7 +23983,7 @@
                         "relativePath": "lib/src/config/config_map.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -24381,9 +24080,7 @@
                 "superTypeNames": [
                     "Object",
                     "MapBase<String, T>",
-                    "Map<String, T>",
-                    "AWSEquatable<ConfigMap<T>>",
-                    "AWSSerializable<Object?>"
+                    "Map<String, T>"
                 ],
                 "executableDeclarations": [
                     {
@@ -24399,7 +24096,7 @@
                         "relativePath": "lib/src/config/config_map.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -24470,8 +24167,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [],
                 "fieldDeclarations": [
@@ -24504,8 +24200,6 @@
                     "Object",
                     "MapBase<String, AWSApiConfig>",
                     "Map<String, AWSApiConfig>",
-                    "AWSEquatable<ConfigMap<AWSApiConfig>>",
-                    "AWSSerializable<Object?>",
                     "AmplifyPluginConfig"
                 ],
                 "executableDeclarations": [
@@ -24554,7 +24248,7 @@
                         "relativePath": "lib/src/config/api/aws_api_config.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -24658,9 +24352,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<AWSApiConfig>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -24940,9 +24632,7 @@
                     "ConfigMap<T>",
                     "Object",
                     "MapBase<String, T>",
-                    "Map<String, T>",
-                    "AWSEquatable<ConfigMap<T>>",
-                    "AWSSerializable<Object?>"
+                    "Map<String, T>"
                 ],
                 "executableDeclarations": [
                     {
@@ -25021,7 +24711,7 @@
                         "relativePath": "lib/src/config/config_map.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -25103,9 +24793,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<CognitoAppSyncConfig>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -25332,9 +25020,7 @@
                     "ConfigMap<AmplifyPluginConfig>",
                     "Object",
                     "MapBase<String, AmplifyPluginConfig>",
-                    "Map<String, AmplifyPluginConfig>",
-                    "AWSEquatable<ConfigMap<AmplifyPluginConfig>>",
-                    "AWSSerializable<Object?>"
+                    "Map<String, AmplifyPluginConfig>"
                 ],
                 "executableDeclarations": [
                     {
@@ -25394,7 +25080,7 @@
                         "relativePath": "lib/src/config/analytics/analytics_config.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -25488,9 +25174,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "Object",
-                    "AmplifyPluginConfig",
-                    "AWSSerializable<Object?>",
-                    "AWSEquatable<PinpointPluginConfig>"
+                    "AmplifyPluginConfig"
                 ],
                 "executableDeclarations": [
                     {
@@ -25657,9 +25341,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<PinpointAnalytics>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -25795,9 +25477,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<PinpointTargeting>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -25908,9 +25588,7 @@
                     "ConfigMap<AmplifyPluginConfig>",
                     "Object",
                     "MapBase<String, AmplifyPluginConfig>",
-                    "Map<String, AmplifyPluginConfig>",
-                    "AWSEquatable<ConfigMap<AmplifyPluginConfig>>",
-                    "AWSSerializable<Object?>"
+                    "Map<String, AmplifyPluginConfig>"
                 ],
                 "executableDeclarations": [
                     {
@@ -26082,7 +25760,7 @@
                         "relativePath": "lib/src/config/auth/auth_config.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -26176,9 +25854,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "Object",
-                    "AmplifyPluginConfig",
-                    "AWSSerializable<Object?>",
-                    "AWSEquatable<CognitoPluginConfig>"
+                    "AmplifyPluginConfig"
                 ],
                 "executableDeclarations": [
                     {
@@ -26568,13 +26244,11 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AWSConfigMap<AWSSerializable<Object?>>",
-                    "ConfigMap<AWSSerializable<Object?>>",
+                    "AWSConfigMap<InvalidType>",
+                    "ConfigMap<InvalidType>",
                     "Object",
-                    "MapBase<String, AWSSerializable<Object?>>",
-                    "Map<String, AWSSerializable<Object?>>",
-                    "AWSEquatable<ConfigMap<AWSSerializable<Object?>>>",
-                    "AWSSerializable<Object?>"
+                    "MapBase<String, InvalidType>",
+                    "Map<String, InvalidType>"
                 ],
                 "executableDeclarations": [
                     {
@@ -26589,7 +26263,7 @@
                                 "name": "providers",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "Map<String, AWSSerializable<Object?>>",
+                                "typeName": "Map<String, InvalidType>",
                                 "relativePath": "lib/src/config/auth/cognito/credentials_provider.dart"
                             }
                         ],
@@ -26622,7 +26296,7 @@
                         "relativePath": "lib/src/config/auth/cognito/credentials_provider.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -26704,9 +26378,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<CognitoIdentityCredentialsProvider>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -26853,9 +26525,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<CognitoUserPoolConfig>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -27129,9 +26799,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<CognitoOAuthConfig>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -27653,9 +27321,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<PasswordProtectionSettings>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -27928,9 +27594,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<CognitoPinpointAnalyticsConfig>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -28070,9 +27734,7 @@
                     "ConfigMap<AmplifyPluginConfig>",
                     "Object",
                     "MapBase<String, AmplifyPluginConfig>",
-                    "Map<String, AmplifyPluginConfig>",
-                    "AWSEquatable<ConfigMap<AmplifyPluginConfig>>",
-                    "AWSSerializable<Object?>"
+                    "Map<String, AmplifyPluginConfig>"
                 ],
                 "executableDeclarations": [
                     {
@@ -28132,7 +27794,7 @@
                         "relativePath": "lib/src/config/notifications/notifications_config.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -28226,9 +27888,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "Object",
-                    "AmplifyPluginConfig",
-                    "AWSSerializable<Object?>",
-                    "AWSEquatable<NotificationsPinpointPluginConfig>"
+                    "AmplifyPluginConfig"
                 ],
                 "executableDeclarations": [
                     {
@@ -28390,9 +28050,7 @@
                     "ConfigMap<AmplifyPluginConfig>",
                     "Object",
                     "MapBase<String, AmplifyPluginConfig>",
-                    "Map<String, AmplifyPluginConfig>",
-                    "AWSEquatable<ConfigMap<AmplifyPluginConfig>>",
-                    "AWSSerializable<Object?>"
+                    "Map<String, AmplifyPluginConfig>"
                 ],
                 "executableDeclarations": [
                     {
@@ -28452,7 +28110,7 @@
                         "relativePath": "lib/src/config/storage/storage_config.dart"
                     },
                     {
-                        "returnTypeName": "ConfigMap<AWSSerializable<Object?>>",
+                        "returnTypeName": "ConfigMap<InvalidType>",
                         "name": "copy",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -28546,9 +28204,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "Object",
-                    "AmplifyPluginConfig",
-                    "AWSSerializable<Object?>",
-                    "AWSEquatable<S3PluginConfig>"
+                    "AmplifyPluginConfig"
                 ],
                 "executableDeclarations": [
                     {
@@ -28706,12 +28362,8 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "DelegatingMap<String, Object?>",
                     "Object",
-                    "Map<String, Object?>",
-                    "AmplifyPluginConfig",
-                    "AWSSerializable<Object?>",
-                    "AWSEquatable<UnknownPluginConfig>"
+                    "AmplifyPluginConfig"
                 ],
                 "executableDeclarations": [
                     {
@@ -28987,9 +28639,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<CognitoIdentityManager>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -29053,12 +28703,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AWSBaseHttpClient",
-                    "AWSCustomHttpClient",
-                    "AWSHttpClientImpl",
-                    "AWSHttpClient",
-                    "Object",
-                    "Closeable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -29082,7 +28727,7 @@
                                 "name": "baseClient",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSHttpClient?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/http/amplify_http_client.dart"
                             }
                         ],
@@ -29192,10 +28837,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AWSLogger",
-                    "Object",
-                    "Closeable",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -29280,7 +28922,6 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AWSLoggerPlugin",
                     "Object"
                 ],
                 "executableDeclarations": [
@@ -29311,7 +28952,6 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AWSDebuggable",
                     "Object"
                 ],
                 "executableDeclarations": [],
@@ -29780,7 +29420,7 @@
                                 "name": "body",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "HttpPayload?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/plugin/amplify_api_plugin_interface.dart"
                             },
                             {
@@ -29936,7 +29576,7 @@
                                 "name": "body",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "HttpPayload?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/plugin/amplify_api_plugin_interface.dart"
                             },
                             {
@@ -29994,7 +29634,7 @@
                                 "name": "body",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "HttpPayload?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/plugin/amplify_api_plugin_interface.dart"
                             },
                             {
@@ -30052,7 +29692,7 @@
                                 "name": "body",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "HttpPayload?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/plugin/amplify_api_plugin_interface.dart"
                             },
                             {
@@ -31539,8 +31179,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "DependencyManager",
-                    "Object",
-                    "Closeable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -31735,9 +31374,7 @@
                     "StateType"
                 ],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StateMachineEvent<EventType, StateType>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -31803,9 +31440,7 @@
                     "StateType"
                 ],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<StateMachineState<StateType>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -32113,9 +31748,7 @@
                 ],
                 "superTypeNames": [
                     "StateMachineState<StateType>",
-                    "Object",
-                    "AWSEquatable<StateMachineState<StateType>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [],
                 "fieldDeclarations": [
@@ -32147,9 +31780,7 @@
                 ],
                 "superTypeNames": [
                     "StateMachineState<StateType>",
-                    "Object",
-                    "AWSEquatable<StateMachineState<StateType>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [],
                 "fieldDeclarations": [
@@ -32321,10 +31952,7 @@
                 "superTypeNames": [
                     "Object",
                     "DependencyManager",
-                    "Closeable",
-                    "Dispatcher<E, S>",
-                    "AWSDebuggable",
-                    "AWSLoggerMixin"
+                    "Dispatcher<E, S>"
                 ],
                 "executableDeclarations": [
                     {
@@ -32753,9 +32381,7 @@
                     "S"
                 ],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<Transition<E, S>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -32879,8 +32505,6 @@
                     "Emitter<State>",
                     "Dispatcher<ManagerEvent, ManagerState>",
                     "DependencyManager",
-                    "Closeable",
-                    "AWSDebuggable",
                     "AmplifyLoggerMixin"
                 ],
                 "executableDeclarations": [
@@ -33435,7 +33059,7 @@
                                 "name": "service",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSService",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                             },
                             {
@@ -33444,7 +33068,7 @@
                                 "name": "serviceConfiguration",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "ServiceConfiguration?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                             }
                         ],
@@ -33468,7 +33092,7 @@
                         "isWriteable": false
                     },
                     {
-                        "typeName": "AWSService",
+                        "typeName": "InvalidType",
                         "name": "service",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -33479,7 +33103,7 @@
                         "isWriteable": false
                     },
                     {
-                        "typeName": "ServiceConfiguration?",
+                        "typeName": "InvalidType",
                         "name": "serviceConfiguration",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -33557,9 +33181,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "AmplifyAuthProvider",
-                    "Object",
-                    "AWSCredentialsProvider",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -33575,7 +33197,7 @@
                         "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                     },
                     {
-                        "returnTypeName": "Future<AWSBaseHttpRequest>",
+                        "returnTypeName": "Future<InvalidType>",
                         "name": "authorizeRequest",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -33586,7 +33208,7 @@
                                 "name": "request",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSBaseHttpRequest",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                             },
                             {
@@ -33649,7 +33271,7 @@
                         "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                     },
                     {
-                        "returnTypeName": "Future<AWSBaseHttpRequest>",
+                        "returnTypeName": "Future<InvalidType>",
                         "name": "authorizeRequest",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -33660,7 +33282,7 @@
                                 "name": "request",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSBaseHttpRequest",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                             },
                             {
@@ -33723,7 +33345,7 @@
                         "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                     },
                     {
-                        "returnTypeName": "Future<AWSBaseHttpRequest>",
+                        "returnTypeName": "Future<InvalidType>",
                         "name": "authorizeRequest",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -33734,7 +33356,7 @@
                                 "name": "request",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSBaseHttpRequest",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                             },
                             {
@@ -33810,7 +33432,7 @@
                         "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                     },
                     {
-                        "returnTypeName": "Future<AWSBaseHttpRequest>",
+                        "returnTypeName": "Future<InvalidType>",
                         "name": "authorizeRequest",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -33821,7 +33443,7 @@
                                 "name": "request",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSBaseHttpRequest",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/common/amplify_auth_provider.dart"
                             },
                             {
@@ -33857,10 +33479,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -33997,10 +33616,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -34138,10 +33754,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -34302,10 +33915,7 @@
                     "AnalyticsException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -34456,10 +34066,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -34598,10 +34205,7 @@
                     "ApiException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -34616,7 +34220,7 @@
                                 "name": "response",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AWSHttpResponse",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/exception/amplify_exception.dart"
                             }
                         ],
@@ -34651,7 +34255,7 @@
                 ],
                 "fieldDeclarations": [
                     {
-                        "typeName": "AWSHttpResponse",
+                        "typeName": "InvalidType",
                         "name": "response",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -34733,10 +34337,7 @@
                     "ApiException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -34874,10 +34475,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -35038,10 +34636,7 @@
                     "AuthException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -35214,10 +34809,7 @@
                     "AuthException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -35378,10 +34970,7 @@
                     "AuthException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -35542,10 +35131,7 @@
                     "AuthException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -35706,10 +35292,7 @@
                     "AuthException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -35870,10 +35453,7 @@
                     "AuthException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -36016,10 +35596,7 @@
                     "AuthException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -36180,9 +35757,6 @@
                     "AmplifyException",
                     "Object",
                     "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>",
                     "ApiException",
                     "AuthException",
                     "StorageException",
@@ -36346,10 +35920,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -36515,10 +36086,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -36657,10 +36225,7 @@
                     "StorageException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -36799,10 +36364,7 @@
                     "StorageException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -36941,10 +36503,7 @@
                     "StorageException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -37083,10 +36642,7 @@
                     "StorageException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -37225,10 +36781,7 @@
                     "StorageException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -37367,10 +36920,7 @@
                     "StorageException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -37509,10 +37059,7 @@
                     "StorageException",
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -37651,9 +37198,6 @@
                     "AmplifyException",
                     "Object",
                     "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>",
                     "ApiException",
                     "AuthException",
                     "StorageException",
@@ -37925,10 +37469,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -38065,9 +37606,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "Error",
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -38161,9 +37700,7 @@
                 "superTypeNames": [
                     "AmplifyError",
                     "Error",
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -38268,9 +37805,7 @@
                 "superTypeNames": [
                     "AmplifyError",
                     "Error",
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -38375,10 +37910,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -40469,10 +40001,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -43499,8 +43028,7 @@
                 "superTypeNames": [
                     "MapView<String, V>",
                     "Object",
-                    "Map<String, V>",
-                    "AWSSerializable<Object?>"
+                    "Map<String, V>"
                 ],
                 "executableDeclarations": [
                     {
@@ -44001,7 +43529,7 @@
                                 "name": "retryOptions",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "RetryOptions",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/types/api/graphql/graphql_subscription_options.dart"
                             }
                         ],
@@ -44025,7 +43553,7 @@
                         "isWriteable": false
                     },
                     {
-                        "typeName": "RetryOptions",
+                        "typeName": "InvalidType",
                         "name": "retryOptions",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -44182,10 +43710,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "ApiHubEventPayload",
-                    "Object",
-                    "AWSEquatable<SubscriptionDetails>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -44396,10 +43921,7 @@
                 "superTypeNames": [
                     "ApiHubEvent",
                     "HubEvent<ApiHubEventPayload>",
-                    "Object",
-                    "AWSEquatable<SubscriptionHubEvent>",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -45164,8 +44686,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "JsonConverter<AuthUserAttributeKey, String>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -45224,9 +44745,7 @@
                 "typeParameterNames": [],
                 "superTypeNames": [
                     "HubEvent<AuthUser>",
-                    "Object",
-                    "AWSEquatable<AuthHubEvent>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -45517,10 +45036,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSSerializable<Map<String, Object?>>",
-                    "AWSEquatable<UserMfaPreference>",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -45963,10 +45479,7 @@
                 "superTypeNames": [
                     "AmplifyException",
                     "Object",
-                    "Exception",
-                    "AWSDebuggable",
-                    "AWSEquatable<AmplifyException>",
-                    "AWSSerializable<Map<String, Object?>>"
+                    "Exception"
                 ],
                 "executableDeclarations": [
                     {
@@ -47388,9 +46901,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<CognitoAuthConfig>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -47785,7 +47296,6 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "JsonConverter<CognitoUserAttributeKey, String>",
                     "Object"
                 ],
                 "executableDeclarations": [
@@ -47816,7 +47326,6 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "JsonConverter<CognitoUserAttributeKey, String>",
                     "Object"
                 ],
                 "executableDeclarations": [
@@ -47847,8 +47356,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "JsonConverter<Map<CognitoUserAttributeKey, String>, Map<String, String>>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -47972,9 +47480,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<CognitoPinpointTargetingConfig>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -48081,9 +47587,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "Object",
-                    "AWSEquatable<S3TransferUtility>",
-                    "AWSSerializable<Object?>"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -48401,7 +47905,7 @@
                 "isWriteable": false
             },
             {
-                "typeName": "JsonSerializable",
+                "typeName": "InvalidType",
                 "name": "zAmplifySerializable",
                 "isDeprecated": false,
                 "isExperimental": false,
@@ -48414,7 +47918,7 @@
                 "isWriteable": false
             },
             {
-                "typeName": "JsonSerializable",
+                "typeName": "InvalidType",
                 "name": "zAmplifyOutputsSerializable",
                 "isDeprecated": false,
                 "isExperimental": false,
@@ -48427,7 +47931,7 @@
                 "isWriteable": false
             },
             {
-                "typeName": "JsonSerializable",
+                "typeName": "InvalidType",
                 "name": "zAwsSerializable",
                 "isDeprecated": false,
                 "isExperimental": false,
@@ -48440,7 +47944,7 @@
                 "isWriteable": false
             },
             {
-                "typeName": "JsonSerializable",
+                "typeName": "InvalidType",
                 "name": "zConfigMapSerializable",
                 "isDeprecated": false,
                 "isExperimental": false,
@@ -48532,56 +48036,7 @@
         "androidPlatformConstraints": null,
         "sdkType": "dart",
         "minSdkVersion": "3.7.0",
-        "packageDependencies": [
-            {
-                "packageName": "async",
-                "packageVersion": "^2.10.0"
-            },
-            {
-                "packageName": "aws_common",
-                "packageVersion": ">=0.7.7 <0.8.0"
-            },
-            {
-                "packageName": "aws_signature_v4",
-                "packageVersion": ">=0.6.5 <0.7.0"
-            },
-            {
-                "packageName": "collection",
-                "packageVersion": "^1.15.0"
-            },
-            {
-                "packageName": "graphs",
-                "packageVersion": "^2.1.0"
-            },
-            {
-                "packageName": "intl",
-                "packageVersion": ">=0.18.0 <1.0.0"
-            },
-            {
-                "packageName": "json_annotation",
-                "packageVersion": ">=4.9.0 <4.10.0"
-            },
-            {
-                "packageName": "logging",
-                "packageVersion": "^1.0.0"
-            },
-            {
-                "packageName": "meta",
-                "packageVersion": "^1.16.0"
-            },
-            {
-                "packageName": "retry",
-                "packageVersion": "^3.1.0"
-            },
-            {
-                "packageName": "stack_trace",
-                "packageVersion": "^1.10.0"
-            },
-            {
-                "packageName": "uuid",
-                "packageVersion": ">=3.0.6 <5.0.0"
-            }
-        ]
+        "packageDependencies": []
     },
     "missingEntryPoints": [
         "AnalyticsOutputs",

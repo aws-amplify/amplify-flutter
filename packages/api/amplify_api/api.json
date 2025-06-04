@@ -3,7 +3,7 @@
     "packageApi": {
         "packageName": "amplify_api",
         "packageVersion": "2.6.2",
-        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/wfjxwD",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/dcZ73h",
         "interfaceDeclarations": [
             {
                 "name": "AmplifyAPI",
@@ -13,11 +13,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AmplifyAPIDart",
-                    "APIPluginInterface",
-                    "AmplifyPluginInterface",
-                    "Object",
-                    "AWSDebuggable"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -32,7 +28,7 @@
                                 "name": "options",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "APIPluginOptions",
+                                "typeName": "dynamic",
                                 "relativePath": "lib/src/api_plugin_impl.dart"
                             }
                         ],
@@ -70,34 +66,9 @@
         ],
         "iosPlatformConstraints": null,
         "androidPlatformConstraints": null,
-        "sdkType": "flutter",
+        "sdkType": "dart",
         "minSdkVersion": "3.7.0",
-        "packageDependencies": [
-            {
-                "packageName": "amplify_api_dart",
-                "packageVersion": ">=0.5.10 <0.6.0"
-            },
-            {
-                "packageName": "amplify_core",
-                "packageVersion": ">=2.6.2 <2.7.0"
-            },
-            {
-                "packageName": "amplify_flutter",
-                "packageVersion": ">=2.6.2 <2.7.0"
-            },
-            {
-                "packageName": "connectivity_plus",
-                "packageVersion": "^6.0.1"
-            },
-            {
-                "packageName": "meta",
-                "packageVersion": "^1.16.0"
-            },
-            {
-                "packageName": "plugin_platform_interface",
-                "packageVersion": "^2.0.0"
-            }
-        ]
+        "packageDependencies": []
     },
     "missingEntryPoints": []
 }

@@ -3,7 +3,7 @@
     "packageApi": {
         "packageName": "amplify_analytics_pinpoint",
         "packageVersion": "2.6.2",
-        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/6hFBun",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/j4eTAL",
         "interfaceDeclarations": [
             {
                 "name": "AmplifyAnalyticsPinpoint",
@@ -13,9 +13,6 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AmplifyAnalyticsPinpointDart",
-                    "AnalyticsPluginInterface",
-                    "AmplifyPluginInterface",
                     "Object"
                 ],
                 "executableDeclarations": [
@@ -31,7 +28,7 @@
                                 "name": "appLifecycleProvider",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AppLifecycleProvider?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/analytics_plugin_impl.dart"
                             },
                             {
@@ -40,7 +37,7 @@
                                 "name": "secureStorageFactory",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?",
+                                "typeName": "InvalidType",
                                 "relativePath": "lib/src/analytics_plugin_impl.dart"
                             },
                             {
@@ -49,7 +46,7 @@
                                 "name": "options",
                                 "isDeprecated": false,
                                 "isExperimental": false,
-                                "typeName": "AnalyticsPinpointPluginOptions",
+                                "typeName": "dynamic",
                                 "relativePath": "lib/src/analytics_plugin_impl.dart"
                             }
                         ],
@@ -74,51 +71,10 @@
             "containsPlatformConstraints"
         ],
         "iosPlatformConstraints": null,
-        "androidPlatformConstraints": {
-            "minSdkVersion": 24,
-            "compileSdkVersion": null,
-            "targetSdkVersion": null
-        },
-        "sdkType": "flutter",
+        "androidPlatformConstraints": null,
+        "sdkType": "dart",
         "minSdkVersion": "3.7.0",
-        "packageDependencies": [
-            {
-                "packageName": "amplify_analytics_pinpoint_dart",
-                "packageVersion": ">=0.4.9 <0.5.0"
-            },
-            {
-                "packageName": "amplify_core",
-                "packageVersion": ">=2.6.2 <2.7.0"
-            },
-            {
-                "packageName": "amplify_db_common",
-                "packageVersion": ">=0.4.10 <0.5.0"
-            },
-            {
-                "packageName": "amplify_secure_storage",
-                "packageVersion": ">=0.5.9 <0.6.0"
-            },
-            {
-                "packageName": "aws_common",
-                "packageVersion": ">=0.7.7 <0.8.0"
-            },
-            {
-                "packageName": "device_info_plus",
-                "packageVersion": "^11.3.3"
-            },
-            {
-                "packageName": "meta",
-                "packageVersion": "^1.16.0"
-            },
-            {
-                "packageName": "package_info_plus",
-                "packageVersion": "^8.0.0"
-            },
-            {
-                "packageName": "path_provider",
-                "packageVersion": "^2.0.0"
-            }
-        ]
+        "packageDependencies": []
     },
     "missingEntryPoints": []
 }
