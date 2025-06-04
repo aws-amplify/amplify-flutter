@@ -7,7 +7,7 @@ part of 'sign_in_parameters.dart';
 // **************************************************************************
 
 Serializer<SignInParameters> _$signInParametersSerializer =
-    new _$SignInParametersSerializer();
+    _$SignInParametersSerializer();
 
 class _$SignInParametersSerializer
     implements StructuredSerializer<SignInParameters> {
@@ -47,7 +47,7 @@ class _$SignInParametersSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new SignInParametersBuilder();
+    final result = SignInParametersBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -86,23 +86,16 @@ class _$SignInParameters extends SignInParameters {
 
   factory _$SignInParameters([
     void Function(SignInParametersBuilder)? updates,
-  ]) => (new SignInParametersBuilder()..update(updates))._build();
+  ]) => (SignInParametersBuilder()..update(updates))._build();
 
-  _$SignInParameters._({required this.username, this.password}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      username,
-      r'SignInParameters',
-      'username',
-    );
-  }
-
+  _$SignInParameters._({required this.username, this.password}) : super._();
   @override
   SignInParameters rebuild(void Function(SignInParametersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   SignInParametersBuilder toBuilder() =>
-      new SignInParametersBuilder()..replace(this);
+      SignInParametersBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -156,7 +149,6 @@ class SignInParametersBuilder
 
   @override
   void replace(SignInParameters other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignInParameters;
   }
 
@@ -171,7 +163,7 @@ class SignInParametersBuilder
   _$SignInParameters _build() {
     final _$result =
         _$v ??
-        new _$SignInParameters._(
+        _$SignInParameters._(
           username: BuiltValueNullFieldError.checkNotNull(
             username,
             r'SignInParameters',

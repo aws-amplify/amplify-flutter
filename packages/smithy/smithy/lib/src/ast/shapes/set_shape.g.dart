@@ -6,7 +6,7 @@ part of 'set_shape.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<SetShape> _$setShapeSerializer = new _$SetShapeSerializer();
+Serializer<SetShape> _$setShapeSerializer = _$SetShapeSerializer();
 
 class _$SetShapeSerializer implements StructuredSerializer<SetShape> {
   @override
@@ -42,7 +42,7 @@ class _$SetShapeSerializer implements StructuredSerializer<SetShape> {
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new SetShapeBuilder();
+    final result = SetShapeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -83,24 +83,19 @@ class _$SetShape extends SetShape {
   final TraitMap traits;
 
   factory _$SetShape([void Function(SetShapeBuilder)? updates]) =>
-      (new SetShapeBuilder()..update(updates))._build();
+      (SetShapeBuilder()..update(updates))._build();
 
   _$SetShape._({
     required this.member,
     required this.shapeId,
     required this.traits,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(member, r'SetShape', 'member');
-    BuiltValueNullFieldError.checkNotNull(shapeId, r'SetShape', 'shapeId');
-    BuiltValueNullFieldError.checkNotNull(traits, r'SetShape', 'traits');
-  }
-
+  }) : super._();
   @override
   SetShape rebuild(void Function(SetShapeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SetShapeBuilder toBuilder() => new SetShapeBuilder()..replace(this);
+  SetShapeBuilder toBuilder() => SetShapeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -136,7 +131,7 @@ class SetShapeBuilder
   _$SetShape? _$v;
 
   MemberShapeBuilder? _member;
-  MemberShapeBuilder get member => _$this._member ??= new MemberShapeBuilder();
+  MemberShapeBuilder get member => _$this._member ??= MemberShapeBuilder();
   set member(covariant MemberShapeBuilder? member) => _$this._member = member;
 
   ShapeId? _shapeId;
@@ -164,7 +159,6 @@ class SetShapeBuilder
 
   @override
   void replace(covariant SetShape other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SetShape;
   }
 
@@ -181,7 +175,7 @@ class SetShapeBuilder
     try {
       _$result =
           _$v ??
-          new _$SetShape._(
+          _$SetShape._(
             member: member.build(),
             shapeId: BuiltValueNullFieldError.checkNotNull(
               shapeId,
@@ -200,7 +194,7 @@ class SetShapeBuilder
         _$failedField = 'member';
         member.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'SetShape',
           _$failedField,
           e.toString(),

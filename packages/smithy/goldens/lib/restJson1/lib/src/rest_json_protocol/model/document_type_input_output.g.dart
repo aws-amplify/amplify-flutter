@@ -14,11 +14,10 @@ class _$DocumentTypeInputOutput extends DocumentTypeInputOutput {
 
   factory _$DocumentTypeInputOutput([
     void Function(DocumentTypeInputOutputBuilder)? updates,
-  ]) => (new DocumentTypeInputOutputBuilder()..update(updates))._build();
+  ]) => (DocumentTypeInputOutputBuilder()..update(updates))._build();
 
   _$DocumentTypeInputOutput._({this.stringValue, this.documentValue})
     : super._();
-
   @override
   DocumentTypeInputOutput rebuild(
     void Function(DocumentTypeInputOutputBuilder) updates,
@@ -26,7 +25,7 @@ class _$DocumentTypeInputOutput extends DocumentTypeInputOutput {
 
   @override
   DocumentTypeInputOutputBuilder toBuilder() =>
-      new DocumentTypeInputOutputBuilder()..replace(this);
+      DocumentTypeInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +73,6 @@ class DocumentTypeInputOutputBuilder
 
   @override
   void replace(DocumentTypeInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DocumentTypeInputOutput;
   }
 
@@ -89,7 +87,7 @@ class DocumentTypeInputOutputBuilder
   _$DocumentTypeInputOutput _build() {
     final _$result =
         _$v ??
-        new _$DocumentTypeInputOutput._(
+        _$DocumentTypeInputOutput._(
           stringValue: stringValue,
           documentValue: documentValue,
         );

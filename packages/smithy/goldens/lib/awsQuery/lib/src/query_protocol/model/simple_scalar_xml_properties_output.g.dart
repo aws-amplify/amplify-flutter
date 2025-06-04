@@ -31,8 +31,7 @@ class _$SimpleScalarXmlPropertiesOutput
 
   factory _$SimpleScalarXmlPropertiesOutput([
     void Function(SimpleScalarXmlPropertiesOutputBuilder)? updates,
-  ]) =>
-      (new SimpleScalarXmlPropertiesOutputBuilder()..update(updates))._build();
+  ]) => (SimpleScalarXmlPropertiesOutputBuilder()..update(updates))._build();
 
   _$SimpleScalarXmlPropertiesOutput._({
     this.stringValue,
@@ -46,7 +45,6 @@ class _$SimpleScalarXmlPropertiesOutput
     this.floatValue,
     this.doubleValue,
   }) : super._();
-
   @override
   SimpleScalarXmlPropertiesOutput rebuild(
     void Function(SimpleScalarXmlPropertiesOutputBuilder) updates,
@@ -54,7 +52,7 @@ class _$SimpleScalarXmlPropertiesOutput
 
   @override
   SimpleScalarXmlPropertiesOutputBuilder toBuilder() =>
-      new SimpleScalarXmlPropertiesOutputBuilder()..replace(this);
+      SimpleScalarXmlPropertiesOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -163,7 +161,6 @@ class SimpleScalarXmlPropertiesOutputBuilder
 
   @override
   void replace(SimpleScalarXmlPropertiesOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleScalarXmlPropertiesOutput;
   }
 
@@ -178,7 +175,7 @@ class SimpleScalarXmlPropertiesOutputBuilder
   _$SimpleScalarXmlPropertiesOutput _build() {
     final _$result =
         _$v ??
-        new _$SimpleScalarXmlPropertiesOutput._(
+        _$SimpleScalarXmlPropertiesOutput._(
           stringValue: stringValue,
           emptyStringValue: emptyStringValue,
           trueBooleanValue: trueBooleanValue,

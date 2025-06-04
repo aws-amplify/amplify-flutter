@@ -374,7 +374,11 @@ void main() {
         for (final fileSize in fileSizes) {
           final size = 1024 * 1024 * fileSize;
           const chars = 'qwertyuiopasdfghjklzxcvbnm';
-          final content = List.generate(size, (i) => chars[i % 25]).join();
+          final sb = StringBuffer();
+          for (var i = 0; i < size; i++) {
+            sb.write(chars[i % 25]);
+          }
+          final content = sb.toString();
           testWidgets('can pause (file size: $fileSize mb)', (_) async {
             final fileId = uuid();
             final path = 'public/upload-file-pause-$fileId';

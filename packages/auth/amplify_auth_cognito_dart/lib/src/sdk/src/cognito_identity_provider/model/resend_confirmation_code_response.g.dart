@@ -12,10 +12,9 @@ class _$ResendConfirmationCodeResponse extends ResendConfirmationCodeResponse {
 
   factory _$ResendConfirmationCodeResponse([
     void Function(ResendConfirmationCodeResponseBuilder)? updates,
-  ]) => (new ResendConfirmationCodeResponseBuilder()..update(updates))._build();
+  ]) => (ResendConfirmationCodeResponseBuilder()..update(updates))._build();
 
   _$ResendConfirmationCodeResponse._({this.codeDeliveryDetails}) : super._();
-
   @override
   ResendConfirmationCodeResponse rebuild(
     void Function(ResendConfirmationCodeResponseBuilder) updates,
@@ -23,7 +22,7 @@ class _$ResendConfirmationCodeResponse extends ResendConfirmationCodeResponse {
 
   @override
   ResendConfirmationCodeResponseBuilder toBuilder() =>
-      new ResendConfirmationCodeResponseBuilder()..replace(this);
+      ResendConfirmationCodeResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -51,7 +50,7 @@ class ResendConfirmationCodeResponseBuilder
 
   CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
   CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
+      _$this._codeDeliveryDetails ??= CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
     CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails,
   ) => _$this._codeDeliveryDetails = codeDeliveryDetails;
@@ -69,7 +68,6 @@ class ResendConfirmationCodeResponseBuilder
 
   @override
   void replace(ResendConfirmationCodeResponse other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ResendConfirmationCodeResponse;
   }
 
@@ -86,7 +84,7 @@ class ResendConfirmationCodeResponseBuilder
     try {
       _$result =
           _$v ??
-          new _$ResendConfirmationCodeResponse._(
+          _$ResendConfirmationCodeResponse._(
             codeDeliveryDetails: _codeDeliveryDetails?.build(),
           );
     } catch (_) {
@@ -95,7 +93,7 @@ class ResendConfirmationCodeResponseBuilder
         _$failedField = 'codeDeliveryDetails';
         _codeDeliveryDetails?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ResendConfirmationCodeResponse',
           _$failedField,
           e.toString(),

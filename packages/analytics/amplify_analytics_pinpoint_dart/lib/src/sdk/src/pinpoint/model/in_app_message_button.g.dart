@@ -18,11 +18,10 @@ class _$InAppMessageButton extends InAppMessageButton {
 
   factory _$InAppMessageButton([
     void Function(InAppMessageButtonBuilder)? updates,
-  ]) => (new InAppMessageButtonBuilder()..update(updates))._build();
+  ]) => (InAppMessageButtonBuilder()..update(updates))._build();
 
   _$InAppMessageButton._({this.android, this.defaultConfig, this.ios, this.web})
     : super._();
-
   @override
   InAppMessageButton rebuild(
     void Function(InAppMessageButtonBuilder) updates,
@@ -30,7 +29,7 @@ class _$InAppMessageButton extends InAppMessageButton {
 
   @override
   InAppMessageButtonBuilder toBuilder() =>
-      new InAppMessageButtonBuilder()..replace(this);
+      InAppMessageButtonBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -60,24 +59,24 @@ class InAppMessageButtonBuilder
 
   OverrideButtonConfigurationBuilder? _android;
   OverrideButtonConfigurationBuilder get android =>
-      _$this._android ??= new OverrideButtonConfigurationBuilder();
+      _$this._android ??= OverrideButtonConfigurationBuilder();
   set android(OverrideButtonConfigurationBuilder? android) =>
       _$this._android = android;
 
   DefaultButtonConfigurationBuilder? _defaultConfig;
   DefaultButtonConfigurationBuilder get defaultConfig =>
-      _$this._defaultConfig ??= new DefaultButtonConfigurationBuilder();
+      _$this._defaultConfig ??= DefaultButtonConfigurationBuilder();
   set defaultConfig(DefaultButtonConfigurationBuilder? defaultConfig) =>
       _$this._defaultConfig = defaultConfig;
 
   OverrideButtonConfigurationBuilder? _ios;
   OverrideButtonConfigurationBuilder get ios =>
-      _$this._ios ??= new OverrideButtonConfigurationBuilder();
+      _$this._ios ??= OverrideButtonConfigurationBuilder();
   set ios(OverrideButtonConfigurationBuilder? ios) => _$this._ios = ios;
 
   OverrideButtonConfigurationBuilder? _web;
   OverrideButtonConfigurationBuilder get web =>
-      _$this._web ??= new OverrideButtonConfigurationBuilder();
+      _$this._web ??= OverrideButtonConfigurationBuilder();
   set web(OverrideButtonConfigurationBuilder? web) => _$this._web = web;
 
   InAppMessageButtonBuilder();
@@ -96,7 +95,6 @@ class InAppMessageButtonBuilder
 
   @override
   void replace(InAppMessageButton other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppMessageButton;
   }
 
@@ -113,7 +111,7 @@ class InAppMessageButtonBuilder
     try {
       _$result =
           _$v ??
-          new _$InAppMessageButton._(
+          _$InAppMessageButton._(
             android: _android?.build(),
             defaultConfig: _defaultConfig?.build(),
             ios: _ios?.build(),
@@ -131,7 +129,7 @@ class InAppMessageButtonBuilder
         _$failedField = 'web';
         _web?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'InAppMessageButton',
           _$failedField,
           e.toString(),

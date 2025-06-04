@@ -14,11 +14,10 @@ class _$MalformedContentTypeWithGenericStringInput
   factory _$MalformedContentTypeWithGenericStringInput([
     void Function(MalformedContentTypeWithGenericStringInputBuilder)? updates,
   ]) =>
-      (new MalformedContentTypeWithGenericStringInputBuilder()..update(updates))
+      (MalformedContentTypeWithGenericStringInputBuilder()..update(updates))
           ._build();
 
   _$MalformedContentTypeWithGenericStringInput._({this.payload}) : super._();
-
   @override
   MalformedContentTypeWithGenericStringInput rebuild(
     void Function(MalformedContentTypeWithGenericStringInputBuilder) updates,
@@ -26,7 +25,7 @@ class _$MalformedContentTypeWithGenericStringInput
 
   @override
   MalformedContentTypeWithGenericStringInputBuilder toBuilder() =>
-      new MalformedContentTypeWithGenericStringInputBuilder()..replace(this);
+      MalformedContentTypeWithGenericStringInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class MalformedContentTypeWithGenericStringInputBuilder
 
   @override
   void replace(MalformedContentTypeWithGenericStringInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedContentTypeWithGenericStringInput;
   }
 
@@ -85,8 +83,7 @@ class MalformedContentTypeWithGenericStringInputBuilder
 
   _$MalformedContentTypeWithGenericStringInput _build() {
     final _$result =
-        _$v ??
-        new _$MalformedContentTypeWithGenericStringInput._(payload: payload);
+        _$v ?? _$MalformedContentTypeWithGenericStringInput._(payload: payload);
     replace(_$result);
     return _$result;
   }

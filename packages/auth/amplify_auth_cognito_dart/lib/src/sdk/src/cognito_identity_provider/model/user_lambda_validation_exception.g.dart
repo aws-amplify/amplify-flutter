@@ -14,10 +14,9 @@ class _$UserLambdaValidationException extends UserLambdaValidationException {
 
   factory _$UserLambdaValidationException([
     void Function(UserLambdaValidationExceptionBuilder)? updates,
-  ]) => (new UserLambdaValidationExceptionBuilder()..update(updates))._build();
+  ]) => (UserLambdaValidationExceptionBuilder()..update(updates))._build();
 
   _$UserLambdaValidationException._({this.message, this.headers}) : super._();
-
   @override
   UserLambdaValidationException rebuild(
     void Function(UserLambdaValidationExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$UserLambdaValidationException extends UserLambdaValidationException {
 
   @override
   UserLambdaValidationExceptionBuilder toBuilder() =>
-      new UserLambdaValidationExceptionBuilder()..replace(this);
+      UserLambdaValidationExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class UserLambdaValidationExceptionBuilder
 
   @override
   void replace(UserLambdaValidationException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UserLambdaValidationException;
   }
 
@@ -87,10 +85,7 @@ class UserLambdaValidationExceptionBuilder
   _$UserLambdaValidationException _build() {
     final _$result =
         _$v ??
-        new _$UserLambdaValidationException._(
-          message: message,
-          headers: headers,
-        );
+        _$UserLambdaValidationException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

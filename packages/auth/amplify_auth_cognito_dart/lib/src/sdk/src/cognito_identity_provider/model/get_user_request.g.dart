@@ -11,23 +11,15 @@ class _$GetUserRequest extends GetUserRequest {
   final String accessToken;
 
   factory _$GetUserRequest([void Function(GetUserRequestBuilder)? updates]) =>
-      (new GetUserRequestBuilder()..update(updates))._build();
+      (GetUserRequestBuilder()..update(updates))._build();
 
-  _$GetUserRequest._({required this.accessToken}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      accessToken,
-      r'GetUserRequest',
-      'accessToken',
-    );
-  }
-
+  _$GetUserRequest._({required this.accessToken}) : super._();
   @override
   GetUserRequest rebuild(void Function(GetUserRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GetUserRequestBuilder toBuilder() =>
-      new GetUserRequestBuilder()..replace(this);
+  GetUserRequestBuilder toBuilder() => GetUserRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -65,7 +57,6 @@ class GetUserRequestBuilder
 
   @override
   void replace(GetUserRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserRequest;
   }
 
@@ -80,7 +71,7 @@ class GetUserRequestBuilder
   _$GetUserRequest _build() {
     final _$result =
         _$v ??
-        new _$GetUserRequest._(
+        _$GetUserRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,
             r'GetUserRequest',

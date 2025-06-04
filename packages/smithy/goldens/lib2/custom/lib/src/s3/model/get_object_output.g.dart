@@ -15,23 +15,19 @@ class _$GetObjectOutput extends GetObjectOutput {
   final String? contentRange;
 
   factory _$GetObjectOutput([void Function(GetObjectOutputBuilder)? updates]) =>
-      (new GetObjectOutputBuilder()..update(updates))._build();
+      (GetObjectOutputBuilder()..update(updates))._build();
 
   _$GetObjectOutput._({
     required this.body,
     this.contentLength,
     this.contentRange,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(body, r'GetObjectOutput', 'body');
-  }
-
+  }) : super._();
   @override
   GetObjectOutput rebuild(void Function(GetObjectOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GetObjectOutputBuilder toBuilder() =>
-      new GetObjectOutputBuilder()..replace(this);
+  GetObjectOutputBuilder toBuilder() => GetObjectOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,7 +83,6 @@ class GetObjectOutputBuilder
 
   @override
   void replace(GetObjectOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetObjectOutput;
   }
 
@@ -102,7 +97,7 @@ class GetObjectOutputBuilder
   _$GetObjectOutput _build() {
     final _$result =
         _$v ??
-        new _$GetObjectOutput._(
+        _$GetObjectOutput._(
           body: BuiltValueNullFieldError.checkNotNull(
             body,
             r'GetObjectOutput',

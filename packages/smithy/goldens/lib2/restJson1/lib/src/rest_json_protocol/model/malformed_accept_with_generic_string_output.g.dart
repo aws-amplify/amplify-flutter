@@ -14,11 +14,10 @@ class _$MalformedAcceptWithGenericStringOutput
   factory _$MalformedAcceptWithGenericStringOutput([
     void Function(MalformedAcceptWithGenericStringOutputBuilder)? updates,
   ]) =>
-      (new MalformedAcceptWithGenericStringOutputBuilder()..update(updates))
+      (MalformedAcceptWithGenericStringOutputBuilder()..update(updates))
           ._build();
 
   _$MalformedAcceptWithGenericStringOutput._({this.payload}) : super._();
-
   @override
   MalformedAcceptWithGenericStringOutput rebuild(
     void Function(MalformedAcceptWithGenericStringOutputBuilder) updates,
@@ -26,7 +25,7 @@ class _$MalformedAcceptWithGenericStringOutput
 
   @override
   MalformedAcceptWithGenericStringOutputBuilder toBuilder() =>
-      new MalformedAcceptWithGenericStringOutputBuilder()..replace(this);
+      MalformedAcceptWithGenericStringOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class MalformedAcceptWithGenericStringOutputBuilder
 
   @override
   void replace(MalformedAcceptWithGenericStringOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedAcceptWithGenericStringOutput;
   }
 
@@ -85,7 +83,7 @@ class MalformedAcceptWithGenericStringOutputBuilder
 
   _$MalformedAcceptWithGenericStringOutput _build() {
     final _$result =
-        _$v ?? new _$MalformedAcceptWithGenericStringOutput._(payload: payload);
+        _$v ?? _$MalformedAcceptWithGenericStringOutput._(payload: payload);
     replace(_$result);
     return _$result;
   }

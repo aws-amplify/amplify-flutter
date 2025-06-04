@@ -13,18 +13,15 @@ class _$SetDimension extends SetDimension {
   final _i2.BuiltList<String> values;
 
   factory _$SetDimension([void Function(SetDimensionBuilder)? updates]) =>
-      (new SetDimensionBuilder()..update(updates))._build();
+      (SetDimensionBuilder()..update(updates))._build();
 
-  _$SetDimension._({this.dimensionType, required this.values}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(values, r'SetDimension', 'values');
-  }
-
+  _$SetDimension._({this.dimensionType, required this.values}) : super._();
   @override
   SetDimension rebuild(void Function(SetDimensionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SetDimensionBuilder toBuilder() => new SetDimensionBuilder()..replace(this);
+  SetDimensionBuilder toBuilder() => SetDimensionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -55,7 +52,7 @@ class SetDimensionBuilder
 
   _i2.ListBuilder<String>? _values;
   _i2.ListBuilder<String> get values =>
-      _$this._values ??= new _i2.ListBuilder<String>();
+      _$this._values ??= _i2.ListBuilder<String>();
   set values(_i2.ListBuilder<String>? values) => _$this._values = values;
 
   SetDimensionBuilder();
@@ -72,7 +69,6 @@ class SetDimensionBuilder
 
   @override
   void replace(SetDimension other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SetDimension;
   }
 
@@ -89,7 +85,7 @@ class SetDimensionBuilder
     try {
       _$result =
           _$v ??
-          new _$SetDimension._(
+          _$SetDimension._(
             dimensionType: dimensionType,
             values: values.build(),
           );
@@ -99,7 +95,7 @@ class SetDimensionBuilder
         _$failedField = 'values';
         values.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'SetDimension',
           _$failedField,
           e.toString(),

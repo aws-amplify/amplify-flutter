@@ -14,19 +14,16 @@ class _$ObjectIdentifier extends ObjectIdentifier {
 
   factory _$ObjectIdentifier([
     void Function(ObjectIdentifierBuilder)? updates,
-  ]) => (new ObjectIdentifierBuilder()..update(updates))._build();
+  ]) => (ObjectIdentifierBuilder()..update(updates))._build();
 
-  _$ObjectIdentifier._({required this.key, this.versionId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(key, r'ObjectIdentifier', 'key');
-  }
-
+  _$ObjectIdentifier._({required this.key, this.versionId}) : super._();
   @override
   ObjectIdentifier rebuild(void Function(ObjectIdentifierBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   ObjectIdentifierBuilder toBuilder() =>
-      new ObjectIdentifierBuilder()..replace(this);
+      ObjectIdentifierBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +69,6 @@ class ObjectIdentifierBuilder
 
   @override
   void replace(ObjectIdentifier other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ObjectIdentifier;
   }
 
@@ -87,7 +83,7 @@ class ObjectIdentifierBuilder
   _$ObjectIdentifier _build() {
     final _$result =
         _$v ??
-        new _$ObjectIdentifier._(
+        _$ObjectIdentifier._(
           key: BuiltValueNullFieldError.checkNotNull(
             key,
             r'ObjectIdentifier',

@@ -7,7 +7,7 @@ part of 'srp_password_verifier_worker.dart';
 // **************************************************************************
 
 Serializers _$serializers =
-    (new Serializers().toBuilder()
+    (Serializers().toBuilder()
           ..add(SignInParameters.serializer)
           ..add(SrpInitResult.serializer)
           ..add(SrpPasswordVerifierMessage.serializer)
@@ -16,11 +16,11 @@ Serializers _$serializers =
               const FullType(String),
               const FullType(String),
             ]),
-            () => new MapBuilder<String, String>(),
+            () => MapBuilder<String, String>(),
           ))
         .build();
 Serializer<SrpPasswordVerifierMessage> _$srpPasswordVerifierMessageSerializer =
-    new _$SrpPasswordVerifierMessageSerializer();
+    _$SrpPasswordVerifierMessageSerializer();
 
 class _$SrpPasswordVerifierMessageSerializer
     implements StructuredSerializer<SrpPasswordVerifierMessage> {
@@ -99,7 +99,7 @@ class _$SrpPasswordVerifierMessageSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = new SrpPasswordVerifierMessageBuilder();
+    final result = SrpPasswordVerifierMessageBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -201,7 +201,7 @@ class _$SrpPasswordVerifierMessage extends SrpPasswordVerifierMessage {
 
   factory _$SrpPasswordVerifierMessage([
     void Function(SrpPasswordVerifierMessageBuilder)? updates,
-  ]) => (new SrpPasswordVerifierMessageBuilder()..update(updates))._build();
+  ]) => (SrpPasswordVerifierMessageBuilder()..update(updates))._build();
 
   _$SrpPasswordVerifierMessage._({
     required this.initResult,
@@ -212,39 +212,7 @@ class _$SrpPasswordVerifierMessage extends SrpPasswordVerifierMessage {
     required this.parameters,
     required this.challengeParameters,
     required this.timestamp,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      initResult,
-      r'SrpPasswordVerifierMessage',
-      'initResult',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      clientId,
-      r'SrpPasswordVerifierMessage',
-      'clientId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      poolId,
-      r'SrpPasswordVerifierMessage',
-      'poolId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      parameters,
-      r'SrpPasswordVerifierMessage',
-      'parameters',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      challengeParameters,
-      r'SrpPasswordVerifierMessage',
-      'challengeParameters',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      timestamp,
-      r'SrpPasswordVerifierMessage',
-      'timestamp',
-    );
-  }
-
+  }) : super._();
   @override
   SrpPasswordVerifierMessage rebuild(
     void Function(SrpPasswordVerifierMessageBuilder) updates,
@@ -252,7 +220,7 @@ class _$SrpPasswordVerifierMessage extends SrpPasswordVerifierMessage {
 
   @override
   SrpPasswordVerifierMessageBuilder toBuilder() =>
-      new SrpPasswordVerifierMessageBuilder()..replace(this);
+      SrpPasswordVerifierMessageBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -358,7 +326,6 @@ class SrpPasswordVerifierMessageBuilder
 
   @override
   void replace(SrpPasswordVerifierMessage other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SrpPasswordVerifierMessage;
   }
 
@@ -374,7 +341,7 @@ class SrpPasswordVerifierMessageBuilder
     SrpPasswordVerifierMessage._init(this);
     final _$result =
         _$v ??
-        new _$SrpPasswordVerifierMessage._(
+        _$SrpPasswordVerifierMessage._(
           initResult: BuiltValueNullFieldError.checkNotNull(
             initResult,
             r'SrpPasswordVerifierMessage',

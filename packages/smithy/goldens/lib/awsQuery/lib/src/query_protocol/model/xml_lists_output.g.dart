@@ -37,7 +37,7 @@ class _$XmlListsOutput extends XmlListsOutput {
   final _i2.BuiltList<StructureListMember>? structureList;
 
   factory _$XmlListsOutput([void Function(XmlListsOutputBuilder)? updates]) =>
-      (new XmlListsOutputBuilder()..update(updates))._build();
+      (XmlListsOutputBuilder()..update(updates))._build();
 
   _$XmlListsOutput._({
     this.stringList,
@@ -55,14 +55,12 @@ class _$XmlListsOutput extends XmlListsOutput {
     this.flattenedListWithNamespace,
     this.structureList,
   }) : super._();
-
   @override
   XmlListsOutput rebuild(void Function(XmlListsOutputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  XmlListsOutputBuilder toBuilder() =>
-      new XmlListsOutputBuilder()..replace(this);
+  XmlListsOutputBuilder toBuilder() => XmlListsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -113,75 +111,74 @@ class XmlListsOutputBuilder
 
   _i2.ListBuilder<String>? _stringList;
   _i2.ListBuilder<String> get stringList =>
-      _$this._stringList ??= new _i2.ListBuilder<String>();
+      _$this._stringList ??= _i2.ListBuilder<String>();
   set stringList(_i2.ListBuilder<String>? stringList) =>
       _$this._stringList = stringList;
 
   _i2.SetBuilder<String>? _stringSet;
   _i2.SetBuilder<String> get stringSet =>
-      _$this._stringSet ??= new _i2.SetBuilder<String>();
+      _$this._stringSet ??= _i2.SetBuilder<String>();
   set stringSet(_i2.SetBuilder<String>? stringSet) =>
       _$this._stringSet = stringSet;
 
   _i2.ListBuilder<int>? _integerList;
   _i2.ListBuilder<int> get integerList =>
-      _$this._integerList ??= new _i2.ListBuilder<int>();
+      _$this._integerList ??= _i2.ListBuilder<int>();
   set integerList(_i2.ListBuilder<int>? integerList) =>
       _$this._integerList = integerList;
 
   _i2.ListBuilder<bool>? _booleanList;
   _i2.ListBuilder<bool> get booleanList =>
-      _$this._booleanList ??= new _i2.ListBuilder<bool>();
+      _$this._booleanList ??= _i2.ListBuilder<bool>();
   set booleanList(_i2.ListBuilder<bool>? booleanList) =>
       _$this._booleanList = booleanList;
 
   _i2.ListBuilder<DateTime>? _timestampList;
   _i2.ListBuilder<DateTime> get timestampList =>
-      _$this._timestampList ??= new _i2.ListBuilder<DateTime>();
+      _$this._timestampList ??= _i2.ListBuilder<DateTime>();
   set timestampList(_i2.ListBuilder<DateTime>? timestampList) =>
       _$this._timestampList = timestampList;
 
   _i2.ListBuilder<FooEnum>? _enumList;
   _i2.ListBuilder<FooEnum> get enumList =>
-      _$this._enumList ??= new _i2.ListBuilder<FooEnum>();
+      _$this._enumList ??= _i2.ListBuilder<FooEnum>();
   set enumList(_i2.ListBuilder<FooEnum>? enumList) =>
       _$this._enumList = enumList;
 
   _i2.ListBuilder<int>? _intEnumList;
   _i2.ListBuilder<int> get intEnumList =>
-      _$this._intEnumList ??= new _i2.ListBuilder<int>();
+      _$this._intEnumList ??= _i2.ListBuilder<int>();
   set intEnumList(_i2.ListBuilder<int>? intEnumList) =>
       _$this._intEnumList = intEnumList;
 
   _i2.ListBuilder<_i2.BuiltList<String>>? _nestedStringList;
   _i2.ListBuilder<_i2.BuiltList<String>> get nestedStringList =>
-      _$this._nestedStringList ??= new _i2.ListBuilder<_i2.BuiltList<String>>();
+      _$this._nestedStringList ??= _i2.ListBuilder<_i2.BuiltList<String>>();
   set nestedStringList(
     _i2.ListBuilder<_i2.BuiltList<String>>? nestedStringList,
   ) => _$this._nestedStringList = nestedStringList;
 
   _i2.ListBuilder<String>? _renamedListMembers;
   _i2.ListBuilder<String> get renamedListMembers =>
-      _$this._renamedListMembers ??= new _i2.ListBuilder<String>();
+      _$this._renamedListMembers ??= _i2.ListBuilder<String>();
   set renamedListMembers(_i2.ListBuilder<String>? renamedListMembers) =>
       _$this._renamedListMembers = renamedListMembers;
 
   _i2.ListBuilder<String>? _flattenedList;
   _i2.ListBuilder<String> get flattenedList =>
-      _$this._flattenedList ??= new _i2.ListBuilder<String>();
+      _$this._flattenedList ??= _i2.ListBuilder<String>();
   set flattenedList(_i2.ListBuilder<String>? flattenedList) =>
       _$this._flattenedList = flattenedList;
 
   _i2.ListBuilder<String>? _flattenedList2;
   _i2.ListBuilder<String> get flattenedList2 =>
-      _$this._flattenedList2 ??= new _i2.ListBuilder<String>();
+      _$this._flattenedList2 ??= _i2.ListBuilder<String>();
   set flattenedList2(_i2.ListBuilder<String>? flattenedList2) =>
       _$this._flattenedList2 = flattenedList2;
 
   _i2.ListBuilder<String>? _flattenedListWithMemberNamespace;
   _i2.ListBuilder<String> get flattenedListWithMemberNamespace =>
-      _$this._flattenedListWithMemberNamespace ??=
-          new _i2.ListBuilder<String>();
+      _$this._flattenedListWithMemberNamespace ??= _i2.ListBuilder<String>();
   set flattenedListWithMemberNamespace(
     _i2.ListBuilder<String>? flattenedListWithMemberNamespace,
   ) =>
@@ -190,14 +187,14 @@ class XmlListsOutputBuilder
 
   _i2.ListBuilder<String>? _flattenedListWithNamespace;
   _i2.ListBuilder<String> get flattenedListWithNamespace =>
-      _$this._flattenedListWithNamespace ??= new _i2.ListBuilder<String>();
+      _$this._flattenedListWithNamespace ??= _i2.ListBuilder<String>();
   set flattenedListWithNamespace(
     _i2.ListBuilder<String>? flattenedListWithNamespace,
   ) => _$this._flattenedListWithNamespace = flattenedListWithNamespace;
 
   _i2.ListBuilder<StructureListMember>? _structureList;
   _i2.ListBuilder<StructureListMember> get structureList =>
-      _$this._structureList ??= new _i2.ListBuilder<StructureListMember>();
+      _$this._structureList ??= _i2.ListBuilder<StructureListMember>();
   set structureList(_i2.ListBuilder<StructureListMember>? structureList) =>
       _$this._structureList = structureList;
 
@@ -228,7 +225,6 @@ class XmlListsOutputBuilder
 
   @override
   void replace(XmlListsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$XmlListsOutput;
   }
 
@@ -245,7 +241,7 @@ class XmlListsOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$XmlListsOutput._(
+          _$XmlListsOutput._(
             stringList: _stringList?.build(),
             stringSet: _stringSet?.build(),
             integerList: _integerList?.build(),
@@ -294,7 +290,7 @@ class XmlListsOutputBuilder
         _$failedField = 'structureList';
         _structureList?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'XmlListsOutput',
           _$failedField,
           e.toString(),

@@ -14,10 +14,9 @@ class _$CodeMismatchException extends CodeMismatchException {
 
   factory _$CodeMismatchException([
     void Function(CodeMismatchExceptionBuilder)? updates,
-  ]) => (new CodeMismatchExceptionBuilder()..update(updates))._build();
+  ]) => (CodeMismatchExceptionBuilder()..update(updates))._build();
 
   _$CodeMismatchException._({this.message, this.headers}) : super._();
-
   @override
   CodeMismatchException rebuild(
     void Function(CodeMismatchExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$CodeMismatchException extends CodeMismatchException {
 
   @override
   CodeMismatchExceptionBuilder toBuilder() =>
-      new CodeMismatchExceptionBuilder()..replace(this);
+      CodeMismatchExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -68,7 +67,6 @@ class CodeMismatchExceptionBuilder
 
   @override
   void replace(CodeMismatchException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CodeMismatchException;
   }
 
@@ -82,8 +80,7 @@ class CodeMismatchExceptionBuilder
 
   _$CodeMismatchException _build() {
     final _$result =
-        _$v ??
-        new _$CodeMismatchException._(message: message, headers: headers);
+        _$v ?? _$CodeMismatchException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

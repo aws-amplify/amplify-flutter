@@ -16,30 +16,13 @@ class _$VerifyUserAttributeRequest extends VerifyUserAttributeRequest {
 
   factory _$VerifyUserAttributeRequest([
     void Function(VerifyUserAttributeRequestBuilder)? updates,
-  ]) => (new VerifyUserAttributeRequestBuilder()..update(updates))._build();
+  ]) => (VerifyUserAttributeRequestBuilder()..update(updates))._build();
 
   _$VerifyUserAttributeRequest._({
     required this.accessToken,
     required this.attributeName,
     required this.code,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      accessToken,
-      r'VerifyUserAttributeRequest',
-      'accessToken',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      attributeName,
-      r'VerifyUserAttributeRequest',
-      'attributeName',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      code,
-      r'VerifyUserAttributeRequest',
-      'code',
-    );
-  }
-
+  }) : super._();
   @override
   VerifyUserAttributeRequest rebuild(
     void Function(VerifyUserAttributeRequestBuilder) updates,
@@ -47,7 +30,7 @@ class _$VerifyUserAttributeRequest extends VerifyUserAttributeRequest {
 
   @override
   VerifyUserAttributeRequestBuilder toBuilder() =>
-      new VerifyUserAttributeRequestBuilder()..replace(this);
+      VerifyUserAttributeRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -102,7 +85,6 @@ class VerifyUserAttributeRequestBuilder
 
   @override
   void replace(VerifyUserAttributeRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$VerifyUserAttributeRequest;
   }
 
@@ -117,7 +99,7 @@ class VerifyUserAttributeRequestBuilder
   _$VerifyUserAttributeRequest _build() {
     final _$result =
         _$v ??
-        new _$VerifyUserAttributeRequest._(
+        _$VerifyUserAttributeRequest._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
             accessToken,
             r'VerifyUserAttributeRequest',

@@ -23,7 +23,7 @@ class _$MultipartUpload extends MultipartUpload {
   final ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$MultipartUpload([void Function(MultipartUploadBuilder)? updates]) =>
-      (new MultipartUploadBuilder()..update(updates))._build();
+      (MultipartUploadBuilder()..update(updates))._build();
 
   _$MultipartUpload._({
     this.uploadId,
@@ -34,14 +34,12 @@ class _$MultipartUpload extends MultipartUpload {
     this.initiator,
     this.checksumAlgorithm,
   }) : super._();
-
   @override
   MultipartUpload rebuild(void Function(MultipartUploadBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  MultipartUploadBuilder toBuilder() =>
-      new MultipartUploadBuilder()..replace(this);
+  MultipartUploadBuilder toBuilder() => MultipartUploadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,12 +91,11 @@ class MultipartUploadBuilder
       _$this._storageClass = storageClass;
 
   OwnerBuilder? _owner;
-  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  OwnerBuilder get owner => _$this._owner ??= OwnerBuilder();
   set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   InitiatorBuilder? _initiator;
-  InitiatorBuilder get initiator =>
-      _$this._initiator ??= new InitiatorBuilder();
+  InitiatorBuilder get initiator => _$this._initiator ??= InitiatorBuilder();
   set initiator(InitiatorBuilder? initiator) => _$this._initiator = initiator;
 
   ChecksumAlgorithm? _checksumAlgorithm;
@@ -125,7 +122,6 @@ class MultipartUploadBuilder
 
   @override
   void replace(MultipartUpload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MultipartUpload;
   }
 
@@ -142,7 +138,7 @@ class MultipartUploadBuilder
     try {
       _$result =
           _$v ??
-          new _$MultipartUpload._(
+          _$MultipartUpload._(
             uploadId: uploadId,
             key: key,
             initiated: initiated,
@@ -159,7 +155,7 @@ class MultipartUploadBuilder
         _$failedField = 'initiator';
         _initiator?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'MultipartUpload',
           _$failedField,
           e.toString(),

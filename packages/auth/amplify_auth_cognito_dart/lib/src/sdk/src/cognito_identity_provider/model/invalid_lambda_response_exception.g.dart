@@ -14,10 +14,9 @@ class _$InvalidLambdaResponseException extends InvalidLambdaResponseException {
 
   factory _$InvalidLambdaResponseException([
     void Function(InvalidLambdaResponseExceptionBuilder)? updates,
-  ]) => (new InvalidLambdaResponseExceptionBuilder()..update(updates))._build();
+  ]) => (InvalidLambdaResponseExceptionBuilder()..update(updates))._build();
 
   _$InvalidLambdaResponseException._({this.message, this.headers}) : super._();
-
   @override
   InvalidLambdaResponseException rebuild(
     void Function(InvalidLambdaResponseExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$InvalidLambdaResponseException extends InvalidLambdaResponseException {
 
   @override
   InvalidLambdaResponseExceptionBuilder toBuilder() =>
-      new InvalidLambdaResponseExceptionBuilder()..replace(this);
+      InvalidLambdaResponseExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class InvalidLambdaResponseExceptionBuilder
 
   @override
   void replace(InvalidLambdaResponseException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvalidLambdaResponseException;
   }
 
@@ -87,10 +85,7 @@ class InvalidLambdaResponseExceptionBuilder
   _$InvalidLambdaResponseException _build() {
     final _$result =
         _$v ??
-        new _$InvalidLambdaResponseException._(
-          message: message,
-          headers: headers,
-        );
+        _$InvalidLambdaResponseException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

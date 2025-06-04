@@ -11,16 +11,15 @@ class _$SimpleStruct extends SimpleStruct {
   final String? value;
 
   factory _$SimpleStruct([void Function(SimpleStructBuilder)? updates]) =>
-      (new SimpleStructBuilder()..update(updates))._build();
+      (SimpleStructBuilder()..update(updates))._build();
 
   _$SimpleStruct._({this.value}) : super._();
-
   @override
   SimpleStruct rebuild(void Function(SimpleStructBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  SimpleStructBuilder toBuilder() => new SimpleStructBuilder()..replace(this);
+  SimpleStructBuilder toBuilder() => SimpleStructBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -58,7 +57,6 @@ class SimpleStructBuilder
 
   @override
   void replace(SimpleStruct other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleStruct;
   }
 
@@ -71,7 +69,7 @@ class SimpleStructBuilder
   SimpleStruct build() => _build();
 
   _$SimpleStruct _build() {
-    final _$result = _$v ?? new _$SimpleStruct._(value: value);
+    final _$result = _$v ?? _$SimpleStruct._(value: value);
     replace(_$result);
     return _$result;
   }
