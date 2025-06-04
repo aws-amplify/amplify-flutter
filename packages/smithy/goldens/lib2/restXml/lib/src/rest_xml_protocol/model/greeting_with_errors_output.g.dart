@@ -12,10 +12,9 @@ class _$GreetingWithErrorsOutput extends GreetingWithErrorsOutput {
 
   factory _$GreetingWithErrorsOutput([
     void Function(GreetingWithErrorsOutputBuilder)? updates,
-  ]) => (new GreetingWithErrorsOutputBuilder()..update(updates))._build();
+  ]) => (GreetingWithErrorsOutputBuilder()..update(updates))._build();
 
   _$GreetingWithErrorsOutput._({this.greeting}) : super._();
-
   @override
   GreetingWithErrorsOutput rebuild(
     void Function(GreetingWithErrorsOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$GreetingWithErrorsOutput extends GreetingWithErrorsOutput {
 
   @override
   GreetingWithErrorsOutputBuilder toBuilder() =>
-      new GreetingWithErrorsOutputBuilder()..replace(this);
+      GreetingWithErrorsOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class GreetingWithErrorsOutputBuilder
 
   @override
   void replace(GreetingWithErrorsOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GreetingWithErrorsOutput;
   }
 
@@ -75,8 +73,7 @@ class GreetingWithErrorsOutputBuilder
   GreetingWithErrorsOutput build() => _build();
 
   _$GreetingWithErrorsOutput _build() {
-    final _$result =
-        _$v ?? new _$GreetingWithErrorsOutput._(greeting: greeting);
+    final _$result = _$v ?? _$GreetingWithErrorsOutput._(greeting: greeting);
     replace(_$result);
     return _$result;
   }
@@ -86,11 +83,9 @@ class _$GreetingWithErrorsOutputPayload
     extends GreetingWithErrorsOutputPayload {
   factory _$GreetingWithErrorsOutputPayload([
     void Function(GreetingWithErrorsOutputPayloadBuilder)? updates,
-  ]) =>
-      (new GreetingWithErrorsOutputPayloadBuilder()..update(updates))._build();
+  ]) => (GreetingWithErrorsOutputPayloadBuilder()..update(updates))._build();
 
   _$GreetingWithErrorsOutputPayload._() : super._();
-
   @override
   GreetingWithErrorsOutputPayload rebuild(
     void Function(GreetingWithErrorsOutputPayloadBuilder) updates,
@@ -98,7 +93,7 @@ class _$GreetingWithErrorsOutputPayload
 
   @override
   GreetingWithErrorsOutputPayloadBuilder toBuilder() =>
-      new GreetingWithErrorsOutputPayloadBuilder()..replace(this);
+      GreetingWithErrorsOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -124,7 +119,6 @@ class GreetingWithErrorsOutputPayloadBuilder
 
   @override
   void replace(GreetingWithErrorsOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GreetingWithErrorsOutputPayload;
   }
 
@@ -137,7 +131,7 @@ class GreetingWithErrorsOutputPayloadBuilder
   GreetingWithErrorsOutputPayload build() => _build();
 
   _$GreetingWithErrorsOutputPayload _build() {
-    final _$result = _$v ?? new _$GreetingWithErrorsOutputPayload._();
+    final _$result = _$v ?? _$GreetingWithErrorsOutputPayload._();
     replace(_$result);
     return _$result;
   }

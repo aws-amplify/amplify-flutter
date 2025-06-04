@@ -14,11 +14,9 @@ class _$MalformedContentTypeWithPayloadInput
   factory _$MalformedContentTypeWithPayloadInput([
     void Function(MalformedContentTypeWithPayloadInputBuilder)? updates,
   ]) =>
-      (new MalformedContentTypeWithPayloadInputBuilder()..update(updates))
-          ._build();
+      (MalformedContentTypeWithPayloadInputBuilder()..update(updates))._build();
 
   _$MalformedContentTypeWithPayloadInput._({this.payload}) : super._();
-
   @override
   MalformedContentTypeWithPayloadInput rebuild(
     void Function(MalformedContentTypeWithPayloadInputBuilder) updates,
@@ -26,7 +24,7 @@ class _$MalformedContentTypeWithPayloadInput
 
   @override
   MalformedContentTypeWithPayloadInputBuilder toBuilder() =>
-      new MalformedContentTypeWithPayloadInputBuilder()..replace(this);
+      MalformedContentTypeWithPayloadInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +67,6 @@ class MalformedContentTypeWithPayloadInputBuilder
 
   @override
   void replace(MalformedContentTypeWithPayloadInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedContentTypeWithPayloadInput;
   }
 
@@ -85,7 +82,7 @@ class MalformedContentTypeWithPayloadInputBuilder
 
   _$MalformedContentTypeWithPayloadInput _build() {
     final _$result =
-        _$v ?? new _$MalformedContentTypeWithPayloadInput._(payload: payload);
+        _$v ?? _$MalformedContentTypeWithPayloadInput._(payload: payload);
     replace(_$result);
     return _$result;
   }

@@ -16,11 +16,10 @@ class _$ForbiddenException extends ForbiddenException {
 
   factory _$ForbiddenException([
     void Function(ForbiddenExceptionBuilder)? updates,
-  ]) => (new ForbiddenExceptionBuilder()..update(updates))._build();
+  ]) => (ForbiddenExceptionBuilder()..update(updates))._build();
 
   _$ForbiddenException._({this.message, this.requestId, this.headers})
     : super._();
-
   @override
   ForbiddenException rebuild(
     void Function(ForbiddenExceptionBuilder) updates,
@@ -28,7 +27,7 @@ class _$ForbiddenException extends ForbiddenException {
 
   @override
   ForbiddenExceptionBuilder toBuilder() =>
-      new ForbiddenExceptionBuilder()..replace(this);
+      ForbiddenExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -79,7 +78,6 @@ class ForbiddenExceptionBuilder
 
   @override
   void replace(ForbiddenException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ForbiddenException;
   }
 
@@ -94,7 +92,7 @@ class ForbiddenExceptionBuilder
   _$ForbiddenException _build() {
     final _$result =
         _$v ??
-        new _$ForbiddenException._(
+        _$ForbiddenException._(
           message: message,
           requestId: requestId,
           headers: headers,

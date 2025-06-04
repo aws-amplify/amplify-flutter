@@ -16,11 +16,10 @@ class _$BadRequestException extends BadRequestException {
 
   factory _$BadRequestException([
     void Function(BadRequestExceptionBuilder)? updates,
-  ]) => (new BadRequestExceptionBuilder()..update(updates))._build();
+  ]) => (BadRequestExceptionBuilder()..update(updates))._build();
 
   _$BadRequestException._({this.message, this.requestId, this.headers})
     : super._();
-
   @override
   BadRequestException rebuild(
     void Function(BadRequestExceptionBuilder) updates,
@@ -28,7 +27,7 @@ class _$BadRequestException extends BadRequestException {
 
   @override
   BadRequestExceptionBuilder toBuilder() =>
-      new BadRequestExceptionBuilder()..replace(this);
+      BadRequestExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -79,7 +78,6 @@ class BadRequestExceptionBuilder
 
   @override
   void replace(BadRequestException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BadRequestException;
   }
 
@@ -94,7 +92,7 @@ class BadRequestExceptionBuilder
   _$BadRequestException _build() {
     final _$result =
         _$v ??
-        new _$BadRequestException._(
+        _$BadRequestException._(
           message: message,
           requestId: requestId,
           headers: headers,

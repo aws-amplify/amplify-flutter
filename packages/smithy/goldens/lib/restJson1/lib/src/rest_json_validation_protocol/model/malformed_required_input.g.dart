@@ -16,30 +16,13 @@ class _$MalformedRequiredInput extends MalformedRequiredInput {
 
   factory _$MalformedRequiredInput([
     void Function(MalformedRequiredInputBuilder)? updates,
-  ]) => (new MalformedRequiredInputBuilder()..update(updates))._build();
+  ]) => (MalformedRequiredInputBuilder()..update(updates))._build();
 
   _$MalformedRequiredInput._({
     required this.string,
     required this.stringInQuery,
     required this.stringInHeader,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      string,
-      r'MalformedRequiredInput',
-      'string',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      stringInQuery,
-      r'MalformedRequiredInput',
-      'stringInQuery',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      stringInHeader,
-      r'MalformedRequiredInput',
-      'stringInHeader',
-    );
-  }
-
+  }) : super._();
   @override
   MalformedRequiredInput rebuild(
     void Function(MalformedRequiredInputBuilder) updates,
@@ -47,7 +30,7 @@ class _$MalformedRequiredInput extends MalformedRequiredInput {
 
   @override
   MalformedRequiredInputBuilder toBuilder() =>
-      new MalformedRequiredInputBuilder()..replace(this);
+      MalformedRequiredInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -102,7 +85,6 @@ class MalformedRequiredInputBuilder
 
   @override
   void replace(MalformedRequiredInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedRequiredInput;
   }
 
@@ -117,7 +99,7 @@ class MalformedRequiredInputBuilder
   _$MalformedRequiredInput _build() {
     final _$result =
         _$v ??
-        new _$MalformedRequiredInput._(
+        _$MalformedRequiredInput._(
           string: BuiltValueNullFieldError.checkNotNull(
             string,
             r'MalformedRequiredInput',
@@ -145,16 +127,9 @@ class _$MalformedRequiredInputPayload extends MalformedRequiredInputPayload {
 
   factory _$MalformedRequiredInputPayload([
     void Function(MalformedRequiredInputPayloadBuilder)? updates,
-  ]) => (new MalformedRequiredInputPayloadBuilder()..update(updates))._build();
+  ]) => (MalformedRequiredInputPayloadBuilder()..update(updates))._build();
 
-  _$MalformedRequiredInputPayload._({required this.string}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      string,
-      r'MalformedRequiredInputPayload',
-      'string',
-    );
-  }
-
+  _$MalformedRequiredInputPayload._({required this.string}) : super._();
   @override
   MalformedRequiredInputPayload rebuild(
     void Function(MalformedRequiredInputPayloadBuilder) updates,
@@ -162,7 +137,7 @@ class _$MalformedRequiredInputPayload extends MalformedRequiredInputPayload {
 
   @override
   MalformedRequiredInputPayloadBuilder toBuilder() =>
-      new MalformedRequiredInputPayloadBuilder()..replace(this);
+      MalformedRequiredInputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -204,7 +179,6 @@ class MalformedRequiredInputPayloadBuilder
 
   @override
   void replace(MalformedRequiredInputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MalformedRequiredInputPayload;
   }
 
@@ -219,7 +193,7 @@ class MalformedRequiredInputPayloadBuilder
   _$MalformedRequiredInputPayload _build() {
     final _$result =
         _$v ??
-        new _$MalformedRequiredInputPayload._(
+        _$MalformedRequiredInputPayload._(
           string: BuiltValueNullFieldError.checkNotNull(
             string,
             r'MalformedRequiredInputPayload',

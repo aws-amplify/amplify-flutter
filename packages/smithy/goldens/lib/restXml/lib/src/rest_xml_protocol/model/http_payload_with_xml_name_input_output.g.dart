@@ -13,12 +13,9 @@ class _$HttpPayloadWithXmlNameInputOutput
 
   factory _$HttpPayloadWithXmlNameInputOutput([
     void Function(HttpPayloadWithXmlNameInputOutputBuilder)? updates,
-  ]) =>
-      (new HttpPayloadWithXmlNameInputOutputBuilder()..update(updates))
-          ._build();
+  ]) => (HttpPayloadWithXmlNameInputOutputBuilder()..update(updates))._build();
 
   _$HttpPayloadWithXmlNameInputOutput._({this.nested}) : super._();
-
   @override
   HttpPayloadWithXmlNameInputOutput rebuild(
     void Function(HttpPayloadWithXmlNameInputOutputBuilder) updates,
@@ -26,7 +23,7 @@ class _$HttpPayloadWithXmlNameInputOutput
 
   @override
   HttpPayloadWithXmlNameInputOutputBuilder toBuilder() =>
-      new HttpPayloadWithXmlNameInputOutputBuilder()..replace(this);
+      HttpPayloadWithXmlNameInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -53,7 +50,7 @@ class HttpPayloadWithXmlNameInputOutputBuilder
 
   PayloadWithXmlNameBuilder? _nested;
   PayloadWithXmlNameBuilder get nested =>
-      _$this._nested ??= new PayloadWithXmlNameBuilder();
+      _$this._nested ??= PayloadWithXmlNameBuilder();
   set nested(PayloadWithXmlNameBuilder? nested) => _$this._nested = nested;
 
   HttpPayloadWithXmlNameInputOutputBuilder();
@@ -69,7 +66,6 @@ class HttpPayloadWithXmlNameInputOutputBuilder
 
   @override
   void replace(HttpPayloadWithXmlNameInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HttpPayloadWithXmlNameInputOutput;
   }
 
@@ -88,14 +84,14 @@ class HttpPayloadWithXmlNameInputOutputBuilder
     try {
       _$result =
           _$v ??
-          new _$HttpPayloadWithXmlNameInputOutput._(nested: _nested?.build());
+          _$HttpPayloadWithXmlNameInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'HttpPayloadWithXmlNameInputOutput',
           _$failedField,
           e.toString(),

@@ -16,11 +16,10 @@ class _$InAppCampaignSchedule extends InAppCampaignSchedule {
 
   factory _$InAppCampaignSchedule([
     void Function(InAppCampaignScheduleBuilder)? updates,
-  ]) => (new InAppCampaignScheduleBuilder()..update(updates))._build();
+  ]) => (InAppCampaignScheduleBuilder()..update(updates))._build();
 
   _$InAppCampaignSchedule._({this.endDate, this.eventFilter, this.quietTime})
     : super._();
-
   @override
   InAppCampaignSchedule rebuild(
     void Function(InAppCampaignScheduleBuilder) updates,
@@ -28,7 +27,7 @@ class _$InAppCampaignSchedule extends InAppCampaignSchedule {
 
   @override
   InAppCampaignScheduleBuilder toBuilder() =>
-      new InAppCampaignScheduleBuilder()..replace(this);
+      InAppCampaignScheduleBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -60,13 +59,12 @@ class InAppCampaignScheduleBuilder
 
   CampaignEventFilterBuilder? _eventFilter;
   CampaignEventFilterBuilder get eventFilter =>
-      _$this._eventFilter ??= new CampaignEventFilterBuilder();
+      _$this._eventFilter ??= CampaignEventFilterBuilder();
   set eventFilter(CampaignEventFilterBuilder? eventFilter) =>
       _$this._eventFilter = eventFilter;
 
   QuietTimeBuilder? _quietTime;
-  QuietTimeBuilder get quietTime =>
-      _$this._quietTime ??= new QuietTimeBuilder();
+  QuietTimeBuilder get quietTime => _$this._quietTime ??= QuietTimeBuilder();
   set quietTime(QuietTimeBuilder? quietTime) => _$this._quietTime = quietTime;
 
   InAppCampaignScheduleBuilder();
@@ -84,7 +82,6 @@ class InAppCampaignScheduleBuilder
 
   @override
   void replace(InAppCampaignSchedule other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InAppCampaignSchedule;
   }
 
@@ -101,7 +98,7 @@ class InAppCampaignScheduleBuilder
     try {
       _$result =
           _$v ??
-          new _$InAppCampaignSchedule._(
+          _$InAppCampaignSchedule._(
             endDate: endDate,
             eventFilter: _eventFilter?.build(),
             quietTime: _quietTime?.build(),
@@ -114,7 +111,7 @@ class InAppCampaignScheduleBuilder
         _$failedField = 'quietTime';
         _quietTime?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'InAppCampaignSchedule',
           _$failedField,
           e.toString(),

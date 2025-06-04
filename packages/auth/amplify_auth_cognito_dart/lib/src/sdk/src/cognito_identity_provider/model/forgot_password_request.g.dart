@@ -22,7 +22,7 @@ class _$ForgotPasswordRequest extends ForgotPasswordRequest {
 
   factory _$ForgotPasswordRequest([
     void Function(ForgotPasswordRequestBuilder)? updates,
-  ]) => (new ForgotPasswordRequestBuilder()..update(updates))._build();
+  ]) => (ForgotPasswordRequestBuilder()..update(updates))._build();
 
   _$ForgotPasswordRequest._({
     required this.clientId,
@@ -31,19 +31,7 @@ class _$ForgotPasswordRequest extends ForgotPasswordRequest {
     required this.username,
     this.analyticsMetadata,
     this.clientMetadata,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      clientId,
-      r'ForgotPasswordRequest',
-      'clientId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      username,
-      r'ForgotPasswordRequest',
-      'username',
-    );
-  }
-
+  }) : super._();
   @override
   ForgotPasswordRequest rebuild(
     void Function(ForgotPasswordRequestBuilder) updates,
@@ -51,7 +39,7 @@ class _$ForgotPasswordRequest extends ForgotPasswordRequest {
 
   @override
   ForgotPasswordRequestBuilder toBuilder() =>
-      new ForgotPasswordRequestBuilder()..replace(this);
+      ForgotPasswordRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,7 +81,7 @@ class ForgotPasswordRequestBuilder
 
   UserContextDataTypeBuilder? _userContextData;
   UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new UserContextDataTypeBuilder();
+      _$this._userContextData ??= UserContextDataTypeBuilder();
   set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
@@ -103,13 +91,13 @@ class ForgotPasswordRequestBuilder
 
   AnalyticsMetadataTypeBuilder? _analyticsMetadata;
   AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+      _$this._analyticsMetadata ??= AnalyticsMetadataTypeBuilder();
   set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -131,7 +119,6 @@ class ForgotPasswordRequestBuilder
 
   @override
   void replace(ForgotPasswordRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ForgotPasswordRequest;
   }
 
@@ -148,7 +135,7 @@ class ForgotPasswordRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$ForgotPasswordRequest._(
+          _$ForgotPasswordRequest._(
             clientId: BuiltValueNullFieldError.checkNotNull(
               clientId,
               r'ForgotPasswordRequest',
@@ -175,7 +162,7 @@ class ForgotPasswordRequestBuilder
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'ForgotPasswordRequest',
           _$failedField,
           e.toString(),

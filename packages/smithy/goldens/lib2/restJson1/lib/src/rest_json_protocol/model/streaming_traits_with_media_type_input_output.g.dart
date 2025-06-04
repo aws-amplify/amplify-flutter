@@ -16,18 +16,11 @@ class _$StreamingTraitsWithMediaTypeInputOutput
   factory _$StreamingTraitsWithMediaTypeInputOutput([
     void Function(StreamingTraitsWithMediaTypeInputOutputBuilder)? updates,
   ]) =>
-      (new StreamingTraitsWithMediaTypeInputOutputBuilder()..update(updates))
+      (StreamingTraitsWithMediaTypeInputOutputBuilder()..update(updates))
           ._build();
 
   _$StreamingTraitsWithMediaTypeInputOutput._({this.foo, required this.blob})
-    : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      blob,
-      r'StreamingTraitsWithMediaTypeInputOutput',
-      'blob',
-    );
-  }
-
+    : super._();
   @override
   StreamingTraitsWithMediaTypeInputOutput rebuild(
     void Function(StreamingTraitsWithMediaTypeInputOutputBuilder) updates,
@@ -35,7 +28,7 @@ class _$StreamingTraitsWithMediaTypeInputOutput
 
   @override
   StreamingTraitsWithMediaTypeInputOutputBuilder toBuilder() =>
-      new StreamingTraitsWithMediaTypeInputOutputBuilder()..replace(this);
+      StreamingTraitsWithMediaTypeInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,7 +80,6 @@ class StreamingTraitsWithMediaTypeInputOutputBuilder
 
   @override
   void replace(StreamingTraitsWithMediaTypeInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$StreamingTraitsWithMediaTypeInputOutput;
   }
 
@@ -104,7 +96,7 @@ class StreamingTraitsWithMediaTypeInputOutputBuilder
   _$StreamingTraitsWithMediaTypeInputOutput _build() {
     final _$result =
         _$v ??
-        new _$StreamingTraitsWithMediaTypeInputOutput._(
+        _$StreamingTraitsWithMediaTypeInputOutput._(
           foo: foo,
           blob: BuiltValueNullFieldError.checkNotNull(
             blob,

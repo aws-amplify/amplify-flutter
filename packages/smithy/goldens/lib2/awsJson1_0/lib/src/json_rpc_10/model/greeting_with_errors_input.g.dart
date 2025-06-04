@@ -12,10 +12,9 @@ class _$GreetingWithErrorsInput extends GreetingWithErrorsInput {
 
   factory _$GreetingWithErrorsInput([
     void Function(GreetingWithErrorsInputBuilder)? updates,
-  ]) => (new GreetingWithErrorsInputBuilder()..update(updates))._build();
+  ]) => (GreetingWithErrorsInputBuilder()..update(updates))._build();
 
   _$GreetingWithErrorsInput._({this.greeting}) : super._();
-
   @override
   GreetingWithErrorsInput rebuild(
     void Function(GreetingWithErrorsInputBuilder) updates,
@@ -23,7 +22,7 @@ class _$GreetingWithErrorsInput extends GreetingWithErrorsInput {
 
   @override
   GreetingWithErrorsInputBuilder toBuilder() =>
-      new GreetingWithErrorsInputBuilder()..replace(this);
+      GreetingWithErrorsInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class GreetingWithErrorsInputBuilder
 
   @override
   void replace(GreetingWithErrorsInput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GreetingWithErrorsInput;
   }
 
@@ -75,7 +73,7 @@ class GreetingWithErrorsInputBuilder
   GreetingWithErrorsInput build() => _build();
 
   _$GreetingWithErrorsInput _build() {
-    final _$result = _$v ?? new _$GreetingWithErrorsInput._(greeting: greeting);
+    final _$result = _$v ?? _$GreetingWithErrorsInput._(greeting: greeting);
     replace(_$result);
     return _$result;
   }

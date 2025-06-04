@@ -14,11 +14,10 @@ class _$SimpleScalarPropertiesOutput extends SimpleScalarPropertiesOutput {
 
   factory _$SimpleScalarPropertiesOutput([
     void Function(SimpleScalarPropertiesOutputBuilder)? updates,
-  ]) => (new SimpleScalarPropertiesOutputBuilder()..update(updates))._build();
+  ]) => (SimpleScalarPropertiesOutputBuilder()..update(updates))._build();
 
   _$SimpleScalarPropertiesOutput._({this.floatValue, this.doubleValue})
     : super._();
-
   @override
   SimpleScalarPropertiesOutput rebuild(
     void Function(SimpleScalarPropertiesOutputBuilder) updates,
@@ -26,7 +25,7 @@ class _$SimpleScalarPropertiesOutput extends SimpleScalarPropertiesOutput {
 
   @override
   SimpleScalarPropertiesOutputBuilder toBuilder() =>
-      new SimpleScalarPropertiesOutputBuilder()..replace(this);
+      SimpleScalarPropertiesOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -76,7 +75,6 @@ class SimpleScalarPropertiesOutputBuilder
 
   @override
   void replace(SimpleScalarPropertiesOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SimpleScalarPropertiesOutput;
   }
 
@@ -91,7 +89,7 @@ class SimpleScalarPropertiesOutputBuilder
   _$SimpleScalarPropertiesOutput _build() {
     final _$result =
         _$v ??
-        new _$SimpleScalarPropertiesOutput._(
+        _$SimpleScalarPropertiesOutput._(
           floatValue: floatValue,
           doubleValue: doubleValue,
         );

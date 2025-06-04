@@ -14,24 +14,12 @@ class _$GetEndpointRequest extends GetEndpointRequest {
 
   factory _$GetEndpointRequest([
     void Function(GetEndpointRequestBuilder)? updates,
-  ]) => (new GetEndpointRequestBuilder()..update(updates))._build();
+  ]) => (GetEndpointRequestBuilder()..update(updates))._build();
 
   _$GetEndpointRequest._({
     required this.applicationId,
     required this.endpointId,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      applicationId,
-      r'GetEndpointRequest',
-      'applicationId',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      endpointId,
-      r'GetEndpointRequest',
-      'endpointId',
-    );
-  }
-
+  }) : super._();
   @override
   GetEndpointRequest rebuild(
     void Function(GetEndpointRequestBuilder) updates,
@@ -39,7 +27,7 @@ class _$GetEndpointRequest extends GetEndpointRequest {
 
   @override
   GetEndpointRequestBuilder toBuilder() =>
-      new GetEndpointRequestBuilder()..replace(this);
+      GetEndpointRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -86,7 +74,6 @@ class GetEndpointRequestBuilder
 
   @override
   void replace(GetEndpointRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetEndpointRequest;
   }
 
@@ -101,7 +88,7 @@ class GetEndpointRequestBuilder
   _$GetEndpointRequest _build() {
     final _$result =
         _$v ??
-        new _$GetEndpointRequest._(
+        _$GetEndpointRequest._(
           applicationId: BuiltValueNullFieldError.checkNotNull(
             applicationId,
             r'GetEndpointRequest',
@@ -121,10 +108,9 @@ class GetEndpointRequestBuilder
 class _$GetEndpointRequestPayload extends GetEndpointRequestPayload {
   factory _$GetEndpointRequestPayload([
     void Function(GetEndpointRequestPayloadBuilder)? updates,
-  ]) => (new GetEndpointRequestPayloadBuilder()..update(updates))._build();
+  ]) => (GetEndpointRequestPayloadBuilder()..update(updates))._build();
 
   _$GetEndpointRequestPayload._() : super._();
-
   @override
   GetEndpointRequestPayload rebuild(
     void Function(GetEndpointRequestPayloadBuilder) updates,
@@ -132,7 +118,7 @@ class _$GetEndpointRequestPayload extends GetEndpointRequestPayload {
 
   @override
   GetEndpointRequestPayloadBuilder toBuilder() =>
-      new GetEndpointRequestPayloadBuilder()..replace(this);
+      GetEndpointRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -155,7 +141,6 @@ class GetEndpointRequestPayloadBuilder
 
   @override
   void replace(GetEndpointRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetEndpointRequestPayload;
   }
 
@@ -168,7 +153,7 @@ class GetEndpointRequestPayloadBuilder
   GetEndpointRequestPayload build() => _build();
 
   _$GetEndpointRequestPayload _build() {
-    final _$result = _$v ?? new _$GetEndpointRequestPayload._();
+    final _$result = _$v ?? _$GetEndpointRequestPayload._();
     replace(_$result);
     return _$result;
   }

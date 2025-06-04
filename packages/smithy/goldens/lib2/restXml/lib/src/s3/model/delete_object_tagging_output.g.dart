@@ -12,10 +12,9 @@ class _$DeleteObjectTaggingOutput extends DeleteObjectTaggingOutput {
 
   factory _$DeleteObjectTaggingOutput([
     void Function(DeleteObjectTaggingOutputBuilder)? updates,
-  ]) => (new DeleteObjectTaggingOutputBuilder()..update(updates))._build();
+  ]) => (DeleteObjectTaggingOutputBuilder()..update(updates))._build();
 
   _$DeleteObjectTaggingOutput._({this.versionId}) : super._();
-
   @override
   DeleteObjectTaggingOutput rebuild(
     void Function(DeleteObjectTaggingOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$DeleteObjectTaggingOutput extends DeleteObjectTaggingOutput {
 
   @override
   DeleteObjectTaggingOutputBuilder toBuilder() =>
-      new DeleteObjectTaggingOutputBuilder()..replace(this);
+      DeleteObjectTaggingOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -62,7 +61,6 @@ class DeleteObjectTaggingOutputBuilder
 
   @override
   void replace(DeleteObjectTaggingOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectTaggingOutput;
   }
 
@@ -75,8 +73,7 @@ class DeleteObjectTaggingOutputBuilder
   DeleteObjectTaggingOutput build() => _build();
 
   _$DeleteObjectTaggingOutput _build() {
-    final _$result =
-        _$v ?? new _$DeleteObjectTaggingOutput._(versionId: versionId);
+    final _$result = _$v ?? _$DeleteObjectTaggingOutput._(versionId: versionId);
     replace(_$result);
     return _$result;
   }
@@ -86,11 +83,9 @@ class _$DeleteObjectTaggingOutputPayload
     extends DeleteObjectTaggingOutputPayload {
   factory _$DeleteObjectTaggingOutputPayload([
     void Function(DeleteObjectTaggingOutputPayloadBuilder)? updates,
-  ]) =>
-      (new DeleteObjectTaggingOutputPayloadBuilder()..update(updates))._build();
+  ]) => (DeleteObjectTaggingOutputPayloadBuilder()..update(updates))._build();
 
   _$DeleteObjectTaggingOutputPayload._() : super._();
-
   @override
   DeleteObjectTaggingOutputPayload rebuild(
     void Function(DeleteObjectTaggingOutputPayloadBuilder) updates,
@@ -98,7 +93,7 @@ class _$DeleteObjectTaggingOutputPayload
 
   @override
   DeleteObjectTaggingOutputPayloadBuilder toBuilder() =>
-      new DeleteObjectTaggingOutputPayloadBuilder()..replace(this);
+      DeleteObjectTaggingOutputPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -124,7 +119,6 @@ class DeleteObjectTaggingOutputPayloadBuilder
 
   @override
   void replace(DeleteObjectTaggingOutputPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteObjectTaggingOutputPayload;
   }
 
@@ -137,7 +131,7 @@ class DeleteObjectTaggingOutputPayloadBuilder
   DeleteObjectTaggingOutputPayload build() => _build();
 
   _$DeleteObjectTaggingOutputPayload _build() {
-    final _$result = _$v ?? new _$DeleteObjectTaggingOutputPayload._();
+    final _$result = _$v ?? _$DeleteObjectTaggingOutputPayload._();
     replace(_$result);
     return _$result;
   }

@@ -40,7 +40,7 @@ class _$HeadObjectRequest extends HeadObjectRequest {
 
   factory _$HeadObjectRequest([
     void Function(HeadObjectRequestBuilder)? updates,
-  ]) => (new HeadObjectRequestBuilder()..update(updates))._build();
+  ]) => (HeadObjectRequestBuilder()..update(updates))._build();
 
   _$HeadObjectRequest._({
     required this.bucket,
@@ -58,22 +58,14 @@ class _$HeadObjectRequest extends HeadObjectRequest {
     this.partNumber,
     this.expectedBucketOwner,
     this.checksumMode,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      bucket,
-      r'HeadObjectRequest',
-      'bucket',
-    );
-    BuiltValueNullFieldError.checkNotNull(key, r'HeadObjectRequest', 'key');
-  }
-
+  }) : super._();
   @override
   HeadObjectRequest rebuild(void Function(HeadObjectRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   HeadObjectRequestBuilder toBuilder() =>
-      new HeadObjectRequestBuilder()..replace(this);
+      HeadObjectRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -218,7 +210,6 @@ class HeadObjectRequestBuilder
 
   @override
   void replace(HeadObjectRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HeadObjectRequest;
   }
 
@@ -233,7 +224,7 @@ class HeadObjectRequestBuilder
   _$HeadObjectRequest _build() {
     final _$result =
         _$v ??
-        new _$HeadObjectRequest._(
+        _$HeadObjectRequest._(
           bucket: BuiltValueNullFieldError.checkNotNull(
             bucket,
             r'HeadObjectRequest',
@@ -266,10 +257,9 @@ class HeadObjectRequestBuilder
 class _$HeadObjectRequestPayload extends HeadObjectRequestPayload {
   factory _$HeadObjectRequestPayload([
     void Function(HeadObjectRequestPayloadBuilder)? updates,
-  ]) => (new HeadObjectRequestPayloadBuilder()..update(updates))._build();
+  ]) => (HeadObjectRequestPayloadBuilder()..update(updates))._build();
 
   _$HeadObjectRequestPayload._() : super._();
-
   @override
   HeadObjectRequestPayload rebuild(
     void Function(HeadObjectRequestPayloadBuilder) updates,
@@ -277,7 +267,7 @@ class _$HeadObjectRequestPayload extends HeadObjectRequestPayload {
 
   @override
   HeadObjectRequestPayloadBuilder toBuilder() =>
-      new HeadObjectRequestPayloadBuilder()..replace(this);
+      HeadObjectRequestPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -300,7 +290,6 @@ class HeadObjectRequestPayloadBuilder
 
   @override
   void replace(HeadObjectRequestPayload other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HeadObjectRequestPayload;
   }
 
@@ -313,7 +302,7 @@ class HeadObjectRequestPayloadBuilder
   HeadObjectRequestPayload build() => _build();
 
   _$HeadObjectRequestPayload _build() {
-    final _$result = _$v ?? new _$HeadObjectRequestPayload._();
+    final _$result = _$v ?? _$HeadObjectRequestPayload._();
     replace(_$result);
     return _$result;
   }

@@ -22,7 +22,7 @@ class _$EndpointLocation extends EndpointLocation {
 
   factory _$EndpointLocation([
     void Function(EndpointLocationBuilder)? updates,
-  ]) => (new EndpointLocationBuilder()..update(updates))._build();
+  ]) => (EndpointLocationBuilder()..update(updates))._build();
 
   _$EndpointLocation._({
     this.city,
@@ -32,14 +32,13 @@ class _$EndpointLocation extends EndpointLocation {
     this.postalCode,
     this.region,
   }) : super._();
-
   @override
   EndpointLocation rebuild(void Function(EndpointLocationBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   EndpointLocationBuilder toBuilder() =>
-      new EndpointLocationBuilder()..replace(this);
+      EndpointLocationBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -113,7 +112,6 @@ class EndpointLocationBuilder
 
   @override
   void replace(EndpointLocation other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EndpointLocation;
   }
 
@@ -128,7 +126,7 @@ class EndpointLocationBuilder
   _$EndpointLocation _build() {
     final _$result =
         _$v ??
-        new _$EndpointLocation._(
+        _$EndpointLocation._(
           city: city,
           country: country,
           latitude: latitude,

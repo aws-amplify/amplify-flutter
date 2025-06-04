@@ -16,25 +16,13 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
 
   factory _$UpdateUserAttributesRequest([
     void Function(UpdateUserAttributesRequestBuilder)? updates,
-  ]) => (new UpdateUserAttributesRequestBuilder()..update(updates))._build();
+  ]) => (UpdateUserAttributesRequestBuilder()..update(updates))._build();
 
   _$UpdateUserAttributesRequest._({
     required this.userAttributes,
     required this.accessToken,
     this.clientMetadata,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-      userAttributes,
-      r'UpdateUserAttributesRequest',
-      'userAttributes',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      accessToken,
-      r'UpdateUserAttributesRequest',
-      'accessToken',
-    );
-  }
-
+  }) : super._();
   @override
   UpdateUserAttributesRequest rebuild(
     void Function(UpdateUserAttributesRequestBuilder) updates,
@@ -42,7 +30,7 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
 
   @override
   UpdateUserAttributesRequestBuilder toBuilder() =>
-      new UpdateUserAttributesRequestBuilder()..replace(this);
+      UpdateUserAttributesRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +62,7 @@ class UpdateUserAttributesRequestBuilder
 
   _i3.ListBuilder<AttributeType>? _userAttributes;
   _i3.ListBuilder<AttributeType> get userAttributes =>
-      _$this._userAttributes ??= new _i3.ListBuilder<AttributeType>();
+      _$this._userAttributes ??= _i3.ListBuilder<AttributeType>();
   set userAttributes(_i3.ListBuilder<AttributeType>? userAttributes) =>
       _$this._userAttributes = userAttributes;
 
@@ -84,7 +72,7 @@ class UpdateUserAttributesRequestBuilder
 
   _i3.MapBuilder<String, String>? _clientMetadata;
   _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+      _$this._clientMetadata ??= _i3.MapBuilder<String, String>();
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
@@ -103,7 +91,6 @@ class UpdateUserAttributesRequestBuilder
 
   @override
   void replace(UpdateUserAttributesRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateUserAttributesRequest;
   }
 
@@ -120,7 +107,7 @@ class UpdateUserAttributesRequestBuilder
     try {
       _$result =
           _$v ??
-          new _$UpdateUserAttributesRequest._(
+          _$UpdateUserAttributesRequest._(
             userAttributes: userAttributes.build(),
             accessToken: BuiltValueNullFieldError.checkNotNull(
               accessToken,
@@ -138,7 +125,7 @@ class UpdateUserAttributesRequestBuilder
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'UpdateUserAttributesRequest',
           _$failedField,
           e.toString(),

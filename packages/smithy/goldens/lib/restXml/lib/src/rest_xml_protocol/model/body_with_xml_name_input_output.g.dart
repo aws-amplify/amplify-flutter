@@ -12,10 +12,9 @@ class _$BodyWithXmlNameInputOutput extends BodyWithXmlNameInputOutput {
 
   factory _$BodyWithXmlNameInputOutput([
     void Function(BodyWithXmlNameInputOutputBuilder)? updates,
-  ]) => (new BodyWithXmlNameInputOutputBuilder()..update(updates))._build();
+  ]) => (BodyWithXmlNameInputOutputBuilder()..update(updates))._build();
 
   _$BodyWithXmlNameInputOutput._({this.nested}) : super._();
-
   @override
   BodyWithXmlNameInputOutput rebuild(
     void Function(BodyWithXmlNameInputOutputBuilder) updates,
@@ -23,7 +22,7 @@ class _$BodyWithXmlNameInputOutput extends BodyWithXmlNameInputOutput {
 
   @override
   BodyWithXmlNameInputOutputBuilder toBuilder() =>
-      new BodyWithXmlNameInputOutputBuilder()..replace(this);
+      BodyWithXmlNameInputOutputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -47,7 +46,7 @@ class BodyWithXmlNameInputOutputBuilder
 
   PayloadWithXmlNameBuilder? _nested;
   PayloadWithXmlNameBuilder get nested =>
-      _$this._nested ??= new PayloadWithXmlNameBuilder();
+      _$this._nested ??= PayloadWithXmlNameBuilder();
   set nested(PayloadWithXmlNameBuilder? nested) => _$this._nested = nested;
 
   BodyWithXmlNameInputOutputBuilder();
@@ -63,7 +62,6 @@ class BodyWithXmlNameInputOutputBuilder
 
   @override
   void replace(BodyWithXmlNameInputOutput other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BodyWithXmlNameInputOutput;
   }
 
@@ -79,14 +77,14 @@ class BodyWithXmlNameInputOutputBuilder
     _$BodyWithXmlNameInputOutput _$result;
     try {
       _$result =
-          _$v ?? new _$BodyWithXmlNameInputOutput._(nested: _nested?.build());
+          _$v ?? _$BodyWithXmlNameInputOutput._(nested: _nested?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'nested';
         _nested?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
           r'BodyWithXmlNameInputOutput',
           _$failedField,
           e.toString(),

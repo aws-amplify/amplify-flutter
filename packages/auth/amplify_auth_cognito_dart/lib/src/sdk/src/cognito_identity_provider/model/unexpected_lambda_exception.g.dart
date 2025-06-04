@@ -14,10 +14,9 @@ class _$UnexpectedLambdaException extends UnexpectedLambdaException {
 
   factory _$UnexpectedLambdaException([
     void Function(UnexpectedLambdaExceptionBuilder)? updates,
-  ]) => (new UnexpectedLambdaExceptionBuilder()..update(updates))._build();
+  ]) => (UnexpectedLambdaExceptionBuilder()..update(updates))._build();
 
   _$UnexpectedLambdaException._({this.message, this.headers}) : super._();
-
   @override
   UnexpectedLambdaException rebuild(
     void Function(UnexpectedLambdaExceptionBuilder) updates,
@@ -25,7 +24,7 @@ class _$UnexpectedLambdaException extends UnexpectedLambdaException {
 
   @override
   UnexpectedLambdaExceptionBuilder toBuilder() =>
-      new UnexpectedLambdaExceptionBuilder()..replace(this);
+      UnexpectedLambdaExceptionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class UnexpectedLambdaExceptionBuilder
 
   @override
   void replace(UnexpectedLambdaException other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UnexpectedLambdaException;
   }
 
@@ -84,7 +82,7 @@ class UnexpectedLambdaExceptionBuilder
   _$UnexpectedLambdaException _build() {
     final _$result =
         _$v ??
-        new _$UnexpectedLambdaException._(message: message, headers: headers);
+        _$UnexpectedLambdaException._(message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

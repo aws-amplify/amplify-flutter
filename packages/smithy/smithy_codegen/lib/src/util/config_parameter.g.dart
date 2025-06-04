@@ -21,7 +21,7 @@ class _$ConfigParameter extends ConfigParameter {
   final Code? defaultTo;
 
   factory _$ConfigParameter([void Function(ConfigParameterBuilder)? updates]) =>
-      (new ConfigParameterBuilder()..update(updates))._build();
+      (ConfigParameterBuilder()..update(updates))._build();
 
   _$ConfigParameter._({
     required this.name,
@@ -30,33 +30,13 @@ class _$ConfigParameter extends ConfigParameter {
     required this.isOverride,
     required this.location,
     this.defaultTo,
-  }) : super._() {
-    BuiltValueNullFieldError.checkNotNull(name, r'ConfigParameter', 'name');
-    BuiltValueNullFieldError.checkNotNull(type, r'ConfigParameter', 'type');
-    BuiltValueNullFieldError.checkNotNull(
-      required,
-      r'ConfigParameter',
-      'required',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      isOverride,
-      r'ConfigParameter',
-      'isOverride',
-    );
-    BuiltValueNullFieldError.checkNotNull(
-      location,
-      r'ConfigParameter',
-      'location',
-    );
-  }
-
+  }) : super._();
   @override
   ConfigParameter rebuild(void Function(ConfigParameterBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ConfigParameterBuilder toBuilder() =>
-      new ConfigParameterBuilder()..replace(this);
+  ConfigParameterBuilder toBuilder() => ConfigParameterBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -144,7 +124,6 @@ class ConfigParameterBuilder
 
   @override
   void replace(ConfigParameter other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ConfigParameter;
   }
 
@@ -159,7 +138,7 @@ class ConfigParameterBuilder
   _$ConfigParameter _build() {
     final _$result =
         _$v ??
-        new _$ConfigParameter._(
+        _$ConfigParameter._(
           name: BuiltValueNullFieldError.checkNotNull(
             name,
             r'ConfigParameter',
