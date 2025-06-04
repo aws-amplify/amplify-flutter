@@ -44,9 +44,30 @@ jobs:
       - name: Check for changes in API reports
         id: check-changes
         run: |
+          # Debug: Print the content of generated API JSON files
+          echo "=== DEBUG: Printing content of API JSON files ==="
+          for file in $(find packages -name "api.json"); do
+            echo "=== File: $file ==="
+            cat "$file" | head -n 50
+            echo "=== End of file: $file ==="
+          done
+          
+          # Debug: Print git status
+          echo "=== DEBUG: Git status ==="
+          git status --porcelain
+          
           if [[ -n "$(git status --porcelain | grep 'api.json\|api_changes_report.md')" ]]; then
             echo "API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
             git diff --name-only | grep 'api.json\|api_changes_report.md'
+            
+            # Debug: Print the diff for the first few API JSON files
+            echo "=== DEBUG: Git diff for API JSON files ==="
+            for file in $(git diff --name-only | grep 'api.json' | head -n 3); do
+              echo "=== Diff for: $file ==="
+              git diff "$file" | head -n 100
+              echo "=== End of diff for: $file ==="
+            done
+            
             exit 1
           else
             echo "API report files are up-to-date."

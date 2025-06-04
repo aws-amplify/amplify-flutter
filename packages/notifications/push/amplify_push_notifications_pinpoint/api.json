@@ -1,52 +1,87 @@
 {
-    "version": 3,
-    "packageApi": {
-        "packageName": "amplify_push_notifications_pinpoint",
-        "packageVersion": "2.6.2",
-        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/ZwS3TK",
-        "interfaceDeclarations": [
-            {
-                "name": "AmplifyPushNotificationsPinpoint",
-                "isDeprecated": false,
-                "isExperimental": false,
-                "isSealed": false,
-                "isRequired": false,
-                "typeParameterNames": [],
-                "superTypeNames": [
-                    "Object"
-                ],
-                "executableDeclarations": [
-                    {
-                        "returnTypeName": "AmplifyPushNotificationsPinpoint",
-                        "name": "AmplifyPushNotificationsPinpoint",
-                        "isDeprecated": false,
-                        "isExperimental": false,
-                        "parameters": [],
-                        "typeParameterNames": [],
-                        "type": "constructor",
-                        "isStatic": false,
-                        "entryPoints": [],
-                        "relativePath": "lib/amplify_push_notifications_pinpoint.dart"
-                    }
-                ],
-                "fieldDeclarations": [],
-                "entryPoints": [
-                    "amplify_push_notifications_pinpoint.dart"
-                ],
-                "relativePath": "lib/amplify_push_notifications_pinpoint.dart"
-            }
+  "version": 3,
+  "packageApi": {
+    "packageName": "amplify_push_notifications_pinpoint",
+    "packageVersion": "2.6.2",
+    "interfaceDeclarations": [
+      {
+        "name": "AmplifyPushNotificationsPinpoint",
+        "isDeprecated": false,
+        "isExperimental": false,
+        "isSealed": false,
+        "isRequired": false,
+        "typeParameterNames": [],
+        "superTypeNames": [
+          "AmplifyPushNotifications",
+          "PushNotificationsPluginInterface",
+          "AmplifyPluginInterface",
+          "Object"
         ],
-        "executableDeclarations": [],
+        "executableDeclarations": [
+          {
+            "returnTypeName": "AmplifyPushNotificationsPinpoint",
+            "name": "AmplifyPushNotificationsPinpoint",
+            "isDeprecated": false,
+            "isExperimental": false,
+            "parameters": [],
+            "typeParameterNames": [],
+            "type": "constructor",
+            "isStatic": false,
+            "entryPoints": [],
+            "relativePath": "lib/amplify_push_notifications_pinpoint.dart"
+          }
+        ],
         "fieldDeclarations": [],
-        "typeAliasDeclarations": [],
-        "semantics": [
-            "containsPlatformConstraints"
+        "entryPoints": [
+          "amplify_push_notifications_pinpoint.dart"
         ],
-        "iosPlatformConstraints": null,
-        "androidPlatformConstraints": null,
-        "sdkType": "dart",
-        "minSdkVersion": "3.7.0",
-        "packageDependencies": []
-    },
-    "missingEntryPoints": []
+        "relativePath": "lib/amplify_push_notifications_pinpoint.dart"
+      }
+    ],
+    "executableDeclarations": [],
+    "fieldDeclarations": [],
+    "typeAliasDeclarations": [],
+    "semantics": [
+      "containsPlatformConstraints"
+    ],
+    "iosPlatformConstraints": null,
+    "androidPlatformConstraints": null,
+    "sdkType": "flutter",
+    "minSdkVersion": "3.7.0",
+    "packageDependencies": [
+      {
+        "packageName": "amplify_analytics_pinpoint",
+        "packageVersion": ">=2.6.2 <2.7.0"
+      },
+      {
+        "packageName": "amplify_analytics_pinpoint_dart",
+        "packageVersion": ">=0.4.9 <0.5.0"
+      },
+      {
+        "packageName": "amplify_auth_cognito",
+        "packageVersion": ">=2.6.2 <2.7.0"
+      },
+      {
+        "packageName": "amplify_core",
+        "packageVersion": ">=2.6.2 <2.7.0"
+      },
+      {
+        "packageName": "amplify_flutter",
+        "packageVersion": ">=2.6.2 <2.7.0"
+      },
+      {
+        "packageName": "amplify_push_notifications",
+        "packageVersion": ">=2.6.2 <2.7.0"
+      },
+      {
+        "packageName": "amplify_secure_storage",
+        "packageVersion": ">=0.5.9 <0.6.0"
+      },
+      {
+        "packageName": "flutter_plugin_android_lifecycle",
+        "packageVersion": "^2.0.9"
+      }
+    ]
+  },
+  "missingEntryPoints": []
 }
