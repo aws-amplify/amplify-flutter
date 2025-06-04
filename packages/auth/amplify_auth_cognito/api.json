@@ -1,1 +1,85 @@
-{}
+{
+    "version": 3,
+    "packageApi": {
+        "packageName": "amplify_auth_cognito",
+        "packageVersion": "2.6.2",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/WBZIMx",
+        "interfaceDeclarations": [
+            {
+                "name": "AmplifyAuthCognito",
+                "isDeprecated": false,
+                "isExperimental": false,
+                "isSealed": false,
+                "isRequired": false,
+                "typeParameterNames": [],
+                "superTypeNames": [
+                    "Object"
+                ],
+                "executableDeclarations": [
+                    {
+                        "returnTypeName": "AmplifyAuthCognito",
+                        "name": "AmplifyAuthCognito",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "parameters": [
+                            {
+                                "isRequired": false,
+                                "isNamed": true,
+                                "name": "secureStorageFactory",
+                                "isDeprecated": false,
+                                "isExperimental": false,
+                                "typeName": "InvalidType",
+                                "relativePath": "lib/src/auth_plugin_impl.dart"
+                            }
+                        ],
+                        "typeParameterNames": [],
+                        "type": "constructor",
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/auth_plugin_impl.dart"
+                    }
+                ],
+                "fieldDeclarations": [
+                    {
+                        "typeName": "InvalidType",
+                        "name": "pluginKey",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": true,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/auth_plugin_impl.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    },
+                    {
+                        "typeName": "String",
+                        "name": "runtimeTypeName",
+                        "isDeprecated": false,
+                        "isExperimental": false,
+                        "isStatic": false,
+                        "entryPoints": [],
+                        "relativePath": "lib/src/auth_plugin_impl.dart",
+                        "isReadable": true,
+                        "isWriteable": false
+                    }
+                ],
+                "entryPoints": [
+                    "amplify_auth_cognito.dart"
+                ],
+                "relativePath": "lib/src/auth_plugin_impl.dart"
+            }
+        ],
+        "executableDeclarations": [],
+        "fieldDeclarations": [],
+        "typeAliasDeclarations": [],
+        "semantics": [
+            "containsPlatformConstraints"
+        ],
+        "iosPlatformConstraints": null,
+        "androidPlatformConstraints": null,
+        "sdkType": "dart",
+        "minSdkVersion": "3.7.0",
+        "packageDependencies": []
+    },
+    "missingEntryPoints": []
+}

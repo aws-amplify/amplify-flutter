@@ -15,26 +15,31 @@ jobs:
     name: Check API Reports
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Git Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa # 2.10.0
+        uses: subosito/flutter-action@v2
         with:
           cache: true
-          channel: stable
+          channel: 'stable'
+          flutter-version: '3.29.0'
 
-      - name: Install dependencies
-        run: |
-          flutter pub global activate dart_apitool
-          cd packages/aft
-          flutter pub get
+      - name: Setup aft
+        run: flutter pub global activate -spath packages/aft
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast --include=aft --verbose
+
+      - name: Install dart_apitool
+        run: flutter pub global activate dart_apitool
 
       - name: Generate API reports
-        run: |
-          dart run packages/aft/bin/aft.dart generate api-report
+        run: aft generate api-report
 
       - name: Check for changes in API reports
         id: check-changes

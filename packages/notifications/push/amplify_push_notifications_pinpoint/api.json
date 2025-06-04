@@ -3,7 +3,7 @@
     "packageApi": {
         "packageName": "amplify_push_notifications_pinpoint",
         "packageVersion": "2.6.2",
-        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/UkHs7J",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/ZwS3TK",
         "interfaceDeclarations": [
             {
                 "name": "AmplifyPushNotificationsPinpoint",
@@ -13,9 +13,6 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AmplifyPushNotifications",
-                    "PushNotificationsPluginInterface",
-                    "AmplifyPluginInterface",
                     "Object"
                 ],
                 "executableDeclarations": [
@@ -47,42 +44,9 @@
         ],
         "iosPlatformConstraints": null,
         "androidPlatformConstraints": null,
-        "sdkType": "flutter",
+        "sdkType": "dart",
         "minSdkVersion": "3.7.0",
-        "packageDependencies": [
-            {
-                "packageName": "amplify_analytics_pinpoint",
-                "packageVersion": ">=2.6.2 <2.7.0"
-            },
-            {
-                "packageName": "amplify_analytics_pinpoint_dart",
-                "packageVersion": ">=0.4.9 <0.5.0"
-            },
-            {
-                "packageName": "amplify_auth_cognito",
-                "packageVersion": ">=2.6.2 <2.7.0"
-            },
-            {
-                "packageName": "amplify_core",
-                "packageVersion": ">=2.6.2 <2.7.0"
-            },
-            {
-                "packageName": "amplify_flutter",
-                "packageVersion": ">=2.6.2 <2.7.0"
-            },
-            {
-                "packageName": "amplify_push_notifications",
-                "packageVersion": ">=2.6.2 <2.7.0"
-            },
-            {
-                "packageName": "amplify_secure_storage",
-                "packageVersion": ">=0.5.9 <0.6.0"
-            },
-            {
-                "packageName": "flutter_plugin_android_lifecycle",
-                "packageVersion": "^2.0.9"
-            }
-        ]
+        "packageDependencies": []
     },
     "missingEntryPoints": []
 }

@@ -3,7 +3,7 @@
     "packageApi": {
         "packageName": "amplify_storage_s3",
         "packageVersion": "2.6.2",
-        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/XOtT4W",
+        "packagePath": "/var/folders/mw/90_3cq4163dc5y9m3dnjx2580000gq/T/yVO25V",
         "interfaceDeclarations": [
             {
                 "name": "AmplifyStorageS3",
@@ -13,12 +13,7 @@
                 "isRequired": false,
                 "typeParameterNames": [],
                 "superTypeNames": [
-                    "AmplifyStorageS3Dart",
-                    "StoragePluginInterface",
-                    "AmplifyPluginInterface",
-                    "Object",
-                    "AWSDebuggable",
-                    "AWSLoggerMixin"
+                    "Object"
                 ],
                 "executableDeclarations": [
                     {
@@ -36,7 +31,7 @@
                 ],
                 "fieldDeclarations": [
                     {
-                        "typeName": "StoragePluginKey<AmplifyStorageS3>",
+                        "typeName": "InvalidType",
                         "name": "pluginKey",
                         "isDeprecated": false,
                         "isExperimental": false,
@@ -61,34 +56,9 @@
         ],
         "iosPlatformConstraints": null,
         "androidPlatformConstraints": null,
-        "sdkType": "flutter",
+        "sdkType": "dart",
         "minSdkVersion": "3.7.0",
-        "packageDependencies": [
-            {
-                "packageName": "amplify_core",
-                "packageVersion": ">=2.6.2 <2.7.0"
-            },
-            {
-                "packageName": "amplify_db_common",
-                "packageVersion": ">=0.4.10 <0.5.0"
-            },
-            {
-                "packageName": "amplify_storage_s3_dart",
-                "packageVersion": ">=0.4.10 <0.5.0"
-            },
-            {
-                "packageName": "aws_common",
-                "packageVersion": ">=0.7.7 <0.8.0"
-            },
-            {
-                "packageName": "meta",
-                "packageVersion": "^1.16.0"
-            },
-            {
-                "packageName": "path_provider",
-                "packageVersion": "^2.0.0"
-            }
-        ]
+        "packageDependencies": []
     },
     "missingEntryPoints": []
 }
