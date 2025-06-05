@@ -18,6 +18,7 @@ dependencies:
   source_maps: ^0.10.12
   stack_trace: ^1.10.0
   stream_transform: ^2.1.0
+  web: ^1.1.1
 
 dev_dependencies:
   amplify_lints: ^3.0.0

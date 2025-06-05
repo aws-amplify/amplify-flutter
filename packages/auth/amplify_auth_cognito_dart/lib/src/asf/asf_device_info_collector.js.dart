@@ -10,9 +10,8 @@ import 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.dart
 import 'package:amplify_auth_cognito_dart/src/asf/package_info.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
-// ignore: implementation_imports
-import 'package:aws_common/src/js/common.dart';
 import 'package:path/path.dart';
+import 'package:web/web.dart';
 
 /// {@template amplify_auth_cognito_dart.asf.asf_device_info_js}
 /// The JS/Browser implementation of [NativeASFDeviceInfoCollector].
@@ -63,10 +62,10 @@ final class ASFDeviceInfoPlatform extends NativeASFDeviceInfoCollector {
       window.navigator.userAgentData?.platform ?? window.navigator.platform;
 
   @override
-  Future<int?> get screenHeightPixels async => window.screen.height?.toInt();
+  Future<int?> get screenHeightPixels async => window.screen.height;
 
   @override
-  Future<int?> get screenWidthPixels async => window.screen.width?.toInt();
+  Future<int?> get screenWidthPixels async => window.screen.width;
 
   @override
   Future<String?> get thirdPartyDeviceId async => null;
@@ -79,34 +78,11 @@ String get _baseUrl {
   return url.join(window.location.origin, basePath);
 }
 
-extension on Window {
-  external _Screen get screen;
-  external _Navigator get navigator;
-}
-
-@JS('Screen')
-@staticInterop
-class _Screen {}
-
-extension on _Screen {
-  external double? get width;
-  external double? get height;
-}
-
-@JS('Navigator')
-@staticInterop
-class _Navigator {}
-
-extension on _Navigator {
-  external String? get language;
-  external String? get platform;
+extension _PropsNavigator on Navigator {
   external _NavigatorUAData? get userAgentData;
 }
 
 @JS('NavigatorUAData')
-@staticInterop
-class _NavigatorUAData {}
-
-extension on _NavigatorUAData {
+extension type _NavigatorUAData._(JSObject _) implements JSObject {
   external String? get platform;
 }
