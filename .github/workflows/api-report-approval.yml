@@ -21,11 +21,37 @@ jobs:
       - name: Check for API changes
         id: check-api-changes
         run: |
-          API_CHANGES=$(git diff --name-only origin/main...HEAD | grep -E 'api\.json|api_changes_report\.md' || true)
-          if [[ -n "$API_CHANGES" ]]; then
+          # Check for changes in API JSON files
+          API_JSON_CHANGES=$(git diff --name-only origin/main...HEAD | grep 'api\.json' || true)
+          
+          # Special handling for api_changes_report.md - check content instead of just diff
+          REPORT_FILE="packages/amplify_core/api_changes_report.md"
+          REPORT_CHANGED=$(git diff --name-only origin/main...HEAD | grep "$REPORT_FILE" || true)
+          REAL_API_CHANGES=false
+          
+          if [[ -n "$REPORT_CHANGED" ]]; then
+            # Get the report content from both branches
+            git show origin/main:"$REPORT_FILE" > /tmp/main_report.md || echo "# No previous report" > /tmp/main_report.md
+            git show HEAD:"$REPORT_FILE" > /tmp/pr_report.md || echo "# No report in PR" > /tmp/pr_report.md
+            
+            # Check if both reports indicate "No changes detected"
+            if grep -q "No changes detected" /tmp/main_report.md && grep -q "No changes detected" /tmp/pr_report.md; then
+              echo "Both reports show no API changes - ignoring timestamp differences."
+            else
+              echo "API changes report shows actual changes. Please review the report."
+              REAL_API_CHANGES=true
+            fi
+          fi
+          
+          if [[ -n "$API_JSON_CHANGES" || "$REAL_API_CHANGES" == "true" ]]; then
             echo "API_CHANGES_DETECTED=true" >> $GITHUB_ENV
             echo "API changes detected in the following files:"
-            echo "$API_CHANGES"
+            if [[ -n "$API_JSON_CHANGES" ]]; then
+              echo "$API_JSON_CHANGES"
+            fi
+            if [[ "$REAL_API_CHANGES" == "true" ]]; then
+              echo "$REPORT_FILE"
+            fi
           else
             echo "API_CHANGES_DETECTED=false" >> $GITHUB_ENV
             echo "No API changes detected."
