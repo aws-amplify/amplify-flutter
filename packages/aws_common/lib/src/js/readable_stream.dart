@@ -28,7 +28,7 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
     /// [ReadableStreamDefaultController] or a [ReadableByteStreamController],
     /// depending on the value of the `type` property. This can be used by the
     /// developer to control the stream during set up.
-    FutureOr<void> Function(ReadableStreamController controller)? start,
+    JSPromise Function(ReadableStreamController controller)? start,
 
     /// This method, also defined by the developer, will be called repeatedly
     /// when the stream's internal queue of chunks is not full, up until it
@@ -42,7 +42,7 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
     /// [ReadableStreamDefaultController] or a [ReadableByteStreamController],
     /// depending on the value of the type property. This can be used by the
     /// developer to control the stream as more chunks are fetched.
-    FutureOr<void> Function(ReadableStreamController controller)? pull,
+    JSPromise Function(ReadableStreamController controller)? pull,
 
     /// This method, also defined by the developer, will be called if the app
     /// signals that the stream is to be cancelled
@@ -52,7 +52,11 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
     /// stream source. If this process is asynchronous, it can return a promise
     /// to signal success or failure. The reason parameter contains a
     /// `DOMString` describing why the stream was cancelled.
-    JSPromise<JSAny?> Function()? cancel,
+    JSPromise Function([
+      JSString? reason,
+      ReadableStreamController? controller,
+    ])?
+    cancel,
 
     /// This property controls what type of readable stream is being dealt with.
     ReadableStreamType type = ReadableStreamType.default$,
@@ -66,26 +70,9 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
     /// consumer can also use a default reader.
     int? autoAllocateChunkSize,
   }) {
-    final startFn =
-        start == null
-            ? undefined
-            : start is Future<void> Function(ReadableStreamController)
-            ? (ReadableStreamController controller) {
-              return start(controller).toJS;
-            }
-            : start;
-    final pullFn =
-        pull == null
-            ? undefined
-            : pull is Future<void> Function(ReadableStreamController)
-            ? (ReadableStreamController controller) {
-              return pull(controller).toJS;
-            }
-            : pull;
-
     return UnderlyingSource.__(
-      start: startFn?.toExternalReference,
-      pull: pullFn?.toExternalReference,
+      start: start?.toJS,
+      pull: pull?.toJS,
       cancel: cancel?.toJS,
       type: type.jsValue?.toJS,
       autoAllocateChunkSize: autoAllocateChunkSize?.toJS ?? undefined,
@@ -93,8 +80,8 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
   }
 
   external factory UnderlyingSource.__({
-    ExternalDartReference? start,
-    ExternalDartReference? pull,
+    JSFunction? start,
+    JSFunction? pull,
     JSFunction? cancel,
     JSString? type,
     JSNumber? autoAllocateChunkSize,
@@ -253,34 +240,34 @@ extension StreamToReadableStream on Stream<List<int>> {
     void Function(Object, StackTrace)? onError,
   }) {
     final queue = StreamQueue(this);
-    return ReadableStream(
-      UnderlyingSource(
-        pull: (controller) async {
-          if (!await queue.hasNext) {
-            await queue.cancel();
-            controller.close();
-            return;
-          }
+    Future<void> pull(ReadableStreamController controller) async {
+      if (!await queue.hasNext) {
+        await queue.cancel();
+        controller.close();
+        return;
+      }
+      try {
+        final chunk = await queue.next;
+        controller.enqueue(Uint8List.fromList(chunk).toJS);
+      } on Object catch (e, st) {
+        await queue.cancel();
+        // Allow error to propagate before closing.
+        scheduleMicrotask(() {
           try {
-            final chunk = await queue.next;
-            controller.enqueue(Uint8List.fromList(chunk).toJS);
-          } on Object catch (e, st) {
-            await queue.cancel();
-            // Allow error to propagate before closing.
-            scheduleMicrotask(() {
-              try {
-                controller.close();
-              } on Object {
-                // ignore errors closing the controller
-              }
-            });
-            if (onError == null) {
-              rethrow;
-            }
-            onError.call(e, st);
+            controller.close();
+          } on Object {
+            // ignore errors closing the controller
           }
-        },
-      ),
+        });
+        if (onError == null) {
+          rethrow;
+        }
+        onError.call(e, st);
+      }
+    }
+
+    return ReadableStream(
+      UnderlyingSource(pull: (controller) => pull(controller).toJS),
     );
   }
 }
