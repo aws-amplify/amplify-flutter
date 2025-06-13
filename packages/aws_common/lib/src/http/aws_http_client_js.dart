@@ -128,7 +128,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
             ..addError(const CancellationException())
             ..close();
         }
-        responseProgressController.close();
+        if (!responseProgressController.isClosed) {
+          responseProgressController.close();
+        }
+        if (!requestProgressController.isClosed) {
+          requestProgressController.close();
+        }
       };
 
       unawaited(
