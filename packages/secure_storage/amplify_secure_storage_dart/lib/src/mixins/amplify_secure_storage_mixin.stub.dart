@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // Note: This mixin is a stub
-// This is only used if both dart.library.html and dart.library.io are not available
+// This is only used if both dart.library.js_interop and dart.library.io are not available
 // See the implementations in the web/desktop dir which will be used on those platforms
 
 import 'dart:async';
