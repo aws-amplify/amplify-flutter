@@ -105,6 +105,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
                   body: body,
                   signal: abortController.signal,
                   redirect: redirect,
+                  duplex: 'half',
                 ),
               )
               .toDart;
