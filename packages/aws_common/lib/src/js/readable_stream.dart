@@ -14,67 +14,33 @@ import 'package:web/web.dart';
 /// An object containing methods and properties that define how the constructed
 /// [ReadableStream] will behave.
 /// {@endtemplate}
-extension type UnderlyingSource._(JSObject _) implements JSObject {
+extension type UnderlyingSource<T extends JSAny>._(JSObject _)
+    implements JSObject {
   /// {@macro aws_common.js.readable_stream}
   factory UnderlyingSource({
-    /// This is a method, called immediately when the object is constructed.
-    ///
-    /// The contents of this method are defined by the developer, and should aim
-    /// to get access to the stream source, and do anything else required to set
-    /// up the stream functionality. If this process is to be done
-    /// asynchronously, it can return a promise to signal success or failure.
-    ///
-    /// The `controller` parameter passed to this method is a
-    /// [ReadableStreamDefaultController] or a [ReadableByteStreamController],
-    /// depending on the value of the `type` property. This can be used by the
-    /// developer to control the stream during set up.
-    JSPromise Function(ReadableStreamController controller)? start,
-
-    /// This method, also defined by the developer, will be called repeatedly
-    /// when the stream's internal queue of chunks is not full, up until it
-    /// reaches its high water mark.
-    ///
-    /// If pull() returns a promise, then it won't be called again until that
-    /// promise fulfills; if the promise rejects, the stream will become
-    /// errored.
-    ///
-    /// The `controller` parameter passed to this method is a
-    /// [ReadableStreamDefaultController] or a [ReadableByteStreamController],
-    /// depending on the value of the type property. This can be used by the
-    /// developer to control the stream as more chunks are fetched.
-    JSPromise Function(ReadableStreamController controller)? pull,
-
-    /// This method, also defined by the developer, will be called if the app
-    /// signals that the stream is to be cancelled
-    /// (e.g. if `ReadableStream.cancel` is called).
-    ///
-    /// The contents should do whatever is necessary to release access to the
-    /// stream source. If this process is asynchronous, it can return a promise
-    /// to signal success or failure. The reason parameter contains a
-    /// `DOMString` describing why the stream was cancelled.
-    JSPromise Function([
-      JSString? reason,
-      ReadableStreamController? controller,
-    ])?
-    cancel,
-
-    /// This property controls what type of readable stream is being dealt with.
+    Future<void> Function(ReadableStreamDefaultController controller)? start,
+    Future<void> Function(ReadableStreamDefaultController controller)? pull,
+    Future<void> Function([JSString? reason])? cancel,
     ReadableStreamType type = ReadableStreamType.default$,
-
-    /// For byte streams, the developer can set the autoAllocateChunkSize with
-    /// a positive integer value to turn on the stream's auto-allocation
-    /// feature.
-    ///
-    /// With this turned on, the stream implementation will automatically
-    /// allocate an `ArrayBuffer` with a size of the given integer, and the
-    /// consumer can also use a default reader.
     int? autoAllocateChunkSize,
   }) {
+    JSPromise<JSAny?> promiseStart(ReadableStreamDefaultController controller) {
+      return start!.call(controller).toJS;
+    }
+
+    JSPromise<JSAny?> promisePull(ReadableStreamDefaultController controller) {
+      return pull!.call(controller).toJS;
+    }
+
+    JSPromise<JSAny?> promiseCancel([JSString? reason]) {
+      return cancel!.call(reason).toJS;
+    }
+
     return UnderlyingSource.__(
-      start: start?.toJS,
-      pull: pull?.toJS,
-      cancel: cancel?.toJS,
-      type: type.jsValue?.toJS,
+      start: start == null ? undefined : promiseStart.toJS,
+      pull: pull == null ? undefined : promisePull.toJS,
+      cancel: cancel == null ? undefined : promiseCancel.toJS,
+      type: type.jsValue?.toJS ?? undefined,
       autoAllocateChunkSize: autoAllocateChunkSize?.toJS ?? undefined,
     );
   }
@@ -83,12 +49,61 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
     JSFunction? start,
     JSFunction? pull,
     JSFunction? cancel,
-    JSString? type,
-    JSNumber? autoAllocateChunkSize,
+    JSAny? type,
+    JSAny? autoAllocateChunkSize,
   });
+
+  /// This is a method, called immediately when the object is constructed.
+  ///
+  /// The contents of this method are defined by the developer, and should aim
+  /// to get access to the stream source, and do anything else required to set
+  /// up the stream functionality. If this process is to be done
+  /// asynchronously, it can return a promise to signal success or failure.
+  ///
+  /// The `controller` parameter passed to this method is a
+  /// [ReadableStreamDefaultController] or a [ReadableByteStreamController],
+  /// depending on the value of the `type` property. This can be used by the
+  /// developer to control the stream during set up.
+  external JSFunction? start;
+
+  /// This method, also defined by the developer, will be called repeatedly
+  /// when the stream's internal queue of chunks is not full, up until it
+  /// reaches its high water mark.
+  ///
+  /// If pull() returns a promise, then it won't be called again until that
+  /// promise fulfills; if the promise rejects, the stream will become
+  /// errored.
+  ///
+  /// The `controller` parameter passed to this method is a
+  /// [ReadableStreamDefaultController] or a [ReadableByteStreamController],
+  /// depending on the value of the type property. This can be used by the
+  /// developer to control the stream as more chunks are fetched.
+  external JSFunction? pull;
+
+  /// This method, also defined by the developer, will be called if the app
+  /// signals that the stream is to be cancelled
+  /// (e.g. if `ReadableStream.cancel` is called).
+  ///
+  /// The contents should do whatever is necessary to release access to the
+  /// stream source. If this process is asynchronous, it can return a promise
+  /// to signal success or failure. The reason parameter contains a
+  /// `DOMString` describing why the stream was cancelled.
+  external JSFunction? cancel;
+
+  /// This property controls what type of readable stream is being dealt with.
+  external JSString? type;
+
+  /// For byte streams, the developer can set the autoAllocateChunkSize with
+  /// a positive integer value to turn on the stream's auto-allocation
+  /// feature.
+  ///
+  /// With this turned on, the stream implementation will automatically
+  /// allocate an `ArrayBuffer` with a size of the given integer, and the
+  /// consumer can also use a default reader.
+  external JSNumber? autoAllocateChunkSize;
 }
 
-/// The type of [ReadableStream] and its associated [ReadableStreamController].
+/// The type of [ReadableStream] and its associated [ReadableStreamDefaultController].
 enum ReadableStreamType with JSEnum {
   /// Creates a [ReadableByteStreamController] capable of handling a BYOB
   /// (bring your own buffer)/byte stream.
@@ -96,22 +111,6 @@ enum ReadableStreamType with JSEnum {
 
   /// Creates a [ReadableStreamDefaultController].
   default$,
-}
-
-/// {@template aws_common.js.readable_stream_controller}
-/// Interface for accessing the internal state/queue of a [ReadableStream].
-///
-/// Similar to a Dart [StreamController].
-/// {@endtemplate}
-extension type ReadableStreamController._(JSObject _) implements JSObject {
-  /// The desired size required to fill the stream's internal queue.
-  external int get desiredSize;
-
-  /// Closes the associated stream.
-  external void close();
-
-  /// Enqueues a given chunk in the associated stream.
-  external void enqueue(JSUint8Array chunk);
 }
 
 /// Used to expand [ReadableStream] and treat `ReadableStream.stream` as a
@@ -240,7 +239,7 @@ extension StreamToReadableStream on Stream<List<int>> {
     void Function(Object, StackTrace)? onError,
   }) {
     final queue = StreamQueue(this);
-    Future<void> pull(ReadableStreamController controller) async {
+    Future<void> pull(ReadableStreamDefaultController controller) async {
       if (!await queue.hasNext) {
         await queue.cancel();
         controller.close();
@@ -260,14 +259,13 @@ extension StreamToReadableStream on Stream<List<int>> {
           }
         });
         if (onError == null) {
+          controller.error(e.toString().toJS);
           rethrow;
         }
         onError.call(e, st);
       }
     }
 
-    return ReadableStream(
-      UnderlyingSource(pull: (controller) => pull(controller).toJS),
-    );
+    return ReadableStream(UnderlyingSource(pull: pull));
   }
 }
