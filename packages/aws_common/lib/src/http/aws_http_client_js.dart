@@ -110,7 +110,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
               )
               .toDart;
 
-      final streamView = resp.body!;
+      final streamView = resp.body;
       final bodyController = StreamController<List<int>>(
         sync: true,
         // In downstream operations, we may only have access to the body stream
@@ -132,12 +132,14 @@ class AWSHttpClientImpl extends AWSHttpClient {
       };
 
       unawaited(
-        streamView.progress.forward(
+        streamView?.progress.forward(
           responseProgressController,
           cancelOnError: true,
         ),
       );
-      unawaited(streamView.stream.forward(bodyController, cancelOnError: true));
+      unawaited(
+        streamView?.stream.forward(bodyController, cancelOnError: true),
+      );
 
       final responseHeaders = <String, String>{};
       void headerBuilder(JSString value, JSString key, JSAny object) {
