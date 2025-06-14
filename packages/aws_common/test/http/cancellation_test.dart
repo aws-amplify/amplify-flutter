@@ -7,7 +7,7 @@ import 'package:aws_common/aws_common.dart';
 import 'package:test/test.dart';
 
 import 'cancellation_server_vm.dart'
-    if (dart.library.js) 'cancellation_server_web.dart';
+    if (dart.library.js_interop) 'cancellation_server_web.dart';
 import 'http_common.dart';
 
 void main() {

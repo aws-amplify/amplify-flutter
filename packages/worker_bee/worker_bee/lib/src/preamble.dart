@@ -9,7 +9,7 @@ import 'package:stack_trace/stack_trace.dart';
 import 'package:worker_bee/src/exception/worker_bee_exception.dart';
 import 'package:worker_bee/worker_bee.dart';
 
-export 'vm/preamble.dart' if (dart.library.js) 'js/preamble.dart';
+export 'vm/preamble.dart' if (dart.library.js_interop) 'js/preamble.dart';
 
 /// {@template worker_bee.worker_assignment}
 /// The worker bee assignment sent from the main thread.

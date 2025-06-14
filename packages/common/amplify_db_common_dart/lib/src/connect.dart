@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:drift/backends.dart';
 
 export 'connect_stub.dart'
-    if (dart.library.html) 'connect_html.dart'
+    if (dart.library.js_interop) 'connect_html.dart'
     if (dart.library.io) 'connect_io.dart';
 
 /// Interface of the Drift DB connect function.

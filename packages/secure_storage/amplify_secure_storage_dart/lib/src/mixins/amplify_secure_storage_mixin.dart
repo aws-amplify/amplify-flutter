@@ -3,5 +3,5 @@
 
 // wrapper around web and desktop mixins
 export 'amplify_secure_storage_mixin.stub.dart'
-    if (dart.library.html) 'amplify_secure_storage_mixin.web.dart'
+    if (dart.library.js_interop) 'amplify_secure_storage_mixin.web.dart'
     if (dart.library.io) 'amplify_secure_storage_mixin.vm.dart';

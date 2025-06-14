@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 import '../http_common.dart';
 import 'request_headers_server_vm.dart'
-    if (dart.library.js) 'request_headers_server_web.dart';
+    if (dart.library.js_interop) 'request_headers_server_web.dart';
 
 /// Tests that the [AWSHttpClient] correctly sends headers in the request.
 void main() {
