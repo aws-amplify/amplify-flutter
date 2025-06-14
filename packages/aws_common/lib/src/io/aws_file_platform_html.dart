@@ -228,10 +228,11 @@ class AWSFilePlatform extends AWSFile {
 
       await loaded.future;
       final jsResult = fileReader.result;
-      jsResult as JSArray<JSNumber>;
+      jsResult as JSArrayBuffer;
 
-      final result = jsResult.toDart.map((item) => item.toDartInt).toList();
-      yield result;
+      final bytebuffer = jsResult.toDart;
+      yield bytebuffer.asUint8List().toList();
+
       currentPosition += _readStreamChunkSize;
     }
   }
