@@ -190,8 +190,10 @@ class AWSFilePlatform extends AWSFile {
       rethrow;
     }
 
-    final blobParts = response.bodyBytes.map((item) => item.toJS).toList().toJS;
-    final retrievedBlob = Blob(blobParts);
+    final blobParts = [response.bodyBytes.toJS].toJS;
+    final type = response.headers['content-type'] ?? '';
+    final options = BlobPropertyBag(type: type);
+    final retrievedBlob = Blob(blobParts, options);
 
     _size = retrievedBlob.size;
 
