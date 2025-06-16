@@ -10,6 +10,7 @@ dependencies:
   aws_signature_v4: ">=0.6.3 <0.7.0"
   collection: ^1.15.0
   path: ">=1.8.0 <2.0.0"
+  web: ^1.1.1
 
 dependency_overrides:
   aws_common:

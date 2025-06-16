@@ -6,13 +6,13 @@ library;
 
 import 'dart:async';
 import 'dart:convert';
-//ignore: deprecated_member_use
-import 'dart:html' as html;
+import 'dart:js_interop';
 import 'dart:typed_data';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/web.dart';
 import 'package:test/test.dart';
+import 'package:web/web.dart';
 
 import 'utils.dart';
 
@@ -22,13 +22,16 @@ void main() {
     const testContentType = 'text/plain';
     final testBytes = utf8.encode(testStringContent);
     final testBytesUtf16 = testStringContent.codeUnits;
-    final testBlob = html.Blob([testBytes], testContentType);
-    final testFile = html.File(
-      [testBlob],
-      'test_file.txt',
-      {'type': testBlob.type},
+    final testBlob = Blob(
+      [testBytes.toJS].toJS,
+      BlobPropertyBag(type: testContentType),
     );
-    final testFilePath = html.Url.createObjectUrl(testFile);
+    final testFile = File(
+      [testBlob].toJS,
+      'test_file.txt',
+      FilePropertyBag(type: testBlob.type),
+    );
+    final testFilePath = URL.createObjectURL(testFile);
 
     group('getChunkedStreamReader() API', () {
       test('should return ChunkedStreamReader over html File', () async {
