@@ -25,7 +25,7 @@ dependency_overrides:
 dev_dependencies:
   args: ^2.5.0
   file: ^7.0.1
-  glob: ^2.0.2
+  glob: ^2.1.0
   lints: ^3.0.0
   path: any
   pubspec_parse: ^1.2.0
