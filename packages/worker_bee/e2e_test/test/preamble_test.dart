@@ -4,22 +4,28 @@
 @TestOn('browser')
 library;
 
-//ignore: deprecated_member_use
-import 'dart:html';
+import 'dart:async';
+import 'dart:js_interop';
 
 import 'package:test/test.dart';
+import 'package:web/web.dart';
 
 void main() {
   Future<void> badAssignmentTest(String jsEntrypoint) async {
-    final worker = Worker(jsEntrypoint);
-    worker.postMessage('NoWorker');
+    final worker = Worker(jsEntrypoint.toJS);
+    worker.postMessage('NoWorker'.toJS);
 
     final errors = <Object>[];
-    worker.onError.listen(errors.add);
+    final Function errorCallback = errors.add;
+    worker.onerror = errorCallback.toJS;
+
+    final firstMessageCompleter = Completer<dynamic>();
+    final Function messageCallback = firstMessageCompleter.complete;
+    worker.onmessage = messageCallback.toJS;
 
     late dynamic data;
     await expectLater(
-      worker.onMessage.first,
+      firstMessageCompleter.future,
       completion(
         isA<MessageEvent>().having(
           (message) => data = message.data,

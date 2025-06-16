@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 import '../http_common.dart';
 import 'redirect_server_vm.dart'
-    if (dart.library.js) 'redirect_server_web.dart';
+    if (dart.library.js_interop) 'redirect_server_web.dart';
 
 /// Tests that the [AWSHttpClient] correctly implements HTTP redirect logic.
 void main() {

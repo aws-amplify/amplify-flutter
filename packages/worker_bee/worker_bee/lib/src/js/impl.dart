@@ -2,13 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:js_interop';
 
 // ignore: implementation_imports
 import 'package:aws_common/src/js/common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';
+import 'package:web/web.dart';
 import 'package:worker_bee/src/common.dart';
 import 'package:worker_bee/src/exception/worker_bee_exception.dart';
+import 'package:worker_bee/src/js/js_extensions.dart';
 import 'package:worker_bee/src/js/message_port_channel.dart';
 import 'package:worker_bee/src/preamble.dart';
 import 'package:worker_bee/worker_bee.dart';
@@ -88,7 +91,10 @@ mixin WorkerBeeImpl<Request extends Object, Response>
     if (isWebWorker) {
       final serialized = _serialize(error);
       error = serialized.value!;
-      self.postMessage(serialized.value, serialized.transfer);
+      self.postMessage(
+        serialized.value?.toJSBoxOrCast,
+        serialized.transfer.toJSBoxOrCast,
+      );
     }
     super.completeError(error, stackTrace);
   }
@@ -99,34 +105,43 @@ mixin WorkerBeeImpl<Request extends Object, Response>
     return runTraced(() async {
       await super.connect(logsChannel: logsChannel);
       final channel = StreamChannelController<Object?>(sync: true);
+
+      void onMessage(Event event) {
+        event as MessageEvent;
+        logger.verbose('Got message: ${event.data}');
+        final serialized = event.data;
+        final message = _deserialize<Request>(serialized);
+        channel.foreign.sink.add(message);
+      }
+
       self.addEventListener(
         'message',
-        Zone.current.bindUnaryCallback<void, Event>((Event event) {
-          event as MessageEvent;
-          logger.verbose('Got message: ${event.data}');
-          final serialized = event.data;
-          final message = _deserialize<Request>(serialized);
-          channel.foreign.sink.add(message);
-        }),
+        Zone.current.bindUnaryCallback<void, Event>(onMessage).toJS,
       );
       channel.foreign.stream.listen(
         Zone.current.bindUnaryCallback((message) {
           logger.verbose('Sending message: $message');
           final serialized = _serialize(message);
-          self.postMessage(serialized.value, serialized.transfer);
+          self.postMessage(
+            serialized.value?.toJSBoxOrCast,
+            serialized.transfer.toJSBoxOrCast,
+          );
         }),
       );
       logger.verbose('Ready');
-      self.postMessage('ready');
+      self.postMessage('ready'.toJS);
       final result = await run(
         channel.local.stream.asBroadcastStream().cast(),
         channel.local.sink.cast(),
       );
       logger.verbose('Finished');
-      self.postMessage('done');
+      self.postMessage('done'.toJS);
 
       final serializedResult = _serialize(result);
-      self.postMessage(serializedResult.value, serializedResult.transfer);
+      self.postMessage(
+        serializedResult.value?.toJSBoxOrCast,
+        serializedResult.transfer.toJSBoxOrCast,
+      );
 
       // Allow streams to flush, then close underlying resources.
       await close();
@@ -146,7 +161,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
 
         // Spawn the worker using the specified script.
         try {
-          _worker = Worker(entrypoint);
+          _worker = Worker(entrypoint.toJS);
         } on Object {
           logger.debug('Could not launch worker at $entrypoint');
           continue;
@@ -174,11 +189,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
             },
           );
 
-          // Listen for error messages on the worker.
-          //
-          // Some browsers do not currently support the `messageerror` event:
-          // https://developer.mozilla.org/en-US/docs/Web/API/Worker/messageerror_event#browser_compatibility
-          _worker!.addEventListener('messageerror', (Event event) {
+          void onEvent(Event event) {
             event as MessageEvent;
             final error = WorkerBeeExceptionImpl(
               'Could not serialize message: ${event.data}',
@@ -188,10 +199,12 @@ mixin WorkerBeeImpl<Request extends Object, Response>
             } else {
               errorBeforeReady.completeError(error);
             }
-          });
-          _worker!.onError = (Event event) {
+          }
+
+          void onError(Event event) {
             Object error;
-            if (event is ErrorEvent) {
+            if (event.isA<ErrorEvent>()) {
+              event as ErrorEvent;
               final eventJson = JSON.stringify(event.error);
               error = WorkerBeeExceptionImpl('${event.message} ($eventJson)');
             } else {
@@ -202,36 +215,47 @@ mixin WorkerBeeImpl<Request extends Object, Response>
             } else {
               errorBeforeReady.completeError(error);
             }
-          };
+          }
+
+          // Listen for error messages on the worker.
+          //
+          // Some browsers do not currently support the `messageerror` event:
+          // https://developer.mozilla.org/en-US/docs/Web/API/Worker/messageerror_event#browser_compatibility
+          _worker!.addEventListener('messageerror', onEvent.toJS);
+          _worker!.onerror = onError.toJS;
 
           // Passes outgoing messages to the worker instance.
           _controller!.stream.listen(
             Zone.current.bindUnaryCallback((message) {
               logger.verbose('Sending message: $message');
               final serialized = _serialize(message);
-              _worker!.postMessage(serialized.value, serialized.transfer);
+
+              _worker!.postMessage(
+                serialized.value?.toJSBoxOrCast,
+                serialized.transfer.toJSBoxOrCast,
+              );
             }),
           );
 
-          // Listen to worker
-          _incomingMessages = StreamController<Response>(sync: true);
-          _worker!.onMessage = Zone.current.bindUnaryCallback((
-            MessageEvent event,
-          ) {
-            if (event.data is String) {
-              if (event.data == 'ready') {
+          void onMessage(MessageEvent event) {
+            final eventData = event.data;
+
+            if (eventData.isA<JSString>()) {
+              eventData as JSString;
+              final state = eventData.toDart;
+
+              if (state == 'ready') {
                 logger.verbose('Received ready event');
                 ready.complete();
                 return;
               }
-              if (event.data == 'done') {
+              if (state == 'done') {
                 logger.verbose('Received done event');
                 done = true;
                 return;
               }
             }
-            final serialized = event.data;
-            final message = _deserialize(serialized);
+            final message = _deserialize(eventData);
             logger.verbose('Got message: $message');
             if (message is WorkerBeeException) {
               if (ready.isCompleted) {
@@ -249,7 +273,11 @@ mixin WorkerBeeImpl<Request extends Object, Response>
             if (done) {
               complete(message);
             }
-          });
+          }
+
+          // Listen to worker
+          _incomingMessages = StreamController<Response>(sync: true);
+          _worker!.onmessage = Zone.current.bindUnaryCallback(onMessage).toJS;
 
           // Send assignment and logs channel
           final jsLogsChannel = MessageChannel();
@@ -263,7 +291,8 @@ mixin WorkerBeeImpl<Request extends Object, Response>
               logsController.add(message);
             }),
           );
-          _worker!.postMessage(name, [jsLogsChannel.port2]);
+
+          _worker!.postMessage(name.toJS, [jsLogsChannel.port2].toJS);
 
           await Future.any<void>([ready.future, errorBeforeReady.future]);
 
