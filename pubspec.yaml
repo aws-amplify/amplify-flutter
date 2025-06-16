@@ -31,7 +31,7 @@ dependencies:
   file: ^7.0.1
   flutter_plugin_android_lifecycle: ^2.0.9
   graphs: ^2.1.0
-  http: ">=0.13.0 <2.0.0"
+  http: ^1.3.0
   intl: ">=0.18.0 <1.0.0"
   json_annotation: ">=4.9.0 <4.10.0"
   json_serializable: ^6.9.4
