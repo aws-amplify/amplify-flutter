@@ -33,7 +33,7 @@ dev_dependencies:
   amplify_test:
     path: ../../test/amplify_test
   build_runner: ^2.4.9
-  connectivity_plus_platform_interface: any
+  connectivity_plus_platform_interface: ^2.0.1
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.0
