@@ -1,3 +1,7 @@
+## 0.11.11
+
+- Minor bug fixes and improvements
+
 ## 0.11.10
 
 ### Chores
