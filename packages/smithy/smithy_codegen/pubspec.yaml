@@ -8,7 +8,7 @@ environment:
   sdk: ^3.7.0
 
 dependencies:
-  args: ^2.3.0
+  args: ^2.5.0
   aws_common: any
   aws_signature_v4: any
   build_cli_annotations: ^2.0.0

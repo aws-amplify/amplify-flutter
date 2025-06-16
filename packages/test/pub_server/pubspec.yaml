@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   archive: ^4.0.0
-  args: ^2.4.0
+  args: ^2.5.0
   async: ^2.10.0
   aws_common: any
   collection: ^1.15.0
