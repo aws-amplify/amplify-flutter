@@ -11,8 +11,12 @@ Future<String> createFile({
   required String content,
   String contentType = 'text/plain',
 }) async {
-  await createHtmlFile(path: path, content: content, contentType: contentType);
-  return path;
+  final file = await createHtmlFile(
+    path: path,
+    content: content,
+    contentType: contentType,
+  );
+  return URL.createObjectURL(file);
 }
 
 Future<File> createHtmlFile({
