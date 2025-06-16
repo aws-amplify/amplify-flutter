@@ -15,7 +15,7 @@ dependencies:
   built_collection: ^5.1.1
   built_value: ^8.10.1
   code_builder: ^4.10.1
-  collection: ^1.15.0
+  collection: ^1.18.0
   crclib: ^3.0.0
   dart_style: ^3.0.1
   fixnum: ^1.0.0

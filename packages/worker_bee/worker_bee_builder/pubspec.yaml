@@ -13,7 +13,7 @@ dependencies:
   async: ^2.10.0
   build: ^2.3.0
   code_builder: ^4.10.1
-  collection: ^1.15.0
+  collection: ^1.18.0
   dart_style: ^3.0.1
   meta: ^1.16.0
   path: ">=1.8.0 <2.0.0"

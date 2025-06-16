@@ -16,7 +16,7 @@ dependencies:
   amplify_core: ">=2.6.2 <2.7.0"
   plugin_platform_interface: ^2.0.0
   meta: ^1.16.0
-  collection: ^1.14.13
+  collection: ^1.18.0
   async: ^2.10.0
 
 dev_dependencies:

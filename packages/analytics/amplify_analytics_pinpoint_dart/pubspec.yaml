@@ -16,7 +16,7 @@ dependencies:
   aws_signature_v4: ">=0.6.5 <0.7.0"
   built_collection: ^5.0.0
   built_value: ^8.10.1
-  collection: ^1.15.0
+  collection: ^1.18.0
   drift: ^2.25.0
   intl: ">=0.18.0 <1.0.0"
   meta: ^1.16.0

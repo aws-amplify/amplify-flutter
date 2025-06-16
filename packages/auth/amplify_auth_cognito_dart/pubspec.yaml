@@ -18,7 +18,7 @@ dependencies:
   built_collection: ^5.0.0
   built_value: ^8.10.1
   clock: ^1.1.1
-  collection: ^1.15.0
+  collection: ^1.18.0
   convert: ^3.0.1
   crypto: ^3.0.1
   ffi: ^2.0.2

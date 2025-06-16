@@ -12,7 +12,7 @@ dependencies:
   async: ^2.10.0
   aws_common: ">=0.7.7 <0.8.0"
   aws_signature_v4: ">=0.6.5 <0.7.0"
-  collection: ^1.15.0
+  collection: ^1.18.0
   graphs: ^2.1.0
   intl: ">=0.18.0 <1.0.0"
   json_annotation: ">=4.9.0 <4.10.0"
