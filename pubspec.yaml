@@ -28,7 +28,7 @@ dependencies:
   drift: ^2.25.0
   drift_dev: ^2.25.1
   ffigen: ^9.0.0
-  file: ">=6.0.0 <8.0.0"
+  file: ^7.0.1
   flutter_plugin_android_lifecycle: ^2.0.9
   graphs: ^2.1.0
   http: ">=0.13.0 <2.0.0"

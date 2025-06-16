@@ -15,7 +15,7 @@ dependencies:
   aws_common: any
   collection: ^1.18.0
   drift: ^2.25.0
-  file: ">=6.0.0 <8.0.0"
+  file: ^7.0.1
   git: ^2.2.0
   graphs: ^2.1.0
   json_annotation: ">=4.9.0 <4.10.0"

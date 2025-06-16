@@ -24,7 +24,7 @@ dependency_overrides:
 
 dev_dependencies:
   args: ^2.5.0
-  file: ">=6.0.0 <8.0.0"
+  file: ^7.0.1
   glob: ^2.0.2
   lints: ^3.0.0
   path: any

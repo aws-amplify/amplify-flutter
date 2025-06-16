@@ -16,7 +16,7 @@ dependencies:
   cli_util: ^0.4.2
   code_builder: ^4.10.1
   collection: ^1.18.0
-  file: ">=6.0.0 <8.0.0"
+  file: ^7.0.1
   git: any # override
   glob: ^2.1.0
   graphs: ^2.1.0
