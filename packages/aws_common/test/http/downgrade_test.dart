@@ -7,7 +7,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'downgrade_server_vm.dart'
-    if (dart.library.html) 'downgrade_server_web.dart';
+    if (dart.library.js_interop) 'downgrade_server_web.dart';
 import 'http_common.dart';
 
 void main() {

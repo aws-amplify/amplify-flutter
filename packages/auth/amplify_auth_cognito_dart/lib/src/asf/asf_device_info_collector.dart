@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/src/asf/asf_context_data.dart';
 import 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.stub.dart'
     if (dart.library.io) 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.vm.dart'
-    if (dart.library.js_util) 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.js.dart';
+    if (dart.library.js_interop) 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.js.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/platform/platform.dart';
