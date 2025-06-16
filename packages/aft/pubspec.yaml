@@ -17,7 +17,7 @@ dependencies:
   code_builder: ^4.10.1
   collection: ^1.18.0
   file: ^7.0.1
-  git: any # override
+  git: ^2.2.0
   glob: ^2.1.0
   graphs: ^2.1.0
   io: ^1.0.4
