@@ -18,7 +18,7 @@ dependencies:
   crclib: ^3.0.0
   crypto: ^3.0.1
   intl: ">=0.18.0 <1.0.0"
-  json_annotation: ">=4.9.0 <4.10.0"
+  json_annotation: ^4.9.0
   meta: ^1.16.0
   path: ">=1.8.0 <2.0.0"
   smithy: ">=0.7.5 <0.8.0"

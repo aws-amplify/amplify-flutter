@@ -18,7 +18,7 @@ dependencies:
   file: ^7.0.1
   git: ^2.2.0
   graphs: ^2.1.0
-  json_annotation: ">=4.9.0 <4.10.0"
+  json_annotation: ^4.9.0
   meta: ^1.16.0
   path: ^1.8.0
   pub_semver: ^2.1.3

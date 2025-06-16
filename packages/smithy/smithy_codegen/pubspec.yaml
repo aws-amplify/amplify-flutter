@@ -22,7 +22,7 @@ dependencies:
   grpc: ^4.0.0
   html2md: ^1.2.5
   jmespath: ^2.0.0
-  json_annotation: ">=4.9.0 <4.10.0"
+  json_annotation: ^4.9.0
   meta: ^1.16.0
   path: ">=1.8.0 <2.0.0"
   protobuf: ^2.0.1

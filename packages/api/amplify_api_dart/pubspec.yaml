@@ -13,7 +13,7 @@ dependencies:
   async: ^2.10.0
   aws_common: ">=0.7.7 <0.8.0"
   collection: ^1.18.0
-  json_annotation: ">=4.9.0 <4.10.0"
+  json_annotation: ^4.9.0
   meta: ^1.16.0
   plugin_platform_interface: ^2.0.0
   stream_transform: ^2.0.1

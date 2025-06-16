@@ -15,7 +15,7 @@ dependencies:
   collection: ^1.18.0
   graphs: ^2.1.0
   intl: ">=0.18.0 <1.0.0"
-  json_annotation: ">=4.9.0 <4.10.0"
+  json_annotation: ^4.9.0
   logging: ^1.0.0
   meta: ^1.16.0
   retry: ^3.1.0
