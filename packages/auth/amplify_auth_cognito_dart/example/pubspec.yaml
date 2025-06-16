@@ -15,6 +15,7 @@ dependencies:
   example_common:
     path: ../../../example_common
   qr: ^3.0.1
+  web: ^1.1.1
 
 dev_dependencies:
   amplify_api_dart: any

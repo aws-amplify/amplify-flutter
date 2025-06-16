@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 
 import '../http_common.dart';
 import 'response_body_streamed_server_vm.dart'
-    if (dart.library.js) 'response_body_streamed_server_web.dart';
+    if (dart.library.js_interop) 'response_body_streamed_server_web.dart';
 
 /// Tests that the [AWSHttpClient] correctly implements HTTP responses with
 /// bodies of unbounded size.
