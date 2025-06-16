@@ -16,7 +16,7 @@ dependencies:
   collection: ^1.18.0
   convert: ^3.0.1
   crclib: ^3.0.0
-  crypto: ^3.0.0
+  crypto: ^3.0.1
   intl: ">=0.18.0 <1.0.0"
   json_annotation: ">=4.9.0 <4.10.0"
   meta: ^1.16.0
