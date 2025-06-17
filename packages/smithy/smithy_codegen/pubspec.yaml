@@ -24,7 +24,7 @@ dependencies:
   jmespath: ^2.0.0
   json_annotation: ^4.9.0
   meta: ^1.16.0
-  path: ">=1.8.0 <2.0.0"
+  path: ^1.8.0
   protobuf: ^2.0.1
   pub_semver: ^2.1.0
   pubspec_parse: ^1.2.0

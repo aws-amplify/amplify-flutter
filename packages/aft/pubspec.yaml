@@ -27,7 +27,7 @@ dependencies:
   mason_logger: ^0.3.3
   meta: ^1.16.0
   mustache_template: ^2.0.0
-  path: any
+  path: ^1.8.0
   pub_api_client: ^2.4.0
   pub_semver: ^2.1.1
   pub_server:

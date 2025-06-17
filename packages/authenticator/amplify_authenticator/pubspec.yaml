@@ -41,7 +41,7 @@ dev_dependencies:
     sdk: flutter
   golden_toolkit: ^0.15.0
   mocktail: ^1.0.0
-  path: any
+  path: ^1.8.0
 
 flutter:
   assets:

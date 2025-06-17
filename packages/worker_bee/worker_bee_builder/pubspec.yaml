@@ -16,7 +16,7 @@ dependencies:
   collection: ^1.18.0
   dart_style: ^3.0.1
   meta: ^1.16.0
-  path: ">=1.8.0 <2.0.0"
+  path: ^1.8.0
   pub_semver: ^2.2.0
   source_gen: ^2.0.0
   stream_channel: ^2.1.0

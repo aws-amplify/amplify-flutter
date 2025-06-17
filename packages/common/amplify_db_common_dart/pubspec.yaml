@@ -14,7 +14,7 @@ dependencies:
   aws_common: ">=0.7.7 <0.8.0"
   drift: ^2.25.0
   meta: ^1.16.0
-  path: ">=1.8.0 <2.0.0"
+  path: ^1.8.0
   sqlite3: ">=2.0.0 <2.7.0"
   web: ^1.1.1
 

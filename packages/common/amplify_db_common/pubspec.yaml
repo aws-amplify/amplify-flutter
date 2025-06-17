@@ -14,7 +14,7 @@ dependencies:
   drift: ^2.25.0
   flutter:
     sdk: flutter
-  path: ">=1.8.0 <2.0.0"
+  path: ^1.8.0
   path_provider: ^2.0.11
 
 dev_dependencies:

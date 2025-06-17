@@ -16,7 +16,7 @@ dependencies:
   collection: ^1.18.0
   js: ">=0.6.4 <0.8.0"
   meta: ^1.16.0
-  path: ">=1.8.0 <2.0.0"
+  path: ^1.8.0
   stack_trace: ^1.10.0
   stream_channel: ^2.1.0
   stream_transform: ^2.0.0
