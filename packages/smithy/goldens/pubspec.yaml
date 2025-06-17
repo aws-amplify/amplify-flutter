@@ -28,7 +28,7 @@ dev_dependencies:
   glob: ^2.1.0
   lints: ^3.0.0
   path: ^1.8.0
-  pubspec_parse: ^1.2.0
+  pubspec_parse: ^1.2.2
   smithy_codegen:
     path: ../smithy_codegen
   test: ^1.22.1

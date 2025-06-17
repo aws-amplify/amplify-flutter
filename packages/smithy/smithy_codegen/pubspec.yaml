@@ -27,7 +27,7 @@ dependencies:
   path: ^1.8.0
   protobuf: ^2.0.1
   pub_semver: ^2.2.0
-  pubspec_parse: ^1.2.0
+  pubspec_parse: ^1.2.2
   shelf: ^1.1.0
   shelf_router: ^1.1.0
   smithy: ">=0.7.1 <0.8.0"
