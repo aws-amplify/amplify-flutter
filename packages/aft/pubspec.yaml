@@ -29,7 +29,7 @@ dependencies:
   mustache_template: ^2.0.0
   path: ^1.8.0
   pub_api_client: ^2.4.0
-  pub_semver: ^2.1.1
+  pub_semver: ^2.2.0
   pub_server:
     path: ../test/pub_server
   pubspec_parse: ^1.2.0
