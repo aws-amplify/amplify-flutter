@@ -22,7 +22,7 @@ dependencies:
   mime: ^2.0.0
   os_detect: ^2.0.2
   path: ^1.8.0
-  stream_transform: ^2.0.0
+  stream_transform: ^2.1.0
   uuid: ">=3.0.6 <5.0.0"
   web: ^1.1.1
 

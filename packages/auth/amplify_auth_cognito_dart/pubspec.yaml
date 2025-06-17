@@ -32,7 +32,7 @@ dependencies:
   path: ^1.8.0
   smithy: ">=0.7.5 <0.8.0"
   smithy_aws: ">=0.7.5 <0.8.0"
-  stream_transform: ^2.0.0
+  stream_transform: ^2.1.0
   uuid: ">=3.0.6 <5.0.0"
   web: ^1.1.1
   win32: ">=4.1.2 <6.0.0"
