@@ -15,7 +15,7 @@ dependencies:
     path: ../../../../aws_common
   built_value: ^8.10.1
   built_collection: ^5.0.0
-  shelf_router: ^1.1.0
+  shelf_router: ^1.1.3
   shelf: ^1.4.0
   meta: ^1.16.0
 

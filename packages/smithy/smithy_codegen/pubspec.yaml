@@ -29,7 +29,7 @@ dependencies:
   pub_semver: ^2.2.0
   pubspec_parse: ^1.2.2
   shelf: ^1.1.0
-  shelf_router: ^1.1.0
+  shelf_router: ^1.1.3
   smithy: ">=0.7.1 <0.8.0"
   smithy_aws: ">=0.7.0 <0.8.0"
   tuple: ^2.0.0
