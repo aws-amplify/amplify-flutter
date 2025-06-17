@@ -18,7 +18,7 @@ dependencies:
   flutter:
     sdk: flutter
   go_router: ^6.5.7
-  path_provider: any
+  path_provider: ^2.0.11
   web: ^1.1.1
 
 dev_dependencies:
