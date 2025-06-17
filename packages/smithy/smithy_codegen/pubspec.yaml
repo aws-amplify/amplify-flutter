@@ -34,7 +34,7 @@ dependencies:
   smithy_aws: ">=0.7.0 <0.8.0"
   tuple: ^2.0.0
   xml: ">=6.3.0 <=6.5.0"
-  yaml_edit: ^2.0.1
+  yaml_edit: ^2.1.0
 
 dev_dependencies:
   amplify_lints: ">=3.1.0 <3.2.0"

@@ -40,7 +40,7 @@ dependencies:
     path: ../smithy/smithy_codegen
   stream_transform: ^2.1.0
   yaml: ^3.1.1
-  yaml_edit: ^2.0.3
+  yaml_edit: ^2.1.0
 
 # Use dependency overrides since this must work without `aft link`.
 dependency_overrides:
