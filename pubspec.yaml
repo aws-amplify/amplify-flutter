@@ -35,7 +35,7 @@ dependencies:
   intl: ">=0.18.0 <1.0.0"
   json_annotation: ^4.9.0
   json_serializable: ^6.9.4
-  mime: ">=1.0.0 <3.0.0"
+  mime: ^2.0.0
   oauth2: ^2.0.2
   package_info_plus: ^8.0.0
   pigeon: ^22.6.2
