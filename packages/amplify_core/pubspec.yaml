@@ -20,7 +20,7 @@ dependencies:
   meta: ^1.16.0
   retry: ^3.1.2
   stack_trace: ^1.10.0
-  uuid: ">=3.0.6 <5.0.0"
+  uuid: ^4.5.1
   web: ^1.1.1
 
 dev_dependencies:

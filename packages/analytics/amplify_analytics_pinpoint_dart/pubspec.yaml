@@ -23,7 +23,7 @@ dependencies:
   path: ^1.8.0
   smithy: ">=0.7.5 <0.8.0"
   smithy_aws: ">=0.7.5 <0.8.0"
-  uuid: ">=3.0.6 <5.0.0"
+  uuid: ^4.5.1
   web: ^1.1.1
 
 dev_dependencies:

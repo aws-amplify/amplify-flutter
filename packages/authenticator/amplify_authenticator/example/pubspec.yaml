@@ -56,7 +56,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   stream_transform: ^2.1.0
-  uuid: ">=3.0.6 <5.0.0"
+  uuid: ^4.5.1
 
 flutter:
   uses-material-design: true
