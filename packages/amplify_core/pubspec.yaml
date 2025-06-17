@@ -18,7 +18,7 @@ dependencies:
   json_annotation: ^4.9.0
   logging: ^1.0.0
   meta: ^1.16.0
-  retry: ^3.1.0
+  retry: ^3.1.2
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <5.0.0"
   web: ^1.1.1
