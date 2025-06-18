@@ -35,8 +35,9 @@ abstract class S3Object
       key: key,
       lastModified: lastModified,
       eTag: eTag,
-      checksumAlgorithm:
-          checksumAlgorithm == null ? null : _i3.BuiltList(checksumAlgorithm),
+      checksumAlgorithm: checksumAlgorithm == null
+          ? null
+          : _i3.BuiltList(checksumAlgorithm),
       size: size,
       storageClass: storageClass,
       owner: owner,
@@ -105,16 +106,15 @@ abstract class S3Object
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('S3Object')
-          ..add('key', key)
-          ..add('lastModified', lastModified)
-          ..add('eTag', eTag)
-          ..add('checksumAlgorithm', checksumAlgorithm)
-          ..add('size', size)
-          ..add('storageClass', storageClass)
-          ..add('owner', owner)
-          ..add('restoreStatus', restoreStatus);
+    final helper = newBuiltValueToStringHelper('S3Object')
+      ..add('key', key)
+      ..add('lastModified', lastModified)
+      ..add('eTag', eTag)
+      ..add('checksumAlgorithm', checksumAlgorithm)
+      ..add('size', size)
+      ..add('storageClass', storageClass)
+      ..add('owner', owner)
+      ..add('restoreStatus', restoreStatus);
     return helper.toString();
   }
 }

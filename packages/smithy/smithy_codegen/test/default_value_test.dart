@@ -29,23 +29,21 @@ void main() {
       const primitiveId = ShapeId(namespace: 'example', shape: 'MyPrimitive');
       final primitive = PrimitiveDoubleShape((b) => b..shapeId = primitiveId);
       final struct = StructureShape(
-        (b) =>
-            b
-              ..shapeId = const ShapeId(namespace: 'example', shape: 'MyStruct')
-              ..members = NamedMembersMap({
-                'defaultValue': MemberShape(
-                  (b) =>
-                      b
-                        ..memberName = 'defaultValue'
-                        ..shapeId = const ShapeId(
-                          namespace: 'example',
-                          shape: 'MyStruct',
-                          member: 'defaultValue',
-                        )
-                        ..target = primitiveId,
-                ),
-              })
-              ..traits = TraitMap.fromTraits(const [InputTrait()]),
+        (b) => b
+          ..shapeId = const ShapeId(namespace: 'example', shape: 'MyStruct')
+          ..members = NamedMembersMap({
+            'defaultValue': MemberShape(
+              (b) => b
+                ..memberName = 'defaultValue'
+                ..shapeId = const ShapeId(
+                  namespace: 'example',
+                  shape: 'MyStruct',
+                  member: 'defaultValue',
+                )
+                ..target = primitiveId,
+            ),
+          })
+          ..traits = TraitMap.fromTraits(const [InputTrait()]),
       );
       final context = createTestContext([
         primitive,
@@ -58,24 +56,22 @@ void main() {
       const primitiveId = ShapeId(namespace: 'example', shape: 'MyPrimitive');
       final primitive = DoubleShape((b) => b..shapeId = primitiveId);
       final struct = StructureShape(
-        (b) =>
-            b
-              ..shapeId = const ShapeId(namespace: 'example', shape: 'MyStruct')
-              ..members = NamedMembersMap({
-                'defaultValue': MemberShape(
-                  (b) =>
-                      b
-                        ..memberName = 'defaultValue'
-                        ..shapeId = const ShapeId(
-                          namespace: 'example',
-                          shape: 'MyStruct',
-                          member: 'defaultValue',
-                        )
-                        ..target = primitiveId
-                        ..traits = TraitMap.fromTraits(const [DefaultTrait(0)]),
-                ),
-              })
-              ..traits = TraitMap.fromTraits(const [InputTrait()]),
+        (b) => b
+          ..shapeId = const ShapeId(namespace: 'example', shape: 'MyStruct')
+          ..members = NamedMembersMap({
+            'defaultValue': MemberShape(
+              (b) => b
+                ..memberName = 'defaultValue'
+                ..shapeId = const ShapeId(
+                  namespace: 'example',
+                  shape: 'MyStruct',
+                  member: 'defaultValue',
+                )
+                ..target = primitiveId
+                ..traits = TraitMap.fromTraits(const [DefaultTrait(0)]),
+            ),
+          })
+          ..traits = TraitMap.fromTraits(const [InputTrait()]),
       );
       final context = createTestContext([primitive, struct]);
       testDefaultValue(struct, context);

@@ -579,10 +579,9 @@ class _AuthenticatorState extends State<Authenticator> {
       final screenSize = MediaQuery.of(scaffoldMessengerContext).size;
       final isDesktop =
           screenSize.width > AuthenticatorContainerConstants.smallView;
-      location =
-          isDesktop
-              ? ExceptionBannerLocation.top
-              : ExceptionBannerLocation.bottom;
+      location = isDesktop
+          ? ExceptionBannerLocation.top
+          : ExceptionBannerLocation.bottom;
     }
     if (location == ExceptionBannerLocation.top) {
       scaffoldMessengerState
@@ -858,10 +857,9 @@ class AuthenticatedView extends StatelessWidget {
             key: _AuthenticatorState.scaffoldMessengerKey,
             child: Scaffold(
               body: SizedBox.expand(
-                child:
-                    child is AuthenticatorScreen
-                        ? SingleChildScrollView(child: child)
-                        : child,
+                child: child is AuthenticatorScreen
+                    ? SingleChildScrollView(child: child)
+                    : child,
               ),
             ),
           );

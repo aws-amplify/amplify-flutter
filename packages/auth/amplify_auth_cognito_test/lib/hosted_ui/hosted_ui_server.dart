@@ -80,16 +80,16 @@ class HostedUiServer implements Closeable {
     await Amplify.addPlugin(
       AmplifyAuthCognitoDart(
         // ignore: invalid_use_of_visible_for_testing_member
-        secureStorageFactory:
-            (scope) => AmplifySecureStorageWorker(
-              config: AmplifySecureStorageConfig.byNamespace(
+        secureStorageFactory: (scope) => AmplifySecureStorageWorker(
+          config:
+              AmplifySecureStorageConfig.byNamespace(
                 namespace: webDatabaseName,
               ).rebuild((config) {
                 // enabling useDataProtection requires adding the app to an
                 // app group, which requires setting a development team
                 config.macOSOptions.useDataProtection = false;
               }),
-            ),
+        ),
         hostedUiPlatformFactory: (manager) => _HostedUiPlatform(manager, this),
       ),
     );
@@ -105,10 +105,9 @@ class HostedUiServer implements Closeable {
 
   Future<String> _signInWithWebUI(Parameters parameters) async {
     final provider = parameters['provider'];
-    final authProvider =
-        provider.exists
-            ? AuthProvider.fromJson(provider.asMap.cast())
-            : AuthProvider.cognito;
+    final authProvider = provider.exists
+        ? AuthProvider.fromJson(provider.asMap.cast())
+        : AuthProvider.cognito;
     _urlCompleter = Completer();
     unawaited(_currentSignIn = _plugin.signInWithWebUI(provider: authProvider));
     final url = await _urlCompleter.future;

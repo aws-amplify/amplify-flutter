@@ -45,10 +45,9 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
 extension CodeDeliveryDetailsBridge on CodeDeliveryDetailsType {
   /// The [AuthCodeDeliveryDetails] representation of `this`.
   AuthCodeDeliveryDetails get asAuthCodeDeliveryDetails {
-    final attributeKey =
-        attributeName == null
-            ? null
-            : CognitoUserAttributeKey.parse(attributeName!);
+    final attributeKey = attributeName == null
+        ? null
+        : CognitoUserAttributeKey.parse(attributeName!);
     return AuthCodeDeliveryDetails(
       destination: destination,
       deliveryMedium:
@@ -181,12 +180,11 @@ class WrappedCognitoIdentityProviderClient
   }) : _base = CognitoIdentityProviderClient(
          region: region,
          credentialsProvider: credentialsProvider,
-         baseUri:
-             endpoint == null
-                 ? null
-                 : (endpoint.startsWith('http')
-                     ? Uri.parse(endpoint)
-                     : Uri.parse('https://$endpoint')),
+         baseUri: endpoint == null
+             ? null
+             : (endpoint.startsWith('http')
+                   ? Uri.parse(endpoint)
+                   : Uri.parse('https://$endpoint')),
          requestInterceptors: const [
            WithHeader(AWSHeaders.cacheControl, 'no-store'),
          ],
@@ -793,7 +791,9 @@ extension MfaSettings on CognitoIdentityProviderClient {
     final UserMfaPreference(
       enabled: currentEnabled,
       preferred: currentPreference,
-    ) = await _getRawUserSettings(accessToken: accessToken);
+    ) = await _getRawUserSettings(
+      accessToken: accessToken,
+    );
 
     var preferred =
         _getNewPreferredMethod(sms: sms, totp: totp, email: email) ??

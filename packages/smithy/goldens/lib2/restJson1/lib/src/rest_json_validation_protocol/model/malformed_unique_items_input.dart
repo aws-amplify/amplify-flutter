@@ -56,15 +56,13 @@ abstract class MalformedUniqueItemsInput
       httpDateList: httpDateList == null ? null : _i5.BuiltSet(httpDateList),
       enumList: enumList == null ? null : _i5.BuiltSet(enumList),
       intEnumList: intEnumList == null ? null : _i5.BuiltSet(intEnumList),
-      listList:
-          listList == null
-              ? null
-              : _i5.BuiltSet(listList.map((el) => _i5.BuiltList(el))),
+      listList: listList == null
+          ? null
+          : _i5.BuiltSet(listList.map((el) => _i5.BuiltList(el))),
       structureList: structureList == null ? null : _i5.BuiltSet(structureList),
-      structureListWithNoKey:
-          structureListWithNoKey == null
-              ? null
-              : _i5.BuiltSet(structureListWithNoKey),
+      structureListWithNoKey: structureListWithNoKey == null
+          ? null
+          : _i5.BuiltSet(structureListWithNoKey),
       unionList: unionList == null ? null : _i5.BuiltSet(unionList),
     );
   }
@@ -125,24 +123,23 @@ abstract class MalformedUniqueItemsInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedUniqueItemsInput')
-          ..add('blobList', blobList)
-          ..add('booleanList', booleanList)
-          ..add('stringList', stringList)
-          ..add('byteList', byteList)
-          ..add('shortList', shortList)
-          ..add('integerList', integerList)
-          ..add('longList', longList)
-          ..add('timestampList', timestampList)
-          ..add('dateTimeList', dateTimeList)
-          ..add('httpDateList', httpDateList)
-          ..add('enumList', enumList)
-          ..add('intEnumList', intEnumList)
-          ..add('listList', listList)
-          ..add('structureList', structureList)
-          ..add('structureListWithNoKey', structureListWithNoKey)
-          ..add('unionList', unionList);
+    final helper = newBuiltValueToStringHelper('MalformedUniqueItemsInput')
+      ..add('blobList', blobList)
+      ..add('booleanList', booleanList)
+      ..add('stringList', stringList)
+      ..add('byteList', byteList)
+      ..add('shortList', shortList)
+      ..add('integerList', integerList)
+      ..add('longList', longList)
+      ..add('timestampList', timestampList)
+      ..add('dateTimeList', dateTimeList)
+      ..add('httpDateList', httpDateList)
+      ..add('enumList', enumList)
+      ..add('intEnumList', intEnumList)
+      ..add('listList', listList)
+      ..add('structureList', structureList)
+      ..add('structureListWithNoKey', structureListWithNoKey)
+      ..add('unionList', unionList);
     return helper.toString();
   }
 }

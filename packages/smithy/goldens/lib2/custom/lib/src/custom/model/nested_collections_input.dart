@@ -20,19 +20,18 @@ abstract class NestedCollectionsInput
     Map<String, List<Map<String, List<String>>?>>? mapOfListOfMapOfLists,
   }) {
     return _$NestedCollectionsInput._(
-      mapOfListOfMapOfLists:
-          mapOfListOfMapOfLists == null
-              ? null
-              : _i3.BuiltListMultimap(
-                mapOfListOfMapOfLists.map(
-                  (key, value) => MapEntry(
-                    key,
-                    value.map(
-                      (el) => el == null ? null : _i3.BuiltListMultimap(el),
-                    ),
+      mapOfListOfMapOfLists: mapOfListOfMapOfLists == null
+          ? null
+          : _i3.BuiltListMultimap(
+              mapOfListOfMapOfLists.map(
+                (key, value) => MapEntry(
+                  key,
+                  value.map(
+                    (el) => el == null ? null : _i3.BuiltListMultimap(el),
                   ),
                 ),
               ),
+            ),
     );
   }
 

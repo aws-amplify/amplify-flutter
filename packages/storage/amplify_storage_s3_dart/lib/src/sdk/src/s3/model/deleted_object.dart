@@ -66,12 +66,11 @@ abstract class DeletedObject
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeletedObject')
-          ..add('key', key)
-          ..add('versionId', versionId)
-          ..add('deleteMarker', deleteMarker)
-          ..add('deleteMarkerVersionId', deleteMarkerVersionId);
+    final helper = newBuiltValueToStringHelper('DeletedObject')
+      ..add('key', key)
+      ..add('versionId', versionId)
+      ..add('deleteMarker', deleteMarker)
+      ..add('deleteMarkerVersionId', deleteMarkerVersionId);
     return helper.toString();
   }
 }

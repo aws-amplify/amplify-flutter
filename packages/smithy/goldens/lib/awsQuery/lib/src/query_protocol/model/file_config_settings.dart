@@ -72,15 +72,14 @@ abstract class FileConfigSettings
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('FileConfigSettings')
-          ..add('awsAccessKeyId', awsAccessKeyId)
-          ..add('awsSecretAccessKey', awsSecretAccessKey)
-          ..add('awsSessionToken', awsSessionToken)
-          ..add('region', region)
-          ..add('s3', s3)
-          ..add('retryMode', retryMode)
-          ..add('maxAttempts', maxAttempts);
+    final helper = newBuiltValueToStringHelper('FileConfigSettings')
+      ..add('awsAccessKeyId', awsAccessKeyId)
+      ..add('awsSecretAccessKey', awsSecretAccessKey)
+      ..add('awsSessionToken', awsSessionToken)
+      ..add('region', region)
+      ..add('s3', s3)
+      ..add('retryMode', retryMode)
+      ..add('maxAttempts', maxAttempts);
     return helper.toString();
   }
 }

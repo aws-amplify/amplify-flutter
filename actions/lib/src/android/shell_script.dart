@@ -10,7 +10,8 @@ import 'package:path/path.dart' as p;
 extension type ShellScript(String script) {
   /// Executes the script with `/bin/bash` and throws if there's an error.
   Future<void> run() async {
-    final fullScript = '''
+    final fullScript =
+        '''
 #!/bin/bash
 set -eo pipefail
 $script

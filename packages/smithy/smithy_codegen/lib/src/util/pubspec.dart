@@ -106,8 +106,8 @@ description: ${pubspec.description ?? '${pubspec.name.groupIntoWords().map((s) =
 version: ${pubspec.version?.canonicalizedVersion ?? '0.1.0'}
 ${smithyPath == null
         ? pubspec.publishTo != null
-            ? 'publish_to: ${pubspec.publishTo}\n'
-            : ''
+              ? 'publish_to: ${pubspec.publishTo}\n'
+              : ''
         : 'publish_to: none\n'}${pubspec.homepage != null ? 'homepage: ${pubspec.homepage}\n' : ''}
 environment:
   sdk: ^3.8.0

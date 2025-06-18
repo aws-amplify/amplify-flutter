@@ -87,12 +87,11 @@ abstract class MalformedBooleanInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedBooleanInput')
-          ..add('booleanInBody', booleanInBody)
-          ..add('booleanInPath', booleanInPath)
-          ..add('booleanInQuery', booleanInQuery)
-          ..add('booleanInHeader', booleanInHeader);
+    final helper = newBuiltValueToStringHelper('MalformedBooleanInput')
+      ..add('booleanInBody', booleanInBody)
+      ..add('booleanInPath', booleanInPath)
+      ..add('booleanInQuery', booleanInQuery)
+      ..add('booleanInHeader', booleanInHeader);
     return helper.toString();
   }
 }

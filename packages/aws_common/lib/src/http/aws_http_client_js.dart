@@ -95,20 +95,19 @@ class AWSHttpClientImpl extends AWSHttpClient {
         requestHeaders.append(entry.key, entry.value);
       }
 
-      final resp =
-          await window
-              .fetch(
-                request.uri.toString().toJS,
-                RequestInit(
-                  method: request.method.value,
-                  headers: requestHeaders,
-                  body: body,
-                  signal: abortController.signal,
-                  redirect: redirect,
-                  duplex: 'half',
-                ),
-              )
-              .toDart;
+      final resp = await window
+          .fetch(
+            request.uri.toString().toJS,
+            RequestInit(
+              method: request.method.value,
+              headers: requestHeaders,
+              body: body,
+              signal: abortController.signal,
+              redirect: redirect,
+              duplex: 'half',
+            ),
+          )
+          .toDart;
 
       final streamView = resp.body;
       final bodyController = StreamController<List<int>>(

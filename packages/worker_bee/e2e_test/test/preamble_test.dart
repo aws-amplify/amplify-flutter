@@ -22,6 +22,7 @@ void main() {
     void complete(MessageEvent event) {
       firstMessageCompleter.complete(event);
     }
+
     worker.onmessage = complete.toJS;
 
     late List<JSAny?> eventData;

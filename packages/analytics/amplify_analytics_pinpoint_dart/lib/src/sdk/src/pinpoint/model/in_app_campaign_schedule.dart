@@ -52,11 +52,10 @@ abstract class InAppCampaignSchedule
   List<Object?> get props => [endDate, eventFilter, quietTime];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InAppCampaignSchedule')
-          ..add('endDate', endDate)
-          ..add('eventFilter', eventFilter)
-          ..add('quietTime', quietTime);
+    final helper = newBuiltValueToStringHelper('InAppCampaignSchedule')
+      ..add('endDate', endDate)
+      ..add('eventFilter', eventFilter)
+      ..add('quietTime', quietTime);
     return helper.toString();
   }
 }

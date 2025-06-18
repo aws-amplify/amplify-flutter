@@ -53,8 +53,8 @@ class _MyAppState extends State<MyApp> {
       /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
       secureStorageFactory: AmplifySecureStorage.factoryFrom(
         macOSOptions:
-        // ignore: invalid_use_of_visible_for_testing_member
-        MacOSSecureStorageOptions(useDataProtection: false),
+            // ignore: invalid_use_of_visible_for_testing_member
+            MacOSSecureStorageOptions(useDataProtection: false),
       ),
     );
     final storage = AmplifyStorageS3();
@@ -145,10 +145,8 @@ class _HomeScreenState extends State<HomeScreen> {
           size: platformFile.size,
         ),
         path: StoragePath.fromString('public/${platformFile.name}'),
-        onProgress:
-            (p) => _logger.debug(
-              'Uploading: ${p.transferredBytes}/${p.totalBytes}',
-            ),
+        onProgress: (p) =>
+            _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
@@ -159,13 +157,12 @@ class _HomeScreenState extends State<HomeScreen> {
   // list all files in the S3 bucket
   Future<void> _listAllPublicFiles() async {
     try {
-      final result =
-          await Amplify.Storage.list(
-            path: const StoragePath.fromString('public/'),
-            options: const StorageListOptions(
-              pluginOptions: S3ListPluginOptions.listAll(),
-            ),
-          ).result;
+      final result = await Amplify.Storage.list(
+        path: const StoragePath.fromString('public/'),
+        options: const StorageListOptions(
+          pluginOptions: S3ListPluginOptions.listAll(),
+        ),
+      ).result;
       setState(() {
         list = result.items;
       });
@@ -182,10 +179,9 @@ class _HomeScreenState extends State<HomeScreen> {
       await Amplify.Storage.downloadFile(
         path: StoragePath.fromString(path),
         localFile: AWSFile.fromPath(filepath),
-        onProgress:
-            (p0) => _logger.debug(
-              'Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%',
-            ),
+        onProgress: (p0) => _logger.debug(
+          'Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%',
+        ),
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
@@ -199,10 +195,9 @@ class _HomeScreenState extends State<HomeScreen> {
       await Amplify.Storage.downloadFile(
         path: StoragePath.fromString(path),
         localFile: AWSFile.fromPath(path),
-        onProgress:
-            (p0) => _logger.debug(
-              'Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%',
-            ),
+        onProgress: (p0) => _logger.debug(
+          'Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%',
+        ),
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
@@ -227,16 +222,15 @@ class _HomeScreenState extends State<HomeScreen> {
   // get the url of a file in the S3 bucket
   Future<String> getUrl(String path) async {
     try {
-      final result =
-          await Amplify.Storage.getUrl(
-            path: StoragePath.fromString(path),
-            options: const StorageGetUrlOptions(
-              pluginOptions: S3GetUrlPluginOptions(
-                validateObjectExistence: true,
-                expiresIn: Duration(minutes: 1),
-              ),
-            ),
-          ).result;
+      final result = await Amplify.Storage.getUrl(
+        path: StoragePath.fromString(path),
+        options: const StorageGetUrlOptions(
+          pluginOptions: S3GetUrlPluginOptions(
+            validateObjectExistence: true,
+            expiresIn: Duration(minutes: 1),
+          ),
+        ),
+      ).result;
       setState(() {
         imageUrl = result.url.toString();
       });

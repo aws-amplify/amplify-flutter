@@ -20,18 +20,17 @@ void main() {
     late CognitoAuthStateMachine stateMachine;
 
     setUp(() async {
-      stateMachine =
-          CognitoAuthStateMachine()
-            ..addBuilder<SecureStorageInterface>((_) => MockSecureStorage())
-            ..dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
+      stateMachine = CognitoAuthStateMachine()
+        ..addBuilder<SecureStorageInterface>((_) => MockSecureStorage())
+        ..dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       provider = AuthPluginCredentialsProviderImpl(stateMachine);
 
       await stateMachine.stream.firstWhere((state) => state is Configured);
 
       stateMachine.addInstance<CognitoIdentityClient>(
         MockCognitoIdentityClient(
-          getCredentialsForIdentity:
-              () async => GetCredentialsForIdentityResponse(
+          getCredentialsForIdentity: () async =>
+              GetCredentialsForIdentityResponse(
                 credentials: Credentials(
                   accessKeyId: accessKeyId,
                   secretKey: secretAccessKey,

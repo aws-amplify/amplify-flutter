@@ -28,11 +28,12 @@ class Gio {
     return _g_application_get_application_id(application);
   }
 
-  late final _g_application_get_application_idPtr = _lookup<
-    ffi.NativeFunction<
-      ffi.Pointer<pkg_ffi.Utf8> Function(ffi.Pointer<GApplication>)
-    >
-  >('g_application_get_application_id');
+  late final _g_application_get_application_idPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<pkg_ffi.Utf8> Function(ffi.Pointer<GApplication>)
+        >
+      >('g_application_get_application_id');
   late final _g_application_get_application_id =
       _g_application_get_application_idPtr
           .asFunction<
@@ -47,9 +48,8 @@ class Gio {
       _lookup<ffi.NativeFunction<ffi.Pointer<GApplication> Function()>>(
         'g_application_get_default',
       );
-  late final _g_application_get_default =
-      _g_application_get_defaultPtr
-          .asFunction<ffi.Pointer<GApplication> Function()>();
+  late final _g_application_get_default = _g_application_get_defaultPtr
+      .asFunction<ffi.Pointer<GApplication> Function()>();
 }
 
 typedef GApplication = _GApplication;

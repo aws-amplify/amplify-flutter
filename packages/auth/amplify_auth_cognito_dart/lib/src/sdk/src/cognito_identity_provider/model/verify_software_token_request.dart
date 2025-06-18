@@ -69,12 +69,11 @@ abstract class VerifySoftwareTokenRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('VerifySoftwareTokenRequest')
-          ..add('accessToken', '***SENSITIVE***')
-          ..add('session', '***SENSITIVE***')
-          ..add('userCode', '***SENSITIVE***')
-          ..add('friendlyDeviceName', friendlyDeviceName);
+    final helper = newBuiltValueToStringHelper('VerifySoftwareTokenRequest')
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('session', '***SENSITIVE***')
+      ..add('userCode', '***SENSITIVE***')
+      ..add('friendlyDeviceName', friendlyDeviceName);
     return helper.toString();
   }
 }

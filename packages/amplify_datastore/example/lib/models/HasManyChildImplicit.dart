@@ -141,24 +141,21 @@ class HasManyChildImplicit extends amplify_core.Model {
     return HasManyChildImplicit._internal(
       id: id,
       name: name == null ? this.name : name.value,
-      hasManyParentImplicitChildrenId:
-          hasManyParentImplicitChildrenId == null
-              ? this.hasManyParentImplicitChildrenId
-              : hasManyParentImplicitChildrenId.value,
+      hasManyParentImplicitChildrenId: hasManyParentImplicitChildrenId == null
+          ? this.hasManyParentImplicitChildrenId
+          : hasManyParentImplicitChildrenId.value,
     );
   }
 
   HasManyChildImplicit.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _name = json['name'],
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null,
       _hasManyParentImplicitChildrenId =
           json['hasManyParentImplicitChildrenId'];
 
@@ -270,10 +267,9 @@ class HasManyChildImplicitModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

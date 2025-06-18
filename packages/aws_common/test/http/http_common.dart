@@ -48,10 +48,9 @@ void clientTest(
             (secure ? Uri.https : Uri.http)(host, path);
 
         setUp(() async {
-          httpServerChannel =
-              await startServer()
-                ..sink.add(protocol.value)
-                ..sink.add(secure);
+          httpServerChannel = await startServer()
+            ..sink.add(protocol.value)
+            ..sink.add(secure);
           httpServerQueue = StreamQueue(httpServerChannel.stream);
           host = 'localhost:${await httpServerQueue.next}';
           client = debugClient..supportedProtocols = supportedProtocols;

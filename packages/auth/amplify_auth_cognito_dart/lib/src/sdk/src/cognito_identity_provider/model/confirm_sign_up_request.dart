@@ -39,8 +39,9 @@ abstract class ConfirmSignUpRequest
       forceAliasCreation: forceAliasCreation,
       analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 
@@ -118,16 +119,15 @@ abstract class ConfirmSignUpRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ConfirmSignUpRequest')
-          ..add('clientId', '***SENSITIVE***')
-          ..add('secretHash', '***SENSITIVE***')
-          ..add('username', '***SENSITIVE***')
-          ..add('confirmationCode', confirmationCode)
-          ..add('forceAliasCreation', forceAliasCreation)
-          ..add('analyticsMetadata', analyticsMetadata)
-          ..add('userContextData', '***SENSITIVE***')
-          ..add('clientMetadata', clientMetadata);
+    final helper = newBuiltValueToStringHelper('ConfirmSignUpRequest')
+      ..add('clientId', '***SENSITIVE***')
+      ..add('secretHash', '***SENSITIVE***')
+      ..add('username', '***SENSITIVE***')
+      ..add('confirmationCode', confirmationCode)
+      ..add('forceAliasCreation', forceAliasCreation)
+      ..add('analyticsMetadata', analyticsMetadata)
+      ..add('userContextData', '***SENSITIVE***')
+      ..add('clientMetadata', clientMetadata);
     return helper.toString();
   }
 }

@@ -88,11 +88,11 @@ const expectedApiKeyWebSocketConnectionUrlCustomDomain =
     'wss://foo.bar.aws.dev/graphql/realtime?payload=e30%3D';
 
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
-  final testAuthProviderRepo =
-      AmplifyAuthProviderRepository()..registerAuthProvider(
-        APIAuthorizationType.apiKey.authProviderToken,
-        AppSyncApiKeyAuthProvider(),
-      );
+  final testAuthProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      APIAuthorizationType.apiKey.authProviderToken,
+      AppSyncApiKeyAuthProvider(),
+    );
 
   return testAuthProviderRepo;
 }
@@ -343,9 +343,8 @@ final deepEquals = const DeepCollectionEquality().equals;
   APIAuthorizationType type, [
   String? apiKey,
 ]) {
-  final repo =
-      AmplifyAuthProviderRepository()
-        ..registerAuthProvider(type.authProviderToken, authProvider);
+  final repo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(type.authProviderToken, authProvider);
   final outputs = DataOutputs(
     awsRegion: 'us-east-1',
     url: 'https://example.com/',

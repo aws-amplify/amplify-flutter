@@ -26,8 +26,9 @@ abstract class DeviceType
   }) {
     return _$DeviceType._(
       deviceKey: deviceKey,
-      deviceAttributes:
-          deviceAttributes == null ? null : _i2.BuiltList(deviceAttributes),
+      deviceAttributes: deviceAttributes == null
+          ? null
+          : _i2.BuiltList(deviceAttributes),
       deviceCreateDate: deviceCreateDate,
       deviceLastModifiedDate: deviceLastModifiedDate,
       deviceLastAuthenticatedDate: deviceLastAuthenticatedDate,
@@ -69,13 +70,12 @@ abstract class DeviceType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeviceType')
-          ..add('deviceKey', deviceKey)
-          ..add('deviceAttributes', deviceAttributes)
-          ..add('deviceCreateDate', deviceCreateDate)
-          ..add('deviceLastModifiedDate', deviceLastModifiedDate)
-          ..add('deviceLastAuthenticatedDate', deviceLastAuthenticatedDate);
+    final helper = newBuiltValueToStringHelper('DeviceType')
+      ..add('deviceKey', deviceKey)
+      ..add('deviceAttributes', deviceAttributes)
+      ..add('deviceCreateDate', deviceCreateDate)
+      ..add('deviceLastModifiedDate', deviceLastModifiedDate)
+      ..add('deviceLastAuthenticatedDate', deviceLastAuthenticatedDate);
     return helper.toString();
   }
 }

@@ -47,8 +47,9 @@ abstract class ListMultipartUploadsOutput
       maxUploads: maxUploads,
       isTruncated: isTruncated,
       uploads: uploads == null ? null : _i3.BuiltList(uploads),
-      commonPrefixes:
-          commonPrefixes == null ? null : _i3.BuiltList(commonPrefixes),
+      commonPrefixes: commonPrefixes == null
+          ? null
+          : _i3.BuiltList(commonPrefixes),
       encodingType: encodingType,
       requestCharged: requestCharged,
     );
@@ -185,21 +186,20 @@ abstract class ListMultipartUploadsOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListMultipartUploadsOutput')
-          ..add('bucket', bucket)
-          ..add('keyMarker', keyMarker)
-          ..add('uploadIdMarker', uploadIdMarker)
-          ..add('nextKeyMarker', nextKeyMarker)
-          ..add('prefix', prefix)
-          ..add('delimiter', delimiter)
-          ..add('nextUploadIdMarker', nextUploadIdMarker)
-          ..add('maxUploads', maxUploads)
-          ..add('isTruncated', isTruncated)
-          ..add('uploads', uploads)
-          ..add('commonPrefixes', commonPrefixes)
-          ..add('encodingType', encodingType)
-          ..add('requestCharged', requestCharged);
+    final helper = newBuiltValueToStringHelper('ListMultipartUploadsOutput')
+      ..add('bucket', bucket)
+      ..add('keyMarker', keyMarker)
+      ..add('uploadIdMarker', uploadIdMarker)
+      ..add('nextKeyMarker', nextKeyMarker)
+      ..add('prefix', prefix)
+      ..add('delimiter', delimiter)
+      ..add('nextUploadIdMarker', nextUploadIdMarker)
+      ..add('maxUploads', maxUploads)
+      ..add('isTruncated', isTruncated)
+      ..add('uploads', uploads)
+      ..add('commonPrefixes', commonPrefixes)
+      ..add('encodingType', encodingType)
+      ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }

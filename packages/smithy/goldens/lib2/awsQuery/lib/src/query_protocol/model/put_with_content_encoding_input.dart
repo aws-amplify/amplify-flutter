@@ -45,10 +45,9 @@ abstract class PutWithContentEncodingInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PutWithContentEncodingInput')
-          ..add('encoding', encoding)
-          ..add('data', data);
+    final helper = newBuiltValueToStringHelper('PutWithContentEncodingInput')
+      ..add('encoding', encoding)
+      ..add('data', data);
     return helper.toString();
   }
 }

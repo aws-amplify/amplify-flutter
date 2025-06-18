@@ -49,10 +49,9 @@ abstract class DeviceSecretVerifierConfigType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeviceSecretVerifierConfigType')
-          ..add('passwordVerifier', passwordVerifier)
-          ..add('salt', salt);
+    final helper = newBuiltValueToStringHelper('DeviceSecretVerifierConfigType')
+      ..add('passwordVerifier', passwordVerifier)
+      ..add('salt', salt);
     return helper.toString();
   }
 }

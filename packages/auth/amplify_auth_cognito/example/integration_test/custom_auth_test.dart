@@ -401,15 +401,15 @@ void main() {
                   ),
                 ),
               ),
-              AuthenticationFlowType.customAuthWithoutSrp => Amplify
-                  .Auth.signIn(
-                username: username,
-                options: const SignInOptions(
-                  pluginOptions: CognitoSignInPluginOptions(
-                    authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
+              AuthenticationFlowType.customAuthWithoutSrp =>
+                Amplify.Auth.signIn(
+                  username: username,
+                  options: const SignInOptions(
+                    pluginOptions: CognitoSignInPluginOptions(
+                      authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
+                    ),
                   ),
                 ),
-              ),
               _ => throw StateError('unreachable'),
             };
             expect(
@@ -426,9 +426,8 @@ void main() {
             // On initial sign-in, the device will be untracked and unremembered.
             await signIn();
 
-            final deviceRepo =
-                cognitoPlugin.stateMachine
-                    .getOrCreate<DeviceMetadataRepository>();
+            final deviceRepo = cognitoPlugin.stateMachine
+                .getOrCreate<DeviceMetadataRepository>();
             await expectLater(
               deviceRepo.get(username),
               completion(

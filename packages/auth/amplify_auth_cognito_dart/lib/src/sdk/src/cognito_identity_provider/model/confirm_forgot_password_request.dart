@@ -42,8 +42,9 @@ abstract class ConfirmForgotPasswordRequest
       password: password,
       analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 
@@ -115,16 +116,15 @@ abstract class ConfirmForgotPasswordRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ConfirmForgotPasswordRequest')
-          ..add('clientId', '***SENSITIVE***')
-          ..add('secretHash', '***SENSITIVE***')
-          ..add('username', '***SENSITIVE***')
-          ..add('confirmationCode', confirmationCode)
-          ..add('password', '***SENSITIVE***')
-          ..add('analyticsMetadata', analyticsMetadata)
-          ..add('userContextData', '***SENSITIVE***')
-          ..add('clientMetadata', clientMetadata);
+    final helper = newBuiltValueToStringHelper('ConfirmForgotPasswordRequest')
+      ..add('clientId', '***SENSITIVE***')
+      ..add('secretHash', '***SENSITIVE***')
+      ..add('username', '***SENSITIVE***')
+      ..add('confirmationCode', confirmationCode)
+      ..add('password', '***SENSITIVE***')
+      ..add('analyticsMetadata', analyticsMetadata)
+      ..add('userContextData', '***SENSITIVE***')
+      ..add('clientMetadata', clientMetadata);
     return helper.toString();
   }
 }

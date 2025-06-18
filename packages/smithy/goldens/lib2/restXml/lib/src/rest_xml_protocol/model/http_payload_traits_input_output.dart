@@ -68,10 +68,9 @@ abstract class HttpPayloadTraitsInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpPayloadTraitsInputOutput')
-          ..add('foo', foo)
-          ..add('blob', blob);
+    final helper = newBuiltValueToStringHelper('HttpPayloadTraitsInputOutput')
+      ..add('foo', foo)
+      ..add('blob', blob);
     return helper.toString();
   }
 }

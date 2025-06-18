@@ -84,21 +84,19 @@ abstract class GetObjectRequest
       b.ifMatch = request.headers['If-Match']!;
     }
     if (request.headers['If-Modified-Since'] != null) {
-      b.ifModifiedSince =
-          _i1.Timestamp.parse(
-            request.headers['If-Modified-Since']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.ifModifiedSince = _i1.Timestamp.parse(
+        request.headers['If-Modified-Since']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['If-None-Match'] != null) {
       b.ifNoneMatch = request.headers['If-None-Match']!;
     }
     if (request.headers['If-Unmodified-Since'] != null) {
-      b.ifUnmodifiedSince =
-          _i1.Timestamp.parse(
-            request.headers['If-Unmodified-Since']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.ifUnmodifiedSince = _i1.Timestamp.parse(
+        request.headers['If-Unmodified-Since']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['Range'] != null) {
       b.range = request.headers['Range']!;
@@ -150,11 +148,10 @@ abstract class GetObjectRequest
       b.responseContentType = request.queryParameters['response-content-type']!;
     }
     if (request.queryParameters['response-expires'] != null) {
-      b.responseExpires =
-          _i1.Timestamp.parse(
-            request.queryParameters['response-expires']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.responseExpires = _i1.Timestamp.parse(
+        request.queryParameters['response-expires']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.queryParameters['versionId'] != null) {
       b.versionId = request.queryParameters['versionId']!;
@@ -356,29 +353,28 @@ abstract class GetObjectRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetObjectRequest')
-          ..add('bucket', bucket)
-          ..add('ifMatch', ifMatch)
-          ..add('ifModifiedSince', ifModifiedSince)
-          ..add('ifNoneMatch', ifNoneMatch)
-          ..add('ifUnmodifiedSince', ifUnmodifiedSince)
-          ..add('key', key)
-          ..add('range', range)
-          ..add('responseCacheControl', responseCacheControl)
-          ..add('responseContentDisposition', responseContentDisposition)
-          ..add('responseContentEncoding', responseContentEncoding)
-          ..add('responseContentLanguage', responseContentLanguage)
-          ..add('responseContentType', responseContentType)
-          ..add('responseExpires', responseExpires)
-          ..add('versionId', versionId)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKey', '***SENSITIVE***')
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('requestPayer', requestPayer)
-          ..add('partNumber', partNumber)
-          ..add('expectedBucketOwner', expectedBucketOwner)
-          ..add('checksumMode', checksumMode);
+    final helper = newBuiltValueToStringHelper('GetObjectRequest')
+      ..add('bucket', bucket)
+      ..add('ifMatch', ifMatch)
+      ..add('ifModifiedSince', ifModifiedSince)
+      ..add('ifNoneMatch', ifNoneMatch)
+      ..add('ifUnmodifiedSince', ifUnmodifiedSince)
+      ..add('key', key)
+      ..add('range', range)
+      ..add('responseCacheControl', responseCacheControl)
+      ..add('responseContentDisposition', responseContentDisposition)
+      ..add('responseContentEncoding', responseContentEncoding)
+      ..add('responseContentLanguage', responseContentLanguage)
+      ..add('responseContentType', responseContentType)
+      ..add('responseExpires', responseExpires)
+      ..add('versionId', versionId)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKey', '***SENSITIVE***')
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('requestPayer', requestPayer)
+      ..add('partNumber', partNumber)
+      ..add('expectedBucketOwner', expectedBucketOwner)
+      ..add('checksumMode', checksumMode);
     return helper.toString();
   }
 }

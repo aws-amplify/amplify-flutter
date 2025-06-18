@@ -50,11 +50,10 @@ abstract class InAppMessageBodyConfig
   List<Object?> get props => [alignment, body, textColor];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InAppMessageBodyConfig')
-          ..add('alignment', alignment)
-          ..add('body', body)
-          ..add('textColor', textColor);
+    final helper = newBuiltValueToStringHelper('InAppMessageBodyConfig')
+      ..add('alignment', alignment)
+      ..add('body', body)
+      ..add('textColor', textColor);
     return helper.toString();
   }
 }

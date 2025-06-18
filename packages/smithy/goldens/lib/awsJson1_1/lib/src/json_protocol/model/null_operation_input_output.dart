@@ -24,10 +24,12 @@ abstract class NullOperationInputOutput
   }) {
     return _$NullOperationInputOutput._(
       string: string,
-      sparseStringList:
-          sparseStringList == null ? null : _i3.BuiltList(sparseStringList),
-      sparseStringMap:
-          sparseStringMap == null ? null : _i3.BuiltMap(sparseStringMap),
+      sparseStringList: sparseStringList == null
+          ? null
+          : _i3.BuiltList(sparseStringList),
+      sparseStringMap: sparseStringMap == null
+          ? null
+          : _i3.BuiltMap(sparseStringMap),
     );
   }
 
@@ -63,11 +65,10 @@ abstract class NullOperationInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('NullOperationInputOutput')
-          ..add('string', string)
-          ..add('sparseStringList', sparseStringList)
-          ..add('sparseStringMap', sparseStringMap);
+    final helper = newBuiltValueToStringHelper('NullOperationInputOutput')
+      ..add('string', string)
+      ..add('sparseStringList', sparseStringList)
+      ..add('sparseStringMap', sparseStringMap);
     return helper.toString();
   }
 }

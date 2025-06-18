@@ -198,20 +198,18 @@ class _SocialSignInButtonState
       child: OutlinedButton(
         focusNode: focusNode,
         style: ButtonStyle(foregroundColor: getButtonForegroundColor(context)),
-        onPressed:
-            state.isBusy
-                ? null
-                : () => state.signInWithProvider(widget.provider),
+        onPressed: state.isBusy
+            ? null
+            : () => state.signInWithProvider(widget.provider),
         child: LayoutBuilder(
           builder: (context, constraints) {
             final padding = calculatePadding(constraints);
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: padding),
               child: Row(
-                mainAxisAlignment:
-                    padding == 0
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.start,
+                mainAxisAlignment: padding == 0
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.start,
                 children: [
                   SizedBox.square(
                     dimension: logoSize,

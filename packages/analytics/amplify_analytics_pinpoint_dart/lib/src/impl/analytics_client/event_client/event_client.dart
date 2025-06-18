@@ -131,15 +131,14 @@ class EventClient implements Closeable {
     final batchItems = {_fixedEndpointId: batch};
 
     try {
-      final result =
-          await _pinpointClient
-              .putEvents(
-                PutEventsRequest(
-                  applicationId: _pinpointAppId,
-                  eventsRequest: EventsRequest(batchItem: batchItems),
-                ),
-              )
-              .result;
+      final result = await _pinpointClient
+          .putEvents(
+            PutEventsRequest(
+              applicationId: _pinpointAppId,
+              eventsRequest: EventsRequest(batchItem: batchItems),
+            ),
+          )
+          .result;
 
       // Parse the EndpointResponse portion of Result
       final endpointResponse = result.eventsResponse.results?[_fixedEndpointId];

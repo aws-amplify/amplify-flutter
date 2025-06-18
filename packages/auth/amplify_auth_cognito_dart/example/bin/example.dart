@@ -14,13 +14,13 @@ import 'package:qr/qr.dart';
 Future<void> main(List<String> args) async {
   AWSLogger().logLevel = LogLevel.debug;
 
-  final argParser =
-      ArgParser()..addOption(
-        'environment',
-        abbr: 'e',
-        help: 'The Amplify environment to configure',
-        defaultsTo: 'main',
-      );
+  final argParser = ArgParser()
+    ..addOption(
+      'environment',
+      abbr: 'e',
+      help: 'The Amplify environment to configure',
+      defaultsTo: 'main',
+    );
 
   final argResults = argParser.parse(args);
   final environmentName = argResults['environment'] as String;
@@ -127,8 +127,8 @@ Future<SignInResult> _processSignInResult(
 }) async {
   final nextStep = result.nextStep;
   final signInStep = nextStep.signInStep;
-  final missingAttributes =
-      nextStep.missingAttributes.cast<CognitoUserAttributeKey>();
+  final missingAttributes = nextStep.missingAttributes
+      .cast<CognitoUserAttributeKey>();
   switch (signInStep) {
     case AuthSignInStep.continueSignInWithMfaSelection:
       while (true) {
@@ -157,12 +157,12 @@ Future<SignInResult> _processSignInResult(
       final mfaCode = prompt('Enter an MFA code to confirm registration: ');
       return confirmSignIn(mfaCode);
     case AuthSignInStep.confirmSignInWithTotpMfaCode:
-      final mfaCode = prompt(switch (nextStep
-          .codeDeliveryDetails
-          ?.destination) {
-        final deviceName? => 'Enter an MFA code (sent to "$deviceName"): ',
-        _ => 'Enter an MFA code (sent to registered authenticator app): ',
-      });
+      final mfaCode = prompt(
+        switch (nextStep.codeDeliveryDetails?.destination) {
+          final deviceName? => 'Enter an MFA code (sent to "$deviceName"): ',
+          _ => 'Enter an MFA code (sent to registered authenticator app): ',
+        },
+      );
       return confirmSignIn(mfaCode);
     case AuthSignInStep.confirmSignInWithSmsMfaCode:
     case AuthSignInStep.confirmSignInWithCustomChallenge:

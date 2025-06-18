@@ -38,12 +38,14 @@ abstract class RespondToAuthChallengeRequest
       clientId: clientId,
       challengeName: challengeName,
       session: session,
-      challengeResponses:
-          challengeResponses == null ? null : _i3.BuiltMap(challengeResponses),
+      challengeResponses: challengeResponses == null
+          ? null
+          : _i3.BuiltMap(challengeResponses),
       analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 
@@ -167,15 +169,14 @@ abstract class RespondToAuthChallengeRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RespondToAuthChallengeRequest')
-          ..add('clientId', '***SENSITIVE***')
-          ..add('challengeName', challengeName)
-          ..add('session', '***SENSITIVE***')
-          ..add('challengeResponses', '***SENSITIVE***')
-          ..add('analyticsMetadata', analyticsMetadata)
-          ..add('userContextData', '***SENSITIVE***')
-          ..add('clientMetadata', clientMetadata);
+    final helper = newBuiltValueToStringHelper('RespondToAuthChallengeRequest')
+      ..add('clientId', '***SENSITIVE***')
+      ..add('challengeName', challengeName)
+      ..add('session', '***SENSITIVE***')
+      ..add('challengeResponses', '***SENSITIVE***')
+      ..add('analyticsMetadata', analyticsMetadata)
+      ..add('userContextData', '***SENSITIVE***')
+      ..add('clientMetadata', clientMetadata);
     return helper.toString();
   }
 }

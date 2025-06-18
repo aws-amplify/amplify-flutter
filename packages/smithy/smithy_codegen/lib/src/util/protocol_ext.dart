@@ -29,8 +29,9 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     RestXmlTrait _ => DartTypes.smithyAws.restXmlProtocol,
     AwsQueryTrait _ => DartTypes.smithyAws.awsQueryProtocol,
     Ec2QueryTrait _ => DartTypes.smithyAws.ec2QueryProtocol,
-    _ =>
-      throw UnsupportedError('No protocol found for $runtimeType ($shapeId)'),
+    _ => throw UnsupportedError(
+      'No protocol found for $runtimeType ($shapeId)',
+    ),
   };
 
   /// Returns the structure generator for this protocol.
@@ -68,9 +69,9 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     final additionalSerializers = <Expression>[];
     return additionalSerializers.isNotEmpty
         ? literalConstList([
-          context.serializersRef.spread,
-          ...additionalSerializers,
-        ])
+            context.serializersRef.spread,
+            ...additionalSerializers,
+          ])
         : context.serializersRef;
   }
 

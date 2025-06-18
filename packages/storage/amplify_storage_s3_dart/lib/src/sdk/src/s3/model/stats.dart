@@ -50,11 +50,10 @@ abstract class Stats
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('Stats')
-          ..add('bytesScanned', bytesScanned)
-          ..add('bytesProcessed', bytesProcessed)
-          ..add('bytesReturned', bytesReturned);
+    final helper = newBuiltValueToStringHelper('Stats')
+      ..add('bytesScanned', bytesScanned)
+      ..add('bytesProcessed', bytesProcessed)
+      ..add('bytesReturned', bytesReturned);
     return helper.toString();
   }
 }

@@ -27,10 +27,9 @@ class TransferDatabase extends $TransferDatabase
     : super(
         dependencies.getOrCreate<db_common.Connect>()(
           name: dataBaseName,
-          path:
-              dependencies
-                  .getOrCreate<AppPathProvider>()
-                  .getApplicationSupportPath(),
+          path: dependencies
+              .getOrCreate<AppPathProvider>()
+              .getApplicationSupportPath(),
         ),
       );
 
@@ -90,7 +89,8 @@ class TransferDatabase extends $TransferDatabase
 
   @override
   Future<int> deleteTransferRecords(String uploadId) {
-    return (delete(transferRecords)
-      ..where((tbl) => tbl.uploadId.equals(uploadId))).go();
+    return (delete(
+      transferRecords,
+    )..where((tbl) => tbl.uploadId.equals(uploadId))).go();
   }
 }

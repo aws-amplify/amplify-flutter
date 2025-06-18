@@ -51,11 +51,10 @@ abstract class EventFeedbackType
   List<Object?> get props => [feedbackValue, provider, feedbackDate];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EventFeedbackType')
-          ..add('feedbackValue', feedbackValue)
-          ..add('provider', provider)
-          ..add('feedbackDate', feedbackDate);
+    final helper = newBuiltValueToStringHelper('EventFeedbackType')
+      ..add('feedbackValue', feedbackValue)
+      ..add('provider', provider)
+      ..add('feedbackDate', feedbackDate);
     return helper.toString();
   }
 }

@@ -15,29 +15,27 @@ import 'test_utils/test_token_provider.dart';
 const testPath = StoragePath.fromString('some/path.txt');
 
 void main() {
-  final testConfig =
-      const AmplifyConfig(
-        storage: StorageConfig(
-          plugins: {
-            S3PluginConfig.pluginKey: S3PluginConfig(
-              bucket: '123',
-              region: 'west-2',
-            ),
-          },
+  final testConfig = const AmplifyConfig(
+    storage: StorageConfig(
+      plugins: {
+        S3PluginConfig.pluginKey: S3PluginConfig(
+          bucket: '123',
+          region: 'west-2',
         ),
-        // ignore: invalid_use_of_internal_member
-      ).toAmplifyOutputs();
+      },
+    ),
+    // ignore: invalid_use_of_internal_member
+  ).toAmplifyOutputs();
 
-  final testAuthProviderRepo =
-      AmplifyAuthProviderRepository()
-        ..registerAuthProvider(
-          APIAuthorizationType.userPools.authProviderToken,
-          TestTokenIdentityProvider(),
-        )
-        ..registerAuthProvider(
-          APIAuthorizationType.iam.authProviderToken,
-          TestIamAuthProvider(),
-        );
+  final testAuthProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      APIAuthorizationType.userPools.authProviderToken,
+      TestTokenIdentityProvider(),
+    )
+    ..registerAuthProvider(
+      APIAuthorizationType.iam.authProviderToken,
+      TestIamAuthProvider(),
+    );
 
   group('AmplifyStorageS3Dart', () {
     late DependencyManager dependencyManager;
@@ -111,13 +109,12 @@ void main() {
 
           final listOperation = storageS3Plugin.list(path: testPath);
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.list(
-                  path: testPath,
-                  options: captureAny<StorageListOptions>(named: 'options'),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.list(
+              path: testPath,
+              options: captureAny<StorageListOptions>(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, defaultOptions);
 
@@ -145,13 +142,12 @@ void main() {
           options: testOptions,
         );
 
-        final capturedOptions =
-            verify(
-              () => storageS3Service.list(
-                path: testPath,
-                options: captureAny<StorageListOptions>(named: 'options'),
-              ),
-            ).captured.last;
+        final capturedOptions = verify(
+          () => storageS3Service.list(
+            path: testPath,
+            options: captureAny<StorageListOptions>(named: 'options'),
+          ),
+        ).captured.last;
 
         expect(capturedOptions, testOptions);
 
@@ -194,15 +190,14 @@ void main() {
             path: testPath,
           );
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.getProperties(
-                  path: testPath,
-                  options: captureAny<StorageGetPropertiesOptions>(
-                    named: 'options',
-                  ),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.getProperties(
+              path: testPath,
+              options: captureAny<StorageGetPropertiesOptions>(
+                named: 'options',
+              ),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, defaultOptions);
 
@@ -234,15 +229,14 @@ void main() {
             options: testOptions,
           );
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.getProperties(
-                  path: testPath,
-                  options: captureAny<StorageGetPropertiesOptions>(
-                    named: 'options',
-                  ),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.getProperties(
+              path: testPath,
+              options: captureAny<StorageGetPropertiesOptions>(
+                named: 'options',
+              ),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, testOptions);
 
@@ -277,13 +271,12 @@ void main() {
 
           final getUrlOperation = storageS3Plugin.getUrl(path: testPath);
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.getUrl(
-                  path: testPath,
-                  options: captureAny<StorageGetUrlOptions>(named: 'options'),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.getUrl(
+              path: testPath,
+              options: captureAny<StorageGetUrlOptions>(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, defaultOptions);
 
@@ -313,13 +306,12 @@ void main() {
           options: testOptions,
         );
 
-        final capturedOptions =
-            verify(
-              () => storageS3Service.getUrl(
-                path: testPath,
-                options: captureAny<StorageGetUrlOptions>(named: 'options'),
-              ),
-            ).captured.last;
+        final capturedOptions = verify(
+          () => storageS3Service.getUrl(
+            path: testPath,
+            options: captureAny<StorageGetUrlOptions>(named: 'options'),
+          ),
+        ).captured.last;
 
         expect(capturedOptions, testOptions);
 
@@ -376,19 +368,16 @@ void main() {
             path: const StoragePath.fromString('public/$testKey'),
           );
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.downloadData(
-                  path: const StoragePath.fromString('public/$testKey'),
-                  options: captureAny<StorageDownloadDataOptions>(
-                    named: 'options',
-                  ),
-                  preStart: any(named: 'preStart'),
-                  onProgress: any(named: 'onProgress'),
-                  onData: any(named: 'onData'),
-                  onDone: any(named: 'onDone'),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.downloadData(
+              path: const StoragePath.fromString('public/$testKey'),
+              options: captureAny<StorageDownloadDataOptions>(named: 'options'),
+              preStart: any(named: 'preStart'),
+              onProgress: any(named: 'onProgress'),
+              onData: any(named: 'onData'),
+              onDone: any(named: 'onDone'),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, defaultOptions);
 
@@ -430,16 +419,13 @@ void main() {
             options: testOptions,
           );
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.downloadData(
-                  path: any<StoragePathFromIdentityId>(named: 'path'),
-                  onData: any(named: 'onData'),
-                  options: captureAny<StorageDownloadDataOptions>(
-                    named: 'options',
-                  ),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.downloadData(
+              path: any<StoragePathFromIdentityId>(named: 'path'),
+              onData: any(named: 'onData'),
+              options: captureAny<StorageDownloadDataOptions>(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, testOptions);
         },
@@ -511,19 +497,16 @@ void main() {
             path: testPath,
           );
 
-          final capturedParams =
-              verify(
-                () => storageS3Service.uploadData(
-                  path: testPath,
-                  dataPayload: captureAny<S3DataPayload>(named: 'dataPayload'),
-                  options: captureAny<StorageUploadDataOptions>(
-                    named: 'options',
-                  ),
-                  onProgress: any(named: 'onProgress'),
-                  onDone: any(named: 'onDone'),
-                  onError: any(named: 'onError'),
-                ),
-              ).captured;
+          final capturedParams = verify(
+            () => storageS3Service.uploadData(
+              path: testPath,
+              dataPayload: captureAny<S3DataPayload>(named: 'dataPayload'),
+              options: captureAny<StorageUploadDataOptions>(named: 'options'),
+              onProgress: any(named: 'onProgress'),
+              onDone: any(named: 'onDone'),
+              onError: any(named: 'onError'),
+            ),
+          ).captured;
 
           final capturedDataPayload = capturedParams[0];
           final capturedOptions = capturedParams[1];
@@ -563,16 +546,13 @@ void main() {
             path: testPath,
             options: testOptions,
           );
-          final capturedOptions =
-              verify(
-                () => storageS3Service.uploadData(
-                  path: testPath,
-                  dataPayload: any(named: 'dataPayload'),
-                  options: captureAny<StorageUploadDataOptions>(
-                    named: 'options',
-                  ),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.uploadData(
+              path: testPath,
+              dataPayload: any(named: 'dataPayload'),
+              options: captureAny<StorageUploadDataOptions>(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, testOptions);
         },
@@ -598,16 +578,13 @@ void main() {
             path: testPath,
             options: testOptions,
           );
-          final capturedOptions =
-              verify(
-                () => storageS3Service.uploadData(
-                  path: testPath,
-                  dataPayload: any(named: 'dataPayload'),
-                  options: captureAny<StorageUploadDataOptions>(
-                    named: 'options',
-                  ),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.uploadData(
+              path: testPath,
+              dataPayload: any(named: 'dataPayload'),
+              options: captureAny<StorageUploadDataOptions>(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(
             capturedOptions,
@@ -676,19 +653,16 @@ void main() {
             localFile: testLocalFile,
           );
 
-          final capturedParams =
-              verify(
-                () => storageS3Service.uploadFile(
-                  path: testPath,
-                  localFile: captureAny<AWSFile>(named: 'localFile'),
-                  options: captureAny<StorageUploadFileOptions>(
-                    named: 'options',
-                  ),
-                  onProgress: any(named: 'onProgress'),
-                  onDone: any(named: 'onDone'),
-                  onError: any(named: 'onError'),
-                ),
-              ).captured;
+          final capturedParams = verify(
+            () => storageS3Service.uploadFile(
+              path: testPath,
+              localFile: captureAny<AWSFile>(named: 'localFile'),
+              options: captureAny<StorageUploadFileOptions>(named: 'options'),
+              onProgress: any(named: 'onProgress'),
+              onDone: any(named: 'onDone'),
+              onError: any(named: 'onError'),
+            ),
+          ).captured;
 
           final capturedLocalFile = capturedParams[0];
           final capturedOptions = capturedParams[1];
@@ -731,16 +705,13 @@ void main() {
             options: testOptions,
           );
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.uploadFile(
-                  path: testPath,
-                  localFile: any(named: 'localFile'),
-                  options: captureAny<StorageUploadFileOptions>(
-                    named: 'options',
-                  ),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.uploadFile(
+              path: testPath,
+              localFile: any(named: 'localFile'),
+              options: captureAny<StorageUploadFileOptions>(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, testOptions);
         },
@@ -768,16 +739,13 @@ void main() {
             options: testOptions,
           );
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.uploadFile(
-                  path: testPath,
-                  localFile: any(named: 'localFile'),
-                  options: captureAny<StorageUploadFileOptions>(
-                    named: 'options',
-                  ),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.uploadFile(
+              path: testPath,
+              localFile: any(named: 'localFile'),
+              options: captureAny<StorageUploadFileOptions>(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(
             capturedOptions,
@@ -844,14 +812,13 @@ void main() {
           ),
         );
 
-        final captured =
-            verify(
-              () => storageS3Service.copy(
-                source: captureAny<StoragePath>(named: 'source'),
-                destination: captureAny<StoragePath>(named: 'destination'),
-                options: captureAny<StorageCopyOptions>(named: 'options'),
-              ),
-            ).captured;
+        final captured = verify(
+          () => storageS3Service.copy(
+            source: captureAny<StoragePath>(named: 'source'),
+            destination: captureAny<StoragePath>(named: 'destination'),
+            options: captureAny<StorageCopyOptions>(named: 'options'),
+          ),
+        ).captured;
         final capturedSource = captured[0];
         final capturedDestination = captured[1];
         final capturedOptions = captured[2];
@@ -901,13 +868,12 @@ void main() {
             options: defaultOptions,
           );
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.remove(
-                  path: testPath,
-                  options: captureAny<StorageRemoveOptions>(named: 'options'),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.remove(
+              path: testPath,
+              options: captureAny<StorageRemoveOptions>(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, defaultOptions);
 
@@ -936,13 +902,12 @@ void main() {
           options: testOptions,
         );
 
-        final capturedOptions =
-            verify(
-              () => storageS3Service.remove(
-                path: testPath,
-                options: captureAny<StorageRemoveOptions>(named: 'options'),
-              ),
-            ).captured.last;
+        final capturedOptions = verify(
+          () => storageS3Service.remove(
+            path: testPath,
+            options: captureAny<StorageRemoveOptions>(named: 'options'),
+          ),
+        ).captured.last;
 
         expect(capturedOptions, testOptions);
 
@@ -957,8 +922,9 @@ void main() {
         (index) => 'object-to-remove-${index + 1}',
       );
       final testPaths = testKeys.map(StoragePath.fromString).toList();
-      final resultRemoveItems =
-          testKeys.map((key) => S3Item(path: key)).toList();
+      final resultRemoveItems = testKeys
+          .map((key) => S3Item(path: key))
+          .toList();
       final testResult = S3RemoveManyResult(removedItems: resultRemoveItems);
 
       setUpAll(() {
@@ -983,13 +949,12 @@ void main() {
             paths: testPaths,
           );
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.removeMany(
-                  paths: testPaths,
-                  options: captureAny(named: 'options'),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.removeMany(
+              paths: testPaths,
+              options: captureAny(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, defaultOptions);
 
@@ -1020,13 +985,12 @@ void main() {
             options: testOptions,
           );
 
-          final capturedOptions =
-              verify(
-                () => storageS3Service.removeMany(
-                  paths: testPaths,
-                  options: captureAny(named: 'options'),
-                ),
-              ).captured.last;
+          final capturedOptions = verify(
+            () => storageS3Service.removeMany(
+              paths: testPaths,
+              options: captureAny(named: 'options'),
+            ),
+          ).captured.last;
 
           expect(capturedOptions, testOptions);
 

@@ -55,14 +55,10 @@ abstract class EventRiskType
   ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EventRiskType')
-          ..add('riskDecision', riskDecision)
-          ..add('riskLevel', riskLevel)
-          ..add(
-            'compromisedCredentialsDetected',
-            compromisedCredentialsDetected,
-          );
+    final helper = newBuiltValueToStringHelper('EventRiskType')
+      ..add('riskDecision', riskDecision)
+      ..add('riskLevel', riskLevel)
+      ..add('compromisedCredentialsDetected', compromisedCredentialsDetected);
     return helper.toString();
   }
 }

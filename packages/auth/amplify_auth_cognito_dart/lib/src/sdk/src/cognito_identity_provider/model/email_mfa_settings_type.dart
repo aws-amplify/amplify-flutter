@@ -52,10 +52,9 @@ abstract class EmailMfaSettingsType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EmailMfaSettingsType')
-          ..add('enabled', enabled)
-          ..add('preferredMfa', preferredMfa);
+    final helper = newBuiltValueToStringHelper('EmailMfaSettingsType')
+      ..add('enabled', enabled)
+      ..add('preferredMfa', preferredMfa);
     return helper.toString();
   }
 }

@@ -25,10 +25,9 @@ abstract class UpdateUserAttributesResponse
     List<CodeDeliveryDetailsType>? codeDeliveryDetailsList,
   }) {
     return _$UpdateUserAttributesResponse._(
-      codeDeliveryDetailsList:
-          codeDeliveryDetailsList == null
-              ? null
-              : _i2.BuiltList(codeDeliveryDetailsList),
+      codeDeliveryDetailsList: codeDeliveryDetailsList == null
+          ? null
+          : _i2.BuiltList(codeDeliveryDetailsList),
     );
   }
 

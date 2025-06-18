@@ -47,18 +47,19 @@ class CoreFoundation {
     );
   }
 
-  late final _CFDictionaryCreatePtr = _lookup<
-    ffi.NativeFunction<
-      CFDictionaryRef Function(
-        CFAllocatorRef,
-        ffi.Pointer<ffi.Pointer<ffi.Void>>,
-        ffi.Pointer<ffi.Pointer<ffi.Void>>,
-        CFIndex,
-        ffi.Pointer<CFDictionaryKeyCallBacks>,
-        ffi.Pointer<CFDictionaryValueCallBacks>,
-      )
-    >
-  >('CFDictionaryCreate');
+  late final _CFDictionaryCreatePtr =
+      _lookup<
+        ffi.NativeFunction<
+          CFDictionaryRef Function(
+            CFAllocatorRef,
+            ffi.Pointer<ffi.Pointer<ffi.Void>>,
+            ffi.Pointer<ffi.Pointer<ffi.Void>>,
+            CFIndex,
+            ffi.Pointer<CFDictionaryKeyCallBacks>,
+            ffi.Pointer<CFDictionaryValueCallBacks>,
+          )
+        >
+      >('CFDictionaryCreate');
   late final _CFDictionaryCreate =
       _CFDictionaryCreatePtr.asFunction<
         CFDictionaryRef Function(
@@ -79,11 +80,12 @@ class CoreFoundation {
     return _CFDataCreate(allocator, bytes, length);
   }
 
-  late final _CFDataCreatePtr = _lookup<
-    ffi.NativeFunction<
-      CFDataRef Function(CFAllocatorRef, ffi.Pointer<UInt8>, CFIndex)
-    >
-  >('CFDataCreate');
+  late final _CFDataCreatePtr =
+      _lookup<
+        ffi.NativeFunction<
+          CFDataRef Function(CFAllocatorRef, ffi.Pointer<UInt8>, CFIndex)
+        >
+      >('CFDataCreate');
   late final _CFDataCreate =
       _CFDataCreatePtr.asFunction<
         CFDataRef Function(CFAllocatorRef, ffi.Pointer<UInt8>, int)
@@ -108,15 +110,16 @@ class CoreFoundation {
     return _CFStringCreateWithCString(alloc, cStr, encoding);
   }
 
-  late final _CFStringCreateWithCStringPtr = _lookup<
-    ffi.NativeFunction<
-      CFStringRef Function(
-        CFAllocatorRef,
-        ffi.Pointer<ffi.Char>,
-        CFStringEncoding,
-      )
-    >
-  >('CFStringCreateWithCString');
+  late final _CFStringCreateWithCStringPtr =
+      _lookup<
+        ffi.NativeFunction<
+          CFStringRef Function(
+            CFAllocatorRef,
+            ffi.Pointer<ffi.Char>,
+            CFStringEncoding,
+          )
+        >
+      >('CFStringCreateWithCString');
   late final _CFStringCreateWithCString =
       _CFStringCreateWithCStringPtr.asFunction<
         CFStringRef Function(CFAllocatorRef, ffi.Pointer<ffi.Char>, int)
@@ -142,16 +145,17 @@ class CoreFoundation {
     return _CFStringGetCString(theString, buffer, bufferSize, encoding);
   }
 
-  late final _CFStringGetCStringPtr = _lookup<
-    ffi.NativeFunction<
-      Boolean Function(
-        CFStringRef,
-        ffi.Pointer<ffi.Char>,
-        CFIndex,
-        CFStringEncoding,
-      )
-    >
-  >('CFStringGetCString');
+  late final _CFStringGetCStringPtr =
+      _lookup<
+        ffi.NativeFunction<
+          Boolean Function(
+            CFStringRef,
+            ffi.Pointer<ffi.Char>,
+            CFIndex,
+            CFStringEncoding,
+          )
+        >
+      >('CFStringGetCString');
   late final _CFStringGetCString =
       _CFStringGetCStringPtr.asFunction<
         int Function(CFStringRef, ffi.Pointer<ffi.Char>, int, int)
@@ -164,11 +168,12 @@ class CoreFoundation {
     return _CFStringGetCStringPtr1(theString, encoding);
   }
 
-  late final _CFStringGetCStringPtrPtr = _lookup<
-    ffi.NativeFunction<
-      ffi.Pointer<ffi.Char> Function(CFStringRef, CFStringEncoding)
-    >
-  >('CFStringGetCStringPtr');
+  late final _CFStringGetCStringPtrPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(CFStringRef, CFStringEncoding)
+        >
+      >('CFStringGetCStringPtr');
   late final _CFStringGetCStringPtr1 =
       _CFStringGetCStringPtrPtr.asFunction<
         ffi.Pointer<ffi.Char> Function(CFStringRef, int)

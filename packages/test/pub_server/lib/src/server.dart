@@ -128,10 +128,9 @@ class PubServer {
   @Route.get('/api/packages/versions/new')
   Future<Response> newVersion(Request request) async {
     return _okJson({
-      'url':
-          request.requestedUri
-              .resolve('/api/packages/versions/newUpload')
-              .toString(),
+      'url': request.requestedUri
+          .resolve('/api/packages/versions/newUpload')
+          .toString(),
       'fields': <String, Object?>{},
     });
   }
@@ -213,10 +212,9 @@ class PubServer {
     await db.upsertPackageVersion(
       name: pubspec.name,
       version: version,
-      archiveUrl:
-          request.requestedUri
-              .resolve('/packages/${pubspec.name}/versions/$version.tar.gz')
-              .toString(),
+      archiveUrl: request.requestedUri
+          .resolve('/packages/${pubspec.name}/versions/$version.tar.gz')
+          .toString(),
       pubspecYaml: pubspecYaml,
       readme: readme,
       changelog: changelog,
@@ -224,10 +222,9 @@ class PubServer {
     return Response(
       204,
       headers: {
-        AWSHeaders.location:
-            request.requestedUri
-                .resolve('/api/packages/versions/newUploadFinish')
-                .toString(),
+        AWSHeaders.location: request.requestedUri
+            .resolve('/api/packages/versions/newUploadFinish')
+            .toString(),
       },
     );
   }
@@ -279,8 +276,8 @@ class PubServer {
   }
 
   static Middleware get _loggerMiddleware => logRequests(
-    logger:
-        (message, isError) => (isError ? _logger.error : _logger.info)(message),
+    logger: (message, isError) =>
+        (isError ? _logger.error : _logger.info)(message),
   );
 
   Handler get handler => const Pipeline()

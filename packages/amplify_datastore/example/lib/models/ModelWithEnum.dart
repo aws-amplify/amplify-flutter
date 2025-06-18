@@ -80,10 +80,9 @@ class ModelWithEnum extends amplify_core.Model {
     return ModelWithEnum._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       enumField: enumField,
-      listOfEnumField:
-          listOfEnumField != null
-              ? List<EnumField>.unmodifiable(listOfEnumField)
-              : listOfEnumField,
+      listOfEnumField: listOfEnumField != null
+          ? List<EnumField>.unmodifiable(listOfEnumField)
+          : listOfEnumField,
     );
   }
 
@@ -123,8 +122,8 @@ class ModelWithEnum extends amplify_core.Model {
       "listOfEnumField=" +
           (_listOfEnumField != null
               ? _listOfEnumField
-                  .map((e) => amplify_core.enumToString(e))
-                  .toString()
+                    .map((e) => amplify_core.enumToString(e))
+                    .toString()
               : "null") +
           ", ",
     );
@@ -157,10 +156,9 @@ class ModelWithEnum extends amplify_core.Model {
     return ModelWithEnum._internal(
       id: id,
       enumField: enumField == null ? this.enumField : enumField.value,
-      listOfEnumField:
-          listOfEnumField == null
-              ? this.listOfEnumField
-              : listOfEnumField.value,
+      listOfEnumField: listOfEnumField == null
+          ? this.listOfEnumField
+          : listOfEnumField.value,
     );
   }
 
@@ -170,32 +168,29 @@ class ModelWithEnum extends amplify_core.Model {
         json['enumField'],
         EnumField.values,
       ),
-      _listOfEnumField =
-          json['listOfEnumField'] is List
-              ? (json['listOfEnumField'] as List)
-                  .map(
-                    (e) =>
-                        amplify_core.enumFromString<EnumField>(
-                          e,
-                          EnumField.values,
-                        )!,
-                  )
-                  .toList()
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+      _listOfEnumField = json['listOfEnumField'] is List
+          ? (json['listOfEnumField'] as List)
+                .map(
+                  (e) => amplify_core.enumFromString<EnumField>(
+                    e,
+                    EnumField.values,
+                  )!,
+                )
+                .toList()
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'enumField': amplify_core.enumToString(_enumField),
-    'listOfEnumField':
-        _listOfEnumField?.map((e) => amplify_core.enumToString(e)).toList(),
+    'listOfEnumField': _listOfEnumField
+        ?.map((e) => amplify_core.enumToString(e))
+        .toList(),
     'createdAt': _createdAt?.format(),
     'updatedAt': _updatedAt?.format(),
   };
@@ -299,10 +294,9 @@ class ModelWithEnumModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

@@ -67,10 +67,9 @@ abstract class MethodNotAllowedException
   List<Object?> get props => [message, requestId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MethodNotAllowedException')
-          ..add('message', message)
-          ..add('requestId', requestId);
+    final helper = newBuiltValueToStringHelper('MethodNotAllowedException')
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }

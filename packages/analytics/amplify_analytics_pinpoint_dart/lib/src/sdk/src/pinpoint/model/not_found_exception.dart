@@ -65,10 +65,9 @@ abstract class NotFoundException
   List<Object?> get props => [message, requestId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('NotFoundException')
-          ..add('message', message)
-          ..add('requestId', requestId);
+    final helper = newBuiltValueToStringHelper('NotFoundException')
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }

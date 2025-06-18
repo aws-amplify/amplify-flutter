@@ -72,11 +72,10 @@ abstract class ServiceUnavailableException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ServiceUnavailableException')
-          ..add('type', type)
-          ..add('code', code)
-          ..add('message', message);
+    final helper = newBuiltValueToStringHelper('ServiceUnavailableException')
+      ..add('type', type)
+      ..add('code', code)
+      ..add('message', message);
     return helper.toString();
   }
 }

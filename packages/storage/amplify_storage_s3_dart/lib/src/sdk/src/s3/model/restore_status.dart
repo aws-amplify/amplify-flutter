@@ -61,10 +61,9 @@ abstract class RestoreStatus
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RestoreStatus')
-          ..add('isRestoreInProgress', isRestoreInProgress)
-          ..add('restoreExpiryDate', restoreExpiryDate);
+    final helper = newBuiltValueToStringHelper('RestoreStatus')
+      ..add('isRestoreInProgress', isRestoreInProgress)
+      ..add('restoreExpiryDate', restoreExpiryDate);
     return helper.toString();
   }
 }

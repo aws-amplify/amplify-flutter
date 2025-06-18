@@ -104,16 +104,14 @@ aft:
           'workingDirectory',
         ).equals(workingDirectory)
         ..has((config) => config.dependencies.toMap(), 'dependencies').which(
-          (it) =>
-              it
-                ..containsKey('json_serializable')
-                ..not((it) => it..containsKey('built_value')),
+          (it) => it
+            ..containsKey('json_serializable')
+            ..not((it) => it..containsKey('built_value')),
         )
         ..has((config) => config.scripts.toMap(), 'scripts').which(
-          (it) =>
-              it
-                ..containsKey('license')
-                ..containsKey('format'),
+          (it) => it
+            ..containsKey('license')
+            ..containsKey('format'),
         );
     });
   });
