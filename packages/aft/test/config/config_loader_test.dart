@@ -17,7 +17,7 @@ name: my_repo
 publish_to: none
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 
 dependencies:
   json_serializable: ^6.9.4
@@ -50,7 +50,7 @@ name: my_repo
 publish_to: none
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 
 dependencies:
   json_serializable: ^6.9.4
@@ -68,7 +68,7 @@ name: my_pkg
 version: 0.1.0
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 
 dependencies:
   built_value: ^8.10.1

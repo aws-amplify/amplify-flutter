@@ -110,7 +110,7 @@ ${smithyPath == null
             : ''
         : 'publish_to: none\n'}${pubspec.homepage != null ? 'homepage: ${pubspec.homepage}\n' : ''}
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 
 dependencies:
 $dependenciesBlock

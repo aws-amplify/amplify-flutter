@@ -3,7 +3,7 @@ description: Demonstrates how to use the amplify_push_notifications_pinpoint plu
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
   flutter: ">=3.29.0"
 
 dependencies:

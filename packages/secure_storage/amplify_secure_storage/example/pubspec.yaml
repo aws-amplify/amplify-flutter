@@ -4,7 +4,7 @@ description: Demonstrates how to use the amplify_secure_storage plugin and house
 publish_to: "none"
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
   flutter: ">=3.29.0"
 
 dependencies:
