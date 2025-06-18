@@ -32,4 +32,4 @@ aft:
   scripts:
     test:
       from: current
-      run: dart --enable-experiment=inline-class test -p node
+      run: dart test -p node
