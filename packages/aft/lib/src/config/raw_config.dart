@@ -578,10 +578,9 @@ extension on Pubspec {
     'name': name,
     if (version != null) 'version': version!.toString(),
     if (publishTo != null) 'publishTo': publishTo,
-    if (environment != null)
-      'environment': environment!.map((key, constraint) {
-        return MapEntry(key, constraint?.toString());
-      }),
+    'environment': environment.map((key, constraint) {
+      return MapEntry(key, constraint?.toString());
+    }),
     if (homepage != null) 'homepage': homepage,
     if (repository != null) 'repository': repository!.toString(),
     if (issueTracker != null) 'issueTracker': issueTracker!.toString(),

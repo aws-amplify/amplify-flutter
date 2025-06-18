@@ -92,7 +92,6 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
         );
       default:
         baseBloc.add(const AuthLoad());
-        break;
     }
 
     return baseBloc;

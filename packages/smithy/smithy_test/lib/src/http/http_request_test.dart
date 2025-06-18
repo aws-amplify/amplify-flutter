@@ -159,7 +159,6 @@ Future<void> httpRequestTest<InputPayload, Input, OutputPayload, Output>({
           expect(xmlBody, orderedEquals(expectedXmlBody));
         default:
           expectBytes(expectedBody.codeUnits);
-          break;
       }
     }
   }, zoneValues: {zSigningTest: true, zSmithyHttpTest: true});
