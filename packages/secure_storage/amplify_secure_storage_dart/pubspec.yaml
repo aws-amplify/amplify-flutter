@@ -26,7 +26,6 @@ dependencies:
   built_value: ^8.10.1
   ffi: ^2.0.2
   file: ^7.0.1
-  js: ">=0.6.4 <0.8.0"
   meta: ^1.16.0
   path: ^1.8.0
   web: ^1.1.1
