@@ -13,10 +13,9 @@ S3DownloadDataPluginOptions _$S3DownloadDataPluginOptionsFromJson(
     getProperties: $checkedConvert('getProperties', (v) => v as bool? ?? false),
     bytesRange: $checkedConvert(
       'bytesRange',
-      (v) =>
-          v == null
-              ? null
-              : S3DataBytesRange.fromJson(v as Map<String, dynamic>),
+      (v) => v == null
+          ? null
+          : S3DataBytesRange.fromJson(v as Map<String, dynamic>),
     ),
     useAccelerateEndpoint: $checkedConvert(
       'useAccelerateEndpoint',

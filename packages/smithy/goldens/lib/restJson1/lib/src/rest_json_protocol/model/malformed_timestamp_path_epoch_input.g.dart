@@ -96,9 +96,8 @@ class _$MalformedTimestampPathEpochInputPayload
     extends MalformedTimestampPathEpochInputPayload {
   factory _$MalformedTimestampPathEpochInputPayload([
     void Function(MalformedTimestampPathEpochInputPayloadBuilder)? updates,
-  ]) =>
-      (MalformedTimestampPathEpochInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedTimestampPathEpochInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampPathEpochInputPayload._() : super._();
   @override

@@ -7,18 +7,16 @@ part of 'github_jobs.dart';
 // **************************************************************************
 
 GithubJobsList _$GithubJobsListFromJson(Map json) => GithubJobsList(
-  jobs:
-      (json['jobs'] as List<dynamic>)
-          .map((e) => GithubJob.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
+  jobs: (json['jobs'] as List<dynamic>)
+      .map((e) => GithubJob.fromJson(Map<String, dynamic>.from(e as Map)))
+      .toList(),
 );
 
 GithubJob _$GithubJobFromJson(Map json) => GithubJob(
   name: json['name'] as String,
-  steps:
-      (json['steps'] as List<dynamic>)
-          .map((e) => GithubStep.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
+  steps: (json['steps'] as List<dynamic>)
+      .map((e) => GithubStep.fromJson(Map<String, dynamic>.from(e as Map)))
+      .toList(),
 );
 
 GithubStep _$GithubStepFromJson(Map json) => GithubStep(

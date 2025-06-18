@@ -15,9 +15,8 @@ class _$HttpPayloadTraitsWithMediaTypeInputOutput
 
   factory _$HttpPayloadTraitsWithMediaTypeInputOutput([
     void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder)? updates,
-  ]) =>
-      (HttpPayloadTraitsWithMediaTypeInputOutputBuilder()..update(updates))
-          ._build();
+  ]) => (HttpPayloadTraitsWithMediaTypeInputOutputBuilder()..update(updates))
+      ._build();
 
   _$HttpPayloadTraitsWithMediaTypeInputOutput._({this.foo, this.blob})
     : super._();

@@ -452,8 +452,9 @@ class _$CustomType extends CustomType {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'CustomType')
-      ..add('customField', customField)).toString();
+    return (newBuiltValueToStringHelper(
+      r'CustomType',
+    )..add('customField', customField)).toString();
   }
 }
 
@@ -889,8 +890,9 @@ class _$E2EResult extends E2EResult {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'E2EResult')
-      ..add('message', message)).toString();
+    return (newBuiltValueToStringHelper(
+      r'E2EResult',
+    )..add('message', message)).toString();
   }
 }
 

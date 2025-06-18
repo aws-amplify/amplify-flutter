@@ -103,8 +103,9 @@ class _$WindowsSecureStorageOptions extends WindowsSecureStorageOptions {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'WindowsSecureStorageOptions')
-      ..add('storagePath', storagePath)).toString();
+    return (newBuiltValueToStringHelper(
+      r'WindowsSecureStorageOptions',
+    )..add('storagePath', storagePath)).toString();
   }
 }
 

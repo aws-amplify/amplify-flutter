@@ -116,9 +116,8 @@ class _$QueryParamsAsStringListMapInputPayload
     extends QueryParamsAsStringListMapInputPayload {
   factory _$QueryParamsAsStringListMapInputPayload([
     void Function(QueryParamsAsStringListMapInputPayloadBuilder)? updates,
-  ]) =>
-      (QueryParamsAsStringListMapInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (QueryParamsAsStringListMapInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$QueryParamsAsStringListMapInputPayload._() : super._();
   @override

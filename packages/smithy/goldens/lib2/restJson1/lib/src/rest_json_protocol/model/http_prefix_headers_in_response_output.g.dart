@@ -112,9 +112,8 @@ class _$HttpPrefixHeadersInResponseOutputPayload
     extends HttpPrefixHeadersInResponseOutputPayload {
   factory _$HttpPrefixHeadersInResponseOutputPayload([
     void Function(HttpPrefixHeadersInResponseOutputPayloadBuilder)? updates,
-  ]) =>
-      (HttpPrefixHeadersInResponseOutputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (HttpPrefixHeadersInResponseOutputPayloadBuilder()..update(updates))
+      ._build();
 
   _$HttpPrefixHeadersInResponseOutputPayload._() : super._();
   @override

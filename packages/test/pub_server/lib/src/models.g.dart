@@ -42,10 +42,9 @@ GetVersionsResponse _$GetVersionsResponseFromJson(Map<String, dynamic> json) =>
     GetVersionsResponse(
       name: json['name'] as String,
       latest: VersionResponse.fromJson(json['latest'] as Map<String, dynamic>),
-      versions:
-          (json['versions'] as List<dynamic>)
-              .map((e) => VersionResponse.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      versions: (json['versions'] as List<dynamic>)
+          .map((e) => VersionResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$GetVersionsResponseToJson(

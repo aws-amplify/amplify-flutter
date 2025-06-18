@@ -65,16 +65,14 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
   Package map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Package(
-      name:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}name'],
-          )!,
-      latest:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}latest'],
-          )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      latest: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}latest'],
+      )!,
     );
   }
 
@@ -380,41 +378,34 @@ class $PackageVersionsTable extends PackageVersions
   PackageVersion map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return PackageVersion(
-      package:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}package'],
-          )!,
-      version:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}version'],
-          )!,
-      archiveUrl:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}archive_url'],
-          )!,
-      pubspec:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}pubspec'],
-          )!,
-      readme:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}readme'],
-          )!,
-      changelog:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}changelog'],
-          )!,
-      published:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}published'],
-          )!,
+      package: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}package'],
+      )!,
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}version'],
+      )!,
+      archiveUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}archive_url'],
+      )!,
+      pubspec: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}pubspec'],
+      )!,
+      readme: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}readme'],
+      )!,
+      changelog: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}changelog'],
+      )!,
+      published: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}published'],
+      )!,
     );
   }
 
@@ -516,8 +507,9 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     return PackageVersion(
       package: data.package.present ? data.package.value : this.package,
       version: data.version.present ? data.version.value : this.version,
-      archiveUrl:
-          data.archiveUrl.present ? data.archiveUrl.value : this.archiveUrl,
+      archiveUrl: data.archiveUrl.present
+          ? data.archiveUrl.value
+          : this.archiveUrl,
       pubspec: data.pubspec.present ? data.pubspec.value : this.pubspec,
       readme: data.readme.present ? data.readme.value : this.readme,
       changelog: data.changelog.present ? data.changelog.value : this.changelog,
@@ -793,12 +785,12 @@ class $$PackagesTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$PackagesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$PackagesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$PackagesTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$PackagesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PackagesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PackagesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> name = const Value.absent(),
@@ -815,16 +807,9 @@ class $$PackagesTableTableManager
                 latest: latest,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -1019,19 +1004,12 @@ class $$PackageVersionsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () =>
-                  $$PackageVersionsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$PackageVersionsTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer:
-              () => $$PackageVersionsTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
+          createFilteringComposer: () =>
+              $$PackageVersionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PackageVersionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PackageVersionsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> package = const Value.absent(),
@@ -1072,16 +1050,9 @@ class $$PackageVersionsTableTableManager
                 published: published,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
