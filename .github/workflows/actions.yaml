@@ -78,7 +78,7 @@ jobs:
 
       - name: Test
         working-directory: actions
-        run: dart --enable-experiment=inline-class test -p node
+        run: dart test -p node
 
   test_setup_chromedriver:
     name: Test Action (setup_chromedriver)
