@@ -15,29 +15,42 @@ void main() {
     final worker = Worker(jsEntrypoint.toJS);
     worker.postMessage('NoWorker'.toJS);
 
-    final errors = <Object>[];
-    final Function errorCallback = errors.add;
-    worker.onerror = errorCallback.toJS;
+    final errors = <MessageEvent>[];
+    worker.onerror = errors.add.toJS;
 
-    final firstMessageCompleter = Completer<dynamic>();
-    final Function messageCallback = firstMessageCompleter.complete;
-    worker.onmessage = messageCallback.toJS;
+    final firstMessageCompleter = Completer<MessageEvent>();
+    void complete(MessageEvent event) {
+      firstMessageCompleter.complete(event);
+    }
+    worker.onmessage = complete.toJS;
 
-    late dynamic data;
+    late List<JSAny?> eventData;
     await expectLater(
       firstMessageCompleter.future,
       completion(
         isA<MessageEvent>().having(
-          (message) => data = message.data,
+          (message) {
+            final data = message.data;
+            if (!data.isA<JSArray<JSAny?>>()) return null;
+            data as JSArray<JSAny?>;
+            eventData = data.toDart;
+            return eventData;
+          },
           'data',
-          isA<List<Object?>>(),
+          isA<List<JSAny?>>(),
         ),
       ),
     );
     worker.terminate();
 
     expect(errors, isEmpty);
-    expect((data as List<Object?>).first, 'WorkerBeeExceptionImpl');
+    final error = eventData.first;
+    if (!error.isA<JSString>()) {
+      fail('EventMessage.data.first is not an exception');
+    } else {
+      error as JSString;
+      expect(error.toDart, 'WorkerBeeExceptionImpl');
+    }
   }
 
   group('preamble', () {
