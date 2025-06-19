@@ -230,7 +230,7 @@ void main() {
       //
       // [Future.ignore] is not working in DDC, possibly due to this issue:
       // https://github.com/dart-lang/sdk/issues/50619
-      unawaited(plugin.fetchUserAttributes().then((_) {}).onError((_, __) {}));
+      unawaited(plugin.fetchUserAttributes().then((_) {}).onError((_, _) {}));
 
       final fetchAuthSessionMachine = stateMachine.getOrCreate(
         FetchAuthSessionStateMachine.type,

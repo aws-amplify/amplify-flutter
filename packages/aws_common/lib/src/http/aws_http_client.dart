@@ -30,7 +30,7 @@ abstract class AWSHttpClient implements Closeable {
   /// by selectively returning `true` for these options. For example, when
   /// debugging with local, self-signed certificates, it can be helpful to
   /// return `true` from this method for all certificates.
-  BadCertificateCallback onBadCertificate = (_, __, ___) => false;
+  BadCertificateCallback onBadCertificate = (_, _, _) => false;
 
   /// The supported HTTP protocols, used for negotiating with remote servers.
   ///

@@ -9,7 +9,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 AWSHttpClient get debugClient {
-  final client = AWSHttpClient()..onBadCertificate = (_, __, ___) => true;
+  final client = AWSHttpClient()..onBadCertificate = (_, _, _) => true;
   addTearDown(client.close);
   return client;
 }

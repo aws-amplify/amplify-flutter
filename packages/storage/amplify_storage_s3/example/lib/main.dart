@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
     routes: [
       GoRoute(
         path: '/',
-        builder: (BuildContext _, GoRouterState __) => const HomeScreen(),
+        builder: (BuildContext _, GoRouterState _) => const HomeScreen(),
       ),
     ],
   );
