@@ -427,10 +427,12 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
           router.property('add').call([
             literalString('POST'),
             literalString('/'),
-            DartTypes.smithy.rpcRouter.newInstance([
-              literalString('X-Amz-Target'),
-              literalMap(routes),
-            ]).property('call'),
+            DartTypes.smithy.rpcRouter
+                .newInstance([
+                  literalString('X-Amz-Target'),
+                  literalMap(routes),
+                ])
+                .property('call'),
           ]),
         );
     }
