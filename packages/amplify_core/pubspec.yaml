@@ -14,7 +14,7 @@ dependencies:
   aws_signature_v4: ">=0.6.6 <0.7.0"
   collection: ^1.18.0
   graphs: ^2.1.0
-  intl: ">=0.18.0 <1.0.0"
+  intl: ^0.20.2
   json_annotation: ^4.9.0
   logging: ^1.0.0
   meta: ^1.16.0

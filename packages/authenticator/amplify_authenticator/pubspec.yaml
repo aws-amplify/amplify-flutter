@@ -20,7 +20,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ">=0.18.0 <1.0.0"
+  intl: ^0.20.2
   meta: ^1.16.0
   # TODO(equartey): Remove this once we have our own method of getting the app name
   package_info_plus: ^8.0.0
