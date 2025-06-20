@@ -291,6 +291,17 @@ class $PackageVersionsTable extends PackageVersions
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _archiveSha256Meta = const VerificationMeta(
+    'archiveSha256',
+  );
+  @override
+  late final GeneratedColumn<String> archiveSha256 = GeneratedColumn<String>(
+    'archive_sha256',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     package,
@@ -300,6 +311,7 @@ class $PackageVersionsTable extends PackageVersions
     readme,
     changelog,
     published,
+    archiveSha256,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -369,6 +381,17 @@ class $PackageVersionsTable extends PackageVersions
     } else if (isInserting) {
       context.missing(_publishedMeta);
     }
+    if (data.containsKey('archive_sha256')) {
+      context.handle(
+        _archiveSha256Meta,
+        archiveSha256.isAcceptableOrUnknown(
+          data['archive_sha256']!,
+          _archiveSha256Meta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_archiveSha256Meta);
+    }
     return context;
   }
 
@@ -406,6 +429,10 @@ class $PackageVersionsTable extends PackageVersions
         DriftSqlType.dateTime,
         data['${effectivePrefix}published'],
       )!,
+      archiveSha256: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}archive_sha256'],
+      )!,
     );
   }
 
@@ -423,6 +450,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
   final String readme;
   final String changelog;
   final DateTime published;
+  final String archiveSha256;
   const PackageVersion({
     required this.package,
     required this.version,
@@ -431,6 +459,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     required this.readme,
     required this.changelog,
     required this.published,
+    required this.archiveSha256,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -442,6 +471,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     map['readme'] = Variable<String>(readme);
     map['changelog'] = Variable<String>(changelog);
     map['published'] = Variable<DateTime>(published);
+    map['archive_sha256'] = Variable<String>(archiveSha256);
     return map;
   }
 
@@ -454,6 +484,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       readme: Value(readme),
       changelog: Value(changelog),
       published: Value(published),
+      archiveSha256: Value(archiveSha256),
     );
   }
 
@@ -470,6 +501,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       readme: serializer.fromJson<String>(json['readme']),
       changelog: serializer.fromJson<String>(json['changelog']),
       published: serializer.fromJson<DateTime>(json['published']),
+      archiveSha256: serializer.fromJson<String>(json['archiveSha256']),
     );
   }
   @override
@@ -483,6 +515,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       'readme': serializer.toJson<String>(readme),
       'changelog': serializer.toJson<String>(changelog),
       'published': serializer.toJson<DateTime>(published),
+      'archiveSha256': serializer.toJson<String>(archiveSha256),
     };
   }
 
@@ -494,6 +527,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     String? readme,
     String? changelog,
     DateTime? published,
+    String? archiveSha256,
   }) => PackageVersion(
     package: package ?? this.package,
     version: version ?? this.version,
@@ -502,6 +536,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     readme: readme ?? this.readme,
     changelog: changelog ?? this.changelog,
     published: published ?? this.published,
+    archiveSha256: archiveSha256 ?? this.archiveSha256,
   );
   PackageVersion copyWithCompanion(PackageVersionsCompanion data) {
     return PackageVersion(
@@ -514,6 +549,9 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       readme: data.readme.present ? data.readme.value : this.readme,
       changelog: data.changelog.present ? data.changelog.value : this.changelog,
       published: data.published.present ? data.published.value : this.published,
+      archiveSha256: data.archiveSha256.present
+          ? data.archiveSha256.value
+          : this.archiveSha256,
     );
   }
 
@@ -526,7 +564,8 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
           ..write('pubspec: $pubspec, ')
           ..write('readme: $readme, ')
           ..write('changelog: $changelog, ')
-          ..write('published: $published')
+          ..write('published: $published, ')
+          ..write('archiveSha256: $archiveSha256')
           ..write(')'))
         .toString();
   }
@@ -540,6 +579,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     readme,
     changelog,
     published,
+    archiveSha256,
   );
   @override
   bool operator ==(Object other) =>
@@ -551,7 +591,8 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
           other.pubspec == this.pubspec &&
           other.readme == this.readme &&
           other.changelog == this.changelog &&
-          other.published == this.published);
+          other.published == this.published &&
+          other.archiveSha256 == this.archiveSha256);
 }
 
 class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
@@ -562,6 +603,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
   final Value<String> readme;
   final Value<String> changelog;
   final Value<DateTime> published;
+  final Value<String> archiveSha256;
   final Value<int> rowid;
   const PackageVersionsCompanion({
     this.package = const Value.absent(),
@@ -571,6 +613,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     this.readme = const Value.absent(),
     this.changelog = const Value.absent(),
     this.published = const Value.absent(),
+    this.archiveSha256 = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   PackageVersionsCompanion.insert({
@@ -581,6 +624,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     required String readme,
     required String changelog,
     required DateTime published,
+    required String archiveSha256,
     this.rowid = const Value.absent(),
   }) : package = Value(package),
        version = Value(version),
@@ -588,7 +632,8 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
        pubspec = Value(pubspec),
        readme = Value(readme),
        changelog = Value(changelog),
-       published = Value(published);
+       published = Value(published),
+       archiveSha256 = Value(archiveSha256);
   static Insertable<PackageVersion> custom({
     Expression<String>? package,
     Expression<String>? version,
@@ -597,6 +642,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     Expression<String>? readme,
     Expression<String>? changelog,
     Expression<DateTime>? published,
+    Expression<String>? archiveSha256,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -607,6 +653,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
       if (readme != null) 'readme': readme,
       if (changelog != null) 'changelog': changelog,
       if (published != null) 'published': published,
+      if (archiveSha256 != null) 'archive_sha256': archiveSha256,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -619,6 +666,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     Value<String>? readme,
     Value<String>? changelog,
     Value<DateTime>? published,
+    Value<String>? archiveSha256,
     Value<int>? rowid,
   }) {
     return PackageVersionsCompanion(
@@ -629,6 +677,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
       readme: readme ?? this.readme,
       changelog: changelog ?? this.changelog,
       published: published ?? this.published,
+      archiveSha256: archiveSha256 ?? this.archiveSha256,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -657,6 +706,9 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     if (published.present) {
       map['published'] = Variable<DateTime>(published.value);
     }
+    if (archiveSha256.present) {
+      map['archive_sha256'] = Variable<String>(archiveSha256.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -673,6 +725,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
           ..write('readme: $readme, ')
           ..write('changelog: $changelog, ')
           ..write('published: $published, ')
+          ..write('archiveSha256: $archiveSha256, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -838,6 +891,7 @@ typedef $$PackageVersionsTableCreateCompanionBuilder =
       required String readme,
       required String changelog,
       required DateTime published,
+      required String archiveSha256,
       Value<int> rowid,
     });
 typedef $$PackageVersionsTableUpdateCompanionBuilder =
@@ -849,6 +903,7 @@ typedef $$PackageVersionsTableUpdateCompanionBuilder =
       Value<String> readme,
       Value<String> changelog,
       Value<DateTime> published,
+      Value<String> archiveSha256,
       Value<int> rowid,
     });
 
@@ -893,6 +948,11 @@ class $$PackageVersionsTableFilterComposer
 
   ColumnFilters<DateTime> get published => $composableBuilder(
     column: $table.published,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get archiveSha256 => $composableBuilder(
+    column: $table.archiveSha256,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -940,6 +1000,11 @@ class $$PackageVersionsTableOrderingComposer
     column: $table.published,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get archiveSha256 => $composableBuilder(
+    column: $table.archiveSha256,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$PackageVersionsTableAnnotationComposer
@@ -973,6 +1038,11 @@ class $$PackageVersionsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get published =>
       $composableBuilder(column: $table.published, builder: (column) => column);
+
+  GeneratedColumn<String> get archiveSha256 => $composableBuilder(
+    column: $table.archiveSha256,
+    builder: (column) => column,
+  );
 }
 
 class $$PackageVersionsTableTableManager
@@ -1019,6 +1089,7 @@ class $$PackageVersionsTableTableManager
                 Value<String> readme = const Value.absent(),
                 Value<String> changelog = const Value.absent(),
                 Value<DateTime> published = const Value.absent(),
+                Value<String> archiveSha256 = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PackageVersionsCompanion(
                 package: package,
@@ -1028,6 +1099,7 @@ class $$PackageVersionsTableTableManager
                 readme: readme,
                 changelog: changelog,
                 published: published,
+                archiveSha256: archiveSha256,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -1039,6 +1111,7 @@ class $$PackageVersionsTableTableManager
                 required String readme,
                 required String changelog,
                 required DateTime published,
+                required String archiveSha256,
                 Value<int> rowid = const Value.absent(),
               }) => PackageVersionsCompanion.insert(
                 package: package,
@@ -1048,6 +1121,7 @@ class $$PackageVersionsTableTableManager
                 readme: readme,
                 changelog: changelog,
                 published: published,
+                archiveSha256: archiveSha256,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

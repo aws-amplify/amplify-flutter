@@ -8,6 +8,7 @@ import 'package:archive/archive.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
+import 'package:crypto/crypto.dart';
 import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:file/memory.dart';
@@ -209,6 +210,8 @@ class PubServer {
       );
     }
 
+    final archiveSha256 = sha256.convert(bytes.toList()).toString();
+
     await db.upsertPackageVersion(
       name: pubspec.name,
       version: version,
@@ -218,6 +221,7 @@ class PubServer {
       pubspecYaml: pubspecYaml,
       readme: readme,
       changelog: changelog,
+      archiveSha256: archiveSha256,
     );
     return Response(
       204,

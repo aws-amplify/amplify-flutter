@@ -41,6 +41,7 @@ class VersionResponse {
     required this.archiveUrl,
     required this.pubspec,
     required this.published,
+    required this.archiveSha256,
   });
 
   factory VersionResponse.fromJson(Map<String, dynamic> json) =>
@@ -52,6 +53,7 @@ class VersionResponse {
       archiveUrl: version.archiveUrl,
       pubspec: version.pubspec,
       published: version.published,
+      archiveSha256: version.archiveSha256,
     );
   }
 
@@ -59,6 +61,7 @@ class VersionResponse {
   final Map<String, Object?> pubspec;
   final Version version;
   final DateTime published;
+  final String archiveSha256;
 
   Map<String, dynamic> toJson() => _$VersionResponseToJson(this);
 }
@@ -123,6 +126,8 @@ class PubPackageVersion {
     required this.changelog,
     required this.readme,
     required this.published,
+    required this.archiveSha256,
+    
   });
 
   PubPackageVersion.fromDb(PackageVersion version)
@@ -132,7 +137,8 @@ class PubPackageVersion {
       pubspec = (loadYaml(version.pubspec) as YamlMap).cast(),
       changelog = version.changelog,
       readme = version.readme,
-      published = version.published;
+      published = version.published,
+      archiveSha256 = version.archiveSha256;
 
   final String package;
   final Version version;
@@ -141,4 +147,5 @@ class PubPackageVersion {
   final String? changelog;
   final String? readme;
   final DateTime published;
+  final String archiveSha256;
 }

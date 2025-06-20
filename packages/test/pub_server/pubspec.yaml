@@ -14,6 +14,7 @@ dependencies:
   async: ^2.10.0
   aws_common: any
   collection: ^1.18.0
+  crypto: ^3.0.6
   drift: ^2.25.0
   file: ^7.0.1
   git: ^2.2.0

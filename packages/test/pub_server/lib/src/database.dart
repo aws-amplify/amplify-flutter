@@ -43,6 +43,7 @@ class PubDatabase extends _$PubDatabase {
     required String pubspecYaml,
     required String readme,
     required String changelog,
+    required String archiveSha256,
   }) async {
     await transaction(() async {
       final existingPackage = await (select(
@@ -62,6 +63,7 @@ class PubDatabase extends _$PubDatabase {
           readme: readme,
           changelog: changelog,
           published: DateTime.now(),
+          archiveSha256: archiveSha256,
         ),
       );
     });
@@ -108,6 +110,7 @@ class PackageVersions extends Table {
   TextColumn get readme => text()();
   TextColumn get changelog => text()();
   DateTimeColumn get published => dateTime()();
+  TextColumn get archiveSha256 => text()();
 
   @override
   Set<Column<Object>> get primaryKey => {package, version};
