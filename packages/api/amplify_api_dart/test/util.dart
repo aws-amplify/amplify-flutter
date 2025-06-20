@@ -205,7 +205,8 @@ class MockWebSocketSink extends DelegatingStreamSink<dynamic>
   }
 }
 
-class MockWebSocketChannel extends StreamChannelMixin<dynamic> implements WebSocketChannel {
+class MockWebSocketChannel extends StreamChannelMixin<dynamic>
+    implements WebSocketChannel {
   MockWebSocketChannel() : super();
 
   // ignore: close_sinks
@@ -221,24 +222,23 @@ class MockWebSocketChannel extends StreamChannelMixin<dynamic> implements WebSoc
 
   @override
   WebSocketSink get sink => MockWebSocketSink(controller.sink);
-  
+
   @override
   StreamChannel<S> cast<S>() {
     throw UnimplementedError();
   }
-  
+
   @override
   int? get closeCode => throw UnimplementedError();
-  
+
   @override
   String? get closeReason => throw UnimplementedError();
-  
+
   @override
   String? get protocol => throw UnimplementedError();
-  
+
   @override
   Future<void> get ready => throw UnimplementedError();
-  
 }
 
 // From https://docs.amplify.aws/lib/graphqlapi/authz/q/platform/flutter/#oidc
