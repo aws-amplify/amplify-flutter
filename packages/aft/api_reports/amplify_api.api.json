@@ -1,0 +1,60 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyAPI",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AmplifyAPIDart",
+        "APIPluginInterface",
+        "AmplifyPluginInterface",
+        "Object",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyAPI",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIPluginOptions",
+              "relativePath": "package:amplify_api/src/api_plugin_impl.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api/src/api_plugin_impl.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api/src/api_plugin_impl.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_api.dart"
+      ],
+      "relativePath": "package:amplify_api/src/api_plugin_impl.dart"
+    }
+  ]
+}

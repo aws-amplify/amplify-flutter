@@ -1,0 +1,65 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyAnalyticsPinpoint",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AmplifyAnalyticsPinpointDart",
+        "AnalyticsPluginInterface",
+        "AmplifyPluginInterface",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyAnalyticsPinpoint",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "appLifecycleProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AppLifecycleProvider?",
+              "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "secureStorageFactory",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?",
+              "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AnalyticsPinpointPluginOptions",
+              "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "amplify_analytics_pinpoint.dart"
+      ],
+      "relativePath": "package:amplify_analytics_pinpoint/src/analytics_plugin_impl.dart"
+    }
+  ]
+}

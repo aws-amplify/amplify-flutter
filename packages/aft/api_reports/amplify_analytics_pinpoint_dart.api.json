@@ -1,0 +1,834 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyAnalyticsPinpointDart",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AnalyticsPluginInterface",
+        "AmplifyPluginInterface",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyAnalyticsPinpointDart",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "pathProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CachedEventsPathProvider?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "legacyNativeDataProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LegacyNativeDataProvider?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "deviceContextInfoProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DeviceContextInfoProvider?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "appLifecycleProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AppLifecycleProvider?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "secureStorageFactory",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AnalyticsPinpointPluginOptions",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "StoppableTimer?",
+          "name": "autoEventSubmitter",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart",
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ],
+      "entryPoints": [
+        "amplify_analytics_pinpoint_dart.dart"
+      ],
+      "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart"
+    },
+    {
+      "name": "CachedEventsPathProvider",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<String>",
+          "name": "getApplicationSupportPath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart"
+        },
+        {
+          "returnTypeName": "CachedEventsPathProvider",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [],
+      "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart"
+    },
+    {
+      "name": "LegacyNativeDataProvider",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<String?>",
+          "name": "getEndpointId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pinpointAppId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart"
+        },
+        {
+          "returnTypeName": "LegacyNativeDataProvider",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [],
+      "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart"
+    },
+    {
+      "name": "DeviceContextInfoProvider",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<DeviceContextInfo>",
+          "name": "getDeviceInfoDetails",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+        },
+        {
+          "returnTypeName": "DeviceContextInfoProvider",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [],
+      "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+    },
+    {
+      "name": "DeviceContextInfo",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "DeviceContextInfo",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "countryCode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "locale",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "timezone",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "appName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "appPackageName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "appVersion",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "make",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "model",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "modelVersion",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "platformVersion",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "platform",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DevicePlatform?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "countryCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "locale",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "timezone",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "appName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "appPackageName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "appVersion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "make",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "model",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "modelVersion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "platformVersion",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DevicePlatform?",
+          "name": "platform",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart"
+    },
+    {
+      "name": "DevicePlatform",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "DevicePlatform",
+          "name": "iOS",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DevicePlatform",
+          "name": "android",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DevicePlatform",
+          "name": "web",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DevicePlatform",
+          "name": "macOS",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DevicePlatform",
+          "name": "windows",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DevicePlatform",
+          "name": "linux",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "DevicePlatform",
+          "name": "unknown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<DevicePlatform>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart"
+    },
+    {
+      "name": "AppLifecycleProvider",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "setOnForegroundListener",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onForeground",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "setOnBackgroundListener",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onBackground",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "startObserving",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "stopObserving",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart"
+        },
+        {
+          "returnTypeName": "AppLifecycleProvider",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [],
+      "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart"
+    },
+    {
+      "name": "AnalyticsPinpointPluginOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AnalyticsPinpointPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "autoFlushEventsInterval",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Duration",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_options.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_options.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Duration",
+          "name": "autoFlushEventsInterval",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_analytics_pinpoint_dart.dart"
+      ],
+      "relativePath": "package:amplify_analytics_pinpoint_dart/src/analytics_plugin_options.dart"
+    },
+    {
+      "name": "AWSPinpointUserProfile",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "UserProfile",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSPinpointUserProfile",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "email",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "plan",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "location",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "UserProfileLocation?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "customProperties",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CustomProperties?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "userAttributes",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, List<String>>?",
+              "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Map<String, List<String>>?",
+          "name": "userAttributes",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_analytics_pinpoint_dart.dart"
+      ],
+      "relativePath": "package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart"
+    }
+  ]
+}

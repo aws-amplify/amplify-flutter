@@ -9,24 +9,17 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:path/path.dart' as path;
 
-/// Command to generate API reports for Amplify packages and API change report for amplify_core.
+/// Command to generate API reports for Amplify packages.
 class GenerateApiReportCommand extends AmplifyCommand {
   @override
   String get description =>
-      'Generates API reports for Amplify packages and creates an API change report for amplify_core';
+      'Generates API reports for Amplify packages';
 
   @override
   String get name => 'api-report';
 
-  final List<String> _categoryPackages = [
-    'packages/amplify_core',
-    'packages/analytics/amplify_analytics_pinpoint',
-    'packages/api/amplify_api',
-    'packages/auth/amplify_auth_cognito',
-    'packages/authenticator/amplify_authenticator',
-    'packages/notifications/push/amplify_push_notifications_pinpoint',
-    'packages/storage/amplify_storage_s3',
-  ];
+  /// Directory where all API reports will be stored
+  final String _apiReportsDir = 'packages/aft/api_reports';
 
   @override
   Future<void> run() async {
@@ -35,21 +28,34 @@ class GenerateApiReportCommand extends AmplifyCommand {
       logger.info('Installing dart_apitool...');
       await _installDartApiTool();
 
+      // Ensure API reports directory exists
+      final reportsDir = Directory(_apiReportsDir);
+      if (!reportsDir.existsSync()) {
+        reportsDir.createSync(recursive: true);
+        logger.info('Created API reports directory at $_apiReportsDir');
+      }
+
       logger.info('Generating API JSON files for all packages...');
       final failedPackages = <String>[];
 
-      for (final package in _categoryPackages) {
-        logger.info('Processing $package...');
+      // Filter packages to only include development packages (not examples or test packages)
+      final packagePaths = aftConfig.allPackages.values
+          .where((package) => 
+              package.isDevelopmentPackage && 
+              !package.isLintsPackage && 
+              !package.path.contains('_test'))
+          .map((package) => package.path)
+          .toList();
+      
+      for (final packagePath in packagePaths) {
+        logger.info('Processing $packagePath...');
         try {
-          await _generateApiJson(package);
+          await _generateApiJson(packagePath);
         } catch (e) {
-          logger.error('Failed to process $package: $e');
-          failedPackages.add(package);
+          logger.error('Failed to process $packagePath: $e');
+          failedPackages.add(packagePath);
         }
       }
-
-      logger.info('Generating API change report for amplify_core...');
-      await _generateApiChangeReport();
 
       if (failedPackages.isNotEmpty) {
         logger.warn(
@@ -89,7 +95,20 @@ class GenerateApiReportCommand extends AmplifyCommand {
       throw Exception('Package directory not found: $packagePath');
     }
 
-    final outputPath = path.join(packagePath, 'api.json');
+    // Extract package name for the output file
+    // Use the actual package name from pubspec if available
+    final pubspecFile = File(path.join(packagePath, 'pubspec.yaml'));
+    String packageName;
+    
+    if (pubspecFile.existsSync()) {
+      final pubspecContent = pubspecFile.readAsStringSync();
+      final nameMatch = RegExp(r'name:\s*([^\s]+)').firstMatch(pubspecContent);
+      packageName = nameMatch?.group(1) ?? path.basename(packagePath);
+    } else {
+      packageName = path.basename(packagePath);
+    }
+    
+    final outputPath = path.join(_apiReportsDir, '$packageName.api.json');
     logger.info('Extracting API model to $outputPath');
 
     try {
@@ -107,8 +126,8 @@ class GenerateApiReportCommand extends AmplifyCommand {
         return;
       }
 
-      // Remove packagePath from the generated JSON since it will be different on ci/cd than on local
-      await _removePackagePathFromJson(outputPath);
+      // Extract only the interfaceDeclarations to avoid frequent changes due to package versions
+      await _extractInterfaceDeclarations(outputPath);
     } catch (e) {
       logger.warn('Error generating API JSON for $packagePath: $e');
       await _createEmptyApiJson(outputPath);
@@ -119,79 +138,15 @@ class GenerateApiReportCommand extends AmplifyCommand {
   Future<void> _createEmptyApiJson(String outputPath) async {
     logger.info('Creating an empty API JSON file as a placeholder');
     final outputFile = File(outputPath);
-    await outputFile.writeAsString('{}');
+    await outputFile.writeAsString('{"interfaceDeclarations": {}}');
     logger.info('Created empty placeholder file at $outputPath');
   }
 
-  /// Generates API change report for amplify_core by comparing with the latest published version
-  Future<void> _generateApiChangeReport() async {
-    const corePackagePath = 'packages/amplify_core';
 
-    // Read the current version of amplify_core from pubspec.yaml
-    final pubspecFile = File(path.join(corePackagePath, 'pubspec.yaml'));
-    if (!pubspecFile.existsSync()) {
-      throw Exception('Could not find pubspec.yaml for amplify_core');
-    }
 
-    final pubspecContent = await pubspecFile.readAsString();
-    final versionMatch = RegExp(
-      r'version:\s*([\d\.]+)',
-    ).firstMatch(pubspecContent);
-    final latestPublishedVersion =
-        versionMatch?.group(1) ??
-        '2.4.1'; // Default to 2.4.1 if not found, should update this regularly with releases
-
-    logger.info(
-      'Comparing current code with published version $latestPublishedVersion',
-    );
-
-    final outputPath = path.join(corePackagePath, 'api_changes_report.md');
-
-    try {
-      final result = await Process.run('dart-apitool', [
-        'diff',
-        '--old',
-        'pub://amplify_core/$latestPublishedVersion',
-        '--new',
-        corePackagePath,
-        '--report-format',
-        'markdown',
-        '--report-file-path',
-        outputPath,
-      ], workingDirectory: rootDir.path);
-
-      if (result.exitCode != 0) {
-        logger
-          ..error(result.stderr.toString())
-          ..verbose(result.stdout.toString());
-        await _createEmptyApiChangeReport(outputPath);
-        return;
-      }
-
-      // Verify the file was created
-      final outputFile = File(outputPath);
-      if (!outputFile.existsSync()) {
-        await _createEmptyApiChangeReport(outputPath);
-        return;
-      }
-    } catch (e) {
-      logger.warn('Error generating API change report: $e');
-      await _createEmptyApiChangeReport(outputPath);
-    }
-  }
-
-  /// Creates an empty API change report as a fallback
-  Future<void> _createEmptyApiChangeReport(String outputPath) async {
-    logger.info('Creating an empty API change report as a placeholder');
-    final outputFile = File(outputPath);
-    await outputFile.writeAsString(
-      '# API Changes Report\n\nNo changes detected or report generation failed.\n',
-    );
-    logger.info('Created placeholder report at $outputPath');
-  }
-
-  /// Removes the packagePath field from the generated API JSON file
-  Future<void> _removePackagePathFromJson(String filePath) async {
+  /// Extracts only the interfaceDeclarations from the generated API JSON file
+  /// to avoid frequent changes due to package versions and dependencies
+  Future<void> _extractInterfaceDeclarations(String filePath) async {
     try {
       final file = File(filePath);
       if (!file.existsSync()) return;
@@ -199,18 +154,25 @@ class GenerateApiReportCommand extends AmplifyCommand {
       final content = await file.readAsString();
       final json = jsonDecode(content);
 
-      if (json is Map &&
-          json.containsKey('packageApi') &&
+      if (json is Map && 
+          json.containsKey('packageApi') && 
           json['packageApi'] is Map) {
-        (json['packageApi'] as Map).remove('packagePath');
+        
+        final packageApi = json['packageApi'] as Map;
+        final interfaceDeclarations = packageApi['interfaceDeclarations'];
+        
+        // Create a new simplified JSON with only the interfaceDeclarations
+        final simplifiedJson = {
+          'interfaceDeclarations': interfaceDeclarations,
+        };
 
         const encoder = JsonEncoder.withIndent('  ');
-        await file.writeAsString(encoder.convert(json));
+        await file.writeAsString(encoder.convert(simplifiedJson));
 
-        logger.info('Removed packagePath from $filePath');
+        logger.info('Extracted interfaceDeclarations from $filePath');
       }
     } catch (e) {
-      logger.warn('Failed to remove packagePath from $filePath: $e');
+      logger.warn('Failed to process API JSON for $filePath: $e');
     }
   }
 }

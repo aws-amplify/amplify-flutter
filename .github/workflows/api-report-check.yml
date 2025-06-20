@@ -49,27 +49,13 @@ jobs:
           git status --porcelain
           
           # Check API JSON files for changes
-          API_JSON_CHANGES=$(git status --porcelain | grep 'api\.json' || true)
-          
-          # Special handling for api_changes_report.md - check content instead of diff
-          REPORT_FILE="packages/amplify_core/api_changes_report.md"
-          REPORT_CHANGED=$(git status --porcelain | grep "$REPORT_FILE" || true)
-          
-          if [[ -n "$REPORT_CHANGED" ]]; then
-            if grep -q "No changes detected" "$REPORT_FILE"; then
-              echo "API changes report shows no changes detected - ignoring timestamp differences."
-            else
-              echo "API changes report shows actual changes. Please review the report."
-              cat "$REPORT_FILE"
-              API_JSON_CHANGES="$API_JSON_CHANGES $REPORT_FILE"
-            fi
-          fi
+          API_JSON_CHANGES=$(git status --porcelain | grep 'packages/aft/api_reports/.*\.api\.json' || true)
           
           if [[ -n "$API_JSON_CHANGES" ]]; then
             echo "API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
-            git diff --name-only | grep 'api\.json'
+            git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'
             # Print the full diff for changed API JSON files
-            for file in $(git diff --name-only | grep 'api\.json'); do
+            for file in $(git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'); do
               echo "=== FULL Diff for: $file ==="
               git diff "$file"
               echo "=== End of FULL diff for: $file ==="
@@ -92,7 +78,7 @@ jobs:
           fi
           
           # Check if API report files are included
-          API_REPORTS=$(echo "$CHANGED_FILES" | grep -E 'api\.json|api_changes_report\.md' || true)
+          API_REPORTS=$(echo "$CHANGED_FILES" | grep -E 'packages/aft/api_reports/.*\.api\.json' || true)
           if [[ -z "$API_REPORTS" ]]; then
             echo "Error: API report files are not included in this PR."
             echo "Please run 'aft generate api-report' and commit the changes."
