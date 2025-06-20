@@ -18,7 +18,11 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
-List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty = false}) {
+List<Object?> wrapResponse({
+  Object? result,
+  PlatformException? error,
+  bool empty = false,
+}) {
   if (empty) {
     return <Object?>[];
   }
@@ -27,20 +31,24 @@ List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty
   }
   return <Object?>[error.code, error.message, error.details];
 }
+
 bool _deepEquals(Object? a, Object? b) {
   if (a is List && b is List) {
     return a.length == b.length &&
-        a.indexed
-        .every(((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]));
+        a.indexed.every(
+          ((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]),
+        );
   }
   if (a is Map && b is Map) {
-    return a.length == b.length && a.entries.every((MapEntry<Object?, Object?> entry) =>
-        (b as Map<Object?, Object?>).containsKey(entry.key) &&
-        _deepEquals(entry.value, b[entry.key]));
+    return a.length == b.length &&
+        a.entries.every(
+          (MapEntry<Object?, Object?> entry) =>
+              (b as Map<Object?, Object?>).containsKey(entry.key) &&
+              _deepEquals(entry.value, b[entry.key]),
+        );
   }
   return a == b;
 }
-
 
 enum PermissionStatus {
   shouldRequest,
@@ -63,15 +71,12 @@ class PermissionsOptions {
   bool badge;
 
   List<Object?> _toList() {
-    return <Object?>[
-      alert,
-      sound,
-      badge,
-    ];
+    return <Object?>[alert, sound, badge];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static PermissionsOptions decode(Object result) {
     result as List<Object?>;
@@ -96,37 +101,32 @@ class PermissionsOptions {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 class GetPermissionStatusResult {
-  GetPermissionStatusResult({
-    required this.status,
-  });
+  GetPermissionStatusResult({required this.status});
 
   PermissionStatus status;
 
   List<Object?> _toList() {
-    return <Object?>[
-      status,
-    ];
+    return <Object?>[status];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static GetPermissionStatusResult decode(Object result) {
     result as List<Object?>;
-    return GetPermissionStatusResult(
-      status: result[0]! as PermissionStatus,
-    );
+    return GetPermissionStatusResult(status: result[0]! as PermissionStatus);
   }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! GetPermissionStatusResult || other.runtimeType != runtimeType) {
+    if (other is! GetPermissionStatusResult ||
+        other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -137,10 +137,8 @@ class GetPermissionStatusResult {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
-
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -149,13 +147,13 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    }    else if (value is PermissionStatus) {
+    } else if (value is PermissionStatus) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    }    else if (value is PermissionsOptions) {
+    } else if (value is PermissionsOptions) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    }    else if (value is GetPermissionStatusResult) {
+    } else if (value is GetPermissionStatusResult) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
     } else {
@@ -166,12 +164,12 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129: 
+      case 129:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PermissionStatus.values[value];
-      case 130: 
+      case 130:
         return PermissionsOptions.decode(readValue(buffer)!);
-      case 131: 
+      case 131:
         return GetPermissionStatusResult.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -182,41 +180,62 @@ class _PigeonCodec extends StandardMessageCodec {
 abstract class PushNotificationsFlutterApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
-  Future<void> onNotificationReceivedInBackground(Map<Object?, Object?> withPayload);
+  Future<void> onNotificationReceivedInBackground(
+    Map<Object?, Object?> withPayload,
+  );
 
   void nullifyLaunchNotification();
 
-  static void setUp(PushNotificationsFlutterApi? api, {BinaryMessenger? binaryMessenger, String messageChannelSuffix = '',}) {
-    messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  static void setUp(
+    PushNotificationsFlutterApi? api, {
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) {
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
-      final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsFlutterApi.onNotificationReceivedInBackground$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsFlutterApi.onNotificationReceivedInBackground$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-          'Argument for dev.flutter.pigeon.amplify_push_notifications.PushNotificationsFlutterApi.onNotificationReceivedInBackground was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.amplify_push_notifications.PushNotificationsFlutterApi.onNotificationReceivedInBackground was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
-          final Map<Object?, Object?>? arg_withPayload = (args[0] as Map<Object?, Object?>?)?.cast<Object?, Object?>();
-          assert(arg_withPayload != null,
-              'Argument for dev.flutter.pigeon.amplify_push_notifications.PushNotificationsFlutterApi.onNotificationReceivedInBackground was null, expected non-null Map<Object?, Object?>.');
+          final Map<Object?, Object?>? arg_withPayload =
+              (args[0] as Map<Object?, Object?>?)?.cast<Object?, Object?>();
+          assert(
+            arg_withPayload != null,
+            'Argument for dev.flutter.pigeon.amplify_push_notifications.PushNotificationsFlutterApi.onNotificationReceivedInBackground was null, expected non-null Map<Object?, Object?>.',
+          );
           try {
             await api.onNotificationReceivedInBackground(arg_withPayload!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsFlutterApi.nullifyLaunchNotification$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsFlutterApi.nullifyLaunchNotification$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -226,8 +245,10 @@ abstract class PushNotificationsFlutterApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
@@ -239,9 +260,13 @@ class PushNotificationsHostApi {
   /// Constructor for [PushNotificationsHostApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  PushNotificationsHostApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  PushNotificationsHostApi({
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
+           ? '.$messageChannelSuffix'
+           : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -249,12 +274,14 @@ class PushNotificationsHostApi {
   final String pigeonVar_messageChannelSuffix;
 
   Future<void> requestInitialToken() async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.requestInitialToken$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.requestInitialToken$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -272,12 +299,14 @@ class PushNotificationsHostApi {
   }
 
   Future<GetPermissionStatusResult> getPermissionStatus() async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.getPermissionStatus$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.getPermissionStatus$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -299,14 +328,20 @@ class PushNotificationsHostApi {
     }
   }
 
-  Future<bool> requestPermissions(PermissionsOptions withPermissionOptions) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.requestPermissions$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+  Future<bool> requestPermissions(
+    PermissionsOptions withPermissionOptions,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.requestPermissions$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[withPermissionOptions],
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[withPermissionOptions]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -328,12 +363,14 @@ class PushNotificationsHostApi {
   }
 
   Future<Map<Object?, Object?>?> getLaunchNotification() async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.getLaunchNotification$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.getLaunchNotification$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -346,17 +383,20 @@ class PushNotificationsHostApi {
         details: pigeonVar_replyList[2],
       );
     } else {
-      return (pigeonVar_replyList[0] as Map<Object?, Object?>?)?.cast<Object?, Object?>();
+      return (pigeonVar_replyList[0] as Map<Object?, Object?>?)
+          ?.cast<Object?, Object?>();
     }
   }
 
   Future<int> getBadgeCount() async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.getBadgeCount$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.getBadgeCount$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -379,13 +419,17 @@ class PushNotificationsHostApi {
   }
 
   Future<void> setBadgeCount(int withBadgeCount) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.setBadgeCount$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.setBadgeCount$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[withBadgeCount],
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[withBadgeCount]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -402,13 +446,17 @@ class PushNotificationsHostApi {
   }
 
   Future<void> registerCallbackFunction(int callbackHandle) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.registerCallbackFunction$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_push_notifications.PushNotificationsHostApi.registerCallbackFunction$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[callbackHandle],
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[callbackHandle]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {

@@ -18,7 +18,11 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
-List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty = false}) {
+List<Object?> wrapResponse({
+  Object? result,
+  PlatformException? error,
+  bool empty = false,
+}) {
   if (empty) {
     return <Object?>[];
   }
@@ -27,20 +31,24 @@ List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty
   }
   return <Object?>[error.code, error.message, error.details];
 }
+
 bool _deepEquals(Object? a, Object? b) {
   if (a is List && b is List) {
     return a.length == b.length &&
-        a.indexed
-        .every(((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]));
+        a.indexed.every(
+          ((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]),
+        );
   }
   if (a is Map && b is Map) {
-    return a.length == b.length && a.entries.every((MapEntry<Object?, Object?> entry) =>
-        (b as Map<Object?, Object?>).containsKey(entry.key) &&
-        _deepEquals(entry.value, b[entry.key]));
+    return a.length == b.length &&
+        a.entries.every(
+          (MapEntry<Object?, Object?> entry) =>
+              (b as Map<Object?, Object?>).containsKey(entry.key) &&
+              _deepEquals(entry.value, b[entry.key]),
+        );
   }
   return a == b;
 }
-
 
 class NativeUserContextData {
   NativeUserContextData({
@@ -88,7 +96,8 @@ class NativeUserContextData {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static NativeUserContextData decode(Object result) {
     result as List<Object?>;
@@ -119,8 +128,7 @@ class NativeUserContextData {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 class LegacyCredentialStoreData {
@@ -165,7 +173,8 @@ class LegacyCredentialStoreData {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static LegacyCredentialStoreData decode(Object result) {
     result as List<Object?>;
@@ -184,7 +193,8 @@ class LegacyCredentialStoreData {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! LegacyCredentialStoreData || other.runtimeType != runtimeType) {
+    if (other is! LegacyCredentialStoreData ||
+        other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -195,8 +205,7 @@ class LegacyCredentialStoreData {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 class LegacyDeviceDetailsSecret {
@@ -216,16 +225,12 @@ class LegacyDeviceDetailsSecret {
   String? asfDeviceId;
 
   List<Object?> _toList() {
-    return <Object?>[
-      deviceKey,
-      deviceGroupKey,
-      devicePassword,
-      asfDeviceId,
-    ];
+    return <Object?>[deviceKey, deviceGroupKey, devicePassword, asfDeviceId];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static LegacyDeviceDetailsSecret decode(Object result) {
     result as List<Object?>;
@@ -240,7 +245,8 @@ class LegacyDeviceDetailsSecret {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! LegacyDeviceDetailsSecret || other.runtimeType != runtimeType) {
+    if (other is! LegacyDeviceDetailsSecret ||
+        other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -251,10 +257,8 @@ class LegacyDeviceDetailsSecret {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
-
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -263,13 +267,13 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    }    else if (value is NativeUserContextData) {
+    } else if (value is NativeUserContextData) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    }    else if (value is LegacyCredentialStoreData) {
+    } else if (value is LegacyCredentialStoreData) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    }    else if (value is LegacyDeviceDetailsSecret) {
+    } else if (value is LegacyDeviceDetailsSecret) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
     } else {
@@ -280,11 +284,11 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129: 
+      case 129:
         return NativeUserContextData.decode(readValue(buffer)!);
-      case 130: 
+      case 130:
         return LegacyCredentialStoreData.decode(readValue(buffer)!);
-      case 131: 
+      case 131:
         return LegacyDeviceDetailsSecret.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -300,29 +304,45 @@ abstract class NativeAuthPlugin {
   /// intent was launched with the redirect parameters (Android).
   void exchange(Map<String, String> params);
 
-  static void setUp(NativeAuthPlugin? api, {BinaryMessenger? binaryMessenger, String messageChannelSuffix = '',}) {
-    messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  static void setUp(
+    NativeAuthPlugin? api, {
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) {
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
-      final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthPlugin.exchange$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthPlugin.exchange$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-          'Argument for dev.flutter.pigeon.amplify_auth_cognito.NativeAuthPlugin.exchange was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.amplify_auth_cognito.NativeAuthPlugin.exchange was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
-          final Map<String, String>? arg_params = (args[0] as Map<Object?, Object?>?)?.cast<String, String>();
-          assert(arg_params != null,
-              'Argument for dev.flutter.pigeon.amplify_auth_cognito.NativeAuthPlugin.exchange was null, expected non-null Map<String, String>.');
+          final Map<String, String>? arg_params =
+              (args[0] as Map<Object?, Object?>?)?.cast<String, String>();
+          assert(
+            arg_params != null,
+            'Argument for dev.flutter.pigeon.amplify_auth_cognito.NativeAuthPlugin.exchange was null, expected non-null Map<String, String>.',
+          );
           try {
             api.exchange(arg_params!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
@@ -334,9 +354,13 @@ class NativeAuthBridge {
   /// Constructor for [NativeAuthBridge].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  NativeAuthBridge({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  NativeAuthBridge({
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
+           ? '.$messageChannelSuffix'
+           : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -347,14 +371,28 @@ class NativeAuthBridge {
   /// [callbackUrlScheme].
   ///
   /// If [preferPrivateSession] is `true`, do not persist session cookies.
-  Future<Map<String, String>> signInWithUrl(String url, String callbackUrlScheme, bool preferPrivateSession, String? browserPackageName) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.signInWithUrl$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+  Future<Map<String, String>> signInWithUrl(
+    String url,
+    String callbackUrlScheme,
+    bool preferPrivateSession,
+    String? browserPackageName,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.signInWithUrl$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[
+        url,
+        callbackUrlScheme,
+        preferPrivateSession,
+        browserPackageName,
+      ],
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[url, callbackUrlScheme, preferPrivateSession, browserPackageName]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -371,20 +409,35 @@ class NativeAuthBridge {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as Map<Object?, Object?>?)!.cast<String, String>();
+      return (pigeonVar_replyList[0] as Map<Object?, Object?>?)!
+          .cast<String, String>();
     }
   }
 
   /// Sign out by presenting [url] and waiting for a response to a URL with
   /// [callbackUrlScheme].
-  Future<void> signOutWithUrl(String url, String callbackUrlScheme, bool preferPrivateSession, String? browserPackageName) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.signOutWithUrl$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+  Future<void> signOutWithUrl(
+    String url,
+    String callbackUrlScheme,
+    bool preferPrivateSession,
+    String? browserPackageName,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.signOutWithUrl$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[
+        url,
+        callbackUrlScheme,
+        preferPrivateSession,
+        browserPackageName,
+      ],
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[url, callbackUrlScheme, preferPrivateSession, browserPackageName]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -402,12 +455,14 @@ class NativeAuthBridge {
 
   /// Retrieves the validation data for the current iOS/Android device.
   Future<Map<String, String>> getValidationData() async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.getValidationData$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.getValidationData$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -425,18 +480,21 @@ class NativeAuthBridge {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as Map<Object?, Object?>?)!.cast<String, String>();
+      return (pigeonVar_replyList[0] as Map<Object?, Object?>?)!
+          .cast<String, String>();
     }
   }
 
   /// Retrieves context data as required for advanced security features (ASF).
   Future<NativeUserContextData> getContextData() async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.getContextData$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.getContextData$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -459,12 +517,14 @@ class NativeAuthBridge {
   }
 
   Future<String> getBundleId() async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.getBundleId$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.getBundleId$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -487,14 +547,21 @@ class NativeAuthBridge {
   }
 
   /// Fetch legacy credentials stored by native SDKs.
-  Future<LegacyCredentialStoreData> getLegacyCredentials(String? identityPoolId, String? appClientId) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.getLegacyCredentials$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+  Future<LegacyCredentialStoreData> getLegacyCredentials(
+    String? identityPoolId,
+    String? appClientId,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.getLegacyCredentials$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[identityPoolId, appClientId],
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[identityPoolId, appClientId]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -517,12 +584,14 @@ class NativeAuthBridge {
 
   /// Clears the legacy credential store data.
   Future<void> clearLegacyCredentials() async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.clearLegacyCredentials$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.clearLegacyCredentials$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -540,14 +609,21 @@ class NativeAuthBridge {
   }
 
   /// Fetch legacy device secrets stored by native SDKs.
-  Future<LegacyDeviceDetailsSecret?> fetchLegacyDeviceSecrets(String username, String userPoolId) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.fetchLegacyDeviceSecrets$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+  Future<LegacyDeviceDetailsSecret?> fetchLegacyDeviceSecrets(
+    String username,
+    String userPoolId,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.fetchLegacyDeviceSecrets$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[username, userPoolId],
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[username, userPoolId]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -564,14 +640,21 @@ class NativeAuthBridge {
   }
 
   /// Clears the legacy device secrets.
-  Future<void> deleteLegacyDeviceSecrets(String username, String userPoolId) async {
-    final String pigeonVar_channelName = 'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.deleteLegacyDeviceSecrets$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+  Future<void> deleteLegacyDeviceSecrets(
+    String username,
+    String userPoolId,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.deleteLegacyDeviceSecrets$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[username, userPoolId],
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[username, userPoolId]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
