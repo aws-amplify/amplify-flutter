@@ -1,0 +1,2739 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "ServiceConfiguration",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": true,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "applySigned",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "payloadHash",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "applyPresigned",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signedHeaders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SignedHeaders",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "expiresIn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "Future<String>",
+          "name": "hashPayload",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "presignedUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "String",
+          "name": "hashPayloadSync",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "presignedUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "Stream<List<int>>",
+          "name": "transformBody",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signingKey",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "seedSignature",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "canonicalRequest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CanonicalRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "ServiceConfiguration",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "normalizePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "omitSessionToken",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "doubleEncodePathSegments",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signBody",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "bool",
+          "name": "normalizePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "omitSessionToken",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "doubleEncodePathSegments",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "signBody",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+    },
+    {
+      "name": "AWSCredentialScope",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSCredentialScope",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "dateTime",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSDateTime?",
+              "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSService",
+              "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart"
+        },
+        {
+          "returnTypeName": "AWSCredentialScope",
+          "name": "raw",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "dateTime",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSDateTime?",
+              "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "AWSDateTime",
+          "name": "dateTime",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "region",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/request/aws_credential_scope.dart"
+    },
+    {
+      "name": "AWSDateTime",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "String",
+          "name": "formatFull",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_date_time.dart"
+        },
+        {
+          "returnTypeName": "String",
+          "name": "formatDate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_date_time.dart"
+        },
+        {
+          "returnTypeName": "String",
+          "name": "formatTime",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_date_time.dart"
+        },
+        {
+          "returnTypeName": "AWSDateTime",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "dateTime",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DateTime",
+              "relativePath": "package:aws_signature_v4/src/request/aws_date_time.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_date_time.dart"
+        },
+        {
+          "returnTypeName": "AWSDateTime",
+          "name": "now",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_date_time.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "DateTime",
+          "name": "dateTime",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_date_time.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/request/aws_date_time.dart"
+    },
+    {
+      "name": "AWSAlgorithm",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "List<int>",
+          "name": "deriveSigningKey",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart"
+        },
+        {
+          "returnTypeName": "String",
+          "name": "sign",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "stringToSign",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "signingKey",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart"
+        },
+        {
+          "returnTypeName": "AWSAlgorithm",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "id",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "AWSAlgorithm",
+          "name": "hmacSha256",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "id",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/signer/aws_algorithm.dart"
+    },
+    {
+      "name": "SignedHeaders",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "DelegatingIterable<String>",
+        "_DelegatingIterableBase<String>",
+        "Object",
+        "Iterable<String>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SignedHeaders",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+    },
+    {
+      "name": "CanonicalRequest",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CanonicalRequest",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "payloadHash",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceConfiguration",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+        },
+        {
+          "returnTypeName": "CanonicalRequest",
+          "name": "presignedUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "expiresIn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Duration",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "payloadHash",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceConfiguration",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "AWSBaseHttpRequest",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSCredentialScope",
+          "name": "credentialScope",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "canonicalPath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, String>",
+          "name": "queryParameters",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CanonicalQueryParameters",
+          "name": "canonicalQueryParameters",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, String>",
+          "name": "headers",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CanonicalHeaders",
+          "name": "canonicalHeaders",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "SignedHeaders",
+          "name": "signedHeaders",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "normalizePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "presignedUrl",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "omitSessionTokenFromSigning",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSAlgorithm?",
+          "name": "algorithm",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int?",
+          "name": "expiresIn",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ServiceConfiguration",
+          "name": "serviceConfiguration",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "contentLength",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "hash",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "payloadHash",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+    },
+    {
+      "name": "CanonicalQueryParameters",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "DelegatingMap<String, String>",
+        "Object",
+        "Map<String, String>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Map<String, String>",
+          "name": "canonicalize",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+        },
+        {
+          "returnTypeName": "CanonicalQueryParameters",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+    },
+    {
+      "name": "CanonicalHeaders",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "DelegatingMap<String, String>",
+        "Object",
+        "Map<String, String>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Map<String, String>",
+          "name": "canonicalize",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+        },
+        {
+          "returnTypeName": "CanonicalHeaders",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+    },
+    {
+      "name": "BaseServiceConfiguration",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "ServiceConfiguration",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "BaseServiceConfiguration",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "normalizePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "omitSessionToken",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "doubleEncodePathSegments",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signBody",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "applySigned",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "payloadHash",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "applyPresigned",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signedHeaders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SignedHeaders",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "expiresIn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "Future<String>",
+          "name": "hashPayload",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "presignedUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "String",
+          "name": "hashPayloadSync",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "presignedUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "Stream<List<int>>",
+          "name": "transformBody",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signingKey",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "seedSignature",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "canonicalRequest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CanonicalRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "bool",
+          "name": "normalizePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "omitSessionToken",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "doubleEncodePathSegments",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "signBody",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+    },
+    {
+      "name": "S3ServiceConfiguration",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "BaseServiceConfiguration",
+        "ServiceConfiguration",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "S3ServiceConfiguration",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signPayload",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "chunked",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "chunkSize",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "encoding",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "S3PayloadEncoding",
+              "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "applySigned",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "payloadHash",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "applyPresigned",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signedHeaders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SignedHeaders",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "expiresIn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "Future<String>",
+          "name": "hashPayload",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "presignedUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "String",
+          "name": "hashPayloadSync",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "presignedUrl",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        },
+        {
+          "returnTypeName": "Stream<List<int>>",
+          "name": "transformBody",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signingKey",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<int>",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "seedSignature",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "canonicalRequest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CanonicalRequest",
+              "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "chunkedPayloadSeedHash",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "unsignedPayloadHash",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "chunked",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "chunkSize",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "S3PayloadEncoding",
+          "name": "encoding",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "normalizePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "omitSessionToken",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "doubleEncodePathSegments",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "signBody",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/service_configuration.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart"
+    },
+    {
+      "name": "S3PayloadEncoding",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "S3PayloadEncoding",
+          "name": "none",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<S3PayloadEncoding>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Codec<List<int>, List<int>>",
+          "name": "encoding",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/configuration/services/s3.dart"
+    },
+    {
+      "name": "AWSSignedRequest",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AWSStreamedHttpRequest",
+        "AWSBaseHttpRequest",
+        "Object",
+        "StreamSplitter<List<int>>",
+        "Closeable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSSignedRequest",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "canonicalRequest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CanonicalRequest",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signature",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "method",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSHttpMethod",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "scheme",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "host",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "port",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "body",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Stream<List<int>>",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "contentLength",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?",
+              "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "CanonicalRequest",
+          "name": "canonicalRequest",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "signature",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/request/aws_signed_request.dart"
+    },
+    {
+      "name": "CanonicalPath",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "String",
+          "name": "canonicalize",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "serviceConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceConfiguration",
+              "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+    },
+    {
+      "name": "_CanonicalPayloadEncoder",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Converter<List<int>?, String>",
+        "Object",
+        "StreamTransformerBase<List<int>?, String>",
+        "StreamTransformer<List<int>?, String>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "_CanonicalPayloadEncoder",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [],
+      "relativePath": "package:aws_signature_v4/src/request/canonical_request/canonical_request.dart"
+    },
+    {
+      "name": "AWSSigV4Signer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<Uri>",
+          "name": "presign",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceConfiguration",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "expiresIn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Duration",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+        },
+        {
+          "returnTypeName": "Uri",
+          "name": "presignSync",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceConfiguration",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "expiresIn",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Duration",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+        },
+        {
+          "returnTypeName": "Future<AWSSignedRequest>",
+          "name": "sign",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceConfiguration",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+        },
+        {
+          "returnTypeName": "AWSSignedRequest",
+          "name": "signSync",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpRequest",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceConfiguration",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+        },
+        {
+          "returnTypeName": "String",
+          "name": "stringToSign",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "canonicalRequest",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CanonicalRequest",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+        },
+        {
+          "returnTypeName": "String",
+          "name": "createAuthorizationHeader",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentials",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentials",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialScope",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signedHeaders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SignedHeaders",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "signature",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+        },
+        {
+          "returnTypeName": "AWSSigV4Signer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "credentialsProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialsProvider",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "terminationString",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSAlgorithm",
+          "name": "algorithm",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSCredentialsProvider",
+          "name": "credentialsProvider",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "aws_signature_v4.dart"
+      ],
+      "relativePath": "package:aws_signature_v4/src/signer/aws_signer.dart"
+    }
+  ]
+}

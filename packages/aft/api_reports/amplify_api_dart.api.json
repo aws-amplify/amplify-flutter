@@ -1,0 +1,4867 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyAPIDart",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "APIPluginInterface",
+        "AmplifyPluginInterface",
+        "Object",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSHttpClient",
+          "name": "getHttpClient",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "type",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiType",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+        },
+        {
+          "returnTypeName": "WebSocketBloc",
+          "name": "createWebSocketBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "endpoint",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointConfig",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+        },
+        {
+          "returnTypeName": "AmplifyAPIDart",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIPluginOptions",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "connectivity",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ConnectivityPlatform",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "processLifeCycle",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ProcessLifeCycle",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ModelProviderInterface?",
+          "name": "modelProvider",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_api_dart.dart"
+      ],
+      "relativePath": "package:amplify_api_dart/src/api_plugin_impl.dart"
+    },
+    {
+      "name": "EndpointConfig",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSEquatable<EndpointConfig>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Uri",
+          "name": "getUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "path",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "queryParameters",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, dynamic>?",
+              "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart"
+        },
+        {
+          "returnTypeName": "EndpointConfig",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "name",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs",
+              "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "name",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Object?>",
+          "name": "props",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/util/amplify_api_config.dart"
+    },
+    {
+      "name": "WebSocketBloc",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSDebuggable",
+        "AmplifyLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "add",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "event",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketEvent",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+        },
+        {
+          "returnTypeName": "Stream<GraphQLResponse<T>>",
+          "name": "subscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "event",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SubscribeEvent<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "checkPollResponse",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "res",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpResponse",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+        },
+        {
+          "returnTypeName": "WebSocketBloc",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "wsService",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "subscriptionOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "connectivity",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ConnectivityPlatform",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "processLifeCycle",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ProcessLifeCycle",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "pollClientOverride",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSHttpClient?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "blocId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Completer<void>",
+          "name": "done",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<WebSocketState>",
+          "name": "stream",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<WebSocketEvent>",
+          "name": "wsEventStream",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketState",
+          "name": "currentState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+    },
+    {
+      "name": "WebSocketState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "WebSocketState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+    },
+    {
+      "name": "WebSocketService",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Closeable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Stream<WebSocketEvent>",
+          "name": "init",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "state",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "register",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "state",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ConnectedState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<Object?>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "unsubscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart"
+        },
+        {
+          "returnTypeName": "WebSocketService",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart"
+    },
+    {
+      "name": "WebSocketEvent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSSerializable<Map<String, Object?>>",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WebSocketEvent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+    },
+    {
+      "name": "ConnectedState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectedState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "timeoutTimer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "RestartableTimer",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pollTimer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Timer",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "RestartableTimer",
+          "name": "timeoutTimer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Timer",
+          "name": "pollTimer",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+    },
+    {
+      "name": "SubscriptionBloc",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "Object",
+        "Closeable",
+        "AWSDebuggable",
+        "AmplifyLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "add",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "event",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SubscriptionEvent",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "addResponseError",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionBloc<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "initialState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WsSubscriptionState<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Stream<GraphQLResponse<T>>",
+          "name": "responseStream",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WsSubscriptionState<T>",
+          "name": "currentState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Stream<WsSubscriptionState<T>>",
+          "name": "stream",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart"
+    },
+    {
+      "name": "WsSubscriptionState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "WsSubscriptionState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+    },
+    {
+      "name": "SubscriptionCompletedState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WsSubscriptionState<T>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+    },
+    {
+      "name": "SubscriptionErrorState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WsSubscriptionState<T>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "exception",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Object",
+          "name": "exception",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "StackTrace?",
+          "name": "stackTrace",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+    },
+    {
+      "name": "SubscriptionPendingState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WsSubscriptionState<T>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionListeningState<T>",
+          "name": "ready",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+    },
+    {
+      "name": "SubscriptionListeningState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WsSubscriptionState<T>",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionListeningState<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "parentBloc",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketBloc",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionCompletedState<T>",
+          "name": "complete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionErrorState<T>",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        },
+        {
+          "returnTypeName": "SubscriptionPendingState<T>",
+          "name": "pending",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketBloc",
+          "name": "parentBloc",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/ws_subscriptions_state.dart"
+    },
+    {
+      "name": "SubscriptionEvent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketEvent",
+        "Object",
+        "AWSSerializable<Map<String, Object?>>",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscriptionEvent",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/subscriptions_event.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/subscriptions_event.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "subscriptionId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/subscriptions_event.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/subscriptions_event.dart"
+    },
+    {
+      "name": "ConnectingState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectedState",
+          "name": "connected",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "timer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "RestartableTimer",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pollTimer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Timer",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+    },
+    {
+      "name": "ReconnectingState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectedState",
+          "name": "connected",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "timer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "RestartableTimer",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "pollTimer",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Timer",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+    },
+    {
+      "name": "DisconnectedState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+    },
+    {
+      "name": "FailureState",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "FailureState",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "error",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "stackTrace",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Object",
+          "name": "error",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "StackTrace",
+          "name": "stackTrace",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+    },
+    {
+      "name": "PendingDisconnect",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "WebSocketState",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ApiOutputs",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "authProviderRepo",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifyAuthProviderRepository",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSocketService",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionBlocs",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, SubscriptionBloc<Object?>>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ConnectingState",
+          "name": "connecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "ReconnectingState",
+          "name": "reconnecting",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "networkState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NetworkState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "intendedState",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IntendedState?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "DisconnectedState",
+          "name": "disconnect",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "FailureState",
+          "name": "failed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "e",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "st",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "StackTrace",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        },
+        {
+          "returnTypeName": "PendingDisconnect",
+          "name": "shutdown",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ApiOutputs",
+          "name": "config",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AmplifyAuthProviderRepository",
+          "name": "authProviderRepo",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "NetworkState",
+          "name": "networkState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "IntendedState",
+          "name": "intendedState",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "WebSocketService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, SubscriptionBloc<Object?>>",
+          "name": "subscriptionBlocs",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Uri",
+          "name": "pollUri",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart"
+    },
+    {
+      "name": "SubscribeEvent",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "T"
+      ],
+      "superTypeNames": [
+        "WebSocketEvent",
+        "Object",
+        "AWSSerializable<Map<String, Object?>>",
+        "AWSDebuggable"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "SubscribeEvent<T>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLRequest<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onEstablished",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()?",
+              "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "GraphQLRequest<T>",
+          "name": "request",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "void Function()?",
+          "name": "onEstablished",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart"
+    },
+    {
+      "name": "ConnectivityPlatform",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ConnectivityPlatform",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Stream<ConnectivityStatus>",
+          "name": "onConnectivityChanged",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_api_dart.dart"
+      ],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart"
+    },
+    {
+      "name": "ConnectivityStatus",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "ConnectivityStatus",
+          "name": "connected",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ConnectivityStatus",
+          "name": "disconnected",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<ConnectivityStatus>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_api_dart.dart"
+      ],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart"
+    },
+    {
+      "name": "ProcessLifeCycle",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "ProcessLifeCycle",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Stream<ProcessStatus>",
+          "name": "onStateChanged",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_api_dart.dart"
+      ],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart"
+    },
+    {
+      "name": "ProcessStatus",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "ProcessStatus",
+          "name": "detached",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ProcessStatus",
+          "name": "paused",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ProcessStatus",
+          "name": "hidden",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ProcessStatus",
+          "name": "inactive",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ProcessStatus",
+          "name": "resumed",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<ProcessStatus>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_api_dart.dart"
+      ],
+      "relativePath": "package:amplify_api_dart/src/graphql/web_socket/types/process_life_cycle.dart"
+    },
+    {
+      "name": "APIPluginOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "APIPluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authProviders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<APIAuthProvider>",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "baseHttpClient",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSHttpClient?",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "modelProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelProviderInterface?",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "subscriptionOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "GraphQLSubscriptionOptions",
+              "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "List<APIAuthProvider>",
+          "name": "authProviders",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSHttpClient?",
+          "name": "baseHttpClient",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ModelProviderInterface?",
+          "name": "modelProvider",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "GraphQLSubscriptionOptions",
+          "name": "subscriptionOptions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_api_dart.dart"
+      ],
+      "relativePath": "package:amplify_api_dart/src/api_plugin_options.dart"
+    },
+    {
+      "name": "ModelMutations",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "create",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "model",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "T",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "delete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "model",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "T",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "deleteById",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelIdentifier",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelIdentifier<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "update",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "model",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "T",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "amplify_api_dart.dart"
+      ],
+      "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_mutations.dart"
+    },
+    {
+      "name": "ModelQueries",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "get",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelIdentifier",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelIdentifier<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+        },
+        {
+          "returnTypeName": "GraphQLRequest<PaginatedResult<T>>",
+          "name": "list",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "limit",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "amplify_api_dart.dart"
+      ],
+      "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_queries.dart"
+    },
+    {
+      "name": "ModelSubscriptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "onCreate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "onUpdate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+        },
+        {
+          "returnTypeName": "GraphQLRequest<T>",
+          "name": "onDelete",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "modelType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelType<T>",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authorizationMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "APIAuthorizationType<AmplifyAuthProvider>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "headers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, String>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "where",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "QueryPredicate<Model>?",
+              "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+            }
+          ],
+          "typeParameterNames": [
+            "T"
+          ],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "amplify_api_dart.dart"
+      ],
+      "relativePath": "package:amplify_api_dart/src/graphql/model_helpers/model_subscriptions.dart"
+    }
+  ]
+}

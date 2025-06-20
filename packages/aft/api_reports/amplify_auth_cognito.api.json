@@ -1,0 +1,73 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyAuthCognito",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AmplifyAuthCognitoDart",
+        "AuthPluginInterface",
+        "AmplifyPluginInterface",
+        "Object",
+        "Closeable",
+        "AWSDebuggable",
+        "AmplifyLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyAuthCognito",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "secureStorageFactory",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "SecureStorageInterface Function(AmplifySecureStorageScope)?",
+              "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "AuthPluginKey<AmplifyAuthCognito>",
+          "name": "pluginKey",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_auth_cognito.dart"
+      ],
+      "relativePath": "package:amplify_auth_cognito/src/auth_plugin_impl.dart"
+    }
+  ]
+}

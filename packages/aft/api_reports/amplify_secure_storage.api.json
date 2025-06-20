@@ -1,0 +1,130 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifySecureStorage",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "AmplifySecureStorageInterface",
+        "SecureStorageInterface",
+        "Object",
+        "AWSDebuggable",
+        "AWSLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifySecureStorage Function(AmplifySecureStorageScope)",
+          "name": "factoryFrom",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "webOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WebSecureStorageOptions?",
+              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "windowsOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "WindowsSecureStorageOptions?",
+              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "linuxOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "LinuxSecureStorageOptions?",
+              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "macOSOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "MacOSSecureStorageOptions?",
+              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "iOSOptions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "IOSSecureStorageOptions?",
+              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "registerWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+        },
+        {
+          "returnTypeName": "AmplifySecureStorage",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "config",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AmplifySecureStorageConfig",
+              "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "scopeStoragePrefix",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_secure_storage.dart"
+      ],
+      "relativePath": "package:amplify_secure_storage/src/amplify_secure_storage.vm.dart"
+    }
+  ]
+}

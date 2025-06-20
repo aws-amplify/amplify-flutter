@@ -1,0 +1,1203 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AmplifyDataStore",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "DataStorePluginInterface",
+        "AmplifyPluginInterface",
+        "Object",
+        "AWSDebuggable",
+        "AmplifyLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AmplifyDataStore",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "modelProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelProviderInterface",
+              "relativePath": "package:amplify_datastore/amplify_datastore.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "DataStorePluginOptions",
+              "relativePath": "package:amplify_datastore/amplify_datastore.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/amplify_datastore.dart"
+        },
+        {
+          "returnTypeName": "AmplifyDataStore",
+          "name": "emptyConstructor",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/amplify_datastore.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "DataStoreStreamController",
+          "name": "streamWrapper",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/amplify_datastore.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "StreamController<DataStoreHubEvent>",
+          "name": "streamController",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/amplify_datastore.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/amplify_datastore.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_datastore.dart"
+      ],
+      "relativePath": "package:amplify_datastore/amplify_datastore.dart"
+    },
+    {
+      "name": "DataStoreStreamController",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "void",
+          "name": "registerModelsForHub",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "models",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ModelProviderInterface",
+              "relativePath": "package:amplify_datastore/src/amplify_datastore_stream_controller.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/amplify_datastore_stream_controller.dart"
+        },
+        {
+          "returnTypeName": "DataStoreStreamController",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/amplify_datastore_stream_controller.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "StreamController<DataStoreHubEvent>",
+          "name": "datastoreStreamController",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/amplify_datastore_stream_controller.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_datastore/src/amplify_datastore_stream_controller.dart"
+    },
+    {
+      "name": "DataStorePluginOptions",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "DataStorePluginOptions",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "errorHandler",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "dynamic Function(AmplifyException)?",
+              "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "conflictHandler",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ConflictResolutionDecision Function(ConflictData)?",
+              "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "syncExpressions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<DataStoreSyncExpression>",
+              "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "syncInterval",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?",
+              "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "syncMaxRecords",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?",
+              "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "syncPageSize",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int?",
+              "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authModeStrategy",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AuthModeStrategy",
+              "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "dynamic Function(AmplifyException)?",
+          "name": "errorHandler",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ConflictResolutionDecision Function(ConflictData)?",
+          "name": "conflictHandler",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<DataStoreSyncExpression>",
+          "name": "syncExpressions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int?",
+          "name": "syncInterval",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int?",
+          "name": "syncMaxRecords",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int?",
+          "name": "syncPageSize",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AuthModeStrategy",
+          "name": "authModeStrategy",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_datastore.dart"
+      ],
+      "relativePath": "package:amplify_datastore/src/datastore_plugin_options.dart"
+    },
+    {
+      "name": "NativeAmplifyApi",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "NativeApiPlugin",
+        "AWSDebuggable",
+        "AmplifyLoggerMixin"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "NativeAmplifyApi",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "_authProviders",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>",
+              "relativePath": "package:amplify_datastore/amplify_datastore.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/amplify_datastore.dart"
+        },
+        {
+          "returnTypeName": "Future<String?>",
+          "name": "getLatestAuthToken",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "providerName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLResponse>",
+          "name": "mutate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLResponse>",
+          "name": "query",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLSubscriptionResponse>",
+          "name": "subscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "unsubscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "deviceOffline",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "onStop",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "setUp",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "api",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeApiPlugin?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "binaryMessenger",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "BinaryMessenger?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "messageChannelSuffix",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "runtimeTypeName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/amplify_datastore.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "MessageCodec<Object?>",
+          "name": "pigeonChannelCodec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "amplify_datastore.dart"
+      ],
+      "relativePath": "package:amplify_datastore/amplify_datastore.dart"
+    },
+    {
+      "name": "NativeApiPlugin",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": true,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<String?>",
+          "name": "getLatestAuthToken",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "providerName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLResponse>",
+          "name": "mutate",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLResponse>",
+          "name": "query",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<NativeGraphQLSubscriptionResponse>",
+          "name": "subscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "request",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeGraphQLRequest",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "unsubscribe",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "deviceOffline",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "Future<void>",
+          "name": "onStop",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "void",
+          "name": "setUp",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "api",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "NativeApiPlugin?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "binaryMessenger",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "BinaryMessenger?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "messageChannelSuffix",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "NativeApiPlugin",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "MessageCodec<Object?>",
+          "name": "pigeonChannelCodec",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+    },
+    {
+      "name": "NativeGraphQLRequest",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Object",
+          "name": "encode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "NativeGraphQLRequest",
+          "name": "decode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "result",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "NativeGraphQLRequest",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "document",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "apiName",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "variablesJson",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "responseType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "decodePath",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "options",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "authMode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "document",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "apiName",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "variablesJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "responseType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "decodePath",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "options",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "authMode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+    },
+    {
+      "name": "NativeGraphQLResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Object",
+          "name": "encode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "NativeGraphQLResponse",
+          "name": "decode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "result",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "NativeGraphQLResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "payloadJson",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "payloadJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+    },
+    {
+      "name": "NativeGraphQLSubscriptionResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Object",
+          "name": "encode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "NativeGraphQLSubscriptionResponse",
+          "name": "decode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "result",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Object",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        },
+        {
+          "returnTypeName": "NativeGraphQLSubscriptionResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "type",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "subscriptionId",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "payloadJson",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "type",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String",
+          "name": "subscriptionId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        },
+        {
+          "typeName": "String?",
+          "name": "payloadJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:amplify_datastore/src/native_plugin.g.dart",
+          "isReadable": true,
+          "isWriteable": true
+        }
+      ],
+      "entryPoints": [],
+      "relativePath": "package:amplify_datastore/src/native_plugin.g.dart"
+    }
+  ]
+}

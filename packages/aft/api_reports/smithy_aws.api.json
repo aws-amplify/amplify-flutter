@@ -1,0 +1,2405 @@
+{
+  "interfaceDeclarations": [
+    {
+      "name": "AWSEndpoint",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSEndpoint",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "endpoint",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Endpoint",
+              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CredentialScope?",
+              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "Endpoint",
+          "name": "endpoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CredentialScope?",
+          "name": "credentialScope",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint.dart"
+    },
+    {
+      "name": "CredentialScope",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSSerializable<Map<String, Object?>>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CredentialScope",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+        },
+        {
+          "returnTypeName": "CredentialScope",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>",
+              "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "region",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<Object?, Object?>",
+          "name": "zoneValues",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/endpoint/credential_scope.dart"
+    },
+    {
+      "name": "AWSEndpointResolver",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSEndpoint",
+          "name": "resolve",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+        },
+        {
+          "returnTypeName": "AWSEndpointResolver",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "partitions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<Partition>",
+              "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/endpoint/aws_endpoint_resolver.dart"
+    },
+    {
+      "name": "Partition",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Comparable<Partition>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "bool",
+          "name": "canResolveEndpoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+        },
+        {
+          "returnTypeName": "AWSEndpoint",
+          "name": "resolveEndpoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+        },
+        {
+          "returnTypeName": "Partition",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "id",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "regionRegex",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "RegExp",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "partitionEndpoint",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "isRegionalized",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "defaults",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointDefinition",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "regions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Set<String>",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "endpoints",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, EndpointDefinition>",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "id",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "RegExp",
+          "name": "regionRegex",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "partitionEndpoint",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "isRegionalized",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "EndpointDefinition",
+          "name": "defaults",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Set<String>",
+          "name": "regions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Map<String, EndpointDefinition>",
+          "name": "endpoints",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+    },
+    {
+      "name": "EndpointDefinition",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSSerializable<Object?>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSEndpoint",
+          "name": "resolve",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "defaults",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointDefinition",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+        },
+        {
+          "returnTypeName": "EndpointDefinition",
+          "name": "withDefaults",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "defaults",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "EndpointDefinition",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+        },
+        {
+          "returnTypeName": "EndpointDefinition",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "hostname",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "protocols",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<String>",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "credentialScope",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "CredentialScope?",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signatureVersions",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<AWSSignatureVersion>",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "variants",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<EndpointDefinitionVariant>",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+        },
+        {
+          "returnTypeName": "EndpointDefinition",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "hostname",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<String>",
+          "name": "protocols",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "CredentialScope?",
+          "name": "credentialScope",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<AWSSignatureVersion>",
+          "name": "signatureVersions",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<EndpointDefinitionVariant>",
+          "name": "variants",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+    },
+    {
+      "name": "AWSSignatureVersion",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Enum",
+        "Object"
+      ],
+      "executableDeclarations": [],
+      "fieldDeclarations": [
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "v2",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "v4",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "s3",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "s3v4",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "v3",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSSignatureVersion",
+          "name": "v3https",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<AWSSignatureVersion>",
+          "name": "values",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+    },
+    {
+      "name": "EndpointDefinitionVariant",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSEquatable<EndpointDefinitionVariant>",
+        "AWSSerializable<Object?>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "EndpointDefinitionVariant",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "dnsSuffix",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "hostname",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "tags",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<String>",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+        },
+        {
+          "returnTypeName": "EndpointDefinitionVariant",
+          "name": "fromJson",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "json",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<String, Object?>",
+              "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "dnsSuffix",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String?",
+          "name": "hostname",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<String>",
+          "name": "tags",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Object?>",
+          "name": "props",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/endpoint/partition.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/endpoint/partition.dart"
+    },
+    {
+      "name": "CheckErrorOnSuccess",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpResponseInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CheckErrorOnSuccess",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/s3/check_error_on_success.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/http/interceptors/s3/check_error_on_success.dart"
+    },
+    {
+      "name": "CheckPartialResponse",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpResponseInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "CheckPartialResponse",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/s3/check_partial_response.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/http/interceptors/s3/check_partial_response.dart"
+    },
+    {
+      "name": "WithChecksum",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpRequestInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WithChecksum",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": false,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_aws/src/http/interceptors/with_checksum.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_checksum.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/http/interceptors/with_checksum.dart"
+    },
+    {
+      "name": "WithSdkInvocationId",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpRequestInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WithSdkInvocationId",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sdk_invocation.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/http/interceptors/with_sdk_invocation.dart"
+    },
+    {
+      "name": "WithSdkRequest",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpRequestInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WithSdkRequest",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sdk_request.dart"
+        }
+      ],
+      "fieldDeclarations": [],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/http/interceptors/with_sdk_request.dart"
+    },
+    {
+      "name": "WithSigV4",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "HttpRequestInterceptor",
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "WithSigV4",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "region",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "service",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSService",
+              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "credentialsProvider",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSCredentialsProvider",
+              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serviceConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "ServiceConfiguration",
+              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "algorithm",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSAlgorithm",
+              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "isOptional",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "bool",
+          "name": "isOptional",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "region",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSService",
+          "name": "service",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSAlgorithm",
+          "name": "algorithm",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "AWSCredentialsProvider",
+          "name": "credentialsProvider",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ServiceConfiguration",
+          "name": "serviceConfiguration",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "order",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/http/interceptors/with_sig_v4.dart"
+    },
+    {
+      "name": "AWSRetryer",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "Retryer"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AWSRetryer",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "initialRetryTokens",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "exponentialBase",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double?",
+              "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "exponentialPower",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "double",
+              "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "maxBackoffTime",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Duration",
+              "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "int",
+          "name": "initialRetryTokens",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "double",
+          "name": "exponentialBase",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "double",
+          "name": "exponentialPower",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "Duration",
+          "name": "maxBackoffTime",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "int",
+          "name": "retryQuota",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/http/retry/aws_retryer.dart"
+    },
+    {
+      "name": "AwsJson1_0Protocol",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "InputPayload",
+        "Input",
+        "OutputPayload",
+        "Output"
+      ],
+      "superTypeNames": [
+        "AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "HttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "Object",
+        "Protocol<Input, OutputPayload>",
+        "AWSJsonErrorProtocol<InputPayload, Input, OutputPayload, Output>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AwsJson1_0Protocol<InputPayload, Input, OutputPayload, Output>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "requestInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpRequestInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "responseInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpResponseInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<SmithySerializer<dynamic>>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "builderFactories",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<FullType, Function>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ShapeId",
+          "name": "protocolId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "contentType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/protocol/aws_json_1_0.dart"
+    },
+    {
+      "name": "AwsJson1_1Protocol",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "InputPayload",
+        "Input",
+        "OutputPayload",
+        "Output"
+      ],
+      "superTypeNames": [
+        "AwsJson1_0Protocol<InputPayload, Input, OutputPayload, Output>",
+        "AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "HttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "Object",
+        "Protocol<Input, OutputPayload>",
+        "AWSJsonErrorProtocol<InputPayload, Input, OutputPayload, Output>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AwsJson1_1Protocol<InputPayload, Input, OutputPayload, Output>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "requestInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpRequestInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "responseInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpResponseInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<SmithySerializer<dynamic>>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "builderFactories",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<FullType, Function>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ShapeId",
+          "name": "protocolId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "contentType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/protocol/aws_json_1_1.dart"
+    },
+    {
+      "name": "AwsQueryError",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object",
+        "AWSEquatable<AwsQueryError>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AwsQueryError",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "httpResponseCode",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "int",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "code",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "shape",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "int",
+          "name": "httpResponseCode",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "code",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "shape",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<Object?>",
+          "name": "props",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+    },
+    {
+      "name": "AwsQueryProtocol",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "InputPayload",
+        "Input",
+        "OutputPayload",
+        "Output"
+      ],
+      "superTypeNames": [
+        "AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "HttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "Object",
+        "Protocol<Input, OutputPayload>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "AwsQueryProtocol<InputPayload, Input, OutputPayload, Output>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "action",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "awsQueryErrors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<AwsQueryError>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "requestInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpRequestInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "responseInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpResponseInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<SmithySerializer<dynamic>>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "builderFactories",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<FullType, Function>",
+              "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String",
+          "name": "action",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<AwsQueryError>",
+          "name": "awsQueryErrors",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ShapeId",
+          "name": "protocolId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "contentType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart"
+    },
+    {
+      "name": "Ec2QueryProtocol",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "InputPayload",
+        "Input",
+        "OutputPayload",
+        "Output"
+      ],
+      "superTypeNames": [
+        "AwsQueryProtocol<InputPayload, Input, OutputPayload, Output>",
+        "AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "HttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "Object",
+        "Protocol<Input, OutputPayload>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Ec2QueryProtocol<InputPayload, Input, OutputPayload, Output>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "action",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+            },
+            {
+              "isRequired": true,
+              "isNamed": true,
+              "name": "version",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String",
+              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "requestInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpRequestInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "responseInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpResponseInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<SmithySerializer<dynamic>>",
+              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "builderFactories",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<FullType, Function>",
+              "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "ShapeId",
+          "name": "protocolId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "action",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "version",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "List<AwsQueryError>",
+          "name": "awsQueryErrors",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "contentType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/aws_query_protocol.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/protocol/ec2_query.dart"
+    },
+    {
+      "name": "RestJson1Protocol",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "InputPayload",
+        "Input",
+        "OutputPayload",
+        "Output"
+      ],
+      "superTypeNames": [
+        "AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "HttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "Object",
+        "Protocol<Input, OutputPayload>",
+        "AWSJsonErrorProtocol<InputPayload, Input, OutputPayload, Output>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "RestJson1Protocol<InputPayload, Input, OutputPayload, Output>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "mediaType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "requestInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpRequestInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "responseInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpResponseInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<SmithySerializer<dynamic>>",
+              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "builderFactories",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<FullType, Function>",
+              "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "mediaType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ShapeId",
+          "name": "protocolId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "contentType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/protocol/rest_json_1.dart"
+    },
+    {
+      "name": "RestXmlProtocol",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [
+        "InputPayload",
+        "Input",
+        "OutputPayload",
+        "Output"
+      ],
+      "superTypeNames": [
+        "AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "HttpProtocol<InputPayload, Input, OutputPayload, Output>",
+        "Object",
+        "Protocol<Input, OutputPayload>"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "Future<String?>",
+          "name": "resolveError",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "response",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "AWSBaseHttpResponse",
+              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": true,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+        },
+        {
+          "returnTypeName": "RestXmlProtocol<InputPayload, Input, OutputPayload, Output>",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "mediaType",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "String?",
+              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "requestInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpRequestInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "responseInterceptors",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<HttpResponseInterceptor>",
+              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "serializers",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "List<SmithySerializer<dynamic>>",
+              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "builderFactories",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "Map<FullType, Function>",
+              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "noErrorWrapping",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "String?",
+          "name": "mediaType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "noErrorWrapping",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "ShapeId",
+          "name": "protocolId",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "String",
+          "name": "contentType",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/protocol/rest_xml.dart"
+    },
+    {
+      "name": "S3ClientConfig",
+      "isDeprecated": false,
+      "isExperimental": false,
+      "isSealed": false,
+      "isRequired": false,
+      "typeParameterNames": [],
+      "superTypeNames": [
+        "Object"
+      ],
+      "executableDeclarations": [
+        {
+          "returnTypeName": "S3ClientConfig",
+          "name": "copyWith",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "usePathStyle",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "useDualStack",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "useAcceleration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool?",
+              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signerConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "S3ServiceConfiguration?",
+              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+        },
+        {
+          "returnTypeName": "S3ClientConfig",
+          "name": "new",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "usePathStyle",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "useDualStack",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "useAcceleration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "bool",
+              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+            },
+            {
+              "isRequired": false,
+              "isNamed": true,
+              "name": "signerConfiguration",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "S3ServiceConfiguration?",
+              "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "constructor",
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+        }
+      ],
+      "fieldDeclarations": [
+        {
+          "typeName": "bool",
+          "name": "useDualStack",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "useAcceleration",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "bool",
+          "name": "usePathStyle",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        },
+        {
+          "typeName": "S3ServiceConfiguration?",
+          "name": "signerConfiguration",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "isStatic": false,
+          "entryPoints": [],
+          "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart",
+          "isReadable": true,
+          "isWriteable": false
+        }
+      ],
+      "entryPoints": [
+        "smithy_aws.dart"
+      ],
+      "relativePath": "package:smithy_aws/src/s3/s3_client_config.dart"
+    }
+  ]
+}
