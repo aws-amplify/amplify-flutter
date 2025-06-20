@@ -33,7 +33,7 @@ dependencies:
   smithy: ">=0.7.1 <0.8.0"
   smithy_aws: ">=0.7.0 <0.8.0"
   tuple: ^2.0.0
-  xml: ">=6.3.0 <=6.5.0"
+  xml: ^6.5.0
   yaml_edit: ^2.1.0
 
 dev_dependencies:
