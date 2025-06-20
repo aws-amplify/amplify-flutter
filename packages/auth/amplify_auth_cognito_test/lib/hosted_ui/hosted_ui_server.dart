@@ -39,7 +39,7 @@ class HostedUiServer implements Closeable {
   /// Launches a Hosted UI server on the default [rpcUri].
   static Future<HostedUiServer> launch() async {
     final completer = StreamChannelCompleter<String>();
-    final wsHandler = webSocketHandler((dynamic webSocket) {
+    final wsHandler = webSocketHandler((dynamic webSocket, _) {
       webSocket as WebSocketChannel;
       completer.setChannel(webSocket.cast());
     });
