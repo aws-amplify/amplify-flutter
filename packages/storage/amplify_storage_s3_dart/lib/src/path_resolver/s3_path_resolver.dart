@@ -72,8 +72,9 @@ class S3PathResolver {
   ///
   /// This method will only fetch the current user's identityId one time.
   Future<List<String>> resolvePaths({required List<StoragePath> paths}) async {
-    final requiresIdentityId =
-        paths.whereType<StoragePathFromIdentityId>().isNotEmpty;
+    final requiresIdentityId = paths
+        .whereType<StoragePathFromIdentityId>()
+        .isNotEmpty;
     final identityId = requiresIdentityId ? await _getIdentityId() : null;
     return Future.wait(
       paths.map((path) => resolvePath(path: path, identityId: identityId)),

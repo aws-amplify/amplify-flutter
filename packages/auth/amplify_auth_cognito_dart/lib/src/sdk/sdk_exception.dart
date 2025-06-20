@@ -753,14 +753,13 @@ Object transformSdkException(Object e) {
       message,
       underlyingException: e,
     ),
-    _ =>
-      (() {
-        // Some exceptions are returned as non-Lambda exceptions even though they
-        // originated in user-defined lambdas.
-        if (LambdaException.isLambdaException(message)) {
-          return LambdaException(message, underlyingException: e);
-        }
-        return UnknownServiceException(message, underlyingException: e);
-      })(),
+    _ => (() {
+      // Some exceptions are returned as non-Lambda exceptions even though they
+      // originated in user-defined lambdas.
+      if (LambdaException.isLambdaException(message)) {
+        return LambdaException(message, underlyingException: e);
+      }
+      return UnknownServiceException(message, underlyingException: e);
+    })(),
   };
 }

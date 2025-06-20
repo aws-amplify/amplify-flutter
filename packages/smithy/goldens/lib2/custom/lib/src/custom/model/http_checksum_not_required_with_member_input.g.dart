@@ -15,9 +15,8 @@ class _$HttpChecksumNotRequiredWithMemberInput
 
   factory _$HttpChecksumNotRequiredWithMemberInput([
     void Function(HttpChecksumNotRequiredWithMemberInputBuilder)? updates,
-  ]) =>
-      (HttpChecksumNotRequiredWithMemberInputBuilder()..update(updates))
-          ._build();
+  ]) => (HttpChecksumNotRequiredWithMemberInputBuilder()..update(updates))
+      ._build();
 
   _$HttpChecksumNotRequiredWithMemberInput._({
     this.checksumAlgorithm,

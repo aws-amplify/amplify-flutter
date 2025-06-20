@@ -140,34 +140,32 @@ class HasManyChildBiDirectionalExplicit extends amplify_core.Model {
     return HasManyChildBiDirectionalExplicit._internal(
       id: id,
       name: name == null ? this.name : name.value,
-      hasManyParent:
-          hasManyParent == null ? this.hasManyParent : hasManyParent.value,
+      hasManyParent: hasManyParent == null
+          ? this.hasManyParent
+          : hasManyParent.value,
     );
   }
 
   HasManyChildBiDirectionalExplicit.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _name = json['name'],
-      _hasManyParent =
-          json['hasManyParent'] != null
-              ? json['hasManyParent']['serializedData'] != null
-                  ? HasManyParentBiDirectionalExplicit.fromJson(
+      _hasManyParent = json['hasManyParent'] != null
+          ? json['hasManyParent']['serializedData'] != null
+                ? HasManyParentBiDirectionalExplicit.fromJson(
                     new Map<String, dynamic>.from(
                       json['hasManyParent']['serializedData'],
                     ),
                   )
-                  : HasManyParentBiDirectionalExplicit.fromJson(
+                : HasManyParentBiDirectionalExplicit.fromJson(
                     new Map<String, dynamic>.from(json['hasManyParent']),
                   )
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -289,10 +287,9 @@ class HasManyChildBiDirectionalExplicitModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

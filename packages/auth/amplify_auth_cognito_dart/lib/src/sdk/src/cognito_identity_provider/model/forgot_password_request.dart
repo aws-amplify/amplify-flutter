@@ -34,8 +34,9 @@ abstract class ForgotPasswordRequest
       userContextData: userContextData,
       username: username,
       analyticsMetadata: analyticsMetadata,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 
@@ -100,14 +101,13 @@ abstract class ForgotPasswordRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ForgotPasswordRequest')
-          ..add('clientId', '***SENSITIVE***')
-          ..add('secretHash', '***SENSITIVE***')
-          ..add('userContextData', '***SENSITIVE***')
-          ..add('username', '***SENSITIVE***')
-          ..add('analyticsMetadata', analyticsMetadata)
-          ..add('clientMetadata', clientMetadata);
+    final helper = newBuiltValueToStringHelper('ForgotPasswordRequest')
+      ..add('clientId', '***SENSITIVE***')
+      ..add('secretHash', '***SENSITIVE***')
+      ..add('userContextData', '***SENSITIVE***')
+      ..add('username', '***SENSITIVE***')
+      ..add('analyticsMetadata', analyticsMetadata)
+      ..add('clientMetadata', clientMetadata);
     return helper.toString();
   }
 }

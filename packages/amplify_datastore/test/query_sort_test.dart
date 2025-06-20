@@ -33,8 +33,9 @@ void main() {
   });
 
   test('bad model id field naming backwards compatibility', () async {
-    QuerySortBy testPredicateWithBadIdFiledNaming =
-        QueryField(fieldName: 'blog.id').ascending();
+    QuerySortBy testPredicateWithBadIdFiledNaming = QueryField(
+      fieldName: 'blog.id',
+    ).ascending();
     expect([
       testPredicateWithBadIdFiledNaming.serializeAsMap(),
     ], await getJsonFromFile('sort_by_id_ascending.json'));

@@ -84,16 +84,15 @@ abstract class EndpointDemographic
   ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EndpointDemographic')
-          ..add('appVersion', appVersion)
-          ..add('locale', locale)
-          ..add('make', make)
-          ..add('model', model)
-          ..add('modelVersion', modelVersion)
-          ..add('platform', platform)
-          ..add('platformVersion', platformVersion)
-          ..add('timezone', timezone);
+    final helper = newBuiltValueToStringHelper('EndpointDemographic')
+      ..add('appVersion', appVersion)
+      ..add('locale', locale)
+      ..add('make', make)
+      ..add('model', model)
+      ..add('modelVersion', modelVersion)
+      ..add('platform', platform)
+      ..add('platformVersion', platformVersion)
+      ..add('timezone', timezone);
     return helper.toString();
   }
 }

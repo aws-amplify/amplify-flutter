@@ -233,10 +233,9 @@ class GetObjectOperation
   @override
   _i1.HttpRequest buildRequest(GetObjectRequest input) => _i1.HttpRequest((b) {
     b.method = 'GET';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?x-id=GetObject'
-            : r'/{Key+}?x-id=GetObject';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}/{Key+}?x-id=GetObject'
+        : r'/{Key+}?x-id=GetObject';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.ifMatch != null) {
       if (input.ifMatch!.isNotEmpty) {
@@ -244,10 +243,9 @@ class GetObjectOperation
       }
     }
     if (input.ifModifiedSince != null) {
-      b.headers['If-Modified-Since'] =
-          _i1.Timestamp(
-            input.ifModifiedSince!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['If-Modified-Since'] = _i1.Timestamp(
+        input.ifModifiedSince!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.ifNoneMatch != null) {
       if (input.ifNoneMatch!.isNotEmpty) {
@@ -255,10 +253,9 @@ class GetObjectOperation
       }
     }
     if (input.ifUnmodifiedSince != null) {
-      b.headers['If-Unmodified-Since'] =
-          _i1.Timestamp(
-            input.ifUnmodifiedSince!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['If-Unmodified-Since'] = _i1.Timestamp(
+        input.ifUnmodifiedSince!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.range != null) {
       if (input.range!.isNotEmpty) {

@@ -43,10 +43,9 @@ abstract class AmplifyCommand extends Command<void>
 
   @override
   void handleLogEntry(LogEntry logEntry) {
-    final message =
-        verbose
-            ? '${logEntry.loggerName} | ${logEntry.message}'
-            : logEntry.message;
+    final message = verbose
+        ? '${logEntry.loggerName} | ${logEntry.message}'
+        : logEntry.message;
     switch (logEntry.level) {
       case LogLevel.verbose:
       case LogLevel.debug:
@@ -92,8 +91,8 @@ abstract class AmplifyCommand extends Command<void>
   late final Directory rootDir = Directory.fromUri(aftConfig.rootDirectory);
 
   /// All packages in the Amplify Flutter repo.
-  late final Map<String, PackageInfo> repoPackages =
-      aftConfig.allPackages.toMap();
+  late final Map<String, PackageInfo> repoPackages = aftConfig.allPackages
+      .toMap();
 
   /// All packages included in this command's operation.
   ///

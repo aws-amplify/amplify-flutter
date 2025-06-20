@@ -12,24 +12,21 @@ CredentialStoreData _$CredentialStoreDataFromJson(Map<String, dynamic> json) =>
         identityId: $checkedConvert('identityId', (v) => v as String?),
         awsCredentials: $checkedConvert(
           'awsCredentials',
-          (v) =>
-              v == null
-                  ? null
-                  : AWSCredentials.fromJson(v as Map<String, dynamic>),
+          (v) => v == null
+              ? null
+              : AWSCredentials.fromJson(v as Map<String, dynamic>),
         ),
         userPoolTokens: $checkedConvert(
           'userPoolTokens',
-          (v) =>
-              v == null
-                  ? null
-                  : CognitoUserPoolTokens.fromJson(v as Map<String, dynamic>),
+          (v) => v == null
+              ? null
+              : CognitoUserPoolTokens.fromJson(v as Map<String, dynamic>),
         ),
         signInDetails: $checkedConvert(
           'signInDetails',
-          (v) =>
-              v == null
-                  ? null
-                  : CognitoSignInDetails.fromJson(v as Map<String, dynamic>),
+          (v) => v == null
+              ? null
+              : CognitoSignInDetails.fromJson(v as Map<String, dynamic>),
         ),
       );
       return val;

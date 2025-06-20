@@ -21,10 +21,9 @@ class DomHelper {
   static DomHelper get instance => _instance;
 
   void _initializeContainerElement(String containerId) {
-    final container =
-        HTMLAmplifyStorageDownloader()
-          ..id = containerId
-          ..style.display = 'none';
+    final container = HTMLAmplifyStorageDownloader()
+      ..id = containerId
+      ..style.display = 'none';
 
     document.querySelector('body')!.appendChild(container);
     _container = container;
@@ -32,10 +31,9 @@ class DomHelper {
 
   /// Triggers browser download for the `url` with `name`.
   void download({required String url, String? name = ''}) {
-    final anchor =
-        HTMLAnchorElement()
-          ..href = url
-          ..download = name ?? '';
+    final anchor = HTMLAnchorElement()
+      ..href = url
+      ..download = name ?? '';
 
     _container.appendChild(anchor);
     anchor.click();

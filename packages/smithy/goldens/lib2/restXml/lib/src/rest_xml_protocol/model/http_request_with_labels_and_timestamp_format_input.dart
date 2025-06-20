@@ -54,53 +54,46 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
     Map<String, String> labels = const {},
   }) => HttpRequestWithLabelsAndTimestampFormatInput.build((b) {
     if (labels['memberEpochSeconds'] != null) {
-      b.memberEpochSeconds =
-          _i1.Timestamp.parse(
-            int.parse(labels['memberEpochSeconds']!),
-            format: _i1.TimestampFormat.epochSeconds,
-          ).asDateTime;
+      b.memberEpochSeconds = _i1.Timestamp.parse(
+        int.parse(labels['memberEpochSeconds']!),
+        format: _i1.TimestampFormat.epochSeconds,
+      ).asDateTime;
     }
     if (labels['memberHttpDate'] != null) {
-      b.memberHttpDate =
-          _i1.Timestamp.parse(
-            labels['memberHttpDate']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.memberHttpDate = _i1.Timestamp.parse(
+        labels['memberHttpDate']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (labels['memberDateTime'] != null) {
-      b.memberDateTime =
-          _i1.Timestamp.parse(
-            labels['memberDateTime']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.memberDateTime = _i1.Timestamp.parse(
+        labels['memberDateTime']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
     if (labels['defaultFormat'] != null) {
-      b.defaultFormat =
-          _i1.Timestamp.parse(
-            labels['defaultFormat']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.defaultFormat = _i1.Timestamp.parse(
+        labels['defaultFormat']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
     if (labels['targetEpochSeconds'] != null) {
-      b.targetEpochSeconds =
-          _i1.Timestamp.parse(
-            int.parse(labels['targetEpochSeconds']!),
-            format: _i1.TimestampFormat.epochSeconds,
-          ).asDateTime;
+      b.targetEpochSeconds = _i1.Timestamp.parse(
+        int.parse(labels['targetEpochSeconds']!),
+        format: _i1.TimestampFormat.epochSeconds,
+      ).asDateTime;
     }
     if (labels['targetHttpDate'] != null) {
-      b.targetHttpDate =
-          _i1.Timestamp.parse(
-            labels['targetHttpDate']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.targetHttpDate = _i1.Timestamp.parse(
+        labels['targetHttpDate']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (labels['targetDateTime'] != null) {
-      b.targetDateTime =
-          _i1.Timestamp.parse(
-            labels['targetDateTime']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.targetDateTime = _i1.Timestamp.parse(
+        labels['targetDateTime']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
   });
 

@@ -38,8 +38,9 @@ abstract class RestApi
       createdDate: createdDate,
       version: version,
       warnings: warnings == null ? null : _i2.BuiltList(warnings),
-      binaryMediaTypes:
-          binaryMediaTypes == null ? null : _i2.BuiltList(binaryMediaTypes),
+      binaryMediaTypes: binaryMediaTypes == null
+          ? null
+          : _i2.BuiltList(binaryMediaTypes),
       minimumCompressionSize: minimumCompressionSize,
       apiKeySource: apiKeySource,
       endpointConfiguration: endpointConfiguration,
@@ -89,21 +90,20 @@ abstract class RestApi
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RestApi')
-          ..add('id', id)
-          ..add('name', name)
-          ..add('description', description)
-          ..add('createdDate', createdDate)
-          ..add('version', version)
-          ..add('warnings', warnings)
-          ..add('binaryMediaTypes', binaryMediaTypes)
-          ..add('minimumCompressionSize', minimumCompressionSize)
-          ..add('apiKeySource', apiKeySource)
-          ..add('endpointConfiguration', endpointConfiguration)
-          ..add('policy', policy)
-          ..add('tags', tags)
-          ..add('disableExecuteApiEndpoint', disableExecuteApiEndpoint);
+    final helper = newBuiltValueToStringHelper('RestApi')
+      ..add('id', id)
+      ..add('name', name)
+      ..add('description', description)
+      ..add('createdDate', createdDate)
+      ..add('version', version)
+      ..add('warnings', warnings)
+      ..add('binaryMediaTypes', binaryMediaTypes)
+      ..add('minimumCompressionSize', minimumCompressionSize)
+      ..add('apiKeySource', apiKeySource)
+      ..add('endpointConfiguration', endpointConfiguration)
+      ..add('policy', policy)
+      ..add('tags', tags)
+      ..add('disableExecuteApiEndpoint', disableExecuteApiEndpoint);
     return helper.toString();
   }
 }

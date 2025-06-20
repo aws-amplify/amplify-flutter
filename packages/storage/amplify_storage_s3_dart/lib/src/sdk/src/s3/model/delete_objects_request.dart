@@ -159,15 +159,14 @@ abstract class DeleteObjectsRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteObjectsRequest')
-          ..add('bucket', bucket)
-          ..add('delete', delete)
-          ..add('mfa', mfa)
-          ..add('requestPayer', requestPayer)
-          ..add('bypassGovernanceRetention', bypassGovernanceRetention)
-          ..add('expectedBucketOwner', expectedBucketOwner)
-          ..add('checksumAlgorithm', checksumAlgorithm);
+    final helper = newBuiltValueToStringHelper('DeleteObjectsRequest')
+      ..add('bucket', bucket)
+      ..add('delete', delete)
+      ..add('mfa', mfa)
+      ..add('requestPayer', requestPayer)
+      ..add('bypassGovernanceRetention', bypassGovernanceRetention)
+      ..add('expectedBucketOwner', expectedBucketOwner)
+      ..add('checksumAlgorithm', checksumAlgorithm);
     return helper.toString();
   }
 }

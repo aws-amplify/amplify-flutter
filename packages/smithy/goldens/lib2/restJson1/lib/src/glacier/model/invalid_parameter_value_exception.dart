@@ -75,11 +75,10 @@ abstract class InvalidParameterValueException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InvalidParameterValueException')
-          ..add('type', type)
-          ..add('code', code)
-          ..add('message', message);
+    final helper = newBuiltValueToStringHelper('InvalidParameterValueException')
+      ..add('type', type)
+      ..add('code', code)
+      ..add('message', message);
     return helper.toString();
   }
 }

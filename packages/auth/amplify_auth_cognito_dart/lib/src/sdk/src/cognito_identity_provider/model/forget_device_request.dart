@@ -57,10 +57,9 @@ abstract class ForgetDeviceRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ForgetDeviceRequest')
-          ..add('accessToken', '***SENSITIVE***')
-          ..add('deviceKey', deviceKey);
+    final helper = newBuiltValueToStringHelper('ForgetDeviceRequest')
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('deviceKey', deviceKey);
     return helper.toString();
   }
 }

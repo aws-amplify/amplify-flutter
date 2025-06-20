@@ -54,10 +54,9 @@ class CpkHasManyParentBidirectionalExplicit extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -71,10 +70,9 @@ class CpkHasManyParentBidirectionalExplicit extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -112,12 +110,11 @@ class CpkHasManyParentBidirectionalExplicit extends amplify_core.Model {
     return CpkHasManyParentBidirectionalExplicit._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       name: name,
-      bidirectionalExplicitChildren:
-          bidirectionalExplicitChildren != null
-              ? List<CpkHasManyChildBidirectionalExplicit>.unmodifiable(
-                bidirectionalExplicitChildren,
-              )
-              : bidirectionalExplicitChildren,
+      bidirectionalExplicitChildren: bidirectionalExplicitChildren != null
+          ? List<CpkHasManyChildBidirectionalExplicit>.unmodifiable(
+              bidirectionalExplicitChildren,
+            )
+          : bidirectionalExplicitChildren,
     );
   }
 
@@ -176,10 +173,9 @@ class CpkHasManyParentBidirectionalExplicit extends amplify_core.Model {
     return CpkHasManyParentBidirectionalExplicit._internal(
       id: id,
       name: name,
-      bidirectionalExplicitChildren:
-          bidirectionalExplicitChildren == null
-              ? this.bidirectionalExplicitChildren
-              : bidirectionalExplicitChildren.value,
+      bidirectionalExplicitChildren: bidirectionalExplicitChildren == null
+          ? this.bidirectionalExplicitChildren
+          : bidirectionalExplicitChildren.value,
     );
   }
 
@@ -188,8 +184,8 @@ class CpkHasManyParentBidirectionalExplicit extends amplify_core.Model {
       _name = json['name'],
       _bidirectionalExplicitChildren =
           json['bidirectionalExplicitChildren'] is Map
-              ? (json['bidirectionalExplicitChildren']['items'] is List
-                  ? (json['bidirectionalExplicitChildren']['items'] as List)
+          ? (json['bidirectionalExplicitChildren']['items'] is List
+                ? (json['bidirectionalExplicitChildren']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) => CpkHasManyChildBidirectionalExplicit.fromJson(
@@ -197,9 +193,9 @@ class CpkHasManyParentBidirectionalExplicit extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null)
-              : (json['bidirectionalExplicitChildren'] is List
-                  ? (json['bidirectionalExplicitChildren'] as List)
+                : null)
+          : (json['bidirectionalExplicitChildren'] is List
+                ? (json['bidirectionalExplicitChildren'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => CpkHasManyChildBidirectionalExplicit.fromJson(
@@ -207,23 +203,20 @@ class CpkHasManyParentBidirectionalExplicit extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'name': _name,
-    'bidirectionalExplicitChildren':
-        _bidirectionalExplicitChildren
-            ?.map((CpkHasManyChildBidirectionalExplicit? e) => e?.toJson())
-            .toList(),
+    'bidirectionalExplicitChildren': _bidirectionalExplicitChildren
+        ?.map((CpkHasManyChildBidirectionalExplicit? e) => e?.toJson())
+        .toList(),
     'createdAt': _createdAt?.format(),
     'updatedAt': _updatedAt?.format(),
   };
@@ -276,9 +269,8 @@ class CpkHasManyParentBidirectionalExplicit extends amplify_core.Model {
 
       modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.hasMany(
-          key:
-              CpkHasManyParentBidirectionalExplicit
-                  .BIDIRECTIONALEXPLICITCHILDREN,
+          key: CpkHasManyParentBidirectionalExplicit
+              .BIDIRECTIONALEXPLICITCHILDREN,
           isRequired: false,
           ofModelName: 'CpkHasManyChildBidirectionalExplicit',
           associatedKey: CpkHasManyChildBidirectionalExplicit.HASMANYPARENT,
@@ -347,16 +339,13 @@ class CpkHasManyParentBidirectionalExplicitModelIdentifier
   });
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id,
-    'name': name,
-  });
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

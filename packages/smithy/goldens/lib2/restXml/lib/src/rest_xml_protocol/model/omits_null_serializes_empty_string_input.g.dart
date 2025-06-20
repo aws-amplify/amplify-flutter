@@ -106,9 +106,8 @@ class _$OmitsNullSerializesEmptyStringInputPayload
     extends OmitsNullSerializesEmptyStringInputPayload {
   factory _$OmitsNullSerializesEmptyStringInputPayload([
     void Function(OmitsNullSerializesEmptyStringInputPayloadBuilder)? updates,
-  ]) =>
-      (OmitsNullSerializesEmptyStringInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (OmitsNullSerializesEmptyStringInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$OmitsNullSerializesEmptyStringInputPayload._() : super._();
   @override

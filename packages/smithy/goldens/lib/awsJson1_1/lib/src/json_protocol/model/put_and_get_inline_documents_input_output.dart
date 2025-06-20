@@ -22,8 +22,9 @@ abstract class PutAndGetInlineDocumentsInputOutput
         > {
   factory PutAndGetInlineDocumentsInputOutput({Object? inlineDocument}) {
     return _$PutAndGetInlineDocumentsInputOutput._(
-      inlineDocument:
-          inlineDocument == null ? null : _i3.JsonObject(inlineDocument),
+      inlineDocument: inlineDocument == null
+          ? null
+          : _i3.JsonObject(inlineDocument),
     );
   }
 

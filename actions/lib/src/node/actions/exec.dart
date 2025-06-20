@@ -32,25 +32,24 @@ extension type Exec._(JSObject it) {
     final stderr = StringBuffer();
     final options = _ExecOptions(
       listeners: _ExecListeners(
-        stdout:
-            ((JSUint8Array buffer) => stdout.write(utf8.decode(buffer.toDart)))
-                .toJS,
-        stderr:
-            ((JSUint8Array buffer) => stderr.write(utf8.decode(buffer.toDart)))
-                .toJS,
+        stdout: ((JSUint8Array buffer) => stdout.write(
+          utf8.decode(buffer.toDart),
+        )).toJS,
+        stderr: ((JSUint8Array buffer) => stderr.write(
+          utf8.decode(buffer.toDart),
+        )).toJS,
       ),
       silent: !echoOutput,
       cwd: workingDirectory,
       ignoreReturnCode: !failOnNonZeroExit,
     );
     try {
-      final jsExitCode =
-          await _exec(
-            commandLine,
-            args.map((arg) => arg.toJS).toList().toJS,
-            options,
-          ).toDart;
-          
+      final jsExitCode = await _exec(
+        commandLine,
+        args.map((arg) => arg.toJS).toList().toJS,
+        options,
+      ).toDart;
+
       final exitCode = (jsExitCode as JSNumber).toDartInt;
       return ExecResult(
         exitCode: exitCode,

@@ -76,14 +76,13 @@ abstract class CompletedPart
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CompletedPart')
-          ..add('eTag', eTag)
-          ..add('checksumCrc32', checksumCrc32)
-          ..add('checksumCrc32C', checksumCrc32C)
-          ..add('checksumSha1', checksumSha1)
-          ..add('checksumSha256', checksumSha256)
-          ..add('partNumber', partNumber);
+    final helper = newBuiltValueToStringHelper('CompletedPart')
+      ..add('eTag', eTag)
+      ..add('checksumCrc32', checksumCrc32)
+      ..add('checksumCrc32C', checksumCrc32C)
+      ..add('checksumSha1', checksumSha1)
+      ..add('checksumSha256', checksumSha256)
+      ..add('partNumber', partNumber);
     return helper.toString();
   }
 }

@@ -24,8 +24,9 @@ abstract class Prediction
     return _$Prediction._(
       predictedLabel: predictedLabel,
       predictedValue: predictedValue,
-      predictedScores:
-          predictedScores == null ? null : _i2.BuiltMap(predictedScores),
+      predictedScores: predictedScores == null
+          ? null
+          : _i2.BuiltMap(predictedScores),
       details: details == null ? null : _i2.BuiltMap(details),
     );
   }
@@ -53,12 +54,11 @@ abstract class Prediction
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('Prediction')
-          ..add('predictedLabel', predictedLabel)
-          ..add('predictedValue', predictedValue)
-          ..add('predictedScores', predictedScores)
-          ..add('details', details);
+    final helper = newBuiltValueToStringHelper('Prediction')
+      ..add('predictedLabel', predictedLabel)
+      ..add('predictedValue', predictedValue)
+      ..add('predictedScores', predictedScores)
+      ..add('details', details);
     return helper.toString();
   }
 }

@@ -79,11 +79,10 @@ abstract class DeleteObjectOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteObjectOutput')
-          ..add('deleteMarker', deleteMarker)
-          ..add('versionId', versionId)
-          ..add('requestCharged', requestCharged);
+    final helper = newBuiltValueToStringHelper('DeleteObjectOutput')
+      ..add('deleteMarker', deleteMarker)
+      ..add('versionId', versionId)
+      ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }

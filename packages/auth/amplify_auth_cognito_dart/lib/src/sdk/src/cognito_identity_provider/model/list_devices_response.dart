@@ -54,10 +54,9 @@ abstract class ListDevicesResponse
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListDevicesResponse')
-          ..add('devices', devices)
-          ..add('paginationToken', paginationToken);
+    final helper = newBuiltValueToStringHelper('ListDevicesResponse')
+      ..add('devices', devices)
+      ..add('paginationToken', paginationToken);
     return helper.toString();
   }
 }

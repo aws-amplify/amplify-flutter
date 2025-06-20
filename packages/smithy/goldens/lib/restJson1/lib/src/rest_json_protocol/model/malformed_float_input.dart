@@ -86,12 +86,11 @@ abstract class MalformedFloatInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedFloatInput')
-          ..add('floatInBody', floatInBody)
-          ..add('floatInPath', floatInPath)
-          ..add('floatInQuery', floatInQuery)
-          ..add('floatInHeader', floatInHeader);
+    final helper = newBuiltValueToStringHelper('MalformedFloatInput')
+      ..add('floatInBody', floatInBody)
+      ..add('floatInPath', floatInPath)
+      ..add('floatInQuery', floatInQuery)
+      ..add('floatInHeader', floatInHeader);
     return helper.toString();
   }
 }

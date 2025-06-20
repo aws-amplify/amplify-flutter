@@ -18,8 +18,8 @@ void main() {
       initialRoute: '/routeA',
       routes: {
         '/routeA': (BuildContext context) => const RouteA(),
-        '/routeB':
-            (BuildContext context) => const AuthenticatedView(child: RouteB()),
+        '/routeB': (BuildContext context) =>
+            const AuthenticatedView(child: RouteB()),
       },
     ),
   );
@@ -104,8 +104,8 @@ class RouteA extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           key: navToRouteBButtonKey,
-          onPressed:
-              () => Navigator.of(context).pushReplacementNamed('/routeB'),
+          onPressed: () =>
+              Navigator.of(context).pushReplacementNamed('/routeB'),
           child: const Text('Goto Route B'),
         ),
       ),

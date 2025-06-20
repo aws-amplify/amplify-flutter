@@ -88,11 +88,11 @@ const expectedApiKeyWebSocketConnectionUrlCustomDomain =
     'wss://foo.bar.aws.dev/graphql/realtime?payload=e30%3D';
 
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
-  final testAuthProviderRepo =
-      AmplifyAuthProviderRepository()..registerAuthProvider(
-        APIAuthorizationType.apiKey.authProviderToken,
-        AppSyncApiKeyAuthProvider(),
-      );
+  final testAuthProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      APIAuthorizationType.apiKey.authProviderToken,
+      AppSyncApiKeyAuthProvider(),
+    );
 
   return testAuthProviderRepo;
 }
@@ -205,8 +205,9 @@ class MockWebSocketSink extends DelegatingStreamSink<dynamic>
   }
 }
 
-class MockWebSocketChannel extends WebSocketChannel {
-  MockWebSocketChannel() : super(streamChannel);
+class MockWebSocketChannel extends StreamChannelMixin<dynamic>
+    implements WebSocketChannel {
+  MockWebSocketChannel() : super();
 
   // ignore: close_sinks
   final controller = StreamController<dynamic>.broadcast();
@@ -221,6 +222,23 @@ class MockWebSocketChannel extends WebSocketChannel {
 
   @override
   WebSocketSink get sink => MockWebSocketSink(controller.sink);
+
+  @override
+  StreamChannel<S> cast<S>() {
+    throw UnimplementedError();
+  }
+
+  @override
+  int? get closeCode => throw UnimplementedError();
+
+  @override
+  String? get closeReason => throw UnimplementedError();
+
+  @override
+  String? get protocol => throw UnimplementedError();
+
+  @override
+  Future<void> get ready => throw UnimplementedError();
 }
 
 // From https://docs.amplify.aws/lib/graphqlapi/authz/q/platform/flutter/#oidc
@@ -343,9 +361,8 @@ final deepEquals = const DeepCollectionEquality().equals;
   APIAuthorizationType type, [
   String? apiKey,
 ]) {
-  final repo =
-      AmplifyAuthProviderRepository()
-        ..registerAuthProvider(type.authProviderToken, authProvider);
+  final repo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(type.authProviderToken, authProvider);
   final outputs = DataOutputs(
     awsRegion: 'us-east-1',
     url: 'https://example.com/',

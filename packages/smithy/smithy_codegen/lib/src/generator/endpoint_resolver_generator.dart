@@ -24,10 +24,9 @@ class EndpointResolverGenerator extends ShapeGenerator<ServiceShape, Library?> {
     }
 
     return Library(
-      (b) =>
-          b
-            ..name = context.endpointResolverLibrary.libraryName
-            ..body.addAll(_fields),
+      (b) => b
+        ..name = context.endpointResolverLibrary.libraryName
+        ..body.addAll(_fields),
     );
   }
 
@@ -72,10 +71,9 @@ class EndpointResolverGenerator extends ShapeGenerator<ServiceShape, Library?> {
       'regionRegex': DartTypes.core.regExp.newInstance([
         literalString(partition.regionRegex.pattern, raw: true),
       ]),
-      'partitionEndpoint':
-          partition.partitionEndpoint == null
-              ? literalNull
-              : literalString(partition.partitionEndpoint!),
+      'partitionEndpoint': partition.partitionEndpoint == null
+          ? literalNull
+          : literalString(partition.partitionEndpoint!),
       'isRegionalized': literalBool(partition.isRegionalized),
       'defaults': _buildEndpointDefinition(partition.defaults),
       'regions': literalConstSet({
@@ -92,43 +90,39 @@ class EndpointResolverGenerator extends ShapeGenerator<ServiceShape, Library?> {
     /// The `partitions` field which aggregates all the partitions for the service.
     final sortedPartitions = [...awsPartitions.keys]..sort();
     yield Field(
-      (f) =>
-          f
-            ..modifier = FieldModifier.final$
-            ..name = '_partitions'
-            ..assignment =
-                literalList([
-                  for (final partitionName in sortedPartitions)
-                    _buildPartition(
-                      awsPartitions[partitionName]!.toPartition(
-                        resolvedService.endpointPrefix,
-                      ),
-                    ),
-                ]).code,
+      (f) => f
+        ..modifier = FieldModifier.final$
+        ..name = '_partitions'
+        ..assignment = literalList([
+          for (final partitionName in sortedPartitions)
+            _buildPartition(
+              awsPartitions[partitionName]!.toPartition(
+                resolvedService.endpointPrefix,
+              ),
+            ),
+        ]).code,
     );
 
     // The `endpointResolver`
     final endpointResolver = DartTypes.smithyAws.awsEndpointResolver
         .newInstance([refer('_partitions')]);
     yield Field(
-      (f) =>
-          f
-            ..annotations.add(DartTypes.meta.internal)
-            ..modifier = FieldModifier.final$
-            ..type = DartTypes.smithyAws.awsEndpointResolver
-            ..name = 'endpointResolver'
-            ..assignment = endpointResolver.code,
+      (f) => f
+        ..annotations.add(DartTypes.meta.internal)
+        ..modifier = FieldModifier.final$
+        ..type = DartTypes.smithyAws.awsEndpointResolver
+        ..name = 'endpointResolver'
+        ..assignment = endpointResolver.code,
     );
 
     // The `sdkId` field.
     yield Field(
-      (f) =>
-          f
-            ..annotations.add(DartTypes.meta.internal)
-            ..modifier = FieldModifier.constant
-            ..type = DartTypes.core.string
-            ..name = 'sdkId'
-            ..assignment = literalString(resolvedService.sdkId).code,
+      (f) => f
+        ..annotations.add(DartTypes.meta.internal)
+        ..modifier = FieldModifier.constant
+        ..type = DartTypes.core.string
+        ..name = 'sdkId'
+        ..assignment = literalString(resolvedService.sdkId).code,
     );
   }
 }

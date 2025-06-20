@@ -57,12 +57,11 @@ abstract class InAppMessageButton
   List<Object?> get props => [android, defaultConfig, ios, web];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InAppMessageButton')
-          ..add('android', android)
-          ..add('defaultConfig', defaultConfig)
-          ..add('ios', ios)
-          ..add('web', web);
+    final helper = newBuiltValueToStringHelper('InAppMessageButton')
+      ..add('android', android)
+      ..add('defaultConfig', defaultConfig)
+      ..add('ios', ios)
+      ..add('web', web);
     return helper.toString();
   }
 }

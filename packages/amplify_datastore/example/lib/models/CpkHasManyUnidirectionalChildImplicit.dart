@@ -53,10 +53,9 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -70,10 +69,9 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -198,26 +196,24 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
       name: name,
       cpkHasManyUnidirectionalParentImplicitChildrenId:
           cpkHasManyUnidirectionalParentImplicitChildrenId == null
-              ? this.cpkHasManyUnidirectionalParentImplicitChildrenId
-              : cpkHasManyUnidirectionalParentImplicitChildrenId.value,
+          ? this.cpkHasManyUnidirectionalParentImplicitChildrenId
+          : cpkHasManyUnidirectionalParentImplicitChildrenId.value,
       cpkHasManyUnidirectionalParentImplicitChildrenName:
           cpkHasManyUnidirectionalParentImplicitChildrenName == null
-              ? this.cpkHasManyUnidirectionalParentImplicitChildrenName
-              : cpkHasManyUnidirectionalParentImplicitChildrenName.value,
+          ? this.cpkHasManyUnidirectionalParentImplicitChildrenName
+          : cpkHasManyUnidirectionalParentImplicitChildrenName.value,
     );
   }
 
   CpkHasManyUnidirectionalChildImplicit.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _name = json['name'],
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null,
       _cpkHasManyUnidirectionalParentImplicitChildrenId =
           json['cpkHasManyUnidirectionalParentImplicitChildrenId'],
       _cpkHasManyUnidirectionalParentImplicitChildrenName =
@@ -308,9 +304,8 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
 
       modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.field(
-          key:
-              CpkHasManyUnidirectionalChildImplicit
-                  .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID,
+          key: CpkHasManyUnidirectionalChildImplicit
+              .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID,
           isRequired: false,
           ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string,
@@ -320,9 +315,8 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
 
       modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.field(
-          key:
-              CpkHasManyUnidirectionalChildImplicit
-                  .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENNAME,
+          key: CpkHasManyUnidirectionalChildImplicit
+              .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENNAME,
           isRequired: false,
           ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string,
@@ -370,16 +364,13 @@ class CpkHasManyUnidirectionalChildImplicitModelIdentifier
   });
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id,
-    'name': name,
-  });
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

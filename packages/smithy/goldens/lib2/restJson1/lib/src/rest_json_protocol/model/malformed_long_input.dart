@@ -89,12 +89,11 @@ abstract class MalformedLongInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedLongInput')
-          ..add('longInBody', longInBody)
-          ..add('longInPath', longInPath)
-          ..add('longInQuery', longInQuery)
-          ..add('longInHeader', longInHeader);
+    final helper = newBuiltValueToStringHelper('MalformedLongInput')
+      ..add('longInBody', longInBody)
+      ..add('longInPath', longInPath)
+      ..add('longInQuery', longInQuery)
+      ..add('longInHeader', longInHeader);
     return helper.toString();
   }
 }

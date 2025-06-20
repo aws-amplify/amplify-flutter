@@ -52,9 +52,8 @@ class Todo extends Model {
     } catch (e) {
       throw new AmplifyCodeGenModelException(
         AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -70,9 +69,8 @@ class Todo extends Model {
     } catch (e) {
       throw new AmplifyCodeGenModelException(
         AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -166,14 +164,12 @@ class Todo extends Model {
       _name = json['name'],
       _description = json['description'],
       _owner = json['owner'],
-      _createdAt =
-          json['createdAt'] != null
-              ? TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+      _createdAt = json['createdAt'] != null
+          ? TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -295,10 +291,9 @@ class TodoModelIdentifier implements ModelIdentifier<Todo> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

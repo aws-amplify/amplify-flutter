@@ -33,21 +33,23 @@ abstract class JsonListsInputOutput
   }) {
     return _$JsonListsInputOutput._(
       stringList: stringList == null ? null : _i3.BuiltList(stringList),
-      sparseStringList:
-          sparseStringList == null ? null : _i3.BuiltList(sparseStringList),
+      sparseStringList: sparseStringList == null
+          ? null
+          : _i3.BuiltList(sparseStringList),
       stringSet: stringSet == null ? null : _i3.BuiltSet(stringSet),
       integerList: integerList == null ? null : _i3.BuiltList(integerList),
       booleanList: booleanList == null ? null : _i3.BuiltList(booleanList),
-      timestampList:
-          timestampList == null ? null : _i3.BuiltList(timestampList),
+      timestampList: timestampList == null
+          ? null
+          : _i3.BuiltList(timestampList),
       enumList: enumList == null ? null : _i3.BuiltList(enumList),
       intEnumList: intEnumList == null ? null : _i3.BuiltList(intEnumList),
-      nestedStringList:
-          nestedStringList == null
-              ? null
-              : _i3.BuiltList(nestedStringList.map((el) => _i3.BuiltList(el))),
-      structureList:
-          structureList == null ? null : _i3.BuiltList(structureList),
+      nestedStringList: nestedStringList == null
+          ? null
+          : _i3.BuiltList(nestedStringList.map((el) => _i3.BuiltList(el))),
+      structureList: structureList == null
+          ? null
+          : _i3.BuiltList(structureList),
     );
   }
 
@@ -104,18 +106,17 @@ abstract class JsonListsInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('JsonListsInputOutput')
-          ..add('stringList', stringList)
-          ..add('sparseStringList', sparseStringList)
-          ..add('stringSet', stringSet)
-          ..add('integerList', integerList)
-          ..add('booleanList', booleanList)
-          ..add('timestampList', timestampList)
-          ..add('enumList', enumList)
-          ..add('intEnumList', intEnumList)
-          ..add('nestedStringList', nestedStringList)
-          ..add('structureList', structureList);
+    final helper = newBuiltValueToStringHelper('JsonListsInputOutput')
+      ..add('stringList', stringList)
+      ..add('sparseStringList', sparseStringList)
+      ..add('stringSet', stringSet)
+      ..add('integerList', integerList)
+      ..add('booleanList', booleanList)
+      ..add('timestampList', timestampList)
+      ..add('enumList', enumList)
+      ..add('intEnumList', intEnumList)
+      ..add('nestedStringList', nestedStringList)
+      ..add('structureList', structureList);
     return helper.toString();
   }
 }

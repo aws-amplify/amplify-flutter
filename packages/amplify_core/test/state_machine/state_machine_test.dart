@@ -18,8 +18,9 @@ void main() {
     });
 
     test('checkPrecondition blocks abberant events', () async {
-      final currentState =
-          stateMachine.getOrCreate(MyStateMachine.type).currentState;
+      final currentState = stateMachine
+          .getOrCreate(MyStateMachine.type)
+          .currentState;
       expect(currentState.type, equals(MyType.initial));
 
       stateMachine.accept(const MyEvent(MyType.initial)).ignore();
@@ -68,8 +69,9 @@ void main() {
       });
 
       test('accept', () async {
-        final completion =
-            await stateMachine.accept(const MyEvent(MyType.tryWork)).completed;
+        final completion = await stateMachine
+            .accept(const MyEvent(MyType.tryWork))
+            .completed;
         expect(
           completion,
           isA<MyErrorState>().having(
@@ -93,10 +95,9 @@ void main() {
       });
 
       test('dispatch', () async {
-        final completion =
-            await stateMachine
-                .dispatch(const MyEvent(MyType.tryWork))
-                .completed;
+        final completion = await stateMachine
+            .dispatch(const MyEvent(MyType.tryWork))
+            .completed;
         expect(
           completion,
           isA<MyErrorState>().having(

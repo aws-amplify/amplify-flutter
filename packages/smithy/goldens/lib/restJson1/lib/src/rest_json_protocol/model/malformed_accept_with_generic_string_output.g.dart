@@ -13,9 +13,8 @@ class _$MalformedAcceptWithGenericStringOutput
 
   factory _$MalformedAcceptWithGenericStringOutput([
     void Function(MalformedAcceptWithGenericStringOutputBuilder)? updates,
-  ]) =>
-      (MalformedAcceptWithGenericStringOutputBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedAcceptWithGenericStringOutputBuilder()..update(updates))
+      ._build();
 
   _$MalformedAcceptWithGenericStringOutput._({this.payload}) : super._();
   @override

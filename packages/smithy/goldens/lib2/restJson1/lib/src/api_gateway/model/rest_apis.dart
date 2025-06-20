@@ -43,10 +43,9 @@ abstract class RestApis
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RestApis')
-          ..add('items', items)
-          ..add('position', position);
+    final helper = newBuiltValueToStringHelper('RestApis')
+      ..add('items', items)
+      ..add('position', position);
     return helper.toString();
   }
 }

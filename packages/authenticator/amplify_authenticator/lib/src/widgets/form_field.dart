@@ -153,7 +153,8 @@ abstract class AuthenticatorFormFieldState<
   /// Validates inputs of this form field.
   ///
   /// By default, this validates all inputs.
-  FormFieldValidator<FieldValue> get validator => (_) => null;
+  FormFieldValidator<FieldValue> get validator =>
+      (_) => null;
 
   /// Whether to hide input.
   bool get obscureText => false;
@@ -188,8 +189,9 @@ abstract class AuthenticatorFormFieldState<
     var labelText =
         widget.title ?? widget.titleKey?.resolve(context, inputResolver);
     if (labelText != null) {
-      labelText =
-          isOptional ? inputResolver.optional(context, labelText) : labelText;
+      labelText = isOptional
+          ? inputResolver.optional(context, labelText)
+          : labelText;
     }
     return labelText;
   }

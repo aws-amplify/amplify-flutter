@@ -70,11 +70,10 @@ abstract class GetObjectOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetObjectOutput')
-          ..add('body', body)
-          ..add('contentLength', contentLength)
-          ..add('contentRange', contentRange);
+    final helper = newBuiltValueToStringHelper('GetObjectOutput')
+      ..add('body', body)
+      ..add('contentLength', contentLength)
+      ..add('contentRange', contentRange);
     return helper.toString();
   }
 }

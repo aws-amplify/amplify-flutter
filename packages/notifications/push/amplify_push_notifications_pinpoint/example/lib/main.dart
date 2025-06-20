@@ -107,8 +107,8 @@ class _MyAppState extends State<MyApp> {
               headerText('Permissions APIs'),
               ElevatedButton(
                 onPressed: () async {
-                  final status =
-                      await Amplify.Notifications.Push.getPermissionStatus();
+                  final status = await Amplify.Notifications.Push
+                      .getPermissionStatus();
                   setState(() {
                     getPermissionStatus = status;
                   });
@@ -119,8 +119,8 @@ class _MyAppState extends State<MyApp> {
                 Text('Permission status: $getPermissionStatus'),
               ElevatedButton(
                 onPressed: () async {
-                  final result =
-                      await Amplify.Notifications.Push.requestPermissions();
+                  final result = await Amplify.Notifications.Push
+                      .requestPermissions();
                   setState(() {
                     requestPermissionsResult = result;
                   });

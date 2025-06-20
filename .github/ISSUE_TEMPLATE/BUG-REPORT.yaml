@@ -79,7 +79,7 @@ body:
     attributes:
       label: "Flutter Version"
       description: "Please share which version of Flutter you're using (found using `flutter --version`)."
-      placeholder: "3.29.0"
+      placeholder: "3.32.0"
     validations:
       required: true
   - type: input

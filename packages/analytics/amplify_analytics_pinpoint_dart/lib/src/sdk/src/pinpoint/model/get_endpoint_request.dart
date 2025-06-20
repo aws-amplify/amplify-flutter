@@ -73,10 +73,9 @@ abstract class GetEndpointRequest
   List<Object?> get props => [applicationId, endpointId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetEndpointRequest')
-          ..add('applicationId', applicationId)
-          ..add('endpointId', endpointId);
+    final helper = newBuiltValueToStringHelper('GetEndpointRequest')
+      ..add('applicationId', applicationId)
+      ..add('endpointId', endpointId);
     return helper.toString();
   }
 }

@@ -28,10 +28,9 @@ void main() {
     required String appId,
     String? accessGroup,
   }) {
-    final linuxOptions =
-        accessGroup != null
-            ? LinuxSecureStorageOptions(accessGroup: accessGroup)
-            : LinuxSecureStorageOptions();
+    final linuxOptions = accessGroup != null
+        ? LinuxSecureStorageOptions(accessGroup: accessGroup)
+        : LinuxSecureStorageOptions();
     final instance = AmplifySecureStorageLinux(
       config: AmplifySecureStorageConfig(
         scope: scope,

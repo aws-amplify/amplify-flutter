@@ -39,10 +39,9 @@ abstract class FractionalSecondsOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('FractionalSecondsOutput')
-          ..add('datetime', datetime)
-          ..add('httpdate', httpdate);
+    final helper = newBuiltValueToStringHelper('FractionalSecondsOutput')
+      ..add('datetime', datetime)
+      ..add('httpdate', httpdate);
     return helper.toString();
   }
 }

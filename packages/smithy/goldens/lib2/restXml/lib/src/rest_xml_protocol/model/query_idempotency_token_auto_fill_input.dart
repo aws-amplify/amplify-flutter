@@ -49,10 +49,9 @@ abstract class QueryIdempotencyTokenAutoFillInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryIdempotencyTokenAutoFillInputBuilder b) {
-    b.token =
-        const bool.hasEnvironment('SMITHY_TEST')
-            ? '00000000-0000-4000-8000-000000000000'
-            : _i2.uuid(secure: true);
+    b.token = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   String? get token;

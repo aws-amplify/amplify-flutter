@@ -19,9 +19,8 @@ class OverrideTransformRequestClient extends AWSBaseHttpClient {
 void main() {
   group('AWSBaseHttpClient', () {
     test('can leave baseClient unspecified', () async {
-      final client =
-          OverrideTransformRequestClient()
-            ..supportedProtocols = SupportedProtocols.http1;
+      final client = OverrideTransformRequestClient()
+        ..supportedProtocols = SupportedProtocols.http1;
       final request = AWSHttpRequest.get(Uri.parse('https://amazon.com/ping'));
       expect(request.send(client: client).response, completes);
     });

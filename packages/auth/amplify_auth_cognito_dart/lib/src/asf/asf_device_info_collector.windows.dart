@@ -139,9 +139,8 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
     // - https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversionexw
     // - https://github.com/dart-windows/win32/blob/5f305167bfe181abbc663a7f7f2a0787910fac21/example/manifest/README.md
     var osVersion = 'Windows';
-    final osVersionInfo =
-        arena<OSVERSIONINFO>()
-          ..ref.dwOSVersionInfoSize = sizeOf<OSVERSIONINFO>();
+    final osVersionInfo = arena<OSVERSIONINFO>()
+      ..ref.dwOSVersionInfoSize = sizeOf<OSVERSIONINFO>();
     if (SUCCEEDED(GetVersionEx(osVersionInfo))) {
       final OSVERSIONINFO(:dwMajorVersion, :dwMinorVersion, :dwBuildNumber) =
           osVersionInfo.ref;

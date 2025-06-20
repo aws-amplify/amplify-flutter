@@ -24,10 +24,9 @@ Map<String, dynamic> _$HttpChecksumTraitToJson(HttpChecksumTrait instance) =>
       'requestChecksumRequired': instance.requestChecksumRequired,
       'requestAlgorithmMember': instance.requestAlgorithmMember,
       'requestValidationModeMember': instance.requestValidationModeMember,
-      'responseAlgorithms':
-          instance.responseAlgorithms
-              .map((e) => _$ChecksumAlgorithmEnumMap[e]!)
-              .toList(),
+      'responseAlgorithms': instance.responseAlgorithms
+          .map((e) => _$ChecksumAlgorithmEnumMap[e]!)
+          .toList(),
     };
 
 const _$ChecksumAlgorithmEnumMap = {

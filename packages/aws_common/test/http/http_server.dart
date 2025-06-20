@@ -34,10 +34,9 @@ Future<void> clientHybridMain(
 
   late int port;
   late Future<void> Function() close;
-  final context =
-      SecurityContext()
-        ..useCertificateChain('test/http/certificates/cert.pem')
-        ..usePrivateKey('test/http/certificates/key.pem', password: 'amazon');
+  final context = SecurityContext()
+    ..useCertificateChain('test/http/certificates/cert.pem')
+    ..usePrivateKey('test/http/certificates/key.pem', password: 'amazon');
   if (protocol == AlpnProtocol.http2.value) {
     final server = await MultiProtocolHttpServer.bind(
       InternetAddress.loopbackIPv4,

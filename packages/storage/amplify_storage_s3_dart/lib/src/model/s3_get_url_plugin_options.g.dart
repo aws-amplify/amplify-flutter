@@ -12,10 +12,9 @@ S3GetUrlPluginOptions _$S3GetUrlPluginOptionsFromJson(
   final val = S3GetUrlPluginOptions(
     expiresIn: $checkedConvert(
       'expiresIn',
-      (v) =>
-          v == null
-              ? const Duration(minutes: 15)
-              : Duration(microseconds: (v as num).toInt()),
+      (v) => v == null
+          ? const Duration(minutes: 15)
+          : Duration(microseconds: (v as num).toInt()),
     ),
     validateObjectExistence: $checkedConvert(
       'validateObjectExistence',

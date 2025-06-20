@@ -54,11 +54,10 @@ abstract class EventDimensions
   List<Object?> get props => [attributes, eventType, metrics];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EventDimensions')
-          ..add('attributes', attributes)
-          ..add('eventType', eventType)
-          ..add('metrics', metrics);
+    final helper = newBuiltValueToStringHelper('EventDimensions')
+      ..add('attributes', attributes)
+      ..add('eventType', eventType)
+      ..add('metrics', metrics);
     return helper.toString();
   }
 }

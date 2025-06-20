@@ -109,10 +109,9 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
       protocolTraits.memberWireNames.toMap();
 
   /// The name of [member] on the wire.
-  String memberWireName(MemberShape member) =>
-      config.renameMembers
-          ? wireNames[member] ?? member.memberName
-          : member.memberName;
+  String memberWireName(MemberShape member) => config.renameMembers
+      ? wireNames[member] ?? member.memberName
+      : member.memberName;
 
   @override
   Class? generate() {
@@ -124,50 +123,43 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
     context.generatedTypes[symbol] ??= {};
 
     return Class(
-      (c) =>
-          c
-            ..name = serializerClassName
-            ..extend =
-                isStructuredSerializer
-                    ? DartTypes.smithy.structuredSmithySerializer(
-                      serializedSymbol,
-                    )
-                    : DartTypes.smithy.primitiveSmithySerializer(
-                      serializedSymbol,
-                    )
-            ..constructors.add(constructor)
-            ..methods.addAll([
-              _typesGetter,
-              supportedProtocols,
-              deserialize,
-              serialize,
-            ]),
+      (c) => c
+        ..name = serializerClassName
+        ..extend = isStructuredSerializer
+            ? DartTypes.smithy.structuredSmithySerializer(serializedSymbol)
+            : DartTypes.smithy.primitiveSmithySerializer(serializedSymbol)
+        ..constructors.add(constructor)
+        ..methods.addAll([
+          _typesGetter,
+          supportedProtocols,
+          deserialize,
+          serialize,
+        ]),
     );
   }
 
   /// The `types` getter.
   Method get _typesGetter => Method(
-    (m) =>
-        m
-          ..annotations.add(DartTypes.core.override)
-          ..returns = DartTypes.core.iterable(DartTypes.core.type)
-          ..type = MethodType.getter
-          ..name = 'types'
-          ..lambda = true
-          ..body =
-              literalConstList([
-                symbol,
-                if (config.usePrivateSymbols) builtSymbol,
-                if (isStructuredSerializer && config.usePayload) ...[
-                  if (hasBuiltPayload) payloadSymbol,
-                  if (config.usePrivateSymbols && builtPayloadSymbol != null)
-                    builtPayloadSymbol,
-                ],
-              ]).code,
+    (m) => m
+      ..annotations.add(DartTypes.core.override)
+      ..returns = DartTypes.core.iterable(DartTypes.core.type)
+      ..type = MethodType.getter
+      ..name = 'types'
+      ..lambda = true
+      ..body = literalConstList([
+        symbol,
+        if (config.usePrivateSymbols) builtSymbol,
+        if (isStructuredSerializer && config.usePayload) ...[
+          if (hasBuiltPayload) payloadSymbol,
+          if (config.usePrivateSymbols && builtPayloadSymbol != null)
+            builtPayloadSymbol,
+        ],
+      ]).code,
   );
 
   Code get deserializePreamble => Code.scope(
-    (allocate) => '''
+    (allocate) =>
+        '''
       final iterator = serialized.iterator;
       while (iterator.moveNext()) {
         final key = iterator.current as ${allocate(DartTypes.core.string)};
@@ -190,8 +182,9 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
       ).returned.statement;
     }
 
-    final builderSymbol =
-        config.usePayload ? payloadBuilderSymbol : this.builderSymbol;
+    final builderSymbol = config.usePayload
+        ? payloadBuilderSymbol
+        : this.builderSymbol;
     if (serializedMembers.isEmpty) {
       return builderSymbol
           .newInstance([])
@@ -201,12 +194,11 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
           .statement;
     }
 
-    final builder =
-        BlockBuilder()
-          // Create the builder.
-          ..addExpression(
-            declareFinal('result').assign(builderSymbol.newInstance([])),
-          );
+    final builder = BlockBuilder()
+      // Create the builder.
+      ..addExpression(
+        declareFinal('result').assign(builderSymbol.newInstance([])),
+      );
 
     // Iterate over the serialized elements.
     builder.statements.addAll([
@@ -235,8 +227,8 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
                 targetShape.isStreaming
                     ? DartTypes.async.stream().constInstanceNamed('empty', [])
                     : DartTypes.typedData.uint8List.newInstance([
-                      literalNum(0),
-                    ]),
+                        literalNum(0),
+                      ]),
               ),
         );
       }

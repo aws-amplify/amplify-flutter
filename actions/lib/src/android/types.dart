@@ -15,13 +15,11 @@ enum AndroidAbi {
 
   static AndroidAbi parse(String value) => values.firstWhere(
     (el) => el.name == value || el.abi == value,
-    orElse:
-        () =>
-            throw ArgumentError.value(
-              value,
-              'value',
-              'Invalid Android ABI. Expected one of: [${allAbis.join(', ')}]',
-            ),
+    orElse: () => throw ArgumentError.value(
+      value,
+      'value',
+      'Invalid Android ABI. Expected one of: [${allAbis.join(', ')}]',
+    ),
   );
 
   static AndroidAbi forArch(Arch arch) => switch (arch) {
@@ -94,14 +92,12 @@ enum AndroidSystemImageTarget {
 
   static AndroidSystemImageTarget parse(String target) => values.firstWhere(
     (el) => el.tag == target,
-    orElse:
-        () =>
-            throw ArgumentError.value(
-              target,
-              'target',
-              'Invalid Android system image taget. '
-                  'Expected one of: [${allTags.join(', ')}]',
-            ),
+    orElse: () => throw ArgumentError.value(
+      target,
+      'target',
+      'Invalid Android system image taget. '
+          'Expected one of: [${allTags.join(', ')}]',
+    ),
   );
 
   static List<String> get allTags => values.map((el) => el.tag).toList();

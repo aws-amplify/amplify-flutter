@@ -140,15 +140,13 @@ void main() {
         );
 
       expect(
-        () =>
-            dependencyManager
-                .getOrCreate<NeedsDependencyManagerAndDispatcher>(),
+        () => dependencyManager
+            .getOrCreate<NeedsDependencyManagerAndDispatcher>(),
         returnsNormally,
       );
       expect(
-        () =>
-            scopedDependencyManager
-                .getOrCreate<NeedsDependencyManagerAndDispatcher>(),
+        () => scopedDependencyManager
+            .getOrCreate<NeedsDependencyManagerAndDispatcher>(),
         returnsNormally,
       );
     });

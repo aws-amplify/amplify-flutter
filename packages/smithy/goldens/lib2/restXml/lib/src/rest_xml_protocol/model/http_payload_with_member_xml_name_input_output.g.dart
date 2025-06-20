@@ -13,9 +13,8 @@ class _$HttpPayloadWithMemberXmlNameInputOutput
 
   factory _$HttpPayloadWithMemberXmlNameInputOutput([
     void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder)? updates,
-  ]) =>
-      (HttpPayloadWithMemberXmlNameInputOutputBuilder()..update(updates))
-          ._build();
+  ]) => (HttpPayloadWithMemberXmlNameInputOutputBuilder()..update(updates))
+      ._build();
 
   _$HttpPayloadWithMemberXmlNameInputOutput._({this.nested}) : super._();
   @override

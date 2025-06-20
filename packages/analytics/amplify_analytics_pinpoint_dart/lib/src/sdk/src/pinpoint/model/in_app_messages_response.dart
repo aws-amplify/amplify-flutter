@@ -21,10 +21,9 @@ abstract class InAppMessagesResponse
     List<InAppMessageCampaign>? inAppMessageCampaigns,
   }) {
     return _$InAppMessagesResponse._(
-      inAppMessageCampaigns:
-          inAppMessageCampaigns == null
-              ? null
-              : _i2.BuiltList(inAppMessageCampaigns),
+      inAppMessageCampaigns: inAppMessageCampaigns == null
+          ? null
+          : _i2.BuiltList(inAppMessageCampaigns),
     );
   }
 

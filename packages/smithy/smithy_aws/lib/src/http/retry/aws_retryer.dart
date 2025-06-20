@@ -143,11 +143,10 @@ class AWSRetryer implements Retryer {
 
   /// Calculates the exponential backoff delay for the given [attempt].
   Duration _exponentialBackoff(int attempt) => Duration(
-    seconds:
-        min(
-          exponentialBase * pow(exponentialPower, attempt),
-          maxBackoffTime.inSeconds,
-        ).toInt(),
+    seconds: min(
+      exponentialBase * pow(exponentialPower, attempt),
+      maxBackoffTime.inSeconds,
+    ).toInt(),
   );
 
   @override

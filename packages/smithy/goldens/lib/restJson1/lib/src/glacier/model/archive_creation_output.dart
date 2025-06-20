@@ -65,11 +65,10 @@ abstract class ArchiveCreationOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ArchiveCreationOutput')
-          ..add('location', location)
-          ..add('checksum', checksum)
-          ..add('archiveId', archiveId);
+    final helper = newBuiltValueToStringHelper('ArchiveCreationOutput')
+      ..add('location', location)
+      ..add('checksum', checksum)
+      ..add('archiveId', archiveId);
     return helper.toString();
   }
 }

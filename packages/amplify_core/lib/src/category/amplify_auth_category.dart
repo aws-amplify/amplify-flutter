@@ -46,8 +46,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ) =>
       plugins.singleWhere(
             (p) => p is Plugin,
-            orElse:
-                () => throw PluginError('No plugin registered for $pluginKey'),
+            orElse: () =>
+                throw PluginError('No plugin registered for $pluginKey'),
           )
           as Plugin;
 

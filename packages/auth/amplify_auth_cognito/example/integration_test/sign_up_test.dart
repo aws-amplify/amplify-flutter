@@ -180,10 +180,10 @@ void main() {
           );
 
           final emailCode = await getOtpCode(UserAttribute.email(email));
-          final resendRes = await Amplify
-              .Auth.sendUserAttributeVerificationCode(
-            userAttributeKey: AuthUserAttributeKey.email,
-          );
+          final resendRes =
+              await Amplify.Auth.sendUserAttributeVerificationCode(
+                userAttributeKey: AuthUserAttributeKey.email,
+              );
           expect(
             resendRes.codeDeliveryDetails.attributeKey,
             AuthUserAttributeKey.email,

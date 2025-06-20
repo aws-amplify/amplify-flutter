@@ -38,11 +38,10 @@ abstract class MalformedTimestampQueryDefaultInput
     Map<String, String> labels = const {},
   }) => MalformedTimestampQueryDefaultInput.build((b) {
     if (request.queryParameters['timestamp'] != null) {
-      b.timestamp =
-          _i1.Timestamp.parse(
-            request.queryParameters['timestamp']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.timestamp = _i1.Timestamp.parse(
+        request.queryParameters['timestamp']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
   });
 

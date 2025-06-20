@@ -163,9 +163,8 @@ class AWSProfileFileConverter
               b.name = propertyName;
               final propertyValue = property.value as String;
               if (propertyValue.startsWith(lineBreakExp)) {
-                for (final propLine in propertyValue
-                    .split(lineBreakExp)
-                    .skip(1)) {
+                for (final propLine
+                    in propertyValue.split(lineBreakExp).skip(1)) {
                   final name = propLine.split('=')[0].trim();
                   final value = propLine.split('=')[1].trim();
                   b.value = '';

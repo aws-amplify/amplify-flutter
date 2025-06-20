@@ -72,11 +72,10 @@ abstract class GetIdInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetIdInput')
-          ..add('accountId', accountId)
-          ..add('identityPoolId', identityPoolId)
-          ..add('logins', logins);
+    final helper = newBuiltValueToStringHelper('GetIdInput')
+      ..add('accountId', accountId)
+      ..add('identityPoolId', identityPoolId)
+      ..add('logins', logins);
     return helper.toString();
   }
 }

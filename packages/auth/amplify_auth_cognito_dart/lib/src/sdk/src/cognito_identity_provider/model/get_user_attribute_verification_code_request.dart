@@ -30,8 +30,9 @@ abstract class GetUserAttributeVerificationCodeRequest
     return _$GetUserAttributeVerificationCodeRequest._(
       accessToken: accessToken,
       attributeName: attributeName,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 

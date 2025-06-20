@@ -149,10 +149,9 @@ CognitoUserPoolTokens _$CognitoUserPoolTokensFromJson(
   final val = CognitoUserPoolTokens(
     signInMethod: $checkedConvert(
       'signInMethod',
-      (v) =>
-          v == null
-              ? CognitoSignInMethod.default$
-              : const _CognitoSignInMethodSerializer().fromJson(v as String),
+      (v) => v == null
+          ? CognitoSignInMethod.default$
+          : const _CognitoSignInMethodSerializer().fromJson(v as String),
     ),
     accessToken: $checkedConvert(
       'accessToken',

@@ -55,12 +55,11 @@ abstract class Credentials
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('Credentials')
-          ..add('accessKeyId', accessKeyId)
-          ..add('secretKey', '***SENSITIVE***')
-          ..add('sessionToken', sessionToken)
-          ..add('expiration', expiration);
+    final helper = newBuiltValueToStringHelper('Credentials')
+      ..add('accessKeyId', accessKeyId)
+      ..add('secretKey', '***SENSITIVE***')
+      ..add('sessionToken', sessionToken)
+      ..add('expiration', expiration);
     return helper.toString();
   }
 }

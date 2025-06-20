@@ -21,7 +21,7 @@ extension type InputElementBase(JSObject _) implements Element {
   external String? get value;
   external set value(String? value);
 
-  external List<Node>? get labels;
+  external JSArray<Node>? get labels;
 
   external String get validationMessage;
 

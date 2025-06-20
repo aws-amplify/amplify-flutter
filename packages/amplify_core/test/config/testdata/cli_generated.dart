@@ -26,7 +26,8 @@ const _v4empty = '''
 }
 ''';
 
-const _v4analytics = '''
+const _v4analytics =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -46,7 +47,8 @@ const _v4analytics = '''
 }
 ''';
 
-const _v4auth = '''
+const _v4auth =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -150,7 +152,8 @@ const _v4auth = '''
 }
 ''';
 
-const _v4api = '''
+const _v4api =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -182,7 +185,8 @@ const _v4api = '''
 }
 ''';
 
-const _v4storage = '''
+const _v4storage =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -212,7 +216,8 @@ const _v5empty = '''
 }
 ''';
 
-const _v5analytics = '''
+const _v5analytics =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -232,7 +237,8 @@ const _v5analytics = '''
 }
 ''';
 
-const _v5auth = '''
+const _v5auth =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -336,7 +342,8 @@ const _v5auth = '''
 }
 ''';
 
-const _v5api = '''
+const _v5api =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -368,7 +375,8 @@ const _v5api = '''
 }
 ''';
 
-const _v5storage = '''
+const _v5storage =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -398,7 +406,8 @@ const _v6empty = '''
 }
 ''';
 
-const _v6analytics = '''
+const _v6analytics =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -418,7 +427,8 @@ const _v6analytics = '''
 }
 ''';
 
-const _v6auth = '''
+const _v6auth =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -522,7 +532,8 @@ const _v6auth = '''
 }
 ''';
 
-const _v6api = '''
+const _v6api =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -554,7 +565,8 @@ const _v6api = '''
 }
 ''';
 
-const _v6storage = '''
+const _v6storage =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -584,7 +596,8 @@ const _v7empty = '''
 }
 ''';
 
-const _v7analytics = '''
+const _v7analytics =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -604,7 +617,8 @@ const _v7analytics = '''
 }
 ''';
 
-const _v7auth = '''
+const _v7auth =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -708,7 +722,8 @@ const _v7auth = '''
 }
 ''';
 
-const _v7api = '''
+const _v7api =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -740,7 +755,8 @@ const _v7api = '''
 }
 ''';
 
-const _v7storage = '''
+const _v7storage =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -770,7 +786,8 @@ const _vlatestempty = '''
 }
 ''';
 
-const _vlatestanalytics = '''
+const _vlatestanalytics =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -790,7 +807,8 @@ const _vlatestanalytics = '''
 }
 ''';
 
-const _vlatestauth = '''
+const _vlatestauth =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -894,7 +912,8 @@ const _vlatestauth = '''
 }
 ''';
 
-const _vlatestapi = '''
+const _vlatestapi =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",
@@ -926,7 +945,8 @@ const _vlatestapi = '''
 }
 ''';
 
-const _vlateststorage = '''
+const _vlateststorage =
+    '''
 {
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0",

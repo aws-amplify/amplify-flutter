@@ -30,8 +30,9 @@ abstract class ScopedConfig
     return _$ScopedConfig._(
       environment: environment,
       configFile: configFile == null ? null : _i2.BuiltMap(configFile),
-      credentialsFile:
-          credentialsFile == null ? null : _i2.BuiltMap(credentialsFile),
+      credentialsFile: credentialsFile == null
+          ? null
+          : _i2.BuiltMap(credentialsFile),
       client: client,
       operation: operation,
     );
@@ -72,13 +73,12 @@ abstract class ScopedConfig
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ScopedConfig')
-          ..add('environment', environment)
-          ..add('configFile', configFile)
-          ..add('credentialsFile', credentialsFile)
-          ..add('client', client)
-          ..add('operation', operation);
+    final helper = newBuiltValueToStringHelper('ScopedConfig')
+      ..add('environment', environment)
+      ..add('configFile', configFile)
+      ..add('credentialsFile', credentialsFile)
+      ..add('client', client)
+      ..add('operation', operation);
     return helper.toString();
   }
 }

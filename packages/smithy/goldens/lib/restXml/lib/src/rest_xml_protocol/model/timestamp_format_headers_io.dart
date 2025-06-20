@@ -51,53 +51,46 @@ abstract class TimestampFormatHeadersIo
     Map<String, String> labels = const {},
   }) => TimestampFormatHeadersIo.build((b) {
     if (request.headers['X-memberEpochSeconds'] != null) {
-      b.memberEpochSeconds =
-          _i1.Timestamp.parse(
-            int.parse(request.headers['X-memberEpochSeconds']!),
-            format: _i1.TimestampFormat.epochSeconds,
-          ).asDateTime;
+      b.memberEpochSeconds = _i1.Timestamp.parse(
+        int.parse(request.headers['X-memberEpochSeconds']!),
+        format: _i1.TimestampFormat.epochSeconds,
+      ).asDateTime;
     }
     if (request.headers['X-memberHttpDate'] != null) {
-      b.memberHttpDate =
-          _i1.Timestamp.parse(
-            request.headers['X-memberHttpDate']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.memberHttpDate = _i1.Timestamp.parse(
+        request.headers['X-memberHttpDate']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['X-memberDateTime'] != null) {
-      b.memberDateTime =
-          _i1.Timestamp.parse(
-            request.headers['X-memberDateTime']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.memberDateTime = _i1.Timestamp.parse(
+        request.headers['X-memberDateTime']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
     if (request.headers['X-defaultFormat'] != null) {
-      b.defaultFormat =
-          _i1.Timestamp.parse(
-            request.headers['X-defaultFormat']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.defaultFormat = _i1.Timestamp.parse(
+        request.headers['X-defaultFormat']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['X-targetEpochSeconds'] != null) {
-      b.targetEpochSeconds =
-          _i1.Timestamp.parse(
-            int.parse(request.headers['X-targetEpochSeconds']!),
-            format: _i1.TimestampFormat.epochSeconds,
-          ).asDateTime;
+      b.targetEpochSeconds = _i1.Timestamp.parse(
+        int.parse(request.headers['X-targetEpochSeconds']!),
+        format: _i1.TimestampFormat.epochSeconds,
+      ).asDateTime;
     }
     if (request.headers['X-targetHttpDate'] != null) {
-      b.targetHttpDate =
-          _i1.Timestamp.parse(
-            request.headers['X-targetHttpDate']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.targetHttpDate = _i1.Timestamp.parse(
+        request.headers['X-targetHttpDate']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['X-targetDateTime'] != null) {
-      b.targetDateTime =
-          _i1.Timestamp.parse(
-            request.headers['X-targetDateTime']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.targetDateTime = _i1.Timestamp.parse(
+        request.headers['X-targetDateTime']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
   });
 
@@ -107,53 +100,46 @@ abstract class TimestampFormatHeadersIo
     _i2.AWSBaseHttpResponse response,
   ) => TimestampFormatHeadersIo.build((b) {
     if (response.headers['X-memberEpochSeconds'] != null) {
-      b.memberEpochSeconds =
-          _i1.Timestamp.parse(
-            int.parse(response.headers['X-memberEpochSeconds']!),
-            format: _i1.TimestampFormat.epochSeconds,
-          ).asDateTime;
+      b.memberEpochSeconds = _i1.Timestamp.parse(
+        int.parse(response.headers['X-memberEpochSeconds']!),
+        format: _i1.TimestampFormat.epochSeconds,
+      ).asDateTime;
     }
     if (response.headers['X-memberHttpDate'] != null) {
-      b.memberHttpDate =
-          _i1.Timestamp.parse(
-            response.headers['X-memberHttpDate']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.memberHttpDate = _i1.Timestamp.parse(
+        response.headers['X-memberHttpDate']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (response.headers['X-memberDateTime'] != null) {
-      b.memberDateTime =
-          _i1.Timestamp.parse(
-            response.headers['X-memberDateTime']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.memberDateTime = _i1.Timestamp.parse(
+        response.headers['X-memberDateTime']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
     if (response.headers['X-defaultFormat'] != null) {
-      b.defaultFormat =
-          _i1.Timestamp.parse(
-            response.headers['X-defaultFormat']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.defaultFormat = _i1.Timestamp.parse(
+        response.headers['X-defaultFormat']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (response.headers['X-targetEpochSeconds'] != null) {
-      b.targetEpochSeconds =
-          _i1.Timestamp.parse(
-            int.parse(response.headers['X-targetEpochSeconds']!),
-            format: _i1.TimestampFormat.epochSeconds,
-          ).asDateTime;
+      b.targetEpochSeconds = _i1.Timestamp.parse(
+        int.parse(response.headers['X-targetEpochSeconds']!),
+        format: _i1.TimestampFormat.epochSeconds,
+      ).asDateTime;
     }
     if (response.headers['X-targetHttpDate'] != null) {
-      b.targetHttpDate =
-          _i1.Timestamp.parse(
-            response.headers['X-targetHttpDate']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.targetHttpDate = _i1.Timestamp.parse(
+        response.headers['X-targetHttpDate']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (response.headers['X-targetDateTime'] != null) {
-      b.targetDateTime =
-          _i1.Timestamp.parse(
-            response.headers['X-targetDateTime']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.targetDateTime = _i1.Timestamp.parse(
+        response.headers['X-targetDateTime']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
   });
 
@@ -184,15 +170,14 @@ abstract class TimestampFormatHeadersIo
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TimestampFormatHeadersIo')
-          ..add('memberEpochSeconds', memberEpochSeconds)
-          ..add('memberHttpDate', memberHttpDate)
-          ..add('memberDateTime', memberDateTime)
-          ..add('defaultFormat', defaultFormat)
-          ..add('targetEpochSeconds', targetEpochSeconds)
-          ..add('targetHttpDate', targetHttpDate)
-          ..add('targetDateTime', targetDateTime);
+    final helper = newBuiltValueToStringHelper('TimestampFormatHeadersIo')
+      ..add('memberEpochSeconds', memberEpochSeconds)
+      ..add('memberHttpDate', memberHttpDate)
+      ..add('memberDateTime', memberDateTime)
+      ..add('defaultFormat', defaultFormat)
+      ..add('targetEpochSeconds', targetEpochSeconds)
+      ..add('targetHttpDate', targetHttpDate)
+      ..add('targetDateTime', targetDateTime);
     return helper.toString();
   }
 }

@@ -214,22 +214,21 @@ abstract class PutObjectOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PutObjectOutput')
-          ..add('expiration', expiration)
-          ..add('eTag', eTag)
-          ..add('checksumCrc32', checksumCrc32)
-          ..add('checksumCrc32C', checksumCrc32C)
-          ..add('checksumSha1', checksumSha1)
-          ..add('checksumSha256', checksumSha256)
-          ..add('serverSideEncryption', serverSideEncryption)
-          ..add('versionId', versionId)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('ssekmsKeyId', '***SENSITIVE***')
-          ..add('ssekmsEncryptionContext', '***SENSITIVE***')
-          ..add('bucketKeyEnabled', bucketKeyEnabled)
-          ..add('requestCharged', requestCharged);
+    final helper = newBuiltValueToStringHelper('PutObjectOutput')
+      ..add('expiration', expiration)
+      ..add('eTag', eTag)
+      ..add('checksumCrc32', checksumCrc32)
+      ..add('checksumCrc32C', checksumCrc32C)
+      ..add('checksumSha1', checksumSha1)
+      ..add('checksumSha256', checksumSha256)
+      ..add('serverSideEncryption', serverSideEncryption)
+      ..add('versionId', versionId)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('ssekmsKeyId', '***SENSITIVE***')
+      ..add('ssekmsEncryptionContext', '***SENSITIVE***')
+      ..add('bucketKeyEnabled', bucketKeyEnabled)
+      ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }

@@ -67,11 +67,10 @@ abstract class MalformedRequiredInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedRequiredInput')
-          ..add('string', string)
-          ..add('stringInQuery', stringInQuery)
-          ..add('stringInHeader', stringInHeader);
+    final helper = newBuiltValueToStringHelper('MalformedRequiredInput')
+      ..add('string', string)
+      ..add('stringInQuery', stringInQuery)
+      ..add('stringInHeader', stringInHeader);
     return helper.toString();
   }
 }

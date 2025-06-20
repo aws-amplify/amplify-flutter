@@ -8,10 +8,9 @@ part of 'waiter.dart';
 
 Waiter _$WaiterFromJson(Map<String, dynamic> json) => Waiter(
   documentation: json['documentation'] as String?,
-  acceptors:
-      (json['acceptors'] as List<dynamic>)
-          .map(AcceptorDefinition.fromJson)
-          .toList(),
+  acceptors: (json['acceptors'] as List<dynamic>)
+      .map(AcceptorDefinition.fromJson)
+      .toList(),
   minDelay: (json['minDelay'] as num?)?.toInt() ?? Waiter.defaultMinDelay,
   maxDelay: (json['maxDelay'] as num?)?.toInt() ?? Waiter.defaultMaxDelay,
   tags:

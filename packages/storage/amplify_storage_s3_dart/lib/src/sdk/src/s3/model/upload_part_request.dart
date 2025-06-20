@@ -252,25 +252,24 @@ abstract class UploadPartRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UploadPartRequest')
-          ..add('body', body)
-          ..add('bucket', bucket)
-          ..add('contentLength', contentLength)
-          ..add('contentMd5', contentMd5)
-          ..add('checksumAlgorithm', checksumAlgorithm)
-          ..add('checksumCrc32', checksumCrc32)
-          ..add('checksumCrc32C', checksumCrc32C)
-          ..add('checksumSha1', checksumSha1)
-          ..add('checksumSha256', checksumSha256)
-          ..add('key', key)
-          ..add('partNumber', partNumber)
-          ..add('uploadId', uploadId)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKey', '***SENSITIVE***')
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('requestPayer', requestPayer)
-          ..add('expectedBucketOwner', expectedBucketOwner);
+    final helper = newBuiltValueToStringHelper('UploadPartRequest')
+      ..add('body', body)
+      ..add('bucket', bucket)
+      ..add('contentLength', contentLength)
+      ..add('contentMd5', contentMd5)
+      ..add('checksumAlgorithm', checksumAlgorithm)
+      ..add('checksumCrc32', checksumCrc32)
+      ..add('checksumCrc32C', checksumCrc32C)
+      ..add('checksumSha1', checksumSha1)
+      ..add('checksumSha256', checksumSha256)
+      ..add('key', key)
+      ..add('partNumber', partNumber)
+      ..add('uploadId', uploadId)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKey', '***SENSITIVE***')
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('requestPayer', requestPayer)
+      ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }

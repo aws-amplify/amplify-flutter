@@ -14,5 +14,5 @@ extension type FileUploadInputElement(JSObject _) implements InputElementBase {
   external bool get required;
   external set required(bool value);
 
-  external List<File>? files;
+  external JSArray<File>? files;
 }

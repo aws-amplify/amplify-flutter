@@ -15,9 +15,8 @@ class _$StreamingTraitsWithMediaTypeInputOutput
 
   factory _$StreamingTraitsWithMediaTypeInputOutput([
     void Function(StreamingTraitsWithMediaTypeInputOutputBuilder)? updates,
-  ]) =>
-      (StreamingTraitsWithMediaTypeInputOutputBuilder()..update(updates))
-          ._build();
+  ]) => (StreamingTraitsWithMediaTypeInputOutputBuilder()..update(updates))
+      ._build();
 
   _$StreamingTraitsWithMediaTypeInputOutput._({this.foo, required this.blob})
     : super._();

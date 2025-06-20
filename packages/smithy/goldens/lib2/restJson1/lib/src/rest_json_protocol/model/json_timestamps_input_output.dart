@@ -80,15 +80,14 @@ abstract class JsonTimestampsInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('JsonTimestampsInputOutput')
-          ..add('normal', normal)
-          ..add('dateTime', dateTime)
-          ..add('dateTimeOnTarget', dateTimeOnTarget)
-          ..add('epochSeconds', epochSeconds)
-          ..add('epochSecondsOnTarget', epochSecondsOnTarget)
-          ..add('httpDate', httpDate)
-          ..add('httpDateOnTarget', httpDateOnTarget);
+    final helper = newBuiltValueToStringHelper('JsonTimestampsInputOutput')
+      ..add('normal', normal)
+      ..add('dateTime', dateTime)
+      ..add('dateTimeOnTarget', dateTimeOnTarget)
+      ..add('epochSeconds', epochSeconds)
+      ..add('epochSecondsOnTarget', epochSecondsOnTarget)
+      ..add('httpDate', httpDate)
+      ..add('httpDateOnTarget', httpDateOnTarget);
     return helper.toString();
   }
 }

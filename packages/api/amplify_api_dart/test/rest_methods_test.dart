@@ -32,11 +32,11 @@ void main() {
       options: APIPluginOptions(baseHttpClient: mockHttpClient),
     );
     // Register IAM auth provider like amplify_auth_cognito would do.
-    final authProviderRepo =
-        AmplifyAuthProviderRepository()..registerAuthProvider(
-          APIAuthorizationType.iam.authProviderToken,
-          TestIamAuthProvider(),
-        );
+    final authProviderRepo = AmplifyAuthProviderRepository()
+      ..registerAuthProvider(
+        APIAuthorizationType.iam.authProviderToken,
+        TestIamAuthProvider(),
+      );
     final amplifyOutputs = AmplifyOutputs.fromJson(
       jsonDecode(amplifyConfig) as Map<String, Object?>,
     );

@@ -940,10 +940,9 @@ RawPubspecConfig _$RawPubspecConfigFromJson(Map json) =>
         ),
         aft: $checkedConvert(
           'aft',
-          (v) =>
-              v == null
-                  ? null
-                  : RawAftConfig.fromJson(Map<String, Object?>.from(v as Map)),
+          (v) => v == null
+              ? null
+              : RawAftConfig.fromJson(Map<String, Object?>.from(v as Map)),
         ),
       );
       return val;
@@ -966,12 +965,9 @@ RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
     final val = RawAftConfig(
       platforms: $checkedConvert(
         'platforms',
-        (v) =>
-            v == null
-                ? null
-                : PlatformEnvironment.fromJson(
-                  Map<String, Object?>.from(v as Map),
-                ),
+        (v) => v == null
+            ? null
+            : PlatformEnvironment.fromJson(Map<String, Object?>.from(v as Map)),
       ),
       ignore: $checkedConvert(
         'ignore',
@@ -1003,12 +999,9 @@ RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
       ),
       github: $checkedConvert(
         'github',
-        (v) =>
-            v == null
-                ? null
-                : GitHubPackageConfig.fromJson(
-                  Map<String, Object?>.from(v as Map),
-                ),
+        (v) => v == null
+            ? null
+            : GitHubPackageConfig.fromJson(Map<String, Object?>.from(v as Map)),
       ),
     );
     return val;
@@ -1103,10 +1096,9 @@ AftScript _$AftScriptFromJson(Map json) =>
         description: $checkedConvert('description', (v) => v as String?),
         from: $checkedConvert(
           'from',
-          (v) =>
-              v == null
-                  ? const PackageSelector.development()
-                  : const PackageSelectorConverter().fromJson(v),
+          (v) => v == null
+              ? const PackageSelector.development()
+              : const PackageSelectorConverter().fromJson(v),
         ),
         failFast: $checkedConvert('fail-fast', (v) => v as bool? ?? false),
       );

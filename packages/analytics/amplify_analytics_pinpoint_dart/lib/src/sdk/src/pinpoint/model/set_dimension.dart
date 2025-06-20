@@ -46,10 +46,9 @@ abstract class SetDimension
   List<Object?> get props => [dimensionType, values];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SetDimension')
-          ..add('dimensionType', dimensionType)
-          ..add('values', values);
+    final helper = newBuiltValueToStringHelper('SetDimension')
+      ..add('dimensionType', dimensionType)
+      ..add('values', values);
     return helper.toString();
   }
 }

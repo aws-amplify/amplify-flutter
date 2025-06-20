@@ -47,10 +47,9 @@ abstract class CampaignEventFilter
   List<Object?> get props => [dimensions, filterType];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CampaignEventFilter')
-          ..add('dimensions', dimensions)
-          ..add('filterType', filterType);
+    final helper = newBuiltValueToStringHelper('CampaignEventFilter')
+      ..add('dimensions', dimensions)
+      ..add('filterType', filterType);
     return helper.toString();
   }
 }

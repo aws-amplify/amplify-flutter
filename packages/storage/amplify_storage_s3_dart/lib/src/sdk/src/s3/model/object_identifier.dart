@@ -44,10 +44,9 @@ abstract class ObjectIdentifier
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ObjectIdentifier')
-          ..add('key', key)
-          ..add('versionId', versionId);
+    final helper = newBuiltValueToStringHelper('ObjectIdentifier')
+      ..add('key', key)
+      ..add('versionId', versionId);
     return helper.toString();
   }
 }

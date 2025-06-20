@@ -31,14 +31,12 @@ void main() {
   Future<void> createAndLoginUser([EnvironmentInfo? environment]) async {
     username = environment?.generateUsername() ?? generateUsername();
     password = generatePassword();
-    email =
-        environment?.loginMethod == LoginMethod.email
-            ? username
-            : generateEmail();
-    phoneNumber =
-        environment?.loginMethod == LoginMethod.phone
-            ? username
-            : generatePhoneNumber();
+    email = environment?.loginMethod == LoginMethod.email
+        ? username
+        : generateEmail();
+    phoneNumber = environment?.loginMethod == LoginMethod.phone
+        ? username
+        : generatePhoneNumber();
     name = generateNameAttribute();
 
     await adminCreateUser(
@@ -282,10 +280,10 @@ void main() {
             final resentCode = await getOtpCode(
               UserAttribute.email(keepOriginal ? email : newEmail),
             );
-            final resendResult = await Amplify
-                .Auth.sendUserAttributeVerificationCode(
-              userAttributeKey: AuthUserAttributeKey.email,
-            );
+            final resendResult =
+                await Amplify.Auth.sendUserAttributeVerificationCode(
+                  userAttributeKey: AuthUserAttributeKey.email,
+                );
             expect(
               resendResult.codeDeliveryDetails.attributeKey,
               AuthUserAttributeKey.email,
@@ -350,10 +348,10 @@ void main() {
             final resentCode = await getOtpCode(
               UserAttribute.phone(keepOriginal ? phoneNumber : newPhoneNumber),
             );
-            final resendResult = await Amplify
-                .Auth.sendUserAttributeVerificationCode(
-              userAttributeKey: AuthUserAttributeKey.phoneNumber,
-            );
+            final resendResult =
+                await Amplify.Auth.sendUserAttributeVerificationCode(
+                  userAttributeKey: AuthUserAttributeKey.phoneNumber,
+                );
             expect(
               resendResult.codeDeliveryDetails.attributeKey,
               AuthUserAttributeKey.phoneNumber,

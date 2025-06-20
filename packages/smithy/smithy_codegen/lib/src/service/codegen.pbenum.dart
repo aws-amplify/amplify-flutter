@@ -55,8 +55,8 @@ class SmithyLibrary_LibraryType extends $pb.ProtobufEnum {
         WAITERS,
       ];
 
-  static final $core.Map<$core.int, SmithyLibrary_LibraryType> _byValue = $pb
-      .ProtobufEnum.initByValue(values);
+  static final $core.Map<$core.int, SmithyLibrary_LibraryType> _byValue =
+      $pb.ProtobufEnum.initByValue(values);
   static SmithyLibrary_LibraryType? valueOf($core.int value) => _byValue[value];
 
   const SmithyLibrary_LibraryType._($core.int v, $core.String n) : super(v, n);

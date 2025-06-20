@@ -52,10 +52,9 @@ class SecondMtmRelation extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -69,10 +68,9 @@ class SecondMtmRelation extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -175,51 +173,45 @@ class SecondMtmRelation extends amplify_core.Model {
   }) {
     return SecondMtmRelation._internal(
       id: id,
-      manyToManyPrimary:
-          manyToManyPrimary == null
-              ? this.manyToManyPrimary
-              : manyToManyPrimary.value,
-      manyToManySecondary:
-          manyToManySecondary == null
-              ? this.manyToManySecondary
-              : manyToManySecondary.value,
+      manyToManyPrimary: manyToManyPrimary == null
+          ? this.manyToManyPrimary
+          : manyToManyPrimary.value,
+      manyToManySecondary: manyToManySecondary == null
+          ? this.manyToManySecondary
+          : manyToManySecondary.value,
     );
   }
 
   SecondMtmRelation.fromJson(Map<String, dynamic> json)
     : id = json['id'],
-      _manyToManyPrimary =
-          json['manyToManyPrimary'] != null
-              ? json['manyToManyPrimary']['serializedData'] != null
-                  ? ManyToManyPrimary.fromJson(
+      _manyToManyPrimary = json['manyToManyPrimary'] != null
+          ? json['manyToManyPrimary']['serializedData'] != null
+                ? ManyToManyPrimary.fromJson(
                     new Map<String, dynamic>.from(
                       json['manyToManyPrimary']['serializedData'],
                     ),
                   )
-                  : ManyToManyPrimary.fromJson(
+                : ManyToManyPrimary.fromJson(
                     new Map<String, dynamic>.from(json['manyToManyPrimary']),
                   )
-              : null,
-      _manyToManySecondary =
-          json['manyToManySecondary'] != null
-              ? json['manyToManySecondary']['serializedData'] != null
-                  ? ManyToManySecondary.fromJson(
+          : null,
+      _manyToManySecondary = json['manyToManySecondary'] != null
+          ? json['manyToManySecondary']['serializedData'] != null
+                ? ManyToManySecondary.fromJson(
                     new Map<String, dynamic>.from(
                       json['manyToManySecondary']['serializedData'],
                     ),
                   )
-                  : ManyToManySecondary.fromJson(
+                : ManyToManySecondary.fromJson(
                     new Map<String, dynamic>.from(json['manyToManySecondary']),
                   )
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -348,10 +340,9 @@ class SecondMtmRelationModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

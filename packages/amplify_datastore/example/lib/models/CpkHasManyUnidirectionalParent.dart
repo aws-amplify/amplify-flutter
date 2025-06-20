@@ -53,10 +53,9 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -70,10 +69,9 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -117,18 +115,16 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
     return CpkHasManyUnidirectionalParent._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       name: name,
-      implicitChildren:
-          implicitChildren != null
-              ? List<CpkHasManyUnidirectionalChildImplicit>.unmodifiable(
-                implicitChildren,
-              )
-              : implicitChildren,
-      explicitChildren:
-          explicitChildren != null
-              ? List<CpkHasManyUnidirectionalChildExplicit>.unmodifiable(
-                explicitChildren,
-              )
-              : explicitChildren,
+      implicitChildren: implicitChildren != null
+          ? List<CpkHasManyUnidirectionalChildImplicit>.unmodifiable(
+              implicitChildren,
+            )
+          : implicitChildren,
+      explicitChildren: explicitChildren != null
+          ? List<CpkHasManyUnidirectionalChildExplicit>.unmodifiable(
+              explicitChildren,
+            )
+          : explicitChildren,
     );
   }
 
@@ -194,24 +190,21 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
     return CpkHasManyUnidirectionalParent._internal(
       id: id,
       name: name,
-      implicitChildren:
-          implicitChildren == null
-              ? this.implicitChildren
-              : implicitChildren.value,
-      explicitChildren:
-          explicitChildren == null
-              ? this.explicitChildren
-              : explicitChildren.value,
+      implicitChildren: implicitChildren == null
+          ? this.implicitChildren
+          : implicitChildren.value,
+      explicitChildren: explicitChildren == null
+          ? this.explicitChildren
+          : explicitChildren.value,
     );
   }
 
   CpkHasManyUnidirectionalParent.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _name = json['name'],
-      _implicitChildren =
-          json['implicitChildren'] is Map
-              ? (json['implicitChildren']['items'] is List
-                  ? (json['implicitChildren']['items'] as List)
+      _implicitChildren = json['implicitChildren'] is Map
+          ? (json['implicitChildren']['items'] is List
+                ? (json['implicitChildren']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
@@ -219,9 +212,9 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null)
-              : (json['implicitChildren'] is List
-                  ? (json['implicitChildren'] as List)
+                : null)
+          : (json['implicitChildren'] is List
+                ? (json['implicitChildren'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
@@ -229,11 +222,10 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _explicitChildren =
-          json['explicitChildren'] is Map
-              ? (json['explicitChildren']['items'] is List
-                  ? (json['explicitChildren']['items'] as List)
+                : null),
+      _explicitChildren = json['explicitChildren'] is Map
+          ? (json['explicitChildren']['items'] is List
+                ? (json['explicitChildren']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
@@ -241,9 +233,9 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null)
-              : (json['explicitChildren'] is List
-                  ? (json['explicitChildren'] as List)
+                : null)
+          : (json['explicitChildren'] is List
+                ? (json['explicitChildren'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
@@ -251,27 +243,23 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'name': _name,
-    'implicitChildren':
-        _implicitChildren
-            ?.map((CpkHasManyUnidirectionalChildImplicit? e) => e?.toJson())
-            .toList(),
-    'explicitChildren':
-        _explicitChildren
-            ?.map((CpkHasManyUnidirectionalChildExplicit? e) => e?.toJson())
-            .toList(),
+    'implicitChildren': _implicitChildren
+        ?.map((CpkHasManyUnidirectionalChildImplicit? e) => e?.toJson())
+        .toList(),
+    'explicitChildren': _explicitChildren
+        ?.map((CpkHasManyUnidirectionalChildExplicit? e) => e?.toJson())
+        .toList(),
     'createdAt': _createdAt?.format(),
     'updatedAt': _updatedAt?.format(),
   };
@@ -334,9 +322,8 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
           key: CpkHasManyUnidirectionalParent.IMPLICITCHILDREN,
           isRequired: false,
           ofModelName: 'CpkHasManyUnidirectionalChildImplicit',
-          associatedKey:
-              CpkHasManyUnidirectionalChildImplicit
-                  .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID,
+          associatedKey: CpkHasManyUnidirectionalChildImplicit
+              .CPKHASMANYUNIDIRECTIONALPARENTIMPLICITCHILDRENID,
         ),
       );
 
@@ -408,16 +395,13 @@ class CpkHasManyUnidirectionalParentModelIdentifier
   });
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id,
-    'name': name,
-  });
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

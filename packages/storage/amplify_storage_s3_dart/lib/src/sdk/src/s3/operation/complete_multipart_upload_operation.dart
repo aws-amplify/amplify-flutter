@@ -222,10 +222,9 @@ class CompleteMultipartUploadOperation
   _i1.HttpRequest buildRequest(CompleteMultipartUploadRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
-        b.path =
-            _s3ClientConfig.usePathStyle
-                ? r'/{Bucket}/{Key+}?x-id=CompleteMultipartUpload'
-                : r'/{Key+}?x-id=CompleteMultipartUpload';
+        b.path = _s3ClientConfig.usePathStyle
+            ? r'/{Bucket}/{Key+}?x-id=CompleteMultipartUpload'
+            : r'/{Key+}?x-id=CompleteMultipartUpload';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
         if (input.checksumCrc32 != null) {
           if (input.checksumCrc32!.isNotEmpty) {

@@ -15,8 +15,8 @@ class InheritedStrings extends InheritedWidget {
   final AuthStringResolver resolver;
 
   static AuthStringResolver of(BuildContext context) {
-    final strings =
-        context.dependOnInheritedWidgetOfExactType<InheritedStrings>();
+    final strings = context
+        .dependOnInheritedWidgetOfExactType<InheritedStrings>();
     assert(() {
       if (strings == null) {
         throw FlutterError.fromParts([

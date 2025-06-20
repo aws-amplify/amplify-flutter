@@ -24,8 +24,9 @@ abstract class ItemResponse
   }) {
     return _$ItemResponse._(
       endpointItemResponse: endpointItemResponse,
-      eventsItemResponse:
-          eventsItemResponse == null ? null : _i2.BuiltMap(eventsItemResponse),
+      eventsItemResponse: eventsItemResponse == null
+          ? null
+          : _i2.BuiltMap(eventsItemResponse),
     );
   }
 
@@ -48,10 +49,9 @@ abstract class ItemResponse
   List<Object?> get props => [endpointItemResponse, eventsItemResponse];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ItemResponse')
-          ..add('endpointItemResponse', endpointItemResponse)
-          ..add('eventsItemResponse', eventsItemResponse);
+    final helper = newBuiltValueToStringHelper('ItemResponse')
+      ..add('endpointItemResponse', endpointItemResponse)
+      ..add('eventsItemResponse', eventsItemResponse);
     return helper.toString();
   }
 }

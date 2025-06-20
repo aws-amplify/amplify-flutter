@@ -74,11 +74,10 @@ abstract class GetObjectRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetObjectRequest')
-          ..add('bucket', bucket)
-          ..add('key', key)
-          ..add('range', range);
+    final helper = newBuiltValueToStringHelper('GetObjectRequest')
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('range', range);
     return helper.toString();
   }
 }

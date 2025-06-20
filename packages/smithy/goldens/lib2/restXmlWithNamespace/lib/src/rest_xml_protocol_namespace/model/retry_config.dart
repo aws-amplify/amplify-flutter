@@ -38,10 +38,9 @@ abstract class RetryConfig
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RetryConfig')
-          ..add('mode', mode)
-          ..add('maxAttempts', maxAttempts);
+    final helper = newBuiltValueToStringHelper('RetryConfig')
+      ..add('mode', mode)
+      ..add('maxAttempts', maxAttempts);
     return helper.toString();
   }
 }

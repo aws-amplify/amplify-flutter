@@ -40,10 +40,9 @@ abstract class ScanRange
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ScanRange')
-          ..add('start', start)
-          ..add('end', end);
+    final helper = newBuiltValueToStringHelper('ScanRange')
+      ..add('start', start)
+      ..add('end', end);
     return helper.toString();
   }
 }

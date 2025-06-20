@@ -49,10 +49,9 @@ abstract class GetDeviceRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetDeviceRequest')
-          ..add('deviceKey', deviceKey)
-          ..add('accessToken', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('GetDeviceRequest')
+      ..add('deviceKey', deviceKey)
+      ..add('accessToken', '***SENSITIVE***');
     return helper.toString();
   }
 }

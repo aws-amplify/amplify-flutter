@@ -34,14 +34,11 @@ void main() {
     setUp(() {
       server = MockOAuthServer();
       secureStorage = MockSecureStorage();
-      dependencyManager =
-          DependencyManager()
-            ..addInstance(mockConfig.auth!)
-            ..addInstance<SecureStorageInterface>(secureStorage)
-            ..addInstance<http.Client>(server.httpClient)
-            ..addInstance<Dispatcher<AuthEvent, AuthState>>(
-              const MockDispatcher(),
-            );
+      dependencyManager = DependencyManager()
+        ..addInstance(mockConfig.auth!)
+        ..addInstance<SecureStorageInterface>(secureStorage)
+        ..addInstance<http.Client>(server.httpClient)
+        ..addInstance<Dispatcher<AuthEvent, AuthState>>(const MockDispatcher());
 
       platform = HostedUiPlatform(dependencyManager);
     });
@@ -95,10 +92,9 @@ void main() {
         expect(
           platform.exchange(
             OAuthParameters(
-              (b) =>
-                  b
-                    ..code = parameters.code
-                    ..state = '12345',
+              (b) => b
+                ..code = parameters.code
+                ..state = '12345',
             ),
           ),
           throwsInvalidStateException,
@@ -125,11 +121,10 @@ void main() {
         dependencyManager.addInstance<HostedUiPlatform>(
           CancelingHostedUiPlatform(cancelSignIn: expectAsync0(() async {})),
         );
-        plugin =
-            AmplifyAuthCognitoDart()
-              ..stateMachine = CognitoAuthStateMachine(
-                dependencyManager: dependencyManager,
-              );
+        plugin = AmplifyAuthCognitoDart()
+          ..stateMachine = CognitoAuthStateMachine(
+            dependencyManager: dependencyManager,
+          );
         await plugin.stateMachine.acceptAndComplete(
           ConfigurationEvent.configure(mockConfig),
         );

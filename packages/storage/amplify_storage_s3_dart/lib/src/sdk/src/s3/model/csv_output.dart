@@ -71,13 +71,12 @@ abstract class CsvOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CsvOutput')
-          ..add('quoteFields', quoteFields)
-          ..add('quoteEscapeCharacter', quoteEscapeCharacter)
-          ..add('recordDelimiter', recordDelimiter)
-          ..add('fieldDelimiter', fieldDelimiter)
-          ..add('quoteCharacter', quoteCharacter);
+    final helper = newBuiltValueToStringHelper('CsvOutput')
+      ..add('quoteFields', quoteFields)
+      ..add('quoteEscapeCharacter', quoteEscapeCharacter)
+      ..add('recordDelimiter', recordDelimiter)
+      ..add('fieldDelimiter', fieldDelimiter)
+      ..add('quoteCharacter', quoteCharacter);
     return helper.toString();
   }
 }

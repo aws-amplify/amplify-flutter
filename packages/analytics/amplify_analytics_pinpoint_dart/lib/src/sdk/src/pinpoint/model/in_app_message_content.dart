@@ -75,14 +75,13 @@ abstract class InAppMessageContent
   ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InAppMessageContent')
-          ..add('backgroundColor', backgroundColor)
-          ..add('bodyConfig', bodyConfig)
-          ..add('headerConfig', headerConfig)
-          ..add('imageUrl', imageUrl)
-          ..add('primaryBtn', primaryBtn)
-          ..add('secondaryBtn', secondaryBtn);
+    final helper = newBuiltValueToStringHelper('InAppMessageContent')
+      ..add('backgroundColor', backgroundColor)
+      ..add('bodyConfig', bodyConfig)
+      ..add('headerConfig', headerConfig)
+      ..add('imageUrl', imageUrl)
+      ..add('primaryBtn', primaryBtn)
+      ..add('secondaryBtn', secondaryBtn);
     return helper.toString();
   }
 }

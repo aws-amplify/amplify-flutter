@@ -123,7 +123,7 @@ class BucketUpload {
 BucketUpload? getBucketUpload() {
   final bucketName = bucketNameEl.value;
   final region = regionEl.value;
-  final files = fileEl.files;
+  final files = fileEl.files?.toDart;
   final hasInvalidProps =
       bucketName == null ||
       bucketName.isEmpty ||

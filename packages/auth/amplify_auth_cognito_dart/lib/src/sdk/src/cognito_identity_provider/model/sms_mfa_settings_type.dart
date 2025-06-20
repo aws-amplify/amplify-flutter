@@ -49,10 +49,9 @@ abstract class SmsMfaSettingsType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SmsMfaSettingsType')
-          ..add('enabled', enabled)
-          ..add('preferredMfa', preferredMfa);
+    final helper = newBuiltValueToStringHelper('SmsMfaSettingsType')
+      ..add('enabled', enabled)
+      ..add('preferredMfa', preferredMfa);
     return helper.toString();
   }
 }

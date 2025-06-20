@@ -41,8 +41,8 @@ class _MyAppState extends State<MyApp> {
       /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
       secureStorageFactory: AmplifySecureStorage.factoryFrom(
         macOSOptions:
-        // ignore: invalid_use_of_visible_for_testing_member
-        MacOSSecureStorageOptions(useDataProtection: false),
+            // ignore: invalid_use_of_visible_for_testing_member
+            MacOSSecureStorageOptions(useDataProtection: false),
       ),
     );
     try {
@@ -227,8 +227,8 @@ class RouteA extends StatelessWidget {
         child: Column(
           children: [
             ElevatedButton(
-              onPressed:
-                  () => Navigator.of(context).pushReplacementNamed('/routeB'),
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed('/routeB'),
               child: const Text('Goto Route B'),
             ),
             const SizedBox(height: 20),
@@ -251,8 +251,8 @@ class RouteB extends StatelessWidget {
         child: Column(
           children: [
             ElevatedButton(
-              onPressed:
-                  () => Navigator.of(context).pushReplacementNamed('/routeA'),
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed('/routeA'),
               child: const Text('Goto Route A'),
             ),
             const SizedBox(height: 20),

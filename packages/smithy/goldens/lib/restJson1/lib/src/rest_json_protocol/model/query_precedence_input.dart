@@ -56,10 +56,9 @@ abstract class QueryPrecedenceInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QueryPrecedenceInput')
-          ..add('foo', foo)
-          ..add('baz', baz);
+    final helper = newBuiltValueToStringHelper('QueryPrecedenceInput')
+      ..add('foo', foo)
+      ..add('baz', baz);
     return helper.toString();
   }
 }

@@ -51,15 +51,17 @@ void main({
             authorizationMode: APIAuthorizationType.userPools,
           );
 
-          final createCommentRes =
-              await Amplify.API.mutate(request: createCommentReq).response;
+          final createCommentRes = await Amplify.API
+              .mutate(request: createCommentReq)
+              .response;
           final createdComment = createCommentRes.data;
           if (createdComment == null) {
             fail('Unable to create comment. ${createCommentRes.errors}');
           }
 
           const getBlog = 'getBlog';
-          const graphQLDocument = '''query GetBlogPostsComments(\$id: ID!) {
+          const graphQLDocument =
+              '''query GetBlogPostsComments(\$id: ID!) {
         $getBlog(id: \$id) {
             id
             name
@@ -85,8 +87,9 @@ void main({
             decodePath: getBlog,
             authorizationMode: APIAuthorizationType.userPools,
           );
-          final nestedResponse =
-              await Amplify.API.query(request: nestedGetBlogReq).response;
+          final nestedResponse = await Amplify.API
+              .query(request: nestedGetBlogReq)
+              .response;
           final responseBlog = nestedResponse.data;
           final firstCommentFromResponse = responseBlog?.posts?[0].comments?[0];
           expect(nestedResponse, hasNoGraphQLErrors);
@@ -185,8 +188,9 @@ void main({
             localUpdatedPost,
             authorizationMode: APIAuthorizationType.userPools,
           );
-          final updateRes =
-              await Amplify.API.mutate(request: updateReq).response;
+          final updateRes = await Amplify.API
+              .mutate(request: updateReq)
+              .response;
           final mutatedPost = updateRes.data;
           expect(mutatedPost?.title, equals(updatedTitle));
         },
@@ -204,8 +208,9 @@ void main({
             post,
             authorizationMode: APIAuthorizationType.userPools,
           );
-          final createPostRes =
-              await Amplify.API.mutate(request: createPostReq).response;
+          final createPostRes = await Amplify.API
+              .mutate(request: createPostReq)
+              .response;
           final createdPost = createPostRes.data;
           if (createdPost != null) {
             postCache.add(createdPost);

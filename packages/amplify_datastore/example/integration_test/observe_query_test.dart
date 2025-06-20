@@ -33,8 +33,9 @@ void main() {
         }
         var queryBlogs = await Amplify.DataStore.query(Blog.classType);
 
-        var observeQueryBlogs =
-            (await Amplify.DataStore.observeQuery(Blog.classType).first).items;
+        var observeQueryBlogs = (await Amplify.DataStore.observeQuery(
+          Blog.classType,
+        ).first).items;
 
         expect(observeQueryBlogs.length, 10);
         expect(observeQueryBlogs, orderedEquals(queryBlogs));

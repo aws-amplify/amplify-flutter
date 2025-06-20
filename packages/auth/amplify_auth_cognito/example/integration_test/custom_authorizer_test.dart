@@ -75,10 +75,9 @@ void main() {
                 await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
             expect(session.userPoolTokensResult.valueOrNull, isNotNull);
 
-            final apiUrl =
-                config.api!.awsPlugin!.values
-                    .singleWhere((e) => e.endpointType == EndpointType.rest)
-                    .endpoint;
+            final apiUrl = config.api!.awsPlugin!.values
+                .singleWhere((e) => e.endpointType == EndpointType.rest)
+                .endpoint;
 
             // Verifies invocation with the ID token. Invocation with an access
             // token requires integration with a resource server/OAuth and is, thus,
@@ -166,8 +165,8 @@ void main() {
               late AWSHttpClient client;
 
               setUp(() async {
-                client =
-                    AWSHttpClient()..supportedProtocols = supportedProtocols;
+                client = AWSHttpClient()
+                  ..supportedProtocols = supportedProtocols;
                 addTearDown(client.close);
                 await testRunner.configure(
                   environmentName: backend,

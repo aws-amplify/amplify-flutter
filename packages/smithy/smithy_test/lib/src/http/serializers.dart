@@ -38,12 +38,12 @@ Serializers buildSerializers(
   Serializers protocol,
   List<Serializer<dynamic>>? userSerializers,
 ) {
-  final serializersBuilder =
-      testSerializers.toBuilder()..addAll([
-        ...protocol.serializers,
-        ..._testSerializers,
-        ...?userSerializers,
-      ]);
+  final serializersBuilder = testSerializers.toBuilder()
+    ..addAll([
+      ...protocol.serializers,
+      ..._testSerializers,
+      ...?userSerializers,
+    ]);
   for (final builderFactory in protocol.builderFactories.entries) {
     serializersBuilder.addBuilderFactory(
       builderFactory.key,

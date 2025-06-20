@@ -252,8 +252,9 @@ ${dependabotGroups.join('\n')}
     };
 
     // Determine workflows used
-    final analyzeAndTestWorkflow =
-        isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
+    final analyzeAndTestWorkflow = isDartPackage
+        ? 'dart_vm.yaml'
+        : 'flutter_vm.yaml';
     final needsNativeTest = isDartPackage && package.unitTestDirectory != null;
     final needsWebTest = package.pubspecInfo.pubspec.devDependencies
         .containsKey('build_test');
@@ -396,10 +397,9 @@ jobs:
         if (needsNativeTest) 'native_test',
         if (needsWebTest) ...['ddc_test', 'dart2js_test'],
       ];
-      final needsAwsConfig =
-          File(
-            p.join(package.path, 'tool', 'pull_test_backend.sh'),
-          ).existsSync();
+      final needsAwsConfig = File(
+        p.join(package.path, 'tool', 'pull_test_backend.sh'),
+      ).existsSync();
       for (final MapEntry(key: platform, value: e2eWorkflow)
           in e2eWorkflows.entries) {
         workflowContents.write('''
@@ -505,7 +505,8 @@ jobs:
       p.relative(androidWorkflowFilepath, from: rootDir.path),
     ];
     final androidWorkflowFile = File(androidWorkflowFilepath);
-    final androidWorkflowContents = '''
+    final androidWorkflowContents =
+        '''
 # Generated with aft. To update, run: `aft generate workflows`
 name: ${package.name} Android
 on:
@@ -576,7 +577,8 @@ jobs:
       p.relative(workflowFilepath, from: rootDir.path),
     ];
     final iosWorkflowFile = File(workflowFilepath);
-    final iosWorkflowContents = '''
+    final iosWorkflowContents =
+        '''
 # Generated with aft. To update, run: `aft generate workflows`
 name: ${package.name} iOS
 on:

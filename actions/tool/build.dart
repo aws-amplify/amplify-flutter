@@ -47,7 +47,6 @@ Future<void> main() async {
       final compileRes = runProcess('dart', [
         'compile',
         'js',
-        '--enable-experiment=inline-class',
         '--server-mode',
         '-o',
         compiledJs,

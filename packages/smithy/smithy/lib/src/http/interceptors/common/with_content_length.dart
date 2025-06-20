@@ -14,8 +14,8 @@ class WithContentLength extends HttpRequestInterceptor {
   Future<AWSBaseHttpRequest> intercept(AWSBaseHttpRequest request) async {
     final includeHeader = !zIsWeb || isSmithyHttpTest;
     if (includeHeader) {
-      request.headers[AWSHeaders.contentLength] =
-          (await request.contentLength).toString();
+      request.headers[AWSHeaders.contentLength] = (await request.contentLength)
+          .toString();
     }
     return request;
   }

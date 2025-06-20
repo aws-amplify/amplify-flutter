@@ -150,10 +150,9 @@ class AbortMultipartUploadOperation
   _i1.HttpRequest buildRequest(AbortMultipartUploadRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'DELETE';
-        b.path =
-            _s3ClientConfig.usePathStyle
-                ? r'/{Bucket}/{Key+}?x-id=AbortMultipartUpload'
-                : r'/{Key+}?x-id=AbortMultipartUpload';
+        b.path = _s3ClientConfig.usePathStyle
+            ? r'/{Bucket}/{Key+}?x-id=AbortMultipartUpload'
+            : r'/{Key+}?x-id=AbortMultipartUpload';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
         if (input.requestPayer != null) {
           b.headers['x-amz-request-payer'] = input.requestPayer!.value;

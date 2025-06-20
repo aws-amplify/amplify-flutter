@@ -55,8 +55,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
             "Native calling non existent ConflictHandler in Dart",
           );
 
-        Map<String, dynamic> arguments =
-            (call.arguments as Map).cast<String, dynamic>();
+        Map<String, dynamic> arguments = (call.arguments as Map)
+            .cast<String, dynamic>();
 
         final modelName = arguments["__modelName"] as String;
         final modelType = modelProvider!.getModelTypeByModelName(modelName);
@@ -97,21 +97,18 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
 
       return await _channel
           .invokeMethod('configureDataStore', <String, dynamic>{
-            'modelSchemas':
-                modelProvider?.modelSchemas
-                    .map((schema) => schema.toMap())
-                    .toList(),
-            'customTypeSchemas':
-                modelProvider?.customTypeSchemas
-                    .map((schema) => schema.toMap())
-                    .toList(),
+            'modelSchemas': modelProvider?.modelSchemas
+                .map((schema) => schema.toMap())
+                .toList(),
+            'customTypeSchemas': modelProvider?.customTypeSchemas
+                .map((schema) => schema.toMap())
+                .toList(),
             'hasErrorHandler': errorHandler != null,
             'hasConflictHandler': conflictHandler != null,
             'modelProviderVersion': modelProvider?.version,
-            'syncExpressions':
-                syncExpressions!
-                    .map((syncExpression) => syncExpression.toMap())
-                    .toList(),
+            'syncExpressions': syncExpressions!
+                .map((syncExpression) => syncExpression.toMap())
+                .toList(),
             'syncInterval': syncInterval,
             'syncMaxRecords': syncMaxRecords,
             'syncPageSize': syncPageSize,
@@ -144,8 +141,9 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
             'modelName': modelType.modelName(),
             'queryPredicate': where?.serializeAsMap(),
             'queryPagination': pagination?.serializeAsMap(),
-            'querySort':
-                sortBy?.map((element) => element.serializeAsMap()).toList(),
+            'querySort': sortBy
+                ?.map((element) => element.serializeAsMap())
+                .toList(),
           }));
       if (serializedResults == null)
         throw DataStoreException(

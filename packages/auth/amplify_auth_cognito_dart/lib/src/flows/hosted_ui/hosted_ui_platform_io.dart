@@ -17,7 +17,8 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   /// {@macro amplify_auth_cognito.hosted_ui_platform}
   HostedUiPlatformImpl(super.dependencyManager) : super.protected();
 
-  static String _html(String pageTitle, String title, String message) => '''
+  static String _html(String pageTitle, String title, String message) =>
+      '''
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -213,11 +214,10 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
     final localServer = await localConnect(signInUris);
     try {
-      final signInUrl =
-          (await getSignInUri(
-            provider: provider,
-            redirectUri: localServer.uri,
-          )).toString();
+      final signInUrl = (await getSignInUri(
+        provider: provider,
+        redirectUri: localServer.uri,
+      )).toString();
       await launchUrl(signInUrl);
 
       await for (final request in localServer.server) {

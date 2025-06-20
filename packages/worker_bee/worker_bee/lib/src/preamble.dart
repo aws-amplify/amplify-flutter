@@ -60,10 +60,9 @@ R runTraced<R>(
   // of a worker pool, any uncaught errors lose visibility when they're
   // reported back _unless_ we serialize them first.
   void wrappedOnError(Object error, StackTrace stackTrace) {
-    final workerException =
-        error is WorkerBeeException
-            ? error.rebuild((b) => b.stackTrace = stackTrace)
-            : WorkerBeeExceptionImpl(error, stackTrace);
+    final workerException = error is WorkerBeeException
+        ? error.rebuild((b) => b.stackTrace = stackTrace)
+        : WorkerBeeExceptionImpl(error, stackTrace);
     onError(workerException, stackTrace);
   }
 

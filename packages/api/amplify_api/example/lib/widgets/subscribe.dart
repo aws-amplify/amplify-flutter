@@ -105,20 +105,18 @@ class GraphQLSubscriptionsExamples extends StatelessWidget {
               text: 'Blogs',
             ),
             apiButton(
-              onPressed:
-                  subscriptionByID == null && blog != null
-                      ? subscribeByID
-                      : null,
+              onPressed: subscriptionByID == null && blog != null
+                  ? subscribeByID
+                  : null,
               text: 'Posts By BlogID',
             ),
             apiButton(
-              onPressed:
-                  unsubscribe != null
-                      ? () {
-                        unsubscribe!.call();
-                        setUnsubscribe!(null);
-                      }
-                      : null,
+              onPressed: unsubscribe != null
+                  ? () {
+                      unsubscribe!.call();
+                      setUnsubscribe!(null);
+                    }
+                  : null,
               text: 'Unsubscribe',
             ),
           ],

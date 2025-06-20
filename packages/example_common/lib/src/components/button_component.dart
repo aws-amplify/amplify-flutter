@@ -43,9 +43,8 @@ class ButtonComponent extends Component {
   final bool loading;
 
   late final _buttonElement = () {
-    final el =
-        HTMLButtonElement()
-          ..innerHTML = loading ? 'Loading ...'.toJS : innerHtml.toJS;
+    final el = HTMLButtonElement()
+      ..innerHTML = loading ? 'Loading ...'.toJS : innerHtml.toJS;
     if (id != null) {
       el.id = id!;
     }

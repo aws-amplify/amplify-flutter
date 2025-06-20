@@ -40,12 +40,11 @@ Map<String, String> _collectDependencies(
       return;
     }
     seen.add(package.name);
-    final localDeps =
-        [
-          ...package.pubspecInfo.pubspec.dependencies.keys,
-          if (package == rootPackage)
-            ...package.pubspecInfo.pubspec.devDependencies.keys,
-        ].map((dep) => allPackages[dep]).whereType<PackageInfo>();
+    final localDeps = [
+      ...package.pubspecInfo.pubspec.dependencies.keys,
+      if (package == rootPackage)
+        ...package.pubspecInfo.pubspec.devDependencies.keys,
+    ].map((dep) => allPackages[dep]).whereType<PackageInfo>();
     for (final dependency in localDeps) {
       if (dependency.name == rootPackage.name) {
         continue;

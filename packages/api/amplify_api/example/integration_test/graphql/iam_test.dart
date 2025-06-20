@@ -52,7 +52,8 @@ void main({
       testWidgets('should fetch', (WidgetTester tester) async {
         const listBlogs = 'listBlogs';
         const items = 'items';
-        const graphQLDocument = '''query MyQuery {
+        const graphQLDocument =
+            '''query MyQuery {
         $listBlogs {
           $items {
             id
@@ -76,7 +77,8 @@ void main({
         const listBlogs = 'listBlogs';
         const items = 'items';
         // tab before id and name
-        const graphQLDocument = '''query MyQuery {
+        const graphQLDocument =
+            '''query MyQuery {
         $listBlogs {
           $items {
           \tid
@@ -133,8 +135,9 @@ void main({
           expect(firstData?.items.length, limit);
           expect(firstData?.hasNextResult, true);
           final secondReq = firstData?.requestForNextResult;
-          final secondRes =
-              await Amplify.API.query(request: secondReq!).response;
+          final secondRes = await Amplify.API
+              .query(request: secondReq!)
+              .response;
           final secondData = secondRes.data;
           expect(secondData?.items.length, limit);
           final firstId = firstData?.items[0]?.id;
@@ -223,8 +226,9 @@ void main({
           limit: _limit,
         );
 
-        final existsResponse =
-            await Amplify.API.query(request: existsRequest).response;
+        final existsResponse = await Amplify.API
+            .query(request: existsRequest)
+            .response;
 
         final existsData = existsResponse.data;
         expect(existsData?.items.length, 1);
@@ -237,8 +241,9 @@ void main({
               .and(Sample.NAME.eq(name)),
           limit: _limit,
         );
-        final doesNotExistResponse =
-            await Amplify.API.query(request: doesNotExistRequest).response;
+        final doesNotExistResponse = await Amplify.API
+            .query(request: doesNotExistRequest)
+            .response;
 
         final doesNotExistData = doesNotExistResponse.data;
         expect(doesNotExistData?.items.length, 1);
@@ -283,7 +288,8 @@ void main({
         await addBlog(name);
 
         const listBlogs = 'listBlogs';
-        const graphQLDocument = '''query GetBlogsCustomDecoder {
+        const graphQLDocument =
+            '''query GetBlogsCustomDecoder {
           $listBlogs {
             items {
               id
@@ -309,8 +315,9 @@ void main({
           Blog(name: testName),
           authorizationMode: APIAuthorizationType.iam,
         );
-        final failRes =
-            await Amplify.API.mutate(request: reqThatFails).response;
+        final failRes = await Amplify.API
+            .mutate(request: reqThatFails)
+            .response;
         expect(failRes.data, isNull);
         expect(failRes.hasErrors, isTrue);
 
@@ -328,8 +335,9 @@ void main({
           decodePath: reqThatFails.decodePath,
           headers: headers,
         );
-        final res =
-            await Amplify.API.mutate(request: reqThatShouldWork).response;
+        final res = await Amplify.API
+            .mutate(request: reqThatShouldWork)
+            .response;
         expect(res, hasNoGraphQLErrors);
         expect(res.data?.name, testName);
         await deleteBlog(res.data!);
@@ -377,17 +385,15 @@ void main({
             ),
             authorizationMode: APIAuthorizationType.iam,
           );
-          final explicitChildCreateRes =
-              await Amplify.API
-                  .mutate(request: createExplicitChildReq)
-                  .response;
+          final explicitChildCreateRes = await Amplify.API
+              .mutate(request: createExplicitChildReq)
+              .response;
           expect(explicitChildCreateRes, hasNoGraphQLErrors);
           final createdExplicitChild = explicitChildCreateRes.data!;
           cpkExplicitChildCache.add(createdExplicitChild);
-          final implicitChildCreateRes =
-              await Amplify.API
-                  .mutate(request: createImplicitChildReq)
-                  .response;
+          final implicitChildCreateRes = await Amplify.API
+              .mutate(request: createImplicitChildReq)
+              .response;
           expect(implicitChildCreateRes, hasNoGraphQLErrors);
           final createdImplicitChild = implicitChildCreateRes.data!;
           cpkImplicitChildCache.add(createdImplicitChild);
@@ -399,8 +405,9 @@ void main({
                 createdExplicitChild.modelIdentifier,
                 authorizationMode: APIAuthorizationType.iam,
               );
-          final fetchExplicitChildRes =
-              await Amplify.API.query(request: fetchExplicitChildReq).response;
+          final fetchExplicitChildRes = await Amplify.API
+              .query(request: fetchExplicitChildReq)
+              .response;
           final fetchedExplicitChild = fetchExplicitChildRes.data;
           expect(fetchExplicitChildRes, hasNoGraphQLErrors);
           // Convert to JSON because `_belongsToParent` is private on the model
@@ -415,8 +422,9 @@ void main({
                 createdImplicitChild.modelIdentifier,
                 authorizationMode: APIAuthorizationType.iam,
               );
-          final fetchImplicitChildRes =
-              await Amplify.API.query(request: fetchImplicitChildReq).response;
+          final fetchImplicitChildRes = await Amplify.API
+              .query(request: fetchImplicitChildReq)
+              .response;
           final fetchedImplicitChild = fetchImplicitChildRes.data;
           expect(fetchImplicitChildRes, hasNoGraphQLErrors);
           final implicitChildJson = fetchedImplicitChild?.toJson();
@@ -632,10 +640,9 @@ void main({
         );
         final streamWithError = Amplify.API.subscribe(
           invalidSubscriptionRequest,
-          onEstablished:
-              () => fail(
-                'onEstablished should not be called during failed subscription',
-              ),
+          onEstablished: () => fail(
+            'onEstablished should not be called during failed subscription',
+          ),
         );
 
         expect(

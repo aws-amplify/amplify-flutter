@@ -50,14 +50,12 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
   Future<void> _updateAttribute() async {
     try {
       final key = _keyController.text;
-      final isCustom =
-          !CognitoUserAttributeKey.values
-              .map((value) => value.key)
-              .contains(key);
-      final userAttributeKey =
-          isCustom
-              ? CognitoUserAttributeKey.custom(key)
-              : CognitoUserAttributeKey.parse(key);
+      final isCustom = !CognitoUserAttributeKey.values
+          .map((value) => value.key)
+          .contains(key);
+      final userAttributeKey = isCustom
+          ? CognitoUserAttributeKey.custom(key)
+          : CognitoUserAttributeKey.parse(key);
       final res = await Amplify.Auth.updateUserAttribute(
         userAttributeKey: userAttributeKey,
         value: _valueController.text,
@@ -104,10 +102,9 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
               child: const Text('Update Attribute'),
             ),
             TextButton(
-              onPressed:
-                  () => context.push(
-                    '/confirm-user-attribute/${_keyController.text.trim()}',
-                  ),
+              onPressed: () => context.push(
+                '/confirm-user-attribute/${_keyController.text.trim()}',
+              ),
               child: const Text('Confirm User Attribute'),
             ),
           ],

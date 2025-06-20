@@ -73,8 +73,7 @@ final Map<FullType, Function> builderFactories = {
   const FullType(_i2.BuiltMap, [FullType(String), FullType(String)]):
       _i2.MapBuilder<String, String>.new,
   const FullType(_i2.BuiltMap, [
-        FullType(String),
-        FullType(FileConfigSettings),
-      ]):
-      _i2.MapBuilder<String, FileConfigSettings>.new,
+    FullType(String),
+    FullType(FileConfigSettings),
+  ]): _i2.MapBuilder<String, FileConfigSettings>.new,
 };

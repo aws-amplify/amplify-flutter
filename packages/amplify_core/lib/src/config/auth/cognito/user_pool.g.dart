@@ -21,10 +21,9 @@ CognitoUserPoolConfig _$CognitoUserPoolConfigFromJson(
       region: $checkedConvert('Region', (v) => v as String),
       hostedUI: $checkedConvert(
         'HostedUI',
-        (v) =>
-            v == null
-                ? null
-                : CognitoOAuthConfig.fromJson(v as Map<String, dynamic>),
+        (v) => v == null
+            ? null
+            : CognitoOAuthConfig.fromJson(v as Map<String, dynamic>),
       ),
       endpoint: $checkedConvert('Endpoint', (v) => v as String?),
     );

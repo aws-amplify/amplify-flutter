@@ -47,10 +47,9 @@ abstract class ChallengeResponseType
   List<Object?> get props => [challengeName, challengeResponse];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ChallengeResponseType')
-          ..add('challengeName', challengeName)
-          ..add('challengeResponse', challengeResponse);
+    final helper = newBuiltValueToStringHelper('ChallengeResponseType')
+      ..add('challengeName', challengeName)
+      ..add('challengeResponse', challengeResponse);
     return helper.toString();
   }
 }

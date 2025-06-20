@@ -21,8 +21,9 @@ abstract class EndpointConfiguration
   }) {
     return _$EndpointConfiguration._(
       types: types == null ? null : _i2.BuiltList(types),
-      vpcEndpointIds:
-          vpcEndpointIds == null ? null : _i2.BuiltList(vpcEndpointIds),
+      vpcEndpointIds: vpcEndpointIds == null
+          ? null
+          : _i2.BuiltList(vpcEndpointIds),
     );
   }
 
@@ -43,10 +44,9 @@ abstract class EndpointConfiguration
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EndpointConfiguration')
-          ..add('types', types)
-          ..add('vpcEndpointIds', vpcEndpointIds);
+    final helper = newBuiltValueToStringHelper('EndpointConfiguration')
+      ..add('types', types)
+      ..add('vpcEndpointIds', vpcEndpointIds);
     return helper.toString();
   }
 }

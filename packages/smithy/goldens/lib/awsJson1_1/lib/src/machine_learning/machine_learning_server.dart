@@ -34,7 +34,7 @@ abstract class MachineLearningServerBase extends _i1.HttpServerBase {
       '/',
       _i1.RpcRouter('X-Amz-Target', {
         'AmazonML_20141212.Predict': service.predict,
-      }),
+      }).call,
     );
     return router;
   }();

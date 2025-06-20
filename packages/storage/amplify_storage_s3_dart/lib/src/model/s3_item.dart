@@ -33,12 +33,12 @@ class S3Item extends StorageItem
     return storageItem is S3Item
         ? storageItem
         : S3Item(
-          path: storageItem.path,
-          size: storageItem.size,
-          lastModified: storageItem.lastModified,
-          eTag: storageItem.eTag,
-          metadata: decodeMetadata(storageItem.metadata),
-        );
+            path: storageItem.path,
+            size: storageItem.size,
+            lastModified: storageItem.lastModified,
+            eTag: storageItem.eTag,
+            metadata: decodeMetadata(storageItem.metadata),
+          );
   }
 
   /// {@macro storage.amplify_storage_s3.storage_s3_item}

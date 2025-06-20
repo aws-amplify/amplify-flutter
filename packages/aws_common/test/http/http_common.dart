@@ -9,7 +9,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 AWSHttpClient get debugClient {
-  final client = AWSHttpClient()..onBadCertificate = (_, __, ___) => true;
+  final client = AWSHttpClient()..onBadCertificate = (_, _, _) => true;
   addTearDown(client.close);
   return client;
 }
@@ -48,10 +48,9 @@ void clientTest(
             (secure ? Uri.https : Uri.http)(host, path);
 
         setUp(() async {
-          httpServerChannel =
-              await startServer()
-                ..sink.add(protocol.value)
-                ..sink.add(secure);
+          httpServerChannel = await startServer()
+            ..sink.add(protocol.value)
+            ..sink.add(secure);
           httpServerQueue = StreamQueue(httpServerChannel.stream);
           host = 'localhost:${await httpServerQueue.next}';
           client = debugClient..supportedProtocols = supportedProtocols;

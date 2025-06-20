@@ -59,10 +59,9 @@ const List<_i1.SmithySerializer> serializers = [
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(_i2.BuiltMap, [
-        FullType(String),
-        FullType(FileConfigSettings),
-      ]):
-      _i2.MapBuilder<String, FileConfigSettings>.new,
+    FullType(String),
+    FullType(FileConfigSettings),
+  ]): _i2.MapBuilder<String, FileConfigSettings>.new,
   const FullType(_i2.BuiltList, [FullType(S3Object)]):
       _i2.ListBuilder<S3Object>.new,
   const FullType(_i2.BuiltList, [FullType(CommonPrefix)]):

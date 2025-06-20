@@ -64,10 +64,9 @@ abstract class TooManyRequestsException
   List<Object?> get props => [message, requestId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TooManyRequestsException')
-          ..add('message', message)
-          ..add('requestId', requestId);
+    final helper = newBuiltValueToStringHelper('TooManyRequestsException')
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }

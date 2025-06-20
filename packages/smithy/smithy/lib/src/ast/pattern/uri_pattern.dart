@@ -58,8 +58,9 @@ class UriPattern extends SmithyPattern {
             'Literal query parameters must not be repeated: $uri',
           );
         }
-        queryLiterals[actualKey] =
-            parameterParts.length == 2 ? parameterParts[1] : '';
+        queryLiterals[actualKey] = parameterParts.length == 2
+            ? parameterParts[1]
+            : '';
       }
     }
 

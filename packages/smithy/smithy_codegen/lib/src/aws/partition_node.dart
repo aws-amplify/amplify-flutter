@@ -60,8 +60,9 @@ class PartitionNode with AWSEquatable<PartitionNode> {
     final service =
         services[serviceId] ?? const PartitionNodeServiceConfiguration();
     final mergedDefaults = service.defaults.withDefaults(defaults);
-    final partitionEndpoint =
-        service.isRegionalized ? null : service.partitionEndpoint;
+    final partitionEndpoint = service.isRegionalized
+        ? null
+        : service.partitionEndpoint;
     return Partition(
       id: partition,
       defaults: EndpointDefinition(

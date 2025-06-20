@@ -59,29 +59,27 @@ class _UpdateUserAttributesScreenState
       return;
     }
     try {
-      final attributes =
-          _userAttributeControllers
-              .map(
-                (controller) => AuthUserAttribute(
-                  userAttributeKey: CognitoUserAttributeKey.parse(
-                    controller.keyController.text,
-                  ),
-                  value: controller.valueController.text,
-                ),
-              )
-              .toList();
+      final attributes = _userAttributeControllers
+          .map(
+            (controller) => AuthUserAttribute(
+              userAttributeKey: CognitoUserAttributeKey.parse(
+                controller.keyController.text,
+              ),
+              value: controller.valueController.text,
+            ),
+          )
+          .toList();
       final res = await Amplify.Auth.updateUserAttributes(
         attributes: attributes,
       );
-      final attributesWithConfirmation =
-          res.entries
-              .where(
-                (element) =>
-                    element.value.nextStep.updateAttributeStep ==
-                    AuthUpdateAttributeStep.confirmAttributeWithCode,
-              )
-              .map((element) => element.key)
-              .toList();
+      final attributesWithConfirmation = res.entries
+          .where(
+            (element) =>
+                element.value.nextStep.updateAttributeStep ==
+                AuthUpdateAttributeStep.confirmAttributeWithCode,
+          )
+          .map((element) => element.key)
+          .toList();
       if (attributesWithConfirmation.isNotEmpty) {
         _showInfo(
           'Confirmation Code sent for attributes: '

@@ -92,9 +92,8 @@ class _$QueryIdempotencyTokenAutoFillInputPayload
     extends QueryIdempotencyTokenAutoFillInputPayload {
   factory _$QueryIdempotencyTokenAutoFillInputPayload([
     void Function(QueryIdempotencyTokenAutoFillInputPayloadBuilder)? updates,
-  ]) =>
-      (QueryIdempotencyTokenAutoFillInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (QueryIdempotencyTokenAutoFillInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$QueryIdempotencyTokenAutoFillInputPayload._() : super._();
   @override

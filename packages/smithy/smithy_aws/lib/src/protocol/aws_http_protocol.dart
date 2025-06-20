@@ -27,12 +27,12 @@ abstract class AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>
 
   @override
   late final Serializers serializers = () {
-    final builder =
-        _coreSerializers.toBuilder()..addAll(
-          _userSerializers.where((el) {
-            return el.supportedProtocols.contains(protocolId);
-          }),
-        );
+    final builder = _coreSerializers.toBuilder()
+      ..addAll(
+        _userSerializers.where((el) {
+          return el.supportedProtocols.contains(protocolId);
+        }),
+      );
     for (final entry in _builderFactories.entries) {
       builder.addBuilderFactory(entry.key, entry.value);
     }

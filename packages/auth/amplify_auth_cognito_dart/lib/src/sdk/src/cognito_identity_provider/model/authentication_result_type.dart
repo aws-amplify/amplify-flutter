@@ -80,14 +80,13 @@ abstract class AuthenticationResultType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AuthenticationResultType')
-          ..add('accessToken', '***SENSITIVE***')
-          ..add('expiresIn', expiresIn)
-          ..add('tokenType', tokenType)
-          ..add('refreshToken', '***SENSITIVE***')
-          ..add('idToken', '***SENSITIVE***')
-          ..add('newDeviceMetadata', newDeviceMetadata);
+    final helper = newBuiltValueToStringHelper('AuthenticationResultType')
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('expiresIn', expiresIn)
+      ..add('tokenType', tokenType)
+      ..add('refreshToken', '***SENSITIVE***')
+      ..add('idToken', '***SENSITIVE***')
+      ..add('newDeviceMetadata', newDeviceMetadata);
     return helper.toString();
   }
 }

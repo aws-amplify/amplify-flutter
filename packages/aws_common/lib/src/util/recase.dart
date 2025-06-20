@@ -13,11 +13,10 @@ extension StringRecase on String {
   }
 
   /// The `camelCase` version of `this`.
-  String get camelCase =>
-      groupIntoWords().mapIndexed((index, word) {
-        if (index == 0) return word.toLowerCase();
-        return word.capitalized;
-      }).join();
+  String get camelCase => groupIntoWords().mapIndexed((index, word) {
+    if (index == 0) return word.toLowerCase();
+    return word.capitalized;
+  }).join();
 
   /// The `param-case` version of `this`.
   String get paramCase =>
@@ -27,13 +26,12 @@ extension StringRecase on String {
   static const _maintainCase = ['AWS'];
 
   /// The `PascalCase` version of `this`.
-  String get pascalCase =>
-      groupIntoWords().map((word) {
-        if (_maintainCase.contains(word)) {
-          return word;
-        }
-        return word.capitalized;
-      }).join();
+  String get pascalCase => groupIntoWords().map((word) {
+    if (_maintainCase.contains(word)) {
+      return word;
+    }
+    return word.capitalized;
+  }).join();
 
   /// The `snake_case` version of `this`.
   String get snakeCase =>

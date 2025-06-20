@@ -53,26 +53,29 @@ abstract class InputAndOutputWithHeadersIo
       headerDouble: headerDouble,
       headerTrueBool: headerTrueBool,
       headerFalseBool: headerFalseBool,
-      headerStringList:
-          headerStringList == null ? null : _i4.BuiltList(headerStringList),
-      headerStringSet:
-          headerStringSet == null ? null : _i4.BuiltSet(headerStringSet),
-      headerIntegerList:
-          headerIntegerList == null ? null : _i4.BuiltList(headerIntegerList),
-      headerBooleanList:
-          headerBooleanList == null ? null : _i4.BuiltList(headerBooleanList),
-      headerTimestampList:
-          headerTimestampList == null
-              ? null
-              : _i4.BuiltList(headerTimestampList),
+      headerStringList: headerStringList == null
+          ? null
+          : _i4.BuiltList(headerStringList),
+      headerStringSet: headerStringSet == null
+          ? null
+          : _i4.BuiltSet(headerStringSet),
+      headerIntegerList: headerIntegerList == null
+          ? null
+          : _i4.BuiltList(headerIntegerList),
+      headerBooleanList: headerBooleanList == null
+          ? null
+          : _i4.BuiltList(headerBooleanList),
+      headerTimestampList: headerTimestampList == null
+          ? null
+          : _i4.BuiltList(headerTimestampList),
       headerEnum: headerEnum,
-      headerEnumList:
-          headerEnumList == null ? null : _i4.BuiltList(headerEnumList),
+      headerEnumList: headerEnumList == null
+          ? null
+          : _i4.BuiltList(headerEnumList),
       headerIntegerEnum: headerIntegerEnum,
-      headerIntegerEnumList:
-          headerIntegerEnumList == null
-              ? null
-              : _i4.BuiltList(headerIntegerEnumList),
+      headerIntegerEnumList: headerIntegerEnumList == null
+          ? null
+          : _i4.BuiltList(headerIntegerEnumList),
     );
   }
 
@@ -148,11 +151,10 @@ abstract class InputAndOutputWithHeadersIo
               isTimestampList: true,
             )
             .map(
-              (el) =>
-                  _i1.Timestamp.parse(
-                    el.trim(),
-                    format: _i1.TimestampFormat.httpDate,
-                  ).asDateTime,
+              (el) => _i1.Timestamp.parse(
+                el.trim(),
+                format: _i1.TimestampFormat.httpDate,
+              ).asDateTime,
             ),
       );
     }
@@ -248,11 +250,10 @@ abstract class InputAndOutputWithHeadersIo
               isTimestampList: true,
             )
             .map(
-              (el) =>
-                  _i1.Timestamp.parse(
-                    el.trim(),
-                    format: _i1.TimestampFormat.httpDate,
-                  ).asDateTime,
+              (el) => _i1.Timestamp.parse(
+                el.trim(),
+                format: _i1.TimestampFormat.httpDate,
+              ).asDateTime,
             ),
       );
     }
@@ -329,26 +330,25 @@ abstract class InputAndOutputWithHeadersIo
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InputAndOutputWithHeadersIo')
-          ..add('headerString', headerString)
-          ..add('headerByte', headerByte)
-          ..add('headerShort', headerShort)
-          ..add('headerInteger', headerInteger)
-          ..add('headerLong', headerLong)
-          ..add('headerFloat', headerFloat)
-          ..add('headerDouble', headerDouble)
-          ..add('headerTrueBool', headerTrueBool)
-          ..add('headerFalseBool', headerFalseBool)
-          ..add('headerStringList', headerStringList)
-          ..add('headerStringSet', headerStringSet)
-          ..add('headerIntegerList', headerIntegerList)
-          ..add('headerBooleanList', headerBooleanList)
-          ..add('headerTimestampList', headerTimestampList)
-          ..add('headerEnum', headerEnum)
-          ..add('headerEnumList', headerEnumList)
-          ..add('headerIntegerEnum', headerIntegerEnum)
-          ..add('headerIntegerEnumList', headerIntegerEnumList);
+    final helper = newBuiltValueToStringHelper('InputAndOutputWithHeadersIo')
+      ..add('headerString', headerString)
+      ..add('headerByte', headerByte)
+      ..add('headerShort', headerShort)
+      ..add('headerInteger', headerInteger)
+      ..add('headerLong', headerLong)
+      ..add('headerFloat', headerFloat)
+      ..add('headerDouble', headerDouble)
+      ..add('headerTrueBool', headerTrueBool)
+      ..add('headerFalseBool', headerFalseBool)
+      ..add('headerStringList', headerStringList)
+      ..add('headerStringSet', headerStringSet)
+      ..add('headerIntegerList', headerIntegerList)
+      ..add('headerBooleanList', headerBooleanList)
+      ..add('headerTimestampList', headerTimestampList)
+      ..add('headerEnum', headerEnum)
+      ..add('headerEnumList', headerEnumList)
+      ..add('headerIntegerEnum', headerIntegerEnum)
+      ..add('headerIntegerEnumList', headerIntegerEnumList);
     return helper.toString();
   }
 }

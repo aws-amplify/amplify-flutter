@@ -89,11 +89,10 @@ class AWSProfileFileParser {
     }
     return AWSProperty(
       name: propertyName,
-      value:
-          propertyDefinition
-              .substring(separatorIndex + 1)
-              .trimTrailingComments()
-              .trim(),
+      value: propertyDefinition
+          .substring(separatorIndex + 1)
+          .trimTrailingComments()
+          .trim(),
     );
   }
 
@@ -192,10 +191,9 @@ class AWSProfileFileParser {
     }
 
     _finishProfile();
-    return _cache[_resolvedFile] =
-        _standardizer
-            .standardize(_configFileBuilder, _resolvedFile.type)
-            .build();
+    return _cache[_resolvedFile] = _standardizer
+        .standardize(_configFileBuilder, _resolvedFile.type)
+        .build();
   }
 
   bool _isCommentLine(String line) =>

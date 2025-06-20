@@ -19,10 +19,9 @@ AuthNextSignInStep _$AuthNextSignInStepFromJson(
     ),
     codeDeliveryDetails: $checkedConvert(
       'codeDeliveryDetails',
-      (v) =>
-          v == null
-              ? null
-              : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
+      (v) => v == null
+          ? null
+          : AuthCodeDeliveryDetails.fromJson(v as Map<String, dynamic>),
     ),
     signInStep: $checkedConvert(
       'signInStep',
@@ -41,17 +40,15 @@ AuthNextSignInStep _$AuthNextSignInStepFromJson(
     ),
     allowedMfaTypes: $checkedConvert(
       'allowedMfaTypes',
-      (v) =>
-          (v as List<dynamic>?)
-              ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
-              .toSet(),
+      (v) => (v as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
+          .toSet(),
     ),
     totpSetupDetails: $checkedConvert(
       'totpSetupDetails',
-      (v) =>
-          v == null
-              ? null
-              : TotpSetupDetails.fromJson(v as Map<String, dynamic>),
+      (v) => v == null
+          ? null
+          : TotpSetupDetails.fromJson(v as Map<String, dynamic>),
     ),
   );
   return val;
@@ -63,10 +60,9 @@ Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) =>
       if (instance.codeDeliveryDetails?.toJson() case final value?)
         'codeDeliveryDetails': value,
       'signInStep': _$AuthSignInStepEnumMap[instance.signInStep]!,
-      'missingAttributes':
-          instance.missingAttributes
-              .map(const AuthUserAttributeKeyConverter().toJson)
-              .toList(),
+      'missingAttributes': instance.missingAttributes
+          .map(const AuthUserAttributeKeyConverter().toJson)
+          .toList(),
       if (instance.allowedMfaTypes?.map((e) => _$MfaTypeEnumMap[e]!).toList()
           case final value?)
         'allowedMfaTypes': value,

@@ -192,20 +192,19 @@ abstract class SelectObjectContentRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SelectObjectContentRequest')
-          ..add('bucket', bucket)
-          ..add('key', key)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKey', '***SENSITIVE***')
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('expression', expression)
-          ..add('expressionType', expressionType)
-          ..add('requestProgress', requestProgress)
-          ..add('inputSerialization', inputSerialization)
-          ..add('outputSerialization', outputSerialization)
-          ..add('scanRange', scanRange)
-          ..add('expectedBucketOwner', expectedBucketOwner);
+    final helper = newBuiltValueToStringHelper('SelectObjectContentRequest')
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKey', '***SENSITIVE***')
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('expression', expression)
+      ..add('expressionType', expressionType)
+      ..add('requestProgress', requestProgress)
+      ..add('inputSerialization', inputSerialization)
+      ..add('outputSerialization', outputSerialization)
+      ..add('scanRange', scanRange)
+      ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }

@@ -37,10 +37,9 @@ class S3Object {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -54,10 +53,9 @@ class S3Object {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -71,10 +69,9 @@ class S3Object {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -171,10 +168,9 @@ class S3Object {
     : _bucket = json['bucket'],
       _region = json['region'],
       _key = json['key'],
-      _meta =
-          json['meta'] != null
-              ? FileMeta.fromJson(new Map<String, dynamic>.from(json['meta']))
-              : null;
+      _meta = json['meta'] != null
+          ? FileMeta.fromJson(new Map<String, dynamic>.from(json['meta']))
+          : null;
 
   Map<String, dynamic> toJson() => {
     'bucket': _bucket,

@@ -50,10 +50,10 @@ class CreateCommand extends AmplifyCommand {
 
     // Collect brick variables
     final path = p.relative(outputDir.path, from: rootDir.path);
-    final amplifyCoreConstraint =
-        repoPackages['amplify_core']!.version.amplifyConstraint();
-    final amplifyFlutterConstraint =
-        repoPackages['amplify_flutter']!.version.amplifyConstraint();
+    final amplifyCoreConstraint = repoPackages['amplify_core']!.version
+        .amplifyConstraint();
+    final amplifyFlutterConstraint = repoPackages['amplify_flutter']!.version
+        .amplifyConstraint();
     final dartSdkConstraint = aftConfig.environment.sdk.toString();
     final flutterSdkConstraint = aftConfig.environment.flutter.toString();
     final androidMinSdkVersion = aftConfig.platforms!.android.minSdkVersion;

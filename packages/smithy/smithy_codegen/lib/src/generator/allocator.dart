@@ -101,8 +101,9 @@ class SmithyAllocator implements Allocator {
         switch (withPrefixing) {
           PrefixStrategy.always => true,
           PrefixStrategy.never => false,
-          PrefixStrategy.runtimeOnly =>
-            !url.startsWith('package:${smithyLibrary.packageName}'),
+          PrefixStrategy.runtimeOnly => !url.startsWith(
+            'package:${smithyLibrary.packageName}',
+          ),
         };
   }
 

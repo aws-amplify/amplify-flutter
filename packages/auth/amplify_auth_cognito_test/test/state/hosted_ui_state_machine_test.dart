@@ -84,11 +84,10 @@ void main() {
 
       server = MockOAuthServer();
       secureStorage = MockSecureStorage();
-      stateMachine =
-          CognitoAuthStateMachine()
-            ..addInstance<http.Client>(server.httpClient)
-            ..addInstance(secureStorage)
-            ..addBuilder<HostedUiPlatform>(MockHostedUiPlatform.new);
+      stateMachine = CognitoAuthStateMachine()
+        ..addInstance<http.Client>(server.httpClient)
+        ..addInstance(secureStorage)
+        ..addBuilder<HostedUiPlatform>(MockHostedUiPlatform.new);
     });
 
     test('getAuthorizationUrl', () async {
@@ -266,8 +265,8 @@ void main() {
         stateMachine.addInstance<CognitoIdentityClient>(
           MockCognitoIdentityClient(
             getId: () async => GetIdResponse(identityId: identityId),
-            getCredentialsForIdentity:
-                () async => GetCredentialsForIdentityResponse(
+            getCredentialsForIdentity: () async =>
+                GetCredentialsForIdentityResponse(
                   credentials: Credentials(
                     accessKeyId: accessKeyId,
                     secretKey: secretAccessKey,
@@ -397,10 +396,9 @@ void main() {
             .dispatch(
               HostedUiEvent.exchange(
                 OAuthParameters(
-                  (b) =>
-                      b
-                        ..error = OAuthErrorCode.invalidRequest
-                        ..state = state,
+                  (b) => b
+                    ..error = OAuthErrorCode.invalidRequest
+                    ..state = state,
                 ),
               ),
             )
@@ -422,10 +420,9 @@ void main() {
             .dispatch(
               HostedUiEvent.exchange(
                 OAuthParameters(
-                  (b) =>
-                      b
-                        ..code = 'badCode'
-                        ..state = 'badState',
+                  (b) => b
+                    ..code = 'badCode'
+                    ..state = 'badState',
                 ),
               ),
             )
@@ -517,16 +514,17 @@ void main() {
         stateMachine
           ..addBuilder<HostedUiPlatform>(
             createHostedUiFactory(
-              signIn: (
-                HostedUiPlatform platform,
-                CognitoSignInWithWebUIPluginOptions options,
-                AuthProvider? provider,
-              ) async {
-                final signInUrl = await platform.getSignInUri(
-                  provider: provider,
-                );
-                _launchUrl.complete(signInUrl);
-              },
+              signIn:
+                  (
+                    HostedUiPlatform platform,
+                    CognitoSignInWithWebUIPluginOptions options,
+                    AuthProvider? provider,
+                  ) async {
+                    final signInUrl = await platform.getSignInUri(
+                      provider: provider,
+                    );
+                    _launchUrl.complete(signInUrl);
+                  },
               signOut: expectAsync2((platform, options) async {
                 expect(options.isPreferPrivateSession, isTrue);
               }),

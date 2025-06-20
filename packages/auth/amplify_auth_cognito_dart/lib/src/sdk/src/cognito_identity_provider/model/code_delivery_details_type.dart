@@ -51,11 +51,10 @@ abstract class CodeDeliveryDetailsType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CodeDeliveryDetailsType')
-          ..add('destination', destination)
-          ..add('deliveryMedium', deliveryMedium)
-          ..add('attributeName', attributeName);
+    final helper = newBuiltValueToStringHelper('CodeDeliveryDetailsType')
+      ..add('destination', destination)
+      ..add('deliveryMedium', deliveryMedium)
+      ..add('attributeName', attributeName);
     return helper.toString();
   }
 }

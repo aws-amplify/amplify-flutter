@@ -414,8 +414,9 @@ class InputResolver extends Resolver<InputResolverKey> {
       case InputField.newPassword:
         return AuthenticatorLocalizations.inputsOf(context).newPassword;
       case InputField.passwordConfirmation:
-        final attributeName =
-            AuthenticatorLocalizations.inputsOf(context).password;
+        final attributeName = AuthenticatorLocalizations.inputsOf(
+          context,
+        ).password;
         return AuthenticatorLocalizations.inputsOf(
           context,
         ).confirmAttribute(attributeName);
@@ -522,12 +523,12 @@ class InputResolver extends Resolver<InputResolverKey> {
     if (minLength == null && (characterReqs.isEmpty)) {
       return '';
     }
-    final sb =
-        StringBuffer()..writeln(
-          AuthenticatorLocalizations.inputsOf(
-            context,
-          ).passwordRequirementsPreamble,
-        );
+    final sb = StringBuffer()
+      ..writeln(
+        AuthenticatorLocalizations.inputsOf(
+          context,
+        ).passwordRequirementsPreamble,
+      );
     if (minLength != null) {
       final atLeast = AuthenticatorLocalizations.inputsOf(
         context,

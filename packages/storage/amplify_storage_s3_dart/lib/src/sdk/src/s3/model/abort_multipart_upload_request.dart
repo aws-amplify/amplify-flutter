@@ -119,13 +119,12 @@ abstract class AbortMultipartUploadRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AbortMultipartUploadRequest')
-          ..add('bucket', bucket)
-          ..add('key', key)
-          ..add('uploadId', uploadId)
-          ..add('requestPayer', requestPayer)
-          ..add('expectedBucketOwner', expectedBucketOwner);
+    final helper = newBuiltValueToStringHelper('AbortMultipartUploadRequest')
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('uploadId', uploadId)
+      ..add('requestPayer', requestPayer)
+      ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }

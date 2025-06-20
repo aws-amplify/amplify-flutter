@@ -113,9 +113,8 @@ final Map<FullType, Function> builderFactories = {
   const FullType(_i2.BuiltSet, [FullType(IntegerEnum)]):
       _i2.SetBuilder<IntegerEnum>.new,
   const FullType(_i2.BuiltSet, [
-        FullType(_i2.BuiltList, [FullType(String)]),
-      ]):
-      _i2.SetBuilder<_i2.BuiltList<String>>.new,
+    FullType(_i2.BuiltList, [FullType(String)]),
+  ]): _i2.SetBuilder<_i2.BuiltList<String>>.new,
   const FullType(_i2.BuiltSet, [FullType(GreetingStruct)]):
       _i2.SetBuilder<GreetingStruct>.new,
   const FullType(_i2.BuiltSet, [FullType(MissingKeyStructure)]):
@@ -123,8 +122,7 @@ final Map<FullType, Function> builderFactories = {
   const FullType(_i2.BuiltSet, [FullType(FooUnion)]):
       _i2.SetBuilder<FooUnion>.new,
   const FullType(_i2.BuiltMap, [
-        FullType(String),
-        FullType(FileConfigSettings),
-      ]):
-      _i2.MapBuilder<String, FileConfigSettings>.new,
+    FullType(String),
+    FullType(FileConfigSettings),
+  ]): _i2.MapBuilder<String, FileConfigSettings>.new,
 };

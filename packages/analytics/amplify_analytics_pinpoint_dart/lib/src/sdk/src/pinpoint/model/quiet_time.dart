@@ -38,10 +38,9 @@ abstract class QuietTime
   List<Object?> get props => [end, start];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QuietTime')
-          ..add('end', end)
-          ..add('start', start);
+    final helper = newBuiltValueToStringHelper('QuietTime')
+      ..add('end', end)
+      ..add('start', start);
     return helper.toString();
   }
 }

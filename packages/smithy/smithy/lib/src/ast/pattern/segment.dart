@@ -19,14 +19,12 @@ class Segment with AWSEquatable<Segment> {
     if (content.length >= 2 &&
         content[0] == '{' &&
         content[content.length - 1] == '}') {
-      final labelType =
-          content[content.length - 2] == '+'
-              ? SegmentType.greedyLabel
-              : SegmentType.label;
-      content =
-          labelType == SegmentType.greedyLabel
-              ? content.substring(1, content.length - 2)
-              : content.substring(1, content.length - 1);
+      final labelType = content[content.length - 2] == '+'
+          ? SegmentType.greedyLabel
+          : SegmentType.label;
+      content = labelType == SegmentType.greedyLabel
+          ? content.substring(1, content.length - 2)
+          : content.substring(1, content.length - 1);
       return Segment(content, labelType);
     } else {
       return Segment(content, SegmentType.literal);

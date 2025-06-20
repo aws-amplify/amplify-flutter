@@ -100,9 +100,8 @@ class _$MalformedTimestampPathHttpDateInputPayload
     extends MalformedTimestampPathHttpDateInputPayload {
   factory _$MalformedTimestampPathHttpDateInputPayload([
     void Function(MalformedTimestampPathHttpDateInputPayloadBuilder)? updates,
-  ]) =>
-      (MalformedTimestampPathHttpDateInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedTimestampPathHttpDateInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampPathHttpDateInputPayload._() : super._();
   @override

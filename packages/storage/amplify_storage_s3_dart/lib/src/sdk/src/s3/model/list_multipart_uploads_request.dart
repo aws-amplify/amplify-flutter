@@ -174,17 +174,16 @@ abstract class ListMultipartUploadsRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListMultipartUploadsRequest')
-          ..add('bucket', bucket)
-          ..add('delimiter', delimiter)
-          ..add('encodingType', encodingType)
-          ..add('keyMarker', keyMarker)
-          ..add('maxUploads', maxUploads)
-          ..add('prefix', prefix)
-          ..add('uploadIdMarker', uploadIdMarker)
-          ..add('expectedBucketOwner', expectedBucketOwner)
-          ..add('requestPayer', requestPayer);
+    final helper = newBuiltValueToStringHelper('ListMultipartUploadsRequest')
+      ..add('bucket', bucket)
+      ..add('delimiter', delimiter)
+      ..add('encodingType', encodingType)
+      ..add('keyMarker', keyMarker)
+      ..add('maxUploads', maxUploads)
+      ..add('prefix', prefix)
+      ..add('uploadIdMarker', uploadIdMarker)
+      ..add('expectedBucketOwner', expectedBucketOwner)
+      ..add('requestPayer', requestPayer);
     return helper.toString();
   }
 }

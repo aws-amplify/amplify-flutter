@@ -149,16 +149,15 @@ abstract class UploadPartCopyOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UploadPartCopyOutput')
-          ..add('copySourceVersionId', copySourceVersionId)
-          ..add('copyPartResult', copyPartResult)
-          ..add('serverSideEncryption', serverSideEncryption)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('ssekmsKeyId', '***SENSITIVE***')
-          ..add('bucketKeyEnabled', bucketKeyEnabled)
-          ..add('requestCharged', requestCharged);
+    final helper = newBuiltValueToStringHelper('UploadPartCopyOutput')
+      ..add('copySourceVersionId', copySourceVersionId)
+      ..add('copyPartResult', copyPartResult)
+      ..add('serverSideEncryption', serverSideEncryption)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('ssekmsKeyId', '***SENSITIVE***')
+      ..add('bucketKeyEnabled', bucketKeyEnabled)
+      ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }

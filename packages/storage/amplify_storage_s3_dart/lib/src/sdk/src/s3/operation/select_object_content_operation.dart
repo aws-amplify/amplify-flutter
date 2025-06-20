@@ -198,39 +198,38 @@ class SelectObjectContentOperation
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(
-    SelectObjectContentRequest input,
-  ) => _i1.HttpRequest((b) {
-    b.method = 'POST';
-    b.path =
-        _s3ClientConfig.usePathStyle
+  _i1.HttpRequest buildRequest(SelectObjectContentRequest input) =>
+      _i1.HttpRequest((b) {
+        b.method = 'POST';
+        b.path = _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?select&select-type=2&x-id=SelectObjectContent'
             : r'/{Key+}?select&select-type=2&x-id=SelectObjectContent';
-    b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-    if (input.sseCustomerAlgorithm != null) {
-      if (input.sseCustomerAlgorithm!.isNotEmpty) {
-        b.headers['x-amz-server-side-encryption-customer-algorithm'] =
-            input.sseCustomerAlgorithm!;
-      }
-    }
-    if (input.sseCustomerKey != null) {
-      if (input.sseCustomerKey!.isNotEmpty) {
-        b.headers['x-amz-server-side-encryption-customer-key'] =
-            input.sseCustomerKey!;
-      }
-    }
-    if (input.sseCustomerKeyMd5 != null) {
-      if (input.sseCustomerKeyMd5!.isNotEmpty) {
-        b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
-            input.sseCustomerKeyMd5!;
-      }
-    }
-    if (input.expectedBucketOwner != null) {
-      if (input.expectedBucketOwner!.isNotEmpty) {
-        b.headers['x-amz-expected-bucket-owner'] = input.expectedBucketOwner!;
-      }
-    }
-  });
+        b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
+        if (input.sseCustomerAlgorithm != null) {
+          if (input.sseCustomerAlgorithm!.isNotEmpty) {
+            b.headers['x-amz-server-side-encryption-customer-algorithm'] =
+                input.sseCustomerAlgorithm!;
+          }
+        }
+        if (input.sseCustomerKey != null) {
+          if (input.sseCustomerKey!.isNotEmpty) {
+            b.headers['x-amz-server-side-encryption-customer-key'] =
+                input.sseCustomerKey!;
+          }
+        }
+        if (input.sseCustomerKeyMd5 != null) {
+          if (input.sseCustomerKeyMd5!.isNotEmpty) {
+            b.headers['x-amz-server-side-encryption-customer-key-MD5'] =
+                input.sseCustomerKeyMd5!;
+          }
+        }
+        if (input.expectedBucketOwner != null) {
+          if (input.expectedBucketOwner!.isNotEmpty) {
+            b.headers['x-amz-expected-bucket-owner'] =
+                input.expectedBucketOwner!;
+          }
+        }
+      });
 
   @override
   int successCode([SelectObjectContentOutput? output]) => 200;

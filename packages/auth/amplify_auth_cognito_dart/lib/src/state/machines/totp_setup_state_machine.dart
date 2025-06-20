@@ -61,14 +61,11 @@ final class TotpSetupStateMachine
 
   Future<void> _onInitiate(TotpSetupInitiate event) async {
     final tokens = await manager.getUserPoolTokens();
-    final response =
-        await _cognitoIdp
-            .associateSoftwareToken(
-              AssociateSoftwareTokenRequest(
-                accessToken: tokens.accessToken.raw,
-              ),
-            )
-            .result;
+    final response = await _cognitoIdp
+        .associateSoftwareToken(
+          AssociateSoftwareTokenRequest(accessToken: tokens.accessToken.raw),
+        )
+        .result;
     _session = response.session;
     _details = TotpSetupDetails(
       username: CognitoIdToken(tokens.idToken).username,

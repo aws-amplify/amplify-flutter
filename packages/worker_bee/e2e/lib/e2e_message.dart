@@ -65,23 +65,22 @@ final customTypeStreamElements = [
 ];
 
 E2EMessage get message => E2EMessage(
-  (b) =>
-      b
-        ..bigInt = BigInt.from(123)
-        ..bool_ = true
-        ..builtList.add('abc')
-        ..builtListMultimap.addValues('a', ['1', '2', '3'])
-        ..builtMap.addAll({'a': '1', 'b': '2', 'c': '3'})
-        ..builtSet.add('abc')
-        ..builtSetMultimap.addValues('a', ['1', '2', '3'])
-        ..dateTime = DateTime.utc(1990, 1, 1)
-        ..double_ = 123.0
-        ..duration = const Duration(minutes: 4)
-        ..int_ = 123
-        ..int64 = Int64(123)
-        ..jsonObject = JsonObject(123)
-        ..num_ = 123
-        ..regExp = RegExp(r'^\w{3}$')
-        ..string = 'abc'
-        ..uri = Uri.parse('https://example.com'),
+  (b) => b
+    ..bigInt = BigInt.from(123)
+    ..bool_ = true
+    ..builtList.add('abc')
+    ..builtListMultimap.addValues('a', ['1', '2', '3'])
+    ..builtMap.addAll({'a': '1', 'b': '2', 'c': '3'})
+    ..builtSet.add('abc')
+    ..builtSetMultimap.addValues('a', ['1', '2', '3'])
+    ..dateTime = DateTime.utc(1990, 1, 1)
+    ..double_ = 123.0
+    ..duration = const Duration(minutes: 4)
+    ..int_ = 123
+    ..int64 = Int64(123)
+    ..jsonObject = JsonObject(123)
+    ..num_ = 123
+    ..regExp = RegExp(r'^\w{3}$')
+    ..string = 'abc'
+    ..uri = Uri.parse('https://example.com'),
 );

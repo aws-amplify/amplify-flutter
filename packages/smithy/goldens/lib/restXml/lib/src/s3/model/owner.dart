@@ -32,10 +32,9 @@ abstract class Owner
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('Owner')
-          ..add('displayName', displayName)
-          ..add('id', id);
+    final helper = newBuiltValueToStringHelper('Owner')
+      ..add('displayName', displayName)
+      ..add('id', id);
     return helper.toString();
   }
 }

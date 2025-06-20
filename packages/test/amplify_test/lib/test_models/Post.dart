@@ -57,10 +57,9 @@ class Post extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -74,10 +73,9 @@ class Post extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -142,8 +140,9 @@ class Post extends amplify_core.Model {
       created: created,
       likeCount: likeCount,
       blog: blog,
-      comments:
-          comments != null ? List<Comment>.unmodifiable(comments) : comments,
+      comments: comments != null
+          ? List<Comment>.unmodifiable(comments)
+          : comments,
     );
   }
 
@@ -241,34 +240,31 @@ class Post extends amplify_core.Model {
     : id = json['id'],
       _title = json['title'],
       _rating = (json['rating'] as num?)?.toInt(),
-      _created =
-          json['created'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['created'])
-              : null,
+      _created = json['created'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['created'])
+          : null,
       _likeCount = (json['likeCount'] as num?)?.toInt(),
-      _blog =
-          json['blog'] != null
-              ? json['blog']['serializedData'] != null
-                  ? Blog.fromJson(
+      _blog = json['blog'] != null
+          ? json['blog']['serializedData'] != null
+                ? Blog.fromJson(
                     new Map<String, dynamic>.from(
                       json['blog']['serializedData'],
                     ),
                   )
-                  : Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
-              : null,
-      _comments =
-          json['comments'] is Map
-              ? (json['comments']['items'] is List
-                  ? (json['comments']['items'] as List)
+                : Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
+          : null,
+      _comments = json['comments'] is Map
+          ? (json['comments']['items'] is List
+                ? (json['comments']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) =>
                             Comment.fromJson(new Map<String, dynamic>.from(e)),
                       )
                       .toList()
-                  : null)
-              : (json['comments'] is List
-                  ? (json['comments'] as List)
+                : null)
+          : (json['comments'] is List
+                ? (json['comments'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => Comment.fromJson(
@@ -276,15 +272,13 @@ class Post extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -453,10 +447,9 @@ class PostModelIdentifier implements amplify_core.ModelIdentifier<Post> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

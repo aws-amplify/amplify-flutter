@@ -71,15 +71,14 @@ abstract class ClientConfig
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ClientConfig')
-          ..add('awsAccessKeyId', awsAccessKeyId)
-          ..add('awsSecretAccessKey', awsSecretAccessKey)
-          ..add('awsSessionToken', awsSessionToken)
-          ..add('region', region)
-          ..add('s3', s3)
-          ..add('retryConfig', retryConfig)
-          ..add('awsProfile', awsProfile);
+    final helper = newBuiltValueToStringHelper('ClientConfig')
+      ..add('awsAccessKeyId', awsAccessKeyId)
+      ..add('awsSecretAccessKey', awsSecretAccessKey)
+      ..add('awsSessionToken', awsSessionToken)
+      ..add('region', region)
+      ..add('s3', s3)
+      ..add('retryConfig', retryConfig)
+      ..add('awsProfile', awsProfile);
     return helper.toString();
   }
 }

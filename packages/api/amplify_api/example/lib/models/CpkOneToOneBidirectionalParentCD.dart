@@ -52,10 +52,9 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -69,10 +68,9 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -86,10 +84,9 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -195,48 +192,46 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
     return CpkOneToOneBidirectionalParentCD._internal(
       customId: customId,
       name: name,
-      implicitChild:
-          implicitChild == null ? this.implicitChild : implicitChild.value,
-      explicitChild:
-          explicitChild == null ? this.explicitChild : explicitChild.value,
+      implicitChild: implicitChild == null
+          ? this.implicitChild
+          : implicitChild.value,
+      explicitChild: explicitChild == null
+          ? this.explicitChild
+          : explicitChild.value,
     );
   }
 
   CpkOneToOneBidirectionalParentCD.fromJson(Map<String, dynamic> json)
     : _customId = json['customId'],
       _name = json['name'],
-      _implicitChild =
-          json['implicitChild'] != null
-              ? json['implicitChild']['serializedData'] != null
-                  ? CpkOneToOneBidirectionalChildImplicitCD.fromJson(
+      _implicitChild = json['implicitChild'] != null
+          ? json['implicitChild']['serializedData'] != null
+                ? CpkOneToOneBidirectionalChildImplicitCD.fromJson(
                     new Map<String, dynamic>.from(
                       json['implicitChild']['serializedData'],
                     ),
                   )
-                  : CpkOneToOneBidirectionalChildImplicitCD.fromJson(
+                : CpkOneToOneBidirectionalChildImplicitCD.fromJson(
                     new Map<String, dynamic>.from(json['implicitChild']),
                   )
-              : null,
-      _explicitChild =
-          json['explicitChild'] != null
-              ? json['explicitChild']['serializedData'] != null
-                  ? CpkOneToOneBidirectionalChildExplicitCD.fromJson(
+          : null,
+      _explicitChild = json['explicitChild'] != null
+          ? json['explicitChild']['serializedData'] != null
+                ? CpkOneToOneBidirectionalChildExplicitCD.fromJson(
                     new Map<String, dynamic>.from(
                       json['explicitChild']['serializedData'],
                     ),
                   )
-                  : CpkOneToOneBidirectionalChildExplicitCD.fromJson(
+                : CpkOneToOneBidirectionalChildExplicitCD.fromJson(
                     new Map<String, dynamic>.from(json['explicitChild']),
                   )
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'customId': _customId,
@@ -400,16 +395,13 @@ class CpkOneToOneBidirectionalParentCDModelIdentifier
   });
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'customId': customId,
-    'name': name,
-  });
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'customId': customId, 'name': name});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

@@ -46,16 +46,13 @@ class PaginatedModelType<T extends Model>
       );
     }
 
-    final items =
-        itemsJson
-            .cast<Map<Object?, Object?>?>()
-            .map(
-              (e) =>
-                  e != null
-                      ? modelType.fromJson(e.cast<String, Object?>())
-                      : null,
-            )
-            .toList();
+    final items = itemsJson
+        .cast<Map<Object?, Object?>?>()
+        .map(
+          (e) =>
+              e != null ? modelType.fromJson(e.cast<String, Object?>()) : null,
+        )
+        .toList();
 
     return PaginatedResult<T>(
       items,

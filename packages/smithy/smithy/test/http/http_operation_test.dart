@@ -82,7 +82,7 @@ void main() {
         onRequest: expectAsync1((_) {}),
         onResponse: expectAsync1((_) {}),
         baseClient: MockAWSHttpClient(
-          (_, __) => AWSStreamedHttpResponse(statusCode: 200, body: body),
+          (_, _) => AWSStreamedHttpResponse(statusCode: 200, body: body),
         ),
       );
       final op = operation.run(const Unit(), client: client);

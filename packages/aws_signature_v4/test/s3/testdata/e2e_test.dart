@@ -20,10 +20,9 @@ void main() {
   group('S3', () {
     test('E2E Test', () async {
       final context = buildContext();
-      final testBody =
-          File.fromUri(
-            Directory.current.uri.resolve(chunkedRequest),
-          ).openRead();
+      final testBody = File.fromUri(
+        Directory.current.uri.resolve(chunkedRequest),
+      ).openRead();
       final creds = AWSCredentialsProvider(context.credentials);
 
       final signer = AWSSigV4Signer(credentialsProvider: creds);

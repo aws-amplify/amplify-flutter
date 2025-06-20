@@ -30,8 +30,8 @@ import 'common.dart';
 final Uri applicationUri = Uri.parse('http://localhost:3000/');
 
 final ProcessManager processManager = ProcessManager();
-final AWSHttpClient httpClient =
-    AWSHttpClient()..supportedProtocols = SupportedProtocols.http1;
+final AWSHttpClient httpClient = AWSHttpClient()
+  ..supportedProtocols = SupportedProtocols.http1;
 
 enum Compiler {
   ddc('DDC'),
@@ -86,14 +86,11 @@ Future<void> buildAndRun(Compiler compiler) async {
       await Future.doWhile(() async {
         await Future<void>.delayed(const Duration(seconds: 5));
         try {
-          final response =
-              await httpClient
-                  .send(
-                    AWSHttpRequest.get(
-                      Uri.parse('http://localhost:$servePort'),
-                    ),
-                  )
-                  .response;
+          final response = await httpClient
+              .send(
+                AWSHttpRequest.get(Uri.parse('http://localhost:$servePort')),
+              )
+              .response;
           return response.statusCode != 200;
         } on Exception {
           return true;
@@ -360,8 +357,8 @@ callback(JSON.stringify(items));
               [webDatabaseName],
             )
             as String;
-    final data =
-        (jsonDecode(json) as Map<String, Object?>).cast<String, String?>();
+    final data = (jsonDecode(json) as Map<String, Object?>)
+        .cast<String, String?>();
     final keys = HostedUiKeys(
       config.auth!.awsPlugin!.auth!.default$!.oAuth!.appClientId,
     );

@@ -20,15 +20,11 @@ class InheritedAuthenticatorBuilder extends InheritedWidget {
   static AuthenticatorBuilder? of(BuildContext context, {bool listen = true}) {
     InheritedAuthenticatorBuilder? inheritedViewModel;
     if (listen) {
-      inheritedViewModel =
-          context
-              .dependOnInheritedWidgetOfExactType<
-                InheritedAuthenticatorBuilder
-              >();
+      inheritedViewModel = context
+          .dependOnInheritedWidgetOfExactType<InheritedAuthenticatorBuilder>();
     } else {
-      inheritedViewModel =
-          context
-              .findAncestorWidgetOfExactType<InheritedAuthenticatorBuilder>();
+      inheritedViewModel = context
+          .findAncestorWidgetOfExactType<InheritedAuthenticatorBuilder>();
     }
     assert(() {
       if (inheritedViewModel == null) {

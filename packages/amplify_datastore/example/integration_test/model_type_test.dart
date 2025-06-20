@@ -19,10 +19,9 @@ void main() {
   group('a model with field of type', () {
     group('String', () {
       var values = ['', 'foo', 'bar', '!@#"', '\u{1F601}'];
-      var models =
-          values
-              .map((value) => ModelWithAppsyncScalarTypes(stringValue: value))
-              .toList();
+      var models = values
+          .map((value) => ModelWithAppsyncScalarTypes(stringValue: value))
+          .toList();
       testModelOperations(models: models);
     });
 
@@ -45,10 +44,9 @@ void main() {
 
     group('Int', () {
       var values = [dataStoreMinInt, dataStoreMaxInt, 0, -1, 1];
-      var models =
-          values
-              .map((value) => ModelWithAppsyncScalarTypes(intValue: value))
-              .toList();
+      var models = values
+          .map((value) => ModelWithAppsyncScalarTypes(intValue: value))
+          .toList();
       testModelOperations(models: models);
     });
 
@@ -63,10 +61,9 @@ void main() {
 
     group('Float', () {
       var values = [double.maxFinite, double.minPositive, pi, 0.0, 0.1];
-      var models =
-          values
-              .map((value) => ModelWithAppsyncScalarTypes(floatValue: value))
-              .toList();
+      var models = values
+          .map((value) => ModelWithAppsyncScalarTypes(floatValue: value))
+          .toList();
       testModelOperations(models: models);
     });
 
@@ -106,14 +103,12 @@ void main() {
         DateTime(2020, 01, 01, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
-      var models =
-          values
-              .map(
-                (value) => ModelWithAppsyncScalarTypes(
-                  awsDateValue: TemporalDate(value),
-                ),
-              )
-              .toList();
+      var models = values
+          .map(
+            (value) =>
+                ModelWithAppsyncScalarTypes(awsDateValue: TemporalDate(value)),
+          )
+          .toList();
       testModelOperations(models: models);
     });
 
@@ -139,14 +134,13 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
-      var models =
-          values
-              .map(
-                (value) => ModelWithAppsyncScalarTypes(
-                  awsDateTimeValue: TemporalDateTime(value),
-                ),
-              )
-              .toList();
+      var models = values
+          .map(
+            (value) => ModelWithAppsyncScalarTypes(
+              awsDateTimeValue: TemporalDateTime(value),
+            ),
+          )
+          .toList();
       testModelOperations(models: models);
       testModelOperations(
         models: models,
@@ -176,14 +170,12 @@ void main() {
         DateTime(2999, 12, 31, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
-      var models =
-          values
-              .map(
-                (value) => ModelWithAppsyncScalarTypes(
-                  awsTimeValue: TemporalTime(value),
-                ),
-              )
-              .toList();
+      var models = values
+          .map(
+            (value) =>
+                ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(value)),
+          )
+          .toList();
       testModelOperations(
         models: models,
         skips: {
@@ -218,14 +210,13 @@ void main() {
         DateTime(2020, 01, 01, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
-      var models =
-          values
-              .map(
-                (value) => ModelWithAppsyncScalarTypes(
-                  awsTimestampValue: TemporalTimestamp(value),
-                ),
-              )
-              .toList();
+      var models = values
+          .map(
+            (value) => ModelWithAppsyncScalarTypes(
+              awsTimestampValue: TemporalTimestamp(value),
+            ),
+          )
+          .toList();
       testModelOperations(models: models);
     });
 

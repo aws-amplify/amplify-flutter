@@ -65,10 +65,9 @@ void main() {
       wsService: service!,
       subscriptionOptions: subscriptionOptions,
       pollClientOverride: mockPollClient.client,
-      connectivity:
-          noConnectivity
-              ? const ConnectivityPlatform()
-              : const MockConnectivity(),
+      connectivity: noConnectivity
+          ? const ConnectivityPlatform()
+          : const MockConnectivity(),
       processLifeCycle: const MockProcessLifeCycle(),
     );
 

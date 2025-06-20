@@ -33,11 +33,11 @@ Future<void> testBackgroundProcessor() async {}
 void main() {
   final testWidgetsFlutterBinding =
       TestWidgetsFlutterBinding.ensureInitialized();
-  final authProviderRepo =
-      AmplifyAuthProviderRepository()..registerAuthProvider(
-        const AmplifyAuthProviderToken(''),
-        TestIamAuthProvider(),
-      );
+  final authProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      const AmplifyAuthProviderToken(''),
+      TestIamAuthProvider(),
+    );
   late AmplifyPushNotifications plugin;
   final mockServiceProviderClient = MockServiceProviderClient();
   final mockPushNotificationsHostApi = MockPushNotificationsHostApi();
@@ -45,13 +45,12 @@ void main() {
       MockAmplifyPushNotificationsFlutterApi();
   final mockAmplifySecureStorage = MockAmplifySecureStorage();
 
-  final dependencyManager =
-      DependencyManager()
-        ..addInstance<AmplifyPushNotificationsFlutterApi>(
-          mockPushNotificationsNativeToFlutterApi,
-        )
-        ..addInstance<PushNotificationsHostApi>(mockPushNotificationsHostApi)
-        ..addInstance<AmplifySecureStorage>(mockAmplifySecureStorage);
+  final dependencyManager = DependencyManager()
+    ..addInstance<AmplifyPushNotificationsFlutterApi>(
+      mockPushNotificationsNativeToFlutterApi,
+    )
+    ..addInstance<PushNotificationsHostApi>(mockPushNotificationsHostApi)
+    ..addInstance<AmplifySecureStorage>(mockAmplifySecureStorage);
 
   final config = AmplifyOutputs.fromJson(
     jsonDecode(amplifyConfig) as Map<String, Object?>,

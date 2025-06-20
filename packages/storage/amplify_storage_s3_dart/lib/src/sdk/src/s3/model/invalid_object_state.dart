@@ -83,10 +83,9 @@ abstract class InvalidObjectState
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InvalidObjectState')
-          ..add('storageClass', storageClass)
-          ..add('accessTier', accessTier);
+    final helper = newBuiltValueToStringHelper('InvalidObjectState')
+      ..add('storageClass', storageClass)
+      ..add('accessTier', accessTier);
     return helper.toString();
   }
 }

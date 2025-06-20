@@ -101,13 +101,12 @@ abstract class UploadArchiveInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UploadArchiveInput')
-          ..add('vaultName', vaultName)
-          ..add('accountId', accountId)
-          ..add('archiveDescription', archiveDescription)
-          ..add('checksum', checksum)
-          ..add('body', body);
+    final helper = newBuiltValueToStringHelper('UploadArchiveInput')
+      ..add('vaultName', vaultName)
+      ..add('accountId', accountId)
+      ..add('archiveDescription', archiveDescription)
+      ..add('checksum', checksum)
+      ..add('body', body);
     return helper.toString();
   }
 }

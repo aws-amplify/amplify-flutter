@@ -82,12 +82,11 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
         _instance = AmplifySecureStorageWorker(config: config);
       }
       if (Platform.isIOS || Platform.isMacOS || Platform.isLinux) {
-        final accessGroup =
-            Platform.isLinux
-                ? config.linuxOptions.accessGroup
-                : Platform.isIOS
-                ? config.iOSOptions.accessGroup
-                : config.macOSOptions.accessGroup;
+        final accessGroup = Platform.isLinux
+            ? config.linuxOptions.accessGroup
+            : Platform.isIOS
+            ? config.iOSOptions.accessGroup
+            : config.macOSOptions.accessGroup;
         // if accessGroup is set, do not clear data on initialization
         // since the data can be shared across applications.
         if (accessGroup == null) {

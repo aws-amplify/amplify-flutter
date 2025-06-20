@@ -15,9 +15,8 @@ class _$InvalidEmailRoleAccessPolicyException
 
   factory _$InvalidEmailRoleAccessPolicyException([
     void Function(InvalidEmailRoleAccessPolicyExceptionBuilder)? updates,
-  ]) =>
-      (InvalidEmailRoleAccessPolicyExceptionBuilder()..update(updates))
-          ._build();
+  ]) => (InvalidEmailRoleAccessPolicyExceptionBuilder()..update(updates))
+      ._build();
 
   _$InvalidEmailRoleAccessPolicyException._({this.message, this.headers})
     : super._();

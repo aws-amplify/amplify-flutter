@@ -28,8 +28,9 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   Uri getUri({String? path, Map<String, dynamic>? queryParameters}) {
     final parsed = Uri.parse(config.url);
 
-    final pathSegments =
-        path != null ? [...parsed.pathSegments, ..._getSegments(path)] : null;
+    final pathSegments = path != null
+        ? [...parsed.pathSegments, ..._getSegments(path)]
+        : null;
 
     return parsed.replace(
       pathSegments: pathSegments,

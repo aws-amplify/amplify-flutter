@@ -53,10 +53,9 @@ class Tag extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -149,19 +148,18 @@ class Tag extends amplify_core.Model {
   Tag.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _label = json['label'],
-      _posts =
-          json['posts'] is Map
-              ? (json['posts']['items'] is List
-                  ? (json['posts']['items'] as List)
+      _posts = json['posts'] is Map
+          ? (json['posts']['items'] is List
+                ? (json['posts']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) =>
                             PostTags.fromJson(new Map<String, dynamic>.from(e)),
                       )
                       .toList()
-                  : null)
-              : (json['posts'] is List
-                  ? (json['posts'] as List)
+                : null)
+          : (json['posts'] is List
+                ? (json['posts'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => PostTags.fromJson(
@@ -169,15 +167,13 @@ class Tag extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -285,10 +281,9 @@ class TagModelIdentifier implements amplify_core.ModelIdentifier<Tag> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

@@ -28,23 +28,20 @@ class EndpointClient {
        _pinpointClient = pinpointClient,
        _fixedEndpointId = endpointInfoStoreManager.endpointId,
        _globalFieldsManager = endpointInfoStoreManager.endpointFields,
-       _endpointBuilder =
-           PublicEndpoint(
-             effectiveDate: DateTime.now().toUtc().toIso8601String(),
-             demographic: EndpointDemographic(
-               appVersion: deviceContextInfo?.appVersion,
-               locale: deviceContextInfo?.locale,
-               make: deviceContextInfo?.make,
-               model: deviceContextInfo?.model,
-               modelVersion: deviceContextInfo?.modelVersion,
-               platform: deviceContextInfo?.platform?.name,
-               platformVersion: deviceContextInfo?.platformVersion,
-               timezone: deviceContextInfo?.timezone,
-             ),
-             location: EndpointLocation(
-               country: deviceContextInfo?.countryCode,
-             ),
-           ).toBuilder();
+       _endpointBuilder = PublicEndpoint(
+         effectiveDate: DateTime.now().toUtc().toIso8601String(),
+         demographic: EndpointDemographic(
+           appVersion: deviceContextInfo?.appVersion,
+           locale: deviceContextInfo?.locale,
+           make: deviceContextInfo?.make,
+           model: deviceContextInfo?.model,
+           modelVersion: deviceContextInfo?.modelVersion,
+           platform: deviceContextInfo?.platform?.name,
+           platformVersion: deviceContextInfo?.platformVersion,
+           timezone: deviceContextInfo?.timezone,
+         ),
+         location: EndpointLocation(country: deviceContextInfo?.countryCode),
+       ).toBuilder();
 
   late final String _fixedEndpointId;
   late final EndpointGlobalFieldsManager _globalFieldsManager;
@@ -168,19 +165,18 @@ class EndpointClient {
   /// Create an EndpointRequest object from a local Endpoint instance.
   EndpointRequest _endpointToRequest(PublicEndpoint publicEndpoint) {
     return EndpointRequest.build(
-      (b) =>
-          b
-            ..address = publicEndpoint.address
-            ..attributes.replace(publicEndpoint.attributes)
-            ..channelType = publicEndpoint.channelType
-            ..demographic = publicEndpoint.demographic?.toBuilder()
-            ..effectiveDate = publicEndpoint.effectiveDate
-            ..endpointStatus = publicEndpoint.endpointStatus
-            ..location = publicEndpoint.location?.toBuilder()
-            ..metrics.replace(publicEndpoint.metrics ?? const {})
-            ..optOut = publicEndpoint.optOut
-            ..requestId = publicEndpoint.requestId
-            ..user = publicEndpoint.user?.toBuilder(),
+      (b) => b
+        ..address = publicEndpoint.address
+        ..attributes.replace(publicEndpoint.attributes)
+        ..channelType = publicEndpoint.channelType
+        ..demographic = publicEndpoint.demographic?.toBuilder()
+        ..effectiveDate = publicEndpoint.effectiveDate
+        ..endpointStatus = publicEndpoint.endpointStatus
+        ..location = publicEndpoint.location?.toBuilder()
+        ..metrics.replace(publicEndpoint.metrics ?? const {})
+        ..optOut = publicEndpoint.optOut
+        ..requestId = publicEndpoint.requestId
+        ..user = publicEndpoint.user?.toBuilder(),
     );
   }
 }

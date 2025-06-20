@@ -57,10 +57,9 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
         );
         if (accessToken != null && refreshToken != null && idToken != null) {
           // TODO(Jordan-Nelson): fetch sign in method from keychain on iOS
-          final signInMethod =
-              authOutputs.oauth != null
-                  ? CognitoSignInMethod.hostedUi
-                  : CognitoSignInMethod.default$;
+          final signInMethod = authOutputs.oauth != null
+              ? CognitoSignInMethod.hostedUi
+              : CognitoSignInMethod.default$;
           userPoolTokens = CognitoUserPoolTokens(
             signInMethod: signInMethod,
             accessToken: JsonWebToken.parse(accessToken),
@@ -241,10 +240,10 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   /// repository name on Android.
   SecureStorageInterface _getSecureStorageInstance(String namespace) {
     return _secureStorageInstances[namespace] ??=
-    // ignore: invalid_use_of_internal_member
-    AmplifySecureStorageDart(
-      config: AmplifySecureStorageConfig.byNamespace(namespace: namespace),
-    );
+        // ignore: invalid_use_of_internal_member
+        AmplifySecureStorageDart(
+          config: AmplifySecureStorageConfig.byNamespace(namespace: namespace),
+        );
   }
 
   /// Returns a Secure Storage instance for accessing legacy User Pool

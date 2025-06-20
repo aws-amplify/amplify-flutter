@@ -15,10 +15,9 @@ void main() {
     group('Struct', () {
       test('valid name', () {
         final shape = StructureShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyStruct')
-                ..members = NamedMembersMap({}),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyStruct')
+            ..members = NamedMembersMap({}),
         );
         final context = createTestContext([shape]);
         final name = StructureGenerator(shape, context).className;
@@ -27,16 +26,14 @@ void main() {
 
       test('conflict with builder of another class', () {
         final myStruct = StructureShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyStruct')
-                ..members = NamedMembersMap({}),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyStruct')
+            ..members = NamedMembersMap({}),
         );
         final myStructBuilder = StructureShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyStructBuilder')
-                ..members = NamedMembersMap({}),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyStructBuilder')
+            ..members = NamedMembersMap({}),
         );
         final shapes = [myStruct, myStructBuilder];
         final context = createTestContext(shapes);
@@ -46,41 +43,35 @@ void main() {
 
       test('member names', () {
         final shape = StructureShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyStruct')
-                ..members = NamedMembersMap({
-                  'build': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'build'
-                          ..target = Shape.unit,
-                  ),
-                  'update': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'update'
-                          ..target = Shape.unit,
-                  ),
-                  'rebuild': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'rebuild'
-                          ..target = Shape.unit,
-                  ),
-                  'replace': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'replace'
-                          ..target = Shape.unit,
-                  ),
-                  'toBuilder': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'toBuilder'
-                          ..target = Shape.unit,
-                  ),
-                }),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyStruct')
+            ..members = NamedMembersMap({
+              'build': MemberShape(
+                (b) => b
+                  ..memberName = 'build'
+                  ..target = Shape.unit,
+              ),
+              'update': MemberShape(
+                (b) => b
+                  ..memberName = 'update'
+                  ..target = Shape.unit,
+              ),
+              'rebuild': MemberShape(
+                (b) => b
+                  ..memberName = 'rebuild'
+                  ..target = Shape.unit,
+              ),
+              'replace': MemberShape(
+                (b) => b
+                  ..memberName = 'replace'
+                  ..target = Shape.unit,
+              ),
+              'toBuilder': MemberShape(
+                (b) => b
+                  ..memberName = 'toBuilder'
+                  ..target = Shape.unit,
+              ),
+            }),
         );
         final memberNames = shape.members.values.map(
           (m) => m.dartName(ShapeType.structure),
@@ -101,10 +92,9 @@ void main() {
     group('Union', () {
       test('valid name', () {
         final shape = UnionShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyUnion')
-                ..members = NamedMembersMap({}),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyUnion')
+            ..members = NamedMembersMap({}),
         );
         final context = createTestContext([shape]);
         final name = UnionGenerator(shape, context).className;
@@ -113,16 +103,14 @@ void main() {
 
       test('conflict with builder of another class', () {
         final myUnion = UnionShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyUnion')
-                ..members = NamedMembersMap({}),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyUnion')
+            ..members = NamedMembersMap({}),
         );
         final myUnionBuilder = UnionShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyUnionBuilder')
-                ..members = NamedMembersMap({}),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyUnionBuilder')
+            ..members = NamedMembersMap({}),
         );
         final shapes = [myUnion, myUnionBuilder];
         final context = createTestContext(shapes);
@@ -132,29 +120,25 @@ void main() {
 
       test('member names', () {
         final shape = UnionShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyStruct')
-                ..members = NamedMembersMap({
-                  'value': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'value'
-                          ..target = Shape.unit,
-                  ),
-                  'sdkUnknown': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'sdkUnknown'
-                          ..target = Shape.unit,
-                  ),
-                  'unknown': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'unknown'
-                          ..target = Shape.unit,
-                  ),
-                }),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyStruct')
+            ..members = NamedMembersMap({
+              'value': MemberShape(
+                (b) => b
+                  ..memberName = 'value'
+                  ..target = Shape.unit,
+              ),
+              'sdkUnknown': MemberShape(
+                (b) => b
+                  ..memberName = 'sdkUnknown'
+                  ..target = Shape.unit,
+              ),
+              'unknown': MemberShape(
+                (b) => b
+                  ..memberName = 'unknown'
+                  ..target = Shape.unit,
+              ),
+            }),
         );
         final context = createTestContext([shape]);
         final generator = UnionGenerator(shape, context);
@@ -169,20 +153,18 @@ void main() {
     group('Enum', () {
       test('valid name', () {
         final shape = StringEnumShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyEnum')
-                ..members = NamedMembersMap({
-                  'TEST': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'TEST'
-                          ..target = Shape.unit
-                          ..traits = TraitMap.fromTraits(const [
-                            EnumValueTrait('test'),
-                          ]),
-                  ),
-                }),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyEnum')
+            ..members = NamedMembersMap({
+              'TEST': MemberShape(
+                (b) => b
+                  ..memberName = 'TEST'
+                  ..target = Shape.unit
+                  ..traits = TraitMap.fromTraits(const [
+                    EnumValueTrait('test'),
+                  ]),
+              ),
+            }),
         );
         final context = createTestContext([shape]);
         final name = EnumGenerator(shape, context).className;
@@ -191,28 +173,25 @@ void main() {
 
       test('conflict with builder of another class', () {
         final myEnum = StringEnumShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyEnum')
-                ..members = NamedMembersMap({
-                  'TEST': MemberShape(
-                    (b) =>
-                        b
-                          ..memberName = 'TEST'
-                          ..target = Shape.unit
-                          ..traits = TraitMap.fromTraits(const [
-                            EnumValueTrait('test'),
-                          ]),
-                  ),
-                }),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyEnum')
+            ..members = NamedMembersMap({
+              'TEST': MemberShape(
+                (b) => b
+                  ..memberName = 'TEST'
+                  ..target = Shape.unit
+                  ..traits = TraitMap.fromTraits(const [
+                    EnumValueTrait('test'),
+                  ]),
+              ),
+            }),
         );
         final myEnumBuilder = StringShape(
-          (b) =>
-              b
-                ..shapeId = ShapeId.parse('com.example#MyEnumBuilder')
-                ..traits = TraitMap.fromTraits([
-                  const EnumTrait([EnumDefinition(value: 'test')]),
-                ]),
+          (b) => b
+            ..shapeId = ShapeId.parse('com.example#MyEnumBuilder')
+            ..traits = TraitMap.fromTraits([
+              const EnumTrait([EnumDefinition(value: 'test')]),
+            ]),
         );
         final shapes = [myEnum, myEnumBuilder];
         final context = createTestContext(shapes);
@@ -223,31 +202,22 @@ void main() {
       test('member names', () {
         final traits = <MemberShape>[
           MemberShape(
-            (b) =>
-                b
-                  ..memberName = 'NAME'
-                  ..target = Shape.unit
-                  ..traits = TraitMap.fromTraits(const [
-                    EnumValueTrait('name'),
-                  ]),
+            (b) => b
+              ..memberName = 'NAME'
+              ..target = Shape.unit
+              ..traits = TraitMap.fromTraits(const [EnumValueTrait('name')]),
           ),
           MemberShape(
-            (b) =>
-                b
-                  ..memberName = 'VALUE'
-                  ..target = Shape.unit
-                  ..traits = TraitMap.fromTraits(const [
-                    EnumValueTrait('value'),
-                  ]),
+            (b) => b
+              ..memberName = 'VALUE'
+              ..target = Shape.unit
+              ..traits = TraitMap.fromTraits(const [EnumValueTrait('value')]),
           ),
           MemberShape(
-            (b) =>
-                b
-                  ..memberName = 'INDEX'
-                  ..target = Shape.unit
-                  ..traits = TraitMap.fromTraits(const [
-                    EnumValueTrait('index'),
-                  ]),
+            (b) => b
+              ..memberName = 'INDEX'
+              ..target = Shape.unit
+              ..traits = TraitMap.fromTraits(const [EnumValueTrait('index')]),
           ),
         ];
         final memberNames = traits.map((def) => def.enumVariantName);

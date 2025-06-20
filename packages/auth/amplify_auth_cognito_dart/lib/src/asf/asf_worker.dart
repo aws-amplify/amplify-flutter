@@ -161,10 +161,9 @@ abstract class ASFWorker
 
       respond.add(
         ASFWorkerResponse(
-          (b) =>
-              b
-                ..requestId = requestId
-                ..userContextData.encodedData = encodedContextData,
+          (b) => b
+            ..requestId = requestId
+            ..userContextData.encodedData = encodedContextData,
         ),
       );
     }

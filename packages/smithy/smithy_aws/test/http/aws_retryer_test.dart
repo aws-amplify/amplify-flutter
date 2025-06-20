@@ -166,12 +166,9 @@ void main() {
               expectation,
             );
 
-            final expectedRetries =
-                testSuite.responses
-                    .where(
-                      (resp) => resp.expected.outcome == Outcome.retryRequest,
-                    )
-                    .length;
+            final expectedRetries = testSuite.responses
+                .where((resp) => resp.expected.outcome == Outcome.retryRequest)
+                .length;
             expect(retry, equals(expectedRetries));
           }, zoneValues: {AWSConfigValue.maxAttempts: maxAttempts});
         });

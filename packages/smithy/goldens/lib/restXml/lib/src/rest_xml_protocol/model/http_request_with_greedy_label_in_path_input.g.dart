@@ -15,9 +15,8 @@ class _$HttpRequestWithGreedyLabelInPathInput
 
   factory _$HttpRequestWithGreedyLabelInPathInput([
     void Function(HttpRequestWithGreedyLabelInPathInputBuilder)? updates,
-  ]) =>
-      (HttpRequestWithGreedyLabelInPathInputBuilder()..update(updates))
-          ._build();
+  ]) => (HttpRequestWithGreedyLabelInPathInputBuilder()..update(updates))
+      ._build();
 
   _$HttpRequestWithGreedyLabelInPathInput._({
     required this.foo,
@@ -117,9 +116,8 @@ class _$HttpRequestWithGreedyLabelInPathInputPayload
     extends HttpRequestWithGreedyLabelInPathInputPayload {
   factory _$HttpRequestWithGreedyLabelInPathInputPayload([
     void Function(HttpRequestWithGreedyLabelInPathInputPayloadBuilder)? updates,
-  ]) =>
-      (HttpRequestWithGreedyLabelInPathInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (HttpRequestWithGreedyLabelInPathInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$HttpRequestWithGreedyLabelInPathInputPayload._() : super._();
   @override

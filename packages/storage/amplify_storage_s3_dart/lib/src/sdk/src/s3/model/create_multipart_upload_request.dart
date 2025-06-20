@@ -126,11 +126,10 @@ abstract class CreateMultipartUploadRequest
       b.contentType = request.headers['Content-Type']!;
     }
     if (request.headers['Expires'] != null) {
-      b.expires =
-          _i1.Timestamp.parse(
-            request.headers['Expires']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.expires = _i1.Timestamp.parse(
+        request.headers['Expires']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['x-amz-grant-full-control'] != null) {
       b.grantFullControl = request.headers['x-amz-grant-full-control']!;
@@ -201,11 +200,10 @@ abstract class CreateMultipartUploadRequest
       );
     }
     if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
-      b.objectLockRetainUntilDate =
-          _i1.Timestamp.parse(
-            request.headers['x-amz-object-lock-retain-until-date']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.objectLockRetainUntilDate = _i1.Timestamp.parse(
+        request.headers['x-amz-object-lock-retain-until-date']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
     if (request.headers['x-amz-object-lock-legal-hold'] != null) {
       b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values.byValue(
@@ -586,38 +584,37 @@ abstract class CreateMultipartUploadRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CreateMultipartUploadRequest')
-          ..add('acl', acl)
-          ..add('bucket', bucket)
-          ..add('cacheControl', cacheControl)
-          ..add('contentDisposition', contentDisposition)
-          ..add('contentEncoding', contentEncoding)
-          ..add('contentLanguage', contentLanguage)
-          ..add('contentType', contentType)
-          ..add('expires', expires)
-          ..add('grantFullControl', grantFullControl)
-          ..add('grantRead', grantRead)
-          ..add('grantReadAcp', grantReadAcp)
-          ..add('grantWriteAcp', grantWriteAcp)
-          ..add('key', key)
-          ..add('metadata', metadata)
-          ..add('serverSideEncryption', serverSideEncryption)
-          ..add('storageClass', storageClass)
-          ..add('websiteRedirectLocation', websiteRedirectLocation)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKey', '***SENSITIVE***')
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('ssekmsKeyId', '***SENSITIVE***')
-          ..add('ssekmsEncryptionContext', '***SENSITIVE***')
-          ..add('bucketKeyEnabled', bucketKeyEnabled)
-          ..add('requestPayer', requestPayer)
-          ..add('tagging', tagging)
-          ..add('objectLockMode', objectLockMode)
-          ..add('objectLockRetainUntilDate', objectLockRetainUntilDate)
-          ..add('objectLockLegalHoldStatus', objectLockLegalHoldStatus)
-          ..add('expectedBucketOwner', expectedBucketOwner)
-          ..add('checksumAlgorithm', checksumAlgorithm);
+    final helper = newBuiltValueToStringHelper('CreateMultipartUploadRequest')
+      ..add('acl', acl)
+      ..add('bucket', bucket)
+      ..add('cacheControl', cacheControl)
+      ..add('contentDisposition', contentDisposition)
+      ..add('contentEncoding', contentEncoding)
+      ..add('contentLanguage', contentLanguage)
+      ..add('contentType', contentType)
+      ..add('expires', expires)
+      ..add('grantFullControl', grantFullControl)
+      ..add('grantRead', grantRead)
+      ..add('grantReadAcp', grantReadAcp)
+      ..add('grantWriteAcp', grantWriteAcp)
+      ..add('key', key)
+      ..add('metadata', metadata)
+      ..add('serverSideEncryption', serverSideEncryption)
+      ..add('storageClass', storageClass)
+      ..add('websiteRedirectLocation', websiteRedirectLocation)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKey', '***SENSITIVE***')
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('ssekmsKeyId', '***SENSITIVE***')
+      ..add('ssekmsEncryptionContext', '***SENSITIVE***')
+      ..add('bucketKeyEnabled', bucketKeyEnabled)
+      ..add('requestPayer', requestPayer)
+      ..add('tagging', tagging)
+      ..add('objectLockMode', objectLockMode)
+      ..add('objectLockRetainUntilDate', objectLockRetainUntilDate)
+      ..add('objectLockLegalHoldStatus', objectLockLegalHoldStatus)
+      ..add('expectedBucketOwner', expectedBucketOwner)
+      ..add('checksumAlgorithm', checksumAlgorithm);
     return helper.toString();
   }
 }

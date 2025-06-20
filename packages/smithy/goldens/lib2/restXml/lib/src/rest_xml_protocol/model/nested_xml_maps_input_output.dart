@@ -23,22 +23,18 @@ abstract class NestedXmlMapsInputOutput
     Map<String, Map<String, FooEnum>>? flatNestedMap,
   }) {
     return _$NestedXmlMapsInputOutput._(
-      nestedMap:
-          nestedMap == null
-              ? null
-              : _i3.BuiltMap(
-                nestedMap.map(
-                  (key, value) => MapEntry(key, _i3.BuiltMap(value)),
-                ),
+      nestedMap: nestedMap == null
+          ? null
+          : _i3.BuiltMap(
+              nestedMap.map((key, value) => MapEntry(key, _i3.BuiltMap(value))),
+            ),
+      flatNestedMap: flatNestedMap == null
+          ? null
+          : _i3.BuiltMap(
+              flatNestedMap.map(
+                (key, value) => MapEntry(key, _i3.BuiltMap(value)),
               ),
-      flatNestedMap:
-          flatNestedMap == null
-              ? null
-              : _i3.BuiltMap(
-                flatNestedMap.map(
-                  (key, value) => MapEntry(key, _i3.BuiltMap(value)),
-                ),
-              ),
+            ),
     );
   }
 
@@ -73,10 +69,9 @@ abstract class NestedXmlMapsInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('NestedXmlMapsInputOutput')
-          ..add('nestedMap', nestedMap)
-          ..add('flatNestedMap', flatNestedMap);
+    final helper = newBuiltValueToStringHelper('NestedXmlMapsInputOutput')
+      ..add('nestedMap', nestedMap)
+      ..add('flatNestedMap', flatNestedMap);
     return helper.toString();
   }
 }

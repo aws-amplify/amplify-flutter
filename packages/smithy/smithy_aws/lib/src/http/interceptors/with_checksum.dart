@@ -22,10 +22,9 @@ class _CrcValueToHeaderConverter extends Converter<CrcValue, String> {
   @override
   Sink<CrcValue> startChunkedConversion(Sink<String> sink) {
     return ChunkedConversionSink.withCallback(
-      (value) =>
-          sink
-            ..add(convert(value.last))
-            ..close(),
+      (value) => sink
+        ..add(convert(value.last))
+        ..close(),
     );
   }
 }
@@ -41,10 +40,9 @@ class _DigestToHeaderConverter extends Converter<Digest, String> {
   @override
   Sink<Digest> startChunkedConversion(Sink<String> sink) {
     return ChunkedConversionSink.withCallback(
-      (value) =>
-          sink
-            ..add(convert(value.last))
-            ..close(),
+      (value) => sink
+        ..add(convert(value.last))
+        ..close(),
     );
   }
 }
@@ -84,8 +82,9 @@ class WithChecksum extends HttpRequestInterceptor {
     if (request.headers.containsKey(_header)) {
       return request;
     }
-    final digest =
-        await _converterForAlgorithm(_algorithm).bind(request.split()).last;
+    final digest = await _converterForAlgorithm(
+      _algorithm,
+    ).bind(request.split()).last;
     request.headers[_header] = digest;
     return request;
   }

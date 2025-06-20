@@ -198,11 +198,9 @@ Future<String> getFailingStep(
     final jobsList = GithubJobsList.fromJson(response);
     final matchingJob = jobsList.jobs.firstWhere(
       (job) => job.name.toLowerCase().contains(jobIdentifier),
-      orElse:
-          () =>
-              throw Exception(
-                'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}.  Note that the "jobIdentifier" used to find the proper job uses the job id and not the job name, setting the "name" field in the workflow yaml will break this logic.  See comments for more context.',
-              ),
+      orElse: () => throw Exception(
+        'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}.  Note that the "jobIdentifier" used to find the proper job uses the job id and not the job name, setting the "name" field in the workflow yaml will break this logic.  See comments for more context.',
+      ),
     );
     final steps = matchingJob.steps;
 

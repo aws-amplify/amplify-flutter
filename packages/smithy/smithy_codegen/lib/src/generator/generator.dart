@@ -34,8 +34,9 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
     Shape shape, {
     required bool isHeader,
   }) {
-    final targetShape =
-        shape is MemberShape ? context.shapeFor(shape.target) : shape;
+    final targetShape = shape is MemberShape
+        ? context.shapeFor(shape.target)
+        : shape;
 
     final type = targetShape.getType();
     switch (type) {
@@ -135,16 +136,14 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
             .property('map')
             .call([
               Method(
-                (m) =>
-                    m
-                      ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                      ..lambda = true
-                      ..body =
-                          valueFromString(
-                            refer('el').property('trim').call([]),
-                            memberShape,
-                            isHeader: true,
-                          ).code,
+                (m) => m
+                  ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                  ..lambda = true
+                  ..body = valueFromString(
+                    refer('el').property('trim').call([]),
+                    memberShape,
+                    isHeader: true,
+                  ).code,
               ).closure,
             ]);
       default:
@@ -158,8 +157,9 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
     Shape shape, {
     required bool isHeader,
   }) {
-    final targetShape =
-        shape is MemberShape ? context.shapeFor(shape.target) : shape;
+    final targetShape = shape is MemberShape
+        ? context.shapeFor(shape.target)
+        : shape;
     final type = targetShape.getType();
     switch (type) {
       case ShapeType.boolean:
@@ -223,37 +223,31 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
           memberShape,
           isHeader: true,
         );
-        var mappedRef =
-            identical(memberEl, memberToString)
-                ? ref
-                : ref.property('map').call([
-                  Method(
-                    (m) =>
-                        m
-                          ..requiredParameters.add(
-                            Parameter((p) => p..name = 'el'),
-                          )
-                          ..lambda = true
-                          ..body = memberToString.code,
-                  ).closure,
-                ]);
+        var mappedRef = identical(memberEl, memberToString)
+            ? ref
+            : ref.property('map').call([
+                Method(
+                  (m) => m
+                    ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                    ..lambda = true
+                    ..body = memberToString.code,
+                ).closure,
+              ]);
         if (isHeader) {
           mappedRef = mappedRef.property('map').call([
             Method(
-              (m) =>
-                  m
-                    ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                    ..lambda = true
-                    ..body =
-                        DartTypes.smithy.sanitizeHeader
-                            .call(
-                              [refer('el')],
-                              {
-                                if (memberTarget is TimestampShape)
-                                  'isTimestampList': literalTrue,
-                              },
-                            )
-                            .code,
+              (m) => m
+                ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                ..lambda = true
+                ..body = DartTypes.smithy.sanitizeHeader
+                    .call(
+                      [refer('el')],
+                      {
+                        if (memberTarget is TimestampShape)
+                          'isTimestampList': literalTrue,
+                      },
+                    )
+                    .code,
             ).closure,
           ]);
         }
@@ -276,9 +270,8 @@ abstract class LibraryGenerator<T extends Shape>
     T shape, {
     required CodegenContext context,
     SmithyLibrary? smithyLibrary,
-  }) : builder =
-           LibraryBuilder()
-             ..name = smithyLibrary?.libraryName ?? shape.libraryName(context),
+  }) : builder = LibraryBuilder()
+         ..name = smithyLibrary?.libraryName ?? shape.libraryName(context),
        super(shape, context);
 
   final LibraryBuilder builder;

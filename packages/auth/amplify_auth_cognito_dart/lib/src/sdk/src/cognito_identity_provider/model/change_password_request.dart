@@ -62,11 +62,10 @@ abstract class ChangePasswordRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ChangePasswordRequest')
-          ..add('previousPassword', '***SENSITIVE***')
-          ..add('proposedPassword', '***SENSITIVE***')
-          ..add('accessToken', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('ChangePasswordRequest')
+      ..add('previousPassword', '***SENSITIVE***')
+      ..add('proposedPassword', '***SENSITIVE***')
+      ..add('accessToken', '***SENSITIVE***');
     return helper.toString();
   }
 }

@@ -299,51 +299,50 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
       return const [];
     }
 
-    final runtimeFields =
-        runtimeAttributes
-            .map((attr) {
-              if (attr == CognitoUserAttributeKey.address) {
-                return SignUpFormField.address(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.birthdate) {
-                return SignUpFormField.birthdate(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.email) {
-                if (selectedUsernameType == UsernameType.email) {
-                  return null;
-                }
-                return SignUpFormField.email(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.familyName) {
-                return SignUpFormField.familyName(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.middleName) {
-                return SignUpFormField.middleName(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.gender) {
-                return SignUpFormField.gender(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.givenName) {
-                return SignUpFormField.givenName(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.name) {
-                return SignUpFormField.name(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.nickname) {
-                return SignUpFormField.nickname(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.phoneNumber) {
-                if (selectedUsernameType == UsernameType.phoneNumber) {
-                  return null;
-                }
-                return SignUpFormField.phoneNumber(required: true);
-              }
-              if (attr == CognitoUserAttributeKey.preferredUsername) {
-                return SignUpFormField.preferredUsername(required: true);
-              }
-            })
-            .whereType<SignUpFormField>()
-            .toList();
+    final runtimeFields = runtimeAttributes
+        .map((attr) {
+          if (attr == CognitoUserAttributeKey.address) {
+            return SignUpFormField.address(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.birthdate) {
+            return SignUpFormField.birthdate(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.email) {
+            if (selectedUsernameType == UsernameType.email) {
+              return null;
+            }
+            return SignUpFormField.email(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.familyName) {
+            return SignUpFormField.familyName(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.middleName) {
+            return SignUpFormField.middleName(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.gender) {
+            return SignUpFormField.gender(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.givenName) {
+            return SignUpFormField.givenName(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.name) {
+            return SignUpFormField.name(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.nickname) {
+            return SignUpFormField.nickname(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.phoneNumber) {
+            if (selectedUsernameType == UsernameType.phoneNumber) {
+              return null;
+            }
+            return SignUpFormField.phoneNumber(required: true);
+          }
+          if (attr == CognitoUserAttributeKey.preferredUsername) {
+            return SignUpFormField.preferredUsername(required: true);
+          }
+        })
+        .whereType<SignUpFormField>()
+        .toList();
 
     final hasSmsMfa = authConfig?.mfaMethods?.contains(MfaMethod.sms) ?? false;
     if (hasSmsMfa && selectedUsernameType != UsernameType.phoneNumber) {
@@ -405,10 +404,9 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
       return const [];
     }
 
-    final socialProviders =
-        InheritedConfig.of(
-          context,
-        ).amplifyOutputs?.auth?.oauth?.identityProviders;
+    final socialProviders = InheritedConfig.of(
+      context,
+    ).amplifyOutputs?.auth?.oauth?.identityProviders;
 
     if (socialProviders == null || socialProviders.isEmpty) {
       return const [];
@@ -426,19 +424,18 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
 
     return [
       SocialSignInButtons(
-        providers:
-            socialProviders.map((e) {
-              switch (e) {
-                case IdentityProvider.facebook:
-                  return AuthProvider.facebook;
-                case IdentityProvider.google:
-                  return AuthProvider.google;
-                case IdentityProvider.amazon:
-                  return AuthProvider.amazon;
-                case IdentityProvider.apple:
-                  return AuthProvider.apple;
-              }
-            }).toList(),
+        providers: socialProviders.map((e) {
+          switch (e) {
+            case IdentityProvider.facebook:
+              return AuthProvider.facebook;
+            case IdentityProvider.google:
+              return AuthProvider.google;
+            case IdentityProvider.amazon:
+              return AuthProvider.amazon;
+            case IdentityProvider.apple:
+              return AuthProvider.apple;
+          }
+        }).toList(),
       ),
     ];
   }

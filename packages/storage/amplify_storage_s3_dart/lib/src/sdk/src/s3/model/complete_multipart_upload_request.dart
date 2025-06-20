@@ -206,21 +206,20 @@ abstract class CompleteMultipartUploadRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CompleteMultipartUploadRequest')
-          ..add('bucket', bucket)
-          ..add('key', key)
-          ..add('multipartUpload', multipartUpload)
-          ..add('uploadId', uploadId)
-          ..add('checksumCrc32', checksumCrc32)
-          ..add('checksumCrc32C', checksumCrc32C)
-          ..add('checksumSha1', checksumSha1)
-          ..add('checksumSha256', checksumSha256)
-          ..add('requestPayer', requestPayer)
-          ..add('expectedBucketOwner', expectedBucketOwner)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKey', '***SENSITIVE***')
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5);
+    final helper = newBuiltValueToStringHelper('CompleteMultipartUploadRequest')
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('multipartUpload', multipartUpload)
+      ..add('uploadId', uploadId)
+      ..add('checksumCrc32', checksumCrc32)
+      ..add('checksumCrc32C', checksumCrc32C)
+      ..add('checksumSha1', checksumSha1)
+      ..add('checksumSha256', checksumSha256)
+      ..add('requestPayer', requestPayer)
+      ..add('expectedBucketOwner', expectedBucketOwner)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKey', '***SENSITIVE***')
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5);
     return helper.toString();
   }
 }

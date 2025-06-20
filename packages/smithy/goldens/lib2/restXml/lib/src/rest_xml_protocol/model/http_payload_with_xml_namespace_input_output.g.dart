@@ -13,9 +13,8 @@ class _$HttpPayloadWithXmlNamespaceInputOutput
 
   factory _$HttpPayloadWithXmlNamespaceInputOutput([
     void Function(HttpPayloadWithXmlNamespaceInputOutputBuilder)? updates,
-  ]) =>
-      (HttpPayloadWithXmlNamespaceInputOutputBuilder()..update(updates))
-          ._build();
+  ]) => (HttpPayloadWithXmlNamespaceInputOutputBuilder()..update(updates))
+      ._build();
 
   _$HttpPayloadWithXmlNamespaceInputOutput._({this.nested}) : super._();
   @override

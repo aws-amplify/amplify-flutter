@@ -33,32 +33,28 @@ class WorkerHiveGenerator extends GeneratorForAnnotation<WorkerHive> {
     final lib = Library((b) {
       b.body.addAll([
         Field(
-          (m) =>
-              m
-                ..name = '_workers'
-                ..modifier = FieldModifier.final$
-                ..assignment =
-                    literalMap(
-                      {
-                        for (final workerType in workers)
-                          workerType.getDisplayString(): Block.of([
-                            (workerType.accept(_symbolVisitor) as TypeReference)
-                                .rebuild((t) => t.isNullable = false)
-                                .property('create')
-                                .code,
-                            if (workers.length == 1) const Code(','),
-                          ]),
-                      },
-                      refer('String'),
-                      DartTypes.workerBee.workerBeeBuilder,
-                    ).code,
+          (m) => m
+            ..name = '_workers'
+            ..modifier = FieldModifier.final$
+            ..assignment = literalMap(
+              {
+                for (final workerType in workers)
+                  workerType.getDisplayString(): Block.of([
+                    (workerType.accept(_symbolVisitor) as TypeReference)
+                        .rebuild((t) => t.isNullable = false)
+                        .property('create')
+                        .code,
+                    if (workers.length == 1) const Code(','),
+                  ]),
+              },
+              refer('String'),
+              DartTypes.workerBee.workerBeeBuilder,
+            ).code,
         ),
         Method.returnsVoid(
-          (m) =>
-              m
-                ..name = 'main'
-                ..body =
-                    DartTypes.workerBee.runHive.call([refer('_workers')]).code,
+          (m) => m
+            ..name = 'main'
+            ..body = DartTypes.workerBee.runHive.call([refer('_workers')]).code,
         ),
       ]);
     });

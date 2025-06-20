@@ -41,11 +41,10 @@ void addTearDownMultiBucket(StoragePath path, List<StorageBucket> buckets) {
     try {
       return Future.wait(
         buckets.map(
-          (bucket) =>
-              Amplify.Storage.remove(
-                path: path,
-                options: StorageRemoveOptions(bucket: bucket),
-              ).result,
+          (bucket) => Amplify.Storage.remove(
+            path: path,
+            options: StorageRemoveOptions(bucket: bucket),
+          ).result,
         ),
       );
     } on Exception catch (e) {

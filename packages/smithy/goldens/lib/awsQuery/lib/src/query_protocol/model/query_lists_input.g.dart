@@ -114,8 +114,8 @@ class QueryListsInputBuilder
       _complexListArg = $v.complexListArg?.toBuilder();
       _flattenedListArg = $v.flattenedListArg?.toBuilder();
       _listArgWithXmlNameMember = $v.listArgWithXmlNameMember?.toBuilder();
-      _flattenedListArgWithXmlName =
-          $v.flattenedListArgWithXmlName?.toBuilder();
+      _flattenedListArgWithXmlName = $v.flattenedListArgWithXmlName
+          ?.toBuilder();
       _nestedWithList = $v.nestedWithList?.toBuilder();
       _$v = null;
     }

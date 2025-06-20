@@ -73,14 +73,13 @@ abstract class DefaultButtonConfiguration
   ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DefaultButtonConfiguration')
-          ..add('backgroundColor', backgroundColor)
-          ..add('borderRadius', borderRadius)
-          ..add('buttonAction', buttonAction)
-          ..add('link', link)
-          ..add('text', text)
-          ..add('textColor', textColor);
+    final helper = newBuiltValueToStringHelper('DefaultButtonConfiguration')
+      ..add('backgroundColor', backgroundColor)
+      ..add('borderRadius', borderRadius)
+      ..add('buttonAction', buttonAction)
+      ..add('link', link)
+      ..add('text', text)
+      ..add('textColor', textColor);
     return helper.toString();
   }
 }

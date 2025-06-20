@@ -54,23 +54,20 @@ class AuthConfig extends AmplifyPluginConfigMap {
             verificationMechanisms: verificationMechanisms,
           ),
         ),
-        cognitoUserPool:
-            userPoolConfig == null
-                ? null
-                : AWSConfigMap.withDefault(userPoolConfig),
-        credentialsProvider:
-            identityPoolConfig == null
-                ? null
-                : CredentialsProviders(
-                  AWSConfigMap({
-                    CognitoIdentityCredentialsProvider.configKey:
-                        AWSConfigMap.withDefault(identityPoolConfig),
-                  }),
-                ),
-        pinpointAnalytics:
-            pinpointAnalyticsConfig == null
-                ? null
-                : AWSConfigMap.withDefault(pinpointAnalyticsConfig),
+        cognitoUserPool: userPoolConfig == null
+            ? null
+            : AWSConfigMap.withDefault(userPoolConfig),
+        credentialsProvider: identityPoolConfig == null
+            ? null
+            : CredentialsProviders(
+                AWSConfigMap({
+                  CognitoIdentityCredentialsProvider.configKey:
+                      AWSConfigMap.withDefault(identityPoolConfig),
+                }),
+              ),
+        pinpointAnalytics: pinpointAnalyticsConfig == null
+            ? null
+            : AWSConfigMap.withDefault(pinpointAnalyticsConfig),
       ),
     },
   );
@@ -114,28 +111,28 @@ class AuthConfig extends AmplifyPluginConfigMap {
     };
 
     final oAuthConfig = plugin?.oAuth;
-    final identityProviders =
-        plugin?.socialProviders?.map((p) => p.toIdentityProvider()).toList();
-    final oauth =
-        oAuthConfig != null
-            ? OAuthOutputs(
-              identityProviders: identityProviders ?? [],
-              domain: oAuthConfig.webDomain,
-              scopes: oAuthConfig.scopes,
-              redirectSignInUri: oAuthConfig.signInRedirectUri.split(','),
-              signInUri: oAuthConfig.signInUri,
-              signInUriQueryParameters: oAuthConfig.signInUriQueryParameters,
-              redirectSignOutUri: oAuthConfig.signOutRedirectUri.split(','),
-              signOutUri: oAuthConfig.signOutUri,
-              signOutUriQueryParameters: oAuthConfig.signOutUriQueryParameters,
-              tokenUri: oAuthConfig.tokenUri,
-              tokenUriQueryParameters: oAuthConfig.tokenUriQueryParameters,
-              // Amplify Flutter only supports responseType:code
-              // "response_type" is set to "code" by `getAuthorizationUrl` from
-              // pkg:oauth2
-              responseType: OAuthResponseType.code,
-            )
-            : null;
+    final identityProviders = plugin?.socialProviders
+        ?.map((p) => p.toIdentityProvider())
+        .toList();
+    final oauth = oAuthConfig != null
+        ? OAuthOutputs(
+            identityProviders: identityProviders ?? [],
+            domain: oAuthConfig.webDomain,
+            scopes: oAuthConfig.scopes,
+            redirectSignInUri: oAuthConfig.signInRedirectUri.split(','),
+            signInUri: oAuthConfig.signInUri,
+            signInUriQueryParameters: oAuthConfig.signInUriQueryParameters,
+            redirectSignOutUri: oAuthConfig.signOutRedirectUri.split(','),
+            signOutUri: oAuthConfig.signOutUri,
+            signOutUriQueryParameters: oAuthConfig.signOutUriQueryParameters,
+            tokenUri: oAuthConfig.tokenUri,
+            tokenUriQueryParameters: oAuthConfig.tokenUriQueryParameters,
+            // Amplify Flutter only supports responseType:code
+            // "response_type" is set to "code" by `getAuthorizationUrl` from
+            // pkg:oauth2
+            responseType: OAuthResponseType.code,
+          )
+        : null;
 
     return AuthOutputs(
       awsRegion: region,

@@ -60,13 +60,12 @@ abstract class EventContextDataType
   List<Object?> get props => [ipAddress, deviceName, timezone, city, country];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EventContextDataType')
-          ..add('ipAddress', ipAddress)
-          ..add('deviceName', deviceName)
-          ..add('timezone', timezone)
-          ..add('city', city)
-          ..add('country', country);
+    final helper = newBuiltValueToStringHelper('EventContextDataType')
+      ..add('ipAddress', ipAddress)
+      ..add('deviceName', deviceName)
+      ..add('timezone', timezone)
+      ..add('city', city)
+      ..add('country', country);
     return helper.toString();
   }
 }

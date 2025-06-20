@@ -7,10 +7,9 @@ import 'package:meta/meta.dart';
 /// Helper functions for [AuthDevice].
 extension AuthDeviceX on AuthDevice {
   /// Returns this device as a [CognitoDevice].
-  CognitoDevice get asCognitoDevice =>
-      this is CognitoDevice
-          ? this as CognitoDevice
-          : CognitoDevice(id: id, name: name);
+  CognitoDevice get asCognitoDevice => this is CognitoDevice
+      ? this as CognitoDevice
+      : CognitoDevice(id: id, name: name);
 }
 
 /// {@template amplify_auth_cognito.cognito_device}
@@ -37,20 +36,18 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
     return CognitoDevice(
       id: json['id'] as String,
       name: json['name'] as String?,
-      attributes:
-          attributes == null ? null : Map<String, String>.from(attributes),
-      createdDate:
-          createdDate == null
-              ? null
-              : DateTime.fromMillisecondsSinceEpoch(createdDate),
-      lastAuthenticatedDate:
-          lastAuthenticatedDate == null
-              ? null
-              : DateTime.fromMillisecondsSinceEpoch(lastAuthenticatedDate),
-      lastModifiedDate:
-          lastModifiedDate == null
-              ? null
-              : DateTime.fromMillisecondsSinceEpoch(lastModifiedDate),
+      attributes: attributes == null
+          ? null
+          : Map<String, String>.from(attributes),
+      createdDate: createdDate == null
+          ? null
+          : DateTime.fromMillisecondsSinceEpoch(createdDate),
+      lastAuthenticatedDate: lastAuthenticatedDate == null
+          ? null
+          : DateTime.fromMillisecondsSinceEpoch(lastAuthenticatedDate),
+      lastModifiedDate: lastModifiedDate == null
+          ? null
+          : DateTime.fromMillisecondsSinceEpoch(lastModifiedDate),
     );
   }
 

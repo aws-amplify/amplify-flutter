@@ -23,8 +23,9 @@ abstract class DocumentTypeAsPayloadInputOutput
         _i1.HasPayload<_i2.JsonObject> {
   factory DocumentTypeAsPayloadInputOutput({Object? documentValue}) {
     return _$DocumentTypeAsPayloadInputOutput._(
-      documentValue:
-          documentValue == null ? null : _i2.JsonObject(documentValue),
+      documentValue: documentValue == null
+          ? null
+          : _i2.JsonObject(documentValue),
     );
   }
 

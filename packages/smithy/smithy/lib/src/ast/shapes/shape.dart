@@ -48,11 +48,10 @@ abstract class Shape {
     StringShape.id: StringShape(),
     TimestampShape.id: TimestampShape(),
     unit: StructureShape(
-      (b) =>
-          b
-            ..shapeId = unit
-            ..members = NamedMembersMap({})
-            ..traits![unit] = const UnitTypeTrait(),
+      (b) => b
+        ..shapeId = unit
+        ..members = NamedMembersMap({})
+        ..traits![unit] = const UnitTypeTrait(),
     ),
   };
 }

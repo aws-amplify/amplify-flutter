@@ -87,9 +87,8 @@ class _$MalformedLengthQueryStringInputPayload
     extends MalformedLengthQueryStringInputPayload {
   factory _$MalformedLengthQueryStringInputPayload([
     void Function(MalformedLengthQueryStringInputPayloadBuilder)? updates,
-  ]) =>
-      (MalformedLengthQueryStringInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedLengthQueryStringInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedLengthQueryStringInputPayload._() : super._();
   @override

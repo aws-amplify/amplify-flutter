@@ -53,10 +53,9 @@ class CpkHasOneUnidirectionalParent extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -70,10 +69,9 @@ class CpkHasOneUnidirectionalParent extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -245,66 +243,62 @@ class CpkHasOneUnidirectionalParent extends amplify_core.Model {
     return CpkHasOneUnidirectionalParent._internal(
       id: id,
       name: name,
-      implicitChild:
-          implicitChild == null ? this.implicitChild : implicitChild.value,
-      explicitChildID:
-          explicitChildID == null
-              ? this.explicitChildID
-              : explicitChildID.value,
-      explicitChildName:
-          explicitChildName == null
-              ? this.explicitChildName
-              : explicitChildName.value,
-      explicitChild:
-          explicitChild == null ? this.explicitChild : explicitChild.value,
+      implicitChild: implicitChild == null
+          ? this.implicitChild
+          : implicitChild.value,
+      explicitChildID: explicitChildID == null
+          ? this.explicitChildID
+          : explicitChildID.value,
+      explicitChildName: explicitChildName == null
+          ? this.explicitChildName
+          : explicitChildName.value,
+      explicitChild: explicitChild == null
+          ? this.explicitChild
+          : explicitChild.value,
       cpkHasOneUnidirectionalParentImplicitChildId:
           cpkHasOneUnidirectionalParentImplicitChildId == null
-              ? this.cpkHasOneUnidirectionalParentImplicitChildId
-              : cpkHasOneUnidirectionalParentImplicitChildId.value,
+          ? this.cpkHasOneUnidirectionalParentImplicitChildId
+          : cpkHasOneUnidirectionalParentImplicitChildId.value,
       cpkHasOneUnidirectionalParentImplicitChildName:
           cpkHasOneUnidirectionalParentImplicitChildName == null
-              ? this.cpkHasOneUnidirectionalParentImplicitChildName
-              : cpkHasOneUnidirectionalParentImplicitChildName.value,
+          ? this.cpkHasOneUnidirectionalParentImplicitChildName
+          : cpkHasOneUnidirectionalParentImplicitChildName.value,
     );
   }
 
   CpkHasOneUnidirectionalParent.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _name = json['name'],
-      _implicitChild =
-          json['implicitChild'] != null
-              ? json['implicitChild']['serializedData'] != null
-                  ? CpkHasOneUnidirectionalChild.fromJson(
+      _implicitChild = json['implicitChild'] != null
+          ? json['implicitChild']['serializedData'] != null
+                ? CpkHasOneUnidirectionalChild.fromJson(
                     new Map<String, dynamic>.from(
                       json['implicitChild']['serializedData'],
                     ),
                   )
-                  : CpkHasOneUnidirectionalChild.fromJson(
+                : CpkHasOneUnidirectionalChild.fromJson(
                     new Map<String, dynamic>.from(json['implicitChild']),
                   )
-              : null,
+          : null,
       _explicitChildID = json['explicitChildID'],
       _explicitChildName = json['explicitChildName'],
-      _explicitChild =
-          json['explicitChild'] != null
-              ? json['explicitChild']['serializedData'] != null
-                  ? CpkHasOneUnidirectionalChild.fromJson(
+      _explicitChild = json['explicitChild'] != null
+          ? json['explicitChild']['serializedData'] != null
+                ? CpkHasOneUnidirectionalChild.fromJson(
                     new Map<String, dynamic>.from(
                       json['explicitChild']['serializedData'],
                     ),
                   )
-                  : CpkHasOneUnidirectionalChild.fromJson(
+                : CpkHasOneUnidirectionalChild.fromJson(
                     new Map<String, dynamic>.from(json['explicitChild']),
                   )
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null,
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null,
       _cpkHasOneUnidirectionalParentImplicitChildId =
           json['cpkHasOneUnidirectionalParentImplicitChildId'],
       _cpkHasOneUnidirectionalParentImplicitChildName =
@@ -460,9 +454,8 @@ class CpkHasOneUnidirectionalParent extends amplify_core.Model {
 
       modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.field(
-          key:
-              CpkHasOneUnidirectionalParent
-                  .CPKHASONEUNIDIRECTIONALPARENTIMPLICITCHILDID,
+          key: CpkHasOneUnidirectionalParent
+              .CPKHASONEUNIDIRECTIONALPARENTIMPLICITCHILDID,
           isRequired: false,
           ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string,
@@ -472,9 +465,8 @@ class CpkHasOneUnidirectionalParent extends amplify_core.Model {
 
       modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.field(
-          key:
-              CpkHasOneUnidirectionalParent
-                  .CPKHASONEUNIDIRECTIONALPARENTIMPLICITCHILDNAME,
+          key: CpkHasOneUnidirectionalParent
+              .CPKHASONEUNIDIRECTIONALPARENTIMPLICITCHILDNAME,
           isRequired: false,
           ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string,
@@ -519,16 +511,13 @@ class CpkHasOneUnidirectionalParentModelIdentifier
   });
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id,
-    'name': name,
-  });
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

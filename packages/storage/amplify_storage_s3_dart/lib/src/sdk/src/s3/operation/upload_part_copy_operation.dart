@@ -260,10 +260,9 @@ class UploadPartCopyOperation
     b,
   ) {
     b.method = 'PUT';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?x-id=UploadPartCopy'
-            : r'/{Key+}?x-id=UploadPartCopy';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}/{Key+}?x-id=UploadPartCopy'
+        : r'/{Key+}?x-id=UploadPartCopy';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.copySource.isNotEmpty) {
       b.headers['x-amz-copy-source'] = input.copySource;
@@ -274,10 +273,9 @@ class UploadPartCopyOperation
       }
     }
     if (input.copySourceIfModifiedSince != null) {
-      b.headers['x-amz-copy-source-if-modified-since'] =
-          _i1.Timestamp(
-            input.copySourceIfModifiedSince!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['x-amz-copy-source-if-modified-since'] = _i1.Timestamp(
+        input.copySourceIfModifiedSince!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.copySourceIfNoneMatch != null) {
       if (input.copySourceIfNoneMatch!.isNotEmpty) {
@@ -286,10 +284,9 @@ class UploadPartCopyOperation
       }
     }
     if (input.copySourceIfUnmodifiedSince != null) {
-      b.headers['x-amz-copy-source-if-unmodified-since'] =
-          _i1.Timestamp(
-            input.copySourceIfUnmodifiedSince!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['x-amz-copy-source-if-unmodified-since'] = _i1.Timestamp(
+        input.copySourceIfUnmodifiedSince!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.copySourceRange != null) {
       if (input.copySourceRange!.isNotEmpty) {

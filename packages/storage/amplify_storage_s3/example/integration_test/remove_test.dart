@@ -93,11 +93,10 @@ void main() {
             true,
           );
 
-          final mainResult =
-              await Amplify.Storage.remove(
-                path: storagePath,
-                options: StorageRemoveOptions(bucket: mainBucket),
-              ).result;
+          final mainResult = await Amplify.Storage.remove(
+            path: storagePath,
+            options: StorageRemoveOptions(bucket: mainBucket),
+          ).result;
           expect(mainResult.removedItem.path, path);
 
           // Assert path was only removed from the main bucket
@@ -107,11 +106,10 @@ void main() {
             true,
           );
 
-          final secondaryResult =
-              await Amplify.Storage.remove(
-                path: storagePath,
-                options: StorageRemoveOptions(bucket: secondaryBucket),
-              ).result;
+          final secondaryResult = await Amplify.Storage.remove(
+            path: storagePath,
+            options: StorageRemoveOptions(bucket: secondaryBucket),
+          ).result;
           expect(secondaryResult.removedItem.path, path);
           expect(
             await objectExists(storagePath, bucket: secondaryBucket),
@@ -121,11 +119,10 @@ void main() {
 
         testWidgets('removes when present in bucket', (_) async {
           expect(await objectExists(storagePath, bucket: mainBucket), true);
-          final mainResult =
-              await Amplify.Storage.remove(
-                path: storagePath,
-                options: StorageRemoveOptions(bucket: mainBucket),
-              ).result;
+          final mainResult = await Amplify.Storage.remove(
+            path: storagePath,
+            options: StorageRemoveOptions(bucket: mainBucket),
+          ).result;
           expect(mainResult.removedItem.path, path);
           expect(await objectExists(storagePath, bucket: mainBucket), false);
 
@@ -142,10 +139,9 @@ void main() {
 
       testWidgets('unauthorized path', (_) async {
         await expectLater(
-          () =>
-              Amplify.Storage.remove(
-                path: const StoragePath.fromString('unauthorized/path'),
-              ).result,
+          () => Amplify.Storage.remove(
+            path: const StoragePath.fromString('unauthorized/path'),
+          ).result,
           throwsA(isA<StorageAccessDeniedException>()),
         );
       });

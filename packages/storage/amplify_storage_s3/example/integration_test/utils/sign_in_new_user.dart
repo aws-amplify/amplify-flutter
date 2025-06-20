@@ -19,9 +19,8 @@ Future<String> signInNewUser() async {
   final password = generatePassword();
   await Amplify.Auth.signUp(username: username, password: password);
   await Amplify.Auth.signIn(username: username, password: password);
-  final session =
-      await Amplify.Auth.getPlugin(
-        AmplifyAuthCognito.pluginKey,
-      ).fetchAuthSession();
+  final session = await Amplify.Auth.getPlugin(
+    AmplifyAuthCognito.pluginKey,
+  ).fetchAuthSession();
   return session.identityIdResult.value;
 }

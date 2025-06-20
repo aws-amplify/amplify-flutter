@@ -93,10 +93,9 @@ class DeleteObjectTaggingOperation
   _i1.HttpRequest buildRequest(DeleteObjectTaggingRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'DELETE';
-        b.path =
-            _s3ClientConfig.usePathStyle
-                ? r'/{Bucket}/{Key+}?tagging'
-                : r'/{Key+}?tagging';
+        b.path = _s3ClientConfig.usePathStyle
+            ? r'/{Bucket}/{Key+}?tagging'
+            : r'/{Key+}?tagging';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
         if (input.expectedBucketOwner != null) {
           if (input.expectedBucketOwner!.isNotEmpty) {

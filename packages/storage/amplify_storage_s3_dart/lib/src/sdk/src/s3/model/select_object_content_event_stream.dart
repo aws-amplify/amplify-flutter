@@ -234,16 +234,28 @@ class SelectObjectContentEventStreamRestXmlSerializer
     return [
       object.name,
       switch (object) {
-        SelectObjectContentEventStreamRecords$(:final value) => serializers
-            .serialize(value, specifiedType: const FullType(RecordsEvent)),
-        SelectObjectContentEventStreamStats$(:final value) => serializers
-            .serialize(value, specifiedType: const FullType(StatsEvent)),
-        SelectObjectContentEventStreamProgress$(:final value) => serializers
-            .serialize(value, specifiedType: const FullType(ProgressEvent)),
-        SelectObjectContentEventStreamCont$(:final value) => serializers
-            .serialize(value, specifiedType: const FullType(ContinuationEvent)),
-        SelectObjectContentEventStreamEnd$(:final value) => serializers
-            .serialize(value, specifiedType: const FullType(EndEvent)),
+        SelectObjectContentEventStreamRecords$(:final value) =>
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(RecordsEvent),
+          ),
+        SelectObjectContentEventStreamStats$(:final value) =>
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(StatsEvent),
+          ),
+        SelectObjectContentEventStreamProgress$(:final value) =>
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(ProgressEvent),
+          ),
+        SelectObjectContentEventStreamCont$(:final value) =>
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(ContinuationEvent),
+          ),
+        SelectObjectContentEventStreamEnd$(:final value) =>
+          serializers.serialize(value, specifiedType: const FullType(EndEvent)),
         SelectObjectContentEventStreamSdkUnknown$(:final value) => value,
       },
     ];

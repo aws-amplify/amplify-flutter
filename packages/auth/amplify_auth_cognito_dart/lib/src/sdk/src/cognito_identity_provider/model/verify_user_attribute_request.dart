@@ -62,11 +62,10 @@ abstract class VerifyUserAttributeRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('VerifyUserAttributeRequest')
-          ..add('accessToken', '***SENSITIVE***')
-          ..add('attributeName', attributeName)
-          ..add('code', code);
+    final helper = newBuiltValueToStringHelper('VerifyUserAttributeRequest')
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('attributeName', attributeName)
+      ..add('code', code);
     return helper.toString();
   }
 }

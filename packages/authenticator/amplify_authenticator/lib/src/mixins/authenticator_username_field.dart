@@ -119,10 +119,9 @@ mixin AuthenticatorUsernameField<
                     state.usernameSelection == UsernameSelection.phoneNumber,
                   ],
                   onPressed: (int index) {
-                    final newUsernameSelection =
-                        index == 0
-                            ? UsernameSelection.email
-                            : UsernameSelection.phoneNumber;
+                    final newUsernameSelection = index == 0
+                        ? UsernameSelection.email
+                        : UsernameSelection.phoneNumber;
                     // Return if username selection has not changed
                     if (newUsernameSelection == state.usernameSelection) {
                       return;
@@ -131,14 +130,12 @@ mixin AuthenticatorUsernameField<
                     // and the current user attributes
                     final newUsername =
                         newUsernameSelection == UsernameSelection.email
-                            ? state.getAttribute(
-                                  CognitoUserAttributeKey.email,
-                                ) ??
-                                ''
-                            : state.getAttribute(
-                                  CognitoUserAttributeKey.phoneNumber,
-                                ) ??
-                                '';
+                        ? state.getAttribute(CognitoUserAttributeKey.email) ??
+                              ''
+                        : state.getAttribute(
+                                CognitoUserAttributeKey.phoneNumber,
+                              ) ??
+                              '';
                     // Clear user attributes
                     state.authAttributes.clear();
                     // Reset country code if phone is not being used as a username

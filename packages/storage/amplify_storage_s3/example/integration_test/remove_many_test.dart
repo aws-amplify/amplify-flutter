@@ -39,10 +39,9 @@ void main() {
         testWidgets('removes objects', (_) async {
           expect(await objectExists(storagePath1), true);
           expect(await objectExists(storagePath2), true);
-          final result =
-              await Amplify.Storage.removeMany(
-                paths: [storagePath1, storagePath2],
-              ).result;
+          final result = await Amplify.Storage.removeMany(
+            paths: [storagePath1, storagePath2],
+          ).result;
           expect(await objectExists(storagePath1), false);
           expect(await objectExists(storagePath2), false);
           final removedPaths = result.removedItems.map((i) => i.path).toList();
@@ -78,10 +77,9 @@ void main() {
         testWidgets('removes objects', (_) async {
           expect(await objectExists(storagePath1), true);
           expect(await objectExists(storagePath2), true);
-          final result =
-              await Amplify.Storage.removeMany(
-                paths: [storagePath1, storagePath2],
-              ).result;
+          final result = await Amplify.Storage.removeMany(
+            paths: [storagePath1, storagePath2],
+          ).result;
           expect(await objectExists(storagePath1), false);
           expect(await objectExists(storagePath2), false);
           final removedPaths = result.removedItems.map((i) => i.path).toList();
@@ -129,11 +127,10 @@ void main() {
         testWidgets('removes objects from main bucket', (_) async {
           expect(await objectExists(storagePath1, bucket: mainBucket), true);
           expect(await objectExists(storagePath2, bucket: mainBucket), true);
-          final result =
-              await Amplify.Storage.removeMany(
-                paths: [storagePath1, storagePath2],
-                options: StorageRemoveManyOptions(bucket: mainBucket),
-              ).result;
+          final result = await Amplify.Storage.removeMany(
+            paths: [storagePath1, storagePath2],
+            options: StorageRemoveManyOptions(bucket: mainBucket),
+          ).result;
           expect(await objectExists(storagePath1, bucket: mainBucket), false);
           expect(await objectExists(storagePath2, bucket: mainBucket), false);
           final removedPaths = result.removedItems.map((i) => i.path).toList();
@@ -149,11 +146,10 @@ void main() {
             await objectExists(storagePath2, bucket: secondaryBucket),
             true,
           );
-          final result =
-              await Amplify.Storage.removeMany(
-                paths: [storagePath1, storagePath2],
-                options: StorageRemoveManyOptions(bucket: secondaryBucket),
-              ).result;
+          final result = await Amplify.Storage.removeMany(
+            paths: [storagePath1, storagePath2],
+            options: StorageRemoveManyOptions(bucket: secondaryBucket),
+          ).result;
           expect(
             await objectExists(storagePath1, bucket: secondaryBucket),
             false,
@@ -222,10 +218,9 @@ void main() {
         ).result;
         expect(await objectExists(storagePath1), true);
         expect(await objectExists(storagePath2), true);
-        final result =
-            await Amplify.Storage.removeMany(
-              paths: [storagePath1, storagePath2],
-            ).result;
+        final result = await Amplify.Storage.removeMany(
+          paths: [storagePath1, storagePath2],
+        ).result;
         expect(await objectExists(storagePath1), false);
         expect(await objectExists(storagePath2), false);
         final removedPaths = result.removedItems.map((i) => i.path).toList();

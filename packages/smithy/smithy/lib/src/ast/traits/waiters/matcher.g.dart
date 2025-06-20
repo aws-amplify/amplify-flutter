@@ -9,14 +9,12 @@ part of 'matcher.dart';
 Matcher _$MatcherFromJson(Map<String, dynamic> json) => Matcher(
   success: json['success'] as bool?,
   errorType: json['errorType'] as String?,
-  output:
-      json['output'] == null
-          ? null
-          : PathMatcher.fromJson(json['output'] as Map<String, dynamic>),
-  inputOutput:
-      json['inputOutput'] == null
-          ? null
-          : PathMatcher.fromJson(json['inputOutput'] as Map<String, dynamic>),
+  output: json['output'] == null
+      ? null
+      : PathMatcher.fromJson(json['output'] as Map<String, dynamic>),
+  inputOutput: json['inputOutput'] == null
+      ? null
+      : PathMatcher.fromJson(json['inputOutput'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$MatcherToJson(Matcher instance) => <String, dynamic>{

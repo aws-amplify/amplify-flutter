@@ -140,36 +140,32 @@ class BelongsToChildExplicit extends amplify_core.Model {
     return BelongsToChildExplicit._internal(
       id: id,
       name: name == null ? this.name : name.value,
-      belongsToParent:
-          belongsToParent == null
-              ? this.belongsToParent
-              : belongsToParent.value,
+      belongsToParent: belongsToParent == null
+          ? this.belongsToParent
+          : belongsToParent.value,
     );
   }
 
   BelongsToChildExplicit.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _name = json['name'],
-      _belongsToParent =
-          json['belongsToParent'] != null
-              ? json['belongsToParent']['serializedData'] != null
-                  ? BelongsToParent.fromJson(
+      _belongsToParent = json['belongsToParent'] != null
+          ? json['belongsToParent']['serializedData'] != null
+                ? BelongsToParent.fromJson(
                     new Map<String, dynamic>.from(
                       json['belongsToParent']['serializedData'],
                     ),
                   )
-                  : BelongsToParent.fromJson(
+                : BelongsToParent.fromJson(
                     new Map<String, dynamic>.from(json['belongsToParent']),
                   )
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -284,10 +280,9 @@ class BelongsToChildExplicitModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

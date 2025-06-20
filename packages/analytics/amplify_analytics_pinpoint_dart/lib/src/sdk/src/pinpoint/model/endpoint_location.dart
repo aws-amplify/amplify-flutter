@@ -72,14 +72,13 @@ abstract class EndpointLocation
   ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EndpointLocation')
-          ..add('city', city)
-          ..add('country', country)
-          ..add('latitude', latitude)
-          ..add('longitude', longitude)
-          ..add('postalCode', postalCode)
-          ..add('region', region);
+    final helper = newBuiltValueToStringHelper('EndpointLocation')
+      ..add('city', city)
+      ..add('country', country)
+      ..add('latitude', latitude)
+      ..add('longitude', longitude)
+      ..add('postalCode', postalCode)
+      ..add('region', region);
     return helper.toString();
   }
 }

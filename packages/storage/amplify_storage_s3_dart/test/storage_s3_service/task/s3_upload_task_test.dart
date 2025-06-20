@@ -131,13 +131,12 @@ void main() {
 
           expect(result.path, TestPathResolver.path);
 
-          final capturedRequest =
-              verify(
-                () => s3Client.putObject(
-                  captureAny<s3.PutObjectRequest>(),
-                  s3ClientConfig: any(named: 's3ClientConfig'),
-                ),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.putObject(
+              captureAny<s3.PutObjectRequest>(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).captured.last;
 
           expect(capturedRequest is s3.PutObjectRequest, isTrue);
           final request = capturedRequest as s3.PutObjectRequest;
@@ -189,15 +188,14 @@ void main() {
 
           await uploadDataTask.result;
 
-          final capturedS3ClientConfig =
-              verify(
-                () => s3Client.putObject(
-                  any(),
-                  s3ClientConfig: captureAny<smithy_aws.S3ClientConfig>(
-                    named: 's3ClientConfig',
-                  ),
-                ),
-              ).captured.last;
+          final capturedS3ClientConfig = verify(
+            () => s3Client.putObject(
+              any(),
+              s3ClientConfig: captureAny<smithy_aws.S3ClientConfig>(
+                named: 's3ClientConfig',
+              ),
+            ),
+          ).captured.last;
 
           expect(
             capturedS3ClientConfig,
@@ -245,13 +243,12 @@ void main() {
 
         await uploadDataTask.result;
 
-        final capturedRequest =
-            verify(
-              () => s3Client.putObject(
-                captureAny<s3.PutObjectRequest>(),
-                s3ClientConfig: any(named: 's3ClientConfig'),
-              ),
-            ).captured.last;
+        final capturedRequest = verify(
+          () => s3Client.putObject(
+            captureAny<s3.PutObjectRequest>(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).captured.last;
 
         expect(
           capturedRequest,
@@ -313,10 +310,9 @@ void main() {
           unawaited(uploadDataTask.start());
           await uploadDataTask.result;
 
-          final capturedRequest =
-              verify(
-                () => s3Client.headObject(captureAny<s3.HeadObjectRequest>()),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.headObject(captureAny<s3.HeadObjectRequest>()),
+          ).captured.last;
 
           expect(capturedRequest is s3.HeadObjectRequest, isTrue);
           final request = capturedRequest as s3.HeadObjectRequest;
@@ -489,13 +485,12 @@ void main() {
 
           expect(result.path, TestPathResolver.path);
 
-          final capturedRequest =
-              verify(
-                () => s3Client.putObject(
-                  captureAny<s3.PutObjectRequest>(),
-                  s3ClientConfig: any(named: 's3ClientConfig'),
-                ),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.putObject(
+              captureAny<s3.PutObjectRequest>(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).captured.last;
 
           expect(capturedRequest is s3.PutObjectRequest, isTrue);
           final request = capturedRequest as s3.PutObjectRequest;
@@ -548,15 +543,14 @@ void main() {
 
           await uploadDataTask.result;
 
-          final capturedS3ClientConfig =
-              verify(
-                () => s3Client.putObject(
-                  any(),
-                  s3ClientConfig: captureAny<smithy_aws.S3ClientConfig>(
-                    named: 's3ClientConfig',
-                  ),
-                ),
-              ).captured.last;
+          final capturedS3ClientConfig = verify(
+            () => s3Client.putObject(
+              any(),
+              s3ClientConfig: captureAny<smithy_aws.S3ClientConfig>(
+                named: 's3ClientConfig',
+              ),
+            ),
+          ).captured.last;
 
           expect(
             capturedS3ClientConfig,
@@ -805,12 +799,11 @@ void main() {
           await uploadTask.result;
 
           // verify generated CreateMultipartUploadRequest
-          final capturedCreateMultipartUploadRequest =
-              verify(
-                () => s3Client.createMultipartUpload(
-                  captureAny<s3.CreateMultipartUploadRequest>(),
-                ),
-              ).captured.last;
+          final capturedCreateMultipartUploadRequest = verify(
+            () => s3Client.createMultipartUpload(
+              captureAny<s3.CreateMultipartUploadRequest>(),
+            ),
+          ).captured.last;
           expect(
             capturedCreateMultipartUploadRequest,
             isA<s3.CreateMultipartUploadRequest>(),
@@ -828,12 +821,11 @@ void main() {
             capturedCreateMultipartUploadRequest.metadata?['filename'],
             testUploadDataOptions.metadata['filename'],
           );
-          final capturedTransferDBInsertParam =
-              verify(
-                () => transferDatabase.insertTransferRecord(
-                  captureAny<TransferRecord>(),
-                ),
-              ).captured.last;
+          final capturedTransferDBInsertParam = verify(
+            () => transferDatabase.insertTransferRecord(
+              captureAny<TransferRecord>(),
+            ),
+          ).captured.last;
           expect(
             capturedTransferDBInsertParam,
             isA<TransferRecord>().having(
@@ -878,12 +870,11 @@ void main() {
           ); // upload start + 3 parts
 
           // verify the CompleteMultipartUpload request
-          final capturedCompleteMultipartUploadRequest =
-              verify(
-                () => s3Client.completeMultipartUpload(
-                  captureAny<s3.CompleteMultipartUploadRequest>(),
-                ),
-              ).captured.last;
+          final capturedCompleteMultipartUploadRequest = verify(
+            () => s3Client.completeMultipartUpload(
+              captureAny<s3.CompleteMultipartUploadRequest>(),
+            ),
+          ).captured.last;
           expect(
             capturedCompleteMultipartUploadRequest,
             isA<s3.CompleteMultipartUploadRequest>(),
@@ -894,10 +885,9 @@ void main() {
           expect(completeMultipartUploadRequest.bucket, testBucket);
           expect(completeMultipartUploadRequest.key, TestPathResolver.path);
 
-          final capturedTransferDBDeleteParam =
-              verify(
-                () => transferDatabase.deleteTransferRecords(captureAny()),
-              ).captured.last;
+          final capturedTransferDBDeleteParam = verify(
+            () => transferDatabase.deleteTransferRecords(captureAny()),
+          ).captured.last;
           expect(capturedTransferDBDeleteParam, testMultipartUploadId);
         },
       );
@@ -1075,12 +1065,11 @@ void main() {
         await uploadTask.result;
 
         // verify generated CreateMultipartUploadRequest
-        final capturedCreateMultipartUploadRequest =
-            verify(
-              () => s3Client.createMultipartUpload(
-                captureAny<s3.CreateMultipartUploadRequest>(),
-              ),
-            ).captured.last;
+        final capturedCreateMultipartUploadRequest = verify(
+          () => s3Client.createMultipartUpload(
+            captureAny<s3.CreateMultipartUploadRequest>(),
+          ),
+        ).captured.last;
         expect(
           capturedCreateMultipartUploadRequest,
           isA<s3.CreateMultipartUploadRequest>().having(
@@ -1642,12 +1631,11 @@ void main() {
             ),
           );
 
-          final capturedAbortMultipartUploadRequest =
-              verify(
-                () => s3Client.abortMultipartUpload(
-                  captureAny<s3.AbortMultipartUploadRequest>(),
-                ),
-              ).captured.last;
+          final capturedAbortMultipartUploadRequest = verify(
+            () => s3Client.abortMultipartUpload(
+              captureAny<s3.AbortMultipartUploadRequest>(),
+            ),
+          ).captured.last;
 
           expect(
             capturedAbortMultipartUploadRequest,
@@ -1737,12 +1725,11 @@ void main() {
             ),
           );
 
-          final capturedAbortMultipartUploadRequest =
-              verify(
-                () => s3Client.abortMultipartUpload(
-                  captureAny<s3.AbortMultipartUploadRequest>(),
-                ),
-              ).captured.last;
+          final capturedAbortMultipartUploadRequest = verify(
+            () => s3Client.abortMultipartUpload(
+              captureAny<s3.AbortMultipartUploadRequest>(),
+            ),
+          ).captured.last;
 
           expect(
             capturedAbortMultipartUploadRequest,
@@ -2129,10 +2116,9 @@ Stream<List<int>> _getBytesStream(Uint8List bytes) async* {
   const chunkSize = 64 * 1024;
   var currentPosition = 0;
   while (currentPosition < bytes.length) {
-    final readRange =
-        currentPosition + chunkSize > bytes.length
-            ? bytes.length
-            : currentPosition + chunkSize;
+    final readRange = currentPosition + chunkSize > bytes.length
+        ? bytes.length
+        : currentPosition + chunkSize;
     yield bytes.sublist(currentPosition, readRange);
     currentPosition += chunkSize;
   }

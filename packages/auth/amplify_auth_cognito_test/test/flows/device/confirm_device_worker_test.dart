@@ -20,11 +20,10 @@ void main() {
       worker.logs.listen(safePrint);
       await worker.spawn();
       final message = ConfirmDeviceMessage(
-        (b) =>
-            b
-              ..accessToken = accessToken.raw
-              ..newDeviceMetadata.deviceKey = 'deviceKey'
-              ..newDeviceMetadata.deviceGroupKey = 'deviceGroupKey',
+        (b) => b
+          ..accessToken = accessToken.raw
+          ..newDeviceMetadata.deviceKey = 'deviceKey'
+          ..newDeviceMetadata.deviceGroupKey = 'deviceGroupKey',
       );
       worker.add(message);
 

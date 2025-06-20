@@ -55,10 +55,9 @@ abstract class AttributeDimension
   List<Object?> get props => [attributeType, values];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AttributeDimension')
-          ..add('attributeType', attributeType)
-          ..add('values', values);
+    final helper = newBuiltValueToStringHelper('AttributeDimension')
+      ..add('attributeType', attributeType)
+      ..add('values', values);
     return helper.toString();
   }
 }

@@ -72,21 +72,19 @@ abstract class HeadObjectRequest
       b.ifMatch = request.headers['If-Match']!;
     }
     if (request.headers['If-Modified-Since'] != null) {
-      b.ifModifiedSince =
-          _i1.Timestamp.parse(
-            request.headers['If-Modified-Since']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.ifModifiedSince = _i1.Timestamp.parse(
+        request.headers['If-Modified-Since']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['If-None-Match'] != null) {
       b.ifNoneMatch = request.headers['If-None-Match']!;
     }
     if (request.headers['If-Unmodified-Since'] != null) {
-      b.ifUnmodifiedSince =
-          _i1.Timestamp.parse(
-            request.headers['If-Unmodified-Since']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.ifUnmodifiedSince = _i1.Timestamp.parse(
+        request.headers['If-Unmodified-Since']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['Range'] != null) {
       b.range = request.headers['Range']!;
@@ -278,23 +276,22 @@ abstract class HeadObjectRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HeadObjectRequest')
-          ..add('bucket', bucket)
-          ..add('ifMatch', ifMatch)
-          ..add('ifModifiedSince', ifModifiedSince)
-          ..add('ifNoneMatch', ifNoneMatch)
-          ..add('ifUnmodifiedSince', ifUnmodifiedSince)
-          ..add('key', key)
-          ..add('range', range)
-          ..add('versionId', versionId)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKey', '***SENSITIVE***')
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('requestPayer', requestPayer)
-          ..add('partNumber', partNumber)
-          ..add('expectedBucketOwner', expectedBucketOwner)
-          ..add('checksumMode', checksumMode);
+    final helper = newBuiltValueToStringHelper('HeadObjectRequest')
+      ..add('bucket', bucket)
+      ..add('ifMatch', ifMatch)
+      ..add('ifModifiedSince', ifModifiedSince)
+      ..add('ifNoneMatch', ifNoneMatch)
+      ..add('ifUnmodifiedSince', ifUnmodifiedSince)
+      ..add('key', key)
+      ..add('range', range)
+      ..add('versionId', versionId)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKey', '***SENSITIVE***')
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('requestPayer', requestPayer)
+      ..add('partNumber', partNumber)
+      ..add('expectedBucketOwner', expectedBucketOwner)
+      ..add('checksumMode', checksumMode);
     return helper.toString();
   }
 }

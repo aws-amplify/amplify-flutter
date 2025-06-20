@@ -183,19 +183,18 @@ abstract class CopyObjectOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CopyObjectOutput')
-          ..add('copyObjectResult', copyObjectResult)
-          ..add('expiration', expiration)
-          ..add('copySourceVersionId', copySourceVersionId)
-          ..add('versionId', versionId)
-          ..add('serverSideEncryption', serverSideEncryption)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('ssekmsKeyId', '***SENSITIVE***')
-          ..add('ssekmsEncryptionContext', '***SENSITIVE***')
-          ..add('bucketKeyEnabled', bucketKeyEnabled)
-          ..add('requestCharged', requestCharged);
+    final helper = newBuiltValueToStringHelper('CopyObjectOutput')
+      ..add('copyObjectResult', copyObjectResult)
+      ..add('expiration', expiration)
+      ..add('copySourceVersionId', copySourceVersionId)
+      ..add('versionId', versionId)
+      ..add('serverSideEncryption', serverSideEncryption)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('ssekmsKeyId', '***SENSITIVE***')
+      ..add('ssekmsEncryptionContext', '***SENSITIVE***')
+      ..add('bucketKeyEnabled', bucketKeyEnabled)
+      ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }

@@ -164,21 +164,12 @@ class $$TransferRecordsTableTableManager
         i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => i1.$$TransferRecordsTableFilterComposer(
-                $db: db,
-                $table: table,
-              ),
-          createOrderingComposer:
-              () => i1.$$TransferRecordsTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer:
-              () => i1.$$TransferRecordsTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
+          createFilteringComposer: () =>
+              i1.$$TransferRecordsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$$TransferRecordsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => i1
+              .$$TransferRecordsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 i0.Value<int> id = const i0.Value.absent(),
@@ -211,16 +202,9 @@ class $$TransferRecordsTableTableManager
                 bucketName: bucketName,
                 awsRegion: awsRegion,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          i0.BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -391,26 +375,22 @@ class $TransferRecordsTable extends i2.TransferRecords
   i1.TransferRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.TransferRecord(
-      id:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      uploadId:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}upload_id'],
-          )!,
-      objectKey:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}object_key'],
-          )!,
-      createdAt:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}created_at'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      uploadId: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}upload_id'],
+      )!,
+      objectKey: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}object_key'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}created_at'],
+      )!,
       bucketName: attachedDatabase.typeMapping.read(
         i0.DriftSqlType.string,
         data['${effectivePrefix}bucket_name'],
@@ -477,14 +457,12 @@ class TransferRecord extends i0.DataClass
       uploadId: i0.Value(uploadId),
       objectKey: i0.Value(objectKey),
       createdAt: i0.Value(createdAt),
-      bucketName:
-          bucketName == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(bucketName),
-      awsRegion:
-          awsRegion == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(awsRegion),
+      bucketName: bucketName == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(bucketName),
+      awsRegion: awsRegion == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(awsRegion),
     );
   }
 
@@ -536,8 +514,9 @@ class TransferRecord extends i0.DataClass
       uploadId: data.uploadId.present ? data.uploadId.value : this.uploadId,
       objectKey: data.objectKey.present ? data.objectKey.value : this.objectKey,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
-      bucketName:
-          data.bucketName.present ? data.bucketName.value : this.bucketName,
+      bucketName: data.bucketName.present
+          ? data.bucketName.value
+          : this.bucketName,
       awsRegion: data.awsRegion.present ? data.awsRegion.value : this.awsRegion,
     );
   }

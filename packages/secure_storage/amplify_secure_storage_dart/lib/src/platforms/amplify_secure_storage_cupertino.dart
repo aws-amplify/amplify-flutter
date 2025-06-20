@@ -35,15 +35,13 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   /// The value of the service name attribute for all keychain items.
   String get _serviceName => config.defaultNamespace;
 
-  String? get _accessGroup =>
-      Platform.isIOS
-          ? config.iOSOptions.accessGroup
-          : config.macOSOptions.accessGroup;
+  String? get _accessGroup => Platform.isIOS
+      ? config.iOSOptions.accessGroup
+      : config.macOSOptions.accessGroup;
 
-  Pointer<CFString>? get _accessible =>
-      Platform.isIOS
-          ? config.iOSOptions.accessible?.toCFStringRef()
-          : config.macOSOptions.accessible?.toCFStringRef();
+  Pointer<CFString>? get _accessible => Platform.isIOS
+      ? config.iOSOptions.accessible?.toCFStringRef()
+      : config.macOSOptions.accessible?.toCFStringRef();
 
   bool get _useDataProtection =>
       Platform.isMacOS && config.macOSOptions.useDataProtection;
@@ -374,10 +372,9 @@ class SecurityFrameworkError {
           underlyingException: this,
         );
       case errSecMissingEntitlement:
-        final recoverySuggestion =
-            Platform.isMacOS
-                ? _missingEntitlementRecoveryMacOS
-                : SecureStorageException.missingRecovery;
+        final recoverySuggestion = Platform.isMacOS
+            ? _missingEntitlementRecoveryMacOS
+            : SecureStorageException.missingRecovery;
         return AccessDeniedException(
           'Could not access the items in the keychain due to a missing entitlement.',
           recoverySuggestion: recoverySuggestion,

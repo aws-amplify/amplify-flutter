@@ -100,11 +100,11 @@ void main() {
           plugin.configure(
             // ignore: invalid_use_of_internal_member
             config: const AmplifyOutputs(version: '1'),
-            authProviderRepo:
-                AmplifyAuthProviderRepository()..registerAuthProvider(
-                  APIAuthorizationType.iam.authProviderToken,
-                  mockAuthProvider,
-                ),
+            authProviderRepo: AmplifyAuthProviderRepository()
+              ..registerAuthProvider(
+                APIAuthorizationType.iam.authProviderToken,
+                mockAuthProvider,
+              ),
           ),
           throwsA(isA<ConfigurationError>()),
         );
@@ -123,11 +123,11 @@ void main() {
         plugin.configure(
           // ignore: invalid_use_of_internal_member
           config: config,
-          authProviderRepo:
-              AmplifyAuthProviderRepository()..registerAuthProvider(
-                APIAuthorizationType.iam.authProviderToken,
-                mockAuthProvider,
-              ),
+          authProviderRepo: AmplifyAuthProviderRepository()
+            ..registerAuthProvider(
+              APIAuthorizationType.iam.authProviderToken,
+              mockAuthProvider,
+            ),
         ),
         throwsA(isA<ConfigurationError>()),
       );
@@ -144,11 +144,11 @@ void main() {
 
       await plugin.configure(
         config: config,
-        authProviderRepo:
-            AmplifyAuthProviderRepository()..registerAuthProvider(
-              APIAuthorizationType.iam.authProviderToken,
-              mockAuthProvider,
-            ),
+        authProviderRepo: AmplifyAuthProviderRepository()
+          ..registerAuthProvider(
+            APIAuthorizationType.iam.authProviderToken,
+            mockAuthProvider,
+          ),
       );
 
       expect(plugin.autoEventSubmitter, isNull);
@@ -167,11 +167,11 @@ void main() {
 
       await plugin.configure(
         config: config,
-        authProviderRepo:
-            AmplifyAuthProviderRepository()..registerAuthProvider(
-              APIAuthorizationType.iam.authProviderToken,
-              mockAuthProvider,
-            ),
+        authProviderRepo: AmplifyAuthProviderRepository()
+          ..registerAuthProvider(
+            APIAuthorizationType.iam.authProviderToken,
+            mockAuthProvider,
+          ),
       );
 
       expect(

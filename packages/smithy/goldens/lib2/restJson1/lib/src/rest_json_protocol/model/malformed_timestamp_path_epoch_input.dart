@@ -38,11 +38,10 @@ abstract class MalformedTimestampPathEpochInput
     Map<String, String> labels = const {},
   }) => MalformedTimestampPathEpochInput.build((b) {
     if (labels['timestamp'] != null) {
-      b.timestamp =
-          _i1.Timestamp.parse(
-            int.parse(labels['timestamp']!),
-            format: _i1.TimestampFormat.epochSeconds,
-          ).asDateTime;
+      b.timestamp = _i1.Timestamp.parse(
+        int.parse(labels['timestamp']!),
+        format: _i1.TimestampFormat.epochSeconds,
+      ).asDateTime;
     }
   });
 

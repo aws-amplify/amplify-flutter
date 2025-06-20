@@ -65,12 +65,11 @@ abstract class AdminListUserAuthEventsRequest
   List<Object?> get props => [userPoolId, username, maxResults, nextToken];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AdminListUserAuthEventsRequest')
-          ..add('userPoolId', userPoolId)
-          ..add('username', '***SENSITIVE***')
-          ..add('maxResults', maxResults)
-          ..add('nextToken', nextToken);
+    final helper = newBuiltValueToStringHelper('AdminListUserAuthEventsRequest')
+      ..add('userPoolId', userPoolId)
+      ..add('username', '***SENSITIVE***')
+      ..add('maxResults', maxResults)
+      ..add('nextToken', nextToken);
     return helper.toString();
   }
 }

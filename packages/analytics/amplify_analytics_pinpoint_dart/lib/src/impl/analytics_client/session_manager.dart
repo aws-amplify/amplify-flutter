@@ -118,10 +118,9 @@ class _SessionCreator {
   factory _SessionCreator.createSession(String fixedEndpointId) {
     final curTime = DateTime.now();
 
-    final sessionBuilder =
-        SessionBuilder()
-          ..id = _generateSessionId(fixedEndpointId)
-          ..startTimestamp = curTime.toUtc().toIso8601String();
+    final sessionBuilder = SessionBuilder()
+      ..id = _generateSessionId(fixedEndpointId)
+      ..startTimestamp = curTime.toUtc().toIso8601String();
 
     final startTimeMilliseconds = curTime.millisecondsSinceEpoch;
 

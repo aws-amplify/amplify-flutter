@@ -17,8 +17,9 @@ abstract base class ASFDeviceInfoPlatform extends NativeASFDeviceInfoCollector {
     _ when Platform.isMacOS => ASFDeviceInfoMacOS(),
     _ when Platform.isLinux => ASFDeviceInfoLinux(),
     _ when Platform.isWindows => ASFDeviceInfoWindows(),
-    final unsupportedOs =>
-      throw UnsupportedError('Unsupported platform: $unsupportedOs'),
+    final unsupportedOs => throw UnsupportedError(
+      'Unsupported platform: $unsupportedOs',
+    ),
   };
 
   /// {@macro amplify_auth_cognito_dart.asf.asf_device_info_vm}

@@ -7,12 +7,11 @@ part of 'partition_node.dart';
 // **************************************************************************
 
 PartitionNode _$PartitionNodeFromJson(Map json) => PartitionNode(
-  defaults:
-      json['defaults'] == null
-          ? const EndpointDefinition()
-          : EndpointDefinition.fromJson(
-            Map<String, Object?>.from(json['defaults'] as Map),
-          ),
+  defaults: json['defaults'] == null
+      ? const EndpointDefinition()
+      : EndpointDefinition.fromJson(
+          Map<String, Object?>.from(json['defaults'] as Map),
+        ),
   dnsSuffix: json['dnsSuffix'] as String,
   partition: json['partition'] as String,
   partitionName: json['partitionName'] as String?,
@@ -38,12 +37,11 @@ PartitionNodeRegion _$PartitionNodeRegionFromJson(Map json) =>
 
 PartitionNodeDefaults _$PartitionNodeDefaultsFromJson(Map json) =>
     PartitionNodeDefaults(
-      credentialScope:
-          json['credentialScope'] == null
-              ? null
-              : CredentialScope.fromJson(
-                Map<String, Object?>.from(json['credentialScope'] as Map),
-              ),
+      credentialScope: json['credentialScope'] == null
+          ? null
+          : CredentialScope.fromJson(
+              Map<String, Object?>.from(json['credentialScope'] as Map),
+            ),
       hostname: json['hostname'] as String?,
       protocols:
           (json['protocols'] as List<dynamic>?)
@@ -60,12 +58,11 @@ PartitionNodeDefaults _$PartitionNodeDefaultsFromJson(Map json) =>
 PartitionNodeServiceConfiguration _$PartitionNodeServiceConfigurationFromJson(
   Map json,
 ) => PartitionNodeServiceConfiguration(
-  defaults:
-      json['defaults'] == null
-          ? const EndpointDefinition()
-          : EndpointDefinition.fromJson(
-            Map<String, Object?>.from(json['defaults'] as Map),
-          ),
+  defaults: json['defaults'] == null
+      ? const EndpointDefinition()
+      : EndpointDefinition.fromJson(
+          Map<String, Object?>.from(json['defaults'] as Map),
+        ),
   endpoints:
       (json['endpoints'] as Map?)?.map(
         (k, e) => MapEntry(

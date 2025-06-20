@@ -22,10 +22,9 @@ mixin PublishHelpers on AmplifyCommand {
   Future<List<PackageInfo>> unpublishedPackages(
     List<PackageInfo> publishablePackages,
   ) async {
-    final unpublishedPackages =
-        (await Future.wait([
-          for (final package in publishablePackages) checkPublishable(package),
-        ])).whereType<PackageInfo>().toList();
+    final unpublishedPackages = (await Future.wait([
+      for (final package in publishablePackages) checkPublishable(package),
+    ])).whereType<PackageInfo>().toList();
 
     final constraintsChecker = PublishConstraintsChecker(
       dryRun ? ConstraintsAction.update : ConstraintsAction.check,

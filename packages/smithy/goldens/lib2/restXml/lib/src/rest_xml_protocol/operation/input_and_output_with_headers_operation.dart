@@ -140,10 +140,9 @@ class InputAndOutputWithHeadersOperation
           if (input.headerTimestampList!.isNotEmpty) {
             b.headers['X-TimestampList'] = input.headerTimestampList!
                 .map(
-                  (el) =>
-                      _i1.Timestamp(
-                        el,
-                      ).format(_i1.TimestampFormat.httpDate).toString(),
+                  (el) => _i1.Timestamp(
+                    el,
+                  ).format(_i1.TimestampFormat.httpDate).toString(),
                 )
                 .map((el) => _i1.sanitizeHeader(el, isTimestampList: true))
                 .join(', ');

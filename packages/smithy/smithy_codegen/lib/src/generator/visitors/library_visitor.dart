@@ -69,12 +69,11 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
       libraryType: SmithyLibrary_LibraryType.TEST,
       filename: shape.dartName(context),
     );
-    final generated =
-        OperationTestGenerator(
-          shape,
-          context,
-          smithyLibrary: testLibrary,
-        ).generate();
+    final generated = OperationTestGenerator(
+      shape,
+      context,
+      smithyLibrary: testLibrary,
+    ).generate();
     if (generated != null) {
       yield GeneratedLibrary(
         testLibrary,
@@ -84,12 +83,11 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     }
 
     // Build the input, output and error shapes
-    final shapes =
-        [
-          if (shape.input != null) shape.input!.target,
-          if (shape.output != null) shape.output!.target,
-          ...shape.errors.map((ref) => ref.target),
-        ].map(context.shapeFor).cast<StructureShape>();
+    final shapes = [
+      if (shape.input != null) shape.input!.target,
+      if (shape.output != null) shape.output!.target,
+      ...shape.errors.map((ref) => ref.target),
+    ].map(context.shapeFor).cast<StructureShape>();
 
     for (final child in shapes) {
       yield* structureShape(child);
@@ -135,8 +133,10 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     );
 
     // Build the endpoint resolver library
-    final endpointResolver =
-        EndpointResolverGenerator(shape, context).generate();
+    final endpointResolver = EndpointResolverGenerator(
+      shape,
+      context,
+    ).generate();
     if (endpointResolver != null) {
       yield GeneratedLibrary(context.endpointResolverLibrary, endpointResolver);
     }

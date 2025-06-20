@@ -113,9 +113,8 @@ class _$HttpRequestWithFloatLabelsInputPayload
     extends HttpRequestWithFloatLabelsInputPayload {
   factory _$HttpRequestWithFloatLabelsInputPayload([
     void Function(HttpRequestWithFloatLabelsInputPayloadBuilder)? updates,
-  ]) =>
-      (HttpRequestWithFloatLabelsInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (HttpRequestWithFloatLabelsInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$HttpRequestWithFloatLabelsInputPayload._() : super._();
   @override

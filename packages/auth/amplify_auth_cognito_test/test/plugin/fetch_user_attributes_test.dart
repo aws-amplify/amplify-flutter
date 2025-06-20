@@ -67,15 +67,14 @@ final claims = <String, String>{
 };
 
 final _userPoolTokens = CognitoUserPoolTokens.build(
-  (b) =>
-      b
-        ..accessToken = JsonWebToken(
-          header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),
-          claims: JsonWebClaims(customClaims: claims),
-          signature: const [],
-        )
-        ..refreshToken = refreshToken
-        ..idToken = idToken,
+  (b) => b
+    ..accessToken = JsonWebToken(
+      header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),
+      claims: JsonWebClaims(customClaims: claims),
+      signature: const [],
+    )
+    ..refreshToken = refreshToken
+    ..idToken = idToken,
 );
 
 class MockCognitoAuthStateMachine extends CognitoAuthStateMachine {
@@ -97,20 +96,18 @@ void main() {
     });
 
     test('converts user attributes correctly', () async {
-      stateMachine =
-          MockCognitoAuthStateMachine()
-            ..addInstance<CognitoIdentityProviderClient>(
-              MockCognitoIdentityProviderClient(
-                getUser:
-                    () async => GetUserResponse(
-                      userAttributes: [
-                        for (final entry in claims.entries)
-                          AttributeType(name: entry.key, value: entry.value),
-                      ],
-                      username: username,
-                    ),
-              ),
-            );
+      stateMachine = MockCognitoAuthStateMachine()
+        ..addInstance<CognitoIdentityProviderClient>(
+          MockCognitoIdentityProviderClient(
+            getUser: () async => GetUserResponse(
+              userAttributes: [
+                for (final entry in claims.entries)
+                  AttributeType(name: entry.key, value: entry.value),
+              ],
+              username: username,
+            ),
+          ),
+        );
       plugin = AmplifyAuthCognitoDart()..stateMachine = stateMachine;
       final res = await plugin.fetchUserAttributes();
       final expected = [
@@ -200,14 +197,13 @@ void main() {
     });
 
     test('refreshes token before calling Cognito', () async {
-      stateMachine =
-          CognitoAuthStateMachine()..addInstance<CognitoIdentityProviderClient>(
-            MockCognitoIdentityProviderClient(
-              getUser:
-                  () async =>
-                      GetUserResponse(userAttributes: [], username: username),
-            ),
-          );
+      stateMachine = CognitoAuthStateMachine()
+        ..addInstance<CognitoIdentityProviderClient>(
+          MockCognitoIdentityProviderClient(
+            getUser: () async =>
+                GetUserResponse(userAttributes: [], username: username),
+          ),
+        );
 
       final secureStorage = MockSecureStorage();
       SecureStorageInterface storageFactory(scope) => secureStorage;
@@ -215,12 +211,11 @@ void main() {
       // Write an expired token to storage.
       secureStorage.write(
         key: userPoolKeys[CognitoUserPoolKey.accessToken],
-        value:
-            JsonWebToken(
-              header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),
-              claims: JsonWebClaims(expiration: DateTime.now()),
-              signature: const [],
-            ).raw,
+        value: JsonWebToken(
+          header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),
+          claims: JsonWebClaims(expiration: DateTime.now()),
+          signature: const [],
+        ).raw,
       );
 
       plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
@@ -235,7 +230,7 @@ void main() {
       //
       // [Future.ignore] is not working in DDC, possibly due to this issue:
       // https://github.com/dart-lang/sdk/issues/50619
-      unawaited(plugin.fetchUserAttributes().then((_) {}).onError((_, __) {}));
+      unawaited(plugin.fetchUserAttributes().then((_) {}).onError((_, _) {}));
 
       final fetchAuthSessionMachine = stateMachine.getOrCreate(
         FetchAuthSessionStateMachine.type,

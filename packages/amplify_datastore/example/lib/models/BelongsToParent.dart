@@ -186,56 +186,52 @@ class BelongsToParent extends amplify_core.Model {
     return BelongsToParent._internal(
       id: id,
       name: name == null ? this.name : name.value,
-      implicitChild:
-          implicitChild == null ? this.implicitChild : implicitChild.value,
-      explicitChild:
-          explicitChild == null ? this.explicitChild : explicitChild.value,
-      belongsToParentImplicitChildId:
-          belongsToParentImplicitChildId == null
-              ? this.belongsToParentImplicitChildId
-              : belongsToParentImplicitChildId.value,
-      belongsToParentExplicitChildId:
-          belongsToParentExplicitChildId == null
-              ? this.belongsToParentExplicitChildId
-              : belongsToParentExplicitChildId.value,
+      implicitChild: implicitChild == null
+          ? this.implicitChild
+          : implicitChild.value,
+      explicitChild: explicitChild == null
+          ? this.explicitChild
+          : explicitChild.value,
+      belongsToParentImplicitChildId: belongsToParentImplicitChildId == null
+          ? this.belongsToParentImplicitChildId
+          : belongsToParentImplicitChildId.value,
+      belongsToParentExplicitChildId: belongsToParentExplicitChildId == null
+          ? this.belongsToParentExplicitChildId
+          : belongsToParentExplicitChildId.value,
     );
   }
 
   BelongsToParent.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _name = json['name'],
-      _implicitChild =
-          json['implicitChild'] != null
-              ? json['implicitChild']['serializedData'] != null
-                  ? BelongsToChildImplicit.fromJson(
+      _implicitChild = json['implicitChild'] != null
+          ? json['implicitChild']['serializedData'] != null
+                ? BelongsToChildImplicit.fromJson(
                     new Map<String, dynamic>.from(
                       json['implicitChild']['serializedData'],
                     ),
                   )
-                  : BelongsToChildImplicit.fromJson(
+                : BelongsToChildImplicit.fromJson(
                     new Map<String, dynamic>.from(json['implicitChild']),
                   )
-              : null,
-      _explicitChild =
-          json['explicitChild'] != null
-              ? json['explicitChild']['serializedData'] != null
-                  ? BelongsToChildExplicit.fromJson(
+          : null,
+      _explicitChild = json['explicitChild'] != null
+          ? json['explicitChild']['serializedData'] != null
+                ? BelongsToChildExplicit.fromJson(
                     new Map<String, dynamic>.from(
                       json['explicitChild']['serializedData'],
                     ),
                   )
-                  : BelongsToChildExplicit.fromJson(
+                : BelongsToChildExplicit.fromJson(
                     new Map<String, dynamic>.from(json['explicitChild']),
                   )
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null,
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null,
       _belongsToParentImplicitChildId = json['belongsToParentImplicitChildId'],
       _belongsToParentExplicitChildId = json['belongsToParentExplicitChildId'];
 
@@ -396,10 +392,9 @@ class BelongsToParentModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

@@ -26,10 +26,9 @@ class DummyHttpOperation extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   HttpRequest buildRequest(Unit input) => HttpRequest(
-    (b) =>
-        b
-          ..method = 'GET'
-          ..path = '/',
+    (b) => b
+      ..method = 'GET'
+      ..path = '/',
   );
 
   @override

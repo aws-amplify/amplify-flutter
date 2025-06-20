@@ -81,10 +81,9 @@ class TestSession with AWSEquatable<TestSession>, AWSDebuggable {
 }
 
 final Serializers _serializers = () {
-  final builder =
-      Serializers().toBuilder()
-        ..addAll(serializers)
-        ..addPlugin(StandardJsonPlugin());
+  final builder = Serializers().toBuilder()
+    ..addAll(serializers)
+    ..addPlugin(StandardJsonPlugin());
   builderFactories.forEach(builder.addBuilderFactory);
   return builder.build();
 }();

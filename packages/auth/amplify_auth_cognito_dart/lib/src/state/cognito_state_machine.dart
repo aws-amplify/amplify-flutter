@@ -15,19 +15,20 @@ import 'package:meta/meta.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
 @visibleForTesting
-final stateMachineBuilders = <
-  StateMachineToken,
-  StateMachineBuilder<AuthEvent, AuthState, CognitoAuthStateMachine>
->{
-  ConfigurationStateMachine.type: ConfigurationStateMachine.new,
-  CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
-  FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
-  HostedUiStateMachine.type: HostedUiStateMachine.new,
-  SignInStateMachine.type: SignInStateMachine.new,
-  SignOutStateMachine.type: SignOutStateMachine.new,
-  SignUpStateMachine.type: SignUpStateMachine.new,
-  TotpSetupStateMachine.type: TotpSetupStateMachine.new,
-};
+final stateMachineBuilders =
+    <
+      StateMachineToken,
+      StateMachineBuilder<AuthEvent, AuthState, CognitoAuthStateMachine>
+    >{
+      ConfigurationStateMachine.type: ConfigurationStateMachine.new,
+      CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
+      FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
+      HostedUiStateMachine.type: HostedUiStateMachine.new,
+      SignInStateMachine.type: SignInStateMachine.new,
+      SignOutStateMachine.type: SignOutStateMachine.new,
+      SignUpStateMachine.type: SignUpStateMachine.new,
+      TotpSetupStateMachine.type: TotpSetupStateMachine.new,
+    };
 
 /// Default defaultDependencies for [CognitoAuthStateMachine].
 @visibleForTesting

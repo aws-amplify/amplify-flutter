@@ -141,8 +141,9 @@ class QueryPredicateGroup extends QueryPredicate {
     return <String, dynamic>{
       'queryPredicateGroup': <String, dynamic>{
         'type': type.name,
-        'predicates':
-            predicates.map((predicate) => predicate.serializeAsMap()).toList(),
+        'predicates': predicates
+            .map((predicate) => predicate.serializeAsMap())
+            .toList(),
       },
     };
   }

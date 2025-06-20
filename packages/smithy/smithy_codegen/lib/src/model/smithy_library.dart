@@ -18,8 +18,9 @@ extension SmithyLibraryX on SmithyLibrary {
     serviceName: _sanitize(serviceName),
     libraryType: libraryType,
     filename: _sanitizeFilename(libraryType, filename),
-    basePath:
-        basePath != null && !basePath.endsWith('/') ? '$basePath/' : basePath,
+    basePath: basePath != null && !basePath.endsWith('/')
+        ? '$basePath/'
+        : basePath,
   );
 
   /// Creates a [SmithyLibrary] from a [libraryName].
@@ -41,10 +42,9 @@ extension SmithyLibraryX on SmithyLibrary {
           basePath: basePath,
         );
       case 3:
-        final libraryType =
-            _clientRegex.hasMatch(parts[2])
-                ? SmithyLibrary_LibraryType.CLIENT
-                : SmithyLibrary_LibraryType.SERVER;
+        final libraryType = _clientRegex.hasMatch(parts[2])
+            ? SmithyLibrary_LibraryType.CLIENT
+            : SmithyLibrary_LibraryType.SERVER;
         return SmithyLibrary(
           packageName: _sanitize(parts[0]),
           serviceName: _sanitize(parts[1]),

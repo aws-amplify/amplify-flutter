@@ -52,11 +52,10 @@ abstract class InAppMessage
   List<Object?> get props => [content, customConfig, layout];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InAppMessage')
-          ..add('content', content)
-          ..add('customConfig', customConfig)
-          ..add('layout', layout);
+    final helper = newBuiltValueToStringHelper('InAppMessage')
+      ..add('content', content)
+      ..add('customConfig', customConfig)
+      ..add('layout', layout);
     return helper.toString();
   }
 }

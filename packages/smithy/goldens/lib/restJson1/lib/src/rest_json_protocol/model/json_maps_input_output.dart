@@ -30,26 +30,36 @@ abstract class JsonMapsInputOutput
     Map<String, Set<String>>? sparseSetMap,
   }) {
     return _$JsonMapsInputOutput._(
-      denseStructMap:
-          denseStructMap == null ? null : _i3.BuiltMap(denseStructMap),
-      sparseStructMap:
-          sparseStructMap == null ? null : _i3.BuiltMap(sparseStructMap),
-      denseNumberMap:
-          denseNumberMap == null ? null : _i3.BuiltMap(denseNumberMap),
-      denseBooleanMap:
-          denseBooleanMap == null ? null : _i3.BuiltMap(denseBooleanMap),
-      denseStringMap:
-          denseStringMap == null ? null : _i3.BuiltMap(denseStringMap),
-      sparseNumberMap:
-          sparseNumberMap == null ? null : _i3.BuiltMap(sparseNumberMap),
-      sparseBooleanMap:
-          sparseBooleanMap == null ? null : _i3.BuiltMap(sparseBooleanMap),
-      sparseStringMap:
-          sparseStringMap == null ? null : _i3.BuiltMap(sparseStringMap),
-      denseSetMap:
-          denseSetMap == null ? null : _i3.BuiltSetMultimap(denseSetMap),
-      sparseSetMap:
-          sparseSetMap == null ? null : _i3.BuiltSetMultimap(sparseSetMap),
+      denseStructMap: denseStructMap == null
+          ? null
+          : _i3.BuiltMap(denseStructMap),
+      sparseStructMap: sparseStructMap == null
+          ? null
+          : _i3.BuiltMap(sparseStructMap),
+      denseNumberMap: denseNumberMap == null
+          ? null
+          : _i3.BuiltMap(denseNumberMap),
+      denseBooleanMap: denseBooleanMap == null
+          ? null
+          : _i3.BuiltMap(denseBooleanMap),
+      denseStringMap: denseStringMap == null
+          ? null
+          : _i3.BuiltMap(denseStringMap),
+      sparseNumberMap: sparseNumberMap == null
+          ? null
+          : _i3.BuiltMap(sparseNumberMap),
+      sparseBooleanMap: sparseBooleanMap == null
+          ? null
+          : _i3.BuiltMap(sparseBooleanMap),
+      sparseStringMap: sparseStringMap == null
+          ? null
+          : _i3.BuiltMap(sparseStringMap),
+      denseSetMap: denseSetMap == null
+          ? null
+          : _i3.BuiltSetMultimap(denseSetMap),
+      sparseSetMap: sparseSetMap == null
+          ? null
+          : _i3.BuiltSetMultimap(sparseSetMap),
     );
   }
 
@@ -104,18 +114,17 @@ abstract class JsonMapsInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('JsonMapsInputOutput')
-          ..add('denseStructMap', denseStructMap)
-          ..add('sparseStructMap', sparseStructMap)
-          ..add('denseNumberMap', denseNumberMap)
-          ..add('denseBooleanMap', denseBooleanMap)
-          ..add('denseStringMap', denseStringMap)
-          ..add('sparseNumberMap', sparseNumberMap)
-          ..add('sparseBooleanMap', sparseBooleanMap)
-          ..add('sparseStringMap', sparseStringMap)
-          ..add('denseSetMap', denseSetMap)
-          ..add('sparseSetMap', sparseSetMap);
+    final helper = newBuiltValueToStringHelper('JsonMapsInputOutput')
+      ..add('denseStructMap', denseStructMap)
+      ..add('sparseStructMap', sparseStructMap)
+      ..add('denseNumberMap', denseNumberMap)
+      ..add('denseBooleanMap', denseBooleanMap)
+      ..add('denseStringMap', denseStringMap)
+      ..add('sparseNumberMap', sparseNumberMap)
+      ..add('sparseBooleanMap', sparseBooleanMap)
+      ..add('sparseStringMap', sparseStringMap)
+      ..add('denseSetMap', denseSetMap)
+      ..add('sparseSetMap', sparseSetMap);
     return helper.toString();
   }
 }

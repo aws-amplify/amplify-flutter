@@ -107,10 +107,9 @@ abstract class ConfirmDeviceWorker
       });
       respond.add(
         ConfirmDeviceResponse(
-          (b) =>
-              b
-                ..request.replace(request)
-                ..devicePassword = devicePassword,
+          (b) => b
+            ..request.replace(request)
+            ..devicePassword = devicePassword,
         ),
       );
     }

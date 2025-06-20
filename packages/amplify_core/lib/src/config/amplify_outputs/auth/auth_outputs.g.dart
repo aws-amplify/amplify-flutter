@@ -26,10 +26,9 @@ AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
       identityPoolId: $checkedConvert('identity_pool_id', (v) => v as String?),
       passwordPolicy: $checkedConvert(
         'password_policy',
-        (v) =>
-            v == null
-                ? null
-                : PasswordPolicy.fromJson(v as Map<String, dynamic>),
+        (v) => v == null
+            ? null
+            : PasswordPolicy.fromJson(v as Map<String, dynamic>),
       ),
       oauth: $checkedConvert(
         'oauth',
@@ -38,36 +37,33 @@ AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
       ),
       standardRequiredAttributes: $checkedConvert(
         'standard_required_attributes',
-        (v) =>
-            (v as List<dynamic>?)
-                ?.map(
-                  (e) => const CognitoUserAttributeKeyConverter().fromJson(
-                    e as String,
-                  ),
-                )
-                .toList(),
+        (v) => (v as List<dynamic>?)
+            ?.map(
+              (e) => const CognitoUserAttributeKeyConverter().fromJson(
+                e as String,
+              ),
+            )
+            .toList(),
       ),
       usernameAttributes: $checkedConvert(
         'username_attributes',
-        (v) =>
-            (v as List<dynamic>?)
-                ?.map(
-                  (e) => const CognitoUserAttributeKeyConverter().fromJson(
-                    e as String,
-                  ),
-                )
-                .toList(),
+        (v) => (v as List<dynamic>?)
+            ?.map(
+              (e) => const CognitoUserAttributeKeyConverter().fromJson(
+                e as String,
+              ),
+            )
+            .toList(),
       ),
       userVerificationTypes: $checkedConvert(
         'user_verification_types',
-        (v) =>
-            (v as List<dynamic>?)
-                ?.map(
-                  (e) => const CognitoUserAttributeKeyConverter().fromJson(
-                    e as String,
-                  ),
-                )
-                .toList(),
+        (v) => (v as List<dynamic>?)
+            ?.map(
+              (e) => const CognitoUserAttributeKeyConverter().fromJson(
+                e as String,
+              ),
+            )
+            .toList(),
       ),
       unauthenticatedIdentitiesEnabled: $checkedConvert(
         'unauthenticated_identities_enabled',
@@ -79,10 +75,9 @@ AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
       ),
       mfaMethods: $checkedConvert(
         'mfa_methods',
-        (v) =>
-            (v as List<dynamic>?)
-                ?.map((e) => $enumDecode(_$MfaMethodEnumMap, e))
-                .toList(),
+        (v) => (v as List<dynamic>?)
+            ?.map((e) => $enumDecode(_$MfaMethodEnumMap, e))
+            .toList(),
       ),
     );
     return val;

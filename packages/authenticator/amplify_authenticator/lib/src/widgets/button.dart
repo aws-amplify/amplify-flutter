@@ -53,9 +53,9 @@ abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
   final focusNode = FocusNode();
 
   late final ValueChanged<bool> focusChanged =
-  // TODO(Jordan-Nelson): Update to `WidgetState` when min Flutter version is 3.22 or higher
-  // ignore: deprecated_member_use
-  updateMaterialState(MaterialState.focused);
+      // TODO(Jordan-Nelson): Update to `WidgetState` when min Flutter version is 3.22 or higher
+      // ignore: deprecated_member_use
+      updateMaterialState(MaterialState.focused);
 
   @override
   void initState() {
@@ -107,42 +107,41 @@ class _AmplifyElevatedButtonState
   Widget build(BuildContext context) {
     final buttonResolver = stringResolver.buttons;
     final loadingIndicator = widget.loadingIndicator;
-    final onPressed =
-        state.isBusy ? null : () => widget.onPressed(context, state);
-    final child =
-        state.isBusy && loadingIndicator != null
-            ? loadingIndicator
-            : Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (widget.leading != null) widget.leading!,
-                Flexible(
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      buttonResolver.resolve(context, widget.labelKey),
-                      textAlign: TextAlign.center,
-                    ),
+    final onPressed = state.isBusy
+        ? null
+        : () => widget.onPressed(context, state);
+    final child = state.isBusy && loadingIndicator != null
+        ? loadingIndicator
+        : Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (widget.leading != null) widget.leading!,
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    buttonResolver.resolve(context, widget.labelKey),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                if (widget.trailing != null) widget.trailing!,
-              ].spacedBy(const SizedBox(width: 10)),
-            );
+              ),
+              if (widget.trailing != null) widget.trailing!,
+            ].spacedBy(const SizedBox(width: 10)),
+          );
     final useMaterial3 = Theme.of(context).useMaterial3;
     return SizedBox(
       width: double.infinity,
-      child:
-          useMaterial3
-              ? FilledButton(
-                focusNode: focusNode,
-                onPressed: onPressed,
-                child: child,
-              )
-              : ElevatedButton(
-                focusNode: focusNode,
-                onPressed: onPressed,
-                child: child,
-              ),
+      child: useMaterial3
+          ? FilledButton(
+              focusNode: focusNode,
+              onPressed: onPressed,
+              child: child,
+            )
+          : ElevatedButton(
+              focusNode: focusNode,
+              onPressed: onPressed,
+              child: child,
+            ),
     );
   }
 }

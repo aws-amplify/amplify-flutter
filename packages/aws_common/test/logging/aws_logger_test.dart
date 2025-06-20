@@ -75,19 +75,17 @@ void main() {
         }),
       );
 
-      final logger =
-          AWSLogger()
-            ..registerPlugin(loggerPlugin)
-            ..logLevel = LogLevel.verbose;
+      final logger = AWSLogger()
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.verbose;
       callLogger(logger);
     });
 
     test('Unregistered plugin is not called', () {
       final loggerPlugin = MockLoggerPlugin();
-      final logger =
-          AWSLogger()
-            ..registerPlugin(loggerPlugin)
-            ..logLevel = LogLevel.verbose;
+      final logger = AWSLogger()
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.verbose;
       callLogger(logger);
 
       expect(loggerPlugin.timesCalled, 5);
@@ -102,11 +100,10 @@ void main() {
     test('Multiple LoggerPlugins register and unregister properly', () async {
       final loggerPlugin1 = MockLoggerPlugin();
       final loggerPlugin2 = MockLoggerPlugin2();
-      final logger =
-          AWSLogger()
-            ..registerPlugin(loggerPlugin1)
-            ..registerPlugin(loggerPlugin2)
-            ..logLevel = LogLevel.verbose;
+      final logger = AWSLogger()
+        ..registerPlugin(loggerPlugin1)
+        ..registerPlugin(loggerPlugin2)
+        ..logLevel = LogLevel.verbose;
       callLogger(logger);
 
       expect(loggerPlugin1.timesCalled, 5);
@@ -130,10 +127,9 @@ void main() {
         }),
       );
 
-      final logger =
-          AWSLogger()
-            ..registerPlugin(loggerPlugin)
-            ..logLevel = LogLevel.warn;
+      final logger = AWSLogger()
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.warn;
       callLogger(logger);
     });
 
@@ -171,10 +167,9 @@ void main() {
       final logger = AWSLogger()..logLevel = LogLevel.none;
 
       final loggerPlugin = MockLoggerPlugin();
-      final categoryLogger =
-          logger.createChild('Child')
-            ..registerPlugin(loggerPlugin)
-            ..logLevel = LogLevel.verbose;
+      final categoryLogger = logger.createChild('Child')
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.verbose;
 
       callLogger(categoryLogger);
       expect(loggerPlugin.timesCalled, 5);
@@ -182,10 +177,9 @@ void main() {
 
     test('Logger factory constructors return the same instance', () {
       final loggerPlugin = MockLoggerPlugin();
-      final logger =
-          AWSLogger()
-            ..registerPlugin(loggerPlugin)
-            ..logLevel = LogLevel.none;
+      final logger = AWSLogger()
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.none;
 
       callLogger(logger);
       expect(loggerPlugin.timesCalled, 0);
@@ -198,10 +192,9 @@ void main() {
 
     test('createChild returns the same instance for a given namespace', () {
       final loggerPlugin = MockLoggerPlugin();
-      final logger =
-          AWSLogger().createChild('Child')
-            ..registerPlugin(loggerPlugin)
-            ..logLevel = LogLevel.none;
+      final logger = AWSLogger().createChild('Child')
+        ..registerPlugin(loggerPlugin)
+        ..logLevel = LogLevel.none;
 
       callLogger(logger);
       expect(loggerPlugin.timesCalled, 0);
@@ -214,16 +207,14 @@ void main() {
 
     test('Detached loggers exist outside the hierarchy', () {
       final loggerPlugin = MockLoggerPlugin();
-      final logger =
-          AWSLogger.detached('')
-            ..logLevel = LogLevel.verbose
-            ..registerPlugin(loggerPlugin);
+      final logger = AWSLogger.detached('')
+        ..logLevel = LogLevel.verbose
+        ..registerPlugin(loggerPlugin);
 
       final globalLoggerPlugin = MockLoggerPlugin();
-      final globalLogger =
-          AWSLogger()
-            ..logLevel = LogLevel.none
-            ..registerPlugin(globalLoggerPlugin);
+      final globalLogger = AWSLogger()
+        ..logLevel = LogLevel.none
+        ..registerPlugin(globalLoggerPlugin);
 
       callLogger(logger);
       callLogger(globalLogger);

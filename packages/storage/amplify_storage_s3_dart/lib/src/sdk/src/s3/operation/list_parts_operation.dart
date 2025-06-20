@@ -169,10 +169,9 @@ class ListPartsOperation
   @override
   _i1.HttpRequest buildRequest(ListPartsRequest input) => _i1.HttpRequest((b) {
     b.method = 'GET';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?x-id=ListParts'
-            : r'/{Key+}?x-id=ListParts';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}/{Key+}?x-id=ListParts'
+        : r'/{Key+}?x-id=ListParts';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.requestPayer != null) {
       b.headers['x-amz-request-payer'] = input.requestPayer!.value;

@@ -18,8 +18,9 @@ void main() {
   group('AWSCredentialsProvider', () {
     Future<String> setUpProfile() async {
       final tempDir = await Directory.systemTemp.createTemp();
-      final awsDir =
-          await Directory.fromUri(tempDir.uri.resolve('.aws')).create();
+      final awsDir = await Directory.fromUri(
+        tempDir.uri.resolve('.aws'),
+      ).create();
       final credentialsFile = File.fromUri(awsDir.uri.resolve('credentials'));
       await credentialsFile.writeAsString('''
 [default]

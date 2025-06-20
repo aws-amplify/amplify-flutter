@@ -55,10 +55,9 @@ abstract class SoftwareTokenMfaSettingsType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SoftwareTokenMfaSettingsType')
-          ..add('enabled', enabled)
-          ..add('preferredMfa', preferredMfa);
+    final helper = newBuiltValueToStringHelper('SoftwareTokenMfaSettingsType')
+      ..add('enabled', enabled)
+      ..add('preferredMfa', preferredMfa);
     return helper.toString();
   }
 }

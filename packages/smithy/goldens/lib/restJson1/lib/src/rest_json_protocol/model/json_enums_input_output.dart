@@ -78,14 +78,13 @@ abstract class JsonEnumsInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('JsonEnumsInputOutput')
-          ..add('fooEnum1', fooEnum1)
-          ..add('fooEnum2', fooEnum2)
-          ..add('fooEnum3', fooEnum3)
-          ..add('fooEnumList', fooEnumList)
-          ..add('fooEnumSet', fooEnumSet)
-          ..add('fooEnumMap', fooEnumMap);
+    final helper = newBuiltValueToStringHelper('JsonEnumsInputOutput')
+      ..add('fooEnum1', fooEnum1)
+      ..add('fooEnum2', fooEnum2)
+      ..add('fooEnum3', fooEnum3)
+      ..add('fooEnumList', fooEnumList)
+      ..add('fooEnumSet', fooEnumSet)
+      ..add('fooEnumMap', fooEnumMap);
     return helper.toString();
   }
 }

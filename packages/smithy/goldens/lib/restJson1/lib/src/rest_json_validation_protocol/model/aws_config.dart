@@ -37,10 +37,9 @@ abstract class AwsConfig
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AwsConfig')
-          ..add('clockTime', clockTime)
-          ..add('scopedConfig', scopedConfig);
+    final helper = newBuiltValueToStringHelper('AwsConfig')
+      ..add('clockTime', clockTime)
+      ..add('scopedConfig', scopedConfig);
     return helper.toString();
   }
 }

@@ -37,10 +37,9 @@ class Contact {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -54,10 +53,9 @@ class Contact {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -80,10 +78,9 @@ class Contact {
     return Contact._internal(
       email: email,
       phone: phone,
-      mailingAddresses:
-          mailingAddresses != null
-              ? List<Address>.unmodifiable(mailingAddresses)
-              : mailingAddresses,
+      mailingAddresses: mailingAddresses != null
+          ? List<Address>.unmodifiable(mailingAddresses)
+          : mailingAddresses,
     );
   }
 
@@ -144,34 +141,30 @@ class Contact {
     return Contact._internal(
       email: email == null ? this.email : email.value,
       phone: phone == null ? this.phone : phone.value,
-      mailingAddresses:
-          mailingAddresses == null
-              ? this.mailingAddresses
-              : mailingAddresses.value,
+      mailingAddresses: mailingAddresses == null
+          ? this.mailingAddresses
+          : mailingAddresses.value,
     );
   }
 
   Contact.fromJson(Map<String, dynamic> json)
     : _email = json['email'],
-      _phone =
-          json['phone'] != null
-              ? Phone.fromJson(new Map<String, dynamic>.from(json['phone']))
-              : null,
-      _mailingAddresses =
-          json['mailingAddresses'] is List
-              ? (json['mailingAddresses'] as List)
-                  .where((e) => e != null)
-                  .map(
-                    (e) => Address.fromJson(new Map<String, dynamic>.from(e)),
-                  )
-                  .toList()
-              : null;
+      _phone = json['phone'] != null
+          ? Phone.fromJson(new Map<String, dynamic>.from(json['phone']))
+          : null,
+      _mailingAddresses = json['mailingAddresses'] is List
+          ? (json['mailingAddresses'] as List)
+                .where((e) => e != null)
+                .map((e) => Address.fromJson(new Map<String, dynamic>.from(e)))
+                .toList()
+          : null;
 
   Map<String, dynamic> toJson() => {
     'email': _email,
     'phone': _phone?.toJson(),
-    'mailingAddresses':
-        _mailingAddresses?.map((Address? e) => e?.toJson()).toList(),
+    'mailingAddresses': _mailingAddresses
+        ?.map((Address? e) => e?.toJson())
+        .toList(),
   };
 
   Map<String, Object?> toMap() => {

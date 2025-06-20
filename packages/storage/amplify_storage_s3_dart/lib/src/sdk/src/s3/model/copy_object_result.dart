@@ -73,14 +73,13 @@ abstract class CopyObjectResult
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CopyObjectResult')
-          ..add('eTag', eTag)
-          ..add('lastModified', lastModified)
-          ..add('checksumCrc32', checksumCrc32)
-          ..add('checksumCrc32C', checksumCrc32C)
-          ..add('checksumSha1', checksumSha1)
-          ..add('checksumSha256', checksumSha256);
+    final helper = newBuiltValueToStringHelper('CopyObjectResult')
+      ..add('eTag', eTag)
+      ..add('lastModified', lastModified)
+      ..add('checksumCrc32', checksumCrc32)
+      ..add('checksumCrc32C', checksumCrc32C)
+      ..add('checksumSha1', checksumSha1)
+      ..add('checksumSha256', checksumSha256);
     return helper.toString();
   }
 }

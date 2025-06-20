@@ -198,17 +198,14 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       }
       DataOutputs config;
       if (apiName != null) {
-        config =
-            _dataConfig.entries
-                .firstWhere(
-                  (config) => config.key == apiName,
-                  orElse:
-                      () =>
-                          throw ConfigurationError(
-                            'No GraphQL API endpoint found matching apiName $apiName.',
-                          ),
-                )
-                .value;
+        config = _dataConfig.entries
+            .firstWhere(
+              (config) => config.key == apiName,
+              orElse: () => throw ConfigurationError(
+                'No GraphQL API endpoint found matching apiName $apiName.',
+              ),
+            )
+            .value;
       } else {
         if (_dataConfig.length > 1) {
           throw ConfigurationError(
@@ -227,17 +224,14 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       }
       RestApiOutputs config;
       if (apiName != null) {
-        config =
-            _restConfig.entries
-                .firstWhere(
-                  (config) => config.key == apiName,
-                  orElse:
-                      () =>
-                          throw ConfigurationError(
-                            'No REST API endpoint found matching apiName $apiName.',
-                          ),
-                )
-                .value;
+        config = _restConfig.entries
+            .firstWhere(
+              (config) => config.key == apiName,
+              orElse: () => throw ConfigurationError(
+                'No REST API endpoint found matching apiName $apiName.',
+              ),
+            )
+            .value;
       } else {
         if (_restConfig.length > 1) {
           throw ConfigurationError(

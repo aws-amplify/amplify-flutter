@@ -27,8 +27,9 @@ final class ASFDeviceInfoLinux extends ASFDeviceInfoPlatform {
     final appPath = p.dirname(exePath);
     final assetPath = p.join(appPath, 'data', 'flutter_assets');
     final versionFile = File(p.join(assetPath, 'version.json'));
-    final versionJson =
-        await versionFile.exists() ? await versionFile.readAsString() : null;
+    final versionJson = await versionFile.exists()
+        ? await versionFile.readAsString()
+        : null;
     if (versionJson == null) {
       return PackageInfo(
         // Fallback to the name of the executable in Dart-only environments.
@@ -77,16 +78,17 @@ final class ASFDeviceInfoLinux extends ASFDeviceInfoPlatform {
   late final _lsbRelease = _tryReadValues('/etc/lsb-release');
 
   // See: https://man7.org/linux/man-pages/man5/os-release.5.html
-  late final _osRelease = [
-    '/etc/os-release',
-    '/usr/lib/os-release',
-    '/etc/initrd-release',
-    '/usr/lib/extension-release.d/extension-release.IMAGE',
-  ].fold<Future<Map<String, String>?>>(
-    Future.value(null),
-    (values, path) =>
-        values.then((values) async => values ?? await _tryReadValues(path)),
-  );
+  late final _osRelease =
+      [
+        '/etc/os-release',
+        '/usr/lib/os-release',
+        '/etc/initrd-release',
+        '/usr/lib/extension-release.d/extension-release.IMAGE',
+      ].fold<Future<Map<String, String>?>>(
+        Future.value(null),
+        (values, path) =>
+            values.then((values) async => values ?? await _tryReadValues(path)),
+      );
 
   @override
   late final Future<String?> deviceOsReleaseVersion = () async {

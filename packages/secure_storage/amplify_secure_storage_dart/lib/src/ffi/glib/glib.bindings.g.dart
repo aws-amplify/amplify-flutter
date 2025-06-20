@@ -27,14 +27,14 @@ class Glib {
     return _g_hash_table_new(hash_func, key_equal_func);
   }
 
-  late final _g_hash_table_newPtr = _lookup<
-    ffi.NativeFunction<ffi.Pointer<GHashTable> Function(GHashFunc, GEqualFunc)>
-  >('g_hash_table_new');
-  late final _g_hash_table_new =
-      _g_hash_table_newPtr
-          .asFunction<
-            ffi.Pointer<GHashTable> Function(GHashFunc, GEqualFunc)
-          >();
+  late final _g_hash_table_newPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<GHashTable> Function(GHashFunc, GEqualFunc)
+        >
+      >('g_hash_table_new');
+  late final _g_hash_table_new = _g_hash_table_newPtr
+      .asFunction<ffi.Pointer<GHashTable> Function(GHashFunc, GEqualFunc)>();
 
   void g_hash_table_destroy(ffi.Pointer<GHashTable> hash_table) {
     return _g_hash_table_destroy(hash_table);
@@ -44,9 +44,8 @@ class Glib {
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<GHashTable>)>>(
         'g_hash_table_destroy',
       );
-  late final _g_hash_table_destroy =
-      _g_hash_table_destroyPtr
-          .asFunction<void Function(ffi.Pointer<GHashTable>)>();
+  late final _g_hash_table_destroy = _g_hash_table_destroyPtr
+      .asFunction<void Function(ffi.Pointer<GHashTable>)>();
 
   int g_hash_table_insert(
     ffi.Pointer<GHashTable> hash_table,
@@ -56,16 +55,14 @@ class Glib {
     return _g_hash_table_insert(hash_table, key, value);
   }
 
-  late final _g_hash_table_insertPtr = _lookup<
-    ffi.NativeFunction<
-      gboolean Function(ffi.Pointer<GHashTable>, gpointer, gpointer)
-    >
-  >('g_hash_table_insert');
-  late final _g_hash_table_insert =
-      _g_hash_table_insertPtr
-          .asFunction<
-            int Function(ffi.Pointer<GHashTable>, gpointer, gpointer)
-          >();
+  late final _g_hash_table_insertPtr =
+      _lookup<
+        ffi.NativeFunction<
+          gboolean Function(ffi.Pointer<GHashTable>, gpointer, gpointer)
+        >
+      >('g_hash_table_insert');
+  late final _g_hash_table_insert = _g_hash_table_insertPtr
+      .asFunction<int Function(ffi.Pointer<GHashTable>, gpointer, gpointer)>();
 }
 
 final class GError extends ffi.Struct {

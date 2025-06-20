@@ -72,11 +72,10 @@ abstract class RequestTimeoutException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RequestTimeoutException')
-          ..add('type', type)
-          ..add('code', code)
-          ..add('message', message);
+    final helper = newBuiltValueToStringHelper('RequestTimeoutException')
+      ..add('type', type)
+      ..add('code', code)
+      ..add('message', message);
     return helper.toString();
   }
 }

@@ -113,8 +113,9 @@ BannerColors getColors(
   // set it to null to let flutter control the foreground.
   final hasCustomBackground = customBackgroundColor != null;
   final foregroundColorByType = isError ? Colors.white : null;
-  final foregroundColorFallBack =
-      hasCustomBackground ? null : foregroundColorByType;
+  final foregroundColorFallBack = hasCustomBackground
+      ? null
+      : foregroundColorByType;
 
   // use contentTextStyle color if available, otherwise use fallback as defined above.
   final foregroundColor = customForegroundColor ?? foregroundColorFallBack;

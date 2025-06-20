@@ -82,10 +82,9 @@ abstract class TestBodyStructureInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('TestBodyStructureInputOutput')
-          ..add('testId', testId)
-          ..add('testConfig', testConfig);
+    final helper = newBuiltValueToStringHelper('TestBodyStructureInputOutput')
+      ..add('testId', testId)
+      ..add('testConfig', testConfig);
     return helper.toString();
   }
 }

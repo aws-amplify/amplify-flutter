@@ -113,10 +113,8 @@ class SmithyLibrary extends $pb.GeneratedMessage {
   static $pb.PbList<SmithyLibrary> createRepeated() =>
       $pb.PbList<SmithyLibrary>();
   @$core.pragma('dart2js:noInline')
-  static SmithyLibrary getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SmithyLibrary>(
-        create,
-      );
+  static SmithyLibrary getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SmithyLibrary>(create);
   static SmithyLibrary? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -259,10 +257,8 @@ class CodegenRequest extends $pb.GeneratedMessage {
   static $pb.PbList<CodegenRequest> createRepeated() =>
       $pb.PbList<CodegenRequest>();
   @$core.pragma('dart2js:noInline')
-  static CodegenRequest getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CodegenRequest>(
-        create,
-      );
+  static CodegenRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<CodegenRequest>(create);
   static CodegenRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -362,9 +358,8 @@ class CodegenResponse_Library extends $pb.GeneratedMessage {
   static $pb.PbList<CodegenResponse_Library> createRepeated() =>
       $pb.PbList<CodegenResponse_Library>();
   @$core.pragma('dart2js:noInline')
-  static CodegenResponse_Library getDefault() =>
-      _defaultInstance ??= $pb
-          .GeneratedMessage.$_defaultFor<CodegenResponse_Library>(create);
+  static CodegenResponse_Library getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<CodegenResponse_Library>(create);
   static CodegenResponse_Library? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -481,10 +476,8 @@ class CodegenResponse extends $pb.GeneratedMessage {
   static $pb.PbList<CodegenResponse> createRepeated() =>
       $pb.PbList<CodegenResponse>();
   @$core.pragma('dart2js:noInline')
-  static CodegenResponse getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CodegenResponse>(
-        create,
-      );
+  static CodegenResponse getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<CodegenResponse>(create);
   static CodegenResponse? _defaultInstance;
 
   @$pb.TagNumber(1)

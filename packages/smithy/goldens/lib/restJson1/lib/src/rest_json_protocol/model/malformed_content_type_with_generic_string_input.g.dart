@@ -13,9 +13,8 @@ class _$MalformedContentTypeWithGenericStringInput
 
   factory _$MalformedContentTypeWithGenericStringInput([
     void Function(MalformedContentTypeWithGenericStringInputBuilder)? updates,
-  ]) =>
-      (MalformedContentTypeWithGenericStringInputBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedContentTypeWithGenericStringInputBuilder()..update(updates))
+      ._build();
 
   _$MalformedContentTypeWithGenericStringInput._({this.payload}) : super._();
   @override

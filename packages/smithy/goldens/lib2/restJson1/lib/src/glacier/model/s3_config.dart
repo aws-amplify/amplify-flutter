@@ -50,11 +50,10 @@ abstract class S3Config
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('S3Config')
-          ..add('addressingStyle', addressingStyle)
-          ..add('useAccelerateEndpoint', useAccelerateEndpoint)
-          ..add('useDualstackEndpoint', useDualstackEndpoint);
+    final helper = newBuiltValueToStringHelper('S3Config')
+      ..add('addressingStyle', addressingStyle)
+      ..add('useAccelerateEndpoint', useAccelerateEndpoint)
+      ..add('useDualstackEndpoint', useDualstackEndpoint);
     return helper.toString();
   }
 }

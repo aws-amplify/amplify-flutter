@@ -28,25 +28,23 @@ void main() {
       await worker.spawn();
 
       final message = SrpDevicePasswordVerifierMessage(
-        (b) =>
-            b
-              ..initResult = initResult
-              ..clientId = mockConfig.auth!.userPoolClientId
-              ..deviceSecrets = CognitoDeviceSecrets(
-                (b) =>
-                    b
-                      ..deviceKey = deviceKey
-                      ..deviceGroupKey = deviceGroupKey
-                      ..devicePassword = devicePassword,
-              )
-              ..challengeParameters = BuiltMap({
-                CognitoConstants.challengeParamUsername: srpUsername,
-                CognitoConstants.challengeParamUserIdForSrp: srpUsername,
-                CognitoConstants.challengeParamSecretBlock: secretBlock,
-                CognitoConstants.challengeParamSalt: salt,
-                CognitoConstants.challengeParamSrpB: publicB,
-                CognitoConstants.challengeParamDeviceKey: deviceKey,
-              }),
+        (b) => b
+          ..initResult = initResult
+          ..clientId = mockConfig.auth!.userPoolClientId
+          ..deviceSecrets = CognitoDeviceSecrets(
+            (b) => b
+              ..deviceKey = deviceKey
+              ..deviceGroupKey = deviceGroupKey
+              ..devicePassword = devicePassword,
+          )
+          ..challengeParameters = BuiltMap({
+            CognitoConstants.challengeParamUsername: srpUsername,
+            CognitoConstants.challengeParamUserIdForSrp: srpUsername,
+            CognitoConstants.challengeParamSecretBlock: secretBlock,
+            CognitoConstants.challengeParamSalt: salt,
+            CognitoConstants.challengeParamSrpB: publicB,
+            CognitoConstants.challengeParamDeviceKey: deviceKey,
+          }),
       );
       worker.add(message);
 
@@ -70,19 +68,17 @@ void main() {
       worker.logs.listen(safePrint);
       await worker.spawn();
       final message = SrpDevicePasswordVerifierMessage(
-        (b) =>
-            b
-              ..initResult = initResult
-              ..clientId = mockConfig.auth!.userPoolClientId
-              ..deviceSecrets = CognitoDeviceSecrets(
-                (b) =>
-                    b
-                      ..deviceKey = deviceKey
-                      ..deviceGroupKey = deviceGroupKey
-                      ..devicePassword = devicePassword,
-              )
-              // No challenge parameters
-              ..challengeParameters = BuiltMap(<String, String>{}),
+        (b) => b
+          ..initResult = initResult
+          ..clientId = mockConfig.auth!.userPoolClientId
+          ..deviceSecrets = CognitoDeviceSecrets(
+            (b) => b
+              ..deviceKey = deviceKey
+              ..deviceGroupKey = deviceGroupKey
+              ..devicePassword = devicePassword,
+          )
+          // No challenge parameters
+          ..challengeParameters = BuiltMap(<String, String>{}),
       );
       worker.add(message);
 

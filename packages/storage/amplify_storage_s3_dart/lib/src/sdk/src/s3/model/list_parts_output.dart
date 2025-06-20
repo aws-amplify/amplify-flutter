@@ -89,11 +89,10 @@ abstract class ListPartsOutput
     b.storageClass = payload.storageClass;
     b.uploadId = payload.uploadId;
     if (response.headers['x-amz-abort-date'] != null) {
-      b.abortDate =
-          _i2.Timestamp.parse(
-            response.headers['x-amz-abort-date']!,
-            format: _i2.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.abortDate = _i2.Timestamp.parse(
+        response.headers['x-amz-abort-date']!,
+        format: _i2.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (response.headers['x-amz-abort-rule-id'] != null) {
       b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
@@ -207,23 +206,22 @@ abstract class ListPartsOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListPartsOutput')
-          ..add('abortDate', abortDate)
-          ..add('abortRuleId', abortRuleId)
-          ..add('bucket', bucket)
-          ..add('key', key)
-          ..add('uploadId', uploadId)
-          ..add('partNumberMarker', partNumberMarker)
-          ..add('nextPartNumberMarker', nextPartNumberMarker)
-          ..add('maxParts', maxParts)
-          ..add('isTruncated', isTruncated)
-          ..add('parts', parts)
-          ..add('initiator', initiator)
-          ..add('owner', owner)
-          ..add('storageClass', storageClass)
-          ..add('requestCharged', requestCharged)
-          ..add('checksumAlgorithm', checksumAlgorithm);
+    final helper = newBuiltValueToStringHelper('ListPartsOutput')
+      ..add('abortDate', abortDate)
+      ..add('abortRuleId', abortRuleId)
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('uploadId', uploadId)
+      ..add('partNumberMarker', partNumberMarker)
+      ..add('nextPartNumberMarker', nextPartNumberMarker)
+      ..add('maxParts', maxParts)
+      ..add('isTruncated', isTruncated)
+      ..add('parts', parts)
+      ..add('initiator', initiator)
+      ..add('owner', owner)
+      ..add('storageClass', storageClass)
+      ..add('requestCharged', requestCharged)
+      ..add('checksumAlgorithm', checksumAlgorithm);
     return helper.toString();
   }
 }
@@ -295,20 +293,19 @@ abstract class ListPartsOutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListPartsOutputPayload')
-          ..add('bucket', bucket)
-          ..add('checksumAlgorithm', checksumAlgorithm)
-          ..add('initiator', initiator)
-          ..add('isTruncated', isTruncated)
-          ..add('key', key)
-          ..add('maxParts', maxParts)
-          ..add('nextPartNumberMarker', nextPartNumberMarker)
-          ..add('owner', owner)
-          ..add('partNumberMarker', partNumberMarker)
-          ..add('parts', parts)
-          ..add('storageClass', storageClass)
-          ..add('uploadId', uploadId);
+    final helper = newBuiltValueToStringHelper('ListPartsOutputPayload')
+      ..add('bucket', bucket)
+      ..add('checksumAlgorithm', checksumAlgorithm)
+      ..add('initiator', initiator)
+      ..add('isTruncated', isTruncated)
+      ..add('key', key)
+      ..add('maxParts', maxParts)
+      ..add('nextPartNumberMarker', nextPartNumberMarker)
+      ..add('owner', owner)
+      ..add('partNumberMarker', partNumberMarker)
+      ..add('parts', parts)
+      ..add('storageClass', storageClass)
+      ..add('uploadId', uploadId);
     return helper.toString();
   }
 }

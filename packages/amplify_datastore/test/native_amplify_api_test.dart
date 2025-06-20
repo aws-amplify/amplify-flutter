@@ -463,21 +463,19 @@ void main() async {
         String document = '';
         Map<String, dynamic> emptyMap = {};
 
-        mockAPIPlugin.subscribeMethod = <T>(
-          GraphQLRequest mockRequest,
-          void Function()? onEstablished,
-        ) {
-          expect(mockRequest.document, document);
-          expect(mockRequest.variables, emptyMap);
-          expect(mockRequest.apiName, null);
-          expect(mockRequest.authorizationMode, null);
-          expect(mockRequest.headers, null);
-          expect(mockRequest.decodePath, null);
-          expect(mockRequest.modelType, null);
+        mockAPIPlugin.subscribeMethod =
+            <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+              expect(mockRequest.document, document);
+              expect(mockRequest.variables, emptyMap);
+              expect(mockRequest.apiName, null);
+              expect(mockRequest.authorizationMode, null);
+              expect(mockRequest.headers, null);
+              expect(mockRequest.decodePath, null);
+              expect(mockRequest.modelType, null);
 
-          var controller = StreamController<GraphQLResponse<T>>();
-          return controller.stream;
-        };
+              var controller = StreamController<GraphQLResponse<T>>();
+              return controller.stream;
+            };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
@@ -504,23 +502,24 @@ void main() async {
         String decodePath = 'decodePath';
         String options = 'options';
 
-        mockAPIPlugin.subscribeMethod = <T>(
-          GraphQLRequest mockRequest,
-          void Function()? onEstablished,
-        ) {
-          expect(mockRequest.id.length, greaterThan(0));
-          expect(mockRequest.document, document);
-          expect(mockRequest.variables[variable1Key], variable1Value);
-          expect(mockRequest.variables[variable2Key], variable2Value);
-          expect(mockRequest.apiName, apiName);
-          expect(mockRequest.authorizationMode, APIAuthorizationType.apiKey);
-          expect(mockRequest.headers, null);
-          expect(mockRequest.decodePath, null);
-          expect(mockRequest.modelType, null);
+        mockAPIPlugin.subscribeMethod =
+            <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+              expect(mockRequest.id.length, greaterThan(0));
+              expect(mockRequest.document, document);
+              expect(mockRequest.variables[variable1Key], variable1Value);
+              expect(mockRequest.variables[variable2Key], variable2Value);
+              expect(mockRequest.apiName, apiName);
+              expect(
+                mockRequest.authorizationMode,
+                APIAuthorizationType.apiKey,
+              );
+              expect(mockRequest.headers, null);
+              expect(mockRequest.decodePath, null);
+              expect(mockRequest.modelType, null);
 
-          var controller = StreamController<GraphQLResponse<T>>();
-          return controller.stream;
-        };
+              var controller = StreamController<GraphQLResponse<T>>();
+              return controller.stream;
+            };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
@@ -561,12 +560,10 @@ void main() async {
       test('Should handle API exception', () async {
         String exceptionMessage = 'API Exception';
 
-        mockAPIPlugin.subscribeMethod = <T>(
-          GraphQLRequest mockRequest,
-          void Function()? onEstablished,
-        ) {
-          throw NetworkException(exceptionMessage);
-        };
+        mockAPIPlugin.subscribeMethod =
+            <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+              throw NetworkException(exceptionMessage);
+            };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
@@ -585,14 +582,12 @@ void main() async {
       test('Should handle established/connected callback', () async {
         void Function()? onEstablishedCallback;
 
-        mockAPIPlugin.subscribeMethod = <T>(
-          GraphQLRequest mockRequest,
-          void Function()? onEstablished,
-        ) {
-          onEstablishedCallback = onEstablished;
-          var controller = StreamController<GraphQLResponse<T>>();
-          return controller.stream;
-        };
+        mockAPIPlugin.subscribeMethod =
+            <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+              onEstablishedCallback = onEstablished;
+              var controller = StreamController<GraphQLResponse<T>>();
+              return controller.stream;
+            };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
@@ -627,14 +622,12 @@ void main() async {
         String payloadJson = '{"data":$data,"errors":[]}';
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <T>(
-          GraphQLRequest mockRequest,
-          void Function()? onEstablished,
-        ) {
-          var controller = StreamController<GraphQLResponse<T>>();
-          responseController = controller;
-          return controller.stream;
-        };
+        mockAPIPlugin.subscribeMethod =
+            <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+              var controller = StreamController<GraphQLResponse<T>>();
+              responseController = controller;
+              return controller.stream;
+            };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
@@ -676,14 +669,12 @@ void main() async {
 
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <T>(
-          GraphQLRequest mockRequest,
-          void Function()? onEstablished,
-        ) {
-          var controller = StreamController<GraphQLResponse<T>>();
-          responseController = controller;
-          return controller.stream;
-        };
+        mockAPIPlugin.subscribeMethod =
+            <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+              var controller = StreamController<GraphQLResponse<T>>();
+              responseController = controller;
+              return controller.stream;
+            };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
@@ -728,14 +719,12 @@ void main() async {
             '{"data":{},"errors":[{"message":"Error parsing payload json: FormatException: Unexpected character (at character 1)\\nInvalid Json\\n^\\n"}]}';
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <T>(
-          GraphQLRequest mockRequest,
-          void Function()? onEstablished,
-        ) {
-          var controller = StreamController<GraphQLResponse<T>>();
-          responseController = controller;
-          return controller.stream;
-        };
+        mockAPIPlugin.subscribeMethod =
+            <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+              var controller = StreamController<GraphQLResponse<T>>();
+              responseController = controller;
+              return controller.stream;
+            };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
@@ -775,14 +764,12 @@ void main() async {
 
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <T>(
-          GraphQLRequest mockRequest,
-          void Function()? onEstablished,
-        ) {
-          var controller = StreamController<GraphQLResponse<T>>();
-          responseController = controller;
-          return controller.stream;
-        };
+        mockAPIPlugin.subscribeMethod =
+            <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+              var controller = StreamController<GraphQLResponse<T>>();
+              responseController = controller;
+              return controller.stream;
+            };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
@@ -816,14 +803,12 @@ void main() async {
       test('Should handle send done event', () async {
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <T>(
-          GraphQLRequest mockRequest,
-          void Function()? onEstablished,
-        ) {
-          var controller = StreamController<GraphQLResponse<T>>();
-          responseController = controller;
-          return controller.stream;
-        };
+        mockAPIPlugin.subscribeMethod =
+            <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+              var controller = StreamController<GraphQLResponse<T>>();
+              responseController = controller;
+              return controller.stream;
+            };
 
         NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
@@ -853,13 +838,11 @@ void main() async {
 
       group('Unubscribe', () {
         test('Should handle existing subscription', () async {
-          mockAPIPlugin.subscribeMethod = <T>(
-            GraphQLRequest mockRequest,
-            void Function()? onEstablished,
-          ) {
-            var controller = StreamController<GraphQLResponse<T>>();
-            return controller.stream;
-          };
+          mockAPIPlugin.subscribeMethod =
+              <T>(GraphQLRequest mockRequest, void Function()? onEstablished) {
+                var controller = StreamController<GraphQLResponse<T>>();
+                return controller.stream;
+              };
 
           NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 

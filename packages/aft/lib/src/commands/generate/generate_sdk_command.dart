@@ -143,18 +143,20 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       await outputDir.create(recursive: true);
     }
 
-    final smithyModel =
-        SmithyAstBuilder()
-          ..version = SmithyVersion.v2
-          ..shapes = ShapeMap({});
+    final smithyModel = SmithyAstBuilder()
+      ..version = SmithyVersion.v2
+      ..shapes = ShapeMap({});
 
     final modelsDir = await _modelsDirForRef(config.ref);
     final models = modelsDir.list().whereType<File>();
     await for (final model in models) {
       final astJson = await model.readAsString();
       final ast = parseAstJson(astJson);
-      final serviceNamespace =
-          ast.shapes.values.whereType<ServiceShape>().single.shapeId.namespace;
+      final serviceNamespace = ast.shapes.values
+          .whereType<ServiceShape>()
+          .single
+          .shapeId
+          .namespace;
       if (!config.apis.containsKey(serviceNamespace)) {
         continue;
       }
@@ -229,11 +231,10 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
         ),
       );
       final generatedAst = SmithyAst(
-        (b) =>
-            b
-              ..shapes = generatedShapes
-              ..metadata.replace(smithyAst.metadata)
-              ..version = smithyAst.version,
+        (b) => b
+          ..shapes = generatedShapes
+          ..metadata.replace(smithyAst.metadata)
+          ..version = smithyAst.version,
       );
       final pluginCmd = await Process.start('dart', [
         plugin,
@@ -271,38 +272,34 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
     /// This enumeration is used to configure the SigV4 signer. To use a service
     /// that is not listed here, call [AWSService.new] directly.''';
     final builder = LibraryBuilder();
-    final awsService =
-        ClassBuilder()
-          ..name = 'AWSService'
-          ..docs.add(classDocs)
-          ..constructors.add(
-            Constructor(
-              (c) =>
-                  c
-                    ..constant = true
-                    ..docs.add(
-                      '/// Creates a new [AWSService] instance which can be passed to a SigV4 signer.',
-                    )
-                    ..requiredParameters.addAll([
-                      Parameter(
-                        (p) =>
-                            p
-                              ..toThis = true
-                              ..name = 'service',
-                      ),
-                    ]),
-            ),
-          )
-          ..fields.addAll([
-            Field(
-              (f) =>
-                  f
-                    ..modifier = FieldModifier.final$
-                    ..docs.add('/// The SigV4 service name, used in signing.')
-                    ..name = 'service'
-                    ..type = refer('String'),
-            ),
-          ]);
+    final awsService = ClassBuilder()
+      ..name = 'AWSService'
+      ..docs.add(classDocs)
+      ..constructors.add(
+        Constructor(
+          (c) => c
+            ..constant = true
+            ..docs.add(
+              '/// Creates a new [AWSService] instance which can be passed to a SigV4 signer.',
+            )
+            ..requiredParameters.addAll([
+              Parameter(
+                (p) => p
+                  ..toThis = true
+                  ..name = 'service',
+              ),
+            ]),
+        ),
+      )
+      ..fields.addAll([
+        Field(
+          (f) => f
+            ..modifier = FieldModifier.final$
+            ..docs.add('/// The SigV4 service name, used in signing.')
+            ..name = 'service'
+            ..type = refer('String'),
+        ),
+      ]);
 
     final modelsDir = await _modelsDirForRef('main');
     final models = modelsDir.list().whereType<File>();
@@ -323,16 +320,14 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       logger.debug('Found AWS service "$serviceName"');
       services.add(
         Field(
-          (f) =>
-              f
-                ..static = true
-                ..modifier = FieldModifier.constant
-                ..docs.addAll([if (title != null) '/// $title'])
-                ..name = serviceName
-                ..assignment =
-                    refer(
-                      'AWSService',
-                    ).constInstance([literalString(sigV4Service)]).code,
+          (f) => f
+            ..static = true
+            ..modifier = FieldModifier.constant
+            ..docs.addAll([if (title != null) '/// $title'])
+            ..name = serviceName
+            ..assignment = refer(
+              'AWSService',
+            ).constInstance([literalString(sigV4Service)]).code,
         ),
       );
     }
@@ -348,7 +343,8 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       orderDirectives: true,
       useNullSafetySyntax: true,
     );
-    final code = '''
+    final code =
+        '''
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 

@@ -98,9 +98,8 @@ class _$MalformedTimestampPathDefaultInputPayload
     extends MalformedTimestampPathDefaultInputPayload {
   factory _$MalformedTimestampPathDefaultInputPayload([
     void Function(MalformedTimestampPathDefaultInputPayloadBuilder)? updates,
-  ]) =>
-      (MalformedTimestampPathDefaultInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedTimestampPathDefaultInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampPathDefaultInputPayload._() : super._();
   @override

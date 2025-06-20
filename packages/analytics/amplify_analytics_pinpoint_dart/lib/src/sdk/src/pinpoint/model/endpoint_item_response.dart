@@ -39,10 +39,9 @@ abstract class EndpointItemResponse
   List<Object?> get props => [message, statusCode];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EndpointItemResponse')
-          ..add('message', message)
-          ..add('statusCode', statusCode);
+    final helper = newBuiltValueToStringHelper('EndpointItemResponse')
+      ..add('message', message)
+      ..add('statusCode', statusCode);
     return helper.toString();
   }
 }

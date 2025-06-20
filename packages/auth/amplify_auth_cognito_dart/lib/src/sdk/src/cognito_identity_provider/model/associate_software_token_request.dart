@@ -57,10 +57,9 @@ abstract class AssociateSoftwareTokenRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AssociateSoftwareTokenRequest')
-          ..add('accessToken', '***SENSITIVE***')
-          ..add('session', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('AssociateSoftwareTokenRequest')
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('session', '***SENSITIVE***');
     return helper.toString();
   }
 }

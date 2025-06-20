@@ -100,8 +100,9 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     );
     Map<String, String>? validationData;
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      final nativeValidationData =
-          await stateMachine.expect<NativeAuthBridge>().getValidationData();
+      final nativeValidationData = await stateMachine
+          .expect<NativeAuthBridge>()
+          .getValidationData();
       validationData = nativeValidationData.cast();
     }
     options = SignUpOptions(

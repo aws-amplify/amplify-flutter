@@ -70,11 +70,10 @@ abstract class GetCredentialsForIdentityInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetCredentialsForIdentityInput')
-          ..add('identityId', identityId)
-          ..add('logins', logins)
-          ..add('customRoleArn', customRoleArn);
+    final helper = newBuiltValueToStringHelper('GetCredentialsForIdentityInput')
+      ..add('identityId', identityId)
+      ..add('logins', logins)
+      ..add('customRoleArn', customRoleArn);
     return helper.toString();
   }
 }

@@ -35,10 +35,9 @@ void main(List<String> args) async {
 
   // Read from stdin or inputFile, depending on configuration.
   final inputFile = config.inputFile;
-  final json =
-      inputFile != null
-          ? File(inputFile).readAsStringSync()
-          : stdin.readLineSync(encoding: utf8);
+  final json = inputFile != null
+      ? File(inputFile).readAsStringSync()
+      : stdin.readLineSync(encoding: utf8);
   if (json == null) {
     usage();
   }
@@ -82,12 +81,11 @@ void main(List<String> args) async {
         '${packageName.split('_').map((s) => s.capitalized).join(' ')} SDK',
     version: Version(0, 1, 0),
   );
-  final pubspecYaml =
-      PubspecGenerator(
-        pubspec,
-        dependencies,
-        smithyPath: config.smithyPath,
-      ).generate();
+  final pubspecYaml = PubspecGenerator(
+    pubspec,
+    dependencies,
+    smithyPath: config.smithyPath,
+  ).generate();
 
   await File(pubspecPath).writeAsString(pubspecYaml);
 

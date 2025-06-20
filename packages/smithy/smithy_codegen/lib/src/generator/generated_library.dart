@@ -25,12 +25,11 @@ class GeneratedLibrary with AWSEquatable<GeneratedLibrary> {
       smithyLibrary,
       withPrefixing: withPrefixingStrategy,
     );
-    final output =
-        StringBuffer()
-          ..write(header)
-          ..writeln()
-          ..write(libraryDocs ?? '')
-          ..write(format('${library.accept(buildEmitter(allocator))}'));
+    final output = StringBuffer()
+      ..write(header)
+      ..writeln()
+      ..write(libraryDocs ?? '')
+      ..write(format('${library.accept(buildEmitter(allocator))}'));
     dependencies.addAll(allocator.dependencies);
     return output.toString();
   }

@@ -98,11 +98,11 @@ void main() {
         // Add state machine dependencies.
         stateMachine.addInstance(
           EndpointInfoStoreManager(
-            store:
-                MockSecureStorage()..write(
-                  key: testPinpointAppId + EndpointStoreKey.endpointId.name,
-                  value: testEndpointId,
-                ),
+            store: MockSecureStorage()
+              ..write(
+                key: testPinpointAppId + EndpointStoreKey.endpointId.name,
+                value: testEndpointId,
+              ),
           ),
         );
 

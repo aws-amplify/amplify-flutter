@@ -75,8 +75,9 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
       (element) => element.group,
     );
 
-    final versionText =
-        version == nextVersion ? nextVersionTag : version.toString();
+    final versionText = version == nextVersion
+        ? nextVersionTag
+        : version.toString();
     final header = Element.text('h2', versionText);
     final nodes = <Node>[header];
 

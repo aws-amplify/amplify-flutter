@@ -52,10 +52,9 @@ class CpkPostTags extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -69,10 +68,9 @@ class CpkPostTags extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -171,51 +169,45 @@ class CpkPostTags extends amplify_core.Model {
   }) {
     return CpkPostTags._internal(
       id: id,
-      cpkManyToManyPost:
-          cpkManyToManyPost == null
-              ? this.cpkManyToManyPost
-              : cpkManyToManyPost.value,
-      cpkManyToManyTag:
-          cpkManyToManyTag == null
-              ? this.cpkManyToManyTag
-              : cpkManyToManyTag.value,
+      cpkManyToManyPost: cpkManyToManyPost == null
+          ? this.cpkManyToManyPost
+          : cpkManyToManyPost.value,
+      cpkManyToManyTag: cpkManyToManyTag == null
+          ? this.cpkManyToManyTag
+          : cpkManyToManyTag.value,
     );
   }
 
   CpkPostTags.fromJson(Map<String, dynamic> json)
     : id = json['id'],
-      _cpkManyToManyPost =
-          json['cpkManyToManyPost'] != null
-              ? json['cpkManyToManyPost']['serializedData'] != null
-                  ? CpkManyToManyPost.fromJson(
+      _cpkManyToManyPost = json['cpkManyToManyPost'] != null
+          ? json['cpkManyToManyPost']['serializedData'] != null
+                ? CpkManyToManyPost.fromJson(
                     new Map<String, dynamic>.from(
                       json['cpkManyToManyPost']['serializedData'],
                     ),
                   )
-                  : CpkManyToManyPost.fromJson(
+                : CpkManyToManyPost.fromJson(
                     new Map<String, dynamic>.from(json['cpkManyToManyPost']),
                   )
-              : null,
-      _cpkManyToManyTag =
-          json['cpkManyToManyTag'] != null
-              ? json['cpkManyToManyTag']['serializedData'] != null
-                  ? CpkManyToManyTag.fromJson(
+          : null,
+      _cpkManyToManyTag = json['cpkManyToManyTag'] != null
+          ? json['cpkManyToManyTag']['serializedData'] != null
+                ? CpkManyToManyTag.fromJson(
                     new Map<String, dynamic>.from(
                       json['cpkManyToManyTag']['serializedData'],
                     ),
                   )
-                  : CpkManyToManyTag.fromJson(
+                : CpkManyToManyTag.fromJson(
                     new Map<String, dynamic>.from(json['cpkManyToManyTag']),
                   )
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -341,10 +333,9 @@ class CpkPostTagsModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

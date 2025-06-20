@@ -72,12 +72,11 @@ abstract class SetUserMfaPreferenceRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SetUserMfaPreferenceRequest')
-          ..add('smsMfaSettings', smsMfaSettings)
-          ..add('softwareTokenMfaSettings', softwareTokenMfaSettings)
-          ..add('emailMfaSettings', emailMfaSettings)
-          ..add('accessToken', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('SetUserMfaPreferenceRequest')
+      ..add('smsMfaSettings', smsMfaSettings)
+      ..add('softwareTokenMfaSettings', softwareTokenMfaSettings)
+      ..add('emailMfaSettings', emailMfaSettings)
+      ..add('accessToken', '***SENSITIVE***');
     return helper.toString();
   }
 }

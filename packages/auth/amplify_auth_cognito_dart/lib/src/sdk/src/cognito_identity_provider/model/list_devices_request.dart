@@ -60,11 +60,10 @@ abstract class ListDevicesRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListDevicesRequest')
-          ..add('accessToken', '***SENSITIVE***')
-          ..add('limit', limit)
-          ..add('paginationToken', paginationToken);
+    final helper = newBuiltValueToStringHelper('ListDevicesRequest')
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('limit', limit)
+      ..add('paginationToken', paginationToken);
     return helper.toString();
   }
 }

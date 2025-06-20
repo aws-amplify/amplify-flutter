@@ -36,10 +36,9 @@ class CognitoUserPoolConfig
       appClientId: authOutputs.userPoolClientId!,
       appClientSecret: authOutputs.appClientSecret,
       region: authOutputs.awsRegion,
-      hostedUI:
-          authOutputs.oauth == null
-              ? null
-              : CognitoOAuthConfig.fromAuthOutputs(authOutputs),
+      hostedUI: authOutputs.oauth == null
+          ? null
+          : CognitoOAuthConfig.fromAuthOutputs(authOutputs),
     );
   }
 

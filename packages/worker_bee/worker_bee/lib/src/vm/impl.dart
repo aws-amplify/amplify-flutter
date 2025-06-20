@@ -114,10 +114,9 @@ mixin WorkerBeeImpl<Request extends Object, Response>
         error as List<Object?>;
         final message = error[0] as String;
         final stackTraceString = error[1] as String?;
-        final stackTrace =
-            stackTraceString == null
-                ? null
-                : StackTrace.fromString(stackTraceString);
+        final stackTrace = stackTraceString == null
+            ? null
+            : StackTrace.fromString(stackTraceString);
         final exception = WorkerBeeExceptionImpl(message, stackTrace);
         _controller?.addError(exception, stackTrace);
         completeError(exception, stackTrace);

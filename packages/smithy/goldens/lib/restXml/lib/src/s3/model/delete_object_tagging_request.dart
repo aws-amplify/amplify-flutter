@@ -85,12 +85,11 @@ abstract class DeleteObjectTaggingRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteObjectTaggingRequest')
-          ..add('bucket', bucket)
-          ..add('key', key)
-          ..add('versionId', versionId)
-          ..add('expectedBucketOwner', expectedBucketOwner);
+    final helper = newBuiltValueToStringHelper('DeleteObjectTaggingRequest')
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('versionId', versionId)
+      ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }

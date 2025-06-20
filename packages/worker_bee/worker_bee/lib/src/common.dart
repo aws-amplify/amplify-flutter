@@ -22,12 +22,10 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
     implements AWSLoggerPlugin, Closeable {
   /// {@macro worker_bee.worker_bee_common}
   WorkerBeeCommon({Serializers? serializers})
-    : serializers =
-          serializers == null
-              ? workerBeeSerializers
-              : (serializers.toBuilder()
-                    ..addAll(workerBeeSerializers.serializers))
-                  .build() {
+    : serializers = serializers == null
+          ? workerBeeSerializers
+          : (serializers.toBuilder()..addAll(workerBeeSerializers.serializers))
+                .build() {
     _checkSerializers();
     _initLogger();
   }
@@ -78,10 +76,9 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
   }
 
   /// Listens for local messages.
-  void _initLogger() =>
-      logger
-        ..logLevel = LogLevel.verbose
-        ..registerPlugin(this);
+  void _initLogger() => logger
+    ..logLevel = LogLevel.verbose
+    ..registerPlugin(this);
 
   /// Operations which must complete before calling [close].
   final List<CancelableOperation<void>> _pendingOperations = [];

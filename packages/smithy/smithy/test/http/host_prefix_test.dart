@@ -14,14 +14,9 @@ void main() {
     test('Test Case 1', () async {
       final op = TestOp1();
       const input = Unit();
-      final req =
-          await op
-              .createRequest(
-                op.buildRequest(input),
-                GenericJsonProtocol(),
-                input,
-              )
-              .transformRequest();
+      final req = await op
+          .createRequest(op.buildRequest(input), GenericJsonProtocol(), input)
+          .transformRequest();
       expect(
         req.uri.host,
         equalsIgnoringCase('data.service.us-west-2.amazonaws.com'),
@@ -31,16 +26,13 @@ void main() {
     test('Test Case 2', () async {
       final op = TestOp2();
       const input = TestOp2Input();
-      final req =
-          await op
-              .createRequest(
-                op.buildRequest(input),
-                GenericJsonProtocol(
-                  serializers: [const TestOp2InputSerializer()],
-                ),
-                input,
-              )
-              .transformRequest();
+      final req = await op
+          .createRequest(
+            op.buildRequest(input),
+            GenericJsonProtocol(serializers: [const TestOp2InputSerializer()]),
+            input,
+          )
+          .transformRequest();
       expect(
         req.uri.host,
         equalsIgnoringCase(

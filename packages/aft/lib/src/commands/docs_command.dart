@@ -157,8 +157,8 @@ abstract class _DocsSubcommand extends AmplifyCommand
         failFast
             ? buildFuture.then((res) => (package, progress, ValueResult(res)))
             : Result.capture(
-              buildFuture,
-            ).then((res) => (package, progress, res)),
+                buildFuture,
+              ).then((res) => (package, progress, res)),
       );
     }
     buildOutputs.close();
@@ -212,10 +212,9 @@ class _DocsBuildSubcommand extends _DocsSubcommand {
     await super.run();
     await linkPackages();
 
-    final outputDir =
-        p.isAbsolute(outputPath)
-            ? outputPath
-            : p.join(rootDir.path, outputPath);
+    final outputDir = p.isAbsolute(outputPath)
+        ? outputPath
+        : p.join(rootDir.path, outputPath);
     await _buildAllDocs(outputDir);
     logger.info('Docs have been written to: $outputDir');
   }
@@ -301,15 +300,10 @@ class _PackageWatcher implements Closeable {
   late final StreamSubscription<FileSystemEvent> _subscription;
 
   void _listenForEvents() {
-    final entitiesToWatch = const [
-          'doc/*.yaml',
-          'doc/lib/',
-          'doc/static/',
-          'lib/',
-          '*.yaml',
-        ]
-        .map((path) => p.join(package.path, path))
-        .expand((subpath) => Glob(subpath).listSync());
+    final entitiesToWatch =
+        const ['doc/*.yaml', 'doc/lib/', 'doc/static/', 'lib/', '*.yaml']
+            .map((path) => p.join(package.path, path))
+            .expand((subpath) => Glob(subpath).listSync());
     final eventStream = StreamGroup.merge([
       for (final entity in entitiesToWatch)
         entity.watch(events: FileSystemEvent.all, recursive: true),

@@ -25,10 +25,9 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
   /// on other platforms.
   /// {@endtemplate}
   @internal
-  FutureOr<void> removeAll() =>
-      throw UnimplementedError(
-        'removeAll is not implemented for this platform',
-      );
+  FutureOr<void> removeAll() => throw UnimplementedError(
+    'removeAll is not implemented for this platform',
+  );
 
   @override
   String get runtimeTypeName => 'SecureStorage';

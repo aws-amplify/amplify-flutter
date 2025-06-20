@@ -66,11 +66,10 @@ abstract class CreateMultipartUploadOutput
     b.key = payload.key;
     b.uploadId = payload.uploadId;
     if (response.headers['x-amz-abort-date'] != null) {
-      b.abortDate =
-          _i2.Timestamp.parse(
-            response.headers['x-amz-abort-date']!,
-            format: _i2.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.abortDate = _i2.Timestamp.parse(
+        response.headers['x-amz-abort-date']!,
+        format: _i2.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (response.headers['x-amz-abort-rule-id'] != null) {
       b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
@@ -208,21 +207,20 @@ abstract class CreateMultipartUploadOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CreateMultipartUploadOutput')
-          ..add('abortDate', abortDate)
-          ..add('abortRuleId', abortRuleId)
-          ..add('bucket', bucket)
-          ..add('key', key)
-          ..add('uploadId', uploadId)
-          ..add('serverSideEncryption', serverSideEncryption)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('ssekmsKeyId', '***SENSITIVE***')
-          ..add('ssekmsEncryptionContext', '***SENSITIVE***')
-          ..add('bucketKeyEnabled', bucketKeyEnabled)
-          ..add('requestCharged', requestCharged)
-          ..add('checksumAlgorithm', checksumAlgorithm);
+    final helper = newBuiltValueToStringHelper('CreateMultipartUploadOutput')
+      ..add('abortDate', abortDate)
+      ..add('abortRuleId', abortRuleId)
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('uploadId', uploadId)
+      ..add('serverSideEncryption', serverSideEncryption)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('ssekmsKeyId', '***SENSITIVE***')
+      ..add('ssekmsEncryptionContext', '***SENSITIVE***')
+      ..add('bucketKeyEnabled', bucketKeyEnabled)
+      ..add('requestCharged', requestCharged)
+      ..add('checksumAlgorithm', checksumAlgorithm);
     return helper.toString();
   }
 }

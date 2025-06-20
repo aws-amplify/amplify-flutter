@@ -33,10 +33,9 @@ mixin AuthenticatorDateField<
   @override
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    final hintText =
-        widget.hintText == null
-            ? inputResolver.resolve(context, widget.hintTextKey!)
-            : widget.hintText!;
+    final hintText = widget.hintText == null
+        ? inputResolver.resolve(context, widget.hintTextKey!)
+        : widget.hintText!;
 
     final now = DateTime.now();
     Future<void> pickTime() async {

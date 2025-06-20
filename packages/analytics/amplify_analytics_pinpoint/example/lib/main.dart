@@ -132,12 +132,11 @@ class _MyAppState extends State<MyApp> {
         region: 'California',
         country: 'USA',
       ),
-      customProperties:
-          CustomProperties()
-            ..addStringProperty('${_userId}_endpoint_stringKey', 'stringValue')
-            ..addIntProperty('${_userId}_endpoint_intKey', 10)
-            ..addDoubleProperty('${_userId}_endpoint_doubleKey', 10)
-            ..addBoolProperty('${_userId}_endpoint_boolKey', false),
+      customProperties: CustomProperties()
+        ..addStringProperty('${_userId}_endpoint_stringKey', 'stringValue')
+        ..addIntProperty('${_userId}_endpoint_intKey', 10)
+        ..addDoubleProperty('${_userId}_endpoint_doubleKey', 10)
+        ..addBoolProperty('${_userId}_endpoint_boolKey', false),
       userAttributes: {
         '${_userId}_user_stringKey': ['stringValue', 'anotherStringValue'],
       },
@@ -234,20 +233,21 @@ class _MyAppState extends State<MyApp> {
                     },
                   ),
                   ElevatedButton(
-                    onPressed:
-                        _amplifyConfigured ? _registerGlobalProperties : null,
+                    onPressed: _amplifyConfigured
+                        ? _registerGlobalProperties
+                        : null,
                     child: const Text('Register Global Prop'),
                   ),
                   ElevatedButton(
-                    onPressed:
-                        _amplifyConfigured ? _unregisterGlobalProperties : null,
+                    onPressed: _amplifyConfigured
+                        ? _unregisterGlobalProperties
+                        : null,
                     child: const Text('Unregister Global Prop'),
                   ),
                   ElevatedButton(
-                    onPressed:
-                        _amplifyConfigured
-                            ? _unregisterAllGlobalProperties
-                            : null,
+                    onPressed: _amplifyConfigured
+                        ? _unregisterAllGlobalProperties
+                        : null,
                     child: const Text('Unregister All Global Prop'),
                   ),
                   const Divider(

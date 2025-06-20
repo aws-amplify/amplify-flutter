@@ -65,11 +65,10 @@ void main() {
         }
       });
       testWidgets('eq() & eq()', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.stringValue == valueTwo)
-                .where((model) => model.altStringValue == valueThree)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.stringValue == valueTwo)
+            .where((model) => model.altStringValue == valueThree)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.STRINGVALUE
@@ -80,11 +79,10 @@ void main() {
       });
 
       testWidgets('ne() & ne()', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.stringValue != valueTwo)
-                .where((model) => model.altStringValue != valueThree)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.stringValue != valueTwo)
+            .where((model) => model.altStringValue != valueThree)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.STRINGVALUE
@@ -95,11 +93,10 @@ void main() {
       });
 
       testWidgets('ne() & ne() on the same field', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.stringValue != valueTwo)
-                .where((model) => model.stringValue != valueThree)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.stringValue != valueTwo)
+            .where((model) => model.stringValue != valueThree)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.STRINGVALUE
@@ -110,13 +107,10 @@ void main() {
       });
 
       testWidgets('lt() & lt()', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.stringValue!.compareTo(valueTwo) < 0)
-                .where(
-                  (model) => model.altStringValue!.compareTo(valueThree) < 0,
-                )
-                .toList();
+        var expectedModels = models
+            .where((model) => model.stringValue!.compareTo(valueTwo) < 0)
+            .where((model) => model.altStringValue!.compareTo(valueThree) < 0)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.STRINGVALUE
@@ -127,11 +121,10 @@ void main() {
       });
 
       testWidgets('gt() & gt()', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.stringValue!.compareTo(valueOne) > 0)
-                .where((model) => model.altStringValue!.compareTo(valueTwo) > 0)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.stringValue!.compareTo(valueOne) > 0)
+            .where((model) => model.altStringValue!.compareTo(valueTwo) > 0)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.STRINGVALUE
@@ -181,11 +174,10 @@ void main() {
         }
       });
       testWidgets('eq() & eq()', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.intValue == valueTwo)
-                .where((model) => model.altIntValue == valueThree)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.intValue == valueTwo)
+            .where((model) => model.altIntValue == valueThree)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.INTVALUE
@@ -196,11 +188,10 @@ void main() {
       });
 
       testWidgets('ne() & ne()', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.intValue != valueTwo)
-                .where((model) => model.altIntValue != valueThree)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.intValue != valueTwo)
+            .where((model) => model.altIntValue != valueThree)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.INTVALUE
@@ -211,11 +202,10 @@ void main() {
       });
 
       testWidgets('ne() & ne() on the same field', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.intValue != valueTwo)
-                .where((model) => model.intValue != valueThree)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.intValue != valueTwo)
+            .where((model) => model.intValue != valueThree)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.INTVALUE
@@ -226,11 +216,10 @@ void main() {
       });
 
       testWidgets('lt() & lt()', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.intValue!.compareTo(valueTwo) < 0)
-                .where((model) => model.altIntValue!.compareTo(valueThree) < 0)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.intValue!.compareTo(valueTwo) < 0)
+            .where((model) => model.altIntValue!.compareTo(valueThree) < 0)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.INTVALUE
@@ -241,11 +230,10 @@ void main() {
       });
 
       testWidgets('gt() & gt()', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where((model) => model.intValue!.compareTo(valueOne) > 0)
-                .where((model) => model.altIntValue!.compareTo(valueTwo) > 0)
-                .toList();
+        var expectedModels = models
+            .where((model) => model.intValue!.compareTo(valueOne) > 0)
+            .where((model) => model.altIntValue!.compareTo(valueTwo) > 0)
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.INTVALUE
@@ -300,16 +288,15 @@ void main() {
       });
 
       testWidgets('eq() (or)', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where(
-                  (model) =>
-                      model.stringValue == stringValueOne ||
-                      model.altStringValue == stringValueTwo ||
-                      model.intValue == intValueOne ||
-                      model.altIntValue == intValueTwo,
-                )
-                .toList();
+        var expectedModels = models
+            .where(
+              (model) =>
+                  model.stringValue == stringValueOne ||
+                  model.altStringValue == stringValueTwo ||
+                  model.intValue == intValueOne ||
+                  model.altIntValue == intValueTwo,
+            )
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.STRINGVALUE
@@ -341,16 +328,15 @@ void main() {
       });
 
       testWidgets('ne() (or)', (WidgetTester tester) async {
-        var expectedModels =
-            models
-                .where(
-                  (model) =>
-                      model.stringValue != stringValueOne ||
-                      model.altStringValue != stringValueTwo ||
-                      model.intValue != intValueOne ||
-                      model.altIntValue != intValueTwo,
-                )
-                .toList();
+        var expectedModels = models
+            .where(
+              (model) =>
+                  model.stringValue != stringValueOne ||
+                  model.altStringValue != stringValueTwo ||
+                  model.intValue != intValueOne ||
+                  model.altIntValue != intValueTwo,
+            )
+            .toList();
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           where: ModelWithAppsyncScalarTypes.STRINGVALUE

@@ -14,8 +14,9 @@ Future<void> main(List<String> args) => wrapMain(launch);
 Future<void> launch() async {
   await installXcodes();
   final iosVersionArg = core.getInput('ios-version');
-  final iosVersion =
-      iosVersionArg == 'latest' ? await getLatest() : 'iOS $iosVersionArg';
+  final iosVersion = iosVersionArg == 'latest'
+      ? await getLatest()
+      : 'iOS $iosVersionArg';
   core.info('Launching simulator for $iosVersion');
 
   var runtimeIdentifier = await core.withGroup(
@@ -73,8 +74,8 @@ Future<String?> getRuntimeId(String iosVersion) async {
     throw Exception('Could not list runtimes');
   }
   final runtimesJson = jsonDecode(runtimesRes.stdout) as Map<String, Object?>;
-  final runtimes =
-      (runtimesJson['runtimes'] as List<Object?>).cast<Map<String, Object?>>();
+  final runtimes = (runtimesJson['runtimes'] as List<Object?>)
+      .cast<Map<String, Object?>>();
   final versionRuntime = runtimes.firstWhereOrNull(
     (runtime) => (runtime['name'] as String).startsWith(iosVersion),
   );

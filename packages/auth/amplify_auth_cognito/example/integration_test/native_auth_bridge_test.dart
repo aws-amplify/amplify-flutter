@@ -34,15 +34,14 @@ void main() {
       late HostedUiPlatformImpl platform;
 
       setUp(() async {
-        dependencyManager =
-            DependencyManager()
-              ..addInstance<AuthOutputs>(mockConfig.auth!)
-              ..addInstance<SecureStorageInterface>(MockSecureStorage())
-              ..addInstance<http.Client>(
-                MockClient((request) {
-                  throw UnimplementedError();
-                }),
-              );
+        dependencyManager = DependencyManager()
+          ..addInstance<AuthOutputs>(mockConfig.auth!)
+          ..addInstance<SecureStorageInterface>(MockSecureStorage())
+          ..addInstance<http.Client>(
+            MockClient((request) {
+              throw UnimplementedError();
+            }),
+          );
         platform = HostedUiPlatformImpl(dependencyManager);
       });
 

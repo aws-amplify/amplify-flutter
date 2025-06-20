@@ -87,12 +87,11 @@ abstract class MalformedIntegerInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedIntegerInput')
-          ..add('integerInBody', integerInBody)
-          ..add('integerInPath', integerInPath)
-          ..add('integerInQuery', integerInQuery)
-          ..add('integerInHeader', integerInHeader);
+    final helper = newBuiltValueToStringHelper('MalformedIntegerInput')
+      ..add('integerInBody', integerInBody)
+      ..add('integerInPath', integerInPath)
+      ..add('integerInQuery', integerInQuery)
+      ..add('integerInHeader', integerInHeader);
     return helper.toString();
   }
 }

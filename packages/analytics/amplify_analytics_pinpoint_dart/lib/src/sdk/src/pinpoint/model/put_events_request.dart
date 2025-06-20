@@ -67,10 +67,9 @@ abstract class PutEventsRequest
   List<Object?> get props => [applicationId, eventsRequest];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('PutEventsRequest')
-          ..add('applicationId', applicationId)
-          ..add('eventsRequest', eventsRequest);
+    final helper = newBuiltValueToStringHelper('PutEventsRequest')
+      ..add('applicationId', applicationId)
+      ..add('eventsRequest', eventsRequest);
     return helper.toString();
   }
 }

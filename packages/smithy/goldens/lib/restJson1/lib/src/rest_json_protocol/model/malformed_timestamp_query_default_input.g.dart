@@ -100,9 +100,8 @@ class _$MalformedTimestampQueryDefaultInputPayload
     extends MalformedTimestampQueryDefaultInputPayload {
   factory _$MalformedTimestampQueryDefaultInputPayload([
     void Function(MalformedTimestampQueryDefaultInputPayloadBuilder)? updates,
-  ]) =>
-      (MalformedTimestampQueryDefaultInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedTimestampQueryDefaultInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampQueryDefaultInputPayload._() : super._();
   @override

@@ -225,41 +225,40 @@ class HostedUiApp extends StatefulWidget {
 class _HostedUiAppState extends State<HostedUiApp> {
   late final controller = () {
     late final WebViewController controller;
-    controller =
-        WebViewController()
-          ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..setNavigationDelegate(
-            NavigationDelegate(
-              onWebResourceError: (error) {
-                _logger.error(
-                  'Web resource error: ${error.errorCode} ${error.description} ${error.errorType}',
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onWebResourceError: (error) {
+            _logger.error(
+              'Web resource error: ${error.errorCode} ${error.description} ${error.errorType}',
+            );
+          },
+          onPageStarted: (url) {
+            _logger.info('Started loading: $url');
+          },
+          onPageFinished: (url) {
+            _logger.info('Finished loading: $url');
+            if (!widget.platform._controller.isCompleted) {
+              widget.platform._controller.complete(controller);
+            }
+          },
+          onNavigationRequest: (request) {
+            _logger.info('Request to load: ${request.url}');
+            final uri = Uri.parse(request.url);
+            if (uri.scheme == widget.platform.signInRedirectUri.scheme) {
+              if (!widget.platform._oauthParameters.isCompleted) {
+                widget.platform._oauthParameters.complete(
+                  OAuthParameters.fromJson(uri.queryParameters),
                 );
-              },
-              onPageStarted: (url) {
-                _logger.info('Started loading: $url');
-              },
-              onPageFinished: (url) {
-                _logger.info('Finished loading: $url');
-                if (!widget.platform._controller.isCompleted) {
-                  widget.platform._controller.complete(controller);
-                }
-              },
-              onNavigationRequest: (request) {
-                _logger.info('Request to load: ${request.url}');
-                final uri = Uri.parse(request.url);
-                if (uri.scheme == widget.platform.signInRedirectUri.scheme) {
-                  if (!widget.platform._oauthParameters.isCompleted) {
-                    widget.platform._oauthParameters.complete(
-                      OAuthParameters.fromJson(uri.queryParameters),
-                    );
-                  }
-                  return NavigationDecision.prevent;
-                }
-                return NavigationDecision.navigate;
-              },
-            ),
-          )
-          ..loadRequest(widget.initialUri);
+              }
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(widget.initialUri);
     return controller;
   }();
 

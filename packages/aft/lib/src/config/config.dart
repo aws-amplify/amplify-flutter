@@ -358,7 +358,7 @@ class PackageInfo
 
   /// The Dart SDK constraint set by the package.
   VersionConstraint get dartSdkConstraint =>
-      pubspecInfo.pubspec.environment!['sdk']!;
+      pubspecInfo.pubspec.environment['sdk']!;
 
   @override
   List<Object?> get props => [name];

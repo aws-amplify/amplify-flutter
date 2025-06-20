@@ -211,18 +211,21 @@ expect(
       final credentialsType = test.output.credentialType!;
       final expect = switch (credentialsType) {
         // TODO(dnys1): Assume role credentials provider
-        AWSCredentialsType.assumeRole => '''
+        AWSCredentialsType.assumeRole =>
+          '''
 isA<AWSCredentialsProvider>(),
 skip: 'Assume role credentials are not supported yet'
 ''',
-        AWSCredentialsType.session => '''
+        AWSCredentialsType.session =>
+          '''
 isA<StaticCredentialsProvider>().having(
   (p) => p.retrieve().sessionToken,
   'sessionToken',
   isNotNull,
 )
 ''',
-        AWSCredentialsType.basic => '''
+        AWSCredentialsType.basic =>
+          '''
 isA<StaticCredentialsProvider>().having(
   (p) => p.retrieve().sessionToken,
   'sessionToken',

@@ -92,19 +92,18 @@ abstract class SimpleInputParamsInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SimpleInputParamsInput')
-          ..add('foo', foo)
-          ..add('bar', bar)
-          ..add('baz', baz)
-          ..add('bam', bam)
-          ..add('floatValue', floatValue)
-          ..add('boo', boo)
-          ..add('qux', qux)
-          ..add('fooEnum', fooEnum)
-          ..add('hasQueryName', hasQueryName)
-          ..add('hasQueryAndXmlName', hasQueryAndXmlName)
-          ..add('usesXmlName', usesXmlName);
+    final helper = newBuiltValueToStringHelper('SimpleInputParamsInput')
+      ..add('foo', foo)
+      ..add('bar', bar)
+      ..add('baz', baz)
+      ..add('bam', bam)
+      ..add('floatValue', floatValue)
+      ..add('boo', boo)
+      ..add('qux', qux)
+      ..add('fooEnum', fooEnum)
+      ..add('hasQueryName', hasQueryName)
+      ..add('hasQueryAndXmlName', hasQueryAndXmlName)
+      ..add('usesXmlName', usesXmlName);
     return helper.toString();
   }
 }

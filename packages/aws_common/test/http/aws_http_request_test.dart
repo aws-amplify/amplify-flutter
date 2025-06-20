@@ -42,8 +42,8 @@ void main() {
         }),
       );
 
-      request.headers[AWSHeaders.contentLength] =
-          request.contentLength.toString();
+      request.headers[AWSHeaders.contentLength] = request.contentLength
+          .toString();
       await request.send(client: client).response;
     });
 
@@ -133,8 +133,8 @@ void main() {
         }),
       );
 
-      request.headers[AWSHeaders.contentLength] =
-          (await request.contentLength).toString();
+      request.headers[AWSHeaders.contentLength] = (await request.contentLength)
+          .toString();
       await request.send(client: client).response;
     });
 

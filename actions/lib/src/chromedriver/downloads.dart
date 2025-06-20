@@ -27,11 +27,10 @@ final class AllChromeDownloads {
     // If the exact version doesn't match, get the latest for the patch version.
     if (url == null) {
       final patchVersion = version.split('.').sublist(0, 3).join('.');
-      final latestChromeVersion =
-          versions
-              .where((v) => v.version.startsWith(patchVersion))
-              .sortedBy<num>((v) => int.parse(v.version.split('.').last))
-              .lastOrNull;
+      final latestChromeVersion = versions
+          .where((v) => v.version.startsWith(patchVersion))
+          .sortedBy<num>((v) => int.parse(v.version.split('.').last))
+          .lastOrNull;
       url = latestChromeVersion?.chromeDriverUrl(platform);
     }
     return url ??
@@ -54,10 +53,9 @@ final class ChromeVersion {
   final String revision;
   final ChromeVersionDownloads downloads;
 
-  String? chromeDriverUrl(ChromePlatform platform) =>
-      downloads.chromedriver
-          .firstWhereOrNull((download) => download.platform == platform)
-          ?.url;
+  String? chromeDriverUrl(ChromePlatform platform) => downloads.chromedriver
+      .firstWhereOrNull((download) => download.platform == platform)
+      ?.url;
 }
 
 @serializable
@@ -98,7 +96,8 @@ enum ChromePlatform {
     (OS.linux, Arch.x64) => ChromePlatform.linux64,
     (OS.macOS, Arch.x64) => ChromePlatform.macX64,
     (OS.macOS, Arch.arm64) => ChromePlatform.macArm64,
-    final unsupported =>
-      throw UnsupportedError('Unsupported OS/arch combo: $unsupported'),
+    final unsupported => throw UnsupportedError(
+      'Unsupported OS/arch combo: $unsupported',
+    ),
   };
 }

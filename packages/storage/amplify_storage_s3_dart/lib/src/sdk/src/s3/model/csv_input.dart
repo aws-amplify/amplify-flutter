@@ -92,15 +92,14 @@ abstract class CsvInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CsvInput')
-          ..add('fileHeaderInfo', fileHeaderInfo)
-          ..add('comments', comments)
-          ..add('quoteEscapeCharacter', quoteEscapeCharacter)
-          ..add('recordDelimiter', recordDelimiter)
-          ..add('fieldDelimiter', fieldDelimiter)
-          ..add('quoteCharacter', quoteCharacter)
-          ..add('allowQuotedRecordDelimiter', allowQuotedRecordDelimiter);
+    final helper = newBuiltValueToStringHelper('CsvInput')
+      ..add('fileHeaderInfo', fileHeaderInfo)
+      ..add('comments', comments)
+      ..add('quoteEscapeCharacter', quoteEscapeCharacter)
+      ..add('recordDelimiter', recordDelimiter)
+      ..add('fieldDelimiter', fieldDelimiter)
+      ..add('quoteCharacter', quoteCharacter)
+      ..add('allowQuotedRecordDelimiter', allowQuotedRecordDelimiter);
     return helper.toString();
   }
 }

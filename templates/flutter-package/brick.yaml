@@ -3,7 +3,7 @@ description: A starting point for Amplify Flutter packages.
 version: 0.1.0
 
 environment:
-  mason: ">=0.1.0-dev.40 <0.1.0"
+  mason: ^0.1.1
 
 # Variables specify dynamic values that your brick depends on.
 # Zero or more variables can be specified for a given brick.

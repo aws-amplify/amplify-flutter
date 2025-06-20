@@ -350,13 +350,13 @@ class S3UploadTask {
       _uploadCompleter.complete(
         _s3PluginOptions.getProperties
             ? S3Item.fromHeadObjectOutput(
-              await StorageS3Service.headObject(
-                s3client: _s3Client,
-                bucket: _bucket,
-                key: _resolvedPath,
-              ),
-              path: _resolvedPath,
-            )
+                await StorageS3Service.headObject(
+                  s3client: _s3Client,
+                  bucket: _bucket,
+                  key: _resolvedPath,
+                ),
+                path: _resolvedPath,
+              )
             : S3Item(path: _resolvedPath),
       );
 
@@ -430,45 +430,44 @@ class S3UploadTask {
       },
     );
 
-    _subtasksStreamSubscription = _subtasksStreamController.stream.listen((
-      completedSubtask,
-    ) {
-      _completedSubtasks.add(completedSubtask);
-      _transferredBytes += completedSubtask.transferredBytes;
-      _emitTransferProgress();
-      _ongoingSubtasks.remove(completedSubtask.partNumber);
+    _subtasksStreamSubscription =
+        _subtasksStreamController.stream.listen((completedSubtask) {
+          _completedSubtasks.add(completedSubtask);
+          _transferredBytes += completedSubtask.transferredBytes;
+          _emitTransferProgress();
+          _ongoingSubtasks.remove(completedSubtask.partNumber);
 
-      // close the stream if all subtasks are done
-      if (_numOfCompletedSubtasks == _expectedNumOfSubtasks) {
-        _subtasksStreamController.close();
-        return;
-      }
+          // close the stream if all subtasks are done
+          if (_numOfCompletedSubtasks == _expectedNumOfSubtasks) {
+            _subtasksStreamController.close();
+            return;
+          }
 
-      // start next part upload if there are more parts to upload
-      if (_state == StorageTransferState.inProgress) {
-        _startNextUploadPartsBatch();
-      }
-    })..onDone(() async {
-      try {
-        await _completeMultipartUpload();
-        _uploadCompleter.complete(
-          _s3PluginOptions.getProperties
-              ? S3Item.fromHeadObjectOutput(
-                await StorageS3Service.headObject(
-                  s3client: _s3Client,
-                  bucket: _bucket,
-                  key: _resolvedPath,
-                ),
-                path: _resolvedPath,
-              )
-              : S3Item(path: _resolvedPath),
-        );
-        _state = StorageTransferState.success;
-        _emitTransferProgress();
-      } on Exception catch (error, stackTrace) {
-        _completeUploadWithError(error, stackTrace);
-      }
-    });
+          // start next part upload if there are more parts to upload
+          if (_state == StorageTransferState.inProgress) {
+            _startNextUploadPartsBatch();
+          }
+        })..onDone(() async {
+          try {
+            await _completeMultipartUpload();
+            _uploadCompleter.complete(
+              _s3PluginOptions.getProperties
+                  ? S3Item.fromHeadObjectOutput(
+                      await StorageS3Service.headObject(
+                        s3client: _s3Client,
+                        bucket: _bucket,
+                        key: _resolvedPath,
+                      ),
+                      path: _resolvedPath,
+                    )
+                  : S3Item(path: _resolvedPath),
+            );
+            _state = StorageTransferState.success;
+            _emitTransferProgress();
+          } on Exception catch (error, stackTrace) {
+            _completeUploadWithError(error, stackTrace);
+          }
+        });
   }
 
   Future<void> _createMultiPartUpload(AWSFile localFile) async {
@@ -525,14 +524,13 @@ class S3UploadTask {
         ..bucket = _bucket
         ..key = _resolvedPath
         ..uploadId = _multipartUploadId
-        ..multipartUpload =
-            s3.CompletedMultipartUpload(
-              parts:
-                  (_completedSubtasks
-                        ..sort((a, b) => a.partNumber.compareTo(b.partNumber)))
-                      .map((e) => e.completedPart)
-                      .toList(),
-            ).toBuilder();
+        ..multipartUpload = s3.CompletedMultipartUpload(
+          parts:
+              (_completedSubtasks
+                    ..sort((a, b) => a.partNumber.compareTo(b.partNumber)))
+                  .map((e) => e.completedPart)
+                  .toList(),
+        ).toBuilder();
     });
 
     try {
@@ -569,12 +567,12 @@ class S3UploadTask {
     // Otherwise maximum 4 parts of the file can uploaded in parallel.
     final numToBatch =
         _isAWSFileStream && _optimalPartSize > part_size_util.minPartSize
-            ? 1
-            : min(
-              _maxNumParallelTasks - _numOfOngoingSubtasks,
-              _expectedNumOfSubtasks -
-                  (_numOfCompletedSubtasks + _numOfOngoingSubtasks),
-            );
+        ? 1
+        : min(
+            _maxNumParallelTasks - _numOfOngoingSubtasks,
+            _expectedNumOfSubtasks -
+                (_numOfCompletedSubtasks + _numOfOngoingSubtasks),
+          );
 
     _state = StorageTransferState.inProgress;
 
@@ -616,13 +614,12 @@ class S3UploadTask {
     }
     // otherwise allow reading parts in parallel
     else {
-      chunkGetter =
-          () => _localFile!.openRead(
-            (partNumber - 1) * _optimalPartSize,
-            partNumber == _expectedNumOfSubtasks
-                ? _fileSize
-                : partNumber * _optimalPartSize,
-          );
+      chunkGetter = () => _localFile!.openRead(
+        (partNumber - 1) * _optimalPartSize,
+        partNumber == _expectedNumOfSubtasks
+            ? _fileSize
+            : partNumber * _optimalPartSize,
+      );
     }
 
     _ongoingSubtasks[partNumber] = _OngoingSubtask(
@@ -678,10 +675,9 @@ class S3UploadTask {
 
       return _CompletedSubtask(
         partNumber: partNumber,
-        transferredBytes:
-            partNumber == _expectedNumOfSubtasks
-                ? _lastPartSize
-                : _optimalPartSize,
+        transferredBytes: partNumber == _expectedNumOfSubtasks
+            ? _lastPartSize
+            : _optimalPartSize,
         eTag: eTag,
       );
     } on smithy.UnknownSmithyHttpException catch (error) {

@@ -189,9 +189,8 @@ class XmlListsInputOutputBuilder
       _$this._flattenedListWithMemberNamespace ??= _i3.ListBuilder<String>();
   set flattenedListWithMemberNamespace(
     _i3.ListBuilder<String>? flattenedListWithMemberNamespace,
-  ) =>
-      _$this._flattenedListWithMemberNamespace =
-          flattenedListWithMemberNamespace;
+  ) => _$this._flattenedListWithMemberNamespace =
+      flattenedListWithMemberNamespace;
 
   _i3.ListBuilder<String>? _flattenedListWithNamespace;
   _i3.ListBuilder<String> get flattenedListWithNamespace =>
@@ -229,8 +228,8 @@ class XmlListsInputOutputBuilder
       _renamedListMembers = $v.renamedListMembers?.toBuilder();
       _flattenedList = $v.flattenedList?.toBuilder();
       _flattenedList2 = $v.flattenedList2?.toBuilder();
-      _flattenedListWithMemberNamespace =
-          $v.flattenedListWithMemberNamespace?.toBuilder();
+      _flattenedListWithMemberNamespace = $v.flattenedListWithMemberNamespace
+          ?.toBuilder();
       _flattenedListWithNamespace = $v.flattenedListWithNamespace?.toBuilder();
       _structureList = $v.structureList?.toBuilder();
       _flattenedStructureList = $v.flattenedStructureList?.toBuilder();
@@ -269,8 +268,8 @@ class XmlListsInputOutputBuilder
             renamedListMembers: _renamedListMembers?.build(),
             flattenedList: _flattenedList?.build(),
             flattenedList2: _flattenedList2?.build(),
-            flattenedListWithMemberNamespace:
-                _flattenedListWithMemberNamespace?.build(),
+            flattenedListWithMemberNamespace: _flattenedListWithMemberNamespace
+                ?.build(),
             flattenedListWithNamespace: _flattenedListWithNamespace?.build(),
             structureList: _structureList?.build(),
             flattenedStructureList: _flattenedStructureList?.build(),

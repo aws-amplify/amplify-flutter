@@ -33,10 +33,9 @@ abstract class NestedPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('NestedPayload')
-          ..add('greeting', greeting)
-          ..add('name', name);
+    final helper = newBuiltValueToStringHelper('NestedPayload')
+      ..add('greeting', greeting)
+      ..add('name', name);
     return helper.toString();
   }
 }

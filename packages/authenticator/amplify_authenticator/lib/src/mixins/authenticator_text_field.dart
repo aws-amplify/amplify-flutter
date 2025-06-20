@@ -14,20 +14,19 @@ mixin AuthenticatorTextField<
   @override
   Widget buildFormField(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    final hintText =
-        widget.hintText == null
-            ? widget.hintTextKey?.resolve(context, inputResolver)
-            : widget.hintText!;
+    final hintText = widget.hintText == null
+        ? widget.hintTextKey?.resolve(context, inputResolver)
+        : widget.hintText!;
     return ValueListenableBuilder<bool>(
-      valueListenable:
-          AuthenticatorFormState.of(context).obscureTextToggleValue,
+      valueListenable: AuthenticatorFormState.of(
+        context,
+      ).obscureTextToggleValue,
       builder: (BuildContext context, bool toggleObscureText, Widget? _) {
         final obscureText = this.obscureText && toggleObscureText;
         return TextFormField(
-          style:
-              enabled
-                  ? null
-                  : TextStyle(color: Theme.of(context).disabledColor),
+          style: enabled
+              ? null
+              : TextStyle(color: Theme.of(context).disabledColor),
           initialValue: initialValue,
           enabled: enabled,
           validator: widget.validatorOverride ?? validator,

@@ -62,19 +62,17 @@ void main() {
     late Stream<DataStoreHubEvent> eventStream;
 
     setUp(() {
-      eventStream =
-          Stream<DataStoreHubEvent?>.periodic(Duration(milliseconds: 1), (
-                value,
-              ) {
-                if (value == 10) {
-                  return syncQueriesStartedEvent;
-                } else if (value == 4500) {
-                  return modelSyncEvent;
-                }
-                return null;
-              })
-              .where((event) => event is DataStoreHubEvent)
-              .cast<DataStoreHubEvent>();
+      eventStream = Stream<DataStoreHubEvent?>.periodic(
+        Duration(milliseconds: 1),
+        (value) {
+          if (value == 10) {
+            return syncQueriesStartedEvent;
+          } else if (value == 4500) {
+            return modelSyncEvent;
+          }
+          return null;
+        },
+      ).where((event) => event is DataStoreHubEvent).cast<DataStoreHubEvent>();
     });
 
     test('should combine the data from observe, query, and modelSync', () {

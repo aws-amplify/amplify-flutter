@@ -39,10 +39,9 @@ abstract class EventItemResponse
   List<Object?> get props => [message, statusCode];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EventItemResponse')
-          ..add('message', message)
-          ..add('statusCode', statusCode);
+    final helper = newBuiltValueToStringHelper('EventItemResponse')
+      ..add('message', message)
+      ..add('statusCode', statusCode);
     return helper.toString();
   }
 }

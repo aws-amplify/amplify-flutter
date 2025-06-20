@@ -41,34 +41,35 @@ abstract class XmlListsInputOutput
       stringSet: stringSet == null ? null : _i3.BuiltSet(stringSet),
       integerList: integerList == null ? null : _i3.BuiltList(integerList),
       booleanList: booleanList == null ? null : _i3.BuiltList(booleanList),
-      timestampList:
-          timestampList == null ? null : _i3.BuiltList(timestampList),
+      timestampList: timestampList == null
+          ? null
+          : _i3.BuiltList(timestampList),
       enumList: enumList == null ? null : _i3.BuiltList(enumList),
       intEnumList: intEnumList == null ? null : _i3.BuiltList(intEnumList),
-      nestedStringList:
-          nestedStringList == null
-              ? null
-              : _i3.BuiltList(nestedStringList.map((el) => _i3.BuiltList(el))),
-      renamedListMembers:
-          renamedListMembers == null ? null : _i3.BuiltList(renamedListMembers),
-      flattenedList:
-          flattenedList == null ? null : _i3.BuiltList(flattenedList),
-      flattenedList2:
-          flattenedList2 == null ? null : _i3.BuiltList(flattenedList2),
-      flattenedListWithMemberNamespace:
-          flattenedListWithMemberNamespace == null
-              ? null
-              : _i3.BuiltList(flattenedListWithMemberNamespace),
-      flattenedListWithNamespace:
-          flattenedListWithNamespace == null
-              ? null
-              : _i3.BuiltList(flattenedListWithNamespace),
-      structureList:
-          structureList == null ? null : _i3.BuiltList(structureList),
-      flattenedStructureList:
-          flattenedStructureList == null
-              ? null
-              : _i3.BuiltList(flattenedStructureList),
+      nestedStringList: nestedStringList == null
+          ? null
+          : _i3.BuiltList(nestedStringList.map((el) => _i3.BuiltList(el))),
+      renamedListMembers: renamedListMembers == null
+          ? null
+          : _i3.BuiltList(renamedListMembers),
+      flattenedList: flattenedList == null
+          ? null
+          : _i3.BuiltList(flattenedList),
+      flattenedList2: flattenedList2 == null
+          ? null
+          : _i3.BuiltList(flattenedList2),
+      flattenedListWithMemberNamespace: flattenedListWithMemberNamespace == null
+          ? null
+          : _i3.BuiltList(flattenedListWithMemberNamespace),
+      flattenedListWithNamespace: flattenedListWithNamespace == null
+          ? null
+          : _i3.BuiltList(flattenedListWithNamespace),
+      structureList: structureList == null
+          ? null
+          : _i3.BuiltList(structureList),
+      flattenedStructureList: flattenedStructureList == null
+          ? null
+          : _i3.BuiltList(flattenedStructureList),
     );
   }
 
@@ -135,26 +136,25 @@ abstract class XmlListsInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('XmlListsInputOutput')
-          ..add('stringList', stringList)
-          ..add('stringSet', stringSet)
-          ..add('integerList', integerList)
-          ..add('booleanList', booleanList)
-          ..add('timestampList', timestampList)
-          ..add('enumList', enumList)
-          ..add('intEnumList', intEnumList)
-          ..add('nestedStringList', nestedStringList)
-          ..add('renamedListMembers', renamedListMembers)
-          ..add('flattenedList', flattenedList)
-          ..add('flattenedList2', flattenedList2)
-          ..add(
-            'flattenedListWithMemberNamespace',
-            flattenedListWithMemberNamespace,
-          )
-          ..add('flattenedListWithNamespace', flattenedListWithNamespace)
-          ..add('structureList', structureList)
-          ..add('flattenedStructureList', flattenedStructureList);
+    final helper = newBuiltValueToStringHelper('XmlListsInputOutput')
+      ..add('stringList', stringList)
+      ..add('stringSet', stringSet)
+      ..add('integerList', integerList)
+      ..add('booleanList', booleanList)
+      ..add('timestampList', timestampList)
+      ..add('enumList', enumList)
+      ..add('intEnumList', intEnumList)
+      ..add('nestedStringList', nestedStringList)
+      ..add('renamedListMembers', renamedListMembers)
+      ..add('flattenedList', flattenedList)
+      ..add('flattenedList2', flattenedList2)
+      ..add(
+        'flattenedListWithMemberNamespace',
+        flattenedListWithMemberNamespace,
+      )
+      ..add('flattenedListWithNamespace', flattenedListWithNamespace)
+      ..add('structureList', structureList)
+      ..add('flattenedStructureList', flattenedStructureList);
     return helper.toString();
   }
 }

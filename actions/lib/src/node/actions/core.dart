@@ -24,8 +24,8 @@ extension type Core._(JSObject it) {
     final inputValue = _getInput(name);
     return inputValue.isEmpty
         ? (throw StateError(
-          'Input "$name" was required but no value was passed',
-        ))
+            'Input "$name" was required but no value was passed',
+          ))
         : inputValue;
   }
 

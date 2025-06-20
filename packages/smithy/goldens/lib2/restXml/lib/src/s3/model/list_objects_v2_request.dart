@@ -135,18 +135,17 @@ abstract class ListObjectsV2Request
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListObjectsV2Request')
-          ..add('bucket', bucket)
-          ..add('delimiter', delimiter)
-          ..add('encodingType', encodingType)
-          ..add('maxKeys', maxKeys)
-          ..add('prefix', prefix)
-          ..add('continuationToken', continuationToken)
-          ..add('fetchOwner', fetchOwner)
-          ..add('startAfter', startAfter)
-          ..add('requestPayer', requestPayer)
-          ..add('expectedBucketOwner', expectedBucketOwner);
+    final helper = newBuiltValueToStringHelper('ListObjectsV2Request')
+      ..add('bucket', bucket)
+      ..add('delimiter', delimiter)
+      ..add('encodingType', encodingType)
+      ..add('maxKeys', maxKeys)
+      ..add('prefix', prefix)
+      ..add('continuationToken', continuationToken)
+      ..add('fetchOwner', fetchOwner)
+      ..add('startAfter', startAfter)
+      ..add('requestPayer', requestPayer)
+      ..add('expectedBucketOwner', expectedBucketOwner);
     return helper.toString();
   }
 }

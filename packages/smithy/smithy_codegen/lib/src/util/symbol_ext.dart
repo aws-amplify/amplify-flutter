@@ -67,11 +67,10 @@ extension ReferenceHelpers on Reference {
   /// Constructs a `built_value` FullType reference for this.
   Expression fullType([Iterable<Reference>? parameters]) {
     final typeRef = this.typeRef;
-    final ctor =
-        typeRef.isNullable ?? false
-            ? (Iterable<Expression> args) => DartTypes.builtValue.fullType
-                .constInstanceNamed('nullable', args)
-            : DartTypes.builtValue.fullType.constInstance;
+    final ctor = typeRef.isNullable ?? false
+        ? (Iterable<Expression> args) =>
+              DartTypes.builtValue.fullType.constInstanceNamed('nullable', args)
+        : DartTypes.builtValue.fullType.constInstance;
     if (typeRef.types.isEmpty && (parameters == null || parameters.isEmpty)) {
       return ctor([typeRef.unboxed]);
     }
@@ -135,10 +134,9 @@ extension ReferenceHelpers on Reference {
           final childExpression = childSymbol.transformToBuiltValue(name: 'el');
           ref = ref.property('map').call([
             Method(
-              (m) =>
-                  m
-                    ..requiredParameters.add(Parameter((p) => p.name = 'el'))
-                    ..body = childExpression.code,
+              (m) => m
+                ..requiredParameters.add(Parameter((p) => p.name = 'el'))
+                ..body = childExpression.code,
             ).closure,
           ]);
         }
@@ -150,17 +148,15 @@ extension ReferenceHelpers on Reference {
           );
           ref = ref.property('map').call([
             Method(
-              (m) =>
-                  m
-                    ..requiredParameters.addAll([
-                      Parameter((p) => p.name = 'key'),
-                      Parameter((p) => p.name = 'value'),
-                    ])
-                    ..body =
-                        DartTypes.core.mapEntry.newInstance([
-                          refer('key'),
-                          valueExpression,
-                        ]).code,
+              (m) => m
+                ..requiredParameters.addAll([
+                  Parameter((p) => p.name = 'key'),
+                  Parameter((p) => p.name = 'value'),
+                ])
+                ..body = DartTypes.core.mapEntry.newInstance([
+                  refer('key'),
+                  valueExpression,
+                ]).code,
             ).closure,
           ]);
         }
@@ -171,25 +167,22 @@ extension ReferenceHelpers on Reference {
           final childExpression = valueSymbol.transformToBuiltValue(name: 'el');
           final valueExpression = refer('value').property('map').call([
             Method(
-              (m) =>
-                  m
-                    ..requiredParameters.add(Parameter((p) => p.name = 'el'))
-                    ..body = childExpression.code,
+              (m) => m
+                ..requiredParameters.add(Parameter((p) => p.name = 'el'))
+                ..body = childExpression.code,
             ).closure,
           ]);
           ref = ref.property('map').call([
             Method(
-              (m) =>
-                  m
-                    ..requiredParameters.addAll([
-                      Parameter((p) => p.name = 'key'),
-                      Parameter((p) => p.name = 'value'),
-                    ])
-                    ..body =
-                        DartTypes.core.mapEntry.newInstance([
-                          refer('key'),
-                          valueExpression,
-                        ]).code,
+              (m) => m
+                ..requiredParameters.addAll([
+                  Parameter((p) => p.name = 'key'),
+                  Parameter((p) => p.name = 'value'),
+                ])
+                ..body = DartTypes.core.mapEntry.newInstance([
+                  refer('key'),
+                  valueExpression,
+                ]).code,
             ).closure,
           ]);
         }

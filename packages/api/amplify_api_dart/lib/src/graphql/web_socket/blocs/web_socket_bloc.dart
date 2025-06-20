@@ -521,9 +521,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
         }
         prev = status;
       },
-      onError:
-          (Object e, StackTrace st) =>
-              logger.error('Error in connectivity stream $e, $st'),
+      onError: (Object e, StackTrace st) =>
+          logger.error('Error in connectivity stream $e, $st'),
     );
   }
 
@@ -549,9 +548,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
         prev = state;
       },
-      onError:
-          (Object e, StackTrace st) =>
-              logger.error('Error in process life cycle stream $e, $st'),
+      onError: (Object e, StackTrace st) =>
+          logger.error('Error in process life cycle stream $e, $st'),
     );
   }
 

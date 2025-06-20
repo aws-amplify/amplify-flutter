@@ -85,17 +85,16 @@ abstract class SimpleInputParamsInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SimpleInputParamsInput')
-          ..add('foo', foo)
-          ..add('bar', bar)
-          ..add('baz', baz)
-          ..add('bam', bam)
-          ..add('floatValue', floatValue)
-          ..add('boo', boo)
-          ..add('qux', qux)
-          ..add('fooEnum', fooEnum)
-          ..add('integerEnum', integerEnum);
+    final helper = newBuiltValueToStringHelper('SimpleInputParamsInput')
+      ..add('foo', foo)
+      ..add('bar', bar)
+      ..add('baz', baz)
+      ..add('bam', bam)
+      ..add('floatValue', floatValue)
+      ..add('boo', boo)
+      ..add('qux', qux)
+      ..add('fooEnum', fooEnum)
+      ..add('integerEnum', integerEnum);
     return helper.toString();
   }
 }

@@ -66,8 +66,9 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     title: title,
     hintText: hintText,
     titleKey: title == null ? InputResolverKey.customAuthChallengeTitle : null,
-    hintTextKey:
-        hintText == null ? InputResolverKey.customAuthChallengeHint : null,
+    hintTextKey: hintText == null
+        ? InputResolverKey.customAuthChallengeHint
+        : null,
     field: ConfirmSignInField.customChallenge,
     validator: validator,
     autofillHints: autofillHints,

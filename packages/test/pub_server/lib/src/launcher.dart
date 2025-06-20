@@ -166,10 +166,9 @@ class LocalPackage {
   final String path;
   final Pubspec pubspec;
 
-  PackageFlavor get flavor =>
-      pubspec.dependencies.containsKey('flutter')
-          ? PackageFlavor.flutter
-          : PackageFlavor.dart;
+  PackageFlavor get flavor => pubspec.dependencies.containsKey('flutter')
+      ? PackageFlavor.flutter
+      : PackageFlavor.dart;
 }
 
 // TODO(dnys1): Consolidate with `aft` logic.

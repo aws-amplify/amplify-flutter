@@ -622,9 +622,8 @@ class AuthenticatorState extends ChangeNotifier {
     );
     _authBloc.add(AuthConfirmVerifyUser(authConfirmVerifyUserData));
     await nextBlocEvent(
-      where:
-          (state) =>
-              state is UnauthenticatedState || state is AuthenticatedState,
+      where: (state) =>
+          state is UnauthenticatedState || state is AuthenticatedState,
     );
     _setIsBusy(false);
   }

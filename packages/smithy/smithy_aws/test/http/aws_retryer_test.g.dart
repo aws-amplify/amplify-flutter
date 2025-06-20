@@ -17,12 +17,9 @@ TestSuite _$TestSuiteFromJson(Map json) => $checkedCreate('TestSuite', json, (
     ),
     responses: $checkedConvert(
       'responses',
-      (v) =>
-          (v as List<dynamic>)
-              .map(
-                (e) => TestCase.fromJson(Map<String, Object?>.from(e as Map)),
-              )
-              .toList(),
+      (v) => (v as List<dynamic>)
+          .map((e) => TestCase.fromJson(Map<String, Object?>.from(e as Map)))
+          .toList(),
     ),
   );
   return val;

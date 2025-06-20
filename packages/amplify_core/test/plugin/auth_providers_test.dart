@@ -45,10 +45,9 @@ class AuthPlugin extends Fake implements AuthPluginInterface {
     AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    _authProvider =
-        authProviderRepo.getAuthProvider(
-          const MockAuthProviderToken(Category.api),
-        )!;
+    _authProvider = authProviderRepo.getAuthProvider(
+      const MockAuthProviderToken(Category.api),
+    )!;
   }
 }
 
@@ -76,10 +75,9 @@ class ApiPlugin extends Fake implements APIPluginInterface {
     AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    _authProvider =
-        authProviderRepo.getAuthProvider(
-          const MockAuthProviderToken(Category.auth),
-        )!;
+    _authProvider = authProviderRepo.getAuthProvider(
+      const MockAuthProviderToken(Category.auth),
+    )!;
   }
 }
 

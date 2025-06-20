@@ -213,10 +213,9 @@ class AWSFilePlatform extends AWSFile {
     var currentPosition = 0;
 
     while (currentPosition < blob.size) {
-      final readRange =
-          currentPosition + _readStreamChunkSize > blob.size
-              ? blob.size
-              : currentPosition + _readStreamChunkSize;
+      final readRange = currentPosition + _readStreamChunkSize > blob.size
+          ? blob.size
+          : currentPosition + _readStreamChunkSize;
       final blobToRead = blob.slice(currentPosition, readRange);
 
       final loaded = Completer<void>();

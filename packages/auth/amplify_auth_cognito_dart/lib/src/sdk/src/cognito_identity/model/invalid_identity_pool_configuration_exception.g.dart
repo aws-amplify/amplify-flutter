@@ -15,9 +15,8 @@ class _$InvalidIdentityPoolConfigurationException
 
   factory _$InvalidIdentityPoolConfigurationException([
     void Function(InvalidIdentityPoolConfigurationExceptionBuilder)? updates,
-  ]) =>
-      (InvalidIdentityPoolConfigurationExceptionBuilder()..update(updates))
-          ._build();
+  ]) => (InvalidIdentityPoolConfigurationExceptionBuilder()..update(updates))
+      ._build();
 
   _$InvalidIdentityPoolConfigurationException._({this.message, this.headers})
     : super._();

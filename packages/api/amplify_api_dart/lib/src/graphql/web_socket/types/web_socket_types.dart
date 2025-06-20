@@ -177,10 +177,9 @@ class WebSocketMessage {
     final type = json['type'] as String;
     final messageType = MessageType.fromJson(type);
     final payloadMap = json['payload'] as Map<String, dynamic>?;
-    final payload =
-        payloadMap == null
-            ? null
-            : WebSocketMessagePayload.fromJson(payloadMap, messageType);
+    final payload = payloadMap == null
+        ? null
+        : WebSocketMessagePayload.fromJson(payloadMap, messageType);
     return WebSocketMessage._(
       id: id,
       messageType: messageType,

@@ -47,10 +47,9 @@ void main() {
 
       test('exec', () async {
         await check(childProcess.exec('echo', ['Hello'])).completes(
-          (it) =>
-              it
-                ..has((res) => res.exitCode, 'exitCode').equals(0)
-                ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
+          (it) => it
+            ..has((res) => res.exitCode, 'exitCode').equals(0)
+            ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
         );
       });
 

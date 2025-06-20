@@ -80,12 +80,11 @@ class ModelWithCustomType extends amplify_core.Model {
     return ModelWithCustomType._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       customTypeValue: customTypeValue,
-      listOfCustomTypeValue:
-          listOfCustomTypeValue != null
-              ? List<CustomTypeWithAppsyncScalarTypes>.unmodifiable(
-                listOfCustomTypeValue,
-              )
-              : listOfCustomTypeValue,
+      listOfCustomTypeValue: listOfCustomTypeValue != null
+          ? List<CustomTypeWithAppsyncScalarTypes>.unmodifiable(
+              listOfCustomTypeValue,
+            )
+          : listOfCustomTypeValue,
     );
   }
 
@@ -156,58 +155,51 @@ class ModelWithCustomType extends amplify_core.Model {
   }) {
     return ModelWithCustomType._internal(
       id: id,
-      customTypeValue:
-          customTypeValue == null
-              ? this.customTypeValue
-              : customTypeValue.value,
-      listOfCustomTypeValue:
-          listOfCustomTypeValue == null
-              ? this.listOfCustomTypeValue
-              : listOfCustomTypeValue.value,
+      customTypeValue: customTypeValue == null
+          ? this.customTypeValue
+          : customTypeValue.value,
+      listOfCustomTypeValue: listOfCustomTypeValue == null
+          ? this.listOfCustomTypeValue
+          : listOfCustomTypeValue.value,
     );
   }
 
   ModelWithCustomType.fromJson(Map<String, dynamic> json)
     : id = json['id'],
-      _customTypeValue =
-          json['customTypeValue'] != null
-              ? json['customTypeValue']['serializedData'] != null
-                  ? CustomTypeWithAppsyncScalarTypes.fromJson(
+      _customTypeValue = json['customTypeValue'] != null
+          ? json['customTypeValue']['serializedData'] != null
+                ? CustomTypeWithAppsyncScalarTypes.fromJson(
                     new Map<String, dynamic>.from(
                       json['customTypeValue']['serializedData'],
                     ),
                   )
-                  : CustomTypeWithAppsyncScalarTypes.fromJson(
+                : CustomTypeWithAppsyncScalarTypes.fromJson(
                     new Map<String, dynamic>.from(json['customTypeValue']),
                   )
-              : null,
-      _listOfCustomTypeValue =
-          json['listOfCustomTypeValue'] is List
-              ? (json['listOfCustomTypeValue'] as List)
-                  .where((e) => e != null)
-                  .map(
-                    (e) => CustomTypeWithAppsyncScalarTypes.fromJson(
-                      new Map<String, dynamic>.from(e['serializedData'] ?? e),
-                    ),
-                  )
-                  .toList()
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+          : null,
+      _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
+          ? (json['listOfCustomTypeValue'] as List)
+                .where((e) => e != null)
+                .map(
+                  (e) => CustomTypeWithAppsyncScalarTypes.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'] ?? e),
+                  ),
+                )
+                .toList()
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'customTypeValue': _customTypeValue?.toJson(),
-    'listOfCustomTypeValue':
-        _listOfCustomTypeValue
-            ?.map((CustomTypeWithAppsyncScalarTypes? e) => e?.toJson())
-            .toList(),
+    'listOfCustomTypeValue': _listOfCustomTypeValue
+        ?.map((CustomTypeWithAppsyncScalarTypes? e) => e?.toJson())
+        .toList(),
     'createdAt': _createdAt?.format(),
     'updatedAt': _updatedAt?.format(),
   };
@@ -317,10 +309,9 @@ class ModelWithCustomTypeModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

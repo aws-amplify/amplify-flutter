@@ -52,8 +52,8 @@ void main() {
           // ignore: invalid_use_of_internal_member
           final config = await Amplify.asyncConfig;
           final authConfig = config.auth!;
-          client =
-              AWSHttpClient()..supportedProtocols = SupportedProtocols.http1;
+          client = AWSHttpClient()
+            ..supportedProtocols = SupportedProtocols.http1;
           cognitoClient = cognito_idp.CognitoIdentityProviderClient(
             region: authConfig.awsRegion,
           );
@@ -146,12 +146,8 @@ void main() {
             because: 'Sign out should succeed even if user is deleted',
             cognitoPlugin.signOut(),
           ).completes(
-            (it) =>
-                it
-                  ..has(
-                    (res) => res.signedOutLocally,
-                    'signedOutLocally',
-                  ).isTrue(),
+            (it) => it
+              ..has((res) => res.signedOutLocally, 'signedOutLocally').isTrue(),
           );
         });
 
@@ -187,10 +183,9 @@ void main() {
                   'credentials are expired',
               cognitoPlugin.signOut(),
             ).completes(
-              (it) =>
-                  it
-                      .has((res) => res.signedOutLocally, 'signedOutLocally')
-                      .isTrue(),
+              (it) => it
+                  .has((res) => res.signedOutLocally, 'signedOutLocally')
+                  .isTrue(),
             );
           },
         );

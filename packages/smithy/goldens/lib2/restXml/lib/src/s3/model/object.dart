@@ -59,14 +59,13 @@ abstract class S3Object
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('S3Object')
-          ..add('key', key)
-          ..add('lastModified', lastModified)
-          ..add('eTag', eTag)
-          ..add('size', size)
-          ..add('storageClass', storageClass)
-          ..add('owner', owner);
+    final helper = newBuiltValueToStringHelper('S3Object')
+      ..add('key', key)
+      ..add('lastModified', lastModified)
+      ..add('eTag', eTag)
+      ..add('size', size)
+      ..add('storageClass', storageClass)
+      ..add('owner', owner);
     return helper.toString();
   }
 }

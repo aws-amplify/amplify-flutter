@@ -192,10 +192,9 @@ class DeleteObjectsOperation
     b,
   ) {
     b.method = 'POST';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}?delete&x-id=DeleteObjects'
-            : r'/?delete&x-id=DeleteObjects';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}?delete&x-id=DeleteObjects'
+        : r'/?delete&x-id=DeleteObjects';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.mfa != null) {
       if (input.mfa!.isNotEmpty) {
@@ -206,8 +205,9 @@ class DeleteObjectsOperation
       b.headers['x-amz-request-payer'] = input.requestPayer!.value;
     }
     if (input.bypassGovernanceRetention != null) {
-      b.headers['x-amz-bypass-governance-retention'] =
-          input.bypassGovernanceRetention!.toString();
+      b.headers['x-amz-bypass-governance-retention'] = input
+          .bypassGovernanceRetention!
+          .toString();
     }
     if (input.expectedBucketOwner != null) {
       if (input.expectedBucketOwner!.isNotEmpty) {

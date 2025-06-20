@@ -102,8 +102,9 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
   Widget? get companionWidget {
     switch (widget.field) {
       case ConfirmSignUpField.code:
-        final resendCodeButton =
-            InheritedForms.of(context).confirmSignUpForm.resendCodeButton;
+        final resendCodeButton = InheritedForms.of(
+          context,
+        ).confirmSignUpForm.resendCodeButton;
         return resendCodeButton ?? const LostCodeButton(key: keyLostCodeButton);
       default:
         return null;

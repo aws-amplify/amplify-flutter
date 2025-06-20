@@ -58,15 +58,17 @@ void main() {
         // test with partial matches for true
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.eq(true),
-          expectedModels:
-              models.where((element) => element.booleanValue!).toList(),
+          expectedModels: models
+              .where((element) => element.booleanValue!)
+              .toList(),
         );
 
         // test with no matches for false
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.eq(false),
-          expectedModels:
-              models.where((element) => !element.booleanValue!).toList(),
+          expectedModels: models
+              .where((element) => !element.booleanValue!)
+              .toList(),
         );
       });
 
@@ -108,15 +110,17 @@ void main() {
         // test with partial matches for true
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.ne(true),
-          expectedModels:
-              models.where((element) => !element.booleanValue!).toList(),
+          expectedModels: models
+              .where((element) => !element.booleanValue!)
+              .toList(),
         );
 
         // test with partial matches for false
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.BOOLEANVALUE.ne(false),
-          expectedModels:
-              models.where((element) => element.booleanValue!).toList(),
+          expectedModels: models
+              .where((element) => element.booleanValue!)
+              .toList(),
         );
       });
     },

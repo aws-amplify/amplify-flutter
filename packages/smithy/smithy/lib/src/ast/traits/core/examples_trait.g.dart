@@ -8,10 +8,9 @@ part of 'examples_trait.dart';
 
 ExamplesTrait _$ExamplesTraitFromJson(Map<String, dynamic> json) =>
     ExamplesTrait(
-      examples:
-          (json['examples'] as List<dynamic>)
-              .map((e) => Example.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      examples: (json['examples'] as List<dynamic>)
+          .map((e) => Example.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ExamplesTraitToJson(ExamplesTrait instance) =>
@@ -22,10 +21,9 @@ Example _$ExampleFromJson(Map<String, dynamic> json) => Example(
   documentation: json['documentation'] as String?,
   input: json['input'] as Map<String, dynamic>? ?? const {},
   output: json['output'] as Map<String, dynamic>? ?? const {},
-  error:
-      json['error'] == null
-          ? null
-          : ErrorExample.fromJson(json['error'] as Map<String, dynamic>),
+  error: json['error'] == null
+      ? null
+      : ErrorExample.fromJson(json['error'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$ExampleToJson(Example instance) => <String, dynamic>{

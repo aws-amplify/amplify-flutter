@@ -96,18 +96,17 @@ abstract class Event
   ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('Event')
-          ..add('appPackageName', appPackageName)
-          ..add('appTitle', appTitle)
-          ..add('appVersionCode', appVersionCode)
-          ..add('attributes', attributes)
-          ..add('clientSdkVersion', clientSdkVersion)
-          ..add('eventType', eventType)
-          ..add('metrics', metrics)
-          ..add('sdkName', sdkName)
-          ..add('session', session)
-          ..add('timestamp', timestamp);
+    final helper = newBuiltValueToStringHelper('Event')
+      ..add('appPackageName', appPackageName)
+      ..add('appTitle', appTitle)
+      ..add('appVersionCode', appVersionCode)
+      ..add('attributes', attributes)
+      ..add('clientSdkVersion', clientSdkVersion)
+      ..add('eventType', eventType)
+      ..add('metrics', metrics)
+      ..add('sdkName', sdkName)
+      ..add('session', session)
+      ..add('timestamp', timestamp);
     return helper.toString();
   }
 }

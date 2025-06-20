@@ -54,11 +54,10 @@ abstract class QueryTimestampsInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QueryTimestampsInput')
-          ..add('normalFormat', normalFormat)
-          ..add('epochMember', epochMember)
-          ..add('epochTarget', epochTarget);
+    final helper = newBuiltValueToStringHelper('QueryTimestampsInput')
+      ..add('normalFormat', normalFormat)
+      ..add('epochMember', epochMember)
+      ..add('epochTarget', epochTarget);
     return helper.toString();
   }
 }

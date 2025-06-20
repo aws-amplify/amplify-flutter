@@ -25,9 +25,8 @@ class _$HttpRequestWithLabelsAndTimestampFormatInput
 
   factory _$HttpRequestWithLabelsAndTimestampFormatInput([
     void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder)? updates,
-  ]) =>
-      (HttpRequestWithLabelsAndTimestampFormatInputBuilder()..update(updates))
-          ._build();
+  ]) => (HttpRequestWithLabelsAndTimestampFormatInputBuilder()..update(updates))
+      ._build();
 
   _$HttpRequestWithLabelsAndTimestampFormatInput._({
     required this.memberEpochSeconds,

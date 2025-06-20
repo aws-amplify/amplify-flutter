@@ -42,10 +42,9 @@ abstract class Delete
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('Delete')
-          ..add('objects', objects)
-          ..add('quiet', quiet);
+    final helper = newBuiltValueToStringHelper('Delete')
+      ..add('objects', objects)
+      ..add('quiet', quiet);
     return helper.toString();
   }
 }

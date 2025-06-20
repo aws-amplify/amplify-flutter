@@ -10,21 +10,23 @@ JsonWebHeader _$JsonWebHeaderFromJson(Map<String, dynamic> json) =>
     JsonWebHeader(
       algorithm: AlgorithmX.fromJson(json['alg'] as String),
       jwkSetUri: json['jku'] == null ? null : Uri.parse(json['jku'] as String),
-      jwk:
-          json['jwk'] == null
-              ? null
-              : JsonWebKey.fromJson(json['jwk'] as Map<String, dynamic>),
+      jwk: json['jwk'] == null
+          ? null
+          : JsonWebKey.fromJson(json['jwk'] as Map<String, dynamic>),
       keyId: json['kid'] as String?,
-      x509CertChain:
-          (json['x5c'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      x509sha1Thumbprint:
-          (json['x5t'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      x509CertChain: (json['x5c'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      x509sha1Thumbprint: (json['x5t'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       x509sha256Thumbprint: json['x5t#S256'] as String?,
       x509Uri: json['x5u'] == null ? null : Uri.parse(json['x5u'] as String),
       type: json['typ'] as String?,
       contentType: json['cty'] as String?,
-      critical:
-          (json['crit'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      critical: (json['crit'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$JsonWebHeaderToJson(JsonWebHeader instance) =>

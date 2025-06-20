@@ -10,16 +10,15 @@ import 'package:test/test.dart';
 import '../util.dart';
 
 void main() {
-  final authProviderRepo =
-      AmplifyAuthProviderRepository()
-        ..registerAuthProvider(
-          APIAuthorizationType.apiKey.authProviderToken,
-          AppSyncApiKeyAuthProvider(),
-        )
-        ..registerAuthProvider(
-          APIAuthorizationType.userPools.authProviderToken,
-          TestTokenAuthProvider(),
-        );
+  final authProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      APIAuthorizationType.apiKey.authProviderToken,
+      AppSyncApiKeyAuthProvider(),
+    )
+    ..registerAuthProvider(
+      APIAuthorizationType.userPools.authProviderToken,
+      TestTokenAuthProvider(),
+    );
 
   const graphQLDocument = '''subscription MySubscription {
     onCreateBlog {

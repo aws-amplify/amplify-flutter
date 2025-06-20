@@ -124,13 +124,12 @@ class SignUpView extends StatelessWidget {
                 // custom form validation will prevent sign up if the checkbox is not
                 // checked, and a custom error message will be displayed.
                 TermsAndConditionsCheckBox(
-                  onChanged:
-                      (value) => state.setCustomAttribute(
-                        const CognitoUserAttributeKey.custom(
-                          'terms-and-conditions',
-                        ),
-                        value.toString(),
-                      ),
+                  onChanged: (value) => state.setCustomAttribute(
+                    const CognitoUserAttributeKey.custom(
+                      'terms-and-conditions',
+                    ),
+                    value.toString(),
+                  ),
                 ),
 
                 // prebuilt sign up button from amplify_authenticator package
@@ -213,9 +212,8 @@ class TermsAndConditionsCheckBox extends FormField<bool> {
                   onPressed: () {
                     Navigator.of(state.context).push(
                       MaterialPageRoute<void>(
-                        builder:
-                            (BuildContext context) =>
-                                const TermsAndConditionsView(),
+                        builder: (BuildContext context) =>
+                            const TermsAndConditionsView(),
                       ),
                     );
                   },
@@ -228,18 +226,16 @@ class TermsAndConditionsCheckBox extends FormField<bool> {
               onChanged(value);
               state.didChange(value);
             },
-            subtitle:
-                state.hasError
-                    ? Builder(
-                      builder:
-                          (BuildContext context) => Text(
-                            state.errorText!,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                          ),
-                    )
-                    : null,
+            subtitle: state.hasError
+                ? Builder(
+                    builder: (BuildContext context) => Text(
+                      state.errorText!,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                  )
+                : null,
             controlAffinity: ListTileControlAffinity.leading,
           );
         },

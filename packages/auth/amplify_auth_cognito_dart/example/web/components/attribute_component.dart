@@ -86,8 +86,9 @@ class UserAttributeComponent extends StatefulComponent {
             ),
           ),
         );
-        final firstUnconfirmedAttr =
-            res.entries.firstWhere((el) => !el.value.isUpdated).value;
+        final firstUnconfirmedAttr = res.entries
+            .firstWhere((el) => !el.value.isUpdated)
+            .value;
         if (firstUnconfirmedAttr.nextStep.codeDeliveryDetails?.deliveryMedium ==
             DeliveryMedium.email) {
           onConfirm(AuthState.confirmEmail);

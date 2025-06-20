@@ -154,11 +154,10 @@ class SmithyIntEnumSerializer<T extends SmithyIntEnum<T>>
     return switch (serialized) {
       num _ => serialized.toInt(),
       String _ => num.parse(serialized).toInt(),
-      _ =>
-        throw ArgumentError(
-          'Invalid serialized value: $serialized (${serialized.runtimeType}). '
-          'Expected int or String.',
-        ),
+      _ => throw ArgumentError(
+        'Invalid serialized value: $serialized (${serialized.runtimeType}). '
+        'Expected int or String.',
+      ),
     };
   }
 }
