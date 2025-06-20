@@ -127,7 +127,6 @@ class PubPackageVersion {
     required this.readme,
     required this.published,
     required this.archiveSha256,
-    
   });
 
   PubPackageVersion.fromDb(PackageVersion version)
