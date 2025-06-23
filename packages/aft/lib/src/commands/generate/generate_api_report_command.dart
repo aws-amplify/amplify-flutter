@@ -68,9 +68,6 @@ class GenerateApiReportCommand extends AmplifyCommand {
         }).toList();
       }
       
-      // Sort package paths for deterministic processing
-      packagePaths.sort();
-      
       for (final packagePath in packagePaths) {
         logger.info('Processing $packagePath...');
         try {
@@ -187,7 +184,8 @@ class GenerateApiReportCommand extends AmplifyCommand {
         if (packageApi.containsKey('interfaceDeclarations')) {
           final interfaceDeclarations = packageApi['interfaceDeclarations'];
           
-          // Sort interface declarations and executable declarations for deterministic output
+          // Sort interface declarations for deterministic output
+          // Sort by "executableDeclarations" if they exist
           if (interfaceDeclarations is List) {
             interfaceDeclarations.sort((a, b) {
               if (a is Map && b is Map && a['name'] != null && b['name'] != null) {
@@ -195,19 +193,6 @@ class GenerateApiReportCommand extends AmplifyCommand {
               }
               return 0;
             });
-            
-            // Sort executableDeclarations within each interface
-            for (final declaration in interfaceDeclarations) {
-              if (declaration is Map && declaration['executableDeclarations'] is List) {
-                final executables = declaration['executableDeclarations'] as List;
-                executables.sort((a, b) {
-                  if (a is Map && b is Map && a['name'] != null && b['name'] != null) {
-                    return (a['name'] as String).compareTo(b['name'] as String);
-                  }
-                  return 0;
-                });
-              }
-            }
           }
           
           final simplifiedJson = {
@@ -231,6 +216,4 @@ class GenerateApiReportCommand extends AmplifyCommand {
       logger.warn('Failed to process API JSON for $filePath: $e');
     }
   }
-
-
 }
