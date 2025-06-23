@@ -1,0 +1,94 @@
+name: API Report Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'packages/**/*.dart'
+      - 'packages/**/pubspec.yaml'
+      - '!packages/**/example/**'
+      - '!packages/**/test/**'
+
+jobs:
+  check-api-reports:
+    name: Check API Reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          cache: true
+          channel: 'stable'
+          flutter-version: 'any'
+
+      - name: Setup aft
+        run: flutter pub global activate -spath packages/aft
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast --include=aft --verbose
+
+      - name: Install dart_apitool
+        run: flutter pub global activate dart_apitool
+
+      - name: Generate API reports
+        run: aft generate api-report
+
+      - name: Check for changes in API reports
+        id: check-changes
+        run: |
+          # Debug: Print git status
+          echo "=== DEBUG: Git status ==="
+          git status --porcelain
+          
+          # Check API JSON files for changes
+          API_JSON_CHANGES=$(git status --porcelain | grep 'packages/aft/api_reports/.*\.api\.json' || true)
+          
+          if [[ -n "$API_JSON_CHANGES" ]]; then
+            echo "API report files are not up-to-date. Please run 'aft generate api-report' and commit the changes."
+            git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'
+            # Show summary of API changes instead of full diff
+            for file in $(git diff --name-only | grep -E 'packages/aft/api_reports/.*\.api\.json'); do
+              echo "=== API CHANGES DETECTED in: $file ==="
+              echo "Lines added: $(git diff --numstat "$file" | cut -f1)"
+              echo "Lines removed: $(git diff --numstat "$file" | cut -f2)"
+              echo "First 20 lines of changes:"
+              git diff "$file" | head -20
+              echo "..."
+              echo "Last 10 lines of changes:"
+              git diff "$file" | tail -10
+              echo "=== End of summary for: $file ==="
+            done
+            exit 1
+          else
+            echo "API report files are up-to-date."
+          fi
+
+      - name: Check if API reports are included in PR
+        run: |
+          # Get the list of changed files in the PR
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+          
+          # Check if any Dart files were modified
+          DART_FILES=$(echo "$CHANGED_FILES" | grep -E '\.dart$' || true)
+          if [[ -z "$DART_FILES" ]]; then
+            echo "No Dart files were modified, skipping API report check."
+            exit 0
+          fi
+          
+          # Check if API report files are included
+          API_REPORTS=$(echo "$CHANGED_FILES" | grep -E 'packages/aft/api_reports/.*\.api\.json' || true)
+          if [[ -z "$API_REPORTS" ]]; then
+            echo "Error: API report files are not included in this PR."
+            echo "Please run 'aft generate api-report' and commit the changes."
+            exit 1
+          fi
+          
+          echo "API report files are included in the PR."
