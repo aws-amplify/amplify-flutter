@@ -224,22 +224,13 @@
       ],
       "executableDeclarations": [
         {
-          "returnTypeName": "void",
-          "name": "setOnForegroundListener",
+          "returnTypeName": "AppLifecycleProvider",
+          "name": "new",
           "isDeprecated": false,
           "isExperimental": false,
-          "parameters": [
-            {
-              "isRequired": true,
-              "isNamed": false,
-              "name": "onForeground",
-              "isDeprecated": false,
-              "isExperimental": false,
-              "typeName": "void Function()"
-            }
-          ],
+          "parameters": [],
           "typeParameterNames": [],
-          "type": "method",
+          "type": "constructor",
           "isStatic": false
         },
         {
@@ -252,6 +243,25 @@
               "isRequired": true,
               "isNamed": false,
               "name": "onBackground",
+              "isDeprecated": false,
+              "isExperimental": false,
+              "typeName": "void Function()"
+            }
+          ],
+          "typeParameterNames": [],
+          "type": "method",
+          "isStatic": false
+        },
+        {
+          "returnTypeName": "void",
+          "name": "setOnForegroundListener",
+          "isDeprecated": false,
+          "isExperimental": false,
+          "parameters": [
+            {
+              "isRequired": true,
+              "isNamed": false,
+              "name": "onForeground",
               "isDeprecated": false,
               "isExperimental": false,
               "typeName": "void Function()"
@@ -279,16 +289,6 @@
           "parameters": [],
           "typeParameterNames": [],
           "type": "method",
-          "isStatic": false
-        },
-        {
-          "returnTypeName": "AppLifecycleProvider",
-          "name": "new",
-          "isDeprecated": false,
-          "isExperimental": false,
-          "parameters": [],
-          "typeParameterNames": [],
-          "type": "constructor",
           "isStatic": false
         }
       ],
