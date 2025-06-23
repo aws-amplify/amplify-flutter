@@ -11,6 +11,14 @@ import 'package:path/path.dart' as path;
 
 /// Command to generate API reports for Amplify packages.
 class GenerateApiReportCommand extends AmplifyCommand {
+  GenerateApiReportCommand() {
+    argParser.addOption(
+      'packages',
+      abbr: 'p',
+      help: 'Generate API reports for specific packages only (comma-separated)',
+    );
+  }
+
   @override
   String get description =>
       'Generates API reports for Amplify packages';
@@ -39,7 +47,7 @@ class GenerateApiReportCommand extends AmplifyCommand {
       final failedPackages = <String>[];
 
       // Filter packages to only include development packages (not examples or test packages)
-      final packagePaths = aftConfig.allPackages.values
+      var packagePaths = aftConfig.allPackages.values
           .where((package) => 
               package.isDevelopmentPackage && 
               package.isPublishable &&
@@ -47,6 +55,18 @@ class GenerateApiReportCommand extends AmplifyCommand {
               !package.path.contains('_test'))
           .map((package) => package.path)
           .toList();
+      
+      // Filter by specific packages if provided
+      final specificPackages = argResults?['packages'] as String?;
+      if (specificPackages != null) {
+        final packageNames = specificPackages.split(',').map((s) => s.trim()).toSet();
+        packagePaths = packagePaths.where((path) {
+          final packageName = aftConfig.allPackages.values
+              .firstWhere((pkg) => pkg.path == path)
+              .name;
+          return packageNames.contains(packageName);
+        }).toList();
+      }
       
       for (final packagePath in packagePaths) {
         logger.info('Processing $packagePath...');
