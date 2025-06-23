@@ -144,7 +144,7 @@ class GenerateApiReportCommand extends AmplifyCommand {
 
 
 
-  /// Extracts only the interfaceDeclarations from the generated API JSON file
+  /// Extracts only the essential API information from the generated API JSON file
   /// to avoid frequent changes due to package versions and dependencies
   Future<void> _extractInterfaceDeclarations(String filePath) async {
     try {
@@ -159,17 +159,22 @@ class GenerateApiReportCommand extends AmplifyCommand {
           json['packageApi'] is Map) {
         
         final packageApi = json['packageApi'] as Map;
-        final interfaceDeclarations = packageApi['interfaceDeclarations'];
         
-        // Create a new simplified JSON with only the interfaceDeclarations
-        final simplifiedJson = {
-          'interfaceDeclarations': interfaceDeclarations,
-        };
-
-        const encoder = JsonEncoder.withIndent('  ');
-        await file.writeAsString(encoder.convert(simplifiedJson));
-
-        logger.info('Extracted interfaceDeclarations from $filePath');
+        // Extract only the declarations part without metadata
+        // This focuses on the actual API structure rather than paths and entry points
+        if (packageApi.containsKey('interfaceDeclarations')) {
+          final interfaceDeclarations = packageApi['interfaceDeclarations'];
+          
+          // Create a simplified JSON with only the essential API information
+          final simplifiedJson = {
+            'interfaceDeclarations': interfaceDeclarations
+          };
+          
+          const encoder = JsonEncoder.withIndent('  ');
+          await file.writeAsString(encoder.convert(simplifiedJson));
+          
+          logger.info('Extracted API information from $filePath');
+        }
       }
     } catch (e) {
       logger.warn('Failed to process API JSON for $filePath: $e');
