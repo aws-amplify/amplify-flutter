@@ -25,14 +25,15 @@ abstract class QueryListsInput
   }) {
     return _$QueryListsInput._(
       listArg: listArg == null ? null : _i3.BuiltList(listArg),
-      complexListArg:
-          complexListArg == null ? null : _i3.BuiltList(complexListArg),
-      listArgWithXmlNameMember:
-          listArgWithXmlNameMember == null
-              ? null
-              : _i3.BuiltList(listArgWithXmlNameMember),
-      listArgWithXmlName:
-          listArgWithXmlName == null ? null : _i3.BuiltList(listArgWithXmlName),
+      complexListArg: complexListArg == null
+          ? null
+          : _i3.BuiltList(complexListArg),
+      listArgWithXmlNameMember: listArgWithXmlNameMember == null
+          ? null
+          : _i3.BuiltList(listArgWithXmlNameMember),
+      listArgWithXmlName: listArgWithXmlName == null
+          ? null
+          : _i3.BuiltList(listArgWithXmlName),
       nestedWithList: nestedWithList,
     );
   }
@@ -72,13 +73,12 @@ abstract class QueryListsInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QueryListsInput')
-          ..add('listArg', listArg)
-          ..add('complexListArg', complexListArg)
-          ..add('listArgWithXmlNameMember', listArgWithXmlNameMember)
-          ..add('listArgWithXmlName', listArgWithXmlName)
-          ..add('nestedWithList', nestedWithList);
+    final helper = newBuiltValueToStringHelper('QueryListsInput')
+      ..add('listArg', listArg)
+      ..add('complexListArg', complexListArg)
+      ..add('listArgWithXmlNameMember', listArgWithXmlNameMember)
+      ..add('listArgWithXmlName', listArgWithXmlName)
+      ..add('nestedWithList', nestedWithList);
     return helper.toString();
   }
 }

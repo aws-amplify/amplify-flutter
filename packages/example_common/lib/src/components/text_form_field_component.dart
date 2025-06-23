@@ -50,14 +50,13 @@ class TextFormFieldComponent extends Component {
   final void Function(String? value) onChanged;
 
   late final _labelElement = HTMLLabelElement()..innerHTML = labelText.toJS;
-  late final _inputElement =
-      HTMLInputElement()
-        ..type = type
-        ..required = required
-        ..id = id
-        ..style.width = '100%'
-        ..style.boxSizing = 'border-box'
-        ..value = initialValue ?? '';
+  late final _inputElement = HTMLInputElement()
+    ..type = type
+    ..required = required
+    ..id = id
+    ..style.width = '100%'
+    ..style.boxSizing = 'border-box'
+    ..value = initialValue ?? '';
 
   @override
   Component render() {

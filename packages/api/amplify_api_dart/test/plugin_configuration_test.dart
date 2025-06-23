@@ -54,11 +54,11 @@ final _mockRestClient = MockAWSHttpClient((request, _) async {
 });
 
 void main() {
-  final authProviderRepo =
-      AmplifyAuthProviderRepository()..registerAuthProvider(
-        APIAuthorizationType.iam.authProviderToken,
-        TestIamAuthProvider(),
-      );
+  final authProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      APIAuthorizationType.iam.authProviderToken,
+      TestIamAuthProvider(),
+    );
   final amplifyOutputs = AmplifyOutputs.fromJson(
     jsonDecode(amplifyConfig) as Map<String, Object?>,
   );
@@ -116,8 +116,8 @@ void main() {
         final actualRegisteredProvider = authProviderRepo.getAuthProvider(
           APIAuthorizationType.oidc.authProviderToken,
         );
-        final actualToken =
-            await actualRegisteredProvider!.getLatestAuthToken();
+        final actualToken = await actualRegisteredProvider!
+            .getLatestAuthToken();
         expect(actualToken, testOidcToken);
       },
     );
@@ -141,8 +141,8 @@ void main() {
         final actualRegisteredProvider = authProviderRepo.getAuthProvider(
           APIAuthorizationType.function.authProviderToken,
         );
-        final actualToken =
-            await actualRegisteredProvider!.getLatestAuthToken();
+        final actualToken = await actualRegisteredProvider!
+            .getLatestAuthToken();
         expect(actualToken, testFunctionToken);
       },
     );

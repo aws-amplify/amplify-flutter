@@ -40,8 +40,9 @@ void main() {
     for (var i = 0; i < testCases.length; i++) {
       final testCase = testCases[i];
       test('Test Case $i', () {
-        final partitions =
-            endpoints.values.map((node) => node[testCase.service]).toList();
+        final partitions = endpoints.values
+            .map((node) => node[testCase.service])
+            .toList();
         final endpointResolver = AWSEndpointResolver(partitions);
         expect(
           endpointResolver

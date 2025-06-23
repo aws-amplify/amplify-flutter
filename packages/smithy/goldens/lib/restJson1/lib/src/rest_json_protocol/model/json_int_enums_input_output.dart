@@ -28,12 +28,15 @@ abstract class JsonIntEnumsInputOutput
       integerEnum1: integerEnum1,
       integerEnum2: integerEnum2,
       integerEnum3: integerEnum3,
-      integerEnumList:
-          integerEnumList == null ? null : _i3.BuiltList(integerEnumList),
-      integerEnumSet:
-          integerEnumSet == null ? null : _i3.BuiltSet(integerEnumSet),
-      integerEnumMap:
-          integerEnumMap == null ? null : _i3.BuiltMap(integerEnumMap),
+      integerEnumList: integerEnumList == null
+          ? null
+          : _i3.BuiltList(integerEnumList),
+      integerEnumSet: integerEnumSet == null
+          ? null
+          : _i3.BuiltSet(integerEnumSet),
+      integerEnumMap: integerEnumMap == null
+          ? null
+          : _i3.BuiltMap(integerEnumMap),
     );
   }
 
@@ -79,14 +82,13 @@ abstract class JsonIntEnumsInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('JsonIntEnumsInputOutput')
-          ..add('integerEnum1', integerEnum1)
-          ..add('integerEnum2', integerEnum2)
-          ..add('integerEnum3', integerEnum3)
-          ..add('integerEnumList', integerEnumList)
-          ..add('integerEnumSet', integerEnumSet)
-          ..add('integerEnumMap', integerEnumMap);
+    final helper = newBuiltValueToStringHelper('JsonIntEnumsInputOutput')
+      ..add('integerEnum1', integerEnum1)
+      ..add('integerEnum2', integerEnum2)
+      ..add('integerEnum3', integerEnum3)
+      ..add('integerEnumList', integerEnumList)
+      ..add('integerEnumSet', integerEnumSet)
+      ..add('integerEnumMap', integerEnumMap);
     return helper.toString();
   }
 }

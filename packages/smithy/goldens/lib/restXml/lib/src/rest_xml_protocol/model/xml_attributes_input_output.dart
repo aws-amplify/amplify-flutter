@@ -52,10 +52,9 @@ abstract class XmlAttributesInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('XmlAttributesInputOutput')
-          ..add('foo', foo)
-          ..add('attr', attr);
+    final helper = newBuiltValueToStringHelper('XmlAttributesInputOutput')
+      ..add('foo', foo)
+      ..add('attr', attr);
     return helper.toString();
   }
 }

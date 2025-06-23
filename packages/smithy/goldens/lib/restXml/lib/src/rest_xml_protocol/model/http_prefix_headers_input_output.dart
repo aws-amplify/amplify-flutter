@@ -83,10 +83,9 @@ abstract class HttpPrefixHeadersInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpPrefixHeadersInputOutput')
-          ..add('foo', foo)
-          ..add('fooMap', fooMap);
+    final helper = newBuiltValueToStringHelper('HttpPrefixHeadersInputOutput')
+      ..add('foo', foo)
+      ..add('fooMap', fooMap);
     return helper.toString();
   }
 }

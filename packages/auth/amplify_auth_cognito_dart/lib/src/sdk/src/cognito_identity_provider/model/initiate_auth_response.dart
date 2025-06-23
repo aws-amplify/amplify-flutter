@@ -27,10 +27,9 @@ abstract class InitiateAuthResponse
     return _$InitiateAuthResponse._(
       challengeName: challengeName,
       session: session,
-      challengeParameters:
-          challengeParameters == null
-              ? null
-              : _i2.BuiltMap(challengeParameters),
+      challengeParameters: challengeParameters == null
+          ? null
+          : _i2.BuiltMap(challengeParameters),
       authenticationResult: authenticationResult,
     );
   }
@@ -101,12 +100,11 @@ abstract class InitiateAuthResponse
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InitiateAuthResponse')
-          ..add('challengeName', challengeName)
-          ..add('session', '***SENSITIVE***')
-          ..add('challengeParameters', challengeParameters)
-          ..add('authenticationResult', authenticationResult);
+    final helper = newBuiltValueToStringHelper('InitiateAuthResponse')
+      ..add('challengeName', challengeName)
+      ..add('session', '***SENSITIVE***')
+      ..add('challengeParameters', challengeParameters)
+      ..add('authenticationResult', authenticationResult);
     return helper.toString();
   }
 }

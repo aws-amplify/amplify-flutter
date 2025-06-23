@@ -138,10 +138,9 @@ class StorageS3Service {
           ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
-          ..delimiter =
-              s3PluginOptions.excludeSubPaths
-                  ? s3PluginOptions.delimiter
-                  : null;
+          ..delimiter = s3PluginOptions.excludeSubPaths
+              ? s3PluginOptions.delimiter
+              : null;
       });
 
       try {
@@ -164,10 +163,9 @@ class StorageS3Service {
         builder
           ..bucket = s3ClientInfo.bucketName
           ..prefix = resolvedPath
-          ..delimiter =
-              s3PluginOptions.excludeSubPaths
-                  ? s3PluginOptions.delimiter
-                  : null;
+          ..delimiter = s3PluginOptions.excludeSubPaths
+              ? s3PluginOptions.delimiter
+              : null;
       });
 
       listResult = await s3ClientInfo.client.listObjectsV2(request).result;
@@ -277,9 +275,9 @@ class StorageS3Service {
         expiresIn: s3PluginOptions.expiresIn,
         serviceConfiguration: _defaultS3SignerConfiguration,
       ),
-      expiresAt: (Zone.current[testDateTimeNowOverride] as DateTime? ??
-              DateTime.now())
-          .add(s3PluginOptions.expiresIn),
+      expiresAt:
+          (Zone.current[testDateTimeNowOverride] as DateTime? ?? DateTime.now())
+              .add(s3PluginOptions.expiresIn),
     );
   }
 
@@ -444,17 +442,16 @@ class StorageS3Service {
     }
 
     return S3CopyResult(
-      copiedItem:
-          s3PluginOptions.getProperties
-              ? S3Item.fromHeadObjectOutput(
-                await headObject(
-                  s3client: s3ClientInfoDestination.client,
-                  bucket: s3ClientInfoDestination.bucketName,
-                  key: destinationPath,
-                ),
-                path: destinationPath,
-              )
-              : S3Item(path: destinationPath),
+      copiedItem: s3PluginOptions.getProperties
+          ? S3Item.fromHeadObjectOutput(
+              await headObject(
+                s3client: s3ClientInfoDestination.client,
+                bucket: s3ClientInfoDestination.bucketName,
+                key: destinationPath,
+              ),
+              path: destinationPath,
+            )
+          : S3Item(path: destinationPath),
     );
   }
 
@@ -495,8 +492,9 @@ class StorageS3Service {
 
     final resolvedPaths = await _pathResolver.resolvePaths(paths: paths);
 
-    final objectIdentifiersToRemove =
-        resolvedPaths.map((path) => s3.ObjectIdentifier(key: path)).toList();
+    final objectIdentifiersToRemove = resolvedPaths
+        .map((path) => s3.ObjectIdentifier(key: path))
+        .toList();
 
     final s3ClientInfo = getS3ClientInfo(storageBucket: options.bucket);
 
@@ -517,10 +515,9 @@ class StorageS3Service {
           ..bucket = s3ClientInfo.bucketName
           // force to use sha256 instead of md5
           ..checksumAlgorithm = s3.ChecksumAlgorithm.sha256
-          ..delete =
-              s3.Delete.build((builder) {
-                builder.objects.addAll(bachedObjectIdentifiers);
-              }).toBuilder();
+          ..delete = s3.Delete.build((builder) {
+            builder.objects.addAll(bachedObjectIdentifiers);
+          }).toBuilder();
       });
       try {
         final output = await s3ClientInfo.client.deleteObjects(request).result;
@@ -625,10 +622,9 @@ class StorageS3Service {
           ..key = record.objectKey
           ..uploadId = record.uploadId;
       });
-      final s3Client =
-          getS3ClientInfo(
-            storageBucket: StorageBucket.fromBucketInfo(bucketInfo),
-          ).client;
+      final s3Client = getS3ClientInfo(
+        storageBucket: StorageBucket.fromBucketInfo(bucketInfo),
+      ).client;
 
       try {
         await s3Client.abortMultipartUpload(request).result;

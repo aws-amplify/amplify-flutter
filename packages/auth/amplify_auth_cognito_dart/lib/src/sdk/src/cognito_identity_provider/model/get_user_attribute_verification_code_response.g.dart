@@ -13,9 +13,8 @@ class _$GetUserAttributeVerificationCodeResponse
 
   factory _$GetUserAttributeVerificationCodeResponse([
     void Function(GetUserAttributeVerificationCodeResponseBuilder)? updates,
-  ]) =>
-      (GetUserAttributeVerificationCodeResponseBuilder()..update(updates))
-          ._build();
+  ]) => (GetUserAttributeVerificationCodeResponseBuilder()..update(updates))
+      ._build();
 
   _$GetUserAttributeVerificationCodeResponse._({this.codeDeliveryDetails})
     : super._();

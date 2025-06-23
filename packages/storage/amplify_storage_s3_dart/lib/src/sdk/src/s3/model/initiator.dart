@@ -43,10 +43,9 @@ abstract class Initiator
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('Initiator')
-          ..add('id', id)
-          ..add('displayName', displayName);
+    final helper = newBuiltValueToStringHelper('Initiator')
+      ..add('id', id)
+      ..add('displayName', displayName);
     return helper.toString();
   }
 }

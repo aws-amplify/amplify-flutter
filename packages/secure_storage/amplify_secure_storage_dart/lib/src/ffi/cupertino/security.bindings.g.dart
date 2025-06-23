@@ -28,11 +28,12 @@ class Security {
     return _SecCopyErrorMessageString(status, reserved);
   }
 
-  late final _SecCopyErrorMessageStringPtr = _lookup<
-    ffi.NativeFunction<
-      coreFoundation.CFStringRef Function(OSStatus, ffi.Pointer<ffi.Void>)
-    >
-  >('SecCopyErrorMessageString');
+  late final _SecCopyErrorMessageStringPtr =
+      _lookup<
+        ffi.NativeFunction<
+          coreFoundation.CFStringRef Function(OSStatus, ffi.Pointer<ffi.Void>)
+        >
+      >('SecCopyErrorMessageString');
   late final _SecCopyErrorMessageString =
       _SecCopyErrorMessageStringPtr.asFunction<
         coreFoundation.CFStringRef Function(int, ffi.Pointer<ffi.Void>)
@@ -217,14 +218,15 @@ class Security {
     return _SecItemCopyMatching(query, result);
   }
 
-  late final _SecItemCopyMatchingPtr = _lookup<
-    ffi.NativeFunction<
-      OSStatus Function(
-        coreFoundation.CFDictionaryRef,
-        ffi.Pointer<coreFoundation.CFTypeRef>,
-      )
-    >
-  >('SecItemCopyMatching');
+  late final _SecItemCopyMatchingPtr =
+      _lookup<
+        ffi.NativeFunction<
+          OSStatus Function(
+            coreFoundation.CFDictionaryRef,
+            ffi.Pointer<coreFoundation.CFTypeRef>,
+          )
+        >
+      >('SecItemCopyMatching');
   late final _SecItemCopyMatching =
       _SecItemCopyMatchingPtr.asFunction<
         int Function(
@@ -240,14 +242,15 @@ class Security {
     return _SecItemAdd(attributes, result);
   }
 
-  late final _SecItemAddPtr = _lookup<
-    ffi.NativeFunction<
-      OSStatus Function(
-        coreFoundation.CFDictionaryRef,
-        ffi.Pointer<coreFoundation.CFTypeRef>,
-      )
-    >
-  >('SecItemAdd');
+  late final _SecItemAddPtr =
+      _lookup<
+        ffi.NativeFunction<
+          OSStatus Function(
+            coreFoundation.CFDictionaryRef,
+            ffi.Pointer<coreFoundation.CFTypeRef>,
+          )
+        >
+      >('SecItemAdd');
   late final _SecItemAdd =
       _SecItemAddPtr.asFunction<
         int Function(
@@ -263,14 +266,15 @@ class Security {
     return _SecItemUpdate(query, attributesToUpdate);
   }
 
-  late final _SecItemUpdatePtr = _lookup<
-    ffi.NativeFunction<
-      OSStatus Function(
-        coreFoundation.CFDictionaryRef,
-        coreFoundation.CFDictionaryRef,
-      )
-    >
-  >('SecItemUpdate');
+  late final _SecItemUpdatePtr =
+      _lookup<
+        ffi.NativeFunction<
+          OSStatus Function(
+            coreFoundation.CFDictionaryRef,
+            coreFoundation.CFDictionaryRef,
+          )
+        >
+      >('SecItemUpdate');
   late final _SecItemUpdate =
       _SecItemUpdatePtr.asFunction<
         int Function(
@@ -283,9 +287,10 @@ class Security {
     return _SecItemDelete(query);
   }
 
-  late final _SecItemDeletePtr = _lookup<
-    ffi.NativeFunction<OSStatus Function(coreFoundation.CFDictionaryRef)>
-  >('SecItemDelete');
+  late final _SecItemDeletePtr =
+      _lookup<
+        ffi.NativeFunction<OSStatus Function(coreFoundation.CFDictionaryRef)>
+      >('SecItemDelete');
   late final _SecItemDelete =
       _SecItemDeletePtr.asFunction<
         int Function(coreFoundation.CFDictionaryRef)

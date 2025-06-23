@@ -82,12 +82,9 @@ Future<void> listOperation() async {
 
   // get plugin with plugin key to gain S3 specific interface
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
-  final options =
-      listAll
-          ? const StorageListOptions(
-            pluginOptions: S3ListPluginOptions.listAll(),
-          )
-          : const StorageListOptions(pageSize: pageSize);
+  final options = listAll
+      ? const StorageListOptions(pluginOptions: S3ListPluginOptions.listAll())
+      : const StorageListOptions(pageSize: pageSize);
   final operation = s3Plugin.list(
     path: StoragePath.fromString(path),
     options: options,
@@ -116,25 +113,23 @@ Future<void> listOperation() async {
       break;
     }
 
-    final listNextPage =
-        prompt(
-          ('There are more objects to list, list next page? (Y/n): '),
-        ).toLowerCase();
+    final listNextPage = prompt(
+      ('There are more objects to list, list next page? (Y/n): '),
+    ).toLowerCase();
 
     if (listNextPage != 'y') {
       break;
     }
 
-    result =
-        await s3Plugin
-            .list(
-              path: StoragePath.fromString(path),
-              options: StorageListOptions(
-                pageSize: pageSize,
-                nextToken: result.nextToken,
-              ),
-            )
-            .result;
+    result = await s3Plugin
+        .list(
+          path: StoragePath.fromString(path),
+          options: StorageListOptions(
+            pageSize: pageSize,
+            nextToken: result.nextToken,
+          ),
+        )
+        .result;
   }
 }
 
@@ -396,10 +391,9 @@ bool promptUseAcceleration() {
   String input;
 
   do {
-    input =
-        prompt(
-          'Use transfer acceleration for this operation? (y/n): ',
-        ).toLowerCase();
+    input = prompt(
+      'Use transfer acceleration for this operation? (y/n): ',
+    ).toLowerCase();
   } while (input != 'y' && input != 'n');
 
   return input == 'y';

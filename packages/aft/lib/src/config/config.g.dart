@@ -420,61 +420,54 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-AftComponent _$AftComponentFromJson(Map json) => $checkedCreate(
-  'AftComponent',
-  json,
-  ($checkedConvert) {
-    $checkKeys(
-      json,
-      allowedKeys: const [
-        'name',
-        'summary',
-        'packages',
-        'packageGraph',
-        'propagate',
-      ],
-    );
-    final val = AftComponent(
-      name: $checkedConvert('name', (v) => v as String),
-      summary: $checkedConvert(
-        'summary',
-        (v) =>
-            v == null
-                ? null
-                : PackageInfo.fromJson(Map<String, Object?>.from(v as Map)),
-      ),
-      packages: $checkedConvert(
-        'packages',
-        (v) =>
-            (v as List<dynamic>)
-                .map(
-                  (e) =>
-                      PackageInfo.fromJson(Map<String, Object?>.from(e as Map)),
-                )
-                .toList(),
-      ),
-      packageGraph: $checkedConvert(
-        'packageGraph',
-        (v) => (v as Map).map(
-          (k, e) => MapEntry(
-            k as String,
-            (e as List<dynamic>)
-                .map(
-                  (e) =>
-                      PackageInfo.fromJson(Map<String, Object?>.from(e as Map)),
-                )
-                .toList(),
-          ),
+AftComponent _$AftComponentFromJson(
+  Map json,
+) => $checkedCreate('AftComponent', json, ($checkedConvert) {
+  $checkKeys(
+    json,
+    allowedKeys: const [
+      'name',
+      'summary',
+      'packages',
+      'packageGraph',
+      'propagate',
+    ],
+  );
+  final val = AftComponent(
+    name: $checkedConvert('name', (v) => v as String),
+    summary: $checkedConvert(
+      'summary',
+      (v) => v == null
+          ? null
+          : PackageInfo.fromJson(Map<String, Object?>.from(v as Map)),
+    ),
+    packages: $checkedConvert(
+      'packages',
+      (v) => (v as List<dynamic>)
+          .map((e) => PackageInfo.fromJson(Map<String, Object?>.from(e as Map)))
+          .toList(),
+    ),
+    packageGraph: $checkedConvert(
+      'packageGraph',
+      (v) => (v as Map).map(
+        (k, e) => MapEntry(
+          k as String,
+          (e as List<dynamic>)
+              .map(
+                (e) =>
+                    PackageInfo.fromJson(Map<String, Object?>.from(e as Map)),
+              )
+              .toList(),
         ),
       ),
-      propagate: $checkedConvert(
-        'propagate',
-        (v) => $enumDecode(_$VersionPropagationEnumMap, v),
-      ),
-    );
-    return val;
-  },
-);
+    ),
+    propagate: $checkedConvert(
+      'propagate',
+      (v) => $enumDecode(_$VersionPropagationEnumMap, v),
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$AftComponentToJson(AftComponent instance) =>
     <String, dynamic>{
@@ -520,17 +513,15 @@ PackageInfo _$PackageInfoFromJson(Map json) =>
         ),
         example: $checkedConvert(
           'example',
-          (v) =>
-              v == null
-                  ? null
-                  : PackageInfo.fromJson(Map<String, Object?>.from(v as Map)),
+          (v) => v == null
+              ? null
+              : PackageInfo.fromJson(Map<String, Object?>.from(v as Map)),
         ),
         docs: $checkedConvert(
           'docs',
-          (v) =>
-              v == null
-                  ? null
-                  : PackageInfo.fromJson(Map<String, Object?>.from(v as Map)),
+          (v) => v == null
+              ? null
+              : PackageInfo.fromJson(Map<String, Object?>.from(v as Map)),
         ),
       );
       return val;

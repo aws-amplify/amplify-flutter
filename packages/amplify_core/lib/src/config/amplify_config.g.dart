@@ -26,10 +26,9 @@ AmplifyConfig _$AmplifyConfigFromJson(
       ),
       analytics: $checkedConvert(
         'analytics',
-        (v) =>
-            v == null
-                ? null
-                : AnalyticsConfig.fromJson(v as Map<String, dynamic>),
+        (v) => v == null
+            ? null
+            : AnalyticsConfig.fromJson(v as Map<String, dynamic>),
       ),
       auth: $checkedConvert(
         'auth',
@@ -38,17 +37,15 @@ AmplifyConfig _$AmplifyConfigFromJson(
       ),
       notifications: $checkedConvert(
         'notifications',
-        (v) =>
-            v == null
-                ? null
-                : NotificationsConfig.fromJson(v as Map<String, dynamic>),
+        (v) => v == null
+            ? null
+            : NotificationsConfig.fromJson(v as Map<String, dynamic>),
       ),
       storage: $checkedConvert(
         'storage',
-        (v) =>
-            v == null
-                ? null
-                : StorageConfig.fromJson(v as Map<String, dynamic>),
+        (v) => v == null
+            ? null
+            : StorageConfig.fromJson(v as Map<String, dynamic>),
       ),
     );
     return val;

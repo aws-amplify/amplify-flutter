@@ -55,10 +55,9 @@ abstract class GetRestApisRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetRestApisRequest')
-          ..add('position', position)
-          ..add('limit', limit);
+    final helper = newBuiltValueToStringHelper('GetRestApisRequest')
+      ..add('position', position)
+      ..add('limit', limit);
     return helper.toString();
   }
 }

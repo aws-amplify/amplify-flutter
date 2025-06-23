@@ -78,11 +78,10 @@ abstract class CopyObjectRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CopyObjectRequest')
-          ..add('bucket', bucket)
-          ..add('copySource', copySource)
-          ..add('key', key);
+    final helper = newBuiltValueToStringHelper('CopyObjectRequest')
+      ..add('bucket', bucket)
+      ..add('copySource', copySource)
+      ..add('key', key);
     return helper.toString();
   }
 }

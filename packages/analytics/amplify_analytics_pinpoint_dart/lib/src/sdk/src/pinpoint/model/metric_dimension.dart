@@ -45,10 +45,9 @@ abstract class MetricDimension
   List<Object?> get props => [comparisonOperator, value];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MetricDimension')
-          ..add('comparisonOperator', comparisonOperator)
-          ..add('value', value);
+    final helper = newBuiltValueToStringHelper('MetricDimension')
+      ..add('comparisonOperator', comparisonOperator)
+      ..add('value', value);
     return helper.toString();
   }
 }

@@ -38,10 +38,9 @@ abstract class XmlNamespaceNested
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('XmlNamespaceNested')
-          ..add('foo', foo)
-          ..add('values', values);
+    final helper = newBuiltValueToStringHelper('XmlNamespaceNested')
+      ..add('foo', foo)
+      ..add('values', values);
     return helper.toString();
   }
 }

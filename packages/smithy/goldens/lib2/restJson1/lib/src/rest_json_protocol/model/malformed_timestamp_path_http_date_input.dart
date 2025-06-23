@@ -38,11 +38,10 @@ abstract class MalformedTimestampPathHttpDateInput
     Map<String, String> labels = const {},
   }) => MalformedTimestampPathHttpDateInput.build((b) {
     if (labels['timestamp'] != null) {
-      b.timestamp =
-          _i1.Timestamp.parse(
-            labels['timestamp']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.timestamp = _i1.Timestamp.parse(
+        labels['timestamp']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
   });
 

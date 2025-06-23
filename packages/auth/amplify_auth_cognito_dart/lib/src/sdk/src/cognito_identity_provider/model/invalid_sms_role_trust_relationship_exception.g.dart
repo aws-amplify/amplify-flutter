@@ -15,9 +15,8 @@ class _$InvalidSmsRoleTrustRelationshipException
 
   factory _$InvalidSmsRoleTrustRelationshipException([
     void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder)? updates,
-  ]) =>
-      (InvalidSmsRoleTrustRelationshipExceptionBuilder()..update(updates))
-          ._build();
+  ]) => (InvalidSmsRoleTrustRelationshipExceptionBuilder()..update(updates))
+      ._build();
 
   _$InvalidSmsRoleTrustRelationshipException._({this.message, this.headers})
     : super._();

@@ -63,10 +63,9 @@ abstract class InternalServerException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InternalServerException')
-          ..add('message', message)
-          ..add('code', code);
+    final helper = newBuiltValueToStringHelper('InternalServerException')
+      ..add('message', message)
+      ..add('code', code);
     return helper.toString();
   }
 }

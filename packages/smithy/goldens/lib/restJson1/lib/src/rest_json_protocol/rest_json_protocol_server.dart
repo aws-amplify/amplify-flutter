@@ -2900,8 +2900,8 @@ class _RestJsonProtocolServer
         context.response.headers['X-Short'] = output.headerShort!.toString();
       }
       if (output.headerInteger != null) {
-        context.response.headers['X-Integer'] =
-            output.headerInteger!.toString();
+        context.response.headers['X-Integer'] = output.headerInteger!
+            .toString();
       }
       if (output.headerLong != null) {
         context.response.headers['X-Long'] = output.headerLong!.toString();
@@ -2913,12 +2913,12 @@ class _RestJsonProtocolServer
         context.response.headers['X-Double'] = output.headerDouble!.toString();
       }
       if (output.headerTrueBool != null) {
-        context.response.headers['X-Boolean1'] =
-            output.headerTrueBool!.toString();
+        context.response.headers['X-Boolean1'] = output.headerTrueBool!
+            .toString();
       }
       if (output.headerFalseBool != null) {
-        context.response.headers['X-Boolean2'] =
-            output.headerFalseBool!.toString();
+        context.response.headers['X-Boolean2'] = output.headerFalseBool!
+            .toString();
       }
       if (output.headerStringList != null) {
         context.response.headers['X-StringList'] = output.headerStringList!
@@ -2946,10 +2946,9 @@ class _RestJsonProtocolServer
         context.response.headers['X-TimestampList'] = output
             .headerTimestampList!
             .map(
-              (el) =>
-                  _i1.Timestamp(
-                    el,
-                  ).format(_i1.TimestampFormat.httpDate).toString(),
+              (el) => _i1.Timestamp(
+                el,
+              ).format(_i1.TimestampFormat.httpDate).toString(),
             )
             .map((el) => _i1.sanitizeHeader(el, isTimestampList: true))
             .join(', ');
@@ -2964,8 +2963,8 @@ class _RestJsonProtocolServer
             .join(', ');
       }
       if (output.headerIntegerEnum != null) {
-        context.response.headers['X-IntegerEnum'] =
-            output.headerIntegerEnum!.toString();
+        context.response.headers['X-IntegerEnum'] = output.headerIntegerEnum!
+            .toString();
       }
       if (output.headerIntegerEnumList != null) {
         context.response.headers['X-IntegerEnumList'] = output
@@ -5425,46 +5424,39 @@ class _RestJsonProtocolServer
       );
       final output = await service.timestampFormatHeaders(input, context);
       if (output.memberEpochSeconds != null) {
-        context.response.headers['X-memberEpochSeconds'] =
-            _i1.Timestamp(
-              output.memberEpochSeconds!,
-            ).format(_i1.TimestampFormat.epochSeconds).toString();
+        context.response.headers['X-memberEpochSeconds'] = _i1.Timestamp(
+          output.memberEpochSeconds!,
+        ).format(_i1.TimestampFormat.epochSeconds).toString();
       }
       if (output.memberHttpDate != null) {
-        context.response.headers['X-memberHttpDate'] =
-            _i1.Timestamp(
-              output.memberHttpDate!,
-            ).format(_i1.TimestampFormat.httpDate).toString();
+        context.response.headers['X-memberHttpDate'] = _i1.Timestamp(
+          output.memberHttpDate!,
+        ).format(_i1.TimestampFormat.httpDate).toString();
       }
       if (output.memberDateTime != null) {
-        context.response.headers['X-memberDateTime'] =
-            _i1.Timestamp(
-              output.memberDateTime!,
-            ).format(_i1.TimestampFormat.dateTime).toString();
+        context.response.headers['X-memberDateTime'] = _i1.Timestamp(
+          output.memberDateTime!,
+        ).format(_i1.TimestampFormat.dateTime).toString();
       }
       if (output.defaultFormat != null) {
-        context.response.headers['X-defaultFormat'] =
-            _i1.Timestamp(
-              output.defaultFormat!,
-            ).format(_i1.TimestampFormat.httpDate).toString();
+        context.response.headers['X-defaultFormat'] = _i1.Timestamp(
+          output.defaultFormat!,
+        ).format(_i1.TimestampFormat.httpDate).toString();
       }
       if (output.targetEpochSeconds != null) {
-        context.response.headers['X-targetEpochSeconds'] =
-            _i1.Timestamp(
-              output.targetEpochSeconds!,
-            ).format(_i1.TimestampFormat.epochSeconds).toString();
+        context.response.headers['X-targetEpochSeconds'] = _i1.Timestamp(
+          output.targetEpochSeconds!,
+        ).format(_i1.TimestampFormat.epochSeconds).toString();
       }
       if (output.targetHttpDate != null) {
-        context.response.headers['X-targetHttpDate'] =
-            _i1.Timestamp(
-              output.targetHttpDate!,
-            ).format(_i1.TimestampFormat.httpDate).toString();
+        context.response.headers['X-targetHttpDate'] = _i1.Timestamp(
+          output.targetHttpDate!,
+        ).format(_i1.TimestampFormat.httpDate).toString();
       }
       if (output.targetDateTime != null) {
-        context.response.headers['X-targetDateTime'] =
-            _i1.Timestamp(
-              output.targetDateTime!,
-            ).format(_i1.TimestampFormat.dateTime).toString();
+        context.response.headers['X-targetDateTime'] = _i1.Timestamp(
+          output.targetDateTime!,
+        ).format(_i1.TimestampFormat.dateTime).toString();
       }
       const statusCode = 200;
       final body = await _timestampFormatHeadersProtocol.wireSerializer

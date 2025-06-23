@@ -66,14 +66,13 @@ abstract class MalformedLengthInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedLengthInput')
-          ..add('blob', blob)
-          ..add('string', string)
-          ..add('minString', minString)
-          ..add('maxString', maxString)
-          ..add('list', list)
-          ..add('map', map);
+    final helper = newBuiltValueToStringHelper('MalformedLengthInput')
+      ..add('blob', blob)
+      ..add('string', string)
+      ..add('minString', minString)
+      ..add('maxString', maxString)
+      ..add('list', list)
+      ..add('map', map);
     return helper.toString();
   }
 }

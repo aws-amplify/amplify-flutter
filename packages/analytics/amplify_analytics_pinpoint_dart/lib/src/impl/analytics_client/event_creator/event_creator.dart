@@ -38,15 +38,14 @@ class EventCreator {
       );
     }
 
-    final eventBuilder =
-        EventBuilder()
-          ..eventType = eventType
-          ..sdkName = 'amplify-flutter'
-          ..clientSdkVersion = packageVersion
-          ..timestamp = DateTime.now().toUtc().toIso8601String()
-          ..appTitle = _deviceContextInfo?.appName
-          ..appPackageName = _deviceContextInfo?.appPackageName
-          ..appVersionCode = _deviceContextInfo?.appVersion;
+    final eventBuilder = EventBuilder()
+      ..eventType = eventType
+      ..sdkName = 'amplify-flutter'
+      ..clientSdkVersion = packageVersion
+      ..timestamp = DateTime.now().toUtc().toIso8601String()
+      ..appTitle = _deviceContextInfo?.appName
+      ..appPackageName = _deviceContextInfo?.appPackageName
+      ..appVersionCode = _deviceContextInfo?.appVersion;
     if (session != null) eventBuilder.session.replace(session);
 
     eventBuilder

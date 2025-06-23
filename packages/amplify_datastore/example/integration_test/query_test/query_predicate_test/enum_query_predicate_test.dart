@@ -56,19 +56,17 @@ void main() {
       // test with partial matches for EnumField.yes
       await testQueryPredicate<ModelWithEnum>(
         queryPredicate: ModelWithEnum.ENUMFIELD.eq(EnumField.yes),
-        expectedModels:
-            models
-                .where((element) => element.enumField == EnumField.yes)
-                .toList(),
+        expectedModels: models
+            .where((element) => element.enumField == EnumField.yes)
+            .toList(),
       );
 
       // test with partial matches for EnumField.no
       await testQueryPredicate<ModelWithEnum>(
         queryPredicate: ModelWithEnum.ENUMFIELD.eq(EnumField.no),
-        expectedModels:
-            models
-                .where((element) => element.enumField == EnumField.no)
-                .toList(),
+        expectedModels: models
+            .where((element) => element.enumField == EnumField.no)
+            .toList(),
       );
     });
 
@@ -110,19 +108,17 @@ void main() {
       // test with partial matches for EnumField.yes
       await testQueryPredicate<ModelWithEnum>(
         queryPredicate: ModelWithEnum.ENUMFIELD.ne(EnumField.yes),
-        expectedModels:
-            models
-                .where((element) => element.enumField == EnumField.no)
-                .toList(),
+        expectedModels: models
+            .where((element) => element.enumField == EnumField.no)
+            .toList(),
       );
 
       // test with partial matches for EnumField.no
       await testQueryPredicate<ModelWithEnum>(
         queryPredicate: ModelWithEnum.ENUMFIELD.ne(EnumField.no),
-        expectedModels:
-            models
-                .where((element) => element.enumField == EnumField.yes)
-                .toList(),
+        expectedModels: models
+            .where((element) => element.enumField == EnumField.yes)
+            .toList(),
       );
     });
   });

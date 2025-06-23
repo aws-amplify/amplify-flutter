@@ -102,8 +102,9 @@ class _$LinuxSecureStorageOptions extends LinuxSecureStorageOptions {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'LinuxSecureStorageOptions')
-      ..add('accessGroup', accessGroup)).toString();
+    return (newBuiltValueToStringHelper(
+      r'LinuxSecureStorageOptions',
+    )..add('accessGroup', accessGroup)).toString();
   }
 }
 

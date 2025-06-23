@@ -297,7 +297,6 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
         await _runDiff();
       default:
         await _runGenerate();
-        break;
     }
   }
 }

@@ -138,24 +138,21 @@ class Comment extends amplify_core.Model {
   Comment.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _content = json['content'],
-      _post =
-          json['post'] != null
-              ? json['post']['serializedData'] != null
-                  ? Post.fromJson(
+      _post = json['post'] != null
+          ? json['post']['serializedData'] != null
+                ? Post.fromJson(
                     new Map<String, dynamic>.from(
                       json['post']['serializedData'],
                     ),
                   )
-                  : Post.fromJson(new Map<String, dynamic>.from(json['post']))
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+                : Post.fromJson(new Map<String, dynamic>.from(json['post']))
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -293,10 +290,9 @@ class CommentModelIdentifier implements amplify_core.ModelIdentifier<Comment> {
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

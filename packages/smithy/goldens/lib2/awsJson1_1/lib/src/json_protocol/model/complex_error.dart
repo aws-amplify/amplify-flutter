@@ -69,10 +69,9 @@ abstract class ComplexError
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ComplexError')
-          ..add('topLevel', topLevel)
-          ..add('nested', nested);
+    final helper = newBuiltValueToStringHelper('ComplexError')
+      ..add('topLevel', topLevel)
+      ..add('nested', nested);
     return helper.toString();
   }
 }

@@ -57,11 +57,10 @@ abstract class RevokeTokenRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RevokeTokenRequest')
-          ..add('token', '***SENSITIVE***')
-          ..add('clientId', '***SENSITIVE***')
-          ..add('clientSecret', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('RevokeTokenRequest')
+      ..add('token', '***SENSITIVE***')
+      ..add('clientId', '***SENSITIVE***')
+      ..add('clientSecret', '***SENSITIVE***');
     return helper.toString();
   }
 }

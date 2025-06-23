@@ -113,8 +113,9 @@ class AmplifyDataStore extends DataStorePluginInterface
 
       final nativeBridge = NativeApiBridge();
       try {
-        final authProvidersList =
-            authProviders.keys.map((key) => key.rawValue).toList();
+        final authProvidersList = authProviders.keys
+            .map((key) => key.rawValue)
+            .toList();
         await nativeBridge.addApiPlugin(authProvidersList, endpoints);
       } on PlatformException catch (e) {
         if (e.code.contains('AmplifyAlreadyConfiguredException') ||
@@ -285,8 +286,9 @@ class _NativeAmplifyAuthCognito
           accessKeyId: awsCredentials.accessKeyId,
           secretAccessKey: awsCredentials.secretAccessKey,
           sessionToken: awsCredentials.sessionToken,
-          expirationIso8601Utc:
-              awsCredentials.expiration?.toUtc().toIso8601String(),
+          expirationIso8601Utc: awsCredentials.expiration
+              ?.toUtc()
+              .toIso8601String(),
         );
       }
       return nativeAuthSession;
@@ -336,8 +338,9 @@ class NativeAmplifyApi
   Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request) async {
     try {
       final flutterRequest = nativeRequestToGraphQLRequest(request);
-      final response =
-          await Amplify.API.mutate(request: flutterRequest).response;
+      final response = await Amplify.API
+          .mutate(request: flutterRequest)
+          .response;
       return graphQLResponseToNativeResponse(response);
     } on Exception catch (e) {
       return handleGraphQLOperationException(e, request);
@@ -348,8 +351,9 @@ class NativeAmplifyApi
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
     try {
       final flutterRequest = nativeRequestToGraphQLRequest(request);
-      final response =
-          await Amplify.API.query(request: flutterRequest).response;
+      final response = await Amplify.API
+          .query(request: flutterRequest)
+          .response;
       return graphQLResponseToNativeResponse(response);
     } on Exception catch (e) {
       return handleGraphQLOperationException(e, request);

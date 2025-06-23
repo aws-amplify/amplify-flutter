@@ -22,8 +22,9 @@ abstract class DocumentTypeInputOutput
   }) {
     return _$DocumentTypeInputOutput._(
       stringValue: stringValue,
-      documentValue:
-          documentValue == null ? null : _i3.JsonObject(documentValue),
+      documentValue: documentValue == null
+          ? null
+          : _i3.JsonObject(documentValue),
     );
   }
 
@@ -58,10 +59,9 @@ abstract class DocumentTypeInputOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DocumentTypeInputOutput')
-          ..add('stringValue', stringValue)
-          ..add('documentValue', documentValue);
+    final helper = newBuiltValueToStringHelper('DocumentTypeInputOutput')
+      ..add('stringValue', stringValue)
+      ..add('documentValue', documentValue);
     return helper.toString();
   }
 }

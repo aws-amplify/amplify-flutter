@@ -96,14 +96,12 @@ void main() {
         DateTime(2020, 01, 02, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
-      var models =
-          values
-              .map(
-                (value) => ModelWithAppsyncScalarTypes(
-                  awsDateValue: TemporalDate(value),
-                ),
-              )
-              .toList();
+      var models = values
+          .map(
+            (value) =>
+                ModelWithAppsyncScalarTypes(awsDateValue: TemporalDate(value)),
+          )
+          .toList();
       testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
         queryField: ModelWithAppsyncScalarTypes.AWSDATEVALUE,
@@ -122,14 +120,13 @@ void main() {
         // see: https://github.com/aws-amplify/amplify-flutter/issues/817
         // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
-      var models =
-          values
-              .map(
-                (value) => ModelWithAppsyncScalarTypes(
-                  awsDateTimeValue: TemporalDateTime(value),
-                ),
-              )
-              .toList();
+      var models = values
+          .map(
+            (value) => ModelWithAppsyncScalarTypes(
+              awsDateTimeValue: TemporalDateTime(value),
+            ),
+          )
+          .toList();
       testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
         queryField: ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE,
@@ -149,14 +146,12 @@ void main() {
         // see: https://github.com/aws-amplify/amplify-flutter/issues/817
         // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
-      var models =
-          values
-              .map(
-                (value) => ModelWithAppsyncScalarTypes(
-                  awsTimeValue: TemporalTime(value),
-                ),
-              )
-              .toList();
+      var models = values
+          .map(
+            (value) =>
+                ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(value)),
+          )
+          .toList();
       testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
         queryField: ModelWithAppsyncScalarTypes.AWSTIMEVALUE,
@@ -175,14 +170,13 @@ void main() {
         DateTime(2020, 01, 01, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
-      var models =
-          values
-              .map(
-                (value) => ModelWithAppsyncScalarTypes(
-                  awsTimestampValue: TemporalTimestamp(value),
-                ),
-              )
-              .toList();
+      var models = values
+          .map(
+            (value) => ModelWithAppsyncScalarTypes(
+              awsTimestampValue: TemporalTimestamp(value),
+            ),
+          )
+          .toList();
       testSortOperations<ModelWithAppsyncScalarTypes>(
         models: models,
         queryField: ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE,
@@ -212,15 +206,15 @@ void main() {
       });
 
       testWidgets('ascending() & ascending()', (WidgetTester tester) async {
-        var expectedModels =
-            models..sort((
-              ModelWithAppsyncScalarTypes a,
-              ModelWithAppsyncScalarTypes b,
-            ) {
-              return a.intValue != b.intValue
-                  ? a.intValue!.compareTo(b.intValue!)
-                  : a.stringValue!.compareTo(b.stringValue!);
-            });
+        var expectedModels = models
+          ..sort((
+            ModelWithAppsyncScalarTypes a,
+            ModelWithAppsyncScalarTypes b,
+          ) {
+            return a.intValue != b.intValue
+                ? a.intValue!.compareTo(b.intValue!)
+                : a.stringValue!.compareTo(b.stringValue!);
+          });
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           sortBy: [
@@ -232,15 +226,15 @@ void main() {
       });
 
       testWidgets('ascending() & descending()', (WidgetTester tester) async {
-        var expectedModels =
-            models..sort((
-              ModelWithAppsyncScalarTypes a,
-              ModelWithAppsyncScalarTypes b,
-            ) {
-              return a.intValue != b.intValue
-                  ? a.intValue!.compareTo(b.intValue!)
-                  : b.stringValue!.compareTo(a.stringValue!);
-            });
+        var expectedModels = models
+          ..sort((
+            ModelWithAppsyncScalarTypes a,
+            ModelWithAppsyncScalarTypes b,
+          ) {
+            return a.intValue != b.intValue
+                ? a.intValue!.compareTo(b.intValue!)
+                : b.stringValue!.compareTo(a.stringValue!);
+          });
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           sortBy: [
@@ -252,15 +246,15 @@ void main() {
       });
 
       testWidgets('descending() & descending()', (WidgetTester tester) async {
-        var expectedModels =
-            models..sort((
-              ModelWithAppsyncScalarTypes a,
-              ModelWithAppsyncScalarTypes b,
-            ) {
-              return a.intValue != b.intValue
-                  ? b.intValue!.compareTo(a.intValue!)
-                  : b.stringValue!.compareTo(a.stringValue!);
-            });
+        var expectedModels = models
+          ..sort((
+            ModelWithAppsyncScalarTypes a,
+            ModelWithAppsyncScalarTypes b,
+          ) {
+            return a.intValue != b.intValue
+                ? b.intValue!.compareTo(a.intValue!)
+                : b.stringValue!.compareTo(a.stringValue!);
+          });
         var actualModels = await Amplify.DataStore.query(
           ModelWithAppsyncScalarTypes.classType,
           sortBy: [

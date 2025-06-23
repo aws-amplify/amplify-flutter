@@ -35,14 +35,13 @@ void main() {
       );
 
       final mockIdp = MockCognitoIdentityProviderClient(
-        initiateAuth:
-            (_) async => InitiateAuthResponse(
-              authenticationResult: AuthenticationResultType(
-                accessToken: accessToken.raw,
-                refreshToken: refreshToken,
-                idToken: idToken.raw,
-              ),
-            ),
+        initiateAuth: (_) async => InitiateAuthResponse(
+          authenticationResult: AuthenticationResultType(
+            accessToken: accessToken.raw,
+            refreshToken: refreshToken,
+            idToken: idToken.raw,
+          ),
+        ),
         globalSignOut: () async => GlobalSignOutResponse(),
         revokeToken: () async => RevokeTokenResponse(),
       );
@@ -144,19 +143,17 @@ void main() {
         );
 
         final mockIdp = MockCognitoIdentityProviderClient(
-          initiateAuth:
-              (_) async => InitiateAuthResponse(
-                // A challenge which requires user input
-                challengeName: ChallengeNameType.newPasswordRequired,
-              ),
-          respondToAuthChallenge:
-              (_) async => RespondToAuthChallengeResponse(
-                authenticationResult: AuthenticationResultType(
-                  accessToken: accessToken.raw,
-                  refreshToken: refreshToken,
-                  idToken: idToken.raw,
-                ),
-              ),
+          initiateAuth: (_) async => InitiateAuthResponse(
+            // A challenge which requires user input
+            challengeName: ChallengeNameType.newPasswordRequired,
+          ),
+          respondToAuthChallenge: (_) async => RespondToAuthChallengeResponse(
+            authenticationResult: AuthenticationResultType(
+              accessToken: accessToken.raw,
+              refreshToken: refreshToken,
+              idToken: idToken.raw,
+            ),
+          ),
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
       });

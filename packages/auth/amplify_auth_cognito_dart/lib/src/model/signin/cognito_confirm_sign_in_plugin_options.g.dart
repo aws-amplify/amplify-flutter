@@ -19,10 +19,11 @@ CognitoConfirmSignInPluginOptions _$CognitoConfirmSignInPluginOptionsFromJson(
     ),
     userAttributes: $checkedConvert(
       'userAttributes',
-      (v) => _$JsonConverterFromJson<
-        Map<String, String>,
-        Map<CognitoUserAttributeKey, String>
-      >(v, const CognitoUserAttributeMapConverter().fromJson),
+      (v) =>
+          _$JsonConverterFromJson<
+            Map<String, String>,
+            Map<CognitoUserAttributeKey, String>
+          >(v, const CognitoUserAttributeMapConverter().fromJson),
     ),
     friendlyDeviceName: $checkedConvert(
       'friendlyDeviceName',

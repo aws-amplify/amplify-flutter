@@ -37,8 +37,8 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   }
 
   late final SecureStorageInterface _instance =
-  // ignore: invalid_use_of_internal_member
-  AmplifySecureStorageDart(config: config);
+      // ignore: invalid_use_of_internal_member
+      AmplifySecureStorageDart(config: config);
 
   @override
   FutureOr<void> delete({required String key}) {

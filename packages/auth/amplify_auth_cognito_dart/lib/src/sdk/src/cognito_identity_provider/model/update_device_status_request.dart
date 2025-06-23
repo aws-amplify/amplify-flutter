@@ -63,11 +63,10 @@ abstract class UpdateDeviceStatusRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateDeviceStatusRequest')
-          ..add('accessToken', '***SENSITIVE***')
-          ..add('deviceKey', deviceKey)
-          ..add('deviceRememberedStatus', deviceRememberedStatus);
+    final helper = newBuiltValueToStringHelper('UpdateDeviceStatusRequest')
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('deviceKey', deviceKey)
+      ..add('deviceRememberedStatus', deviceRememberedStatus);
     return helper.toString();
   }
 }

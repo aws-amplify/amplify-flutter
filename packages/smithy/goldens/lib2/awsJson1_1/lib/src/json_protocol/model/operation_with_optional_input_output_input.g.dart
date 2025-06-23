@@ -13,9 +13,8 @@ class _$OperationWithOptionalInputOutputInput
 
   factory _$OperationWithOptionalInputOutputInput([
     void Function(OperationWithOptionalInputOutputInputBuilder)? updates,
-  ]) =>
-      (OperationWithOptionalInputOutputInputBuilder()..update(updates))
-          ._build();
+  ]) => (OperationWithOptionalInputOutputInputBuilder()..update(updates))
+      ._build();
 
   _$OperationWithOptionalInputOutputInput._({this.value}) : super._();
   @override

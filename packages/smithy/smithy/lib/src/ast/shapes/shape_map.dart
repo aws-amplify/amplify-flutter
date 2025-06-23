@@ -58,10 +58,9 @@ class ShapeMapSerializer extends StructuredSerializer<ShapeMap> {
           if (b is NamedMembersShapeBuilder) {
             b.members?.updateAll(
               (name, shape) => shape.rebuild(
-                (s) =>
-                    s
-                      ..shapeId = b.shapeId!.replace(member: name)
-                      ..memberName = name,
+                (s) => s
+                  ..shapeId = b.shapeId!.replace(member: name)
+                  ..memberName = name,
               ),
             );
           } else if (b is CollectionShapeBuilder) {
@@ -123,11 +122,10 @@ class ShapeMapSerializer extends StructuredSerializer<ShapeMap> {
     for (final shape in shapeMap.values.whereType<ListShape>()) {
       if (shape.hasTrait<UniqueItemsTrait>()) {
         final asSet = SetShape(
-          (b) =>
-              b
-                ..shapeId = shape.shapeId
-                ..member.replace(shape.member)
-                ..traits = shape.traits,
+          (b) => b
+            ..shapeId = shape.shapeId
+            ..member.replace(shape.member)
+            ..traits = shape.traits,
         );
         shapeMap[shape.shapeId] = asSet;
       }

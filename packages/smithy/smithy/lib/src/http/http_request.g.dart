@@ -230,8 +230,9 @@ class _$HttpResponse extends HttpResponse {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'HttpResponse')
-      ..add('headers', headers)).toString();
+    return (newBuiltValueToStringHelper(
+      r'HttpResponse',
+    )..add('headers', headers)).toString();
   }
 }
 

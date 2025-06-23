@@ -65,14 +65,13 @@ abstract class EnvironmentConfig
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EnvironmentConfig')
-          ..add('awsAccessKeyId', awsAccessKeyId)
-          ..add('awsSecretAccessKey', awsSecretAccessKey)
-          ..add('awsDefaultRegion', awsDefaultRegion)
-          ..add('awsRetryMode', awsRetryMode)
-          ..add('awsSessionToken', awsSessionToken)
-          ..add('awsProfile', awsProfile);
+    final helper = newBuiltValueToStringHelper('EnvironmentConfig')
+      ..add('awsAccessKeyId', awsAccessKeyId)
+      ..add('awsSecretAccessKey', awsSecretAccessKey)
+      ..add('awsDefaultRegion', awsDefaultRegion)
+      ..add('awsRetryMode', awsRetryMode)
+      ..add('awsSessionToken', awsSessionToken)
+      ..add('awsProfile', awsProfile);
     return helper.toString();
   }
 }

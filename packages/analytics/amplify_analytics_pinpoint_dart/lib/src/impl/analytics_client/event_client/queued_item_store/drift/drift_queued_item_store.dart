@@ -61,10 +61,9 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
   @override
   Future<Iterable<QueuedItem>> getCount(int count) async {
-    final statement =
-        (select(driftQueuedItems)
-          ..orderBy([(v) => OrderingTerm.asc(v.id)])
-          ..limit(count));
+    final statement = (select(driftQueuedItems)
+      ..orderBy([(v) => OrderingTerm.asc(v.id)])
+      ..limit(count));
 
     final retrievedItems = await statement.get();
     return retrievedItems.map(

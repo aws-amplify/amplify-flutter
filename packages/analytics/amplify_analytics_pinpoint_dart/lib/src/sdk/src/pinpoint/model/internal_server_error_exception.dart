@@ -70,10 +70,9 @@ abstract class InternalServerErrorException
   List<Object?> get props => [message, requestId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InternalServerErrorException')
-          ..add('message', message)
-          ..add('requestId', requestId);
+    final helper = newBuiltValueToStringHelper('InternalServerErrorException')
+      ..add('message', message)
+      ..add('requestId', requestId);
     return helper.toString();
   }
 }

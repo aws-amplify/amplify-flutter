@@ -86,10 +86,9 @@ ProfileTest _$ProfileTestFromJson(Map<String, dynamic> json) => ProfileTest(
   regionTests: ProfileTestCase.fromJson(
     json['regionTests'] as Map<String, dynamic>,
   ),
-  credentialsTests:
-      (json['credentialsTests'] as List<dynamic>)
-          .map((e) => ProfileTestCase.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  credentialsTests: (json['credentialsTests'] as List<dynamic>)
+      .map((e) => ProfileTestCase.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$ProfileTestToJson(

@@ -53,12 +53,11 @@ abstract class Session
   List<Object?> get props => [duration, id, startTimestamp, stopTimestamp];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('Session')
-          ..add('duration', duration)
-          ..add('id', id)
-          ..add('startTimestamp', startTimestamp)
-          ..add('stopTimestamp', stopTimestamp);
+    final helper = newBuiltValueToStringHelper('Session')
+      ..add('duration', duration)
+      ..add('id', id)
+      ..add('startTimestamp', startTimestamp)
+      ..add('stopTimestamp', stopTimestamp);
     return helper.toString();
   }
 }

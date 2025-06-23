@@ -80,12 +80,11 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
     return HasManyParentBiDirectionalImplicit._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       name: name,
-      biDirectionalImplicitChildren:
-          biDirectionalImplicitChildren != null
-              ? List<HasManyChildBiDirectionalImplicit>.unmodifiable(
-                biDirectionalImplicitChildren,
-              )
-              : biDirectionalImplicitChildren,
+      biDirectionalImplicitChildren: biDirectionalImplicitChildren != null
+          ? List<HasManyChildBiDirectionalImplicit>.unmodifiable(
+              biDirectionalImplicitChildren,
+            )
+          : biDirectionalImplicitChildren,
     );
   }
 
@@ -146,10 +145,9 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
     return HasManyParentBiDirectionalImplicit._internal(
       id: id,
       name: name == null ? this.name : name.value,
-      biDirectionalImplicitChildren:
-          biDirectionalImplicitChildren == null
-              ? this.biDirectionalImplicitChildren
-              : biDirectionalImplicitChildren.value,
+      biDirectionalImplicitChildren: biDirectionalImplicitChildren == null
+          ? this.biDirectionalImplicitChildren
+          : biDirectionalImplicitChildren.value,
     );
   }
 
@@ -158,8 +156,8 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
       _name = json['name'],
       _biDirectionalImplicitChildren =
           json['biDirectionalImplicitChildren'] is Map
-              ? (json['biDirectionalImplicitChildren']['items'] is List
-                  ? (json['biDirectionalImplicitChildren']['items'] as List)
+          ? (json['biDirectionalImplicitChildren']['items'] is List
+                ? (json['biDirectionalImplicitChildren']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) => HasManyChildBiDirectionalImplicit.fromJson(
@@ -167,9 +165,9 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null)
-              : (json['biDirectionalImplicitChildren'] is List
-                  ? (json['biDirectionalImplicitChildren'] as List)
+                : null)
+          : (json['biDirectionalImplicitChildren'] is List
+                ? (json['biDirectionalImplicitChildren'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => HasManyChildBiDirectionalImplicit.fromJson(
@@ -177,23 +175,20 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'name': _name,
-    'biDirectionalImplicitChildren':
-        _biDirectionalImplicitChildren
-            ?.map((HasManyChildBiDirectionalImplicit? e) => e?.toJson())
-            .toList(),
+    'biDirectionalImplicitChildren': _biDirectionalImplicitChildren
+        ?.map((HasManyChildBiDirectionalImplicit? e) => e?.toJson())
+        .toList(),
     'createdAt': _createdAt?.format(),
     'updatedAt': _updatedAt?.format(),
   };
@@ -304,10 +299,9 @@ class HasManyParentBiDirectionalImplicitModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

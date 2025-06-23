@@ -15,7 +15,8 @@ const List<String> _ignoredRules = [
 ];
 
 /// Header which prefixes all generated files.
-final String header = '''
+final String header =
+    '''
 // Generated with smithy-dart $packageVersion. DO NOT MODIFY.
 // ignore_for_file: ${_ignoredRules.join(',')}
 ''';

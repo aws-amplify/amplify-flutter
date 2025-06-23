@@ -9,15 +9,15 @@ part of 'key.dart';
 JsonWebKey _$JsonWebKeyFromJson(Map<String, dynamic> json) => JsonWebKey(
   keyType: KeyTypeX.fromJson(json['kty'] as String),
   publicKeyUse: PublicKeyUseX.fromJson(json['use'] as String?),
-  keyOperations:
-      (json['key_ops'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$KeyOperationEnumMap, e))
-          .toList(),
+  keyOperations: (json['key_ops'] as List<dynamic>?)
+      ?.map((e) => $enumDecode(_$KeyOperationEnumMap, e))
+      .toList(),
   algorithm: AlgorithmX.tryFromJson(json['alg'] as String?),
   keyId: json['kid'] as String?,
   x509Url: json['x5u'] as String?,
-  x509CertChain:
-      (json['x5c'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  x509CertChain: (json['x5c'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
   x509Sha1Thumbprint: json['x5t'] as String?,
   x509Sha256Thumbprint: json['x5t#S256'] as String?,
   ellipticCurve: EllipticCurveX.fromJson(json['crv'] as String?),
@@ -32,10 +32,9 @@ JsonWebKey _$JsonWebKeyFromJson(Map<String, dynamic> json) => JsonWebKey(
   dp: base64UrlUintTryDecode(json['dp'] as String?),
   dq: base64UrlUintTryDecode(json['dq'] as String?),
   qi: base64UrlUintTryDecode(json['qi'] as String?),
-  otherPrimes:
-      (json['oth'] as List<dynamic>?)
-          ?.map((e) => OtherPrime.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  otherPrimes: (json['oth'] as List<dynamic>?)
+      ?.map((e) => OtherPrime.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$JsonWebKeyToJson(

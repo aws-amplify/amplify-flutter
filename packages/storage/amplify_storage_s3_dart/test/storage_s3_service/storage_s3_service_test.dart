@@ -54,12 +54,11 @@ void main() {
       awsSigV4Signer = MockAWSSigV4Signer();
       mockUserAgent = MockAmplifyUserAgent();
       mockAwsHttpClient = MockAWSHttpClient();
-      dependencyManager =
-          DependencyManager()
-            ..addInstance<S3Client>(s3Client)
-            ..addInstance<AWSSigV4Signer>(awsSigV4Signer)
-            ..addInstance<AmplifyUserAgent>(mockUserAgent)
-            ..addInstance<AWSHttpClient>(mockAwsHttpClient);
+      dependencyManager = DependencyManager()
+        ..addInstance<S3Client>(s3Client)
+        ..addInstance<AWSSigV4Signer>(awsSigV4Signer)
+        ..addInstance<AmplifyUserAgent>(mockUserAgent)
+        ..addInstance<AWSHttpClient>(mockAwsHttpClient);
       storageS3Service = StorageS3Service(
         storageOutputs: storageOutputs,
         pathResolver: pathResolver,
@@ -115,16 +114,15 @@ void main() {
         'should invoke S3Client.listObjectsV2 with expected parameters',
         () async {
           final testCommonPrefix = CommonPrefix(prefix: testPrefix);
-          final testS3Objects =
-              [1, 2, 3, 4, 5]
-                  .map(
-                    (e) => S3Object(
-                      key: '${testPrefix}object-$e',
-                      size: Int64(100 * 4),
-                      eTag: 'object-$e-eTag',
-                    ),
-                  )
-                  .toList();
+          final testS3Objects = [1, 2, 3, 4, 5]
+              .map(
+                (e) => S3Object(
+                  key: '${testPrefix}object-$e',
+                  size: Int64(100 * 4),
+                  eTag: 'object-$e-eTag',
+                ),
+              )
+              .toList();
           const testPath = StoragePath.fromString('album');
           const testOptions = StorageListOptions(
             pageSize: testPageSize,
@@ -163,11 +161,9 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequest =
-              verify(
-                () =>
-                    s3Client.listObjectsV2(captureAny<ListObjectsV2Request>()),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.listObjectsV2(captureAny<ListObjectsV2Request>()),
+          ).captured.last;
           expect(capturedRequest is ListObjectsV2Request, isTrue);
 
           final request = capturedRequest as ListObjectsV2Request;
@@ -188,16 +184,15 @@ void main() {
       test(
         'should attach delimiter to the ListObjectV2Request when options excludeSubPaths is set to true',
         () async {
-          final testS3Objects =
-              [1, 2, 3, 4, 5]
-                  .map(
-                    (e) => S3Object(
-                      key: '${testPrefix}object-$e',
-                      size: Int64(100 * 4),
-                      eTag: 'object-$e-eTag',
-                    ),
-                  )
-                  .toList();
+          final testS3Objects = [1, 2, 3, 4, 5]
+              .map(
+                (e) => S3Object(
+                  key: '${testPrefix}object-$e',
+                  size: Int64(100 * 4),
+                  eTag: 'object-$e-eTag',
+                ),
+              )
+              .toList();
           const testPath = StoragePath.fromString('album');
           const testOptions = StorageListOptions(
             pageSize: testPageSize,
@@ -275,16 +270,15 @@ void main() {
       test(
         'should invoke S3Object.listObjectV2 with expected parameters and return expected results with listAll is set to true in the options',
         () async {
-          final testS3Objects =
-              List.generate(2001, (index) => '$index')
-                  .map(
-                    (e) => S3Object(
-                      key: '${testPrefix}object-$e',
-                      size: Int64(100 * 4),
-                      eTag: 'object-$e-eTag',
-                    ),
-                  )
-                  .toList();
+          final testS3Objects = List.generate(2001, (index) => '$index')
+              .map(
+                (e) => S3Object(
+                  key: '${testPrefix}object-$e',
+                  size: Int64(100 * 4),
+                  eTag: 'object-$e-eTag',
+                ),
+              )
+              .toList();
           const testPath = StoragePath.fromString('album');
           const testOptions = StorageListOptions(
             pageSize: testPageSize,
@@ -322,11 +316,10 @@ void main() {
           final testPaginatedResult2 =
               PaginatedResult<ListObjectsV2Output, int, String>(
                 ListObjectsV2Output(
-                  contents:
-                      testS3Objects
-                          .skip(defaultPageSize)
-                          .take(defaultPageSize)
-                          .toList(),
+                  contents: testS3Objects
+                      .skip(defaultPageSize)
+                      .take(defaultPageSize)
+                      .toList(),
                   commonPrefixes: [testCommonPrefix],
                   delimiter: testDelimiter,
                   name: testBucketName,
@@ -368,11 +361,9 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequest =
-              verify(
-                () =>
-                    s3Client.listObjectsV2(captureAny<ListObjectsV2Request>()),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.listObjectsV2(captureAny<ListObjectsV2Request>()),
+          ).captured.last;
 
           expect(
             capturedRequest,
@@ -449,10 +440,9 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequest =
-              verify(
-                () => s3Client.headObject(captureAny<HeadObjectRequest>()),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.headObject(captureAny<HeadObjectRequest>()),
+          ).captured.last;
           expect(capturedRequest is HeadObjectRequest, isTrue);
 
           final request = capturedRequest as HeadObjectRequest;
@@ -488,10 +478,9 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequest =
-              verify(
-                () => s3Client.headObject(captureAny<HeadObjectRequest>()),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.headObject(captureAny<HeadObjectRequest>()),
+          ).captured.last;
           expect(capturedRequest is HeadObjectRequest, isTrue);
 
           final request = capturedRequest as HeadObjectRequest;
@@ -590,19 +579,18 @@ void main() {
             path: testPath,
             options: testOptions,
           );
-          final capturedParams =
-              verify(
-                () => awsSigV4Signer.presign(
-                  captureAny<AWSHttpRequest>(),
-                  credentialScope: captureAny<AWSCredentialScope>(
-                    named: 'credentialScope',
-                  ),
-                  expiresIn: captureAny<Duration>(named: 'expiresIn'),
-                  serviceConfiguration: captureAny<S3ServiceConfiguration>(
-                    named: 'serviceConfiguration',
-                  ),
-                ),
-              ).captured;
+          final capturedParams = verify(
+            () => awsSigV4Signer.presign(
+              captureAny<AWSHttpRequest>(),
+              credentialScope: captureAny<AWSCredentialScope>(
+                named: 'credentialScope',
+              ),
+              expiresIn: captureAny<Duration>(named: 'expiresIn'),
+              serviceConfiguration: captureAny<S3ServiceConfiguration>(
+                named: 'serviceConfiguration',
+              ),
+            ),
+          ).captured;
 
           expect(capturedParams.first is AWSHttpRequest, isTrue);
           final requestParam = capturedParams.first as AWSHttpRequest;
@@ -640,34 +628,32 @@ void main() {
             path: testPath,
             options: testOptions,
           );
-          final capturedSignerScope1 =
-              verify(
-                () => awsSigV4Signer.presign(
-                  any(),
-                  credentialScope: captureAny<AWSCredentialScope>(
-                    named: 'credentialScope',
-                  ),
-                  expiresIn: any(named: 'expiresIn'),
-                  serviceConfiguration: any(named: 'serviceConfiguration'),
-                ),
-              ).captured.first;
+          final capturedSignerScope1 = verify(
+            () => awsSigV4Signer.presign(
+              any(),
+              credentialScope: captureAny<AWSCredentialScope>(
+                named: 'credentialScope',
+              ),
+              expiresIn: any(named: 'expiresIn'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+            ),
+          ).captured.first;
           expect(capturedSignerScope1, isA<AWSCredentialScope>());
 
           getUrlResult = await storageS3Service.getUrl(
             path: testPath,
             options: testOptions,
           );
-          final capturedSignerScope2 =
-              verify(
-                () => awsSigV4Signer.presign(
-                  any(),
-                  credentialScope: captureAny<AWSCredentialScope>(
-                    named: 'credentialScope',
-                  ),
-                  expiresIn: any(named: 'expiresIn'),
-                  serviceConfiguration: any(named: 'serviceConfiguration'),
-                ),
-              ).captured.first;
+          final capturedSignerScope2 = verify(
+            () => awsSigV4Signer.presign(
+              any(),
+              credentialScope: captureAny<AWSCredentialScope>(
+                named: 'credentialScope',
+              ),
+              expiresIn: any(named: 'expiresIn'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+            ),
+          ).captured.first;
           expect(capturedSignerScope2, isA<AWSCredentialScope>());
 
           expect(capturedSignerScope1, isNot(equals(capturedSignerScope2)));
@@ -751,19 +737,18 @@ void main() {
 
         await storageS3Service.getUrl(path: testPath, options: testOptions);
 
-        final capturedParams =
-            verify(
-              () => awsSigV4Signer.presign(
-                captureAny<AWSHttpRequest>(),
-                credentialScope: captureAny<AWSCredentialScope>(
-                  named: 'credentialScope',
-                ),
-                expiresIn: captureAny<Duration>(named: 'expiresIn'),
-                serviceConfiguration: captureAny<S3ServiceConfiguration>(
-                  named: 'serviceConfiguration',
-                ),
-              ),
-            ).captured;
+        final capturedParams = verify(
+          () => awsSigV4Signer.presign(
+            captureAny<AWSHttpRequest>(),
+            credentialScope: captureAny<AWSCredentialScope>(
+              named: 'credentialScope',
+            ),
+            expiresIn: captureAny<Duration>(named: 'expiresIn'),
+            serviceConfiguration: captureAny<S3ServiceConfiguration>(
+              named: 'serviceConfiguration',
+            ),
+          ),
+        ).captured;
 
         expect(
           capturedParams[0],
@@ -792,10 +777,9 @@ void main() {
 
         setUpAll(() {
           pathStyleAwsSigV4Signer = MockAWSSigV4Signer();
-          dependencyManager =
-              DependencyManager()
-                ..addInstance<S3Client>(MockS3Client())
-                ..addInstance<AWSSigV4Signer>(pathStyleAwsSigV4Signer);
+          dependencyManager = DependencyManager()
+            ..addInstance<S3Client>(MockS3Client())
+            ..addInstance<AWSSigV4Signer>(pathStyleAwsSigV4Signer);
           pathStyleStorageS3Service = StorageS3Service(
             storageOutputs: pathStyleStorageOutputs,
             pathResolver: pathResolver,
@@ -822,15 +806,14 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequest =
-              verify(
-                () => pathStyleAwsSigV4Signer.presign(
-                  captureAny<AWSHttpRequest>(),
-                  credentialScope: any(named: 'credentialScope'),
-                  expiresIn: any(named: 'expiresIn'),
-                  serviceConfiguration: any(named: 'serviceConfiguration'),
-                ),
-              ).captured.first;
+          final capturedRequest = verify(
+            () => pathStyleAwsSigV4Signer.presign(
+              captureAny<AWSHttpRequest>(),
+              credentialScope: any(named: 'credentialScope'),
+              expiresIn: any(named: 'expiresIn'),
+              serviceConfiguration: any(named: 'serviceConfiguration'),
+            ),
+          ).captured.first;
 
           expect(
             capturedRequest,
@@ -914,10 +897,9 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequest =
-              verify(
-                () => s3Client.copyObject(captureAny<CopyObjectRequest>()),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.copyObject(captureAny<CopyObjectRequest>()),
+          ).captured.last;
 
           expect(capturedRequest is CopyObjectRequest, isTrue);
           final request = capturedRequest as CopyObjectRequest;
@@ -1008,10 +990,9 @@ void main() {
             options: testOptions,
           );
 
-          final headObjectRequest =
-              verify(
-                () => s3Client.headObject(captureAny<HeadObjectRequest>()),
-              ).captured.last;
+          final headObjectRequest = verify(
+            () => s3Client.headObject(captureAny<HeadObjectRequest>()),
+          ).captured.last;
 
           expect(headObjectRequest is HeadObjectRequest, isTrue);
           final request = headObjectRequest as HeadObjectRequest;
@@ -1052,10 +1033,9 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequest =
-              verify(
-                () => s3Client.deleteObject(captureAny<DeleteObjectRequest>()),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.deleteObject(captureAny<DeleteObjectRequest>()),
+          ).captured.last;
           expect(capturedRequest is DeleteObjectRequest, isTrue);
 
           final request = capturedRequest as DeleteObjectRequest;
@@ -1084,10 +1064,9 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequest =
-              verify(
-                () => s3Client.deleteObject(captureAny<DeleteObjectRequest>()),
-              ).captured.last;
+          final capturedRequest = verify(
+            () => s3Client.deleteObject(captureAny<DeleteObjectRequest>()),
+          ).captured.last;
           expect(capturedRequest is DeleteObjectRequest, isTrue);
 
           final request = capturedRequest as DeleteObjectRequest;
@@ -1149,11 +1128,10 @@ void main() {
       late S3RemoveManyResult removeManyResult;
       const testNumOfRemovedItems = 955;
       const testNumOfRemoveErrors = 50;
-      final testPaths =
-          List.generate(
-            1005,
-            (index) => 'object-to-remove-${index + 1}',
-          ).map(StoragePath.fromString).toList();
+      final testPaths = List.generate(
+        1005,
+        (index) => 'object-to-remove-${index + 1}',
+      ).map(StoragePath.fromString).toList();
       late List<String> resolvedPaths;
 
       setUpAll(() async {
@@ -1171,11 +1149,10 @@ void main() {
         () async {
           const testOptions = StorageRemoveManyOptions();
           final testDeleteObjectsOutput = DeleteObjectsOutput(
-            deleted:
-                resolvedPaths
-                    .take(2)
-                    .map((path) => DeletedObject(key: path))
-                    .toList(),
+            deleted: resolvedPaths
+                .take(2)
+                .map((path) => DeletedObject(key: path))
+                .toList(),
           );
 
           final smithyOperation = MockSmithyOperation<DeleteObjectsOutput>();
@@ -1193,11 +1170,9 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequests =
-              verify(
-                () =>
-                    s3Client.deleteObjects(captureAny<DeleteObjectsRequest>()),
-              ).captured;
+          final capturedRequests = verify(
+            () => s3Client.deleteObjects(captureAny<DeleteObjectsRequest>()),
+          ).captured;
 
           expect(capturedRequests, hasLength(1));
 
@@ -1267,11 +1242,9 @@ void main() {
             options: testOptions,
           );
 
-          final capturedRequests =
-              verify(
-                () =>
-                    s3Client.deleteObjects(captureAny<DeleteObjectsRequest>()),
-              ).captured;
+          final capturedRequests = verify(
+            () => s3Client.deleteObjects(captureAny<DeleteObjectsRequest>()),
+          ).captured;
 
           // 1005 objects to remove therefore should send 2 requests for
           // 2 batches
@@ -1310,8 +1283,9 @@ void main() {
           expect(removeErrors, hasLength(testNumOfRemoveErrors));
 
           removedItems.asMap().forEach((index, item) {
-            final lookupIndex =
-                index < 950 ? index : index + testNumOfRemoveErrors;
+            final lookupIndex = index < 950
+                ? index
+                : index + testNumOfRemoveErrors;
             expect(item.path, resolvedPaths[lookupIndex]);
           });
         },

@@ -64,7 +64,7 @@ abstract class JsonProtocolServerBase extends _i1.HttpServerBase {
             service.putAndGetInlineDocuments,
         'JsonProtocol.PutWithContentEncoding': service.putWithContentEncoding,
         'JsonProtocol.SimpleScalarProperties': service.simpleScalarProperties,
-      }),
+      }).call,
     );
     return router;
   }();

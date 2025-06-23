@@ -109,10 +109,9 @@ void main() {
       final major = currentDartVersion.major;
       final minor = currentDartVersion.minor;
       final stablePackage = await d.package('stable_pkg').create();
-      final previewPackage =
-          await d
-              .package('preview_pkg', sdkConstraint: '^$major.${minor + 1}.0-0')
-              .create();
+      final previewPackage = await d
+          .package('preview_pkg', sdkConstraint: '^$major.${minor + 1}.0-0')
+          .create();
       expect(stablePackage.compatibleWithActiveSdk, isTrue);
       expect(previewPackage.compatibleWithActiveSdk, isFalse);
     });

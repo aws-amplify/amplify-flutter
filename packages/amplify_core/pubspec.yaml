@@ -6,27 +6,27 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/am
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 
 dependencies:
   async: ^2.10.0
   aws_common: ">=0.7.8 <0.8.0"
   aws_signature_v4: ">=0.6.6 <0.7.0"
-  collection: ^1.15.0
+  collection: ^1.18.0
   graphs: ^2.1.0
-  intl: ">=0.18.0 <1.0.0"
-  json_annotation: ">=4.9.0 <4.10.0"
+  intl: ^0.20.2
+  json_annotation: ^4.9.0
   logging: ^1.0.0
   meta: ^1.16.0
-  retry: ^3.1.0
+  retry: ^3.1.2
   stack_trace: ^1.10.0
-  uuid: ">=3.0.6 <5.0.0"
+  uuid: ^4.5.1
   web: ^1.1.1
 
 dev_dependencies:
   amplify_lints: ">=3.1.2 <3.2.0"
   build_runner: ^2.4.9
-  build_test: ^2.1.5
+  build_test: ^3.1.1
   build_version: ^2.1.1
   build_web_compilers: ^4.0.0
   code_excerpt_updater:
@@ -36,5 +36,5 @@ dev_dependencies:
       # TODO: Bump when global SDK >=3.1
       ref: 923adadacbb95f11d222e6fc6135f6dbb66f84ee
   json_serializable: ^6.9.4
-  path: any
+  path: ^1.8.0
   test: ^1.22.1

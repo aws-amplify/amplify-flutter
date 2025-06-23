@@ -26,20 +26,18 @@ abstract class SecureStorageRequest
     required AmplifySecureStorageConfig config,
   }) {
     return SecureStorageRequest(
-      (b) =>
-          b
-            ..action = SecureStorageAction.init
-            ..config.replace(config),
+      (b) => b
+        ..action = SecureStorageAction.init
+        ..config.replace(config),
     );
   }
 
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.read}
   factory SecureStorageRequest.read({required String key}) {
     return SecureStorageRequest(
-      (b) =>
-          b
-            ..action = SecureStorageAction.read
-            ..key = key,
+      (b) => b
+        ..action = SecureStorageAction.read
+        ..key = key,
     );
   }
 
@@ -49,21 +47,19 @@ abstract class SecureStorageRequest
     required String value,
   }) {
     return SecureStorageRequest(
-      (b) =>
-          b
-            ..action = SecureStorageAction.write
-            ..key = key
-            ..value = value,
+      (b) => b
+        ..action = SecureStorageAction.write
+        ..key = key
+        ..value = value,
     );
   }
 
   /// {@macro amplify_secure_storage_dart.secure_storage_interface.delete}
   factory SecureStorageRequest.delete({required String key}) {
     return SecureStorageRequest(
-      (b) =>
-          b
-            ..action = SecureStorageAction.delete
-            ..key = key,
+      (b) => b
+        ..action = SecureStorageAction.delete
+        ..key = key,
     );
   }
 

@@ -63,11 +63,10 @@ abstract class SignUpResponse
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('SignUpResponse')
-          ..add('userConfirmed', userConfirmed)
-          ..add('codeDeliveryDetails', codeDeliveryDetails)
-          ..add('userSub', userSub);
+    final helper = newBuiltValueToStringHelper('SignUpResponse')
+      ..add('userConfirmed', userConfirmed)
+      ..add('codeDeliveryDetails', codeDeliveryDetails)
+      ..add('userSub', userSub);
     return helper.toString();
   }
 }

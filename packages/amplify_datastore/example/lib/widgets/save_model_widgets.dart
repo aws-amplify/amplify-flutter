@@ -68,10 +68,9 @@ Widget addPostWidget({
       DropdownButton<Blog>(
         value: selectedBlog,
         hint: Text("Blog"),
-        items:
-            allBlogs
-                .map((e) => DropdownMenuItem(child: Text(e.name), value: e))
-                .toList(), //_dropdownMenuItems,
+        items: allBlogs
+            .map((e) => DropdownMenuItem(child: Text(e.name), value: e))
+            .toList(), //_dropdownMenuItems,
         onChanged: (value) => updateSelectedBlogForNewPost(value),
       ),
       divider,
@@ -118,10 +117,9 @@ Widget addCommentWidget(
       DropdownButton<Post>(
         value: defaultPost,
         hint: Text("Post"),
-        items:
-            allPosts
-                .map((e) => DropdownMenuItem(child: Text(e.title), value: e))
-                .toList(), //_dropdownMenuItems,
+        items: allPosts
+            .map((e) => DropdownMenuItem(child: Text(e.title), value: e))
+            .toList(), //_dropdownMenuItems,
         onChanged: (value) {
           updateSelectedPostForNewComment(value);
         },

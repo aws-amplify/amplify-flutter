@@ -75,11 +75,10 @@ abstract class HttpRequestWithLabelsInput
       b.boolean = labels['boolean']! == 'true';
     }
     if (labels['timestamp'] != null) {
-      b.timestamp =
-          _i1.Timestamp.parse(
-            labels['timestamp']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.timestamp = _i1.Timestamp.parse(
+        labels['timestamp']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
   });
 
@@ -141,16 +140,15 @@ abstract class HttpRequestWithLabelsInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('HttpRequestWithLabelsInput')
-          ..add('string', string)
-          ..add('short', short)
-          ..add('integer', integer)
-          ..add('long', long)
-          ..add('float', float)
-          ..add('double_', double_)
-          ..add('boolean', boolean)
-          ..add('timestamp', timestamp);
+    final helper = newBuiltValueToStringHelper('HttpRequestWithLabelsInput')
+      ..add('string', string)
+      ..add('short', short)
+      ..add('integer', integer)
+      ..add('long', long)
+      ..add('float', float)
+      ..add('double_', double_)
+      ..add('boolean', boolean)
+      ..add('timestamp', timestamp);
     return helper.toString();
   }
 }

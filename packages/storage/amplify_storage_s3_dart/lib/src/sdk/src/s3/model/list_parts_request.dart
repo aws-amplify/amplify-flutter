@@ -174,18 +174,17 @@ abstract class ListPartsRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListPartsRequest')
-          ..add('bucket', bucket)
-          ..add('key', key)
-          ..add('maxParts', maxParts)
-          ..add('partNumberMarker', partNumberMarker)
-          ..add('uploadId', uploadId)
-          ..add('requestPayer', requestPayer)
-          ..add('expectedBucketOwner', expectedBucketOwner)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKey', '***SENSITIVE***')
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5);
+    final helper = newBuiltValueToStringHelper('ListPartsRequest')
+      ..add('bucket', bucket)
+      ..add('key', key)
+      ..add('maxParts', maxParts)
+      ..add('partNumberMarker', partNumberMarker)
+      ..add('uploadId', uploadId)
+      ..add('requestPayer', requestPayer)
+      ..add('expectedBucketOwner', expectedBucketOwner)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKey', '***SENSITIVE***')
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5);
     return helper.toString();
   }
 }

@@ -26,15 +26,14 @@ class GraphQLResponseError {
   factory GraphQLResponseError.fromJson(Map<String, dynamic> json) {
     return GraphQLResponseError(
       message: json['message'] as String,
-      locations:
-          (json['locations'] as List?)
-              ?.cast<Map<Object?, Object?>>()
-              .map(
-                (json) => GraphQLResponseErrorLocation.fromJson(
-                  json.cast<String, dynamic>(),
-                ),
-              )
-              .toList(),
+      locations: (json['locations'] as List?)
+          ?.cast<Map<Object?, Object?>>()
+          .map(
+            (json) => GraphQLResponseErrorLocation.fromJson(
+              json.cast<String, dynamic>(),
+            ),
+          )
+          .toList(),
       path: json['path'] as List?,
       extensions: (json['extensions'] as Map?)?.cast<String, dynamic>(),
       errorType: json['errorType'] as String?,

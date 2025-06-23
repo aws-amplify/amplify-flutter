@@ -28,10 +28,10 @@ class ExecCommand extends AmplifyCommand with GlobOptions, FailFastOption {
 
     // Process command to handle some quirks of bash and how Dart initially
     // captures these scripts.
-    final command =
-        rawCommand.map((arg) => arg.trim()).where((arg) => arg.isNotEmpty).map((
-          arg,
-        ) {
+    final command = rawCommand
+        .map((arg) => arg.trim())
+        .where((arg) => arg.isNotEmpty)
+        .map((arg) {
           // Inject environment variables for inline scripts.
           //
           // We use bracket notation (e.g. <VARIABLE>) to prevent bash expansion
@@ -40,7 +40,8 @@ class ExecCommand extends AmplifyCommand with GlobOptions, FailFastOption {
             arg = arg.replaceAll('<$key>', value);
           });
           return arg;
-        }).toList();
+        })
+        .toList();
 
     for (final package in commandPackages.values) {
       logger.info('Running "${command.join(' ')}" in "${package.path}"...');

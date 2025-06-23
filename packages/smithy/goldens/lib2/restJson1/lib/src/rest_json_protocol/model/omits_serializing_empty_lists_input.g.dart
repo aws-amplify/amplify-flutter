@@ -203,9 +203,8 @@ class _$OmitsSerializingEmptyListsInputPayload
     extends OmitsSerializingEmptyListsInputPayload {
   factory _$OmitsSerializingEmptyListsInputPayload([
     void Function(OmitsSerializingEmptyListsInputPayloadBuilder)? updates,
-  ]) =>
-      (OmitsSerializingEmptyListsInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (OmitsSerializingEmptyListsInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$OmitsSerializingEmptyListsInputPayload._() : super._();
   @override

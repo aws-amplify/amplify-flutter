@@ -12,8 +12,8 @@ void main() {
   testRunner.setupTests();
 
   group('Auth Hub', () {
-    final authEventStream =
-        Amplify.Hub.availableStreams[HubChannel.Auth]!.cast<AuthHubEvent>();
+    final authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!
+        .cast<AuthHubEvent>();
 
     final username = generateUsername();
     final password = generatePassword();

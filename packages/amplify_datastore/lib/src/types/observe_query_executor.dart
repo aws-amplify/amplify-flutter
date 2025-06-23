@@ -25,11 +25,10 @@ class ObserveQueryExecutor {
   final Stream<dynamic> dataStoreEventStream;
 
   ObserveQueryExecutor({required this.dataStoreEventStream})
-    : _dataStoreHubEventStream =
-          dataStoreEventStream
-              .where((event) => event is DataStoreHubEvent)
-              .cast<DataStoreHubEvent>()
-              .asBroadcastStream() {
+    : _dataStoreHubEventStream = dataStoreEventStream
+          .where((event) => event is DataStoreHubEvent)
+          .cast<DataStoreHubEvent>()
+          .asBroadcastStream() {
     _initModelSyncCache();
   }
 
@@ -64,54 +63,50 @@ class ObserveQueryExecutor {
           return querySnapshot!;
         });
 
-    Stream<QuerySnapshot<T>> observeStream =
-        observe(modelType)
-            .map<QuerySnapshot<T>?>((event) {
-              // cache subscription events until the initial query is returned
-              if (querySnapshot == null) {
-                subscriptionEvents.add(event);
-                return null;
-              }
+    Stream<QuerySnapshot<T>> observeStream = observe(modelType)
+        .map<QuerySnapshot<T>?>((event) {
+          // cache subscription events until the initial query is returned
+          if (querySnapshot == null) {
+            subscriptionEvents.add(event);
+            return null;
+          }
 
-              // apply the most recent event to the cached QuerySnapshot
-              var updatedQuerySnapshot = querySnapshot!.withSubscriptionEvent(
-                event: event,
-              );
+          // apply the most recent event to the cached QuerySnapshot
+          var updatedQuerySnapshot = querySnapshot!.withSubscriptionEvent(
+            event: event,
+          );
 
-              // if the snapshot has not changed, return null
-              if (querySnapshot == updatedQuerySnapshot) {
-                return null;
-              }
+          // if the snapshot has not changed, return null
+          if (querySnapshot == updatedQuerySnapshot) {
+            return null;
+          }
 
-              // otherwise, update the cached QuerySnapshot and return it
-              querySnapshot = updatedQuerySnapshot;
-              return querySnapshot;
-            })
-            // filter out null values
-            .where((event) => event != null)
-            .cast<QuerySnapshot<T>>();
+          // otherwise, update the cached QuerySnapshot and return it
+          querySnapshot = updatedQuerySnapshot;
+          return querySnapshot;
+        })
+        // filter out null values
+        .where((event) => event != null)
+        .cast<QuerySnapshot<T>>();
 
-    Future<QuerySnapshot<T>> queryFuture = query(
-      modelType,
-      where: where,
-      sortBy: sortBy,
-    ).then((value) {
-      // create & cache the intitial QuerySnapshot
-      querySnapshot = QuerySnapshot(
-        items: value,
-        isSynced: _isModelSyncComplete(modelType),
-        where: where,
-        sortBy: sortBy,
-      );
+    Future<QuerySnapshot<T>> queryFuture =
+        query(modelType, where: where, sortBy: sortBy).then((value) {
+          // create & cache the intitial QuerySnapshot
+          querySnapshot = QuerySnapshot(
+            items: value,
+            isSynced: _isModelSyncComplete(modelType),
+            where: where,
+            sortBy: sortBy,
+          );
 
-      // apply any cached subscription events
-      for (var event in subscriptionEvents) {
-        querySnapshot = querySnapshot!.withSubscriptionEvent(event: event);
-      }
+          // apply any cached subscription events
+          for (var event in subscriptionEvents) {
+            querySnapshot = querySnapshot!.withSubscriptionEvent(event: event);
+          }
 
-      // return the QuerySnapshot
-      return querySnapshot!;
-    });
+          // return the QuerySnapshot
+          return querySnapshot!;
+        });
 
     final queryStream = Stream.fromFuture(queryFuture);
 

@@ -17,8 +17,8 @@ class InheritedConfig extends InheritedWidget {
   final EdgeInsets padding;
 
   static InheritedConfig of(BuildContext context) {
-    final inheritedConfig =
-        context.dependOnInheritedWidgetOfExactType<InheritedConfig>();
+    final inheritedConfig = context
+        .dependOnInheritedWidgetOfExactType<InheritedConfig>();
     assert(() {
       if (inheritedConfig == null) {
         throw FlutterError.fromParts([

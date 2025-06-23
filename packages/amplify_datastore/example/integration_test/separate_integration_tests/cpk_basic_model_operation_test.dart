@@ -219,15 +219,20 @@ void main() {
           warehouseId: UUID.getUUID(),
         );
 
-        final observeStream = Amplify.DataStore.observeQuery(
-          CpkInventory.classType,
-          where: CpkInventory.MODEL_IDENTIFIER.eq(testModel.modelIdentifier),
-        ).map(
-          (querySnapshot) => Tuple2(
-            querySnapshot.isSynced,
-            querySnapshot.items.length > 0 ? querySnapshot.items.first : null,
-          ),
-        );
+        final observeStream =
+            Amplify.DataStore.observeQuery(
+              CpkInventory.classType,
+              where: CpkInventory.MODEL_IDENTIFIER.eq(
+                testModel.modelIdentifier,
+              ),
+            ).map(
+              (querySnapshot) => Tuple2(
+                querySnapshot.isSynced,
+                querySnapshot.items.length > 0
+                    ? querySnapshot.items.first
+                    : null,
+              ),
+            );
 
         expectLater(
           observeStream,
