@@ -129,8 +129,9 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
 
       if (encoding == S3PayloadEncoding.none) {
         headers[AWSHeaders.contentEncoding] = 'aws-chunked';
-        headers[AWSHeaders.contentLength] =
-            _calculateContentLength(contentLength).toString();
+        headers[AWSHeaders.contentLength] = _calculateContentLength(
+          contentLength,
+        ).toString();
       } else {
         headers[AWSHeaders.contentEncoding] = 'aws-chunked,${encoding.name}';
       }
@@ -203,25 +204,23 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     while (true) {
       final size = min(decodedLength - chunkedLength, chunkSize);
       final chunk = await reader.readBytes(size);
-      final sb =
-          StringBuffer()
-            ..writeln('$algorithm-PAYLOAD')
-            ..writeln(credentialScope.dateTime)
-            ..writeln(credentialScope)
-            ..writeln(previousSignature)
-            ..writeln(emptyPayloadHash)
-            ..write(payloadEncoder.convert(chunk));
+      final sb = StringBuffer()
+        ..writeln('$algorithm-PAYLOAD')
+        ..writeln(credentialScope.dateTime)
+        ..writeln(credentialScope)
+        ..writeln(previousSignature)
+        ..writeln(emptyPayloadHash)
+        ..write(payloadEncoder.convert(chunk));
       final stringToSign = sb.toString();
 
       final chunkSignature = algorithm.sign(stringToSign, signingKey);
-      final bytes =
-          BytesBuilder(copy: false)
-            ..add(size.toRadixString(16).codeUnits)
-            ..add(_sigSep)
-            ..add(chunkSignature.codeUnits)
-            ..add(_sep)
-            ..add(chunk)
-            ..add(_sep);
+      final bytes = BytesBuilder(copy: false)
+        ..add(size.toRadixString(16).codeUnits)
+        ..add(_sigSep)
+        ..add(chunkSignature.codeUnits)
+        ..add(_sep)
+        ..add(chunk)
+        ..add(_sep);
       yield bytes.takeBytes();
 
       previousSignature = chunkSignature;

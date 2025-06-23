@@ -168,12 +168,12 @@ void main() {
       validateEvents(forgotPasswordEvents, EventType.forgotPassword);
 
       password = generatePassword();
-      final confirmForgotPasswordResult = await Amplify
-          .Auth.confirmResetPassword(
-        username: username,
-        newPassword: password,
-        confirmationCode: await resetCode.code,
-      );
+      final confirmForgotPasswordResult =
+          await Amplify.Auth.confirmResetPassword(
+            username: username,
+            newPassword: password,
+            confirmationCode: await resetCode.code,
+          );
       expect(confirmForgotPasswordResult.isPasswordReset, isTrue);
 
       final confirmForgotPasswordEvents = (await adminListAuthEvents(

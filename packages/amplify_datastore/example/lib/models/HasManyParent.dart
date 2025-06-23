@@ -88,14 +88,12 @@ class HasManyParent extends amplify_core.Model {
     return HasManyParent._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       name: name,
-      implicitChildren:
-          implicitChildren != null
-              ? List<HasManyChildImplicit>.unmodifiable(implicitChildren)
-              : implicitChildren,
-      explicitChildren:
-          explicitChildren != null
-              ? List<HasManyChildExplicit>.unmodifiable(explicitChildren)
-              : explicitChildren,
+      implicitChildren: implicitChildren != null
+          ? List<HasManyChildImplicit>.unmodifiable(implicitChildren)
+          : implicitChildren,
+      explicitChildren: explicitChildren != null
+          ? List<HasManyChildExplicit>.unmodifiable(explicitChildren)
+          : explicitChildren,
     );
   }
 
@@ -161,24 +159,21 @@ class HasManyParent extends amplify_core.Model {
     return HasManyParent._internal(
       id: id,
       name: name == null ? this.name : name.value,
-      implicitChildren:
-          implicitChildren == null
-              ? this.implicitChildren
-              : implicitChildren.value,
-      explicitChildren:
-          explicitChildren == null
-              ? this.explicitChildren
-              : explicitChildren.value,
+      implicitChildren: implicitChildren == null
+          ? this.implicitChildren
+          : implicitChildren.value,
+      explicitChildren: explicitChildren == null
+          ? this.explicitChildren
+          : explicitChildren.value,
     );
   }
 
   HasManyParent.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _name = json['name'],
-      _implicitChildren =
-          json['implicitChildren'] is Map
-              ? (json['implicitChildren']['items'] is List
-                  ? (json['implicitChildren']['items'] as List)
+      _implicitChildren = json['implicitChildren'] is Map
+          ? (json['implicitChildren']['items'] is List
+                ? (json['implicitChildren']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) => HasManyChildImplicit.fromJson(
@@ -186,9 +181,9 @@ class HasManyParent extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null)
-              : (json['implicitChildren'] is List
-                  ? (json['implicitChildren'] as List)
+                : null)
+          : (json['implicitChildren'] is List
+                ? (json['implicitChildren'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => HasManyChildImplicit.fromJson(
@@ -196,11 +191,10 @@ class HasManyParent extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _explicitChildren =
-          json['explicitChildren'] is Map
-              ? (json['explicitChildren']['items'] is List
-                  ? (json['explicitChildren']['items'] as List)
+                : null),
+      _explicitChildren = json['explicitChildren'] is Map
+          ? (json['explicitChildren']['items'] is List
+                ? (json['explicitChildren']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) => HasManyChildExplicit.fromJson(
@@ -208,9 +202,9 @@ class HasManyParent extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null)
-              : (json['explicitChildren'] is List
-                  ? (json['explicitChildren'] as List)
+                : null)
+          : (json['explicitChildren'] is List
+                ? (json['explicitChildren'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => HasManyChildExplicit.fromJson(
@@ -218,27 +212,23 @@ class HasManyParent extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'name': _name,
-    'implicitChildren':
-        _implicitChildren
-            ?.map((HasManyChildImplicit? e) => e?.toJson())
-            .toList(),
-    'explicitChildren':
-        _explicitChildren
-            ?.map((HasManyChildExplicit? e) => e?.toJson())
-            .toList(),
+    'implicitChildren': _implicitChildren
+        ?.map((HasManyChildImplicit? e) => e?.toJson())
+        .toList(),
+    'explicitChildren': _explicitChildren
+        ?.map((HasManyChildExplicit? e) => e?.toJson())
+        .toList(),
     'createdAt': _createdAt?.format(),
     'updatedAt': _updatedAt?.format(),
   };
@@ -360,10 +350,9 @@ class HasManyParentModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

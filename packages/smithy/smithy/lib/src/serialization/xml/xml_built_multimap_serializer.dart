@@ -39,10 +39,9 @@ class XmlBuiltMultimapSerializer
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
     if (!isUnderspecified) serializers.expectBuilder(specifiedType);
 
-    final keyType =
-        specifiedType.parameters.isEmpty
-            ? FullType.unspecified
-            : specifiedType.parameters[0];
+    final keyType = specifiedType.parameters.isEmpty
+        ? FullType.unspecified
+        : specifiedType.parameters[0];
     final valueType = FullType(BuiltList, [
       if (specifiedType.parameters.isEmpty)
         FullType.unspecified
@@ -80,10 +79,9 @@ class XmlBuiltMultimapSerializer
     final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
 
-    final keyType =
-        specifiedType.parameters.isEmpty
-            ? FullType.unspecified
-            : specifiedType.parameters[0];
+    final keyType = specifiedType.parameters.isEmpty
+        ? FullType.unspecified
+        : specifiedType.parameters[0];
     final valueType = FullType(BuiltList, [
       if (specifiedType.parameters.isEmpty)
         FullType.unspecified
@@ -91,10 +89,9 @@ class XmlBuiltMultimapSerializer
         specifiedType.parameters[1],
     ]);
 
-    final result =
-        isUnderspecified
-            ? ListMultimapBuilder<Object, Object>()
-            : serializers.newBuilder(specifiedType) as ListMultimapBuilder;
+    final result = isUnderspecified
+        ? ListMultimapBuilder<Object, Object>()
+        : serializers.newBuilder(specifiedType) as ListMultimapBuilder;
 
     for (var i = 0; i < serialized.length; i += 2) {
       final key = serializers.deserialize(

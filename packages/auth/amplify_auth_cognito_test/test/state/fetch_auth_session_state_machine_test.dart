@@ -111,10 +111,9 @@ void main() {
 
     setUp(() {
       secureStorage = MockSecureStorage();
-      stateMachine =
-          CognitoAuthStateMachine()
-            ..addInstance(secureStorage)
-            ..addInstance(mockConfig);
+      stateMachine = CognitoAuthStateMachine()
+        ..addInstance(secureStorage)
+        ..addInstance(mockConfig);
     });
 
     group('User Pool + Identity Pool', () {
@@ -228,10 +227,9 @@ void main() {
               stateMachine.addInstance<CognitoIdentityClient>(
                 MockCognitoIdentityClient(
                   getCredentialsForIdentity: expectAsync0(
-                    () async =>
-                        throw const AuthNotAuthorizedException(
-                          'Not authorized',
-                        ),
+                    () async => throw const AuthNotAuthorizedException(
+                      'Not authorized',
+                    ),
                   ),
                 ),
               );
@@ -428,10 +426,9 @@ void main() {
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
                   initiateAuth: expectAsync1(
-                    (_) async =>
-                        throw const AuthNotAuthorizedException(
-                          'Tokens expired',
-                        ),
+                    (_) async => throw const AuthNotAuthorizedException(
+                      'Tokens expired',
+                    ),
                   ),
                 ),
               );
@@ -775,20 +772,18 @@ void main() {
               ..addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
                   initiateAuth: expectAsync1(
-                    (_) async =>
-                        throw const AuthNotAuthorizedException(
-                          'Tokens expired',
-                        ),
+                    (_) async => throw const AuthNotAuthorizedException(
+                      'Tokens expired',
+                    ),
                   ),
                 ),
               )
               ..addInstance<CognitoIdentityClient>(
                 MockCognitoIdentityClient(
                   getCredentialsForIdentity: expectAsync0(
-                    () async =>
-                        throw const AuthNotAuthorizedException(
-                          'Tokens expired',
-                        ),
+                    () async => throw const AuthNotAuthorizedException(
+                      'Tokens expired',
+                    ),
                   ),
                 ),
               );
@@ -1008,10 +1003,9 @@ void main() {
               stateMachine.addInstance<CognitoIdentityClient>(
                 MockCognitoIdentityClient(
                   getId: expectAsync0(
-                    () async =>
-                        throw const AuthNotAuthorizedException(
-                          'Not Authorized',
-                        ),
+                    () async => throw const AuthNotAuthorizedException(
+                      'Not Authorized',
+                    ),
                   ),
                 ),
               );
@@ -1135,15 +1129,14 @@ void main() {
               provider: provider,
               willRefresh: false,
             );
-            final completion =
-                await stateMachine
-                    .dispatch(
-                      const FetchAuthSessionEvent.refresh(
-                        refreshUserPoolTokens: false,
-                        refreshAwsCredentials: true,
-                      ),
-                    )
-                    .completed;
+            final completion = await stateMachine
+                .dispatch(
+                  const FetchAuthSessionEvent.refresh(
+                    refreshUserPoolTokens: false,
+                    refreshAwsCredentials: true,
+                  ),
+                )
+                .completed;
             if (completion is! FetchAuthSessionSuccess) {
               fail('Refresh failed: $completion');
             }

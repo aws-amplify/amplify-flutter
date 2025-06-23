@@ -120,10 +120,9 @@ void main() {
         // Add attribute global property types
         final firstEvent = createEvent('global props first event name');
 
-        final attributeGlobalProperties =
-            CustomProperties()
-              ..addBoolProperty(boolProperty.key, boolProperty.value)
-              ..addStringProperty(stringProperty.key, stringProperty.value);
+        final attributeGlobalProperties = CustomProperties()
+          ..addBoolProperty(boolProperty.key, boolProperty.value)
+          ..addStringProperty(stringProperty.key, stringProperty.value);
 
         await Amplify.Analytics.registerGlobalProperties(
           globalProperties: attributeGlobalProperties,
@@ -166,10 +165,9 @@ void main() {
         // Add metric global property types
         final secondEvent = createEvent('global props second event name');
 
-        final metricGlobalProperties =
-            CustomProperties()
-              ..addIntProperty(intProperty.key, intProperty.value)
-              ..addDoubleProperty(doubleProperty.key, doubleProperty.value);
+        final metricGlobalProperties = CustomProperties()
+          ..addIntProperty(intProperty.key, intProperty.value)
+          ..addDoubleProperty(doubleProperty.key, doubleProperty.value);
 
         await Amplify.Analytics.registerGlobalProperties(
           globalProperties: metricGlobalProperties,

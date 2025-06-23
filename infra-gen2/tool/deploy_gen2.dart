@@ -239,21 +239,20 @@ Future<Process> _buildProject() async {
 }
 
 ArgResults _parseArgs(List<String> args) {
-  final parser =
-      ArgParser()
-        ..addFlag(
-          'verbose',
-          abbr: 'v',
-          help: 'Run command in verbose mode',
-          defaultsTo: false,
-        )
-        ..addOption(
-          'category',
-          abbr: 'c',
-          help: 'Specify the category to deploy.',
-          allowed: Category.values.map((e) => e.name).toList(),
-          defaultsTo: null,
-        );
+  final parser = ArgParser()
+    ..addFlag(
+      'verbose',
+      abbr: 'v',
+      help: 'Run command in verbose mode',
+      defaultsTo: false,
+    )
+    ..addOption(
+      'category',
+      abbr: 'c',
+      help: 'Specify the category to deploy.',
+      allowed: Category.values.map((e) => e.name).toList(),
+      defaultsTo: null,
+    );
 
   return parser.parse(args);
 }
@@ -292,9 +291,10 @@ Future<String> _deployBackend(
   var stackID = '';
 
   // Listen to stdout for stack ID
-  await for (final String line in process.stdout
-      .transform(utf8.decoder)
-      .transform(const LineSplitter())) {
+  await for (final String line
+      in process.stdout
+          .transform(utf8.decoder)
+          .transform(const LineSplitter())) {
     if (verbose) {
       print(line);
     }

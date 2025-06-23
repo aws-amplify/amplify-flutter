@@ -13,12 +13,11 @@ EndpointDefinition _$EndpointDefinitionFromJson(
   protocols:
       (json['protocols'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
-  credentialScope:
-      json['credentialScope'] == null
-          ? null
-          : CredentialScope.fromJson(
-            json['credentialScope'] as Map<String, dynamic>,
-          ),
+  credentialScope: json['credentialScope'] == null
+      ? null
+      : CredentialScope.fromJson(
+          json['credentialScope'] as Map<String, dynamic>,
+        ),
   signatureVersions:
       (json['signatureVersions'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$AWSSignatureVersionEnumMap, e))
@@ -39,10 +38,9 @@ Map<String, dynamic> _$EndpointDefinitionToJson(EndpointDefinition instance) =>
       'hostname': instance.hostname,
       'protocols': instance.protocols,
       'credentialScope': instance.credentialScope,
-      'signatureVersions':
-          instance.signatureVersions
-              .map((e) => _$AWSSignatureVersionEnumMap[e]!)
-              .toList(),
+      'signatureVersions': instance.signatureVersions
+          .map((e) => _$AWSSignatureVersionEnumMap[e]!)
+          .toList(),
       'variants': instance.variants,
     };
 

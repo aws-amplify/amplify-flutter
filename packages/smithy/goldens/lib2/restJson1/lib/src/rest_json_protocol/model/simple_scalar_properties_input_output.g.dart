@@ -216,9 +216,8 @@ class _$SimpleScalarPropertiesInputOutputPayload
 
   factory _$SimpleScalarPropertiesInputOutputPayload([
     void Function(SimpleScalarPropertiesInputOutputPayloadBuilder)? updates,
-  ]) =>
-      (SimpleScalarPropertiesInputOutputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (SimpleScalarPropertiesInputOutputPayloadBuilder()..update(updates))
+      ._build();
 
   _$SimpleScalarPropertiesInputOutputPayload._({
     this.byteValue,

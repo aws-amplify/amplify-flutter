@@ -324,8 +324,9 @@ class _$AWSProfileFile extends AWSProfileFile {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'AWSProfileFile')
-      ..add('profiles', profiles)).toString();
+    return (newBuiltValueToStringHelper(
+      r'AWSProfileFile',
+    )..add('profiles', profiles)).toString();
   }
 }
 

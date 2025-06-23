@@ -168,7 +168,8 @@ const scope2 = 'scope2';
 /// hand written config with all oauth options including those not par of the
 /// AmplifyOutputs schema (SignInURIQueryParameters, SignOutURIQueryParameters,
 /// TokenURI, and TokenURIQueryParameters)
-const oauthConfig = '''{
+const oauthConfig =
+    '''{
   "auth": {
     "plugins": {
       "awsCognitoAuthPlugin": {
@@ -213,7 +214,8 @@ const oauthConfig = '''{
 const appClientSecret = 'fake-app-client-secret';
 
 /// hand written config with app client secret
-const clientSecretConfig = '''{
+const clientSecretConfig =
+    '''{
   "auth": {
     "plugins": {
       "awsCognitoAuthPlugin": {

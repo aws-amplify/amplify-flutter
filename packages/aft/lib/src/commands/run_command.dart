@@ -72,24 +72,25 @@ ${commandPaths.map((path) => '- $path').join('\n')}
           (package) => p.equals(package.path, commandPath),
         );
         logger.verbose('Running for package: ${package?.name}');
-        final renderedScript =
-            templater.render({'package': package?.toJson()}).trim();
+        final renderedScript = templater.render({
+          'package': package?.toJson(),
+        }).trim();
         final fullScript =
             '''
 #/bin/bash
 set -euo pipefail
 
 $renderedScript
-'''.trim();
+'''
+                .trim();
         logger.verbose('''
 Full script:
 
 $fullScript
 ''');
-        final tempFile =
-            File.fromUri(tempDir.uri.resolve('script.sh'))
-              ..createSync()
-              ..writeAsStringSync(fullScript);
+        final tempFile = File.fromUri(tempDir.uri.resolve('script.sh'))
+          ..createSync()
+          ..writeAsStringSync(fullScript);
         logger.info('Running `$scriptName` script in: $commandPath');
         final result = await execCommand([
           'bash',

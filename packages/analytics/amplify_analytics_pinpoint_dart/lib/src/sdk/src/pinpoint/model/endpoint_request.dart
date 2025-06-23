@@ -111,19 +111,18 @@ abstract class EndpointRequest
   ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('EndpointRequest')
-          ..add('address', address)
-          ..add('attributes', attributes)
-          ..add('channelType', channelType)
-          ..add('demographic', demographic)
-          ..add('effectiveDate', effectiveDate)
-          ..add('endpointStatus', endpointStatus)
-          ..add('location', location)
-          ..add('metrics', metrics)
-          ..add('optOut', optOut)
-          ..add('requestId', requestId)
-          ..add('user', user);
+    final helper = newBuiltValueToStringHelper('EndpointRequest')
+      ..add('address', address)
+      ..add('attributes', attributes)
+      ..add('channelType', channelType)
+      ..add('demographic', demographic)
+      ..add('effectiveDate', effectiveDate)
+      ..add('endpointStatus', endpointStatus)
+      ..add('location', location)
+      ..add('metrics', metrics)
+      ..add('optOut', optOut)
+      ..add('requestId', requestId)
+      ..add('user', user);
     return helper.toString();
   }
 }

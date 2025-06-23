@@ -22,8 +22,9 @@ void testModelOperations<T extends Model>({
   setUpAll(() async {
     await configureDataStore();
     await clearDataStore();
-    eventsFuture =
-        Amplify.DataStore.observe(classType).take(models.length).toList();
+    eventsFuture = Amplify.DataStore.observe(
+      classType,
+    ).take(models.length).toList();
   });
 
   testWidgets('precondition', (WidgetTester tester) async {

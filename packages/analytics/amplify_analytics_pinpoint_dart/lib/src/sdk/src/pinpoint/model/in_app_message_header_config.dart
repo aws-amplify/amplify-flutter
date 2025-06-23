@@ -51,11 +51,10 @@ abstract class InAppMessageHeaderConfig
   List<Object?> get props => [alignment, header, textColor];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InAppMessageHeaderConfig')
-          ..add('alignment', alignment)
-          ..add('header', header)
-          ..add('textColor', textColor);
+    final helper = newBuiltValueToStringHelper('InAppMessageHeaderConfig')
+      ..add('alignment', alignment)
+      ..add('header', header)
+      ..add('textColor', textColor);
     return helper.toString();
   }
 }

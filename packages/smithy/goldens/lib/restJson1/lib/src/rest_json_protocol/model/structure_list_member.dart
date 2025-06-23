@@ -34,10 +34,9 @@ abstract class StructureListMember
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('StructureListMember')
-          ..add('a', a)
-          ..add('b', b);
+    final helper = newBuiltValueToStringHelper('StructureListMember')
+      ..add('a', a)
+      ..add('b', b);
     return helper.toString();
   }
 }

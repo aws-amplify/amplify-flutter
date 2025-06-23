@@ -20,13 +20,12 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     : super(context: context);
 
   /// The members marked with the `hostLabel` or `httpLabel` traits.
-  late final List<MemberShape> labels =
-      shape.isInputShape
-          ? [
-            ...httpInputTraits!.httpLabels,
-            if (httpInputTraits!.hostLabel != null) httpInputTraits!.hostLabel!,
-          ]
-          : const [];
+  late final List<MemberShape> labels = shape.isInputShape
+      ? [
+          ...httpInputTraits!.httpLabels,
+          if (httpInputTraits!.hostLabel != null) httpInputTraits!.hostLabel!,
+        ]
+      : const [];
 
   @override
   Library generate() {
@@ -52,87 +51,77 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
 
   /// The main struct class.
   Class _structClass(Iterable<String> serializerClasses) => Class(
-    (c) =>
-        c
-          ..name = className
-          ..abstract = true
-          ..docs.addAll([
-            if (shape.hasDocs(context)) shape.formattedDocs(context),
-          ])
-          ..annotations.addAll([
-            if (shape.isUnstable) DartTypes.meta.experimental,
-          ])
-          ..implements.addAll([
-            DartTypes.builtValue.built(symbol, builderSymbol),
+    (c) => c
+      ..name = className
+      ..abstract = true
+      ..docs.addAll([if (shape.hasDocs(context)) shape.formattedDocs(context)])
+      ..annotations.addAll([if (shape.isUnstable) DartTypes.meta.experimental])
+      ..implements.addAll([
+        DartTypes.builtValue.built(symbol, builderSymbol),
 
-            // A marker trait for empty payloads, which should be serialized
-            // than payloads with all null members.
-            if (payloadMember == null && payloadMembers.isEmpty)
-              DartTypes.smithy.emptyPayload,
+        // A marker trait for empty payloads, which should be serialized
+        // than payloads with all null members.
+        if (payloadMember == null && payloadMembers.isEmpty)
+          DartTypes.smithy.emptyPayload,
 
-            if (hasPayload) DartTypes.smithy.hasPayload(payloadSymbol.unboxed),
-            if (shape.isError) DartTypes.smithy.smithyHttpException,
-          ])
-          ..mixins.addAll([
-            if (shape.isInputShape)
-              DartTypes.smithy.httpInput(payloadSymbol.unboxed),
-            DartTypes.awsCommon.awsEquatable(symbol),
-          ])
-          ..constructors.addAll([
-            factoryConstructor,
-            builderConstructor,
-            _privateConstructor,
-            if (shape.isInputShape) _fromRequestConstructor,
-            if (shape.isOutputShape || shape.isError) fromResponseConstructor,
-          ])
-          ..methods.addAll([
-            if (_initializer case final init?) init,
-            ..._fieldGetters(isPayload: false),
-            ..._httpInputOverrides,
-            if (shape.isInputShape || hasPayload) _getPayload,
-            ..._errorFields,
-            _props(members),
-            _toString(isPayload: false),
-          ])
-          ..fields.addAll([_serializersField(serializerClasses)]),
+        if (hasPayload) DartTypes.smithy.hasPayload(payloadSymbol.unboxed),
+        if (shape.isError) DartTypes.smithy.smithyHttpException,
+      ])
+      ..mixins.addAll([
+        if (shape.isInputShape)
+          DartTypes.smithy.httpInput(payloadSymbol.unboxed),
+        DartTypes.awsCommon.awsEquatable(symbol),
+      ])
+      ..constructors.addAll([
+        factoryConstructor,
+        builderConstructor,
+        _privateConstructor,
+        if (shape.isInputShape) _fromRequestConstructor,
+        if (shape.isOutputShape || shape.isError) fromResponseConstructor,
+      ])
+      ..methods.addAll([
+        if (_initializer case final init?) init,
+        ..._fieldGetters(isPayload: false),
+        ..._httpInputOverrides,
+        if (shape.isInputShape || hasPayload) _getPayload,
+        ..._errorFields,
+        _props(members),
+        _toString(isPayload: false),
+      ])
+      ..fields.addAll([_serializersField(serializerClasses)]),
   );
 
   /// The struct's built payload class.
   Class get _payloadClass => Class(
-    (c) =>
-        c
-          ..name = payloadClassName
-          ..abstract = true
-          ..annotations.addAll([
-            // Developers only ever interact with the main struct.
-            DartTypes.meta.internal,
-          ])
-          ..implements.addAll([
-            DartTypes.builtValue.built(payloadSymbol, payloadBuilderSymbol),
+    (c) => c
+      ..name = payloadClassName
+      ..abstract = true
+      ..annotations.addAll([
+        // Developers only ever interact with the main struct.
+        DartTypes.meta.internal,
+      ])
+      ..implements.addAll([
+        DartTypes.builtValue.built(payloadSymbol, payloadBuilderSymbol),
 
-            // A marker trait for empty payloads, which should be serialized
-            // than payloads with all null members.
-            if (payloadMembers.isEmpty) DartTypes.smithy.emptyPayload,
-          ])
-          ..mixins.addAll([DartTypes.awsCommon.awsEquatable(payloadSymbol)])
-          ..constructors.addAll([
-            _payloadFactoryConstructor,
-            _privateConstructor,
-          ])
-          ..methods.addAll([
-            if (_payloadInitializer case final init?) init,
-            ..._fieldGetters(isPayload: true),
-            _props(payloadMembers),
-            _toString(isPayload: true),
-          ]),
+        // A marker trait for empty payloads, which should be serialized
+        // than payloads with all null members.
+        if (payloadMembers.isEmpty) DartTypes.smithy.emptyPayload,
+      ])
+      ..mixins.addAll([DartTypes.awsCommon.awsEquatable(payloadSymbol)])
+      ..constructors.addAll([_payloadFactoryConstructor, _privateConstructor])
+      ..methods.addAll([
+        if (_payloadInitializer case final init?) init,
+        ..._fieldGetters(isPayload: true),
+        _props(payloadMembers),
+        _toString(isPayload: true),
+      ]),
   );
 
   /// The private no-op constructor.
   Constructor get _privateConstructor => Constructor(
-    (c) =>
-        c
-          ..constant = true
-          ..name = '_',
+    (c) => c
+      ..constant = true
+      ..name = '_',
   );
 
   /// The parameter-based factory constructor.
@@ -173,47 +162,40 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       );
     });
     return Constructor(
-      (c) =>
-          c
-            ..factory = true
-            ..annotations.addAll([
-              if (shape.deprecatedAnnotation != null)
-                shape.deprecatedAnnotation!,
-            ])
-            ..docs.addAll([
-              if (shape.hasDocs(context)) shape.formattedDocs(context),
-            ])
-            ..optionalParameters.addAll(members.map(memberParameter))
-            ..body = body,
+      (c) => c
+        ..factory = true
+        ..annotations.addAll([
+          if (shape.deprecatedAnnotation != null) shape.deprecatedAnnotation!,
+        ])
+        ..docs.addAll([
+          if (shape.hasDocs(context)) shape.formattedDocs(context),
+        ])
+        ..optionalParameters.addAll(members.map(memberParameter))
+        ..body = body,
     );
   }
 
   /// The builder constructor, using built_value closure style.
   Constructor get builderConstructor => Constructor(
-    (c) =>
-        c
-          ..factory = true
-          ..name = 'build'
-          ..annotations.addAll([
-            if (shape.deprecatedAnnotation != null) shape.deprecatedAnnotation!,
-          ])
-          ..docs.addAll([
-            if (shape.hasDocs(context)) shape.formattedDocs(context),
-          ])
-          ..optionalParameters.add(
-            Parameter(
-              (p) =>
-                  p
-                    ..name = 'updates'
-                    ..type = FunctionType(
-                      (t) =>
-                          t
-                            ..returnType = DartTypes.core.void$
-                            ..requiredParameters.add(builderSymbol),
-                    ),
+    (c) => c
+      ..factory = true
+      ..name = 'build'
+      ..annotations.addAll([
+        if (shape.deprecatedAnnotation != null) shape.deprecatedAnnotation!,
+      ])
+      ..docs.addAll([if (shape.hasDocs(context)) shape.formattedDocs(context)])
+      ..optionalParameters.add(
+        Parameter(
+          (p) => p
+            ..name = 'updates'
+            ..type = FunctionType(
+              (t) => t
+                ..returnType = DartTypes.core.void$
+                ..requiredParameters.add(builderSymbol),
             ),
-          )
-          ..redirect = builtSymbol,
+        ),
+      )
+      ..redirect = builtSymbol,
   );
 
   /// Creates a constructor [Parameter] for [member].
@@ -229,37 +211,33 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         _defaultValueAssignment(member) != null;
 
     return Parameter(
-      (p) =>
-          p
-            ..annotations.addAll([
-              if (deprecatedAnnotation != null) deprecatedAnnotation,
-            ])
-            ..required = !isNullable
-            ..name = member.dartName(ShapeType.structure)
-            ..named = true
-            ..type = symbol.typeRef.rebuild((t) => t.isNullable = isNullable),
+      (p) => p
+        ..annotations.addAll([
+          if (deprecatedAnnotation != null) deprecatedAnnotation,
+        ])
+        ..required = !isNullable
+        ..name = member.dartName(ShapeType.structure)
+        ..named = true
+        ..type = symbol.typeRef.rebuild((t) => t.isNullable = isNullable),
     );
   }
 
   /// The builder-based factory constructor.
   Constructor get _payloadFactoryConstructor => Constructor(
-    (c) =>
-        c
-          ..factory = true
-          ..optionalParameters.add(
-            Parameter(
-              (p) =>
-                  p
-                    ..name = 'updates'
-                    ..type = FunctionType(
-                      (t) =>
-                          t
-                            ..returnType = DartTypes.core.void$
-                            ..requiredParameters.add(payloadBuilderSymbol),
-                    ),
+    (c) => c
+      ..factory = true
+      ..optionalParameters.add(
+        Parameter(
+          (p) => p
+            ..name = 'updates'
+            ..type = FunctionType(
+              (t) => t
+                ..returnType = DartTypes.core.void$
+                ..requiredParameters.add(payloadBuilderSymbol),
             ),
-          )
-          ..redirect = builtPayloadSymbol,
+        ),
+      )
+      ..redirect = builtPayloadSymbol,
   );
 
   /// The server constructor from an incoming request.
@@ -268,50 +246,44 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     if (payloadSymbol == symbol) {
       output = refer('payload').code;
     } else {
-      output =
-          symbol.newInstanceNamed('build', [
-            Method(
-              (m) =>
-                  m
-                    ..requiredParameters.add(Parameter((p) => p..name = 'b'))
-                    ..lambda = false
-                    ..body = Block.of(_outputBuilder(refer('request'))),
-            ).closure,
-          ]).code;
+      output = symbol.newInstanceNamed('build', [
+        Method(
+          (m) => m
+            ..requiredParameters.add(Parameter((p) => p..name = 'b'))
+            ..lambda = false
+            ..body = Block.of(_outputBuilder(refer('request'))),
+        ).closure,
+      ]).code;
     }
     return Constructor(
-      (c) =>
-          c
-            ..factory = true
-            ..name = 'fromRequest'
-            ..requiredParameters.addAll([
-              Parameter(
-                (p) =>
-                    p
-                      ..name = 'payload'
-                      ..type = payloadSymbol,
-              ),
-              Parameter(
-                (p) =>
-                    p
-                      ..name = 'request'
-                      ..type = DartTypes.awsCommon.awsBaseHttpRequest,
-              ),
-            ])
-            ..optionalParameters.add(
-              Parameter(
-                (p) =>
-                    p
-                      ..name = 'labels'
-                      ..type = DartTypes.core.map(
-                        DartTypes.core.string,
-                        DartTypes.core.string,
-                      )
-                      ..named = true
-                      ..defaultTo = literalConstMap({}).code,
-              ),
-            )
-            ..body = output,
+      (c) => c
+        ..factory = true
+        ..name = 'fromRequest'
+        ..requiredParameters.addAll([
+          Parameter(
+            (p) => p
+              ..name = 'payload'
+              ..type = payloadSymbol,
+          ),
+          Parameter(
+            (p) => p
+              ..name = 'request'
+              ..type = DartTypes.awsCommon.awsBaseHttpRequest,
+          ),
+        ])
+        ..optionalParameters.add(
+          Parameter(
+            (p) => p
+              ..name = 'labels'
+              ..type = DartTypes.core.map(
+                DartTypes.core.string,
+                DartTypes.core.string,
+              )
+              ..named = true
+              ..defaultTo = literalConstMap({}).code,
+          ),
+        )
+        ..body = output,
     );
   }
 
@@ -322,69 +294,60 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       if (!shape.isError) {
         output = refer('payload').code;
       } else {
-        output =
-            refer('payload').property('rebuild').call([
-              Method(
-                (m) =>
-                    m
-                      ..requiredParameters.add(Parameter((p) => p..name = 'b'))
-                      ..lambda = false
-                      ..body = Block.of(_rebuildOutput),
-              ).closure,
-            ]).code;
+        output = refer('payload').property('rebuild').call([
+          Method(
+            (m) => m
+              ..requiredParameters.add(Parameter((p) => p..name = 'b'))
+              ..lambda = false
+              ..body = Block.of(_rebuildOutput),
+          ).closure,
+        ]).code;
       }
     } else {
-      output =
-          symbol.newInstanceNamed('build', [
-            Method(
-              (m) =>
-                  m
-                    ..requiredParameters.add(Parameter((p) => p..name = 'b'))
-                    ..lambda = false
-                    ..body = Block.of(_outputBuilder(refer('response'))),
-            ).closure,
-          ]).code;
+      output = symbol.newInstanceNamed('build', [
+        Method(
+          (m) => m
+            ..requiredParameters.add(Parameter((p) => p..name = 'b'))
+            ..lambda = false
+            ..body = Block.of(_outputBuilder(refer('response'))),
+        ).closure,
+      ]).code;
     }
     return Constructor(
-      (c) =>
-          c
-            ..factory = true
-            ..name = 'fromResponse'
-            ..docs.add(
-              '/// Constructs a [$className] from a [payload] and [response].',
-            )
-            ..requiredParameters.addAll([
-              Parameter(
-                (p) =>
-                    p
-                      ..name = 'payload'
-                      ..type = payloadSymbol,
-              ),
-              Parameter(
-                (p) =>
-                    p
-                      ..name = 'response'
-                      ..type = DartTypes.awsCommon.awsBaseHttpResponse,
-              ),
-            ])
-            ..body = output,
+      (c) => c
+        ..factory = true
+        ..name = 'fromResponse'
+        ..docs.add(
+          '/// Constructs a [$className] from a [payload] and [response].',
+        )
+        ..requiredParameters.addAll([
+          Parameter(
+            (p) => p
+              ..name = 'payload'
+              ..type = payloadSymbol,
+          ),
+          Parameter(
+            (p) => p
+              ..name = 'response'
+              ..type = DartTypes.awsCommon.awsBaseHttpResponse,
+          ),
+        ])
+        ..body = output,
     );
   }
 
   /// The [AWSEquatable.props] getter.
   Method _props(List<MemberShape> members) => Method(
-    (m) =>
-        m
-          ..annotations.add(DartTypes.core.override)
-          ..returns = DartTypes.core.list(DartTypes.core.object.boxed)
-          ..type = MethodType.getter
-          ..name = 'props'
-          ..lambda = true
-          ..body =
-              literalList([
-                for (final member in members)
-                  refer(member.dartName(ShapeType.structure)),
-              ]).code,
+    (m) => m
+      ..annotations.add(DartTypes.core.override)
+      ..returns = DartTypes.core.list(DartTypes.core.object.boxed)
+      ..type = MethodType.getter
+      ..name = 'props'
+      ..lambda = true
+      ..body = literalList([
+        for (final member in members)
+          refer(member.dartName(ShapeType.structure)),
+      ]).code,
   );
 
   /// The initializer (bv `_init` method) for the main struct.
@@ -419,24 +382,22 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     }
     block.addExpression(currentExpresson);
     return Method.returnsVoid(
-      (m) =>
-          m
-            ..annotations.add(
-              DartTypes.builtValue.builtValueHook.newInstance([], {
-                'initializeBuilder': literalTrue,
-              }),
-            )
-            ..static = true
-            ..name = '_init'
-            ..requiredParameters.add(
-              Parameter(
-                (p) =>
-                    p
-                      ..type = builderSymbol
-                      ..name = 'b',
-              ),
-            )
-            ..body = block.build(),
+      (m) => m
+        ..annotations.add(
+          DartTypes.builtValue.builtValueHook.newInstance([], {
+            'initializeBuilder': literalTrue,
+          }),
+        )
+        ..static = true
+        ..name = '_init'
+        ..requiredParameters.add(
+          Parameter(
+            (p) => p
+              ..type = builderSymbol
+              ..name = 'b',
+          ),
+        )
+        ..body = block.build(),
     );
   }
 
@@ -487,45 +448,42 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     final members = isPayload ? payloadMembers : this.members;
     for (final member in members) {
       yield Method(
-        (m) =>
-            m
-              ..annotations.addAll([
-                if (member.deprecatedAnnotation != null)
-                  member.deprecatedAnnotation!,
+        (m) => m
+          ..annotations.addAll([
+            if (member.deprecatedAnnotation != null)
+              member.deprecatedAnnotation!,
 
-                // Add override annotation for this specific field when the class
-                // implements SmithyError. Per the docs, this field should be
-                // treated specially.
-                //
-                // https://awslabs.github.io/smithy/1.0/spec/core/type-refinement-traits.html#error-trait
-                if (shape.isError &&
-                    member.dartName(ShapeType.structure) == 'message' &&
-                    !isPayload)
-                  DartTypes.core.override,
+            // Add override annotation for this specific field when the class
+            // implements SmithyError. Per the docs, this field should be
+            // treated specially.
+            //
+            // https://awslabs.github.io/smithy/1.0/spec/core/type-refinement-traits.html#error-trait
+            if (shape.isError &&
+                member.dartName(ShapeType.structure) == 'message' &&
+                !isPayload)
+              DartTypes.core.override,
 
-                if (member.isUnstable ||
-                    context.shapeFor(member.target).isUnstable)
-                  DartTypes.meta.experimental,
-              ])
-              ..docs.addAll([
-                if (member.hasDocs(context)) member.formattedDocs(context),
-              ])
-              ..returns = memberSymbols[member]
-              ..type = MethodType.getter
-              ..name = member.dartName(ShapeType.structure),
+            if (member.isUnstable || context.shapeFor(member.target).isUnstable)
+              DartTypes.meta.experimental,
+          ])
+          ..docs.addAll([
+            if (member.hasDocs(context)) member.formattedDocs(context),
+          ])
+          ..returns = memberSymbols[member]
+          ..type = MethodType.getter
+          ..name = member.dartName(ShapeType.structure),
       );
     }
   }
 
   /// The `getPayload` method.
   Method get _getPayload => Method(
-    (m) =>
-        m
-          ..annotations.add(DartTypes.core.override)
-          ..returns = payloadSymbol
-          ..name = 'getPayload'
-          ..lambda = true
-          ..body = _buildPayload,
+    (m) => m
+      ..annotations.add(DartTypes.core.override)
+      ..returns = payloadSymbol
+      ..name = 'getPayload'
+      ..lambda = true
+      ..body = _buildPayload,
   );
 
   Code get _buildPayload {
@@ -588,10 +546,9 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     return payloadSymbol.newInstance([
       if (payloadMembers.isNotEmpty)
         Method(
-          (m) =>
-              m
-                ..requiredParameters.add(Parameter((p) => p..name = 'b'))
-                ..body = block.build(),
+          (m) => m
+            ..requiredParameters.add(Parameter((p) => p..name = 'b'))
+            ..body = block.build(),
         ).closure,
     ]).code;
   }
@@ -619,28 +576,26 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         );
       }
       yield Method(
-        (m) =>
-            m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.core.string
-              ..name = 'labelFor'
-              ..requiredParameters.add(
-                Parameter(
-                  (p) =>
-                      p
-                        ..type = DartTypes.core.string
-                        ..name = 'key',
-                ),
-              )
-              ..body = Block.of([
-                const Code('switch (key) {'),
-                ...labelCases,
-                const Code('}'),
-                DartTypes.smithy.missingLabelException
-                    .newInstance([refer('this'), refer('key')])
-                    .thrown
-                    .statement,
-              ]),
+        (m) => m
+          ..annotations.add(DartTypes.core.override)
+          ..returns = DartTypes.core.string
+          ..name = 'labelFor'
+          ..requiredParameters.add(
+            Parameter(
+              (p) => p
+                ..type = DartTypes.core.string
+                ..name = 'key',
+            ),
+          )
+          ..body = Block.of([
+            const Code('switch (key) {'),
+            ...labelCases,
+            const Code('}'),
+            DartTypes.smithy.missingLabelException
+                .newInstance([refer('this'), refer('key')])
+                .thrown
+                .statement,
+          ]),
       );
     }
   }
@@ -648,18 +603,16 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
   /// Creates the static `serializers` field using the class names in
   /// [serializerClasses].
   Field _serializersField(Iterable<String> serializerClasses) => Field(
-    (f) =>
-        f
-          ..static = true
-          ..modifier = FieldModifier.constant
-          ..type = DartTypes.core.list(
-            DartTypes.smithy.smithySerializer(payloadSymbol),
-          )
-          ..name = 'serializers'
-          ..assignment =
-              literalList(
-                serializerClasses.map((name) => refer(name).newInstance([])),
-              ).code,
+    (f) => f
+      ..static = true
+      ..modifier = FieldModifier.constant
+      ..type = DartTypes.core.list(
+        DartTypes.smithy.smithySerializer(payloadSymbol),
+      )
+      ..name = 'serializers'
+      ..assignment = literalList(
+        serializerClasses.map((name) => refer(name).newInstance([])),
+      ).code,
   );
 
   /// The `built_value` serializer class.
@@ -684,13 +637,12 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
 
     // `shapeId` getter
     yield Method(
-      (m) =>
-          m
-            ..annotations.add(DartTypes.core.override)
-            ..returns = DartTypes.smithy.shapeId
-            ..type = MethodType.getter
-            ..name = 'shapeId'
-            ..body = shape.shapeId.constructed.code,
+      (m) => m
+        ..annotations.add(DartTypes.core.override)
+        ..returns = DartTypes.smithy.shapeId
+        ..type = MethodType.getter
+        ..name = 'shapeId'
+        ..body = shape.shapeId.constructed.code,
     );
 
     // `message` getter
@@ -698,34 +650,31 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         .map((m) => m.dartName(ShapeType.structure))
         .contains('message')) {
       yield Method(
-        (m) =>
-            m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.core.string.boxed
-              ..name = 'message'
-              ..type = MethodType.getter
-              ..lambda = true
-              ..body = literalNull.code,
+        (m) => m
+          ..annotations.add(DartTypes.core.override)
+          ..returns = DartTypes.core.string.boxed
+          ..name = 'message'
+          ..type = MethodType.getter
+          ..lambda = true
+          ..body = literalNull.code,
       );
     }
 
     // `retryConfig` getter
     yield Method(
-      (m) =>
-          m
-            ..annotations.add(DartTypes.core.override)
-            ..returns = DartTypes.smithy.retryConfig.boxed
-            ..name = 'retryConfig'
-            ..type = MethodType.getter
-            ..lambda = true
-            ..body =
-                errorTraits.retryConfig == null
-                    ? literalNull.code
-                    : DartTypes.smithy.retryConfig.constInstance([], {
-                      'isThrottlingError': literalBool(
-                        errorTraits.retryConfig!.isThrottlingError,
-                      ),
-                    }).code,
+      (m) => m
+        ..annotations.add(DartTypes.core.override)
+        ..returns = DartTypes.smithy.retryConfig.boxed
+        ..name = 'retryConfig'
+        ..type = MethodType.getter
+        ..lambda = true
+        ..body = errorTraits.retryConfig == null
+            ? literalNull.code
+            : DartTypes.smithy.retryConfig.constInstance([], {
+                'isThrottlingError': literalBool(
+                  errorTraits.retryConfig!.isThrottlingError,
+                ),
+              }).code,
     );
 
     // SmithyHttpException overrides
@@ -754,30 +703,27 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     }
 
     yield Method(
-      (m) =>
-          m
-            ..annotations.addAll([
-              DartTypes.core.override,
-              DartTypes.builtValue.builtValueField.newInstance([], {
-                'compare': literalFalse,
-              }),
-            ])
-            ..returns =
-                DartTypes.core
-                    .map(DartTypes.core.string, DartTypes.core.string)
-                    .boxed
-            ..type = MethodType.getter
-            ..name = 'headers',
+      (m) => m
+        ..annotations.addAll([
+          DartTypes.core.override,
+          DartTypes.builtValue.builtValueField.newInstance([], {
+            'compare': literalFalse,
+          }),
+        ])
+        ..returns = DartTypes.core
+            .map(DartTypes.core.string, DartTypes.core.string)
+            .boxed
+        ..type = MethodType.getter
+        ..name = 'headers',
     );
 
     yield Method(
-      (m) =>
-          m
-            ..annotations.addAll([DartTypes.core.override])
-            ..returns = DartTypes.core.exception.boxed
-            ..type = MethodType.getter
-            ..name = 'underlyingException'
-            ..body = literalNull.code,
+      (m) => m
+        ..annotations.addAll([DartTypes.core.override])
+        ..returns = DartTypes.core.exception.boxed
+        ..type = MethodType.getter
+        ..name = 'underlyingException'
+        ..body = literalNull.code,
     );
   }
 
@@ -859,42 +805,35 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
                   .property('where')
                   .call([
                     Method(
-                      (m) =>
-                          m
-                            ..requiredParameters.add(
-                              Parameter((p) => p.name = 'el'),
-                            )
-                            ..lambda = true
-                            ..body =
-                                refer(
-                                  'el',
-                                ).property('key').property('startsWith').call([
-                                  literalString(prefixHeaders.trait.value),
-                                ]).code,
+                      (m) => m
+                        ..requiredParameters.add(
+                          Parameter((p) => p.name = 'el'),
+                        )
+                        ..lambda = true
+                        ..body = refer('el')
+                            .property('key')
+                            .property('startsWith')
+                            .call([literalString(prefixHeaders.trait.value)])
+                            .code,
                     ).closure,
                   ])
                   .property('map')
                   .call([
                     Method(
-                      (m) =>
-                          m
-                            ..requiredParameters.add(
-                              Parameter((p) => p.name = 'el'),
-                            )
-                            ..lambda = true
-                            ..body =
-                                DartTypes.core.mapEntry.newInstance([
-                                  refer('el')
-                                      .property('key')
-                                      .property('replaceFirst')
-                                      .call([
-                                        literalString(
-                                          prefixHeaders.trait.value,
-                                        ),
-                                        literalString(''),
-                                      ]),
-                                  refer('el').property('value'),
-                                ]).code,
+                      (m) => m
+                        ..requiredParameters.add(
+                          Parameter((p) => p.name = 'el'),
+                        )
+                        ..lambda = true
+                        ..body = DartTypes.core.mapEntry.newInstance([
+                          refer(
+                            'el',
+                          ).property('key').property('replaceFirst').call([
+                            literalString(prefixHeaders.trait.value),
+                            literalString(''),
+                          ]),
+                          refer('el').property('value'),
+                        ]).code,
                     ).closure,
                   ]),
           ])
@@ -988,8 +927,9 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       value,
       isHeader: isHeader,
     );
-    final targetShape =
-        value is MemberShape ? context.shapeFor(value.target) : value;
+    final targetShape = value is MemberShape
+        ? context.shapeFor(value.target)
+        : value;
     Code addHeader;
     if (targetShape is CollectionShape) {
       addHeader = valueRef.property('addAll').call([fromStringExp]).statement;
@@ -1013,8 +953,9 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           shape.hasTrait<SensitiveTrait>() ||
           member.hasTrait<SensitiveTrait>() ||
           context.shapeFor(member.target).hasTrait<SensitiveTrait>();
-      final stringValue =
-          isSensitive ? literalString('***SENSITIVE***') : refer(dartName);
+      final stringValue = isSensitive
+          ? literalString('***SENSITIVE***')
+          : refer(dartName);
       helperExpression = helperExpression.cascade('add').call([
         literalString(dartName),
         stringValue,
@@ -1024,12 +965,11 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       ..addExpression(declareFinal('helper').assign(helperExpression))
       ..addExpression(helper.property('toString').call([]).returned);
     return Method(
-      (m) =>
-          m
-            ..annotations.add(DartTypes.core.override)
-            ..returns = DartTypes.core.string
-            ..name = 'toString'
-            ..body = builder.build(),
+      (m) => m
+        ..annotations.add(DartTypes.core.override)
+        ..returns = DartTypes.core.string
+        ..name = 'toString'
+        ..body = builder.build(),
     );
   }
 }

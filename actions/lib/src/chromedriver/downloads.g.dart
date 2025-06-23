@@ -7,12 +7,9 @@ part of 'downloads.dart';
 // **************************************************************************
 
 AllChromeDownloads _$AllChromeDownloadsFromJson(Map json) => AllChromeDownloads(
-  versions:
-      (json['versions'] as List<dynamic>)
-          .map(
-            (e) => ChromeVersion.fromJson(Map<String, Object?>.from(e as Map)),
-          )
-          .toList(),
+  versions: (json['versions'] as List<dynamic>)
+      .map((e) => ChromeVersion.fromJson(Map<String, Object?>.from(e as Map)))
+      .toList(),
 );
 
 ChromeVersion _$ChromeVersionFromJson(Map json) => ChromeVersion(

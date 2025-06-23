@@ -109,12 +109,11 @@ void main() {
         sortBy: [Blog.NAME.ascending()],
         where: Blog.NAME.beginsWith('blog 1'),
       );
-      var expectedBlogs =
-          sortedModels
-              .where((blog) => blog.name.startsWith('blog 1'))
-              .toList()
-              .getRange(0, 10)
-              .toList();
+      var expectedBlogs = sortedModels
+          .where((blog) => blog.name.startsWith('blog 1'))
+          .toList()
+          .getRange(0, 10)
+          .toList();
       expect(blogs.length, 10);
       expect(blogs, orderedEquals(expectedBlogs));
     });

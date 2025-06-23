@@ -55,10 +55,9 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(title: const Text('DB Example')),
         body: Center(
-          child:
-              _initialized
-                  ? Text('Count: $_count')
-                  : const CircularProgressIndicator(),
+          child: _initialized
+              ? Text('Count: $_count')
+              : const CircularProgressIndicator(),
         ),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,

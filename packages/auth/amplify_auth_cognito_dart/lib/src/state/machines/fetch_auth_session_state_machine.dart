@@ -130,15 +130,14 @@ final class FetchAuthSessionStateMachine
     _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(
-      () =>
-          _cognitoIdentityClient
-              .getId(
-                GetIdInput(
-                  identityPoolId: identityPoolId,
-                  logins: _logins(federatedIdentity),
-                ),
-              )
-              .result,
+      () => _cognitoIdentityClient
+          .getId(
+            GetIdInput(
+              identityPoolId: identityPoolId,
+              logins: _logins(federatedIdentity),
+            ),
+          )
+          .result,
     );
     final identityId = resp.identityId;
     if (identityId == null) {
@@ -153,15 +152,14 @@ final class FetchAuthSessionStateMachine
     required _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(
-      () =>
-          _cognitoIdentityClient
-              .getCredentialsForIdentity(
-                GetCredentialsForIdentityInput(
-                  identityId: identityId,
-                  logins: _logins(federatedIdentity),
-                ),
-              )
-              .result,
+      () => _cognitoIdentityClient
+          .getCredentialsForIdentity(
+            GetCredentialsForIdentityInput(
+              identityId: identityId,
+              logins: _logins(federatedIdentity),
+            ),
+          )
+          .result,
     );
     final credentials = resp.credentials;
     if (credentials == null) {
@@ -482,11 +480,11 @@ final class FetchAuthSessionStateMachine
           identityId: identityId,
           signInDetails:
               federatedIdentity != null && federatedIdentity.isFederatedSignIn
-                  ? CognitoSignInDetailsFederated(
-                    provider: federatedIdentity.provider,
-                    token: federatedIdentity.token,
-                  )
-                  : null,
+              ? CognitoSignInDetailsFederated(
+                  provider: federatedIdentity.provider,
+                  token: federatedIdentity.token,
+                )
+              : null,
         ),
       );
 
@@ -525,13 +523,13 @@ final class FetchAuthSessionStateMachine
       // ignore: invalid_use_of_internal_member
       if (_authConfig?.appClientSecret != null &&
           _authConfig?.userPoolClientId != null) {
-        b.authParameters[CognitoConstants
-            .challengeParamSecretHash] = computeSecretHash(
-          userPoolTokens.username,
-          _authConfig!.userPoolClientId!,
-          // ignore: invalid_use_of_internal_member
-          _authConfig!.appClientSecret!,
-        );
+        b.authParameters[CognitoConstants.challengeParamSecretHash] =
+            computeSecretHash(
+              userPoolTokens.username,
+              _authConfig!.userPoolClientId!,
+              // ignore: invalid_use_of_internal_member
+              _authConfig!.appClientSecret!,
+            );
       }
 
       final deviceKey = deviceSecrets?.deviceKey;
@@ -555,10 +553,9 @@ final class FetchAuthSessionStateMachine
         signInMethod: userPoolTokens.signInMethod,
         accessToken: JsonWebToken.parse(accessToken),
         refreshToken: refreshToken ?? userPoolTokens.refreshToken,
-        idToken:
-            idToken != null
-                ? JsonWebToken.parse(idToken)
-                : userPoolTokens.idToken,
+        idToken: idToken != null
+            ? JsonWebToken.parse(idToken)
+            : userPoolTokens.idToken,
       );
 
       await manager.storeCredentials(

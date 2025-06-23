@@ -38,18 +38,16 @@ class _Core {
 
   /// Creates a [core.List] reference.
   Reference list([Reference? ref]) => TypeReference(
-    (t) =>
-        t
-          ..symbol = 'List'
-          ..types.addAll([if (ref != null) ref]),
+    (t) => t
+      ..symbol = 'List'
+      ..types.addAll([if (ref != null) ref]),
   );
 
   /// Creates a [core.Map] reference.
   Reference map(Reference key, Reference value) => TypeReference(
-    (t) =>
-        t
-          ..symbol = 'Map'
-          ..types.addAll([key, value]),
+    (t) => t
+      ..symbol = 'Map'
+      ..types.addAll([key, value]),
   );
 
   /// Creates an [core.Object] reference.
@@ -73,10 +71,9 @@ class _Async {
 
   /// Creates a [Future] reference.
   Reference future(Reference ref) => TypeReference(
-    (t) =>
-        t
-          ..symbol = 'Future'
-          ..types.add(ref),
+    (t) => t
+      ..symbol = 'Future'
+      ..types.add(ref),
   );
 
   /// Creates an [unawaited] reference.

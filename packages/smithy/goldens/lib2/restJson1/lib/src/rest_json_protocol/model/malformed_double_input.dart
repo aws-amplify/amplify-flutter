@@ -86,12 +86,11 @@ abstract class MalformedDoubleInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedDoubleInput')
-          ..add('doubleInBody', doubleInBody)
-          ..add('doubleInPath', doubleInPath)
-          ..add('doubleInQuery', doubleInQuery)
-          ..add('doubleInHeader', doubleInHeader);
+    final helper = newBuiltValueToStringHelper('MalformedDoubleInput')
+      ..add('doubleInBody', doubleInBody)
+      ..add('doubleInPath', doubleInPath)
+      ..add('doubleInQuery', doubleInQuery)
+      ..add('doubleInHeader', doubleInHeader);
     return helper.toString();
   }
 }

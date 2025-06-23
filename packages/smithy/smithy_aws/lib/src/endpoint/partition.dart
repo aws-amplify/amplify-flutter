@@ -70,15 +70,16 @@ class EndpointDefinition with AWSSerializable {
     ArgumentError.checkNotNull(merged.hostname, 'hostname');
 
     final hostname = merged.hostname!.replaceAll('{region}', region);
-    final sortedProtocols = [...merged.protocols]..sort((a, b) {
-      final aIdx = _protocolPriority.indexOf(a);
-      final bIdx = _protocolPriority.indexOf(b);
-      return (aIdx > -1 && bIdx > -1)
-          ? aIdx.compareTo(bIdx)
-          : aIdx > -1
-          ? -1
-          : 1;
-    });
+    final sortedProtocols = [...merged.protocols]
+      ..sort((a, b) {
+        final aIdx = _protocolPriority.indexOf(a);
+        final bIdx = _protocolPriority.indexOf(b);
+        return (aIdx > -1 && bIdx > -1)
+            ? aIdx.compareTo(bIdx)
+            : aIdx > -1
+            ? -1
+            : 1;
+      });
     final protocol = sortedProtocols.first;
     final signingName = merged.credentialScope?.service;
     final signingRegion = merged.credentialScope?.region;
@@ -108,8 +109,10 @@ class EndpointDefinition with AWSSerializable {
     final service =
         this.credentialScope?.service ?? defaults.credentialScope?.service;
     final credentialScope = CredentialScope(region: region, service: service);
-    final signatureVersions =
-        {...this.signatureVersions, ...defaults.signatureVersions}.toList();
+    final signatureVersions = {
+      ...this.signatureVersions,
+      ...defaults.signatureVersions,
+    }.toList();
     if (signatureVersions.isEmpty) {
       signatureVersions.add(_defaultSigner);
     }

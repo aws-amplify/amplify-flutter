@@ -49,8 +49,8 @@ void main() {
             contains(
               zIsWeb
                   ?
-                  // Only cross-browser similarity
-                  'Error'
+                    // Only cross-browser similarity
+                    'Error'
                   : 'Redirect limit exceeded',
             ),
           ),

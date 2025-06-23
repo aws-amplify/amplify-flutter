@@ -79,10 +79,9 @@ void main() {
         final transformerClient = SuccessfulTransformClient(
           baseClient: mockBaseClient,
         );
-        final response =
-            await transformerClient
-                .send(AWSHttpRequest.post(_exampleUri))
-                .response;
+        final response = await transformerClient
+            .send(AWSHttpRequest.post(_exampleUri))
+            .response;
         expect(response.headers[_responseHeaderKey], _responseHeaderValue);
       },
     );

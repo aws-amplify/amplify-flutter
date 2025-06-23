@@ -26,10 +26,9 @@ mixin GlobOptions on AmplifyCommand {
 
   /// The package selector passed via command line flags.
   late final commandPackageSelector = PackageSelector(
-    include:
-        include.isEmpty
-            ? basePackageSelector
-            : PackageSelector.fromJson(include),
+    include: include.isEmpty
+        ? basePackageSelector
+        : PackageSelector.fromJson(include),
     exclude: exclude.isEmpty ? null : PackageSelector.fromJson(exclude),
   );
 

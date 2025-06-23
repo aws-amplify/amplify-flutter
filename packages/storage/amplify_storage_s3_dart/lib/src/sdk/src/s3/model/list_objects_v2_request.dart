@@ -47,10 +47,9 @@ abstract class ListObjectsV2Request
       startAfter: startAfter,
       requestPayer: requestPayer,
       expectedBucketOwner: expectedBucketOwner,
-      optionalObjectAttributes:
-          optionalObjectAttributes == null
-              ? null
-              : _i3.BuiltList(optionalObjectAttributes),
+      optionalObjectAttributes: optionalObjectAttributes == null
+          ? null
+          : _i3.BuiltList(optionalObjectAttributes),
     );
   }
 
@@ -192,19 +191,18 @@ abstract class ListObjectsV2Request
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListObjectsV2Request')
-          ..add('bucket', bucket)
-          ..add('delimiter', delimiter)
-          ..add('encodingType', encodingType)
-          ..add('maxKeys', maxKeys)
-          ..add('prefix', prefix)
-          ..add('continuationToken', continuationToken)
-          ..add('fetchOwner', fetchOwner)
-          ..add('startAfter', startAfter)
-          ..add('requestPayer', requestPayer)
-          ..add('expectedBucketOwner', expectedBucketOwner)
-          ..add('optionalObjectAttributes', optionalObjectAttributes);
+    final helper = newBuiltValueToStringHelper('ListObjectsV2Request')
+      ..add('bucket', bucket)
+      ..add('delimiter', delimiter)
+      ..add('encodingType', encodingType)
+      ..add('maxKeys', maxKeys)
+      ..add('prefix', prefix)
+      ..add('continuationToken', continuationToken)
+      ..add('fetchOwner', fetchOwner)
+      ..add('startAfter', startAfter)
+      ..add('requestPayer', requestPayer)
+      ..add('expectedBucketOwner', expectedBucketOwner)
+      ..add('optionalObjectAttributes', optionalObjectAttributes);
     return helper.toString();
   }
 }

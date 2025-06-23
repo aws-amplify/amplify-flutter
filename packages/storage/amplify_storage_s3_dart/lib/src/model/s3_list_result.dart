@@ -64,11 +64,10 @@ class S3ListMetadata {
     List<s3.CommonPrefix>? commonPrefixes,
     String? delimiter,
   }) {
-    final subPaths =
-        commonPrefixes
-            ?.map((commonPrefix) => commonPrefix.prefix)
-            .whereType<String>()
-            .toList();
+    final subPaths = commonPrefixes
+        ?.map((commonPrefix) => commonPrefix.prefix)
+        .whereType<String>()
+        .toList();
 
     return S3ListMetadata._(subPaths: subPaths, delimiter: delimiter);
   }

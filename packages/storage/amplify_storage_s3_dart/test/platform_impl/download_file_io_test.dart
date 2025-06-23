@@ -88,26 +88,19 @@ void main() {
           },
         );
 
-        final captureParams =
-            verify(
-              () => storageS3Service.downloadData(
-                path: captureAny<StoragePathFromIdentityId>(named: 'path'),
-                options: captureAny<StorageDownloadDataOptions>(
-                  named: 'options',
-                ),
-                preStart: captureAny<FutureOr<void> Function()?>(
-                  named: 'preStart',
-                ),
-                onProgress: captureAny<void Function(S3TransferProgress)?>(
-                  named: 'onProgress',
-                ),
-                onData: captureAny<void Function(List<int>)?>(named: 'onData'),
-                onDone: captureAny<FutureOr<void> Function()?>(named: 'onDone'),
-                onError: captureAny<FutureOr<void> Function()?>(
-                  named: 'onError',
-                ),
-              ),
-            ).captured;
+        final captureParams = verify(
+          () => storageS3Service.downloadData(
+            path: captureAny<StoragePathFromIdentityId>(named: 'path'),
+            options: captureAny<StorageDownloadDataOptions>(named: 'options'),
+            preStart: captureAny<FutureOr<void> Function()?>(named: 'preStart'),
+            onProgress: captureAny<void Function(S3TransferProgress)?>(
+              named: 'onProgress',
+            ),
+            onData: captureAny<void Function(List<int>)?>(named: 'onData'),
+            onDone: captureAny<FutureOr<void> Function()?>(named: 'onDone'),
+            onError: captureAny<FutureOr<void> Function()?>(named: 'onError'),
+          ),
+        ).captured;
 
         final capturedOptions = captureParams[1];
 
@@ -178,20 +171,19 @@ void main() {
             },
           );
 
-          final capturedPreStart =
-              verify(
-                () => storageS3Service.downloadData(
-                  path: const StoragePath.fromString('public/$testKey'),
-                  options: any(named: 'options'),
-                  preStart: captureAny<FutureOr<void> Function()?>(
-                    named: 'preStart',
-                  ),
-                  onProgress: any(named: 'onProgress'),
-                  onData: any(named: 'onData'),
-                  onDone: any(named: 'onDone'),
-                  onError: any(named: 'onError'),
-                ),
-              ).captured.last;
+          final capturedPreStart = verify(
+            () => storageS3Service.downloadData(
+              path: const StoragePath.fromString('public/$testKey'),
+              options: any(named: 'options'),
+              preStart: captureAny<FutureOr<void> Function()?>(
+                named: 'preStart',
+              ),
+              onProgress: any(named: 'onProgress'),
+              onData: any(named: 'onData'),
+              onDone: any(named: 'onDone'),
+              onError: any(named: 'onError'),
+            ),
+          ).captured.last;
           final preStart = capturedPreStart as FutureOr<void> Function();
           expect(preStart(), throwsA(isA<UnknownException>()));
         },
@@ -214,20 +206,19 @@ void main() {
             },
           );
 
-          final capturedPreStart =
-              verify(
-                () => storageS3Service.downloadData(
-                  path: const StoragePath.fromString('public/$testKey'),
-                  options: any(named: 'options'),
-                  preStart: captureAny<FutureOr<void> Function()?>(
-                    named: 'preStart',
-                  ),
-                  onProgress: any(named: 'onProgress'),
-                  onData: any(named: 'onData'),
-                  onDone: any(named: 'onDone'),
-                  onError: any(named: 'onError'),
-                ),
-              ).captured.last;
+          final capturedPreStart = verify(
+            () => storageS3Service.downloadData(
+              path: const StoragePath.fromString('public/$testKey'),
+              options: any(named: 'options'),
+              preStart: captureAny<FutureOr<void> Function()?>(
+                named: 'preStart',
+              ),
+              onProgress: any(named: 'onProgress'),
+              onData: any(named: 'onData'),
+              onDone: any(named: 'onDone'),
+              onError: any(named: 'onError'),
+            ),
+          ).captured.last;
           final preStart = capturedPreStart as FutureOr<void> Function();
           expect(preStart(), throwsA(isA<UnknownException>()));
         },

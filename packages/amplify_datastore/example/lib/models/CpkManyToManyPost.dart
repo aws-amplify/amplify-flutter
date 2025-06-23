@@ -53,10 +53,9 @@ class CpkManyToManyPost extends amplify_core.Model {
         amplify_core
             .AmplifyExceptionMessages
             .codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion:
-            amplify_core
-                .AmplifyExceptionMessages
-                .codeGenRequiredFieldForceCastRecoverySuggestion,
+        recoverySuggestion: amplify_core
+            .AmplifyExceptionMessages
+            .codeGenRequiredFieldForceCastRecoverySuggestion,
         underlyingException: e.toString(),
       );
     }
@@ -153,10 +152,9 @@ class CpkManyToManyPost extends amplify_core.Model {
   CpkManyToManyPost.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _title = json['title'],
-      _tags =
-          json['tags'] is Map
-              ? (json['tags']['items'] is List
-                  ? (json['tags']['items'] as List)
+      _tags = json['tags'] is Map
+          ? (json['tags']['items'] is List
+                ? (json['tags']['items'] as List)
                       .where((e) => e != null)
                       .map(
                         (e) => CpkPostTags.fromJson(
@@ -164,9 +162,9 @@ class CpkManyToManyPost extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null)
-              : (json['tags'] is List
-                  ? (json['tags'] as List)
+                : null)
+          : (json['tags'] is List
+                ? (json['tags'] as List)
                       .where((e) => e?['serializedData'] != null)
                       .map(
                         (e) => CpkPostTags.fromJson(
@@ -174,15 +172,13 @@ class CpkManyToManyPost extends amplify_core.Model {
                         ),
                       )
                       .toList()
-                  : null),
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null;
+                : null),
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -295,10 +291,9 @@ class CpkManyToManyPostModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

@@ -50,11 +50,10 @@ abstract class Progress
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('Progress')
-          ..add('bytesScanned', bytesScanned)
-          ..add('bytesProcessed', bytesProcessed)
-          ..add('bytesReturned', bytesReturned);
+    final helper = newBuiltValueToStringHelper('Progress')
+      ..add('bytesScanned', bytesScanned)
+      ..add('bytesProcessed', bytesProcessed)
+      ..add('bytesReturned', bytesReturned);
     return helper.toString();
   }
 }

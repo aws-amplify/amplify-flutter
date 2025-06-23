@@ -46,10 +46,9 @@ abstract class MfaOptionType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MfaOptionType')
-          ..add('deliveryMedium', deliveryMedium)
-          ..add('attributeName', attributeName);
+    final helper = newBuiltValueToStringHelper('MfaOptionType')
+      ..add('deliveryMedium', deliveryMedium)
+      ..add('attributeName', attributeName);
     return helper.toString();
   }
 }

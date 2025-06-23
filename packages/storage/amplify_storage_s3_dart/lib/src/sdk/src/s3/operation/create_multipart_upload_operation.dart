@@ -248,10 +248,9 @@ class CreateMultipartUploadOperation
     CreateMultipartUploadRequest input,
   ) => _i1.HttpRequest((b) {
     b.method = 'POST';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?uploads&x-id=CreateMultipartUpload'
-            : r'/{Key+}?uploads&x-id=CreateMultipartUpload';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}/{Key+}?uploads&x-id=CreateMultipartUpload'
+        : r'/{Key+}?uploads&x-id=CreateMultipartUpload';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.acl != null) {
       b.headers['x-amz-acl'] = input.acl!.value;
@@ -282,10 +281,9 @@ class CreateMultipartUploadOperation
       }
     }
     if (input.expires != null) {
-      b.headers['Expires'] =
-          _i1.Timestamp(
-            input.expires!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['Expires'] = _i1.Timestamp(
+        input.expires!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.grantFullControl != null) {
       if (input.grantFullControl!.isNotEmpty) {
@@ -351,8 +349,9 @@ class CreateMultipartUploadOperation
       }
     }
     if (input.bucketKeyEnabled != null) {
-      b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
-          input.bucketKeyEnabled!.toString();
+      b.headers['x-amz-server-side-encryption-bucket-key-enabled'] = input
+          .bucketKeyEnabled!
+          .toString();
     }
     if (input.requestPayer != null) {
       b.headers['x-amz-request-payer'] = input.requestPayer!.value;
@@ -366,10 +365,9 @@ class CreateMultipartUploadOperation
       b.headers['x-amz-object-lock-mode'] = input.objectLockMode!.value;
     }
     if (input.objectLockRetainUntilDate != null) {
-      b.headers['x-amz-object-lock-retain-until-date'] =
-          _i1.Timestamp(
-            input.objectLockRetainUntilDate!,
-          ).format(_i1.TimestampFormat.dateTime).toString();
+      b.headers['x-amz-object-lock-retain-until-date'] = _i1.Timestamp(
+        input.objectLockRetainUntilDate!,
+      ).format(_i1.TimestampFormat.dateTime).toString();
     }
     if (input.objectLockLegalHoldStatus != null) {
       b.headers['x-amz-object-lock-legal-hold'] =

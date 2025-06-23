@@ -16,10 +16,9 @@ AmplifyOutputs _$AmplifyOutputsFromJson(
     version: $checkedConvert('version', (v) => v as String),
     analytics: $checkedConvert(
       'analytics',
-      (v) =>
-          v == null
-              ? null
-              : AnalyticsOutputs.fromJson(v as Map<String, dynamic>),
+      (v) => v == null
+          ? null
+          : AnalyticsOutputs.fromJson(v as Map<String, dynamic>),
     ),
     auth: $checkedConvert(
       'auth',
@@ -38,10 +37,9 @@ AmplifyOutputs _$AmplifyOutputsFromJson(
     ),
     notifications: $checkedConvert(
       'notifications',
-      (v) =>
-          v == null
-              ? null
-              : NotificationsOutputs.fromJson(v as Map<String, dynamic>),
+      (v) => v == null
+          ? null
+          : NotificationsOutputs.fromJson(v as Map<String, dynamic>),
     ),
     storage: $checkedConvert(
       'storage',

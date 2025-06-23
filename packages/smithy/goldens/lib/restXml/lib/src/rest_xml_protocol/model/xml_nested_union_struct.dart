@@ -68,16 +68,15 @@ abstract class XmlNestedUnionStruct
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('XmlNestedUnionStruct')
-          ..add('stringValue', stringValue)
-          ..add('booleanValue', booleanValue)
-          ..add('byteValue', byteValue)
-          ..add('shortValue', shortValue)
-          ..add('integerValue', integerValue)
-          ..add('longValue', longValue)
-          ..add('floatValue', floatValue)
-          ..add('doubleValue', doubleValue);
+    final helper = newBuiltValueToStringHelper('XmlNestedUnionStruct')
+      ..add('stringValue', stringValue)
+      ..add('booleanValue', booleanValue)
+      ..add('byteValue', byteValue)
+      ..add('shortValue', shortValue)
+      ..add('integerValue', integerValue)
+      ..add('longValue', longValue)
+      ..add('floatValue', floatValue)
+      ..add('doubleValue', doubleValue);
     return helper.toString();
   }
 }

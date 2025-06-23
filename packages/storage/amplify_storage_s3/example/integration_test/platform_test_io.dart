@@ -25,16 +25,14 @@ void main() {
       final data = content.codeUnits;
       final file = await createIOFile(path: fileId, content: content);
       addTearDownPath(StoragePath.fromString(path));
-      final result =
-          await Amplify.Storage.uploadFile(
-            localFile: AWSFilePlatform.fromFile(file),
-            path: StoragePath.fromString(path),
-          ).result;
+      final result = await Amplify.Storage.uploadFile(
+        localFile: AWSFilePlatform.fromFile(file),
+        path: StoragePath.fromString(path),
+      ).result;
       expect(result.uploadedItem.path, path);
-      final downloadResult =
-          await Amplify.Storage.downloadData(
-            path: StoragePath.fromString(path),
-          ).result;
+      final downloadResult = await Amplify.Storage.downloadData(
+        path: StoragePath.fromString(path),
+      ).result;
       expect(downloadResult.bytes, data);
     });
   });

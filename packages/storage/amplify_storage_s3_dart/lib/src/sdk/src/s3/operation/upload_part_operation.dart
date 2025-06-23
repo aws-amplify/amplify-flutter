@@ -240,10 +240,9 @@ class UploadPartOperation
   @override
   _i1.HttpRequest buildRequest(UploadPartRequest input) => _i1.HttpRequest((b) {
     b.method = 'PUT';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?x-id=UploadPart'
-            : r'/{Key+}?x-id=UploadPart';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}/{Key+}?x-id=UploadPart'
+        : r'/{Key+}?x-id=UploadPart';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.contentLength != null) {
       b.headers['Content-Length'] = input.contentLength!.toString();

@@ -30,15 +30,13 @@ abstract class QueryMapsInput
       mapArg: mapArg == null ? null : _i3.BuiltMap(mapArg),
       renamedMapArg: renamedMapArg == null ? null : _i3.BuiltMap(renamedMapArg),
       complexMapArg: complexMapArg == null ? null : _i3.BuiltMap(complexMapArg),
-      mapWithXmlMemberName:
-          mapWithXmlMemberName == null
-              ? null
-              : _i3.BuiltMap(mapWithXmlMemberName),
+      mapWithXmlMemberName: mapWithXmlMemberName == null
+          ? null
+          : _i3.BuiltMap(mapWithXmlMemberName),
       flattenedMap: flattenedMap == null ? null : _i3.BuiltMap(flattenedMap),
-      flattenedMapWithXmlName:
-          flattenedMapWithXmlName == null
-              ? null
-              : _i3.BuiltMap(flattenedMapWithXmlName),
+      flattenedMapWithXmlName: flattenedMapWithXmlName == null
+          ? null
+          : _i3.BuiltMap(flattenedMapWithXmlName),
       mapOfLists: mapOfLists == null ? null : _i3.BuiltListMultimap(mapOfLists),
       nestedStructWithMap: nestedStructWithMap,
     );
@@ -84,16 +82,15 @@ abstract class QueryMapsInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('QueryMapsInput')
-          ..add('mapArg', mapArg)
-          ..add('renamedMapArg', renamedMapArg)
-          ..add('complexMapArg', complexMapArg)
-          ..add('mapWithXmlMemberName', mapWithXmlMemberName)
-          ..add('flattenedMap', flattenedMap)
-          ..add('flattenedMapWithXmlName', flattenedMapWithXmlName)
-          ..add('mapOfLists', mapOfLists)
-          ..add('nestedStructWithMap', nestedStructWithMap);
+    final helper = newBuiltValueToStringHelper('QueryMapsInput')
+      ..add('mapArg', mapArg)
+      ..add('renamedMapArg', renamedMapArg)
+      ..add('complexMapArg', complexMapArg)
+      ..add('mapWithXmlMemberName', mapWithXmlMemberName)
+      ..add('flattenedMap', flattenedMap)
+      ..add('flattenedMapWithXmlName', flattenedMapWithXmlName)
+      ..add('mapOfLists', mapOfLists)
+      ..add('nestedStructWithMap', nestedStructWithMap);
     return helper.toString();
   }
 }

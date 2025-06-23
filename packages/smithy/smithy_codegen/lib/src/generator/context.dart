@@ -113,13 +113,15 @@ class CodegenContext {
   final Map<(ShapeId, Shape? parent), Reference> _symbolCache = {};
 
   /// The service shape being generated.
-  late final ServiceShape? service =
-      serviceShapeId == null ? null : shapeFor(serviceShapeId!) as ServiceShape;
+  late final ServiceShape? service = serviceShapeId == null
+      ? null
+      : shapeFor(serviceShapeId!) as ServiceShape;
 
   /// The protocol for this service.
   late final List<ProtocolDefinitionTrait> serviceProtocols = () {
-    final protocols =
-        service?.traits.values.whereType<ProtocolDefinitionTrait>().toList();
+    final protocols = service?.traits.values
+        .whereType<ProtocolDefinitionTrait>()
+        .toList();
     if (protocols == null || protocols.isEmpty) {
       return const [GenericJsonProtocolDefinitionTrait()];
     }
@@ -200,8 +202,9 @@ class CodegenContext {
   // service and api suffixes from sdkId when generating a client name.
   //
   // https://awslabs.github.io/smithy/1.0/spec/aws/aws-core.html#using-sdk-service-id-for-client-naming
-  late final String _serviceCommonName =
-      serviceName.replaceAll(RegExp(r'(API|Client|Service)$'), '').pascalCase;
+  late final String _serviceCommonName = serviceName
+      .replaceAll(RegExp(r'(API|Client|Service)$'), '')
+      .pascalCase;
 
   late final String serviceServerName = '${_serviceCommonName}Server';
 

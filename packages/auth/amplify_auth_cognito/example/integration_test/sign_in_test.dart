@@ -75,10 +75,9 @@ void main() {
         asyncTest(
           'should throw a UserNotFoundException with a non-existent user',
           (_) async {
-            final expectedException =
-                environment.preventUserExistenceErrors
-                    ? isA<AuthNotAuthorizedException>()
-                    : isA<UserNotFoundException>();
+            final expectedException = environment.preventUserExistenceErrors
+                ? isA<AuthNotAuthorizedException>()
+                : isA<UserNotFoundException>();
             final incorrectUsername = generateUsername();
             await expectLater(
               Amplify.Auth.signIn(

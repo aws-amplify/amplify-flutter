@@ -40,11 +40,12 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
           return switch (segment.type) {
             SegmentType.literal => segment.content,
             SegmentType.label => _escapeLabel(input.labelFor(segment.content)),
-            SegmentType.greedyLabel => input
-                .labelFor(segment.content)
-                .split('/')
-                .map(_escapeLabel)
-                .join('/'),
+            SegmentType.greedyLabel =>
+              input
+                  .labelFor(segment.content)
+                  .split('/')
+                  .map(_escapeLabel)
+                  .join('/'),
           };
         })
         .join('/');
@@ -98,9 +99,9 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     return useProtocol == null
         ? protocols.first
         : protocols.firstWhere(
-          (el) => el.protocolId == useProtocol,
-          orElse: () => protocols.first,
-        );
+            (el) => el.protocolId == useProtocol,
+            orElse: () => protocols.first,
+          );
   }
 
   /// Generates the hostname for [request], given the [input] and whether the
@@ -177,10 +178,9 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       headers: headers,
     );
 
-    final requestInterceptors =
-        List.of(protocol.requestInterceptors)
-          ..addAll(request.requestInterceptors)
-          ..sort((a, b) => a.order.compareTo(b.order));
+    final requestInterceptors = List.of(protocol.requestInterceptors)
+      ..addAll(request.requestInterceptors)
+      ..sort((a, b) => a.order.compareTo(b.order));
 
     final responseInterceptors = protocol.responseInterceptors;
 

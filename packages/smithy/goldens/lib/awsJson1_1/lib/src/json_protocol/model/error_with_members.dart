@@ -97,15 +97,14 @@ abstract class ErrorWithMembers
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ErrorWithMembers')
-          ..add('code', code)
-          ..add('complexData', complexData)
-          ..add('integerField', integerField)
-          ..add('listField', listField)
-          ..add('mapField', mapField)
-          ..add('message', message)
-          ..add('stringField', stringField);
+    final helper = newBuiltValueToStringHelper('ErrorWithMembers')
+      ..add('code', code)
+      ..add('complexData', complexData)
+      ..add('integerField', integerField)
+      ..add('listField', listField)
+      ..add('mapField', mapField)
+      ..add('message', message)
+      ..add('stringField', stringField);
     return helper.toString();
   }
 }

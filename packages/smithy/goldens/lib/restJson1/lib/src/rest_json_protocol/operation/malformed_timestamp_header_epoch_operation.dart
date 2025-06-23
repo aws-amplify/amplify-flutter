@@ -76,10 +76,9 @@ class MalformedTimestampHeaderEpochOperation
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/MalformedTimestampHeaderEpoch';
-        b.headers['timestamp'] =
-            _i1.Timestamp(
-              input.timestamp,
-            ).format(_i1.TimestampFormat.epochSeconds).toString();
+        b.headers['timestamp'] = _i1.Timestamp(
+          input.timestamp,
+        ).format(_i1.TimestampFormat.epochSeconds).toString();
       });
 
   @override

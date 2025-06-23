@@ -112,8 +112,9 @@ class VersionBumpCommand extends AmplifyCommand
 
     logger.info('Version successfully bumped');
     // Stage changes
-    final publishableBumpedPackages =
-        commandPackages.values.where((pkg) => pkg.isPublishable).toList();
+    final publishableBumpedPackages = commandPackages.values
+        .where((pkg) => pkg.isPublishable)
+        .toList();
     final mergedChangelog = Changelog.empty().makeVersionEntry(
       commits: {
         for (final package in publishableBumpedPackages)
@@ -124,8 +125,9 @@ class VersionBumpCommand extends AmplifyCommand
       publishableBumpedPackages.map((pkg) => pkg.name),
     );
     for (final component in repo.components.values) {
-      final componentPackages =
-          component.packages.map((pkg) => pkg.name).toList();
+      final componentPackages = component.packages
+          .map((pkg) => pkg.name)
+          .toList();
       if (componentPackages.every(updatedComponents.contains)) {
         updatedComponents
           ..removeWhere(componentPackages.contains)
@@ -135,7 +137,8 @@ class VersionBumpCommand extends AmplifyCommand
     final changelog = LineSplitter.split(
       render(mergedChangelog),
     ).skip(2).join('\n');
-    final commitMsg = '''
+    final commitMsg =
+        '''
 chore(version): Bump version
 
 $changelog

@@ -29,10 +29,9 @@ void main() {
     // `federateWithIdentityPool` with `AuthProvider.custom` allows testing
     // the critical code paths related to federated sign-in, even though on
     // the surface it resembles an ordinary call to fetchAuthSession.
-    final userPoolConfig =
-        AmplifyConfig.fromJson(
-          jsonDecode(amplifyconfig) as Map<String, Object?>,
-        ).auth!.awsPlugin!.cognitoUserPool!.default$!;
+    final userPoolConfig = AmplifyConfig.fromJson(
+      jsonDecode(amplifyconfig) as Map<String, Object?>,
+    ).auth!.awsPlugin!.cognitoUserPool!.default$!;
     final provider = AuthProvider.custom(
       'cognito-idp.${userPoolConfig.region}.amazonaws.com/${userPoolConfig.poolId}',
     );
@@ -45,10 +44,9 @@ void main() {
       await cognitoPlugin.stateMachine.acceptAndComplete<SignInSuccess>(
         SignInEvent.initiate(
           parameters: SignInParameters(
-            (b) =>
-                b
-                  ..username = username
-                  ..password = password,
+            (b) => b
+              ..username = username
+              ..password = password,
           ),
         ),
       );

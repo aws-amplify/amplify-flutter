@@ -62,12 +62,11 @@ abstract class MalformedPatternOverrideInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedPatternOverrideInput')
-          ..add('string', string)
-          ..add('list', list)
-          ..add('map', map)
-          ..add('union', union);
+    final helper = newBuiltValueToStringHelper('MalformedPatternOverrideInput')
+      ..add('string', string)
+      ..add('list', list)
+      ..add('map', map)
+      ..add('union', union);
     return helper.toString();
   }
 }

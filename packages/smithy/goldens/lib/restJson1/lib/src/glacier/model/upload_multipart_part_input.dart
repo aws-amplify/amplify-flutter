@@ -103,14 +103,13 @@ abstract class UploadMultipartPartInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UploadMultipartPartInput')
-          ..add('accountId', accountId)
-          ..add('vaultName', vaultName)
-          ..add('uploadId', uploadId)
-          ..add('checksum', checksum)
-          ..add('range', range)
-          ..add('body', body);
+    final helper = newBuiltValueToStringHelper('UploadMultipartPartInput')
+      ..add('accountId', accountId)
+      ..add('vaultName', vaultName)
+      ..add('uploadId', uploadId)
+      ..add('checksum', checksum)
+      ..add('range', range)
+      ..add('body', body);
     return helper.toString();
   }
 }

@@ -12,14 +12,13 @@ import 'package:uuid/uuid.dart';
 /// performance (5-100x, depending on the platform).
 String uuid({bool secure = false}) => const Uuid().v4(
   // ignore: deprecated_member_use
-  options:
-      !secure
-          ? null
-          : const <String, Object>{
-            'rng': _cryptoRNG,
-            'positionalArgs': [],
-            'namedArgs': <Symbol, dynamic>{},
-          },
+  options: !secure
+      ? null
+      : const <String, Object>{
+          'rng': _cryptoRNG,
+          'positionalArgs': [],
+          'namedArgs': <Symbol, dynamic>{},
+        },
 );
 
 /// Creates 16 digit cryptographically secure random number.

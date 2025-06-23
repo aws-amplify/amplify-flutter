@@ -24,12 +24,11 @@ void main() {
         final ast = SmithyAst.fromJson(map);
         const shapeId = ShapeId(namespace: 'smithy.example', shape: 'MyString');
         final expected = SmithyAst(
-          (b) =>
-              b
-                ..version = SmithyVersion.v1
-                ..shapes = ShapeMap({
-                  shapeId: StringShape((b) => b..shapeId = shapeId),
-                }),
+          (b) => b
+            ..version = SmithyVersion.v1
+            ..shapes = ShapeMap({
+              shapeId: StringShape((b) => b..shapeId = shapeId),
+            }),
         );
         expect(ast, expected);
         expect(expected.toJson(), equals(map));
@@ -64,20 +63,16 @@ void main() {
         );
 
         final expected = SmithyAst(
-          (b) =>
-              b
-                ..version = SmithyVersion.v1
-                ..shapes = ShapeMap({
-                  serviceId: ServiceShape(
-                    (s) =>
-                        s
-                          ..shapeId = serviceId
-                          ..operations.add(
-                            ShapeRef((b) => b.target = operationId),
-                          ),
-                  ),
-                  operationId: OperationShape((b) => b.shapeId = operationId),
-                }),
+          (b) => b
+            ..version = SmithyVersion.v1
+            ..shapes = ShapeMap({
+              serviceId: ServiceShape(
+                (s) => s
+                  ..shapeId = serviceId
+                  ..operations.add(ShapeRef((b) => b.target = operationId)),
+              ),
+              operationId: OperationShape((b) => b.shapeId = operationId),
+            }),
         );
         final decoded = SmithyAst.fromJson(
           jsonDecode(json) as Map<String, Object?>,
@@ -117,17 +112,15 @@ void main() {
         });
 
         final expected = SmithyAst(
-          (b) =>
-              b
-                ..version = SmithyVersion.v1
-                ..shapes = ShapeMap({
-                  listId: ListShape(
-                    (b) =>
-                        b
-                          ..shapeId = listId
-                          ..member.replace(memberShape),
-                  ),
-                }),
+          (b) => b
+            ..version = SmithyVersion.v1
+            ..shapes = ShapeMap({
+              listId: ListShape(
+                (b) => b
+                  ..shapeId = listId
+                  ..member.replace(memberShape),
+              ),
+            }),
         );
 
         final decoded = SmithyAst.fromJson(
@@ -158,17 +151,16 @@ void main() {
         const integerId = ShapeId(namespace: 'smithy.api', shape: 'Integer');
 
         final expected = SmithyAst(
-          (b) =>
-              b
-                ..version = SmithyVersion.v1
-                ..shapes = ShapeMap({
-                  mapId: MapShape((b) {
-                    b
-                      ..shapeId = mapId
-                      ..key.target = stringId
-                      ..value.target = integerId;
-                  }),
-                }),
+          (b) => b
+            ..version = SmithyVersion.v1
+            ..shapes = ShapeMap({
+              mapId: MapShape((b) {
+                b
+                  ..shapeId = mapId
+                  ..key.target = stringId
+                  ..value.target = integerId;
+              }),
+            }),
         );
 
         final decoded = SmithyAst.fromJson(
@@ -208,39 +200,31 @@ void main() {
         const requiredId = ShapeId(namespace: 'smithy.api', shape: 'required');
 
         final expected = SmithyAst(
-          (b) =>
-              b
-                ..version = SmithyVersion.v1
-                ..shapes = ShapeMap({
-                  structureId: StructureShape(
-                    (b) =>
-                        b
-                          ..shapeId = structureId
-                          ..members = NamedMembersMap({
-                            'stringMember': MemberShape(
-                              (b) =>
-                                  b
-                                    ..shapeId = structureId.replace(
-                                      member: 'stringMember',
-                                    )
-                                    ..target = stringId
-                                    ..memberName = 'stringMember'
-                                    ..traits = TraitMap({
-                                      requiredId: const RequiredTrait(),
-                                    }),
-                            ),
-                            'numberMember': MemberShape(
-                              (b) =>
-                                  b
-                                    ..shapeId = structureId.replace(
-                                      member: 'numberMember',
-                                    )
-                                    ..memberName = 'numberMember'
-                                    ..target = integerId,
-                            ),
-                          }),
-                  ),
-                }),
+          (b) => b
+            ..version = SmithyVersion.v1
+            ..shapes = ShapeMap({
+              structureId: StructureShape(
+                (b) => b
+                  ..shapeId = structureId
+                  ..members = NamedMembersMap({
+                    'stringMember': MemberShape(
+                      (b) => b
+                        ..shapeId = structureId.replace(member: 'stringMember')
+                        ..target = stringId
+                        ..memberName = 'stringMember'
+                        ..traits = TraitMap({
+                          requiredId: const RequiredTrait(),
+                        }),
+                    ),
+                    'numberMember': MemberShape(
+                      (b) => b
+                        ..shapeId = structureId.replace(member: 'numberMember')
+                        ..memberName = 'numberMember'
+                        ..target = integerId,
+                    ),
+                  }),
+              ),
+            }),
         );
 
         final decoded = SmithyAst.fromJson(
@@ -275,31 +259,27 @@ void main() {
         final stringId = ShapeId.parse('smithy.api#String');
 
         final expected = SmithyAst(
-          (b) =>
-              b
-                ..version = SmithyVersion.v1
-                ..shapes = ShapeMap({
-                  structId: StructureShape(
-                    (b) =>
-                        b
-                          ..shapeId = structId
-                          ..members = NamedMembersMap({
-                            'foo': MemberShape(
-                              (b) =>
-                                  b
-                                    ..shapeId = structId.replace(member: 'foo')
-                                    ..memberName = 'foo'
-                                    ..target = stringId
-                                    ..traits = TraitMap({
-                                      DocumentationTrait
-                                          .id: const DocumentationTrait(
-                                        'My documentation string',
-                                      ),
-                                    }),
-                            ),
-                          }),
-                  ),
-                }),
+          (b) => b
+            ..version = SmithyVersion.v1
+            ..shapes = ShapeMap({
+              structId: StructureShape(
+                (b) => b
+                  ..shapeId = structId
+                  ..members = NamedMembersMap({
+                    'foo': MemberShape(
+                      (b) => b
+                        ..shapeId = structId.replace(member: 'foo')
+                        ..memberName = 'foo'
+                        ..target = stringId
+                        ..traits = TraitMap({
+                          DocumentationTrait.id: const DocumentationTrait(
+                            'My documentation string',
+                          ),
+                        }),
+                    ),
+                  }),
+              ),
+            }),
         );
 
         final decoded = SmithyAst.fromJson(
@@ -338,54 +318,43 @@ void main() {
         final stringId = ShapeId.parse('smithy.example#FooEnum');
 
         final expected = SmithyAst(
-          (b) =>
-              b
-                ..version = SmithyVersion.v1
-                ..shapes = ShapeMap({
-                  stringId: StringEnumShape(
-                    (e) =>
-                        e
-                          ..shapeId = stringId
-                          ..members = NamedMembersMap({
-                            'FOO': MemberShape(
-                              (b) =>
-                                  b
-                                    ..target = Shape.unit
-                                    ..memberName = 'FOO'
-                                    ..shapeId = stringId.replace(member: 'FOO')
-                                    ..traits = TraitMap({
-                                      EnumValueTrait.id: const EnumValueTrait(
-                                        'Foo',
-                                      ),
-                                    }),
-                            ),
-                            'BAR': MemberShape(
-                              (b) =>
-                                  b
-                                    ..target = Shape.unit
-                                    ..memberName = 'BAR'
-                                    ..shapeId = stringId.replace(member: 'BAR')
-                                    ..traits = TraitMap({
-                                      EnumValueTrait.id: const EnumValueTrait(
-                                        'bar',
-                                      ),
-                                    }),
-                            ),
-                            'baz': MemberShape(
-                              (b) =>
-                                  b
-                                    ..target = Shape.unit
-                                    ..memberName = 'baz'
-                                    ..shapeId = stringId.replace(member: 'baz')
-                                    ..traits = TraitMap({
-                                      EnumValueTrait.id: const EnumValueTrait(
-                                        'baz',
-                                      ),
-                                    }),
-                            ),
-                          }),
-                  ),
-                }),
+          (b) => b
+            ..version = SmithyVersion.v1
+            ..shapes = ShapeMap({
+              stringId: StringEnumShape(
+                (e) => e
+                  ..shapeId = stringId
+                  ..members = NamedMembersMap({
+                    'FOO': MemberShape(
+                      (b) => b
+                        ..target = Shape.unit
+                        ..memberName = 'FOO'
+                        ..shapeId = stringId.replace(member: 'FOO')
+                        ..traits = TraitMap({
+                          EnumValueTrait.id: const EnumValueTrait('Foo'),
+                        }),
+                    ),
+                    'BAR': MemberShape(
+                      (b) => b
+                        ..target = Shape.unit
+                        ..memberName = 'BAR'
+                        ..shapeId = stringId.replace(member: 'BAR')
+                        ..traits = TraitMap({
+                          EnumValueTrait.id: const EnumValueTrait('bar'),
+                        }),
+                    ),
+                    'baz': MemberShape(
+                      (b) => b
+                        ..target = Shape.unit
+                        ..memberName = 'baz'
+                        ..shapeId = stringId.replace(member: 'baz')
+                        ..traits = TraitMap({
+                          EnumValueTrait.id: const EnumValueTrait('baz'),
+                        }),
+                    ),
+                  }),
+              ),
+            }),
         );
 
         final decoded = SmithyAst.fromJson(

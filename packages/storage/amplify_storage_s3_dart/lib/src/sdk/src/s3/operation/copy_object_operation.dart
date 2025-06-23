@@ -231,10 +231,9 @@ class CopyObjectOperation
   @override
   _i1.HttpRequest buildRequest(CopyObjectRequest input) => _i1.HttpRequest((b) {
     b.method = 'PUT';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?x-id=CopyObject'
-            : r'/{Key+}?x-id=CopyObject';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}/{Key+}?x-id=CopyObject'
+        : r'/{Key+}?x-id=CopyObject';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.acl != null) {
       b.headers['x-amz-acl'] = input.acl!.value;
@@ -276,10 +275,9 @@ class CopyObjectOperation
       }
     }
     if (input.copySourceIfModifiedSince != null) {
-      b.headers['x-amz-copy-source-if-modified-since'] =
-          _i1.Timestamp(
-            input.copySourceIfModifiedSince!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['x-amz-copy-source-if-modified-since'] = _i1.Timestamp(
+        input.copySourceIfModifiedSince!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.copySourceIfNoneMatch != null) {
       if (input.copySourceIfNoneMatch!.isNotEmpty) {
@@ -288,16 +286,14 @@ class CopyObjectOperation
       }
     }
     if (input.copySourceIfUnmodifiedSince != null) {
-      b.headers['x-amz-copy-source-if-unmodified-since'] =
-          _i1.Timestamp(
-            input.copySourceIfUnmodifiedSince!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['x-amz-copy-source-if-unmodified-since'] = _i1.Timestamp(
+        input.copySourceIfUnmodifiedSince!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.expires != null) {
-      b.headers['Expires'] =
-          _i1.Timestamp(
-            input.expires!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['Expires'] = _i1.Timestamp(
+        input.expires!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.grantFullControl != null) {
       if (input.grantFullControl!.isNotEmpty) {
@@ -369,8 +365,9 @@ class CopyObjectOperation
       }
     }
     if (input.bucketKeyEnabled != null) {
-      b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
-          input.bucketKeyEnabled!.toString();
+      b.headers['x-amz-server-side-encryption-bucket-key-enabled'] = input
+          .bucketKeyEnabled!
+          .toString();
     }
     if (input.copySourceSseCustomerAlgorithm != null) {
       if (input.copySourceSseCustomerAlgorithm!.isNotEmpty) {
@@ -402,10 +399,9 @@ class CopyObjectOperation
       b.headers['x-amz-object-lock-mode'] = input.objectLockMode!.value;
     }
     if (input.objectLockRetainUntilDate != null) {
-      b.headers['x-amz-object-lock-retain-until-date'] =
-          _i1.Timestamp(
-            input.objectLockRetainUntilDate!,
-          ).format(_i1.TimestampFormat.dateTime).toString();
+      b.headers['x-amz-object-lock-retain-until-date'] = _i1.Timestamp(
+        input.objectLockRetainUntilDate!,
+      ).format(_i1.TimestampFormat.dateTime).toString();
     }
     if (input.objectLockLegalHoldStatus != null) {
       b.headers['x-amz-object-lock-legal-hold'] =

@@ -179,57 +179,53 @@ class HasOneParent extends amplify_core.Model {
     return HasOneParent._internal(
       id: id,
       name: name == null ? this.name : name.value,
-      implicitChild:
-          implicitChild == null ? this.implicitChild : implicitChild.value,
-      explicitChildID:
-          explicitChildID == null
-              ? this.explicitChildID
-              : explicitChildID.value,
-      explicitChild:
-          explicitChild == null ? this.explicitChild : explicitChild.value,
-      hasOneParentImplicitChildId:
-          hasOneParentImplicitChildId == null
-              ? this.hasOneParentImplicitChildId
-              : hasOneParentImplicitChildId.value,
+      implicitChild: implicitChild == null
+          ? this.implicitChild
+          : implicitChild.value,
+      explicitChildID: explicitChildID == null
+          ? this.explicitChildID
+          : explicitChildID.value,
+      explicitChild: explicitChild == null
+          ? this.explicitChild
+          : explicitChild.value,
+      hasOneParentImplicitChildId: hasOneParentImplicitChildId == null
+          ? this.hasOneParentImplicitChildId
+          : hasOneParentImplicitChildId.value,
     );
   }
 
   HasOneParent.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       _name = json['name'],
-      _implicitChild =
-          json['implicitChild'] != null
-              ? json['implicitChild']['serializedData'] != null
-                  ? HasOneChild.fromJson(
+      _implicitChild = json['implicitChild'] != null
+          ? json['implicitChild']['serializedData'] != null
+                ? HasOneChild.fromJson(
                     new Map<String, dynamic>.from(
                       json['implicitChild']['serializedData'],
                     ),
                   )
-                  : HasOneChild.fromJson(
+                : HasOneChild.fromJson(
                     new Map<String, dynamic>.from(json['implicitChild']),
                   )
-              : null,
+          : null,
       _explicitChildID = json['explicitChildID'],
-      _explicitChild =
-          json['explicitChild'] != null
-              ? json['explicitChild']['serializedData'] != null
-                  ? HasOneChild.fromJson(
+      _explicitChild = json['explicitChild'] != null
+          ? json['explicitChild']['serializedData'] != null
+                ? HasOneChild.fromJson(
                     new Map<String, dynamic>.from(
                       json['explicitChild']['serializedData'],
                     ),
                   )
-                  : HasOneChild.fromJson(
+                : HasOneChild.fromJson(
                     new Map<String, dynamic>.from(json['explicitChild']),
                   )
-              : null,
-      _createdAt =
-          json['createdAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-              : null,
-      _updatedAt =
-          json['updatedAt'] != null
-              ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-              : null,
+          : null,
+      _createdAt = json['createdAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+          : null,
+      _updatedAt = json['updatedAt'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+          : null,
       _hasOneParentImplicitChildId = json['hasOneParentImplicitChildId'];
 
   Map<String, dynamic> toJson() => {
@@ -388,10 +384,9 @@ class HasOneParentModelIdentifier
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
-  List<Map<String, dynamic>> serializeAsList() =>
-      serializeAsMap().entries
-          .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-          .toList();
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap().entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
 
   @override
   String serializeAsString() => serializeAsMap().values.join('#');

@@ -86,12 +86,11 @@ abstract class MalformedByteInput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MalformedByteInput')
-          ..add('byteInBody', byteInBody)
-          ..add('byteInPath', byteInPath)
-          ..add('byteInQuery', byteInQuery)
-          ..add('byteInHeader', byteInHeader);
+    final helper = newBuiltValueToStringHelper('MalformedByteInput')
+      ..add('byteInBody', byteInBody)
+      ..add('byteInPath', byteInPath)
+      ..add('byteInQuery', byteInQuery)
+      ..add('byteInHeader', byteInHeader);
     return helper.toString();
   }
 }

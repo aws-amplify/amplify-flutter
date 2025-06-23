@@ -46,16 +46,15 @@ class _NavigatorScaffoldState extends State<NavigatorScaffold>
         },
         child: Text('Sign Out'),
       ),
-      body:
-          widget.isAmplifyConfigured
-              ? TabBarView(
-                controller: _tabController,
-                children: [
-                  PublicView(isAmplifyConfigured: widget.isAmplifyConfigured),
-                  AuthView(isAmplifyConfigured: widget.isAmplifyConfigured),
-                ],
-              )
-              : Center(child: CircularProgressIndicator.adaptive()),
+      body: widget.isAmplifyConfigured
+          ? TabBarView(
+              controller: _tabController,
+              children: [
+                PublicView(isAmplifyConfigured: widget.isAmplifyConfigured),
+                AuthView(isAmplifyConfigured: widget.isAmplifyConfigured),
+              ],
+            )
+          : Center(child: CircularProgressIndicator.adaptive()),
     );
   }
 }

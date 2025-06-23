@@ -55,10 +55,9 @@ class NamedMembersMapSerializer extends StructuredSerializer<NamedMembersMap> {
             ),
           )!
           .rebuild(
-            (b) =>
-                b
-                  ..shapeId = shapeId
-                  ..memberName = memberName,
+            (b) => b
+              ..shapeId = shapeId
+              ..memberName = memberName,
           );
     }
     return membersMap;

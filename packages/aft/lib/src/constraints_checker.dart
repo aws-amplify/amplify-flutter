@@ -9,8 +9,11 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:yaml/yaml.dart';
 
-typedef MismatchedDependency =
-    ({PackageInfo package, String dependencyName, String message});
+typedef MismatchedDependency = ({
+  PackageInfo package,
+  String dependencyName,
+  String message,
+});
 
 sealed class ConstraintsChecker {
   ConstraintsChecker(this.action);
@@ -248,10 +251,9 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
               package: package,
               dependencyPath: [dependencyType.key, dependency.name],
               expectedConstraint: HostedDependency(
-                version:
-                    package.isPublishable
-                        ? dependency.currentConstraint
-                        : VersionConstraint.any,
+                version: package.isPublishable
+                    ? dependency.currentConstraint
+                    : VersionConstraint.any,
               ),
               errorMessage:
                   'Invalid constraint type: ${constraint.runtimeType}. '
@@ -366,10 +368,9 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
               repoDependency.name,
             ],
             expectedConstraint: HostedDependency(
-              version:
-                  package.isPublishable
-                      ? repoDependency.currentConstraint
-                      : VersionConstraint.any,
+              version: package.isPublishable
+                  ? repoDependency.currentConstraint
+                  : VersionConstraint.any,
             ),
             errorMessage:
                 'Constraint for dependency causes an empty intersection '

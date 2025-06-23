@@ -76,10 +76,9 @@ class MalformedTimestampHeaderDefaultOperation
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/MalformedTimestampHeaderDefault';
-        b.headers['timestamp'] =
-            _i1.Timestamp(
-              input.timestamp,
-            ).format(_i1.TimestampFormat.httpDate).toString();
+        b.headers['timestamp'] = _i1.Timestamp(
+          input.timestamp,
+        ).format(_i1.TimestampFormat.httpDate).toString();
       });
 
   @override
