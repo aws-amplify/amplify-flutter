@@ -65,13 +65,12 @@ final class AWSSuccessResult<V extends Object?, E extends Exception>
 
   @override
   String get runtimeTypeName {
-    final typeName =
-        StringBuffer('AWSSuccessResult<')
-          ..write(switch (value) {
-            AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
-            _ => V,
-          })
-          ..write(', $E>');
+    final typeName = StringBuffer('AWSSuccessResult<')
+      ..write(switch (value) {
+        AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
+        _ => V,
+      })
+      ..write(', $E>');
     return typeName.toString();
   }
 
@@ -119,13 +118,12 @@ final class AWSErrorResult<V extends Object?, E extends Exception>
 
   @override
   String get runtimeTypeName {
-    final typeName =
-        StringBuffer('AWSErrorResult<$V, ')
-          ..write(switch (exception) {
-            AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
-            _ => E,
-          })
-          ..write('>');
+    final typeName = StringBuffer('AWSErrorResult<$V, ')
+      ..write(switch (exception) {
+        AWSDebuggable(:final runtimeTypeName) => runtimeTypeName,
+        _ => E,
+      })
+      ..write('>');
     return typeName.toString();
   }
 

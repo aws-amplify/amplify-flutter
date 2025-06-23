@@ -70,15 +70,15 @@ sealed class MyUnion extends _i1.SmithyUnion<MyUnion> {
   @override
   Object get value =>
       (stringValue ??
-          booleanValue ??
-          numberValue ??
-          blobValue ??
-          timestampValue ??
-          enumValue ??
-          listValue ??
-          mapValue ??
-          structureValue ??
-          renamedStructureValue)!;
+      booleanValue ??
+      numberValue ??
+      blobValue ??
+      timestampValue ??
+      enumValue ??
+      listValue ??
+      mapValue ??
+      structureValue ??
+      renamedStructureValue)!;
 
   @override
   String toString() {

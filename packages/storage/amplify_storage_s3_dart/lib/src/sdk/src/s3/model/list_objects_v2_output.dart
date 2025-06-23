@@ -43,8 +43,9 @@ abstract class ListObjectsV2Output
       prefix: prefix,
       delimiter: delimiter,
       maxKeys: maxKeys,
-      commonPrefixes:
-          commonPrefixes == null ? null : _i3.BuiltList(commonPrefixes),
+      commonPrefixes: commonPrefixes == null
+          ? null
+          : _i3.BuiltList(commonPrefixes),
       encodingType: encodingType,
       keyCount: keyCount,
       continuationToken: continuationToken,
@@ -192,21 +193,20 @@ abstract class ListObjectsV2Output
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListObjectsV2Output')
-          ..add('isTruncated', isTruncated)
-          ..add('contents', contents)
-          ..add('name', name)
-          ..add('prefix', prefix)
-          ..add('delimiter', delimiter)
-          ..add('maxKeys', maxKeys)
-          ..add('commonPrefixes', commonPrefixes)
-          ..add('encodingType', encodingType)
-          ..add('keyCount', keyCount)
-          ..add('continuationToken', continuationToken)
-          ..add('nextContinuationToken', nextContinuationToken)
-          ..add('startAfter', startAfter)
-          ..add('requestCharged', requestCharged);
+    final helper = newBuiltValueToStringHelper('ListObjectsV2Output')
+      ..add('isTruncated', isTruncated)
+      ..add('contents', contents)
+      ..add('name', name)
+      ..add('prefix', prefix)
+      ..add('delimiter', delimiter)
+      ..add('maxKeys', maxKeys)
+      ..add('commonPrefixes', commonPrefixes)
+      ..add('encodingType', encodingType)
+      ..add('keyCount', keyCount)
+      ..add('continuationToken', continuationToken)
+      ..add('nextContinuationToken', nextContinuationToken)
+      ..add('startAfter', startAfter)
+      ..add('requestCharged', requestCharged);
     return helper.toString();
   }
 }
@@ -297,20 +297,19 @@ abstract class ListObjectsV2OutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListObjectsV2OutputPayload')
-          ..add('commonPrefixes', commonPrefixes)
-          ..add('contents', contents)
-          ..add('continuationToken', continuationToken)
-          ..add('delimiter', delimiter)
-          ..add('encodingType', encodingType)
-          ..add('isTruncated', isTruncated)
-          ..add('keyCount', keyCount)
-          ..add('maxKeys', maxKeys)
-          ..add('name', name)
-          ..add('nextContinuationToken', nextContinuationToken)
-          ..add('prefix', prefix)
-          ..add('startAfter', startAfter);
+    final helper = newBuiltValueToStringHelper('ListObjectsV2OutputPayload')
+      ..add('commonPrefixes', commonPrefixes)
+      ..add('contents', contents)
+      ..add('continuationToken', continuationToken)
+      ..add('delimiter', delimiter)
+      ..add('encodingType', encodingType)
+      ..add('isTruncated', isTruncated)
+      ..add('keyCount', keyCount)
+      ..add('maxKeys', maxKeys)
+      ..add('name', name)
+      ..add('nextContinuationToken', nextContinuationToken)
+      ..add('prefix', prefix)
+      ..add('startAfter', startAfter);
     return helper.toString();
   }
 }

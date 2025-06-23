@@ -39,10 +39,9 @@ abstract class AttributeType
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('AttributeType')
-          ..add('name', name)
-          ..add('value', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('AttributeType')
+      ..add('name', name)
+      ..add('value', '***SENSITIVE***');
     return helper.toString();
   }
 }

@@ -51,10 +51,9 @@ String _transformExceptionToErrorPayloadJson(Object e) {
       (x) => e.underlyingException?.toString().contains(x) ?? false,
     );
     // preface the error message with "Unauthorized" if the exception should be silent
-    error['message'] =
-        isUnAuthorized
-            ? "Unauthorized - ${e.message} - ${e.underlyingException}"
-            : error['message'];
+    error['message'] = isUnAuthorized
+        ? "Unauthorized - ${e.message} - ${e.underlyingException}"
+        : error['message'];
   }
   var errorPayload = {
     'errors': [error],

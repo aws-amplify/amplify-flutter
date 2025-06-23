@@ -86,16 +86,15 @@ abstract class InAppMessageCampaign
   ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InAppMessageCampaign')
-          ..add('campaignId', campaignId)
-          ..add('dailyCap', dailyCap)
-          ..add('inAppMessage', inAppMessage)
-          ..add('priority', priority)
-          ..add('schedule', schedule)
-          ..add('sessionCap', sessionCap)
-          ..add('totalCap', totalCap)
-          ..add('treatmentId', treatmentId);
+    final helper = newBuiltValueToStringHelper('InAppMessageCampaign')
+      ..add('campaignId', campaignId)
+      ..add('dailyCap', dailyCap)
+      ..add('inAppMessage', inAppMessage)
+      ..add('priority', priority)
+      ..add('schedule', schedule)
+      ..add('sessionCap', sessionCap)
+      ..add('totalCap', totalCap)
+      ..add('treatmentId', treatmentId);
     return helper.toString();
   }
 }

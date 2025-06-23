@@ -23,8 +23,10 @@ void main() {
     ];
 
     // distinct list of values in the test models
-    final listOfStringValues =
-        models.map((e) => e.listOfStringValue).toSet().toList();
+    final listOfStringValues = models
+        .map((e) => e.listOfStringValue)
+        .toSet()
+        .toList();
 
     setUpAll(() async {
       await configureDataStore();
@@ -36,19 +38,17 @@ void main() {
 
     testWidgets('contains()', (WidgetTester tester) async {
       // a list of unique values across all the lists
-      final values =
-          listOfStringValues
-              .whereType<List<String>>()
-              .expand((el) => el)
-              .toSet()
-              .toList();
+      final values = listOfStringValues
+          .whereType<List<String>>()
+          .expand((el) => el)
+          .toSet()
+          .toList();
 
       // test against each value
       for (var value in values) {
-        final exactMatchModels =
-            models
-                .where((model) => model.listOfStringValue!.contains(value))
-                .toList();
+        final exactMatchModels = models
+            .where((model) => model.listOfStringValue!.contains(value))
+            .toList();
         await testQueryPredicate<ModelWithAppsyncScalarTypes>(
           queryPredicate: ModelWithAppsyncScalarTypes.LISTOFSTRINGVALUE
               .contains(value),

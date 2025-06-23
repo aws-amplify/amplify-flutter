@@ -1,10 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-//ignore: deprecated_member_use
-import 'dart:html';
-
 import 'package:example_common/src/components/component.dart';
+import 'package:web/web.dart';
 
 /// {@template example_common.form_component}
 /// a component that displays a form
@@ -21,7 +19,7 @@ class FormComponent extends Component {
 
   @override
   Component render() {
-    final formElement = FormElement();
+    final formElement = HTMLFormElement();
     if (id != null) formElement.id = id!;
     for (final child in children) {
       formElement.appendComponent(child);

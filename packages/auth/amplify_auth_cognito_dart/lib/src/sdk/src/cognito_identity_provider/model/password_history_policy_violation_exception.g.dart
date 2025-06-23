@@ -15,9 +15,8 @@ class _$PasswordHistoryPolicyViolationException
 
   factory _$PasswordHistoryPolicyViolationException([
     void Function(PasswordHistoryPolicyViolationExceptionBuilder)? updates,
-  ]) =>
-      (PasswordHistoryPolicyViolationExceptionBuilder()..update(updates))
-          ._build();
+  ]) => (PasswordHistoryPolicyViolationExceptionBuilder()..update(updates))
+      ._build();
 
   _$PasswordHistoryPolicyViolationException._({this.message, this.headers})
     : super._();

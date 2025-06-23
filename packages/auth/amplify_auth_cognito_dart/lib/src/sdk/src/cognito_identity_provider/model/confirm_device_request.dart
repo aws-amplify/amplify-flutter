@@ -73,12 +73,11 @@ abstract class ConfirmDeviceRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ConfirmDeviceRequest')
-          ..add('accessToken', '***SENSITIVE***')
-          ..add('deviceKey', deviceKey)
-          ..add('deviceSecretVerifierConfig', deviceSecretVerifierConfig)
-          ..add('deviceName', deviceName);
+    final helper = newBuiltValueToStringHelper('ConfirmDeviceRequest')
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('deviceKey', deviceKey)
+      ..add('deviceSecretVerifierConfig', deviceSecretVerifierConfig)
+      ..add('deviceName', deviceName);
     return helper.toString();
   }
 }

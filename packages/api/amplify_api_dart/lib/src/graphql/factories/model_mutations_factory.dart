@@ -67,9 +67,8 @@ class ModelMutationsFactory {
   }) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
-    final input =
-        modelIdentifier
-            .serializeAsMap(); // Simpler input than other mutations so don't use helper.
+    final input = modelIdentifier
+        .serializeAsMap(); // Simpler input than other mutations so don't use helper.
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForMutationRequest(input: input, condition: condition);
 

@@ -52,15 +52,13 @@ class DeviceMetadataRepository {
     );
     if (deviceKey != null && deviceGroupKey != null && devicePassword != null) {
       deviceSecrets = CognitoDeviceSecrets(
-        (b) =>
-            b
-              ..deviceKey = deviceKey
-              ..deviceGroupKey = deviceGroupKey
-              ..devicePassword = devicePassword
-              ..deviceStatus =
-                  deviceStatus == null
-                      ? null
-                      : DeviceRememberedStatusType.values.byValue(deviceStatus),
+        (b) => b
+          ..deviceKey = deviceKey
+          ..deviceGroupKey = deviceGroupKey
+          ..devicePassword = devicePassword
+          ..deviceStatus = deviceStatus == null
+              ? null
+              : DeviceRememberedStatusType.values.byValue(deviceStatus),
       );
     }
     return deviceSecrets;

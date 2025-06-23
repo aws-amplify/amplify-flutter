@@ -174,10 +174,9 @@ class DeleteObjectOperation
     b,
   ) {
     b.method = 'DELETE';
-    b.path =
-        _s3ClientConfig.usePathStyle
-            ? r'/{Bucket}/{Key+}?x-id=DeleteObject'
-            : r'/{Key+}?x-id=DeleteObject';
+    b.path = _s3ClientConfig.usePathStyle
+        ? r'/{Bucket}/{Key+}?x-id=DeleteObject'
+        : r'/{Key+}?x-id=DeleteObject';
     b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
     if (input.mfa != null) {
       if (input.mfa!.isNotEmpty) {
@@ -188,8 +187,9 @@ class DeleteObjectOperation
       b.headers['x-amz-request-payer'] = input.requestPayer!.value;
     }
     if (input.bypassGovernanceRetention != null) {
-      b.headers['x-amz-bypass-governance-retention'] =
-          input.bypassGovernanceRetention!.toString();
+      b.headers['x-amz-bypass-governance-retention'] = input
+          .bypassGovernanceRetention!
+          .toString();
     }
     if (input.expectedBucketOwner != null) {
       if (input.expectedBucketOwner!.isNotEmpty) {

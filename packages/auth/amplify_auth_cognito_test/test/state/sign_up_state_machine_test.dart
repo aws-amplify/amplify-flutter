@@ -22,10 +22,9 @@ void main() {
     const password = 'password';
     final signUpEvent = SignUpEvent.initiate(
       parameters: SignUpParameters(
-        (p) =>
-            p
-              ..username = username
-              ..password = password,
+        (p) => p
+          ..username = username
+          ..password = password,
       ),
       userAttributes: {AuthUserAttributeKey.email: 'test@example.com'},
       validationData: const {'key': 'value'},
@@ -39,8 +38,8 @@ void main() {
 
     test('success', () async {
       final client = MockCognitoIdentityProviderClient(
-        signUp:
-            () async => SignUpResponse(userSub: userSub, userConfirmed: true),
+        signUp: () async =>
+            SignUpResponse(userSub: userSub, userConfirmed: true),
       );
       stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
@@ -64,8 +63,8 @@ void main() {
 
     test('needs confirmation', () async {
       final client = MockCognitoIdentityProviderClient(
-        signUp:
-            () async => SignUpResponse(userSub: userSub, userConfirmed: false),
+        signUp: () async =>
+            SignUpResponse(userSub: userSub, userConfirmed: false),
         confirmSignUp: () async => ConfirmSignUpResponse(),
       );
       stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
@@ -125,8 +124,8 @@ void main() {
       );
 
       client = MockCognitoIdentityProviderClient(
-        signUp:
-            () async => SignUpResponse(userSub: userSub, userConfirmed: true),
+        signUp: () async =>
+            SignUpResponse(userSub: userSub, userConfirmed: true),
       );
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)

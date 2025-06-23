@@ -31,10 +31,12 @@ abstract class InitiateAuthRequest
   }) {
     return _$InitiateAuthRequest._(
       authFlow: authFlow,
-      authParameters:
-          authParameters == null ? null : _i3.BuiltMap(authParameters),
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      authParameters: authParameters == null
+          ? null
+          : _i3.BuiltMap(authParameters),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
       clientId: clientId,
       analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
@@ -155,14 +157,13 @@ abstract class InitiateAuthRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InitiateAuthRequest')
-          ..add('authFlow', authFlow)
-          ..add('authParameters', '***SENSITIVE***')
-          ..add('clientMetadata', clientMetadata)
-          ..add('clientId', '***SENSITIVE***')
-          ..add('analyticsMetadata', analyticsMetadata)
-          ..add('userContextData', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('InitiateAuthRequest')
+      ..add('authFlow', authFlow)
+      ..add('authParameters', '***SENSITIVE***')
+      ..add('clientMetadata', clientMetadata)
+      ..add('clientId', '***SENSITIVE***')
+      ..add('analyticsMetadata', analyticsMetadata)
+      ..add('userContextData', '***SENSITIVE***');
     return helper.toString();
   }
 }

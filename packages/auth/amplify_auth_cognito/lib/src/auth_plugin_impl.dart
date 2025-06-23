@@ -15,7 +15,7 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
-    if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
+    if (dart.library.js_interop) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.ui) 'flows/hosted_ui/hosted_ui_platform_flutter.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
@@ -100,8 +100,9 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     );
     Map<String, String>? validationData;
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      final nativeValidationData =
-          await stateMachine.expect<NativeAuthBridge>().getValidationData();
+      final nativeValidationData = await stateMachine
+          .expect<NativeAuthBridge>()
+          .getValidationData();
       validationData = nativeValidationData.cast();
     }
     options = SignUpOptions(

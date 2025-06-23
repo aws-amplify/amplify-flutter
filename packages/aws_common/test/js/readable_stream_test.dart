@@ -5,23 +5,23 @@
 library;
 
 import 'dart:async';
+import 'dart:js_interop';
 import 'dart:typed_data';
 
 import 'package:aws_common/src/js/readable_stream.dart';
 import 'package:test/test.dart';
+import 'package:web/web.dart';
 
 void main() {
   ReadableStream createReadableStream() {
-    return ReadableStream(
-      UnderlyingSource(
-        start: (controller) {
-          controller
-            ..enqueue(Uint8List.fromList([1, 2, 3, 4, 5]))
-            ..enqueue(Uint8List.fromList([6, 7, 8, 9, 0]))
-            ..close();
-        },
-      ),
-    );
+    Future<void> start(ReadableStreamDefaultController controller) async {
+      controller
+        ..enqueue(Uint8List.fromList([1, 2, 3, 4, 5]).toJS)
+        ..enqueue(Uint8List.fromList([6, 7, 8, 9, 0]).toJS)
+        ..close();
+    }
+
+    return ReadableStream(UnderlyingSource(start: start));
   }
 
   group('ReadableStreamWrapper', () {
@@ -43,7 +43,7 @@ void main() {
     });
 
     group('asReadableStream (async)', () {
-      test('', () {
+      test('no Errors', () {
         final stream = Stream.fromIterable([
           [1, 2, 3, 4, 5],
           [6, 7, 8, 9, 0],

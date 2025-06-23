@@ -26,14 +26,12 @@ class StorageBucketFromOutputs implements StorageBucket {
     }
     final bucket = buckets.singleWhere(
       (e) => e.name == _name,
-      orElse:
-          () =>
-              throw const InvalidStorageBucketException(
-                'Unable to lookup bucket from provided name in Amplify Outputs file.',
-                recoverySuggestion:
-                    'Make sure Amplify Outputs file has the specified '
-                    'bucket configuration.',
-              ),
+      orElse: () => throw const InvalidStorageBucketException(
+        'Unable to lookup bucket from provided name in Amplify Outputs file.',
+        recoverySuggestion:
+            'Make sure Amplify Outputs file has the specified '
+            'bucket configuration.',
+      ),
     );
     return BucketInfo(bucketName: bucket.bucketName, region: bucket.awsRegion);
   }

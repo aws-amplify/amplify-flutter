@@ -140,10 +140,9 @@ final class CredentialStoreStateMachine
         );
         signInDetails = CognitoSignInDetails.apiBased(
           username: username ?? CognitoIdToken(parsedIdToken).username,
-          authFlowType:
-              authFlowType == null
-                  ? null
-                  : AuthFlowType.values.byValue(authFlowType),
+          authFlowType: authFlowType == null
+              ? null
+              : AuthFlowType.values.byValue(authFlowType),
         );
       }
     }
@@ -296,8 +295,8 @@ final class CredentialStoreStateMachine
         }
         final expiration = awsCredentials.expiration;
         if (expiration != null) {
-          items[keys[CognitoIdentityPoolKey.expiration]] =
-              expiration.toIso8601String();
+          items[keys[CognitoIdentityPoolKey.expiration]] = expiration
+              .toIso8601String();
         } else {
           deletions.add(keys[CognitoIdentityPoolKey.expiration]);
         }

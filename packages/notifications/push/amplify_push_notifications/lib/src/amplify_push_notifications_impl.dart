@@ -95,14 +95,13 @@ abstract class AmplifyPushNotifications
       _dependencyManager = dependencyManager;
     }
 
-    _onTokenReceived =
-        tokenReceivedEventChannel
-            .receiveBroadcastStream()
-            .cast<Map<Object?, Object?>>()
-            .map((payload) {
-              return payload['token'] as String;
-            })
-            .distinct();
+    _onTokenReceived = tokenReceivedEventChannel
+        .receiveBroadcastStream()
+        .cast<Map<Object?, Object?>>()
+        .map((payload) {
+          return payload['token'] as String;
+        })
+        .distinct();
     _bufferedTokenStream = StreamQueue(_onTokenReceived);
     _onForegroundNotificationReceived = foregroundNotificationEventChannel
         .receiveBroadcastStream()

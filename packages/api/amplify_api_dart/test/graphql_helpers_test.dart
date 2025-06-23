@@ -100,7 +100,8 @@ void main() {
             Blog.classType,
             blog.modelIdentifier,
           );
-          final String data = '''{
+          final String data =
+              '''{
         "getBlog": {
             "createdAt": "2021-01-01T01:00:00.000000000Z",
             "id": "$id",
@@ -158,7 +159,8 @@ void main() {
             document: doc,
             variables: <String, String>{id: id},
           );
-          final String data = '''{
+          final String data =
+              '''{
         "getBlog": {
             "createdAt": "2021-01-01T01:00:00.000000000Z",
             "id": "$id",

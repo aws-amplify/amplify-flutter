@@ -37,30 +37,32 @@ abstract class XmlListsOutput
       stringSet: stringSet == null ? null : _i2.BuiltSet(stringSet),
       integerList: integerList == null ? null : _i2.BuiltList(integerList),
       booleanList: booleanList == null ? null : _i2.BuiltList(booleanList),
-      timestampList:
-          timestampList == null ? null : _i2.BuiltList(timestampList),
+      timestampList: timestampList == null
+          ? null
+          : _i2.BuiltList(timestampList),
       enumList: enumList == null ? null : _i2.BuiltList(enumList),
       intEnumList: intEnumList == null ? null : _i2.BuiltList(intEnumList),
-      nestedStringList:
-          nestedStringList == null
-              ? null
-              : _i2.BuiltList(nestedStringList.map((el) => _i2.BuiltList(el))),
-      renamedListMembers:
-          renamedListMembers == null ? null : _i2.BuiltList(renamedListMembers),
-      flattenedList:
-          flattenedList == null ? null : _i2.BuiltList(flattenedList),
-      flattenedList2:
-          flattenedList2 == null ? null : _i2.BuiltList(flattenedList2),
-      flattenedListWithMemberNamespace:
-          flattenedListWithMemberNamespace == null
-              ? null
-              : _i2.BuiltList(flattenedListWithMemberNamespace),
-      flattenedListWithNamespace:
-          flattenedListWithNamespace == null
-              ? null
-              : _i2.BuiltList(flattenedListWithNamespace),
-      structureList:
-          structureList == null ? null : _i2.BuiltList(structureList),
+      nestedStringList: nestedStringList == null
+          ? null
+          : _i2.BuiltList(nestedStringList.map((el) => _i2.BuiltList(el))),
+      renamedListMembers: renamedListMembers == null
+          ? null
+          : _i2.BuiltList(renamedListMembers),
+      flattenedList: flattenedList == null
+          ? null
+          : _i2.BuiltList(flattenedList),
+      flattenedList2: flattenedList2 == null
+          ? null
+          : _i2.BuiltList(flattenedList2),
+      flattenedListWithMemberNamespace: flattenedListWithMemberNamespace == null
+          ? null
+          : _i2.BuiltList(flattenedListWithMemberNamespace),
+      flattenedListWithNamespace: flattenedListWithNamespace == null
+          ? null
+          : _i2.BuiltList(flattenedListWithNamespace),
+      structureList: structureList == null
+          ? null
+          : _i2.BuiltList(structureList),
     );
   }
 
@@ -115,25 +117,24 @@ abstract class XmlListsOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('XmlListsOutput')
-          ..add('stringList', stringList)
-          ..add('stringSet', stringSet)
-          ..add('integerList', integerList)
-          ..add('booleanList', booleanList)
-          ..add('timestampList', timestampList)
-          ..add('enumList', enumList)
-          ..add('intEnumList', intEnumList)
-          ..add('nestedStringList', nestedStringList)
-          ..add('renamedListMembers', renamedListMembers)
-          ..add('flattenedList', flattenedList)
-          ..add('flattenedList2', flattenedList2)
-          ..add(
-            'flattenedListWithMemberNamespace',
-            flattenedListWithMemberNamespace,
-          )
-          ..add('flattenedListWithNamespace', flattenedListWithNamespace)
-          ..add('structureList', structureList);
+    final helper = newBuiltValueToStringHelper('XmlListsOutput')
+      ..add('stringList', stringList)
+      ..add('stringSet', stringSet)
+      ..add('integerList', integerList)
+      ..add('booleanList', booleanList)
+      ..add('timestampList', timestampList)
+      ..add('enumList', enumList)
+      ..add('intEnumList', intEnumList)
+      ..add('nestedStringList', nestedStringList)
+      ..add('renamedListMembers', renamedListMembers)
+      ..add('flattenedList', flattenedList)
+      ..add('flattenedList2', flattenedList2)
+      ..add(
+        'flattenedListWithMemberNamespace',
+        flattenedListWithMemberNamespace,
+      )
+      ..add('flattenedListWithNamespace', flattenedListWithNamespace)
+      ..add('structureList', structureList);
     return helper.toString();
   }
 }

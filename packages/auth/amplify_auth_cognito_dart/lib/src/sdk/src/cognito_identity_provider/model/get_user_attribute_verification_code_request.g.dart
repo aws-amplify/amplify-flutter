@@ -17,9 +17,8 @@ class _$GetUserAttributeVerificationCodeRequest
 
   factory _$GetUserAttributeVerificationCodeRequest([
     void Function(GetUserAttributeVerificationCodeRequestBuilder)? updates,
-  ]) =>
-      (GetUserAttributeVerificationCodeRequestBuilder()..update(updates))
-          ._build();
+  ]) => (GetUserAttributeVerificationCodeRequestBuilder()..update(updates))
+      ._build();
 
   _$GetUserAttributeVerificationCodeRequest._({
     required this.accessToken,

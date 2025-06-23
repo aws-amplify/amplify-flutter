@@ -78,10 +78,9 @@ abstract class ValidationException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ValidationException')
-          ..add('message', message)
-          ..add('fieldList', fieldList);
+    final helper = newBuiltValueToStringHelper('ValidationException')
+      ..add('message', message)
+      ..add('fieldList', fieldList);
     return helper.toString();
   }
 }

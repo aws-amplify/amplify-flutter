@@ -17,12 +17,9 @@ FederateToIdentityPoolRequest _$FederateToIdentityPoolRequestFromJson(
     ),
     options: $checkedConvert(
       'options',
-      (v) =>
-          v == null
-              ? null
-              : FederateToIdentityPoolOptions.fromJson(
-                v as Map<String, dynamic>,
-              ),
+      (v) => v == null
+          ? null
+          : FederateToIdentityPoolOptions.fromJson(v as Map<String, dynamic>),
     ),
   );
   return val;

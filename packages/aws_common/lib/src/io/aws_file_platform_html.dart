@@ -2,11 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-//ignore: deprecated_member_use
-import 'dart:html';
+import 'dart:js_interop';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:http/browser_client.dart';
+import 'package:http/http.dart' as http;
+import 'package:web/web.dart';
 
 // Dart io.File openRead chunk size
 const _readStreamChunkSize = 64 * 1024;
@@ -174,9 +176,9 @@ class AWSFilePlatform extends AWSFile {
       throw const InvalidFileException();
     }
 
-    late HttpRequest request;
+    late http.Response response;
     try {
-      request = await HttpRequest.request(path, responseType: 'blob');
+      response = await BrowserClient().get(Uri.parse(path));
     } on ProgressEvent catch (e) {
       if (e.type == 'error') {
         throw const InvalidFileException(
@@ -188,15 +190,10 @@ class AWSFilePlatform extends AWSFile {
       rethrow;
     }
 
-    final retrievedBlob = request.response as Blob?;
-
-    if (retrievedBlob == null) {
-      throw const InvalidFileException(
-        message: 'The retrieved blob cannot be null.',
-        recoverySuggestion:
-            'Ensure the file `path` in Web is a valid source to retrieve content blob.',
-      );
-    }
+    final blobParts = [response.bodyBytes.toJS].toJS;
+    final type = response.headers['content-type'] ?? '';
+    final options = BlobPropertyBag(type: type);
+    final retrievedBlob = Blob(blobParts, options);
 
     _size = retrievedBlob.size;
 
@@ -216,14 +213,27 @@ class AWSFilePlatform extends AWSFile {
     var currentPosition = 0;
 
     while (currentPosition < blob.size) {
-      final readRange =
-          currentPosition + _readStreamChunkSize > blob.size
-              ? blob.size
-              : currentPosition + _readStreamChunkSize;
+      final readRange = currentPosition + _readStreamChunkSize > blob.size
+          ? blob.size
+          : currentPosition + _readStreamChunkSize;
       final blobToRead = blob.slice(currentPosition, readRange);
-      fileReader.readAsArrayBuffer(blobToRead);
-      await fileReader.onLoad.first;
-      yield fileReader.result as List<int>;
+
+      final loaded = Completer<void>();
+      void onLoadEnd() {
+        loaded.complete();
+      }
+
+      fileReader
+        ..onloadend = onLoadEnd.toJS
+        ..readAsArrayBuffer(blobToRead);
+
+      await loaded.future;
+      final jsResult = fileReader.result;
+      jsResult as JSArrayBuffer;
+
+      final bytebuffer = jsResult.toDart;
+      yield bytebuffer.asUint8List().toList();
+
       currentPosition += _readStreamChunkSize;
     }
   }

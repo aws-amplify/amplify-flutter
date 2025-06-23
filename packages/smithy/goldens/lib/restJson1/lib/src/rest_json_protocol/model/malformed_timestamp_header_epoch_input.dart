@@ -38,11 +38,10 @@ abstract class MalformedTimestampHeaderEpochInput
     Map<String, String> labels = const {},
   }) => MalformedTimestampHeaderEpochInput.build((b) {
     if (request.headers['timestamp'] != null) {
-      b.timestamp =
-          _i1.Timestamp.parse(
-            int.parse(request.headers['timestamp']!),
-            format: _i1.TimestampFormat.epochSeconds,
-          ).asDateTime;
+      b.timestamp = _i1.Timestamp.parse(
+        int.parse(request.headers['timestamp']!),
+        format: _i1.TimestampFormat.epochSeconds,
+      ).asDateTime;
     }
   });
 

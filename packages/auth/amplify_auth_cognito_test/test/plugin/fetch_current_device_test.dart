@@ -82,13 +82,9 @@ void main() {
     group('should throw', () {
       setUp(() async {
         final mockIdp = MockCognitoIdentityProviderClient(
-          getDevice:
-              () async =>
-                  throw AWSHttpException(
-                    AWSHttpRequest.get(
-                      Uri.parse('https://aws.amazon.com/cognito/'),
-                    ),
-                  ),
+          getDevice: () async => throw AWSHttpException(
+            AWSHttpRequest.get(Uri.parse('https://aws.amazon.com/cognito/')),
+          ),
         );
         plugin.stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
       });

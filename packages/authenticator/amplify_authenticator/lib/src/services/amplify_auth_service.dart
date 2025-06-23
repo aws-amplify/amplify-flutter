@@ -281,15 +281,14 @@ class AmplifyAuthService
     return _withUserAgent(() async {
       final userAttributes = await Amplify.Auth.fetchUserAttributes();
 
-      final verifiableAttributes =
-          userAttributes
-              .map((e) => e.userAttributeKey.toCognitoUserAttributeKey())
-              .where(
-                (element) =>
-                    element == CognitoUserAttributeKey.email ||
-                    element == CognitoUserAttributeKey.phoneNumber,
-              )
-              .toList();
+      final verifiableAttributes = userAttributes
+          .map((e) => e.userAttributeKey.toCognitoUserAttributeKey())
+          .where(
+            (element) =>
+                element == CognitoUserAttributeKey.email ||
+                element == CognitoUserAttributeKey.phoneNumber,
+          )
+          .toList();
 
       bool attributeIsVerified(CognitoUserAttributeKey userAttributeKey) {
         return userAttributes
@@ -302,12 +301,12 @@ class AmplifyAuthService
             'true';
       }
 
-      final verifiedAttributes =
-          verifiableAttributes.where(attributeIsVerified).toList();
-      final unverifiedAttributes =
-          verifiableAttributes
-              .where((attribute) => !attributeIsVerified(attribute))
-              .toList();
+      final verifiedAttributes = verifiableAttributes
+          .where(attributeIsVerified)
+          .toList();
+      final unverifiedAttributes = verifiableAttributes
+          .where((attribute) => !attributeIsVerified(attribute))
+          .toList();
 
       return GetAttributeVerificationStatusResult(
         verifiedAttributes: verifiedAttributes,

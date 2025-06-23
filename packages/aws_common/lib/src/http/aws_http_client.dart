@@ -5,7 +5,7 @@ import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/http/aws_http_client_io.dart'
-    if (dart.library.js) 'package:aws_common/src/http/aws_http_client_js.dart';
+    if (dart.library.js_interop) 'package:aws_common/src/http/aws_http_client_js.dart';
 import 'package:meta/meta.dart';
 
 /// {@template aws_common.http.aws_http_client}
@@ -30,7 +30,7 @@ abstract class AWSHttpClient implements Closeable {
   /// by selectively returning `true` for these options. For example, when
   /// debugging with local, self-signed certificates, it can be helpful to
   /// return `true` from this method for all certificates.
-  BadCertificateCallback onBadCertificate = (_, __, ___) => false;
+  BadCertificateCallback onBadCertificate = (_, _, _) => false;
 
   /// The supported HTTP protocols, used for negotiating with remote servers.
   ///

@@ -158,29 +158,26 @@ abstract class CopyObjectRequest
       b.copySourceIfMatch = request.headers['x-amz-copy-source-if-match']!;
     }
     if (request.headers['x-amz-copy-source-if-modified-since'] != null) {
-      b.copySourceIfModifiedSince =
-          _i1.Timestamp.parse(
-            request.headers['x-amz-copy-source-if-modified-since']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.copySourceIfModifiedSince = _i1.Timestamp.parse(
+        request.headers['x-amz-copy-source-if-modified-since']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['x-amz-copy-source-if-none-match'] != null) {
       b.copySourceIfNoneMatch =
           request.headers['x-amz-copy-source-if-none-match']!;
     }
     if (request.headers['x-amz-copy-source-if-unmodified-since'] != null) {
-      b.copySourceIfUnmodifiedSince =
-          _i1.Timestamp.parse(
-            request.headers['x-amz-copy-source-if-unmodified-since']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.copySourceIfUnmodifiedSince = _i1.Timestamp.parse(
+        request.headers['x-amz-copy-source-if-unmodified-since']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['Expires'] != null) {
-      b.expires =
-          _i1.Timestamp.parse(
-            request.headers['Expires']!,
-            format: _i1.TimestampFormat.httpDate,
-          ).asDateTime;
+      b.expires = _i1.Timestamp.parse(
+        request.headers['Expires']!,
+        format: _i1.TimestampFormat.httpDate,
+      ).asDateTime;
     }
     if (request.headers['x-amz-grant-full-control'] != null) {
       b.grantFullControl = request.headers['x-amz-grant-full-control']!;
@@ -250,23 +247,20 @@ abstract class CopyObjectRequest
     if (request
             .headers['x-amz-copy-source-server-side-encryption-customer-algorithm'] !=
         null) {
-      b.copySourceSseCustomerAlgorithm =
-          request
-              .headers['x-amz-copy-source-server-side-encryption-customer-algorithm']!;
+      b.copySourceSseCustomerAlgorithm = request
+          .headers['x-amz-copy-source-server-side-encryption-customer-algorithm']!;
     }
     if (request
             .headers['x-amz-copy-source-server-side-encryption-customer-key'] !=
         null) {
-      b.copySourceSseCustomerKey =
-          request
-              .headers['x-amz-copy-source-server-side-encryption-customer-key']!;
+      b.copySourceSseCustomerKey = request
+          .headers['x-amz-copy-source-server-side-encryption-customer-key']!;
     }
     if (request
             .headers['x-amz-copy-source-server-side-encryption-customer-key-MD5'] !=
         null) {
-      b.copySourceSseCustomerKeyMd5 =
-          request
-              .headers['x-amz-copy-source-server-side-encryption-customer-key-MD5']!;
+      b.copySourceSseCustomerKeyMd5 = request
+          .headers['x-amz-copy-source-server-side-encryption-customer-key-MD5']!;
     }
     if (request.headers['x-amz-request-payer'] != null) {
       b.requestPayer = RequestPayer.values.byValue(
@@ -282,11 +276,10 @@ abstract class CopyObjectRequest
       );
     }
     if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
-      b.objectLockRetainUntilDate =
-          _i1.Timestamp.parse(
-            request.headers['x-amz-object-lock-retain-until-date']!,
-            format: _i1.TimestampFormat.dateTime,
-          ).asDateTime;
+      b.objectLockRetainUntilDate = _i1.Timestamp.parse(
+        request.headers['x-amz-object-lock-retain-until-date']!,
+        format: _i1.TimestampFormat.dateTime,
+      ).asDateTime;
     }
     if (request.headers['x-amz-object-lock-legal-hold'] != null) {
       b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values.byValue(
@@ -697,52 +690,48 @@ abstract class CopyObjectRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CopyObjectRequest')
-          ..add('acl', acl)
-          ..add('bucket', bucket)
-          ..add('cacheControl', cacheControl)
-          ..add('checksumAlgorithm', checksumAlgorithm)
-          ..add('contentDisposition', contentDisposition)
-          ..add('contentEncoding', contentEncoding)
-          ..add('contentLanguage', contentLanguage)
-          ..add('contentType', contentType)
-          ..add('copySource', copySource)
-          ..add('copySourceIfMatch', copySourceIfMatch)
-          ..add('copySourceIfModifiedSince', copySourceIfModifiedSince)
-          ..add('copySourceIfNoneMatch', copySourceIfNoneMatch)
-          ..add('copySourceIfUnmodifiedSince', copySourceIfUnmodifiedSince)
-          ..add('expires', expires)
-          ..add('grantFullControl', grantFullControl)
-          ..add('grantRead', grantRead)
-          ..add('grantReadAcp', grantReadAcp)
-          ..add('grantWriteAcp', grantWriteAcp)
-          ..add('key', key)
-          ..add('metadata', metadata)
-          ..add('metadataDirective', metadataDirective)
-          ..add('taggingDirective', taggingDirective)
-          ..add('serverSideEncryption', serverSideEncryption)
-          ..add('storageClass', storageClass)
-          ..add('websiteRedirectLocation', websiteRedirectLocation)
-          ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
-          ..add('sseCustomerKey', '***SENSITIVE***')
-          ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
-          ..add('ssekmsKeyId', '***SENSITIVE***')
-          ..add('ssekmsEncryptionContext', '***SENSITIVE***')
-          ..add('bucketKeyEnabled', bucketKeyEnabled)
-          ..add(
-            'copySourceSseCustomerAlgorithm',
-            copySourceSseCustomerAlgorithm,
-          )
-          ..add('copySourceSseCustomerKey', '***SENSITIVE***')
-          ..add('copySourceSseCustomerKeyMd5', copySourceSseCustomerKeyMd5)
-          ..add('requestPayer', requestPayer)
-          ..add('tagging', tagging)
-          ..add('objectLockMode', objectLockMode)
-          ..add('objectLockRetainUntilDate', objectLockRetainUntilDate)
-          ..add('objectLockLegalHoldStatus', objectLockLegalHoldStatus)
-          ..add('expectedBucketOwner', expectedBucketOwner)
-          ..add('expectedSourceBucketOwner', expectedSourceBucketOwner);
+    final helper = newBuiltValueToStringHelper('CopyObjectRequest')
+      ..add('acl', acl)
+      ..add('bucket', bucket)
+      ..add('cacheControl', cacheControl)
+      ..add('checksumAlgorithm', checksumAlgorithm)
+      ..add('contentDisposition', contentDisposition)
+      ..add('contentEncoding', contentEncoding)
+      ..add('contentLanguage', contentLanguage)
+      ..add('contentType', contentType)
+      ..add('copySource', copySource)
+      ..add('copySourceIfMatch', copySourceIfMatch)
+      ..add('copySourceIfModifiedSince', copySourceIfModifiedSince)
+      ..add('copySourceIfNoneMatch', copySourceIfNoneMatch)
+      ..add('copySourceIfUnmodifiedSince', copySourceIfUnmodifiedSince)
+      ..add('expires', expires)
+      ..add('grantFullControl', grantFullControl)
+      ..add('grantRead', grantRead)
+      ..add('grantReadAcp', grantReadAcp)
+      ..add('grantWriteAcp', grantWriteAcp)
+      ..add('key', key)
+      ..add('metadata', metadata)
+      ..add('metadataDirective', metadataDirective)
+      ..add('taggingDirective', taggingDirective)
+      ..add('serverSideEncryption', serverSideEncryption)
+      ..add('storageClass', storageClass)
+      ..add('websiteRedirectLocation', websiteRedirectLocation)
+      ..add('sseCustomerAlgorithm', sseCustomerAlgorithm)
+      ..add('sseCustomerKey', '***SENSITIVE***')
+      ..add('sseCustomerKeyMd5', sseCustomerKeyMd5)
+      ..add('ssekmsKeyId', '***SENSITIVE***')
+      ..add('ssekmsEncryptionContext', '***SENSITIVE***')
+      ..add('bucketKeyEnabled', bucketKeyEnabled)
+      ..add('copySourceSseCustomerAlgorithm', copySourceSseCustomerAlgorithm)
+      ..add('copySourceSseCustomerKey', '***SENSITIVE***')
+      ..add('copySourceSseCustomerKeyMd5', copySourceSseCustomerKeyMd5)
+      ..add('requestPayer', requestPayer)
+      ..add('tagging', tagging)
+      ..add('objectLockMode', objectLockMode)
+      ..add('objectLockRetainUntilDate', objectLockRetainUntilDate)
+      ..add('objectLockLegalHoldStatus', objectLockLegalHoldStatus)
+      ..add('expectedBucketOwner', expectedBucketOwner)
+      ..add('expectedSourceBucketOwner', expectedSourceBucketOwner);
     return helper.toString();
   }
 }

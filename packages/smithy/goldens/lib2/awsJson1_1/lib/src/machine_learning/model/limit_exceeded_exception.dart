@@ -63,10 +63,9 @@ abstract class LimitExceededException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('LimitExceededException')
-          ..add('message', message)
-          ..add('code', code);
+    final helper = newBuiltValueToStringHelper('LimitExceededException')
+      ..add('message', message)
+      ..add('code', code);
     return helper.toString();
   }
 }

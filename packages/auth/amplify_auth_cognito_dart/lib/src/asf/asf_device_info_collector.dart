@@ -6,25 +6,24 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/src/asf/asf_context_data.dart';
 import 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.stub.dart'
     if (dart.library.io) 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.vm.dart'
-    if (dart.library.js_util) 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.js.dart';
+    if (dart.library.js_interop) 'package:amplify_auth_cognito_dart/src/asf/asf_device_info_collector.js.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/platform/platform.dart';
 import 'package:clock/clock.dart';
 import 'package:meta/meta.dart';
 
-typedef _NativeDeviceInfo =
-    (
-      String? deviceName,
-      String? thirdPartyDeviceId,
-      String? deviceFingerprint,
-      String? applicationName,
-      String? applicationVersion,
-      String? deviceLanguage,
-      String? deviceOsReleaseVersion,
-      int? screenHeightPixels,
-      int? screenWidthPixels,
-    );
+typedef _NativeDeviceInfo = (
+  String? deviceName,
+  String? thirdPartyDeviceId,
+  String? deviceFingerprint,
+  String? applicationName,
+  String? applicationVersion,
+  String? deviceLanguage,
+  String? deviceOsReleaseVersion,
+  int? screenHeightPixels,
+  int? screenWidthPixels,
+);
 
 /// {@template amplify_auth_cognito_dart.asf.asf_device_info_collector}
 /// Retrieves context data as required for advanced security features (ASF).
@@ -113,18 +112,17 @@ abstract base class NativeASFDeviceInfoCollector extends ASFDeviceInfoCollector
   Future<ASFContextData> getNativeContextData() async {
     _NativeDeviceInfo data;
     try {
-      data =
-          await (
-            this.deviceName,
-            this.thirdPartyDeviceId,
-            this.deviceFingerprint,
-            this.applicationName,
-            this.applicationVersion,
-            this.deviceLanguage,
-            this.deviceOsReleaseVersion,
-            this.screenHeightPixels,
-            this.screenWidthPixels,
-          ).wait;
+      data = await (
+        this.deviceName,
+        this.thirdPartyDeviceId,
+        this.deviceFingerprint,
+        this.applicationName,
+        this.applicationVersion,
+        this.deviceLanguage,
+        this.deviceOsReleaseVersion,
+        this.screenHeightPixels,
+        this.screenWidthPixels,
+      ).wait;
     } on ParallelWaitError<_NativeDeviceInfo, Record> catch (error) {
       // Allow for partial failures, in which case take the values which
       // succeeded and log the errors.

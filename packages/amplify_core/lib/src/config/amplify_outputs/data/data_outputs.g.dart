@@ -22,10 +22,9 @@ DataOutputs _$DataOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
       ),
       authorizationTypes: $checkedConvert(
         'authorization_types',
-        (v) =>
-            (v as List<dynamic>)
-                .map((e) => $enumDecode(_$APIAuthorizationTypeEnumMap, e))
-                .toList(),
+        (v) => (v as List<dynamic>)
+            .map((e) => $enumDecode(_$APIAuthorizationTypeEnumMap, e))
+            .toList(),
       ),
     );
     return val;
@@ -45,10 +44,9 @@ Map<String, dynamic> _$DataOutputsToJson(DataOutputs instance) =>
       if (instance.apiKey case final value?) 'api_key': value,
       'default_authorization_type':
           _$APIAuthorizationTypeEnumMap[instance.defaultAuthorizationType]!,
-      'authorization_types':
-          instance.authorizationTypes
-              .map((e) => _$APIAuthorizationTypeEnumMap[e]!)
-              .toList(),
+      'authorization_types': instance.authorizationTypes
+          .map((e) => _$APIAuthorizationTypeEnumMap[e]!)
+          .toList(),
     };
 
 const _$APIAuthorizationTypeEnumMap = {

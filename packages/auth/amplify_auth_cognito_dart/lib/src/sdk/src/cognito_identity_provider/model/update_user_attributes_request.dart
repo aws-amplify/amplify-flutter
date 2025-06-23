@@ -28,8 +28,9 @@ abstract class UpdateUserAttributesRequest
     return _$UpdateUserAttributesRequest._(
       userAttributes: _i3.BuiltList(userAttributes),
       accessToken: accessToken,
-      clientMetadata:
-          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
+      clientMetadata: clientMetadata == null
+          ? null
+          : _i3.BuiltMap(clientMetadata),
     );
   }
 
@@ -81,11 +82,10 @@ abstract class UpdateUserAttributesRequest
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateUserAttributesRequest')
-          ..add('userAttributes', userAttributes)
-          ..add('accessToken', '***SENSITIVE***')
-          ..add('clientMetadata', clientMetadata);
+    final helper = newBuiltValueToStringHelper('UpdateUserAttributesRequest')
+      ..add('userAttributes', userAttributes)
+      ..add('accessToken', '***SENSITIVE***')
+      ..add('clientMetadata', clientMetadata);
     return helper.toString();
   }
 }

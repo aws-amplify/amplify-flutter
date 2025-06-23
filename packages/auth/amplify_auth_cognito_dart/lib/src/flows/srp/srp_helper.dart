@@ -49,10 +49,9 @@ class SrpHelper {
     final a = decodeBigInt(aBytes);
     final A = g.modPow(a, N);
     return SrpInitResult(
-      (b) =>
-          b
-            ..privateA = a
-            ..publicA = A,
+      (b) => b
+        ..privateA = a
+        ..publicA = A,
     );
   }
 

@@ -180,15 +180,11 @@ class AWSProfileFileStandardizer {
         }
 
         builder[standardizedName] = profile.value.rebuild(
-          (p) =>
-              p
-                ..name = standardizedName
-                ..properties.replace(
-                  _standardizeProperties(
-                    standardizedName,
-                    p.properties.build(),
-                  ),
-                ),
+          (p) => p
+            ..name = standardizedName
+            ..properties.replace(
+              _standardizeProperties(standardizedName, p.properties.build()),
+            ),
         );
       }
     });

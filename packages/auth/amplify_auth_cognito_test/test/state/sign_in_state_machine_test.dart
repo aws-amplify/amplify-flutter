@@ -29,9 +29,8 @@ void main() {
 
     setUp(() {
       secureStorage = MockSecureStorage();
-      stateMachine =
-          CognitoAuthStateMachine()
-            ..addInstance<SecureStorageInterface>(secureStorage);
+      stateMachine = CognitoAuthStateMachine()
+        ..addInstance<SecureStorageInterface>(secureStorage);
     });
 
     test('smoke test', () async {
@@ -62,10 +61,9 @@ void main() {
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
-              (p) =>
-                  p
-                    ..username = 'username'
-                    ..password = 'password',
+              (p) => p
+                ..username = 'username'
+                ..password = 'password',
             ),
           ),
         ).ignore();
@@ -143,10 +141,9 @@ void main() {
               SignInEvent.initiate(
                 authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
                 parameters: SignInParameters(
-                  (p) =>
-                      p
-                        ..username = 'username'
-                        ..password = 'password',
+                  (p) => p
+                    ..username = 'username'
+                    ..password = 'password',
                 ),
               ),
             )
@@ -187,11 +184,10 @@ void main() {
         await deviceRepo.put(
           srpUsername,
           CognitoDeviceSecrets(
-            (b) =>
-                b
-                  ..deviceKey = deviceKey
-                  ..deviceGroupKey = deviceGroupKey
-                  ..devicePassword = devicePassword,
+            (b) => b
+              ..deviceKey = deviceKey
+              ..deviceGroupKey = deviceGroupKey
+              ..devicePassword = devicePassword,
           ),
         );
 
@@ -225,10 +221,9 @@ void main() {
               .accept(
                 SignInEvent.initiate(
                   parameters: SignInParameters(
-                    (b) =>
-                        b
-                          ..username = srpUsername
-                          ..password = srpPassword,
+                    (b) => b
+                      ..username = srpUsername
+                      ..password = srpPassword,
                   ),
                 ),
               )
@@ -271,10 +266,9 @@ void main() {
               .accept(
                 SignInEvent.initiate(
                   parameters: SignInParameters(
-                    (b) =>
-                        b
-                          ..username = srpUsername
-                          ..password = srpPassword,
+                    (b) => b
+                      ..username = srpUsername
+                      ..password = srpPassword,
                   ),
                 ),
               )
@@ -321,10 +315,9 @@ void main() {
               .accept(
                 SignInEvent.initiate(
                   parameters: SignInParameters(
-                    (b) =>
-                        b
-                          ..username = username
-                          ..password = password,
+                    (b) => b
+                      ..username = username
+                      ..password = password,
                   ),
                 ),
               )
@@ -339,11 +332,10 @@ void main() {
         await deviceRepo.put(
           username,
           CognitoDeviceSecrets(
-            (b) =>
-                b
-                  ..deviceKey = deviceKey
-                  ..deviceGroupKey = deviceGroupKey
-                  ..devicePassword = devicePassword,
+            (b) => b
+              ..deviceKey = deviceKey
+              ..deviceGroupKey = deviceGroupKey
+              ..devicePassword = devicePassword,
           ),
         );
 
@@ -402,10 +394,9 @@ void main() {
               .accept(
                 SignInEvent.initiate(
                   parameters: SignInParameters(
-                    (b) =>
-                        b
-                          ..username = username
-                          ..password = password,
+                    (b) => b
+                      ..username = username
+                      ..password = password,
                   ),
                 ),
               )
@@ -475,10 +466,9 @@ void main() {
                 .accept(
                   SignInEvent.initiate(
                     parameters: SignInParameters(
-                      (b) =>
-                          b
-                            ..username = username
-                            ..password = password,
+                      (b) => b
+                        ..username = username
+                        ..password = password,
                     ),
                   ),
                 )
@@ -534,10 +524,9 @@ void main() {
           stateMachine.acceptAndComplete(
             SignInEvent.initiate(
               parameters: SignInParameters(
-                (b) =>
-                    b
-                      ..username = username
-                      ..password = password,
+                (b) => b
+                  ..username = username
+                  ..password = password,
               ),
             ),
           ),
@@ -561,10 +550,9 @@ void main() {
           stateMachine.acceptAndComplete(
             SignInEvent.initiate(
               parameters: SignInParameters(
-                (b) =>
-                    b
-                      ..username = username
-                      ..password = password,
+                (b) => b
+                  ..username = username
+                  ..password = password,
               ),
             ),
           ),
@@ -614,10 +602,9 @@ void main() {
           stateMachine.acceptAndComplete(
             SignInEvent.initiate(
               parameters: SignInParameters(
-                (b) =>
-                    b
-                      ..username = username
-                      ..password = password,
+                (b) => b
+                  ..username = username
+                  ..password = password,
               ),
             ),
           ),

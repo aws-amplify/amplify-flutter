@@ -9,7 +9,7 @@ import 'package:stack_trace/stack_trace.dart';
 import 'package:worker_bee/src/exception/worker_bee_exception.dart';
 import 'package:worker_bee/worker_bee.dart';
 
-export 'vm/preamble.dart' if (dart.library.js) 'js/preamble.dart';
+export 'vm/preamble.dart' if (dart.library.js_interop) 'js/preamble.dart';
 
 /// {@template worker_bee.worker_assignment}
 /// The worker bee assignment sent from the main thread.
@@ -60,10 +60,9 @@ R runTraced<R>(
   // of a worker pool, any uncaught errors lose visibility when they're
   // reported back _unless_ we serialize them first.
   void wrappedOnError(Object error, StackTrace stackTrace) {
-    final workerException =
-        error is WorkerBeeException
-            ? error.rebuild((b) => b.stackTrace = stackTrace)
-            : WorkerBeeExceptionImpl(error, stackTrace);
+    final workerException = error is WorkerBeeException
+        ? error.rebuild((b) => b.stackTrace = stackTrace)
+        : WorkerBeeExceptionImpl(error, stackTrace);
     onError(workerException, stackTrace);
   }
 

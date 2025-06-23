@@ -109,17 +109,16 @@ void main() {
         const options = StorageDownloadFileOptions(
           pluginOptions: S3DownloadFilePluginOptions(getProperties: true),
         );
-        final result =
-            await downloadFile(
-              path: StoragePath.fromIdentityId(
-                (identityId) => 'private/$identityId/$testKey',
-              ),
-              localFile: AWSFile.fromPath('download.jpg'),
-              options: options,
-              storageOutputs: testStorageOutputs,
-              storageS3Service: storageS3Service,
-              appPathProvider: const DummyPathProvider(),
-            ).result;
+        final result = await downloadFile(
+          path: StoragePath.fromIdentityId(
+            (identityId) => 'private/$identityId/$testKey',
+          ),
+          localFile: AWSFile.fromPath('download.jpg'),
+          options: options,
+          storageOutputs: testStorageOutputs,
+          storageS3Service: storageS3Service,
+          appPathProvider: const DummyPathProvider(),
+        ).result;
 
         expect(result.downloadedItem.metadata, testItem.metadata);
       },

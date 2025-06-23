@@ -103,9 +103,8 @@ class _$ConstantAndVariableQueryStringInputPayload
     extends ConstantAndVariableQueryStringInputPayload {
   factory _$ConstantAndVariableQueryStringInputPayload([
     void Function(ConstantAndVariableQueryStringInputPayloadBuilder)? updates,
-  ]) =>
-      (ConstantAndVariableQueryStringInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (ConstantAndVariableQueryStringInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$ConstantAndVariableQueryStringInputPayload._() : super._();
   @override

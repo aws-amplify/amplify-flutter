@@ -272,84 +272,69 @@ class CustomTypeWithAppsyncScalarTypes {
   }) {
     return CustomTypeWithAppsyncScalarTypes._internal(
       stringValue: stringValue,
-      listOfStringValue:
-          listOfStringValue != null
-              ? List<String>.unmodifiable(listOfStringValue)
-              : listOfStringValue,
+      listOfStringValue: listOfStringValue != null
+          ? List<String>.unmodifiable(listOfStringValue)
+          : listOfStringValue,
       intValue: intValue,
-      listOfIntValue:
-          listOfIntValue != null
-              ? List<int>.unmodifiable(listOfIntValue)
-              : listOfIntValue,
+      listOfIntValue: listOfIntValue != null
+          ? List<int>.unmodifiable(listOfIntValue)
+          : listOfIntValue,
       floatValue: floatValue,
-      listOfFloatValue:
-          listOfFloatValue != null
-              ? List<double>.unmodifiable(listOfFloatValue)
-              : listOfFloatValue,
+      listOfFloatValue: listOfFloatValue != null
+          ? List<double>.unmodifiable(listOfFloatValue)
+          : listOfFloatValue,
       booleanValue: booleanValue,
-      listOfBooleanValue:
-          listOfBooleanValue != null
-              ? List<bool>.unmodifiable(listOfBooleanValue)
-              : listOfBooleanValue,
+      listOfBooleanValue: listOfBooleanValue != null
+          ? List<bool>.unmodifiable(listOfBooleanValue)
+          : listOfBooleanValue,
       awsDateValue: awsDateValue,
-      listOfAWSDateValue:
-          listOfAWSDateValue != null
-              ? List<amplify_core.TemporalDate>.unmodifiable(listOfAWSDateValue)
-              : listOfAWSDateValue,
+      listOfAWSDateValue: listOfAWSDateValue != null
+          ? List<amplify_core.TemporalDate>.unmodifiable(listOfAWSDateValue)
+          : listOfAWSDateValue,
       awsDateTimeValue: awsDateTimeValue,
-      listOfAWSDateTimeValue:
-          listOfAWSDateTimeValue != null
-              ? List<amplify_core.TemporalDateTime>.unmodifiable(
-                listOfAWSDateTimeValue,
-              )
-              : listOfAWSDateTimeValue,
+      listOfAWSDateTimeValue: listOfAWSDateTimeValue != null
+          ? List<amplify_core.TemporalDateTime>.unmodifiable(
+              listOfAWSDateTimeValue,
+            )
+          : listOfAWSDateTimeValue,
       awsTimeValue: awsTimeValue,
-      listOfAWSTimeValue:
-          listOfAWSTimeValue != null
-              ? List<amplify_core.TemporalTime>.unmodifiable(listOfAWSTimeValue)
-              : listOfAWSTimeValue,
+      listOfAWSTimeValue: listOfAWSTimeValue != null
+          ? List<amplify_core.TemporalTime>.unmodifiable(listOfAWSTimeValue)
+          : listOfAWSTimeValue,
       awsTimestampValue: awsTimestampValue,
-      listOfAWSTimestampValue:
-          listOfAWSTimestampValue != null
-              ? List<amplify_core.TemporalTimestamp>.unmodifiable(
-                listOfAWSTimestampValue,
-              )
-              : listOfAWSTimestampValue,
+      listOfAWSTimestampValue: listOfAWSTimestampValue != null
+          ? List<amplify_core.TemporalTimestamp>.unmodifiable(
+              listOfAWSTimestampValue,
+            )
+          : listOfAWSTimestampValue,
       awsEmailValue: awsEmailValue,
-      listOfAWSEmailValue:
-          listOfAWSEmailValue != null
-              ? List<String>.unmodifiable(listOfAWSEmailValue)
-              : listOfAWSEmailValue,
+      listOfAWSEmailValue: listOfAWSEmailValue != null
+          ? List<String>.unmodifiable(listOfAWSEmailValue)
+          : listOfAWSEmailValue,
       awsJsonValue: awsJsonValue,
-      listOfAWSJsonValue:
-          listOfAWSJsonValue != null
-              ? List<String>.unmodifiable(listOfAWSJsonValue)
-              : listOfAWSJsonValue,
+      listOfAWSJsonValue: listOfAWSJsonValue != null
+          ? List<String>.unmodifiable(listOfAWSJsonValue)
+          : listOfAWSJsonValue,
       awsPhoneValue: awsPhoneValue,
-      listOfAWSPhoneValue:
-          listOfAWSPhoneValue != null
-              ? List<String>.unmodifiable(listOfAWSPhoneValue)
-              : listOfAWSPhoneValue,
+      listOfAWSPhoneValue: listOfAWSPhoneValue != null
+          ? List<String>.unmodifiable(listOfAWSPhoneValue)
+          : listOfAWSPhoneValue,
       awsURLValue: awsURLValue,
-      listOfAWSURLValue:
-          listOfAWSURLValue != null
-              ? List<String>.unmodifiable(listOfAWSURLValue)
-              : listOfAWSURLValue,
+      listOfAWSURLValue: listOfAWSURLValue != null
+          ? List<String>.unmodifiable(listOfAWSURLValue)
+          : listOfAWSURLValue,
       awsIPAddressValue: awsIPAddressValue,
-      listOfAWSIPAddressValue:
-          listOfAWSIPAddressValue != null
-              ? List<String>.unmodifiable(listOfAWSIPAddressValue)
-              : listOfAWSIPAddressValue,
+      listOfAWSIPAddressValue: listOfAWSIPAddressValue != null
+          ? List<String>.unmodifiable(listOfAWSIPAddressValue)
+          : listOfAWSIPAddressValue,
       enumValue: enumValue,
-      listOfEnumValue:
-          listOfEnumValue != null
-              ? List<EnumField>.unmodifiable(listOfEnumValue)
-              : listOfEnumValue,
+      listOfEnumValue: listOfEnumValue != null
+          ? List<EnumField>.unmodifiable(listOfEnumValue)
+          : listOfEnumValue,
       customTypeValue: customTypeValue,
-      listOfCustomTypeValue:
-          listOfCustomTypeValue != null
-              ? List<SimpleCustomType>.unmodifiable(listOfCustomTypeValue)
-              : listOfCustomTypeValue,
+      listOfCustomTypeValue: listOfCustomTypeValue != null
+          ? List<SimpleCustomType>.unmodifiable(listOfCustomTypeValue)
+          : listOfCustomTypeValue,
     );
   }
 
@@ -585,8 +570,8 @@ class CustomTypeWithAppsyncScalarTypes {
       "listOfEnumValue=" +
           (_listOfEnumValue != null
               ? _listOfEnumValue
-                  .map((e) => amplify_core.enumToString(e))
-                  .toString()
+                    .map((e) => amplify_core.enumToString(e))
+                    .toString()
               : "null") +
           ", ",
     );
@@ -712,96 +697,85 @@ class CustomTypeWithAppsyncScalarTypes {
   }) {
     return CustomTypeWithAppsyncScalarTypes._internal(
       stringValue: stringValue == null ? this.stringValue : stringValue.value,
-      listOfStringValue:
-          listOfStringValue == null
-              ? this.listOfStringValue
-              : listOfStringValue.value,
+      listOfStringValue: listOfStringValue == null
+          ? this.listOfStringValue
+          : listOfStringValue.value,
       intValue: intValue == null ? this.intValue : intValue.value,
-      listOfIntValue:
-          listOfIntValue == null ? this.listOfIntValue : listOfIntValue.value,
+      listOfIntValue: listOfIntValue == null
+          ? this.listOfIntValue
+          : listOfIntValue.value,
       floatValue: floatValue == null ? this.floatValue : floatValue.value,
-      listOfFloatValue:
-          listOfFloatValue == null
-              ? this.listOfFloatValue
-              : listOfFloatValue.value,
-      booleanValue:
-          booleanValue == null ? this.booleanValue : booleanValue.value,
-      listOfBooleanValue:
-          listOfBooleanValue == null
-              ? this.listOfBooleanValue
-              : listOfBooleanValue.value,
-      awsDateValue:
-          awsDateValue == null ? this.awsDateValue : awsDateValue.value,
-      listOfAWSDateValue:
-          listOfAWSDateValue == null
-              ? this.listOfAWSDateValue
-              : listOfAWSDateValue.value,
-      awsDateTimeValue:
-          awsDateTimeValue == null
-              ? this.awsDateTimeValue
-              : awsDateTimeValue.value,
-      listOfAWSDateTimeValue:
-          listOfAWSDateTimeValue == null
-              ? this.listOfAWSDateTimeValue
-              : listOfAWSDateTimeValue.value,
-      awsTimeValue:
-          awsTimeValue == null ? this.awsTimeValue : awsTimeValue.value,
-      listOfAWSTimeValue:
-          listOfAWSTimeValue == null
-              ? this.listOfAWSTimeValue
-              : listOfAWSTimeValue.value,
-      awsTimestampValue:
-          awsTimestampValue == null
-              ? this.awsTimestampValue
-              : awsTimestampValue.value,
-      listOfAWSTimestampValue:
-          listOfAWSTimestampValue == null
-              ? this.listOfAWSTimestampValue
-              : listOfAWSTimestampValue.value,
-      awsEmailValue:
-          awsEmailValue == null ? this.awsEmailValue : awsEmailValue.value,
-      listOfAWSEmailValue:
-          listOfAWSEmailValue == null
-              ? this.listOfAWSEmailValue
-              : listOfAWSEmailValue.value,
-      awsJsonValue:
-          awsJsonValue == null ? this.awsJsonValue : awsJsonValue.value,
-      listOfAWSJsonValue:
-          listOfAWSJsonValue == null
-              ? this.listOfAWSJsonValue
-              : listOfAWSJsonValue.value,
-      awsPhoneValue:
-          awsPhoneValue == null ? this.awsPhoneValue : awsPhoneValue.value,
-      listOfAWSPhoneValue:
-          listOfAWSPhoneValue == null
-              ? this.listOfAWSPhoneValue
-              : listOfAWSPhoneValue.value,
+      listOfFloatValue: listOfFloatValue == null
+          ? this.listOfFloatValue
+          : listOfFloatValue.value,
+      booleanValue: booleanValue == null
+          ? this.booleanValue
+          : booleanValue.value,
+      listOfBooleanValue: listOfBooleanValue == null
+          ? this.listOfBooleanValue
+          : listOfBooleanValue.value,
+      awsDateValue: awsDateValue == null
+          ? this.awsDateValue
+          : awsDateValue.value,
+      listOfAWSDateValue: listOfAWSDateValue == null
+          ? this.listOfAWSDateValue
+          : listOfAWSDateValue.value,
+      awsDateTimeValue: awsDateTimeValue == null
+          ? this.awsDateTimeValue
+          : awsDateTimeValue.value,
+      listOfAWSDateTimeValue: listOfAWSDateTimeValue == null
+          ? this.listOfAWSDateTimeValue
+          : listOfAWSDateTimeValue.value,
+      awsTimeValue: awsTimeValue == null
+          ? this.awsTimeValue
+          : awsTimeValue.value,
+      listOfAWSTimeValue: listOfAWSTimeValue == null
+          ? this.listOfAWSTimeValue
+          : listOfAWSTimeValue.value,
+      awsTimestampValue: awsTimestampValue == null
+          ? this.awsTimestampValue
+          : awsTimestampValue.value,
+      listOfAWSTimestampValue: listOfAWSTimestampValue == null
+          ? this.listOfAWSTimestampValue
+          : listOfAWSTimestampValue.value,
+      awsEmailValue: awsEmailValue == null
+          ? this.awsEmailValue
+          : awsEmailValue.value,
+      listOfAWSEmailValue: listOfAWSEmailValue == null
+          ? this.listOfAWSEmailValue
+          : listOfAWSEmailValue.value,
+      awsJsonValue: awsJsonValue == null
+          ? this.awsJsonValue
+          : awsJsonValue.value,
+      listOfAWSJsonValue: listOfAWSJsonValue == null
+          ? this.listOfAWSJsonValue
+          : listOfAWSJsonValue.value,
+      awsPhoneValue: awsPhoneValue == null
+          ? this.awsPhoneValue
+          : awsPhoneValue.value,
+      listOfAWSPhoneValue: listOfAWSPhoneValue == null
+          ? this.listOfAWSPhoneValue
+          : listOfAWSPhoneValue.value,
       awsURLValue: awsURLValue == null ? this.awsURLValue : awsURLValue.value,
-      listOfAWSURLValue:
-          listOfAWSURLValue == null
-              ? this.listOfAWSURLValue
-              : listOfAWSURLValue.value,
-      awsIPAddressValue:
-          awsIPAddressValue == null
-              ? this.awsIPAddressValue
-              : awsIPAddressValue.value,
-      listOfAWSIPAddressValue:
-          listOfAWSIPAddressValue == null
-              ? this.listOfAWSIPAddressValue
-              : listOfAWSIPAddressValue.value,
+      listOfAWSURLValue: listOfAWSURLValue == null
+          ? this.listOfAWSURLValue
+          : listOfAWSURLValue.value,
+      awsIPAddressValue: awsIPAddressValue == null
+          ? this.awsIPAddressValue
+          : awsIPAddressValue.value,
+      listOfAWSIPAddressValue: listOfAWSIPAddressValue == null
+          ? this.listOfAWSIPAddressValue
+          : listOfAWSIPAddressValue.value,
       enumValue: enumValue == null ? this.enumValue : enumValue.value,
-      listOfEnumValue:
-          listOfEnumValue == null
-              ? this.listOfEnumValue
-              : listOfEnumValue.value,
-      customTypeValue:
-          customTypeValue == null
-              ? this.customTypeValue
-              : customTypeValue.value,
-      listOfCustomTypeValue:
-          listOfCustomTypeValue == null
-              ? this.listOfCustomTypeValue
-              : listOfCustomTypeValue.value,
+      listOfEnumValue: listOfEnumValue == null
+          ? this.listOfEnumValue
+          : listOfEnumValue.value,
+      customTypeValue: customTypeValue == null
+          ? this.customTypeValue
+          : customTypeValue.value,
+      listOfCustomTypeValue: listOfCustomTypeValue == null
+          ? this.listOfCustomTypeValue
+          : listOfCustomTypeValue.value,
     );
   }
 
@@ -809,53 +783,41 @@ class CustomTypeWithAppsyncScalarTypes {
     : _stringValue = json['stringValue'],
       _listOfStringValue = json['listOfStringValue']?.cast<String>(),
       _intValue = (json['intValue'] as num?)?.toInt(),
-      _listOfIntValue =
-          (json['listOfIntValue'] as List?)
-              ?.map((e) => (e as num).toInt())
-              .toList(),
+      _listOfIntValue = (json['listOfIntValue'] as List?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       _floatValue = (json['floatValue'] as num?)?.toDouble(),
-      _listOfFloatValue =
-          (json['listOfFloatValue'] as List?)
-              ?.map((e) => (e as num).toDouble())
-              .toList(),
+      _listOfFloatValue = (json['listOfFloatValue'] as List?)
+          ?.map((e) => (e as num).toDouble())
+          .toList(),
       _booleanValue = json['booleanValue'],
       _listOfBooleanValue = json['listOfBooleanValue']?.cast<bool>(),
-      _awsDateValue =
-          json['awsDateValue'] != null
-              ? amplify_core.TemporalDate.fromString(json['awsDateValue'])
-              : null,
-      _listOfAWSDateValue =
-          (json['listOfAWSDateValue'] as List?)
-              ?.map((e) => amplify_core.TemporalDate.fromString(e))
-              .toList(),
-      _awsDateTimeValue =
-          json['awsDateTimeValue'] != null
-              ? amplify_core.TemporalDateTime.fromString(
-                json['awsDateTimeValue'],
-              )
-              : null,
-      _listOfAWSDateTimeValue =
-          (json['listOfAWSDateTimeValue'] as List?)
-              ?.map((e) => amplify_core.TemporalDateTime.fromString(e))
-              .toList(),
-      _awsTimeValue =
-          json['awsTimeValue'] != null
-              ? amplify_core.TemporalTime.fromString(json['awsTimeValue'])
-              : null,
-      _listOfAWSTimeValue =
-          (json['listOfAWSTimeValue'] as List?)
-              ?.map((e) => amplify_core.TemporalTime.fromString(e))
-              .toList(),
-      _awsTimestampValue =
-          json['awsTimestampValue'] != null
-              ? amplify_core.TemporalTimestamp.fromSeconds(
-                json['awsTimestampValue'],
-              )
-              : null,
-      _listOfAWSTimestampValue =
-          (json['listOfAWSTimestampValue'] as List?)
-              ?.map((e) => amplify_core.TemporalTimestamp.fromSeconds(e))
-              .toList(),
+      _awsDateValue = json['awsDateValue'] != null
+          ? amplify_core.TemporalDate.fromString(json['awsDateValue'])
+          : null,
+      _listOfAWSDateValue = (json['listOfAWSDateValue'] as List?)
+          ?.map((e) => amplify_core.TemporalDate.fromString(e))
+          .toList(),
+      _awsDateTimeValue = json['awsDateTimeValue'] != null
+          ? amplify_core.TemporalDateTime.fromString(json['awsDateTimeValue'])
+          : null,
+      _listOfAWSDateTimeValue = (json['listOfAWSDateTimeValue'] as List?)
+          ?.map((e) => amplify_core.TemporalDateTime.fromString(e))
+          .toList(),
+      _awsTimeValue = json['awsTimeValue'] != null
+          ? amplify_core.TemporalTime.fromString(json['awsTimeValue'])
+          : null,
+      _listOfAWSTimeValue = (json['listOfAWSTimeValue'] as List?)
+          ?.map((e) => amplify_core.TemporalTime.fromString(e))
+          .toList(),
+      _awsTimestampValue = json['awsTimestampValue'] != null
+          ? amplify_core.TemporalTimestamp.fromSeconds(
+              json['awsTimestampValue'],
+            )
+          : null,
+      _listOfAWSTimestampValue = (json['listOfAWSTimestampValue'] as List?)
+          ?.map((e) => amplify_core.TemporalTimestamp.fromSeconds(e))
+          .toList(),
       _awsEmailValue = json['awsEmailValue'],
       _listOfAWSEmailValue = json['listOfAWSEmailValue']?.cast<String>(),
       _awsJsonValue = json['awsJsonValue'],
@@ -865,47 +827,43 @@ class CustomTypeWithAppsyncScalarTypes {
       _awsURLValue = json['awsURLValue'],
       _listOfAWSURLValue = json['listOfAWSURLValue']?.cast<String>(),
       _awsIPAddressValue = json['awsIPAddressValue'],
-      _listOfAWSIPAddressValue =
-          json['listOfAWSIPAddressValue']?.cast<String>(),
+      _listOfAWSIPAddressValue = json['listOfAWSIPAddressValue']
+          ?.cast<String>(),
       _enumValue = amplify_core.enumFromString<EnumField>(
         json['enumValue'],
         EnumField.values,
       ),
-      _listOfEnumValue =
-          json['listOfEnumValue'] is List
-              ? (json['listOfEnumValue'] as List)
-                  .map(
-                    (e) =>
-                        amplify_core.enumFromString<EnumField>(
-                          e,
-                          EnumField.values,
-                        )!,
-                  )
-                  .toList()
-              : null,
-      _customTypeValue =
-          json['customTypeValue'] != null
-              ? json['customTypeValue']['serializedData'] != null
-                  ? SimpleCustomType.fromJson(
+      _listOfEnumValue = json['listOfEnumValue'] is List
+          ? (json['listOfEnumValue'] as List)
+                .map(
+                  (e) => amplify_core.enumFromString<EnumField>(
+                    e,
+                    EnumField.values,
+                  )!,
+                )
+                .toList()
+          : null,
+      _customTypeValue = json['customTypeValue'] != null
+          ? json['customTypeValue']['serializedData'] != null
+                ? SimpleCustomType.fromJson(
                     new Map<String, dynamic>.from(
                       json['customTypeValue']['serializedData'],
                     ),
                   )
-                  : SimpleCustomType.fromJson(
+                : SimpleCustomType.fromJson(
                     new Map<String, dynamic>.from(json['customTypeValue']),
                   )
-              : null,
-      _listOfCustomTypeValue =
-          json['listOfCustomTypeValue'] is List
-              ? (json['listOfCustomTypeValue'] as List)
-                  .where((e) => e != null)
-                  .map(
-                    (e) => SimpleCustomType.fromJson(
-                      new Map<String, dynamic>.from(e['serializedData'] ?? e),
-                    ),
-                  )
-                  .toList()
-              : null;
+          : null,
+      _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
+          ? (json['listOfCustomTypeValue'] as List)
+                .where((e) => e != null)
+                .map(
+                  (e) => SimpleCustomType.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'] ?? e),
+                  ),
+                )
+                .toList()
+          : null;
 
   Map<String, dynamic> toJson() => {
     'stringValue': _stringValue,
@@ -919,13 +877,15 @@ class CustomTypeWithAppsyncScalarTypes {
     'awsDateValue': _awsDateValue?.format(),
     'listOfAWSDateValue': _listOfAWSDateValue?.map((e) => e.format()).toList(),
     'awsDateTimeValue': _awsDateTimeValue?.format(),
-    'listOfAWSDateTimeValue':
-        _listOfAWSDateTimeValue?.map((e) => e.format()).toList(),
+    'listOfAWSDateTimeValue': _listOfAWSDateTimeValue
+        ?.map((e) => e.format())
+        .toList(),
     'awsTimeValue': _awsTimeValue?.format(),
     'listOfAWSTimeValue': _listOfAWSTimeValue?.map((e) => e.format()).toList(),
     'awsTimestampValue': _awsTimestampValue?.toSeconds(),
-    'listOfAWSTimestampValue':
-        _listOfAWSTimestampValue?.map((e) => e.toSeconds()).toList(),
+    'listOfAWSTimestampValue': _listOfAWSTimestampValue
+        ?.map((e) => e.toSeconds())
+        .toList(),
     'awsEmailValue': _awsEmailValue,
     'listOfAWSEmailValue': _listOfAWSEmailValue,
     'awsJsonValue': _awsJsonValue,
@@ -937,13 +897,13 @@ class CustomTypeWithAppsyncScalarTypes {
     'awsIPAddressValue': _awsIPAddressValue,
     'listOfAWSIPAddressValue': _listOfAWSIPAddressValue,
     'enumValue': amplify_core.enumToString(_enumValue),
-    'listOfEnumValue':
-        _listOfEnumValue?.map((e) => amplify_core.enumToString(e)).toList(),
+    'listOfEnumValue': _listOfEnumValue
+        ?.map((e) => amplify_core.enumToString(e))
+        .toList(),
     'customTypeValue': _customTypeValue?.toJson(),
-    'listOfCustomTypeValue':
-        _listOfCustomTypeValue
-            ?.map((SimpleCustomType? e) => e?.toJson())
-            .toList(),
+    'listOfCustomTypeValue': _listOfCustomTypeValue
+        ?.map((SimpleCustomType? e) => e?.toJson())
+        .toList(),
   };
 
   Map<String, Object?> toMap() => {

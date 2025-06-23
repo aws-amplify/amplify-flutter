@@ -1,3 +1,7 @@
+## 0.6.6
+
+- Minor bug fixes and improvements
+
 ## 0.6.5
 
 ### Fixes

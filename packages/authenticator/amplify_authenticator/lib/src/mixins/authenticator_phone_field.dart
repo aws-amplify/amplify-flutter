@@ -134,10 +134,9 @@ mixin AuthenticatorPhoneFieldMixin<
                       style: textStyle,
                     ),
                     // Prevent overflows during animations.
-                    trailing:
-                        constraints.maxWidth > 250
-                            ? Text('+${country.value}', style: textStyle)
-                            : null,
+                    trailing: constraints.maxWidth > 250
+                        ? Text('+${country.value}', style: textStyle)
+                        : null,
                   );
                 },
               ),

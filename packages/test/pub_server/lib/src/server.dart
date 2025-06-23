@@ -8,6 +8,7 @@ import 'package:archive/archive.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
+import 'package:crypto/crypto.dart';
 import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:file/memory.dart';
@@ -128,10 +129,9 @@ class PubServer {
   @Route.get('/api/packages/versions/new')
   Future<Response> newVersion(Request request) async {
     return _okJson({
-      'url':
-          request.requestedUri
-              .resolve('/api/packages/versions/newUpload')
-              .toString(),
+      'url': request.requestedUri
+          .resolve('/api/packages/versions/newUpload')
+          .toString(),
       'fields': <String, Object?>{},
     });
   }
@@ -210,24 +210,25 @@ class PubServer {
       );
     }
 
+    final archiveSha256 = sha256.convert(bytes.toList()).toString();
+
     await db.upsertPackageVersion(
       name: pubspec.name,
       version: version,
-      archiveUrl:
-          request.requestedUri
-              .resolve('/packages/${pubspec.name}/versions/$version.tar.gz')
-              .toString(),
+      archiveUrl: request.requestedUri
+          .resolve('/packages/${pubspec.name}/versions/$version.tar.gz')
+          .toString(),
       pubspecYaml: pubspecYaml,
       readme: readme,
       changelog: changelog,
+      archiveSha256: archiveSha256,
     );
     return Response(
       204,
       headers: {
-        AWSHeaders.location:
-            request.requestedUri
-                .resolve('/api/packages/versions/newUploadFinish')
-                .toString(),
+        AWSHeaders.location: request.requestedUri
+            .resolve('/api/packages/versions/newUploadFinish')
+            .toString(),
       },
     );
   }
@@ -279,8 +280,8 @@ class PubServer {
   }
 
   static Middleware get _loggerMiddleware => logRequests(
-    logger:
-        (message, isError) => (isError ? _logger.error : _logger.info)(message),
+    logger: (message, isError) =>
+        (isError ? _logger.error : _logger.info)(message),
   );
 
   Handler get handler => const Pipeline()

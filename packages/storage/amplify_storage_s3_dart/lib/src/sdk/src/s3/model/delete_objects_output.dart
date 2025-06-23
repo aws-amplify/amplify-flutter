@@ -84,11 +84,10 @@ abstract class DeleteObjectsOutput
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteObjectsOutput')
-          ..add('deleted', deleted)
-          ..add('requestCharged', requestCharged)
-          ..add('errors', errors);
+    final helper = newBuiltValueToStringHelper('DeleteObjectsOutput')
+      ..add('deleted', deleted)
+      ..add('requestCharged', requestCharged)
+      ..add('errors', errors);
     return helper.toString();
   }
 }
@@ -114,10 +113,9 @@ abstract class DeleteObjectsOutputPayload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteObjectsOutputPayload')
-          ..add('deleted', deleted)
-          ..add('errors', errors);
+    final helper = newBuiltValueToStringHelper('DeleteObjectsOutputPayload')
+      ..add('deleted', deleted)
+      ..add('errors', errors);
     return helper.toString();
   }
 }

@@ -87,15 +87,14 @@ abstract class MultipartUpload
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MultipartUpload')
-          ..add('uploadId', uploadId)
-          ..add('key', key)
-          ..add('initiated', initiated)
-          ..add('storageClass', storageClass)
-          ..add('owner', owner)
-          ..add('initiator', initiator)
-          ..add('checksumAlgorithm', checksumAlgorithm);
+    final helper = newBuiltValueToStringHelper('MultipartUpload')
+      ..add('uploadId', uploadId)
+      ..add('key', key)
+      ..add('initiated', initiated)
+      ..add('storageClass', storageClass)
+      ..add('owner', owner)
+      ..add('initiator', initiator)
+      ..add('checksumAlgorithm', checksumAlgorithm);
     return helper.toString();
   }
 }

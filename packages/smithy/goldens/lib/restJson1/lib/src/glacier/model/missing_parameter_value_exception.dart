@@ -75,11 +75,10 @@ abstract class MissingParameterValueException
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MissingParameterValueException')
-          ..add('type', type)
-          ..add('code', code)
-          ..add('message', message);
+    final helper = newBuiltValueToStringHelper('MissingParameterValueException')
+      ..add('type', type)
+      ..add('code', code)
+      ..add('message', message);
     return helper.toString();
   }
 }

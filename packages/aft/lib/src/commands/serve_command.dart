@@ -66,16 +66,15 @@ class ServeCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
     final packagesNeedingPublish = await unpublishedPackages(
       publishablePackages,
     );
-    final launcherPackages =
-        packagesNeedingPublish
-            .map(
-              (pkg) => LocalPackage(
-                name: pkg.name,
-                path: pkg.path,
-                pubspec: pkg.pubspecInfo.pubspec,
-              ),
-            )
-            .toList();
+    final launcherPackages = packagesNeedingPublish
+        .map(
+          (pkg) => LocalPackage(
+            name: pkg.name,
+            path: pkg.path,
+            pubspec: pkg.pubspecInfo.pubspec,
+          ),
+        )
+        .toList();
     final launcher = AmplifyPubLauncher(
       pubServerUri,
       launcherPackages,

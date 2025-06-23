@@ -94,10 +94,9 @@ class GetBucketLocationOperation
   _i1.HttpRequest buildRequest(GetBucketLocationRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'GET';
-        b.path =
-            _s3ClientConfig.usePathStyle
-                ? r'/{Bucket}?location'
-                : r'/?location';
+        b.path = _s3ClientConfig.usePathStyle
+            ? r'/{Bucket}?location'
+            : r'/?location';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
       });
 

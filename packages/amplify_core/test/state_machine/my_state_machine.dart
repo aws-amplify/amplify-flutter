@@ -5,17 +5,18 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 
-final _builders = <
-  StateMachineToken,
-  StateMachineBuilder<
-    StateMachineEvent,
-    StateMachineState,
-    MyStateMachineManager
-  >
->{
-  MyStateMachine.type: MyStateMachine.new,
-  WorkerMachine.type: WorkerMachine.new,
-};
+final _builders =
+    <
+      StateMachineToken,
+      StateMachineBuilder<
+        StateMachineEvent,
+        StateMachineState,
+        MyStateMachineManager
+      >
+    >{
+      MyStateMachine.type: MyStateMachine.new,
+      WorkerMachine.type: WorkerMachine.new,
+    };
 
 enum MyType { initial, doWork, tryWork, delegateWork, failHard, success, error }
 

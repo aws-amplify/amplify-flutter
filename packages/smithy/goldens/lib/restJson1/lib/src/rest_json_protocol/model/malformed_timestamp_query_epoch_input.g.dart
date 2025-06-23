@@ -98,9 +98,8 @@ class _$MalformedTimestampQueryEpochInputPayload
     extends MalformedTimestampQueryEpochInputPayload {
   factory _$MalformedTimestampQueryEpochInputPayload([
     void Function(MalformedTimestampQueryEpochInputPayloadBuilder)? updates,
-  ]) =>
-      (MalformedTimestampQueryEpochInputPayloadBuilder()..update(updates))
-          ._build();
+  ]) => (MalformedTimestampQueryEpochInputPayloadBuilder()..update(updates))
+      ._build();
 
   _$MalformedTimestampQueryEpochInputPayload._() : super._();
   @override

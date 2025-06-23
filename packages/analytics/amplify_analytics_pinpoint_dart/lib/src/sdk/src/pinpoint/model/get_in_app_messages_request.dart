@@ -74,10 +74,9 @@ abstract class GetInAppMessagesRequest
   List<Object?> get props => [applicationId, endpointId];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetInAppMessagesRequest')
-          ..add('applicationId', applicationId)
-          ..add('endpointId', endpointId);
+    final helper = newBuiltValueToStringHelper('GetInAppMessagesRequest')
+      ..add('applicationId', applicationId)
+      ..add('endpointId', endpointId);
     return helper.toString();
   }
 }

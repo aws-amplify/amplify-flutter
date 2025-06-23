@@ -185,12 +185,9 @@ final class HostedUiStateMachine
       key: _keys[HostedUiKey.provider],
     );
     final signInDetails = CognitoSignInDetails.hostedUi(
-      provider:
-          provider == null
-              ? null
-              : AuthProvider.fromJson(
-                jsonDecode(provider) as Map<String, Object?>,
-              ),
+      provider: provider == null
+          ? null
+          : AuthProvider.fromJson(jsonDecode(provider) as Map<String, Object?>),
     );
     await manager.storeCredentials(
       CredentialStoreData(

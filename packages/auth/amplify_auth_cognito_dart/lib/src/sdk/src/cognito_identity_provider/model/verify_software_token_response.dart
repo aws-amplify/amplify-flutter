@@ -47,10 +47,9 @@ abstract class VerifySoftwareTokenResponse
 
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('VerifySoftwareTokenResponse')
-          ..add('status', status)
-          ..add('session', '***SENSITIVE***');
+    final helper = newBuiltValueToStringHelper('VerifySoftwareTokenResponse')
+      ..add('status', status)
+      ..add('session', '***SENSITIVE***');
     return helper.toString();
   }
 }

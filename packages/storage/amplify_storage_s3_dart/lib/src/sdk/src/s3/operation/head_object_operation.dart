@@ -219,10 +219,9 @@ class HeadObjectOperation
       }
     }
     if (input.ifModifiedSince != null) {
-      b.headers['If-Modified-Since'] =
-          _i1.Timestamp(
-            input.ifModifiedSince!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['If-Modified-Since'] = _i1.Timestamp(
+        input.ifModifiedSince!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.ifNoneMatch != null) {
       if (input.ifNoneMatch!.isNotEmpty) {
@@ -230,10 +229,9 @@ class HeadObjectOperation
       }
     }
     if (input.ifUnmodifiedSince != null) {
-      b.headers['If-Unmodified-Since'] =
-          _i1.Timestamp(
-            input.ifUnmodifiedSince!,
-          ).format(_i1.TimestampFormat.httpDate).toString();
+      b.headers['If-Unmodified-Since'] = _i1.Timestamp(
+        input.ifUnmodifiedSince!,
+      ).format(_i1.TimestampFormat.httpDate).toString();
     }
     if (input.range != null) {
       if (input.range!.isNotEmpty) {
